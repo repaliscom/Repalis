@@ -62,7 +62,7 @@ const OAuthSettings = () => {
           })
         ) : (
           <SettingsGroupRow>
-            <p className="dark:text-polar-400 text-sm text-gray-500">
+            <p className="dark:text-repalis-400 text-sm text-gray-500">
               You haven&rsquo;t created any OAuth applications yet. Create one
               to get started.
             </p>
@@ -126,7 +126,7 @@ const OAuthClientDetails = ({ client, onClick }: OAuthClientDetailsProps) => {
             <h3 className="text-md mr-4 text-ellipsis whitespace-nowrap">
               {client.client_name}
             </h3>
-            <p className="dark:text-polar-400 text-sm text-gray-500">
+            <p className="dark:text-repalis-400 text-sm text-gray-500">
               <FormattedDateTime
                 datetime={client.created_at}
                 dateStyle="long"

@@ -180,7 +180,7 @@ export default function ClientPage({
             {endpoint.name && endpoint.name.length > 0 ? (
               <>
                 <h3 className="text-lg break-words">{endpoint.name}</h3>
-                <p className="dark:text-polar-400 font-mono text-sm break-all text-gray-500">
+                <p className="dark:text-repalis-400 font-mono text-sm break-all text-gray-500">
                   {endpoint.url}
                 </p>
               </>

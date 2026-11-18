@@ -96,7 +96,7 @@ const DownloadReceipt = ({
     if (headless) {
       toast({
         title: 'Could not download the receipt',
-        description: 'Please try again, or contact support@polar.sh.',
+        description: 'Please try again, or contact contact@repalis.com.',
       })
       return
     }
@@ -164,7 +164,7 @@ const DownloadReceipt = ({
           Try again
         </Button>
         <Button type="button" asChild className="w-full">
-          <a href="mailto:support@polar.sh">Contact support</a>
+          <a href="mailto:contact@repalis.com">Contact support</a>
         </Button>
       </div>
     )

@@ -162,7 +162,7 @@ export const ProductCombobox = ({
           role="combobox"
           aria-expanded={open}
           className={twMerge(
-            'dark:bg-polar-800 dark:hover:bg-polar-700 dark:hover:border-polar-700 dark:border-polar-700 flex h-10 w-full flex-row items-center justify-between gap-x-2 rounded-xl border border-gray-200 bg-white px-3 font-normal shadow-xs transition-colors hover:bg-gray-50 hover:text-black dark:hover:text-white',
+            'dark:bg-repalis-800 dark:hover:bg-repalis-700 dark:hover:border-repalis-700 dark:border-repalis-700 flex h-10 w-full flex-row items-center justify-between gap-x-2 rounded-xl border border-gray-200 bg-white px-3 font-normal shadow-xs transition-colors hover:bg-gray-50 hover:text-black dark:hover:text-white',
           )}
         >
           <Box
@@ -192,11 +192,11 @@ export const ProductCombobox = ({
       </PopoverTrigger>
       <PopoverContent
         align="start"
-        className="dark:bg-polar-800 dark:border-polar-700 w-(--radix-popover-trigger-width) rounded-xl border p-0"
+        className="dark:bg-repalis-800 dark:border-repalis-700 w-(--radix-popover-trigger-width) rounded-xl border p-0"
       >
         <Command
           shouldFilter={false}
-          className="dark:bg-polar-800 rounded-xl bg-white text-gray-950 dark:text-white"
+          className="dark:bg-repalis-800 rounded-xl bg-white text-gray-950 dark:text-white"
         >
           <CommandInput
             placeholder="Search products…"
@@ -204,7 +204,7 @@ export const ProductCombobox = ({
             value={query}
             onValueChange={setQuery}
           />
-          <CommandList className="dark:[scrollbar-color:var(--color-polar-500)_transparent]">
+          <CommandList className="dark:[scrollbar-color:var(--color-repalis-500)_transparent]">
             {isFetching ? (
               <Box
                 alignItems="center"

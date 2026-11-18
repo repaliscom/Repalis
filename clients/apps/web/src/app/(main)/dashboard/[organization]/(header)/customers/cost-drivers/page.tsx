@@ -6,7 +6,7 @@ import { CostDriversPage } from './CostDriversPage'
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: 'Cost Drivers', // " | Polar is added by the template"
+    title: 'Cost Drivers', // " | Repalis is added by the template"
   }
 }
 

@@ -46,7 +46,7 @@ const STATUS_BORDER_COLOR: Record<PillColor, string> = {
   yellow: 'border-yellow-500',
   red: 'border-red-500',
   blue: 'border-blue-500',
-  gray: 'dark:border-polar-500 border-gray-500',
+  gray: 'dark:border-repalis-500 border-gray-500',
   purple: 'border-purple-500',
 }
 

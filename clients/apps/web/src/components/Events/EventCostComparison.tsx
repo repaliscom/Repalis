@@ -57,8 +57,8 @@ const Marker = ({ position, label }: { position: number; label: string }) => (
     className="absolute top-0 flex -translate-x-1/2 flex-col items-center"
     style={{ left: `${position}%` }}
   >
-    <div className="dark:bg-polar-500 h-3 w-px bg-gray-400" />
-    <span className="dark:text-polar-500 mt-1 text-xs leading-none text-gray-400">
+    <div className="dark:bg-repalis-500 h-3 w-px bg-gray-400" />
+    <span className="dark:text-repalis-500 mt-1 text-xs leading-none text-gray-400">
       {label}
     </span>
   </div>
@@ -111,11 +111,11 @@ export const EventCostComparison = ({
         {anomalous && <Text color="danger">Above p99</Text>}
       </Box>
       <div className="relative h-7">
-        <div className="dark:bg-polar-700 absolute inset-x-0 top-1.5 h-px bg-gray-200" />
+        <div className="dark:bg-repalis-700 absolute inset-x-0 top-1.5 h-px bg-gray-200" />
         {costs.map((value, index) => (
           <div
             key={index}
-            className="dark:bg-polar-600 absolute top-0.5 h-2 w-px bg-gray-300"
+            className="dark:bg-repalis-600 absolute top-0.5 h-2 w-px bg-gray-300"
             style={{ left: `${position(value)}%` }}
           />
         ))}

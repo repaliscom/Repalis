@@ -35,7 +35,7 @@ export const CopyButton = ({
       }}
     >
       {copied ? (
-        <Check className="dark:text-polar-500 text-gray-400" />
+        <Check className="dark:text-repalis-500 text-gray-400" />
       ) : (
         <Copy />
       )}

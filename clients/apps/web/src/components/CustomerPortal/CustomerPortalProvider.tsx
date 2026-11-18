@@ -42,7 +42,7 @@ export function CustomerPortalProvider({
   children,
 }: CustomerPortalProviderProps) {
   const client = useMemo(
-    () => createClient(baseUrl || 'https://api.polar.sh', token),
+    () => createClient(baseUrl || 'https://api.repalis.com', token),
     [token, baseUrl],
   )
   const customerSSE = useCustomerSSE(token)

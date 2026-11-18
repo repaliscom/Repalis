@@ -34,7 +34,7 @@ const MerchantAvatar = ({
 )
 
 const SupportAvatar = () => (
-  <div className="dark:bg-polar-50 dark:text-polar-900 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-gray-900 text-white">
+  <div className="dark:bg-repalis-50 dark:text-repalis-900 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-gray-900 text-white">
     <LogoIcon className="h-5 w-5" />
   </div>
 )
@@ -86,11 +86,11 @@ export const DisputeConversation = ({
       closedNotice="This dispute is closed."
       emptyState={
         <div className="flex max-w-xs flex-col items-center gap-2 text-center">
-          <MessageCircle className="dark:text-polar-600 h-8 w-8 text-gray-300" />
+          <MessageCircle className="dark:text-repalis-600 h-8 w-8 text-gray-300" />
           <Text color="muted">No messages yet</Text>
         </div>
       }
-      className="dark:border-polar-700 rounded-2xl border border-gray-200 bg-white p-6 dark:bg-transparent"
+      className="dark:border-repalis-700 rounded-2xl border border-gray-200 bg-white p-6 dark:bg-transparent"
       composer={{
         uploader,
         isSendPending: reply.isPending,

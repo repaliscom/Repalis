@@ -128,7 +128,7 @@ export const SocialLinksField = ({ required }: Props) => {
                         rowKeys.remove(index)
                         field.onChange(socials.filter((_, i) => i !== index))
                       }}
-                      className="dark:text-polar-400 text-gray-400 hover:text-gray-600"
+                      className="dark:text-repalis-400 text-gray-400 hover:text-gray-600"
                     >
                       <CloseOutlined fontSize="small" />
                     </Button>

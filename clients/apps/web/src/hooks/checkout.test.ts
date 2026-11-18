@@ -25,7 +25,7 @@ afterEach(() => {
   vi.clearAllMocks()
 })
 
-const CHECKOUT_URL = 'https://polar.sh/checkout/cs_test'
+const CHECKOUT_URL = 'https://repalis.com/checkout/cs_test'
 const EMBED_ORIGIN = 'https://beppe.com'
 
 const baseCheckout = (

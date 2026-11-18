@@ -88,7 +88,7 @@ export const BillingAddressModal = ({
     <div className="flex flex-col gap-y-6 p-8">
       <div className="flex flex-col gap-y-1">
         <h3 className="text-xl">Billing address</h3>
-        <p className="dark:text-polar-500 text-gray-500">
+        <p className="dark:text-repalis-500 text-gray-500">
           The address used on invoices for your Polar subscription
         </p>
       </div>

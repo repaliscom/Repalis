@@ -118,7 +118,7 @@ const UnitAmountInput = ({
   )
 
   const currencyLabel = (
-    <span className="dark:text-polar-500 text-sm font-medium text-gray-500">
+    <span className="dark:text-repalis-500 text-sm font-medium text-gray-500">
       {currency.toUpperCase()}
     </span>
   )
@@ -128,7 +128,7 @@ const UnitAmountInput = ({
       ref={ref}
       {...rest}
       className={twMerge(
-        'dark:placeholder:text-polar-500 block w-full px-4 pl-14 text-base placeholder:text-gray-400',
+        'dark:placeholder:text-repalis-500 block w-full px-4 pl-14 text-base placeholder:text-gray-400',
         className ?? '',
       )}
       type="text"

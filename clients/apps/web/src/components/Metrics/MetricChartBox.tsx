@@ -206,7 +206,7 @@ const MetricChartBox = ({
             <h3 className={compact ? 'text-base' : 'text-lg'}>
               {selectedMetric?.display_name}
               {context && !shareable && (
-                <span className="dark:text-polar-500 ml-3 text-gray-500">
+                <span className="dark:text-repalis-500 ml-3 text-gray-500">
                   {context}
                 </span>
               )}
@@ -241,7 +241,7 @@ const MetricChartBox = ({
                     dateStyle="medium"
                   />
                 ) : (
-                  <span className="dark:text-polar-500 text-gray-500">
+                  <span className="dark:text-repalis-500 text-gray-500">
                     {startDate && endDate && (
                       <FormattedInterval
                         startDatetime={startDate}
@@ -254,14 +254,14 @@ const MetricChartBox = ({
               </div>
               {previousData && (
                 <div className="flex flex-row items-center gap-x-2 text-sm">
-                  <span className="dark:bg-polar-600 h-0.5 w-3 bg-gray-300" />
+                  <span className="dark:bg-repalis-600 h-0.5 w-3 bg-gray-300" />
                   {hoveredPreviousPeriod ? (
                     <FormattedDateTime
                       datetime={hoveredPreviousPeriod.timestamp}
                       dateStyle="medium"
                     />
                   ) : (
-                    <span className="dark:text-polar-500 text-gray-500">
+                    <span className="dark:text-repalis-500 text-gray-500">
                       {previousStartDate && previousEndDate && (
                         <FormattedInterval
                           startDatetime={previousStartDate}

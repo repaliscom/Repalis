@@ -43,7 +43,7 @@ const Card = ({
   children: ReactNode
   rowGap?: 'xs' | 'm' | 'l'
 }) => (
-  <div className="dark:bg-polar-950 dark:border-polar-800 flex w-full max-w-[20rem] flex-col rounded-2xl border border-gray-200 bg-gray-100 p-1 shadow-[0_16px_40px_-12px_rgba(0,0,0,0.75)]">
+  <div className="dark:bg-repalis-950 dark:border-repalis-800 flex w-full max-w-[20rem] flex-col rounded-2xl border border-gray-200 bg-gray-100 p-1 shadow-[0_16px_40px_-12px_rgba(0,0,0,0.75)]">
     <Box
       alignItems="center"
       justifyContent="between"
@@ -53,7 +53,7 @@ const Card = ({
     >
       {header}
     </Box>
-    <div className="dark:bg-polar-900 flex w-full flex-col overflow-hidden rounded-xl bg-white">
+    <div className="dark:bg-repalis-900 flex w-full flex-col overflow-hidden rounded-xl bg-white">
       <Box flexDirection="column" rowGap={rowGap} padding="l">
         {children}
       </Box>

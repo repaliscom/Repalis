@@ -33,7 +33,7 @@ export const WidgetRestricted = ({
       textAlign="center"
     >
       <BrickWallShieldIcon
-        className="dark:text-polar-500 size-5 shrink-0 text-gray-500"
+        className="dark:text-repalis-500 size-5 shrink-0 text-gray-500"
         strokeWidth={1.5}
       />
       <Text variant="body" as="h3">

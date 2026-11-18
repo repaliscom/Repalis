@@ -59,14 +59,14 @@ function SortableMetricRow({
       ref={setNodeRef}
       style={{ transform: CSS.Transform.toString(transform), transition }}
       className={twMerge(
-        'dark:bg-polar-800 flex w-full items-center justify-between rounded-lg bg-gray-100 px-4 py-2',
+        'dark:bg-repalis-800 flex w-full items-center justify-between rounded-lg bg-gray-100 px-4 py-2',
         isDragging && 'opacity-50',
       )}
     >
       <div className="flex items-center gap-3">
         <button
           type="button"
-          className="dark:text-polar-500 dark:hover:text-polar-300 cursor-grab text-gray-400 hover:text-gray-600 active:cursor-grabbing"
+          className="dark:text-repalis-500 dark:hover:text-repalis-300 cursor-grab text-gray-400 hover:text-gray-600 active:cursor-grabbing"
           {...attributes}
           {...listeners}
         >
@@ -202,7 +202,7 @@ export const MetricDashboardEditorContent = ({
           </div>
         )}
 
-        <div className="dark:divide-polar-700 grid grid-cols-1 gap-y-6 divide-gray-100 p-6 md:grid-cols-2 md:gap-y-0 md:divide-x">
+        <div className="dark:divide-repalis-700 grid grid-cols-1 gap-y-6 divide-gray-100 p-6 md:grid-cols-2 md:gap-y-0 md:divide-x">
           {/* Left panel — selected metrics */}
           <div className="flex flex-col gap-y-4 md:pr-6">
             <div className="flex items-center justify-between">
@@ -215,7 +215,7 @@ export const MetricDashboardEditorContent = ({
                     'text-sm font-medium',
                     atLimit
                       ? 'text-black dark:text-white'
-                      : 'dark:text-polar-400 text-gray-500',
+                      : 'dark:text-repalis-400 text-gray-500',
                   )}
                 >
                   {selected.length}/{limit}
@@ -244,7 +244,7 @@ export const MetricDashboardEditorContent = ({
               </SortableContext>
               <DragOverlay>
                 {dragOverlayItem && (
-                  <div className="dark:bg-polar-800 flex h-12 items-center gap-3 rounded-lg bg-white px-4 shadow-xl">
+                  <div className="dark:bg-repalis-800 flex h-12 items-center gap-3 rounded-lg bg-white px-4 shadow-xl">
                     <DragHandleOutlined
                       fontSize="inherit"
                       className="text-gray-500 dark:text-gray-500"
@@ -258,7 +258,7 @@ export const MetricDashboardEditorContent = ({
             </DndContext>
             {selected.length === 0 && (
               <div className="flex h-full flex-col items-center justify-center">
-                <p className="dark:text-polar-500 text-center text-sm text-gray-500">
+                <p className="dark:text-repalis-500 text-center text-sm text-gray-500">
                   Add metrics from the right panel
                 </p>
               </div>
@@ -273,7 +273,7 @@ export const MetricDashboardEditorContent = ({
             <div className="flex max-h-64 flex-col gap-y-2 overflow-y-auto md:h-96 md:max-h-none">
               {groupedAvailable.map(({ category, metrics }) => (
                 <details key={category} className="group">
-                  <summary className="dark:bg-polar-800 flex cursor-pointer list-none items-center justify-between rounded-lg bg-gray-100 px-4 py-2 text-sm font-medium select-none">
+                  <summary className="dark:bg-repalis-800 flex cursor-pointer list-none items-center justify-between rounded-lg bg-gray-100 px-4 py-2 text-sm font-medium select-none">
                     {category}
                     <svg
                       className="h-3 w-3 transition-transform group-open:rotate-180"
@@ -297,16 +297,16 @@ export const MetricDashboardEditorContent = ({
                         disabled={atLimit}
                         onClick={() => handleAdd(metric.slug as string)}
                         className={twMerge(
-                          'dark:hover:bg-polar-800 flex cursor-pointer flex-col gap-y-0.5 rounded-lg px-3 py-2 text-left transition-colors hover:bg-gray-100',
+                          'dark:hover:bg-repalis-800 flex cursor-pointer flex-col gap-y-0.5 rounded-lg px-3 py-2 text-left transition-colors hover:bg-gray-100',
                           atLimit
-                            ? 'dark:text-polar-500 cursor-not-allowed text-gray-500'
+                            ? 'dark:text-repalis-500 cursor-not-allowed text-gray-500'
                             : null,
                         )}
                       >
                         <span className="text-sm font-medium">
                           {metric.display_name}
                         </span>
-                        <span className="dark:text-polar-400 text-xs text-gray-500">
+                        <span className="dark:text-repalis-400 text-xs text-gray-500">
                           {metric.description}
                         </span>
                       </button>
@@ -315,7 +315,7 @@ export const MetricDashboardEditorContent = ({
                 </details>
               ))}
               {availableCount === 0 && (
-                <p className="dark:text-polar-400 text-center text-sm text-gray-500">
+                <p className="dark:text-repalis-400 text-center text-sm text-gray-500">
                   All metrics selected
                 </p>
               )}
@@ -323,7 +323,7 @@ export const MetricDashboardEditorContent = ({
           </div>
         </div>
 
-        <div className="dark:border-polar-700 flex items-center justify-end gap-x-2 border-t border-gray-100 px-6 py-4">
+        <div className="dark:border-repalis-700 flex items-center justify-end gap-x-2 border-t border-gray-100 px-6 py-4">
           <Button
             type="submit"
             disabled={(limit !== undefined && aboveLimit) || isPending}

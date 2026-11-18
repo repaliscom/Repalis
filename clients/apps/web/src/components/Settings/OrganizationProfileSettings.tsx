@@ -175,7 +175,7 @@ const OrganizationSocialLinks = ({
                       socialKeys.remove(index)
                       field.onChange(socials.filter((_, i) => i !== index))
                     }}
-                    className="dark:text-polar-400 text-gray-400 hover:text-gray-600"
+                    className="dark:text-repalis-400 text-gray-400 hover:text-gray-600"
                   >
                     <CloseOutlined fontSize="small" />
                   </Button>
@@ -292,7 +292,7 @@ const OrganizationDetailsForm: React.FC<OrganizationDetailsFormProps> = ({
                     />
                     {!readOnly && (
                       <div className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity hover:opacity-100">
-                        <AddPhotoAlternateOutlined className="dark:text-polar-400 text-gray-600" />
+                        <AddPhotoAlternateOutlined className="dark:text-repalis-400 text-gray-600" />
                       </div>
                     )}
                   </div>
@@ -478,7 +478,7 @@ const OrganizationDetailsForm: React.FC<OrganizationDetailsFormProps> = ({
         <div>
           <div className="mb-4 flex flex-col items-start">
             <p className="block text-sm font-medium">Social Media</p>
-            <p className="dark:text-polar-400 mt-2 text-xs text-gray-600">
+            <p className="dark:text-repalis-400 mt-2 text-xs text-gray-600">
               Your personal social media links are used for identity
               verification. They will never be shown publicly.
             </p>

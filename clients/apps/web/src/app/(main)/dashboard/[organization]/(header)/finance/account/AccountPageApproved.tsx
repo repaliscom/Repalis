@@ -114,12 +114,12 @@ export const AccountPageApproved = ({ organization }: Props) => {
             title="Account Review"
             description="Your submitted organization details and compliance status."
           />
-          <div className="dark:bg-polar-800 rounded-2xl border bg-white p-8 text-center">
-            <span className="dark:bg-polar-700 mb-3 inline-flex h-8 w-8 items-center justify-center rounded-full bg-gray-100">
-              <CheckIcon className="dark:text-polar-400 h-4 w-4 text-gray-500" />
+          <div className="dark:bg-repalis-800 rounded-2xl border bg-white p-8 text-center">
+            <span className="dark:bg-repalis-700 mb-3 inline-flex h-8 w-8 items-center justify-center rounded-full bg-gray-100">
+              <CheckIcon className="dark:text-repalis-400 h-4 w-4 text-gray-500" />
             </span>
             <h4 className="mb-2 font-medium">Account approved</h4>
-            <p className="dark:text-polar-400 mx-auto max-w-sm text-sm text-balance text-gray-600">
+            <p className="dark:text-repalis-400 mx-auto max-w-sm text-sm text-balance text-gray-600">
               Your product and organization details have been reviewed and
               approved.
             </p>

@@ -80,13 +80,13 @@ export const OrderEventCard = ({ event }: OrderEventCardProps) => {
               <span className="">{order.product?.name}</span>
             </div>
             {billingReason && (
-              <span className="dark:text-polar-500 text-gray-500">
+              <span className="dark:text-repalis-500 text-gray-500">
                 {billingReason}
               </span>
             )}
           </div>
           <div className="flex flex-row items-center gap-x-4">
-            <span className="dark:text-polar-500 text-gray-500">
+            <span className="dark:text-repalis-500 text-gray-500">
               {contextValue}
             </span>
             {status ? (

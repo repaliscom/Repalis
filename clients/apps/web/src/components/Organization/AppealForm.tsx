@@ -78,7 +78,7 @@ const AppealForm: React.FC<AppealFormProps> = ({
         <div>
           <h4 className="mb-1 flex items-center gap-2 font-medium">
             {!decision && !pollingTimedOut && (
-              <Loader2 className="dark:text-polar-400 h-4 w-4 animate-spin text-gray-500" />
+              <Loader2 className="dark:text-repalis-400 h-4 w-4 animate-spin text-gray-500" />
             )}
             {decision === 'approved'
               ? 'Appeal approved'
@@ -88,7 +88,7 @@ const AppealForm: React.FC<AppealFormProps> = ({
                   ? 'Appeal still processing'
                   : 'Appeal under review'}
           </h4>
-          <p className="dark:text-polar-400 text-sm text-gray-600">
+          <p className="dark:text-repalis-400 text-sm text-gray-600">
             {decision === 'approved'
               ? 'Your appeal has been approved. Payment access has been restored.'
               : decision === 'rejected'
@@ -98,7 +98,7 @@ const AppealForm: React.FC<AppealFormProps> = ({
                   : 'We are reviewing your appeal. This usually takes about a minute.'}
           </p>
           {submissionDate && (
-            <p className="dark:text-polar-400 mt-2 text-xs text-gray-500">
+            <p className="dark:text-repalis-400 mt-2 text-xs text-gray-500">
               Submitted: {new Date(submissionDate).toLocaleDateString()}
               {reviewedAt &&
                 ` · Reviewed: ${new Date(reviewedAt).toLocaleDateString()}`}
@@ -107,8 +107,8 @@ const AppealForm: React.FC<AppealFormProps> = ({
         </div>
 
         {submittedReason && (
-          <div className="dark:bg-polar-800 rounded-lg bg-white p-3">
-            <p className="dark:text-polar-300 text-sm text-gray-700">
+          <div className="dark:bg-repalis-800 rounded-lg bg-white p-3">
+            <p className="dark:text-repalis-300 text-sm text-gray-700">
               {submittedReason}
             </p>
           </div>
@@ -125,11 +125,11 @@ const AppealForm: React.FC<AppealFormProps> = ({
     <div className="space-y-4">
       <div className="space-y-2">
         {reason && (
-          <p className="dark:text-polar-400 text-sm text-gray-600">{reason}</p>
+          <p className="dark:text-repalis-400 text-sm text-gray-600">{reason}</p>
         )}
         {!showForm && (
           <div className="flex flex-col items-start gap-3">
-            <p className="dark:text-polar-400 text-sm text-gray-600">
+            <p className="dark:text-repalis-400 text-sm text-gray-600">
               If you believe this decision is incorrect, you can appeal it for a
               manual review.
             </p>
@@ -146,7 +146,7 @@ const AppealForm: React.FC<AppealFormProps> = ({
             <label htmlFor={appealReasonId} className="text-sm font-medium">
               Why should your organization be approved?
             </label>
-            <p className="dark:text-polar-400 text-sm text-gray-500">
+            <p className="dark:text-repalis-400 text-sm text-gray-500">
               Please explain why you believe this decision is incorrect. Include
               any context about your business that may help us reconsider.
             </p>
@@ -154,7 +154,7 @@ const AppealForm: React.FC<AppealFormProps> = ({
               id={appealReasonId}
               value={appealReason}
               onChange={(e) => setAppealReason(e.target.value)}
-              className="dark:bg-polar-800 min-h-32 w-full bg-white"
+              className="dark:bg-repalis-800 min-h-32 w-full bg-white"
               placeholder="Explain why your organization should be approved despite the initial review decision…"
               maxLength={5000}
             />

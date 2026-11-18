@@ -19,7 +19,7 @@ export const LearnMore = ({ href }: { href: string }) => (
     href={href}
     target="_blank"
     rel="noopener noreferrer"
-    className="dark:text-polar-300 dark:hover:text-polar-100 inline-flex items-baseline gap-x-1 text-gray-700 underline underline-offset-2 hover:text-gray-900"
+    className="dark:text-repalis-300 dark:hover:text-repalis-100 inline-flex items-baseline gap-x-1 text-gray-700 underline underline-offset-2 hover:text-gray-900"
   >
     Learn more
     <ExternalLinkIcon className="h-3 w-3 translate-y-0.5" />
@@ -146,7 +146,7 @@ export const DeliveryRadioGroup = ({
                     {index > 0 && ', '}
                     <Link
                       href={product.href}
-                      className="dark:text-polar-300 dark:hover:text-polar-100 text-gray-700 underline underline-offset-2 hover:text-gray-900"
+                      className="dark:text-repalis-300 dark:hover:text-repalis-100 text-gray-700 underline underline-offset-2 hover:text-gray-900"
                     >
                       {product.name}
                     </Link>

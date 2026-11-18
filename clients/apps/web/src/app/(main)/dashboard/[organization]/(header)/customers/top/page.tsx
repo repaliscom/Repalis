@@ -5,7 +5,7 @@ import { TopCustomersPage } from './TopCustomersPage'
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: 'Top Customers', // " | Polar is added by the template"
+    title: 'Top Customers', // " | Repalis is added by the template"
   }
 }
 

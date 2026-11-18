@@ -273,7 +273,7 @@ export const CreateProductPage = ({
         ) : undefined
       }
     >
-      <div className="dark:border-polar-700 dark:divide-polar-700 flex flex-col divide-y divide-gray-200 rounded-4xl border border-gray-200">
+      <div className="dark:border-repalis-700 dark:divide-repalis-700 flex flex-col divide-y divide-gray-200 rounded-4xl border border-gray-200">
         <Form {...form}>
           <form
             onSubmit={handleSubmit(onSubmit, onInvalid)}
@@ -311,7 +311,7 @@ export const CreateProductPage = ({
                   : 'The name suggests'}{' '}
                 {flaggedPhrase.category}, which is not permitted under our{' '}
                 <a
-                  href="https://polar.sh/legal/acceptable-use-policy"
+                  href="https://repalis.com/legal/acceptable-use-policy"
                   className="underline"
                   target="_blank"
                   rel="noopener noreferrer"

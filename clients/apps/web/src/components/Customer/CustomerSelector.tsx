@@ -151,7 +151,7 @@ export const CustomerSelector = ({
               </div>
             )}
             {allCustomers.length === 0 && !hasNextPage && (
-              <div className="dark:text-polar-500 flex w-full items-center justify-center py-8 text-sm text-gray-500">
+              <div className="dark:text-repalis-500 flex w-full items-center justify-center py-8 text-sm text-gray-500">
                 {query ? 'No customers found' : 'No customers yet'}
               </div>
             )}
@@ -178,7 +178,7 @@ export const CustomerSelector = ({
               <Button
                 size="icon"
                 variant="ghost"
-                className="dark:text-polar-500 size-6 text-gray-500 opacity-0 transition-[opacity,background-color] group-hover:opacity-100"
+                className="dark:text-repalis-500 size-6 text-gray-500 opacity-0 transition-[opacity,background-color] group-hover:opacity-100"
                 onClick={(e) => {
                   e.stopPropagation()
                   handleToggleCustomer(customer.id)

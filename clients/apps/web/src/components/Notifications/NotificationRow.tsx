@@ -89,7 +89,7 @@ const Row = ({
         <PopoverClose asChild>
           <Link
             href={href}
-            className="dark:hover:bg-polar-800 block rounded-lg hover:bg-gray-100"
+            className="dark:hover:bg-repalis-800 block rounded-lg hover:bg-gray-100"
           >
             {content}
           </Link>

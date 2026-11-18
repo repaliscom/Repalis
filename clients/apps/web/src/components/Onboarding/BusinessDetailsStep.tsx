@@ -310,16 +310,16 @@ export function BusinessDetailsStep() {
                       }
                     }}
                   >
-                    <TabsList className="dark:bg-polar-900 w-full flex-row items-center rounded-full bg-gray-100">
+                    <TabsList className="dark:bg-repalis-900 w-full flex-row items-center rounded-full bg-gray-100">
                       <TabsTrigger
                         value="individual"
-                        className="dark:data-[state=active]:bg-polar-800 grow rounded-full! data-[state=active]:bg-white"
+                        className="dark:data-[state=active]:bg-repalis-800 grow rounded-full! data-[state=active]:bg-white"
                       >
                         Individual
                       </TabsTrigger>
                       <TabsTrigger
                         value="company"
-                        className="dark:data-[state=active]:bg-polar-800 grow rounded-full! data-[state=active]:bg-white"
+                        className="dark:data-[state=active]:bg-repalis-800 grow rounded-full! data-[state=active]:bg-white"
                       >
                         Business
                       </TabsTrigger>

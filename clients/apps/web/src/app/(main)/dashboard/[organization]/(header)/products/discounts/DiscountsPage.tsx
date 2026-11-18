@@ -240,7 +240,7 @@ const ClientPage: React.FC<ClientPageProps> = ({ organization }) => {
         return discount.ends_at ? (
           <FormattedDateTime datetime={discount.ends_at} resolution="day" />
         ) : (
-          <span className="dark:text-polar-500 text-gray-500">Never</span>
+          <span className="dark:text-repalis-500 text-gray-500">Never</span>
         )
       },
     },
@@ -263,7 +263,7 @@ const ClientPage: React.FC<ClientPageProps> = ({ organization }) => {
             </DropdownMenuTrigger>
             <DropdownMenuContent
               align="end"
-              className="dark:bg-polar-800 bg-gray-50 shadow-lg"
+              className="dark:bg-repalis-800 bg-gray-50 shadow-lg"
             >
               <DropdownMenuItem onClick={() => onDiscountSelected(discount)}>
                 Edit

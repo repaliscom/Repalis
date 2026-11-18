@@ -54,12 +54,12 @@ export const CATALOG_EMPTY_COPY: Record<
   no_stripe_subscriptions: {
     title: 'Nothing to import',
     description:
-      'We found no subscriptions in Stripe that can move to Polar. If you have added some since, scan again.',
+      'We found no subscriptions in Stripe that can move to Repalis. If you have added some since, scan again.',
   },
   subscriptions_on_connected_accounts: {
     title: 'No subscriptions on this Stripe account',
     description:
-      "If you bill your customers through connected accounts, those subscriptions can't be migrated automatically. Contact us at support@polar.sh and we'll look at it with you.",
+      "If you bill your customers through connected accounts, those subscriptions can't be migrated automatically. Contact us at contact@repalis.com and we'll look at it with you.",
   },
 }
 

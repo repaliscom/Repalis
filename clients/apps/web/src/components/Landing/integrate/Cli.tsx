@@ -9,7 +9,7 @@ import { DocsLink } from './DocsLink'
 const CLI_DOCS = '/docs/integrate/webhooks/locally'
 
 const TRANSCRIPT = [
-  '% curl -fsSL https://polar.sh/install.sh | bash',
+  '% curl -fsSL https://repalis.com/install.sh | bash',
   '',
   '% polar webhook listen http://localhost:3000/api/webhooks',
   '',
@@ -75,11 +75,11 @@ export const Cli = () => (
               {withOffsets(TRANSCRIPT).map(({ line, offset }) =>
                 line.startsWith('% ') ? (
                   <div key={offset} className="text-white">
-                    <span className="text-polar-500">% </span>
+                    <span className="text-repalis-500">% </span>
                     {line.slice(2)}
                   </div>
                 ) : (
-                  <div key={offset} className="text-polar-300">
+                  <div key={offset} className="text-repalis-300">
                     {line || <br />}
                   </div>
                 ),

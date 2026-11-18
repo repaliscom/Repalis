@@ -249,7 +249,7 @@ const AccessTokenItem = ({
           <div className="flex min-w-0 flex-col">
             <h3 className="text-md truncate">{token.comment}</h3>
             {!minimal && (
-              <p className="dark:text-polar-400 text-sm text-gray-500">
+              <p className="dark:text-repalis-400 text-sm text-gray-500">
                 {token.expires_at ? (
                   new Date(token.expires_at).getTime() < now ? (
                     <span className="text-red-500 dark:text-red-400">
@@ -289,7 +289,7 @@ const AccessTokenItem = ({
             )}
           </div>
         </div>{' '}
-        <div className="dark:text-polar-400 flex shrink-0 flex-row items-center justify-end gap-2 text-gray-500">
+        <div className="dark:text-repalis-400 flex shrink-0 flex-row items-center justify-end gap-2 text-gray-500">
           <Button onClick={showUpdateModal} size="sm">
             Update
           </Button>
@@ -408,7 +408,7 @@ const OrganizationAccessTokensSettings = ({
               return (
                 <div
                   key={token.id}
-                  className="dark:ring-polar-700 dark:bg-polar-800 w-full rounded-2xl bg-transparent p-5 ring-1 ring-gray-200"
+                  className="dark:ring-repalis-700 dark:bg-repalis-800 w-full rounded-2xl bg-transparent p-5 ring-1 ring-gray-200"
                 >
                   <AccessTokenItem
                     token={token}

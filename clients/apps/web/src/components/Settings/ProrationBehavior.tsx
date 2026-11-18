@@ -57,7 +57,7 @@ export const ProrationBehavior: React.FC<ProrationBehaviorProps> = ({
         </SelectContent>
       </Select>
       {value === 'auto' && (
-        <p className="dark:text-polar-500 text-xs text-gray-500">
+        <p className="dark:text-repalis-500 text-xs text-gray-500">
           Use 2027-01 as your API version to ensure compatibility
         </p>
       )}

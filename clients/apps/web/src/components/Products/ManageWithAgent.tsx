@@ -11,7 +11,7 @@ import { ArrowUpRight, Check, Copy, Sparkles } from '@polar-sh/orbit/icons'
 import { useEffect, useState } from 'react'
 
 const SETUP_COMMANDS = [
-  'curl -fsSL https://polar.sh/install.sh | bash',
+  'curl -fsSL https://repalis.com/install.sh | bash',
   'polar agent setup',
 ]
 
@@ -87,7 +87,7 @@ const ManageWithAgentContent = () => (
       <CommandBlock />
       <Box>
         <a
-          href="https://polar.sh/docs/integrate/mcp"
+          href="https://repalis.com/docs/integrate/mcp"
           target="_blank"
           rel="noopener noreferrer"
         >

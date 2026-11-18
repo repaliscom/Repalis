@@ -49,7 +49,7 @@ export const EscalationCard = ({
     >
       <Box flexDirection="column" rowGap="xs">
         <h3 className="text-sm font-medium">Send to the Polar team</h3>
-        <p className="dark:text-polar-500 text-sm text-gray-500">
+        <p className="dark:text-repalis-500 text-sm text-gray-500">
           The full transcript is included automatically. Add anything else
           you&apos;d like to share below.
           {currentUser?.email && (

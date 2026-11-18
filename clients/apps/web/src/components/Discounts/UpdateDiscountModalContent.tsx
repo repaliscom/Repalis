@@ -102,7 +102,7 @@ const UpdateDiscountForm = ({
           <Text variant="heading-xxs" as="h2">
             Update Discount
           </Text>
-          <p className="dark:text-polar-500 text-sm font-normal text-gray-500">
+          <p className="dark:text-repalis-500 text-sm font-normal text-gray-500">
             Amount and options cannot be changed.
           </p>
         </div>

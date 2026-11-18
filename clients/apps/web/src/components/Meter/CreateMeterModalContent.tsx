@@ -81,7 +81,7 @@ const CreateMeterModalContent = ({
         </Text>
       </InlineModalHeader>
       <div className="flex flex-col gap-y-6 px-8 pb-10">
-        <div className="dark:text-polar-500 space-y-2 text-sm text-gray-500">
+        <div className="dark:text-repalis-500 space-y-2 text-sm text-gray-500">
           <p>
             Meters are aggregated filters on ingested events. They are used to
             calculate your customer&apos;s usage of whatever you choose to

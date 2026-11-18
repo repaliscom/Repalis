@@ -60,7 +60,7 @@ export function reasonLinks(
   }
   return [
     { label: 'View Polar customer', href: customerHref },
-    { label: 'Contact support', href: 'mailto:support@polar.sh' },
+    { label: 'Contact support', href: 'mailto:contact@repalis.com' },
   ]
 }
 

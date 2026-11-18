@@ -89,7 +89,7 @@ export const CatalogVersionSelect = ({
       </PopoverTrigger>
       <PopoverContent
         align="end"
-        className="dark:bg-polar-900 dark:border-polar-700 w-[280px] rounded-2xl p-0 shadow-xl"
+        className="dark:bg-repalis-900 dark:border-repalis-700 w-[280px] rounded-2xl p-0 shadow-xl"
       >
         <Command
           defaultValue={selected.id}
@@ -97,7 +97,7 @@ export const CatalogVersionSelect = ({
         >
           <CommandInput
             placeholder="Change version…"
-            wrapperClassName="dark:border-polar-700 px-4 [&>svg]:hidden"
+            wrapperClassName="dark:border-repalis-700 px-4 [&>svg]:hidden"
             className="h-10 border-0 px-0 text-sm focus:ring-0 focus:outline-0"
           />
           <CommandList className="max-h-[420px] p-1.5">
@@ -111,7 +111,7 @@ export const CatalogVersionSelect = ({
                   setOpen(false)
                   router.push(`${basePath}/${version.id}`)
                 }}
-                className="dark:data-[selected=true]:bg-polar-800 h-9 gap-3 rounded-lg px-2.5 data-[selected=true]:bg-gray-100 data-[selected=true]:text-inherit"
+                className="dark:data-[selected=true]:bg-repalis-800 h-9 gap-3 rounded-lg px-2.5 data-[selected=true]:bg-gray-100 data-[selected=true]:text-inherit"
               >
                 <Text truncate>{version.name}</Text>
                 {version.isCurrent ? (

@@ -49,7 +49,7 @@ export const SnippetPicker = ({
   return (
     <ImageBand src={backdrop} className="min-h-[20rem] md:min-h-[28rem]">
       <WindowFrame aside={snippet.caption} className="max-w-[42rem]">
-        <div className="dark:bg-polar-900 flex w-full min-w-0 flex-col gap-6 rounded-xl bg-white p-6">
+        <div className="dark:bg-repalis-900 flex w-full min-w-0 flex-col gap-6 rounded-xl bg-white p-6">
           {snippets.length > 1 ? (
             <Box as="ul" flexWrap="wrap" columnGap="l" rowGap="s">
               {snippets.map((s, i) => (

@@ -52,8 +52,8 @@ export function ChipSelect({
             onClick={() => toggle(value)}
             className={`cursor-pointer rounded-full border px-3 py-1 text-xs transition-colors ${
               isSelected
-                ? 'dark:bg-polar-700 dark:text-polar-50 dark:border-polar-600 border-gray-300 bg-gray-100 font-medium text-gray-950'
-                : 'dark:border-polar-700 dark:text-polar-400 dark:hover:border-polar-500 border-gray-200 text-gray-600 hover:border-gray-400'
+                ? 'dark:bg-repalis-700 dark:text-repalis-50 dark:border-repalis-600 border-gray-300 bg-gray-100 font-medium text-gray-950'
+                : 'dark:border-repalis-700 dark:text-repalis-400 dark:hover:border-repalis-500 border-gray-200 text-gray-600 hover:border-gray-400'
             }`}
           >
             {label}

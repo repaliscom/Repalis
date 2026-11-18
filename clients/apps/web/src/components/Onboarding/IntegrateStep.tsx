@@ -43,7 +43,7 @@ const frameworks = (products: schemas['Product'][]) =>
     {
       slug: 'nextjs',
       name: 'Next.js',
-      link: 'https://polar.sh/docs/integrate/sdk/adapters/nextjs',
+      link: 'https://repalis.com/docs/integrate/sdk/adapters/nextjs',
       icon: <NextJsIcon size={24} />,
       packages: '@polar-sh/nextjs',
       code: `import { Checkout } from "@polar-sh/nextjs";
@@ -56,7 +56,7 @@ export const GET = Checkout({
     {
       slug: 'better-auth',
       name: 'BetterAuth',
-      link: 'https://polar.sh/docs/integrate/sdk/adapters/better-auth',
+      link: 'https://repalis.com/docs/integrate/sdk/adapters/better-auth',
       icon: <BetterAuthIcon size={24} />,
       packages: 'better-auth @polar-sh/better-auth @polar-sh/sdk',
       code: `import { betterAuth } from "better-auth";
@@ -96,7 +96,7 @@ ${products
     {
       slug: 'nodejs',
       name: 'Node.js',
-      link: 'https://polar.sh/docs/integrate/sdk/typescript',
+      link: 'https://repalis.com/docs/integrate/sdk/typescript',
       icon: <NodeJsIcon size={24} />,
       packages: '@polar-sh/sdk',
       code: `import { Polar } from "@polar-sh/sdk";
@@ -117,7 +117,7 @@ redirect(checkout.url)`,
     {
       slug: 'python',
       name: 'Python',
-      link: 'https://polar.sh/docs/integrate/sdk/python',
+      link: 'https://repalis.com/docs/integrate/sdk/python',
       icon: <PythonIcon size={24} />,
       pythonInstall: 'pip install polar-sdk',
       code: `import os
@@ -211,7 +211,7 @@ export const IntegrateStep = ({ products }: IntegrateStepProps) => {
           <LogoIcon size={40} />
           <Box flexDirection="column" rowGap="l">
             <h1 className="text-3xl">Integrate Checkout</h1>
-            <p className="dark:text-polar-400 text-lg text-gray-600">
+            <p className="dark:text-repalis-400 text-lg text-gray-600">
               Integrate checkouts with your favorite framework.
             </p>
           </Box>
@@ -238,7 +238,7 @@ export const IntegrateStep = ({ products }: IntegrateStepProps) => {
           </Box>
           <Box flexDirection="column" rowGap="l">
             <a
-              href={`https://polar.sh/docs/integrate/sdk/adapters/nextjs`}
+              href={`https://repalis.com/docs/integrate/sdk/adapters/nextjs`}
               target="_blank"
               rel="noopener noreferrer"
               className="w-full"
@@ -289,12 +289,12 @@ export const IntegrateStep = ({ products }: IntegrateStepProps) => {
                       setPackageManager(v as PackageManager)
                     }
                   >
-                    <TabsList className="dark:bg-polar-800 rounded-sm bg-gray-100 p-0.5">
+                    <TabsList className="dark:bg-repalis-800 rounded-sm bg-gray-100 p-0.5">
                       {packageManagers.map((pm) => (
                         <TabsTrigger
                           key={pm}
                           value={pm}
-                          className="dark:data-[state=active]:bg-polar-700 !rounded-sm px-2.5 py-1 text-xs data-[state=active]:bg-white data-[state=active]:shadow-sm"
+                          className="dark:data-[state=active]:bg-repalis-700 !rounded-sm px-2.5 py-1 text-xs data-[state=active]:bg-white data-[state=active]:shadow-sm"
                         >
                           {pm}
                         </TabsTrigger>

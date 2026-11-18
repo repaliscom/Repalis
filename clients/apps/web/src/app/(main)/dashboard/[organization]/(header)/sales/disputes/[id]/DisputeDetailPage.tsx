@@ -40,7 +40,7 @@ const RESOLUTION: Record<string, { title: string; description: string }> = {
 
 const Spinner = () => (
   <Box alignItems="center" justifyContent="center" paddingVertical="3xl">
-    <Loader2 className="dark:text-polar-400 h-5 w-5 animate-spin text-gray-500" />
+    <Loader2 className="dark:text-repalis-400 h-5 w-5 animate-spin text-gray-500" />
   </Box>
 )
 

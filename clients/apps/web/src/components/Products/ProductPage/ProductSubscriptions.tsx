@@ -30,7 +30,7 @@ export const ProductSubscriptions = ({
           <Text variant="heading-xxs" as="h2">
             Subscriptions
           </Text>
-          <p className="dark:text-polar-500 text-sm text-gray-500">
+          <p className="dark:text-repalis-500 text-sm text-gray-500">
             Showing 10 most recent subscriptions for {product.name}
           </p>
         </div>
@@ -66,7 +66,7 @@ export const ProductSubscriptions = ({
                   <div className="flex flex-col overflow-hidden">
                     <span className="truncate">{customer.name ?? '—'}</span>
                     {(customer.email || customer.type === 'individual') && (
-                      <span className="dark:text-polar-500 truncate text-xs text-gray-500">
+                      <span className="dark:text-repalis-500 truncate text-xs text-gray-500">
                         {customer.email ?? '—'}
                       </span>
                     )}

@@ -314,7 +314,7 @@ export const PlanUpsell = ({ organization }: PlanUpsellProps) => {
         type="button"
         onClick={dismiss}
         aria-label="Dismiss"
-        className="dark:text-polar-500 dark:hover:text-polar-300 absolute top-6 right-6 cursor-pointer text-gray-400 transition-colors hover:text-gray-600"
+        className="dark:text-repalis-500 dark:hover:text-repalis-300 absolute top-6 right-6 cursor-pointer text-gray-400 transition-colors hover:text-gray-600"
       >
         <CloseOutlined fontSize="small" />
       </button>

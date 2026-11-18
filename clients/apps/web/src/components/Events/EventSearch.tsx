@@ -100,8 +100,8 @@ const Token = ({
   return (
     <span
       className={twMerge(
-        'dark:bg-polar-900 inline-flex min-w-0 items-center rounded-full bg-gray-100 transition-colors',
-        onEdit && 'dark:hover:bg-polar-700 hover:bg-gray-200',
+        'dark:bg-repalis-900 inline-flex min-w-0 items-center rounded-full bg-gray-100 transition-colors',
+        onEdit && 'dark:hover:bg-repalis-700 hover:bg-gray-200',
       )}
     >
       {onEdit ? (
@@ -122,7 +122,7 @@ const Token = ({
       {onRemove && (
         <button
           type="button"
-          className="dark:text-polar-500 dark:hover:text-polar-200 flex cursor-pointer items-center pr-2 text-gray-400 hover:text-gray-700"
+          className="dark:text-repalis-500 dark:hover:text-repalis-200 flex cursor-pointer items-center pr-2 text-gray-400 hover:text-gray-700"
           aria-label={`Remove ${children}`}
           onClick={(e) => {
             e.stopPropagation()
@@ -487,10 +487,10 @@ export const EventSearch = ({
   return (
     <div className="relative">
       <div
-        className="dark:border-polar-700 dark:bg-polar-800 flex min-h-10 cursor-text flex-wrap items-center gap-1.5 rounded-xl border border-gray-200 bg-white px-3 py-1 shadow-xs focus-within:border-blue-300 focus-within:ring-[3px] focus-within:ring-blue-100 dark:focus-within:border-blue-600 dark:focus-within:ring-blue-700/40"
+        className="dark:border-repalis-700 dark:bg-repalis-800 flex min-h-10 cursor-text flex-wrap items-center gap-1.5 rounded-xl border border-gray-200 bg-white px-3 py-1 shadow-xs focus-within:border-blue-300 focus-within:ring-[3px] focus-within:ring-blue-100 dark:focus-within:border-blue-600 dark:focus-within:ring-blue-700/40"
         onClick={() => inputRef.current?.focus()}
       >
-        <Search className="dark:text-polar-400 mr-1 h-4 w-4 shrink-0 text-gray-500" />
+        <Search className="dark:text-repalis-400 mr-1 h-4 w-4 shrink-0 text-gray-500" />
         {visibleChips.map((chip) => (
           <Token
             key={chip.token}
@@ -506,7 +506,7 @@ export const EventSearch = ({
           placeholder={
             visibleChips.length > 0 ? '' : 'Search events or filter…'
           }
-          className="dark:placeholder:text-polar-500 min-w-24 flex-1 border-0 bg-transparent p-0 py-1 text-sm shadow-none ring-0 outline-none placeholder:text-gray-400 focus:ring-0 focus:outline-none dark:text-white"
+          className="dark:placeholder:text-repalis-500 min-w-24 flex-1 border-0 bg-transparent p-0 py-1 text-sm shadow-none ring-0 outline-none placeholder:text-gray-400 focus:ring-0 focus:outline-none dark:text-white"
           onChange={(e) => onChange(e.target.value)}
           onKeyDown={onKeyDown}
           onFocus={() => setOpen(true)}
@@ -517,7 +517,7 @@ export const EventSearch = ({
         />
       </div>
       {open && suggestions.length > 0 && (
-        <div className="dark:bg-polar-900 dark:border-polar-700 absolute inset-x-0 top-full z-20 mt-1 overflow-hidden rounded-xl border border-gray-200 bg-white shadow-lg">
+        <div className="dark:bg-repalis-900 dark:border-repalis-700 absolute inset-x-0 top-full z-20 mt-1 overflow-hidden rounded-xl border border-gray-200 bg-white shadow-lg">
           <Box
             flexDirection="column"
             paddingVertical="s"
@@ -536,7 +536,7 @@ export const EventSearch = ({
                   type="button"
                   className={twMerge(
                     'w-full cursor-pointer text-left',
-                    index === highlighted && 'dark:bg-polar-800 bg-gray-100',
+                    index === highlighted && 'dark:bg-repalis-800 bg-gray-100',
                   )}
                   onMouseDown={(e) => e.preventDefault()}
                   onMouseEnter={() => setHighlighted(index)}

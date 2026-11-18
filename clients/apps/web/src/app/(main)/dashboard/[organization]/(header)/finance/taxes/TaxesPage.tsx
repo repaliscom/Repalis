@@ -194,7 +194,7 @@ export default function TaxesPage({
 
             <Button variant="default" asChild>
               <a
-                href="https://polar.sh/docs/merchant-of-record/introduction"
+                href="https://repalis.com/docs/merchant-of-record/introduction"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -206,7 +206,7 @@ export default function TaxesPage({
               type="button"
               onClick={dismissMoR}
               aria-label="Dismiss"
-              className="dark:text-polar-500 dark:hover:text-polar-300 absolute top-6 right-6 cursor-pointer text-gray-400 transition-colors hover:text-gray-600"
+              className="dark:text-repalis-500 dark:hover:text-repalis-300 absolute top-6 right-6 cursor-pointer text-gray-400 transition-colors hover:text-gray-600"
             >
               <CloseOutlined fontSize="small" />
             </button>

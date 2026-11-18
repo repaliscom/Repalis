@@ -85,7 +85,7 @@ const EmailOTPVerifyForm = ({
                         <InputOTPSlot
                           key={index}
                           index={index}
-                          className="dark:border-polar-600 h-12 flex-1 border-gray-300 text-xl md:h-16 md:text-2xl"
+                          className="dark:border-repalis-600 h-12 flex-1 border-gray-300 text-xl md:h-16 md:text-2xl"
                         />
                       ))}
                     </InputOTPGroup>

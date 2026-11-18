@@ -11,7 +11,7 @@ import {
 } from '../PosterFrame'
 
 const COMMAND = [
-  'curl https://api.polar.sh/v1/events/ingest \\',
+  'curl https://api.repalis.com/v1/events/ingest \\',
   '  -H "Authorization: Bearer $POLAR_TOKEN" \\',
   '  -d \'{"events": [{',
   '    "name": "tokens.out",',

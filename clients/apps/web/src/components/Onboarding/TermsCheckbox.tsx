@@ -46,7 +46,7 @@ export function TermsCheckbox<T extends FieldValues>({
                   <p className="cursor-pointer text-sm leading-snug font-medium">
                     I agree to Polar&apos;s{' '}
                     <a
-                      href="https://polar.sh/legal/master-services-terms"
+                      href="https://repalis.com/legal/master-services-terms"
                       className="text-gray-900 underline dark:text-white"
                       target="_blank"
                       rel="noopener noreferrer"
@@ -55,7 +55,7 @@ export function TermsCheckbox<T extends FieldValues>({
                     </a>
                     ,{' '}
                     <a
-                      href="https://polar.sh/legal/privacy-policy"
+                      href="https://repalis.com/legal/privacy-policy"
                       className="text-gray-900 underline dark:text-white"
                       target="_blank"
                       rel="noopener noreferrer"
@@ -64,7 +64,7 @@ export function TermsCheckbox<T extends FieldValues>({
                     </a>{' '}
                     &amp;{' '}
                     <a
-                      href="https://polar.sh/legal/acceptable-use-policy"
+                      href="https://repalis.com/legal/acceptable-use-policy"
                       className="text-gray-900 underline dark:text-white"
                       target="_blank"
                       rel="noopener noreferrer"

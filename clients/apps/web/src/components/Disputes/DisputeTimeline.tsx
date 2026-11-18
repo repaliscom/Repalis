@@ -64,7 +64,7 @@ const EVENT_META: Partial<
     description: 'You replied, so this dispute stays with you.',
   },
   dispute_auto_accepted: {
-    title: 'Polar accepted the dispute',
+    title: 'Repalis accepted the dispute',
     description: 'Conceded under the threshold you set.',
   },
 }

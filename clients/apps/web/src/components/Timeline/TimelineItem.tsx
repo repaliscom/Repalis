@@ -123,7 +123,7 @@ export const TimelineFold = ({
     <span className="flex h-5 w-8 shrink-0 items-center justify-center">
       <ChevronRightOutlined
         className={twMerge(
-          'dark:text-polar-500 size-3.5 text-gray-500 transition-transform',
+          'dark:text-repalis-500 size-3.5 text-gray-500 transition-transform',
           expanded && 'rotate-90',
         )}
         fontSize="inherit"

@@ -57,7 +57,7 @@ const ProductForm = ({
   flaggedCategory?: string
 }) => {
   return (
-    <div className="dark:divide-polar-700 flex flex-col divide-y">
+    <div className="dark:divide-repalis-700 flex flex-col divide-y">
       <ProductInfoSection flaggedCategory={flaggedCategory} />
 
       <ProductPricingSection

@@ -12,7 +12,7 @@ export function AUPBlocker({ categories }: { categories: string[] }) {
           Polar is a Merchant of Record for digital products only. Physical
           goods, human services, and marketplaces are not permitted under our{' '}
           <a
-            href="https://polar.sh/legal/acceptable-use-policy"
+            href="https://repalis.com/legal/acceptable-use-policy"
             className="underline"
             target="_blank"
             rel="noopener noreferrer"

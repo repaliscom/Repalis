@@ -63,7 +63,7 @@ export const Platform = () => (
     >
       {PILLARS.map((pillar) => (
         <Box key={pillar.title} flexDirection="column" rowGap="xl">
-          <div className="dark:border-polar-800 relative flex min-h-[14rem] items-center justify-center overflow-hidden rounded-md border border-gray-200 px-8 py-10 xl:min-h-[20rem]">
+          <div className="dark:border-repalis-800 relative flex min-h-[14rem] items-center justify-center overflow-hidden rounded-md border border-gray-200 px-8 py-10 xl:min-h-[20rem]">
             <StaticImage
               src={pillar.image}
               alt=""

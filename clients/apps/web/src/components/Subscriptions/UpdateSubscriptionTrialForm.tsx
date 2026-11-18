@@ -134,14 +134,14 @@ export const UpdateSubscriptionTrialForm = ({
   return (
     <>
       <div className="flex flex-col gap-4">
-        <div className="dark:bg-polar-800 flex flex-col gap-y-4 rounded-2xl bg-gray-50 p-6">
+        <div className="dark:bg-repalis-800 flex flex-col gap-y-4 rounded-2xl bg-gray-50 p-6">
           <div className="flex flex-col gap-y-2">
             <h3 className="text-lg font-medium">
               {subscription.status === 'trialing'
                 ? 'Update Trial'
                 : 'Add Trial Period'}
             </h3>
-            <p className="dark:text-polar-500 mt-1 text-sm text-gray-500">
+            <p className="dark:text-repalis-500 mt-1 text-sm text-gray-500">
               {subscription.status === 'trialing'
                 ? 'Set a new trial end date to extend or reduce the current trial period.'
                 : 'Add a trial period by setting a trial end date in the future.'}
@@ -197,10 +197,10 @@ export const UpdateSubscriptionTrialForm = ({
         </div>
 
         {subscription.status === 'trialing' && (
-          <div className="dark:bg-polar-800 flex flex-col items-start gap-y-4 rounded-2xl bg-gray-50 p-6">
+          <div className="dark:bg-repalis-800 flex flex-col items-start gap-y-4 rounded-2xl bg-gray-50 p-6">
             <div className="flex flex-col gap-2">
               <h3 className="text-lg font-medium">End Trial</h3>
-              <p className="dark:text-polar-500 text-sm text-gray-500">
+              <p className="dark:text-repalis-500 text-sm text-gray-500">
                 This will immediately end the trial period and charge the
                 customer for a new billing cycle.
               </p>

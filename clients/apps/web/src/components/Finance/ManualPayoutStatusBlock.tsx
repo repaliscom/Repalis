@@ -12,7 +12,7 @@ export const ManualPayoutStatusBlock = () => (
       <>
         You are receiving manual payouts.{' '}
         <a
-          href="mailto:support@polar.sh"
+          href="mailto:contact@repalis.com"
           className="underline hover:no-underline"
         >
           Reach out to support

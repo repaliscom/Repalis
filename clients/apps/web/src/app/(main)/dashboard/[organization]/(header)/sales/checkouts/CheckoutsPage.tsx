@@ -145,7 +145,7 @@ const ClientPage: React.FC<ClientPageProps> = ({ organization }) => {
               <div className="overflow-hidden text-ellipsis">
                 {customerName || customerEmail}
                 {showBillingName && (
-                  <span className="dark:text-polar-500 ml-2 text-gray-500">
+                  <span className="dark:text-repalis-500 ml-2 text-gray-500">
                     {customerBillingName}
                   </span>
                 )}

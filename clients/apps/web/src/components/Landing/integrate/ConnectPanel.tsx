@@ -1,6 +1,6 @@
 import { type Snippet, SnippetPicker } from './SnippetPicker'
 
-const MCP_URL = 'https://mcp.polar.sh/mcp/polar-mcp'
+const MCP_URL = 'https://mcp.repalis.com/mcp/polar-mcp'
 
 const CLIENTS: Snippet[] = [
   {
@@ -40,7 +40,7 @@ const CLIENTS: Snippet[] = [
     name: 'Coding agents',
     caption: 'zsh',
     lines: [
-      'npx skills add https://github.com/polarsource/agent-toolkit \\',
+      'npx skills add https://github.com/repaliscom/agent-toolkit \\',
       '  --skill polar-integration',
     ],
   },

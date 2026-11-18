@@ -19,7 +19,7 @@ export const GraphicCard = ({
   Graphic,
 }: GraphicCardProps) => (
   <Box flexDirection="column" rowGap="xl">
-    <div className="dark:border-polar-800 dark:bg-polar-900 aspect-square w-full overflow-hidden rounded-md border border-gray-200 bg-gray-50 p-8 xl:p-12">
+    <div className="dark:border-repalis-800 dark:bg-repalis-900 aspect-square w-full overflow-hidden rounded-md border border-gray-200 bg-gray-50 p-8 xl:p-12">
       <Graphic />
     </div>
     <Box flexDirection="column" rowGap="xs">

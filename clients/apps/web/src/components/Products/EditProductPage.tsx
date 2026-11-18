@@ -237,7 +237,7 @@ export const EditProductPage = ({
         </Button>
       }
     >
-      <div className="dark:border-polar-700 dark:divide-polar-700 flex flex-col divide-y divide-gray-200 rounded-4xl border border-gray-200">
+      <div className="dark:border-repalis-700 dark:divide-repalis-700 flex flex-col divide-y divide-gray-200 rounded-4xl border border-gray-200">
         <Form {...form}>
           <form
             onSubmit={handleSubmit(onSubmit, onInvalid)}

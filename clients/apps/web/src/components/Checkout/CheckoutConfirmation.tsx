@@ -201,7 +201,7 @@ export const CheckoutConfirmation = ({
                 t('checkout.confirmation.successTitle')}
               {status === 'failed' && t('checkout.confirmation.failedTitle')}
             </h1>
-            <p className="dark:text-polar-500 text-gray-500">
+            <p className="dark:text-repalis-500 text-gray-500">
               {status === 'confirmed' &&
                 t('checkout.confirmation.processingDescription')}
               {status === 'succeeded' &&
@@ -247,13 +247,13 @@ export const CheckoutConfirmation = ({
                     customerSessionToken={customerSessionToken}
                   />
                 )}
-              <p className="dark:text-polar-500 text-center text-xs text-gray-500">
+              <p className="dark:text-repalis-500 text-center text-xs text-gray-500">
                 {t('checkout.footer.merchantOfRecord')}
               </p>
             </>
           )}
         </div>
-        <div className="dark:text-polar-500 flex w-full flex-row items-center justify-center gap-x-3 text-sm text-gray-500">
+        <div className="dark:text-repalis-500 flex w-full flex-row items-center justify-center gap-x-3 text-sm text-gray-500">
           <span>{t('checkout.footer.poweredBy')}</span>
           <LogoType className="h-5" />
         </div>

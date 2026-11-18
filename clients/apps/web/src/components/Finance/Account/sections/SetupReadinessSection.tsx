@@ -32,8 +32,8 @@ type Path = 'no-code' | 'api'
 type Status = schemas['OrganizationReviewCheckStatus']
 
 const DOCS = {
-  checkoutLink: 'https://polar.sh/docs/features/checkout/links',
-  api: 'https://polar.sh/docs/api-reference/current/introduction',
+  checkoutLink: 'https://repalis.com/docs/features/checkout/links',
+  api: 'https://repalis.com/docs/api-reference/current/introduction',
 }
 
 const API_ONLY_BENEFIT_TYPES: ReadonlySet<schemas['BenefitType']> = new Set([

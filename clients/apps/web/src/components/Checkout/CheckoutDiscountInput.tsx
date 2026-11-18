@@ -113,7 +113,7 @@ export const CheckoutDiscountInput = ({
             className="flex flex-row items-center justify-between text-sm"
           >
             <span>{t('checkout.form.discountCode')}</span>
-            <span className="dark:text-polar-500 text-xs text-gray-500">
+            <span className="dark:text-repalis-500 text-xs text-gray-500">
               {t('checkout.form.optional')}
             </span>
           </label>

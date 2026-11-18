@@ -53,7 +53,7 @@ const SubscriptionOrdersSection = ({
             header: 'Date',
             accessorKey: 'created_at',
             cell: ({ row: { original } }) => (
-              <span className="dark:text-polar-500 text-sm text-gray-500">
+              <span className="dark:text-repalis-500 text-sm text-gray-500">
                 <FormattedDateTime datetime={original.created_at} />
               </span>
             ),

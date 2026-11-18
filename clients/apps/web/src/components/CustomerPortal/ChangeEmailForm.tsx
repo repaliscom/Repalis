@@ -51,13 +51,13 @@ const ChangeEmailForm = ({ customer }: ChangeEmailFormProps) => {
   if (successEmail) {
     return (
       <div className="flex flex-col gap-y-4">
-        <div className="dark:bg-polar-700 space-y-3 rounded-xl bg-gray-200 p-4 text-sm text-balance text-gray-700 dark:text-gray-300">
+        <div className="dark:bg-repalis-700 space-y-3 rounded-xl bg-gray-200 p-4 text-sm text-balance text-gray-700 dark:text-gray-300">
           <p>
             We sent a verification link to{' '}
             <strong className="font-medium">{successEmail}</strong>. Follow the
             instructions to confirm your new email.
           </p>
-          <p className="dark:text-polar-500 text-xs text-gray-500">
+          <p className="dark:text-repalis-500 text-xs text-gray-500">
             Changed your mind? Simply ignore the email and your current address
             will remain active.
           </p>
@@ -70,7 +70,7 @@ const ChangeEmailForm = ({ customer }: ChangeEmailFormProps) => {
     return (
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-y-4">
         <div className="flex flex-col gap-y-1">
-          <p className="dark:text-polar-500 text-sm text-gray-500">
+          <p className="dark:text-repalis-500 text-sm text-gray-500">
             Current email
           </p>
           <p className="text-sm">{customer.email}</p>
@@ -78,7 +78,7 @@ const ChangeEmailForm = ({ customer }: ChangeEmailFormProps) => {
         <div className="flex flex-col gap-y-2">
           <label
             htmlFor="new-email"
-            className="dark:text-polar-500 text-sm text-gray-500"
+            className="dark:text-repalis-500 text-sm text-gray-500"
           >
             New email
           </label>
@@ -122,7 +122,7 @@ const ChangeEmailForm = ({ customer }: ChangeEmailFormProps) => {
   return (
     <div className="flex w-full flex-row justify-between gap-x-4">
       <div className="flex flex-col gap-y-1">
-        <p className="dark:text-polar-500 text-sm text-gray-500">
+        <p className="dark:text-repalis-500 text-sm text-gray-500">
           Current email
         </p>
         <p className="text-sm">{customer.email}</p>

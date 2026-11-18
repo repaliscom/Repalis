@@ -77,10 +77,10 @@ export const ChargeFigure = () => {
   return (
     <div
       ref={ref}
-      className={`dark:border-polar-800 relative w-full overflow-hidden rounded-md border border-gray-200 bg-cover bg-center p-4 md:p-12 ${FLOW[3]}`}
+      className={`dark:border-repalis-800 relative w-full overflow-hidden rounded-md border border-gray-200 bg-cover bg-center p-4 md:p-12 ${FLOW[3]}`}
     >
       <div className="pointer-events-none absolute inset-0 bg-black/40" />
-      <div className="dark:bg-polar-950 dark:border-polar-800 relative mx-auto flex w-full max-w-[56rem] flex-col rounded-2xl border border-gray-200 bg-gray-100 p-1 shadow-[0_16px_40px_-12px_rgba(0,0,0,0.75)]">
+      <div className="dark:bg-repalis-950 dark:border-repalis-800 relative mx-auto flex w-full max-w-[56rem] flex-col rounded-2xl border border-gray-200 bg-gray-100 p-1 shadow-[0_16px_40px_-12px_rgba(0,0,0,0.75)]">
         <Box
           alignItems="center"
           justifyContent="between"
@@ -113,7 +113,7 @@ export const ChargeFigure = () => {
                 Granted with the plan, spent first
               </Text>
             </Box>
-            <div className="dark:bg-polar-800 h-1 w-full overflow-hidden rounded-full bg-gray-200">
+            <div className="dark:bg-repalis-800 h-1 w-full overflow-hidden rounded-full bg-gray-200">
               <div
                 className="h-full rounded-full bg-white"
                 style={{ width: `${(left / CREDITS) * 100}%` }}

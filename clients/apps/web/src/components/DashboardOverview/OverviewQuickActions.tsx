@@ -37,7 +37,7 @@ const QuickLink = ({
     <Link
       href={href}
       aria-label={label}
-      className="dark:hover:bg-polar-700 focus-visible:ring-ring inline-flex h-8 w-8 items-center justify-center rounded-full text-black transition-colors hover:bg-gray-200 focus-visible:ring-2 focus-visible:outline-none dark:text-white"
+      className="dark:hover:bg-repalis-700 focus-visible:ring-ring inline-flex h-8 w-8 items-center justify-center rounded-full text-black transition-colors hover:bg-gray-200 focus-visible:ring-2 focus-visible:outline-none dark:text-white"
     >
       {icon}
     </Link>

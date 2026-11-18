@@ -35,7 +35,7 @@ export const MasterDetailLayout = ({
             exit: { opacity: 0, transition: { duration: 0.3 } },
           }}
           className={twMerge(
-            'dark:bg-polar-900 dark:border-polar-800 h-full w-full overflow-y-hidden rounded-2xl border border-gray-200 bg-white md:max-w-[300px] md:shadow-xs xl:max-w-[320px]',
+            'dark:bg-repalis-900 dark:border-repalis-800 h-full w-full overflow-y-hidden rounded-2xl border border-gray-200 bg-white md:max-w-[300px] md:shadow-xs xl:max-w-[320px]',
             isIndexPage ? 'mx-4 mt-4 md:mx-0 md:mt-0' : 'hidden md:block',
           )}
         >
@@ -45,7 +45,7 @@ export const MasterDetailLayout = ({
 
       <div
         className={twMerge(
-          'dark:md:bg-polar-900 dark:border-polar-800 relative flex w-full flex-col items-center rounded-2xl border-gray-200 px-4 md:overflow-y-auto md:border md:bg-white md:px-8 md:shadow-xs',
+          'dark:md:bg-repalis-900 dark:border-repalis-800 relative flex w-full flex-col items-center rounded-2xl border-gray-200 px-4 md:overflow-y-auto md:border md:bg-white md:px-8 md:shadow-xs',
           isIndexPage && 'hidden md:flex',
         )}
       >

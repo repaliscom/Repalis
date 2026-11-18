@@ -50,7 +50,7 @@ const AccessToken = (props: schemas['PersonalAccessToken']) => {
         <div className="flex min-w-0 flex-row">
           <div className="flex min-w-0 flex-col">
             <h3 className="text-md truncate">{props.comment}</h3>
-            <p className="dark:text-polar-400 text-sm text-gray-500">
+            <p className="dark:text-repalis-400 text-sm text-gray-500">
               {props.expires_at ? (
                 new Date(props.expires_at).getTime() < now ? (
                   <span className="text-red-500 dark:text-red-400">
@@ -89,7 +89,7 @@ const AccessToken = (props: schemas['PersonalAccessToken']) => {
             </p>
           </div>
         </div>{' '}
-        <div className="dark:text-polar-400 flex shrink-0 flex-row items-center justify-end gap-x-4 space-x-4 text-gray-500">
+        <div className="dark:text-repalis-400 flex shrink-0 flex-row items-center justify-end gap-x-4 space-x-4 text-gray-500">
           <AlertDialog>
             <AlertDialogTrigger asChild>
               <Button variant="destructive">Revoke</Button>
@@ -123,7 +123,7 @@ const AccessTokensSettings = () => {
 
   return (
     <div className="flex w-full flex-col gap-4">
-      <div className="dark:bg-polar-800 dark:text-polar-500 flex flex-col gap-2 rounded-2xl bg-gray-100 p-6 text-sm text-gray-500">
+      <div className="dark:bg-repalis-800 dark:text-repalis-500 flex flex-col gap-2 rounded-2xl bg-gray-100 p-6 text-sm text-gray-500">
         <h3 className="text-base font-medium text-black dark:text-white">
           Access tokens have moved
         </h3>

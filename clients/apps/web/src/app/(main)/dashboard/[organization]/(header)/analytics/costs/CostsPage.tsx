@@ -420,7 +420,7 @@ export default function ClientPage({
                     <Link
                       key={s.event_type_id}
                       href={spanHref(s)}
-                      className="dark:border-polar-700 dark:hover:bg-polar-800 flex flex-col gap-3 rounded-2xl border border-gray-200 bg-white p-4 transition-colors hover:bg-gray-50 dark:bg-transparent"
+                      className="dark:border-repalis-700 dark:hover:bg-repalis-800 flex flex-col gap-3 rounded-2xl border border-gray-200 bg-white p-4 transition-colors hover:bg-gray-50 dark:bg-transparent"
                     >
                       <div className="flex items-start justify-between gap-2">
                         <span className="text-sm leading-snug font-medium dark:text-white">
@@ -432,7 +432,7 @@ export default function ClientPage({
                               ? 'bg-red-50 text-red-600 dark:bg-red-900/20 dark:text-red-400'
                               : isDown
                                 ? 'bg-emerald-50 text-emerald-600 dark:bg-emerald-900/20 dark:text-emerald-400'
-                                : 'dark:bg-polar-700 bg-gray-100 text-gray-500 dark:text-gray-400'
+                                : 'dark:bg-repalis-700 bg-gray-100 text-gray-500 dark:text-gray-400'
                           }`}
                         >
                           {isUp ? (
@@ -448,7 +448,7 @@ export default function ClientPage({
                         </span>
                       </div>
                       <div className="flex items-end justify-between">
-                        <div className="dark:text-polar-500 flex flex-col gap-0.5 text-xs text-gray-400">
+                        <div className="dark:text-repalis-500 flex flex-col gap-0.5 text-xs text-gray-400">
                           <span>prev {fmt(s.previous, 'usd')}</span>
                           <span>now {fmt(s.current, 'usd')}</span>
                         </div>
@@ -567,14 +567,14 @@ export default function ClientPage({
                           organization.slug,
                           s.event_id,
                         )}
-                        className="dark:border-polar-700 dark:hover:bg-polar-800 flex flex-col gap-3 rounded-2xl border border-gray-200 bg-white p-4 transition-colors hover:bg-gray-50 dark:bg-transparent"
+                        className="dark:border-repalis-700 dark:hover:bg-repalis-800 flex flex-col gap-3 rounded-2xl border border-gray-200 bg-white p-4 transition-colors hover:bg-gray-50 dark:bg-transparent"
                       >
                         <div className="flex items-start justify-between gap-2">
                           <div className="flex min-w-0 flex-col gap-1">
                             <span className="text-sm leading-snug font-medium dark:text-white">
                               {s.name}
                             </span>
-                            <span className="dark:text-polar-400 font-mono text-xs text-gray-400">
+                            <span className="dark:text-repalis-400 font-mono text-xs text-gray-400">
                               {new Date(s.timestamp).toLocaleDateString(
                                 'en-US',
                                 {
@@ -591,25 +591,25 @@ export default function ClientPage({
                             p99
                           </span>
                         </div>
-                        <div className="dark:border-polar-700 flex overflow-hidden rounded-lg border border-gray-200">
+                        <div className="dark:border-repalis-700 flex overflow-hidden rounded-lg border border-gray-200">
                           <div className="flex flex-1 flex-col items-center gap-0.5 px-3 py-2">
-                            <span className="dark:text-polar-400 text-xs text-gray-500">
+                            <span className="dark:text-repalis-400 text-xs text-gray-500">
                               Avg
                             </span>
                             <span className="font-mono text-sm tabular-nums dark:text-white">
                               {fmtSub(avg, 'usd')}
                             </span>
                           </div>
-                          <div className="dark:bg-polar-700 w-px bg-gray-200" />
+                          <div className="dark:bg-repalis-700 w-px bg-gray-200" />
                           <div className="flex flex-1 flex-col items-center gap-0.5 px-3 py-2">
                             <span className="text-xs text-red-500">Event</span>
                             <span className="font-mono text-sm text-red-600 tabular-nums dark:text-red-400">
                               {fmtSub(value, 'usd')}
                             </span>
                           </div>
-                          <div className="dark:bg-polar-700 w-px bg-gray-200" />
+                          <div className="dark:bg-repalis-700 w-px bg-gray-200" />
                           <div className="flex flex-1 flex-col items-center gap-0.5 px-3 py-2">
-                            <span className="dark:text-polar-400 text-xs text-gray-500">
+                            <span className="dark:text-repalis-400 text-xs text-gray-500">
                               p99
                             </span>
                             <span className="font-mono text-sm tabular-nums dark:text-white">
@@ -874,7 +874,7 @@ function SectionHeader({
   return (
     <div className="mb-4">
       <h2 className="text-lg font-medium dark:text-white">{title}</h2>
-      <p className="dark:text-polar-500 mt-0.5 text-sm text-gray-400">
+      <p className="dark:text-repalis-500 mt-0.5 text-sm text-gray-400">
         {description}
       </p>
     </div>

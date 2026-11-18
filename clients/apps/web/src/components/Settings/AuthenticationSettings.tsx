@@ -226,7 +226,7 @@ const AuthenticationSettings = () => {
       />
     ),
     request: (
-      <div className="dark:text-polar-300 dark:bg-polar-600 flex h-10 items-center justify-center rounded-lg bg-gray-100 text-center text-sm text-gray-500">
+      <div className="dark:text-repalis-300 dark:bg-repalis-600 flex h-10 items-center justify-center rounded-lg bg-gray-100 text-center text-sm text-gray-500">
         A verification email was sent to this address.
       </div>
     ),

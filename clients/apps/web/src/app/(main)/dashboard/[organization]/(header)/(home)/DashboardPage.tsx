@@ -18,10 +18,10 @@ import { DisputesBanner } from './DisputesBanner'
 import { OrganizationStatusBanner } from './OrganizationStatusBanner'
 
 const cellClassName =
-  'dark:border-polar-700 border-t-0 border-r border-b border-l-0 border-gray-200'
+  'dark:border-repalis-700 border-t-0 border-r border-b border-l-0 border-gray-200'
 
 const WidgetRow = ({ children }: PropsWithChildren) => (
-  <div className="dark:border-polar-700 overflow-hidden rounded-xl border border-gray-200">
+  <div className="dark:border-repalis-700 overflow-hidden rounded-xl border border-gray-200">
     <div className="-mr-px -mb-px grid grid-cols-1 lg:grid-cols-3">
       {children}
     </div>

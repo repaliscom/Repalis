@@ -19,7 +19,7 @@ interface OnboardingShellProps {
 }
 
 const footerLinkClassName =
-  'dark:hover:text-polar-200 text-sm hover:text-gray-900'
+  'dark:hover:text-repalis-200 text-sm hover:text-gray-900'
 
 function FooterLinks({ hadOrgs }: { hadOrgs: boolean }) {
   const logout = useLogout()

@@ -165,8 +165,8 @@ export const CustomerUsageView = ({
 
   return (
     <Box flexDirection="column" rowGap="2xl">
-      <ShadowBox className="dark:bg-polar-800 flex flex-col gap-y-4 p-2">
-        <div className="dark:bg-polar-900 rounded-3xl bg-white p-4">
+      <ShadowBox className="dark:bg-repalis-800 flex flex-col gap-y-4 p-2">
+        <div className="dark:bg-repalis-900 rounded-3xl bg-white p-4">
           <Suspense fallback={<div style={{ height: 250 }} />}>
             <StackedMeterChart
               data={chartData}
@@ -204,7 +204,7 @@ export const CustomerUsageView = ({
                   version={row.original.meter}
                 />
                 {row.original.subscription && (
-                  <span className="dark:text-polar-500 text-gray-500">
+                  <span className="dark:text-repalis-500 text-gray-500">
                     {row.original.subscription.product.name}
                   </span>
                 )}
@@ -259,7 +259,7 @@ export const CustomerUsageView = ({
                   {formatCurrency('compact')(overages.cost, overages.currency)}
                 </span>
               ) : (
-                <span className="dark:text-polar-500 text-gray-500">—</span>
+                <span className="dark:text-repalis-500 text-gray-500">—</span>
               )
             },
           },

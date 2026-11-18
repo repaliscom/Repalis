@@ -45,7 +45,7 @@ export const EventCustomer = ({ event }: { event: schemas['Event'] }) => {
         <PopoverTrigger className="group block w-full overflow-hidden">
           <div className="flex w-full flex-row items-center gap-x-2 overflow-hidden text-left font-sans">
             <Avatar name={event.external_customer_id} avatar_url={null} />
-            <span className="dark:text-polar-500 dark:group-data-[state=open]:text-polar-300 w-full truncate text-sm text-gray-500 group-data-[state=open]:text-gray-600">
+            <span className="dark:text-repalis-500 dark:group-data-[state=open]:text-repalis-300 w-full truncate text-sm text-gray-500 group-data-[state=open]:text-gray-600">
               {name}
             </span>
           </div>
@@ -62,7 +62,7 @@ export const EventCustomer = ({ event }: { event: schemas['Event'] }) => {
               <span className="text-sm/4 font-medium whitespace-nowrap text-gray-700 dark:text-white">
                 {name}
               </span>
-              <span className="dark:text-polar-500 pr-2 font-mono text-xs whitespace-nowrap text-gray-500">
+              <span className="dark:text-repalis-500 pr-2 font-mono text-xs whitespace-nowrap text-gray-500">
                 {event.external_customer_id}
               </span>
             </div>
@@ -82,7 +82,7 @@ export const EventCustomer = ({ event }: { event: schemas['Event'] }) => {
               name={event.customer.name ?? event.customer.email ?? '—'}
               avatar_url={event.customer.avatar_url ?? null}
             />
-            <div className="dark:text-polar-200 min-w-0 truncate text-left text-sm text-gray-700">
+            <div className="dark:text-repalis-200 min-w-0 truncate text-left text-sm text-gray-700">
               {event.customer.name ?? event.customer.email ?? '—'}
             </div>
           </div>
@@ -103,7 +103,7 @@ export const EventCustomer = ({ event }: { event: schemas['Event'] }) => {
               <span className="text-sm/4 font-medium whitespace-nowrap text-gray-700 dark:text-white">
                 {event.customer.name ?? event.customer.email ?? '—'}
               </span>
-              <span className="dark:text-polar-500 pr-2 font-mono text-xs whitespace-nowrap text-gray-500">
+              <span className="dark:text-repalis-500 pr-2 font-mono text-xs whitespace-nowrap text-gray-500">
                 {event.external_customer_id}
               </span>
             </div>

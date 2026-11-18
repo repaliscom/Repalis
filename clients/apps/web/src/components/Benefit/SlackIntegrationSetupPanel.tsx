@@ -233,7 +233,7 @@ const ManifestBlock = ({ manifest }: { manifest: string }) => {
           Copy manifest
         </Button>
       </Box>
-      <Well className="dark:text-polar-500 overflow-x-auto rounded-md p-4 text-xs text-gray-500">
+      <Well className="dark:text-repalis-500 overflow-x-auto rounded-md p-4 text-xs text-gray-500">
         {manifest ? (
           <SyntaxHighlighterClient lang="bash" code={manifest} />
         ) : (

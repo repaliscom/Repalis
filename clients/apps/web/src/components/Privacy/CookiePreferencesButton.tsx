@@ -12,7 +12,7 @@ export const CookiePreferencesButton = () => {
       <button
         type="button"
         onClick={show}
-        className="dark:hover:text-polar-100 flex flex-row items-center gap-x-1 text-black transition-colors hover:text-gray-500 dark:text-white"
+        className="dark:hover:text-repalis-100 flex flex-row items-center gap-x-1 text-black transition-colors hover:text-gray-500 dark:text-white"
       >
         <Text as="span" variant="body" color="inherit">
           Cookie Preferences

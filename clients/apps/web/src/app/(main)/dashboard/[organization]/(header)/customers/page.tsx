@@ -7,7 +7,7 @@ import { Metadata } from 'next'
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: 'Customers', // " | Polar is added by the template"
+    title: 'Customers', // " | Repalis is added by the template"
   }
 }
 

@@ -46,7 +46,7 @@ const renderStaticPrice = (
     return (
       <span className="inline-flex items-baseline gap-1.5">
         {tiers.length > 1 && (
-          <span className="dark:text-polar-500 text-xs text-gray-500">
+          <span className="dark:text-repalis-500 text-xs text-gray-500">
             From
           </span>
         )}
@@ -94,7 +94,7 @@ const renderMeteredPrice = (meteredPrice: MeteredPrice): React.ReactNode => {
   return (
     <span className="inline-flex items-baseline gap-1.5">
       {tiers.length > 1 && (
-        <span className="dark:text-polar-500 text-xs text-gray-500">From</span>
+        <span className="dark:text-repalis-500 text-xs text-gray-500">From</span>
       )}
       <span>
         {formatCurrency('subcent')(
@@ -102,7 +102,7 @@ const renderMeteredPrice = (meteredPrice: MeteredPrice): React.ReactNode => {
           meteredPrice.price_currency,
         )}
       </span>
-      <span className="dark:text-polar-500 text-xs text-gray-500">
+      <span className="dark:text-repalis-500 text-xs text-gray-500">
         / {label}
       </span>
     </span>

@@ -45,12 +45,12 @@ export const PlanCard = ({
       onClick={onSelect}
       disabled={disabled}
       className={twMerge(
-        'dark:border-polar-700 row-span-3 grid h-full w-full grid-rows-subgrid gap-y-8 rounded-2xl border bg-white p-8 text-left transition-colors dark:bg-transparent',
+        'dark:border-repalis-700 row-span-3 grid h-full w-full grid-rows-subgrid gap-y-8 rounded-2xl border bg-white p-8 text-left transition-colors dark:bg-transparent',
         disabled
-          ? 'dark:bg-polar-800 cursor-not-allowed border-gray-200 bg-gray-50 opacity-70'
+          ? 'dark:bg-repalis-800 cursor-not-allowed border-gray-200 bg-gray-50 opacity-70'
           : isSelected
             ? 'border-blue-500 bg-blue-50/40 dark:border-blue-500 dark:bg-blue-950/20'
-            : 'dark:hover:border-polar-600 cursor-pointer hover:border-gray-300',
+            : 'dark:hover:border-repalis-600 cursor-pointer hover:border-gray-300',
       )}
     >
       <Box flexDirection="column" rowGap="s">

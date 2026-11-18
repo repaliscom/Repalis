@@ -170,7 +170,7 @@ export const ProductPage = ({ organization, product }: ProductPageProps) => {
               {product.is_archived && <Status status="Archived" color="gray" />}
             </div>
           </div>
-          <span className="dark:text-polar-500 text-xl text-gray-400 [&_*]:!text-current">
+          <span className="dark:text-repalis-500 text-xl text-gray-400 [&_*]:!text-current">
             <ProductPriceLabel
               product={product}
               currency={organization.default_presentment_currency}

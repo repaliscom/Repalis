@@ -9,14 +9,14 @@ export const buildAiSetupPrompt = (
   const apiUrl = CONFIG.BASE_URL
   const testInstruction = CONFIG.IS_SANDBOX
     ? 'It is payable with the test card 4242 4242 4242 4242, any future expiry and CVC.'
-    : 'To test end-to-end without a real charge, create a 100% discount code via the discounts API; enter that code on the Polar checkout page (a plain checkout link cannot pre-apply it).'
+    : 'To test end-to-end without a real charge, create a 100% discount code via the discounts API; enter that code on the Repalis checkout page (a plain checkout link cannot pre-apply it).'
   const goLiveNote = CONFIG.IS_SANDBOX
-    ? 'the go-live steps (create a production organization and token at polar.sh, register the production webhook URL, set POLAR_SERVER=production)'
+    ? 'the go-live steps (create a production organization and token at repalis.com, register the production webhook URL, set POLAR_SERVER=production)'
     : 'a reminder that this integration runs against the live production environment'
 
-  return `# Set up Polar payments in this project
+  return `# Set up Repalis payments in this project
 
-You are integrating Polar (https://polar.sh) — checkout and webhooks — into the codebase in the current working directory. Work through the phases below strictly in order, completing and verifying each phase before starting the next.
+You are integrating Repalis (https://repalis.com) — checkout and webhooks — into the codebase in the current working directory. Work through the phases below strictly in order, completing and verifying each phase before starting the next.
 
 ## Provided values — use these; never invent IDs, tokens, or URLs
 - Organization: ${organization.slug} (id: ${organization.id})
@@ -32,7 +32,7 @@ If a value you need is not listed above, not in .env, and not returned by a Pola
 3. Use the project's package manager, detected from lockfiles: pnpm-lock.yaml means pnpm, bun.lock or bun.lockb means bun, yarn.lock means yarn, package-lock.json means npm, uv.lock means uv, poetry.lock means poetry, otherwise pip.
 4. Your training data about Polar may be outdated. Before writing integration code, fetch the current instructions and follow them over memory:
    - https://raw.githubusercontent.com/polarsource/agent-toolkit/main/skills/polar-integration/SKILL.md — the canonical integration guide. It wires up checkout, customer portal, and webhooks with @polar-sh/sdk directly and lists per-framework variations (Next.js, SvelteKit, Nuxt, Astro, Hono, Express, Fastify, Elysia, and more). It is written for JS/TS; for Python, apply the same approach with the polar-sdk package.
-   - https://polar.sh/docs/llms.txt (an index of every docs page; fetch the API-reference pages you need, e.g. product or checkout creation).
+   - https://repalis.com/docs/llms.txt (an index of every docs page; fetch the API-reference pages you need, e.g. product or checkout creation).
    Important: build this on @polar-sh/sdk directly, even where the skill or docs show a per-framework @polar-sh/<framework> adapter (e.g. @polar-sh/nextjs). Using the SDK everywhere keeps the setup consistent across frameworks and languages.
 
 ## Phase 1 — Detect

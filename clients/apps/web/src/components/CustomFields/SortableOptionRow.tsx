@@ -57,7 +57,7 @@ const SortableOptionRow: React.FC<SortableOptionRowProps> = ({
         type="button"
         ref={setActivatorNodeRef}
         aria-label="Reorder option"
-        className="dark:text-polar-500 dark:hover:text-polar-300 flex shrink-0 cursor-grab touch-none items-center justify-center text-gray-400 transition-colors hover:text-gray-600 active:cursor-grabbing"
+        className="dark:text-repalis-500 dark:hover:text-repalis-300 flex shrink-0 cursor-grab touch-none items-center justify-center text-gray-400 transition-colors hover:text-gray-600 active:cursor-grabbing"
         {...attributes}
         {...listeners}
       >

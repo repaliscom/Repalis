@@ -136,7 +136,7 @@ const CustomerMeterPage = ({
           <Box alignItems="center" columnGap="l" minWidth={0}>
             <Link
               href={`/dashboard/${organization.slug}/customers/${customer.id}`}
-              className="dark:text-polar-500 shrink-0 text-gray-400 transition-colors hover:text-gray-900 dark:hover:text-white"
+              className="dark:text-repalis-500 shrink-0 text-gray-400 transition-colors hover:text-gray-900 dark:hover:text-white"
             >
               <ArrowBackOutlined fontSize="small" />
             </Link>

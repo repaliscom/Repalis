@@ -60,8 +60,8 @@ export const EventLogRow = ({
       className={twMerge(
         'w-full cursor-pointer text-left',
         selected
-          ? 'dark:bg-polar-800 bg-gray-100'
-          : 'dark:hover:bg-polar-800/50 hover:bg-gray-50',
+          ? 'dark:bg-repalis-800 bg-gray-100'
+          : 'dark:hover:bg-repalis-800/50 hover:bg-gray-50',
       )}
     >
       <Box

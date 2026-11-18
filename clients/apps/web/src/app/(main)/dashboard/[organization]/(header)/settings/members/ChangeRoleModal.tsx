@@ -121,7 +121,7 @@ export function ChangeRoleModal({
           borderColor="border-primary"
         >
           <table className="w-full text-sm">
-            <thead className="dark:bg-polar-700 sticky top-0 bg-gray-50 text-xs">
+            <thead className="dark:bg-repalis-700 sticky top-0 bg-gray-50 text-xs">
               <tr>
                 <th className="px-3 py-2 text-left font-medium">Permission</th>
                 {orderedRoles.map((r) => (
@@ -135,7 +135,7 @@ export function ChangeRoleModal({
               {allPermissions.map((permission) => (
                 <tr
                   key={permission}
-                  className="dark:border-polar-700 border-t border-gray-200"
+                  className="dark:border-repalis-700 border-t border-gray-200"
                 >
                   <td className="px-3 py-2">
                     <code className="text-xs">{permission}</code>

@@ -136,7 +136,7 @@ const ClientPage: React.FC<ClientPageProps> = ({ organization }) => {
               <Text as="span">
                 {customer.name || customer.email || '—'}
                 {showBillingName && (
-                  <span className="dark:text-polar-500 ml-2 text-gray-500">
+                  <span className="dark:text-repalis-500 ml-2 text-gray-500">
                     {customer.billing_name}
                   </span>
                 )}

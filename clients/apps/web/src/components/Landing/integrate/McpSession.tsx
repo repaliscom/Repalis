@@ -97,14 +97,14 @@ export const McpSession = () => {
       ref={ref}
       className={`flex h-full min-w-0 flex-col gap-1 font-mono text-[13px] leading-6 transition-opacity duration-500 ${phase === 'exit' ? 'opacity-0' : 'opacity-100'}`}
     >
-      <div className="border-polar-700 mb-4 flex flex-col self-start rounded-md border px-3 py-1">
+      <div className="border-repalis-700 mb-4 flex flex-col self-start rounded-md border px-3 py-1">
         <span className="text-white">
-          <span className="text-polar-300">✻ </span>Claude Code
+          <span className="text-repalis-300">✻ </span>Claude Code
         </span>
-        <span className="text-polar-500">~/acme · Polar MCP connected</span>
+        <span className="text-repalis-500">~/acme · Polar MCP connected</span>
       </div>
       <div className="whitespace-pre-wrap text-white">
-        <span className="text-polar-500">{'> '}</span>
+        <span className="text-repalis-500">{'> '}</span>
         {prompt.slice(0, typed)}
         {phase === 'enter' || phase === 'typing' ? (
           <span
@@ -113,7 +113,7 @@ export const McpSession = () => {
         ) : null}
       </div>
       {settled ? (
-        <div className="text-polar-500 mt-2 flex [animation:appear_300ms_ease-out_both] items-center gap-2">
+        <div className="text-repalis-500 mt-2 flex [animation:appear_300ms_ease-out_both] items-center gap-2">
           {phase === 'done' ? (
             <Check size={12} className="shrink-0" />
           ) : (
@@ -125,7 +125,7 @@ export const McpSession = () => {
         </div>
       ) : null}
       {phase === 'done' ? (
-        <div className="text-polar-300 [animation:appear_360ms_ease-out_both] whitespace-pre-wrap">
+        <div className="text-repalis-300 [animation:appear_360ms_ease-out_both] whitespace-pre-wrap">
           {result}
         </div>
       ) : null}

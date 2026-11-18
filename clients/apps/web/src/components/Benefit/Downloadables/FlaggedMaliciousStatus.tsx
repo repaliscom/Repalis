@@ -8,7 +8,7 @@ import {
 import { Box } from '@polar-sh/orbit/Box'
 
 const FLAGGED_FILES_DOCS_URL =
-  'https://polar.sh/docs/features/benefits/file-downloads#flagged-files'
+  'https://repalis.com/docs/features/benefits/file-downloads#flagged-files'
 
 export const FlaggedMaliciousStatus = () => (
   <Tooltip>

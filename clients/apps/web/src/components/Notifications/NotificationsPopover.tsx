@@ -69,7 +69,7 @@ export const NotificationsPopover = () => {
             {notifications.length > 0 && (
               <Box alignItems="center" columnGap="s">
                 <span
-                  className={`size-1.5 rounded-full ${hasUnread ? 'bg-blue-500' : 'dark:bg-polar-600 bg-gray-300'}`}
+                  className={`size-1.5 rounded-full ${hasUnread ? 'bg-blue-500' : 'dark:bg-repalis-600 bg-gray-300'}`}
                 />
                 <Text variant="caption" color="muted" tabularNums>
                   {unreadCount >= 100 ? '99+' : unreadCount} new

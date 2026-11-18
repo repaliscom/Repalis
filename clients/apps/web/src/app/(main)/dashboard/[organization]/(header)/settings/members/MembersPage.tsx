@@ -236,7 +236,7 @@ export default function ClientPage({
         ) : undefined
       }
     >
-      <p className="dark:text-polar-500 text-gray-500">
+      <p className="dark:text-repalis-500 text-gray-500">
         Manage users who have access to this organization.
       </p>
 

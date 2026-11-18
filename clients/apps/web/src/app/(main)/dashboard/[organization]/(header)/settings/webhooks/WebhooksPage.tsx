@@ -25,7 +25,7 @@ export default function ClientPage({
       header={
         <Box alignItems="center" columnGap="s">
           <a
-            href="https://polar.sh/docs/integrate/webhooks/endpoints"
+            href="https://repalis.com/docs/integrate/webhooks/endpoints"
             target="_blank"
             rel="noopener noreferrer"
           >

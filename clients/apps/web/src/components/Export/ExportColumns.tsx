@@ -44,7 +44,7 @@ export function ExportColumns<T extends string>({
             <Button
               variant="ghost"
               size="sm"
-              className="dark:text-polar-500 dark:hover:text-polar-300 h-7 px-2 text-xs font-normal text-gray-500 hover:text-gray-900"
+              className="dark:text-repalis-500 dark:hover:text-repalis-300 h-7 px-2 text-xs font-normal text-gray-500 hover:text-gray-900"
               onClick={() => onChange(config.defaults)}
             >
               Reset
@@ -54,7 +54,7 @@ export function ExportColumns<T extends string>({
             <Button
               variant="ghost"
               size="sm"
-              className="dark:text-polar-500 dark:hover:text-polar-300 h-7 px-2 text-xs font-normal text-gray-500 hover:text-gray-900"
+              className="dark:text-repalis-500 dark:hover:text-repalis-300 h-7 px-2 text-xs font-normal text-gray-500 hover:text-gray-900"
               onClick={() => onChange(config.all)}
             >
               Select all

@@ -85,7 +85,7 @@ export const EditEventTypeModal = ({
             <Text variant="heading-xxs" as="h2">
               Edit Event Type
             </Text>
-            <p className="dark:text-polar-500 text-sm font-normal text-gray-500">
+            <p className="dark:text-repalis-500 text-sm font-normal text-gray-500">
               {/* oxlint-disable-next-line react/no-unescaped-entities */}
               Update the display label for event type "{eventName}"
             </p>
@@ -163,16 +163,16 @@ export const EditEventTypeModal = ({
           </Form>
         </div>
 
-        <div className="dark:border-polar-700 border-t border-gray-200 px-8 pt-6 pb-10">
+        <div className="dark:border-repalis-700 border-t border-gray-200 px-8 pt-6 pb-10">
           <div className="flex flex-col gap-y-2">
             <h3>Ingesting Events</h3>
-            <p className="dark:text-polar-500 text-sm text-gray-500">
+            <p className="dark:text-repalis-500 text-sm text-gray-500">
               {labelPropertySelector
                 ? 'To ingest events with dynamic labels, include the property in metadata.'
                 : 'To ingest events with this label, use the following event name.'}
             </p>
           </div>
-          <Well className="dark:bg-polar-800 mt-4 rounded-lg bg-gray-50 p-4 text-sm">
+          <Well className="dark:bg-repalis-800 mt-4 rounded-lg bg-gray-50 p-4 text-sm">
             <SyntaxHighlighterClient
               lang="typescript"
               code={

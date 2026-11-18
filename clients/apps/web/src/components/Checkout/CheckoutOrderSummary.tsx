@@ -73,7 +73,7 @@ export const CheckoutOrderSummary = ({
                   )}
                 </button>
               </DialogTrigger>
-              <DialogContent className="dark:bg-polar-900 max-w-2xl">
+              <DialogContent className="dark:bg-repalis-900 max-w-2xl">
                 <DialogHeader>
                   <DialogTitle>{checkout.product.name}</DialogTitle>
                   <DialogDescription className="sr-only">

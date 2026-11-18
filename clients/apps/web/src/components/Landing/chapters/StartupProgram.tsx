@@ -33,7 +33,7 @@ export const StartupProgram = () => (
   >
     <Window flow={3} narrow aside="Startup Program">
       <Grid templateColumns={{ base: '1fr', md: 'repeat(2, 1fr)' }} gap="xs">
-        <div className="dark:bg-polar-900 flex aspect-square w-full items-center justify-center rounded-xl bg-white md:aspect-auto md:py-12">
+        <div className="dark:bg-repalis-900 flex aspect-square w-full items-center justify-center rounded-xl bg-white md:aspect-auto md:py-12">
           <Box width={{ base: '60%', md: '50%' }} aspectRatio="1 / 1">
             <VolumetricSlices />
           </Box>

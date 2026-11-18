@@ -113,7 +113,7 @@ export const MeterPage = ({
                 />
               </div>
             </WellHeader>
-            <WellContent className="dark:bg-polar-900 flex-col rounded-3xl bg-white p-4">
+            <WellContent className="dark:bg-repalis-900 flex-col rounded-3xl bg-white p-4">
               {chartLoading ? (
                 <div className="flex h-[300px] flex-col items-center justify-center">
                   <Spinner />
@@ -151,7 +151,7 @@ export const MeterPage = ({
             <div className="flex flex-col gap-y-6">
               <div className="flex flex-col gap-y-2">
                 <h3 className="text-xl">Latest meter events</h3>
-                <p className="dark:text-polar-500 text-gray-500">
+                <p className="dark:text-repalis-500 text-gray-500">
                   Recently received meter events
                 </p>
               </div>
@@ -246,7 +246,7 @@ const MeterActivityCards = ({ meter }: { meter: schemas['Meter'] }) => {
         <Card key={card.title} className="rounded-3xl">
           <CardHeader className="flex flex-col gap-y-0">
             <h3 className="text-lg">{card.title}</h3>
-            <span className="dark:text-polar-500 text-gray-500">
+            <span className="dark:text-repalis-500 text-gray-500">
               {card.startDate.toLocaleDateString('en-US', {
                 month: 'long',
                 day: 'numeric',

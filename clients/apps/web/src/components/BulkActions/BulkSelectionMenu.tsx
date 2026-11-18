@@ -48,7 +48,7 @@ export const BulkSelectionMenu = ({
         </DropdownMenuTrigger>
         <DropdownMenuContent
           align="start"
-          className="dark:bg-polar-800 bg-gray-50 shadow-lg"
+          className="dark:bg-repalis-800 bg-gray-50 shadow-lg"
         >
           <DropdownMenuItem
             disabled={pageFullySelected || pageSize === 0}

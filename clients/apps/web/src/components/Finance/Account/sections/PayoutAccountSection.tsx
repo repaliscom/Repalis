@@ -111,7 +111,7 @@ export const PayoutAccountSection = ({
           <ArrowRight className="ml-2 h-4 w-4" />
         </Button>
       ) : state === 'paused' ? (
-        <Button onClick={() => window.open('mailto:support@polar.sh')}>
+        <Button onClick={() => window.open('mailto:contact@repalis.com')}>
           Contact support
           <ArrowRight className="ml-2 h-4 w-4" />
         </Button>

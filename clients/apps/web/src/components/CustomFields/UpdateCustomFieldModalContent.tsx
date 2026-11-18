@@ -66,7 +66,7 @@ const UpdateCustomFieldModalContent = ({
           <Text variant="heading-xxs" as="h2">
             Update Custom Field
           </Text>
-          <p className="dark:text-polar-500 text-sm font-normal text-gray-500">
+          <p className="dark:text-repalis-500 text-sm font-normal text-gray-500">
             Type cannot be changed.
           </p>
         </div>

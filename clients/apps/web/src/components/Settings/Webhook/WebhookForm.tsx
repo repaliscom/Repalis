@@ -228,7 +228,7 @@ export const FieldEvents = () => {
               renderOptionSuffix={(event) => (
                 <a
                   className="text-xs text-blue-400"
-                  href={`https://polar.sh/docs/api-reference/current/${event.replaceAll('.', '_')}`}
+                  href={`https://repalis.com/docs/api-reference/current/${event.replaceAll('.', '_')}`}
                   target="_blank"
                   rel="noopener noreferrer"
                 >

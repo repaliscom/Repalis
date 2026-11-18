@@ -103,7 +103,7 @@ export const ProductCustomFieldSection = ({
                                 'text-sm',
                                 field.value
                                   ? ''
-                                  : 'dark:text-polar-500 text-gray-500',
+                                  : 'dark:text-repalis-500 text-gray-500',
                               )}
                             >
                               Required

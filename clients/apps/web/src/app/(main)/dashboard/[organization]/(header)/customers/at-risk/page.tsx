@@ -5,7 +5,7 @@ import { AtRiskPage } from './AtRiskPage'
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: 'At Risk Customers', // " | Polar is added by the template"
+    title: 'At Risk Customers', // " | Repalis is added by the template"
   }
 }
 

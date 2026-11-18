@@ -3,7 +3,7 @@
 import { shouldShowWebhookSignatureNotice } from '@/utils/webhook/signatureNotice'
 import { Alert } from '@polar-sh/orbit'
 
-const DOCS_HREF = 'https://polar.sh/docs/integrate/webhooks/delivery'
+const DOCS_HREF = 'https://repalis.com/docs/integrate/webhooks/delivery'
 
 export const WebhookSignatureNotice = ({
   organizationCreatedAt,

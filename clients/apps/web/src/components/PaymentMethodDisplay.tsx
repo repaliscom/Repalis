@@ -73,7 +73,7 @@ export const PaymentMethodDisplay = ({
         <CreditCardBrandIcon
           width="3.5em"
           brand={card.brand ?? 'unknown'}
-          className="dark:border-polar-700 rounded-lg border border-gray-200"
+          className="dark:border-repalis-700 rounded-lg border border-gray-200"
         />
         <Box flexDirection="column">
           <Text>{`${label}${card.last4 ? ` •••• ${card.last4}` : ''}`}</Text>

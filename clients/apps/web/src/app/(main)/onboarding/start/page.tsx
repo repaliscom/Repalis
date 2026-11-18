@@ -58,14 +58,14 @@ export default function Page() {
       >
         <Link
           href="/dashboard/account/preferences"
-          className="dark:hover:text-polar-200 text-sm hover:text-gray-900"
+          className="dark:hover:text-repalis-200 text-sm hover:text-gray-900"
         >
           User settings
         </Link>
         <button
           type="button"
           onClick={logout}
-          className="dark:hover:text-polar-200 cursor-pointer text-sm hover:text-gray-900"
+          className="dark:hover:text-repalis-200 cursor-pointer text-sm hover:text-gray-900"
         >
           Log out
         </button>
@@ -88,7 +88,7 @@ export default function Page() {
           <h1 className="text-2xl font-medium text-gray-900 dark:text-white">
             Welcome to Polar
           </h1>
-          <p className="dark:text-polar-400 text-gray-500">
+          <p className="dark:text-repalis-400 text-gray-500">
             What are you looking to do?
           </p>
         </Box>
@@ -117,7 +117,7 @@ export default function Page() {
               <h2 className="text-lg font-medium text-gray-900 dark:text-white">
                 I&apos;m just exploring
               </h2>
-              <p className="dark:text-polar-400 text-sm text-gray-500">
+              <p className="dark:text-repalis-400 text-sm text-gray-500">
                 Jump into a sandbox environment with test data and mock
                 payments. No real money, no setup required.
               </p>
@@ -144,7 +144,7 @@ export default function Page() {
               <h2 className="text-lg font-medium text-gray-900 dark:text-white">
                 I&apos;m setting up my business
               </h2>
-              <p className="dark:text-polar-400 text-sm text-gray-500">
+              <p className="dark:text-repalis-400 text-sm text-gray-500">
                 Set up your organization and start accepting payments.
               </p>
             </Box>

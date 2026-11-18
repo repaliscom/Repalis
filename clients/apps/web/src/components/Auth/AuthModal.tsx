@@ -21,7 +21,7 @@ export const AuthModal = ({ returnTo, signup }: AuthModalProps) => {
         {isSignup && (
           <div className="flex flex-col gap-y-1">
             <h1 className="text-xl font-medium">Welcome to Polar</h1>
-            <p className="dark:text-polar-500 text-sm text-gray-500">
+            <p className="dark:text-repalis-500 text-sm text-gray-500">
               A billing platform for the intelligence era.
             </p>
           </div>

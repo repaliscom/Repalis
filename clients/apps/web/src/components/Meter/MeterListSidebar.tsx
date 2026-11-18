@@ -90,7 +90,7 @@ export const MeterListSidebar: React.FC<MeterListSidebarProps> = ({
   }, [inViewport, hasNextPage, isFetchingNextPage, fetchNextPage])
 
   return (
-    <div className="dark:divide-polar-800 flex h-full flex-col divide-y divide-gray-200">
+    <div className="dark:divide-repalis-800 flex h-full flex-col divide-y divide-gray-200">
       <div className="flex flex-row items-center justify-between gap-6 px-4 py-4">
         <div>Meters</div>
         <div className="flex flex-row items-center gap-4">
@@ -158,10 +158,10 @@ export const MeterListSidebar: React.FC<MeterListSidebarProps> = ({
         </div>
       </div>
       <div className="flex flex-row items-center gap-3 px-4 py-2">
-        <div className="dark:bg-polar-800 flex h-8 w-8 items-center justify-center rounded-full bg-gray-100">
+        <div className="dark:bg-repalis-800 flex h-8 w-8 items-center justify-center rounded-full bg-gray-100">
           <Search
             fontSize="inherit"
-            className="dark:text-polar-500 text-gray-500"
+            className="dark:text-repalis-500 text-gray-500"
           />
         </div>
         <Input
@@ -171,7 +171,7 @@ export const MeterListSidebar: React.FC<MeterListSidebarProps> = ({
           onChange={(e) => setQuery(e.target.value)}
         />
       </div>
-      <div className="dark:divide-polar-800 flex h-full grow flex-col divide-y divide-gray-50 overflow-y-auto">
+      <div className="dark:divide-repalis-800 flex h-full grow flex-col divide-y divide-gray-50 overflow-y-auto">
         {meters.map((meter) => {
           const queryString = searchParams.toString()
           const meterHref = `/dashboard/${organization.slug}/products/meters/${meter.id}${queryString ? `?${queryString}` : ''}`
@@ -181,8 +181,8 @@ export const MeterListSidebar: React.FC<MeterListSidebarProps> = ({
               key={meter.id}
               href={meterHref}
               className={twMerge(
-                'dark:hover:bg-polar-800 cursor-pointer hover:bg-gray-100',
-                selectedMeterId === meter.id && 'dark:bg-polar-800 bg-gray-100',
+                'dark:hover:bg-repalis-800 cursor-pointer hover:bg-gray-100',
+                selectedMeterId === meter.id && 'dark:bg-repalis-800 bg-gray-100',
               )}
             >
               <div className="flex min-w-0 flex-col gap-y-1 px-6 py-2">
@@ -193,7 +193,7 @@ export const MeterListSidebar: React.FC<MeterListSidebarProps> = ({
 
                   <div className="truncate text-sm">{meter.name}</div>
                 </div>
-                <div className="dark:text-polar-500 w-full truncate text-xs text-gray-500 capitalize">
+                <div className="dark:text-repalis-500 w-full truncate text-xs text-gray-500 capitalize">
                   {METER_UNIT_DISPLAY_NAMES[meter.unit]}
                 </div>
               </div>

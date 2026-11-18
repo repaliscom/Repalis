@@ -185,7 +185,7 @@ export const QuestionFlow = ({
         )}
         {isStreaming && (
           <Box alignItems="center" columnGap="s" color="text-tertiary">
-            <span className="dark:bg-polar-400 h-2 w-2 animate-pulse rounded-full bg-gray-400" />
+            <span className="dark:bg-repalis-400 h-2 w-2 animate-pulse rounded-full bg-gray-400" />
             <span className="text-sm">{streamingStatus}</span>
           </Box>
         )}

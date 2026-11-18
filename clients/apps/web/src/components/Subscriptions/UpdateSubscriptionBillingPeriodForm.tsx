@@ -73,10 +73,10 @@ export const UpdateSubscriptionBillingPeriodForm = ({
   )
 
   return (
-    <div className="dark:bg-polar-800 flex flex-col gap-y-4 rounded-2xl bg-gray-50 p-6">
+    <div className="dark:bg-repalis-800 flex flex-col gap-y-4 rounded-2xl bg-gray-50 p-6">
       <div className="flex flex-col gap-y-2">
         <h3 className="text-lg font-medium">Update Billing Period</h3>
-        <p className="dark:text-polar-500 mt-1 text-sm text-gray-500">
+        <p className="dark:text-repalis-500 mt-1 text-sm text-gray-500">
           Extend the current billing period by setting a new end date in the
           future. This is useful for providing additional free subscription time
           to a customer.

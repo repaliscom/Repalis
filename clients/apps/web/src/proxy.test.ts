@@ -382,20 +382,20 @@ describe('middleware function', () => {
 
 describe('the /to/ dance', () => {
   it('bounces /to/* to the sandbox host when polar_env cookie does not match the current env', async () => {
-    const request = new NextRequest('https://polar.sh/to/dashboard/products')
+    const request = new NextRequest('https://repalis.com/to/dashboard/products')
     request.cookies.set('polar_env', 'sandbox')
 
     const response = await proxy(request)
 
     expect(response.status).toBe(307)
     expect(response.headers.get('location')).toBe(
-      'https://sandbox.polar.sh/to/dashboard/products',
+      'https://sandbox.repalis.com/to/dashboard/products',
     )
   })
 
   it('preserves query string when bouncing /to/*', async () => {
     const request = new NextRequest(
-      'https://polar.sh/to/dashboard/products?foo=bar',
+      'https://repalis.com/to/dashboard/products?foo=bar',
     )
     request.cookies.set('polar_env', 'sandbox')
 
@@ -403,12 +403,12 @@ describe('the /to/ dance', () => {
 
     expect(response.status).toBe(307)
     expect(response.headers.get('location')).toBe(
-      'https://sandbox.polar.sh/to/dashboard/products?foo=bar',
+      'https://sandbox.repalis.com/to/dashboard/products?foo=bar',
     )
   })
 
   it('does not bounce when polar_env cookie matches the current env', async () => {
-    const request = new NextRequest('https://polar.sh/to/dashboard/products')
+    const request = new NextRequest('https://repalis.com/to/dashboard/products')
     request.cookies.set('polar_env', 'production')
 
     const response = await proxy(request)
@@ -418,7 +418,7 @@ describe('the /to/ dance', () => {
   })
 
   it('ignores invalid polar_env cookie values', async () => {
-    const request = new NextRequest('https://polar.sh/to/dashboard/products')
+    const request = new NextRequest('https://repalis.com/to/dashboard/products')
     request.cookies.set('polar_env', 'narnia')
 
     const response = await proxy(request)
@@ -428,7 +428,7 @@ describe('the /to/ dance', () => {
   })
 
   it('does not bounce non-/to/ paths even with a mismatching cookie', async () => {
-    const request = new NextRequest('https://polar.sh/dashboard')
+    const request = new NextRequest('https://repalis.com/dashboard')
     request.cookies.set('polar_env', 'sandbox')
 
     const response = await proxy(request)
@@ -463,7 +463,7 @@ describe('checkout frame ancestors', () => {
 
   it('asks for the policy of a framed checkout', async () => {
     const response = await proxy(
-      framedRequest('https://polar.sh/checkout/polar_c_123'),
+      framedRequest('https://repalis.com/checkout/polar_c_123'),
     )
 
     expect(response.status).toBe(200)
@@ -479,7 +479,7 @@ describe('checkout frame ancestors', () => {
 
   it('resolves the same secret on the confirmation page', async () => {
     await proxy(
-      framedRequest('https://polar.sh/checkout/polar_c_123/confirmation'),
+      framedRequest('https://repalis.com/checkout/polar_c_123/confirmation'),
     )
 
     expect(mockFetch.mock.calls[0][0]).toContain(
@@ -496,7 +496,7 @@ describe('checkout frame ancestors', () => {
     })
 
     const response = await proxy(
-      framedRequest('https://polar.sh/checkout/polar_c_123'),
+      framedRequest('https://repalis.com/checkout/polar_c_123'),
     )
 
     const policy = response.headers.get('Content-Security-Policy')
@@ -507,7 +507,7 @@ describe('checkout frame ancestors', () => {
   })
 
   it('asks nothing on a top-level navigation, and refuses framing', async () => {
-    const request = new NextRequest('https://polar.sh/checkout/polar_c_123', {
+    const request = new NextRequest('https://repalis.com/checkout/polar_c_123', {
       headers: { 'Sec-Fetch-Dest': 'document' },
     })
 
@@ -520,7 +520,7 @@ describe('checkout frame ancestors', () => {
   })
 
   it('leaves other pages to the static policy', async () => {
-    const response = await proxy(framedRequest('https://polar.sh/acme'))
+    const response = await proxy(framedRequest('https://repalis.com/acme'))
 
     expect(response.headers.get('Content-Security-Policy')).toBeNull()
   })
@@ -529,7 +529,7 @@ describe('checkout frame ancestors', () => {
     'asks for every destination that can hold a document: %s',
     async (destination) => {
       await proxy(
-        new NextRequest('https://polar.sh/checkout/polar_c_123', {
+        new NextRequest('https://repalis.com/checkout/polar_c_123', {
           headers: { 'Sec-Fetch-Dest': destination },
         }),
       )
@@ -539,13 +539,13 @@ describe('checkout frame ancestors', () => {
   )
 
   it('asks when the browser sends no fetch destination', async () => {
-    await proxy(new NextRequest('https://polar.sh/checkout/polar_c_123'))
+    await proxy(new NextRequest('https://repalis.com/checkout/polar_c_123'))
 
     expect(mockFetch).toHaveBeenCalledOnce()
   })
 
   it('asks nothing outside checkout', async () => {
-    await proxy(framedRequest('https://polar.sh/acme'))
+    await proxy(framedRequest('https://repalis.com/acme'))
 
     expect(mockFetch).not.toHaveBeenCalled()
   })
@@ -554,7 +554,7 @@ describe('checkout frame ancestors', () => {
     mockFetch.mockRejectedValue(new Error('unreachable'))
 
     const response = await proxy(
-      framedRequest('https://polar.sh/checkout/polar_c_123'),
+      framedRequest('https://repalis.com/checkout/polar_c_123'),
     )
 
     expect(response.status).toBe(200)
@@ -583,7 +583,7 @@ describe('payment method embed policy', () => {
   })
 
   const EMBED_URL =
-    'https://polar.sh/embed/payment-method?session_token=polar_cst_123&embed_origin=https%3A%2F%2Fexample.com'
+    'https://repalis.com/embed/payment-method?session_token=polar_cst_123&embed_origin=https%3A%2F%2Fexample.com'
 
   const framedRequest = (url: string, headers: Record<string, string> = {}) =>
     new NextRequest(url, {
@@ -652,7 +652,7 @@ describe('payment method embed policy', () => {
   it('lets Polar embed itself without asking for the policy', async () => {
     const response = await proxy(
       framedRequest(
-        'https://polar.sh/embed/payment-method?session_token=polar_cst_123&embed_origin=https%3A%2F%2Fpolar.sh',
+        'https://repalis.com/embed/payment-method?session_token=polar_cst_123&embed_origin=https%3A%2F%2Fpolar.sh',
       ),
     )
 
@@ -661,7 +661,7 @@ describe('payment method embed policy', () => {
       "frame-ancestors 'self';",
     )
     expect(getForwardedRequestHeader(response, 'x-polar-embed-origin')).toBe(
-      'https://polar.sh',
+      'https://repalis.com',
     )
   })
 
@@ -681,7 +681,7 @@ describe('payment method embed policy', () => {
 
   it('refuses framing without a session token', async () => {
     const response = await proxy(
-      framedRequest('https://polar.sh/embed/payment-method'),
+      framedRequest('https://repalis.com/embed/payment-method'),
     )
 
     expect(mockFetch).not.toHaveBeenCalled()

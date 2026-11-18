@@ -5,6 +5,6 @@ export const LoadingBox = (props: BoxProps) => (
     display="block"
     {...props}
     // oxlint-disable-next-line polar/no-classname-box
-    className="dark:bg-polar-700 animate-pulse bg-gray-100"
+    className="dark:bg-repalis-700 animate-pulse bg-gray-100"
   />
 )

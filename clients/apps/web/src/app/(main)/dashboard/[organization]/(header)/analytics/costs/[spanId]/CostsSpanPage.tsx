@@ -212,7 +212,7 @@ export default function SpanDetailPage({
     <div className="flex flex-col gap-y-8">
       <div className="flex flex-row items-center justify-between gap-y-4">
         <div className="flex flex-col gap-y-2">
-          <span className="dark:text-polar-500 text-lg text-gray-500">
+          <span className="dark:text-repalis-500 text-lg text-gray-500">
             Event Span
           </span>
           <h3 className="text-2xl font-medium whitespace-nowrap dark:text-white">
@@ -254,7 +254,7 @@ export default function SpanDetailPage({
             </Grid>
 
             {chartData.length > 0 && (
-              <div className="dark:border-polar-700 rounded-xl border border-gray-200 p-2">
+              <div className="dark:border-repalis-700 rounded-xl border border-gray-200 p-2">
                 <CostsBandedChart
                   data={chartData}
                   xAxisFormatter={(value) => timestampFormatter(value)}
@@ -286,7 +286,7 @@ export default function SpanDetailPage({
 
         <TabsContent value="metrics">
           {chartData.length > 0 ? (
-            <div className="dark:bg-polar-700 rounded-3xl bg-gray-50 p-2">
+            <div className="dark:bg-repalis-700 rounded-3xl bg-gray-50 p-2">
               <div className="px-3 pt-2 pb-4">
                 <h3 className="text-lg font-medium">Occurrences</h3>
               </div>
@@ -320,9 +320,9 @@ export default function SpanDetailPage({
               />
             </div>
           ) : (
-            <div className="dark:border-polar-700 fl ex min-h-96 w-full flex-col items-center justify-center gap-4 rounded-4xl border border-gray-200 p-24">
+            <div className="dark:border-repalis-700 fl ex min-h-96 w-full flex-col items-center justify-center gap-4 rounded-4xl border border-gray-200 p-24">
               <h1 className="text-2xl">No data</h1>
-              <p className="dark:text-polar-500 text-gray-500">
+              <p className="dark:text-repalis-500 text-gray-500">
                 No metrics available for this period
               </p>
             </div>

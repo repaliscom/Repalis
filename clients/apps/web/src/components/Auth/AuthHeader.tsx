@@ -11,7 +11,7 @@ const AuthHeader = ({ error }: { error?: string }) => {
             ? 'Welcome to the Polar Sandbox'
             : 'Welcome to Polar'}
         </h2>
-        <span className="dark:text-polar-400 text-lg text-balance text-gray-500">
+        <span className="dark:text-repalis-400 text-lg text-balance text-gray-500">
           {CONFIG.IS_SANDBOX ? (
             <>
               This is a testing environment. Changes here won&rsquo;t affect

@@ -69,7 +69,7 @@ const AIValidationResult = ({
         message:
           'Technical error during validation. A manual review will be conducted.',
         icon: (
-          <CircleAlertIcon className="dark:text-polar-400 h-4 w-4 text-gray-500" />
+          <CircleAlertIcon className="dark:text-repalis-400 h-4 w-4 text-gray-500" />
         ),
       }
     }
@@ -86,7 +86,7 @@ const AIValidationResult = ({
         title: 'Payment access denied',
         message: 'Your organization does not meet our acceptable use policy.',
         icon: (
-          <CircleAlertIcon className="dark:text-polar-400 -mt-0.5 h-4 w-4 text-gray-500" />
+          <CircleAlertIcon className="dark:text-repalis-400 -mt-0.5 h-4 w-4 text-gray-500" />
         ),
       }
     }
@@ -99,7 +99,7 @@ const AIValidationResult = ({
           message:
             'Your organization details have been automatically validated. You can accept payments immediately. A manual review will still take place, and any payout you request in the meantime will be paid out automatically once the review is complete.',
           icon: (
-            <CheckCircleIcon className="dark:text-polar-400 -mt-0.5 h-4 w-4 text-gray-500" />
+            <CheckCircleIcon className="dark:text-repalis-400 -mt-0.5 h-4 w-4 text-gray-500" />
           ),
         }
       case 'UNCERTAIN':
@@ -109,7 +109,7 @@ const AIValidationResult = ({
           message:
             'We were unable to automatically verify your organization. You can submit an appeal to expedite the manual review process.',
           icon: (
-            <CircleAlertIcon className="dark:text-polar-400 h-4 w-4 text-gray-500" />
+            <CircleAlertIcon className="dark:text-repalis-400 h-4 w-4 text-gray-500" />
           ),
         }
       default:
@@ -126,19 +126,19 @@ const AIValidationResult = ({
     !(organization.status === 'denied' && reviewStatus.data?.verdict === 'PASS')
 
   return (
-    <div className="dark:bg-polar-800 rounded-2xl border bg-white">
+    <div className="dark:bg-repalis-800 rounded-2xl border bg-white">
       <div className="p-8 text-center">
-        <span className="dark:bg-polar-700 mb-3 inline-flex h-8 w-8 items-center justify-center rounded-full bg-gray-100">
+        <span className="dark:bg-repalis-700 mb-3 inline-flex h-8 w-8 items-center justify-center rounded-full bg-gray-100">
           {status.icon}
         </span>
         <h4 className="mb-2 font-medium">{status.title}</h4>
-        <p className="dark:text-polar-400 mx-auto max-w-2xs text-sm text-pretty text-gray-600">
+        <p className="dark:text-repalis-400 mx-auto max-w-2xs text-sm text-pretty text-gray-600">
           {status.message}
         </p>
       </div>
 
       {showAppeal && (
-        <div className="dark:border-polar-700 dark:bg-polar-900 rounded-b-2xl border-t bg-gray-50 p-8 text-left">
+        <div className="dark:border-repalis-700 dark:bg-repalis-900 rounded-b-2xl border-t bg-gray-50 p-8 text-left">
           <AppealForm
             organization={organization}
             reason={reviewStatus.data?.reason}

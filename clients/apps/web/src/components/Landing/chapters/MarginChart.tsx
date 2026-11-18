@@ -111,7 +111,7 @@ export const MarginChart = ({ series }: { series: MarginPoint[] }) => {
             x2={W - PAD.right}
             y1={PAD.top + innerH * (1 - g)}
             y2={PAD.top + innerH * (1 - g)}
-            className="dark:stroke-polar-800 stroke-gray-200"
+            className="dark:stroke-repalis-800 stroke-gray-200"
             strokeWidth={1}
             strokeDasharray="2 4"
           />
@@ -121,7 +121,7 @@ export const MarginChart = ({ series }: { series: MarginPoint[] }) => {
           x2={W - PAD.right}
           y1={PAD.top + innerH}
           y2={PAD.top + innerH}
-          className="dark:stroke-polar-700 stroke-gray-300"
+          className="dark:stroke-repalis-700 stroke-gray-300"
           strokeWidth={1}
         />
         <g
@@ -132,7 +132,7 @@ export const MarginChart = ({ series }: { series: MarginPoint[] }) => {
           <path
             d={cost}
             fill="none"
-            className="dark:stroke-polar-500 stroke-gray-400"
+            className="dark:stroke-repalis-500 stroke-gray-400"
             strokeWidth={1.5}
             strokeDasharray="3 3"
             strokeLinejoin="round"
@@ -155,7 +155,7 @@ export const MarginChart = ({ series }: { series: MarginPoint[] }) => {
             cx={x(CHART_POINTS - 1)}
             cy={y(costValues[CHART_POINTS - 1])}
             r={3}
-            className="dark:fill-polar-500 fill-gray-400"
+            className="dark:fill-repalis-500 fill-gray-400"
           />
         </g>
       </svg>
@@ -168,7 +168,7 @@ export const MarginChart = ({ series }: { series: MarginPoint[] }) => {
             </Text>
           </Box>
           <Box alignItems="center" columnGap="s">
-            <div className="dark:border-polar-500 w-4 border-t border-dashed border-gray-400" />
+            <div className="dark:border-repalis-500 w-4 border-t border-dashed border-gray-400" />
             <Text variant="caption" color="muted">
               Cost {last ? dollars(last.cost, 2) : ''}
             </Text>

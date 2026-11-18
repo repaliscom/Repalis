@@ -332,7 +332,7 @@ export default function ChangePlanPage({
         <Box flexDirection="column" rowGap="l">
           <Link
             href={billingHref}
-            className="dark:text-polar-400 dark:hover:text-polar-200 inline-flex w-fit items-center gap-x-1 text-sm text-gray-500 hover:text-gray-700"
+            className="dark:text-repalis-400 dark:hover:text-repalis-200 inline-flex w-fit items-center gap-x-1 text-sm text-gray-500 hover:text-gray-700"
           >
             <ArrowBackOutlined fontSize="inherit" />
             <span>Back to Billing</span>

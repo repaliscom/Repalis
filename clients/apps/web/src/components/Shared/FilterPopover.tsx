@@ -56,7 +56,7 @@ export interface MultiFilter extends FilterBase {
 export type Filter = SingleFilter | MultiFilter
 
 const itemClassName =
-  "gap-3 rounded-lg px-3 py-3 text-black data-[selected='true']:bg-transparent data-[selected=true]:text-black hover:bg-gray-100 active:bg-gray-100 dark:text-white dark:data-[selected=true]:text-white dark:hover:bg-polar-600 dark:active:bg-polar-600"
+  "gap-3 rounded-lg px-3 py-3 text-black data-[selected='true']:bg-transparent data-[selected=true]:text-black hover:bg-gray-100 active:bg-gray-100 dark:text-white dark:data-[selected=true]:text-white dark:hover:bg-repalis-600 dark:active:bg-repalis-600"
 
 const crossfadeClassName = (hidden: boolean): string =>
   twMerge(
@@ -211,7 +211,7 @@ const FilterPopover: React.FC<FilterPopoverProps> = ({
         </Button>
       </PopoverTrigger>
       <PopoverContent
-        className="dark:border-polar-600 dark:bg-polar-700 min-w-72 overflow-hidden rounded-2xl p-0"
+        className="dark:border-repalis-600 dark:bg-repalis-700 min-w-72 overflow-hidden rounded-2xl p-0"
         style={{ width: 'var(--radix-popover-trigger-width)' }}
         side="bottom"
         align="start"
@@ -291,7 +291,7 @@ const FilterPopover: React.FC<FilterPopoverProps> = ({
                 )}
               </Box>
               <CommandSeparator
-                className="dark:bg-polar-600 mx-0"
+                className="dark:bg-repalis-600 mx-0"
                 alwaysRender
               />
             </>
@@ -370,7 +370,7 @@ const FilterPopover: React.FC<FilterPopoverProps> = ({
                 </CommandGroup>
                 {activeCount > 0 && (
                   <>
-                    <CommandSeparator className="dark:bg-polar-600" />
+                    <CommandSeparator className="dark:bg-repalis-600" />
                     <CommandGroup>
                       <CommandItem
                         onSelect={clearAll}

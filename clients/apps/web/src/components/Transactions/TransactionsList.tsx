@@ -123,13 +123,13 @@ const TransactionsList = ({
             paymentTransaction.presentment_currency !== transaction.currency ? (
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <span className="dark:decoration-polar-500 underline decoration-gray-400 decoration-dashed decoration-1 underline-offset-4">
+                  <span className="dark:decoration-repalis-500 underline decoration-gray-400 decoration-dashed decoration-1 underline-offset-4">
                     {formatCurrency('accounting')(amount, transaction.currency)}
                   </span>
                 </TooltipTrigger>
                 <TooltipContent className="flex flex-col gap-1.5">
                   <div className="flex justify-between gap-6">
-                    <span className="dark:text-polar-400 text-gray-500">
+                    <span className="dark:text-repalis-400 text-gray-500">
                       Presentment amount
                     </span>
                     <span>
@@ -142,7 +142,7 @@ const TransactionsList = ({
                     </span>
                   </div>
                   <div className="flex justify-between gap-6">
-                    <span className="dark:text-polar-400 text-gray-500 uppercase">
+                    <span className="dark:text-repalis-400 text-gray-500 uppercase">
                       FX (
                       {paymentTransaction.presentment_currency ??
                         paymentTransaction.currency}{' '}
@@ -219,7 +219,7 @@ const TransactionsList = ({
             paymentTransaction.presentment_currency !== transaction.currency ? (
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <span className="dark:decoration-polar-500 underline decoration-gray-400 decoration-dashed decoration-1 underline-offset-4">
+                  <span className="dark:decoration-repalis-500 underline decoration-gray-400 decoration-dashed decoration-1 underline-offset-4">
                     {formatCurrency('accounting')(
                       -paymentTransaction.tax_amount,
                       transaction.currency,
@@ -228,7 +228,7 @@ const TransactionsList = ({
                 </TooltipTrigger>
                 <TooltipContent className="flex flex-col gap-1.5">
                   <div className="flex justify-between gap-6">
-                    <span className="dark:text-polar-400 text-gray-500">
+                    <span className="dark:text-repalis-400 text-gray-500">
                       Presentment amount
                     </span>
                     <span>
@@ -240,7 +240,7 @@ const TransactionsList = ({
                     </span>
                   </div>
                   <div className="flex justify-between gap-6">
-                    <span className="dark:text-polar-400 text-gray-500 uppercase">
+                    <span className="dark:text-repalis-400 text-gray-500 uppercase">
                       FX (
                       {paymentTransaction.presentment_currency ??
                         paymentTransaction.currency}{' '}

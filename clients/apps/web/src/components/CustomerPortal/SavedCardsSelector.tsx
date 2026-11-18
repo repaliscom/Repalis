@@ -84,7 +84,7 @@ export const SavedCardsSelector = ({
                   <CreditCardBrandIcon
                     width="2.5em"
                     brand={card?.brand ?? 'unknown'}
-                    className="dark:border-polar-700 shrink-0 rounded-sm border border-gray-200"
+                    className="dark:border-repalis-700 shrink-0 rounded-sm border border-gray-200"
                   />
                   {`${label}${card?.last4 ? ` •••• ${card.last4}` : ''}`}
                 </Box>

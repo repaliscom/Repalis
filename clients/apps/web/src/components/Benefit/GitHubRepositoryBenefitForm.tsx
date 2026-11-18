@@ -296,7 +296,7 @@ export const GitHubRepositoryBenefitForm = ({
                           <span className="text-muted-foreground">
                             {r.repository_owner}
                           </span>
-                          <span className="text-polar-500">/</span>
+                          <span className="text-repalis-500">/</span>
                           <span className="font-medium">
                             {r.repository_name}
                           </span>

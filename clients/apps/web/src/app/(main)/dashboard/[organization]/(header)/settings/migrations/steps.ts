@@ -55,9 +55,9 @@ export const MIGRATION_STEPS: MigrationStepDef[] = [
     key: 'cutover',
     short: 'Switch',
     owner: 'polar',
-    title: 'Switch billing to Polar',
+    title: 'Switch billing to Repalis',
     description:
-      'Polar creates and activates the subscriptions you pick, then stops them on Stripe.',
+      'Repalis creates and activates the subscriptions you pick, then stops them on Stripe.',
     steps: ['activate_subscriptions'],
   },
 ]

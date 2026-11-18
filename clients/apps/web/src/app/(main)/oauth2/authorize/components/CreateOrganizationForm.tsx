@@ -112,7 +112,7 @@ const CreateOrganizationForm = ({
         gap="l"
         marginBottom={{ base: 'none', lg: 'xl' }}
       >
-        <div className="dark:bg-polar-800 dark:border-polar-700 flex flex-col gap-y-4 rounded-2xl border border-gray-200 bg-white p-6">
+        <div className="dark:bg-repalis-800 dark:border-repalis-700 flex flex-col gap-y-4 rounded-2xl border border-gray-200 bg-white p-6">
           <FormField
             control={control}
             name="name"
@@ -186,11 +186,11 @@ const CreateOrganizationForm = ({
           />
         </div>
 
-        <div className="dark:bg-polar-800 dark:border-polar-700 flex flex-col gap-y-4 rounded-2xl border border-gray-200 bg-white p-6">
+        <div className="dark:bg-repalis-800 dark:border-repalis-700 flex flex-col gap-y-4 rounded-2xl border border-gray-200 bg-white p-6">
           <SupportedUseCases />
         </div>
 
-        <div className="dark:bg-polar-800 dark:border-polar-700 flex flex-col rounded-2xl border border-gray-200 bg-white p-6">
+        <div className="dark:bg-repalis-800 dark:border-repalis-700 flex flex-col rounded-2xl border border-gray-200 bg-white p-6">
           <FormField
             control={control}
             name="terms"
@@ -214,10 +214,10 @@ const CreateOrganizationForm = ({
                       I understand the restrictions above and agree to
                       Polar&rsquo;s terms
                     </label>
-                    <ul className="dark:text-polar-400 flex flex-col gap-y-1 text-sm text-gray-500">
+                    <ul className="dark:text-repalis-400 flex flex-col gap-y-1 text-sm text-gray-500">
                       <li>
                         <a
-                          href="https://polar.sh/docs/merchant-of-record/account-reviews"
+                          href="https://repalis.com/docs/merchant-of-record/account-reviews"
                           className="text-blue-600 hover:underline dark:text-blue-400"
                           target="_blank"
                           rel="noopener noreferrer"
@@ -229,7 +229,7 @@ const CreateOrganizationForm = ({
                       </li>
                       <li>
                         <a
-                          href="https://polar.sh/legal/master-services-terms"
+                          href="https://repalis.com/legal/master-services-terms"
                           className="text-blue-600 hover:underline dark:text-blue-400"
                           target="_blank"
                           rel="noopener noreferrer"
@@ -239,7 +239,7 @@ const CreateOrganizationForm = ({
                       </li>
                       <li>
                         <a
-                          href="https://polar.sh/legal/privacy-policy"
+                          href="https://repalis.com/legal/privacy-policy"
                           className="text-blue-600 hover:underline dark:text-blue-400"
                           target="_blank"
                           rel="noopener noreferrer"

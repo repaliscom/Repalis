@@ -238,7 +238,7 @@ const Checkout = ({
 
   if (embed) {
     return (
-      <ShadowBox className="dark:md:bg-polar-900 flex flex-col gap-y-12 divide-gray-200 overflow-hidden rounded-3xl md:bg-white dark:divide-transparent">
+      <ShadowBox className="dark:md:bg-repalis-900 flex flex-col gap-y-12 divide-gray-200 overflow-hidden rounded-3xl md:bg-white dark:divide-transparent">
         {shouldBlockCheckout && (
           <PaymentNotReadyBanner
             organizationId={checkout.organization.id}
@@ -305,7 +305,7 @@ const Checkout = ({
                   checkout.active_trial_interval_count && (
                     <>
                       <CheckoutHeroPrice checkout={checkout} locale={locale} />
-                      <hr className="dark:border-polar-700 border-gray-200" />
+                      <hr className="dark:border-repalis-700 border-gray-200" />
                     </>
                   )}
                 <CheckoutPricingBreakdown checkout={checkout} locale={locale} />
@@ -327,7 +327,7 @@ const Checkout = ({
       {checkout.return_url && (
         <Link
           href={checkout.return_url}
-          className="dark:text-polar-500 text-gray-600"
+          className="dark:text-repalis-500 text-gray-600"
         >
           <ArrowLeft size={20} className="rtl:-scale-x-100" />
         </Link>
@@ -373,7 +373,7 @@ const Checkout = ({
           )}
         </div>
       </div>
-      <div className="dark:md:bg-polar-900 md:bg-white">
+      <div className="dark:md:bg-repalis-900 md:bg-white">
         <div className="mx-auto flex w-full max-w-[480px] flex-col gap-y-8 px-4 py-6 md:mx-0 md:py-12 md:ps-12 md:pe-4">
           {shouldBlockCheckout && (
             <PaymentNotReadyBanner

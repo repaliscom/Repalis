@@ -85,7 +85,7 @@ const RelatedEventRow = ({
 }) => (
   <button
     type="button"
-    className="group dark:hover:bg-polar-800/50 -mx-4 cursor-pointer px-4 text-left hover:bg-gray-50"
+    className="group dark:hover:bg-repalis-800/50 -mx-4 cursor-pointer px-4 text-left hover:bg-gray-50"
     onClick={onSelect}
   >
     <Box justifyContent="between" gap="s" minHeight={32} alignItems="center">
@@ -101,7 +101,7 @@ const RelatedEventRow = ({
         <Text color="muted" tabularNums>
           {eventCost(event) ?? ''}
         </Text>
-        <ChevronRight className="dark:text-polar-500 h-3.5 w-3.5 text-gray-400 opacity-0 group-hover:opacity-100" />
+        <ChevronRight className="dark:text-repalis-500 h-3.5 w-3.5 text-gray-400 opacity-0 group-hover:opacity-100" />
       </Box>
     </Box>
   </button>
@@ -243,7 +243,7 @@ const EventDetails = ({
             />
           }
         >
-          <div className="dark:bg-polar-800 overflow-x-auto rounded-lg bg-gray-50 p-3 font-mono text-xs leading-5 [&_pre]:bg-transparent!">
+          <div className="dark:bg-repalis-800 overflow-x-auto rounded-lg bg-gray-50 p-3 font-mono text-xs leading-5 [&_pre]:bg-transparent!">
             <SyntaxHighlighterProvider>
               <SyntaxHighlighterClient
                 lang="javascript"
@@ -297,7 +297,7 @@ export const EventDetailPanel = ({
   const { data: event, isError } = useEvent(organization.id, eventId)
 
   return (
-    <div className="dark:bg-polar-900 dark:border-polar-800 fixed inset-0 z-50 flex flex-col overflow-y-auto bg-white lg:static lg:z-auto lg:w-[400px] lg:shrink-0 lg:rounded-2xl lg:border lg:border-gray-200 lg:shadow-xs">
+    <div className="dark:bg-repalis-900 dark:border-repalis-800 fixed inset-0 z-50 flex flex-col overflow-y-auto bg-white lg:static lg:z-auto lg:w-[400px] lg:shrink-0 lg:rounded-2xl lg:border lg:border-gray-200 lg:shadow-xs">
       <Box
         alignItems="center"
         justifyContent="between"

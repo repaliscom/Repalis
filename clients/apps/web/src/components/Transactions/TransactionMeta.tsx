@@ -54,7 +54,7 @@ const TransactionMeta: React.FC<TransactionMetaProps> = ({ transaction }) => {
               {'product' in transactionMeta.meta &&
                 transactionMeta.meta.product && (
                   <TooltipTrigger asChild>
-                    <span className="dark:text-polar-500 min-w-0 truncate text-sm text-gray-500">
+                    <span className="dark:text-repalis-500 min-w-0 truncate text-sm text-gray-500">
                       {transactionMeta.meta.product.name}
                     </span>
                   </TooltipTrigger>

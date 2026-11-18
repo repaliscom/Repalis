@@ -115,7 +115,7 @@ export default function CostsSidebarFilters({
     <div
       className={twMerge(
         'flex flex-col gap-y-6 overflow-y-auto px-4 pt-2 pb-4',
-        hasScrolled && 'dark:border-polar-700 border-t border-gray-200',
+        hasScrolled && 'dark:border-repalis-700 border-t border-gray-200',
       )}
       onScroll={handleScroll}
     >
@@ -204,7 +204,7 @@ function EventStatisticsCard({
         <h2 className="text-sm font-medium">
           {eventStatistics.label ?? eventStatistics.name}
         </h2>
-        <div className="dark:text-polar-500 flex max-w-sm items-center gap-4 font-mono text-gray-500">
+        <div className="dark:text-repalis-500 flex max-w-sm items-center gap-4 font-mono text-gray-500">
           <div className="flex flex-1 items-center justify-start gap-1.5 text-xs">
             <span>
               {Intl.NumberFormat('en-US').format(eventStatistics.occurrences)}

@@ -12,13 +12,13 @@ export const EventCostCreationGuideModal = () => {
       <div className="flex flex-col gap-8 p-6">
         <div className="flex flex-col gap-y-4">
           <h1 className="text-2xl">Event Cost Ingestion</h1>
-          <p className="dark:text-polar-500 text-gray-500">
+          <p className="dark:text-repalis-500 text-gray-500">
             Associate costs with events by adding a{' '}
             <code className="font-mono text-sm">_cost</code> property to your
             event metadata.
           </p>
         </div>
-        <Well className="dark:bg-polar-800 rounded-lg bg-gray-100 p-4 text-sm">
+        <Well className="dark:bg-repalis-800 rounded-lg bg-gray-100 p-4 text-sm">
           <SyntaxHighlighterClient
             lang="typescript"
             code={`import { Polar } from "@polar-sh/sdk";
@@ -46,7 +46,7 @@ const result = await polar.events.ingest({
         </Well>
         <div className="flex flex-row items-center gap-x-4">
           <a
-            href="https://docs.polar.sh/features/cost-insights/cost-events"
+            href="https://docs.repalis.com/features/cost-insights/cost-events"
             target="_blank"
             rel="noopener noreferrer"
             className="flex flex-row items-center"

@@ -113,7 +113,7 @@ const BenefitForm = ({
             <FormItem>
               <div className="flex flex-row items-center justify-between">
                 <FormLabel>Description</FormLabel>
-                <span className="dark:text-polar-400 text-sm text-gray-400">
+                <span className="dark:text-repalis-400 text-sm text-gray-400">
                   {field.value?.length ?? 0} / 42
                 </span>
               </div>
@@ -178,7 +178,7 @@ const CustomBenefitForm = ({}: CustomBenefitFormProps) => {
           <FormItem>
             <div className="flex flex-row items-center justify-between">
               <FormLabel>Private note</FormLabel>
-              <span className="dark:text-polar-500 text-sm text-gray-500">
+              <span className="dark:text-repalis-500 text-sm text-gray-500">
                 Markdown Format
               </span>
             </div>

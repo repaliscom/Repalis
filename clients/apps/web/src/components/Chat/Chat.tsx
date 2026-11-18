@@ -92,7 +92,7 @@ export const Chat = ({
       )}
     >
       {dropEnabled && isDragging && (
-        <div className="dark:border-polar-600 dark:bg-polar-800/90 dark:text-polar-50 pointer-events-none absolute inset-0 z-10 flex items-center justify-center gap-2 rounded-[inherit] border-2 border-dashed border-gray-300 bg-white/90 text-sm font-medium text-gray-700">
+        <div className="dark:border-repalis-600 dark:bg-repalis-800/90 dark:text-repalis-50 pointer-events-none absolute inset-0 z-10 flex items-center justify-center gap-2 rounded-[inherit] border-2 border-dashed border-gray-300 bg-white/90 text-sm font-medium text-gray-700">
           <Paperclip className="h-4 w-4" />
           Drop to attach
         </div>

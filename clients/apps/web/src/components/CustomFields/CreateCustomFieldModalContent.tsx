@@ -66,7 +66,7 @@ const CreateCustomFieldModalContent = ({
         <h2 className="text-lg">Create Custom Field</h2>
       </InlineModalHeader>
       <div className="flex flex-col gap-y-6 px-8 pb-10">
-        <p className="dark:text-polar-500 text-sm text-gray-500">
+        <p className="dark:text-repalis-500 text-sm text-gray-500">
           Custom Fields allow you to ask additional information from your
           customers at checkout, and will be available for use in all products
           of your organization.

@@ -73,7 +73,7 @@ function SlugPreview({
       gap="xs"
       color="text-tertiary"
     >
-      <Box as="span">polar.sh/</Box>
+      <Box as="span">repalis.com/</Box>
       {editingSlug ? (
         <input
           value={orgSlug}
@@ -90,7 +90,7 @@ function SlugPreview({
             onEditSlug()
           }}
           onBlur={() => setEditingSlug(false)}
-          className="dark:text-polar-300 rounded border-none bg-transparent p-0 text-xs text-gray-600 outline-none"
+          className="dark:text-repalis-300 rounded border-none bg-transparent p-0 text-xs text-gray-600 outline-none"
           style={{ width: `${Math.max(orgSlug.length, 8)}ch` }}
           autoFocus
         />
@@ -98,7 +98,7 @@ function SlugPreview({
         <button
           type="button"
           onClick={() => setEditingSlug(true)}
-          className="dark:text-polar-300 dark:hover:text-polar-200 text-gray-600 underline decoration-dotted hover:text-gray-800"
+          className="dark:text-repalis-300 dark:hover:text-repalis-200 text-gray-600 underline decoration-dotted hover:text-gray-800"
         >
           {orgSlug || 'your-slug'}
         </button>
@@ -174,7 +174,7 @@ export function SandboxFormFields({
                 <p className="cursor-pointer text-sm leading-snug font-medium">
                   I agree to Polar&apos;s{' '}
                   <a
-                    href="https://polar.sh/legal/terms"
+                    href="https://repalis.com/legal/terms"
                     className="text-gray-900 underline dark:text-white"
                     target="_blank"
                     rel="noopener noreferrer"
@@ -183,7 +183,7 @@ export function SandboxFormFields({
                   </a>
                   ,{' '}
                   <a
-                    href="https://polar.sh/legal/privacy"
+                    href="https://repalis.com/legal/privacy"
                     className="text-gray-900 underline dark:text-white"
                     target="_blank"
                     rel="noopener noreferrer"
@@ -192,7 +192,7 @@ export function SandboxFormFields({
                   </a>{' '}
                   &amp;{' '}
                   <a
-                    href="https://polar.sh/docs/merchant-of-record/account-reviews"
+                    href="https://repalis.com/docs/merchant-of-record/account-reviews"
                     className="text-gray-900 underline dark:text-white"
                     target="_blank"
                     rel="noopener noreferrer"

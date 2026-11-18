@@ -60,7 +60,7 @@ const BenefitGrantCustom = ({
   }
   return (
     <Box display="block">
-      <div className="prose dark:prose-invert prose-headings:font-medium prose-headings:text-black prose-h1:text-2xl prose-h2:text-xl prose-h3:text-lg prose-h4:text-sm prose-h5:text-sm prose-h6:text-sm dark:prose-headings:text-white dark:text-polar-300 prose-p:text-sm leading-normal text-gray-800 [&>*>*:first-child]:mt-0">
+      <div className="prose dark:prose-invert prose-headings:font-medium prose-headings:text-black prose-h1:text-2xl prose-h2:text-xl prose-h3:text-lg prose-h4:text-sm prose-h5:text-sm prose-h6:text-sm dark:prose-headings:text-white dark:text-repalis-300 prose-p:text-sm leading-normal text-gray-800 [&>*>*:first-child]:mt-0">
         <Markdown options={markdownOptions}>{note}</Markdown>
       </div>
     </Box>

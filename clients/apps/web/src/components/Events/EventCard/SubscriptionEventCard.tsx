@@ -51,7 +51,7 @@ const SubscriptionBillingEventCard = ({
             {product ? <span>{product.name}</span> : null}
           </div>
           {typeof amount === 'number' && currency ? (
-            <span className="dark:text-polar-500 text-gray-500">
+            <span className="dark:text-repalis-500 text-gray-500">
               <AmountLabel
                 amount={amount}
                 currency={currency}

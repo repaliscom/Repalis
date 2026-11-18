@@ -151,7 +151,7 @@ export const Testimonials = () => {
       >
         {rest.map((testimonial) => (
           <QuoteLink key={testimonial.name} testimonial={testimonial}>
-            <figure className="dark:bg-polar-900 dark:hover:bg-polar-800 flex h-full flex-col rounded-xl bg-gray-50 transition-colors hover:bg-gray-100">
+            <figure className="dark:bg-repalis-900 dark:hover:bg-repalis-800 flex h-full flex-col rounded-xl bg-gray-50 transition-colors hover:bg-gray-100">
               <Box
                 flexDirection="column"
                 rowGap="3xl"

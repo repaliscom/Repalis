@@ -30,7 +30,7 @@ export const SectionDescription = ({
         {badge}
       </Box>
       {description && (
-        <p className="dark:text-polar-500 text-balance text-gray-500">
+        <p className="dark:text-repalis-500 text-balance text-gray-500">
           {description}
         </p>
       )}

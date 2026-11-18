@@ -29,7 +29,7 @@ export const setLastVisitedEnv = (
   maxAge: number = 30 * 60, // Expires in 30 minutes
 ) => {
   const hostname = window.location.hostname
-  const domainAttr = hostname.endsWith('.polar.sh') ? '; domain=.polar.sh' : ''
+  const domainAttr = hostname.endsWith('.repalis.com') ? '; domain=.repalis.com' : ''
   const secureAttr = window.location.protocol === 'https:' ? '; secure' : ''
   document.cookie = `${POLAR_ENV_COOKIE}=${env}; max-age=${maxAge}; path=/; samesite=lax${domainAttr}${secureAttr}`
 }

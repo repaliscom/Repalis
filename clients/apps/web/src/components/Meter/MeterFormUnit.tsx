@@ -38,7 +38,7 @@ const MeterFormUnit = () => {
                 Unit
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <InfoIcon className="dark:text-polar-400 h-3.5 w-3.5 text-gray-400" />
+                    <InfoIcon className="dark:text-repalis-400 h-3.5 w-3.5 text-gray-400" />
                   </TooltipTrigger>
                   <TooltipContent className="max-w-xs">
                     Controls how prices are formatted for display. For example,
@@ -86,7 +86,7 @@ const MeterFormUnit = () => {
                     Unit label
                     <Tooltip>
                       <TooltipTrigger asChild>
-                        <InfoIcon className="dark:text-polar-400 h-3.5 w-3.5 text-gray-400" />
+                        <InfoIcon className="dark:text-repalis-400 h-3.5 w-3.5 text-gray-400" />
                       </TooltipTrigger>
                       <TooltipContent className="max-w-xs">
                         The singular name shown after the price, e.g.
@@ -121,7 +121,7 @@ const MeterFormUnit = () => {
                     Unit Multiplier
                     <Tooltip>
                       <TooltipTrigger asChild>
-                        <InfoIcon className="dark:text-polar-400 h-3.5 w-3.5 text-gray-400" />
+                        <InfoIcon className="dark:text-repalis-400 h-3.5 w-3.5 text-gray-400" />
                       </TooltipTrigger>
                       <TooltipContent className="max-w-xs">
                         Scales how the price is displayed. For example, a

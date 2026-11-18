@@ -112,7 +112,7 @@ export const AgentsFigure = ({ turns = TURNS }: { turns?: Turn[] }) => {
         >
           <pre className="m-0 font-mono text-[13px] leading-6 whitespace-pre-wrap text-white">
             claude mcp add --transport http polar
-            https://mcp.polar.sh/mcp/polar-mcp
+            https://mcp.repalis.com/mcp/polar-mcp
           </pre>
           <Box flexDirection="column" rowGap="s">
             {['Claude Code', 'Cursor', 'ChatGPT', 'Claude Desktop'].map(
@@ -144,22 +144,22 @@ export const AgentsFigure = ({ turns = TURNS }: { turns?: Turn[] }) => {
             </Text>
           </Box>
         </Sheet>
-        <div className="dark:bg-polar-900 flex min-h-[26rem] w-full flex-col rounded-xl bg-white p-6 font-mono text-[13px] leading-6">
-          <div className="text-polar-500 mb-4">~/acme</div>
+        <div className="dark:bg-repalis-900 flex min-h-[26rem] w-full flex-col rounded-xl bg-white p-6 font-mono text-[13px] leading-6">
+          <div className="text-repalis-500 mb-4">~/acme</div>
           {done.map((t) => (
             <div key={t.prompt} className="mb-5 flex flex-col gap-1">
               <div className="text-white">
-                <span className="text-polar-500">{'> '}</span>
+                <span className="text-repalis-500">{'> '}</span>
                 {t.prompt}
               </div>
-              <div className="text-polar-300 whitespace-pre-wrap">
+              <div className="text-repalis-300 whitespace-pre-wrap">
                 {t.answer}
               </div>
             </div>
           ))}
           <div className="flex flex-col gap-1">
             <div className="text-white">
-              <span className="text-polar-500">{'> '}</span>
+              <span className="text-repalis-500">{'> '}</span>
               {current.prompt.slice(0, typed)}
               {beat === 'typing' ? (
                 <span className="ml-px inline-block h-[1em] w-[0.55em] translate-y-[0.15em] animate-pulse bg-white/80" />
@@ -169,14 +169,14 @@ export const AgentsFigure = ({ turns = TURNS }: { turns?: Turn[] }) => {
               <div
                 className={`transition-opacity duration-300 ${beat === 'settling' ? 'opacity-0' : 'opacity-100'}`}
               >
-                <div className="text-polar-500 flex [animation:appear_300ms_ease-out_both] items-center gap-2">
+                <div className="text-repalis-500 flex [animation:appear_300ms_ease-out_both] items-center gap-2">
                   <LoaderCircle size={12} className="shrink-0 animate-spin" />
                   <Shimmer active>{current.tool}</Shimmer>
                 </div>
               </div>
             ) : null}
             {beat === 'answered' ? (
-              <div className="text-polar-300 [animation:appear_360ms_ease-out_both] whitespace-pre-wrap">
+              <div className="text-repalis-300 [animation:appear_360ms_ease-out_both] whitespace-pre-wrap">
                 {current.answer}
               </div>
             ) : null}

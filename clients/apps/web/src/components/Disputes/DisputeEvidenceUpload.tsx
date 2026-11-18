@@ -78,15 +78,15 @@ export const DisputeEvidenceUpload = ({ organization, onChange }: Props) => {
         className={twMerge(
           'flex cursor-pointer flex-col items-center gap-1 rounded-xl border border-dashed px-4 py-8 text-center',
           isDragActive
-            ? 'dark:border-polar-600 dark:bg-polar-800 border-blue-300 bg-blue-50'
-            : 'dark:border-polar-700 border-gray-200 bg-gray-50 dark:bg-transparent',
+            ? 'dark:border-repalis-600 dark:bg-repalis-800 border-blue-300 bg-blue-50'
+            : 'dark:border-repalis-700 border-gray-200 bg-gray-50 dark:bg-transparent',
         )}
       >
         <input {...getInputProps()} />
-        <p className="dark:text-polar-200 text-sm font-medium text-gray-700">
+        <p className="dark:text-repalis-200 text-sm font-medium text-gray-700">
           {isDragActive ? 'Drop files here' : 'Drag & drop or click to upload'}
         </p>
-        <p className="dark:text-polar-500 text-xs text-gray-500">
+        <p className="dark:text-repalis-500 text-xs text-gray-500">
           PDF, images, or documents up to 50 MB
         </p>
       </div>

@@ -22,7 +22,7 @@ const Row = ({
       <FileTypeIcon
         name={attachment.name}
         mimeType={attachment.mimeType}
-        className={inverse ? 'dark:text-polar-600 text-white' : undefined}
+        className={inverse ? 'dark:text-repalis-600 text-white' : undefined}
       />
       <span className="group-hover:underline">
         <Text variant="caption" color={inverse ? 'inverse' : 'default'}>

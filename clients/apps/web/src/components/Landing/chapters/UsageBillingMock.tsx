@@ -38,14 +38,14 @@ const Stat = ({
 
 /** The chrome of the site's modals: a dark frame with a hairline and a 4px inset. The header sits on the frame. */
 const Panel = ({ children }: { children: ReactNode }) => (
-  <div className="dark:bg-polar-950 dark:border-polar-800 flex h-full w-full flex-col rounded-2xl border border-gray-200 bg-gray-100 p-1 shadow-[0_16px_40px_-12px_rgba(0,0,0,0.75)]">
+  <div className="dark:bg-repalis-950 dark:border-repalis-800 flex h-full w-full flex-col rounded-2xl border border-gray-200 bg-gray-100 p-1 shadow-[0_16px_40px_-12px_rgba(0,0,0,0.75)]">
     {children}
   </div>
 )
 
 /** The lighter panel inside the frame, holding the content. */
 const Inner = ({ children }: { children: ReactNode }) => (
-  <div className="dark:bg-polar-900 flex min-h-0 w-full flex-1 flex-col overflow-hidden rounded-xl bg-white">
+  <div className="dark:bg-repalis-900 flex min-h-0 w-full flex-1 flex-col overflow-hidden rounded-xl bg-white">
     {children}
   </div>
 )
@@ -63,7 +63,7 @@ export const UsageBillingMock = () => {
   return (
     <div
       ref={ref}
-      className="dark:border-polar-800 relative w-full overflow-hidden rounded-md border border-gray-200 bg-[url(/assets/landing/company/Repalis_Flow_03_No_Logo.jpg)] bg-cover bg-center p-4 md:p-12"
+      className="dark:border-repalis-800 relative w-full overflow-hidden rounded-md border border-gray-200 bg-[url(/assets/landing/company/Repalis_Flow_03_No_Logo.jpg)] bg-cover bg-center p-4 md:p-12"
     >
       <div className="pointer-events-none absolute inset-0 bg-black/20" />
       <Box position="relative" width="100%">
