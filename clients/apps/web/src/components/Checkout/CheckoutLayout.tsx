@@ -1,4 +1,4 @@
-import { PolarThemeProvider } from '@/app/providers'
+import { RepalisThemeProvider } from '@/app/providers'
 import type { schemas } from '@polar-sh/client'
 import type { TextDirection } from '@polar-sh/i18n'
 import CheckoutDirectionProvider from './CheckoutDirectionProvider'
@@ -28,14 +28,14 @@ const CheckoutLayout = ({
 
   return (
     <CheckoutDirectionProvider dir={dir}>
-      <PolarThemeProvider>
+      <RepalisThemeProvider>
         <div
           dir={dir}
-          className="md:dark:bg-polar-950 dark:bg-polar-900 h-full min-h-screen bg-white md:bg-gray-50 dark:text-white"
+          className="md:dark:bg-repalis-950 dark:bg-repalis-900 h-full min-h-screen bg-white md:bg-gray-50 dark:text-white"
         >
           {children}
         </div>
-      </PolarThemeProvider>
+      </RepalisThemeProvider>
     </CheckoutDirectionProvider>
   )
 }

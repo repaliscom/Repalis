@@ -2,34 +2,35 @@ import { CookieConsent } from '@/components/Privacy/CookieConsent'
 import { CONFIG } from '@/utils/config'
 import { headers } from 'next/headers'
 import { Metadata } from 'next/types'
-import { PolarThemeProvider } from '../providers'
+import { RepalisThemeProvider } from '../providers'
 
 export async function generateMetadata(): Promise<Metadata> {
   const baseMetadata: Metadata = {
     title: {
-      template: '%s | Polar',
-      default: 'Polar',
+      template: '%s | Repalis',
+      default: 'Repalis — Merchant of Record & Developer Monetization',
     },
-    description: 'A billing platform for the intelligence era',
+    description:
+      'Repalis is the developer-first Merchant of Record: global payments, subscriptions, digital products, and billing infrastructure.',
     openGraph: {
-      images: 'https://polar.sh/assets/brand/polar_og.jpg',
+      images: 'https://repalis.com/assets/brand/repalis_og.jpg',
       type: 'website',
-      siteName: 'Polar',
-      title: 'Polar | A billing platform for the intelligence era',
+      siteName: 'Repalis',
+      title: 'Repalis — Merchant of Record & Developer Monetization',
       description:
         'Create digital products and SaaS billing with flexible pricing models and seamless payment processing.',
       locale: 'en_US',
     },
     twitter: {
-      images: 'https://polar.sh/assets/brand/polar_og.jpg',
+      images: 'https://repalis.com/assets/brand/repalis_og.jpg',
       card: 'summary_large_image',
-      title: 'Polar | A billing platform for the intelligence era',
+      title: 'Repalis — Merchant of Record & Developer Monetization',
       description:
         'Create digital products and SaaS billing with flexible pricing models and seamless payment processing.',
     },
-    metadataBase: new URL('https://polar.sh/'),
+    metadataBase: new URL('https://repalis.com/'),
     alternates: {
-      canonical: 'https://polar.sh/',
+      canonical: 'https://repalis.com/',
     },
   }
 
@@ -72,7 +73,7 @@ export default async function MainLayout({
   const countryCode = headersList.get('x-vercel-ip-country')
 
   return (
-    <PolarThemeProvider>
+    <RepalisThemeProvider>
       <link
         rel="preload"
         href="/fonts/PPNeueMontreal-VariableUpright.woff2"
@@ -87,10 +88,10 @@ export default async function MainLayout({
         type="font/woff2"
         crossOrigin=""
       />
-      <div className="dark:bg-polar-950 h-full bg-white dark:text-white">
+      <div className="dark:bg-repalis-950 h-full bg-white dark:text-white">
         {children}
         <CookieConsent countryCode={countryCode} />
       </div>
-    </PolarThemeProvider>
+    </RepalisThemeProvider>
   )
 }

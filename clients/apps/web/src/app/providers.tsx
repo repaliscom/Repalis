@@ -31,7 +31,7 @@ if (typeof window !== 'undefined' && CONFIG.POSTHOG_TOKEN) {
   })
 }
 
-export function PolarPostHogProvider({
+export function RepalisPostHogProvider({
   children,
 }: {
   children: React.ReactNode
@@ -60,7 +60,7 @@ const isForcedDarkPath = (pathname: string): boolean =>
     (prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`),
   )
 
-export function PolarThemeProvider({
+export function RepalisThemeProvider({
   children,
   forceTheme,
 }: {
@@ -85,7 +85,7 @@ export function PolarThemeProvider({
   )
 }
 
-export function PolarQueryClientProvider({
+export function RepalisQueryClientProvider({
   children,
 }: {
   children: React.ReactNode
@@ -97,10 +97,10 @@ export function PolarQueryClientProvider({
   )
 }
 
-export function PolarNuqsProvider({ children }: PropsWithChildren) {
+export function RepalisNuqsProvider({ children }: PropsWithChildren) {
   return <NuqsAdapter>{children}</NuqsAdapter>
 }
 
-export function PolarMotionProvider({ children }: PropsWithChildren) {
+export function RepalisMotionProvider({ children }: PropsWithChildren) {
   return <LazyMotion features={domAnimation}>{children}</LazyMotion>
 }

@@ -14,10 +14,10 @@ import { schemas } from '@polar-sh/client'
 import { PHASE_PRODUCTION_BUILD } from 'next/constants'
 import { Viewport } from 'next/types'
 import {
-  PolarMotionProvider,
-  PolarNuqsProvider,
-  PolarPostHogProvider,
-  PolarQueryClientProvider,
+  RepalisMotionProvider,
+  RepalisNuqsProvider,
+  RepalisPostHogProvider,
+  RepalisQueryClientProvider,
 } from './providers'
 
 export const viewport: Viewport = {
@@ -75,17 +75,17 @@ export default async function RootLayout({
             user={authenticatedUser}
             userOrganizations={userOrganizations}
           >
-            <PolarPostHogProvider>
-              <PolarQueryClientProvider>
-                <PolarNuqsProvider>
-                  <PolarMotionProvider>
+            <RepalisPostHogProvider>
+              <RepalisQueryClientProvider>
+                <RepalisNuqsProvider>
+                  <RepalisMotionProvider>
                     {CONFIG.IS_SANDBOX && <SandboxBanner />}
                     <SessionRefreshModal />
                     {children}
-                  </PolarMotionProvider>
-                </PolarNuqsProvider>
-              </PolarQueryClientProvider>
-            </PolarPostHogProvider>
+                  </RepalisMotionProvider>
+                </RepalisNuqsProvider>
+              </RepalisQueryClientProvider>
+            </RepalisPostHogProvider>
           </UserContextProvider>
         </ExperimentProvider>
       </body>

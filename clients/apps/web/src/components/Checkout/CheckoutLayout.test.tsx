@@ -5,7 +5,8 @@ import { afterEach, describe, expect, it, vi } from 'vitest'
 import CheckoutLayout from './CheckoutLayout'
 
 vi.mock('@/app/providers', () => ({
-  PolarThemeProvider: ({ children }: { children: React.ReactNode }) => children,
+  RepalisThemeProvider: ({ children }: { children: React.ReactNode }) =>
+    children,
 }))
 
 vi.mock('./Embed/CheckoutEmbedClose', () => ({ default: () => null }))
