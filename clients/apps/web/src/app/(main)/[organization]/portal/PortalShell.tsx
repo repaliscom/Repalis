@@ -73,9 +73,9 @@ const SidebarHeader = ({
   )
 }
 
-const PoweredByPolar = () => (
+const PoweredByRepalis = () => (
   <a
-    href="https://polar.sh?utm_source=customer_portal"
+    href="https://repalis.com?utm_source=customer_portal"
     target="_blank"
     rel="noopener noreferrer"
   >
@@ -135,7 +135,7 @@ export const PortalShell = ({
         {sidebar}
       </Box>
       <Box display={{ base: 'none', md: 'flex' }}>
-        <PoweredByPolar />
+        <PoweredByRepalis />
       </Box>
     </Box>
     <Box
@@ -156,7 +156,7 @@ export const PortalShell = ({
       >
         {children}
         <Box display={{ base: 'flex', md: 'none' }} justifyContent="center">
-          <PoweredByPolar />
+          <PoweredByRepalis />
         </Box>
       </Box>
     </Box>

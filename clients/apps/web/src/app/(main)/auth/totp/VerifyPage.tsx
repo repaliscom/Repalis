@@ -81,7 +81,7 @@ const VerifyPage = () => {
                         <InputOTPSlot
                           key={index}
                           index={index}
-                          className="dark:border-polar-600 h-12 w-12 border-gray-300 text-xl md:h-16 md:w-16 md:text-2xl"
+                          className="dark:border-repalis-600 h-12 w-12 border-gray-300 text-xl md:h-16 md:w-16 md:text-2xl"
                         />
                       ))}
                     </InputOTPGroup>
@@ -99,7 +99,7 @@ const VerifyPage = () => {
         <div className="mt-4 text-center">
           <Link
             href="/auth/backup-codes"
-            className="dark:text-polar-300 text-sm text-gray-600 hover:underline"
+            className="dark:text-repalis-300 text-sm text-gray-600 hover:underline"
           >
             Use a backup code instead
           </Link>
