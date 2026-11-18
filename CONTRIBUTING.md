@@ -1,6 +1,6 @@
-# Contributing to Polar
+# Contributing to Repalis
 
-Thank you for your interest in contributing to Polar! This document provides guidelines and information for contributing to our open-source project.
+Thank you for your interest in contributing to Repalis! This document provides guidelines and information for contributing to our open-source project.
 
 ## 🚨 Important: Issue Assignment Required
 
@@ -118,7 +118,7 @@ We welcome various types of contributions:
 
 ## 📄 License
 
-By contributing to Polar, you agree that your contributions will be licensed under the same license as the project.
+By contributing to Repalis, you agree that your contributions will be licensed under the same license as the project.
 
 ---
 

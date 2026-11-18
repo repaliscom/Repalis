@@ -1,6 +1,6 @@
 # Development
 
-Polar's stack consists of the following elements:
+Repalis stack consists of the following elements:
 
 - A backend written in Python, exposing a REST API and workers
 - A frontend written in JavaScript
@@ -67,7 +67,7 @@ Running `dev up` after pulling new code is also recommended to make sure depende
 
 ## Setup environment variables
 
-For the Polar stack to run properly, it needs quite a bunch of settings defined as environment variables. To ease things, we provide a script to bootstrap them. It requires [uv](https://docs.astral.sh/uv/getting-started/installation/) to be installed on your system.
+For the Repalis stack to run properly, it needs quite a bunch of settings defined as environment variables. To ease things, we provide a script to bootstrap them. It requires [uv](https://docs.astral.sh/uv/getting-started/installation/) to be installed on your system.
 
 ```sh
 ./dev/setup-environment
@@ -205,7 +205,7 @@ If you want to work on or test enterprise SSO login, you can point it at a local
     {"email": "admin@polar.sh", "email_verified": true}
     ```
 
-    You'll be redirected back to Polar, where the org-scoped session completes.
+    You'll be redirected back to Repalis, where the org-scoped session completes.
 
 ### Setup backend
 
