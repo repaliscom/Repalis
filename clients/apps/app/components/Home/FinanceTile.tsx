@@ -4,7 +4,7 @@ import {
   useOrganizationAccount,
   usePayoutAccount,
   useTransactionsSummary,
-} from '@/hooks/polar/finance'
+} from '@/hooks/repalis/finance'
 import { OrganizationContext } from '@/providers/OrganizationProvider'
 import { formatCurrency } from '@polar-sh/currency'
 import { useRouter } from 'expo-router'

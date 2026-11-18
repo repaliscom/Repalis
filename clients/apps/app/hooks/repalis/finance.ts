@@ -1,4 +1,4 @@
-import { usePolarClient } from '@/providers/PolarClientProvider'
+import { usePolarClient } from '@/providers/RepalisClientProvider'
 import { queryClient } from '@/utils/query'
 import { ClientResponseError, schemas, unwrap } from '@polar-sh/client'
 import { defaultRetry } from './retry'

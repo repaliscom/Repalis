@@ -7,7 +7,7 @@ import {
   Notification as PolarNotification,
   useListNotifications,
   useNotificationsMarkRead,
-} from '@/hooks/polar/notifications'
+} from '@/hooks/repalis/notifications'
 import { FlashList } from '@shopify/flash-list'
 import { setBadgeCountAsync } from 'expo-notifications'
 import { Href, Link, Stack } from 'expo-router'

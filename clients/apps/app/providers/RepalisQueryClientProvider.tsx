@@ -1,7 +1,7 @@
 import { queryClient, QueryClientProvider } from '@/utils/query'
 import { useReactQueryDevTools } from '@dev-plugins/react-query'
 
-export function PolarQueryClientProvider({
+export function RepalisQueryClientProvider({
   children,
 }: {
   children: React.ReactElement
@@ -12,3 +12,5 @@ export function PolarQueryClientProvider({
     <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
   )
 }
+
+export const PolarQueryClientProvider = RepalisQueryClientProvider

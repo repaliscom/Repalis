@@ -11,7 +11,7 @@ import {
   usePayoutAccount,
   usePayouts,
   useTransactionsSummary,
-} from '@/hooks/polar/finance'
+} from '@/hooks/repalis/finance'
 import { OrganizationContext } from '@/providers/OrganizationProvider'
 import { formatCurrency } from '@polar-sh/currency'
 import { Stack, useRouter } from 'expo-router'

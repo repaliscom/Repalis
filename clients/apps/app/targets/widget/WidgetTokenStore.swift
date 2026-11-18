@@ -10,7 +10,7 @@ enum WidgetTokenStore {
     private static let clientID =
         "polar_ci_yZLBGwoWZVsOdfN5CODRwVSTlJfwJhXqwg65e2CuNMZ"
     private static let tokenEndpoint =
-        URL(string: "https://api.polar.sh/v1/oauth2/token")!
+        URL(string: "https://api.repalis.com/v1/oauth2/token")!
 
     private static let accessTokenKey = "session"
     private static let refreshTokenKey = "session_refresh_token"

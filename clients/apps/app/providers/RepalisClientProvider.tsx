@@ -24,34 +24,36 @@ const CLIENT_VERSION_HEADERS = {
   'Polar-Version': API_VERSION,
 }
 
-const PolarClientContext = createContext<{
+const RepalisClientContext = createContext<{
   polar: Client
 }>({
   polar: createClient(
-    process.env.EXPO_PUBLIC_POLAR_SERVER_URL ?? 'https://api.polar.sh',
+    process.env.EXPO_PUBLIC_POLAR_SERVER_URL ?? 'https://api.repalis.com',
     undefined,
     CLIENT_VERSION_HEADERS,
   ),
 })
 
-export function usePolarClient() {
-  const value = useContext(PolarClientContext)
+export function useRepalisClient() {
+  const value = useContext(RepalisClientContext)
   if (process.env.NODE_ENV !== 'production') {
     if (!value) {
       throw new Error(
-        'usePolarClient must be wrapped in a <PolarClientProvider />',
+        'useRepalisClient must be wrapped in a <RepalisClientProvider />',
       )
     }
   }
   return value
 }
 
-export function PolarClientProvider({ children }: PropsWithChildren) {
+export const usePolarClient = useRepalisClient
+
+export function RepalisClientProvider({ children }: PropsWithChildren) {
   const { session } = useSession()
 
   const polar = useMemo(() => {
     const client = createClient(
-      process.env.EXPO_PUBLIC_POLAR_SERVER_URL ?? 'https://api.polar.sh',
+      process.env.EXPO_PUBLIC_POLAR_SERVER_URL ?? 'https://api.repalis.com',
       session ?? '',
       CLIENT_VERSION_HEADERS,
     )
@@ -60,8 +62,10 @@ export function PolarClientProvider({ children }: PropsWithChildren) {
   }, [session])
 
   return (
-    <PolarClientContext.Provider value={{ polar }}>
+    <RepalisClientContext.Provider value={{ polar }}>
       {children}
-    </PolarClientContext.Provider>
+    </RepalisClientContext.Provider>
   )
 }
+
+export const PolarClientProvider = RepalisClientProvider

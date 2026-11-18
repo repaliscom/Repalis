@@ -1,4 +1,4 @@
-import { usePolarClient } from '@/providers/PolarClientProvider'
+import { usePolarClient } from '@/providers/RepalisClientProvider'
 import { useSession } from '@/providers/SessionProvider'
 import { queryClient } from '@/utils/query'
 import { schemas, unwrap } from '@polar-sh/client'

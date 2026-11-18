@@ -51,12 +51,12 @@ plugins.push('@bacons/apple-targets')
 
 module.exports = {
   expo: {
-    name: 'Polar',
-    slug: 'Polar',
+    name: 'Repalis',
+    slug: 'Repalis',
     version: '1.9.0',
     orientation: 'portrait',
     icon: './assets/images/icon.png',
-    scheme: 'polar',
+    scheme: 'repalis',
     userInterfaceStyle: 'dark',
     newArchEnabled: true,
     owner: 'polar-sh',

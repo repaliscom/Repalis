@@ -1,5 +1,5 @@
 import { Box } from '@/components/Shared/Box'
-import { useOrganizations } from '@/hooks/polar/organizations'
+import { useOrganizations } from '@/hooks/repalis/organizations'
 import { useStorageState } from '@/hooks/storage'
 import { ExtensionStorage } from '@bacons/apple-targets'
 import { schemas } from '@polar-sh/client'

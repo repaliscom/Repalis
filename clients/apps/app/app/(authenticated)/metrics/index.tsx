@@ -7,7 +7,7 @@ import {
 import { Box } from '@/components/Shared/Box'
 import { Tabs, TabsList, TabsTrigger } from '@/components/Shared/Tabs'
 import { useTheme } from '@/design-system/useTheme'
-import { useMetrics } from '@/hooks/polar/metrics'
+import { useMetrics } from '@/hooks/repalis/metrics'
 import { OrganizationContext } from '@/providers/OrganizationProvider'
 import { schemas } from '@polar-sh/client'
 import { FlashList } from '@shopify/flash-list'

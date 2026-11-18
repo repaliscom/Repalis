@@ -1,6 +1,6 @@
 import { Box } from '@/components/Shared/Box'
 import { useTheme } from '@/design-system/useTheme'
-import { useMetrics } from '@/hooks/polar/metrics'
+import { useMetrics } from '@/hooks/repalis/metrics'
 import { OrganizationContext } from '@/providers/OrganizationProvider'
 import { formatCurrency } from '@polar-sh/currency'
 import { subDays } from 'date-fns'

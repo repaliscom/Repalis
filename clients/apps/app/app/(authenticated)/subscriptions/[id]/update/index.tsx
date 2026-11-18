@@ -6,11 +6,11 @@ import { Text } from '@/components/Shared/Text'
 import { Touchable } from '@/components/Shared/Touchable'
 import { SubscriptionRow } from '@/components/Subscriptions/SubscriptionRow'
 import { useTheme } from '@/design-system/useTheme'
-import { useProducts } from '@/hooks/polar/products'
+import { useProducts } from '@/hooks/repalis/products'
 import {
   useSubscription,
   useUpdateSubscription,
-} from '@/hooks/polar/subscriptions'
+} from '@/hooks/repalis/subscriptions'
 import { OrganizationContext } from '@/providers/OrganizationProvider'
 import MaterialIcons from '@expo/vector-icons/MaterialIcons'
 import { schemas } from '@polar-sh/client'

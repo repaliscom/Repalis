@@ -2,7 +2,7 @@ import { Box } from '@/components/Shared/Box'
 import { Text } from '@/components/Shared/Text'
 import { Touchable } from '@/components/Shared/Touchable'
 import { useTheme } from '@/design-system/useTheme'
-import { useInfiniteDiscounts } from '@/hooks/polar/discounts'
+import { useInfiniteDiscounts } from '@/hooks/repalis/discounts'
 import { OrganizationContext } from '@/providers/OrganizationProvider'
 import MaterialIcons from '@expo/vector-icons/MaterialIcons'
 import BottomSheet, {

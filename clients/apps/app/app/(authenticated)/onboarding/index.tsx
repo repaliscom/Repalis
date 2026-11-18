@@ -6,7 +6,7 @@ import { Text } from '@/components/Shared/Text'
 import { Touchable } from '@/components/Shared/Touchable'
 import { useTheme } from '@/design-system/useTheme'
 import { useLogout } from '@/hooks/auth'
-import { useCreateOrganization } from '@/hooks/polar/organizations'
+import { useCreateOrganization } from '@/hooks/repalis/organizations'
 import { OrganizationContext } from '@/providers/OrganizationProvider'
 import { queryClient } from '@/utils/query'
 import { ClientResponseError, schemas } from '@polar-sh/client'
@@ -149,7 +149,7 @@ export default function Onboarding() {
                   <Touchable
                     onPress={() =>
                       Linking.openURL(
-                        'https://docs.polar.sh/merchant-of-record/acceptable-use',
+                        'https://repalis.com/docs/merchant-of-record/acceptable-use',
                       )
                     }
                   >
@@ -165,7 +165,7 @@ export default function Onboarding() {
                 <Touchable
                   onPress={() =>
                     Linking.openURL(
-                      'https://docs.polar.sh/merchant-of-record/account-reviews',
+                      'https://repalis.com/docs/merchant-of-record/account-reviews',
                     )
                   }
                 >
@@ -180,7 +180,7 @@ export default function Onboarding() {
                 <Touchable
                   onPress={() =>
                     Linking.openURL(
-                      'https://polar.sh/legal/master-services-terms',
+                      'https://repalis.com/legal/master-services-terms',
                     )
                   }
                 >

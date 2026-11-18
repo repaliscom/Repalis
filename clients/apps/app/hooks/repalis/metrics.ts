@@ -1,4 +1,4 @@
-import { usePolarClient } from '@/providers/PolarClientProvider'
+import { usePolarClient } from '@/providers/RepalisClientProvider'
 import { operations, schemas, unwrap } from '@polar-sh/client'
 import { useQuery } from '@tanstack/react-query'
 

@@ -1,4 +1,4 @@
-import { API_VERSION } from '@/providers/PolarClientProvider'
+import { API_VERSION } from '@/providers/RepalisClientProvider'
 import { useSession } from '@/providers/SessionProvider'
 import { schemas } from '@polar-sh/client'
 import { useMutation, UseMutationResult } from '@tanstack/react-query'
@@ -13,7 +13,7 @@ export const useDeleteUser = (): UseMutationResult<
   return useMutation({
     mutationFn: async () => {
       const response = await fetch(
-        `${process.env.EXPO_PUBLIC_POLAR_SERVER_URL ?? 'https://api.polar.sh'}/v1/users/me`,
+        `${process.env.EXPO_PUBLIC_POLAR_SERVER_URL ?? 'https://api.repalis.com'}/v1/users/me`,
         {
           method: 'DELETE',
           headers: {

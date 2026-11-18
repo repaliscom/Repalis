@@ -1,37 +1,38 @@
-import { usePolarClient } from '@/providers/PolarClientProvider'
+import { usePolarClient } from '@/providers/RepalisClientProvider'
 import { operations, unwrap } from '@polar-sh/client'
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query'
 
-export const useOrder = (id: string) => {
+export const useCustomer = (organizationId: string | undefined, id: string) => {
   const { polar } = usePolarClient()
 
   return useQuery({
-    queryKey: ['orders', { id }],
+    queryKey: ['customers', organizationId, { id }],
     queryFn: () =>
       unwrap(
-        polar.GET('/v1/orders/{id}', {
+        polar.GET('/v1/customers/{id}', {
           params: {
             path: { id },
           },
         }),
       ),
+    enabled: !!organizationId,
   })
 }
 
-export const useOrders = (
-  organizationId?: string,
+export const useCustomers = (
+  organizationId: string | undefined,
   parameters?: Omit<
-    operations['orders:list']['parameters']['query'],
+    operations['customers:list']['parameters']['query'],
     'organization_id'
   >,
 ) => {
   const { polar } = usePolarClient()
 
   return useInfiniteQuery({
-    queryKey: ['orders', { organizationId, ...(parameters || {}) }],
+    queryKey: ['customers', { organizationId, ...(parameters || {}) }],
     queryFn: ({ pageParam = 1 }) =>
       unwrap(
-        polar.GET('/v1/orders/', {
+        polar.GET('/v1/customers/', {
           params: {
             query: {
               organization_id: organizationId,

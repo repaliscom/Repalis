@@ -7,7 +7,7 @@ import { useTheme } from '@/design-system/useTheme'
 import {
   useSubscription,
   useUpdateSubscription,
-} from '@/hooks/polar/subscriptions'
+} from '@/hooks/repalis/subscriptions'
 import MaterialIcons from '@expo/vector-icons/MaterialIcons'
 import { schemas } from '@polar-sh/client'
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router'

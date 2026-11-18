@@ -3,8 +3,8 @@ import { useTheme } from '@/design-system/useTheme'
 import { useAppOpenTracking } from '@/hooks/useAppOpenTracking'
 import NotificationsProvider from '@/providers/NotificationsProvider'
 import { PolarOrganizationProvider } from '@/providers/OrganizationProvider'
-import { PolarClientProvider } from '@/providers/PolarClientProvider'
-import { PolarQueryClientProvider } from '@/providers/PolarQueryClientProvider'
+import { RepalisClientProvider } from '@/providers/RepalisClientProvider'
+import { RepalisQueryClientProvider } from '@/providers/RepalisQueryClientProvider'
 import { useSession } from '@/providers/SessionProvider'
 import { ToastProvider } from '@/providers/ToastProvider'
 import { UserProvider } from '@/providers/UserProvider'
@@ -73,8 +73,8 @@ const RootLayout = () => {
 export default function Providers() {
   return (
     <ThemeProvider value={DarkTheme}>
-      <PolarClientProvider>
-        <PolarQueryClientProvider>
+      <RepalisClientProvider>
+        <RepalisQueryClientProvider>
           <NotificationsProvider>
             <AuthenticatedErrorBoundary>
               <UserProvider>
@@ -86,8 +86,8 @@ export default function Providers() {
               </UserProvider>
             </AuthenticatedErrorBoundary>
           </NotificationsProvider>
-        </PolarQueryClientProvider>
-      </PolarClientProvider>
+        </RepalisQueryClientProvider>
+      </RepalisClientProvider>
     </ThemeProvider>
   )
 }

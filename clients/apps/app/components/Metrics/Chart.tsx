@@ -1,7 +1,7 @@
 import { Box } from '@/components/Shared/Box'
 import { Text } from '@/components/Shared/Text'
 import { useTheme } from '@/design-system/useTheme'
-import { toValueDataPoints, useMetrics } from '@/hooks/polar/metrics'
+import { toValueDataPoints, useMetrics } from '@/hooks/repalis/metrics'
 import { schemas } from '@polar-sh/client'
 import { format } from 'date-fns'
 import { useMemo } from 'react'

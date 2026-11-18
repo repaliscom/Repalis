@@ -9,9 +9,9 @@ import {
   useOrganizationAccount,
   usePayoutEstimate,
   useTransactionsSummary,
-} from '@/hooks/polar/finance'
-import { useOrganizationEmail } from '@/hooks/polar/organizationEmail'
-import { useOrders } from '@/hooks/polar/orders'
+} from '@/hooks/repalis/finance'
+import { useOrganizationEmail } from '@/hooks/repalis/organizationEmail'
+import { useOrders } from '@/hooks/repalis/orders'
 import { useStoreReview } from '@/hooks/useStoreReview'
 import { OrganizationContext } from '@/providers/OrganizationProvider'
 import { formatCurrency } from '@polar-sh/currency'

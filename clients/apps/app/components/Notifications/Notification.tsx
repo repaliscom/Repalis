@@ -8,7 +8,7 @@ import {
   MaintainerNewTrialNotificationPayload,
   MaintainerSubscriptionCancellationNotificationPayload,
   MaintainerSubscriptionRenewalNotificationPayload,
-} from '@/hooks/polar/notifications'
+} from '@/hooks/repalis/notifications'
 import MaterialIcons from '@expo/vector-icons/MaterialIcons'
 import { formatCurrency } from '@polar-sh/currency'
 import { useMemo } from 'react'

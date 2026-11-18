@@ -5,7 +5,7 @@ import { Text } from '@/components/Shared/Text'
 import {
   useSendOrganizationEmailCode,
   useVerifyOrganizationEmail,
-} from '@/hooks/polar/organizationEmail'
+} from '@/hooks/repalis/organizationEmail'
 import { useToast } from '@/providers/ToastProvider'
 import { ClientResponseError, schemas } from '@polar-sh/client'
 import { useState } from 'react'

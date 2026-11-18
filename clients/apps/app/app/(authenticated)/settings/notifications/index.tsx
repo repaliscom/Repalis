@@ -6,11 +6,11 @@ import {
   useCreateNotificationRecipient,
   useDeleteNotificationRecipient,
   useGetNotificationRecipient,
-} from '@/hooks/polar/notifications'
+} from '@/hooks/repalis/notifications'
 import {
   useUpdateUserOrganizationNotificationSettings,
   useUserOrganizationNotificationSettings,
-} from '@/hooks/polar/userOrganizations'
+} from '@/hooks/repalis/userOrganizations'
 import { useNotifications } from '@/providers/NotificationsProvider'
 import { OrganizationContext } from '@/providers/OrganizationProvider'
 import { useToast } from '@/providers/ToastProvider'
