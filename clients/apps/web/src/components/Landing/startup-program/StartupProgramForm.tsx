@@ -26,7 +26,7 @@ const TEAM_SIZE_OPTIONS = ['1', '2 to 5', '6 to 15', '16 to 50', '50+']
 
 const BILLING_PLATFORM_OPTIONS = [
   'None',
-  'Polar',
+  'Repalis',
   'Stripe',
   'Paddle',
   'Lemon Squeezy',
@@ -101,7 +101,7 @@ const INITIAL: FormState = {
   partner: '',
   partnerOther: '',
   paymentVolume: '',
-  currentBillingPlatform: 'Polar',
+  currentBillingPlatform: 'Repalis',
   currentBillingPlatformOther: '',
   polarOrgSlug: '',
   teamSize: '',
@@ -261,8 +261,8 @@ export const StartupProgramForm = () => {
         )}
       </Field>
 
-      {form.currentBillingPlatform === 'Polar' && (
-        <Field label="Polar Organization Slug" htmlFor="polarOrgSlug">
+      {form.currentBillingPlatform === 'Repalis' && (
+        <Field label="Repalis Organization Slug" htmlFor="polarOrgSlug">
           <Input
             id="polarOrgSlug"
             value={form.polarOrgSlug}

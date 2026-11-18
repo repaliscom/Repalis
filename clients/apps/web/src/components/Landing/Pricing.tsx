@@ -68,7 +68,7 @@ export const Pricing = () => (
       cta={
         <>
           <GetStartedButton size="default" />
-          <Link href="mailto:support@polar.sh">
+          <Link href="mailto:contact@repalis.com">
             <Button variant="secondary">Contact Sales</Button>
           </Link>
         </>

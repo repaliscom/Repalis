@@ -14,11 +14,11 @@ export const metadata: Metadata = {
   keywords:
     'legal, privacy, tos, terms of service, merchant of record, saas, digital products, platform, developer, open source, funding, open source, economy',
   openGraph: {
-    siteName: 'Polar',
+    siteName: 'Repalis',
     type: 'website',
     images: [
       {
-        url: 'https://polar.sh/assets/brand/polar_og.jpg',
+        url: 'https://repalis.com/assets/brand/repalis_og.jpg',
         width: 1200,
         height: 630,
       },
@@ -28,10 +28,10 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     images: [
       {
-        url: 'https://polar.sh/assets/brand/polar_og.jpg',
+        url: 'https://repalis.com/assets/brand/repalis_og.jpg',
         width: 1200,
         height: 630,
-        alt: 'Polar',
+        alt: 'Repalis',
       },
     ],
   },

@@ -9,15 +9,15 @@ import type { ReactNode } from 'react'
 
 export const metadata: Metadata = {
   title: 'Downloads',
-  description: 'Use Polar in a variety of different environments',
+  description: 'Use Repalis in a variety of different environments',
   keywords:
     'downloads, ios, android, raycast, framer, binaries, saas, digital products, platform, developer, open source, funding, open source, economy',
   openGraph: {
-    siteName: 'Polar',
+    siteName: 'Repalis',
     type: 'website',
     images: [
       {
-        url: 'https://polar.sh/assets/brand/polar_og.jpg',
+        url: 'https://repalis.com/assets/brand/repalis_og.jpg',
         width: 1200,
         height: 630,
       },
@@ -27,10 +27,10 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     images: [
       {
-        url: 'https://polar.sh/assets/brand/polar_og.jpg',
+        url: 'https://repalis.com/assets/brand/repalis_og.jpg',
         width: 1200,
         height: 630,
-        alt: 'Polar',
+        alt: 'Repalis',
       },
     ],
   },
@@ -45,15 +45,15 @@ interface Download {
 
 const APPS: Download[] = [
   {
-    title: 'Polar for iOS',
+    title: 'Repalis for iOS',
     description: 'Your business in the palm of your hand. Built for iPhone.',
     href: 'https://apps.apple.com/se/app/polar-monetize-your-software/id6746640471',
     icon: <Apple size={28} />,
   },
   {
-    title: 'Polar for Android',
+    title: 'Repalis for Android',
     description:
-      'The companion app for your business on Polar. Built for Android.',
+      'The companion app for your business on Repalis. Built for Android.',
     href: 'https://play.google.com/store/apps/details?id=com.polarsource.Polar',
     icon: <Google size={28} />,
   },
@@ -61,13 +61,13 @@ const APPS: Download[] = [
 
 const PLUGINS: Download[] = [
   {
-    title: 'Polar for Raycast',
+    title: 'Repalis for Raycast',
     description: 'Your latest orders and customers right at your fingertips.',
     href: 'https://www.raycast.com/emilwidlund/polar',
     icon: <Raycast size={28} />,
   },
   {
-    title: 'Polar for Framer',
+    title: 'Repalis for Framer',
     description: 'Flexible checkout components for your Framer projects.',
     href: 'https://www.framer.com/marketplace/plugins/polar',
     icon: <Framer size={28} />,

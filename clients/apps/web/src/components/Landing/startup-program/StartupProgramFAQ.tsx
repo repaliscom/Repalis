@@ -16,7 +16,7 @@ interface FAQItem {
 
 const FAQS: FAQItem[] = [
   {
-    question: 'What is the Polar Startup Program?',
+    question: 'What is the Repalis Startup Program?',
     answer:
       'A year of free Scale-tier billing for AI and SaaS startups. You get our lowest transaction fees, prioritized support, and a dedicated Slack channel with our team, all at no monthly cost for 12 months.',
   },
@@ -28,7 +28,7 @@ const FAQS: FAQItem[] = [
   {
     question: 'How can I apply?',
     answer:
-      'Fill out the form on this page. We aim to respond within one business hour on weekdays. If you are a fit, we activate the free year on your Polar organization right away.',
+      'Fill out the form on this page. We aim to respond within one business hour on weekdays. If you are a fit, we activate the free year on your Repalis organization right away.',
   },
   {
     question: 'What does the program include?',
@@ -52,7 +52,7 @@ const FAQS: FAQItem[] = [
   },
   {
     question: 'I have more questions.',
-    answer: 'Email us at support@polar.sh and we will get back to you shortly.',
+    answer: 'Email us at contact@repalis.com and we will get back to you shortly.',
   },
 ]
 
@@ -95,7 +95,7 @@ export const StartupProgramFAQ = () => {
               <AccordionItem
                 key={faq.question}
                 value={`faq-${i}`}
-                className="dark:border-polar-700 rounded-none! border-b border-gray-200 px-0!"
+                className="dark:border-repalis-700 rounded-none! border-b border-gray-200 px-0!"
               >
                 <AccordionTrigger className="py-6 text-left text-base hover:no-underline md:text-lg">
                   {faq.question}

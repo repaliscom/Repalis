@@ -2,17 +2,17 @@ import { PolarVsPaddlePage } from '@/components/Landing/comparison/PolarPaddlePa
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Polar vs Paddle',
+  title: 'Repalis vs Paddle',
   description:
-    'Polar vs Paddle: compare two Merchant of Record platforms for SaaS and digital products, including billing models, usage-based pricing and transaction fees.',
+    'Repalis vs Paddle: compare two Merchant of Record platforms for SaaS and digital products, including billing models, usage-based pricing and transaction fees.',
   keywords:
-    'polar vs paddle, paddle alternative, merchant of record, saas billing, subscriptions, usage-based billing',
+    'repalis vs paddle, paddle alternative, merchant of record, saas billing, subscriptions, usage-based billing',
   openGraph: {
-    siteName: 'Polar',
+    siteName: 'Repalis',
     type: 'website',
     images: [
       {
-        url: 'https://polar.sh/assets/brand/polar_og.jpg',
+        url: 'https://repalis.com/assets/brand/repalis_og.jpg',
         width: 1200,
         height: 630,
       },
@@ -22,10 +22,10 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     images: [
       {
-        url: 'https://polar.sh/assets/brand/polar_og.jpg',
+        url: 'https://repalis.com/assets/brand/repalis_og.jpg',
         width: 1200,
         height: 630,
-        alt: 'Polar',
+        alt: 'Repalis',
       },
     ],
   },
