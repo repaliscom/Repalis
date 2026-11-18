@@ -13,7 +13,7 @@ import { EmbedError } from './EmbedError'
 import { PaymentMethodEmbed } from './PaymentMethodEmbed'
 
 export const metadata: Metadata = {
-  title: 'Add payment method | Polar',
+  title: 'Add payment method | Repalis',
   robots: { index: false, follow: false },
 }
 

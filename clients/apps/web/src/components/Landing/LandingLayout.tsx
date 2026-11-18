@@ -50,13 +50,13 @@ export default function Layout({ children }: PropsWithChildren) {
         <ManualBanner />
         <LandingPageDesktopNavigation />
       </div>
-      <div className="dark:bg-polar-950 relative flex flex-col overflow-x-clip bg-white px-0 md:w-full md:flex-1 md:items-center md:px-12">
+      <div className="dark:bg-repalis-950 relative flex flex-col overflow-x-clip bg-white px-0 md:w-full md:flex-1 md:items-center md:px-12">
         <div className="flex flex-col gap-y-2 md:w-full md:max-w-7xl">
           <SidebarProvider className="absolute inset-0 flex flex-col items-start md:hidden">
             <LandingPageTopbar />
             <LandingPageMobileNavigation />
           </SidebarProvider>
-          <div className="dark:bg-polar-950 relative flex flex-col px-6 pt-32 md:w-full md:px-0 md:pt-0">
+          <div className="dark:bg-repalis-950 relative flex flex-col px-6 pt-32 md:w-full md:px-0 md:pt-0">
             {children}
           </div>
         </div>
@@ -85,7 +85,7 @@ const mobileNavigationItems: NavigationItem[] = [
   },
   {
     title: 'Documentation',
-    href: 'https://polar.sh/docs',
+    href: 'https://repalis.com/docs',
     target: '_blank',
   },
   {
@@ -102,12 +102,12 @@ const mobileNavigationItems: NavigationItem[] = [
   },
   {
     title: 'Open Source',
-    href: 'https://github.com/polarsource',
+    href: 'https://github.com/repaliscom/Repalis',
     target: '_blank',
   },
   {
-    title: 'Polar on X',
-    href: 'https://x.com/polar_sh',
+    title: 'Repalis on X',
+    href: 'https://x.com/repalis',
     target: '_blank',
   },
 ]
