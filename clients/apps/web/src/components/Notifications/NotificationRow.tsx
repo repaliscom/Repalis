@@ -14,7 +14,7 @@ import { DEFAULT_LOCALE } from '@polar-sh/i18n'
 import { formatDate } from '@polar-sh/i18n/formatters/date'
 import { Avatar, Text } from '@polar-sh/orbit'
 import { Box } from '@polar-sh/orbit/Box'
-import PolarTimeAgo from '@polar-sh/ui/components/atoms/PolarTimeAgo'
+import RepalisTimeAgo from '@polar-sh/ui/components/atoms/RepalisTimeAgo'
 import { PopoverClose } from '@polar-sh/ui/components/ui/popover'
 import Link from 'next/link'
 import type { ReactNode } from 'react'
@@ -76,7 +76,7 @@ const Row = ({
             {subtitle}
           </Text>
           <Text variant="caption" color="muted" wrap="nowrap">
-            <PolarTimeAgo date={new Date(date)} />
+            <RepalisTimeAgo date={new Date(date)} />
           </Text>
         </Box>
       </Box>

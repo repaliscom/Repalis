@@ -5,7 +5,7 @@ import { schemas } from '@polar-sh/client'
 import { Text, Tooltip, TooltipContent, TooltipTrigger } from '@polar-sh/orbit'
 import { Box } from '@polar-sh/orbit/Box'
 import { LockOutlined } from '@polar-sh/orbit/icons'
-import PolarTimeAgo from '@polar-sh/ui/components/atoms/PolarTimeAgo'
+import RepalisTimeAgo from '@polar-sh/ui/components/atoms/RepalisTimeAgo'
 import { useSidebar } from '@polar-sh/ui/components/atoms/Sidebar'
 import {
   useGeneralRoutes,
@@ -31,7 +31,7 @@ const LiveCatalogDetails = ({ catalog }: { catalog: schemas['Catalog'] }) => (
     </Text>
     <Text variant="caption" color="muted">
       Published{' '}
-      <PolarTimeAgo
+      <RepalisTimeAgo
         date={new Date(catalog.published_at ?? catalog.created_at)}
       />
     </Text>
