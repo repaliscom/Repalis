@@ -77,7 +77,7 @@ describe('CheckoutProvider', () => {
     it('uses production by default', () => {
       renderProvider({ initialCheckout: createCheckout() })
       expect(mockCreateClient).toHaveBeenCalledWith(
-        'https://api.polar.sh',
+        'https://api.repalis.com',
         undefined,
         versionHeaders,
       )
@@ -86,7 +86,7 @@ describe('CheckoutProvider', () => {
     it('uses sandbox when server=sandbox', () => {
       renderProvider({ server: 'sandbox', initialCheckout: createCheckout() })
       expect(mockCreateClient).toHaveBeenCalledWith(
-        'https://sandbox-api.polar.sh',
+        'https://sandbox-api.repalis.com',
         undefined,
         versionHeaders,
       )
@@ -98,7 +98,7 @@ describe('CheckoutProvider', () => {
         initialCheckout: createCheckout(),
       })
       expect(mockCreateClient).toHaveBeenCalledWith(
-        'https://api.polar.sh',
+        'https://api.repalis.com',
         undefined,
         versionHeaders,
       )

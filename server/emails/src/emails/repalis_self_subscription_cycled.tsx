@@ -1,12 +1,12 @@
-import { Footer, Intro, Text, WrapperPolar } from '../components/foundation'
+import { Footer, Intro, Text, WrapperRepalis } from '../components/foundation'
 import type { schemas } from '../types'
 
-export function PolarSelfSubscriptionCycled({
+export function RepalisSelfSubscriptionCycled({
   email,
   product_name,
 }: schemas['PolarSelfSubscriptionCycledProps']) {
   return (
-    <WrapperPolar preview={`Your ${product_name} subscription renewed`}>
+    <WrapperRepalis preview={`Your ${product_name} subscription renewed`}>
       <Intro headline={`${product_name} renewed`}>
         Your{' '}
         <Text as="span" weight="medium">
@@ -15,13 +15,13 @@ export function PolarSelfSubscriptionCycled({
         subscription renewed for another cycle. The latest invoice is attached.
       </Intro>
       <Footer email={email} />
-    </WrapperPolar>
+    </WrapperRepalis>
   )
 }
 
-PolarSelfSubscriptionCycled.PreviewProps = {
+RepalisSelfSubscriptionCycled.PreviewProps = {
   email: 'john@example.com',
-  product_name: 'Polar Pro',
+  product_name: 'Repalis Pro',
 } satisfies schemas['PolarSelfSubscriptionCycledProps']
 
-export default PolarSelfSubscriptionCycled
+export default RepalisSelfSubscriptionCycled

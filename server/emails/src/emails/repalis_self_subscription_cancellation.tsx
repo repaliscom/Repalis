@@ -1,8 +1,8 @@
-import { Footer, Intro, Text, WrapperPolar } from '../components/foundation'
+import { Footer, Intro, Text, WrapperRepalis } from '../components/foundation'
 import { formatDate } from '../utils/formatters'
 import type { schemas } from '../types'
 
-export function PolarSelfSubscriptionCancellation({
+export function RepalisSelfSubscriptionCancellation({
   email,
   product_name,
   ends_at,
@@ -10,7 +10,7 @@ export function PolarSelfSubscriptionCancellation({
   const endDate = ends_at ? formatDate(ends_at) : null
 
   return (
-    <WrapperPolar
+    <WrapperRepalis
       preview={`Your ${product_name} subscription has been canceled`}
     >
       <Intro headline="Your subscription has been canceled">
@@ -28,14 +28,14 @@ export function PolarSelfSubscriptionCancellation({
         settings.
       </Text>
       <Footer email={email} />
-    </WrapperPolar>
+    </WrapperRepalis>
   )
 }
 
-PolarSelfSubscriptionCancellation.PreviewProps = {
+RepalisSelfSubscriptionCancellation.PreviewProps = {
   email: 'john@example.com',
-  product_name: 'Polar Pro',
+  product_name: 'Repalis Pro',
   ends_at: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
 } satisfies schemas['PolarSelfSubscriptionCancellationProps']
 
-export default PolarSelfSubscriptionCancellation
+export default RepalisSelfSubscriptionCancellation

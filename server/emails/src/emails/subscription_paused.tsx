@@ -65,7 +65,7 @@ SubscriptionPaused.PreviewProps = {
     resumes_at: new Date(Date.now() + 40 * 24 * 60 * 60 * 1000).toISOString(),
   },
   previous_billing_provider: 'Stripe',
-  url: 'https://polar.sh/acme-inc/portal/subscriptions/12345',
+  url: 'https://repalis.com/acme-inc/portal/subscriptions/12345',
 }
 
 export default SubscriptionPaused

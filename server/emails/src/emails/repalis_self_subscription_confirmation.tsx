@@ -1,13 +1,13 @@
-import { Footer, Intro, Text, WrapperPolar } from '../components/foundation'
+import { Footer, Intro, Text, WrapperRepalis } from '../components/foundation'
 import type { schemas } from '../types'
 
-export function PolarSelfSubscriptionConfirmation({
+export function RepalisSelfSubscriptionConfirmation({
   email,
   product_name,
 }: schemas['PolarSelfSubscriptionConfirmationProps']) {
   return (
-    <WrapperPolar preview="We're happy to have you selling on Polar!">
-      <Intro headline="Thanks for choosing Polar!">
+    <WrapperRepalis preview="We're happy to have you selling on Repalis!">
+      <Intro headline="Thanks for choosing Repalis!">
         You're now subscribed to{' '}
         <Text as="span" weight="medium">
           {product_name}
@@ -15,13 +15,13 @@ export function PolarSelfSubscriptionConfirmation({
         . Your invoice is attached for your records.
       </Intro>
       <Footer email={email} />
-    </WrapperPolar>
+    </WrapperRepalis>
   )
 }
 
-PolarSelfSubscriptionConfirmation.PreviewProps = {
+RepalisSelfSubscriptionConfirmation.PreviewProps = {
   email: 'john@example.com',
-  product_name: 'Polar Pro',
+  product_name: 'Repalis Pro',
 } satisfies schemas['PolarSelfSubscriptionConfirmationProps']
 
-export default PolarSelfSubscriptionConfirmation
+export default RepalisSelfSubscriptionConfirmation

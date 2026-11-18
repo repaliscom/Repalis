@@ -225,12 +225,12 @@ export const CheckoutProvider = ({
 
       switch (server) {
         case 'sandbox': {
-          return 'https://sandbox-api.polar.sh'
+          return 'https://sandbox-api.repalis.com'
         }
 
         case 'production':
         case undefined: {
-          return 'https://api.polar.sh'
+          return 'https://api.repalis.com'
         }
 
         default:

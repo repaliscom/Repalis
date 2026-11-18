@@ -61,7 +61,7 @@ export const MandateText = (props: MandateProps) => {
       {suffix !== undefined && (
         <>
           <a
-            href="https://polar.sh/legal/checkout-buyer-terms"
+            href="https://repalis.com/legal/checkout-buyer-terms"
             target="_blank"
             rel="noreferrer"
             className="underline"

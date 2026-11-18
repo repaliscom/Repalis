@@ -79,7 +79,7 @@ SubscriptionPastDue.PreviewProps = {
   email: 'john@example.com',
   organization,
   product,
-  url: 'https://polar.sh/acme-inc/portal/subscriptions/12345',
+  url: 'https://repalis.com/acme-inc/portal/subscriptions/12345',
   previous_billing_provider: 'Stripe',
   access_ends_at: null,
   deadline: new Date(Date.now() + 21 * 24 * 60 * 60 * 1000).toISOString(),

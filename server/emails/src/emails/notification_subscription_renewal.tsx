@@ -1,4 +1,4 @@
-import { Footer, Intro, Text, WrapperPolar } from '../components/foundation'
+import { Footer, Intro, Text, WrapperRepalis } from '../components/foundation'
 import CustomerIdentity from '../components/CustomerIdentity'
 import type { schemas } from '../types'
 
@@ -16,7 +16,7 @@ export function NotificationSubscriptionRenewal({
   )
 
   return (
-    <WrapperPolar preview={`${displayName} renewed ${product_name}`}>
+    <WrapperRepalis preview={`${displayName} renewed ${product_name}`}>
       <Intro headline="A subscription has been renewed!">
         {formattedName} renewed{' '}
         <Text as="span" weight="bold">
@@ -25,7 +25,7 @@ export function NotificationSubscriptionRenewal({
         for {formatted_price_amount} {formatted_recurring_interval}.
       </Intro>
       <Footer email={null} />
-    </WrapperPolar>
+    </WrapperRepalis>
   )
 }
 

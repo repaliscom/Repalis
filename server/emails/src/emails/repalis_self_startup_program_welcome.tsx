@@ -3,25 +3,25 @@ import {
   Footer,
   Intro,
   Text,
-  WrapperPolar,
+  WrapperRepalis,
 } from '../components/foundation'
 import type { schemas } from '../types'
 
-export function PolarSelfStartupProgramWelcome({
+export function RepalisSelfStartupProgramWelcome({
   email,
   organization_name,
   billing_url,
 }: schemas['PolarSelfStartupProgramWelcomeProps']) {
   return (
-    <WrapperPolar
-      preview={`${organization_name} is in the Polar Startup Program. 12 months free on Scale.`}
+    <WrapperRepalis
+      preview={`${organization_name} is in the Repalis Startup Program. 12 months free on Scale.`}
     >
-      <Intro headline="Welcome to the Polar Startup Program">
+      <Intro headline="Welcome to the Repalis Startup Program">
         We&apos;re excited to have{' '}
         <Text as="span" weight="bold">
           {organization_name}
         </Text>{' '}
-        join the next generation of startups building with Polar. You get the
+        join the next generation of startups building with Repalis. You get the
         Scale plan{' '}
         <Text as="span" weight="bold">
           free for 12 months
@@ -40,14 +40,14 @@ export function PolarSelfStartupProgramWelcome({
         anytime from the same billing page.
       </Text>
       <Footer email={email} />
-    </WrapperPolar>
+    </WrapperRepalis>
   )
 }
 
-PolarSelfStartupProgramWelcome.PreviewProps = {
+RepalisSelfStartupProgramWelcome.PreviewProps = {
   email: 'founder@acme.ai',
   organization_name: 'Acme AI',
-  billing_url: 'https://polar.sh/dashboard/acme/settings/billing/change-plan',
+  billing_url: 'https://repalis.com/dashboard/acme/settings/billing/change-plan',
 } satisfies schemas['PolarSelfStartupProgramWelcomeProps']
 
-export default PolarSelfStartupProgramWelcome
+export default RepalisSelfStartupProgramWelcome

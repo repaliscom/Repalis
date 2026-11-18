@@ -9,10 +9,10 @@ export function BillingMigrationNotice({
   previousBillingProvider: string
 }) {
   return (
-    <InfoBox title="Billing has moved to Polar">
+    <InfoBox title="Billing has moved to Repalis">
       <Text>
         {organizationName} has migrated your subscription from{' '}
-        {previousBillingProvider} to Polar. {previousBillingProvider} will no
+        {previousBillingProvider} to Repalis. {previousBillingProvider} will no
         longer bill you.
       </Text>
     </InfoBox>

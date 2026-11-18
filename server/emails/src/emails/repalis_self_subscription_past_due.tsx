@@ -1,12 +1,12 @@
-import { Footer, Intro, Text, WrapperPolar } from '../components/foundation'
+import { Footer, Intro, Text, WrapperRepalis } from '../components/foundation'
 import type { schemas } from '../types'
 
-export function PolarSelfSubscriptionPastDue({
+export function RepalisSelfSubscriptionPastDue({
   email,
   product_name,
 }: schemas['PolarSelfSubscriptionPastDueProps']) {
   return (
-    <WrapperPolar
+    <WrapperRepalis
       preview={`Action needed: we couldn't process your payment for ${product_name}`}
     >
       <Intro headline="We couldn&rsquo;t process your payment">
@@ -22,13 +22,13 @@ export function PolarSelfSubscriptionPastDue({
         subscription active. We&rsquo;ll automatically retry the payment.
       </Text>
       <Footer email={email} />
-    </WrapperPolar>
+    </WrapperRepalis>
   )
 }
 
-PolarSelfSubscriptionPastDue.PreviewProps = {
+RepalisSelfSubscriptionPastDue.PreviewProps = {
   email: 'john@example.com',
-  product_name: 'Polar Pro',
+  product_name: 'Repalis Pro',
 } satisfies schemas['PolarSelfSubscriptionPastDueProps']
 
-export default PolarSelfSubscriptionPastDue
+export default RepalisSelfSubscriptionPastDue

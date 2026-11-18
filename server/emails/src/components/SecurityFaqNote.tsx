@@ -6,7 +6,7 @@ const SecurityFaqNote = () => (
     <Text variant="caption" noMargin>
       You can read more about why you received this alert in our{' '}
       <Link
-        href="https://polar.sh/docs/documentation/integration-guides/authenticating-with-polar#security"
+        href="https://repalis.com/docs/documentation/integration-guides/authenticating-with-polar#security"
         className="text-blue-600 underline"
       >
         FAQ

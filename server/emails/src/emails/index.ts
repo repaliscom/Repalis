@@ -21,12 +21,12 @@ import { OrganizationInvite } from './organization_invite'
 import { OrganizationOffboarded } from './organization_offboarded'
 import { PaymentMethodExpirationReminder } from './payment_method_expiration_reminder'
 import { PersonalAccessTokenLeaked } from './personal_access_token_leaked'
-import { PolarSelfStartupProgramWelcome } from './polar_self_startup_program_welcome'
-import { PolarSelfSubscriptionCancellation } from './polar_self_subscription_cancellation'
-import { PolarSelfSubscriptionConfirmation } from './polar_self_subscription_confirmation'
-import { PolarSelfSubscriptionCycled } from './polar_self_subscription_cycled'
-import { PolarSelfSubscriptionPastDue } from './polar_self_subscription_past_due'
-import { PolarSelfSubscriptionRevoked } from './polar_self_subscription_revoked'
+import { RepalisSelfStartupProgramWelcome } from './repalis_self_startup_program_welcome'
+import { RepalisSelfSubscriptionCancellation } from './repalis_self_subscription_cancellation'
+import { RepalisSelfSubscriptionConfirmation } from './repalis_self_subscription_confirmation'
+import { RepalisSelfSubscriptionCycled } from './repalis_self_subscription_cycled'
+import { RepalisSelfSubscriptionPastDue } from './repalis_self_subscription_past_due'
+import { RepalisSelfSubscriptionRevoked } from './repalis_self_subscription_revoked'
 import { SeatInvitation } from './seat_invitation'
 import { SubscriptionCancellation } from './subscription_cancellation'
 import { SubscriptionConfirmation } from './subscription_confirmation'
@@ -89,12 +89,18 @@ const TEMPLATES: Record<string, React.FC<never>> = {
   domain_verification_lost: DomainVerificationLost,
   organization_email_verification: OrganizationEmailVerification,
   chargeback_prevention_refund: ChargebackPreventionRefund,
-  polar_self_subscription_cancellation: PolarSelfSubscriptionCancellation,
-  polar_self_subscription_confirmation: PolarSelfSubscriptionConfirmation,
-  polar_self_subscription_cycled: PolarSelfSubscriptionCycled,
-  polar_self_subscription_past_due: PolarSelfSubscriptionPastDue,
-  polar_self_subscription_revoked: PolarSelfSubscriptionRevoked,
-  polar_self_startup_program_welcome: PolarSelfStartupProgramWelcome,
+  repalis_self_subscription_cancellation: RepalisSelfSubscriptionCancellation,
+  repalis_self_subscription_confirmation: RepalisSelfSubscriptionConfirmation,
+  repalis_self_subscription_cycled: RepalisSelfSubscriptionCycled,
+  repalis_self_subscription_past_due: RepalisSelfSubscriptionPastDue,
+  repalis_self_subscription_revoked: RepalisSelfSubscriptionRevoked,
+  repalis_self_startup_program_welcome: RepalisSelfStartupProgramWelcome,
+  polar_self_subscription_cancellation: RepalisSelfSubscriptionCancellation,
+  polar_self_subscription_confirmation: RepalisSelfSubscriptionConfirmation,
+  polar_self_subscription_cycled: RepalisSelfSubscriptionCycled,
+  polar_self_subscription_past_due: RepalisSelfSubscriptionPastDue,
+  polar_self_subscription_revoked: RepalisSelfSubscriptionRevoked,
+  polar_self_startup_program_welcome: RepalisSelfStartupProgramWelcome,
 }
 
 export default TEMPLATES

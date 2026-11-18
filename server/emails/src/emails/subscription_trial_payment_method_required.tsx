@@ -59,7 +59,7 @@ SubscriptionTrialPaymentMethodRequired.PreviewProps = {
   },
   trial_end_date: 'March 17, 2026',
   previous_billing_provider: 'Stripe',
-  url: 'https://polar.sh/acme-inc/portal',
+  url: 'https://repalis.com/acme-inc/portal',
 }
 
 export default SubscriptionTrialPaymentMethodRequired

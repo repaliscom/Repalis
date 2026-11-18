@@ -1,4 +1,4 @@
-import { Footer, Intro, Text, WrapperPolar } from '../components/foundation'
+import { Footer, Intro, Text, WrapperRepalis } from '../components/foundation'
 import { formatDate } from '../utils/formatters'
 import CustomerIdentity from '../components/CustomerIdentity'
 import type { schemas } from '../types'
@@ -16,7 +16,7 @@ export function NotificationNewTrial({
   const formattedTrialEnd = trial_end ? formatDate(trial_end) : null
 
   return (
-    <WrapperPolar
+    <WrapperRepalis
       preview={`${subscriber_name} started a ${product_name} trial`}
     >
       <Intro headline="New trial started">
@@ -27,7 +27,7 @@ export function NotificationNewTrial({
         {formattedTrialEnd ? `, which ends on ${formattedTrialEnd}.` : '.'}
       </Intro>
       <Footer email={null} />
-    </WrapperPolar>
+    </WrapperRepalis>
   )
 }
 

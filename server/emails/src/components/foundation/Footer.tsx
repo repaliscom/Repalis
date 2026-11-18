@@ -20,7 +20,7 @@ const Footer = ({ email }: { email: string | null }) => (
         </Text>
       )}
       <Text variant="detail" weight="semibold" align="center" noMargin={!email}>
-        Polar Software Inc
+        Repalis Software Inc
       </Text>
     </Section>
   </>

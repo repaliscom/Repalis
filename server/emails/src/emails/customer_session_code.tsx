@@ -42,8 +42,8 @@ CustomerSessionCode.PreviewProps = {
   organization,
   code: 'ABC123',
   code_lifetime_minutes: 30,
-  url: 'https://polar.sh/acme-inc/portal/authenticate',
-  domain: 'polar.sh',
+  url: 'https://repalis.com/acme-inc/portal/authenticate',
+  domain: 'repalis.com',
 }
 
 export default CustomerSessionCode

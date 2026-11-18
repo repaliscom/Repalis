@@ -57,7 +57,7 @@ import {
   useCheckoutForm,
 } from '../providers/CheckoutFormProvider'
 import CustomFieldInput from './CustomFieldInput'
-import PolarLogo from './PolarLogo'
+import RepalisLogo from './RepalisLogo'
 import { CheckoutBanner } from './CheckoutBanner'
 import XIcon from './icons/XIcon'
 
@@ -852,13 +852,13 @@ const BaseCheckoutForm = ({
         </div>
       </div>
       <a
-        href="https://polar.sh?utm_source=checkout"
+        href="https://repalis.com?utm_source=checkout"
         className="dark:text-polar-600 flex w-full flex-row items-center justify-center gap-x-3 text-sm text-gray-400"
         target="_blank"
         rel="noreferrer"
       >
         <span>{t('checkout.footer.poweredBy')}</span>
-        <PolarLogo className="h-5" />
+        <RepalisLogo className="h-5" />
       </a>
     </div>
   )

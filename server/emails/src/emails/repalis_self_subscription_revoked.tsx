@@ -1,12 +1,12 @@
-import { Footer, Intro, Text, WrapperPolar } from '../components/foundation'
+import { Footer, Intro, Text, WrapperRepalis } from '../components/foundation'
 import type { schemas } from '../types'
 
-export function PolarSelfSubscriptionRevoked({
+export function RepalisSelfSubscriptionRevoked({
   email,
   product_name,
 }: schemas['PolarSelfSubscriptionRevokedProps']) {
   return (
-    <WrapperPolar preview={`Your ${product_name} subscription has ended`}>
+    <WrapperRepalis preview={`Your ${product_name} subscription has ended`}>
       <Intro headline={`Your ${product_name} subscription has ended`}>
         Your{' '}
         <Text as="span" weight="medium">
@@ -21,13 +21,13 @@ export function PolarSelfSubscriptionRevoked({
         out.
       </Text>
       <Footer email={email} />
-    </WrapperPolar>
+    </WrapperRepalis>
   )
 }
 
-PolarSelfSubscriptionRevoked.PreviewProps = {
+RepalisSelfSubscriptionRevoked.PreviewProps = {
   email: 'john@example.com',
-  product_name: 'Polar Pro',
+  product_name: 'Repalis Pro',
 } satisfies schemas['PolarSelfSubscriptionRevokedProps']
 
-export default PolarSelfSubscriptionRevoked
+export default RepalisSelfSubscriptionRevoked
