@@ -12,7 +12,7 @@ import {
   polar,
   purchaseTopUp,
   type TopUp,
-} from '../polar'
+} from '../repalis'
 
 const COOKIE = 'external_customer_id'
 

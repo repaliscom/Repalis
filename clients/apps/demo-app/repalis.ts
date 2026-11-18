@@ -1,6 +1,6 @@
 import { errors, RuntimeSDK } from '@polar-sh/polar'
 import { log } from './log'
-import config from './polar.config'
+import config from './repalis.config'
 
 const accessToken = process.env.POLAR_ACCESS_TOKEN
 

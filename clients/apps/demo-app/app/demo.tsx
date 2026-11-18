@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import type { getTopUps } from '../polar'
+import type { getTopUps } from '../repalis'
 import {
   call,
   checkUpgraded,

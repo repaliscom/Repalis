@@ -1,4 +1,4 @@
-import { polar } from './polar'
+import { polar } from './repalis'
 
 // Next.js App Router: app/api/polar/webhooks/route.ts
 export const POST = polar.webhooks.app

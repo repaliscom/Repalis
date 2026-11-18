@@ -1,5 +1,5 @@
 import { getExternalCustomerId, logout } from './actions'
-import { getProPrice, getTopUps, isPro } from '../polar'
+import { getProPrice, getTopUps, isPro } from '../repalis'
 import { Demo } from './demo'
 import { highlightSteps } from './highlight'
 import { Login } from './login'

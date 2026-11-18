@@ -3,7 +3,7 @@
   "ignorePatterns": ["node_modules/**", "dist/**"],
   "extends": ["../oxlint-config/oxlint-base.json"],
   "plugins": ["typescript", "import", "oxc"],
-  "jsPlugins": ["./lint/polar.ts"],
+  "jsPlugins": ["./lint/repalis.ts"],
   "rules": {
     "import/no-cycle": "error",
     "oxc/no-barrel-file": ["error", { "threshold": 0 }],

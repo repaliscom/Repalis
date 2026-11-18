@@ -1,6 +1,6 @@
 import { defineWebhookHandler } from '@polar-sh/polar'
-import type config from './polar.config'
-import { polar } from './polar'
+import type config from './repalis.config'
+import { polar } from './repalis'
 
 const servers = {
   enable: async (customerId: string) => console.log('enable', customerId),
