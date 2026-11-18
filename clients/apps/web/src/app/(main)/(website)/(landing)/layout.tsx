@@ -19,7 +19,7 @@ const jsonLd = {
       },
       description:
         'Repalis is a developer-first monetization platform and Merchant of Record for software companies — handling payments, digital products, subscriptions, and global billing infrastructure.',
-      sameAs: ['https://github.com/repaliscom/Repalis', 'https://x.com/RepalisHQ'],
+      sameAs: ['https://github.com/repaliscom/Repalis', 'https://x.com/repalis'],
       contactPoint: {
         '@type': 'ContactPoint',
         contactType: 'customer support',
