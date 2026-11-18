@@ -1,4 +1,4 @@
-"""Run the Polar CLI from source in the current directory."""
+"""Run the Repalis CLI from source in the current directory."""
 
 import os
 
@@ -11,15 +11,21 @@ CLI_ENTRY = CLIENTS_DIR / "packages" / "cli" / "src" / "cli.ts"
 
 def register(app: typer.Typer, prompt_setup: callable) -> None:
     @app.command(
+        name="repalis",
         add_help_option=False,
         context_settings={"allow_extra_args": True, "ignore_unknown_options": True},
     )
-    def polar(ctx: typer.Context) -> None:
-        """Run the Polar CLI from source in the current directory.
+    @app.command(
+        name="polar",
+        add_help_option=False,
+        context_settings={"allow_extra_args": True, "ignore_unknown_options": True},
+    )
+    def repalis(ctx: typer.Context) -> None:
+        """Run the Repalis CLI from source in the current directory.
 
         Examples:
-          dev polar auth login --local
-          dev polar config plan
+          dev repalis auth login --local
+          dev repalis config plan
         """
         if not check_command_exists("bun"):
             console.print("[red]bun not found. Install it from https://bun.sh[/red]")

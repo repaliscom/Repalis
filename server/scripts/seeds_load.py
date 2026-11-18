@@ -129,16 +129,16 @@ from polar.user.service import user as user_service
 from polar.webhook.service import generate_webhook_secret
 from polar.worker import JobQueueManager
 from scripts.db import assert_dev_or_testing
-from scripts.seed_polar_for_polar import (
+from scripts.seed_repalis_for_repalis import (
     BENEFITS as POLAR_SELF_BENEFITS,
 )
-from scripts.seed_polar_for_polar import (
+from scripts.seed_repalis_for_repalis import (
     EXTERNAL_BENEFITS as POLAR_SELF_EXTERNAL_BENEFITS,
 )
-from scripts.seed_polar_for_polar import (
+from scripts.seed_repalis_for_repalis import (
     MONTHLY_PRODUCTS as POLAR_SELF_MONTHLY_PRODUCTS,
 )
-from scripts.seed_polar_for_polar import (
+from scripts.seed_repalis_for_repalis import (
     PRODUCTS as POLAR_SELF_PRODUCTS,
 )
 from tests.fixtures.database import save_fixture_factory

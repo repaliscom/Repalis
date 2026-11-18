@@ -2,7 +2,7 @@ import { checkout, polar, portal, usage, webhooks } from '@polar-sh/better-auth'
 import { betterAuth } from 'better-auth'
 import { organization } from 'better-auth/plugins'
 import Database from 'better-sqlite3'
-import { polarSDK } from './polar'
+import { polarSDK } from './repalis'
 
 export const auth = betterAuth({
   emailAndPassword: {

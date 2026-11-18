@@ -43,8 +43,8 @@ from polar.models import (
 )
 from polar.models.subscription import SubscriptionStatus
 from polar.redis import Redis
-from scripts.seed_polar_for_polar import BENEFITS as POLAR_SELF_BENEFITS
-from scripts.seed_polar_for_polar import PRODUCTS as POLAR_SELF_PRODUCTS
+from scripts.seed_repalis_for_repalis import BENEFITS as POLAR_SELF_BENEFITS
+from scripts.seed_repalis_for_repalis import PRODUCTS as POLAR_SELF_PRODUCTS
 from scripts.seeds_load import (
     EXPECTED_ORGANIZATION_SLUGS,
     SIMPLE_COMPLEMENT_EVENT_NAMESPACE,
