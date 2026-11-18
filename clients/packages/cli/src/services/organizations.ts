@@ -8,7 +8,7 @@ import {
 } from '@/schemas/Auth'
 import { Auth } from '@/services/auth'
 import { CLIConfig } from '@/services/config'
-import { Polar } from '@/services/polar'
+import { Polar } from '@/services/repalis'
 
 export class Organizations extends Context.Service<
   Organizations,

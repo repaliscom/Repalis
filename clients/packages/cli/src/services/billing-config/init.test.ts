@@ -190,7 +190,7 @@ describe('init', () => {
 
     const result = await run()
 
-    expect(result.file).toBe('../polar.config.ts')
+    expect(result.file).toBe('../repalis.config.ts')
     expect(await read('polar.config.ts')).toContain('defineConfig')
   })
 

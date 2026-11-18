@@ -7,7 +7,7 @@ import type { ActiveOrganization } from '@/schemas/Auth'
 import { Auth } from '@/services/auth'
 import { CLIConfig } from '@/services/config'
 import * as OrganizationsService from '@/services/organizations'
-import * as Polar from '@/services/polar'
+import * as Polar from '@/services/repalis'
 import { type RunCliOptions, runCli } from '@/utils/test-utils/cli'
 import {
   fakeAuth,

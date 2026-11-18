@@ -3,7 +3,7 @@ import { Effect, Layer } from 'effect'
 import type { ActiveOrganization, PolarEnvironment } from '@/schemas/Auth'
 import { Auth } from '@/services/auth'
 import { Organizations, layer } from '@/services/organizations'
-import { Polar } from '@/services/polar'
+import { Polar } from '@/services/repalis'
 import { CLIConfig } from '@/services/config'
 import {
   fakeAuth,

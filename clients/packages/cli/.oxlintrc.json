@@ -3,7 +3,7 @@
   "ignorePatterns": ["node_modules/**", "dist/**", "bin/**"],
   "extends": ["../oxlint-config/oxlint-base.json"],
   "plugins": ["typescript", "import", "unicorn"],
-  "jsPlugins": ["./lint/polar.js"],
+  "jsPlugins": ["./lint/repalis.js"],
   "rules": {
     "import/no-cycle": "error",
     "unicorn/no-process-exit": "error",

@@ -4,7 +4,7 @@ import type { Polar as PolarSDK } from '@polar-sh/sdk/2026-10'
 import { AuthError, type PolarEnvironment } from '@/schemas/Auth'
 import { UsedEnvironments } from '@/services/api'
 import { Auth, type Credential } from '@/services/auth'
-import { make } from '@/services/polar'
+import { make } from '@/services/repalis'
 import {
   fakeAuth,
   keyringCredential,

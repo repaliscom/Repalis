@@ -13,7 +13,7 @@ import { CLIConfig } from '@/services/config'
 import { Credentials } from '@/services/credentials'
 import { OAuth } from '@/services/oauth'
 import { Organizations } from '@/services/organizations'
-import { Polar } from '@/services/polar'
+import { Polar } from '@/services/repalis'
 import {
   type SendError,
   Trigger,
