@@ -2,7 +2,7 @@
 
 import { AuthModal } from '@/components/Auth/AuthModal'
 import GetStartedButton from '@/components/Auth/GetStartedButton'
-import { PolarLogotype } from '@/components/Layout/Public/PolarLogotype'
+import { RepalisLogotype } from '@/components/Layout/Public/RepalisLogotype'
 import { useModal } from '@/components/Modal/useModal'
 import { usePostHog } from '@/hooks/posthog'
 import { ArrowOutwardOutlined } from '@polar-sh/orbit/icons'
@@ -60,7 +60,7 @@ export const LandingPageDesktopNavigation = () => {
         justifyContent="between"
       >
         <Box alignItems="center" columnGap="2xl">
-          <PolarLogotype logoVariant="icon" size={28} href="/" />
+          <RepalisLogotype logoVariant="icon" size={28} href="/" />
           <Box as="ul" alignItems="center" columnGap="l">
             {navMenus.map((menu) => (
               <Fragment key={menu.id}>

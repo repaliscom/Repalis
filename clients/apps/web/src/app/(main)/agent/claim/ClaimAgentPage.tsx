@@ -3,7 +3,7 @@
 import Auth from '@/components/Auth/Auth'
 import EmailOTPVerifyForm from '@/components/Auth/EmailOTPVerifyForm'
 import { OnboardingLayout } from '@/components/Layout/OnboardingLayout'
-import { PolarLogotype } from '@/components/Layout/Public/PolarLogotype'
+import { RepalisLogotype } from '@/components/Layout/Public/RepalisLogotype'
 import { useAuth, useLogout } from '@/hooks/auth'
 import { useImpressionEvent } from '@/hooks/useImpressionEvent'
 import { useAgentClaim, useAgentClaimPreview } from '@/hooks/queries/agents'
@@ -137,7 +137,7 @@ export default function ClaimAgentPage({
     <OnboardingLayout
       branding={
         <Box color="text-primary">
-          <PolarLogotype logoVariant="logotype" logoClassName="ml-0" />
+          <RepalisLogotype logoVariant="logotype" logoClassName="ml-0" />
         </Box>
       }
       steps={STEPS}

@@ -1,7 +1,7 @@
 'use client'
 
 import { OnboardingLayout } from '@/components/Layout/OnboardingLayout'
-import { PolarLogotype } from '@/components/Layout/Public/PolarLogotype'
+import { RepalisLogotype } from '@/components/Layout/Public/RepalisLogotype'
 import {
   AccessTokenForm,
   type AccessTokenCreate,
@@ -107,7 +107,7 @@ export default function CLITokenPage() {
     <OnboardingLayout
       branding={
         <Box color="text-primary">
-          <PolarLogotype
+          <RepalisLogotype
             logoVariant="logotype"
             logoClassName="ml-0"
             size={80}

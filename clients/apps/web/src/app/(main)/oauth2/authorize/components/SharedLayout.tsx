@@ -1,6 +1,6 @@
 import { OnboardingLayout } from '@/components/Layout/OnboardingLayout'
 import { UploadImage } from '@/components/Image/Image'
-import { PolarLogotype } from '@/components/Layout/Public/PolarLogotype'
+import { RepalisLogotype } from '@/components/Layout/Public/RepalisLogotype'
 import { schemas } from '@polar-sh/client'
 import { Box } from '@polar-sh/orbit/Box'
 import { Plus } from '@polar-sh/orbit/icons'
@@ -75,7 +75,7 @@ export default function SharedLayout({
   const branding = (
     <Box alignItems="center" gap="m">
       <Box color="text-primary">
-        <PolarLogotype logoVariant="logotype" logoClassName="ml-0" size={80} />
+        <RepalisLogotype logoVariant="logotype" logoClassName="ml-0" size={80} />
       </Box>
       {client?.logo_uri && (
         <>

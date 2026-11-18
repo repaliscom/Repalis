@@ -7,7 +7,7 @@ import { Box } from '@polar-sh/orbit/Box'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useState, type ReactNode } from 'react'
-import { PolarLogotype } from '../Layout/Public/PolarLogotype'
+import { RepalisLogotype } from '../Layout/Public/RepalisLogotype'
 import { ONBOARDING_STEPS, type OnboardingStepId } from './OnboardingStepper'
 
 interface OnboardingShellProps {
@@ -66,7 +66,7 @@ export function OnboardingShell({
     <OnboardingLayout
       branding={
         <Box color="text-primary">
-          <PolarLogotype
+          <RepalisLogotype
             logoVariant="logotype"
             logoClassName="ml-0"
             size={80}

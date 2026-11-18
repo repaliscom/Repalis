@@ -23,7 +23,7 @@ const PILLARS: Pillar[] = [
   {
     title: 'Usage metering',
     desc: 'Every token, agent run and GPU second streams into live meters, priced and ready to bill the moment it happens.',
-    image: '/assets/landing/company/Polar_Flow_01_No_Logo.jpg',
+    image: '/assets/landing/company/Repalis_Flow_01_No_Logo.jpg',
     focus: 'center',
     docs: '/docs/features/usage-based-billing/introduction',
     vignette: <MeterVignette />,
@@ -31,7 +31,7 @@ const PILLARS: Pillar[] = [
   {
     title: 'Checkout',
     desc: 'A hosted checkout that converts out of the box. Localized currencies, sales tax included, one link to start selling.',
-    image: '/assets/landing/company/Polar_Flow_02_No_Logo.jpg',
+    image: '/assets/landing/company/Repalis_Flow_02_No_Logo.jpg',
     focus: 'center',
     docs: '/docs/features/checkout/session',
     vignette: <CheckoutVignette />,
@@ -39,7 +39,7 @@ const PILLARS: Pillar[] = [
   {
     title: 'Payouts',
     desc: 'Revenue settles to your bank account on your schedule. Sales tax already collected, remitted and off your plate.',
-    image: '/assets/landing/company/Polar_Flow_03_No_Logo.jpg',
+    image: '/assets/landing/company/Repalis_Flow_03_No_Logo.jpg',
     focus: 'right center',
     docs: '/docs/features/finance/payouts',
     vignette: <PayoutVignette />,

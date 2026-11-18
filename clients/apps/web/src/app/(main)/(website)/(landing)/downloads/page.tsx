@@ -140,7 +140,7 @@ export default function Downloads() {
           </Box>
           <Box position="relative" overflow="hidden" aspectRatio="3 / 2">
             <StaticImage
-              src="/assets/landing/company/polar.jpg"
+              src="/assets/landing/company/repalis.jpg"
               alt="Polar graphic"
               fill
               className="object-cover"

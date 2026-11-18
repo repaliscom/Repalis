@@ -1,4 +1,4 @@
-import { WhyPolarPage } from '@/components/Landing/resources/WhyPolarPage'
+import { WhyRepalisPage } from '@/components/Landing/resources/WhyRepalisPage'
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -31,5 +31,5 @@ export const metadata: Metadata = {
 }
 
 export default function Page() {
-  return <WhyPolarPage />
+  return <WhyRepalisPage />
 }

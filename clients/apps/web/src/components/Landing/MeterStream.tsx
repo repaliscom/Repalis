@@ -108,7 +108,7 @@ export const MeterStream = () => {
       className="dark:border-polar-800 relative flex min-h-[20rem] w-full items-center justify-center overflow-hidden rounded-md border border-gray-200 px-4 py-10 md:min-h-[28rem] md:px-12"
     >
       <StaticImage
-        src="/assets/landing/company/Polar_Flow_03_No_Logo.jpg"
+        src="/assets/landing/company/Repalis_Flow_03_No_Logo.jpg"
         alt=""
         fill
         sizes="100vw"

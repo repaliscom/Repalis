@@ -3,7 +3,7 @@ import { Grid, Text } from '@polar-sh/orbit'
 import { Box } from '@polar-sh/orbit/Box'
 import Link from 'next/link'
 import { PropsWithChildren } from 'react'
-import { PolarLogotype } from '../Layout/Public/PolarLogotype'
+import { RepalisLogotype } from '../Layout/Public/RepalisLogotype'
 import { CookiePreferencesButton } from '../Privacy/CookiePreferencesButton'
 
 const Footer = () => {
@@ -31,7 +31,7 @@ const Footer = () => {
           alignItems="start"
           rowGap="3xl"
         >
-          <PolarLogotype
+          <RepalisLogotype
             className="ml-2 md:ml-0"
             logoVariant="logotype"
             size={120}

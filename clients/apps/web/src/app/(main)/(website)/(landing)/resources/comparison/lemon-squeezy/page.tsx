@@ -1,4 +1,4 @@
-import { PolarVsLemonSqueezyPage } from '@/components/Landing/comparison/PolarLemonSqueezyPage'
+import { RepalisVsLemonSqueezyPage } from '@/components/Landing/comparison/RepalisLemonSqueezyPage'
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -32,5 +32,5 @@ export const metadata: Metadata = {
 }
 
 export default function Page() {
-  return <PolarVsLemonSqueezyPage />
+  return <RepalisVsLemonSqueezyPage />
 }

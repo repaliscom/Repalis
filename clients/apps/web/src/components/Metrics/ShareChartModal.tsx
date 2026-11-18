@@ -131,7 +131,7 @@ export const ShareChartModal = ({
             className="dark:bg-polar-950 flex w-full max-w-4xl flex-col items-center justify-center gap-12 rounded-4xl bg-blue-50 p-12 max-md:min-w-[672px]"
             style={{
               backgroundImage:
-                'url(/assets/landing/company/Polar_Flow_03_No_Logo.jpg)',
+                'url(/assets/landing/company/Repalis_Flow_03_No_Logo.jpg)',
               backgroundSize: 'auto 120%',
               backgroundPosition: 'center',
               backgroundRepeat: 'no-repeat',

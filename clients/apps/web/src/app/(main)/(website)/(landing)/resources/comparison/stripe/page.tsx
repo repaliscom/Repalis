@@ -1,4 +1,4 @@
-import { PolarVsStripePage } from '@/components/Landing/comparison/PolarStripePage'
+import { RepalisVsStripePage } from '@/components/Landing/comparison/RepalisStripePage'
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -32,5 +32,5 @@ export const metadata: Metadata = {
 }
 
 export default function Page() {
-  return <PolarVsStripePage />
+  return <RepalisVsStripePage />
 }

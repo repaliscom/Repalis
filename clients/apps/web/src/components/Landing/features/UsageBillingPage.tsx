@@ -24,7 +24,7 @@ export const UsageBillingPage = () => {
       />
 
       <FeaturePageIntro>
-        Send events from your application. Polar aggregates them into meters and
+        Send events from your application. Repalis aggregates them into meters and
         writes line items on the next invoice.
       </FeaturePageIntro>
 
@@ -44,7 +44,7 @@ export const UsageBillingPage = () => {
         <p>
           A meter only matters once it&apos;s priced, which is what{' '}
           <FeatureHighlight>metered prices</FeatureHighlight> are for. Attach
-          one to a product and Polar reads the meter at the end of each cycle,
+          one to a product and Repalis reads the meter at the end of each cycle,
           then adds the corresponding line item to the next invoice.
         </p>
         <p>
@@ -70,7 +70,7 @@ export const UsageBillingPage = () => {
           {
             title: 'Metered prices',
             description:
-              'Attach a meter to a product. Polar bills the consumed amount on the next invoice.',
+              'Attach a meter to a product. Repalis bills the consumed amount on the next invoice.',
           },
           {
             title: 'Customer state',
@@ -109,12 +109,12 @@ export const UsageBillingPage = () => {
 
       <FeatureRichList
         title="Ingestion strategies"
-        description="The Polar SDK ships helpers for the most common event sources. Wrap a model client, an S3 bucket, or any HTTP body and the events flow."
+        description="The Repalis SDK ships helpers for the most common event sources. Wrap a model client, an S3 bucket, or any HTTP body and the events flow."
         items={[
           {
             title: 'LLM strategy',
             description:
-              'Wrap an OpenAI-compatible model. Polar counts prompt and completion tokens automatically. Works with the Vercel AI SDK and any model that returns a usage block.',
+              'Wrap an OpenAI-compatible model. Repalis counts prompt and completion tokens automatically. Works with the Vercel AI SDK and any model that returns a usage block.',
           },
           {
             title: 'Stream strategy',
@@ -148,7 +148,7 @@ export const UsageBillingPage = () => {
           from the same source without you keeping a parallel ledger.
         </p>
         <p>
-          One thing Polar deliberately does not do is block usage when a
+          One thing Repalis deliberately does not do is block usage when a
           customer crosses a quota. That decision belongs in your product, where
           you know the context. The meter exposes the signal, and you choose
           what to do with it: enforce a hard limit, prompt for an upgrade, or

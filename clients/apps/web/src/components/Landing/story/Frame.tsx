@@ -44,9 +44,9 @@ export const Sheet = ({
 
 /** The three flow images, as static classes so Tailwind can see them. Chapters rotate through them in page order. */
 export const FLOW = {
-  1: 'bg-[url(/assets/landing/company/Polar_Flow_01_No_Logo.jpg)]',
-  2: 'bg-[url(/assets/landing/company/Polar_Flow_02_No_Logo.jpg)]',
-  3: 'bg-[url(/assets/landing/company/Polar_Flow_03_No_Logo.jpg)]',
+  1: 'bg-[url(/assets/landing/company/Repalis_Flow_01_No_Logo.jpg)]',
+  2: 'bg-[url(/assets/landing/company/Repalis_Flow_02_No_Logo.jpg)]',
+  3: 'bg-[url(/assets/landing/company/Repalis_Flow_03_No_Logo.jpg)]',
 } as const
 export type Flow = keyof typeof FLOW
 

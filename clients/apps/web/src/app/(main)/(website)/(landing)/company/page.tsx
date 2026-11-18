@@ -94,7 +94,7 @@ export default function CompanyPage() {
             justifyContent="center"
           >
             <StaticImage
-              src="/assets/landing/company/Polar_Flow_03_No_Logo.jpg"
+              src="/assets/landing/company/Repalis_Flow_03_No_Logo.jpg"
               alt=""
               fill
               className="object-cover"

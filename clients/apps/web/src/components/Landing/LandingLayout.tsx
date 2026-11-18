@@ -1,6 +1,6 @@
 'use client'
 
-import { PolarLogotype } from '@/components/Layout/Public/PolarLogotype'
+import { RepalisLogotype } from '@/components/Layout/Public/RepalisLogotype'
 import Footer from '@/components/Organization/Footer'
 import { usePostHog } from '@/hooks/posthog'
 import { ArrowForward } from '@polar-sh/orbit/icons'
@@ -129,7 +129,7 @@ const LandingPageMobileNavigation = () => {
       <Sidebar className="md:hidden">
         <SidebarHeader className="p-4">
           <Link href="/">
-            <PolarLogotype logoVariant="icon" />
+            <RepalisLogotype logoVariant="icon" />
           </Link>
         </SidebarHeader>
         <SidebarContent className="flex flex-col gap-y-6 px-6 py-2">
@@ -172,7 +172,7 @@ const LandingPageMobileNavigation = () => {
 const LandingPageTopbar = () => {
   return (
     <div className="z-30 flex w-full flex-row items-center justify-between px-6 py-6 md:hidden md:px-12">
-      <PolarLogotype
+      <RepalisLogotype
         className="mt-1 ml-2 md:hidden"
         logoVariant="logotype"
         size={100}

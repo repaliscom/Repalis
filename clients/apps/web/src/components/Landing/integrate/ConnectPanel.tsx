@@ -49,6 +49,6 @@ const CLIENTS: Snippet[] = [
 export const ConnectPanel = () => (
   <SnippetPicker
     snippets={CLIENTS}
-    backdrop="/assets/landing/company/Polar_Flow_01_No_Logo.jpg"
+    backdrop="/assets/landing/company/Repalis_Flow_01_No_Logo.jpg"
   />
 )

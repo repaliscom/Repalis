@@ -66,7 +66,7 @@ export const Cli = () => (
   >
     <Box flexDirection="column" rowGap={{ base: '3xl', md: '4xl' }}>
       <ImageBand
-        src="/assets/landing/company/Polar_Flow_02_No_Logo.jpg"
+        src="/assets/landing/company/Repalis_Flow_02_No_Logo.jpg"
         className="min-h-[20rem] md:min-h-[28rem]"
       >
         <WindowFrame aside="zsh" className="max-w-[42rem]">

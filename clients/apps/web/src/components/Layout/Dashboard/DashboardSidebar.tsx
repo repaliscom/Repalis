@@ -35,7 +35,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
-import { PolarLogotype } from '../Public/PolarLogotype'
+import { RepalisLogotype } from '../Public/RepalisLogotype'
 import {
   AccountNavigation,
   OrganizationNavigation,
@@ -121,7 +121,7 @@ export const DashboardSidebar = ({
         )}
       >
         <div className="ml-1">
-          <PolarLogotype
+          <RepalisLogotype
             size={24}
             href={
               organization ? `/dashboard/${organization.slug}` : '/dashboard'

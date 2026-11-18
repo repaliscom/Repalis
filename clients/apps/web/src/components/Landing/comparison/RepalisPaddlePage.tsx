@@ -5,7 +5,7 @@ import { CheckOutlined, CloseOutlined } from '@polar-sh/orbit/icons'
 import Link from 'next/link'
 import { ResourceLayout, ResourceSection } from '../resources/ResourceLayout'
 
-export const PolarVsPaddlePage = () => {
+export const RepalisVsPaddlePage = () => {
   const tocItems = [
     { id: 'overview', title: 'Overview' },
     { id: 'comparison', title: 'Feature Comparison' },

@@ -2,30 +2,32 @@
 
 import GetStartedButton from '@/components/Auth/GetStartedButton'
 import { CheckOutlined, CloseOutlined } from '@polar-sh/orbit/icons'
+import Link from 'next/link'
 import { ResourceLayout, ResourceSection } from '../resources/ResourceLayout'
 
-export const PolarVsStripePage = () => {
+export const RepalisVsLemonSqueezyPage = () => {
   const tocItems = [
     { id: 'overview', title: 'Overview' },
     { id: 'comparison', title: 'Feature Comparison' },
     { id: 'pricing', title: 'Pricing' },
     { id: 'developer-experience', title: 'Developer Experience' },
-    { id: 'merchant-of-record', title: 'Merchant of Record' },
+    { id: 'scalability', title: 'Scalability & Features' },
     { id: 'why-repalis', title: 'Why Choose Repalis?' },
   ]
 
   return (
-    <ResourceLayout title="Repalis vs Stripe" toc={tocItems}>
+    <ResourceLayout title="Repalis vs Lemon Squeezy" toc={tocItems}>
       <ResourceSection id="overview" title="Overview">
         <p className="text-lg">
-          Choosing the right payment infrastructure for your software business.
+          Comparing modern Merchant of Record solutions for indie developers and
+          SaaS businesses.
         </p>
         <p className="dark:text-repalis-300 text-gray-500">
-          While Stripe is a powerful payment processor, Repalis is a complete
-          billing infrastructure platform built specifically for developers who
-          want to monetize software. The key difference: Repalis acts as a
-          Merchant of Record, handling all tax compliance globally, while Stripe
-          is a payment processor that leaves tax compliance to you.
+          Both Repalis and Lemon Squeezy are Merchant of Record platforms that
+          handle tax compliance globally. While Lemon Squeezy caters to solo
+          creators and indie hackers, Repalis is built for developers who need
+          robust APIs, advanced features, and the ability to scale to
+          enterprise-level requirements.
         </p>
       </ResourceSection>
 
@@ -40,7 +42,7 @@ export const PolarVsStripePage = () => {
                 <th className="dark:border-repalis-700 border-r border-gray-200 p-4 text-center font-medium">
                   Repalis
                 </th>
-                <th className="p-4 text-center font-medium">Stripe</th>
+                <th className="p-4 text-center font-medium">Lemon Squeezy</th>
               </tr>
             </thead>
             <tbody className="dark:divide-repalis-700 divide-y divide-gray-200">
@@ -74,7 +76,7 @@ export const PolarVsStripePage = () => {
                   <CheckOutlined className="text-green-600" fontSize="small" />
                 </td>
                 <td className="p-4 text-center">
-                  <CloseOutlined className="text-red-600" fontSize="small" />
+                  <CheckOutlined className="text-green-600" fontSize="small" />
                 </td>
               </tr>
               <tr>
@@ -85,7 +87,7 @@ export const PolarVsStripePage = () => {
                   <CheckOutlined className="text-green-600" fontSize="small" />
                 </td>
                 <td className="p-4 text-center">
-                  <CloseOutlined className="text-red-600" fontSize="small" />
+                  <CheckOutlined className="text-green-600" fontSize="small" />
                 </td>
               </tr>
               <tr>
@@ -141,19 +143,19 @@ export const PolarVsStripePage = () => {
               <li className="flex items-start gap-2 py-2">
                 <CheckOutlined className="text-green-600" fontSize="small" />
                 <span className="dark:text-repalis-300 text-sm text-gray-600">
-                  Global tax compliance included
+                  Lower rates on paid plans (Pro, Growth, Scale)
                 </span>
               </li>
               <li className="flex items-start gap-2 py-2">
                 <CheckOutlined className="text-green-600" fontSize="small" />
                 <span className="dark:text-repalis-300 text-sm text-gray-600">
-                  No hidden fees
+                  No hidden fees or surprise charges
                 </span>
               </li>
               <li className="flex items-start gap-2 py-2">
                 <CheckOutlined className="text-green-600" fontSize="small" />
                 <span className="dark:text-repalis-300 text-sm text-gray-600">
-                  Merchant of Record service
+                  All features included at one price
                 </span>
               </li>
             </ul>
@@ -161,8 +163,8 @@ export const PolarVsStripePage = () => {
 
           <div className="dark:border-repalis-700 flex flex-col gap-4 border border-gray-200 p-6">
             <div className="flex flex-col gap-2">
-              <h3 className="text-lg font-medium">Stripe</h3>
-              <div className="text-4xl">2.9% + 30¢</div>
+              <h3 className="text-lg font-medium">Lemon Squeezy</h3>
+              <div className="text-4xl">5% + 50¢</div>
               <p className="dark:text-repalis-300 text-sm text-gray-500">
                 per transaction
               </p>
@@ -171,40 +173,45 @@ export const PolarVsStripePage = () => {
               <li className="flex items-start gap-2 py-2">
                 <CloseOutlined className="text-red-600" fontSize="small" />
                 <span className="dark:text-repalis-300 text-sm text-gray-600">
-                  Tax compliance is your responsibility
+                  Higher base transaction fee
                 </span>
               </li>
               <li className="flex items-start gap-2 py-2">
                 <CloseOutlined className="text-red-600" fontSize="small" />
                 <span className="dark:text-repalis-300 text-sm text-gray-600">
-                  Subscriptions at 0.7% added fee
+                  Additional fees for certain features
                 </span>
               </li>
               <li className="flex items-start gap-2 py-2">
                 <CloseOutlined className="text-red-600" fontSize="small" />
                 <span className="dark:text-repalis-300 text-sm text-gray-600">
-                  Additional costs for international sales
+                  Limited advanced features
                 </span>
               </li>
             </ul>
           </div>
         </div>
         <p className="dark:text-repalis-300 text-sm text-gray-500">
-          While Stripe&apos;s base processing fee appears lower, Repalis&apos;s
-          pricing includes Merchant of Record services, global tax compliance,
-          and international sales tax handling that would require additional
-          Stripe products and accounting services.
+          On paid plans, Repalis&apos;s lower variable rates can save you
+          significantly compared to Lemon Squeezy as your revenue grows. See our{' '}
+          <Link href="/resources/pricing" className="underline">
+            pricing guide
+          </Link>{' '}
+          for a full breakdown.
         </p>
       </ResourceSection>
 
       <ResourceSection id="developer-experience" title="Developer Experience">
         <div className="flex flex-col gap-4">
           <div className="flex flex-col gap-2">
-            <h3 className="text-lg">Designed for developers</h3>
+            <h3 className="text-lg">
+              Built for developers who want full control
+            </h3>
             <p className="dark:text-repalis-300 text-gray-500">
-              Both Stripe and Repalis offer excellent developer experiences, but
-              Repalis is purpose-built for software monetization with modern
-              frameworks and ergonomic SDKs.
+              Lemon Squeezy is designed for simplicity, which is great for
+              getting started quickly. However, Repalis provides both simplicity
+              AND power with modern developer tooling, comprehensive APIs, and
+              the flexibility to build exactly what you need.
             </p>
           </div>
           <ul className="dark:border-repalis-700 dark:divide-repalis-700 divide-y divide-gray-200 border-y border-gray-200 [&>li]:py-3">
@@ -233,56 +240,56 @@ export const PolarVsStripePage = () => {
         </div>
       </ResourceSection>
 
-      <ResourceSection id="merchant-of-record" title="Merchant of Record">
+      <ResourceSection id="scalability" title="Scalability & Features">
         <div className="flex flex-col gap-4">
-          <h3 className="text-lg">The key differentiator</h3>
+          <h3 className="text-lg">Built to scale with your business</h3>
           <p className="dark:text-repalis-300 text-gray-500">
-            This is where Repalis and Stripe fundamentally differ. Repalis acts as
-            the Merchant of Record, meaning we handle all the complexity of
-            international sales tax, VAT, GST, and compliance.
+            While Lemon Squeezy works well for small projects and indie
+            creators, Repalis is designed to grow with you from your first sale to
+            enterprise scale, with advanced features and robust infrastructure.
           </p>
         </div>
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           <div className="dark:bg-repalis-800 flex flex-col gap-3 bg-gray-50 p-6">
-            <h4 className="font-medium">With Repalis (MoR)</h4>
+            <h4 className="font-medium">Repalis at Scale</h4>
             <ul className="flex flex-col gap-2">
               <li className="dark:text-repalis-300 flex items-start gap-2 text-sm text-gray-600">
                 <CheckOutlined className="text-green-600" fontSize="small" />
-                We handle all tax compliance
+                Advanced subscriptions with usage-based billing and tiers
               </li>
               <li className="dark:text-repalis-300 flex items-start gap-2 text-sm text-gray-600">
                 <CheckOutlined className="text-green-600" fontSize="small" />
-                We file tax returns globally
+                Robust webhooks with real-time events and automatic retries
               </li>
               <li className="dark:text-repalis-300 flex items-start gap-2 text-sm text-gray-600">
                 <CheckOutlined className="text-green-600" fontSize="small" />
-                We take on the liability
+                API-first platform to build custom experiences
               </li>
               <li className="dark:text-repalis-300 flex items-start gap-2 text-sm text-gray-600">
                 <CheckOutlined className="text-green-600" fontSize="small" />
-                You focus on building
+                Open source with full transparency and community contributions
               </li>
             </ul>
           </div>
 
           <div className="dark:bg-repalis-800 flex flex-col gap-3 bg-gray-50 p-6">
-            <h4 className="font-medium">With Stripe (Payment Processor)</h4>
+            <h4 className="font-medium">Lemon Squeezy Limitations</h4>
             <ul className="flex flex-col gap-2">
               <li className="dark:text-repalis-300 flex items-start gap-2 text-sm text-gray-600">
                 <CloseOutlined className="text-red-600" fontSize="small" />
-                You handle tax compliance
+                Basic subscriptions with limited flexibility
               </li>
               <li className="dark:text-repalis-300 flex items-start gap-2 text-sm text-gray-600">
                 <CloseOutlined className="text-red-600" fontSize="small" />
-                You file tax returns in each jurisdiction
+                Simple webhooks with limited event types
               </li>
               <li className="dark:text-repalis-300 flex items-start gap-2 text-sm text-gray-600">
                 <CloseOutlined className="text-red-600" fontSize="small" />
-                You carry the liability
+                UI-focused with less programmatic control
               </li>
               <li className="dark:text-repalis-300 flex items-start gap-2 text-sm text-gray-600">
                 <CloseOutlined className="text-red-600" fontSize="small" />
-                Requires accounting/legal support
+                Closed source with no visibility into platform internals
               </li>
             </ul>
           </div>
@@ -292,42 +299,39 @@ export const PolarVsStripePage = () => {
       <ResourceSection id="why-repalis" title="Why Choose Repalis?">
         <div className="flex flex-col gap-4">
           <h3 className="text-lg">
-            Repalis is purpose-built for software businesses
+            Start simple, scale to enterprise without switching
           </h3>
           <p className="dark:text-repalis-300 text-gray-500">
-            While Stripe is a powerful general-purpose payment processor, Repalis
-            is specifically designed for developers monetizing software. If you
-            want to sell globally without worrying about tax compliance, Repalis
-            is the better choice.
+            Lemon Squeezy is great for getting started, but many developers
+            quickly outgrow its limitations. Repalis gives you the same simple
+            start but with the power and flexibility to scale without ever
+            needing to migrate to a different platform.
           </p>
         </div>
         <ul className="dark:border-repalis-700 dark:divide-repalis-700 divide-y divide-gray-200 border-y border-gray-200 [&>li]:py-3">
           <li>
-            <h4 className="font-medium">Zero tax complexity</h4>
+            <h4 className="font-medium">Lower fees as you scale</h4>
             <p className="dark:text-repalis-300 text-gray-500">
-              Sell globally from day one without worrying about VAT, GST, or
-              sales tax.
+              Paid plans (Pro, Growth, Scale) offer lower variable rates with
+              the same MoR benefits.
             </p>
           </li>
           <li>
-            <h4 className="font-medium">Lower total cost</h4>
+            <h4 className="font-medium">More powerful</h4>
             <p className="dark:text-repalis-300 text-gray-500">
-              No need for additional tax software, accountants, or legal counsel
-              for international sales.
+              Advanced features for complex use cases and scale.
             </p>
           </li>
           <li>
-            <h4 className="font-medium">Built for software</h4>
+            <h4 className="font-medium">Developer-first</h4>
             <p className="dark:text-repalis-300 text-gray-500">
-              Features designed specifically for SaaS, digital products, and
-              software licensing.
+              Modern tooling, TypeScript-first, framework adapters.
             </p>
           </li>
           <li>
-            <h4 className="font-medium">Open source transparency</h4>
+            <h4 className="font-medium">Open source</h4>
             <p className="dark:text-repalis-300 text-gray-500">
-              See exactly how the platform works and contribute to its
-              development
+              Full transparency and community-driven development.
             </p>
           </li>
         </ul>
@@ -336,10 +340,10 @@ export const PolarVsStripePage = () => {
       <div className="dark:border-repalis-700 flex flex-col border-t border-gray-200 pt-16">
         <div className="flex flex-col items-center gap-8">
           <div className="flex flex-col items-center gap-4">
-            <h3 className="text-xl">Ready to simplify your payments?</h3>
+            <h3 className="text-xl">Choose a platform that grows with you</h3>
             <p className="dark:text-repalis-300 text-center text-gray-700 md:w-[440px]">
-              Join thousands of developers who have chosen Repalis for hassle-free
-              global software monetization.
+              Get the simplicity of Lemon Squeezy with the power and scalability
+              to take your business to the next level.
             </p>
           </div>
           <GetStartedButton

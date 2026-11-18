@@ -24,7 +24,7 @@ export const TrialsPage = () => {
       />
 
       <FeaturePageIntro>
-        Trials in Polar collect the payment method up front, defer the charge
+        Trials in Repalis collect the payment method up front, defer the charge
         until the period ends, and then convert without manual intervention.
       </FeaturePageIntro>
 
@@ -36,7 +36,7 @@ export const TrialsPage = () => {
           checkout, but no money moves yet.
         </p>
         <p>
-          When the trial period ends, Polar charges the saved card and the first
+          When the trial period ends, Repalis charges the saved card and the first
           regular billing cycle begins, all without your code in the loop. If
           the customer cancels mid-trial, no charge is ever attempted.
         </p>
@@ -59,7 +59,7 @@ export const TrialsPage = () => {
           {
             title: 'Conversion reminders',
             description:
-              'Polar emails the customer before the trial ends so the charge is expected.',
+              'Repalis emails the customer before the trial ends so the charge is expected.',
           },
           {
             title: 'Abuse prevention',
@@ -98,7 +98,7 @@ export const TrialsPage = () => {
 
       <FeatureRichList
         title="Conversion reminders"
-        description="Polar emails the customer before the trial ends so the conversion charge is expected. Reminder timing is calibrated to the trial length."
+        description="Repalis emails the customer before the trial ends so the conversion charge is expected. Reminder timing is calibrated to the trial length."
         items={[
           {
             title: 'Trials of 3 days or more',
@@ -125,7 +125,7 @@ export const TrialsPage = () => {
         <p>
           Repeat sign-ups are a common problem with trials, especially for
           products that rely on free evaluation periods to drive conversion.
-          Polar offers an optional layer of detection that tracks redemptions
+          Repalis offers an optional layer of detection that tracks redemptions
           across your products without any setup beyond a toggle.
         </p>
         <p>
@@ -138,7 +138,7 @@ export const TrialsPage = () => {
           the trial.
         </p>
         <p>
-          The customer never hits a dead end. Polar refreshes the session
+          The customer never hits a dead end. Repalis refreshes the session
           without the trial period and the regular paid checkout continues, so a
           returning user can still convert at full price.
         </p>

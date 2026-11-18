@@ -24,7 +24,7 @@ export const CostInsightsPage = () => {
       />
 
       <FeaturePageIntro>
-        Polar already tracks revenue from orders and subscriptions. Cost
+        Repalis already tracks revenue from orders and subscriptions. Cost
         Insights adds the spending side, so profit and lifetime value can be
         computed against actual cost of service rather than a guess.
       </FeaturePageIntro>
@@ -32,9 +32,9 @@ export const CostInsightsPage = () => {
       <FeatureSection title="How it works">
         <p>
           The mechanism is intentionally small. When you ingest an event through
-          the Polar API, you can attach a{' '}
+          the Repalis API, you can attach a{' '}
           <FeatureHighlight>_cost</FeatureHighlight> property with an amount and
-          a currency, and Polar will treat that as the cost of serving the
+          a currency, and Repalis will treat that as the cost of serving the
           event.
         </p>
         <p>

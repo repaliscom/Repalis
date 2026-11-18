@@ -63,7 +63,7 @@ export const UsageBillingMock = () => {
   return (
     <div
       ref={ref}
-      className="dark:border-polar-800 relative w-full overflow-hidden rounded-md border border-gray-200 bg-[url(/assets/landing/company/Polar_Flow_03_No_Logo.jpg)] bg-cover bg-center p-4 md:p-12"
+      className="dark:border-polar-800 relative w-full overflow-hidden rounded-md border border-gray-200 bg-[url(/assets/landing/company/Repalis_Flow_03_No_Logo.jpg)] bg-cover bg-center p-4 md:p-12"
     >
       <div className="pointer-events-none absolute inset-0 bg-black/20" />
       <Box position="relative" width="100%">

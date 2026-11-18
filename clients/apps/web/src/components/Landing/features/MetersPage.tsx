@@ -44,7 +44,7 @@ export const MetersPage = () => {
         <p>
           The result is a <FeatureHighlight>customer meter</FeatureHighlight>,
           one live figure for every customer that updates as events arrive.
-          Attach a metered price and Polar bills it at the end of the cycle.
+          Attach a metered price and Repalis bills it at the end of the cycle.
         </p>
         <p>
           Because meters read from the same event stream, a new pricing idea is
@@ -129,7 +129,7 @@ export const MetersPage = () => {
 
       <FeatureSection title="You decide what a limit means">
         <p>
-          A customer meter is a signal, not a gate. Polar keeps counting when a
+          A customer meter is a signal, not a gate. Repalis keeps counting when a
           customer passes a quota and leaves the response to your product, where
           the context is.
         </p>

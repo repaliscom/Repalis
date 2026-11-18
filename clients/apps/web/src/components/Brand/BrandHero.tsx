@@ -28,7 +28,7 @@ export const BrandHero = () => (
           </Text>
         </Box>
         <Button size="lg" asChild>
-          <a href="/assets/brand/polar_brand.zip" download>
+          <a href="/assets/brand/repalis_brand.zip" download>
             Download assets
           </a>
         </Button>

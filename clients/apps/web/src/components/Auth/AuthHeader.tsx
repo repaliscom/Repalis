@@ -1,10 +1,10 @@
-import { PolarLogotype } from '@/components/Layout/Public/PolarLogotype'
+import { RepalisLogotype } from '@/components/Layout/Public/RepalisLogotype'
 import { CONFIG } from '@/utils/config'
 
 const AuthHeader = ({ error }: { error?: string }) => {
   return (
     <div className="flex flex-col gap-y-4">
-      <PolarLogotype logoVariant="icon" size={48} />
+      <RepalisLogotype logoVariant="icon" size={48} />
       <div className="flex flex-col gap-4">
         <h2 className="text-2xl text-black dark:text-white">
           {CONFIG.IS_SANDBOX

@@ -44,7 +44,7 @@ export const IntegrateHero = () => (
         </Box>
       </Box>
       <BackdropPanel
-        src="/assets/landing/company/Polar_Flow_03_No_Logo.jpg"
+        src="/assets/landing/company/Repalis_Flow_03_No_Logo.jpg"
         aside="MCP"
       >
         <McpSession />

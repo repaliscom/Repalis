@@ -71,7 +71,7 @@ export function LogoSection() {
             {copied ? 'Copied' : 'Copy mark SVG'}
           </Button>
           <Button variant="secondary" asChild>
-            <a href="/assets/brand/polar_brand.zip" download>
+            <a href="/assets/brand/repalis_brand.zip" download>
               Download assets
             </a>
           </Button>

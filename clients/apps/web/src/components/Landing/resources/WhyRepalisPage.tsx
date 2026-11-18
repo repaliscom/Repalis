@@ -125,7 +125,7 @@ const faqJsonLd = {
   })),
 }
 
-export const WhyPolarPage = () => {
+export const WhyRepalisPage = () => {
   const tocItems = [
     { id: 'introduction', title: 'Introduction' },
     {
