@@ -215,7 +215,9 @@ class EmbedCheckout {
    * ```
    */
   public static init(): void {
-    const checkoutElements = document.querySelectorAll('[data-polar-checkout]')
+    const checkoutElements = document.querySelectorAll(
+      '[data-repalis-checkout], [data-polar-checkout]',
+    )
     checkoutElements.forEach((checkoutElement) => {
       checkoutElement.removeEventListener(
         'click',
@@ -304,9 +306,12 @@ class EmbedCheckout {
     e.preventDefault()
     let checkoutElement = e.target as HTMLElement
 
-    // Find the closest parent element with the `data-polar-checkout` attribute,
+    // Find the closest parent element with the `data-repalis-checkout` or `data-polar-checkout` attribute,
     // in case the checkout element has children triggering the event.
-    while (!checkoutElement.hasAttribute('data-polar-checkout')) {
+    while (
+      !checkoutElement.hasAttribute('data-repalis-checkout') &&
+      !checkoutElement.hasAttribute('data-polar-checkout')
+    ) {
       if (!checkoutElement.parentElement) {
         return
       }
@@ -315,8 +320,11 @@ class EmbedCheckout {
 
     const url =
       checkoutElement.getAttribute('href') ||
+      (checkoutElement.getAttribute('data-repalis-checkout') as string) ||
       (checkoutElement.getAttribute('data-polar-checkout') as string)
-    const theme = checkoutElement.getAttribute('data-polar-checkout-theme') as
+    const theme = (checkoutElement.getAttribute(
+      'data-repalis-checkout-theme',
+    ) || checkoutElement.getAttribute('data-polar-checkout-theme')) as
       | 'light'
       | 'dark'
       | undefined
@@ -413,14 +421,18 @@ declare global {
   }
   interface Window {
     Polar: Partial<PolarWindow>
+    Repalis: Partial<PolarWindow>
   }
 }
 
 if (typeof window !== 'undefined') {
-  window.Polar = {
+  const repalisObj = {
+    ...(window.Repalis ?? {}),
     ...(window.Polar ?? {}),
     EmbedCheckout,
   }
+  window.Repalis = repalisObj
+  window.Polar = repalisObj
 }
 
 if (typeof document !== 'undefined') {
@@ -432,4 +444,7 @@ if (typeof document !== 'undefined') {
   }
 }
 
-export { EmbedCheckout as PolarEmbedCheckout }
+export {
+  EmbedCheckout as PolarEmbedCheckout,
+  EmbedCheckout as RepalisEmbedCheckout,
+}
