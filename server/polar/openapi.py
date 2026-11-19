@@ -50,7 +50,7 @@ class APITag(StrEnum):
             {
                 "name": cls.public,
                 "description": (
-                    "Endpoints shown and documented in the Polar API documentation "
+                    "Endpoints shown and documented in the Repalis API documentation "
                     "and available in our SDKs."
                 ),
             },
@@ -63,11 +63,11 @@ class APITag(StrEnum):
             },
             {
                 "name": cls.mcp,
-                "description": "Endpoints supported by Polar's MCP server.",
+                "description": "Endpoints supported by Repalis's MCP server.",
             },
             {
                 "name": cls.cli,
-                "description": "Endpoints exposed as commands by Polar's CLI.",
+                "description": "Endpoints exposed as commands by Repalis's CLI.",
             },
         ]
 
@@ -173,7 +173,7 @@ def add_destructive_tool_annotations(openapi_schema: dict[str, Any]) -> dict[str
     return openapi_schema
 
 
-VERSIONING_POLICY_URL = "https://polar.sh/docs/api-reference/versioning"
+VERSIONING_POLICY_URL = "https://repalis.com/docs/api-reference/versioning"
 
 
 def get_openapi(
@@ -183,11 +183,11 @@ def get_openapi(
 ) -> dict[str, Any]:
     with api_version_context(version):
         openapi_schema = _get_openapi(
-            title="Polar API",
+            title="Repalis API",
             version=str(version),
-            summary="Polar HTTP and Webhooks API",
+            summary="Repalis HTTP and Webhooks API",
             description=(
-                "Read the docs at https://polar.sh/docs/api-reference. "
+                "Read the docs at https://repalis.com/docs/api-reference. "
                 f"See {VERSIONING_POLICY_URL} for the API versioning "
                 "and deprecation policy."
             ),
@@ -200,13 +200,13 @@ def get_openapi(
             tags=APITag.metadata(),  # type: ignore
             servers=[
                 {
-                    "url": "https://api.polar.sh",
+                    "url": "https://api.repalis.com",
                     "description": "Production environment",
                     "x-speakeasy-server-id": "production",
                     "x-polar-environment": "production",
                 },
                 {
-                    "url": "https://sandbox-api.polar.sh",
+                    "url": "https://sandbox-api.repalis.com",
                     "description": "Sandbox environment",
                     "x-speakeasy-server-id": "sandbox",
                     "x-polar-environment": "sandbox",

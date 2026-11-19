@@ -133,7 +133,7 @@ class State(TypedDict):
 async def lifespan(
     app: FastAPI, *, database_driver: AsyncDriver = "asyncpg"
 ) -> AsyncIterator[State]:
-    log.info("Starting Polar API")
+    log.info("Starting Repalis API")
 
     # Fail the deploy on a misconfigured secret
     hash_secrets = get_hash_secrets()
@@ -183,7 +183,7 @@ async def lifespan(
         )
         ip_geolocation_client = None
 
-    log.info("Polar API started")
+    log.info("Repalis API started")
 
     if settings.is_test():
         gc.collect()
@@ -216,7 +216,7 @@ async def lifespan(
     if ip_geolocation_client is not None:
         ip_geolocation_client.close()
 
-    log.info("Polar API stopped")
+    log.info("Repalis API stopped")
 
 
 def create_app(

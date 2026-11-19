@@ -149,7 +149,7 @@ class Settings(BaseSettings):
     # User-Agent sent by Polar's outbound HTTP clients (e.g. URL reachability
     # checks). Excludes the org review website/setup collectors, which use a
     # browser-like UA to avoid bot detection by CDNs.
-    POLAR_USER_AGENT: str = "Polar/1.0 (+https://polar.sh)"
+    POLAR_USER_AGENT: str = "Repalis/1.0 (+https://repalis.com)"
 
     # Base URL for the backend. Used by generate_external_url to
     # generate URLs to the backend accessible from the outside.
@@ -276,11 +276,11 @@ class Settings(BaseSettings):
     RESEND_API_BASE_URL: str = "https://api.resend.com"
     RESEND_WEBHOOK_SECRET: str = ""
     RESEND_ACTIVE_USERS_SEGMENT_ID: str | None = None
-    EMAIL_FROM_NAME: str = "Polar"
-    EMAIL_FROM_DOMAIN: str = "notifications.polar.sh"
+    EMAIL_FROM_NAME: str = "Repalis"
+    EMAIL_FROM_DOMAIN: str = "notifications.repalis.com"
     EMAIL_FROM_LOCAL: str = "mail"
-    EMAIL_DEFAULT_REPLY_TO_NAME: str = "Polar Support"
-    EMAIL_DEFAULT_REPLY_TO_EMAIL_ADDRESS: str = "support@polar.sh"
+    EMAIL_DEFAULT_REPLY_TO_NAME: str = "Repalis Support"
+    EMAIL_DEFAULT_REPLY_TO_EMAIL_ADDRESS: str = "support@repalis.com"
     EMAIL_LOG_RETENTION_PERIOD: timedelta = timedelta(days=660)
 
     EXTERNAL_EVENT_RETENTION_PERIOD: timedelta = timedelta(days=30)
@@ -495,7 +495,7 @@ class Settings(BaseSettings):
     POLAR_ORGANIZATION_ID: str = ""
     # Scale plan product, used by the Startup Program to grant a 100% discount
     POLAR_SCALE_PRODUCT_ID: str = ""
-    POLAR_API_URL: str = "https://api.polar.sh"
+    POLAR_API_URL: str = "https://api.repalis.com"
 
     @property
     def POLAR_SELF_ENABLED(self) -> bool:
@@ -541,9 +541,9 @@ class Settings(BaseSettings):
         state="US-CA",
         country=CountryAlpha2("US"),
     )
-    INVOICES_ADDITIONAL_INFO: str | None = "[support@polar.sh](mailto:support@polar.sh)"
+    INVOICES_ADDITIONAL_INFO: str | None = "[support@repalis.com](mailto:support@repalis.com)"
     INVOICES_VAT_NUMBERS: dict[str, str] = {}
-    PAYOUT_INVOICES_PREFIX: str = "POLAR-"
+    PAYOUT_INVOICES_PREFIX: str = "REPALIS-"
 
     # Application behaviours
     ORGANIZATION_DEFAULT_PRODUCTS_LIMIT: int = 1000
@@ -907,7 +907,7 @@ class Settings(BaseSettings):
 
     @property
     def frontend_hostname(self) -> str:
-        return urlparse(self.FRONTEND_BASE_URL).hostname or "polar.sh"
+        return urlparse(self.FRONTEND_BASE_URL).hostname or "repalis.com"
 
     def generate_backoffice_url(self, path: str) -> str:
         if self.BACKOFFICE_HOST is None:
