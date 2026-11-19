@@ -19,7 +19,7 @@ Distilled from ~210 review comments François (`frankie567`) left on billing PRs
 February and August 2026, plus domain invariants raised by `pieterbeulque`, `psincraian`,
 `joebon` and `Yopi` on the same PRs. Each rule cites its PR.
 
-**Read `.agents/skills/polar-billing.md` first.** That is the map of the domain — entities,
+**Read `.agents/skills/repalis-billing.md` first.** That is the map of the domain — entities,
 services, tasks, the cycle flow, proration, dunning, the ledger. This file is the checklist
 that assumes it.
 

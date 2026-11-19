@@ -1,11 +1,11 @@
-name: Polar billing config
+name: Repalis billing config
 
 on:
   pull_request:
-    paths: [polar.config.ts]
+    paths: [repalis.config.ts]
   push:
     branches: [main]
-    paths: [polar.config.ts]
+    paths: [repalis.config.ts]
 
 env:
   POLAR_PREVIEW: '1'
@@ -22,7 +22,7 @@ jobs:
       - uses: actions/setup-node@v4
         with: { node-version: 22, cache: npm }
       - run: npm ci
-      - run: curl -fsSL https://polar.sh/install.sh | bash
+      - run: curl -fsSL https://repalis.com/install.sh | bash
       - name: Plan and comment on the pull request
         env:
           POLAR_ACCESS_TOKEN: ${{ secrets.POLAR_READ_TOKEN }}
@@ -40,7 +40,7 @@ jobs:
       - uses: actions/setup-node@v4
         with: { node-version: 22, cache: npm }
       - run: npm ci
-      - run: curl -fsSL https://polar.sh/install.sh | bash
+      - run: curl -fsSL https://repalis.com/install.sh | bash
       - name: Apply
         env:
           POLAR_ACCESS_TOKEN: ${{ secrets.POLAR_WRITE_TOKEN }}

@@ -39,7 +39,7 @@ You **may** send:
 ## Consequences
 
 - New AI call sites start from a field list, not from `json.dumps(object)`.
-- Reviewers (Cubic, `/polar-code-review`, humans) flag extra personal or money
+- Reviewers (Cubic, `/repalis-code-review`, humans) flag extra personal or money
   fields in prompts. Cite this ADR.
 - Some existing calls send more than they need. Fix those when you touch them.
   Do not add new fields while the extra ones are still there.

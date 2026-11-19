@@ -22,7 +22,7 @@ ADRs live in `adr/`. Treat every ADR whose Status is
 - Before opening a PR, or while reviewing one.
 - When the user asks to "check the ADRs", "does this follow our decisions", or
   "verify against the architecture decisions".
-- As one dimension of a broader review, alongside `/polar-code-review`.
+- As one dimension of a broader review, alongside `/repalis-code-review`.
 
 ## How to run
 

@@ -171,8 +171,8 @@ Treat **Accepted** ADRs as binding:
 Reusable workflows live in `.agents/skills/`. `.claude/skills` is a symlink to that
 directory. Invoke as `/name` in Cursor and Claude Code, or `$name` in Codex.
 
-- `polar-code-review` — Polar-specific review of the branch diff. Bugs, security, and simplification are `/code-review`, `/security-review`, and `/simplify`.
-- `open-pr` — draft PR after lint, type-check, `test_fast`, `polar-code-review`, and cubic CLI (`CUBIC_API_KEY`). Do not mark ready unless asked.
+- `repalis-code-review` — Repalis-specific review of the branch diff. Bugs, security, and simplification are `/code-review`, `/security-review`, and `/simplify`.
+- `open-pr` — draft PR after lint, type-check, `test_fast`, `repalis-code-review`, and cubic CLI (`CUBIC_API_KEY`). Do not mark ready unless asked.
 
 ## Documentation
 

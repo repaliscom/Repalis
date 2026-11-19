@@ -1,15 +1,15 @@
 ---
-name: polar-code-review
-description: Review a Polar branch diff against conventions, Accepted ADRs, reuse, slop, and path-triggered API, ship-safety, and billing lenses. Use before opening a PR, when the user asks for a Polar code review, /polar-code-review, or $polar-code-review. Not a bug hunt or security review.
+name: repalis-code-review
+description: Review a Repalis branch diff against conventions, Accepted ADRs, reuse, slop, and path-triggered API, ship-safety, and billing lenses. Use before opening a PR, when the user asks for a Repalis code review, /repalis-code-review, or $repalis-code-review. Not a bug hunt or security review.
 license: MIT
 metadata:
-  author: polar
+  author: repalis
   version: "1.0.0"
 ---
 
-# Polar Code Review
+# Repalis Code Review
 
-Review the diff against the things only Polar knows: its conventions, its Accepted ADRs, its
+Review the diff against the things only Repalis knows: its conventions, its Accepted ADRs, its
 shared helpers, its API contract, its deploy shape, its billing domain.
 
 Not a bug hunt and not a security review — `/code-review` and `/security-review` do those

@@ -48,7 +48,7 @@ If lint or tests fail, stop. Do not review or open a PR.
 
 ## 2. Polar code review
 
-Read `.agents/skills/polar-code-review/SKILL.md` and follow it exactly.
+Read `.agents/skills/repalis-code-review/SKILL.md` and follow it exactly.
 
 Address every finding (🔴, 🟠, 🟡, 🧹). Then rerun this step.
 
