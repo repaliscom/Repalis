@@ -400,7 +400,9 @@ class EmbedPaymentMethod {
    * ```
    */
   public static init(): void {
-    const elements = document.querySelectorAll('[data-polar-payment-method]')
+    const elements = document.querySelectorAll(
+      '[data-repalis-payment-method], [data-polar-payment-method]',
+    )
     elements.forEach((element) => {
       element.removeEventListener(
         'click',
@@ -503,28 +505,36 @@ class EmbedPaymentMethod {
     e.preventDefault()
     let element = e.target as HTMLElement
 
-    while (!element.hasAttribute('data-polar-payment-method')) {
+    while (
+      !element.hasAttribute('data-repalis-payment-method') &&
+      !element.hasAttribute('data-polar-payment-method')
+    ) {
       if (!element.parentElement) {
         return
       }
       element = element.parentElement
     }
 
-    const token = element.getAttribute('data-polar-payment-method')
+    const token =
+      element.getAttribute('data-repalis-payment-method') ??
+      element.getAttribute('data-polar-payment-method')
     if (!token) {
       return
     }
-    const theme = element.getAttribute('data-polar-payment-method-theme') as
+    const theme = (element.getAttribute('data-repalis-payment-method-theme') ??
+      element.getAttribute('data-polar-payment-method-theme')) as
       | 'light'
       | 'dark'
       | null
-    const setAsDefaultAttr = element.getAttribute(
-      'data-polar-payment-method-set-as-default',
-    )
-    const returnUrl = element.getAttribute(
-      'data-polar-payment-method-return-url',
-    )
-    const locale = element.getAttribute('data-polar-payment-method-locale')
+    const setAsDefaultAttr =
+      element.getAttribute('data-repalis-payment-method-set-as-default') ??
+      element.getAttribute('data-polar-payment-method-set-as-default')
+    const returnUrl =
+      element.getAttribute('data-repalis-payment-method-return-url') ??
+      element.getAttribute('data-polar-payment-method-return-url')
+    const locale =
+      element.getAttribute('data-repalis-payment-method-locale') ??
+      element.getAttribute('data-polar-payment-method-locale')
     EmbedPaymentMethod.create({
       sessionToken: token,
       theme: theme ?? undefined,
@@ -632,12 +642,17 @@ declare global {
   }
   interface Window {
     Polar: Partial<PolarWindow>
+    Repalis?: Partial<PolarWindow>
   }
 }
 
 if (typeof window !== 'undefined') {
   window.Polar = {
     ...(window.Polar ?? {}),
+    EmbedPaymentMethod,
+  }
+  window.Repalis = {
+    ...(window.Repalis ?? {}),
     EmbedPaymentMethod,
   }
 }
@@ -652,6 +667,7 @@ if (typeof document !== 'undefined') {
 }
 
 export {
+  EmbedPaymentMethod as RepalisEmbedPaymentMethod,
   EmbedPaymentMethod as PolarEmbedPaymentMethod,
   REDIRECT_STATUS_PARAM as EMBED_PAYMENT_METHOD_REDIRECT_STATUS_PARAM,
 }

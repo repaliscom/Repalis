@@ -105,6 +105,7 @@ interface PolarPaymentMethodBaseProps {
 }
 
 export type PolarPaymentMethodProps = PolarPaymentMethodBaseProps
+export type RepalisPaymentMethodProps = PolarPaymentMethodBaseProps
 
 /**
  * Embeds the Polar "add payment method" form as a bare, chrome-less
@@ -248,3 +249,5 @@ export const usePaymentMethodRedirectResult = ({
     }
   }, [onSuccess, onError, onResult])
 }
+
+export { PolarPaymentMethod as RepalisPaymentMethod }
