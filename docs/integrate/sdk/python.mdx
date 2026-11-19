@@ -2,10 +2,10 @@
 title: "Python SDK"
 sidebarTitle: "Python"
 icon: python
-description: "Fully typed Python client for the Polar API"
+description: "Fully typed Python client for the Repalis API"
 ---
 
-The official Python SDK provides fully typed synchronous and asynchronous clients for the Polar API.
+The official Python SDK provides fully typed synchronous and asynchronous clients for the Repalis API.
 
 ## Installation
 
@@ -31,9 +31,9 @@ Create an [organization access token](/integrate/oat), store it in `POLAR_ACCESS
 ```python main.py
 import os
 
-from polar.v2026_10 import Polar
+from repalis.v2026_10 import Repalis
 
-polar = Polar(os.environ["POLAR_ACCESS_TOKEN"])
+polar = Repalis(os.environ["POLAR_ACCESS_TOKEN"])
 
 customer_state = polar.customers.get_state_external("customer_external_id")
 print(customer_state)
@@ -47,7 +47,7 @@ Use `PolarAsync` in asynchronous applications:
 import asyncio
 import os
 
-from polar.v2026_10 import PolarAsync
+from repalis.v2026_10 import PolarAsync
 
 
 async def main() -> None:
@@ -67,14 +67,14 @@ The import path pins your client to the `2026-10` API version.
 
 Both clients support context managers to close their HTTP connections automatically when the block exits.
 
-For synchronous applications, use `Polar` with `with`:
+For synchronous applications, use `Repalis` with `with`:
 
 ```python
 import os
 
-from polar.v2026_10 import Polar
+from repalis.v2026_10 import Repalis
 
-with Polar(os.environ["POLAR_ACCESS_TOKEN"]) as polar:
+with Repalis(os.environ["POLAR_ACCESS_TOKEN"]) as polar:
     customer_state = polar.customers.get_state_external("customer_external_id")
     print(customer_state)
 ```
@@ -85,7 +85,7 @@ For asynchronous applications, use `PolarAsync` with `async with`:
 import asyncio
 import os
 
-from polar.v2026_10 import PolarAsync
+from repalis.v2026_10 import PolarAsync
 
 
 async def main() -> None:
@@ -104,10 +104,10 @@ asyncio.run(main())
 The client uses production by default. Pass `environment="sandbox"` to use the isolated [sandbox environment](/integrate/sandbox):
 
 ```python
-polar = Polar(
+polar = Repalis(
     os.environ["POLAR_ACCESS_TOKEN"],
     environment="sandbox",
 )
 ```
 
-[View the source code on GitHub](https://github.com/polarsource/polar/tree/main/sdk/python).
+[View the source code on GitHub](https://github.com/repaliscom/Repalis/tree/main/sdk/python).

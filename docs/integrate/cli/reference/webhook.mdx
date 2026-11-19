@@ -1,5 +1,5 @@
 ---
-title: "polar webhook"
+title: "repalis webhook"
 sidebarTitle: "webhook"
 description: "Test webhooks against your local server"
 ---
@@ -7,20 +7,20 @@ description: "Test webhooks against your local server"
 {/* Generated from the CLI by `pnpm --filter @polar-sh/cli docs:generate`. Do not edit by hand. */}
 
 ```bash
-polar webhook <subcommand> [flags]
+repalis webhook <subcommand> [flags]
 ```
 
 **Subcommands**
 
-- [`polar webhook listen`](#polar-webhook-listen) Forward webhook events for an organization to a local URL
-- [`polar webhook trigger`](#polar-webhook-trigger) Send a sample webhook event to your local server
+- [`repalis webhook listen`](#polar-webhook-listen) Forward webhook events for an organization to a local URL
+- [`repalis webhook trigger`](#polar-webhook-trigger) Send a sample webhook event to your local server
 
-## polar webhook listen
+## repalis webhook listen
 
 Forward webhook events for an organization to a local URL
 
 ```bash
-polar webhook listen [flags] [<url>]
+repalis webhook listen [flags] [<url>]
 ```
 
 **Arguments**
@@ -40,30 +40,30 @@ polar webhook listen [flags] [<url>]
 
 Forward events to http://localhost:3000
 ```bash
-polar webhook listen 3000
+repalis webhook listen 3000
 ```
 
 Forward events to a route on your local server
 ```bash
-polar webhook listen 3000/api/webhooks
+repalis webhook listen 3000/api/webhooks
 ```
 
 Forward events for a specific organization
 ```bash
-polar webhook listen http://localhost:3000/api/webhooks --org <id>
+repalis webhook listen http://localhost:3000/api/webhooks --org <id>
 ```
 
 Print the signing secret, e.g. for POLAR_WEBHOOK_SECRET in .env
 ```bash
-polar webhook listen --print-secret
+repalis webhook listen --print-secret
 ```
 
-## polar webhook trigger
+## repalis webhook trigger
 
 Send a sample webhook event to your local server
 
 ```bash
-polar webhook trigger [flags] [<event>]
+repalis webhook trigger [flags] [<event>]
 ```
 
 **Arguments**
@@ -86,25 +86,25 @@ polar webhook trigger [flags] [<event>]
 
 Pick an event from a list
 ```bash
-polar webhook trigger
+repalis webhook trigger
 ```
 
 Send a sample order.paid event
 ```bash
-polar webhook trigger order.paid
+repalis webhook trigger order.paid
 ```
 
 Change a field in the payload
 ```bash
-polar webhook trigger order.paid --override data.customer.email=jane@example.com
+repalis webhook trigger order.paid --override data.customer.email=jane@example.com
 ```
 
 Generate the same IDs every time
 ```bash
-polar webhook trigger order.paid --seed 7
+repalis webhook trigger order.paid --seed 7
 ```
 
 Print the payload instead of sending it
 ```bash
-polar webhook trigger order.paid --dry-run
+repalis webhook trigger order.paid --dry-run
 ```

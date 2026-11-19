@@ -13,7 +13,7 @@ import WebhookHandlers from "/snippets/adapters/webhook-handlers.mdx";
 
 ## Installation
 
-Install the required Polar packages using the following command:
+Install the required Repalis packages using the following command:
 
 <Tabs>
   <Tab title="npm">
@@ -51,7 +51,7 @@ export const GET = Checkout({
   accessToken: process.env.POLAR_ACCESS_TOKEN!,
   successUrl: process.env.SUCCESS_URL,
   returnUrl: "https://myapp.com", // An optional URL which renders a back-button in the Checkout
-  environment: "sandbox", // Use sandbox if you're testing Polar - omit the parameter or pass 'production' otherwise
+  environment: "sandbox", // Use sandbox if you're testing Repalis - omit the parameter or pass 'production' otherwise
   theme: "dark", // Enforces the theme - System-preferred theme will be set if left omitted
 });
 ```
@@ -89,9 +89,9 @@ import type { NextRequest } from "next/server";
 
 export const GET = CustomerPortal({
   accessToken: process.env.POLAR_ACCESS_TOKEN!,
-  getCustomerId: async (req: NextRequest) => "", // Function to resolve a Polar Customer ID
+  getCustomerId: async (req: NextRequest) => "", // Function to resolve a Repalis Customer ID
   returnUrl: "https://myapp.com", // An optional URL which renders a back-button in the Customer Portal
-  environment: "sandbox", // Use sandbox if you're testing Polar - omit the parameter or pass 'production' otherwise
+  environment: "sandbox", // Use sandbox if you're testing Repalis - omit the parameter or pass 'production' otherwise
 });
 ```
 

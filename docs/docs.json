@@ -2839,7 +2839,7 @@
     },
     {
       "source": "/merchant-of-record/acceptable-use",
-      "destination": "https://polar.sh/legal/acceptable-use-policy"
+      "destination": "https://repalis.com/legal/acceptable-use-policy"
     },
     {
       "source": "/documentation/polar-as-merchant-of-record/account-reviews",

@@ -6,7 +6,7 @@ having to poll for updates"
 ---
 
 Secrets generated on or after 8 September 2026, 00:00 UTC follow
-[Standard Webhooks](https://www.standardwebhooks.com/). Older secrets use Polar HMAC.
+[Standard Webhooks](https://www.standardwebhooks.com/). Older secrets use Repalis HMAC.
 See [Handle incoming webhooks](/integrate/webhooks/delivery#custom-validation).
 
 Our SDKs offer:
@@ -27,7 +27,7 @@ formatting. Making it a breeze to setup in-chat notifications for your team.
 
 <Steps>
   <Step title="Add new endpoint">
-    Head over to [**Settings → Webhooks**](https://polar.sh/to/dashboard/settings/webhooks) and click on the `Add Endpoint` button to create a new webhook.
+    Head over to [**Settings → Webhooks**](https://repalis.com/to/dashboard/settings/webhooks) and click on the `Add Endpoint` button to create a new webhook.
 
     <img className="block dark:hidden" src="/assets/integrate/webhooks/create.light.png" />
     <img className="hidden dark:block" src="/assets/integrate/webhooks/create.dark.png" />
@@ -41,7 +41,7 @@ formatting. Making it a breeze to setup in-chat notifications for your team.
   <Step title="Choose a delivery format">
     For standard, custom integrations, leave this parameter on **Raw**. This will send a payload in JSON format.
 
-    If you wish to send notifications to a Discord or Slack channel, you can select the corresponding format here. Polar will then adapt the payload so properly formatted messages are sent to your channel.
+    If you wish to send notifications to a Discord or Slack channel, you can select the corresponding format here. Repalis will then adapt the payload so properly formatted messages are sent to your channel.
 
     <img className="block dark:hidden" src="/assets/integrate/webhooks/format.light.png" />
     <img className="hidden dark:block" src="/assets/integrate/webhooks/format.dark.png" />
@@ -51,7 +51,7 @@ formatting. Making it a breeze to setup in-chat notifications for your team.
   <Step title="Set a secret">
     We cryptographically sign the requests using this secret. So you can easily
     verify them using our SDKs to ensure they are legitimate webhook payloads
-    from Polar.
+    from Repalis.
 
     You can set your own or generate a random one.
 
@@ -68,15 +68,15 @@ formatting. Making it a breeze to setup in-chat notifications for your team.
 <Tip>
   **Developing locally?**
 
-  The [Polar CLI](/integrate/cli/webhooks) forwards your organization's webhooks to a URL on your machine, so you can test handlers without deploying them.
+  The [Repalis CLI](/integrate/cli/webhooks) forwards your organization's webhooks to a URL on your machine, so you can test handlers without deploying them.
 
   ```bash Terminal
-  curl -fsSL https://polar.sh/install.sh | bash
+  curl -fsSL https://repalis.com/install.sh | bash
   polar auth login --production
-  polar webhook listen http://localhost:3000/api/webhooks
+  repalis webhook listen http://localhost:3000/api/webhooks
   ```
 
-  It also sends sample events on demand with `polar webhook trigger`.
+  It also sends sample events on demand with `repalis webhook trigger`.
 </Tip>
 
 [Now, it's time to integrate our endpoint to receive events

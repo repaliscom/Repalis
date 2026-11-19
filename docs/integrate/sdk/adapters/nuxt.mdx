@@ -11,7 +11,7 @@ import WebhookHandlers from "/snippets/adapters/webhook-handlers.mdx";
 
 ## Installation
 
-Install the required Polar packages using the following command:
+Install the required Repalis packages using the following command:
 
 <Tabs>
   <Tab title="npm">
@@ -118,7 +118,7 @@ export default defineEventHandler((event) => {
     returnUrl: "https://myapp.com", // An optional URL which renders a back-button in the Customer Portal
     environment: polarServer as "sandbox" | "production",
     getCustomerId: (event) => {
-      // Use your own logic to get the Polar customer ID - from a database, session, etc.
+      // Use your own logic to get the Repalis customer ID - from a database, session, etc.
       return Promise.resolve("9d89909b-216d-475e-8005-053dba7cff07");
     },
   });
@@ -127,7 +127,7 @@ export default defineEventHandler((event) => {
 });
 ```
 
-`getCustomerId` must resolve to a Polar customer ID. The handler returns `400` when it resolves to an empty value.
+`getCustomerId` must resolve to a Repalis customer ID. The handler returns `400` when it resolves to an empty value.
 
 ## Webhooks
 

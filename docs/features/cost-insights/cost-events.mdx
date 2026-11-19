@@ -3,7 +3,7 @@ title: Cost Events
 description: Track costs by adding cost metadata to your ingested events
 ---
 
-Cost Insights works by allowing you to add a special `_cost` property to any event you ingest through Polar's Event Ingestion API. These costs are then aggregated and made available through the Metrics API alongside revenue metrics.
+Cost Insights works by allowing you to add a special `_cost` property to any event you ingest through Repalis's Event Ingestion API. These costs are then aggregated and made available through the Metrics API alongside revenue metrics.
 
 ## The `_cost` Property
 
@@ -35,7 +35,7 @@ await polar.events.ingest({
 ```
 
 ```json cURL
-POST https://api.polar.sh/v1/events/ingest
+POST https://api.repalis.com/v1/events/ingest
 Content-Type: application/json
 Authorization: Bearer YOUR_ACCESS_TOKEN
 
@@ -107,7 +107,7 @@ const inputCost = (completion.usage.prompt_tokens / 1000) * 3; // in cents
 const outputCost = (completion.usage.completion_tokens / 1000) * 6; // in cents
 const totalCost = inputCost + outputCost;
 
-// Track the cost in Polar
+// Track the cost in Repalis
 await polar.events.ingest({
   events: [
     {

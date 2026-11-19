@@ -1,4 +1,4 @@
-Polar uses date-based API versions to evolve the API without unexpectedly changing
+Repalis uses date-based API versions to evolve the API without unexpectedly changing
 the contract your integration depends on. Versions use the `YYYY-MM` format, such
 as {version}, and apply to API requests, responses, webhook payloads, and SDK types.
 
@@ -9,7 +9,7 @@ as {version}, and apply to API requests, responses, webhook payloads, and SDK ty
 
 ## Choosing a version
 
-Polar maintains three API versions at a time:
+Repalis maintains three API versions at a time:
 
 | Version        | Stability                                                     | When to use it                                       |
 | -------------- | ------------------------------------------------------------- | ---------------------------------------------------- |
@@ -22,7 +22,7 @@ feature and can adapt to changes during the development cycle.
 
 ## Version lifecycle
 
-Polar releases a new API version during the first week of January, April, July,
+Repalis releases a new API version during the first week of January, April, July,
 and October. At each release:
 
 1. Deprecated is removed and no longer accepts requests.
@@ -56,7 +56,7 @@ Set the version with the `Polar-Version` request header. The base URL and endpoi
 paths remain the same:
 
 ```bash
-curl -i https://api.polar.sh/v1/products/ \
+curl -i https://api.repalis.com/v1/products/ \
   -H "Authorization: Bearer $POLAR_ACCESS_TOKEN" \
   -H "Polar-Version: {version}" \
   -H "Accept: application/json"
@@ -68,7 +68,7 @@ Responses include the version used to process the request:
 Polar-Version: {version}
 ```
 
-If the header is omitted, Polar uses Current. A malformed, unknown, or removed
+If the header is omitted, Repalis uses Current. A malformed, unknown, or removed
 version returns `404 Not Found`.
 
 ## Pinning webhooks
@@ -111,7 +111,7 @@ matching `Polar-Version` header:
   <Tab title="Python">
 
     ```py
-    from polar.v{pythonVersion} import Polar
+    from repalis.v{pythonVersion} import Repalis
     ```
 
   </Tab>

@@ -90,9 +90,9 @@ uv add polar-sdk
 ```python
 import os
 
-from polar.v2026_10 import Polar
+from repalis.v2026_10 import Repalis
 
-polar = Polar(os.environ["POLAR_ACCESS_TOKEN"])
+polar = Repalis(os.environ["POLAR_ACCESS_TOKEN"])
 
 polar.events.ingest(
     events=[
@@ -118,11 +118,11 @@ Read the token usage from the agent run and ingest it as an event:
 ```python
 import os
 
-from polar.v2026_10 import Polar
+from repalis.v2026_10 import Repalis
 from pydantic import BaseModel
 from pydantic_ai import Agent
 
-polar = Polar(os.environ["POLAR_ACCESS_TOKEN"])
+polar = Repalis(os.environ["POLAR_ACCESS_TOKEN"])
 
 
 class MyModel(BaseModel):

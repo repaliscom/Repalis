@@ -1,15 +1,15 @@
 ---
 title: "Orders"
-description: "Every paid transaction on Polar is an order."
+description: "Every paid transaction on Repalis is an order."
 ---
 
-An **order** is the record of a single paid transaction on Polar. Every successful checkout, subscription cycle, and subscription change generates an order — it's where the money, the tax, the invoice, and the link back to the [product](/features/products) and [customer](/features/customer-management) live.
+An **order** is the record of a single paid transaction on Repalis. Every successful checkout, subscription cycle, and subscription change generates an order — it's where the money, the tax, the invoice, and the link back to the [product](/features/products) and [customer](/features/customer-management) live.
 
 If [subscriptions](/features/subscriptions/introduction) are the _relationship_ with a customer, orders are the _individual payments_ inside that relationship.
 
 ## When orders are created
 
-Polar creates an order in all of these cases:
+Repalis creates an order in all of these cases:
 
 - **One-time purchase** — when a customer checks out a non-recurring product.
 - **Subscription created** — the initial order generated when a customer subscribes.
@@ -21,7 +21,7 @@ Each order carries a `billing_reason` that tells you which of these it is: `purc
 
 ## Arbitrary charges
 
-Sometimes you need to charge a customer an amount that doesn't originate from a checkout or a subscription renewal — a usage overage, a one-off professional-services fee, or a manual top-up. Polar lets you run these **off-session charges** against a customer's saved payment method, without the customer being present.
+Sometimes you need to charge a customer an amount that doesn't originate from a checkout or a subscription renewal — a usage overage, a one-off professional-services fee, or a manual top-up. Repalis lets you run these **off-session charges** against a customer's saved payment method, without the customer being present.
 
 <Note>
   Off-session charges are currently in preview. You'll only be able to run off-session charges if
@@ -64,11 +64,11 @@ An off-session charge is a two-step flow: you create a **draft order**, then **f
   Required unless you authenticate with an organization token.
 </ParamField>
 
-The customer must have a complete billing address (so Polar can calculate tax) and at least one saved payment method.
+The customer must have a complete billing address (so Repalis can calculate tax) and at least one saved payment method.
 
 ```bash cURL
 curl --request POST \
-  --url https://api.polar.sh/v1/orders/ \
+  --url https://api.repalis.com/v1/orders/ \
   --header 'Authorization: Bearer <YOUR_BEARER_TOKEN_HERE>' \
   --header 'Content-Type: application/json' \
   --data '{
@@ -87,7 +87,7 @@ The response is the draft order, including its `id`. Creating a draft fires the 
 
 ```bash cURL
 curl --request POST \
-  --url https://api.polar.sh/v1/orders/<order_id>/finalize \
+  --url https://api.repalis.com/v1/orders/<order_id>/finalize \
   --header 'Authorization: Bearer <YOUR_BEARER_TOKEN_HERE>' \
   --header 'Content-Type: application/json' \
   --data '{}'
@@ -109,7 +109,7 @@ An order moves through a small set of statuses over its lifetime:
 
 | Status               | Meaning                                                                                  |
 | -------------------- | ---------------------------------------------------------------------------------------- |
-| `pending`            | The order has been created and Polar is attempting to collect payment.                   |
+| `pending`            | The order has been created and Repalis is attempting to collect payment.                   |
 | `paid`               | The payment succeeded.                                                                   |
 | `refunded`           | The order has been fully refunded.                                                       |
 | `partially_refunded` | Part of the order has been refunded. See [Refunds](/features/refunds).                   |
@@ -123,14 +123,14 @@ Every order carries:
 
 - **Amounts**: subtotal, discount, tax, net, and total, with the currency it was billed in.
 - **Billing details**: customer billing name and address (editable until the invoice is generated).
-- **Tax details**: taxability reason, tax rate, and the amount collected — useful if you're operating as merchant of record on your own, or reconciling against Polar's [MoR tax handling](/merchant-of-record/introduction).
+- **Tax details**: taxability reason, tax rate, and the amount collected — useful if you're operating as merchant of record on your own, or reconciling against Repalis's [MoR tax handling](/merchant-of-record/introduction).
 - **A link to the product and customer**, and to the subscription if the order came from a subscription.
 - **The invoice**, once it's been generated.
 - **[Custom field data](/features/custom-fields)** captured at checkout.
 
 ## Invoices
 
-Polar generates a PDF invoice for every paid order. You can:
+Repalis generates a PDF invoice for every paid order. You can:
 
 - **Download it** from the order detail page in the dashboard.
 - **Trigger generation** programmatically via [Generate Order Invoice](/api-reference/current/orders/generate-order-invoice), then fetch the URL with [Get Order Invoice](/api-reference/current/orders/get-order-invoice).
@@ -145,7 +145,7 @@ Customers can download and edit their own invoices — adding a company name, VA
 
 ## Receipts
 
-A **receipt** is the proof of payment for an order — what was charged, how, and what's been refunded since. Polar issues one for every paid order and assigns a per-customer number in the form `RCPT-{customer-id}-{NNNN}`.
+A **receipt** is the proof of payment for an order — what was charged, how, and what's been refunded since. Repalis issues one for every paid order and assigns a per-customer number in the form `RCPT-{customer-id}-{NNNN}`.
 
 Each receipt includes:
 
@@ -164,7 +164,7 @@ Orders can be refunded in full or in part from the dashboard, or programmaticall
 
 ## Webhooks
 
-If you're integrating orders into your own system, Polar emits an event on every state transition:
+If you're integrating orders into your own system, Repalis emits an event on every state transition:
 
 - [`order.created`](/api-reference/current/order_created) — a new order exists (not necessarily paid yet).
 - [`order.paid`](/api-reference/current/order_paid) — the order has been collected. This is the one most integrations care about.

@@ -1,7 +1,7 @@
 ---
 title: "Authentication"
 sidebarTitle: "Authentication"
-description: "Sign in to Polar from the CLI and choose the organization you work on"
+description: "Sign in to Repalis from the CLI and choose the organization you work on"
 ---
 
 The CLI signs in through your browser with OAuth. Sessions are stored in your
@@ -26,7 +26,7 @@ command without one in a terminal and the CLI will ask:
   </Tab>
 </Tabs>
 
-Your browser opens on Polar's authorization page. Approve the request and
+Your browser opens on Repalis's authorization page. Approve the request and
 return to the terminal. If a session already exists for that environment, the
 CLI keeps it and tells you how to replace it with `--new-session`.
 
@@ -35,7 +35,7 @@ environments you are signed in to and asks which one to make active.
 
 ## The active organization
 
-Commands that act on an organization, such as `polar webhook listen`, use the active
+Commands that act on an organization, such as `repalis webhook listen`, use the active
 organization. Its environment comes with it: choosing a sandbox organization
 means the CLI talks to sandbox, choosing a production organization means it
 talks to production. There is no separate environment switch.
@@ -63,7 +63,7 @@ To use a different organization for a single command without changing the
 active one, pass its ID:
 
 ```bash Terminal
-polar webhook listen http://localhost:3000/webhooks --org <organization-id>
+repalis webhook listen http://localhost:3000/webhooks --org <organization-id>
 ```
 
 ## Signing out
@@ -87,7 +87,7 @@ On machines without a browser or keychain, authenticate with an
 ```bash Terminal
 export POLAR_ACCESS_TOKEN=polar_oat_...
 export POLAR_ENVIRONMENT=sandbox
-polar webhook listen http://localhost:3000/webhooks
+repalis webhook listen http://localhost:3000/webhooks
 ```
 
 `POLAR_ENVIRONMENT` selects the environment the token belongs to and defaults

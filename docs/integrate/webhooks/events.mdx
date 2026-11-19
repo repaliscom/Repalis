@@ -184,7 +184,7 @@ In order to properly implement logic for handling subscriptions, you should look
     href="/api-reference/current/subscription_migrated"
     horizontal
   >
-    Fired when Polar takes over billing of a subscription migrated from another provider. Includes `provider` and `provider_subscription_id` so you can correlate the two. Does not send `subscription.created` or `subscription.active`.
+    Fired when Repalis takes over billing of a subscription migrated from another provider. Includes `provider` and `provider_subscription_id` so you can correlate the two. Does not send `subscription.created` or `subscription.active`.
   </Card>
 </Columns>
 
@@ -274,17 +274,17 @@ The subscription data reflects the new period through `current_period_start` and
 
 #### Migration Sequences
 
-When Polar takes over billing of a subscription imported from another provider, these events are sent at cutover:
+When Repalis takes over billing of a subscription imported from another provider, these events are sent at cutover:
 
 - `subscription.updated`
 - `subscription.migrated`
 - `customer.state_changed`
 - `benefit_grant.created`, for any benefits attached to the product (seat-based products grant them when seats are claimed)
-- `customer.updated`, if Polar sets the copied card as the customer's default payment method
+- `customer.updated`, if Repalis sets the copied card as the customer's default payment method
 
-Polar enqueues `subscription.updated` before `subscription.migrated`, but delivery order isn't guaranteed.
+Repalis enqueues `subscription.updated` before `subscription.migrated`, but delivery order isn't guaranteed.
 
-`subscription.migrated` carries `provider` and `provider_subscription_id` so you can match the Polar subscription to the source. Polar does not send `subscription.created`, `subscription.active`, or `subscription.resumed` for this path. A subscription already set to cancel at the end of its period arrives with `cancel_at_period_end` set, and gets `subscription.canceled` and `subscription.revoked` when that period ends.
+`subscription.migrated` carries `provider` and `provider_subscription_id` so you can match the Repalis subscription to the source. Repalis does not send `subscription.created`, `subscription.active`, or `subscription.resumed` for this path. A subscription already set to cancel at the end of its period arrives with `cancel_at_period_end` set, and gets `subscription.canceled` and `subscription.revoked` when that period ends.
 
 ### Orders
 
