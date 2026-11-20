@@ -37,7 +37,7 @@ from polar.integrations.github_repository_benefit.endpoints import (
     router as github_repository_benefit_router,
 )
 from polar.integrations.plain.endpoints import router as plain_router
-from polar.integrations.polar.endpoints import router as polar_self_router
+from polar.integrations.repalis.endpoints import router as polar_self_router
 from polar.integrations.resend.endpoints import router as resend_router
 from polar.integrations.slack.endpoints import router as slack_router
 from polar.integrations.stripe.endpoints import router as stripe_router
@@ -178,7 +178,7 @@ router.include_router(cli_router)
 router.include_router(github_repository_benefit_router)
 # /accounts
 router.include_router(accounts_router)
-# /integrations/polar
+# /integrations/repalis
 router.include_router(polar_self_router)
 # /integrations/chargeback-stop
 router.include_router(chargeback_stop_router)

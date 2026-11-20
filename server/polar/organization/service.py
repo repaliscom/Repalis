@@ -28,8 +28,8 @@ from polar.exceptions import (
     PolarRequestValidationError,
     ValidationError,
 )
-from polar.integrations.polar.service import billing_member_role
-from polar.integrations.polar.service import polar_self as polar_self_service
+from polar.integrations.repalis.service import billing_member_role
+from polar.integrations.repalis.service import polar_self as polar_self_service
 from polar.integrations.resend.service import resend as resend_service
 from polar.integrations.stripe.account_risk import (
     ACTIONABLE_RISK_LEVELS,

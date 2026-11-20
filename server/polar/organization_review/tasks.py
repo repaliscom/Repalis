@@ -6,7 +6,7 @@ import structlog
 
 from polar.config import Environment, settings
 from polar.exceptions import PolarTaskError
-from polar.integrations.polar.service import polar_self
+from polar.integrations.repalis.service import polar_self
 from polar.models.organization import (
     FIRST_REVIEW_THRESHOLD_CENTS,
     Organization,

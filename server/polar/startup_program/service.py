@@ -11,7 +11,7 @@ from polar.email.schemas import (
 )
 from polar.email.sender import enqueue_email_template
 from polar.exceptions import PolarError
-from polar.integrations.polar.client import get_client
+from polar.integrations.repalis.client import get_client
 from polar.models import Organization
 
 if TYPE_CHECKING:

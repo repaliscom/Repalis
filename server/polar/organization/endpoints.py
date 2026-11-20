@@ -28,11 +28,11 @@ from polar.exceptions import (
     PolarRequestValidationError,
     ResourceNotFound,
 )
-from polar.integrations.polar.exceptions import (
+from polar.integrations.repalis.exceptions import (
     PolarSelfPaidSubscriptionAlreadyExists,
     PolarSelfPaymentMethodInUse,
 )
-from polar.integrations.polar.schemas import (
+from polar.integrations.repalis.schemas import (
     OrganizationBenefitGrant,
     OrganizationBenefitGrantUpdate,
     OrganizationBillingDetails,
@@ -50,7 +50,7 @@ from polar.integrations.polar.schemas import (
     OrganizationSubscriptionUpdate,
     organization_payment_method_from_sdk,
 )
-from polar.integrations.polar.service import polar_self as polar_self_service
+from polar.integrations.repalis.service import polar_self as polar_self_service
 from polar.kit.concurrency import create_task_group
 from polar.kit.http import check_url_reachable, get_ip_address
 from polar.kit.pagination import ListResource, Pagination, PaginationParamsQuery

@@ -14,8 +14,8 @@ from polar.v2026_04.webhooks import (
 )
 
 router = APIRouter(
-    prefix="/integrations/polar",
-    tags=["integrations_polar"],
+    prefix="/integrations/repalis",
+    tags=["integrations_repalis"],
     include_in_schema=False,
 )
 
@@ -34,7 +34,7 @@ IMPLEMENTED_WEBHOOKS = {
 ORDER_CREATED_DELAY_MS = 60_000
 
 
-@router.post("/webhook", status_code=202, name="integrations.polar.webhook")
+@router.post("/webhook", status_code=202, name="integrations.repalis.webhook")
 async def webhook(
     request: Request,
     session: AsyncSession = Depends(get_db_session),

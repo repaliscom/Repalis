@@ -86,7 +86,7 @@ def _tinybird_operational_error_matcher(exc: BaseException) -> bool:
 
 def _polar_self_client_operational_error_matcher(exc: BaseException) -> bool:
     # Import deferred to avoid circular dependency with polar.worker
-    from polar.integrations.polar.client import PolarSelfClientOperationalError
+    from polar.integrations.repalis.client import PolarSelfClientOperationalError
 
     return isinstance(exc, PolarSelfClientOperationalError)
 

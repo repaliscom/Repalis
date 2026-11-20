@@ -18,7 +18,7 @@ from polar.external_event import tasks as external_event
 from polar.feedback import tasks as feedback
 from polar.file import tasks as file
 from polar.integrations.chargeback_stop import tasks as chargeback_stop
-from polar.integrations.polar import tasks as polar_self
+from polar.integrations.repalis import tasks as polar_self
 from polar.integrations.resend import tasks as resend
 from polar.integrations.stripe import tasks as stripe
 from polar.integrations.tinybird import tasks as tinybird

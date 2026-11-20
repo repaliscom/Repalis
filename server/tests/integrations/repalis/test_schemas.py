@@ -3,7 +3,7 @@ from typing import Any
 from polar.v2026_04.outputs import Product, Subscription
 
 from polar import deserialize
-from polar.integrations.polar.schemas import (
+from polar.integrations.repalis.schemas import (
     OrganizationPlan,
     OrganizationSubscription,
 )

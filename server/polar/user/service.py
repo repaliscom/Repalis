@@ -8,7 +8,7 @@ from sqlalchemy import func, update
 from sqlalchemy.exc import IntegrityError
 
 from polar.exceptions import PolarError
-from polar.integrations.polar.service import polar_self as polar_self_service
+from polar.integrations.repalis.service import polar_self as polar_self_service
 from polar.integrations.resend.service import resend as resend_service
 from polar.integrations.stripe.service import stripe as stripe_service
 from polar.kit.anonymization import anonymize_email_for_deletion

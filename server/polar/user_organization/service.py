@@ -9,8 +9,8 @@ from sqlalchemy.orm import joinedload
 
 from polar.config import settings
 from polar.exceptions import PolarError
-from polar.integrations.polar.service import billing_member_role
-from polar.integrations.polar.service import polar_self as polar_self_service
+from polar.integrations.repalis.service import billing_member_role
+from polar.integrations.repalis.service import polar_self as polar_self_service
 from polar.integrations.resend.service import resend as resend_service
 from polar.kit.utils import utc_now
 from polar.models import User, UserOrganization

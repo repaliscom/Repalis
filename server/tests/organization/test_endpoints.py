@@ -10,7 +10,7 @@ from polar.agent.repository import AgentRepository
 from polar.auth.models import AuthSubject
 from polar.auth.service import auth as auth_service
 from polar.config import settings
-from polar.integrations.polar.service import PolarSelfService
+from polar.integrations.repalis.service import PolarSelfService
 from polar.kit.utils import utc_now
 from polar.kit.versioning import APIVersion
 from polar.models import (

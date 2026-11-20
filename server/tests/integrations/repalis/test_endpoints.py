@@ -13,7 +13,7 @@ from standardwebhooks.webhooks import Webhook as StandardWebhook
 from polar.version import CURRENT_API_VERSION
 
 WEBHOOK_SECRET = "test_polar_webhook_secret"
-WEBHOOK_URL = "/v1/integrations/polar/webhook"
+WEBHOOK_URL = "/v1/integrations/repalis/webhook"
 
 _BENEFIT_GRANT: dict[str, Any] = {
     "created_at": "2026-01-01T00:00:00Z",
@@ -229,7 +229,7 @@ def _sign(
 @pytest.fixture(autouse=True)
 def _set_webhook_secret(mocker: MockerFixture) -> None:
     mocker.patch(
-        "polar.integrations.polar.endpoints.settings.POLAR_WEBHOOK_SECRET",
+        "polar.integrations.repalis.endpoints.settings.POLAR_WEBHOOK_SECRET",
         WEBHOOK_SECRET,
     )
 
@@ -237,7 +237,7 @@ def _set_webhook_secret(mocker: MockerFixture) -> None:
 @pytest.fixture
 def enqueue_mock(mocker: MockerFixture) -> AsyncMock:
     return mocker.patch(
-        "polar.integrations.polar.endpoints.external_event_service.enqueue",
+        "polar.integrations.repalis.endpoints.external_event_service.enqueue",
         new=AsyncMock(),
     )
 
@@ -269,7 +269,7 @@ class TestWebhook:
         mocker: MockerFixture,
     ) -> None:
         mocker.patch(
-            "polar.integrations.polar.endpoints.settings.POLAR_WEBHOOK_SECRET", ""
+            "polar.integrations.repalis.endpoints.settings.POLAR_WEBHOOK_SECRET", ""
         )
         body, headers = _sign(_benefit_grant_event("subscription.active"))
 

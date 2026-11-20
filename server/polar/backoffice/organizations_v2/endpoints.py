@@ -39,7 +39,7 @@ from polar.integrations.plain.service import (
     plain_thread_url,
 )
 from polar.integrations.plain.service import plain as plain_service
-from polar.integrations.polar.service import polar_self as polar_self_service
+from polar.integrations.repalis.service import polar_self as polar_self_service
 from polar.integrations.stripe.service import StripeAccountRejectReason
 from polar.integrations.stripe.service import stripe as stripe_service
 from polar.kit.pagination import count_subquery

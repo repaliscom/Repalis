@@ -2821,7 +2821,7 @@ TOKEN_SCOPE_VALUES = (
 TOKEN_SCOPES = " ".join(TOKEN_SCOPE_VALUES)
 
 WEBHOOK_NAME = "Polar self-integration (dev seed)"
-WEBHOOK_URL = "http://127.0.0.1:8000/v1/integrations/polar/webhook"
+WEBHOOK_URL = "http://127.0.0.1:8000/v1/integrations/repalis/webhook"
 WEBHOOK_EVENTS: list[WebhookEventType] = [
     WebhookEventType.benefit_grant_created,
     WebhookEventType.benefit_grant_updated,

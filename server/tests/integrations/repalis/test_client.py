@@ -32,12 +32,12 @@ from polar.v2026_04.outputs import (
 )
 from pytest_mock import MockerFixture
 
-from polar.integrations.polar.client import (
+from polar.integrations.repalis.client import (
     PolarSelfClient,
     PolarSelfClientError,
     PolarSelfClientOperationalError,
 )
-from polar.integrations.polar.exceptions import (
+from polar.integrations.repalis.exceptions import (
     PolarSelfCustomerNotFound,
     PolarSelfOrderNotEligible,
 )
@@ -399,7 +399,7 @@ def _failing_iter() -> AsyncIterator[Any]:
 @pytest.mark.anyio
 class TestNetworkErrorRetry:
     async def test_retries_once_then_succeeds(self, mocker: MockerFixture) -> None:
-        mocker.patch("polar.integrations.polar.client.NETWORK_RETRY_DELAY_SECONDS", 0)
+        mocker.patch("polar.integrations.repalis.client.NETWORK_RETRY_DELAY_SECONDS", 0)
         client = _client()
         grant = object()
         iter_list = mocker.patch.object(
@@ -414,7 +414,7 @@ class TestNetworkErrorRetry:
         assert iter_list.call_count == 2
 
     async def test_repeated_network_errors_raise(self, mocker: MockerFixture) -> None:
-        mocker.patch("polar.integrations.polar.client.NETWORK_RETRY_DELAY_SECONDS", 0)
+        mocker.patch("polar.integrations.repalis.client.NETWORK_RETRY_DELAY_SECONDS", 0)
         client = _client()
         get = mocker.patch.object(
             client._sdk.orders,
