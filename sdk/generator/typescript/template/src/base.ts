@@ -181,7 +181,7 @@ export class ClientBase {
       "Content-Type": "application/json",
       "Polar-Version": this.options.version,
       Authorization: `Bearer ${this.options.accessToken}`,
-      "User-Agent": "polar-sdk-typescript/{{ version }}",
+      "User-Agent": "repalis-sdk-typescript/{{ version }}",
     });
     if (this.options.organizationId !== undefined) {
       headers.set("Polar-Organization", this.options.organizationId);

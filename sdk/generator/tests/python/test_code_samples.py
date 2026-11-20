@@ -17,7 +17,7 @@ def test_renders_code_samples(
     }
 
     assert sources['$["paths"]["/health"]["get"]'] == (
-        "from polar.v2026_04 import Polar\n"
+        "from repalis.v2026_04 import Polar\n"
         "\n"
         'polar = Polar("polar_oat_xxx")\n'
         "\n"

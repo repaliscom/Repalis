@@ -119,7 +119,7 @@ redirect(checkout.url)`,
       name: 'Python',
       link: 'https://repalis.com/docs/integrate/sdk/python',
       icon: <PythonIcon size={24} />,
-      pythonInstall: 'pip install polar-sdk',
+      pythonInstall: 'pip install repalis-sdk',
       code: `import os
 from polar_sdk import Repalis
 

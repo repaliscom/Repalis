@@ -5,11 +5,11 @@ import anyio
 import anyio.lowlevel
 import pytest
 
-from polar import PolarClientError, PolarError, PolarNetworkError, PolarRateLimitError
-from polar.metering import FlushProtocol, MeteringDeliveryError, MeteringTimeoutError
-from polar.metering.buffered import BufferedMeteringStrategy, DropReason, _FlushRequest
-from polar.metering.client import MeteringClient
-from polar.metering.events import EventInput
+from repalis import PolarClientError, PolarError, PolarNetworkError, PolarRateLimitError
+from repalis.metering import FlushProtocol, MeteringDeliveryError, MeteringTimeoutError
+from repalis.metering.buffered import BufferedMeteringStrategy, DropReason, _FlushRequest
+from repalis.metering.client import MeteringClient
+from repalis.metering.events import EventInput
 
 
 @pytest.fixture

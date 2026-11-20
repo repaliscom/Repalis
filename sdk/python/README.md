@@ -9,13 +9,13 @@ The SDK requires Python 3.11 or later.
 To install it with `uv`:
 
 ```bash
-uv add polar-sdk
+uv add repalis-sdk
 ```
 
 or, with `pip`:
 
 ```bash
-pip install polar-sdk
+pip install repalis-sdk
 ```
 
 ## Quick Start
@@ -24,7 +24,7 @@ Create an [organization access token](https://repalis.com/docs/integrate/oat) an
 the current API version:
 
 ```python
-from polar.v2026_10 import Polar
+from repalis.v2026_10 import Polar
 
 polar = Polar("polar_oat_xxx")
 
@@ -39,7 +39,7 @@ Use `PolarAsync` in asynchronous applications:
 ```python
 import asyncio
 
-from polar.v2026_10 import PolarAsync
+from repalis.v2026_10 import PolarAsync
 
 
 async def main() -> None:
@@ -59,7 +59,7 @@ block exits.
 For synchronous applications, use `Polar` with `with`:
 
 ```python
-from polar.v2026_10 import Polar
+from repalis.v2026_10 import Polar
 
 with Polar("polar_oat_xxx") as polar:
     customer_state = polar.customers.get_state_external("customer_external_id")
@@ -71,7 +71,7 @@ For asynchronous applications, use `PolarAsync` with `async with`:
 ```python
 import asyncio
 
-from polar.v2026_10 import PolarAsync
+from repalis.v2026_10 import PolarAsync
 
 
 async def main() -> None:
@@ -140,8 +140,8 @@ Organization access tokens already act on their own organization and don't need 
 Use `deserialize` to convert arbitrary data into a generated SDK model or union type:
 
 ```python
-from polar import deserialize
-from polar.v2026_10.outputs import Customer
+from repalis import deserialize
+from repalis.v2026_10.outputs import Customer
 
 customer = deserialize(data, Customer)
 ```
@@ -153,7 +153,7 @@ The metering helper adds buffering, batching, and optional local reduction to th
 ### Basic usage
 
 ```python
-from polar.v2026_10 import PolarAsync
+from repalis.v2026_10 import PolarAsync
 
 
 async def record_usage() -> None:
@@ -301,7 +301,7 @@ import os
 
 from fastapi import FastAPI, HTTPException, Request
 
-from polar.v2026_10.webhooks import (
+from repalis.v2026_10.webhooks import (
     PolarWebhookError,
     PolarWebhookVerificationError,
     validate_event,

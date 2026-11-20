@@ -10,9 +10,9 @@ import pytest
 from anyio import from_thread, to_thread
 from pytest_codspeed import BenchmarkFixture
 
-from polar.base import parse_response_json
-from polar.{{ version }} import PolarAsync
-from polar.{{ version }}.outputs import (
+from repalis.base import parse_response_json
+from repalis.{{ version }} import PolarAsync
+from repalis.{{ version }}.outputs import (
     CustomerIndividual,
     CustomerTeam,
     ListResourceCustomer,

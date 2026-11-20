@@ -7,12 +7,12 @@
   "rules": {
     "import/no-cycle": "error",
     "oxc/no-barrel-file": ["error", { "threshold": 0 }],
-    "polar-sdk/client-boundaries": "error",
-    "polar-sdk/internal-boundaries": "error",
-    "polar-sdk/no-internal-leak": "error",
-    "polar-sdk/no-terminal-output": "error",
-    "polar-sdk/schema-is-pure": "error",
-    "polar-sdk/test-colocation": "error",
+    "repalis-sdk/client-boundaries": "error",
+    "repalis-sdk/internal-boundaries": "error",
+    "repalis-sdk/no-internal-leak": "error",
+    "repalis-sdk/no-terminal-output": "error",
+    "repalis-sdk/schema-is-pure": "error",
+    "repalis-sdk/test-colocation": "error",
     "no-restricted-imports": [
       "error",
       {

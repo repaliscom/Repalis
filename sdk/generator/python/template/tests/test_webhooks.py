@@ -8,8 +8,8 @@ import typing
 import pytest
 from standardwebhooks.webhooks import Webhook
 
-from polar.base import PolarError, deserialize
-from polar.webhooks import (
+from repalis.base import PolarError, deserialize
+from repalis.webhooks import (
     PolarWebhookError,
     PolarWebhookUnknownTypeError,
     PolarWebhookVerificationError,

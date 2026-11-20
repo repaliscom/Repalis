@@ -1,9 +1,9 @@
 [project]
-name = "polar-sdk"
+name = "repalis-sdk"
 authors = [{ name = "Repalis", email = "support@repalis.com" }]
 license = "MIT"
 license-files = ["LICENSE"]
-description = "Polar SDK — A billing platform for the intelligence era"
+description = "Repalis SDK — A billing platform for the intelligence era"
 readme = "README.md"
 dynamic = ["version"]
 classifiers = [

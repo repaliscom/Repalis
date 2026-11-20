@@ -34,10 +34,10 @@ from redis.exceptions import AuthenticationError, AuthorizationError, ResponseEr
 from redis.exceptions import ConnectionError as RedisConnectionError
 from redis.exceptions import TimeoutError as RedisTimeoutError
 
-from polar import __version__
-from polar.metering import EventInput
-from polar.metering.errors import UnknownMeterError
-from polar.outpost.client import (
+from repalis import __version__
+from repalis.metering import EventInput
+from repalis.metering.errors import UnknownMeterError
+from repalis.outpost.client import (
     APPLY_SNAPSHOT_SCRIPT,
     WRITE_BUCKET_SCRIPT,
     MissingExternalIdError,
@@ -51,8 +51,8 @@ from polar.outpost.client import (
     decode_state,
     is_sampled,
 )
-from polar.outpost.reducer import BUCKET_SIZE, get_bucket_start
-from polar.outpost.telemetry import SAMPLE_RATE_ATTRIBUTE, TELEMETRY_ENV
+from repalis.outpost.reducer import BUCKET_SIZE, get_bucket_start
+from repalis.outpost.telemetry import SAMPLE_RATE_ATTRIBUTE, TELEMETRY_ENV
 
 _ids = itertools.count(1)
 TIMESTAMP = "2026-10-12T12:00:00Z"

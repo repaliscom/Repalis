@@ -12,8 +12,8 @@ import uuid
 import httpx2
 import pytest
 
-from polar.outpost.client import Outpost
-from polar.outpost.reducer import Reducer
+from repalis.outpost.client import Outpost
+from repalis.outpost.reducer import Reducer
 
 
 # A collection landing inside a measured call costs more than the call; measure allocations, not

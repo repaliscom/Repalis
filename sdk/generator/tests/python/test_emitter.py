@@ -62,8 +62,8 @@ def test_emit_input_model_with_fields_and_additional_properties(
     for module in ("conftest", "test_buffered", "test_metering"):
         assert (tmp_path / "tests" / "metering" / f"{module}.py").is_file()
     metering_tests = (tmp_path / "tests" / "metering" / "test_metering.py").read_text()
-    assert "from polar.v2026_04 import PolarAsync" in metering_tests
-    assert "from polar.v2026_10 import PolarAsync" not in metering_tests
+    assert "from repalis.v2026_04 import PolarAsync" in metering_tests
+    assert "from repalis.v2026_10 import PolarAsync" not in metering_tests
     assert (tmp_path / "polar" / "outpost" / "reducer.py").is_file()
     assert (tmp_path / "polar" / "outpost" / "client.py").is_file()
     for module in ("client", "event", "reducer"):
@@ -115,7 +115,7 @@ def test_emit_output_model_with_fields_and_additional_properties(
 
     outputs = (tmp_path / "polar" / "v2026_04" / "outputs.py").read_text()
     assert "import typing_extensions" in outputs
-    assert "from polar.base import _register_extra_items_typed_dict" in outputs
+    assert "from repalis.base import _register_extra_items_typed_dict" in outputs
     assert (
         "class EventMetadataOutput(\n"
         "    typing_extensions.TypedDict,\n"

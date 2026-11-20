@@ -9,9 +9,9 @@ import anyio.lowlevel
 import httpx2
 import pytest
 
-from polar import PolarClientError, PolarError, PolarNetworkError
-from polar.base import AsyncClientBase
-from polar.metering import (
+from repalis import PolarClientError, PolarError, PolarNetworkError
+from repalis.base import AsyncClientBase
+from repalis.metering import (
     BufferedMeteringOptions,
     CustomerMeter,
     EventInput,
@@ -25,10 +25,10 @@ from polar.metering import (
     MeteringTimeoutError,
     ValidateProtocol,
 )
-from polar.metering.buffered import BufferedMeteringStrategy
-from polar.metering.errors import UnknownMeterError
-from polar.outpost import Outpost
-from polar.v2026_04 import PolarAsync
+from repalis.metering.buffered import BufferedMeteringStrategy
+from repalis.metering.errors import UnknownMeterError
+from repalis.outpost import Outpost
+from repalis.v2026_04 import PolarAsync
 
 
 @pytest.mark.anyio
@@ -481,9 +481,9 @@ sys.modules["polar.outpost"] = None
 sys.modules["redis"] = None
 sys.modules["opentelemetry"] = None
 
-from polar.base import AsyncClientBase
-from polar.metering import Metering
-from polar.metering.buffered import BufferedMeteringStrategy
+from repalis.base import AsyncClientBase
+from repalis.metering import Metering
+from repalis.metering.buffered import BufferedMeteringStrategy
 
 async def main():
     async with Metering(

@@ -8,9 +8,9 @@ import pytest
 from pytest_codspeed import BenchmarkFixture
 from redis import Redis
 
-from polar.metering import EventInput
-from polar.outpost.client import Outpost
-from polar.outpost.reducer import BUCKET_SIZE, Reducer
+from repalis.metering import EventInput
+from repalis.outpost.client import Outpost
+from repalis.outpost.reducer import BUCKET_SIZE, Reducer
 from tests.benchmarks import BUCKET_COUNTS, COLD_UNTIL, DATA, encode_state
 
 pytestmark = pytest.mark.benchmark

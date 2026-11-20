@@ -9,8 +9,8 @@ import httpx2
 import pytest
 import typing_extensions
 
-from polar import PolarDeserializationError, deserialize
-from polar.base import (
+from repalis import PolarDeserializationError, deserialize
+from repalis.base import (
     _OPEN_ENUM,
     AsyncClientBase,
     SyncClientBase,
@@ -20,7 +20,7 @@ from polar.base import (
     parse_response_json,
     resolve_base_url,
 )
-from polar.v2026_04 import Polar, PolarAsync
+from repalis.v2026_04 import Polar, PolarAsync
 
 SERVERS = {
     "production": "https://api.repalis.com",
@@ -453,7 +453,7 @@ class TestOrganization:
 def test_user_agent(client: SyncClientBase | AsyncClientBase) -> None:
     request = client.build_request(method="GET", url="/v1/items/")
 
-    assert request.headers["User-Agent"] == "polar-sdk-python/1.3.1"
+    assert request.headers["User-Agent"] == "repalis-sdk-python/1.3.1"
 
 
 def test_parse_response_json_empty_body() -> None:
@@ -510,7 +510,7 @@ def test_deserialize_enum_without_marker_stays_closed(hint: typing.Any) -> None:
 
 @pytest.mark.parametrize("tag", ["type", "duration"])
 def test_checkout_discount_rejects_unknown_discriminator(tag: str) -> None:
-    from polar.v2026_04.outputs import (
+    from repalis.v2026_04.outputs import (
         CheckoutDiscountFixedOnceForeverDuration,
     )
 

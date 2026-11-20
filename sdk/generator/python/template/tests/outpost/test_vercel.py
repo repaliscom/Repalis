@@ -1,8 +1,8 @@
 import httpx2
 import pytest
 
-from polar.outpost import vercel
-from polar.outpost.vercel import is_vercel_affinity_warmup, warm_next_vercel_instance
+from repalis.outpost import vercel
+from repalis.outpost.vercel import is_vercel_affinity_warmup, warm_next_vercel_instance
 
 URL = "https://app.test/api/meter"
 PINNED = {

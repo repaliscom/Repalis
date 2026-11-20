@@ -5,12 +5,12 @@ import pytest
 from pytest_codspeed import BenchmarkFixture
 from redis import Redis
 
-from polar.outpost.client import (
+from repalis.outpost.client import (
     APPLY_SNAPSHOT_SCRIPT,
     READ_STATE_SCRIPT,
     WRITE_BUCKET_SCRIPT,
 )
-from polar.outpost.reducer import BUCKET_SIZE
+from repalis.outpost.reducer import BUCKET_SIZE
 from tests.benchmarks import BUCKET_COUNTS, COLD_UNTIL, encode_state
 
 pytestmark = pytest.mark.benchmark

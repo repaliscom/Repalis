@@ -46,7 +46,7 @@ const CLIENTS: Client[] = [
   {
     name: 'Python',
     desc: 'Sync and async clients for Django, Flask and FastAPI, typed end to end.',
-    install: 'pip install polar-sdk',
+    install: 'pip install repalis-sdk',
     caption: 'main.py',
     lines: PYTHON,
   },
