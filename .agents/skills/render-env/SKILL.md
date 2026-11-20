@@ -21,11 +21,11 @@ If either arg is missing, ask the user before doing anything. Also ask:
 - **Sensitive?** Default to `true` (almost everything in these files is sensitive). Only set `false` for non-secret config strings (cf. `slo_report_slack_channel`, `customer_portal_url_overrides`).
 - **Which environments?** Default to all three (`production`, `sandbox`, `test`). The user may want to skip one — `test` in particular often omits variables that aren't exercised there.
 
-Do **not** ask about `lifecycle { ignore_changes = [value] }`. New variables here have no `value` baked into the Terraform code, so there's nothing for Terraform to overwrite — TFC just holds whatever's typed into the UI, and `ignore_changes` would be a no-op. The handful of existing blocks that include it (e.g. `polar_organization_id`, `customer_portal_url_overrides`) seed a default `value` in code *and* want UI overrides to stick; that's a different shape from a fresh secret and the user will tell you up-front if they want it.
+Do **not** ask about `lifecycle { ignore_changes = [value] }`. New variables here have no `value` baked into the Terraform code, so there's nothing for Terraform to overwrite — TFC just holds whatever's typed into the UI, and `ignore_changes` would be a no-op. The handful of existing blocks that include it (e.g. `repalis_organization_id`, `customer_portal_url_overrides`) seed a default `value` in code *and* want UI overrides to stick; that's a different shape from a fresh secret and the user will tell you up-front if they want it.
 
 ## Naming convention
 
-Follow the **modern bare-key** pattern that recent additions use (e.g. `polar_access_token`, `tinybird_api_token`, `customer_portal_url_overrides`):
+Follow the **modern bare-key** pattern that recent additions use (e.g. `repalis_access_token`, `tinybird_api_token`, `customer_portal_url_overrides`):
 
 - The TFC `key` is the bare name: `key = "${name}"` — **no** `_production` / `_sandbox` / `_test` suffix on the key. Each variable set is per-workspace so the key doesn't need to be globally unique.
 - The `tfe_variable` resource label **does** get the env suffix: `resource "tfe_variable" "${name}_${env}"`.

@@ -25,7 +25,7 @@ publishes **no host ports** — reach it with `dev docker exec <service> ...`.
 
 ### minio (S3-compatible storage)
 - File storage at `minio:9000` (container) or `localhost:9000` (host).
-- Console at `localhost:9001` with credentials `repalis-development` / `polar123456789`.
+- Console at `localhost:9001` with credentials `repalis-development` / `repalis123456789`.
 - Per-instance buckets: `repalis-s3-<N>`, `repalis-s3-public-<N>`.
 - Volume: `minio_data`.
 

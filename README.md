@@ -6,7 +6,7 @@
 
 <div align="center">
 
-<a href="https://www.producthunt.com/posts/polar-5?embed=true&utm_source=badge-top-post-badge&utm_medium=badge&utm_souce=badge-polar&#0045;5" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/top-post-badge.svg?post_id=484271&theme=dark&period=daily" alt="Repalis - #1 Product of the Day | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a> <a href="https://www.producthunt.com/posts/polar-5?embed=true&utm_source=badge-top-post-topic-badge&utm_medium=badge&utm_souce=badge-polar&#0045;5" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/top-post-topic-badge.svg?post_id=484271&theme=dark&period=monthly&topic_id=267" alt="Repalis - #1 Product of the Month (Developer Tools) | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a>
+<a href="https://www.producthunt.com/posts/repalis?embed=true&utm_source=badge-top-post-badge&utm_medium=badge&utm_souce=badge-repalis" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/top-post-badge.svg?post_id=484271&theme=dark&period=daily" alt="Repalis - #1 Product of the Day | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a> <a href="https://www.producthunt.com/posts/repalis?embed=true&utm_source=badge-top-post-topic-badge&utm_medium=badge&utm_souce=badge-repalis" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/top-post-topic-badge.svg?post_id=484271&theme=dark&period=monthly&topic_id=267" alt="Repalis - #1 Product of the Month (Developer Tools) | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a>
 
 </div>
 

@@ -192,9 +192,9 @@ api, web, *and* worker on every env change.
 
 1. Find/make a checkout link for an `admin-org` product, then open its redirect
    to start a checkout session. The redirect token is the link's
-   **`client_secret`** (the `polar_cl_...` value — not the UUID `id`):
+   **`client_secret`** (the `repalis_cl_...` value — not the UUID `id`):
    ```
-   http://localhost:81NN/v1/checkout-links/<polar_cl_...>/redirect
+   http://localhost:81NN/v1/checkout-links/<repalis_cl_...>/redirect
    ```
    List it (qualify the column — both tables have `id`/`client_secret`):
    ```sql

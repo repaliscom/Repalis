@@ -156,7 +156,7 @@ clash.
 
 Shared MinIO exposes ports 9000 (API) and 9001 (console) on localhost. Access
 the console at http://localhost:9001 with credentials `repalis-development` /
-`polar123456789`.
+`repalis123456789`.
 
 **Check minio-setup logs:**
 ```bash
@@ -166,7 +166,7 @@ dev docker logs minio-setup
 **List this instance's buckets:**
 ```bash
 dev docker exec minio mc alias set local http://localhost:9000 \
-  repalis-development polar123456789
+  repalis-development repalis123456789
 dev docker exec minio mc ls local
 ```
 Buckets are per-instance: `repalis-s3-<N>` and `repalis-s3-public-<N>`.
