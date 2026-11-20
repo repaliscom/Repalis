@@ -5,7 +5,7 @@ import { Output } from '@/utils/output'
 import { agent } from '@/commands/agent'
 import { auth } from '@/commands/auth'
 import { config } from '@/commands/config'
-import { polar } from '@/commands/home'
+import { repalis } from '@/commands/home'
 import { update } from '@/commands/update'
 import { webhook } from '@/commands/webhook'
 
@@ -19,7 +19,7 @@ interface ProgramOptions {
 }
 
 export const program = ({ preview }: ProgramOptions) =>
-  polar.pipe(
+  repalis.pipe(
     Command.withSubcommands([
       {
         group: 'CLI COMMANDS',

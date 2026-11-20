@@ -433,7 +433,7 @@ describe('redact', () => {
     ],
     [
       'home directories',
-      '/Users/seb/.config/polar-cli/config.json and /home/seb/x and /root/y',
+      '/Users/seb/.config/repalis-cli/config.json and /home/seb/x and /root/y',
       '<redacted> and <redacted> and <redacted>',
     ],
     [
@@ -443,7 +443,7 @@ describe('redact', () => {
     ],
     [
       'Windows home directories',
-      'Unable to read C:\\Users\\seb\\AppData\\Roaming\\polar-cli\\config.json.',
+      'Unable to read C:\\Users\\seb\\AppData\\Roaming\\repalis-cli\\config.json.',
       'Unable to read <redacted>',
     ],
     ['email addresses', 'user me@repalis.com failed', 'user <redacted> failed'],

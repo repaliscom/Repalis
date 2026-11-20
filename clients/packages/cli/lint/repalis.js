@@ -18,7 +18,7 @@ import testColocation from './rules/test-colocation.js'
 import utilsBoundaries from './rules/utils-boundaries.js'
 
 export default {
-  meta: { name: 'polar-cli' },
+  meta: { name: 'repalis-cli' },
   rules: {
     'command-boundaries': commandBoundaries,
     'command-descriptions': commandDescriptions,

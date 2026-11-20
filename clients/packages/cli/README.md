@@ -1,6 +1,6 @@
-# Polar CLI
+# Repalis CLI
 
-The Polar CLI brings your Polar organization to your terminal. Work with
+The Repalis CLI brings your Repalis organization to your terminal. Work with
 products, customers, orders and the rest of the API, receive webhooks on your
 local machine, and send sample events to your handler.
 
@@ -22,7 +22,7 @@ Windows, from PowerShell. Only x64 is supported:
 irm https://repalis.com/install.ps1 | iex
 ```
 
-The installer puts `polar.exe` in `%USERPROFILE%\.polar\bin` and adds that
+The installer puts `repalis.exe` in `%USERPROFILE%\.polar\bin` and adds that
 folder to your user `PATH`. Restart any other open terminals so they pick it up.
 
 Or with a package manager, on any platform. pnpm and bun block install scripts
@@ -137,7 +137,7 @@ unless told otherwise). The layout follows opencode's: one
 `@polar-sh/cli-<platform>-<arch>` package per target that ships only
 `bin/polar`, restricted with `os`/`cpu` so package managers download a single
 one, and a main `@polar-sh/cli` package that lists them as
-`optionalDependencies`. Its `bin` points at `bin/polar.exe`, a placeholder that
+`optionalDependencies`. Its `bin` points at `bin/repalis.exe`, a placeholder that
 `postinstall.mjs` replaces with a hard link (or copy) of the platform binary, so
 after install the `polar` command runs the Bun executable directly with no Node
 launcher in between. If installation scripts are disabled, the placeholder

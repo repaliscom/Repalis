@@ -185,7 +185,7 @@ export const updateNotice = (current: string, latest: string) =>
     warning(
       `Update available ${pc.dim(current)} ${pc.dim('→')} ${pc.bold(pc.cyan(latest))}`,
     ),
-    step(`Run ${command('polar update')} to install it`),
+    step(`Run ${command('repalis update')} to install it`),
     blank,
     blank,
   ].join('\n')

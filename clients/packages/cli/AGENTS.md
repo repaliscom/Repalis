@@ -1,4 +1,4 @@
-# Polar CLI
+# Repalis CLI
 
 When writing effect code look for best practices and established patterns in:
 
@@ -15,14 +15,14 @@ src/
 └── utils/      rendering and helpers; may use types from services, never call them
 ```
 
-The `polar-cli/*` rules in `lint/rules/` enforce these boundaries. Run
+The `repalis-cli/*` rules in `lint/rules/` enforce these boundaries. Run
 `pnpm lint` after adding a file; the message tells you where it belongs.
 
 ## Running it locally
 
-Run the local CLI from source as `dev polar <command>` (the `dev` CLI runs
-`src/` in your current directory, so `dev polar config plan` from
-`clients/apps/demo-app` picks up its `polar.config.ts`). Never test against a
+Run the local CLI from source as `dev repalis <command>` (the `dev` CLI runs
+`src/` in your current directory, so `dev repalis config plan` from
+`clients/apps/demo-app` picks up its `repalis.config.ts`). Never test against a
 compiled `polar` binary with saved sessions: macOS treats the fresh binary as
 untrusted and prompts for the keychain password on every read. When a compiled
 artifact must be tested, limit it to `--version` and `--help`, or set
@@ -53,7 +53,7 @@ export const show = command({
   json: (meter) => ({ id: meter.id, name: meter.name }), // optional: curate the JSON shape
   failed: (meter) =>
     meter.archived ? new MeterError({ message: '…' }) : undefined,
-  examples: [{ command: 'polar meters show <id>', description: '…' }],
+  examples: [{ command: 'repalis meters show <id>', description: '…' }],
 })
 ```
 

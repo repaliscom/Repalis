@@ -84,7 +84,7 @@ const sessionLines = (session: Session) => {
   if (session.status === 'unreadable') {
     return [
       ui.warning('Could not read your saved session'),
-      ui.step(`Run ${ui.command('polar auth whoami')} for details`),
+      ui.step(`Run ${ui.command('repalis auth whoami')} for details`),
     ]
   }
   if (session.status === 'logged-out') {
@@ -116,16 +116,16 @@ const sessionLines = (session: Session) => {
     )
   }
   const suggestions: Array<readonly [string, string]> = [
-    ['polar webhook listen 3000', 'Forward webhooks to your local server'],
-    ['polar webhook trigger order.paid', 'Send a sample event'],
+    ['repalis webhook listen 3000', 'Forward webhooks to your local server'],
+    ['repalis webhook trigger order.paid', 'Send a sample event'],
   ]
   if (!override) suggestions.push([orgCommand, 'Switch organization'])
   lines.push(ui.blank, `  ${ui.bold('Try next')}`, commandList(suggestions))
   return lines
 }
 
-export const polar = Command.make('polar', {}).pipe(
-  Command.withDescription('Polar from your terminal'),
+export const repalis = Command.make('repalis', {}).pipe(
+  Command.withDescription('Repalis from your terminal'),
   output({
     result: Home,
     run: () =>
@@ -133,13 +133,13 @@ export const polar = Command.make('polar', {}).pipe(
     render: ({ version, session }) => [
       ui.blank,
       ...banner([
-        `${ui.bold('Polar CLI')} ${ui.dim(version)}`,
-        ui.dim('Polar from your terminal'),
+        `${ui.bold('Repalis CLI')} ${ui.dim(version)}`,
+        ui.dim('Repalis from your terminal'),
       ]),
       ui.blank,
       ...sessionLines(session),
       ui.blank,
-      ui.step(`Run ${ui.command('polar --help')} to see every command`),
+      ui.step(`Run ${ui.command('repalis --help')} to see every command`),
       ui.blank,
     ],
   }),

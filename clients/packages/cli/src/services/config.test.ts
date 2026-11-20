@@ -18,8 +18,8 @@ const productionOrg = {
 }
 
 beforeEach(async () => {
-  directory = await mkdtemp(join(tmpdir(), 'polar-cli-config-'))
-  file = join(directory, 'polar-cli', 'config.json')
+  directory = await mkdtemp(join(tmpdir(), 'repalis-cli-config-'))
+  file = join(directory, 'repalis-cli', 'config.json')
   vi.stubEnv('XDG_CONFIG_HOME', directory)
   vi.stubEnv('APPDATA', directory)
 })

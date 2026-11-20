@@ -35,6 +35,6 @@ export class AuthError extends Data.TaggedError('AuthError')<{
 }> {}
 
 export const loginCommand = (environment: PolarEnvironment) =>
-  `polar auth login --${environment}`
+  `repalis auth login --${environment}`
 
-export const orgCommand = 'polar auth org'
+export const orgCommand = 'repalis auth org'

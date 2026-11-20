@@ -128,7 +128,7 @@ describe('polar config prune', () => {
       interactive: true,
       input: [...keys.type('n'), keys.enter],
     })
-    expect(terminal).toContain('Remove 1 entry from polar.json?')
+    expect(terminal).toContain('Remove 1 entry from repalis.json?')
     expect(removed).toBe(0)
     expect(message(exit)).toBe('Prune cancelled, polar.json unchanged')
   })
@@ -137,7 +137,7 @@ describe('polar config prune', () => {
     const { removed, exit } = await run([apples])
     expect(removed).toBe(0)
     expect(message(exit)).toBe(
-      'Confirmation needed to remove entries from polar.json',
+      'Confirmation needed to remove entries from repalis.json',
     )
   })
 

@@ -14,14 +14,14 @@ describe('formatErrors', () => {
   test.each([
     ['listen', 'webhook listen'],
     ['trigger', 'webhook trigger'],
-  ])('suggests the webhook command for polar %s', (subcommand, moved) => {
-    expect(unknown(subcommand, ['polar'])).toContain(
+  ])('suggests the webhook command for repalis %s', (subcommand, moved) => {
+    expect(unknown(subcommand, ['repalis'])).toContain(
       `Did you mean this?\n    ${moved}`,
     )
   })
 
   test('leaves other unknown subcommands alone', () => {
-    expect(unknown('listen', ['polar', 'config'])).not.toContain('Did you mean')
-    expect(unknown('nope', ['polar'])).not.toContain('Did you mean')
+    expect(unknown('listen', ['repalis', 'config'])).not.toContain('Did you mean')
+    expect(unknown('nope', ['repalis'])).not.toContain('Did you mean')
   })
 })

@@ -101,12 +101,12 @@ const describeFailure = (
   errorName: string,
 ) => {
   if (statusCode === undefined) {
-    return `Polar API request failed (${errorName}). Check your connection and try again.`
+    return `Repalis API request failed (${errorName}). Check your connection and try again.`
   }
   if (detail) return detail
   return statusCode >= 500
-    ? `The Polar API returned an error (${statusCode}). It may be having issues, try again shortly.`
-    : `The Polar API rejected the request (${statusCode}).`
+    ? `The Repalis API returned an error (${statusCode}). It may be having issues, try again shortly.`
+    : `The Repalis API rejected the request (${statusCode}).`
 }
 
 interface PolarImpl {

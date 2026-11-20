@@ -26,9 +26,9 @@ import * as Updater from '@/services/updater'
 import * as ui from '@/utils/ui'
 import { VERSION } from '@/version'
 
-const polar = program({ preview: process.env['POLAR_PREVIEW'] === '1' })
+const repalis = program({ preview: process.env['POLAR_PREVIEW'] === '1' })
 
-const cli = Command.run(polar, {
+const cli = Command.run(repalis, {
   version: VERSION.replace(/^v/, ''),
 })
 

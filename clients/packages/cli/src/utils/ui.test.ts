@@ -16,13 +16,13 @@ describe('ui', () => {
     expect(stripAnsi(ui.success('Done'))).toBe('  ✔ Done')
     expect(stripAnsi(ui.warning('Careful'))).toBe('  ▲ Careful')
     expect(stripAnsi(ui.step('Working'))).toBe('  Working')
-    expect(stripAnsi(ui.command('polar update'))).toBe('polar update')
+    expect(stripAnsi(ui.command('repalis update'))).toBe('repalis update')
   })
 
   test('announces an available update with the command to install it', () => {
     const notice = stripAnsi(ui.updateNotice('v1.0.0', 'v2.0.0'))
     expect(notice).toContain('Update available v1.0.0 → v2.0.0')
-    expect(notice).toContain('Run polar update to install it')
+    expect(notice).toContain('Run repalis update to install it')
   })
 
   test('strips control characters from terminal titles', () => {
@@ -72,7 +72,7 @@ describe('ui', () => {
     const source = '{\n\t"name": "x"\n}'
     const frame = stripAnsi(
       ui.codeFrame(source, {
-        file: 'polar.json',
+        file: 'repalis.json',
         location: { line: 2, column: 10, length: 3 },
         label: 'here',
       }),
@@ -85,7 +85,7 @@ describe('ui', () => {
   test('code frames strip control characters from the source', () => {
     const frame = stripAnsi(
       ui.codeFrame(`{ "name": "${ESC}[31mx" }`, {
-        file: 'polar.json',
+        file: 'repalis.json',
         location: { line: 1, column: 1, length: 1 },
         label: 'here',
       }),

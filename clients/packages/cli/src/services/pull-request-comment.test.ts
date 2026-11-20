@@ -9,11 +9,11 @@ import { Environment } from '@/services/api'
 import { commentOnPullRequest } from '@/services/pull-request-comment'
 import * as ui from '@/utils/ui'
 
-const MARKER = '<!-- polar-cli config%20plan%20org-1 -->'
+const MARKER = '<!-- repalis-cli config%20plan%20org-1 -->'
 
 const HEAD = '0123456789abcdef0123456789abcdef01234567'
 
-const EVENT = join(tmpdir(), `polar-cli-pull-request-event-${process.pid}.json`)
+const EVENT = join(tmpdir(), `repalis-cli-pull-request-event-${process.pid}.json`)
 
 await Bun.write(
   EVENT,
