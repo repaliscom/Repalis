@@ -39,7 +39,7 @@ async def webhook(
     request: Request,
     session: AsyncSession = Depends(get_db_session),
 ) -> None:
-    secret = settings.POLAR_WEBHOOK_SECRET
+    secret = settings.REPALIS_WEBHOOK_SECRET or settings.POLAR_WEBHOOK_SECRET
     if not secret:
         raise HTTPException(status_code=500)
 

@@ -9,7 +9,7 @@ This module is the engine: the step templates, the persisted step state, and the
 transitions. It holds no copy — titles and guidance live in the frontend, keyed by
 `key`, so wording can change without a data migration.
 
-Kept free of `polar.models` imports so the model layer can use `PanTransferStep`
+Kept free of `repalis.models` imports so the model layer can use `PanTransferStep`
 as its column type.
 """
 

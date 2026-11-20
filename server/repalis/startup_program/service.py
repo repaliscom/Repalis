@@ -67,7 +67,7 @@ class StartupProgramService:
         if not settings.STARTUP_PROGRAM_ENABLED:
             raise StartupProgramError(
                 "Startup Program is not configured "
-                "(POLAR_ORGANIZATION_ID / REPALIS_SCALE_PRODUCT_ID / POLAR_ACCESS_TOKEN)."
+                "(REPALIS_ORGANIZATION_ID / REPALIS_SCALE_PRODUCT_ID / REPALIS_ACCESS_TOKEN)."
             )
 
         try:
@@ -98,7 +98,7 @@ class StartupProgramService:
         if existing is not None:
             return existing
 
-        # ``organization_id`` is intentionally omitted: ``POLAR_ACCESS_TOKEN``
+        # ``organization_id`` is intentionally omitted: ``REPALIS_ACCESS_TOKEN``
         # is an organization-scoped token, and the API rejects any explicit
         # ``organization_id`` on the request when that's the case.
         #
@@ -167,7 +167,7 @@ class StartupProgramService:
         if not settings.STARTUP_PROGRAM_ENABLED:
             raise StartupProgramError(
                 "Startup Program is not configured "
-                "(POLAR_ORGANIZATION_ID / REPALIS_SCALE_PRODUCT_ID)."
+                "(REPALIS_ORGANIZATION_ID / REPALIS_SCALE_PRODUCT_ID)."
             )
 
         client = get_client()

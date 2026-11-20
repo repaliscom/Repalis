@@ -1159,7 +1159,7 @@ def get_client() -> RepalisSelfClient:
     global _client
     if _client is None:
         _client = RepalisSelfClient(
-            access_token=settings.POLAR_ACCESS_TOKEN,
-            api_url=settings.POLAR_API_URL,
+            access_token=settings.REPALIS_ACCESS_TOKEN or settings.POLAR_ACCESS_TOKEN,
+            api_url=settings.REPALIS_API_URL or settings.POLAR_API_URL,
         )
     return _client

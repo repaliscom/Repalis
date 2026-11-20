@@ -128,7 +128,7 @@ def get_signer() -> Signer:
         key_id = settings.AWS_JWKS_KMS_KEY_ID
         if key_id is None:
             raise RuntimeError(
-                "POLAR_AWS_JWKS_KMS_KEY_ID is required in this environment"
+                "REPALIS_AWS_JWKS_KMS_KEY_ID is required in this environment"
             )
         return _kms_signer(key_id)
     return _local_signer(settings.LOCAL_JWK_KID)

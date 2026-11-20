@@ -1383,7 +1383,7 @@ class PlainService:
 
     async def _upsert_customer_id_for_user(self, plain: Plain, user: User) -> str:
         """
-        Resolve the Plain customer ID for a Polar user, creating the customer
+        Resolve the Plain customer ID for a Repalis user, creating the customer
         if it doesn't exist yet.
 
         Mirrors `_get_or_create_customer` but returns the concrete Plain

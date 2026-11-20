@@ -71,7 +71,7 @@ def _validate_email_renderer_binary_path(value: Path) -> Path:
     return value
 
 
-env = Environment(os.getenv("POLAR_ENV", Environment.development))
+env = Environment(os.getenv("REPALIS_ENV") or os.getenv("POLAR_ENV") or Environment.development)
 if env == Environment.testing:
     env_file = ".env.testing"
 elif env == Environment.test:
@@ -149,6 +149,7 @@ class Settings(BaseSettings):
     # User-Agent sent by Repalis's outbound HTTP clients (e.g. URL reachability
     # checks). Excludes the org review website/setup collectors, which use a
     # browser-like UA to avoid bot detection by CDNs.
+    REPALIS_USER_AGENT: str = "Repalis/1.0 (+https://repalis.com)"
     POLAR_USER_AGENT: str = "Repalis/1.0 (+https://repalis.com)"
 
     # Base URL for the backend. Used by generate_external_url to
@@ -490,19 +491,23 @@ class Settings(BaseSettings):
     CHARGEBACK_STOP_WEBHOOK_SECRET: str = ""
 
     # Repalis's usage of Repalis
+    REPALIS_ACCESS_TOKEN: str = ""
+    REPALIS_WEBHOOK_SECRET: str = ""
+    REPALIS_ORGANIZATION_ID: str = ""
     POLAR_ACCESS_TOKEN: str = ""
     POLAR_WEBHOOK_SECRET: str = ""
     POLAR_ORGANIZATION_ID: str = ""
     # Scale plan product, used by the Startup Program to grant a 100% discount
     REPALIS_SCALE_PRODUCT_ID: str = ""
+    REPALIS_API_URL: str = "https://api.repalis.com"
     POLAR_API_URL: str = "https://api.repalis.com"
 
     @property
     def REPALIS_SELF_ENABLED(self) -> bool:
         return all(
             [
-                self.POLAR_ACCESS_TOKEN,
-                self.POLAR_ORGANIZATION_ID,
+                self.REPALIS_ACCESS_TOKEN or self.POLAR_ACCESS_TOKEN,
+                self.REPALIS_ORGANIZATION_ID or self.POLAR_ORGANIZATION_ID,
             ]
         )
 
@@ -511,9 +516,9 @@ class Settings(BaseSettings):
         # All three are required: org_id to scope reads, scale_product_id to
         # attach the discount to, access_token so the SDK calls can auth.
         return bool(
-            self.POLAR_ORGANIZATION_ID
+            (self.REPALIS_ORGANIZATION_ID or self.POLAR_ORGANIZATION_ID)
             and self.REPALIS_SCALE_PRODUCT_ID
-            and self.POLAR_ACCESS_TOKEN
+            and (self.REPALIS_ACCESS_TOKEN or self.POLAR_ACCESS_TOKEN)
         )
 
     # Customer portal URL overrides per organization: either a single URL for the

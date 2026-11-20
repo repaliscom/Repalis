@@ -31,7 +31,7 @@ def generate_manifest(display_name: str) -> str:
         "display_information": {
             "name": display_name,
             "description": (
-                "Provisions Slack Connect channels for paying customers via Polar."
+                "Provisions Slack Connect channels for paying customers via Repalis."
             ),
         },
         "features": {

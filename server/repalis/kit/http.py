@@ -170,7 +170,7 @@ async def check_url_reachable(
             transport=SSRFSafeTransport(),
             follow_redirects=True,
             timeout=timeout,
-            headers={"User-Agent": settings.POLAR_USER_AGENT},
+            headers={"User-Agent": settings.REPALIS_USER_AGENT},
         ) as client:
             response = await client.get(str(url))
         return UrlReachability(
@@ -200,7 +200,7 @@ SuccessUrl = Annotated[
 """
 HttpUrl encodes `{CHECKOUT_ID}` to `%7BCHECKOUT_ID%7D`, so we unescape it after
 validation. This placeholder is replaced with the actual checkout ID at runtime
-(see `polar.models.checkout.Checkout.success_url`).
+(see `repalis.models.checkout.Checkout.success_url`).
 
 The PlainSerializer then ensures `{CHECKOUT_ID}` doesn't get escaped again.
 """

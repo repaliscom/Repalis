@@ -224,7 +224,7 @@ class RepalisSelfService:
     ) -> None:
         if not self.is_configured:
             return
-        if external_customer_id == settings.POLAR_ORGANIZATION_ID:
+        if external_customer_id in (settings.REPALIS_ORGANIZATION_ID, settings.POLAR_ORGANIZATION_ID):
             return
         if cost_usd is None:
             return
@@ -247,7 +247,7 @@ class RepalisSelfService:
         if not self.is_configured:
             raise RepalisSelfNotConfigured()
         products = await get_client().list_recurring_products(
-            organization_id=settings.POLAR_ORGANIZATION_ID
+            organization_id=settings.REPALIS_ORGANIZATION_ID or settings.POLAR_ORGANIZATION_ID
         )
         self_serve = [p for p in products if not (p.metadata or {}).get("custom")]
         return sorted(

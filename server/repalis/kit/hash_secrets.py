@@ -10,7 +10,7 @@ from repalis.logging import Logger
 log: Logger = structlog.get_logger()
 
 # The version carrying this label is the one bare digests were computed with.
-# Without it, POLAR_SECRET still holds that value.
+# Without it, REPALIS_SECRET still holds that value.
 LEGACY_STAGE = "LEGACY"
 AWS_MANAGED_STAGES = {"AWSCURRENT", "AWSPREVIOUS", "AWSPENDING"}
 RESERVED_STAGES = AWS_MANAGED_STAGES | {LEGACY_STAGE}
