@@ -102,7 +102,7 @@ with op.get_context().autocommit_block():
   raised it, because none of those 5 seconds were spent building anything.
 - **Mark the column `deferred=True` before dropping it**: takes it out of `SELECT`, not out of
   `INSERT`. The old code still writes it, and fails once it is gone. This broke inserts during the
-  deploy of [#14617](https://github.com/polarsource/polar/pull/14617).
+  deploy of [#14617](https://github.com/repaliscom/Repalis/pull/14617).
 - **Keep the column on the model's `Table` with `exclude_properties`**: works, but spreads the
   pending drops across models. One list in `env.py` shows them all.
 
@@ -112,4 +112,4 @@ with op.get_context().autocommit_block():
 - `server/scripts/helper.py` (`run_batched_update`) and the `server/scripts/backfill_*.py`
   scripts. CI: `.github/workflows/test_server.yaml` (`migration-check`).
 - Worked example of the concurrent-index rule, and why 5s was not enough:
-  [#14583](https://github.com/polarsource/polar/pull/14583).
+  [#14583](https://github.com/repaliscom/Repalis/pull/14583).

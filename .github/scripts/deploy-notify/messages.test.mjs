@@ -5,14 +5,14 @@ import { buildEnvironmentUpdates, buildMessage, buildParentMessage, prepareNotif
 
 const run = {
   conclusion: 'success',
-  html_url: 'https://github.com/polarsource/polar/actions/runs/123',
+  html_url: 'https://github.com/repaliscom/Repalis/actions/runs/123',
   run_number: 42,
   run_attempt: 2,
   head_sha: 'abc1234567890',
   head_branch: 'main',
   actor: { login: 'deployer' },
   head_commit: { message: 'Ship a change\nMore detail' },
-  repository: { html_url: 'https://github.com/polarsource/polar' },
+  repository: { html_url: 'https://github.com/repaliscom/Repalis' },
   run_started_at: '2026-10-16T08:13:17Z',
 };
 const input = { run, jobs: [], pullRequests: [], channel: 'CDEPLOY' };
@@ -158,7 +158,7 @@ test('uses the completed attempt and still prepares a notification if PR lookup 
   };
   const { message } = await prepareNotification({
     github,
-    context: { repo: { owner: 'polarsource', repo: 'polar' }, payload: { workflow_run: { ...run, id: 123, conclusion: 'failure' } } },
+    context: { repo: { owner: 'repaliscom', repo: 'Repalis' }, payload: { workflow_run: { ...run, id: 123, conclusion: 'failure' } } },
     core: {
       warning: message => warnings.push(message),
       summary: { addRaw: text => ({ write: async () => { summary = text; } }) },

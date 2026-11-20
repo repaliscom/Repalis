@@ -206,7 +206,7 @@ Add new operations and webhooks to the matching groups in `docs/docs.json`; that
 ## Driving the local UI
 
 **Login.** Email OTP codes are printed in the API pane / log (`LOGIN CODE: …`). Grab with
-`tmux capture-pane -t polar:services.0 -p | grep -a "LOGIN CODE" | tail -1`. `admin@polar.sh`
+`tmux capture-pane -t polar:services.0 -p | grep -a "LOGIN CODE" | tail -1`. `admin@repalis.com`
 is the conventional test account.
 
 **Onboarding gotcha.** The org-creation wizard's "Launch Dashboard" button only submits once the

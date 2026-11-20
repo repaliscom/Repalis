@@ -35,7 +35,7 @@ Synthetize the information gathered from the Sentry issue, Logfire logs, and sou
 
 ## Step 5: Implement a fix
 
-**Important**: If your analysis indicates that the issue involves heavy architectural changes, or if you are unsure about the best way to implement a fix, do not proceed with implementing a fix on your own. Instead, open an issue on `polarsource/polar` with your findings and analysis.
+**Important**: If your analysis indicates that the issue involves heavy architectural changes, or if you are unsure about the best way to implement a fix, do not proceed with implementing a fix on your own. Instead, open an issue on `repaliscom/Repalis` with your findings and analysis.
 
 ### Step 5.1: Create a worktree
 
@@ -65,4 +65,4 @@ Commit your changes to the branch you created in the worktree. Make sure to writ
 
 ### Step 5.4: Open a pull request
 
-Open a pull request on `polarsource/polar` using github tools, detailing your analysis, adding relevant links to the Sentry issue and Logfire logs, and describing the changes you made to fix the issue.
+Open a pull request on `repaliscom/Repalis` using github tools, detailing your analysis, adding relevant links to the Sentry issue and Logfire logs, and describing the changes you made to fix the issue.

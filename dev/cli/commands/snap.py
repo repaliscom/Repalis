@@ -53,7 +53,7 @@ RUNS_DIR = SCREENSHOTS_DIR / "runs"
 DEV_CLI = ROOT_DIR / "dev" / "cli" / "dev"
 DEFAULT_BASE_BRANCH = "main"
 DEFAULT_WEB_PORT = 3000  # both sides run here, sequentially
-DEFAULT_LOGIN_EMAIL = "admin@polar.sh"
+DEFAULT_LOGIN_EMAIL = "admin@repalis.com"
 DEFAULT_AUTH_PATHS = ["/dashboard"]  # path prefixes that require login
 
 # Viewports to capture at. Each selected one is shot per URL per side, with the

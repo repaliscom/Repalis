@@ -26,7 +26,7 @@ entrypoint = "pyproject.toml"
 buildCommand = "uv run task emails && uv run task backoffice && uv run task db_migrate"
 
 # An api.* host serves the whole API at its native paths, mirroring the
-# polar.sh / api.polar.sh split. On the app origin the whole API is mounted
+# repalis.com / api.repalis.com split. On the app origin the whole API is mounted
 # under /api (see RootPathMiddleware), forwarded unstripped so generated URLs
 # stay correct on both hosts. The two Next.js route handlers and the Mintlify
 # docs endpoint living under /api are carved out ahead of the catch-all.

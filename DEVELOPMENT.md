@@ -202,7 +202,7 @@ If you want to work on or test enterprise SSO login, you can point it at a local
 3. **Assert an identity.** The callback requires a *verified* email and will provision the user and organization membership on the fly, so in the mock login form submit these claims (the seeded admin is a member of `admin-org`):
 
     ```json
-    {"email": "admin@polar.sh", "email_verified": true}
+    {"email": "admin@repalis.com", "email_verified": true}
     ```
 
     You'll be redirected back to Repalis, where the org-scoped session completes.
@@ -506,7 +506,7 @@ To log in for the first time, follow these steps:
 1. Navigate to the login page.
 2. Enter your email address in the provided field.
 3. Click the "Login" button.
-4. To use the seeded admin, use **admin@polar.sh** ([seeds_load.py](server/scripts/seeds_load.py)).
+4. To use the seeded admin, use **admin@repalis.com** ([seeds_load.py](server/scripts/seeds_load.py)).
 5. Check the terminal where the API is running (`uv run task api`) to get the OTP code.
 6. Enter the OTP code in the login form.
 

@@ -56,7 +56,7 @@ jobs:
           cwd: ${{ github.workspace }}/clients
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          POLAR_CHECKOUT_EMBED_SCRIPT_ALLOWED_ORIGINS: "https://repalis.com,https://sandbox.repalis.com,https://polar.sh,https://sandbox.polar.sh"
+          POLAR_CHECKOUT_EMBED_SCRIPT_ALLOWED_ORIGINS: "https://repalis.com,https://sandbox.repalis.com"
 
       - name: Release summary
         if: always() && steps.changesets.outcome != 'skipped'

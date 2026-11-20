@@ -71,8 +71,8 @@ into the dashboard authenticates the backoffice too.
 
 1. `browser_navigate` → `http://localhost:31NN/auth`
    (the nav "Login" link is hidden; go to `/auth` directly. `/login` 404s.)
-2. Type `admin@polar.sh` into the Email field, click **Sign in with email**.
-   The seed account `admin@polar.sh` owns `admin-org` (approved, payout account,
+2. Type `admin@repalis.com` into the Email field, click **Sign in with email**.
+   The seed account `admin@repalis.com` owns `admin-org` (approved, payout account,
    products) — go straight to checkout testing, no onboarding.
 3. The page advances to `/auth/email-otp`. Read the code from the api logs:
    ```bash
@@ -203,7 +203,7 @@ api, web, *and* worker on every env change.
      where o.slug = 'admin-org' limit 1;
    ```
 2. Fill the form:
-   - **Email** — real domain + tag, e.g. `petru+verify-<flow>@polar.sh`.
+   - **Email** — real domain + tag, e.g. `petru+verify-<flow>@repalis.com`.
      `.local` and `example.com` are rejected by checkout email validation.
    - **Card** (inside the Stripe iframe): `4242 4242 4242 4242`, exp `12 / 34`,
      CVC `123`.
@@ -239,7 +239,7 @@ grep -E 'POST|payment_intent|charge' /tmp/stripe-listen.log
 dev docker exec db psql -U polar -d polar_dev_<N> -tc \
  "select o.status, o.net_amount_v2, c.email from orders o
    join customers c on c.id=o.customer_id
-   where c.email='petru+verify-<flow>@polar.sh' order by o.created_at desc limit 1;"
+   where c.email='petru+verify-<flow>@repalis.com' order by o.created_at desc limit 1;"
 ```
 
 Expect `paid | 2000 | …`. Also confirm it renders in backoffice **Orders**

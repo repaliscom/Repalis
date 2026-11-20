@@ -64,7 +64,7 @@ def _print_seeded_login_info(new_org: str | None = None) -> None:
     login_info = Table(show_header=False, box=None, padding=(0, 2))
     login_info.add_column(style="dim")
     login_info.add_column(style="bold")
-    login_info.add_row("Email", f"{new_org}@polar.sh" if new_org else "admin@polar.sh")
+    login_info.add_row("Email", f"{new_org}@repalis.com" if new_org else "admin@repalis.com")
     login_info.add_row("OTP", "Check the terminal running dev api")
     if not new_org:
         login_info.add_row(

@@ -27,7 +27,7 @@ Grab the latest one:
 docker logs --since 30s polar-app-<N>-api-1 2>&1 | grep -A1 "LOGIN CODE"
 ```
 
-Use `admin@polar.sh` as the default test account — the seed creates it with
+Use `admin@repalis.com` as the default test account — the seed creates it with
 an approved org (`admin-org`) that already has a payout account, identity
 verification, and at least one product. That lets you go straight to
 checkout testing without onboarding work.
@@ -102,7 +102,7 @@ common gotchas:
 - `example.com` fails with "domain does not accept email"
 
 Use a real domain with a `+tag` to keep tests isolated:
-`yourname+test-foo@polar.sh`.
+`yourname+test-foo@repalis.com`.
 
 ## Triggering Dramatiq Actors Manually
 

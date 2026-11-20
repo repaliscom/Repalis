@@ -82,8 +82,8 @@ also need to remain explicit rather than becoming a blanket rule for all identif
 
 ## References
 
-- [Worker telemetry selection (#14776)](https://github.com/polarsource/polar/pull/14776)
-- [Structured database error diagnostics (#14786)](https://github.com/polarsource/polar/pull/14786)
-- [Validation response versus exception telemetry (#14806)](https://github.com/polarsource/polar/pull/14806)
-- [Retaining startup names, removing applicant email (#14799)](https://github.com/polarsource/polar/pull/14799)
-- [Deletion-reason retention trade-off (#14809)](https://github.com/polarsource/polar/pull/14809)
+- [Worker telemetry selection (#14776)](https://github.com/repaliscom/Repalis/pull/14776)
+- [Structured database error diagnostics (#14786)](https://github.com/repaliscom/Repalis/pull/14786)
+- [Validation response versus exception telemetry (#14806)](https://github.com/repaliscom/Repalis/pull/14806)
+- [Retaining startup names, removing applicant email (#14799)](https://github.com/repaliscom/Repalis/pull/14799)
+- [Deletion-reason retention trade-off (#14809)](https://github.com/repaliscom/Repalis/pull/14809)
