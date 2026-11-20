@@ -1,6 +1,6 @@
 import { isFile } from '../ast.js'
 
-const apiHost = /(?:^|[/.@])(?:sandbox-)?api\.polar\.sh\b/
+const apiHost = /(?:^|[/.@])(?:sandbox-)?api\.repalis\.com\b/
 
 export default {
   meta: {

@@ -209,7 +209,7 @@ describe('repalis config init', () => {
     expect(output).toContain(
       '✔ Your billing config is ready\n    Nice work, your billing now lives in code',
     )
-    expect(output).toMatch(/Package {7}@repalis\/polar installed/)
+    expect(output).toMatch(/Package {7}@repalis\/repalis installed/)
     expect(output).not.toContain('Install the config package')
     expect(output).toMatch(
       /2 {2}Add your meters, benefits and products +repalis\.config\.ts/,

@@ -158,7 +158,7 @@ Check that it works with \`repalis --version\`.
 
 ## Built for agents
 
-Point Claude Code, Cursor, Codex or any other agent at \`polar\` and it can run your whole Repalis setup from the terminal:
+Point Claude Code, Cursor, Codex or any other agent at \`repalis\` and it can run your whole Repalis setup from the terminal:
 
 - API commands print JSON, and \`--json\` turns every other command's output and every error into JSON too. Errors carry a \`hint\` with the fix.
 - \`--fields\` keeps only the fields the agent needs, so responses stay small.
@@ -225,7 +225,7 @@ npm uninstall -g ${MAIN_PACKAGE}          # npm
 rm /usr/local/bin/repalis                   # install.sh
 \`\`\`
 
-On Windows, delete \`%USERPROFILE%\\.polar\\bin\` and remove it from your user \`PATH\`.
+On Windows, delete \`%USERPROFILE%\\.repalis\\bin\` and remove it from your user \`PATH\`.
 
 ## Documentation
 
