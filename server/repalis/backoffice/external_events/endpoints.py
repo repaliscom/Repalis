@@ -29,7 +29,7 @@ def _get_logfire_url(event: ExternalEvent) -> str:
         "since": event.created_at.isoformat(),
     }
     return (
-        f"https://logfire-us.pydantic.dev/polar/polar?{urllib.parse.urlencode(params)}"
+        f"https://logfire-us.pydantic.dev/repalis/repalis?{urllib.parse.urlencode(params)}"
     )
 
 

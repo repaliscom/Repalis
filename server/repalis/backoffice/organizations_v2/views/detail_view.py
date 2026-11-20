@@ -31,7 +31,7 @@ def _get_logfire_url(organization_id: UUID) -> str:
         "last": "30d",
     }
     return (
-        f"https://logfire-us.pydantic.dev/polar/polar?{urllib.parse.urlencode(params)}"
+        f"https://logfire-us.pydantic.dev/repalis/repalis?{urllib.parse.urlencode(params)}"
     )
 
 

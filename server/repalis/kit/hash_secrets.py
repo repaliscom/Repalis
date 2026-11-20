@@ -30,7 +30,7 @@ def get_hash_secrets() -> HashSecrets:
     """Do not cache this: the fetch is cached instead, so local settings stay
     readable.
 
-    Rotating or retiring a secret: https://linear.app/polarsh/document/rotate-the-token-hashing-secret-d3411952efbf
+    Rotating or retiring a secret: https://linear.app/repalis/document/rotate-the-token-hashing-secret-d3411952efbf
     """
     arn = settings.AWS_HASH_SECRET_ARN
     if arn is None:
