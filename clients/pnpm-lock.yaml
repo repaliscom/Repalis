@@ -751,7 +751,7 @@ importers:
     dependencies:
       '@repalis/repalis':
         specifier: workspace:*
-        version: link:../../packages/polar
+        version: link:../../packages/repalis
       next:
         specifier: ^16.4.6
         version: 16.4.6(@babel/core@8.0.6)(@opentelemetry/api@1.9.1)(@types/node@24.19.1)(babel-plugin-macros@3.1.0)(babel-plugin-react-compiler@1.0.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
@@ -1269,7 +1269,7 @@ importers:
         version: file:../sdk/cli-commands(@repalis/sdk@1.0.3-alpha.4(ioredis@5.11.1(supports-color@10.2.2))(ws@8.22.0))(effect@4.0.1)
       '@repalis/repalis':
         specifier: workspace:*
-        version: link:../polar
+        version: link:../repalis
       '@repalis/sdk':
         specifier: 1.0.3-alpha.4
         version: 1.0.3-alpha.4(ioredis@5.11.1(supports-color@10.2.2))(ws@8.22.0)
@@ -1492,7 +1492,7 @@ importers:
 
   packages/oxlint-config: {}
 
-  packages/polar:
+  packages/repalis:
     dependencies:
       '@repalis/sdk':
         specifier: 1.0.3-alpha.5

@@ -47,7 +47,7 @@ const APPS: Download[] = [
   {
     title: 'Repalis for iOS',
     description: 'Your business in the palm of your hand. Built for iPhone.',
-    href: 'https://apps.apple.com/se/app/polar-monetize-your-software/id6746640471',
+    href: 'https://apps.apple.com/se/app/repalis-monetize-your-software/id6746640471',
     icon: <Apple size={28} />,
   },
   {
@@ -63,13 +63,13 @@ const PLUGINS: Download[] = [
   {
     title: 'Repalis for Raycast',
     description: 'Your latest orders and customers right at your fingertips.',
-    href: 'https://www.raycast.com/emilwidlund/polar',
+    href: 'https://www.raycast.com/repalis/repalis',
     icon: <Raycast size={28} />,
   },
   {
     title: 'Repalis for Framer',
     description: 'Flexible checkout components for your Framer projects.',
-    href: 'https://www.framer.com/marketplace/plugins/polar',
+    href: 'https://www.framer.com/marketplace/plugins/repalis',
     icon: <Framer size={28} />,
   },
 ]
