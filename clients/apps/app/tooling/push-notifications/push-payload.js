@@ -1,4 +1,4 @@
-const BUNDLE_ID = 'com.polarsource.Polar'
+const BUNDLE_ID = 'com.repalis.app'
 
 const payloads = {
   newOrder: {

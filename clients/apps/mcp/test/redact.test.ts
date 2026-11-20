@@ -14,7 +14,7 @@ test.each([
   ['an AWS key', 'key AKIAABCDEFGHIJKLMNOP here', 'key <redacted> here'],
   [
     'a URL',
-    'see https://api.polar.sh/v1/orders/?x=1 now',
+    'see https://api.repalis.com/v1/orders/?x=1 now',
     'see <redacted> now',
   ],
   ['a file path', 'in /Users/jane/app/config.ts', 'in <redacted>'],

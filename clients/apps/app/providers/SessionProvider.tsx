@@ -16,7 +16,7 @@ import {
   type PropsWithChildren,
 } from 'react'
 
-const widgetStorage = new ExtensionStorage('group.com.polarsource.Polar')
+const widgetStorage = new ExtensionStorage('group.com.repalis.app')
 
 type AuthContextValue = {
   setSession: (data: SessionData | null) => void

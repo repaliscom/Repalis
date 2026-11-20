@@ -2,7 +2,7 @@ import { Context, Effect, Layer, Schema } from 'effect'
 import { HttpClient, HttpClientRequest, HttpClientResponse } from 'effect/http'
 import { ToolError } from './results'
 
-export const DOCS_URL = 'https://polar.sh/docs'
+export const DOCS_URL = 'https://repalis.com/docs'
 const SEARCH_URL = 'https://api.mintlify.com/discovery/v1/search/polar'
 const SEARCH_PAGE_SIZE = 8
 

@@ -81,8 +81,8 @@ const noBrokenMdxLinks = {
           ).replace(FENCED_CODE, (block) => block.replace(/[^\n]/g, ''))
           for (const match of content.matchAll(LINK)) {
             const href = match[1] ?? match[2]
-            const url = URL.parse(href, `https://polar.sh${pageRoute}`)
-            if (url?.host !== 'polar.sh') continue
+            const url = URL.parse(href, `https://repalis.com${pageRoute}`)
+            if (url?.host !== 'repalis.com') continue
             const path = url.pathname.replace(/(.)\/$/, '$1')
             if (DOCS_PATH.test(path) || exists(path)) continue
             context.report({

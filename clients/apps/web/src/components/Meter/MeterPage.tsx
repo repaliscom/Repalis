@@ -73,7 +73,7 @@ export const MeterPage = ({
       end_timestamp: dateRange.to.toISOString(),
       interval,
       // Aggregate by customer and then `sum` by default, as it's the most common use case
-      // See: https://github.com/polarsource/polar/issues/7032
+      // See: https://github.com/repaliscom/Repalis/issues/7032
       customer_aggregation_function: 'sum',
     },
   )
@@ -205,7 +205,7 @@ const MeterActivityCards = ({ meter }: { meter: schemas['Meter'] }) => {
     end_timestamp: dates.currentMonthEnd.toISOString(),
     interval: 'month',
     // Aggregate by customer and then `sum` by default, as it's the most common use case
-    // See: https://github.com/polarsource/polar/issues/7032
+    // See: https://github.com/repaliscom/Repalis/issues/7032
     customer_aggregation_function: 'sum',
   })
 
@@ -214,7 +214,7 @@ const MeterActivityCards = ({ meter }: { meter: schemas['Meter'] }) => {
     end_timestamp: dates.allTimeEnd.toISOString(),
     interval: 'month',
     // Aggregate by customer and then `sum` by default, as it's the most common use case
-    // See: https://github.com/polarsource/polar/issues/7032
+    // See: https://github.com/repaliscom/Repalis/issues/7032
     customer_aggregation_function: 'sum',
   })
 

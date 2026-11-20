@@ -9,14 +9,14 @@
   "redirects": [
     {
       "source": "/docs",
-      "destination": "https://polar.sh/docs",
-      "has": [{ "type": "host", "value": "sandbox.polar.sh" }],
+      "destination": "https://repalis.com/docs",
+      "has": [{ "type": "host", "value": "sandbox.repalis.com" }],
       "permanent": true
     },
     {
       "source": "/docs/:path+",
-      "destination": "https://polar.sh/docs/:path+",
-      "has": [{ "type": "host", "value": "sandbox.polar.sh" }],
+      "destination": "https://repalis.com/docs/:path+",
+      "has": [{ "type": "host", "value": "sandbox.repalis.com" }],
       "permanent": true
     }
   ],

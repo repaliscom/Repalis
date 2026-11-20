@@ -63,7 +63,7 @@ module.exports = {
     ios: {
       appleTeamId: '55U3YA3QTA',
       supportsTablet: false,
-      bundleIdentifier: 'com.polarsource.Polar',
+      bundleIdentifier: 'com.repalis.app',
       infoPlist: {
         ITSAppUsesNonExemptEncryption: false,
       },
@@ -71,10 +71,10 @@ module.exports = {
       entitlements: {
         'com.apple.developer.applesignin': ['Default'],
         'com.apple.security.application-groups': [
-          'group.com.polarsource.Polar',
+          'group.com.repalis.app',
         ],
         'keychain-access-groups': [
-          '$(AppIdentifierPrefix)com.polarsource.Polar',
+          '$(AppIdentifierPrefix)com.repalis.app',
         ],
       },
       associatedDomains: ['applinks:polar.godetour.link'],
@@ -85,7 +85,7 @@ module.exports = {
         // oxlint-disable-next-line @polar/no-hardcoded-colors
         backgroundColor: '#000000',
       },
-      package: 'com.polarsource.Polar',
+      package: 'com.repalis.app',
       scheme: 'polar',
       googleServicesFile: './google-services.json',
       intentFilters: [

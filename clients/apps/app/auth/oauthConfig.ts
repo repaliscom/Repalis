@@ -1,10 +1,10 @@
 export const CLIENT_ID = 'polar_ci_yZLBGwoWZVsOdfN5CODRwVSTlJfwJhXqwg65e2CuNMZ'
 
 export const discovery = {
-  authorizationEndpoint: 'https://polar.sh/oauth2/authorize',
-  tokenEndpoint: 'https://api.polar.sh/v1/oauth2/token',
-  registrationEndpoint: 'https://api.polar.sh/v1/oauth2/register',
-  revocationEndpoint: 'https://api.polar.sh/v1/oauth2/revoke',
+  authorizationEndpoint: 'https://repalis.com/oauth2/authorize',
+  tokenEndpoint: 'https://api.repalis.com/v1/oauth2/token',
+  registrationEndpoint: 'https://api.repalis.com/v1/oauth2/register',
+  revocationEndpoint: 'https://api.repalis.com/v1/oauth2/revoke',
 }
 
 /*

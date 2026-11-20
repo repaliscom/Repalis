@@ -17,7 +17,7 @@ struct Provider: AppIntentTimelineProvider {
     }
 
     func snapshot(for configuration: ConfigurationAppIntent, in context: Context) async -> SimpleEntry {
-        let defaults = UserDefaults(suiteName: "group.com.polarsource.Polar")
+        let defaults = UserDefaults(suiteName: "group.com.repalis.app")
         let orgName = defaults?.string(forKey: "widget_organization_name")
         let days = configuration.timeFrame.days
         
@@ -36,7 +36,7 @@ struct Provider: AppIntentTimelineProvider {
     
     func timeline(for configuration: ConfigurationAppIntent, in context: Context) async -> Timeline<SimpleEntry> {
         let currentDate = Date()
-        let defaults = UserDefaults(suiteName: "group.com.polarsource.Polar")
+        let defaults = UserDefaults(suiteName: "group.com.repalis.app")
         let orgName = defaults?.string(forKey: "widget_organization_name")
         let days = configuration.timeFrame.days
 
@@ -152,7 +152,7 @@ struct Provider: AppIntentTimelineProvider {
     }
 
     private func fetchMetrics(days: Int, metricType: MetricType) async -> (Int, Double?, [RevenueData], Int?)? {
-        let defaults = UserDefaults(suiteName: "group.com.polarsource.Polar")
+        let defaults = UserDefaults(suiteName: "group.com.repalis.app")
         guard let organizationId = defaults?.string(forKey: "widget_organization_id") else {
             return nil
         }
@@ -233,7 +233,7 @@ struct Provider: AppIntentTimelineProvider {
     }
     
     private func fetchAllMetrics(days: Int) async -> CombinedMetrics? {
-        let defaults = UserDefaults(suiteName: "group.com.polarsource.Polar")
+        let defaults = UserDefaults(suiteName: "group.com.repalis.app")
         guard let organizationId = defaults?.string(forKey: "widget_organization_id") else {
             return nil
         }

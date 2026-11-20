@@ -652,7 +652,7 @@ describe('payment method embed policy', () => {
   it('lets Polar embed itself without asking for the policy', async () => {
     const response = await proxy(
       framedRequest(
-        'https://repalis.com/embed/payment-method?session_token=polar_cst_123&embed_origin=https%3A%2F%2Fpolar.sh',
+        'https://repalis.com/embed/payment-method?session_token=polar_cst_123&embed_origin=https%3A%2F%2Frepalis.com',
       ),
     )
 

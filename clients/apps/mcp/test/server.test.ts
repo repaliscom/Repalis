@@ -983,7 +983,7 @@ test('docs tools search Mintlify and read pages as markdown from the docs site',
         metadata: { title: 'Checkout Links' },
       },
       {
-        path: 'https://polar.sh/docs/integrate/sdk/adapters/nextjs#checkout',
+        path: 'https://repalis.com/docs/integrate/sdk/adapters/nextjs#checkout',
         content: 'Next.js checkout',
       },
     ]),
@@ -994,8 +994,8 @@ test('docs tools search Mintlify and read pages as markdown from the docs site',
   })
   expect(search.result.content[0].text).toBe(
     [
-      '## Checkout Links\nPage: features/checkout/links\nURL: https://polar.sh/docs/features/checkout/links\n\nCreate a checkout link',
-      '## integrate/sdk/adapters/nextjs\nPage: integrate/sdk/adapters/nextjs\nURL: https://polar.sh/docs/integrate/sdk/adapters/nextjs\n\nNext.js checkout',
+      '## Checkout Links\nPage: features/checkout/links\nURL: https://repalis.com/docs/features/checkout/links\n\nCreate a checkout link',
+      '## integrate/sdk/adapters/nextjs\nPage: integrate/sdk/adapters/nextjs\nURL: https://repalis.com/docs/integrate/sdk/adapters/nextjs\n\nNext.js checkout',
     ].join('\n\n---\n\n'),
   )
   const [input, init] = fetchMock.mock.calls[0]
@@ -1021,7 +1021,7 @@ test('docs tools search Mintlify and read pages as markdown from the docs site',
   ).toBe('# Checkout Links')
   const [page] = fetchMock.mock.calls[1]
   expect(page instanceof Request ? page.url : String(page)).toBe(
-    'https://polar.sh/docs/features/checkout/links.md',
+    'https://repalis.com/docs/features/checkout/links.md',
   )
 
   fetchMock.mockResolvedValueOnce(new Response('Not found', { status: 404 }))
@@ -1034,13 +1034,13 @@ test('docs tools search Mintlify and read pages as markdown from the docs site',
 
   const outside = await rpc('tools/call', {
     name: 'read_docs_page',
-    arguments: { page: 'https://polar.sh/docs/http:evil.example' },
+    arguments: { page: 'https://repalis.com/docs/http:evil.example' },
   })
   expect(outside.result).toEqual({
     content: [
       {
         type: 'text',
-        text: 'Error: Not a Polar docs page: https://polar.sh/docs/http:evil.example',
+        text: 'Error: Not a Repalis docs page: https://repalis.com/docs/http:evil.example',
       },
     ],
     isError: true,

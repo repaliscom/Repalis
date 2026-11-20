@@ -71,7 +71,7 @@ export class CheckoutPage {
   private submitButton = () =>
     this.app.page.locator('form button[type="submit"]')
 
-  async fillEmail(email = `e2e+${Date.now()}@polar.sh`): Promise<string> {
+  async fillEmail(email = `e2e+${Date.now()}@repalis.com`): Promise<string> {
     await this.app.fill(
       this.app.page.getByRole('textbox', { name: 'Email' }),
       email,

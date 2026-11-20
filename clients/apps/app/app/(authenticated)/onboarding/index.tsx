@@ -191,7 +191,7 @@ export default function Onboarding() {
               <Box>
                 <Touchable
                   onPress={() =>
-                    Linking.openURL('https://polar.sh/legal/privacy-policy')
+                    Linking.openURL('https://repalis.com/legal/privacy-policy')
                   }
                 >
                   <Text color="primary">Privacy Policy</Text>

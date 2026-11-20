@@ -1,8 +1,8 @@
 import Foundation
 
 enum WidgetTokenStore {
-    private static let accessGroup = "55U3YA3QTA.com.polarsource.Polar"
-    private static let appGroup = "group.com.polarsource.Polar"
+    private static let accessGroup = "55U3YA3QTA.com.repalis.app"
+    private static let appGroup = "group.com.repalis.app"
 
     private static let writeService = "app:no-auth"
     private static let readServices = ["app:no-auth", "app:auth", "app"]

@@ -54,7 +54,7 @@ const APPS: Download[] = [
     title: 'Repalis for Android',
     description:
       'The companion app for your business on Repalis. Built for Android.',
-    href: 'https://play.google.com/store/apps/details?id=com.polarsource.Polar',
+    href: 'https://play.google.com/store/apps/details?id=com.repalis.app',
     icon: <Google size={28} />,
   },
 ]

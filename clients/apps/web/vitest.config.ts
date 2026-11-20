@@ -24,8 +24,8 @@ const SERVER_TESTS = ['src/proxy.test.ts']
 
 const env = {
   NEXT_PUBLIC_API_URL: 'http://api.polar.test',
-  NEXT_PUBLIC_FRONTEND_BASE_URL: 'https://polar.sh',
-  NEXT_PUBLIC_SANDBOX_FRONTEND_BASE_URL: 'https://sandbox.polar.sh',
+  NEXT_PUBLIC_FRONTEND_BASE_URL: 'https://repalis.com',
+  NEXT_PUBLIC_SANDBOX_FRONTEND_BASE_URL: 'https://sandbox.repalis.com',
 }
 
 const sharedTest = {

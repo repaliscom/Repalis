@@ -14,7 +14,7 @@ import {
   useGetNotificationRecipient,
 } from './polar/notifications'
 
-const widgetStorage = new ExtensionStorage('group.com.polarsource.Polar')
+const widgetStorage = new ExtensionStorage('group.com.repalis.app')
 
 export const useLogout = () => {
   const { session, setSession } = useSession()

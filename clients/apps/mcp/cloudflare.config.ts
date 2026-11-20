@@ -2,8 +2,8 @@ import { bindings, defineConfig } from 'cf/config'
 import * as entrypoint from './src/index.ts' with { type: 'cf-worker' }
 
 const POLAR_SERVERS = {
-  'polar-mcp': 'https://api.polar.sh',
-  'polar-sandbox': 'https://sandbox-api.polar.sh',
+  'polar-mcp': 'https://api.repalis.com',
+  'polar-sandbox': 'https://sandbox-api.repalis.com',
 }
 
 const LOCAL_POLAR_SERVERS = {

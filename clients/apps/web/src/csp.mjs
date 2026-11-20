@@ -15,7 +15,7 @@ const baseCSP = () => `
     frame-src 'self' https://challenges.cloudflare.com https://*.js.stripe.com https://js.stripe.com https://hooks.stripe.com https://customer-wl21dabnj6qtvcai.cloudflarestream.com videodelivery.net *.cloudflarestream.com;
     script-src 'self' 'unsafe-eval' 'unsafe-inline' https://challenges.cloudflare.com https://*.js.stripe.com https://js.stripe.com https://maps.googleapis.com https://www.googletagmanager.com https://chat.cdn-plain.com https://embed.cloudflarestream.com;
     style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
-    img-src 'self' blob: data: https://www.gravatar.com https://img.logo.dev https://lh3.googleusercontent.com https://avatars.githubusercontent.com https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com ${S3_PUBLIC_IMAGES_BUCKET_ORIGIN} https://uploads.polar.sh https://prod-uk-services-workspac-workspacefilespublicbuck-vs4gjqpqjkh6.s3.amazonaws.com https://prod-uk-services-attachm-attachmentsbucket28b3ccf-uwfssb4vt2us.s3.eu-west-2.amazonaws.com https://i0.wp.com;
+    img-src 'self' blob: data: https://www.gravatar.com https://img.logo.dev https://lh3.googleusercontent.com https://avatars.githubusercontent.com https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com ${S3_PUBLIC_IMAGES_BUCKET_ORIGIN} https://uploads.repalis.com https://prod-uk-services-workspac-workspacefilespublicbuck-vs4gjqpqjkh6.s3.amazonaws.com https://prod-uk-services-attachm-attachmentsbucket28b3ccf-uwfssb4vt2us.s3.eu-west-2.amazonaws.com https://i0.wp.com;
     font-src 'self';
     object-src 'none';
     base-uri 'self';
@@ -35,7 +35,7 @@ export const oauth2CSP = () =>
   frame-ancestors 'none';
 `)
 
-// We rewrite Mintlify docs to polar.sh/docs, so we need a specific CSP for them
+// We rewrite Mintlify docs to repalis.com/docs, so we need a specific CSP for them
 // Ref: https://www.mintlify.com/docs/guides/csp-configuration#content-security-policy-csp-configuration
 export const docsCSP = () =>
   flatten(`

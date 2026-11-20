@@ -6,7 +6,7 @@ import { Github } from '@polar-sh/orbit/icons'
 import { usePathname } from 'next/navigation'
 
 const REPO_BASE =
-  'https://github.com/polarsource/polar/blob/main/clients/packages/orbit/src/'
+  'https://github.com/repaliscom/Repalis/blob/main/clients/packages/orbit/src/'
 
 // Maps a route slug to the file (relative to packages/orbit/src) that defines
 // the documented component or tokens. Props all live in the component file, so

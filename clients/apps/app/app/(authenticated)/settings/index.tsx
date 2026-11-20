@@ -89,20 +89,20 @@ export default function Index() {
           <SettingsItem
             title="Support"
             variant="link"
-            onPress={() => Linking.openURL('https://polar.sh/docs/support')}
+            onPress={() => Linking.openURL('https://repalis.com/docs/support')}
           />
           <SettingsItem
             title="Privacy Policy"
             variant="link"
             onPress={() =>
-              Linking.openURL('https://polar.sh/legal/privacy-policy')
+              Linking.openURL('https://repalis.com/legal/privacy-policy')
             }
           />
           <SettingsItem
             title="Terms of Service"
             variant="link"
             onPress={() =>
-              Linking.openURL('https://polar.sh/legal/master-services-terms')
+              Linking.openURL('https://repalis.com/legal/master-services-terms')
             }
           />
           <Box height={1} backgroundColor="border" marginVertical="spacing-8" />
