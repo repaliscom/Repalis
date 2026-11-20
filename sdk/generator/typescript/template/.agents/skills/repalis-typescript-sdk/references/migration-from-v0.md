@@ -1,6 +1,6 @@
 # Migrate from the `<1.0.0` SDK
 
-Use these instructions when an application depends on `@polar-sh/sdk<1.0.0`, imports the unversioned `Polar` class, or uses camelCase API fields. Migrate one integration boundary at a time and use the installed new SDK's generated signatures as the source of truth.
+Use these instructions when an application depends on `@repalis/sdk<1.0.0`, imports the unversioned `Repalis` class, or uses camelCase API fields. Migrate one integration boundary at a time and use the installed new SDK's generated signatures as the source of truth.
 
 ## Contents
 
@@ -31,8 +31,8 @@ The old SDK automatically converted API request and response fields to camelCase
 - Do not recursively rename arbitrary `metadata`, custom-field data, or other user-defined object keys.
 
 ```typescript
-// Before: @polar-sh/sdk<1.0.0
-const checkout = await polar.checkouts.create({
+// Before: @repalis/sdk<1.0.0
+const checkout = await repalis.checkouts.create({
   products: [productId],
   externalCustomerId: "usr_123",
   successUrl,
@@ -42,7 +42,7 @@ console.log(checkout.customerId);
 
 ```typescript
 // After
-const checkout = await polar.checkouts.create({
+const checkout = await repalis.checkouts.create({
   products: [productId],
   external_customer_id: "usr_123",
   success_url: successUrl,
@@ -54,23 +54,23 @@ Search for camelCase field access throughout application code, persistence mappi
 
 ## Replace client construction
 
-Replace the old class with the versioned `createPolar` factory:
+Replace the old class with the versioned `createRepalis` factory:
 
 ```typescript
-// Before: @polar-sh/sdk<1.0.0
-import { Polar } from "@polar-sh/sdk";
+// Before: @repalis/sdk<1.0.0
+import { Repalis } from "@repalis/sdk";
 
-const polar = new Polar({ accessToken });
+const repalis = new Repalis({ accessToken });
 ```
 
 ```typescript
 // After
-import { createPolar } from "@polar-sh/sdk/{{ (ir.versions[-2] | default({})).version }}";
+import { createRepalis } from "@repalis/sdk/{{ (ir.versions[-2] | default({})).version }}";
 
-const polar = createPolar({ accessToken });
+const repalis = createRepalis({ accessToken });
 ```
 
-Use `createPolarCore` and individual functions from the selected version's `services` paths only when tree-shaking matters. Do not carry forward constructor options that are absent from `PolarOptions`.
+Use `createRepalisCore` and individual functions from the selected version's `services` paths only when tree-shaking matters. Do not carry forward constructor options that are absent from `RepalisOptions`.
 
 ## Migrate operation calls
 
@@ -87,8 +87,8 @@ The old standalone functions and the new service factories have different names 
 The old SDK made a list response async iterable and yielded pages. The new SDK exposes `iter*` methods that yield individual resources.
 
 ```typescript
-// Before: @polar-sh/sdk<1.0.0
-const pages = await polar.organizations.listOrganizations({});
+// Before: @repalis/sdk<1.0.0
+const pages = await repalis.organizations.listOrganizations({});
 for await (const page of pages) {
   processPage(page);
 }
@@ -96,7 +96,7 @@ for await (const page of pages) {
 
 ```typescript
 // After
-for await (const organization of polar.organizations.iterList()) {
+for await (const organization of repalis.organizations.iterList()) {
   processOrganization(organization);
 }
 ```
@@ -105,10 +105,10 @@ Call `list` directly when the application needs page metadata. Do not wrap an `i
 
 ## Migrate errors, retries, and webhooks
 
-- Replace old SDK error classes with `PolarClientError`, `PolarNetworkError`, `PolarRateLimitError`, and `PolarServerError`, then handle version-specific endpoint errors before those broad classes.
+- Replace old SDK error classes with `RepalisClientError`, `RepalisNetworkError`, `RepalisRateLimitError`, and `RepalisServerError`, then handle version-specific endpoint errors before those broad classes.
 - Remove the old `retryConfig`; apply bounded application-level retries and honor `retryAfter` for rate limits. Retry mutations only when the endpoint is idempotent or the application can reconcile the result.
-- Replace imports from `@polar-sh/sdk/webhooks` with the versioned `webhooks` namespace.
+- Replace imports from `@repalis/sdk/webhooks` with the versioned `webhooks` namespace.
 - Await `webhooks.validateEvent`, passing the unmodified request body, request headers, and signing secret.
-- Rename old webhook error checks to `webhooks.PolarWebhookVerificationError`, `webhooks.PolarWebhookUnknownTypeError`, and `webhooks.PolarWebhookError`.
+- Rename old webhook error checks to `webhooks.RepalisWebhookVerificationError`, `webhooks.RepalisWebhookUnknownTypeError`, and `webhooks.RepalisWebhookError`.
 
 Preserve the behavior of acknowledging unknown but correctly signed event types. Read [Webhook processing](webhooks.md) when changing receiver behavior, deduplication, or benefit synchronization. Read [Usage-event ingestion](usage-events.md) before migrating metered event delivery or retry logic.

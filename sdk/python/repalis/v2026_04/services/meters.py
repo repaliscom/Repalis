@@ -64,9 +64,9 @@ class MetersSync(SyncServiceBase):
 
         Raises:
             HTTPValidationError: Validation Error
-            PolarNetworkError: Raised when a network error occurs while making the request.
-            PolarRateLimitError: Raised when the rate limit is exceeded.
-            PolarServerError: Raised when the server returns a 5xx error response.
+            RepalisNetworkError: Raised when a network error occurs while making the request.
+            RepalisRateLimitError: Raised when the rate limit is exceeded.
+            RepalisServerError: Raised when the server returns a 5xx error response.
         """
         request = self.client.build_request(
             method="GET",
@@ -125,9 +125,9 @@ class MetersSync(SyncServiceBase):
 
         Raises:
             HTTPValidationError: Validation Error
-            PolarNetworkError: Raised when a network error occurs while making the request.
-            PolarRateLimitError: Raised when the rate limit is exceeded.
-            PolarServerError: Raised when the server returns a 5xx error response.
+            RepalisNetworkError: Raised when a network error occurs while making the request.
+            RepalisRateLimitError: Raised when the rate limit is exceeded.
+            RepalisServerError: Raised when the server returns a 5xx error response.
         """
         while True:
             response = self.list(
@@ -166,9 +166,9 @@ class MetersSync(SyncServiceBase):
 
         Raises:
             HTTPValidationError: Validation Error
-            PolarNetworkError: Raised when a network error occurs while making the request.
-            PolarRateLimitError: Raised when the rate limit is exceeded.
-            PolarServerError: Raised when the server returns a 5xx error response.
+            RepalisNetworkError: Raised when a network error occurs while making the request.
+            RepalisRateLimitError: Raised when the rate limit is exceeded.
+            RepalisServerError: Raised when the server returns a 5xx error response.
         """
         request = self.client.build_request(
             method="POST",
@@ -206,9 +206,9 @@ class MetersSync(SyncServiceBase):
         Raises:
             ResourceNotFound: Meter not found.
             HTTPValidationError: Validation Error
-            PolarNetworkError: Raised when a network error occurs while making the request.
-            PolarRateLimitError: Raised when the rate limit is exceeded.
-            PolarServerError: Raised when the server returns a 5xx error response.
+            RepalisNetworkError: Raised when a network error occurs while making the request.
+            RepalisRateLimitError: Raised when the rate limit is exceeded.
+            RepalisServerError: Raised when the server returns a 5xx error response.
         """
         request = self.client.build_request(
             method="GET",
@@ -250,9 +250,9 @@ class MetersSync(SyncServiceBase):
         Raises:
             ResourceNotFound: Meter not found.
             HTTPValidationError: Validation Error
-            PolarNetworkError: Raised when a network error occurs while making the request.
-            PolarRateLimitError: Raised when the rate limit is exceeded.
-            PolarServerError: Raised when the server returns a 5xx error response.
+            RepalisNetworkError: Raised when a network error occurs while making the request.
+            RepalisRateLimitError: Raised when the rate limit is exceeded.
+            RepalisServerError: Raised when the server returns a 5xx error response.
         """
         request = self.client.build_request(
             method="PATCH",
@@ -309,9 +309,9 @@ class MetersSync(SyncServiceBase):
         Raises:
             ResourceNotFound: Meter not found.
             HTTPValidationError: Validation Error
-            PolarNetworkError: Raised when a network error occurs while making the request.
-            PolarRateLimitError: Raised when the rate limit is exceeded.
-            PolarServerError: Raised when the server returns a 5xx error response.
+            RepalisNetworkError: Raised when a network error occurs while making the request.
+            RepalisRateLimitError: Raised when the rate limit is exceeded.
+            RepalisServerError: Raised when the server returns a 5xx error response.
         """
         request = self.client.build_request(
             method="GET",
@@ -373,9 +373,9 @@ class MetersAsync(AsyncServiceBase):
 
         Raises:
             HTTPValidationError: Validation Error
-            PolarNetworkError: Raised when a network error occurs while making the request.
-            PolarRateLimitError: Raised when the rate limit is exceeded.
-            PolarServerError: Raised when the server returns a 5xx error response.
+            RepalisNetworkError: Raised when a network error occurs while making the request.
+            RepalisRateLimitError: Raised when the rate limit is exceeded.
+            RepalisServerError: Raised when the server returns a 5xx error response.
         """
         request = self.client.build_request(
             method="GET",
@@ -434,9 +434,9 @@ class MetersAsync(AsyncServiceBase):
 
         Raises:
             HTTPValidationError: Validation Error
-            PolarNetworkError: Raised when a network error occurs while making the request.
-            PolarRateLimitError: Raised when the rate limit is exceeded.
-            PolarServerError: Raised when the server returns a 5xx error response.
+            RepalisNetworkError: Raised when a network error occurs while making the request.
+            RepalisRateLimitError: Raised when the rate limit is exceeded.
+            RepalisServerError: Raised when the server returns a 5xx error response.
         """
         while True:
             response = await self.list(
@@ -476,9 +476,9 @@ class MetersAsync(AsyncServiceBase):
 
         Raises:
             HTTPValidationError: Validation Error
-            PolarNetworkError: Raised when a network error occurs while making the request.
-            PolarRateLimitError: Raised when the rate limit is exceeded.
-            PolarServerError: Raised when the server returns a 5xx error response.
+            RepalisNetworkError: Raised when a network error occurs while making the request.
+            RepalisRateLimitError: Raised when the rate limit is exceeded.
+            RepalisServerError: Raised when the server returns a 5xx error response.
         """
         request = self.client.build_request(
             method="POST",
@@ -516,9 +516,9 @@ class MetersAsync(AsyncServiceBase):
         Raises:
             ResourceNotFound: Meter not found.
             HTTPValidationError: Validation Error
-            PolarNetworkError: Raised when a network error occurs while making the request.
-            PolarRateLimitError: Raised when the rate limit is exceeded.
-            PolarServerError: Raised when the server returns a 5xx error response.
+            RepalisNetworkError: Raised when a network error occurs while making the request.
+            RepalisRateLimitError: Raised when the rate limit is exceeded.
+            RepalisServerError: Raised when the server returns a 5xx error response.
         """
         request = self.client.build_request(
             method="GET",
@@ -560,9 +560,9 @@ class MetersAsync(AsyncServiceBase):
         Raises:
             ResourceNotFound: Meter not found.
             HTTPValidationError: Validation Error
-            PolarNetworkError: Raised when a network error occurs while making the request.
-            PolarRateLimitError: Raised when the rate limit is exceeded.
-            PolarServerError: Raised when the server returns a 5xx error response.
+            RepalisNetworkError: Raised when a network error occurs while making the request.
+            RepalisRateLimitError: Raised when the rate limit is exceeded.
+            RepalisServerError: Raised when the server returns a 5xx error response.
         """
         request = self.client.build_request(
             method="PATCH",
@@ -619,9 +619,9 @@ class MetersAsync(AsyncServiceBase):
         Raises:
             ResourceNotFound: Meter not found.
             HTTPValidationError: Validation Error
-            PolarNetworkError: Raised when a network error occurs while making the request.
-            PolarRateLimitError: Raised when the rate limit is exceeded.
-            PolarServerError: Raised when the server returns a 5xx error response.
+            RepalisNetworkError: Raised when a network error occurs while making the request.
+            RepalisRateLimitError: Raised when the rate limit is exceeded.
+            RepalisServerError: Raised when the server returns a 5xx error response.
         """
         request = self.client.build_request(
             method="GET",

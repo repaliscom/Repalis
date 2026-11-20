@@ -15,14 +15,14 @@ for i, func in ipairs({'min', 'max'}) do
         assert(value and value == value and math.abs(value) ~= math.huge, 'Invalid value')
     end
 end
--- One event pending: its value, or nothing when it only counts. An external_id Polar has not
+-- One event pending: its value, or nothing when it only counts. An external_id Repalis has not
 -- confirmed yet: tracking it again changes nothing.
 assert(ARGV[2] == '1', 'One event per write')
 local entry = ARGV[4] ~= '' and ARGV[3] or ''
 if redis.call('HSETNX', KEYS[2], ARGV[6], entry) == 0 then
     return 0
 end
--- Every local event counts in its bucket; the pending part is what Polar has not confirmed.
+-- Every local event counts in its bucket; the pending part is what Repalis has not confirmed.
 for _, prefix in ipairs({bucket, pending}) do
     redis.call('HINCRBYFLOAT', KEYS[1], prefix .. 'sum', ARGV[3])
     redis.call('HINCRBY', KEYS[1], prefix .. 'count', ARGV[2])
@@ -41,7 +41,7 @@ for _, prefix in ipairs({bucket, pending}) do
 end
 -- Events nobody confirms are forgotten an hour after the last write to their bucket. A state
 -- nobody reads, writes or snapshots for a day is forgotten too: the next read rebuilds it from
--- Polar's snapshot.
+-- Repalis's snapshot.
 redis.call('EXPIRE', KEYS[2], 3900)
 redis.call('EXPIRE', KEYS[1], 86400)
 return 1
@@ -51,7 +51,7 @@ export const CONFIRM_SCRIPT = `
 local bucket = 'bucket:' .. ARGV[1] .. ':'
 local pending = 'pending:' .. ARGV[1] .. ':'
 local BATCH = 1000
--- Polar received the events but no snapshot counts them yet: a cold bucket keeps them
+-- Repalis received the events but no snapshot counts them yet: a cold bucket keeps them
 -- pending for the snapshot that will, a hot one counts them whole either way.
 if ARGV[2] == '1' then
     local cutoff = redis.call('HGET', KEYS[1], 'cold_until')
@@ -103,7 +103,7 @@ redis.call('HINCRBYFLOAT', KEYS[1], pending .. 'sum', -sum)
 if count <= 0 then
     redis.call('HDEL', KEYS[1], pending .. 'count', pending .. 'sum', pending .. 'min', pending .. 'max')
     local cutoff = redis.call('HGET', KEYS[1], 'cold_until')
-    -- Polar counts the whole bucket once it is cold: the local copy has nothing left to add.
+    -- Repalis counts the whole bucket once it is cold: the local copy has nothing left to add.
     if cutoff and tonumber(ARGV[1]) < tonumber(cutoff) then
         redis.call('HDEL', KEYS[1], bucket .. 'count', bucket .. 'sum', bucket .. 'min', bucket .. 'max')
     end
@@ -200,8 +200,8 @@ local cutoff = tonumber(ARGV[1])
 local state = redis.call('HGETALL', KEYS[1])
 local fields = {}
 for i = 1, #state, 2 do fields[state[i]] = state[i + 1] end
--- The pull's reset count when Polar answered: a read after the next reset asks Polar again.
--- Recorded even for an older snapshot it rejects: Redis then holds a newer one than Polar's answer.
+-- The pull's reset count when Repalis answered: a read after the next reset asks Repalis again.
+-- Recorded even for an older snapshot it rejects: Redis then holds a newer one than Repalis's answer.
 if ARGV[7] and fields['reset'] ~= ARGV[7] then
     if ARGV[7] == '' then
         redis.call('HDEL', KEYS[1], 'reset')
@@ -211,17 +211,17 @@ if ARGV[7] and fields['reset'] ~= ARGV[7] then
 end
 local current = fields['cold_until']
 local previous = fields['snapshot_version']
--- Polar sends each snapshot to every instance: an older one changes nothing.
+-- Repalis sends each snapshot to every instance: an older one changes nothing.
 if (current and tonumber(current) > cutoff)
     or (previous and tonumber(ARGV[2]) < tonumber(previous)) then
     return {}
 end
 local replaced = {}
 if current then replaced = {'cold_until', current} end
--- Polar's totals now cover the buckets before the cutoff. The local copy of each is
--- reported with its pending part, and kept while events Polar has not confirmed remain
+-- Repalis's totals now cover the buckets before the cutoff. The local copy of each is
+-- reported with its pending part, and kept while events Repalis has not confirmed remain
 -- pending in it, for an hour at most: that pending part is what the local read adds on
--- top of Polar's totals.
+-- top of Repalis's totals.
 local function sealed(start)
     local pending = fields['pending:' .. start .. ':count']
     return not pending or tonumber(pending) <= 0 or tonumber(start) + 3600000000 < cutoff

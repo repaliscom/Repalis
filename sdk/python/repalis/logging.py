@@ -10,17 +10,17 @@ def configure_logger(
     level: int = logging.WARNING,
     handler: logging.Handler | None = None,
 ) -> logging.Logger:
-    logger = logging.getLogger("polar")
+    logger = logging.getLogger("repalis")
     logger.setLevel(level)
 
     if handler is None:
         handler = next(
-            (handler for handler in logger.handlers if handler.name == "polar.default"),
+            (handler for handler in logger.handlers if handler.name == "repalis.default"),
             None,
         )
         if handler is None:
             handler = logging.StreamHandler()
-            handler.set_name("polar.default")
+            handler.set_name("repalis.default")
             handler.setFormatter(
                 logging.Formatter(
                     "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
@@ -33,7 +33,7 @@ def configure_logger(
 
 
 def _ensure_null_handler() -> None:
-    logger = logging.getLogger("polar")
+    logger = logging.getLogger("repalis")
     if not logger.handlers:
         logger.addHandler(logging.NullHandler())
 

@@ -9,7 +9,7 @@ Use the generated, versioned Repalis SDK without inventing methods or parameters
 
 ## Inspect the application first
 
-1. Identify the installed `polar-sdk` version and preserve the API version already selected by the application.
+1. Identify the installed `repalis-sdk` version and preserve the API version already selected by the application.
 2. Inspect generated service signatures, input `TypedDict` definitions, output dataclasses, and endpoint-specific errors before writing calls.
 3. Use `Repalis` in synchronous code and `RepalisAsync` in asynchronous code. Do not mix blocking SDK calls into an async request path.
 4. Identify whether the access token is scoped to an organization. When the selected token does not imply one, create the client with `Repalis(..., organization_id=...)` or pass `organization_id`, and confirm the required endpoint scopes.
@@ -17,7 +17,7 @@ Use the generated, versioned Repalis SDK without inventing methods or parameters
 
 ## Migrate from the old SDK
 
-Read [Migration from the `<1.0.0` SDK](references/migration-from-v0.md) before changing an application that imports `polar_sdk`, calls `_async` operation variants, or paginates with `.next()`. Do not mix old and new client, model, pagination, error, or webhook conventions.
+Read [Migration from the `<1.0.0` SDK](references/migration-from-v0.md) before changing an application that imports `repalis_sdk`, calls `_async` operation variants, or paginates with `.next()`. Do not mix old and new client, model, pagination, error, or webhook conventions.
 
 ## Configure and reuse the client
 
@@ -29,10 +29,10 @@ import os
 from repalis.v{{ (ir.versions[-2] | default({})).version | replace("-", "_") | replace(".", "_") }} import Repalis
 
 with Repalis(
-    os.environ["POLAR_ACCESS_TOKEN"],
+    os.environ["REPALIS_ACCESS_TOKEN"],
     environment="sandbox",
-) as polar:
-    customer_state = polar.customers.get_state_external("usr_123")
+) as repalis:
+    customer_state = repalis.customers.get_state_external("usr_123")
 ```
 
 For a long-running service, create one client during application startup, reuse its connection pool, and close it during application shutdown. Do not create a new client for every incoming request.
@@ -46,8 +46,8 @@ from repalis.v{{ (ir.versions[-2] | default({})).version | replace("-", "_") | r
 
 
 async def load_customer_state() -> None:
-    async with RepalisAsync(os.environ["POLAR_ACCESS_TOKEN"]) as polar:
-        customer_state = await polar.customers.get_state_external("usr_123")
+    async with RepalisAsync(os.environ["REPALIS_ACCESS_TOKEN"]) as repalis:
+        customer_state = await repalis.customers.get_state_external("usr_123")
         print(customer_state)
 ```
 
@@ -65,11 +65,11 @@ async def load_customer_state() -> None:
 Use the application's immutable user or organization identifier as the Repalis customer `external_id`. It is unique within a Repalis organization. It may be assigned later when initially unset, but it cannot be changed or removed once set.
 
 ```python
-customer = polar.customers.create(
+customer = repalis.customers.create(
     external_id="usr_123",
     email="user@example.com",
 )
-customer_state = polar.customers.get_state_external("usr_123")
+customer_state = repalis.customers.get_state_external("usr_123")
 ```
 
 Handle concurrent creation safely. A preflight lookup followed by creation is not atomic; if creation reports an existing email or external ID, fetch and reconcile the existing customer rather than creating a second mapping.
@@ -79,8 +79,8 @@ Handle concurrent creation safely. A preflight lookup followed by creation is no
 Create checkout sessions on the server and send only the returned URL to the browser. Prefer `external_customer_id` so a completed checkout is reconciled with the application's customer.
 
 ```python
-checkout = polar.checkouts.create(
-    products=[os.environ["POLAR_PRODUCT_ID"]],
+checkout = repalis.checkouts.create(
+    products=[os.environ["REPALIS_PRODUCT_ID"]],
     external_customer_id="usr_123",
     success_url="https://example.com/billing/success?checkout_id={CHECKOUT_ID}",
     return_url="https://example.com/settings/billing",
@@ -93,7 +93,7 @@ Do not treat the success redirect as proof of payment or entitlement. Confirm ac
 Create short-lived customer portal sessions only for an authenticated customer:
 
 ```python
-session = polar.customer_sessions.create(
+session = repalis.customer_sessions.create(
     external_customer_id="usr_123",
     return_url="https://example.com/settings/billing",
 )
@@ -117,12 +117,12 @@ def has_feature_access(customer_state: CustomerState, benefit_id: str) -> bool:
     )
 
 
-customer_state = polar.customers.get_state_external("usr_123")
+customer_state = repalis.customers.get_state_external("usr_123")
 set_feature_access(
     customer_external_id="usr_123",
     enabled=has_feature_access(
         customer_state,
-        os.environ["POLAR_BENEFIT_ID"],
+        os.environ["REPALIS_BENEFIT_ID"],
     ),
 )
 ```

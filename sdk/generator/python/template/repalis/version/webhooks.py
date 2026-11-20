@@ -5,9 +5,9 @@ import typing
 
 from repalis.base import _Discriminator, deserialize
 from repalis.webhooks import (
-    PolarWebhookError,
-    PolarWebhookUnknownTypeError,
-    PolarWebhookVerificationError,
+    RepalisWebhookError,
+    RepalisWebhookUnknownTypeError,
+    RepalisWebhookVerificationError,
     validate_event as _validate_event,
 )
 {% if enum_imports %}
@@ -64,7 +64,7 @@ _KNOWN_EVENT_TYPES = frozenset({
 def validate_event(
     body: str | bytes, headers: dict[str, str], secret: str
 ) -> WebhookPayload:
-    """Verify a raw Polar webhook request and load its typed payload."""
+    """Verify a raw Repalis webhook request and load its typed payload."""
     return _validate_event(body, headers, secret, _KNOWN_EVENT_TYPES, _load_payload)
 
 
@@ -72,9 +72,9 @@ def _load_payload(data: dict[str, typing.Any]) -> WebhookPayload:
     return deserialize(data, WebhookPayload)
 
 __all__ = [
-    "PolarWebhookError",
-    "PolarWebhookUnknownTypeError",
-    "PolarWebhookVerificationError",
+    "RepalisWebhookError",
+    "RepalisWebhookUnknownTypeError",
+    "RepalisWebhookVerificationError",
     "validate_event",
     "WebhookPayload",
     {% for model in api.webhooks %}

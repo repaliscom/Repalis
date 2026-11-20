@@ -59,9 +59,9 @@ class DiscountsSync(SyncServiceBase):
 
         Raises:
             HTTPValidationError: Validation Error
-            PolarNetworkError: Raised when a network error occurs while making the request.
-            PolarRateLimitError: Raised when the rate limit is exceeded.
-            PolarServerError: Raised when the server returns a 5xx error response.
+            RepalisNetworkError: Raised when a network error occurs while making the request.
+            RepalisRateLimitError: Raised when the rate limit is exceeded.
+            RepalisServerError: Raised when the server returns a 5xx error response.
         """
         request = self.client.build_request(
             method="GET",
@@ -117,9 +117,9 @@ class DiscountsSync(SyncServiceBase):
 
         Raises:
             HTTPValidationError: Validation Error
-            PolarNetworkError: Raised when a network error occurs while making the request.
-            PolarRateLimitError: Raised when the rate limit is exceeded.
-            PolarServerError: Raised when the server returns a 5xx error response.
+            RepalisNetworkError: Raised when a network error occurs while making the request.
+            RepalisRateLimitError: Raised when the rate limit is exceeded.
+            RepalisServerError: Raised when the server returns a 5xx error response.
         """
         while True:
             response = self.list(
@@ -175,9 +175,9 @@ class DiscountsSync(SyncServiceBase):
 
         Raises:
             HTTPValidationError: Validation Error
-            PolarNetworkError: Raised when a network error occurs while making the request.
-            PolarRateLimitError: Raised when the rate limit is exceeded.
-            PolarServerError: Raised when the server returns a 5xx error response.
+            RepalisNetworkError: Raised when a network error occurs while making the request.
+            RepalisRateLimitError: Raised when the rate limit is exceeded.
+            RepalisServerError: Raised when the server returns a 5xx error response.
         """
         request = self.client.build_request(
             method="POST",
@@ -215,9 +215,9 @@ class DiscountsSync(SyncServiceBase):
         Raises:
             ResourceNotFound: Discount not found.
             HTTPValidationError: Validation Error
-            PolarNetworkError: Raised when a network error occurs while making the request.
-            PolarRateLimitError: Raised when the rate limit is exceeded.
-            PolarServerError: Raised when the server returns a 5xx error response.
+            RepalisNetworkError: Raised when a network error occurs while making the request.
+            RepalisRateLimitError: Raised when the rate limit is exceeded.
+            RepalisServerError: Raised when the server returns a 5xx error response.
         """
         request = self.client.build_request(
             method="GET",
@@ -257,9 +257,9 @@ class DiscountsSync(SyncServiceBase):
         Raises:
             ResourceNotFound: Discount not found.
             HTTPValidationError: Validation Error
-            PolarNetworkError: Raised when a network error occurs while making the request.
-            PolarRateLimitError: Raised when the rate limit is exceeded.
-            PolarServerError: Raised when the server returns a 5xx error response.
+            RepalisNetworkError: Raised when a network error occurs while making the request.
+            RepalisRateLimitError: Raised when the rate limit is exceeded.
+            RepalisServerError: Raised when the server returns a 5xx error response.
         """
         request = self.client.build_request(
             method="DELETE",
@@ -301,9 +301,9 @@ class DiscountsSync(SyncServiceBase):
         Raises:
             ResourceNotFound: Discount not found.
             HTTPValidationError: Validation Error
-            PolarNetworkError: Raised when a network error occurs while making the request.
-            PolarRateLimitError: Raised when the rate limit is exceeded.
-            PolarServerError: Raised when the server returns a 5xx error response.
+            RepalisNetworkError: Raised when a network error occurs while making the request.
+            RepalisRateLimitError: Raised when the rate limit is exceeded.
+            RepalisServerError: Raised when the server returns a 5xx error response.
         """
         request = self.client.build_request(
             method="PATCH",
@@ -355,9 +355,9 @@ class DiscountsAsync(AsyncServiceBase):
 
         Raises:
             HTTPValidationError: Validation Error
-            PolarNetworkError: Raised when a network error occurs while making the request.
-            PolarRateLimitError: Raised when the rate limit is exceeded.
-            PolarServerError: Raised when the server returns a 5xx error response.
+            RepalisNetworkError: Raised when a network error occurs while making the request.
+            RepalisRateLimitError: Raised when the rate limit is exceeded.
+            RepalisServerError: Raised when the server returns a 5xx error response.
         """
         request = self.client.build_request(
             method="GET",
@@ -413,9 +413,9 @@ class DiscountsAsync(AsyncServiceBase):
 
         Raises:
             HTTPValidationError: Validation Error
-            PolarNetworkError: Raised when a network error occurs while making the request.
-            PolarRateLimitError: Raised when the rate limit is exceeded.
-            PolarServerError: Raised when the server returns a 5xx error response.
+            RepalisNetworkError: Raised when a network error occurs while making the request.
+            RepalisRateLimitError: Raised when the rate limit is exceeded.
+            RepalisServerError: Raised when the server returns a 5xx error response.
         """
         while True:
             response = await self.list(
@@ -472,9 +472,9 @@ class DiscountsAsync(AsyncServiceBase):
 
         Raises:
             HTTPValidationError: Validation Error
-            PolarNetworkError: Raised when a network error occurs while making the request.
-            PolarRateLimitError: Raised when the rate limit is exceeded.
-            PolarServerError: Raised when the server returns a 5xx error response.
+            RepalisNetworkError: Raised when a network error occurs while making the request.
+            RepalisRateLimitError: Raised when the rate limit is exceeded.
+            RepalisServerError: Raised when the server returns a 5xx error response.
         """
         request = self.client.build_request(
             method="POST",
@@ -512,9 +512,9 @@ class DiscountsAsync(AsyncServiceBase):
         Raises:
             ResourceNotFound: Discount not found.
             HTTPValidationError: Validation Error
-            PolarNetworkError: Raised when a network error occurs while making the request.
-            PolarRateLimitError: Raised when the rate limit is exceeded.
-            PolarServerError: Raised when the server returns a 5xx error response.
+            RepalisNetworkError: Raised when a network error occurs while making the request.
+            RepalisRateLimitError: Raised when the rate limit is exceeded.
+            RepalisServerError: Raised when the server returns a 5xx error response.
         """
         request = self.client.build_request(
             method="GET",
@@ -554,9 +554,9 @@ class DiscountsAsync(AsyncServiceBase):
         Raises:
             ResourceNotFound: Discount not found.
             HTTPValidationError: Validation Error
-            PolarNetworkError: Raised when a network error occurs while making the request.
-            PolarRateLimitError: Raised when the rate limit is exceeded.
-            PolarServerError: Raised when the server returns a 5xx error response.
+            RepalisNetworkError: Raised when a network error occurs while making the request.
+            RepalisRateLimitError: Raised when the rate limit is exceeded.
+            RepalisServerError: Raised when the server returns a 5xx error response.
         """
         request = self.client.build_request(
             method="DELETE",
@@ -598,9 +598,9 @@ class DiscountsAsync(AsyncServiceBase):
         Raises:
             ResourceNotFound: Discount not found.
             HTTPValidationError: Validation Error
-            PolarNetworkError: Raised when a network error occurs while making the request.
-            PolarRateLimitError: Raised when the rate limit is exceeded.
-            PolarServerError: Raised when the server returns a 5xx error response.
+            RepalisNetworkError: Raised when a network error occurs while making the request.
+            RepalisRateLimitError: Raised when the rate limit is exceeded.
+            RepalisServerError: Raised when the server returns a 5xx error response.
         """
         request = self.client.build_request(
             method="PATCH",

@@ -7,16 +7,16 @@ import { createServer, type IncomingMessage, type Server, type ServerResponse } 
 import { createRequire } from "node:module";
 import { afterAll, afterEach, beforeAll, beforeEach, expect, it, vi } from "vitest";
 
-import { ClientBase, PolarError } from "../base";
+import { ClientBase, RepalisError } from "../base";
 import { UnknownMeterError } from "../metering/errors";
-import { createPolar } from "../{{ (ir.versions[-2] | default(ir.versions[0])).version }}/client";
+import { createRepalis } from "../{{ (ir.versions[-2] | default(ir.versions[0])).version }}/client";
 import {
   decodeState,
   MissingExternalIdError,
   Outpost,
   outpost,
   type OutpostOptions,
-  PolarOutpostError,
+  RepalisOutpostError,
   UnavailableRedisError,
   isSampled,
 } from "./client";
@@ -91,15 +91,15 @@ let core: ClientBase;
 let reducers: Reducer[];
 let snapshot: Record<string, unknown> | undefined;
 let refuseConnections = false;
-// The organization Polar configures the next Outpost with: it namespaces its Redis keys.
+// The organization Repalis configures the next Outpost with: it namespaces its Redis keys.
 let organization = "org-1";
-// Polar's change log: the next pull of any instance takes them.
+// Repalis's change log: the next pull of any instance takes them.
 let changes: Record<string, unknown>[] = [];
 let resetChanges = false;
 let configurationChanged = false;
 let configurationRequests = 0;
 let configurationStatus = 200;
-// The telemetry relays Polar received: their path and body.
+// The telemetry relays Repalis received: their path and body.
 const telemetryRequests: { path: string; body: string }[] = [];
 let telemetryStatus = 200;
 let telemetryDelay = 0;
@@ -112,7 +112,7 @@ let cursor = 0;
 // credit reducer, with the reducer's override on top.
 let credited = 100;
 let reducerSnapshots: Record<string, Record<string, unknown> & { delay?: number }> = {};
-// The events Polar counted: a confirm request is answered with the ids among them and the
+// The events Repalis counted: a confirm request is answered with the ids among them and the
 // snapshot read with them, `snapshot` unless overridden.
 let ingested = new Set<string>();
 let answerConfirm = true;
@@ -121,11 +121,11 @@ const confirmRequests: Record<string, unknown>[] = [];
 // Each identity asked for, and the size of each meter usage request.
 const meterUsageRequests: Record<string, unknown>[] = [];
 const meterUsageBatches: number[] = [];
-// The most meter usage requests Polar held at once.
+// The most meter usage requests Repalis held at once.
 let meterUsageInFlight = 0;
 let meterUsageMostInFlight = 0;
 let meterUsageStatus = 200;
-// Meter usage requests that fail with a 503 before Polar answers again.
+// Meter usage requests that fail with a 503 before Repalis answers again.
 let meterUsageFailures = 0;
 const outposts: Outpost[] = [];
 
@@ -143,7 +143,7 @@ const creditReducer = (id: string, meterId: string): Reducer => ({
   },
   aggregation: { func: "sum", property: "units" },
 });
-// Polar's totals of every credit granted up to the version: their cutoff is the version.
+// Repalis's totals of every credit granted up to the version: their cutoff is the version.
 const creditSnapshot = (units: number, version: number) => ({
   cold_until: version,
   version,
@@ -197,17 +197,17 @@ const respond = (response: ServerResponse, body: unknown, status = 200): void =>
   response.end(JSON.stringify(body));
 };
 
-// Polar's side of Outpost: the configuration, the snapshots, the confirmations and the changes.
+// Repalis's side of Outpost: the configuration, the snapshots, the confirmations and the changes.
 const answer = async (request: IncomingMessage, response: ServerResponse): Promise<void> => {
   // Each organization's token: organizations can share a Redis.
   const token = request.headers.authorization;
   expect(["Bearer test-token", "Bearer other-token", "Bearer org-2-token"]).toContain(token);
-  expect(request.headers["polar-organization"]).toBe("org");
+  expect(request.headers["repalis-organization"]).toBe("org");
   let data = "";
   for await (const chunk of request) data += chunk;
   const body = data && request.headers["content-type"]?.includes("json") ? JSON.parse(data) : undefined;
   if (refuseConnections) return respond(response, {}, 401);
-  const url = new URL(request.url!, "http://polar");
+  const url = new URL(request.url!, "http://repalis");
   switch (`${request.method} ${url.pathname}`) {
     case "GET /v1/outpost/configuration": {
       configurationRequests += 1;
@@ -367,7 +367,7 @@ const start = async (options: Partial<OutpostOptions> = {}): Promise<Outpost> =>
   outposts.push(outpost);
   return outpost.start();
 };
-// Adds snapshots to Polar's changes and pulls them.
+// Adds snapshots to Repalis's changes and pulls them.
 const deliver = async (outpost: Outpost, ...payloads: Record<string, unknown>[]): Promise<void> => {
   changes.push(...payloads);
   await outpost["pull"]();
@@ -507,7 +507,7 @@ it("reports a missing customer snapshot and an unknown meter", async () => {
   );
 });
 
-it("propagates snapshots, rejects older cutoffs, and counts a late write until Polar confirms it", async () => {
+it("propagates snapshots, rejects older cutoffs, and counts a late write until Repalis confirms it", async () => {
   await seed();
   await redis.hset(key, {
     [`bucket:${bucket - BUCKET_SIZE}:sum`]: 99,
@@ -578,7 +578,7 @@ it("moves the cursor once a page is applied, and pulls the next page from it", a
   changes.push(aliceSnapshot);
   await outpost["pull"]();
   expect(await redis.hget(`outpost:v1:${organization}:pull`, "cursor")).toBe(applied);
-  // Once the backoff ends, Polar serves the same change again from the same cursor.
+  // Once the backoff ends, Repalis serves the same change again from the same cursor.
   await redis.hdel(`outpost:v1:${organization}:pull`, "retry_at");
   changes.push(aliceSnapshot);
   await outpost["pull"]();
@@ -593,7 +593,7 @@ it("skips a pulled snapshot of a customer nobody reads", async () => {
   expect(await redis.exists(key)).toBe(0);
 });
 
-it("serves a state a reset left unconfirmed while Polar confirms it", async () => {
+it("serves a state a reset left unconfirmed while Repalis confirms it", async () => {
   await seed();
   const outpost = await start();
   await outpost.actor(customer);
@@ -610,7 +610,7 @@ it("serves a state a reset left unconfirmed while Polar confirms it", async () =
   expect(meterUsageBatches).toHaveLength(asked);
 });
 
-it("asks Polar again for a snapshot it asked for before a reset", async () => {
+it("asks Repalis again for a snapshot it asked for before a reset", async () => {
   const outpost = await start();
   snapshot = aliceSnapshot;
   reducerSnapshots = { tokens: { delay: 100 } };
@@ -641,7 +641,7 @@ it("releases an older flush when a newer one starts", async () => {
   expect(await newer).toBe("delivered");
 });
 
-it("reads a customer Polar no longer knows after a reset as unknown", async () => {
+it("reads a customer Repalis no longer knows after a reset as unknown", async () => {
   await seed();
   const outpost = await start();
   await outpost.actor(customer);
@@ -651,7 +651,7 @@ it("reads a customer Polar no longer knows after a reset as unknown", async () =
   await vi.waitFor(async () => expect(await outpost.meter(meter)).toBeNull());
 });
 
-it("asks Polar again on the next read for a state it could not revalidate", async () => {
+it("asks Repalis again on the next read for a state it could not revalidate", async () => {
   await seed();
   const outpost = await start();
   await outpost.actor(customer);
@@ -665,7 +665,7 @@ it("asks Polar again on the next read for a state it could not revalidate", asyn
   await vi.waitFor(async () => expect((await outpost.meter(meter))?.consumed_units).toBe(3));
 });
 
-it("fetches the configuration again when Polar changed it", async () => {
+it("fetches the configuration again when Repalis changed it", async () => {
   const outpost = await start();
   reducers = [...reducers, { ...reducers[0], id: "requests", meter_ids: ["requests"] }];
   configurationChanged = true;
@@ -674,7 +674,7 @@ it("fetches the configuration again when Polar changed it", async () => {
   expect(await outpost.meter({ ...customer, meter_id: "requests" })).not.toBeNull();
 });
 
-it("reads the configuration another instance kept in Redis, without asking Polar", async () => {
+it("reads the configuration another instance kept in Redis, without asking Repalis", async () => {
   await start();
   await start();
   expect(configurationRequests).toBe(1);
@@ -715,7 +715,7 @@ it("reloads a configuration another instance pulled while this one started", asy
   expect(await outpost.meter({ ...customer, meter_id: "requests" })).not.toBeNull();
 });
 
-it("keeps its configuration while the stored one is gone, without asking Polar", async () => {
+it("keeps its configuration while the stored one is gone, without asking Repalis", async () => {
   vi.useFakeTimers({ toFake: ["Date"] });
   await seed();
   const outpost = await start();
@@ -772,7 +772,7 @@ it("sends the fleet's telemetry in one relay of each kind after a pull", async (
   ]);
 });
 
-it("keeps the fleet's telemetry for the next pull when Polar fails the relay", async () => {
+it("keeps the fleet's telemetry for the next pull when Repalis fails the relay", async () => {
   const outpost = await start();
   outpost["outbox"].spans.push(Buffer.from("spans;"));
   outpost["outbox"].metrics.push(Buffer.from("metrics;"));
@@ -1001,7 +1001,7 @@ it("closes the Redis connection it owns", async () => {
   await expect(outpost.actor(customer)).rejects.toThrow("start()");
 });
 
-it("asks Polar for a customer only while the shared Redis has no snapshot of it", async () => {
+it("asks Repalis for a customer only while the shared Redis has no snapshot of it", async () => {
   snapshot = aliceSnapshot;
   const first = await start({ snapshotTimeout: 1_000 });
   expect((await first.meter(meter))?.consumed_units).toBe(3);
@@ -1043,7 +1043,7 @@ it("keeps two organizations apart on one Redis", async () => {
   expect((await first.meter(meter))?.consumed_units).toBe(10);
 });
 
-it("lets one instance of the fleet ask Polar for a cold customer", async () => {
+it("lets one instance of the fleet ask Repalis for a cold customer", async () => {
   snapshot = aliceSnapshot;
   reducerSnapshots = { tokens: { delay: 100 }, credits: { delay: 100 } };
   const fleet = await Promise.all(
@@ -1055,8 +1055,8 @@ it("lets one instance of the fleet ask Polar for a cold customer", async () => {
 });
 
 it("ships the Outpost entrypoint for both ESM and CommonJS", async () => {
-  const esm = await import(import.meta.resolve("@polar-sh/sdk/outpost"));
-  const cjs = createRequire(import.meta.url)("@polar-sh/sdk/outpost");
+  const esm = await import(import.meta.resolve("@repalis/sdk/outpost"));
+  const cjs = createRequire(import.meta.url)("@repalis/sdk/outpost");
   expect(esm.Outpost).toBeTypeOf("function");
   expect(cjs.Outpost).toBeTypeOf("function");
 });
@@ -1073,7 +1073,7 @@ it("keeps reducer cutoffs and meter credits independent under concurrent writes"
   const averageKey = `outpost:v1:${organization}:state:external:alice:average`;
   await applySnapshot("external:alice:tokens", bucket, 20, 2, 20, 5, 15);
   await applySnapshot("external:alice:average", bucket, 20, 2, 20, 5, 15);
-  // Same cutoff, older version: Polar's previous totals.
+  // Same cutoff, older version: Repalis's previous totals.
   await applySnapshot("external:alice:tokens", bucket, 19, 1, 999, 999, 999);
   await applySnapshot("external:alice:credits", 20, 20, 1, 100, 100, 100);
   await applySnapshot("external:alice:shared-credits", 19, 19, 1, 200, 200, 200);
@@ -1105,7 +1105,7 @@ it("keeps reducer cutoffs and meter credits independent under concurrent writes"
   await first.confirm(events.flat());
   await applySnapshot("external:alice:tokens", bucket + BUCKET_SIZE, 21, 22, 120, 2, 15);
   await applySnapshot("external:alice:credits", 21, 21, 2, 150, 50, 100);
-  // Every event in the bucket is confirmed: Polar counts it, the local copy is gone.
+  // Every event in the bucket is confirmed: Repalis counts it, the local copy is gone.
   expect(await redis.hget(key, `bucket:${bucket}:sum`)).toBeNull();
   expect(await redis.hget(averageKey, `bucket:${bucket}:sum`)).toBe("100");
   expect((await first.meter(meter))?.balance).toBe(26);
@@ -1192,8 +1192,8 @@ it("preserves microsecond cutoffs and counts a late write as pending", async () 
   expect((await outpost.meter(meter))?.consumed_units).toBe(6 + 999);
 });
 
-// Polar seals a bucket with what it has ingested so far; the local events it has not received
-// yet stay counted as pending until Polar confirms them (PLR-329).
+// Repalis seals a bucket with what it has ingested so far; the local events it has not received
+// yet stay counted as pending until Repalis confirms them (PLR-329).
 const seal = async (cutoff: number, count = 0, sum = 0): Promise<void> => {
   await applySnapshot("external:alice:tokens", cutoff, cutoff + 1, count, sum);
 };
@@ -1211,7 +1211,7 @@ const warm = async (options: Partial<OutpostOptions> = {}): Promise<Outpost> => 
   return outpost;
 };
 
-it("keeps local events Polar has not ingested when their bucket goes cold", async () => {
+it("keeps local events Repalis has not ingested when their bucket goes cold", async () => {
   const outpost = await warm();
   for (let i = 0; i < 10; i++) await outpost.track(usage(`event-${i}`, 10));
   expect((await outpost.meter(meter))?.consumed_units).toBe(100);
@@ -1226,7 +1226,7 @@ it("counts a late write into a cold bucket", async () => {
   expect((await outpost.meter(meter))?.consumed_units).toBe(5);
 });
 
-it("confirms the events Polar ingested and keeps the rest pending", async () => {
+it("confirms the events Repalis ingested and keeps the rest pending", async () => {
   const outpost = await warm();
   const events = Array.from({ length: 10 }, (_, i) => usage(`event-${i}`, 10));
   for (const event of events) await outpost.track(event);
@@ -1275,7 +1275,7 @@ it("settles an event the previous SDK version left pending", async () => {
   expect(await redis.hget(key, `pending:${bucket}:sum`)).toBe("10");
 });
 
-it("settles a hot bucket's events on Polar's receipt", async () => {
+it("settles a hot bucket's events on Repalis's receipt", async () => {
   const outpost = await warm();
   const events = [usage("event-0", 10), usage("event-1", 10)];
   for (const event of events) await outpost.track(event);
@@ -1285,7 +1285,7 @@ it("settles a hot bucket's events on Polar's receipt", async () => {
   expect((await outpost.meter(meter))?.consumed_units).toBe(20);
 });
 
-it("keeps a cold bucket's events pending on Polar's receipt until a snapshot counts them", async () => {
+it("keeps a cold bucket's events pending on Repalis's receipt until a snapshot counts them", async () => {
   const outpost = await warm();
   const events = [usage("event-0", 10), usage("event-1", 10)];
   for (const event of events) await outpost.track(event);
@@ -1318,7 +1318,7 @@ it("drops a cold bucket once every event is confirmed", async () => {
   expect(await redis.hget(key, `pending:${bucket}:sum`)).toBeNull();
 });
 
-// Before applying a snapshot that seals a bucket, the client asks Polar which of the bucket's
+// Before applying a snapshot that seals a bucket, the client asks Repalis which of the bucket's
 // pending events the snapshot counts, and settles those in the same transaction (PLR-330).
 const sealing = (count: number, sum: number) => ({
   ...customer,
@@ -1352,12 +1352,12 @@ it("settles the pending events the snapshot counts, and keeps the rest", async (
   ]);
 });
 
-it("applies the snapshot Polar read with its confirmation, not the one that asked", async () => {
+it("applies the snapshot Repalis read with its confirmation, not the one that asked", async () => {
   const outpost = await warm();
   const events = Array.from({ length: 10 }, (_, i) => usage(`event-${i}`, 10));
   for (const event of events) await outpost.track(event);
   snapshot = sealing(4, 40);
-  // Polar stored one more event by the time it answers: both its snapshot and the confirmation
+  // Repalis stored one more event by the time it answers: both its snapshot and the confirmation
   // count it.
   ingested = new Set(["event-0", "event-1", "event-2", "event-3", "event-4"]);
   confirmSnapshot = { ...sealing(5, 50), version: 1791807000000006 };
@@ -1368,7 +1368,7 @@ it("applies the snapshot Polar read with its confirmation, not the one that aske
   expect((await outpost.meter(meter))?.consumed_units).toBe(100);
 });
 
-it("drops a cold bucket once Polar confirmed every pending event", async () => {
+it("drops a cold bucket once Repalis confirmed every pending event", async () => {
   const outpost = await warm();
   const events = Array.from({ length: 3 }, (_, i) => usage(`event-${i}`, 10));
   for (const event of events) await outpost.track(event);
@@ -1404,7 +1404,7 @@ it("reports the local value as it was before the confirmed events settled", asyn
   });
 });
 
-it("applies a credit snapshot without asking Polar to confirm anything", async () => {
+it("applies a credit snapshot without asking Repalis to confirm anything", async () => {
   const outpost = await warm();
   const events = [usage("event-0", 10), usage("event-1", 10)];
   for (const event of events) await outpost.track(event);
@@ -1421,13 +1421,13 @@ it("applies a credit snapshot without asking Polar to confirm anything", async (
   expect(confirmRequests.map((request) => request.reducer_id)).toEqual(["tokens"]);
 });
 
-it("applies a snapshot Polar did not confirm in time, keeping its events pending", async () => {
+it("applies a snapshot Repalis did not confirm in time, keeping its events pending", async () => {
   const outpost = await warm({ confirmTimeout: 50 });
   for (let i = 0; i < 3; i++) await outpost.track(usage(`event-${i}`, 10));
   answerConfirm = false;
   snapshot = sealing(3, 30);
   await deliver(outpost, snapshot!);
-  // The read moves once the snapshot applied and reached the cache: Polar's 30 plus the 30 pending.
+  // The read moves once the snapshot applied and reached the cache: Repalis's 30 plus the 30 pending.
   await vi.waitFor(async () => expect((await outpost.meter(meter))?.consumed_units).toBe(60));
   expect(confirmRequests).toHaveLength(1);
   expect(await redis.hget(key, "cold:count")).toBe("3");
@@ -1456,7 +1456,7 @@ it("asks for a bucket's pending events a thousand at a time", async () => {
   expect(confirmRequests.map((request) => (request.ids as string[]).length)).toEqual([1_000, 1]);
 });
 
-it("forgets pending events an hour after Polar sealed their bucket", async () => {
+it("forgets pending events an hour after Repalis sealed their bucket", async () => {
   const outpost = await warm();
   await outpost.track(usage("lost", 10));
   await seal(bucket + BUCKET_SIZE + 3_600_000_000);
@@ -1621,7 +1621,7 @@ it("reports a bucket already cold by its pending part only", async () => {
   });
 });
 
-it("fails when Polar refuses a pull", async () => {
+it("fails when Repalis refuses a pull", async () => {
   const outpost = await start();
   refuseConnections = true;
   await outpost["pull"]();
@@ -1632,14 +1632,14 @@ it("fails when Polar refuses a pull", async () => {
 it.each([
   [422, false],
   [429, true],
-])("fails when Polar rejects a pull with %i unless it only slows it down", async (status, connected) => {
+])("fails when Repalis rejects a pull with %i unless it only slows it down", async (status, connected) => {
   const outpost = await start();
   changesStatus = status;
   await outpost["pull"]();
   expect(outpost.connected).toBe(connected);
 });
 
-it("fails to start when Polar refuses Outpost", async () => {
+it("fails to start when Repalis refuses Outpost", async () => {
   refuseConnections = true;
   await expect(start()).rejects.toThrow("refused");
 });
@@ -1754,12 +1754,12 @@ it("refuses to read a meter Outpost does not know", async () => {
 
 it("reports a failed read as an error", async () => {
   const outpost = await start();
-  outpost["failure"] = new PolarOutpostError("Outpost stopped");
+  outpost["failure"] = new RepalisOutpostError("Outpost stopped");
   await expect(outpost.meter(meter)).rejects.toThrow("Outpost stopped");
   expect(await readOutcomes(outpost)).toEqual([["meter", "error"]]);
 });
 
-it("asks Polar in one request for the cold customers the whole fleet reads", async () => {
+it("asks Repalis in one request for the cold customers the whole fleet reads", async () => {
   snapshot = aliceSnapshot;
   const fleet = await Promise.all(Array.from({ length: 3 }, () => start({ snapshotTimeout: 1_000 })));
   await fleet[0]["pull"]();
@@ -1771,7 +1771,7 @@ it("asks Polar in one request for the cold customers the whole fleet reads", asy
   expect(meterUsageBatches).toEqual([6]);
 });
 
-it("asks Polar again for a batch of cold customers a passing error failed", async () => {
+it("asks Repalis again for a batch of cold customers a passing error failed", async () => {
   snapshot = aliceSnapshot;
   const outpost = await start({ snapshotTimeout: 2_000 });
   await outpost["pull"]();
@@ -1780,7 +1780,7 @@ it("asks Polar again for a batch of cold customers a passing error failed", asyn
   expect(meterUsageBatches).toEqual([2, 2]);
 });
 
-it("applies the cold customers it asked Polar for side by side", async () => {
+it("applies the cold customers it asked Repalis for side by side", async () => {
   snapshot = aliceSnapshot;
   const outpost = await start({ snapshotTimeout: 2_000 });
   await outpost["pull"]();
@@ -1812,7 +1812,7 @@ it("lets go of a pull only once every snapshot of its page is done", async () =>
   let finished = false;
   const receive = outpost["receiveSnapshot"].bind(outpost);
   outpost["receiveSnapshot"] = async (...args: Parameters<typeof receive>) => {
-    if (args[0].external_customer_id === "failing") throw new PolarError("Polar is down");
+    if (args[0].external_customer_id === "failing") throw new RepalisError("Repalis is down");
     await new Promise((resolve) => setTimeout(resolve, 50));
     const applied = await receive(...args);
     finished = true;
@@ -1825,7 +1825,7 @@ it("lets go of a pull only once every snapshot of its page is done", async () =>
   expect(finished).toBe(true);
 });
 
-it("asks Polar for a few batches of cold customers at once", async () => {
+it("asks Repalis for a few batches of cold customers at once", async () => {
   snapshot = aliceSnapshot;
   reducerSnapshots = { tokens: { delay: 100 } };
   const outpost = await start({ snapshotTimeout: 2_000 });
@@ -1839,7 +1839,7 @@ it("asks Polar for a few batches of cold customers at once", async () => {
   expect(meterUsageMostInFlight).toBe(2);
 });
 
-it("reads null for a customer Polar does not know", async () => {
+it("reads null for a customer Repalis does not know", async () => {
   snapshot = { ...aliceSnapshot, customer_exists: false };
   const outpost = await start();
   await outpost.actor(customer);
@@ -1898,7 +1898,7 @@ it("reads a customer a pull found before its miss backs off", async () => {
   expect((await outpost.meter(meter))?.consumed_units).toBe(3);
 });
 
-it("asks Polar about a customer it does not know once per backoff, for the whole fleet", async () => {
+it("asks Repalis about a customer it does not know once per backoff, for the whole fleet", async () => {
   vi.useFakeTimers({ toFake: ["Date"] });
   snapshot = { ...aliceSnapshot, customer_exists: false };
   const [first, second] = await Promise.all([start(), start()]);
@@ -2024,23 +2024,23 @@ it("fails fast while Redis is unavailable", async () => {
   expect(await readOutcomes(outpost)).toEqual([["meter", "redis_unavailable"]]);
 });
 
-it("composes buffered Polar delivery with Outpost through the client factory", async () => {
-  const polarFetch = globalThis.fetch;
+it("composes buffered Repalis delivery with Outpost through the client factory", async () => {
+  const repalisFetch = globalThis.fetch;
   const fetch = vi
     .spyOn(globalThis, "fetch")
     .mockImplementation((input, init) =>
       String(input).includes("/v1/events/ingest")
         ? Promise.resolve(new Response('{"inserted":1,"duplicates":0}'))
-        : polarFetch(input, init),
+        : repalisFetch(input, init),
     );
   const ingested = () =>
     fetch.mock.calls.filter(([input]) => String(input).includes("/v1/events/ingest"));
   await seed();
   const [baseUrl] = core.buildRequest("GET", "");
-  const polar = createPolar({ baseUrl, accessToken: "test-token", organizationId: "org" });
+  const repalis = createRepalis({ baseUrl, accessToken: "test-token", organizationId: "org" });
   const reader = await start();
   {
-    const metering = polar.metering({ outpost: outpost({ redisUrl: redisServer.socket }) });
+    const metering = repalis.metering({ outpost: outpost({ redisUrl: redisServer.socket }) });
     try {
       await metering.track({
         ...customer,

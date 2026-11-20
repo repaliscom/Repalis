@@ -1,11 +1,11 @@
 // Generated from products:update_benefits (2026-10). Do not edit.
-import type { Polar } from '@polar-sh/sdk/2026-10'
+import type { Repalis } from '@repalis/sdk/2026-10'
 import { Effect } from 'effect'
 import { Argument, Command, Flag } from 'effect/cli'
 import { ApiRuntime, ApiCommandError } from '../runtime'
 import { confirm, fields, data, mergeInput, missingFlags } from '../inputs'
 
-type Body = NonNullable<Parameters<Polar['products']['updateBenefits']>[1]>
+type Body = NonNullable<Parameters<Repalis['products']['updateBenefits']>[1]>
 
 export const command = Command.make(
   'update_benefits',
@@ -37,7 +37,7 @@ export const command = Command.make(
       if (missing.length > 0) {
         return yield* new ApiCommandError({
           message: `Missing required ${missing.length > 1 ? 'flags' : 'flag'} ${missing.join(', ')}`,
-          hint: 'Example: polar products update_benefits <id> --benefits <benefits>',
+          hint: 'Example: repalis products update_benefits <id> --benefits <benefits>',
         })
       }
       yield* api.execute({

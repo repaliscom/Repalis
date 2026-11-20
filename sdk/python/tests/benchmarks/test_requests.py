@@ -11,7 +11,7 @@ from anyio import from_thread, to_thread
 from pytest_codspeed import BenchmarkFixture
 
 from repalis.base import parse_response_json
-from repalis.v2027_01 import PolarAsync
+from repalis.v2027_01 import RepalisAsync
 from repalis.v2027_01.outputs import (
     CustomerIndividual,
     CustomerTeam,
@@ -68,11 +68,11 @@ async def test_concurrent_customer_requests(
     benchmark: BenchmarkFixture,
     customer_server: str,
 ) -> None:
-    async with PolarAsync("benchmark", base_url=customer_server) as polar:
+    async with RepalisAsync("benchmark", base_url=customer_server) as repalis:
 
         async def batch() -> list[ListResourceCustomer]:
             return await asyncio.gather(
-                *(polar.customers.list(limit=1) for _ in range(DATA["concurrency"]))
+                *(repalis.customers.list(limit=1) for _ in range(DATA["concurrency"]))
             )
 
         pages = await batch()

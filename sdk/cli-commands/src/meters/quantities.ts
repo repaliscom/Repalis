@@ -1,11 +1,11 @@
 // Generated from meters:quantities (2026-10). Do not edit.
-import type { Polar } from '@polar-sh/sdk/2026-10'
+import type { Repalis } from '@repalis/sdk/2026-10'
 import { Effect } from 'effect'
 import { Argument, Command, Flag } from 'effect/cli'
 import { ApiRuntime, ApiCommandError } from '../runtime'
 import { fields, data, mergeInput, missingFlags, jsonFlag } from '../inputs'
 
-type Query = NonNullable<Parameters<Polar['meters']['quantities']>[1]>
+type Query = NonNullable<Parameters<Repalis['meters']['quantities']>[1]>
 
 export const command = Command.make(
   'quantities',
@@ -687,7 +687,7 @@ export const command = Command.make(
       if (missing.length > 0) {
         return yield* new ApiCommandError({
           message: `Missing required ${missing.length > 1 ? 'flags' : 'flag'} ${missing.join(', ')}`,
-          hint: 'Example: polar meters quantities <id> --start-timestamp <start-timestamp> --end-timestamp <end-timestamp> --interval year',
+          hint: 'Example: repalis meters quantities <id> --start-timestamp <start-timestamp> --end-timestamp <end-timestamp> --interval year',
         })
       }
       yield* api.execute({

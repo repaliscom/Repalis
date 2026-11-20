@@ -20,9 +20,9 @@ from repalis.v2026_04.outputs import (
     Subscription,
 )
 from repalis.webhooks import (
-    PolarWebhookError,
-    PolarWebhookUnknownTypeError,
-    PolarWebhookVerificationError,
+    RepalisWebhookError,
+    RepalisWebhookUnknownTypeError,
+    RepalisWebhookVerificationError,
 )
 from repalis.webhooks import (
     validate_event as _validate_event,
@@ -616,9 +616,9 @@ class WebhookSubscriptionCycledPayload:
 
 @dataclasses.dataclass(kw_only=True, slots=True)
 class WebhookSubscriptionMigratedPayload:
-    """Sent when Polar takes over billing of a subscription migrated from another provider.
+    """Sent when Repalis takes over billing of a subscription migrated from another provider.
 
-    This fires at cutover, once the subscription is live on Polar. `provider`
+    This fires at cutover, once the subscription is live on Repalis. `provider`
     and `provider_subscription_id` identify the subscription on the billing
     provider so you can correlate the two.
 
@@ -893,7 +893,7 @@ _KNOWN_EVENT_TYPES = frozenset(
 def validate_event(
     body: str | bytes, headers: dict[str, str], secret: str
 ) -> WebhookPayload:
-    """Verify a raw Polar webhook request and load its typed payload."""
+    """Verify a raw Repalis webhook request and load its typed payload."""
     return _validate_event(body, headers, secret, _KNOWN_EVENT_TYPES, _load_payload)
 
 
@@ -902,9 +902,9 @@ def _load_payload(data: dict[str, typing.Any]) -> WebhookPayload:
 
 
 __all__ = [
-    "PolarWebhookError",
-    "PolarWebhookUnknownTypeError",
-    "PolarWebhookVerificationError",
+    "RepalisWebhookError",
+    "RepalisWebhookUnknownTypeError",
+    "RepalisWebhookVerificationError",
     "WebhookBenefitCreatedPayload",
     "WebhookBenefitGrantCreatedPayload",
     "WebhookBenefitGrantCycledPayload",

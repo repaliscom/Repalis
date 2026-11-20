@@ -90,9 +90,9 @@ class OrdersSync(SyncServiceBase):
 
         Raises:
             HTTPValidationError: Validation Error
-            PolarNetworkError: Raised when a network error occurs while making the request.
-            PolarRateLimitError: Raised when the rate limit is exceeded.
-            PolarServerError: Raised when the server returns a 5xx error response.
+            RepalisNetworkError: Raised when a network error occurs while making the request.
+            RepalisRateLimitError: Raised when the rate limit is exceeded.
+            RepalisServerError: Raised when the server returns a 5xx error response.
         """
         request = self.client.build_request(
             method="GET",
@@ -177,9 +177,9 @@ class OrdersSync(SyncServiceBase):
 
         Raises:
             HTTPValidationError: Validation Error
-            PolarNetworkError: Raised when a network error occurs while making the request.
-            PolarRateLimitError: Raised when the rate limit is exceeded.
-            PolarServerError: Raised when the server returns a 5xx error response.
+            RepalisNetworkError: Raised when a network error occurs while making the request.
+            RepalisRateLimitError: Raised when the rate limit is exceeded.
+            RepalisServerError: Raised when the server returns a 5xx error response.
         """
         while True:
             response = self.list(
@@ -230,9 +230,9 @@ class OrdersSync(SyncServiceBase):
 
         Raises:
             HTTPValidationError: Validation Error
-            PolarNetworkError: Raised when a network error occurs while making the request.
-            PolarRateLimitError: Raised when the rate limit is exceeded.
-            PolarServerError: Raised when the server returns a 5xx error response.
+            RepalisNetworkError: Raised when a network error occurs while making the request.
+            RepalisRateLimitError: Raised when the rate limit is exceeded.
+            RepalisServerError: Raised when the server returns a 5xx error response.
         """
         request = self.client.build_request(
             method="POST",
@@ -281,9 +281,9 @@ class OrdersSync(SyncServiceBase):
 
         Raises:
             HTTPValidationError: Validation Error
-            PolarNetworkError: Raised when a network error occurs while making the request.
-            PolarRateLimitError: Raised when the rate limit is exceeded.
-            PolarServerError: Raised when the server returns a 5xx error response.
+            RepalisNetworkError: Raised when a network error occurs while making the request.
+            RepalisRateLimitError: Raised when the rate limit is exceeded.
+            RepalisServerError: Raised when the server returns a 5xx error response.
         """
         request = self.client.build_request(
             method="GET",
@@ -328,9 +328,9 @@ class OrdersSync(SyncServiceBase):
         Raises:
             ResourceNotFound: Order not found.
             HTTPValidationError: Validation Error
-            PolarNetworkError: Raised when a network error occurs while making the request.
-            PolarRateLimitError: Raised when the rate limit is exceeded.
-            PolarServerError: Raised when the server returns a 5xx error response.
+            RepalisNetworkError: Raised when a network error occurs while making the request.
+            RepalisRateLimitError: Raised when the rate limit is exceeded.
+            RepalisServerError: Raised when the server returns a 5xx error response.
         """
         request = self.client.build_request(
             method="GET",
@@ -372,9 +372,9 @@ class OrdersSync(SyncServiceBase):
         Raises:
             ResourceNotFound: Order not found.
             HTTPValidationError: Validation Error
-            PolarNetworkError: Raised when a network error occurs while making the request.
-            PolarRateLimitError: Raised when the rate limit is exceeded.
-            PolarServerError: Raised when the server returns a 5xx error response.
+            RepalisNetworkError: Raised when a network error occurs while making the request.
+            RepalisRateLimitError: Raised when the rate limit is exceeded.
+            RepalisServerError: Raised when the server returns a 5xx error response.
         """
         request = self.client.build_request(
             method="PATCH",
@@ -426,9 +426,9 @@ class OrdersSync(SyncServiceBase):
             ResourceNotFound: Order not found.
             OrderNotDraft: The order is not in `draft` status.
             HTTPValidationError: Validation Error
-            PolarNetworkError: Raised when a network error occurs while making the request.
-            PolarRateLimitError: Raised when the rate limit is exceeded.
-            PolarServerError: Raised when the server returns a 5xx error response.
+            RepalisNetworkError: Raised when a network error occurs while making the request.
+            RepalisRateLimitError: Raised when the rate limit is exceeded.
+            RepalisServerError: Raised when the server returns a 5xx error response.
         """
         request = self.client.build_request(
             method="POST",
@@ -472,9 +472,9 @@ class OrdersSync(SyncServiceBase):
         Raises:
             ResourceNotFound: Order not found.
             HTTPValidationError: Validation Error
-            PolarNetworkError: Raised when a network error occurs while making the request.
-            PolarRateLimitError: Raised when the rate limit is exceeded.
-            PolarServerError: Raised when the server returns a 5xx error response.
+            RepalisNetworkError: Raised when a network error occurs while making the request.
+            RepalisRateLimitError: Raised when the rate limit is exceeded.
+            RepalisServerError: Raised when the server returns a 5xx error response.
         """
         request = self.client.build_request(
             method="GET",
@@ -515,9 +515,9 @@ class OrdersSync(SyncServiceBase):
             ResourceNotFound: Order not found.
             OrderNotEligibleForInvoice: Order is not eligible for invoice generation (invalid status).
             MissingInvoiceBillingDetails: Order is missing billing name or address.
-            PolarNetworkError: Raised when a network error occurs while making the request.
-            PolarRateLimitError: Raised when the rate limit is exceeded.
-            PolarServerError: Raised when the server returns a 5xx error response.
+            RepalisNetworkError: Raised when a network error occurs while making the request.
+            RepalisRateLimitError: Raised when the rate limit is exceeded.
+            RepalisServerError: Raised when the server returns a 5xx error response.
         """
         request = self.client.build_request(
             method="POST",
@@ -558,9 +558,9 @@ class OrdersSync(SyncServiceBase):
         Raises:
             ResourceNotFound: Order not found.
             HTTPValidationError: Validation Error
-            PolarNetworkError: Raised when a network error occurs while making the request.
-            PolarRateLimitError: Raised when the rate limit is exceeded.
-            PolarServerError: Raised when the server returns a 5xx error response.
+            RepalisNetworkError: Raised when a network error occurs while making the request.
+            RepalisRateLimitError: Raised when the rate limit is exceeded.
+            RepalisServerError: Raised when the server returns a 5xx error response.
         """
         request = self.client.build_request(
             method="GET",
@@ -631,9 +631,9 @@ class OrdersAsync(AsyncServiceBase):
 
         Raises:
             HTTPValidationError: Validation Error
-            PolarNetworkError: Raised when a network error occurs while making the request.
-            PolarRateLimitError: Raised when the rate limit is exceeded.
-            PolarServerError: Raised when the server returns a 5xx error response.
+            RepalisNetworkError: Raised when a network error occurs while making the request.
+            RepalisRateLimitError: Raised when the rate limit is exceeded.
+            RepalisServerError: Raised when the server returns a 5xx error response.
         """
         request = self.client.build_request(
             method="GET",
@@ -718,9 +718,9 @@ class OrdersAsync(AsyncServiceBase):
 
         Raises:
             HTTPValidationError: Validation Error
-            PolarNetworkError: Raised when a network error occurs while making the request.
-            PolarRateLimitError: Raised when the rate limit is exceeded.
-            PolarServerError: Raised when the server returns a 5xx error response.
+            RepalisNetworkError: Raised when a network error occurs while making the request.
+            RepalisRateLimitError: Raised when the rate limit is exceeded.
+            RepalisServerError: Raised when the server returns a 5xx error response.
         """
         while True:
             response = await self.list(
@@ -772,9 +772,9 @@ class OrdersAsync(AsyncServiceBase):
 
         Raises:
             HTTPValidationError: Validation Error
-            PolarNetworkError: Raised when a network error occurs while making the request.
-            PolarRateLimitError: Raised when the rate limit is exceeded.
-            PolarServerError: Raised when the server returns a 5xx error response.
+            RepalisNetworkError: Raised when a network error occurs while making the request.
+            RepalisRateLimitError: Raised when the rate limit is exceeded.
+            RepalisServerError: Raised when the server returns a 5xx error response.
         """
         request = self.client.build_request(
             method="POST",
@@ -823,9 +823,9 @@ class OrdersAsync(AsyncServiceBase):
 
         Raises:
             HTTPValidationError: Validation Error
-            PolarNetworkError: Raised when a network error occurs while making the request.
-            PolarRateLimitError: Raised when the rate limit is exceeded.
-            PolarServerError: Raised when the server returns a 5xx error response.
+            RepalisNetworkError: Raised when a network error occurs while making the request.
+            RepalisRateLimitError: Raised when the rate limit is exceeded.
+            RepalisServerError: Raised when the server returns a 5xx error response.
         """
         request = self.client.build_request(
             method="GET",
@@ -870,9 +870,9 @@ class OrdersAsync(AsyncServiceBase):
         Raises:
             ResourceNotFound: Order not found.
             HTTPValidationError: Validation Error
-            PolarNetworkError: Raised when a network error occurs while making the request.
-            PolarRateLimitError: Raised when the rate limit is exceeded.
-            PolarServerError: Raised when the server returns a 5xx error response.
+            RepalisNetworkError: Raised when a network error occurs while making the request.
+            RepalisRateLimitError: Raised when the rate limit is exceeded.
+            RepalisServerError: Raised when the server returns a 5xx error response.
         """
         request = self.client.build_request(
             method="GET",
@@ -914,9 +914,9 @@ class OrdersAsync(AsyncServiceBase):
         Raises:
             ResourceNotFound: Order not found.
             HTTPValidationError: Validation Error
-            PolarNetworkError: Raised when a network error occurs while making the request.
-            PolarRateLimitError: Raised when the rate limit is exceeded.
-            PolarServerError: Raised when the server returns a 5xx error response.
+            RepalisNetworkError: Raised when a network error occurs while making the request.
+            RepalisRateLimitError: Raised when the rate limit is exceeded.
+            RepalisServerError: Raised when the server returns a 5xx error response.
         """
         request = self.client.build_request(
             method="PATCH",
@@ -968,9 +968,9 @@ class OrdersAsync(AsyncServiceBase):
             ResourceNotFound: Order not found.
             OrderNotDraft: The order is not in `draft` status.
             HTTPValidationError: Validation Error
-            PolarNetworkError: Raised when a network error occurs while making the request.
-            PolarRateLimitError: Raised when the rate limit is exceeded.
-            PolarServerError: Raised when the server returns a 5xx error response.
+            RepalisNetworkError: Raised when a network error occurs while making the request.
+            RepalisRateLimitError: Raised when the rate limit is exceeded.
+            RepalisServerError: Raised when the server returns a 5xx error response.
         """
         request = self.client.build_request(
             method="POST",
@@ -1014,9 +1014,9 @@ class OrdersAsync(AsyncServiceBase):
         Raises:
             ResourceNotFound: Order not found.
             HTTPValidationError: Validation Error
-            PolarNetworkError: Raised when a network error occurs while making the request.
-            PolarRateLimitError: Raised when the rate limit is exceeded.
-            PolarServerError: Raised when the server returns a 5xx error response.
+            RepalisNetworkError: Raised when a network error occurs while making the request.
+            RepalisRateLimitError: Raised when the rate limit is exceeded.
+            RepalisServerError: Raised when the server returns a 5xx error response.
         """
         request = self.client.build_request(
             method="GET",
@@ -1057,9 +1057,9 @@ class OrdersAsync(AsyncServiceBase):
             ResourceNotFound: Order not found.
             OrderNotEligibleForInvoice: Order is not eligible for invoice generation (invalid status).
             MissingInvoiceBillingDetails: Order is missing billing name or address.
-            PolarNetworkError: Raised when a network error occurs while making the request.
-            PolarRateLimitError: Raised when the rate limit is exceeded.
-            PolarServerError: Raised when the server returns a 5xx error response.
+            RepalisNetworkError: Raised when a network error occurs while making the request.
+            RepalisRateLimitError: Raised when the rate limit is exceeded.
+            RepalisServerError: Raised when the server returns a 5xx error response.
         """
         request = self.client.build_request(
             method="POST",
@@ -1100,9 +1100,9 @@ class OrdersAsync(AsyncServiceBase):
         Raises:
             ResourceNotFound: Order not found.
             HTTPValidationError: Validation Error
-            PolarNetworkError: Raised when a network error occurs while making the request.
-            PolarRateLimitError: Raised when the rate limit is exceeded.
-            PolarServerError: Raised when the server returns a 5xx error response.
+            RepalisNetworkError: Raised when a network error occurs while making the request.
+            RepalisRateLimitError: Raised when the rate limit is exceeded.
+            RepalisServerError: Raised when the server returns a 5xx error response.
         """
         request = self.client.build_request(
             method="GET",

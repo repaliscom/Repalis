@@ -1,11 +1,11 @@
 // Generated from customers:delete_external (2026-10). Do not edit.
-import type { Polar } from '@polar-sh/sdk/2026-10'
+import type { Repalis } from '@repalis/sdk/2026-10'
 import { Effect } from 'effect'
 import { Argument, Command, Flag } from 'effect/cli'
 import { ApiRuntime } from '../runtime'
 import { confirm, data, mergeInput } from '../inputs'
 
-type Query = NonNullable<Parameters<Polar['customers']['deleteExternal']>[1]>
+type Query = NonNullable<Parameters<Repalis['customers']['deleteExternal']>[1]>
 
 export const command = Command.make(
   'delete_external',

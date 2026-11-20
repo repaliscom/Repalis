@@ -51,7 +51,7 @@ SERVERS: typing.Final[dict[Environment, str]] = {
 }
 
 
-class Polar:
+class Repalis:
     version: str = "2027-01"
 
     def __init__(
@@ -107,7 +107,7 @@ class Polar:
         self._client.__exit__(exc_type, exc_val, exc_tb)
 
 
-class PolarAsync:
+class RepalisAsync:
     version: str = "2027-01"
 
     def __init__(
@@ -198,4 +198,4 @@ class PolarAsync:
         )
 
 
-__all__ = ["Environment", "Polar", "PolarAsync"]
+__all__ = ["Environment", "Repalis", "RepalisAsync"]

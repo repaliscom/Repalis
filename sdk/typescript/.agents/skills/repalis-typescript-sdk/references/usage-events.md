@@ -1,21 +1,21 @@
 # Usage-event ingestion
 
-Use these instructions whenever implementing metered usage or sending events used by a Polar meter.
+Use these instructions whenever implementing metered usage or sending events used by a Repalis meter.
 
 ## Ingest events
 
-Send events from trusted server-side code. Use the application's customer ID as `external_customer_id` when the Polar customer has the same `external_id`.
+Send events from trusted server-side code. Use the application's customer ID as `external_customer_id` when the Repalis customer has the same `external_id`.
 
 ```typescript
-import { createPolar } from "@polar-sh/sdk/2026-10";
+import { createRepalis } from "@repalis/sdk/2026-10";
 
-const accessToken = process.env.POLAR_ACCESS_TOKEN;
+const accessToken = process.env.REPALIS_ACCESS_TOKEN;
 if (!accessToken) {
-  throw new Error("POLAR_ACCESS_TOKEN is required");
+  throw new Error("REPALIS_ACCESS_TOKEN is required");
 }
 
-const polar = createPolar({ accessToken });
-const result = await polar.events.ingest({
+const repalis = createRepalis({ accessToken });
+const result = await repalis.events.ingest({
   events: [
     {
       name: "ai_generation",
@@ -54,6 +54,6 @@ Batch events when appropriate, but keep every event independently identifiable. 
 
 Events are immutable after ingestion. Set `timestamp` to an ISO 8601 string when preserving the time the usage occurred.
 
-Polar attributes an event to a billing period according to when Polar receives it, not only its supplied timestamp. Replaying an old event does not revise an already-closed invoice.
+Repalis attributes an event to a billing period according to when Repalis receives it, not only its supplied timestamp. Replaying an old event does not revise an already-closed invoice.
 
 Event ingestion records usage regardless of the customer's remaining meter balance. Query or cache customer state and enforce hard usage limits in the application before performing the metered action.

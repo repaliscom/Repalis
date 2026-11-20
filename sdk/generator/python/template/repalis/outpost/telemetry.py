@@ -26,7 +26,7 @@ from opentelemetry.trace import StatusCode
 
 from repalis import __version__
 
-TELEMETRY_ENV = "POLAR_OUTPOST_TELEMETRY"
+TELEMETRY_ENV = "REPALIS_OUTPOST_TELEMETRY"
 EXPORT_INTERVAL_MILLIS = 30_000
 METRIC_VIEWS = [
     View(

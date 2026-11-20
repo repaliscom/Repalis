@@ -1,3 +1,3 @@
-from repalis.v2026_04.client import Environment, Polar, PolarAsync
+from repalis.v2026_04.client import Environment, Repalis, RepalisAsync
 
-__all__ = ["Environment", "Polar", "PolarAsync"]
+__all__ = ["Environment", "Repalis", "RepalisAsync"]

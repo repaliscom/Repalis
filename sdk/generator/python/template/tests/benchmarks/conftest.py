@@ -38,7 +38,7 @@ def loop() -> collections.abc.Iterator[asyncio.AbstractEventLoop]:
 # A throwaway redis-server on a Unix socket.
 @pytest.fixture(scope="session")
 def redis_socket() -> collections.abc.Iterator[str]:
-    with tempfile.TemporaryDirectory(prefix="polar-outpost-bench-") as directory:
+    with tempfile.TemporaryDirectory(prefix="repalis-outpost-bench-") as directory:
         socket = os.path.join(directory, "redis.sock")
         process = subprocess.Popen(
             [
@@ -67,8 +67,8 @@ def redis_socket() -> collections.abc.Iterator[str]:
             process.wait()
 
 
-# Polar's side of Outpost: the configuration, the snapshot when given one, and no changes.
-def polar_server(
+# Repalis's side of Outpost: the configuration, the snapshot when given one, and no changes.
+def repalis_server(
     reducers: list[Reducer], snapshot: dict[str, typing.Any] | None
 ) -> typing.Any:
     cursor = 0
@@ -128,9 +128,9 @@ def outpost(
     # Each module configures its own reducers on the session's Redis: a token of its own
     # keeps another module's stored configuration out.
     client = httpx2.AsyncClient(
-        base_url="http://polar.test",
+        base_url="http://repalis.test",
         headers={"Authorization": f"Bearer {uuid.uuid4()}"},
-        transport=httpx2.ASGITransport(polar_server(reducers, snapshot)),
+        transport=httpx2.ASGITransport(repalis_server(reducers, snapshot)),
     )
     outpost = Outpost(f"unix://{redis_socket}", client=client)
     stop = asyncio.Event()
@@ -141,7 +141,7 @@ def outpost(
             ready.set_result(None)
             await stop.wait()
 
-    # Telemetry records as in production, into the fake Polar's Redis.
+    # Telemetry records as in production, into the fake Repalis's Redis.
     held = loop.create_task(hold())
     loop.run_until_complete(
         asyncio.wait({ready, held}, return_when=asyncio.FIRST_COMPLETED)

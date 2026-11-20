@@ -48,7 +48,7 @@ def render_code_sample(sample: OperationSample) -> str:
     return (
         TEMPLATE.render(
             version=sample.api.version,
-            call_path=f"polar.{client_path}.{method_name}",
+            call_path=f"repalis.{client_path}.{method_name}",
             arguments=arguments,
             pagination=sample.method.pagination is not None,
             has_response=sample.method.response_type != "none",

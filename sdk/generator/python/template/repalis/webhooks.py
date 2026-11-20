@@ -7,21 +7,21 @@ import math
 import time
 import typing
 
-from repalis.base import PolarError
+from repalis.base import RepalisError
 
 _WEBHOOK_TOLERANCE_SECONDS = 5 * 60
 _PayloadT = typing.TypeVar("_PayloadT")
 
 
-class PolarWebhookError(PolarError):
-    """Base error raised while processing a Polar webhook."""
+class RepalisWebhookError(RepalisError):
+    """Base error raised while processing a Repalis webhook."""
 
 
-class PolarWebhookVerificationError(PolarWebhookError):
-    """Raised when a Polar webhook signature cannot be verified."""
+class RepalisWebhookVerificationError(RepalisWebhookError):
+    """Raised when a Repalis webhook signature cannot be verified."""
 
 
-class PolarWebhookUnknownTypeError(PolarWebhookError):
+class RepalisWebhookUnknownTypeError(RepalisWebhookError):
     """Raised when a verified webhook type is unknown to this SDK version."""
 
     def __init__(self, event_type: str | None) -> None:
@@ -36,55 +36,55 @@ def validate_event(
     event_types: frozenset[str],
     payload_loader: typing.Callable[[dict[str, typing.Any]], _PayloadT],
 ) -> _PayloadT:
-    """Verify a raw Polar webhook request and load its typed payload."""
+    """Verify a raw Repalis webhook request and load its typed payload."""
 
     try:
         body_text = body.decode() if isinstance(body, bytes) else body
     except UnicodeDecodeError as e:
-        raise PolarWebhookError("Failed to parse webhook payload") from e
+        raise RepalisWebhookError("Failed to parse webhook payload") from e
 
     _verify_signature(body_text, headers, secret)
 
     try:
         data = json.loads(body_text)
     except (TypeError, ValueError) as e:
-        raise PolarWebhookError("Failed to parse webhook payload") from e
+        raise RepalisWebhookError("Failed to parse webhook payload") from e
 
     event_type = data.get("type") if isinstance(data, dict) else None
     if not isinstance(event_type, str) or event_type not in event_types:
-        raise PolarWebhookUnknownTypeError(
+        raise RepalisWebhookUnknownTypeError(
             event_type if isinstance(event_type, str) else None
         )
 
     try:
         return payload_loader(data)
     except Exception as e:
-        raise PolarWebhookError("Failed to parse webhook payload") from e
+        raise RepalisWebhookError("Failed to parse webhook payload") from e
 
 
 def _verify_signature(body: str, headers: dict[str, str], secret: str) -> None:
     if not secret:
-        raise PolarWebhookVerificationError("Secret can't be empty")
+        raise RepalisWebhookVerificationError("Secret can't be empty")
 
     normalized_headers = {key.lower(): value for key, value in headers.items()}
     webhook_id = normalized_headers.get("webhook-id")
     webhook_timestamp = normalized_headers.get("webhook-timestamp")
     webhook_signature = normalized_headers.get("webhook-signature")
     if not webhook_id or not webhook_timestamp or not webhook_signature:
-        raise PolarWebhookVerificationError("Missing required headers")
+        raise RepalisWebhookVerificationError("Missing required headers")
 
     try:
         timestamp = float(webhook_timestamp)
     except ValueError as e:
-        raise PolarWebhookVerificationError("Invalid signature headers") from e
+        raise RepalisWebhookVerificationError("Invalid signature headers") from e
     if not math.isfinite(timestamp):
-        raise PolarWebhookVerificationError("Invalid signature headers")
+        raise RepalisWebhookVerificationError("Invalid signature headers")
 
     now = time.time()
     if timestamp < now - _WEBHOOK_TOLERANCE_SECONDS:
-        raise PolarWebhookVerificationError("Message timestamp too old")
+        raise RepalisWebhookVerificationError("Message timestamp too old")
     if timestamp > now + _WEBHOOK_TOLERANCE_SECONDS:
-        raise PolarWebhookVerificationError("Message timestamp too new")
+        raise RepalisWebhookVerificationError("Message timestamp too new")
 
     signed_content = f"{webhook_id}.{math.floor(timestamp)}.{body}".encode()
     for signing_key in _signing_keys(secret):
@@ -102,7 +102,7 @@ def _verify_signature(body: str, headers: dict[str, str], secret: str) -> None:
             if hmac.compare_digest(expected_signature, decoded_signature):
                 return
 
-    raise PolarWebhookVerificationError("No matching signature found")
+    raise RepalisWebhookVerificationError("No matching signature found")
 
 
 def _signing_keys(secret: str) -> tuple[bytes, ...]:

@@ -34,8 +34,8 @@ from redis.exceptions import ConnectionError as RedisConnectionError
 from redis.exceptions import ResponseError as RedisResponseError
 from redis.exceptions import TimeoutError as RedisTimeoutError
 
-from repalis.base import PolarError
-from repalis.metering.client import PolarClient
+from repalis.base import RepalisError
+from repalis.metering.client import RepalisClient
 from repalis.metering.errors import UnknownMeterError
 from repalis.metering.events import EventInput
 from repalis.metering.meter import CustomerMeter
@@ -58,19 +58,19 @@ from repalis.outpost.telemetry import (
 )
 
 
-class PolarOutpostError(PolarError): ...
+class RepalisOutpostError(RepalisError): ...
 
 
-# What Polar has not sent yet: a snapshot. A read that raises it is not ready.
-class _NotReadyError(PolarOutpostError): ...
+# What Repalis has not sent yet: a snapshot. A read that raises it is not ready.
+class _NotReadyError(RepalisOutpostError): ...
 
 
-class UnavailableRedisError(PolarOutpostError):
+class UnavailableRedisError(RepalisOutpostError):
     def __init__(self) -> None:
         super().__init__("Redis is unavailable")
 
 
-class MissingExternalIdError(PolarOutpostError):
+class MissingExternalIdError(RepalisOutpostError):
     def __init__(self) -> None:
         super().__init__("Outpost needs an external_id on every event")
 
@@ -291,14 +291,14 @@ for i, func in ipairs({'min', 'max'}) do
         assert(value and value == value and math.abs(value) ~= math.huge, 'Invalid value')
     end
 end
--- One event pending: its value, or nothing when it only counts. An external_id Polar has not
+-- One event pending: its value, or nothing when it only counts. An external_id Repalis has not
 -- confirmed yet: tracking it again changes nothing.
 assert(ARGV[2] == '1', 'One event per write')
 local entry = ARGV[4] ~= '' and ARGV[3] or ''
 if redis.call('HSETNX', KEYS[2], ARGV[6], entry) == 0 then
     return 0
 end
--- Every local event counts in its bucket; the pending part is what Polar has not confirmed.
+-- Every local event counts in its bucket; the pending part is what Repalis has not confirmed.
 for _, prefix in ipairs({bucket, pending}) do
     redis.call('HINCRBYFLOAT', KEYS[1], prefix .. 'sum', ARGV[3])
     redis.call('HINCRBY', KEYS[1], prefix .. 'count', ARGV[2])
@@ -317,7 +317,7 @@ for _, prefix in ipairs({bucket, pending}) do
 end
 -- Events nobody confirms are forgotten an hour after the last write to their bucket. A state
 -- nobody reads, writes or snapshots for a day is forgotten too: the next read rebuilds it from
--- Polar's snapshot.
+-- Repalis's snapshot.
 redis.call('EXPIRE', KEYS[2], 3900)
 redis.call('EXPIRE', KEYS[1], 86400)
 return 1
@@ -329,7 +329,7 @@ CONFIRM_SCRIPT = """
 local bucket = 'bucket:' .. ARGV[1] .. ':'
 local pending = 'pending:' .. ARGV[1] .. ':'
 local BATCH = 1000
--- Polar received the events but no snapshot counts them yet: a cold bucket keeps them
+-- Repalis received the events but no snapshot counts them yet: a cold bucket keeps them
 -- pending for the snapshot that will, a hot one counts them whole either way.
 if ARGV[2] == '1' then
     local cutoff = redis.call('HGET', KEYS[1], 'cold_until')
@@ -381,7 +381,7 @@ redis.call('HINCRBYFLOAT', KEYS[1], pending .. 'sum', -sum)
 if count <= 0 then
     redis.call('HDEL', KEYS[1], pending .. 'count', pending .. 'sum', pending .. 'min', pending .. 'max')
     local cutoff = redis.call('HGET', KEYS[1], 'cold_until')
-    -- Polar counts the whole bucket once it is cold: the local copy has nothing left to add.
+    -- Repalis counts the whole bucket once it is cold: the local copy has nothing left to add.
     if cutoff and tonumber(ARGV[1]) < tonumber(cutoff) then
         redis.call('HDEL', KEYS[1], bucket .. 'count', bucket .. 'sum', bucket .. 'min', bucket .. 'max')
     end
@@ -412,8 +412,8 @@ local cutoff = tonumber(ARGV[1])
 local state = redis.call('HGETALL', KEYS[1])
 local fields = {}
 for i = 1, #state, 2 do fields[state[i]] = state[i + 1] end
--- The pull's reset count when Polar answered: a read after the next reset asks Polar again.
--- Recorded even for an older snapshot it rejects: Redis then holds a newer one than Polar's answer.
+-- The pull's reset count when Repalis answered: a read after the next reset asks Repalis again.
+-- Recorded even for an older snapshot it rejects: Redis then holds a newer one than Repalis's answer.
 if ARGV[7] and fields['reset'] ~= ARGV[7] then
     if ARGV[7] == '' then
         redis.call('HDEL', KEYS[1], 'reset')
@@ -423,17 +423,17 @@ if ARGV[7] and fields['reset'] ~= ARGV[7] then
 end
 local current = fields['cold_until']
 local previous = fields['snapshot_version']
--- Polar sends each snapshot to every instance: an older one changes nothing.
+-- Repalis sends each snapshot to every instance: an older one changes nothing.
 if (current and tonumber(current) > cutoff)
     or (previous and tonumber(ARGV[2]) < tonumber(previous)) then
     return {}
 end
 local replaced = {}
 if current then replaced = {'cold_until', current} end
--- Polar's totals now cover the buckets before the cutoff. The local copy of each is
--- reported with its pending part, and kept while events Polar has not confirmed remain
+-- Repalis's totals now cover the buckets before the cutoff. The local copy of each is
+-- reported with its pending part, and kept while events Repalis has not confirmed remain
 -- pending in it, for an hour at most: that pending part is what the local read adds on
--- top of Polar's totals.
+-- top of Repalis's totals.
 local function sealed(start)
     local pending = fields['pending:' .. start .. ':count']
     return not pending or tonumber(pending) <= 0 or tonumber(start) + 3600000000 < cutoff
@@ -531,9 +531,9 @@ class ReducerState:
     cold_until: int | None
     cold: BucketStatistics
     buckets: dict[int, BucketStatistics]
-    # The part of each bucket Polar has not confirmed yet.
+    # The part of each bucket Repalis has not confirmed yet.
     pending: dict[int, BucketStatistics]
-    # The pull's reset count when Polar last answered for it.
+    # The pull's reset count when Repalis last answered for it.
     confirmed_after_resets: int | None = None
 
 
@@ -579,8 +579,8 @@ def decode_state(values: collections.abc.Sequence[str | bytes]) -> ReducerState:
     )
 
 
-# Polar's totals cover the cold buckets: the local read adds what Polar has not confirmed in
-# them, and every local event in the buckets Polar has not sealed yet.
+# Repalis's totals cover the cold buckets: the local read adds what Repalis has not confirmed in
+# them, and every local event in the buckets Repalis has not sealed yet.
 def consumed_units(state: ReducerState, func: str) -> int | float:
     cold_until = state.cold_until
     assert cold_until is not None
@@ -600,7 +600,7 @@ def consumed_units(state: ReducerState, func: str) -> int | float:
     return BucketStatistics(count, total, low, high).quantity(func)
 
 
-# A customer's state for one reducer is None while Polar does not know the customer.
+# A customer's state for one reducer is None while Repalis does not know the customer.
 def _is_ready(state: ReducerState | None) -> bool:
     return state is None or state.cold_until is not None
 
@@ -646,7 +646,7 @@ class IngestResult:
     duplicates: int = 0
 
 
-# What Polar said of the pending events a snapshot seals.
+# What Repalis said of the pending events a snapshot seals.
 @dataclasses.dataclass
 class _Confirmation:
     snapshot: Snapshot
@@ -684,7 +684,7 @@ class Outpost:
         self._stack = contextlib.AsyncExitStack()
         self._redis: Redis | None = None
         self._connection_id: str | None = None
-        self._failure: PolarOutpostError | None = None
+        self._failure: RepalisOutpostError | None = None
         self._tasks: anyio.abc.TaskGroup | None = None
         self._reducers: list[Reducer] = []
         self._matchers: list[ReducerMatcher] = []
@@ -711,16 +711,16 @@ class Outpost:
         # The configuration's revision in the pull hash, as of the configuration this
         # instance runs.
         self._configuration_revision: int | None = None
-        # How many times Polar's changes went past their retention, as of the last read
+        # How many times Repalis's changes went past their retention, as of the last read
         # of the pull hash.
         self._resets: int | None = None
 
     @classmethod
     def create(
-        cls, polar: PolarClient, redis_url: str, *, telemetry: bool = True
+        cls, repalis: RepalisClient, redis_url: str, *, telemetry: bool = True
     ) -> typing.Self:
         return cls(
-            redis_url=redis_url, client=polar._client._client, telemetry=telemetry
+            redis_url=redis_url, client=repalis._client._client, telemetry=telemetry
         )
 
     @_raise_redis_unavailable
@@ -734,9 +734,9 @@ class Outpost:
         self._failure = None
         if self._telemetry:
             self._tracer_provider = create_tracer_provider(self._outbox)
-            self._tracer = self._tracer_provider.get_tracer("polar.outpost")
+            self._tracer = self._tracer_provider.get_tracer("repalis.outpost")
             self._meter_provider = create_meter_provider(self._outbox)
-            meter = self._meter_provider.get_meter("polar.outpost")
+            meter = self._meter_provider.get_meter("repalis.outpost")
             self._ingest_duration = meter.create_histogram(
                 "outpost.ingest.duration", unit="s"
             )
@@ -832,7 +832,7 @@ class Outpost:
         )
 
     def validate(self, event: EventInput) -> None:
-        """Reject an event Outpost cannot reconcile with Polar.
+        """Reject an event Outpost cannot reconcile with Repalis.
 
         Raises:
             MissingExternalIdError: The event has no external_id.
@@ -907,7 +907,7 @@ class Outpost:
                 self._ingest_duration.record(time.perf_counter() - started, attributes)
 
     async def confirm(self, events: collections.abc.Sequence[EventInput]) -> None:
-        """Settle events Polar has ingested: their usage stays in its bucket, no longer pending.
+        """Settle events Repalis has ingested: their usage stays in its bucket, no longer pending.
 
         Args:
             events: Tracked events, including their external_id.
@@ -915,7 +915,7 @@ class Outpost:
         await self._settle(events, hot_only=False)
 
     async def acknowledge(self, events: collections.abc.Sequence[EventInput]) -> None:
-        """Settle events Polar has received, in the buckets no snapshot has sealed yet.
+        """Settle events Repalis has received, in the buckets no snapshot has sealed yet.
         Events of a sealed bucket stay pending until a snapshot counts them.
 
         Args:
@@ -1061,7 +1061,7 @@ class Outpost:
 
     async def flush_telemetry(self) -> bool:
         """Hands this instance's telemetry to the shared Redis, where the next pull
-        sends it to Polar."""
+        sends it to Repalis."""
         tracer_provider = self._tracer_provider
         meter_provider = self._meter_provider
         if tracer_provider is None or meter_provider is None:
@@ -1108,7 +1108,7 @@ class Outpost:
             ):
                 key = self._telemetry_key(kind)
                 batch = f"{key}:relaying"
-                # A batch Polar failed goes first; otherwise the list moves aside, and
+                # A batch Repalis failed goes first; otherwise the list moves aside, and
                 # exports written meanwhile start a new one.
                 if not await redis.exists(batch):
                     with contextlib.suppress(RedisResponseError):
@@ -1121,7 +1121,7 @@ class Outpost:
                     content=b"".join(exports),
                     headers={"Content-Type": "application/x-protobuf"},
                 )
-                # One Polar refused would be refused again.
+                # One Repalis refused would be refused again.
                 if response.status_code < 500 and response.status_code != 429:
                     await redis.delete(batch)
         finally:
@@ -1131,14 +1131,14 @@ class Outpost:
     async def _read(
         self, customer: str, reducers: list[Reducer]
     ) -> list[ReducerState | None]:
-        """Reads the customer's states from Redis. One Polar has no snapshot of yet is
+        """Reads the customer's states from Redis. One Repalis has no snapshot of yet is
         asked for once, then read again until it lands."""
         deadline = anyio.current_time() + SNAPSHOT_TIMEOUT
         states = await self._load(customer, reducers)
-        # Polar sends no snapshot without a connection.
+        # Repalis sends no snapshot without a connection.
         if not self.connected:
             return states
-        # A state confirmed before the last reset serves the read while Polar confirms
+        # A state confirmed before the last reset serves the read while Repalis confirms
         # it again.
         fetches = [
             self._fetch(customer, reducer)
@@ -1159,7 +1159,7 @@ class Outpost:
     async def _load(
         self, customer: str, reducers: list[Reducer]
     ) -> list[ReducerState | None]:
-        """One round trip: each reducer's state, unless Polar does not know the customer."""
+        """One round trip: each reducer's state, unless Repalis does not know the customer."""
         redis = self._require_redis()
         keys = [
             f"{self._prefix}:state:{customer}:{reducer['id']}" for reducer in reducers
@@ -1283,7 +1283,7 @@ class Outpost:
         return self._redis
 
     def _fetch(self, customer: str, reducer: Reducer) -> anyio.Event:
-        """Queues the identity once. The instance holding the cold lock asks Polar for
+        """Queues the identity once. The instance holding the cold lock asks Repalis for
         the fleet's cold customers together and applies their states."""
         identity = f"{customer}:{reducer['id']}"
         fetching = self._requesting.get(identity)
@@ -1300,7 +1300,7 @@ class Outpost:
         queued, self._queued = self._queued, []
         try:
             redis = self._require_redis()
-            # A customer already queued or asked for stays out of the queue until Polar
+            # A customer already queued or asked for stays out of the queue until Repalis
             # answers.
             async with redis.pipeline(transaction=False) as pipeline:
                 for identity in queued:
@@ -1497,7 +1497,7 @@ class Outpost:
     ) -> typing.Any:
         response = await self._client.request(method, path, **kwargs)
         if response.status_code in (401, 403):
-            raise PolarOutpostError("Polar refused Outpost")
+            raise RepalisOutpostError("Repalis refused Outpost")
         response.raise_for_status()
         return response.json()
 
@@ -1519,13 +1519,13 @@ class Outpost:
 
     @property
     def _configuration_key(self) -> str:
-        """A new instance reads its token's configuration from Redis instead of Polar.
+        """A new instance reads its token's configuration from Redis instead of Repalis.
         The key hashes the token: Redis never sees it."""
         headers = self._client.headers
         sent = [
             str(self._client.base_url.join("/v1/outpost/configuration")),
             headers.get("authorization"),
-            headers.get("polar-organization"),
+            headers.get("repalis-organization"),
         ]
         # Compact, as JSON.stringify writes it: both SDKs share the key.
         identity = hashlib.sha256(
@@ -1534,7 +1534,7 @@ class Outpost:
         return f"{KEY_VERSION}:configuration:{identity}"
 
     async def _configure(
-        self, source: typing.Literal["redis", "polar", "either"] = "either"
+        self, source: typing.Literal["redis", "repalis", "either"] = "either"
     ) -> bool:
         """From "redis", the organization's copy: each token reloads it once the pull
         hash says the configuration changed. False when Redis holds none."""
@@ -1544,7 +1544,7 @@ class Outpost:
             if source == "redis"
             else self._configuration_key
         )
-        stored = None if source == "polar" else await redis.get(key)
+        stored = None if source == "repalis" else await redis.get(key)
         if not stored and source == "redis":
             return False
         configuration: Configuration = (
@@ -1558,7 +1558,7 @@ class Outpost:
             await redis.set(self._configuration_key, dumped)
             # Only the pull writes the organization's copy: a fetch at start may be
             # older than it.
-            if source == "polar":
+            if source == "repalis":
                 await redis.set(f"{prefix}:configuration", dumped)
         self._prefix = prefix
         self._reducers = configuration["reducers"]
@@ -1648,7 +1648,7 @@ class Outpost:
             with self._span("outpost.pull") as span:
                 await self._pull_changes(span)
         except Exception as error:  # noqa: BLE001
-            # Polar or Redis failed: the next pull starts again from the same cursor, later.
+            # Repalis or Redis failed: the next pull starts again from the same cursor, later.
             self._pull_retry_at = await self._back_off(self._pull_key)
             self._fail_unless_transient(error)
         finally:
@@ -1722,13 +1722,13 @@ class Outpost:
                         error.response.is_client_error
                         and error.response.status_code != 429
                     ):
-                        raise PolarOutpostError("Polar rejected the pull") from error
+                        raise RepalisOutpostError("Repalis rejected the pull") from error
                     raise
                 pages += 1
                 if changes["reset"]:
                     self._resets = await redis.hincrby(self._pull_key, "reset", 1)
                 if changes["configuration_changed"]:
-                    await self._configure("polar")
+                    await self._configure("repalis")
                     self._configuration_revision = await redis.hincrby(
                         self._pull_key, "configuration", 1
                     )
@@ -1807,8 +1807,8 @@ class Outpost:
             self._fail(error)
 
     def _fail(self, error: Exception) -> None:
-        if not isinstance(error, PolarOutpostError):
-            failure = PolarOutpostError("Outpost stopped")
+        if not isinstance(error, RepalisOutpostError):
+            failure = RepalisOutpostError("Outpost stopped")
             failure.__cause__ = error
             error = failure
         self._failure = error
@@ -1822,7 +1822,7 @@ class Outpost:
         renew: collections.abc.Callable[[], collections.abc.Awaitable[None]]
         | None = None,
     ) -> bool:
-        """Applies Polar's snapshot, unless pulled for a customer nobody here reads.
+        """Applies Repalis's snapshot, unless pulled for a customer nobody here reads.
         `resets` is the reset count when asked: after another reset, reads ask again."""
         if not any(
             reducer["id"] == snapshot["reducer_id"] for reducer in self._reducers
@@ -1883,7 +1883,7 @@ class Outpost:
         renew: collections.abc.Callable[[], collections.abc.Awaitable[None]]
         | None = None,
     ) -> tuple[_Confirmation | None, bool]:
-        """Asks Polar which of the pending events in the buckets the snapshot seals it
+        """Asks Repalis which of the pending events in the buckets the snapshot seals it
         counts. A request that fails leaves its events pending until a later snapshot."""
         started = time.perf_counter()
         state = await self._load_state(identity)
@@ -1946,7 +1946,7 @@ class Outpost:
         resets: int | None,
     ) -> None:
         """Settles the confirmed events and applies the snapshot in one transaction: a
-        read sees the bucket either fully local or as Polar's total plus what is still
+        read sees the bucket either fully local or as Repalis's total plus what is still
         pending."""
         applying = time.perf_counter()
         assert self._redis is not None

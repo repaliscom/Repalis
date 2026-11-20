@@ -4,9 +4,9 @@ import { validateWebhook } from "../webhooks";
 {% endfor %}} from "./models";
 
 {% endif %}export {
-  PolarWebhookError,
-  PolarWebhookUnknownTypeError,
-  PolarWebhookVerificationError,
+  RepalisWebhookError,
+  RepalisWebhookUnknownTypeError,
+  RepalisWebhookVerificationError,
 } from "../webhooks";
 
 {% for model in api.webhooks %}/**
@@ -26,7 +26,7 @@ const knownEventTypes = new Set<string>([
 {% endfor %}]);
 
 /**
- * Verify a raw Polar webhook request and return its typed payload.
+ * Verify a raw Repalis webhook request and return its typed payload.
  */
 export const validateEvent = (
   body: string | Uint8Array,

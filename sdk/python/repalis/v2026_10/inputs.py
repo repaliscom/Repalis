@@ -546,7 +546,7 @@ You can store up to **50 key-value pairs**."""
 
 class BenefitSlackSharedChannelCreateProperties(typing.TypedDict):
     slack_integration_id: str
-    """Polar Slack integration to use for this benefit."""
+    """Repalis Slack integration to use for this benefit."""
 
     channel_name_template: str
 
@@ -696,7 +696,7 @@ You can store up to **50 key-value pairs**."""
     """Whether the customer is a business or an individual. If `true`, the customer will be required to fill their full billing address and billing name."""
 
     external_customer_id: typing.NotRequired[str | None]
-    """ID of the customer in your system. If a matching customer exists on Polar, the resulting order will be linked to this customer. Otherwise, a new customer will be created with this external ID set."""
+    """ID of the customer in your system. If a matching customer exists on Repalis, the resulting order will be linked to this customer. Otherwise, a new customer will be created with this external ID set."""
 
     customer_name: typing.NotRequired[str | None]
 
@@ -733,7 +733,7 @@ You can store up to **50 key-value pairs**."""
     """When set, a back button will be shown in the checkout to return to this URL."""
 
     embed_origin: typing.NotRequired[str | None]
-    """If you plan to embed the checkout session, set this to the Origin of the embedding page. It'll allow the Polar iframe to communicate with the parent page."""
+    """If you plan to embed the checkout session, set this to the Origin of the embedding page. It'll allow the Repalis iframe to communicate with the parent page."""
 
     locale: typing.NotRequired[str | None]
 
@@ -1068,7 +1068,7 @@ You can store up to **50 key-value pairs**."""
     """When set, a back button will be shown in the checkout to return to this URL."""
 
     embed_origin: typing.NotRequired[str | None]
-    """If you plan to embed the checkout session, set this to the Origin of the embedding page. It'll allow the Polar iframe to communicate with the parent page."""
+    """If you plan to embed the checkout session, set this to the Origin of the embedding page. It'll allow the Repalis iframe to communicate with the parent page."""
 
     product_price_id: typing.NotRequired[str | None]
     """ID of the product price to checkout. Must correspond to a price present in the checkout's product list."""
@@ -2052,10 +2052,10 @@ class EventCreateCustomer(typing.TypedDict):
     """Your unique identifier for this event. Useful for deduplication and parent-child relationships."""
 
     parent_id: typing.NotRequired[str | None]
-    """The ID of the parent event. Can be either a Polar event ID (UUID) or an external event ID."""
+    """The ID of the parent event. Can be either a Repalis event ID (UUID) or an external event ID."""
 
     metadata: typing.NotRequired[EventMetadataInput]
-    """Key-value object allowing you to store additional information about the event. Some keys like `_llm` are structured data that are handled specially by Polar.
+    """Key-value object allowing you to store additional information about the event. Some keys like `_llm` are structured data that are handled specially by Repalis.
 
 The key must be a string with a maximum length of **40 characters**.
 The value must be either:
@@ -2068,7 +2068,7 @@ The value must be either:
 You can store up to **50 key-value pairs**."""
 
     customer_id: str
-    """ID of the customer in your Polar organization associated with the event."""
+    """ID of the customer in your Repalis organization associated with the event."""
 
     member_id: typing.NotRequired[str | None]
     """ID of the member within the customer's organization who performed the action. Used for member-level attribution in B2B."""
@@ -2088,10 +2088,10 @@ class EventCreateExternalCustomer(typing.TypedDict):
     """Your unique identifier for this event. Useful for deduplication and parent-child relationships."""
 
     parent_id: typing.NotRequired[str | None]
-    """The ID of the parent event. Can be either a Polar event ID (UUID) or an external event ID."""
+    """The ID of the parent event. Can be either a Repalis event ID (UUID) or an external event ID."""
 
     metadata: typing.NotRequired[EventMetadataInput]
-    """Key-value object allowing you to store additional information about the event. Some keys like `_llm` are structured data that are handled specially by Polar.
+    """Key-value object allowing you to store additional information about the event. Some keys like `_llm` are structured data that are handled specially by Repalis.
 
 The key must be a string with a maximum length of **40 characters**.
 The value must be either:
@@ -2587,7 +2587,7 @@ class OrganizationCreate(typing.TypedDict):
     """Link to social profiles."""
 
     details: typing.NotRequired[OrganizationDetails | None]
-    """Additional, private, business details Polar needs about active organizations for compliance (KYC)."""
+    """Additional, private, business details Repalis needs about active organizations for compliance (KYC)."""
 
     country: typing.NotRequired[CountryAlpha2Input | None]
     """Two-letter country code (ISO 3166-1 alpha-2)."""
@@ -2671,7 +2671,7 @@ class OrganizationDetails(typing.TypedDict):
     """Brief information about you and your business."""
 
     intended_use: typing.NotRequired[str | None]
-    """How the organization will integrate and use Polar."""
+    """How the organization will integrate and use Repalis."""
 
     customer_acquisition: typing.NotRequired[list[str]]
     """Main customer acquisition channels."""
@@ -2691,7 +2691,7 @@ class OrganizationDisputeSettingsUpdate(typing.TypedDict):
 class OrganizationFeatureSettingsUpdate(typing.TypedDict):
     """Feature settings that organizations can update themselves.
 
-    Other feature settings are managed by Polar staff: they're ignored if
+    Other feature settings are managed by Repalis staff: they're ignored if
     provided and keep their current value."""
 
     member_model_enabled: typing.NotRequired[bool]
@@ -2743,7 +2743,7 @@ class OrganizationUpdate(typing.TypedDict):
     """Links to social profiles."""
 
     details: typing.NotRequired[OrganizationDetails | None]
-    """Additional, private, business details Polar needs about active organizations for compliance (KYC)."""
+    """Additional, private, business details Repalis needs about active organizations for compliance (KYC)."""
 
     country: typing.NotRequired[CountryAlpha2Input | None]
     """Two-letter country code (ISO 3166-1 alpha-2)."""
@@ -3671,7 +3671,7 @@ the customer.
 
 **IMPORTANT:**
 Do not use this to store internal notes! It's intended to be input
-from the customer and is therefore also available in their Polar
+from the customer and is therefore also available in their Repalis
 purchases library.
 
 Only set this in case your own service is requesting the reason from the
@@ -3727,7 +3727,7 @@ You can store up to **50 key-value pairs**."""
     """The ID of the recurring product to subscribe to. Must be a free product, otherwise the customer should go through a checkout flow."""
 
     external_customer_id: str
-    """The ID of the customer in your system to create the subscription for. It must already exist in Polar."""
+    """The ID of the customer in your system to create the subscription for. It must already exist in Repalis."""
 
 
 class SubscriptionPause(typing.TypedDict):
@@ -3773,7 +3773,7 @@ the customer.
 
 **IMPORTANT:**
 Do not use this to store internal notes! It's intended to be input
-from the customer and is therefore also available in their Polar
+from the customer and is therefore also available in their Repalis
 purchases library.
 
 Only set this in case your own service is requesting the reason from the

@@ -5,8 +5,8 @@ from time import monotonic
 import httpx2
 
 _AFFINITY_HEADER = "x-vercel-affinity-id"
-_WARMUP_HEADER = "x-polar-affinity-warmup"
-_NEXT_HEADER = "x-polar-affinity-next"
+_WARMUP_HEADER = "x-repalis-affinity-warmup"
+_NEXT_HEADER = "x-repalis-affinity-next"
 _DROPPED_HEADERS = {
     "content-length",
     "transfer-encoding",
@@ -32,7 +32,7 @@ def _header(headers: collections.abc.Mapping[str, str], name: str) -> str | None
 def is_vercel_affinity_warmup(headers: collections.abc.Mapping[str, str]) -> bool:
     """True for the request that starts a shard's next instance: answer it once Outpost is up.
 
-    The middleware of `@polar-sh/sdk/outpost/vercel` sends it: Vercel runs middleware in
+    The middleware of `@repalis/sdk/outpost/vercel` sends it: Vercel runs middleware in
     JavaScript only, whatever the language of the pinned function.
     """
     return any(

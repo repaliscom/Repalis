@@ -3,10 +3,10 @@ import { setTimeout as sleep } from "node:timers/promises";
 import type { EventInput } from "./event";
 
 import {
-  PolarError,
-  PolarNetworkError,
-  PolarRateLimitError,
-  PolarServerError,
+  RepalisError,
+  RepalisNetworkError,
+  RepalisRateLimitError,
+  RepalisServerError,
   type RequestOptions,
 } from "../base";
 import {
@@ -30,7 +30,7 @@ export interface MeteringClient {
 }
 
 /**
- * Configure in-memory batching and delivery to Polar.
+ * Configure in-memory batching and delivery to Repalis.
  */
 export interface BufferedMeteringOptions {
   /**
@@ -46,7 +46,7 @@ export interface BufferedMeteringOptions {
    */
   maxAttempts?: number;
   /**
-   * Callback for events Polar accepted; may be async.
+   * Callback for events Repalis accepted; may be async.
    */
   onDelivered?: (events: EventInput[]) => void | Promise<void>;
   /**
@@ -83,7 +83,7 @@ class FlushRequest {
 }
 
 /**
- * Batch events in memory and deliver them through Polar's HTTP API.
+ * Batch events in memory and deliver them through Repalis's HTTP API.
  */
 export class BufferedMeteringStrategy {
   private readonly options: Required<Omit<BufferedMeteringOptions, "onDelivered" | "onDropped">> &
@@ -104,12 +104,12 @@ export class BufferedMeteringStrategy {
   /**
    * Configure event delivery and retries.
    *
-   * @param polar Client exposing the events.ingest API.
+   * @param repalis Client exposing the events.ingest API.
    * @param options Batch size, collection interval in milliseconds, retries, and delivery callbacks.
    * @throws RangeError if the batch size, max attempts, or batch interval is invalid.
    */
   constructor(
-    private readonly polar: MeteringClient,
+    private readonly repalis: MeteringClient,
     options: BufferedMeteringOptions = {},
   ) {
     this.options = {
@@ -132,10 +132,10 @@ export class BufferedMeteringStrategy {
    * Start the background delivery worker.
    *
    * @returns This strategy, ready to accept events.
-   * @throws PolarError if the worker has already started.
+   * @throws RepalisError if the worker has already started.
    */
   async start(): Promise<this> {
-    if (this.worker) throw new PolarError("Buffered metering has already started");
+    if (this.worker) throw new RepalisError("Buffered metering has already started");
     this.worker = this.run();
     return this;
   }
@@ -156,7 +156,7 @@ export class BufferedMeteringStrategy {
    *
    * A newer flush releases the ones still waiting that it outlasts, and reports their failures
    * instead: one waiter keeps a serverless function alive, and the others return without
-   * waiting for Polar. A completed flush acknowledges those outcomes; a timeout leaves them observable
+   * waiting for Repalis. A completed flush acknowledges those outcomes; a timeout leaves them observable
    * by a later flush and does not cancel background delivery.
    *
    * @param options Maximum wait in milliseconds; defaults to 30000.
@@ -165,7 +165,7 @@ export class BufferedMeteringStrategy {
    */
   async flush(options?: DeliveryOptions): Promise<void> {
     const timeout = deliveryTimeout(options);
-    if (!this.worker || this.closing) throw new PolarError("Buffered metering is not running");
+    if (!this.worker || this.closing) throw new RepalisError("Buffered metering is not running");
     const request = this.barrier();
     request.deadline = Date.now() + timeout;
     if (this.finished || this.failure) this.finish(request);
@@ -209,7 +209,7 @@ export class BufferedMeteringStrategy {
 
   private assertRunning(): void {
     if (this.failure) throw this.failure;
-    if (!this.worker || this.closing) throw new PolarError("Buffered metering is not running");
+    if (!this.worker || this.closing) throw new RepalisError("Buffered metering is not running");
   }
 
   private barrier(): FlushRequest {
@@ -345,7 +345,7 @@ export class BufferedMeteringStrategy {
       }
       for (const item of pending) this.failures.push({ ...item, reason, cause: error });
       if (!this.abort.signal.aborted)
-        this.failure = error instanceof Error ? error : new PolarError(String(error));
+        this.failure = error instanceof Error ? error : new RepalisError(String(error));
       try {
         if (pending.length)
           await this.onDropped(
@@ -371,16 +371,16 @@ export class BufferedMeteringStrategy {
     let waited = 0;
     for (;;) {
       try {
-        await this.polar.events.ingest({ events }, { signal: this.abort.signal });
+        await this.repalis.events.ingest({ events }, { signal: this.abort.signal });
         return;
       } catch (error) {
         this.abort.signal.throwIfAborted();
         if (
-          error instanceof PolarNetworkError ||
-          error instanceof PolarRateLimitError ||
-          error instanceof PolarServerError
+          error instanceof RepalisNetworkError ||
+          error instanceof RepalisRateLimitError ||
+          error instanceof RepalisServerError
         ) {
-          const retryAfter = error instanceof PolarRateLimitError ? error.retryAfter : null;
+          const retryAfter = error instanceof RepalisRateLimitError ? error.retryAfter : null;
           let delay: number;
           if (retryAfter !== null && Number.isFinite(retryAfter) && retryAfter >= 0) {
             delay = Math.max(retryAfter, 1) * 1000;
@@ -393,7 +393,7 @@ export class BufferedMeteringStrategy {
             attempt++;
           }
           await sleep(Math.min(delay, 2_147_483_647), undefined, { signal: this.abort.signal });
-        } else if (error instanceof PolarError) {
+        } else if (error instanceof RepalisError) {
           return { reason: "permanent_error", cause: error };
         } else {
           throw error;

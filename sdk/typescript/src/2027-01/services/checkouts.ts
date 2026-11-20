@@ -33,9 +33,9 @@ export const listCheckouts = (client: ClientBase) => {
    * @param query - Query parameters
    * @param requestOptions - Request options
    * @returns {ListResourceCheckout}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    * @throws {HTTPValidationError} Validation Error
    */
   return async (
@@ -87,9 +87,9 @@ export const listCheckouts = (client: ClientBase) => {
  * @param query - Query parameters
  * @param requestOptions - Request options
  * @returns {AsyncGenerator<Checkout>} A generator that yields items of type Checkout.
- * @throws {PolarNetworkError} When a network error occurs
- * @throws {PolarRateLimitError} When the rate limit is exceeded
- * @throws {PolarServerError} When the server returns a 5xx error
+ * @throws {RepalisNetworkError} When a network error occurs
+ * @throws {RepalisRateLimitError} When the rate limit is exceeded
+ * @throws {RepalisServerError} When the server returns a 5xx error
  * @throws {HTTPValidationError} Validation Error
  */
 export const iterListCheckouts = (client: ClientBase) => {
@@ -134,9 +134,9 @@ export const createCheckouts = (client: ClientBase) => {
    * @param body - Request body
    * @param requestOptions - Request options
    * @returns {Checkout}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    * @throws {HTTPValidationError} Validation Error
    */
   return async (body: CheckoutCreate, requestOptions?: RequestOptions): Promise<Checkout> => {
@@ -158,9 +158,9 @@ export const getCheckouts = (client: ClientBase) => {
    * @param id - The checkout session ID.
    * @param requestOptions - Request options
    * @returns {Checkout}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    * @throws {ResourceNotFound} Checkout session not found.
    * @throws {HTTPValidationError} Validation Error
    */
@@ -193,9 +193,9 @@ export const updateCheckouts = (client: ClientBase) => {
    * @param body - Request body
    * @param requestOptions - Request options
    * @returns {Checkout}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    * @throws {CheckoutsUpdate403Error} The checkout is expired, the customer already has an active subscription, or the organization is not ready to accept payments.
    * @throws {ResourceNotFound} Checkout session not found.
    * @throws {HTTPValidationError} Validation Error
@@ -231,9 +231,9 @@ export const clientGetCheckouts = (client: ClientBase) => {
    * @param client_secret - The checkout session client secret.
    * @param requestOptions - Request options
    * @returns {CheckoutPublic}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    * @throws {NotPermitted} The organization is not allowed to accept payments.
    * @throws {ResourceNotFound} Checkout session not found.
    * @throws {ExpiredCheckoutError} The checkout session is expired.
@@ -271,9 +271,9 @@ export const clientUpdateCheckouts = (client: ClientBase) => {
    * @param body - Request body
    * @param requestOptions - Request options
    * @returns {CheckoutPublic}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    * @throws {CheckoutsClientUpdate403Error} The checkout is expired, the customer already has an active subscription, or the organization is not ready to accept payments.
    * @throws {ResourceNotFound} Checkout session not found.
    * @throws {CheckoutLocked} The checkout session is being processed.
@@ -316,9 +316,9 @@ export const clientConfirmCheckouts = (client: ClientBase) => {
    * @param body - Request body
    * @param requestOptions - Request options
    * @returns {CheckoutPublicConfirmed}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    * @throws {CheckoutsClientConfirm400Error} The payment failed or the shared payment token was rejected.
    * @throws {CheckoutsClientConfirm403Error} The checkout is expired, the customer already has an active subscription, or the organization is not ready to accept payments.
    * @throws {ResourceNotFound} Checkout session not found.

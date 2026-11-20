@@ -46,11 +46,11 @@ import type {
   UpdateSubscriptionUnitsNotAllowed as UpdateSubscriptionUnitsNotAllowedModel,
 } from "./models";
 
-import { PolarClientError } from "../base";
+import { RepalisClientError } from "../base";
 /**
  * Validation Error
  */
-export class HTTPValidationError extends PolarClientError<HTTPValidationErrorModel> {
+export class HTTPValidationError extends RepalisClientError<HTTPValidationErrorModel> {
   constructor(
     public readonly statusCode: 422,
     public readonly error: HTTPValidationErrorModel,
@@ -62,7 +62,7 @@ export class HTTPValidationError extends PolarClientError<HTTPValidationErrorMod
 /**
  * Event not found.
  */
-export class ResourceNotFound extends PolarClientError<ResourceNotFoundModel> {
+export class ResourceNotFound extends RepalisClientError<ResourceNotFoundModel> {
   constructor(
     public readonly statusCode: 404,
     public readonly error: ResourceNotFoundModel,
@@ -74,7 +74,7 @@ export class ResourceNotFound extends PolarClientError<ResourceNotFoundModel> {
 /**
  * Forbidden
  */
-export class NotPermitted extends PolarClientError<NotPermittedModel> {
+export class NotPermitted extends RepalisClientError<NotPermittedModel> {
   constructor(
     public readonly statusCode: 403,
     public readonly error: NotPermittedModel,
@@ -86,7 +86,7 @@ export class NotPermitted extends PolarClientError<NotPermittedModel> {
 /**
  * The card was declined while setting up the payment method.
  */
-export class PaymentMethodSetupFailed extends PolarClientError<PaymentMethodSetupFailedModel> {
+export class PaymentMethodSetupFailed extends RepalisClientError<PaymentMethodSetupFailedModel> {
   constructor(
     public readonly statusCode: 400,
     public readonly error: PaymentMethodSetupFailedModel,
@@ -98,7 +98,7 @@ export class PaymentMethodSetupFailed extends PolarClientError<PaymentMethodSetu
 /**
  * Customer is not ready to confirm a payment method.
  */
-export class CustomerNotReady extends PolarClientError<CustomerNotReadyModel> {
+export class CustomerNotReady extends RepalisClientError<CustomerNotReadyModel> {
   constructor(
     public readonly statusCode: 403,
     public readonly error: CustomerNotReadyModel,
@@ -110,7 +110,7 @@ export class CustomerNotReady extends PolarClientError<CustomerNotReadyModel> {
 /**
  * Payment method is still needed to bill a subscription.
  */
-export class PaymentMethodInUseByActiveSubscription extends PolarClientError<PaymentMethodInUseByActiveSubscriptionModel> {
+export class PaymentMethodInUseByActiveSubscription extends RepalisClientError<PaymentMethodInUseByActiveSubscriptionModel> {
   constructor(
     public readonly statusCode: 400,
     public readonly error: PaymentMethodInUseByActiveSubscriptionModel,
@@ -122,7 +122,7 @@ export class PaymentMethodInUseByActiveSubscription extends PolarClientError<Pay
 /**
  * Invalid or expired verification token.
  */
-export class CustomerPortalCustomersCheckEmailUpdate401Error extends PolarClientError<null> {
+export class CustomerPortalCustomersCheckEmailUpdate401Error extends RepalisClientError<null> {
   constructor(
     public readonly statusCode: 401,
     public readonly error: null,
@@ -134,7 +134,7 @@ export class CustomerPortalCustomersCheckEmailUpdate401Error extends PolarClient
 /**
  * Invalid or expired verification token.
  */
-export class CustomerPortalCustomersVerifyEmailUpdate401Error extends PolarClientError<null> {
+export class CustomerPortalCustomersVerifyEmailUpdate401Error extends RepalisClientError<null> {
   constructor(
     public readonly statusCode: 401,
     public readonly error: null,
@@ -146,7 +146,7 @@ export class CustomerPortalCustomersVerifyEmailUpdate401Error extends PolarClien
 /**
  * Email address is already in use.
  */
-export class CustomerPortalCustomersVerifyEmailUpdate422Error extends PolarClientError<null> {
+export class CustomerPortalCustomersVerifyEmailUpdate422Error extends RepalisClientError<null> {
   constructor(
     public readonly statusCode: 422,
     public readonly error: null,
@@ -158,7 +158,7 @@ export class CustomerPortalCustomersVerifyEmailUpdate422Error extends PolarClien
 /**
  * Authentication required
  */
-export class CustomerPortalSeatsListSeats401Error extends PolarClientError<null> {
+export class CustomerPortalSeatsListSeats401Error extends RepalisClientError<null> {
   constructor(
     public readonly statusCode: 401,
     public readonly error: null,
@@ -170,7 +170,7 @@ export class CustomerPortalSeatsListSeats401Error extends PolarClientError<null>
 /**
  * Not permitted
  */
-export class CustomerPortalSeatsListSeats403Error extends PolarClientError<null> {
+export class CustomerPortalSeatsListSeats403Error extends RepalisClientError<null> {
   constructor(
     public readonly statusCode: 403,
     public readonly error: null,
@@ -182,7 +182,7 @@ export class CustomerPortalSeatsListSeats403Error extends PolarClientError<null>
 /**
  * Subscription or order not found
  */
-export class CustomerPortalSeatsListSeats404Error extends PolarClientError<null> {
+export class CustomerPortalSeatsListSeats404Error extends RepalisClientError<null> {
   constructor(
     public readonly statusCode: 404,
     public readonly error: null,
@@ -194,7 +194,7 @@ export class CustomerPortalSeatsListSeats404Error extends PolarClientError<null>
 /**
  * No available seats or customer already has a seat
  */
-export class CustomerPortalSeatsAssignSeat400Error extends PolarClientError<null> {
+export class CustomerPortalSeatsAssignSeat400Error extends RepalisClientError<null> {
   constructor(
     public readonly statusCode: 400,
     public readonly error: null,
@@ -206,7 +206,7 @@ export class CustomerPortalSeatsAssignSeat400Error extends PolarClientError<null
 /**
  * Authentication required
  */
-export class CustomerPortalSeatsAssignSeat401Error extends PolarClientError<null> {
+export class CustomerPortalSeatsAssignSeat401Error extends RepalisClientError<null> {
   constructor(
     public readonly statusCode: 401,
     public readonly error: null,
@@ -218,7 +218,7 @@ export class CustomerPortalSeatsAssignSeat401Error extends PolarClientError<null
 /**
  * Not permitted
  */
-export class CustomerPortalSeatsAssignSeat403Error extends PolarClientError<null> {
+export class CustomerPortalSeatsAssignSeat403Error extends RepalisClientError<null> {
   constructor(
     public readonly statusCode: 403,
     public readonly error: null,
@@ -230,7 +230,7 @@ export class CustomerPortalSeatsAssignSeat403Error extends PolarClientError<null
 /**
  * Subscription, order, or customer not found
  */
-export class CustomerPortalSeatsAssignSeat404Error extends PolarClientError<null> {
+export class CustomerPortalSeatsAssignSeat404Error extends RepalisClientError<null> {
   constructor(
     public readonly statusCode: 404,
     public readonly error: null,
@@ -242,7 +242,7 @@ export class CustomerPortalSeatsAssignSeat404Error extends PolarClientError<null
 /**
  * Authentication required
  */
-export class CustomerPortalSeatsRevokeSeat401Error extends PolarClientError<null> {
+export class CustomerPortalSeatsRevokeSeat401Error extends RepalisClientError<null> {
   constructor(
     public readonly statusCode: 401,
     public readonly error: null,
@@ -254,7 +254,7 @@ export class CustomerPortalSeatsRevokeSeat401Error extends PolarClientError<null
 /**
  * Not permitted
  */
-export class CustomerPortalSeatsRevokeSeat403Error extends PolarClientError<null> {
+export class CustomerPortalSeatsRevokeSeat403Error extends RepalisClientError<null> {
   constructor(
     public readonly statusCode: 403,
     public readonly error: null,
@@ -266,7 +266,7 @@ export class CustomerPortalSeatsRevokeSeat403Error extends PolarClientError<null
 /**
  * Seat not found
  */
-export class CustomerPortalSeatsRevokeSeat404Error extends PolarClientError<null> {
+export class CustomerPortalSeatsRevokeSeat404Error extends RepalisClientError<null> {
   constructor(
     public readonly statusCode: 404,
     public readonly error: null,
@@ -278,7 +278,7 @@ export class CustomerPortalSeatsRevokeSeat404Error extends PolarClientError<null
 /**
  * Seat is not pending or already claimed
  */
-export class CustomerPortalSeatsResendInvitation400Error extends PolarClientError<null> {
+export class CustomerPortalSeatsResendInvitation400Error extends RepalisClientError<null> {
   constructor(
     public readonly statusCode: 400,
     public readonly error: null,
@@ -290,7 +290,7 @@ export class CustomerPortalSeatsResendInvitation400Error extends PolarClientErro
 /**
  * Authentication required
  */
-export class CustomerPortalSeatsResendInvitation401Error extends PolarClientError<null> {
+export class CustomerPortalSeatsResendInvitation401Error extends RepalisClientError<null> {
   constructor(
     public readonly statusCode: 401,
     public readonly error: null,
@@ -302,7 +302,7 @@ export class CustomerPortalSeatsResendInvitation401Error extends PolarClientErro
 /**
  * Not permitted
  */
-export class CustomerPortalSeatsResendInvitation403Error extends PolarClientError<null> {
+export class CustomerPortalSeatsResendInvitation403Error extends RepalisClientError<null> {
   constructor(
     public readonly statusCode: 403,
     public readonly error: null,
@@ -314,7 +314,7 @@ export class CustomerPortalSeatsResendInvitation403Error extends PolarClientErro
 /**
  * Seat not found
  */
-export class CustomerPortalSeatsResendInvitation404Error extends PolarClientError<null> {
+export class CustomerPortalSeatsResendInvitation404Error extends RepalisClientError<null> {
   constructor(
     public readonly statusCode: 404,
     public readonly error: null,
@@ -326,7 +326,7 @@ export class CustomerPortalSeatsResendInvitation404Error extends PolarClientErro
 /**
  * Authentication required
  */
-export class CustomerPortalSeatsListClaimedSubscriptions401Error extends PolarClientError<null> {
+export class CustomerPortalSeatsListClaimedSubscriptions401Error extends RepalisClientError<null> {
   constructor(
     public readonly statusCode: 401,
     public readonly error: null,
@@ -338,7 +338,7 @@ export class CustomerPortalSeatsListClaimedSubscriptions401Error extends PolarCl
 /**
  * Not authorized to manage license key.
  */
-export class Unauthorized extends PolarClientError<UnauthorizedModel> {
+export class Unauthorized extends RepalisClientError<UnauthorizedModel> {
   constructor(
     public readonly statusCode: 401,
     public readonly error: UnauthorizedModel,
@@ -350,7 +350,7 @@ export class Unauthorized extends PolarClientError<UnauthorizedModel> {
 /**
  * License key cannot be rotated in its current status. Allowed statuses: disabled, granted.
  */
-export class RotateNotPermitted extends PolarClientError<RotateNotPermittedModel> {
+export class RotateNotPermitted extends RepalisClientError<RotateNotPermittedModel> {
   constructor(
     public readonly statusCode: 400,
     public readonly error: RotateNotPermittedModel,
@@ -362,7 +362,7 @@ export class RotateNotPermitted extends PolarClientError<RotateNotPermittedModel
 /**
  * The requested usage increment exceeds the license key's remaining usage allowance.
  */
-export class BadRequest extends PolarClientError<BadRequestModel> {
+export class BadRequest extends RepalisClientError<BadRequestModel> {
   constructor(
     public readonly statusCode: 400,
     public readonly error: BadRequestModel,
@@ -374,7 +374,7 @@ export class BadRequest extends PolarClientError<BadRequestModel> {
 /**
  * Authentication required
  */
-export class CustomerPortalMembersListMembers401Error extends PolarClientError<null> {
+export class CustomerPortalMembersListMembers401Error extends RepalisClientError<null> {
   constructor(
     public readonly statusCode: 401,
     public readonly error: null,
@@ -386,7 +386,7 @@ export class CustomerPortalMembersListMembers401Error extends PolarClientError<n
 /**
  * Not permitted - requires owner or billing manager role
  */
-export class CustomerPortalMembersListMembers403Error extends PolarClientError<null> {
+export class CustomerPortalMembersListMembers403Error extends RepalisClientError<null> {
   constructor(
     public readonly statusCode: 403,
     public readonly error: null,
@@ -398,7 +398,7 @@ export class CustomerPortalMembersListMembers403Error extends PolarClientError<n
 /**
  * Invalid request or member already exists.
  */
-export class CustomerPortalMembersAddMember400Error extends PolarClientError<null> {
+export class CustomerPortalMembersAddMember400Error extends RepalisClientError<null> {
   constructor(
     public readonly statusCode: 400,
     public readonly error: null,
@@ -410,7 +410,7 @@ export class CustomerPortalMembersAddMember400Error extends PolarClientError<nul
 /**
  * Authentication required
  */
-export class CustomerPortalMembersAddMember401Error extends PolarClientError<null> {
+export class CustomerPortalMembersAddMember401Error extends RepalisClientError<null> {
   constructor(
     public readonly statusCode: 401,
     public readonly error: null,
@@ -422,7 +422,7 @@ export class CustomerPortalMembersAddMember401Error extends PolarClientError<nul
 /**
  * Not permitted - requires owner or billing manager role
  */
-export class CustomerPortalMembersAddMember403Error extends PolarClientError<null> {
+export class CustomerPortalMembersAddMember403Error extends RepalisClientError<null> {
   constructor(
     public readonly statusCode: 403,
     public readonly error: null,
@@ -434,7 +434,7 @@ export class CustomerPortalMembersAddMember403Error extends PolarClientError<nul
 /**
  * Cannot remove the only owner.
  */
-export class CustomerPortalMembersRemoveMember400Error extends PolarClientError<null> {
+export class CustomerPortalMembersRemoveMember400Error extends RepalisClientError<null> {
   constructor(
     public readonly statusCode: 400,
     public readonly error: null,
@@ -446,7 +446,7 @@ export class CustomerPortalMembersRemoveMember400Error extends PolarClientError<
 /**
  * Authentication required
  */
-export class CustomerPortalMembersRemoveMember401Error extends PolarClientError<null> {
+export class CustomerPortalMembersRemoveMember401Error extends RepalisClientError<null> {
   constructor(
     public readonly statusCode: 401,
     public readonly error: null,
@@ -458,7 +458,7 @@ export class CustomerPortalMembersRemoveMember401Error extends PolarClientError<
 /**
  * Not permitted - requires owner or billing manager role
  */
-export class CustomerPortalMembersRemoveMember403Error extends PolarClientError<null> {
+export class CustomerPortalMembersRemoveMember403Error extends RepalisClientError<null> {
   constructor(
     public readonly statusCode: 403,
     public readonly error: null,
@@ -470,7 +470,7 @@ export class CustomerPortalMembersRemoveMember403Error extends PolarClientError<
 /**
  * Member not found.
  */
-export class CustomerPortalMembersRemoveMember404Error extends PolarClientError<null> {
+export class CustomerPortalMembersRemoveMember404Error extends RepalisClientError<null> {
   constructor(
     public readonly statusCode: 404,
     public readonly error: null,
@@ -482,7 +482,7 @@ export class CustomerPortalMembersRemoveMember404Error extends PolarClientError<
 /**
  * Invalid role change.
  */
-export class CustomerPortalMembersUpdateMember400Error extends PolarClientError<null> {
+export class CustomerPortalMembersUpdateMember400Error extends RepalisClientError<null> {
   constructor(
     public readonly statusCode: 400,
     public readonly error: null,
@@ -494,7 +494,7 @@ export class CustomerPortalMembersUpdateMember400Error extends PolarClientError<
 /**
  * Authentication required
  */
-export class CustomerPortalMembersUpdateMember401Error extends PolarClientError<null> {
+export class CustomerPortalMembersUpdateMember401Error extends RepalisClientError<null> {
   constructor(
     public readonly statusCode: 401,
     public readonly error: null,
@@ -506,7 +506,7 @@ export class CustomerPortalMembersUpdateMember401Error extends PolarClientError<
 /**
  * Not permitted - requires owner or billing manager role
  */
-export class CustomerPortalMembersUpdateMember403Error extends PolarClientError<null> {
+export class CustomerPortalMembersUpdateMember403Error extends RepalisClientError<null> {
   constructor(
     public readonly statusCode: 403,
     public readonly error: null,
@@ -518,7 +518,7 @@ export class CustomerPortalMembersUpdateMember403Error extends PolarClientError<
 /**
  * Member not found.
  */
-export class CustomerPortalMembersUpdateMember404Error extends PolarClientError<null> {
+export class CustomerPortalMembersUpdateMember404Error extends RepalisClientError<null> {
   constructor(
     public readonly statusCode: 404,
     public readonly error: null,
@@ -530,7 +530,7 @@ export class CustomerPortalMembersUpdateMember404Error extends PolarClientError<
 /**
  * Order is not eligible for invoice generation (invalid status).
  */
-export class OrderNotEligibleForInvoice extends PolarClientError<OrderNotEligibleForInvoiceModel> {
+export class OrderNotEligibleForInvoice extends RepalisClientError<OrderNotEligibleForInvoiceModel> {
   constructor(
     public readonly statusCode: 409,
     public readonly error: OrderNotEligibleForInvoiceModel,
@@ -542,7 +542,7 @@ export class OrderNotEligibleForInvoice extends PolarClientError<OrderNotEligibl
 /**
  * Order is missing billing name or address.
  */
-export class MissingInvoiceBillingDetails extends PolarClientError<MissingInvoiceBillingDetailsModel> {
+export class MissingInvoiceBillingDetails extends RepalisClientError<MissingInvoiceBillingDetailsModel> {
   constructor(
     public readonly statusCode: 422,
     public readonly error: MissingInvoiceBillingDetailsModel,
@@ -554,7 +554,7 @@ export class MissingInvoiceBillingDetails extends PolarClientError<MissingInvoic
 /**
  * Customer subscription is already canceled or will be at the end of the period, or the user lacks billing permissions.
  */
-export class AlreadyCanceledSubscription extends PolarClientError<AlreadyCanceledSubscriptionModel> {
+export class AlreadyCanceledSubscription extends RepalisClientError<AlreadyCanceledSubscriptionModel> {
   constructor(
     public readonly statusCode: 403,
     public readonly error: AlreadyCanceledSubscriptionModel,
@@ -566,7 +566,7 @@ export class AlreadyCanceledSubscription extends PolarClientError<AlreadyCancele
 /**
  * Payment required to apply the subscription update.
  */
-export class PaymentFailed extends PolarClientError<PaymentFailedModel> {
+export class PaymentFailed extends RepalisClientError<PaymentFailedModel> {
   constructor(
     public readonly statusCode: 402,
     public readonly error: PaymentFailedModel,
@@ -578,7 +578,7 @@ export class PaymentFailed extends PolarClientError<PaymentFailedModel> {
 /**
  * Customer subscription is already canceled or will be at the end of the period, the user lacks billing permissions, or pausing/resuming is not enabled for the organization.
  */
-export class CustomerPortalSubscriptionsUpdate403Error extends PolarClientError<
+export class CustomerPortalSubscriptionsUpdate403Error extends RepalisClientError<
   | AlreadyCanceledSubscriptionModel
   | PauseResumeNotAllowedModel
   | UpdateSubscriptionPlanNotAllowedModel
@@ -601,7 +601,7 @@ export class CustomerPortalSubscriptionsUpdate403Error extends PolarClientError<
 /**
  * The subscription has no payment method to charge, or is not scheduled to be canceled.
  */
-export class CustomerPortalSubscriptionsUpdate409Error extends PolarClientError<
+export class CustomerPortalSubscriptionsUpdate409Error extends RepalisClientError<
   PaymentMethodRequiredModel | SubscriptionNotScheduledToCancelModel
 > {
   constructor(
@@ -615,7 +615,7 @@ export class CustomerPortalSubscriptionsUpdate409Error extends PolarClientError<
 /**
  * The external customer ID matches customers in several accessible organizations.
  */
-export class AmbiguousExternalCustomerID extends PolarClientError<AmbiguousExternalCustomerIDModel> {
+export class AmbiguousExternalCustomerID extends RepalisClientError<AmbiguousExternalCustomerIDModel> {
   constructor(
     public readonly statusCode: 409,
     public readonly error: AmbiguousExternalCustomerIDModel,
@@ -627,7 +627,7 @@ export class AmbiguousExternalCustomerID extends PolarClientError<AmbiguousExter
 /**
  * The checkout is expired, the customer already has an active subscription, or the organization is not ready to accept payments.
  */
-export class CheckoutsUpdate403Error extends PolarClientError<CheckoutForbiddenErrorModel> {
+export class CheckoutsUpdate403Error extends RepalisClientError<CheckoutForbiddenErrorModel> {
   constructor(
     public readonly statusCode: 403,
     public readonly error: CheckoutForbiddenErrorModel,
@@ -639,7 +639,7 @@ export class CheckoutsUpdate403Error extends PolarClientError<CheckoutForbiddenE
 /**
  * The checkout session is expired.
  */
-export class ExpiredCheckoutError extends PolarClientError<ExpiredCheckoutErrorModel> {
+export class ExpiredCheckoutError extends RepalisClientError<ExpiredCheckoutErrorModel> {
   constructor(
     public readonly statusCode: 410,
     public readonly error: ExpiredCheckoutErrorModel,
@@ -651,7 +651,7 @@ export class ExpiredCheckoutError extends PolarClientError<ExpiredCheckoutErrorM
 /**
  * The checkout is expired, the customer already has an active subscription, or the organization is not ready to accept payments.
  */
-export class CheckoutsClientUpdate403Error extends PolarClientError<CheckoutForbiddenErrorModel> {
+export class CheckoutsClientUpdate403Error extends RepalisClientError<CheckoutForbiddenErrorModel> {
   constructor(
     public readonly statusCode: 403,
     public readonly error: CheckoutForbiddenErrorModel,
@@ -663,7 +663,7 @@ export class CheckoutsClientUpdate403Error extends PolarClientError<CheckoutForb
 /**
  * The checkout session is being processed.
  */
-export class CheckoutLocked extends PolarClientError<CheckoutLockedModel> {
+export class CheckoutLocked extends RepalisClientError<CheckoutLockedModel> {
   constructor(
     public readonly statusCode: 409,
     public readonly error: CheckoutLockedModel,
@@ -675,7 +675,7 @@ export class CheckoutLocked extends PolarClientError<CheckoutLockedModel> {
 /**
  * The payment failed or the shared payment token was rejected.
  */
-export class CheckoutsClientConfirm400Error extends PolarClientError<CheckoutPaymentErrorModel> {
+export class CheckoutsClientConfirm400Error extends RepalisClientError<CheckoutPaymentErrorModel> {
   constructor(
     public readonly statusCode: 400,
     public readonly error: CheckoutPaymentErrorModel,
@@ -687,7 +687,7 @@ export class CheckoutsClientConfirm400Error extends PolarClientError<CheckoutPay
 /**
  * The checkout is expired, the customer already has an active subscription, or the organization is not ready to accept payments.
  */
-export class CheckoutsClientConfirm403Error extends PolarClientError<CheckoutForbiddenErrorModel> {
+export class CheckoutsClientConfirm403Error extends RepalisClientError<CheckoutForbiddenErrorModel> {
   constructor(
     public readonly statusCode: 403,
     public readonly error: CheckoutForbiddenErrorModel,
@@ -699,7 +699,7 @@ export class CheckoutsClientConfirm403Error extends PolarClientError<CheckoutFor
 /**
  * Conflict
  */
-export class SubscriptionsCreate409Error extends PolarClientError<
+export class SubscriptionsCreate409Error extends RepalisClientError<
   AlreadyActiveSubscriptionModel | TrialAlreadyRedeemedModel
 > {
   constructor(
@@ -713,7 +713,7 @@ export class SubscriptionsCreate409Error extends PolarClientError<
 /**
  * Subscription is pending an update.
  */
-export class SubscriptionLocked extends PolarClientError<SubscriptionLockedModel> {
+export class SubscriptionLocked extends RepalisClientError<SubscriptionLockedModel> {
   constructor(
     public readonly statusCode: 409,
     public readonly error: SubscriptionLockedModel,
@@ -725,7 +725,7 @@ export class SubscriptionLocked extends PolarClientError<SubscriptionLockedModel
 /**
  * The charge failed, or requires customer authentication that can't be completed off-session.
  */
-export class SubscriptionsUpdate402Error extends PolarClientError<
+export class SubscriptionsUpdate402Error extends RepalisClientError<
   PaymentFailedModel | PaymentActionRequiredModel
 > {
   constructor(
@@ -739,7 +739,7 @@ export class SubscriptionsUpdate402Error extends PolarClientError<
 /**
  * Subscription is already canceled or will be at the end of the period, is not active, or the organization is not ready to renew subscriptions.
  */
-export class SubscriptionsUpdate403Error extends PolarClientError<
+export class SubscriptionsUpdate403Error extends RepalisClientError<
   AlreadyCanceledSubscriptionModel | InactiveSubscriptionModel | PaymentNotReadyModel
 > {
   constructor(
@@ -756,7 +756,7 @@ export class SubscriptionsUpdate403Error extends PolarClientError<
 /**
  * Subscription is pending an update, or is not scheduled to be canceled.
  */
-export class SubscriptionsUpdate409Error extends PolarClientError<
+export class SubscriptionsUpdate409Error extends RepalisClientError<
   SubscriptionLockedModel | SubscriptionNotScheduledToCancelModel
 > {
   constructor(
@@ -770,7 +770,7 @@ export class SubscriptionsUpdate409Error extends PolarClientError<
 /**
  * Product is in use and cannot be deleted.
  */
-export class ProductNotDeletable extends PolarClientError<ProductNotDeletableModel> {
+export class ProductNotDeletable extends RepalisClientError<ProductNotDeletableModel> {
   constructor(
     public readonly statusCode: 409,
     public readonly error: ProductNotDeletableModel,
@@ -782,7 +782,7 @@ export class ProductNotDeletable extends PolarClientError<ProductNotDeletableMod
 /**
  * The charge failed, or requires customer authentication (e.g. a 3DS challenge) that can't be completed off-session.
  */
-export class OrdersFinalize402Error extends PolarClientError<
+export class OrdersFinalize402Error extends RepalisClientError<
   PaymentFailedModel | PaymentActionRequiredModel
 > {
   constructor(
@@ -796,7 +796,7 @@ export class OrdersFinalize402Error extends PolarClientError<
 /**
  * Off-session charges are not enabled for this organization, or its account can't currently accept payments.
  */
-export class OrdersFinalize403Error extends PolarClientError<
+export class OrdersFinalize403Error extends RepalisClientError<
   OffSessionChargesNotEnabledModel | OrganizationNotReadyForPaymentsModel
 > {
   constructor(
@@ -810,7 +810,7 @@ export class OrdersFinalize403Error extends PolarClientError<
 /**
  * The order is not in `draft` status.
  */
-export class OrderNotDraft extends PolarClientError<OrderNotDraftModel> {
+export class OrderNotDraft extends RepalisClientError<OrderNotDraftModel> {
   constructor(
     public readonly statusCode: 412,
     public readonly error: OrderNotDraftModel,
@@ -822,7 +822,7 @@ export class OrderNotDraft extends PolarClientError<OrderNotDraftModel> {
 /**
  * Forbidden
  */
-export class CannotCreateOrganizationError extends PolarClientError<CannotCreateOrganizationErrorModel> {
+export class CannotCreateOrganizationError extends RepalisClientError<CannotCreateOrganizationErrorModel> {
   constructor(
     public readonly statusCode: 403,
     public readonly error: CannotCreateOrganizationErrorModel,
@@ -834,7 +834,7 @@ export class CannotCreateOrganizationError extends PolarClientError<CannotCreate
 /**
  * You don't have the permission to update this organization, or dispute auto-accept isn't enabled for it.
  */
-export class OrganizationsUpdate403Error extends PolarClientError<
+export class OrganizationsUpdate403Error extends RepalisClientError<
   NotPermittedModel | DisputeAutoAcceptNotEnabledModel
 > {
   constructor(
@@ -848,7 +848,7 @@ export class OrganizationsUpdate403Error extends PolarClientError<
 /**
  * Cannot enforce SSO without an enabled connection and a verified domain.
  */
-export class OrganizationsUpdate409Error extends PolarClientError<
+export class OrganizationsUpdate409Error extends RepalisClientError<
   SSOEnforcementRequiresConnectionModel | SSORequiresVerifiedDomainModel
 > {
   constructor(
@@ -862,7 +862,7 @@ export class OrganizationsUpdate409Error extends PolarClientError<
 /**
  * The external_id is already used by a different event, or the external customer ID matches customers in several accessible organizations.
  */
-export class CustomerMetersCredits409Error extends PolarClientError<
+export class CustomerMetersCredits409Error extends RepalisClientError<
   CustomerMeterCreditExternalIDConflictModel | AmbiguousExternalCustomerIDModel
 > {
   constructor(
@@ -878,7 +878,7 @@ export class CustomerMetersCredits409Error extends PolarClientError<
 /**
  * The credit can't be reversed, or the customer meter is being updated: retry shortly.
  */
-export class CustomerMeterCreditNotReversible extends PolarClientError<CustomerMeterCreditNotReversibleModel> {
+export class CustomerMeterCreditNotReversible extends RepalisClientError<CustomerMeterCreditNotReversibleModel> {
   constructor(
     public readonly statusCode: 409,
     public readonly error: CustomerMeterCreditNotReversibleModel,
@@ -890,7 +890,7 @@ export class CustomerMeterCreditNotReversible extends PolarClientError<CustomerM
 /**
  * The external ID matches meters in several accessible organizations.
  */
-export class AmbiguousExternalMeterID extends PolarClientError<AmbiguousExternalMeterIDModel> {
+export class AmbiguousExternalMeterID extends RepalisClientError<AmbiguousExternalMeterIDModel> {
   constructor(
     public readonly statusCode: 409,
     public readonly error: AmbiguousExternalMeterIDModel,
@@ -902,7 +902,7 @@ export class AmbiguousExternalMeterID extends PolarClientError<AmbiguousExternal
 /**
  * Conflict
  */
-export class DisputeNotOpenError extends PolarClientError<DisputeNotOpenErrorModel> {
+export class DisputeNotOpenError extends RepalisClientError<DisputeNotOpenErrorModel> {
   constructor(
     public readonly statusCode: 409,
     public readonly error: DisputeNotOpenErrorModel,
@@ -914,7 +914,7 @@ export class DisputeNotOpenError extends PolarClientError<DisputeNotOpenErrorMod
 /**
  * Order is already fully refunded.
  */
-export class RefundedAlready extends PolarClientError<RefundedAlreadyModel> {
+export class RefundedAlready extends RepalisClientError<RefundedAlreadyModel> {
   constructor(
     public readonly statusCode: 403,
     public readonly error: RefundedAlreadyModel,
@@ -926,7 +926,7 @@ export class RefundedAlready extends PolarClientError<RefundedAlreadyModel> {
 /**
  * The external ID matches webhook endpoints in several accessible organizations.
  */
-export class AmbiguousExternalWebhookEndpointID extends PolarClientError<AmbiguousExternalWebhookEndpointIDModel> {
+export class AmbiguousExternalWebhookEndpointID extends RepalisClientError<AmbiguousExternalWebhookEndpointIDModel> {
   constructor(
     public readonly statusCode: 409,
     public readonly error: AmbiguousExternalWebhookEndpointIDModel,
@@ -938,7 +938,7 @@ export class AmbiguousExternalWebhookEndpointID extends PolarClientError<Ambiguo
 /**
  * Conflict
  */
-export class BenefitGrantAlreadyExists extends PolarClientError<BenefitGrantAlreadyExistsModel> {
+export class BenefitGrantAlreadyExists extends RepalisClientError<BenefitGrantAlreadyExistsModel> {
   constructor(
     public readonly statusCode: 409,
     public readonly error: BenefitGrantAlreadyExistsModel,
@@ -950,7 +950,7 @@ export class BenefitGrantAlreadyExists extends PolarClientError<BenefitGrantAlre
 /**
  * Authentication required
  */
-export class CustomerSeatsListSeats401Error extends PolarClientError<null> {
+export class CustomerSeatsListSeats401Error extends RepalisClientError<null> {
   constructor(
     public readonly statusCode: 401,
     public readonly error: null,
@@ -962,7 +962,7 @@ export class CustomerSeatsListSeats401Error extends PolarClientError<null> {
 /**
  * Not permitted
  */
-export class CustomerSeatsListSeats403Error extends PolarClientError<null> {
+export class CustomerSeatsListSeats403Error extends RepalisClientError<null> {
   constructor(
     public readonly statusCode: 403,
     public readonly error: null,
@@ -974,7 +974,7 @@ export class CustomerSeatsListSeats403Error extends PolarClientError<null> {
 /**
  * Subscription or order not found
  */
-export class CustomerSeatsListSeats404Error extends PolarClientError<null> {
+export class CustomerSeatsListSeats404Error extends RepalisClientError<null> {
   constructor(
     public readonly statusCode: 404,
     public readonly error: null,
@@ -986,7 +986,7 @@ export class CustomerSeatsListSeats404Error extends PolarClientError<null> {
 /**
  * No available seats or customer already has a seat
  */
-export class CustomerSeatsAssignSeat400Error extends PolarClientError<null> {
+export class CustomerSeatsAssignSeat400Error extends RepalisClientError<null> {
   constructor(
     public readonly statusCode: 400,
     public readonly error: null,
@@ -998,7 +998,7 @@ export class CustomerSeatsAssignSeat400Error extends PolarClientError<null> {
 /**
  * Authentication required
  */
-export class CustomerSeatsAssignSeat401Error extends PolarClientError<null> {
+export class CustomerSeatsAssignSeat401Error extends RepalisClientError<null> {
   constructor(
     public readonly statusCode: 401,
     public readonly error: null,
@@ -1010,7 +1010,7 @@ export class CustomerSeatsAssignSeat401Error extends PolarClientError<null> {
 /**
  * Not permitted
  */
-export class CustomerSeatsAssignSeat403Error extends PolarClientError<null> {
+export class CustomerSeatsAssignSeat403Error extends RepalisClientError<null> {
   constructor(
     public readonly statusCode: 403,
     public readonly error: null,
@@ -1022,7 +1022,7 @@ export class CustomerSeatsAssignSeat403Error extends PolarClientError<null> {
 /**
  * Subscription, order, or customer not found
  */
-export class CustomerSeatsAssignSeat404Error extends PolarClientError<null> {
+export class CustomerSeatsAssignSeat404Error extends RepalisClientError<null> {
   constructor(
     public readonly statusCode: 404,
     public readonly error: null,
@@ -1034,7 +1034,7 @@ export class CustomerSeatsAssignSeat404Error extends PolarClientError<null> {
 /**
  * Authentication required
  */
-export class CustomerSeatsRevokeSeat401Error extends PolarClientError<null> {
+export class CustomerSeatsRevokeSeat401Error extends RepalisClientError<null> {
   constructor(
     public readonly statusCode: 401,
     public readonly error: null,
@@ -1046,7 +1046,7 @@ export class CustomerSeatsRevokeSeat401Error extends PolarClientError<null> {
 /**
  * Not permitted
  */
-export class CustomerSeatsRevokeSeat403Error extends PolarClientError<null> {
+export class CustomerSeatsRevokeSeat403Error extends RepalisClientError<null> {
   constructor(
     public readonly statusCode: 403,
     public readonly error: null,
@@ -1058,7 +1058,7 @@ export class CustomerSeatsRevokeSeat403Error extends PolarClientError<null> {
 /**
  * Seat not found
  */
-export class CustomerSeatsRevokeSeat404Error extends PolarClientError<null> {
+export class CustomerSeatsRevokeSeat404Error extends RepalisClientError<null> {
   constructor(
     public readonly statusCode: 404,
     public readonly error: null,
@@ -1070,7 +1070,7 @@ export class CustomerSeatsRevokeSeat404Error extends PolarClientError<null> {
 /**
  * Seat is not pending or already claimed
  */
-export class CustomerSeatsResendInvitation400Error extends PolarClientError<null> {
+export class CustomerSeatsResendInvitation400Error extends RepalisClientError<null> {
   constructor(
     public readonly statusCode: 400,
     public readonly error: null,
@@ -1082,7 +1082,7 @@ export class CustomerSeatsResendInvitation400Error extends PolarClientError<null
 /**
  * Authentication required
  */
-export class CustomerSeatsResendInvitation401Error extends PolarClientError<null> {
+export class CustomerSeatsResendInvitation401Error extends RepalisClientError<null> {
   constructor(
     public readonly statusCode: 401,
     public readonly error: null,
@@ -1094,7 +1094,7 @@ export class CustomerSeatsResendInvitation401Error extends PolarClientError<null
 /**
  * Not permitted
  */
-export class CustomerSeatsResendInvitation403Error extends PolarClientError<null> {
+export class CustomerSeatsResendInvitation403Error extends RepalisClientError<null> {
   constructor(
     public readonly statusCode: 403,
     public readonly error: null,
@@ -1106,7 +1106,7 @@ export class CustomerSeatsResendInvitation403Error extends PolarClientError<null
 /**
  * Seat not found
  */
-export class CustomerSeatsResendInvitation404Error extends PolarClientError<null> {
+export class CustomerSeatsResendInvitation404Error extends RepalisClientError<null> {
   constructor(
     public readonly statusCode: 404,
     public readonly error: null,
@@ -1118,7 +1118,7 @@ export class CustomerSeatsResendInvitation404Error extends PolarClientError<null
 /**
  * Invalid or expired invitation token
  */
-export class CustomerSeatsGetClaimInfo400Error extends PolarClientError<null> {
+export class CustomerSeatsGetClaimInfo400Error extends RepalisClientError<null> {
   constructor(
     public readonly statusCode: 400,
     public readonly error: null,
@@ -1130,7 +1130,7 @@ export class CustomerSeatsGetClaimInfo400Error extends PolarClientError<null> {
 /**
  * Seat-based pricing not enabled for organization
  */
-export class CustomerSeatsGetClaimInfo403Error extends PolarClientError<null> {
+export class CustomerSeatsGetClaimInfo403Error extends RepalisClientError<null> {
   constructor(
     public readonly statusCode: 403,
     public readonly error: null,
@@ -1142,7 +1142,7 @@ export class CustomerSeatsGetClaimInfo403Error extends PolarClientError<null> {
 /**
  * Seat not found
  */
-export class CustomerSeatsGetClaimInfo404Error extends PolarClientError<null> {
+export class CustomerSeatsGetClaimInfo404Error extends RepalisClientError<null> {
   constructor(
     public readonly statusCode: 404,
     public readonly error: null,
@@ -1154,7 +1154,7 @@ export class CustomerSeatsGetClaimInfo404Error extends PolarClientError<null> {
 /**
  * Invalid, expired, or already claimed token
  */
-export class CustomerSeatsClaimSeat400Error extends PolarClientError<null> {
+export class CustomerSeatsClaimSeat400Error extends RepalisClientError<null> {
   constructor(
     public readonly statusCode: 400,
     public readonly error: null,
@@ -1166,7 +1166,7 @@ export class CustomerSeatsClaimSeat400Error extends PolarClientError<null> {
 /**
  * Seat-based pricing not enabled for organization
  */
-export class CustomerSeatsClaimSeat403Error extends PolarClientError<null> {
+export class CustomerSeatsClaimSeat403Error extends RepalisClientError<null> {
   constructor(
     public readonly statusCode: 403,
     public readonly error: null,
@@ -1178,7 +1178,7 @@ export class CustomerSeatsClaimSeat403Error extends PolarClientError<null> {
 /**
  * Not Found
  */
-export class EventTypesUpdate404Error extends PolarClientError<null> {
+export class EventTypesUpdate404Error extends RepalisClientError<null> {
   constructor(
     public readonly statusCode: 404,
     public readonly error: null,

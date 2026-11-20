@@ -1,18 +1,18 @@
-import type * as V2026_10 from '@polar-sh/sdk/2026-10'
-import type * as V2027_01 from '@polar-sh/sdk/2027-01'
+import type * as V2026_10 from '@repalis/sdk/2026-10'
+import type * as V2027_01 from '@repalis/sdk/2027-01'
 import { Context, Data, type Effect, type Option, type Stdio } from 'effect'
 import type { Prompt } from 'effect/cli'
 
-export type { Environment } from '@polar-sh/sdk/2026-10'
+export type { Environment } from '@repalis/sdk/2026-10'
 
 export interface ApiClients {
   '2026-10': {
-    client: V2026_10.Polar
-    core: V2026_10.PolarCore
+    client: V2026_10.Repalis
+    core: V2026_10.RepalisCore
   }
   '2027-01': {
-    client: V2027_01.Polar
-    core: V2027_01.PolarCore
+    client: V2027_01.Repalis
+    core: V2027_01.RepalisCore
   }
 }
 
@@ -78,4 +78,4 @@ export class ApiRuntime extends Context.Service<
       operation: ApiOperation<A, V>,
     ) => Effect.Effect<void, ApiCommandError, Stdio.Stdio | Prompt.Environment>
   }
->()('@polar-sh/cli-commands/ApiRuntime') {}
+>()('@repalis/cli-commands/ApiRuntime') {}

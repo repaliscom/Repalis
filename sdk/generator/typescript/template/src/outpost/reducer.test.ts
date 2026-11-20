@@ -116,7 +116,7 @@ describe("reduction", () => {
   });
 
   it.each(["and", "or"] as const)(
-    "matches every event with an empty %s, like Polar",
+    "matches every event with an empty %s, like Repalis",
     (conjunction) => {
       expect(getMatcher({ conjunction, clauses: [] })(event)).toBe(true);
     },
@@ -131,7 +131,7 @@ describe("reduction", () => {
     [false, 1, false],
     ["1", 1, false],
     ["0", false, false],
-  ] as const)("compares %s and %s like Polar", (actual, expected, equal) => {
+  ] as const)("compares %s and %s like Repalis", (actual, expected, equal) => {
     const sample = { ...event, metadata: { value: actual } };
     expect(getMatcher({ property: "value", operator: "eq", value: expected })(sample)).toBe(equal);
     expect(getMatcher({ property: "value", operator: "ne", value: expected })(sample)).toBe(!equal);
@@ -142,7 +142,7 @@ describe("reduction", () => {
     ["gpt-4o-mini", "claude", false],
     ["gpt-4o-mini", "GPT", false],
     ["100%_done", "%_", true],
-  ] as const)("checks whether %s contains %s like Polar", (actual, expected, contained) => {
+  ] as const)("checks whether %s contains %s like Repalis", (actual, expected, contained) => {
     const sample = { ...event, metadata: { value: actual } };
     expect(getMatcher({ property: "value", operator: "like", value: expected })(sample)).toBe(
       contained,

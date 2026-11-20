@@ -68,9 +68,9 @@ class CustomerSeatsSync(SyncServiceBase):
             CustomerSeatsListSeats403Error: Not permitted
             CustomerSeatsListSeats404Error: Subscription or order not found
             HTTPValidationError: Validation Error
-            PolarNetworkError: Raised when a network error occurs while making the request.
-            PolarRateLimitError: Raised when the rate limit is exceeded.
-            PolarServerError: Raised when the server returns a 5xx error response.
+            RepalisNetworkError: Raised when a network error occurs while making the request.
+            RepalisRateLimitError: Raised when the rate limit is exceeded.
+            RepalisServerError: Raised when the server returns a 5xx error response.
         """
         request = self.client.build_request(
             method="GET",
@@ -116,9 +116,9 @@ class CustomerSeatsSync(SyncServiceBase):
             CustomerSeatsAssignSeat403Error: Not permitted
             CustomerSeatsAssignSeat404Error: Subscription, order, or customer not found
             HTTPValidationError: Validation Error
-            PolarNetworkError: Raised when a network error occurs while making the request.
-            PolarRateLimitError: Raised when the rate limit is exceeded.
-            PolarServerError: Raised when the server returns a 5xx error response.
+            RepalisNetworkError: Raised when a network error occurs while making the request.
+            RepalisRateLimitError: Raised when the rate limit is exceeded.
+            RepalisServerError: Raised when the server returns a 5xx error response.
         """
         request = self.client.build_request(
             method="POST",
@@ -162,9 +162,9 @@ class CustomerSeatsSync(SyncServiceBase):
             CustomerSeatsRevokeSeat403Error: Not permitted
             CustomerSeatsRevokeSeat404Error: Seat not found
             HTTPValidationError: Validation Error
-            PolarNetworkError: Raised when a network error occurs while making the request.
-            PolarRateLimitError: Raised when the rate limit is exceeded.
-            PolarServerError: Raised when the server returns a 5xx error response.
+            RepalisNetworkError: Raised when a network error occurs while making the request.
+            RepalisRateLimitError: Raised when the rate limit is exceeded.
+            RepalisServerError: Raised when the server returns a 5xx error response.
         """
         request = self.client.build_request(
             method="DELETE",
@@ -209,9 +209,9 @@ class CustomerSeatsSync(SyncServiceBase):
             CustomerSeatsResendInvitation403Error: Not permitted
             CustomerSeatsResendInvitation404Error: Seat not found
             HTTPValidationError: Validation Error
-            PolarNetworkError: Raised when a network error occurs while making the request.
-            PolarRateLimitError: Raised when the rate limit is exceeded.
-            PolarServerError: Raised when the server returns a 5xx error response.
+            RepalisNetworkError: Raised when a network error occurs while making the request.
+            RepalisRateLimitError: Raised when the rate limit is exceeded.
+            RepalisServerError: Raised when the server returns a 5xx error response.
         """
         request = self.client.build_request(
             method="POST",
@@ -254,9 +254,9 @@ class CustomerSeatsSync(SyncServiceBase):
             CustomerSeatsGetClaimInfo403Error: Seat-based pricing not enabled for organization
             CustomerSeatsGetClaimInfo404Error: Seat not found
             HTTPValidationError: Validation Error
-            PolarNetworkError: Raised when a network error occurs while making the request.
-            PolarRateLimitError: Raised when the rate limit is exceeded.
-            PolarServerError: Raised when the server returns a 5xx error response.
+            RepalisNetworkError: Raised when a network error occurs while making the request.
+            RepalisRateLimitError: Raised when the rate limit is exceeded.
+            RepalisServerError: Raised when the server returns a 5xx error response.
         """
         request = self.client.build_request(
             method="GET",
@@ -297,9 +297,9 @@ class CustomerSeatsSync(SyncServiceBase):
             CustomerSeatsClaimSeat400Error: Invalid, expired, or already claimed token
             CustomerSeatsClaimSeat403Error: Seat-based pricing not enabled for organization
             HTTPValidationError: Validation Error
-            PolarNetworkError: Raised when a network error occurs while making the request.
-            PolarRateLimitError: Raised when the rate limit is exceeded.
-            PolarServerError: Raised when the server returns a 5xx error response.
+            RepalisNetworkError: Raised when a network error occurs while making the request.
+            RepalisRateLimitError: Raised when the rate limit is exceeded.
+            RepalisServerError: Raised when the server returns a 5xx error response.
         """
         request = self.client.build_request(
             method="POST",
@@ -345,9 +345,9 @@ class CustomerSeatsAsync(AsyncServiceBase):
             CustomerSeatsListSeats403Error: Not permitted
             CustomerSeatsListSeats404Error: Subscription or order not found
             HTTPValidationError: Validation Error
-            PolarNetworkError: Raised when a network error occurs while making the request.
-            PolarRateLimitError: Raised when the rate limit is exceeded.
-            PolarServerError: Raised when the server returns a 5xx error response.
+            RepalisNetworkError: Raised when a network error occurs while making the request.
+            RepalisRateLimitError: Raised when the rate limit is exceeded.
+            RepalisServerError: Raised when the server returns a 5xx error response.
         """
         request = self.client.build_request(
             method="GET",
@@ -393,9 +393,9 @@ class CustomerSeatsAsync(AsyncServiceBase):
             CustomerSeatsAssignSeat403Error: Not permitted
             CustomerSeatsAssignSeat404Error: Subscription, order, or customer not found
             HTTPValidationError: Validation Error
-            PolarNetworkError: Raised when a network error occurs while making the request.
-            PolarRateLimitError: Raised when the rate limit is exceeded.
-            PolarServerError: Raised when the server returns a 5xx error response.
+            RepalisNetworkError: Raised when a network error occurs while making the request.
+            RepalisRateLimitError: Raised when the rate limit is exceeded.
+            RepalisServerError: Raised when the server returns a 5xx error response.
         """
         request = self.client.build_request(
             method="POST",
@@ -439,9 +439,9 @@ class CustomerSeatsAsync(AsyncServiceBase):
             CustomerSeatsRevokeSeat403Error: Not permitted
             CustomerSeatsRevokeSeat404Error: Seat not found
             HTTPValidationError: Validation Error
-            PolarNetworkError: Raised when a network error occurs while making the request.
-            PolarRateLimitError: Raised when the rate limit is exceeded.
-            PolarServerError: Raised when the server returns a 5xx error response.
+            RepalisNetworkError: Raised when a network error occurs while making the request.
+            RepalisRateLimitError: Raised when the rate limit is exceeded.
+            RepalisServerError: Raised when the server returns a 5xx error response.
         """
         request = self.client.build_request(
             method="DELETE",
@@ -486,9 +486,9 @@ class CustomerSeatsAsync(AsyncServiceBase):
             CustomerSeatsResendInvitation403Error: Not permitted
             CustomerSeatsResendInvitation404Error: Seat not found
             HTTPValidationError: Validation Error
-            PolarNetworkError: Raised when a network error occurs while making the request.
-            PolarRateLimitError: Raised when the rate limit is exceeded.
-            PolarServerError: Raised when the server returns a 5xx error response.
+            RepalisNetworkError: Raised when a network error occurs while making the request.
+            RepalisRateLimitError: Raised when the rate limit is exceeded.
+            RepalisServerError: Raised when the server returns a 5xx error response.
         """
         request = self.client.build_request(
             method="POST",
@@ -531,9 +531,9 @@ class CustomerSeatsAsync(AsyncServiceBase):
             CustomerSeatsGetClaimInfo403Error: Seat-based pricing not enabled for organization
             CustomerSeatsGetClaimInfo404Error: Seat not found
             HTTPValidationError: Validation Error
-            PolarNetworkError: Raised when a network error occurs while making the request.
-            PolarRateLimitError: Raised when the rate limit is exceeded.
-            PolarServerError: Raised when the server returns a 5xx error response.
+            RepalisNetworkError: Raised when a network error occurs while making the request.
+            RepalisRateLimitError: Raised when the rate limit is exceeded.
+            RepalisServerError: Raised when the server returns a 5xx error response.
         """
         request = self.client.build_request(
             method="GET",
@@ -574,9 +574,9 @@ class CustomerSeatsAsync(AsyncServiceBase):
             CustomerSeatsClaimSeat400Error: Invalid, expired, or already claimed token
             CustomerSeatsClaimSeat403Error: Seat-based pricing not enabled for organization
             HTTPValidationError: Validation Error
-            PolarNetworkError: Raised when a network error occurs while making the request.
-            PolarRateLimitError: Raised when the rate limit is exceeded.
-            PolarServerError: Raised when the server returns a 5xx error response.
+            RepalisNetworkError: Raised when a network error occurs while making the request.
+            RepalisRateLimitError: Raised when the rate limit is exceeded.
+            RepalisServerError: Raised when the server returns a 5xx error response.
         """
         request = self.client.build_request(
             method="POST",

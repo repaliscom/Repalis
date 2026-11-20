@@ -17,18 +17,18 @@ def test_renders_code_samples(
     }
 
     assert sources['$["paths"]["/health"]["get"]'] == (
-        "from repalis.v2026_04 import Polar\n"
+        "from repalis.v2026_04 import Repalis\n"
         "\n"
-        'polar = Polar("polar_oat_xxx")\n'
+        'repalis = Repalis("repalis_oat_xxx")\n'
         "\n"
-        "polar.health.get()\n"
+        "repalis.health.get()\n"
     )
     pagination = sources['$["paths"]["/accounts/{account_id}/payment-methods"]["get"]']
-    assert "for item in polar.accounts.payment_methods.iter_list(" in pagination
+    assert "for item in repalis.accounts.payment_methods.iter_list(" in pagination
     assert "'00000000-0000-4000-8000-000000000000'," in pagination
     assert "account_id=" not in pagination
     assert "os.environ" not in pagination
-    assert "with Polar" not in pagination
+    assert "with Repalis" not in pagination
 
     widget = sources['$["paths"]["/widgets"]["post"]']
     assert "kind='physical'" in widget

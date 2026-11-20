@@ -57,7 +57,7 @@ export interface ActorMetering {
   /**
    * Read this customer's meter using the parent's read strategy.
    *
-   * @param meterId Polar meter ID.
+   * @param meterId Repalis meter ID.
    * @returns Consumption, credits, and balance, or null if no meter is found.
    */
   meter(meterId: string): Promise<CustomerMeter | null>;
@@ -75,7 +75,7 @@ export interface MeteringStrategy {
   /**
    * Warm customer state using exactly one customer identifier.
    *
-   * @param input Polar customer ID or customer ID in your application.
+   * @param input Repalis customer ID or customer ID in your application.
    */
   actor?(input: ActorInput): Promise<void>;
   meter?(input: MeterInput & { meter_id: string }): Promise<CustomerMeter | null>;
@@ -98,7 +98,7 @@ export interface MeteringStrategy {
 }
 
 /**
- * Creates the Outpost used by metering. Build one with `outpost()` from `@polar-sh/sdk/outpost`.
+ * Creates the Outpost used by metering. Build one with `outpost()` from `@repalis/sdk/outpost`.
  */
 export type MeteringOutpost = (client: ClientBase) => Outpost;
 
@@ -118,7 +118,7 @@ export type MeteringOptions =
 /**
  * Dispatch events, actor warmup, and meter reads to metering strategies.
  *
- * Create with polar.metering(); the first operation starts its resources. Call close() on
+ * Create with repalis.metering(); the first operation starts its resources. Call close() on
  * shutdown. By default, events are buffered for HTTP delivery, with Outpost added
  * when the outpost option is set. Accepting an event does not confirm delivery.
  */
@@ -207,9 +207,9 @@ export class Metering {
    * Read a meter value.
    *
    * If enabled, the local value from Outpost will be read. Otherwise, it'll
-   * fall back to the Polar API.
+   * fall back to the Repalis API.
    *
-   * @param meterId Polar meter ID.
+   * @param meterId Repalis meter ID.
    * @param input Exactly one customer identifier.
    * @returns Consumption, credits, and balance, or null if no meter is found.
    * @throws InvalidActorError if exactly one customer identifier was not provided.
@@ -373,12 +373,12 @@ const validateActor = (input: {
 };
 
 /**
- * Create a lazily started helper, usually via polar.metering().
+ * Create a lazily started helper, usually via repalis.metering().
  *
- * @param polar Polar client used for event delivery.
+ * @param repalis Repalis client used for event delivery.
  * @param client Authenticated HTTP client used for meter reads.
  * @param options.buffered Buffer options; omitted fields use BufferedMeteringOptions defaults.
- * @param options.outpost Outpost factory from `outpost()` in `@polar-sh/sdk/outpost`.
+ * @param options.outpost Outpost factory from `outpost()` in `@repalis/sdk/outpost`.
  * Disabled by default.
  * @param options.strategies Replace all default strategies. Cannot be combined with
  * buffered or outpost options.
@@ -386,7 +386,7 @@ const validateActor = (input: {
  * @throws MeteringError if options conflict.
  */
 export const createMetering = (
-  polar: MeteringClient,
+  repalis: MeteringClient,
   client: ClientBase,
   options: MeteringOptions = {},
 ): Metering => {
@@ -402,7 +402,7 @@ export const createMetering = (
     const createOutpost = options.outpost;
     let outpost: Outpost | undefined;
 
-    // Polar received the delivered events: they settle where their bucket is hot. It will
+    // Repalis received the delivered events: they settle where their bucket is hot. It will
     // never count the dropped ones: they settle everywhere.
     const settle = async (events: EventInput[], dropped: boolean): Promise<void> => {
       try {
@@ -448,7 +448,7 @@ export const createMetering = (
     });
   }
   return new Metering({
-    strategies: [new BufferedMeteringStrategy(polar, buffered), ...strategies],
+    strategies: [new BufferedMeteringStrategy(repalis, buffered), ...strategies],
     client,
   });
 };

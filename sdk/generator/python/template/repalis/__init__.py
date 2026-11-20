@@ -1,22 +1,22 @@
 from repalis.base import (
-    PolarClientError,
-    PolarDeserializationError,
-    PolarError,
-    PolarNetworkError,
-    PolarRateLimitError,
-    PolarServerError,
+    RepalisClientError,
+    RepalisDeserializationError,
+    RepalisError,
+    RepalisNetworkError,
+    RepalisRateLimitError,
+    RepalisServerError,
     RequestTimeout,
     deserialize,
 )
 
 __version__ = "{{ version }}"
 __all__ = [
-    "PolarError",
-    "PolarDeserializationError",
-    "PolarNetworkError",
-    "PolarRateLimitError",
-    "PolarServerError",
-    "PolarClientError",
+    "RepalisError",
+    "RepalisDeserializationError",
+    "RepalisNetworkError",
+    "RepalisRateLimitError",
+    "RepalisServerError",
+    "RepalisClientError",
     "RequestTimeout",
     "deserialize",
 ]

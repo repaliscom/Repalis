@@ -1,25 +1,25 @@
-import { PolarError } from "./base";
+import { RepalisError } from "./base";
 
 const webhookToleranceSeconds = 5 * 60;
 
-export class PolarWebhookError extends PolarError {
+export class RepalisWebhookError extends RepalisError {
   constructor(message: string, options?: ErrorOptions) {
     super(message, options);
-    this.name = "PolarWebhookError";
+    this.name = "RepalisWebhookError";
   }
 }
 
-export class PolarWebhookVerificationError extends PolarWebhookError {
+export class RepalisWebhookVerificationError extends RepalisWebhookError {
   constructor(message: string, options?: ErrorOptions) {
     super(message, options);
-    this.name = "PolarWebhookVerificationError";
+    this.name = "RepalisWebhookVerificationError";
   }
 }
 
-export class PolarWebhookUnknownTypeError extends PolarWebhookError {
+export class RepalisWebhookUnknownTypeError extends RepalisWebhookError {
   constructor(public readonly eventType: string | null) {
     super(`Unknown webhook event type: ${JSON.stringify(eventType)}`);
-    this.name = "PolarWebhookUnknownTypeError";
+    this.name = "RepalisWebhookUnknownTypeError";
   }
 }
 
@@ -36,7 +36,7 @@ export const validateWebhook = async <Payload>(
   try {
     parsed = JSON.parse(bodyText);
   } catch (error) {
-    throw new PolarWebhookError("Failed to parse webhook payload", {
+    throw new RepalisWebhookError("Failed to parse webhook payload", {
       cause: error,
     });
   }
@@ -49,7 +49,7 @@ export const validateWebhook = async <Payload>(
       ? parsed.type
       : null;
   if (eventType === null || !eventTypes.has(eventType)) {
-    throw new PolarWebhookUnknownTypeError(eventType);
+    throw new RepalisWebhookUnknownTypeError(eventType);
   }
 
   return parsed as Payload;
@@ -61,7 +61,7 @@ const verifySignature = async (
   secret: string,
 ): Promise<void> => {
   if (secret.length === 0) {
-    throw new PolarWebhookVerificationError("Secret can't be empty");
+    throw new RepalisWebhookVerificationError("Secret can't be empty");
   }
 
   const normalizedHeaders = Object.fromEntries(
@@ -71,20 +71,20 @@ const verifySignature = async (
   const webhookTimestamp = normalizedHeaders["webhook-timestamp"];
   const webhookSignature = normalizedHeaders["webhook-signature"];
   if (!webhookId || !webhookTimestamp || !webhookSignature) {
-    throw new PolarWebhookVerificationError("Missing required headers");
+    throw new RepalisWebhookVerificationError("Missing required headers");
   }
 
   const timestamp = Number(webhookTimestamp);
   if (!Number.isFinite(timestamp)) {
-    throw new PolarWebhookVerificationError("Invalid signature headers");
+    throw new RepalisWebhookVerificationError("Invalid signature headers");
   }
 
   const now = Date.now() / 1000;
   if (timestamp < now - webhookToleranceSeconds) {
-    throw new PolarWebhookVerificationError("Message timestamp too old");
+    throw new RepalisWebhookVerificationError("Message timestamp too old");
   }
   if (timestamp > now + webhookToleranceSeconds) {
-    throw new PolarWebhookVerificationError("Message timestamp too new");
+    throw new RepalisWebhookVerificationError("Message timestamp too new");
   }
 
   const signedContent = `${webhookId}.${Math.floor(timestamp)}.${body}`;
@@ -121,7 +121,7 @@ const verifySignature = async (
     }
   }
 
-  throw new PolarWebhookVerificationError("No matching signature found");
+  throw new RepalisWebhookVerificationError("No matching signature found");
 };
 
 const hmacKeys = (secret: string): BufferSource[] => {

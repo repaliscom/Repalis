@@ -1,10 +1,10 @@
 # Usage-event ingestion
 
-Use these instructions whenever implementing metered usage or sending events used by a Polar meter.
+Use these instructions whenever implementing metered usage or sending events used by a Repalis meter.
 
 ## Ingest events
 
-Send events from trusted server-side code. Use the application's customer ID as `external_customer_id` when the Polar customer has the same `external_id`.
+Send events from trusted server-side code. Use the application's customer ID as `external_customer_id` when the Repalis customer has the same `external_id`.
 
 ```python
 import os
@@ -12,8 +12,8 @@ import os
 from repalis.v2026_10 import Repalis
 
 
-with Polar(os.environ["POLAR_ACCESS_TOKEN"]) as polar:
-    result = polar.events.ingest(
+with Repalis(os.environ["REPALIS_ACCESS_TOKEN"]) as repalis:
+    result = repalis.events.ingest(
         events=[
             {
                 "name": "ai_generation",
@@ -49,6 +49,6 @@ Batch events when appropriate, but keep every event independently identifiable. 
 
 Events are immutable after ingestion. Set `timestamp` to an ISO 8601 string when preserving the time the usage occurred.
 
-Polar attributes an event to a billing period according to when Polar receives it, not only its supplied timestamp. Replaying an old event does not revise an already-closed invoice.
+Repalis attributes an event to a billing period according to when Repalis receives it, not only its supplied timestamp. Replaying an old event does not revise an already-closed invoice.
 
 Event ingestion records usage regardless of the customer's remaining meter balance. Query or cache customer state and enforce hard usage limits in the application before performing the metered action.

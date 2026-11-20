@@ -7,10 +7,10 @@
 {{ call_path }}()
 {%- endif -%}
 {% endmacro -%}
-import { createPolar } from "@polar-sh/sdk/{{ version }}";
+import { createRepalis } from "@repalis/sdk/{{ version }}";
 
-const polar = createPolar({
-  accessToken: "polar_oat_xxx",
+const repalis = createRepalis({
+  accessToken: "repalis_oat_xxx",
 });
 
 {% if pagination %}for await (const item of {{ render_call() }}) {

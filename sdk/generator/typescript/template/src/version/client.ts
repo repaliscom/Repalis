@@ -13,13 +13,13 @@ const SERVERS: Record<Environment, string> = {
   {% endfor %}
 };
 
-export interface PolarOptions
+export interface RepalisOptions
   extends Omit<ClientOptions, "baseUrl" | "version"> {
   environment?: Environment;
   baseUrl?: string;
 }
 
-export function createPolarCore(options: PolarOptions) {
+export function createRepalisCore(options: RepalisOptions) {
   return new ClientBase({
     ...options,
     baseUrl: resolveBaseUrl(
@@ -31,10 +31,10 @@ export function createPolarCore(options: PolarOptions) {
   });
 }
 
-export type PolarCore = ReturnType<typeof createPolarCore>;
+export type RepalisCore = ReturnType<typeof createRepalisCore>;
 
-export function createPolar(options: PolarOptions) {
-  const client = createPolarCore(options);
+export function createRepalis(options: RepalisOptions) {
+  const client = createRepalisCore(options);
 
   const services = {
     {% for service in api.services %}
@@ -50,7 +50,7 @@ export function createPolar(options: PolarOptions) {
      *
      * @param options.buffered Batch and retry options; defaults to 100 events, a 1000-ms
      * collection interval, a 5000-ms shutdown timeout, and 3 attempts.
-     * @param options.outpost Outpost from `outpost()` in `@polar-sh/sdk/outpost`. Disabled by
+     * @param options.outpost Outpost from `outpost()` in `@repalis/sdk/outpost`. Disabled by
      * default.
      * @param options.strategies Replace all defaults with custom strategies. Cannot be
      * combined with buffered or outpost.
@@ -60,4 +60,4 @@ export function createPolar(options: PolarOptions) {
   };
 }
 
-export type Polar = ReturnType<typeof createPolar>;
+export type Repalis = ReturnType<typeof createRepalis>;

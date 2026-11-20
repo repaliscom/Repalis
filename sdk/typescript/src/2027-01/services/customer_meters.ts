@@ -25,9 +25,9 @@ export const listCustomerMeters = (client: ClientBase) => {
    * @param query - Query parameters
    * @param requestOptions - Request options
    * @returns {ListResourceCustomerMeter}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    * @throws {HTTPValidationError} Validation Error
    */
   return async (
@@ -75,9 +75,9 @@ export const listCustomerMeters = (client: ClientBase) => {
  * @param query - Query parameters
  * @param requestOptions - Request options
  * @returns {AsyncGenerator<CustomerMeter>} A generator that yields items of type CustomerMeter.
- * @throws {PolarNetworkError} When a network error occurs
- * @throws {PolarRateLimitError} When the rate limit is exceeded
- * @throws {PolarServerError} When the server returns a 5xx error
+ * @throws {RepalisNetworkError} When a network error occurs
+ * @throws {RepalisRateLimitError} When the rate limit is exceeded
+ * @throws {RepalisServerError} When the server returns a 5xx error
  * @throws {HTTPValidationError} Validation Error
  */
 export const iterListCustomerMeters = (client: ClientBase) => {
@@ -120,9 +120,9 @@ export const getCustomerMeters = (client: ClientBase) => {
    * @param id - The customer meter ID.
    * @param requestOptions - Request options
    * @returns {CustomerMeter}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    * @throws {ResourceNotFound} Customer meter not found.
    * @throws {HTTPValidationError} Validation Error
    */
@@ -158,9 +158,9 @@ export const creditsCustomerMeters = (client: ClientBase) => {
    * @param body - Request body
    * @param requestOptions - Request options
    * @returns {MeterCreditEvent}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    * @throws {NotPermitted} You don't have permission to manage customers.
    * @throws {CustomerMetersCredits409Error} The external_id is already used by a different event, or the external customer ID matches customers in several accessible organizations.
    * @throws {HTTPValidationError} Validation Error
@@ -199,9 +199,9 @@ export const reverseCreditCustomerMeters = (client: ClientBase) => {
    * @param id - The ID of the `meter.credited` event returned when the credit was granted.
    * @param requestOptions - Request options
    * @returns {MeterCreditEvent}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    * @throws {NotPermitted} You don't have permission to manage customers.
    * @throws {ResourceNotFound} Manual credit not found.
    * @throws {CustomerMeterCreditNotReversible} The credit can't be reversed, or the customer meter is being updated: retry shortly.

@@ -99,42 +99,42 @@ class _ScalarUnionProvider(LoaderProvider):
         return load
 
 
-class PolarError(Exception):
+class RepalisError(Exception):
     def __init__(self, message: str):
         self.message = message
         super().__init__(message)
 
 
-class PolarNetworkError(PolarError):
+class RepalisNetworkError(RepalisError):
     def __init__(self, message: str):
-        super().__init__(f"Polar API network error: {message}")
+        super().__init__(f"Repalis API network error: {message}")
 
 
-class PolarServerError(PolarError):
+class RepalisServerError(RepalisError):
     def __init__(self, status_code: int, message: str):
         self.status_code = status_code
         super().__init__(
-            f"Polar API returned a server error: {status_code} - {message}"
+            f"Repalis API returned a server error: {status_code} - {message}"
         )
 
 
-class PolarDeserializationError(PolarError):
+class RepalisDeserializationError(RepalisError):
     def __init__(self, error: adaptix.load_error.LoadError):
         self.error = error
         super().__init__(f"Failed to deserialize data: {error}")
 
 
-class PolarClientError(PolarError):
+class RepalisClientError(RepalisError):
     error_type: typing.ClassVar[typing.Any]
     error: typing.Any
 
     def __init__(self, status_code: int, error: typing.Any):
         self.status_code = status_code
         self.error = error
-        super().__init__(f"Polar API returned an error: {status_code} - {error}")
+        super().__init__(f"Repalis API returned an error: {status_code} - {error}")
 
 
-class PolarRateLimitError(PolarClientError):
+class RepalisRateLimitError(RepalisClientError):
     error_type = None
 
     def __init__(
@@ -164,12 +164,12 @@ def _default_headers(
     version: str, access_token: str, organization_id: str | None
 ) -> dict[str, str]:
     headers = {
-        "Polar-Version": version,
+        "Repalis-Version": version,
         "Authorization": f"Bearer {access_token}",
         "User-Agent": "repalis-sdk-python/1.3.1",
     }
     if organization_id is not None:
-        headers["Polar-Organization"] = organization_id
+        headers["Repalis-Organization"] = organization_id
     return headers
 
 
@@ -242,7 +242,7 @@ class SyncClientBase(BuildRequestMixin):
         try:
             return self._client.send(request)
         except httpx2.RequestError as e:
-            raise PolarNetworkError(str(e)) from e
+            raise RepalisNetworkError(str(e)) from e
 
 
 class AsyncClientBase(BuildRequestMixin):
@@ -276,7 +276,7 @@ class AsyncClientBase(BuildRequestMixin):
         try:
             return await self._client.send(request)
         except httpx2.RequestError as e:
-            raise PolarNetworkError(str(e)) from e
+            raise RepalisNetworkError(str(e)) from e
 
 
 class SyncServiceBase:
@@ -380,23 +380,23 @@ def deserialize(data: object, model: typing_extensions.TypeForm[_ModelT]) -> _Mo
     try:
         return typing.cast(_ModelT, _retort.load(data, model))
     except adaptix.load_error.LoadError as e:
-        raise PolarDeserializationError(e) from e
+        raise RepalisDeserializationError(e) from e
 
 
 def _handle_errors(
     response: httpx2.Response,
-    errors: collections.abc.Mapping[int, type[PolarClientError]] | None = None,
+    errors: collections.abc.Mapping[int, type[RepalisClientError]] | None = None,
 ) -> None:
     status_code = response.status_code
 
     if response.is_server_error:
-        raise PolarServerError(status_code, response.text)
+        raise RepalisServerError(status_code, response.text)
 
     if response.is_client_error:
         if status_code == 429:
             retry_after = response.headers.get("Retry-After")
             if retry_after is not None or (errors or {}).get(429) is None:
-                raise PolarRateLimitError(
+                raise RepalisRateLimitError(
                     429, int(retry_after) if retry_after is not None else None
                 )
         try:
@@ -412,13 +412,13 @@ def _handle_errors(
                         deserialize(response.json(), error_class.error_type),
                     )
         except KeyError:
-            raise PolarClientError(status_code, response.text)
+            raise RepalisClientError(status_code, response.text)
 
 
 def parse_response_json(
     response: httpx2.Response,
     response_model: typing.Any | None = None,
-    errors: collections.abc.Mapping[int, type[PolarClientError]] | None = None,
+    errors: collections.abc.Mapping[int, type[RepalisClientError]] | None = None,
 ) -> typing.Any:
     _handle_errors(response, errors)
 
@@ -433,7 +433,7 @@ def parse_response_json(
 
 def parse_response_text(
     response: httpx2.Response,
-    errors: collections.abc.Mapping[int, type[PolarClientError]] | None = None,
+    errors: collections.abc.Mapping[int, type[RepalisClientError]] | None = None,
 ) -> str:
     _handle_errors(response, errors)
     return response.text
@@ -441,6 +441,6 @@ def parse_response_text(
 
 def parse_response_none(
     response: httpx2.Response,
-    errors: collections.abc.Mapping[int, type[PolarClientError]] | None = None,
+    errors: collections.abc.Mapping[int, type[RepalisClientError]] | None = None,
 ) -> None:
     _handle_errors(response, errors)

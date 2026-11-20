@@ -1,5 +1,5 @@
 // Generated from meters:list (2026-10). Do not edit.
-import type { Polar } from '@polar-sh/sdk/2026-10'
+import type { Repalis } from '@repalis/sdk/2026-10'
 import { Effect } from 'effect'
 import { Command, Flag } from 'effect/cli'
 import { ApiRuntime } from '../runtime'
@@ -11,7 +11,7 @@ import {
   nullableStringFlag,
 } from '../inputs'
 
-type Query = NonNullable<Parameters<Polar['meters']['list']>[0]>
+type Query = NonNullable<Parameters<Repalis['meters']['list']>[0]>
 
 export const command = Command.make(
   'list',

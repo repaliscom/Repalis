@@ -1,17 +1,17 @@
-# Polar TypeScript SDK
+# Repalis TypeScript SDK
 
 The official TypeScript client for the [Repalis API](https://repalis.com/docs/api-reference).
 
 ## Installation
 
 ```bash
-pnpm add @polar-sh/sdk
+pnpm add @repalis/sdk
 ```
 
 or, with `npm`:
 
 ```bash
-npm install @polar-sh/sdk
+npm install @repalis/sdk
 ```
 
 ## Quick Start
@@ -20,18 +20,18 @@ Create an [organization access token](https://repalis.com/docs/integrate/oat) an
 the current API version:
 
 ```typescript
-import { createPolar } from "@polar-sh/sdk/2026-10";
+import { createRepalis } from "@repalis/sdk/2026-10";
 
-const polar = createPolar({
-    accessToken: "polar_oat_xxx",
+const repalis = createRepalis({
+    accessToken: "repalis_oat_xxx",
 });
 
-const customerState = await polar.customers.getStateExternal("customer_external_id");
+const customerState = await repalis.customers.getStateExternal("customer_external_id");
 console.log(customerState);
 ```
 
 The client uses the production environment by default. To use the sandbox, pass
-`environment: "sandbox"` to `createPolar`. Sandbox and production access tokens are separate.
+`environment: "sandbox"` to `createRepalis`. Sandbox and production access tokens are separate.
 
 Keep organization access tokens on the server and never expose them in browser or client-side
 code.
@@ -42,8 +42,8 @@ Set the default timeout for all requests when creating the client. Timeout value
 in seconds:
 
 ```typescript
-const polar = createPolar({
-    accessToken: "polar_oat_xxx",
+const repalis = createRepalis({
+    accessToken: "repalis_oat_xxx",
     timeout: 30,
 });
 ```
@@ -51,7 +51,7 @@ const polar = createPolar({
 Override the timeout for an individual request with the final request options argument:
 
 ```typescript
-const customerState = await polar.customers.getStateExternal("customer_external_id", {
+const customerState = await repalis.customers.getStateExternal("customer_external_id", {
     timeout: 60,
 });
 ```
@@ -59,8 +59,8 @@ const customerState = await polar.customers.getStateExternal("customer_external_
 Override the access token for an individual request the same way:
 
 ```typescript
-const customerState = await polar.customers.getStateExternal("customer_external_id", {
-    accessToken: "polar_at_u_override",
+const customerState = await repalis.customers.getStateExternal("customer_external_id", {
+    accessToken: "repalis_at_u_override",
 });
 ```
 
@@ -68,11 +68,11 @@ const customerState = await polar.customers.getStateExternal("customer_external_
 
 OAuth access tokens and personal access tokens can reach every organization the user belongs to.
 Pass `organizationId` to get a client that acts on a single organization. It sends the
-`Polar-Organization` header, so the API only returns and changes that organization's data:
+`Repalis-Organization` header, so the API only returns and changes that organization's data:
 
 ```typescript
-const acme = createPolar({
-    accessToken: "polar_at_u_xxx",
+const acme = createRepalis({
+    accessToken: "repalis_at_u_xxx",
     organizationId: "acme_organization_id",
 });
 const customers = await acme.customers.list();
@@ -86,14 +86,14 @@ To import individual API functions for tree-shaking, create a core client and pa
 function:
 
 ```typescript
-import { createPolarCore } from "@polar-sh/sdk/2026-10";
-import { getStateExternalCustomers } from "@polar-sh/sdk/2026-10/services/customers";
+import { createRepalisCore } from "@repalis/sdk/2026-10";
+import { getStateExternalCustomers } from "@repalis/sdk/2026-10/services/customers";
 
-const polar = createPolarCore({
-    accessToken: "polar_oat_xxx",
+const repalis = createRepalisCore({
+    accessToken: "repalis_oat_xxx",
 });
 
-const customerState = await getStateExternalCustomers(polar)("customer_external_id");
+const customerState = await getStateExternalCustomers(repalis)("customer_external_id");
 console.log(customerState);
 ```
 
@@ -104,10 +104,10 @@ Create one shared helper outside your request handler. Resources start on the fi
 there is no explicit startup or async disposal step.
 
 ```typescript
-import { createPolar } from "@polar-sh/sdk/2026-10";
+import { createRepalis } from "@repalis/sdk/2026-10";
 
-const polar = createPolar({ accessToken: "polar_oat_xxx" });
-const metering = polar.metering();
+const repalis = createRepalis({ accessToken: "repalis_oat_xxx" });
+const metering = repalis.metering();
 
 async function recordUsage() {
     await metering.track({
@@ -118,7 +118,7 @@ async function recordUsage() {
 }
 ```
 
-`track()` resolves when the event is queued, not when Polar accepts it. Events without a
+`track()` resolves when the event is queued, not when Repalis accepts it. Events without a
 `timestamp` are dated when you call `track()`.
 
 ### Actor context
@@ -169,7 +169,7 @@ route's maximum duration.
 `flush()` waits for events queued before its call, unless a newer flush starts whose deadline
 is no earlier than its own: the newer one releases it and waits for its events too. One waiter
 keeps a serverless function alive, so concurrent requests do not each stay open for a round
-trip to Polar. A resolved `flush()` therefore does not prove Polar accepted the request's events
+trip to Repalis. A resolved `flush()` therefore does not prove Repalis accepted the request's events
 when other requests flush at the same time. Concurrent requests share HTTP batches; calling
 `flush()` does not close the helper or create a separate buffer. This is a shared queue barrier, not request-specific delivery.
 
@@ -189,9 +189,9 @@ await metering.close({ timeoutMs: 10_000 });
 A flush timeout stops only the caller's wait; delivery and other callers continue. It does not
 acknowledge failures, so a later flush can observe the eventual outcome. Shutdown aborts
 unfinished buffered delivery at its deadline. Timeouts do not confirm that an event is absent
-from Polar: the API may have accepted it before the connection failed.
+from Repalis: the API may have accepted it before the connection failed.
 
-Delivery failures reject with `MeteringDeliveryError` from `@polar-sh/sdk/metering`. Its `events`
+Delivery failures reject with `MeteringDeliveryError` from `@repalis/sdk/metering`. Its `events`
 and `failures` describe unconfirmed events, reasons, and original causes. Lifecycle timeouts
 reject with `MeteringTimeoutError`; a flush waiting on pending events can instead report a
 `MeteringDeliveryError` with reason `flush_timeout`. Unexpected worker or callback errors also
@@ -217,19 +217,19 @@ if (meter !== null) console.log(meter.consumed_units, meter.credited_units, mete
 
 ### Local reduction with Outpost
 
-Pass `outpost()` from `@polar-sh/sdk/outpost` to `polar.metering()` to enable Redis-backed
+Pass `outpost()` from `@repalis/sdk/outpost` to `repalis.metering()` to enable Redis-backed
 local reduction. This provides low-latency meter reads across clients. Outpost requires the
 optional `ioredis` and `@opentelemetry/*` peer dependencies; the rest of the SDK does not.
 
 ```typescript
-import { outpost } from "@polar-sh/sdk/outpost";
+import { outpost } from "@repalis/sdk/outpost";
 
-const metering = polar.metering({ outpost: outpost() });
+const metering = repalis.metering({ outpost: outpost() });
 ```
 
 `outpost()` uses `REDIS_URL` and throws if it is unset. Pass options to configure it, such as
 `outpost({ redisUrl: "redis://localhost:6379" })`. Every Outpost event requires an
-`external_id`; `track()` rejects events without one. An event counts locally until Polar confirms
+`external_id`; `track()` rejects events without one. An event counts locally until Repalis confirms
 storage or the buffer gives it up.
 
 ### Options
@@ -241,7 +241,7 @@ storage or the buffer gives it up.
 | `batchSize`       | `100`       | Maximum events per HTTP request.                            |
 | `batchIntervalMs` | `1000`      | Milliseconds to collect a batch after its first event.      |
 | `maxAttempts`     | `3`         | Total attempts per batch, including the first.              |
-| `onDelivered`     | `undefined` | Callback for events Polar accepted; may be async.           |
+| `onDelivered`     | `undefined` | Callback for events Repalis accepted; may be async.           |
 | `onDropped`       | `undefined` | Callback for dropped events and their reason; may be async. |
 
 #### Outpost
@@ -249,31 +249,31 @@ storage or the buffer gives it up.
 | Option            | Default                          | Meaning                                                    |
 | ----------------- | -------------------------------- | ---------------------------------------------------------- |
 | `redisUrl`        | `REDIS_URL` environment variable | Redis instance used by Outpost.                            |
-| `telemetry`       | `true`                           | Send Outpost metrics and traces to Polar.                  |
+| `telemetry`       | `true`                           | Send Outpost metrics and traces to Repalis.                  |
 | `snapshotTimeout` | `5000`                           | Milliseconds a cold read waits for its initial snapshot.   |
-| `confirmTimeout`  | `2000`                           | Milliseconds a snapshot waits for Polar to confirm events. |
+| `confirmTimeout`  | `2000`                           | Milliseconds a snapshot waits for Repalis to confirm events. |
 
-Telemetry can also be disabled with `POLAR_OUTPOST_TELEMETRY=0`.
+Telemetry can also be disabled with `REPALIS_OUTPOST_TELEMETRY=0`.
 
 ## Webhooks
 
-Use `webhooks.validateEvent` to verify that a webhook was sent by Polar and parse it into a typed
+Use `webhooks.validateEvent` to verify that a webhook was sent by Repalis and parse it into a typed
 payload for the selected API version. Pass the raw request body, the request headers, and your
 webhook signing secret:
 
 ```typescript
 import express from "express";
-import { webhooks } from "@polar-sh/sdk/2026-10";
+import { webhooks } from "@repalis/sdk/2026-10";
 
 const app = express();
-const webhookSecret = process.env.POLAR_WEBHOOK_SECRET;
+const webhookSecret = process.env.REPALIS_WEBHOOK_SECRET;
 
 if (!webhookSecret) {
-    throw new Error("POLAR_WEBHOOK_SECRET is required");
+    throw new Error("REPALIS_WEBHOOK_SECRET is required");
 }
 
 const rawBody = express.raw({ type: "application/json" });
-app.post("/webhooks/polar", rawBody, async (request, response) => {
+app.post("/webhooks/repalis", rawBody, async (request, response) => {
     try {
         const event = await webhooks.validateEvent(
             request.body,
@@ -291,11 +291,11 @@ app.post("/webhooks/polar", rawBody, async (request, response) => {
 
         response.status(200).json({ received: true });
     } catch (error) {
-        if (error instanceof webhooks.PolarWebhookVerificationError) {
+        if (error instanceof webhooks.RepalisWebhookVerificationError) {
             response.status(403).json({ error: "Invalid webhook signature" });
             return;
         }
-        if (error instanceof webhooks.PolarWebhookError) {
+        if (error instanceof webhooks.RepalisWebhookError) {
             response.status(400).json({ error: "Invalid webhook payload" });
             return;
         }
@@ -305,8 +305,8 @@ app.post("/webhooks/polar", rawBody, async (request, response) => {
 ```
 
 The `express.raw` middleware is required because the signature must be checked against the body
-before it is parsed. Verification accepts Polar's original HMAC key (UTF-8 bytes of the full
+before it is parsed. Verification accepts Repalis's original HMAC key (UTF-8 bytes of the full
 secret, including `whsec_`) and the Standard Webhooks key (base64-decode of the remainder after
-`whsec_`). `validateEvent` throws `PolarWebhookVerificationError` for invalid signatures
-and `PolarWebhookUnknownTypeError` when the event is not supported by the selected API version.
-Both inherit from `PolarWebhookError`.
+`whsec_`). `validateEvent` throws `RepalisWebhookVerificationError` for invalid signatures
+and `RepalisWebhookUnknownTypeError` when the event is not supported by the selected API version.
+Both inherit from `RepalisWebhookError`.

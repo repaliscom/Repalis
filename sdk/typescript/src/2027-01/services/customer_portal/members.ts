@@ -32,9 +32,9 @@ export const listMembersMembers = (client: ClientBase) => {
    * @param query - Query parameters
    * @param requestOptions - Request options
    * @returns {ListResourceCustomerPortalMember}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    * @throws {CustomerPortalMembersListMembers401Error} Authentication required
    * @throws {CustomerPortalMembersListMembers403Error} Not permitted - requires owner or billing manager role
    * @throws {HTTPValidationError} Validation Error
@@ -74,9 +74,9 @@ export const listMembersMembers = (client: ClientBase) => {
  * @param query - Query parameters
  * @param requestOptions - Request options
  * @returns {AsyncGenerator<CustomerPortalMember>} A generator that yields items of type CustomerPortalMember.
- * @throws {PolarNetworkError} When a network error occurs
- * @throws {PolarRateLimitError} When the rate limit is exceeded
- * @throws {PolarServerError} When the server returns a 5xx error
+ * @throws {RepalisNetworkError} When a network error occurs
+ * @throws {RepalisRateLimitError} When the rate limit is exceeded
+ * @throws {RepalisServerError} When the server returns a 5xx error
  * @throws {CustomerPortalMembersListMembers401Error} Authentication required
  * @throws {CustomerPortalMembersListMembers403Error} Not permitted - requires owner or billing manager role
  * @throws {HTTPValidationError} Validation Error
@@ -119,9 +119,9 @@ export const addMemberMembers = (client: ClientBase) => {
    * @param body - Request body
    * @param requestOptions - Request options
    * @returns {CustomerPortalMember}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    * @throws {CustomerPortalMembersAddMember400Error} Invalid request or member already exists.
    * @throws {CustomerPortalMembersAddMember401Error} Authentication required
    * @throws {CustomerPortalMembersAddMember403Error} Not permitted - requires owner or billing manager role
@@ -162,9 +162,9 @@ export const removeMemberMembers = (client: ClientBase) => {
    * @param id
    * @param requestOptions - Request options
    * @returns {void}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    * @throws {CustomerPortalMembersRemoveMember400Error} Cannot remove the only owner.
    * @throws {CustomerPortalMembersRemoveMember401Error} Authentication required
    * @throws {CustomerPortalMembersRemoveMember403Error} Not permitted - requires owner or billing manager role
@@ -207,9 +207,9 @@ export const updateMemberMembers = (client: ClientBase) => {
    * @param body - Request body
    * @param requestOptions - Request options
    * @returns {CustomerPortalMember}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    * @throws {CustomerPortalMembersUpdateMember400Error} Invalid role change.
    * @throws {CustomerPortalMembersUpdateMember401Error} Authentication required
    * @throws {CustomerPortalMembersUpdateMember403Error} Not permitted - requires owner or billing manager role

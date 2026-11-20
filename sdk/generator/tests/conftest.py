@@ -11,7 +11,7 @@ def code_samples_spec() -> op.OpenAPI:
             "servers": [
                 {
                     "url": "https://api.example.com",
-                    "x-polar-environment": "production",
+                    "x-repalis-environment": "production",
                 }
             ],
             "paths": {
@@ -60,7 +60,7 @@ def code_samples_spec() -> op.OpenAPI:
                                 },
                             }
                         },
-                        "x-polar-pagination": {
+                        "x-repalis-pagination": {
                             "type": "page_limit",
                             "item_schema": {
                                 "$ref": "#/components/schemas/PaymentMethod"

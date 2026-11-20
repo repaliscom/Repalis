@@ -1,5 +1,5 @@
 // Generated from refunds:create (2026-10). Do not edit.
-import type { Polar } from '@polar-sh/sdk/2026-10'
+import type { Repalis } from '@repalis/sdk/2026-10'
 import { Effect, Schema } from 'effect'
 import { Command, Flag } from 'effect/cli'
 import { ApiRuntime, ApiCommandError } from '../runtime'
@@ -13,7 +13,7 @@ import {
   nullableStringFlag,
 } from '../inputs'
 
-type Body = NonNullable<Parameters<Polar['refunds']['create']>[0]>
+type Body = NonNullable<Parameters<Repalis['refunds']['create']>[0]>
 
 export const command = Command.make(
   'create',
@@ -76,7 +76,7 @@ export const command = Command.make(
       if (missing.length > 0) {
         return yield* new ApiCommandError({
           message: `Missing required ${missing.length > 1 ? 'flags' : 'flag'} ${missing.join(', ')}`,
-          hint: 'Example: polar refunds create --order-id <order-id> --reason duplicate --amount <amount>',
+          hint: 'Example: repalis refunds create --order-id <order-id> --reason duplicate --amount <amount>',
         })
       }
       const confirmationInput = yield* Schema.decodeUnknownEffect(

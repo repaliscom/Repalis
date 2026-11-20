@@ -1,5 +1,5 @@
 {
-  "name": "@polar-sh/sdk-e2e",
+  "name": "@repalis/sdk-e2e",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -11,7 +11,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@polar-sh/sdk": "link:../typescript",
+    "@repalis/sdk": "link:../typescript",
     "ioredis": "^5.11.0",
     "ws": "^8.21.0"
   },

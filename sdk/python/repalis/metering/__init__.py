@@ -13,7 +13,7 @@ from repalis.metering.buffered import (
     BufferedMeteringStrategy,
     DropReason,
 )
-from repalis.metering.client import PolarClient
+from repalis.metering.client import RepalisClient
 from repalis.metering.errors import (
     DeliveryFailure,
     InvalidActorError,
@@ -42,8 +42,8 @@ class MeteringOutpostOptions(typing.TypedDict, total=False):
 
     Attributes:
         redis_url: Redis connection URL. Defaults to the REDIS_URL environment variable.
-        telemetry: Send Outpost metrics and traces to Polar. Defaults to True;
-            POLAR_OUTPOST_TELEMETRY=0 disables it regardless of this option.
+        telemetry: Send Outpost metrics and traces to Repalis. Defaults to True;
+            REPALIS_OUTPOST_TELEMETRY=0 disables it regardless of this option.
     """
 
     redis_url: str
@@ -99,7 +99,7 @@ class ActorWarmupProtocol(typing.Protocol):
         """Warm customer state using exactly one customer identifier.
 
         Args:
-            customer_id: Polar customer ID.
+            customer_id: Repalis customer ID.
             external_customer_id: Customer ID in your application.
         """
         ...
@@ -125,8 +125,8 @@ class ActorMetering:
 
         Args:
             metering: Parent helper that dispatches operations.
-            customer_id: Polar customer ID; mutually exclusive with external_customer_id.
-            member_id: Polar member ID, paired with customer_id.
+            customer_id: Repalis customer ID; mutually exclusive with external_customer_id.
+            member_id: Repalis member ID, paired with customer_id.
             external_customer_id: Customer ID in your application.
             external_member_id: Member ID paired with external_customer_id.
         """
@@ -158,7 +158,7 @@ class ActorMetering:
         """Read this customer's meter using the parent's read strategy.
 
         Args:
-            meter_id: Polar meter ID.
+            meter_id: Repalis meter ID.
 
         Returns:
             Consumption, credits, and balance, or None if no meter is found.
@@ -176,7 +176,7 @@ class ActorMetering:
 class Metering:
     """Dispatch events, actor warmup, and meter reads to metering strategies.
 
-    Create with polar.metering() and use as an async context manager. By
+    Create with repalis.metering() and use as an async context manager. By
     default, events are buffered for HTTP delivery, with Outpost added when
     outpost is set. Accepting an event does not confirm delivery.
     """
@@ -331,8 +331,8 @@ class Metering:
         For strategies that support it, it warms up their state in memory.
 
         Args:
-            customer_id: Polar customer ID; mutually exclusive with external_customer_id.
-            member_id: Polar member ID, paired with customer_id.
+            customer_id: Repalis customer ID; mutually exclusive with external_customer_id.
+            member_id: Repalis member ID, paired with customer_id.
             external_customer_id: Customer ID in your application.
             external_member_id: Member ID paired with external_customer_id.
 
@@ -378,11 +378,11 @@ class Metering:
         """Read a meter value.
 
         If enabled, the local value from Outpost will be read. Otherwise, it'll
-        fall back to the Polar API.
+        fall back to the Repalis API.
 
         Args:
-            meter_id: Polar meter ID.
-            customer_id: Polar customer ID; mutually exclusive with external_customer_id.
+            meter_id: Repalis meter ID.
+            customer_id: Repalis customer ID; mutually exclusive with external_customer_id.
             external_customer_id: Customer ID in your application.
 
         Returns:
@@ -419,16 +419,16 @@ class Metering:
     @classmethod
     def create(
         cls,
-        polar: PolarClient,
+        repalis: RepalisClient,
         *,
         buffered: BufferedMeteringOptions | None = None,
         outpost: MeteringOutpostOptions | bool | None = None,
         strategies: list[MeteringStrategyProtocol] | None = None,
     ) -> typing.Self:
-        """Create an unstarted helper, usually via polar.metering().
+        """Create an unstarted helper, usually via repalis.metering().
 
         Args:
-            polar: Async Polar client used for event delivery and meter reads.
+            repalis: Async Repalis client used for event delivery and meter reads.
             buffered: Buffer options; omitted fields use BufferedMeteringOptions defaults.
             outpost: True or Outpost options to enable Outpost, which then requires
                 redis_url or REDIS_URL. Disabled by default.
@@ -446,7 +446,7 @@ class Metering:
                 raise MeteringError(
                     "Cannot combine strategies with buffered or outpost options"
                 )
-            return cls(strategies=strategies, client=polar._client)
+            return cls(strategies=strategies, client=repalis._client)
         buffered = buffered or BufferedMeteringOptions()
         strategies = []
         if outpost is not None and outpost is not False:
@@ -457,13 +457,13 @@ class Metering:
             from repalis.outpost import Outpost
 
             outpost_strategy = Outpost.create(
-                polar, redis_url, telemetry=outpost_options.get("telemetry", True)
+                repalis, redis_url, telemetry=outpost_options.get("telemetry", True)
             )
             strategies.append(outpost_strategy)
             buffered = _confirming(buffered, outpost_strategy)
         return cls(
-            strategies=[BufferedMeteringStrategy(polar, **buffered), *strategies],
-            client=polar._client,
+            strategies=[BufferedMeteringStrategy(repalis, **buffered), *strategies],
+            client=repalis._client,
         )
 
 
@@ -471,7 +471,7 @@ def _confirming(
     buffered: BufferedMeteringOptions, outpost: "Outpost"
 ) -> BufferedMeteringOptions:
     """Settle in Outpost the events the buffer delivered or dropped, before the user's
-    callbacks. Polar received the delivered events: they settle where their bucket is hot.
+    callbacks. Repalis received the delivered events: they settle where their bucket is hot.
     It will never count the dropped ones: they settle everywhere."""
     user_delivered = buffered.get("on_delivered")
     user_dropped = buffered.get("on_dropped")

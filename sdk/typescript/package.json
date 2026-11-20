@@ -1,15 +1,15 @@
 {
-  "name": "@polar-sh/sdk",
+  "name": "@repalis/sdk",
   "version": "1.3.1",
-  "description": "Polar SDK — A billing platform for the intelligence era",
+  "description": "Repalis SDK — A billing platform for the intelligence era",
   "keywords": [
     "api",
-    "polar",
+    "repalis",
     "sdk",
     "typescript"
   ],
   "license": "MIT",
-  "author": "Polar",
+  "author": "Repalis",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/repaliscom/Repalis.git",

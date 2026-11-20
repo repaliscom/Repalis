@@ -108,7 +108,7 @@ def test_apply_snapshot(
     benchmark: BenchmarkFixture, redis: Redis, buckets: int
 ) -> None:
     sha = redis.script_load(APPLY_SNAPSHOT_SCRIPT)
-    # The seeded snapshot again, as every instance gets each of Polar's: the script scans
+    # The seeded snapshot again, as every instance gets each of Repalis's: the script scans
     # every field, finds nothing to change and writes only the version.
     benchmark(
         redis.evalsha,

@@ -1,6 +1,6 @@
 // Generated from {{ method.operation_id }} ({{ api.version }}). Do not edit.
 {% if input_type %}
-import type { Polar } from '@polar-sh/sdk/{{ api.version }}'
+import type { Repalis } from '@repalis/sdk/{{ api.version }}'
 {% endif %}
 import { Effect{% if confirmation_fields %}, Schema{% endif %} } from 'effect'
 import { {% if method.path_params %}Argument, {% endif %}Command{% if fields or not method.requires_authentication %}, Flag{% endif %} } from 'effect/cli'

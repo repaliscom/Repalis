@@ -57,19 +57,19 @@ def test_emit_input_model_with_fields_and_additional_properties(
     PythonEmitter(APIIR(versions=[api]), "2026-10").emit(tmp_path)
 
     for module in ("events", "client", "buffered", "meter", "errors"):
-        assert (tmp_path / "polar" / "metering" / f"{module}.py").is_file()
-    assert not (tmp_path / "polar" / "metering" / "alias.py").exists()
+        assert (tmp_path / "repalis" / "metering" / f"{module}.py").is_file()
+    assert not (tmp_path / "repalis" / "metering" / "alias.py").exists()
     for module in ("conftest", "test_buffered", "test_metering"):
         assert (tmp_path / "tests" / "metering" / f"{module}.py").is_file()
     metering_tests = (tmp_path / "tests" / "metering" / "test_metering.py").read_text()
-    assert "from repalis.v2026_04 import PolarAsync" in metering_tests
-    assert "from repalis.v2026_10 import PolarAsync" not in metering_tests
-    assert (tmp_path / "polar" / "outpost" / "reducer.py").is_file()
-    assert (tmp_path / "polar" / "outpost" / "client.py").is_file()
+    assert "from repalis.v2026_04 import RepalisAsync" in metering_tests
+    assert "from repalis.v2026_10 import RepalisAsync" not in metering_tests
+    assert (tmp_path / "repalis" / "outpost" / "reducer.py").is_file()
+    assert (tmp_path / "repalis" / "outpost" / "client.py").is_file()
     for module in ("client", "event", "reducer"):
         assert (tmp_path / "tests" / "outpost" / f"test_{module}.py").is_file()
 
-    inputs = (tmp_path / "polar" / "v2026_04" / "inputs.py").read_text()
+    inputs = (tmp_path / "repalis" / "v2026_04" / "inputs.py").read_text()
     assert "import typing_extensions" in inputs
     assert (
         "class EventMetadataInput(typing_extensions.TypedDict, "
@@ -113,7 +113,7 @@ def test_emit_output_model_with_fields_and_additional_properties(
 
     PythonEmitter(APIIR(versions=[api]), "2026-10").emit(tmp_path)
 
-    outputs = (tmp_path / "polar" / "v2026_04" / "outputs.py").read_text()
+    outputs = (tmp_path / "repalis" / "v2026_04" / "outputs.py").read_text()
     assert "import typing_extensions" in outputs
     assert "from repalis.base import _register_extra_items_typed_dict" in outputs
     assert (
@@ -209,7 +209,7 @@ def test_emit_open_string_enums_for_responses(
 
     PythonEmitter(APIIR(versions=[api]), "1.1.0").emit(tmp_path)
 
-    version = tmp_path / "polar" / "v2026_04"
+    version = tmp_path / "repalis" / "v2026_04"
     literals = (version / "literals.py").read_text()
     assert (
         "OrderStatus: typing.TypeAlias = typing.Annotated[typing.Literal[" in literals
@@ -273,8 +273,8 @@ def test_emit_discriminators_for_models_and_webhooks(tmp_path: pathlib.Path) -> 
     PythonEmitter(APIIR(versions=[api]), "1.2.0").emit(tmp_path)
     annotation = "typing.Annotated[Created | Deleted, _Discriminator('type', (('object.created', Created),('object.deleted', Deleted),))]"
     for module in ("inputs", "outputs"):
-        source = (tmp_path / "polar" / "v2027_01" / f"{module}.py").read_text()
+        source = (tmp_path / "repalis" / "v2027_01" / f"{module}.py").read_text()
         assert f"Event: typing.TypeAlias = {annotation}" in source
         assert f"event: {annotation}" in source
-    source = (tmp_path / "polar" / "v2027_01" / "webhooks.py").read_text()
+    source = (tmp_path / "repalis" / "v2027_01" / "webhooks.py").read_text()
     assert f"WebhookPayload: typing.TypeAlias = {annotation}" in source

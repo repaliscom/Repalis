@@ -100,7 +100,7 @@ describe("READ_STATE", () => {
 
 describe("APPLY_SNAPSHOT", () => {
   for (const buckets of BUCKET_COUNTS) {
-    // The seeded snapshot again, as every instance gets each of Polar's: the script scans
+    // The seeded snapshot again, as every instance gets each of Repalis's: the script scans
     // every field, finds nothing to change and writes only the version.
     bench(
       `apply a snapshot to a ${buckets}-bucket state`,

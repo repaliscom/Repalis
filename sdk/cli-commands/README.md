@@ -1,6 +1,6 @@
-# Polar CLI commands prototype
+# Repalis CLI commands prototype
 
-Private package generated from Polar's `2026-10` and `2027-01` OpenAPI snapshots.
+Private package generated from Repalis's `2026-10` and `2027-01` OpenAPI snapshots.
 It is not published to npm. The CLI consumes it through a local `file:` dependency,
 imports TypeScript directly, and bundles it.
 
@@ -17,9 +17,9 @@ the generated package under `sdk/` without moving or breaking that workspace.
 - `clients/packages/cli/src/api-runtime.ts` (repository root): CLI implementation.
 
 ```ts
-import { commands } from '@polar-sh/cli-commands'
+import { commands } from '@repalis/cli-commands'
 
-const main = Command.make('polar').pipe(
+const main = Command.make('repalis').pipe(
   Command.withSubcommands([auth, listen, update, ...commands]),
 )
 ```
@@ -29,7 +29,7 @@ const main = Command.make('polar').pipe(
 Commands come from Current. Operations that exist only in Next are added too,
 call the Next SDK, and are labelled `(preview, API 2027-01)` since Next can still
 change. At each rotation, update the specs in `pnpm generate` and the version map
-in `clients/packages/cli/src/services/polar.ts`.
+in `clients/packages/cli/src/services/repalis.ts`.
 
 The generator lives in `sdk/generator/cli_commands/`. Change the emitter or its
 runtime/input templates, not generated files. The package never imports the CLI.
@@ -52,7 +52,7 @@ bun src/cli.ts customers get_external <external-id>
 bun src/cli.ts customers delete <id> --confirm
 ```
 
-Requests use the organization selected with `polar auth org`, including its
+Requests use the organization selected with `repalis auth org`, including its
 sandbox or production environment and saved OAuth credentials. Authenticated resource
 commands have no environment flags. These are real API calls, including mutations: select
 a sandbox organization when experimenting.
@@ -64,13 +64,13 @@ production; pass `--environment=sandbox` for sandbox invitations.
 `orders receipt <id>` prints a JSON status and message when receipt generation
 is still in progress (`202`). Run the command again to retrieve the download URL.
 
-With `POLAR_ACCESS_TOKEN`, the CLI uses the token's sole accessible organization
-and `POLAR_ENVIRONMENT` (production by default), rather than the saved selection.
+With `REPALIS_ACCESS_TOKEN`, the CLI uses the token's sole accessible organization
+and `REPALIS_ENVIRONMENT` (production by default), rather than the saved selection.
 The token must have a single accessible organization.
 
 Also available: `get`, `get_state`, `get_state_external`, `update_external`,
 `delete_external`, `list_payment_methods`, and `list_payment_methods_external`.
-Authenticated requests send the organization's ID in the `Polar-Organization`
+Authenticated requests send the organization's ID in the `Repalis-Organization`
 header, so the API only returns and changes that organization's data and defaults
 organization inputs to it. The CLI does not fill in organization inputs: `--org`
 aliases the `organization_id` input, and explicit flags and `--data` values,
@@ -99,7 +99,7 @@ the field's existing type, even when only its name changes.
 
 A command requires confirmation when its operation has `destructive` in
 `x-tool-annotations`. The server sets it with the helpers in
-`server/polar/openapi.py`, and the MCP server reads the same annotation for its
+`server/repalis/openapi.py`, and the MCP server reads the same annotation for its
 `destructiveHint`.
 
 `DELETE` operations are always destructive. Other operations can be destructive
@@ -126,10 +126,10 @@ without annotated fields always requires it. Nested properties and structured
 comparison values are not supported.
 
 ```bash
-polar products update <id> --is-archived=true
-polar products update <id> -d '{"is_archived":true}'
-polar products update <id> --is-archived=true --confirm
-polar products update <id> --is-archived=false
+repalis products update <id> --is-archived=true
+repalis products update <id> -d '{"is_archived":true}'
+repalis products update <id> --is-archived=true --confirm
+repalis products update <id> --is-archived=false
 ```
 
 The first two commands preview the product and require the exact answer `yes`.
@@ -141,7 +141,7 @@ Only annotated inputs receive additional strict Effect Schema validation, so JSO
 strings or numbers cannot bypass a boolean condition through backend coercion.
 Other API payload validation remains server-side. Preview lookup, its one-second
 timeout, 404 handling, and fixed loading rows are shared with DELETE confirmation.
-The GET's `x-polar-cli-preview` metadata selects the displayed record fields.
+The GET's `x-repalis-cli-preview` metadata selects the displayed record fields.
 Only updates and deletions use a same-path GET preview; creation commands prompt
 without fetching a collection as though it were an existing record.
 
@@ -188,6 +188,6 @@ To lint the emitted source itself, from `clients/` run
 Generator checks live in `sdk/generator/`: `just lint`, `just test`, and
 `just generate-cli`. Generated source is committed so ordinary CLI builds do not
 need Python. After running the generator directly, refresh the local dependency
-with `pnpm install --filter @polar-sh/cli --ignore-scripts --frozen-lockfile` in `clients/`.
+with `pnpm install --filter @repalis/cli --ignore-scripts --frozen-lockfile` in `clients/`.
 Bun embeds the command package in the standalone binary; the JS
 build explicitly bundles it rather than leaving an unpublished package import.

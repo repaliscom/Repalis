@@ -60,9 +60,9 @@ class MembersSync(SyncServiceBase):
             CustomerPortalMembersListMembers401Error: Authentication required
             CustomerPortalMembersListMembers403Error: Not permitted - requires owner or billing manager role
             HTTPValidationError: Validation Error
-            PolarNetworkError: Raised when a network error occurs while making the request.
-            PolarRateLimitError: Raised when the rate limit is exceeded.
-            PolarServerError: Raised when the server returns a 5xx error response.
+            RepalisNetworkError: Raised when a network error occurs while making the request.
+            RepalisRateLimitError: Raised when the rate limit is exceeded.
+            RepalisServerError: Raised when the server returns a 5xx error response.
         """
         request = self.client.build_request(
             method="GET",
@@ -112,9 +112,9 @@ class MembersSync(SyncServiceBase):
             CustomerPortalMembersListMembers401Error: Authentication required
             CustomerPortalMembersListMembers403Error: Not permitted - requires owner or billing manager role
             HTTPValidationError: Validation Error
-            PolarNetworkError: Raised when a network error occurs while making the request.
-            PolarRateLimitError: Raised when the rate limit is exceeded.
-            PolarServerError: Raised when the server returns a 5xx error response.
+            RepalisNetworkError: Raised when a network error occurs while making the request.
+            RepalisRateLimitError: Raised when the rate limit is exceeded.
+            RepalisServerError: Raised when the server returns a 5xx error response.
         """
         while True:
             response = self.list_members(
@@ -155,9 +155,9 @@ class MembersSync(SyncServiceBase):
             CustomerPortalMembersAddMember401Error: Authentication required
             CustomerPortalMembersAddMember403Error: Not permitted - requires owner or billing manager role
             HTTPValidationError: Validation Error
-            PolarNetworkError: Raised when a network error occurs while making the request.
-            PolarRateLimitError: Raised when the rate limit is exceeded.
-            PolarServerError: Raised when the server returns a 5xx error response.
+            RepalisNetworkError: Raised when a network error occurs while making the request.
+            RepalisRateLimitError: Raised when the rate limit is exceeded.
+            RepalisServerError: Raised when the server returns a 5xx error response.
         """
         request = self.client.build_request(
             method="POST",
@@ -205,9 +205,9 @@ class MembersSync(SyncServiceBase):
             CustomerPortalMembersRemoveMember403Error: Not permitted - requires owner or billing manager role
             CustomerPortalMembersRemoveMember404Error: Member not found.
             HTTPValidationError: Validation Error
-            PolarNetworkError: Raised when a network error occurs while making the request.
-            PolarRateLimitError: Raised when the rate limit is exceeded.
-            PolarServerError: Raised when the server returns a 5xx error response.
+            RepalisNetworkError: Raised when a network error occurs while making the request.
+            RepalisRateLimitError: Raised when the rate limit is exceeded.
+            RepalisServerError: Raised when the server returns a 5xx error response.
         """
         request = self.client.build_request(
             method="DELETE",
@@ -259,9 +259,9 @@ class MembersSync(SyncServiceBase):
             CustomerPortalMembersUpdateMember403Error: Not permitted - requires owner or billing manager role
             CustomerPortalMembersUpdateMember404Error: Member not found.
             HTTPValidationError: Validation Error
-            PolarNetworkError: Raised when a network error occurs while making the request.
-            PolarRateLimitError: Raised when the rate limit is exceeded.
-            PolarServerError: Raised when the server returns a 5xx error response.
+            RepalisNetworkError: Raised when a network error occurs while making the request.
+            RepalisRateLimitError: Raised when the rate limit is exceeded.
+            RepalisServerError: Raised when the server returns a 5xx error response.
         """
         request = self.client.build_request(
             method="PATCH",
@@ -310,9 +310,9 @@ class MembersAsync(AsyncServiceBase):
             CustomerPortalMembersListMembers401Error: Authentication required
             CustomerPortalMembersListMembers403Error: Not permitted - requires owner or billing manager role
             HTTPValidationError: Validation Error
-            PolarNetworkError: Raised when a network error occurs while making the request.
-            PolarRateLimitError: Raised when the rate limit is exceeded.
-            PolarServerError: Raised when the server returns a 5xx error response.
+            RepalisNetworkError: Raised when a network error occurs while making the request.
+            RepalisRateLimitError: Raised when the rate limit is exceeded.
+            RepalisServerError: Raised when the server returns a 5xx error response.
         """
         request = self.client.build_request(
             method="GET",
@@ -362,9 +362,9 @@ class MembersAsync(AsyncServiceBase):
             CustomerPortalMembersListMembers401Error: Authentication required
             CustomerPortalMembersListMembers403Error: Not permitted - requires owner or billing manager role
             HTTPValidationError: Validation Error
-            PolarNetworkError: Raised when a network error occurs while making the request.
-            PolarRateLimitError: Raised when the rate limit is exceeded.
-            PolarServerError: Raised when the server returns a 5xx error response.
+            RepalisNetworkError: Raised when a network error occurs while making the request.
+            RepalisRateLimitError: Raised when the rate limit is exceeded.
+            RepalisServerError: Raised when the server returns a 5xx error response.
         """
         while True:
             response = await self.list_members(
@@ -406,9 +406,9 @@ class MembersAsync(AsyncServiceBase):
             CustomerPortalMembersAddMember401Error: Authentication required
             CustomerPortalMembersAddMember403Error: Not permitted - requires owner or billing manager role
             HTTPValidationError: Validation Error
-            PolarNetworkError: Raised when a network error occurs while making the request.
-            PolarRateLimitError: Raised when the rate limit is exceeded.
-            PolarServerError: Raised when the server returns a 5xx error response.
+            RepalisNetworkError: Raised when a network error occurs while making the request.
+            RepalisRateLimitError: Raised when the rate limit is exceeded.
+            RepalisServerError: Raised when the server returns a 5xx error response.
         """
         request = self.client.build_request(
             method="POST",
@@ -456,9 +456,9 @@ class MembersAsync(AsyncServiceBase):
             CustomerPortalMembersRemoveMember403Error: Not permitted - requires owner or billing manager role
             CustomerPortalMembersRemoveMember404Error: Member not found.
             HTTPValidationError: Validation Error
-            PolarNetworkError: Raised when a network error occurs while making the request.
-            PolarRateLimitError: Raised when the rate limit is exceeded.
-            PolarServerError: Raised when the server returns a 5xx error response.
+            RepalisNetworkError: Raised when a network error occurs while making the request.
+            RepalisRateLimitError: Raised when the rate limit is exceeded.
+            RepalisServerError: Raised when the server returns a 5xx error response.
         """
         request = self.client.build_request(
             method="DELETE",
@@ -510,9 +510,9 @@ class MembersAsync(AsyncServiceBase):
             CustomerPortalMembersUpdateMember403Error: Not permitted - requires owner or billing manager role
             CustomerPortalMembersUpdateMember404Error: Member not found.
             HTTPValidationError: Validation Error
-            PolarNetworkError: Raised when a network error occurs while making the request.
-            PolarRateLimitError: Raised when the rate limit is exceeded.
-            PolarServerError: Raised when the server returns a 5xx error response.
+            RepalisNetworkError: Raised when a network error occurs while making the request.
+            RepalisRateLimitError: Raised when the rate limit is exceeded.
+            RepalisServerError: Raised when the server returns a 5xx error response.
         """
         request = self.client.build_request(
             method="PATCH",

@@ -1,6 +1,6 @@
 # Webhook processing
 
-Use these instructions whenever implementing or modifying a Polar webhook receiver.
+Use these instructions whenever implementing or modifying a Repalis webhook receiver.
 
 ## Receiver requirements
 
@@ -23,37 +23,37 @@ import os
 from fastapi import FastAPI, HTTPException, Request, Response
 
 from repalis.v{{ (ir.versions[-2] | default({})).version | replace("-", "_") | replace(".", "_") }}.webhooks import (
-    PolarWebhookError,
-    PolarWebhookUnknownTypeError,
-    PolarWebhookVerificationError,
+    RepalisWebhookError,
+    RepalisWebhookUnknownTypeError,
+    RepalisWebhookVerificationError,
     validate_event,
 )
 
 app = FastAPI()
 logger = logging.getLogger(__name__)
-webhook_secret = os.environ["POLAR_WEBHOOK_SECRET"]
+webhook_secret = os.environ["REPALIS_WEBHOOK_SECRET"]
 
 
-@app.post("/webhooks/polar")
-async def polar_webhook(request: Request) -> Response:
+@app.post("/webhooks/repalis")
+async def repalis_webhook(request: Request) -> Response:
     try:
         event = validate_event(
             await request.body(),
             dict(request.headers),
             webhook_secret,
         )
-    except PolarWebhookVerificationError as exc:
+    except RepalisWebhookVerificationError as exc:
         raise HTTPException(
             status_code=403,
             detail="Invalid webhook signature",
         ) from exc
-    except PolarWebhookUnknownTypeError as exc:
+    except RepalisWebhookUnknownTypeError as exc:
         logger.warning(
-            "Ignoring unsupported signed Polar webhook",
+            "Ignoring unsupported signed Repalis webhook",
             extra={"event_type": exc.event_type},
         )
         return Response(status_code=202)
-    except PolarWebhookError as exc:
+    except RepalisWebhookError as exc:
         raise HTTPException(
             status_code=400,
             detail="Invalid webhook payload",
@@ -74,7 +74,7 @@ Use `benefit_grant.created`, `benefit_grant.updated`, and `benefit_grant.revoked
 
 - Upsert the grant by `event.data.id` on `benefit_grant.created` and `benefit_grant.updated`.
 - Mark that grant revoked on `benefit_grant.revoked`.
-- Correlate through `event.data.customer.external_id` when set, or a stored Polar customer ID otherwise; do not use email as the durable key.
+- Correlate through `event.data.customer.external_id` when set, or a stored Repalis customer ID otherwise; do not use email as the durable key.
 - Derive access from whether any grant with `is_granted` and without `is_revoked` remains for the customer, member, and benefit.
 
 Do not disable a feature merely because one grant was revoked. The same benefit can be granted through more than one subscription or order, so another active grant may still authorize access.

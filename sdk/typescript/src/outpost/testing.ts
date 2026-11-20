@@ -17,7 +17,7 @@ export interface RedisServer {
 
 // A throwaway redis-server on a Unix socket, for the tests and benchmarks.
 export const startRedisServer = async (): Promise<RedisServer> => {
-  const directory = await mkdtemp(join(tmpdir(), "polar-outpost-"));
+  const directory = await mkdtemp(join(tmpdir(), "repalis-outpost-"));
   const socket = join(directory, "redis.sock");
   const server = spawn(
     "redis-server",
@@ -45,22 +45,22 @@ export const startRedisServer = async (): Promise<RedisServer> => {
   };
 };
 
-export interface PolarServer {
+export interface RepalisServer {
   client: ClientBase;
   stop(): Promise<void>;
 }
 
-// Polar's side of Outpost: the configuration, the snapshot when given one, no changes, and a
+// Repalis's side of Outpost: the configuration, the snapshot when given one, no changes, and a
 // sink for telemetry exports.
-export const startPolarServer = async (
+export const startRepalisServer = async (
   reducers: Reducer[],
   snapshot?: Record<string, unknown>,
-): Promise<PolarServer> => {
+): Promise<RepalisServer> => {
   let cursor = 0;
   const server = createServer(async (request, response) => {
     let data = "";
     for await (const chunk of request) data += chunk;
-    const url = new URL(request.url!, "http://polar");
+    const url = new URL(request.url!, "http://repalis");
     const body = (value: unknown) => {
       response.writeHead(200, { "Content-Type": "application/json" });
       response.end(JSON.stringify(value));

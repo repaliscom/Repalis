@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, test, vi } from "vitest";
 
-import { ClientBase, PolarClientError, PolarNetworkError, resolveBaseUrl } from "./base";
+import { ClientBase, RepalisClientError, RepalisNetworkError, resolveBaseUrl } from "./base";
 
 const servers = {
   production: "https://api.repalis.com",
@@ -24,7 +24,7 @@ describe("resolveBaseUrl", () => {
 const client = new ClientBase({
   baseUrl: "https://api.repalis.com",
   version: "2026-04",
-  accessToken: "polar_at_u_xxx",
+  accessToken: "repalis_at_u_xxx",
 });
 
 afterEach(() => {
@@ -39,7 +39,7 @@ describe("sendRequest", () => {
     const client = new ClientBase({
       baseUrl: "https://api.repalis.com",
       version: "2026-10",
-      accessToken: "polar_at_u_xxx",
+      accessToken: "repalis_at_u_xxx",
       timeout: 10,
     });
 
@@ -58,7 +58,7 @@ describe("sendRequest", () => {
     const client = new ClientBase({
       baseUrl: "https://api.repalis.com",
       version: "2026-10",
-      accessToken: "polar_at_u_xxx",
+      accessToken: "repalis_at_u_xxx",
       timeout: 10,
     });
 
@@ -77,7 +77,7 @@ describe("sendRequest", () => {
     const client = new ClientBase({
       baseUrl: "https://api.repalis.com",
       version: "2026-10",
-      accessToken: "polar_at_u_xxx",
+      accessToken: "repalis_at_u_xxx",
       timeout: 10,
     });
 
@@ -106,25 +106,25 @@ describe("sendRequest", () => {
     const client = new ClientBase({
       baseUrl: "https://api.repalis.com",
       version: "2026-04",
-      accessToken: "polar_at_u_xxx",
+      accessToken: "repalis_at_u_xxx",
     });
     const headers = new Headers({
-      Authorization: "Bearer polar_at_u_xxx",
+      Authorization: "Bearer repalis_at_u_xxx",
     });
 
     await client.sendRequest(["https://api.repalis.com/v1/items/", { headers }], {
-      accessToken: "polar_at_u_override",
+      accessToken: "repalis_at_u_override",
     });
 
     const requestHeaders = fetch.mock.calls[0][1]?.headers as Headers;
-    expect(requestHeaders.get("Authorization")).toBe("Bearer polar_at_u_override");
+    expect(requestHeaders.get("Authorization")).toBe("Bearer repalis_at_u_override");
   });
 
   test("does not create a timeout signal when no timeout is configured", async () => {
     const client = new ClientBase({
       baseUrl: "https://api.repalis.com",
       version: "2026-10",
-      accessToken: "polar_at_u_xxx",
+      accessToken: "repalis_at_u_xxx",
       timeout: undefined,
     });
 
@@ -189,7 +189,7 @@ describe("buildRequest", () => {
 describe("organization", () => {
   const organizationHeader = (client: ClientBase) => {
     const [, requestInit] = client.buildRequest("GET", "/v1/items/");
-    return (requestInit.headers as Headers).get("Polar-Organization");
+    return (requestInit.headers as Headers).get("Repalis-Organization");
   };
 
   test("omits the header by default", () => {
@@ -200,7 +200,7 @@ describe("organization", () => {
     const client = new ClientBase({
       baseUrl: "https://api.repalis.com",
       version: "2026-04",
-      accessToken: "polar_at_u_xxx",
+      accessToken: "repalis_at_u_xxx",
       organizationId: "org_1",
     });
 
@@ -239,10 +239,10 @@ describe("parseResponse", () => {
         },
       });
       const response = new Response(body, { status });
-      const errors = { 422: class extends PolarClientError {} };
+      const errors = { 422: class extends RepalisClientError {} };
 
       await expect(client.parseResponse(response, responseType, errors)).rejects.toThrow(
-        PolarNetworkError,
+        RepalisNetworkError,
       );
     },
   );

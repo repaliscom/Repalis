@@ -9,7 +9,7 @@ Use the generated, versioned Repalis SDK without inventing methods or parameters
 
 ## Inspect the application first
 
-1. Identify the installed `@polar-sh/sdk` version and preserve the API version already selected by the application.
+1. Identify the installed `@repalis/sdk` version and preserve the API version already selected by the application.
 2. Inspect generated service signatures, model interfaces, response types, and endpoint-specific errors before writing calls.
 3. Use `createRepalis` for the full service client. Use `createRepalisCore` with individual service functions when bundle size or tree-shaking matters.
 4. Identify whether the access token is scoped to an organization. When the selected token does not imply one, create the client with `createRepalis({ ..., organizationId })` or pass `organization_id`, and confirm the required endpoint scopes.
@@ -24,19 +24,19 @@ Read [Migration from the `<1.0.0` SDK](references/migration-from-v0.md) before c
 Keep production and sandbox access tokens separate. Never expose an organization access token in browser, mobile, or other public client code. Pass `environment: "sandbox"` while testing; omit it or pass `environment: "production"` in production.
 
 ```typescript
-import { createRepalis } from "@polar-sh/sdk/2026-10";
+import { createRepalis } from "@repalis/sdk/2026-10";
 
-const accessToken = process.env.POLAR_ACCESS_TOKEN;
+const accessToken = process.env.REPALIS_ACCESS_TOKEN;
 if (!accessToken) {
-  throw new Error("POLAR_ACCESS_TOKEN is required");
+  throw new Error("REPALIS_ACCESS_TOKEN is required");
 }
 
-const polar = createRepalis({
+const repalis = createRepalis({
   accessToken,
   environment: "sandbox",
 });
 
-const customerState = await polar.customers.getStateExternal("usr_123");
+const customerState = await repalis.customers.getStateExternal("usr_123");
 ```
 
 Create the client once for a long-running server and reuse it. The TypeScript client uses `fetch` and does not expose a connection-closing lifecycle.
@@ -44,11 +44,11 @@ Create the client once for a long-running server and reuse it. The TypeScript cl
 For tree-shakable individual functions, create a core client and bind only the operations the application uses:
 
 ```typescript
-import { createRepalisCore } from "@polar-sh/sdk/2026-10";
-import { getStateExternalCustomers } from "@polar-sh/sdk/2026-10/services/customers";
+import { createRepalisCore } from "@repalis/sdk/2026-10";
+import { getStateExternalCustomers } from "@repalis/sdk/2026-10/services/customers";
 
-const polarCore = createRepalisCore({ accessToken });
-const getCustomerState = getStateExternalCustomers(polarCore);
+const repalisCore = createRepalisCore({ accessToken });
+const getCustomerState = getStateExternalCustomers(repalisCore);
 const customerState = await getCustomerState("usr_123");
 ```
 
@@ -64,7 +64,7 @@ const customerState = await getCustomerState("usr_123");
 - Consume paginated `iter*` methods with `for await`; each additional page performs another API request.
 
 ```typescript
-for await (const customer of polar.customers.iterList({
+for await (const customer of repalis.customers.iterList({
   sorting: ["email"],
 })) {
   console.log(customer.id);
@@ -76,11 +76,11 @@ for await (const customer of polar.customers.iterList({
 Use the application's immutable user or organization identifier as the Repalis customer `external_id`. It is unique within a Repalis organization. It may be assigned later when initially unset, but it cannot be changed or removed once set.
 
 ```typescript
-const customer = await polar.customers.create({
+const customer = await repalis.customers.create({
   external_id: "usr_123",
   email: "user@example.com",
 });
-const customerState = await polar.customers.getStateExternal("usr_123");
+const customerState = await repalis.customers.getStateExternal("usr_123");
 ```
 
 Handle concurrent creation safely. A preflight lookup followed by creation is not atomic; if creation reports an existing email or external ID, fetch and reconcile the existing customer rather than creating a second mapping.
@@ -90,12 +90,12 @@ Handle concurrent creation safely. A preflight lookup followed by creation is no
 Create checkout sessions on the server and send only the returned URL to the browser. Prefer `external_customer_id` so a completed checkout is reconciled with the application's customer.
 
 ```typescript
-const productId = process.env.POLAR_PRODUCT_ID;
+const productId = process.env.REPALIS_PRODUCT_ID;
 if (!productId) {
-  throw new Error("POLAR_PRODUCT_ID is required");
+  throw new Error("REPALIS_PRODUCT_ID is required");
 }
 
-const checkout = await polar.checkouts.create({
+const checkout = await repalis.checkouts.create({
   products: [productId],
   external_customer_id: "usr_123",
   success_url: "https://example.com/billing/success?checkout_id={CHECKOUT_ID}",
@@ -109,7 +109,7 @@ Do not treat the success redirect as proof of payment or entitlement. Confirm ac
 Create short-lived customer portal sessions only for an authenticated customer:
 
 ```typescript
-const session = await polar.customerSessions.create({
+const session = await repalis.customerSessions.create({
   external_customer_id: "usr_123",
   return_url: "https://example.com/settings/billing",
 });
@@ -123,12 +123,12 @@ Validate return URLs and never let an untrusted caller choose another customer's
 Prefer a `feature_flag` benefit attached to the relevant products over inferring access from subscription statuses. Reconcile both access grants and access revocations.
 
 ```typescript
-const benefitId = process.env.POLAR_BENEFIT_ID;
+const benefitId = process.env.REPALIS_BENEFIT_ID;
 if (!benefitId) {
-  throw new Error("POLAR_BENEFIT_ID is required");
+  throw new Error("REPALIS_BENEFIT_ID is required");
 }
 
-const customerState = await polar.customers.getStateExternal("usr_123");
+const customerState = await repalis.customers.getStateExternal("usr_123");
 const enabled = customerState.granted_benefits.some(
   (grant) => grant.benefit_id === benefitId,
 );
@@ -156,7 +156,7 @@ Read [Usage-event ingestion](references/usage-events.md) before implementing met
 
 ## Handle API failures intentionally
 
-Handle generated endpoint-specific errors before broad SDK errors. Import base errors from `@polar-sh/sdk` and version-specific endpoint errors from the selected API version's `errors` namespace.
+Handle generated endpoint-specific errors before broad SDK errors. Import base errors from `@repalis/sdk` and version-specific endpoint errors from the selected API version's `errors` namespace.
 
 - `RepalisNetworkError`: retry only when the operation is safe or carries a stable deduplication identifier.
 - `RepalisRateLimitError`: apply bounded backoff and honor `retryAfter` when present.

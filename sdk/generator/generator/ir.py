@@ -280,7 +280,7 @@ class HTTPMethod(enum.StrEnum):
 type ResponseType = typing.Literal["json", "text", "none"]
 
 
-PAGINATION = "x-polar-pagination"
+PAGINATION = "x-repalis-pagination"
 type PaginationType = typing.Literal["page_limit"]
 
 
@@ -291,7 +291,7 @@ class Pagination(BaseModel):
     item_schema: TypeRef
 
 
-CLI_PREVIEW = "x-polar-cli-preview"
+CLI_PREVIEW = "x-repalis-cli-preview"
 
 
 class CLIPreviewField(BaseModel):
@@ -446,7 +446,7 @@ def _default_model_name_normalizer(input: str) -> str:
 
 type ServiceNameNormalizer = typing.Callable[[str], str]
 
-ENVIRONMENT = "x-polar-environment"
+ENVIRONMENT = "x-repalis-environment"
 
 
 def _default_service_name_normalizer(input: str) -> str:

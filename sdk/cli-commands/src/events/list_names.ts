@@ -1,11 +1,11 @@
 // Generated from events:list_names (2026-10). Do not edit.
-import type { Polar } from '@polar-sh/sdk/2026-10'
+import type { Repalis } from '@repalis/sdk/2026-10'
 import { Effect } from 'effect'
 import { Command, Flag } from 'effect/cli'
 import { ApiRuntime } from '../runtime'
 import { fields, data, mergeInput, nullableStringFlag } from '../inputs'
 
-type Query = NonNullable<Parameters<Polar['events']['listNames']>[0]>
+type Query = NonNullable<Parameters<Repalis['events']['listNames']>[0]>
 
 export const command = Command.make(
   'list_names',

@@ -6,9 +6,9 @@ export type MeterInput =
  * Customer-wide usage and credits for a meter.
  */
 export interface CustomerMeter {
-  /** Polar meter ID. */
+  /** Repalis meter ID. */
   meter_id: string;
-  /** Polar customer ID, when queried with it. */
+  /** Repalis customer ID, when queried with it. */
   customer_id?: string;
   /** Application customer ID, when queried with it. */
   external_customer_id?: string;

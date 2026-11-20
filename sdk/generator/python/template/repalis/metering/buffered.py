@@ -8,7 +8,7 @@ import typing
 import anyio
 import anyio.lowlevel
 
-from repalis import PolarError, PolarNetworkError, PolarRateLimitError, PolarServerError
+from repalis import RepalisError, RepalisNetworkError, RepalisRateLimitError, RepalisServerError
 from repalis.logging import get_logger
 from repalis.metering.client import MeteringClient
 from repalis.metering.errors import (
@@ -31,14 +31,14 @@ RETRY_AFTER_BUDGET = 300.0
 
 
 class BufferedMeteringOptions(typing.TypedDict, total=False):
-    """Configure in-memory batching and delivery to Polar.
+    """Configure in-memory batching and delivery to Repalis.
 
     Attributes:
         batch_size: Maximum events per request. Defaults to 100.
         batch_interval: Seconds to collect a batch after its first event. Defaults to 1.
         shutdown_timeout: Seconds allowed to drain on exit. Defaults to 30.
         max_attempts: Total delivery attempts per batch, including the first. Defaults to 3.
-        on_delivered: Async callback for events Polar accepted.
+        on_delivered: Async callback for events Repalis accepted.
         on_dropped: Async callback for undelivered events and their DropReason.
             Defaults to None; drops are always logged.
     """
@@ -77,11 +77,11 @@ class _FlushRequest:
 
 
 class BufferedMeteringStrategy:
-    """Batch events in memory and deliver them through Polar's HTTP API."""
+    """Batch events in memory and deliver them through Repalis's HTTP API."""
 
     def __init__(
         self,
-        polar: MeteringClient,
+        repalis: MeteringClient,
         batch_size: int = 100,
         batch_interval: float = 1.0,
         shutdown_timeout: float = 30.0,
@@ -96,12 +96,12 @@ class BufferedMeteringStrategy:
         """Configure event delivery and retries.
 
         Args:
-            polar: Client exposing the events.ingest API.
+            repalis: Client exposing the events.ingest API.
             batch_size: Maximum events per request. Defaults to 100.
             batch_interval: Batch collection interval in seconds. Defaults to 1.
             shutdown_timeout: Drain deadline in seconds. Defaults to 30.
             max_attempts: Total attempts per batch. Defaults to 3.
-            on_delivered: Awaited callback for events Polar accepted.
+            on_delivered: Awaited callback for events Repalis accepted.
             on_dropped: Awaited callback for dropped events and the drop reason.
 
         Raises:
@@ -110,7 +110,7 @@ class BufferedMeteringStrategy:
         if batch_size <= 0:
             raise ValueError("batch_size must be greater than zero")
         validate_timeout(shutdown_timeout)
-        self.polar = polar
+        self.repalis = repalis
         self.batch_size = batch_size
         self.batch_interval = batch_interval
         self.shutdown_timeout = shutdown_timeout
@@ -133,7 +133,7 @@ class BufferedMeteringStrategy:
 
     async def __aenter__(self) -> typing.Self:
         if self._flush_cancel_scope is not None:
-            raise PolarError("Buffered metering has already started")
+            raise RepalisError("Buffered metering has already started")
         self._worker_task_group = await self._stack.enter_async_context(
             anyio.create_task_group()
         )
@@ -179,7 +179,7 @@ class BufferedMeteringStrategy:
         if self._failure is not None:
             raise self._failure
         if self._flush_cancel_scope is None:
-            raise PolarError("Buffered metering has not started")
+            raise RepalisError("Buffered metering has not started")
         self._sequence += 1
         self._send_queue.send_nowait(_QueuedEvent(self._sequence, event))
         self._pending[self._sequence] = event
@@ -189,7 +189,7 @@ class BufferedMeteringStrategy:
 
         A newer flush releases the ones still waiting that it outlasts, and reports
         their failures instead: one waiter keeps a serverless function alive, and the
-        others return without waiting for Polar. Cancelling the newer flush does not
+        others return without waiting for Repalis. Cancelling the newer flush does not
         resume the ones it released. A timeout or caller cancellation leaves outcomes
         observable by a later flush and does not cancel background delivery.
 
@@ -202,7 +202,7 @@ class BufferedMeteringStrategy:
         """
         validate_timeout(timeout)
         if self._flush_cancel_scope is None:
-            raise PolarError("Buffered metering has not started")
+            raise RepalisError("Buffered metering has not started")
         if self._closed:
             raise anyio.ClosedResourceError
         request = self._barrier()
@@ -371,10 +371,10 @@ class BufferedMeteringStrategy:
         waited = 0.0
         while True:
             try:
-                await self.polar.events.ingest(events=batch)
+                await self.repalis.events.ingest(events=batch)
                 break
-            except (PolarNetworkError, PolarRateLimitError, PolarServerError) as e:
-                if isinstance(e, PolarRateLimitError) and e.retry_after is not None:
+            except (RepalisNetworkError, RepalisRateLimitError, RepalisServerError) as e:
+                if isinstance(e, RepalisRateLimitError) and e.retry_after is not None:
                     delay = max(float(e.retry_after), 1.0)
                     waited += delay
                     if waited > RETRY_AFTER_BUDGET:
@@ -385,6 +385,6 @@ class BufferedMeteringStrategy:
                     delay = _jittered_delay(2**attempt)
                     attempt += 1
                 await anyio.sleep(delay)
-            except PolarError as error:
+            except RepalisError as error:
                 return DeliveryFailure(batch, "permanent_error", error)
         return None

@@ -1,4 +1,4 @@
-import { createPolarCore, type Polar as PolarSDK } from '@polar-sh/sdk/2026-10'
+import { createRepalisCore, type Repalis as RepalisSDK } from '@polar-sh/sdk/2026-10'
 import { Effect, Redacted } from 'effect'
 import {
   AuthError,
@@ -270,10 +270,10 @@ interface PolarState {
   }>
 }
 
-export const fakePolar = (client: unknown) => {
+export const fakeRepalis = (client: unknown) => {
   const state: PolarState = { requests: [] }
-  const sdk = client as PolarSDK
-  const polar = Polar.of({
+  const sdk = client as RepalisSDK
+  const repalis = Polar.of({
     getClient: () => Effect.succeed(sdk),
     use: (fn, environment = 'sandbox', options) =>
       Effect.tryPromise({
@@ -284,7 +284,7 @@ export const fakePolar = (client: unknown) => {
           })
           return fn(
             sdk,
-            createPolarCore({
+            createRepalisCore({
               accessToken: 'test-token',
               baseUrl: 'https://api.polar.test',
             }),

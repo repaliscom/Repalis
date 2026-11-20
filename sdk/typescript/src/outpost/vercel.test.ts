@@ -108,7 +108,7 @@ describe("warm-up from the pinned route", () => {
     const seconds: number[] = [];
     for (let second = 60; second < 360; second += 1) {
       const headers = await headersAt(pin, customer, second);
-      const next = headers.get("x-polar-affinity-next");
+      const next = headers.get("x-repalis-affinity-next");
       if (next && next !== headers.get("x-vercel-affinity-id")) seconds.push(second);
       else if (seconds.length) break;
     }
@@ -121,10 +121,10 @@ describe("warm-up from the pinned route", () => {
     const next = await idAt(pin, "customer-next", move);
     fetchMock.mockClear();
 
-    expect((await headersAt(pin, "customer-next", move - 60)).has("x-polar-affinity-next")).toBe(
+    expect((await headersAt(pin, "customer-next", move - 60)).has("x-repalis-affinity-next")).toBe(
       false,
     );
-    expect((await headersAt(pin, "customer-next", move - 15)).get("x-polar-affinity-next")).toBe(
+    expect((await headersAt(pin, "customer-next", move - 15)).get("x-repalis-affinity-next")).toBe(
       next,
     );
     expect(fetchMock).not.toHaveBeenCalled();
@@ -151,7 +151,7 @@ describe("warm-up from the pinned route", () => {
     expect(headers.get("x-vercel-affinity-id")).toBe(next);
     expect(headers.get("x-vercel-trusted-oidc-idp-token")).toBe("oidc");
     expect(headers.get("authorization")).toBe("Basic merchant");
-    expect(headers.has("x-polar-affinity-next")).toBe(false);
+    expect(headers.has("x-repalis-affinity-next")).toBe(false);
     expect(isVercelAffinityWarmup({ headers })).toBe(true);
     const passed = await headersAt(pin, "customer-route", move - 10, headers);
     expect(passed.get("x-vercel-affinity-id")).toBe(next);
@@ -194,7 +194,7 @@ describe("warm-up from the pinned route", () => {
 
   it("never warms its own instance", () => {
     fetchMock.mockClear();
-    const own = { "x-vercel-affinity-id": "shard-3-9", "x-polar-affinity-next": "shard-3-9" };
+    const own = { "x-vercel-affinity-id": "shard-3-9", "x-repalis-affinity-next": "shard-3-9" };
     warmNextVercelInstance(route(new Headers({ ...incoming, ...own })), event.waitUntil);
     expect(fetchMock).not.toHaveBeenCalled();
   });

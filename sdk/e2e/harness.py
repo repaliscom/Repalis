@@ -22,7 +22,7 @@ from redis.exceptions import ConnectionError as RedisConnectionError
 ROOT = pathlib.Path(__file__).resolve().parent
 
 
-# Polar's configuration as a scenario writes it: the fake Polar adds its organization.
+# Repalis's configuration as a scenario writes it: the fake Repalis adds its organization.
 class ScenarioConfiguration(typing.TypedDict):
     reducers: list[Reducer]
 
@@ -79,7 +79,7 @@ class IngestStep(TimelineStep):
     operation: typing.ClassVar[typing.Literal["ingest"]] = "ingest"
 
 
-# Polar ingested these events: the client stops counting them as pending.
+# Repalis ingested these events: the client stops counting them as pending.
 @dataclasses.dataclass(frozen=True)
 class ConfirmStep(TimelineStep):
     client: str
@@ -118,7 +118,7 @@ class RestartStep(TimelineStep):
 @dataclasses.dataclass(frozen=True)
 class DisconnectStep(TimelineStep):
     arguments: dict[str, object] = dataclasses.field(default_factory=dict)
-    client: typing.ClassVar[typing.Literal["polar"]] = "polar"
+    client: typing.ClassVar[typing.Literal["repalis"]] = "repalis"
     operation: typing.ClassVar[typing.Literal["disconnect"]] = "disconnect"
 
 
@@ -133,15 +133,15 @@ class RedisStep(TimelineStep):
 @dataclasses.dataclass(frozen=True)
 class SnapshotStep(TimelineStep):
     arguments: Snapshot
-    client: typing.ClassVar[typing.Literal["polar"]] = "polar"
+    client: typing.ClassVar[typing.Literal["repalis"]] = "repalis"
     operation: typing.ClassVar[typing.Literal["snapshot"]] = "snapshot"
 
 
-# Polar stored these events: it confirms them when a client asks before applying a snapshot.
+# Repalis stored these events: it confirms them when a client asks before applying a snapshot.
 @dataclasses.dataclass(frozen=True)
 class IngestedStep(TimelineStep):
     arguments: IngestArguments
-    client: typing.ClassVar[typing.Literal["polar"]] = "polar"
+    client: typing.ClassVar[typing.Literal["repalis"]] = "repalis"
     operation: typing.ClassVar[typing.Literal["ingested"]] = "ingested"
 
 
@@ -384,9 +384,9 @@ async def run(
         clients: dict[str, Process] = {}
         contexts: dict[str, typing.Any] = {}
         client_names = dict.fromkeys(
-            step.client for step in steps if step.client not in ("polar", "redis")
+            step.client for step in steps if step.client not in ("repalis", "redis")
         )
-        locks = {name: anyio.Lock() for name in [*client_names, "polar", "redis"]}
+        locks = {name: anyio.Lock() for name in [*client_names, "repalis", "redis"]}
 
         async def start_client(name: str) -> None:
             if language == "python":
@@ -414,7 +414,7 @@ async def run(
                 if isinstance(step, RedisStep):
                     await proxy.set_available(step.available)
                     return None
-                target = server if step.client == "polar" else clients[step.client]
+                target = server if step.client == "repalis" else clients[step.client]
                 return await target.request(step.operation, step.arguments)
 
         async def execute(step: Step) -> None:

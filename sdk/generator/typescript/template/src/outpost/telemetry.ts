@@ -26,8 +26,8 @@ import type { ClientBase } from "../base";
 
 import { VERSION } from "../version";
 
-export const TELEMETRY_ENV = "POLAR_OUTPOST_TELEMETRY";
-const FORWARDED_HEADERS = ["Authorization", "Polar-Organization"];
+export const TELEMETRY_ENV = "REPALIS_OUTPOST_TELEMETRY";
+const FORWARDED_HEADERS = ["Authorization", "Repalis-Organization"];
 const EXPORT_INTERVAL = 30_000;
 export const METRIC_VIEWS: ViewOptions[] = [
   {
@@ -104,7 +104,7 @@ const relayTarget = (
 
 /**
  * Sends serialized exports in one request: protobuf messages concatenate into one. The OTLP
- * exporters would merge OTEL_EXPORTER_OTLP_HEADERS and send the application's credentials to Polar.
+ * exporters would merge OTEL_EXPORTER_OTLP_HEADERS and send the application's credentials to Repalis.
  */
 export const relay = async (
   client: Pick<ClientBase, "buildRequest">,

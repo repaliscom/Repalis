@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from repalis.base import PolarClientError
+from repalis.base import RepalisClientError
 from repalis.v2027_01.outputs import (
     AlreadyActiveSubscription as AlreadyActiveSubscriptionModel,
 )
@@ -138,7 +138,7 @@ from repalis.v2027_01.outputs import (
 )
 
 
-class HTTPValidationError(PolarClientError):
+class HTTPValidationError(RepalisClientError):
     error_type = HTTPValidationErrorModel
     error: HTTPValidationErrorModel
 
@@ -147,7 +147,7 @@ class HTTPValidationError(PolarClientError):
         super().__init__(status_code, error)
 
 
-class ResourceNotFound(PolarClientError):
+class ResourceNotFound(RepalisClientError):
     error_type = ResourceNotFoundModel
     error: ResourceNotFoundModel
 
@@ -156,7 +156,7 @@ class ResourceNotFound(PolarClientError):
         super().__init__(status_code, error)
 
 
-class NotPermitted(PolarClientError):
+class NotPermitted(RepalisClientError):
     error_type = NotPermittedModel
     error: NotPermittedModel
 
@@ -165,7 +165,7 @@ class NotPermitted(PolarClientError):
         super().__init__(status_code, error)
 
 
-class PaymentMethodSetupFailed(PolarClientError):
+class PaymentMethodSetupFailed(RepalisClientError):
     error_type = PaymentMethodSetupFailedModel
     error: PaymentMethodSetupFailedModel
 
@@ -174,7 +174,7 @@ class PaymentMethodSetupFailed(PolarClientError):
         super().__init__(status_code, error)
 
 
-class CustomerNotReady(PolarClientError):
+class CustomerNotReady(RepalisClientError):
     error_type = CustomerNotReadyModel
     error: CustomerNotReadyModel
 
@@ -183,7 +183,7 @@ class CustomerNotReady(PolarClientError):
         super().__init__(status_code, error)
 
 
-class PaymentMethodInUseByActiveSubscription(PolarClientError):
+class PaymentMethodInUseByActiveSubscription(RepalisClientError):
     error_type = PaymentMethodInUseByActiveSubscriptionModel
     error: PaymentMethodInUseByActiveSubscriptionModel
 
@@ -194,7 +194,7 @@ class PaymentMethodInUseByActiveSubscription(PolarClientError):
         super().__init__(status_code, error)
 
 
-class CustomerPortalCustomersCheckEmailUpdate401Error(PolarClientError):
+class CustomerPortalCustomersCheckEmailUpdate401Error(RepalisClientError):
     error_type = None
     error: None
 
@@ -203,7 +203,7 @@ class CustomerPortalCustomersCheckEmailUpdate401Error(PolarClientError):
         super().__init__(status_code, error)
 
 
-class CustomerPortalCustomersVerifyEmailUpdate401Error(PolarClientError):
+class CustomerPortalCustomersVerifyEmailUpdate401Error(RepalisClientError):
     error_type = None
     error: None
 
@@ -212,7 +212,7 @@ class CustomerPortalCustomersVerifyEmailUpdate401Error(PolarClientError):
         super().__init__(status_code, error)
 
 
-class CustomerPortalCustomersVerifyEmailUpdate422Error(PolarClientError):
+class CustomerPortalCustomersVerifyEmailUpdate422Error(RepalisClientError):
     error_type = None
     error: None
 
@@ -221,7 +221,7 @@ class CustomerPortalCustomersVerifyEmailUpdate422Error(PolarClientError):
         super().__init__(status_code, error)
 
 
-class CustomerPortalSeatsListSeats401Error(PolarClientError):
+class CustomerPortalSeatsListSeats401Error(RepalisClientError):
     error_type = None
     error: None
 
@@ -230,7 +230,7 @@ class CustomerPortalSeatsListSeats401Error(PolarClientError):
         super().__init__(status_code, error)
 
 
-class CustomerPortalSeatsListSeats403Error(PolarClientError):
+class CustomerPortalSeatsListSeats403Error(RepalisClientError):
     error_type = None
     error: None
 
@@ -239,7 +239,7 @@ class CustomerPortalSeatsListSeats403Error(PolarClientError):
         super().__init__(status_code, error)
 
 
-class CustomerPortalSeatsListSeats404Error(PolarClientError):
+class CustomerPortalSeatsListSeats404Error(RepalisClientError):
     error_type = None
     error: None
 
@@ -248,7 +248,7 @@ class CustomerPortalSeatsListSeats404Error(PolarClientError):
         super().__init__(status_code, error)
 
 
-class CustomerPortalSeatsAssignSeat400Error(PolarClientError):
+class CustomerPortalSeatsAssignSeat400Error(RepalisClientError):
     error_type = None
     error: None
 
@@ -257,7 +257,7 @@ class CustomerPortalSeatsAssignSeat400Error(PolarClientError):
         super().__init__(status_code, error)
 
 
-class CustomerPortalSeatsAssignSeat401Error(PolarClientError):
+class CustomerPortalSeatsAssignSeat401Error(RepalisClientError):
     error_type = None
     error: None
 
@@ -266,7 +266,7 @@ class CustomerPortalSeatsAssignSeat401Error(PolarClientError):
         super().__init__(status_code, error)
 
 
-class CustomerPortalSeatsAssignSeat403Error(PolarClientError):
+class CustomerPortalSeatsAssignSeat403Error(RepalisClientError):
     error_type = None
     error: None
 
@@ -275,7 +275,7 @@ class CustomerPortalSeatsAssignSeat403Error(PolarClientError):
         super().__init__(status_code, error)
 
 
-class CustomerPortalSeatsAssignSeat404Error(PolarClientError):
+class CustomerPortalSeatsAssignSeat404Error(RepalisClientError):
     error_type = None
     error: None
 
@@ -284,7 +284,7 @@ class CustomerPortalSeatsAssignSeat404Error(PolarClientError):
         super().__init__(status_code, error)
 
 
-class CustomerPortalSeatsRevokeSeat401Error(PolarClientError):
+class CustomerPortalSeatsRevokeSeat401Error(RepalisClientError):
     error_type = None
     error: None
 
@@ -293,7 +293,7 @@ class CustomerPortalSeatsRevokeSeat401Error(PolarClientError):
         super().__init__(status_code, error)
 
 
-class CustomerPortalSeatsRevokeSeat403Error(PolarClientError):
+class CustomerPortalSeatsRevokeSeat403Error(RepalisClientError):
     error_type = None
     error: None
 
@@ -302,7 +302,7 @@ class CustomerPortalSeatsRevokeSeat403Error(PolarClientError):
         super().__init__(status_code, error)
 
 
-class CustomerPortalSeatsRevokeSeat404Error(PolarClientError):
+class CustomerPortalSeatsRevokeSeat404Error(RepalisClientError):
     error_type = None
     error: None
 
@@ -311,7 +311,7 @@ class CustomerPortalSeatsRevokeSeat404Error(PolarClientError):
         super().__init__(status_code, error)
 
 
-class CustomerPortalSeatsResendInvitation400Error(PolarClientError):
+class CustomerPortalSeatsResendInvitation400Error(RepalisClientError):
     error_type = None
     error: None
 
@@ -320,7 +320,7 @@ class CustomerPortalSeatsResendInvitation400Error(PolarClientError):
         super().__init__(status_code, error)
 
 
-class CustomerPortalSeatsResendInvitation401Error(PolarClientError):
+class CustomerPortalSeatsResendInvitation401Error(RepalisClientError):
     error_type = None
     error: None
 
@@ -329,7 +329,7 @@ class CustomerPortalSeatsResendInvitation401Error(PolarClientError):
         super().__init__(status_code, error)
 
 
-class CustomerPortalSeatsResendInvitation403Error(PolarClientError):
+class CustomerPortalSeatsResendInvitation403Error(RepalisClientError):
     error_type = None
     error: None
 
@@ -338,7 +338,7 @@ class CustomerPortalSeatsResendInvitation403Error(PolarClientError):
         super().__init__(status_code, error)
 
 
-class CustomerPortalSeatsResendInvitation404Error(PolarClientError):
+class CustomerPortalSeatsResendInvitation404Error(RepalisClientError):
     error_type = None
     error: None
 
@@ -347,7 +347,7 @@ class CustomerPortalSeatsResendInvitation404Error(PolarClientError):
         super().__init__(status_code, error)
 
 
-class CustomerPortalSeatsListClaimedSubscriptions401Error(PolarClientError):
+class CustomerPortalSeatsListClaimedSubscriptions401Error(RepalisClientError):
     error_type = None
     error: None
 
@@ -356,7 +356,7 @@ class CustomerPortalSeatsListClaimedSubscriptions401Error(PolarClientError):
         super().__init__(status_code, error)
 
 
-class Unauthorized(PolarClientError):
+class Unauthorized(RepalisClientError):
     error_type = UnauthorizedModel
     error: UnauthorizedModel
 
@@ -365,7 +365,7 @@ class Unauthorized(PolarClientError):
         super().__init__(status_code, error)
 
 
-class RotateNotPermitted(PolarClientError):
+class RotateNotPermitted(RepalisClientError):
     error_type = RotateNotPermittedModel
     error: RotateNotPermittedModel
 
@@ -374,7 +374,7 @@ class RotateNotPermitted(PolarClientError):
         super().__init__(status_code, error)
 
 
-class BadRequest(PolarClientError):
+class BadRequest(RepalisClientError):
     error_type = BadRequestModel
     error: BadRequestModel
 
@@ -383,7 +383,7 @@ class BadRequest(PolarClientError):
         super().__init__(status_code, error)
 
 
-class CustomerPortalMembersListMembers401Error(PolarClientError):
+class CustomerPortalMembersListMembers401Error(RepalisClientError):
     error_type = None
     error: None
 
@@ -392,7 +392,7 @@ class CustomerPortalMembersListMembers401Error(PolarClientError):
         super().__init__(status_code, error)
 
 
-class CustomerPortalMembersListMembers403Error(PolarClientError):
+class CustomerPortalMembersListMembers403Error(RepalisClientError):
     error_type = None
     error: None
 
@@ -401,7 +401,7 @@ class CustomerPortalMembersListMembers403Error(PolarClientError):
         super().__init__(status_code, error)
 
 
-class CustomerPortalMembersAddMember400Error(PolarClientError):
+class CustomerPortalMembersAddMember400Error(RepalisClientError):
     error_type = None
     error: None
 
@@ -410,7 +410,7 @@ class CustomerPortalMembersAddMember400Error(PolarClientError):
         super().__init__(status_code, error)
 
 
-class CustomerPortalMembersAddMember401Error(PolarClientError):
+class CustomerPortalMembersAddMember401Error(RepalisClientError):
     error_type = None
     error: None
 
@@ -419,7 +419,7 @@ class CustomerPortalMembersAddMember401Error(PolarClientError):
         super().__init__(status_code, error)
 
 
-class CustomerPortalMembersAddMember403Error(PolarClientError):
+class CustomerPortalMembersAddMember403Error(RepalisClientError):
     error_type = None
     error: None
 
@@ -428,7 +428,7 @@ class CustomerPortalMembersAddMember403Error(PolarClientError):
         super().__init__(status_code, error)
 
 
-class CustomerPortalMembersRemoveMember400Error(PolarClientError):
+class CustomerPortalMembersRemoveMember400Error(RepalisClientError):
     error_type = None
     error: None
 
@@ -437,7 +437,7 @@ class CustomerPortalMembersRemoveMember400Error(PolarClientError):
         super().__init__(status_code, error)
 
 
-class CustomerPortalMembersRemoveMember401Error(PolarClientError):
+class CustomerPortalMembersRemoveMember401Error(RepalisClientError):
     error_type = None
     error: None
 
@@ -446,7 +446,7 @@ class CustomerPortalMembersRemoveMember401Error(PolarClientError):
         super().__init__(status_code, error)
 
 
-class CustomerPortalMembersRemoveMember403Error(PolarClientError):
+class CustomerPortalMembersRemoveMember403Error(RepalisClientError):
     error_type = None
     error: None
 
@@ -455,7 +455,7 @@ class CustomerPortalMembersRemoveMember403Error(PolarClientError):
         super().__init__(status_code, error)
 
 
-class CustomerPortalMembersRemoveMember404Error(PolarClientError):
+class CustomerPortalMembersRemoveMember404Error(RepalisClientError):
     error_type = None
     error: None
 
@@ -464,7 +464,7 @@ class CustomerPortalMembersRemoveMember404Error(PolarClientError):
         super().__init__(status_code, error)
 
 
-class CustomerPortalMembersUpdateMember400Error(PolarClientError):
+class CustomerPortalMembersUpdateMember400Error(RepalisClientError):
     error_type = None
     error: None
 
@@ -473,7 +473,7 @@ class CustomerPortalMembersUpdateMember400Error(PolarClientError):
         super().__init__(status_code, error)
 
 
-class CustomerPortalMembersUpdateMember401Error(PolarClientError):
+class CustomerPortalMembersUpdateMember401Error(RepalisClientError):
     error_type = None
     error: None
 
@@ -482,7 +482,7 @@ class CustomerPortalMembersUpdateMember401Error(PolarClientError):
         super().__init__(status_code, error)
 
 
-class CustomerPortalMembersUpdateMember403Error(PolarClientError):
+class CustomerPortalMembersUpdateMember403Error(RepalisClientError):
     error_type = None
     error: None
 
@@ -491,7 +491,7 @@ class CustomerPortalMembersUpdateMember403Error(PolarClientError):
         super().__init__(status_code, error)
 
 
-class CustomerPortalMembersUpdateMember404Error(PolarClientError):
+class CustomerPortalMembersUpdateMember404Error(RepalisClientError):
     error_type = None
     error: None
 
@@ -500,7 +500,7 @@ class CustomerPortalMembersUpdateMember404Error(PolarClientError):
         super().__init__(status_code, error)
 
 
-class OrderNotEligibleForInvoice(PolarClientError):
+class OrderNotEligibleForInvoice(RepalisClientError):
     error_type = OrderNotEligibleForInvoiceModel
     error: OrderNotEligibleForInvoiceModel
 
@@ -511,7 +511,7 @@ class OrderNotEligibleForInvoice(PolarClientError):
         super().__init__(status_code, error)
 
 
-class MissingInvoiceBillingDetails(PolarClientError):
+class MissingInvoiceBillingDetails(RepalisClientError):
     error_type = MissingInvoiceBillingDetailsModel
     error: MissingInvoiceBillingDetailsModel
 
@@ -522,7 +522,7 @@ class MissingInvoiceBillingDetails(PolarClientError):
         super().__init__(status_code, error)
 
 
-class AlreadyCanceledSubscription(PolarClientError):
+class AlreadyCanceledSubscription(RepalisClientError):
     error_type = AlreadyCanceledSubscriptionModel
     error: AlreadyCanceledSubscriptionModel
 
@@ -533,7 +533,7 @@ class AlreadyCanceledSubscription(PolarClientError):
         super().__init__(status_code, error)
 
 
-class PaymentFailed(PolarClientError):
+class PaymentFailed(RepalisClientError):
     error_type = PaymentFailedModel
     error: PaymentFailedModel
 
@@ -542,7 +542,7 @@ class PaymentFailed(PolarClientError):
         super().__init__(status_code, error)
 
 
-class CustomerPortalSubscriptionsUpdate403Error(PolarClientError):
+class CustomerPortalSubscriptionsUpdate403Error(RepalisClientError):
     error_type = (
         AlreadyCanceledSubscriptionModel
         | PauseResumeNotAllowedModel
@@ -571,7 +571,7 @@ class CustomerPortalSubscriptionsUpdate403Error(PolarClientError):
         super().__init__(status_code, error)
 
 
-class CustomerPortalSubscriptionsUpdate409Error(PolarClientError):
+class CustomerPortalSubscriptionsUpdate409Error(RepalisClientError):
     error_type = PaymentMethodRequiredModel | SubscriptionNotScheduledToCancelModel
     error: PaymentMethodRequiredModel | SubscriptionNotScheduledToCancelModel
 
@@ -584,7 +584,7 @@ class CustomerPortalSubscriptionsUpdate409Error(PolarClientError):
         super().__init__(status_code, error)
 
 
-class AmbiguousExternalCustomerID(PolarClientError):
+class AmbiguousExternalCustomerID(RepalisClientError):
     error_type = AmbiguousExternalCustomerIDModel
     error: AmbiguousExternalCustomerIDModel
 
@@ -595,7 +595,7 @@ class AmbiguousExternalCustomerID(PolarClientError):
         super().__init__(status_code, error)
 
 
-class CheckoutsUpdate403Error(PolarClientError):
+class CheckoutsUpdate403Error(RepalisClientError):
     error_type = CheckoutForbiddenErrorModel
     error: CheckoutForbiddenErrorModel
 
@@ -604,7 +604,7 @@ class CheckoutsUpdate403Error(PolarClientError):
         super().__init__(status_code, error)
 
 
-class ExpiredCheckoutError(PolarClientError):
+class ExpiredCheckoutError(RepalisClientError):
     error_type = ExpiredCheckoutErrorModel
     error: ExpiredCheckoutErrorModel
 
@@ -613,7 +613,7 @@ class ExpiredCheckoutError(PolarClientError):
         super().__init__(status_code, error)
 
 
-class CheckoutsClientUpdate403Error(PolarClientError):
+class CheckoutsClientUpdate403Error(RepalisClientError):
     error_type = CheckoutForbiddenErrorModel
     error: CheckoutForbiddenErrorModel
 
@@ -622,7 +622,7 @@ class CheckoutsClientUpdate403Error(PolarClientError):
         super().__init__(status_code, error)
 
 
-class CheckoutLocked(PolarClientError):
+class CheckoutLocked(RepalisClientError):
     error_type = CheckoutLockedModel
     error: CheckoutLockedModel
 
@@ -631,7 +631,7 @@ class CheckoutLocked(PolarClientError):
         super().__init__(status_code, error)
 
 
-class CheckoutsClientConfirm400Error(PolarClientError):
+class CheckoutsClientConfirm400Error(RepalisClientError):
     error_type = CheckoutPaymentErrorModel
     error: CheckoutPaymentErrorModel
 
@@ -640,7 +640,7 @@ class CheckoutsClientConfirm400Error(PolarClientError):
         super().__init__(status_code, error)
 
 
-class CheckoutsClientConfirm403Error(PolarClientError):
+class CheckoutsClientConfirm403Error(RepalisClientError):
     error_type = CheckoutForbiddenErrorModel
     error: CheckoutForbiddenErrorModel
 
@@ -649,7 +649,7 @@ class CheckoutsClientConfirm403Error(PolarClientError):
         super().__init__(status_code, error)
 
 
-class SubscriptionsCreate409Error(PolarClientError):
+class SubscriptionsCreate409Error(RepalisClientError):
     error_type = AlreadyActiveSubscriptionModel | TrialAlreadyRedeemedModel
     error: AlreadyActiveSubscriptionModel | TrialAlreadyRedeemedModel
 
@@ -662,7 +662,7 @@ class SubscriptionsCreate409Error(PolarClientError):
         super().__init__(status_code, error)
 
 
-class SubscriptionLocked(PolarClientError):
+class SubscriptionLocked(RepalisClientError):
     error_type = SubscriptionLockedModel
     error: SubscriptionLockedModel
 
@@ -671,7 +671,7 @@ class SubscriptionLocked(PolarClientError):
         super().__init__(status_code, error)
 
 
-class SubscriptionsUpdate402Error(PolarClientError):
+class SubscriptionsUpdate402Error(RepalisClientError):
     error_type = PaymentFailedModel | PaymentActionRequiredModel
     error: PaymentFailedModel | PaymentActionRequiredModel
 
@@ -682,7 +682,7 @@ class SubscriptionsUpdate402Error(PolarClientError):
         super().__init__(status_code, error)
 
 
-class SubscriptionsUpdate403Error(PolarClientError):
+class SubscriptionsUpdate403Error(RepalisClientError):
     error_type = (
         AlreadyCanceledSubscriptionModel
         | InactiveSubscriptionModel
@@ -705,7 +705,7 @@ class SubscriptionsUpdate403Error(PolarClientError):
         super().__init__(status_code, error)
 
 
-class SubscriptionsUpdate409Error(PolarClientError):
+class SubscriptionsUpdate409Error(RepalisClientError):
     error_type = SubscriptionLockedModel | SubscriptionNotScheduledToCancelModel
     error: SubscriptionLockedModel | SubscriptionNotScheduledToCancelModel
 
@@ -718,7 +718,7 @@ class SubscriptionsUpdate409Error(PolarClientError):
         super().__init__(status_code, error)
 
 
-class ProductNotDeletable(PolarClientError):
+class ProductNotDeletable(RepalisClientError):
     error_type = ProductNotDeletableModel
     error: ProductNotDeletableModel
 
@@ -727,7 +727,7 @@ class ProductNotDeletable(PolarClientError):
         super().__init__(status_code, error)
 
 
-class OrdersFinalize402Error(PolarClientError):
+class OrdersFinalize402Error(RepalisClientError):
     error_type = PaymentFailedModel | PaymentActionRequiredModel
     error: PaymentFailedModel | PaymentActionRequiredModel
 
@@ -738,7 +738,7 @@ class OrdersFinalize402Error(PolarClientError):
         super().__init__(status_code, error)
 
 
-class OrdersFinalize403Error(PolarClientError):
+class OrdersFinalize403Error(RepalisClientError):
     error_type = OffSessionChargesNotEnabledModel | OrganizationNotReadyForPaymentsModel
     error: OffSessionChargesNotEnabledModel | OrganizationNotReadyForPaymentsModel
 
@@ -751,7 +751,7 @@ class OrdersFinalize403Error(PolarClientError):
         super().__init__(status_code, error)
 
 
-class OrderNotDraft(PolarClientError):
+class OrderNotDraft(RepalisClientError):
     error_type = OrderNotDraftModel
     error: OrderNotDraftModel
 
@@ -760,7 +760,7 @@ class OrderNotDraft(PolarClientError):
         super().__init__(status_code, error)
 
 
-class CannotCreateOrganizationError(PolarClientError):
+class CannotCreateOrganizationError(RepalisClientError):
     error_type = CannotCreateOrganizationErrorModel
     error: CannotCreateOrganizationErrorModel
 
@@ -771,7 +771,7 @@ class CannotCreateOrganizationError(PolarClientError):
         super().__init__(status_code, error)
 
 
-class OrganizationsUpdate403Error(PolarClientError):
+class OrganizationsUpdate403Error(RepalisClientError):
     error_type = NotPermittedModel | DisputeAutoAcceptNotEnabledModel
     error: NotPermittedModel | DisputeAutoAcceptNotEnabledModel
 
@@ -784,7 +784,7 @@ class OrganizationsUpdate403Error(PolarClientError):
         super().__init__(status_code, error)
 
 
-class OrganizationsUpdate409Error(PolarClientError):
+class OrganizationsUpdate409Error(RepalisClientError):
     error_type = SSOEnforcementRequiresConnectionModel | SSORequiresVerifiedDomainModel
     error: SSOEnforcementRequiresConnectionModel | SSORequiresVerifiedDomainModel
 
@@ -797,7 +797,7 @@ class OrganizationsUpdate409Error(PolarClientError):
         super().__init__(status_code, error)
 
 
-class CustomerMetersCredits409Error(PolarClientError):
+class CustomerMetersCredits409Error(RepalisClientError):
     error_type = (
         CustomerMeterCreditExternalIDConflictModel | AmbiguousExternalCustomerIDModel
     )
@@ -813,7 +813,7 @@ class CustomerMetersCredits409Error(PolarClientError):
         super().__init__(status_code, error)
 
 
-class CustomerMeterCreditNotReversible(PolarClientError):
+class CustomerMeterCreditNotReversible(RepalisClientError):
     error_type = CustomerMeterCreditNotReversibleModel
     error: CustomerMeterCreditNotReversibleModel
 
@@ -824,7 +824,7 @@ class CustomerMeterCreditNotReversible(PolarClientError):
         super().__init__(status_code, error)
 
 
-class AmbiguousExternalMeterID(PolarClientError):
+class AmbiguousExternalMeterID(RepalisClientError):
     error_type = AmbiguousExternalMeterIDModel
     error: AmbiguousExternalMeterIDModel
 
@@ -833,7 +833,7 @@ class AmbiguousExternalMeterID(PolarClientError):
         super().__init__(status_code, error)
 
 
-class DisputeNotOpenError(PolarClientError):
+class DisputeNotOpenError(RepalisClientError):
     error_type = DisputeNotOpenErrorModel
     error: DisputeNotOpenErrorModel
 
@@ -842,7 +842,7 @@ class DisputeNotOpenError(PolarClientError):
         super().__init__(status_code, error)
 
 
-class RefundedAlready(PolarClientError):
+class RefundedAlready(RepalisClientError):
     error_type = RefundedAlreadyModel
     error: RefundedAlreadyModel
 
@@ -851,7 +851,7 @@ class RefundedAlready(PolarClientError):
         super().__init__(status_code, error)
 
 
-class AmbiguousExternalWebhookEndpointID(PolarClientError):
+class AmbiguousExternalWebhookEndpointID(RepalisClientError):
     error_type = AmbiguousExternalWebhookEndpointIDModel
     error: AmbiguousExternalWebhookEndpointIDModel
 
@@ -862,7 +862,7 @@ class AmbiguousExternalWebhookEndpointID(PolarClientError):
         super().__init__(status_code, error)
 
 
-class BenefitGrantAlreadyExists(PolarClientError):
+class BenefitGrantAlreadyExists(RepalisClientError):
     error_type = BenefitGrantAlreadyExistsModel
     error: BenefitGrantAlreadyExistsModel
 
@@ -871,7 +871,7 @@ class BenefitGrantAlreadyExists(PolarClientError):
         super().__init__(status_code, error)
 
 
-class CustomerSeatsListSeats401Error(PolarClientError):
+class CustomerSeatsListSeats401Error(RepalisClientError):
     error_type = None
     error: None
 
@@ -880,7 +880,7 @@ class CustomerSeatsListSeats401Error(PolarClientError):
         super().__init__(status_code, error)
 
 
-class CustomerSeatsListSeats403Error(PolarClientError):
+class CustomerSeatsListSeats403Error(RepalisClientError):
     error_type = None
     error: None
 
@@ -889,7 +889,7 @@ class CustomerSeatsListSeats403Error(PolarClientError):
         super().__init__(status_code, error)
 
 
-class CustomerSeatsListSeats404Error(PolarClientError):
+class CustomerSeatsListSeats404Error(RepalisClientError):
     error_type = None
     error: None
 
@@ -898,7 +898,7 @@ class CustomerSeatsListSeats404Error(PolarClientError):
         super().__init__(status_code, error)
 
 
-class CustomerSeatsAssignSeat400Error(PolarClientError):
+class CustomerSeatsAssignSeat400Error(RepalisClientError):
     error_type = None
     error: None
 
@@ -907,7 +907,7 @@ class CustomerSeatsAssignSeat400Error(PolarClientError):
         super().__init__(status_code, error)
 
 
-class CustomerSeatsAssignSeat401Error(PolarClientError):
+class CustomerSeatsAssignSeat401Error(RepalisClientError):
     error_type = None
     error: None
 
@@ -916,7 +916,7 @@ class CustomerSeatsAssignSeat401Error(PolarClientError):
         super().__init__(status_code, error)
 
 
-class CustomerSeatsAssignSeat403Error(PolarClientError):
+class CustomerSeatsAssignSeat403Error(RepalisClientError):
     error_type = None
     error: None
 
@@ -925,7 +925,7 @@ class CustomerSeatsAssignSeat403Error(PolarClientError):
         super().__init__(status_code, error)
 
 
-class CustomerSeatsAssignSeat404Error(PolarClientError):
+class CustomerSeatsAssignSeat404Error(RepalisClientError):
     error_type = None
     error: None
 
@@ -934,7 +934,7 @@ class CustomerSeatsAssignSeat404Error(PolarClientError):
         super().__init__(status_code, error)
 
 
-class CustomerSeatsRevokeSeat401Error(PolarClientError):
+class CustomerSeatsRevokeSeat401Error(RepalisClientError):
     error_type = None
     error: None
 
@@ -943,7 +943,7 @@ class CustomerSeatsRevokeSeat401Error(PolarClientError):
         super().__init__(status_code, error)
 
 
-class CustomerSeatsRevokeSeat403Error(PolarClientError):
+class CustomerSeatsRevokeSeat403Error(RepalisClientError):
     error_type = None
     error: None
 
@@ -952,7 +952,7 @@ class CustomerSeatsRevokeSeat403Error(PolarClientError):
         super().__init__(status_code, error)
 
 
-class CustomerSeatsRevokeSeat404Error(PolarClientError):
+class CustomerSeatsRevokeSeat404Error(RepalisClientError):
     error_type = None
     error: None
 
@@ -961,7 +961,7 @@ class CustomerSeatsRevokeSeat404Error(PolarClientError):
         super().__init__(status_code, error)
 
 
-class CustomerSeatsResendInvitation400Error(PolarClientError):
+class CustomerSeatsResendInvitation400Error(RepalisClientError):
     error_type = None
     error: None
 
@@ -970,7 +970,7 @@ class CustomerSeatsResendInvitation400Error(PolarClientError):
         super().__init__(status_code, error)
 
 
-class CustomerSeatsResendInvitation401Error(PolarClientError):
+class CustomerSeatsResendInvitation401Error(RepalisClientError):
     error_type = None
     error: None
 
@@ -979,7 +979,7 @@ class CustomerSeatsResendInvitation401Error(PolarClientError):
         super().__init__(status_code, error)
 
 
-class CustomerSeatsResendInvitation403Error(PolarClientError):
+class CustomerSeatsResendInvitation403Error(RepalisClientError):
     error_type = None
     error: None
 
@@ -988,7 +988,7 @@ class CustomerSeatsResendInvitation403Error(PolarClientError):
         super().__init__(status_code, error)
 
 
-class CustomerSeatsResendInvitation404Error(PolarClientError):
+class CustomerSeatsResendInvitation404Error(RepalisClientError):
     error_type = None
     error: None
 
@@ -997,7 +997,7 @@ class CustomerSeatsResendInvitation404Error(PolarClientError):
         super().__init__(status_code, error)
 
 
-class CustomerSeatsGetClaimInfo400Error(PolarClientError):
+class CustomerSeatsGetClaimInfo400Error(RepalisClientError):
     error_type = None
     error: None
 
@@ -1006,7 +1006,7 @@ class CustomerSeatsGetClaimInfo400Error(PolarClientError):
         super().__init__(status_code, error)
 
 
-class CustomerSeatsGetClaimInfo403Error(PolarClientError):
+class CustomerSeatsGetClaimInfo403Error(RepalisClientError):
     error_type = None
     error: None
 
@@ -1015,7 +1015,7 @@ class CustomerSeatsGetClaimInfo403Error(PolarClientError):
         super().__init__(status_code, error)
 
 
-class CustomerSeatsGetClaimInfo404Error(PolarClientError):
+class CustomerSeatsGetClaimInfo404Error(RepalisClientError):
     error_type = None
     error: None
 
@@ -1024,7 +1024,7 @@ class CustomerSeatsGetClaimInfo404Error(PolarClientError):
         super().__init__(status_code, error)
 
 
-class CustomerSeatsClaimSeat400Error(PolarClientError):
+class CustomerSeatsClaimSeat400Error(RepalisClientError):
     error_type = None
     error: None
 
@@ -1033,7 +1033,7 @@ class CustomerSeatsClaimSeat400Error(PolarClientError):
         super().__init__(status_code, error)
 
 
-class CustomerSeatsClaimSeat403Error(PolarClientError):
+class CustomerSeatsClaimSeat403Error(RepalisClientError):
     error_type = None
     error: None
 
@@ -1042,7 +1042,7 @@ class CustomerSeatsClaimSeat403Error(PolarClientError):
         super().__init__(status_code, error)
 
 
-class EventTypesUpdate404Error(PolarClientError):
+class EventTypesUpdate404Error(RepalisClientError):
     error_type = None
     error: None
 

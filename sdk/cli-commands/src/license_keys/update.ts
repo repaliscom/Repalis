@@ -1,5 +1,5 @@
 // Generated from license_keys:update (2026-10). Do not edit.
-import type { Polar } from '@polar-sh/sdk/2026-10'
+import type { Repalis } from '@repalis/sdk/2026-10'
 import { Effect, Schema } from 'effect'
 import { Argument, Command, Flag } from 'effect/cli'
 import { ApiRuntime, ApiCommandError } from '../runtime'
@@ -11,7 +11,7 @@ import {
   nullableStringFlag,
 } from '../inputs'
 
-type Body = NonNullable<Parameters<Polar['licenseKeys']['update']>[1]>
+type Body = NonNullable<Parameters<Repalis['licenseKeys']['update']>[1]>
 
 export const command = Command.make(
   'update',

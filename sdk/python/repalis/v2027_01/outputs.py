@@ -340,7 +340,7 @@ class BadRequest:
 
 @dataclasses.dataclass(kw_only=True, slots=True)
 class BalanceCreditOrderEvent:
-    """An event created by Polar when an order is paid via customer balance."""
+    """An event created by Repalis when an order is paid via customer balance."""
 
     id: str
     """The ID of the object."""
@@ -352,7 +352,7 @@ class BalanceCreditOrderEvent:
     """The ID of the organization owning the event."""
 
     customer_id: str | None
-    """ID of the customer in your Polar organization associated with the event."""
+    """ID of the customer in your Repalis organization associated with the event."""
 
     customer: Customer | None
     """The customer associated with the event."""
@@ -376,7 +376,7 @@ class BalanceCreditOrderEvent:
     """Human readable label of the event type."""
 
     source: typing.Literal["system"]
-    """The source of the event. `system` events are created by Polar. `user` events are the one you create through our ingestion API."""
+    """The source of the event. `system` events are created by Repalis. `user` events are the one you create through our ingestion API."""
 
     name: typing.Literal["balance.credit_order"]
     """The name of the event."""
@@ -409,7 +409,7 @@ class BalanceCreditOrderMetadata:
 
 @dataclasses.dataclass(kw_only=True, slots=True)
 class BalanceDisputeEvent:
-    """An event created by Polar when an order is disputed."""
+    """An event created by Repalis when an order is disputed."""
 
     id: str
     """The ID of the object."""
@@ -421,7 +421,7 @@ class BalanceDisputeEvent:
     """The ID of the organization owning the event."""
 
     customer_id: str | None
-    """ID of the customer in your Polar organization associated with the event."""
+    """ID of the customer in your Repalis organization associated with the event."""
 
     customer: Customer | None
     """The customer associated with the event."""
@@ -445,7 +445,7 @@ class BalanceDisputeEvent:
     """Human readable label of the event type."""
 
     source: typing.Literal["system"]
-    """The source of the event. `system` events are created by Polar. `user` events are the one you create through our ingestion API."""
+    """The source of the event. `system` events are created by Repalis. `user` events are the one you create through our ingestion API."""
 
     name: typing.Literal["balance.dispute"]
     """The name of the event."""
@@ -488,7 +488,7 @@ class BalanceDisputeMetadata:
 
 @dataclasses.dataclass(kw_only=True, slots=True)
 class BalanceDisputeReversalEvent:
-    """An event created by Polar when a dispute is won and funds are reinstated."""
+    """An event created by Repalis when a dispute is won and funds are reinstated."""
 
     id: str
     """The ID of the object."""
@@ -500,7 +500,7 @@ class BalanceDisputeReversalEvent:
     """The ID of the organization owning the event."""
 
     customer_id: str | None
-    """ID of the customer in your Polar organization associated with the event."""
+    """ID of the customer in your Repalis organization associated with the event."""
 
     customer: Customer | None
     """The customer associated with the event."""
@@ -524,7 +524,7 @@ class BalanceDisputeReversalEvent:
     """Human readable label of the event type."""
 
     source: typing.Literal["system"]
-    """The source of the event. `system` events are created by Polar. `user` events are the one you create through our ingestion API."""
+    """The source of the event. `system` events are created by Repalis. `user` events are the one you create through our ingestion API."""
 
     name: typing.Literal["balance.dispute_reversal"]
     """The name of the event."""
@@ -534,7 +534,7 @@ class BalanceDisputeReversalEvent:
 
 @dataclasses.dataclass(kw_only=True, slots=True)
 class BalanceOrderEvent:
-    """An event created by Polar when an order is paid."""
+    """An event created by Repalis when an order is paid."""
 
     id: str
     """The ID of the object."""
@@ -546,7 +546,7 @@ class BalanceOrderEvent:
     """The ID of the organization owning the event."""
 
     customer_id: str | None
-    """ID of the customer in your Polar organization associated with the event."""
+    """ID of the customer in your Repalis organization associated with the event."""
 
     customer: Customer | None
     """The customer associated with the event."""
@@ -570,7 +570,7 @@ class BalanceOrderEvent:
     """Human readable label of the event type."""
 
     source: typing.Literal["system"]
-    """The source of the event. `system` events are created by Polar. `user` events are the one you create through our ingestion API."""
+    """The source of the event. `system` events are created by Repalis. `user` events are the one you create through our ingestion API."""
 
     name: typing.Literal["balance.order"]
     """The name of the event."""
@@ -611,7 +611,7 @@ class BalanceOrderMetadata:
 
 @dataclasses.dataclass(kw_only=True, slots=True)
 class BalanceRefundEvent:
-    """An event created by Polar when an order is refunded."""
+    """An event created by Repalis when an order is refunded."""
 
     id: str
     """The ID of the object."""
@@ -623,7 +623,7 @@ class BalanceRefundEvent:
     """The ID of the organization owning the event."""
 
     customer_id: str | None
-    """ID of the customer in your Polar organization associated with the event."""
+    """ID of the customer in your Repalis organization associated with the event."""
 
     customer: Customer | None
     """The customer associated with the event."""
@@ -647,7 +647,7 @@ class BalanceRefundEvent:
     """Human readable label of the event type."""
 
     source: typing.Literal["system"]
-    """The source of the event. `system` events are created by Polar. `user` events are the one you create through our ingestion API."""
+    """The source of the event. `system` events are created by Repalis. `user` events are the one you create through our ingestion API."""
 
     name: typing.Literal["balance.refund"]
     """The name of the event."""
@@ -692,7 +692,7 @@ class BalanceRefundMetadata:
 
 @dataclasses.dataclass(kw_only=True, slots=True)
 class BalanceRefundReversalEvent:
-    """An event created by Polar when a refund is reverted."""
+    """An event created by Repalis when a refund is reverted."""
 
     id: str
     """The ID of the object."""
@@ -704,7 +704,7 @@ class BalanceRefundReversalEvent:
     """The ID of the organization owning the event."""
 
     customer_id: str | None
-    """ID of the customer in your Polar organization associated with the event."""
+    """ID of the customer in your Repalis organization associated with the event."""
 
     customer: Customer | None
     """The customer associated with the event."""
@@ -728,7 +728,7 @@ class BalanceRefundReversalEvent:
     """Human readable label of the event type."""
 
     source: typing.Literal["system"]
-    """The source of the event. `system` events are created by Polar. `user` events are the one you create through our ingestion API."""
+    """The source of the event. `system` events are created by Repalis. `user` events are the one you create through our ingestion API."""
 
     name: typing.Literal["balance.refund_reversal"]
     """The name of the event."""
@@ -865,7 +865,7 @@ class BenefitCustomSubscriberProperties:
 
 @dataclasses.dataclass(kw_only=True, slots=True)
 class BenefitCycledEvent:
-    """An event created by Polar when a benefit is cycled."""
+    """An event created by Repalis when a benefit is cycled."""
 
     id: str
     """The ID of the object."""
@@ -877,7 +877,7 @@ class BenefitCycledEvent:
     """The ID of the organization owning the event."""
 
     customer_id: str | None
-    """ID of the customer in your Polar organization associated with the event."""
+    """ID of the customer in your Repalis organization associated with the event."""
 
     customer: Customer | None
     """The customer associated with the event."""
@@ -901,7 +901,7 @@ class BenefitCycledEvent:
     """Human readable label of the event type."""
 
     source: typing.Literal["system"]
-    """The source of the event. `system` events are created by Polar. `user` events are the one you create through our ingestion API."""
+    """The source of the event. `system` events are created by Repalis. `user` events are the one you create through our ingestion API."""
 
     name: typing.Literal["benefit.cycled"]
     """The name of the event."""
@@ -2098,7 +2098,7 @@ class BenefitGrantSlackSharedChannelWebhook:
 
 @dataclasses.dataclass(kw_only=True, slots=True)
 class BenefitGrantedEvent:
-    """An event created by Polar when a benefit is granted to a customer."""
+    """An event created by Repalis when a benefit is granted to a customer."""
 
     id: str
     """The ID of the object."""
@@ -2110,7 +2110,7 @@ class BenefitGrantedEvent:
     """The ID of the organization owning the event."""
 
     customer_id: str | None
-    """ID of the customer in your Polar organization associated with the event."""
+    """ID of the customer in your Repalis organization associated with the event."""
 
     customer: Customer | None
     """The customer associated with the event."""
@@ -2134,7 +2134,7 @@ class BenefitGrantedEvent:
     """Human readable label of the event type."""
 
     source: typing.Literal["system"]
-    """The source of the event. `system` events are created by Polar. `user` events are the one you create through our ingestion API."""
+    """The source of the event. `system` events are created by Repalis. `user` events are the one you create through our ingestion API."""
 
     name: typing.Literal["benefit.granted"]
     """The name of the event."""
@@ -2289,7 +2289,7 @@ class BenefitLicenseKeysSubscriberProperties:
 
 @dataclasses.dataclass(kw_only=True, slots=True)
 class BenefitManuallyGrantedEvent:
-    """An event created by Polar when a benefit grant is created manually."""
+    """An event created by Repalis when a benefit grant is created manually."""
 
     id: str
     """The ID of the object."""
@@ -2301,7 +2301,7 @@ class BenefitManuallyGrantedEvent:
     """The ID of the organization owning the event."""
 
     customer_id: str | None
-    """ID of the customer in your Polar organization associated with the event."""
+    """ID of the customer in your Repalis organization associated with the event."""
 
     customer: Customer | None
     """The customer associated with the event."""
@@ -2325,7 +2325,7 @@ class BenefitManuallyGrantedEvent:
     """Human readable label of the event type."""
 
     source: typing.Literal["system"]
-    """The source of the event. `system` events are created by Polar. `user` events are the one you create through our ingestion API."""
+    """The source of the event. `system` events are created by Repalis. `user` events are the one you create through our ingestion API."""
 
     name: typing.Literal["benefit.manually_granted"]
     """The name of the event."""
@@ -2335,7 +2335,7 @@ class BenefitManuallyGrantedEvent:
 
 @dataclasses.dataclass(kw_only=True, slots=True)
 class BenefitManuallyRevokedEvent:
-    """An event created by Polar when a benefit grant is manually revoked."""
+    """An event created by Repalis when a benefit grant is manually revoked."""
 
     id: str
     """The ID of the object."""
@@ -2347,7 +2347,7 @@ class BenefitManuallyRevokedEvent:
     """The ID of the organization owning the event."""
 
     customer_id: str | None
-    """ID of the customer in your Polar organization associated with the event."""
+    """ID of the customer in your Repalis organization associated with the event."""
 
     customer: Customer | None
     """The customer associated with the event."""
@@ -2371,7 +2371,7 @@ class BenefitManuallyRevokedEvent:
     """Human readable label of the event type."""
 
     source: typing.Literal["system"]
-    """The source of the event. `system` events are created by Polar. `user` events are the one you create through our ingestion API."""
+    """The source of the event. `system` events are created by Repalis. `user` events are the one you create through our ingestion API."""
 
     name: typing.Literal["benefit.manually_revoked"]
     """The name of the event."""
@@ -2531,7 +2531,7 @@ class BenefitMeterCreditSubscriberProperties:
 
 @dataclasses.dataclass(kw_only=True, slots=True)
 class BenefitRevokedEvent:
-    """An event created by Polar when a benefit is revoked from a customer."""
+    """An event created by Repalis when a benefit is revoked from a customer."""
 
     id: str
     """The ID of the object."""
@@ -2543,7 +2543,7 @@ class BenefitRevokedEvent:
     """The ID of the organization owning the event."""
 
     customer_id: str | None
-    """ID of the customer in your Polar organization associated with the event."""
+    """ID of the customer in your Repalis organization associated with the event."""
 
     customer: Customer | None
     """The customer associated with the event."""
@@ -2567,7 +2567,7 @@ class BenefitRevokedEvent:
     """Human readable label of the event type."""
 
     source: typing.Literal["system"]
-    """The source of the event. `system` events are created by Polar. `user` events are the one you create through our ingestion API."""
+    """The source of the event. `system` events are created by Repalis. `user` events are the one you create through our ingestion API."""
 
     name: typing.Literal["benefit.revoked"]
     """The name of the event."""
@@ -2625,7 +2625,7 @@ class BenefitSlackSharedChannel:
 @dataclasses.dataclass(kw_only=True, slots=True)
 class BenefitSlackSharedChannelProperties:
     slack_integration_id: str
-    """Polar Slack integration linked to this benefit."""
+    """Repalis Slack integration linked to this benefit."""
 
     channel_name_template: str
     """Template for the channel name. Supports placeholders: {customer_name}, {customer_email_local}, and {metadata.<key>} for any value stored in customer user metadata."""
@@ -2738,7 +2738,7 @@ class BenefitSubscriberOrganization:
 
 @dataclasses.dataclass(kw_only=True, slots=True)
 class BenefitUnrevokedEvent:
-    """An event created by Polar when a manual revocation is cleared."""
+    """An event created by Repalis when a manual revocation is cleared."""
 
     id: str
     """The ID of the object."""
@@ -2750,7 +2750,7 @@ class BenefitUnrevokedEvent:
     """The ID of the organization owning the event."""
 
     customer_id: str | None
-    """ID of the customer in your Polar organization associated with the event."""
+    """ID of the customer in your Repalis organization associated with the event."""
 
     customer: Customer | None
     """The customer associated with the event."""
@@ -2774,7 +2774,7 @@ class BenefitUnrevokedEvent:
     """Human readable label of the event type."""
 
     source: typing.Literal["system"]
-    """The source of the event. `system` events are created by Polar. `user` events are the one you create through our ingestion API."""
+    """The source of the event. `system` events are created by Repalis. `user` events are the one you create through our ingestion API."""
 
     name: typing.Literal["benefit.unrevoked"]
     """The name of the event."""
@@ -2784,7 +2784,7 @@ class BenefitUnrevokedEvent:
 
 @dataclasses.dataclass(kw_only=True, slots=True)
 class BenefitUpdatedEvent:
-    """An event created by Polar when a benefit is updated."""
+    """An event created by Repalis when a benefit is updated."""
 
     id: str
     """The ID of the object."""
@@ -2796,7 +2796,7 @@ class BenefitUpdatedEvent:
     """The ID of the organization owning the event."""
 
     customer_id: str | None
-    """ID of the customer in your Polar organization associated with the event."""
+    """ID of the customer in your Repalis organization associated with the event."""
 
     customer: Customer | None
     """The customer associated with the event."""
@@ -2820,7 +2820,7 @@ class BenefitUpdatedEvent:
     """Human readable label of the event type."""
 
     source: typing.Literal["system"]
-    """The source of the event. `system` events are created by Polar. `user` events are the one you create through our ingestion API."""
+    """The source of the event. `system` events are created by Repalis. `user` events are the one you create through our ingestion API."""
 
     name: typing.Literal["benefit.updated"]
     """The name of the event."""
@@ -3066,7 +3066,7 @@ class Checkout:
     metadata: MetadataOutputType
 
     external_customer_id: str | None
-    """ID of the customer in your system. If a matching customer exists on Polar, the resulting order will be linked to this customer. Otherwise, a new customer will be created with this external ID set."""
+    """ID of the customer in your system. If a matching customer exists on Repalis, the resulting order will be linked to this customer. Otherwise, a new customer will be created with this external ID set."""
 
     products: list[CheckoutProduct]
     """List of products available to select."""
@@ -3112,7 +3112,7 @@ class CheckoutBillingAddressFields:
 
 @dataclasses.dataclass(kw_only=True, slots=True)
 class CheckoutCreatedEvent:
-    """An event created by Polar when a checkout is created."""
+    """An event created by Repalis when a checkout is created."""
 
     id: str
     """The ID of the object."""
@@ -3124,7 +3124,7 @@ class CheckoutCreatedEvent:
     """The ID of the organization owning the event."""
 
     customer_id: str | None
-    """ID of the customer in your Polar organization associated with the event."""
+    """ID of the customer in your Repalis organization associated with the event."""
 
     customer: Customer | None
     """The customer associated with the event."""
@@ -3148,7 +3148,7 @@ class CheckoutCreatedEvent:
     """Human readable label of the event type."""
 
     source: typing.Literal["system"]
-    """The source of the event. `system` events are created by Polar. `user` events are the one you create through our ingestion API."""
+    """The source of the event. `system` events are created by Repalis. `user` events are the one you create through our ingestion API."""
 
     name: typing.Literal["checkout.created"]
     """The name of the event."""
@@ -4477,7 +4477,7 @@ class CustomerBenefitGrantSlackSharedChannel:
 
 @dataclasses.dataclass(kw_only=True, slots=True)
 class CustomerCreatedEvent:
-    """An event created by Polar when a customer is created."""
+    """An event created by Repalis when a customer is created."""
 
     id: str
     """The ID of the object."""
@@ -4489,7 +4489,7 @@ class CustomerCreatedEvent:
     """The ID of the organization owning the event."""
 
     customer_id: str | None
-    """ID of the customer in your Polar organization associated with the event."""
+    """ID of the customer in your Repalis organization associated with the event."""
 
     customer: Customer | None
     """The customer associated with the event."""
@@ -4513,7 +4513,7 @@ class CustomerCreatedEvent:
     """Human readable label of the event type."""
 
     source: typing.Literal["system"]
-    """The source of the event. `system` events are created by Polar. `user` events are the one you create through our ingestion API."""
+    """The source of the event. `system` events are created by Repalis. `user` events are the one you create through our ingestion API."""
 
     name: typing.Literal["customer.created"]
     """The name of the event."""
@@ -4585,7 +4585,7 @@ class CustomerCustomerSession:
 
 @dataclasses.dataclass(kw_only=True, slots=True)
 class CustomerDeletedEvent:
-    """An event created by Polar when a customer is deleted."""
+    """An event created by Repalis when a customer is deleted."""
 
     id: str
     """The ID of the object."""
@@ -4597,7 +4597,7 @@ class CustomerDeletedEvent:
     """The ID of the organization owning the event."""
 
     customer_id: str | None
-    """ID of the customer in your Polar organization associated with the event."""
+    """ID of the customer in your Repalis organization associated with the event."""
 
     customer: Customer | None
     """The customer associated with the event."""
@@ -4621,7 +4621,7 @@ class CustomerDeletedEvent:
     """Human readable label of the event type."""
 
     source: typing.Literal["system"]
-    """The source of the event. `system` events are created by Polar. `user` events are the one you create through our ingestion API."""
+    """The source of the event. `system` events are created by Repalis. `user` events are the one you create through our ingestion API."""
 
     name: typing.Literal["customer.deleted"]
     """The name of the event."""
@@ -5929,7 +5929,7 @@ class CustomerTeam:
 
 @dataclasses.dataclass(kw_only=True, slots=True)
 class CustomerUpdatedEvent:
-    """An event created by Polar when a customer is updated."""
+    """An event created by Repalis when a customer is updated."""
 
     id: str
     """The ID of the object."""
@@ -5941,7 +5941,7 @@ class CustomerUpdatedEvent:
     """The ID of the organization owning the event."""
 
     customer_id: str | None
-    """ID of the customer in your Polar organization associated with the event."""
+    """ID of the customer in your Repalis organization associated with the event."""
 
     customer: Customer | None
     """The customer associated with the event."""
@@ -5965,7 +5965,7 @@ class CustomerUpdatedEvent:
     """Human readable label of the event type."""
 
     source: typing.Literal["system"]
-    """The source of the event. `system` events are created by Polar. `user` events are the one you create through our ingestion API."""
+    """The source of the event. `system` events are created by Repalis. `user` events are the one you create through our ingestion API."""
 
     name: typing.Literal["customer.updated"]
     """The name of the event."""
@@ -6658,7 +6658,7 @@ class EventName:
     """Human readable label of the event."""
 
     source: EventSource
-    """The source of the event. `system` events are created by Polar. `user` events are the one you create through our ingestion API."""
+    """The source of the event. `system` events are created by Repalis. `user` events are the one you create through our ingestion API."""
 
     occurrences: int
     """Number of times the event has occurred."""
@@ -7641,7 +7641,7 @@ class Meter:
 
 @dataclasses.dataclass(kw_only=True, slots=True)
 class MeterCreditEvent:
-    """An event created by Polar when credits are added to a customer meter."""
+    """An event created by Repalis when credits are added to a customer meter."""
 
     id: str
     """The ID of the object."""
@@ -7653,7 +7653,7 @@ class MeterCreditEvent:
     """The ID of the organization owning the event."""
 
     customer_id: str | None
-    """ID of the customer in your Polar organization associated with the event."""
+    """ID of the customer in your Repalis organization associated with the event."""
 
     customer: Customer | None
     """The customer associated with the event."""
@@ -7677,7 +7677,7 @@ class MeterCreditEvent:
     """Human readable label of the event type."""
 
     source: typing.Literal["system"]
-    """The source of the event. `system` events are created by Polar. `user` events are the one you create through our ingestion API."""
+    """The source of the event. `system` events are created by Repalis. `user` events are the one you create through our ingestion API."""
 
     name: typing.Literal["meter.credited"]
     """The name of the event."""
@@ -7715,7 +7715,7 @@ class MeterQuantity:
 
 @dataclasses.dataclass(kw_only=True, slots=True)
 class MeterResetEvent:
-    """An event created by Polar when a customer meter is reset."""
+    """An event created by Repalis when a customer meter is reset."""
 
     id: str
     """The ID of the object."""
@@ -7727,7 +7727,7 @@ class MeterResetEvent:
     """The ID of the organization owning the event."""
 
     customer_id: str | None
-    """ID of the customer in your Polar organization associated with the event."""
+    """ID of the customer in your Repalis organization associated with the event."""
 
     customer: Customer | None
     """The customer associated with the event."""
@@ -7751,7 +7751,7 @@ class MeterResetEvent:
     """Human readable label of the event type."""
 
     source: typing.Literal["system"]
-    """The source of the event. `system` events are created by Polar. `user` events are the one you create through our ingestion API."""
+    """The source of the event. `system` events are created by Repalis. `user` events are the one you create through our ingestion API."""
 
     name: typing.Literal["meter.reset"]
     """The name of the event."""
@@ -8454,7 +8454,7 @@ class OrderNotEligibleForInvoice:
 
 @dataclasses.dataclass(kw_only=True, slots=True)
 class OrderPaidEvent:
-    """An event created by Polar when an order is paid."""
+    """An event created by Repalis when an order is paid."""
 
     id: str
     """The ID of the object."""
@@ -8466,7 +8466,7 @@ class OrderPaidEvent:
     """The ID of the organization owning the event."""
 
     customer_id: str | None
-    """ID of the customer in your Polar organization associated with the event."""
+    """ID of the customer in your Repalis organization associated with the event."""
 
     customer: Customer | None
     """The customer associated with the event."""
@@ -8490,7 +8490,7 @@ class OrderPaidEvent:
     """Human readable label of the event type."""
 
     source: typing.Literal["system"]
-    """The source of the event. `system` events are created by Polar. `user` events are the one you create through our ingestion API."""
+    """The source of the event. `system` events are created by Repalis. `user` events are the one you create through our ingestion API."""
 
     name: typing.Literal["order.paid"]
     """The name of the event."""
@@ -8595,7 +8595,7 @@ class OrderReceipt:
 
 @dataclasses.dataclass(kw_only=True, slots=True)
 class OrderRefundedEvent:
-    """An event created by Polar when an order is refunded."""
+    """An event created by Repalis when an order is refunded."""
 
     id: str
     """The ID of the object."""
@@ -8607,7 +8607,7 @@ class OrderRefundedEvent:
     """The ID of the organization owning the event."""
 
     customer_id: str | None
-    """ID of the customer in your Polar organization associated with the event."""
+    """ID of the customer in your Repalis organization associated with the event."""
 
     customer: Customer | None
     """The customer associated with the event."""
@@ -8631,7 +8631,7 @@ class OrderRefundedEvent:
     """Human readable label of the event type."""
 
     source: typing.Literal["system"]
-    """The source of the event. `system` events are created by Polar. `user` events are the one you create through our ingestion API."""
+    """The source of the event. `system` events are created by Repalis. `user` events are the one you create through our ingestion API."""
 
     name: typing.Literal["order.refunded"]
     """The name of the event."""
@@ -8745,7 +8745,7 @@ class OrderSubscription:
 
 @dataclasses.dataclass(kw_only=True, slots=True)
 class OrderUnvoidedEvent:
-    """An event created by Polar when an order is unvoided."""
+    """An event created by Repalis when an order is unvoided."""
 
     id: str
     """The ID of the object."""
@@ -8757,7 +8757,7 @@ class OrderUnvoidedEvent:
     """The ID of the organization owning the event."""
 
     customer_id: str | None
-    """ID of the customer in your Polar organization associated with the event."""
+    """ID of the customer in your Repalis organization associated with the event."""
 
     customer: Customer | None
     """The customer associated with the event."""
@@ -8781,7 +8781,7 @@ class OrderUnvoidedEvent:
     """Human readable label of the event type."""
 
     source: typing.Literal["system"]
-    """The source of the event. `system` events are created by Polar. `user` events are the one you create through our ingestion API."""
+    """The source of the event. `system` events are created by Repalis. `user` events are the one you create through our ingestion API."""
 
     name: typing.Literal["order.unvoided"]
     """The name of the event."""
@@ -8800,7 +8800,7 @@ class OrderUnvoidedMetadata:
 
 @dataclasses.dataclass(kw_only=True, slots=True)
 class OrderVoidedEvent:
-    """An event created by Polar when an order is voided."""
+    """An event created by Repalis when an order is voided."""
 
     id: str
     """The ID of the object."""
@@ -8812,7 +8812,7 @@ class OrderVoidedEvent:
     """The ID of the organization owning the event."""
 
     customer_id: str | None
-    """ID of the customer in your Polar organization associated with the event."""
+    """ID of the customer in your Repalis organization associated with the event."""
 
     customer: Customer | None
     """The customer associated with the event."""
@@ -8836,7 +8836,7 @@ class OrderVoidedEvent:
     """Human readable label of the event type."""
 
     source: typing.Literal["system"]
-    """The source of the event. `system` events are created by Polar. `user` events are the one you create through our ingestion API."""
+    """The source of the event. `system` events are created by Repalis. `user` events are the one you create through our ingestion API."""
 
     name: typing.Literal["order.voided"]
     """The name of the event."""
@@ -8895,7 +8895,7 @@ class Organization:
     """When the business details were submitted for review."""
 
     onboarding_resubmission_requested_at: str | None
-    """When Polar requested that the organization review and resubmit its onboarding information, if applicable."""
+    """When Repalis requested that the organization review and resubmit its onboarding information, if applicable."""
 
     sso_enforced: bool
     """Whether members must access this organization through its SSO connection."""
@@ -9040,7 +9040,7 @@ class OrganizationCustomerPortalSettings:
 
 @dataclasses.dataclass(kw_only=True, slots=True)
 class OrganizationDisputeSettings:
-    """`auto_accept_below_amount` is in Polar's settlement currency (USD)."""
+    """`auto_accept_below_amount` is in Repalis's settlement currency (USD)."""
 
     auto_accept_below_amount: int | None
 
@@ -9078,10 +9078,10 @@ class OrganizationFeatureSettings:
     """If this organization has single sign-on configuration enabled"""
 
     dispute_auto_accept_enabled: bool = False
-    """If this organization can set a threshold below which Polar concedes disputes on its behalf. Requires `disputes_enabled`."""
+    """If this organization can set a threshold below which Repalis concedes disputes on its behalf. Requires `disputes_enabled`."""
 
     merchant_migration_enabled: bool = False
-    """If this organization can migrate its billing from another provider (e.g. Stripe) to Polar."""
+    """If this organization can migrate its billing from another provider (e.g. Stripe) to Repalis."""
 
     staged_events_ingest_enabled: bool = False
     """If this organization's ingested events are queued in `staged_events` and moved to `events` out of band."""
@@ -10082,7 +10082,7 @@ class Subscription:
 
 @dataclasses.dataclass(kw_only=True, slots=True)
 class SubscriptionBillingPeriodUpdatedEvent:
-    """An event created by Polar when a subscription billing period is updated."""
+    """An event created by Repalis when a subscription billing period is updated."""
 
     id: str
     """The ID of the object."""
@@ -10094,7 +10094,7 @@ class SubscriptionBillingPeriodUpdatedEvent:
     """The ID of the organization owning the event."""
 
     customer_id: str | None
-    """ID of the customer in your Polar organization associated with the event."""
+    """ID of the customer in your Repalis organization associated with the event."""
 
     customer: Customer | None
     """The customer associated with the event."""
@@ -10118,7 +10118,7 @@ class SubscriptionBillingPeriodUpdatedEvent:
     """Human readable label of the event type."""
 
     source: typing.Literal["system"]
-    """The source of the event. `system` events are created by Polar. `user` events are the one you create through our ingestion API."""
+    """The source of the event. `system` events are created by Repalis. `user` events are the one you create through our ingestion API."""
 
     name: typing.Literal["subscription.billing_period_updated"]
     """The name of the event."""
@@ -10137,7 +10137,7 @@ class SubscriptionBillingPeriodUpdatedMetadata:
 
 @dataclasses.dataclass(kw_only=True, slots=True)
 class SubscriptionCanceledEvent:
-    """An event created by Polar when a subscription is canceled."""
+    """An event created by Repalis when a subscription is canceled."""
 
     id: str
     """The ID of the object."""
@@ -10149,7 +10149,7 @@ class SubscriptionCanceledEvent:
     """The ID of the organization owning the event."""
 
     customer_id: str | None
-    """ID of the customer in your Polar organization associated with the event."""
+    """ID of the customer in your Repalis organization associated with the event."""
 
     customer: Customer | None
     """The customer associated with the event."""
@@ -10173,7 +10173,7 @@ class SubscriptionCanceledEvent:
     """Human readable label of the event type."""
 
     source: typing.Literal["system"]
-    """The source of the event. `system` events are created by Polar. `user` events are the one you create through our ingestion API."""
+    """The source of the event. `system` events are created by Repalis. `user` events are the one you create through our ingestion API."""
 
     name: typing.Literal["subscription.canceled"]
     """The name of the event."""
@@ -10208,7 +10208,7 @@ class SubscriptionCanceledMetadata:
 
 @dataclasses.dataclass(kw_only=True, slots=True)
 class SubscriptionCreatedEvent:
-    """An event created by Polar when a subscription is created."""
+    """An event created by Repalis when a subscription is created."""
 
     id: str
     """The ID of the object."""
@@ -10220,7 +10220,7 @@ class SubscriptionCreatedEvent:
     """The ID of the organization owning the event."""
 
     customer_id: str | None
-    """ID of the customer in your Polar organization associated with the event."""
+    """ID of the customer in your Repalis organization associated with the event."""
 
     customer: Customer | None
     """The customer associated with the event."""
@@ -10244,7 +10244,7 @@ class SubscriptionCreatedEvent:
     """Human readable label of the event type."""
 
     source: typing.Literal["system"]
-    """The source of the event. `system` events are created by Polar. `user` events are the one you create through our ingestion API."""
+    """The source of the event. `system` events are created by Repalis. `user` events are the one you create through our ingestion API."""
 
     name: typing.Literal["subscription.created"]
     """The name of the event."""
@@ -10323,7 +10323,7 @@ class SubscriptionCustomer:
 
 @dataclasses.dataclass(kw_only=True, slots=True)
 class SubscriptionCycledEvent:
-    """An event created by Polar when a subscription is cycled."""
+    """An event created by Repalis when a subscription is cycled."""
 
     id: str
     """The ID of the object."""
@@ -10335,7 +10335,7 @@ class SubscriptionCycledEvent:
     """The ID of the organization owning the event."""
 
     customer_id: str | None
-    """ID of the customer in your Polar organization associated with the event."""
+    """ID of the customer in your Repalis organization associated with the event."""
 
     customer: Customer | None
     """The customer associated with the event."""
@@ -10359,7 +10359,7 @@ class SubscriptionCycledEvent:
     """Human readable label of the event type."""
 
     source: typing.Literal["system"]
-    """The source of the event. `system` events are created by Polar. `user` events are the one you create through our ingestion API."""
+    """The source of the event. `system` events are created by Repalis. `user` events are the one you create through our ingestion API."""
 
     name: typing.Literal["subscription.cycled"]
     """The name of the event."""
@@ -10420,7 +10420,7 @@ class SubscriptionMeter:
 
 @dataclasses.dataclass(kw_only=True, slots=True)
 class SubscriptionMigratedEvent:
-    """An event created by Polar when a subscription is migrated to Polar."""
+    """An event created by Repalis when a subscription is migrated to Repalis."""
 
     id: str
     """The ID of the object."""
@@ -10432,7 +10432,7 @@ class SubscriptionMigratedEvent:
     """The ID of the organization owning the event."""
 
     customer_id: str | None
-    """ID of the customer in your Polar organization associated with the event."""
+    """ID of the customer in your Repalis organization associated with the event."""
 
     customer: Customer | None
     """The customer associated with the event."""
@@ -10456,7 +10456,7 @@ class SubscriptionMigratedEvent:
     """Human readable label of the event type."""
 
     source: typing.Literal["system"]
-    """The source of the event. `system` events are created by Polar. `user` events are the one you create through our ingestion API."""
+    """The source of the event. `system` events are created by Repalis. `user` events are the one you create through our ingestion API."""
 
     name: typing.Literal["subscription.migrated"]
     """The name of the event."""
@@ -10484,7 +10484,7 @@ class SubscriptionNotScheduledToCancel:
 
 @dataclasses.dataclass(kw_only=True, slots=True)
 class SubscriptionPastDueEvent:
-    """An event created by Polar when a subscription becomes past due."""
+    """An event created by Repalis when a subscription becomes past due."""
 
     id: str
     """The ID of the object."""
@@ -10496,7 +10496,7 @@ class SubscriptionPastDueEvent:
     """The ID of the organization owning the event."""
 
     customer_id: str | None
-    """ID of the customer in your Polar organization associated with the event."""
+    """ID of the customer in your Repalis organization associated with the event."""
 
     customer: Customer | None
     """The customer associated with the event."""
@@ -10520,7 +10520,7 @@ class SubscriptionPastDueEvent:
     """Human readable label of the event type."""
 
     source: typing.Literal["system"]
-    """The source of the event. `system` events are created by Polar. `user` events are the one you create through our ingestion API."""
+    """The source of the event. `system` events are created by Repalis. `user` events are the one you create through our ingestion API."""
 
     name: typing.Literal["subscription.past_due"]
     """The name of the event."""
@@ -10547,7 +10547,7 @@ class SubscriptionPastDueMetadata:
 
 @dataclasses.dataclass(kw_only=True, slots=True)
 class SubscriptionPausedEvent:
-    """An event created by Polar when a subscription is paused."""
+    """An event created by Repalis when a subscription is paused."""
 
     id: str
     """The ID of the object."""
@@ -10559,7 +10559,7 @@ class SubscriptionPausedEvent:
     """The ID of the organization owning the event."""
 
     customer_id: str | None
-    """ID of the customer in your Polar organization associated with the event."""
+    """ID of the customer in your Repalis organization associated with the event."""
 
     customer: Customer | None
     """The customer associated with the event."""
@@ -10583,7 +10583,7 @@ class SubscriptionPausedEvent:
     """Human readable label of the event type."""
 
     source: typing.Literal["system"]
-    """The source of the event. `system` events are created by Polar. `user` events are the one you create through our ingestion API."""
+    """The source of the event. `system` events are created by Repalis. `user` events are the one you create through our ingestion API."""
 
     name: typing.Literal["subscription.paused"]
     """The name of the event."""
@@ -10612,7 +10612,7 @@ class SubscriptionPausedMetadata:
 
 @dataclasses.dataclass(kw_only=True, slots=True)
 class SubscriptionProductUpdatedEvent:
-    """An event created by Polar when a subscription changes the product."""
+    """An event created by Repalis when a subscription changes the product."""
 
     id: str
     """The ID of the object."""
@@ -10624,7 +10624,7 @@ class SubscriptionProductUpdatedEvent:
     """The ID of the organization owning the event."""
 
     customer_id: str | None
-    """ID of the customer in your Polar organization associated with the event."""
+    """ID of the customer in your Repalis organization associated with the event."""
 
     customer: Customer | None
     """The customer associated with the event."""
@@ -10648,7 +10648,7 @@ class SubscriptionProductUpdatedEvent:
     """Human readable label of the event type."""
 
     source: typing.Literal["system"]
-    """The source of the event. `system` events are created by Polar. `user` events are the one you create through our ingestion API."""
+    """The source of the event. `system` events are created by Repalis. `user` events are the one you create through our ingestion API."""
 
     name: typing.Literal["subscription.product_updated"]
     """The name of the event."""
@@ -10667,7 +10667,7 @@ class SubscriptionProductUpdatedMetadata:
 
 @dataclasses.dataclass(kw_only=True, slots=True)
 class SubscriptionReactivatedEvent:
-    """An event created by Polar when a past due subscription is recovered."""
+    """An event created by Repalis when a past due subscription is recovered."""
 
     id: str
     """The ID of the object."""
@@ -10679,7 +10679,7 @@ class SubscriptionReactivatedEvent:
     """The ID of the organization owning the event."""
 
     customer_id: str | None
-    """ID of the customer in your Polar organization associated with the event."""
+    """ID of the customer in your Repalis organization associated with the event."""
 
     customer: Customer | None
     """The customer associated with the event."""
@@ -10703,7 +10703,7 @@ class SubscriptionReactivatedEvent:
     """Human readable label of the event type."""
 
     source: typing.Literal["system"]
-    """The source of the event. `system` events are created by Polar. `user` events are the one you create through our ingestion API."""
+    """The source of the event. `system` events are created by Repalis. `user` events are the one you create through our ingestion API."""
 
     name: typing.Literal["subscription.reactivated"]
     """The name of the event."""
@@ -10728,7 +10728,7 @@ class SubscriptionReactivatedMetadata:
 
 @dataclasses.dataclass(kw_only=True, slots=True)
 class SubscriptionReinstatedEvent:
-    """An event created by Polar when a canceled subscription is reinstated."""
+    """An event created by Repalis when a canceled subscription is reinstated."""
 
     id: str
     """The ID of the object."""
@@ -10740,7 +10740,7 @@ class SubscriptionReinstatedEvent:
     """The ID of the organization owning the event."""
 
     customer_id: str | None
-    """ID of the customer in your Polar organization associated with the event."""
+    """ID of the customer in your Repalis organization associated with the event."""
 
     customer: Customer | None
     """The customer associated with the event."""
@@ -10764,7 +10764,7 @@ class SubscriptionReinstatedEvent:
     """Human readable label of the event type."""
 
     source: typing.Literal["system"]
-    """The source of the event. `system` events are created by Polar. `user` events are the one you create through our ingestion API."""
+    """The source of the event. `system` events are created by Repalis. `user` events are the one you create through our ingestion API."""
 
     name: typing.Literal["subscription.reinstated"]
     """The name of the event."""
@@ -10789,7 +10789,7 @@ class SubscriptionReinstatedMetadata:
 
 @dataclasses.dataclass(kw_only=True, slots=True)
 class SubscriptionResumedEvent:
-    """An event created by Polar when a paused subscription is resumed."""
+    """An event created by Repalis when a paused subscription is resumed."""
 
     id: str
     """The ID of the object."""
@@ -10801,7 +10801,7 @@ class SubscriptionResumedEvent:
     """The ID of the organization owning the event."""
 
     customer_id: str | None
-    """ID of the customer in your Polar organization associated with the event."""
+    """ID of the customer in your Repalis organization associated with the event."""
 
     customer: Customer | None
     """The customer associated with the event."""
@@ -10825,7 +10825,7 @@ class SubscriptionResumedEvent:
     """Human readable label of the event type."""
 
     source: typing.Literal["system"]
-    """The source of the event. `system` events are created by Polar. `user` events are the one you create through our ingestion API."""
+    """The source of the event. `system` events are created by Repalis. `user` events are the one you create through our ingestion API."""
 
     name: typing.Literal["subscription.resumed"]
     """The name of the event."""
@@ -10850,7 +10850,7 @@ class SubscriptionResumedMetadata:
 
 @dataclasses.dataclass(kw_only=True, slots=True)
 class SubscriptionRevokedEvent:
-    """An event created by Polar when a subscription is revoked from a customer."""
+    """An event created by Repalis when a subscription is revoked from a customer."""
 
     id: str
     """The ID of the object."""
@@ -10862,7 +10862,7 @@ class SubscriptionRevokedEvent:
     """The ID of the organization owning the event."""
 
     customer_id: str | None
-    """ID of the customer in your Polar organization associated with the event."""
+    """ID of the customer in your Repalis organization associated with the event."""
 
     customer: Customer | None
     """The customer associated with the event."""
@@ -10886,7 +10886,7 @@ class SubscriptionRevokedEvent:
     """Human readable label of the event type."""
 
     source: typing.Literal["system"]
-    """The source of the event. `system` events are created by Polar. `user` events are the one you create through our ingestion API."""
+    """The source of the event. `system` events are created by Repalis. `user` events are the one you create through our ingestion API."""
 
     name: typing.Literal["subscription.revoked"]
     """The name of the event."""
@@ -10911,7 +10911,7 @@ class SubscriptionRevokedMetadata:
 
 @dataclasses.dataclass(kw_only=True, slots=True)
 class SubscriptionSeatsUpdatedEvent:
-    """An event created by Polar when a the seats on a subscription is changed."""
+    """An event created by Repalis when a the seats on a subscription is changed."""
 
     id: str
     """The ID of the object."""
@@ -10923,7 +10923,7 @@ class SubscriptionSeatsUpdatedEvent:
     """The ID of the organization owning the event."""
 
     customer_id: str | None
-    """ID of the customer in your Polar organization associated with the event."""
+    """ID of the customer in your Repalis organization associated with the event."""
 
     customer: Customer | None
     """The customer associated with the event."""
@@ -10947,7 +10947,7 @@ class SubscriptionSeatsUpdatedEvent:
     """Human readable label of the event type."""
 
     source: typing.Literal["system"]
-    """The source of the event. `system` events are created by Polar. `user` events are the one you create through our ingestion API."""
+    """The source of the event. `system` events are created by Repalis. `user` events are the one you create through our ingestion API."""
 
     name: typing.Literal["subscription.seats_updated"]
     """The name of the event."""
@@ -10968,7 +10968,7 @@ class SubscriptionSeatsUpdatedMetadata:
 
 @dataclasses.dataclass(kw_only=True, slots=True)
 class SubscriptionUncanceledEvent:
-    """An event created by Polar when a subscription cancellation is reversed."""
+    """An event created by Repalis when a subscription cancellation is reversed."""
 
     id: str
     """The ID of the object."""
@@ -10980,7 +10980,7 @@ class SubscriptionUncanceledEvent:
     """The ID of the organization owning the event."""
 
     customer_id: str | None
-    """ID of the customer in your Polar organization associated with the event."""
+    """ID of the customer in your Repalis organization associated with the event."""
 
     customer: Customer | None
     """The customer associated with the event."""
@@ -11004,7 +11004,7 @@ class SubscriptionUncanceledEvent:
     """Human readable label of the event type."""
 
     source: typing.Literal["system"]
-    """The source of the event. `system` events are created by Polar. `user` events are the one you create through our ingestion API."""
+    """The source of the event. `system` events are created by Repalis. `user` events are the one you create through our ingestion API."""
 
     name: typing.Literal["subscription.uncanceled"]
     """The name of the event."""
@@ -11029,7 +11029,7 @@ class SubscriptionUncanceledMetadata:
 
 @dataclasses.dataclass(kw_only=True, slots=True)
 class SubscriptionUnitsUpdatedEvent:
-    """An event created by Polar when the units on a subscription are changed."""
+    """An event created by Repalis when the units on a subscription are changed."""
 
     id: str
     """The ID of the object."""
@@ -11041,7 +11041,7 @@ class SubscriptionUnitsUpdatedEvent:
     """The ID of the organization owning the event."""
 
     customer_id: str | None
-    """ID of the customer in your Polar organization associated with the event."""
+    """ID of the customer in your Repalis organization associated with the event."""
 
     customer: Customer | None
     """The customer associated with the event."""
@@ -11065,7 +11065,7 @@ class SubscriptionUnitsUpdatedEvent:
     """Human readable label of the event type."""
 
     source: typing.Literal["system"]
-    """The source of the event. `system` events are created by Polar. `user` events are the one you create through our ingestion API."""
+    """The source of the event. `system` events are created by Repalis. `user` events are the one you create through our ingestion API."""
 
     name: typing.Literal["subscription.units_updated"]
     """The name of the event."""
@@ -11086,7 +11086,7 @@ class SubscriptionUnitsUpdatedMetadata:
 
 @dataclasses.dataclass(kw_only=True, slots=True)
 class SubscriptionUpdateClearedEvent:
-    """An event created by Polar when a pending subscription update is cleared without being applied."""
+    """An event created by Repalis when a pending subscription update is cleared without being applied."""
 
     id: str
     """The ID of the object."""
@@ -11098,7 +11098,7 @@ class SubscriptionUpdateClearedEvent:
     """The ID of the organization owning the event."""
 
     customer_id: str | None
-    """ID of the customer in your Polar organization associated with the event."""
+    """ID of the customer in your Repalis organization associated with the event."""
 
     customer: Customer | None
     """The customer associated with the event."""
@@ -11122,7 +11122,7 @@ class SubscriptionUpdateClearedEvent:
     """Human readable label of the event type."""
 
     source: typing.Literal["system"]
-    """The source of the event. `system` events are created by Polar. `user` events are the one you create through our ingestion API."""
+    """The source of the event. `system` events are created by Repalis. `user` events are the one you create through our ingestion API."""
 
     name: typing.Literal["subscription.update_cleared"]
     """The name of the event."""
@@ -11137,7 +11137,7 @@ class SubscriptionUpdateClearedMetadata:
 
 @dataclasses.dataclass(kw_only=True, slots=True)
 class SubscriptionUpdatedEvent:
-    """An event created by Polar when a subscription is updated."""
+    """An event created by Repalis when a subscription is updated."""
 
     id: str
     """The ID of the object."""
@@ -11149,7 +11149,7 @@ class SubscriptionUpdatedEvent:
     """The ID of the organization owning the event."""
 
     customer_id: str | None
-    """ID of the customer in your Polar organization associated with the event."""
+    """ID of the customer in your Repalis organization associated with the event."""
 
     customer: Customer | None
     """The customer associated with the event."""
@@ -11173,7 +11173,7 @@ class SubscriptionUpdatedEvent:
     """Human readable label of the event type."""
 
     source: typing.Literal["system"]
-    """The source of the event. `system` events are created by Polar. `user` events are the one you create through our ingestion API."""
+    """The source of the event. `system` events are created by Repalis. `user` events are the one you create through our ingestion API."""
 
     name: typing.Literal["subscription.updated"]
     """The name of the event."""
@@ -11337,7 +11337,7 @@ class UserEvent:
     """The ID of the organization owning the event."""
 
     customer_id: str | None
-    """ID of the customer in your Polar organization associated with the event."""
+    """ID of the customer in your Repalis organization associated with the event."""
 
     customer: Customer | None
     """The customer associated with the event."""
@@ -11364,7 +11364,7 @@ class UserEvent:
     """The name of the event."""
 
     source: typing.Literal["user"]
-    """The source of the event. `system` events are created by Polar. `user` events are the one you create through our ingestion API."""
+    """The source of the event. `system` events are created by Repalis. `user` events are the one you create through our ingestion API."""
 
     metadata: EventMetadataOutput
 
@@ -11526,7 +11526,7 @@ class WebhookEndpoint:
     """Whether the webhook endpoint is enabled and will receive events."""
 
     uses_standard_webhook_signature: bool
-    """Whether Polar signs deliveries to this endpoint with Standard Webhooks. False means Polar's original HMAC over the UTF-8 bytes of the full secret."""
+    """Whether Repalis signs deliveries to this endpoint with Standard Webhooks. False means Repalis's original HMAC over the UTF-8 bytes of the full secret."""
 
 
 @dataclasses.dataclass(kw_only=True, slots=True)

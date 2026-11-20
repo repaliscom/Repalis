@@ -24,9 +24,9 @@ export const listBenefitGrants = (client: ClientBase) => {
    * @param query - Query parameters
    * @param requestOptions - Request options
    * @returns {ListResourceBenefitGrant}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    * @throws {HTTPValidationError} Validation Error
    */
   return async (
@@ -78,9 +78,9 @@ export const listBenefitGrants = (client: ClientBase) => {
  * @param query - Query parameters
  * @param requestOptions - Request options
  * @returns {AsyncGenerator<BenefitGrant>} A generator that yields items of type BenefitGrant.
- * @throws {PolarNetworkError} When a network error occurs
- * @throws {PolarRateLimitError} When the rate limit is exceeded
- * @throws {PolarServerError} When the server returns a 5xx error
+ * @throws {RepalisNetworkError} When a network error occurs
+ * @throws {RepalisRateLimitError} When the rate limit is exceeded
+ * @throws {RepalisServerError} When the server returns a 5xx error
  * @throws {HTTPValidationError} Validation Error
  */
 export const iterListBenefitGrants = (client: ClientBase) => {
@@ -120,7 +120,7 @@ export const createBenefitGrants = (client: ClientBase) => {
   /**
    * Manually grant a benefit to a customer or one of their members.
    *
-   * Use either Polar IDs for every reference or external IDs for every reference.
+   * Use either Repalis IDs for every reference or external IDs for every reference.
    * Fulfillment is asynchronous: the returned grant may not yet be granted.
    * Meter-credit benefits cannot be granted manually.
    *
@@ -129,9 +129,9 @@ export const createBenefitGrants = (client: ClientBase) => {
    * @param body - Request body
    * @param requestOptions - Request options
    * @returns {BenefitGrant}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    * @throws {BenefitGrantAlreadyExists} Conflict
    * @throws {HTTPValidationError} Validation Error
    */
@@ -169,9 +169,9 @@ export const revokeBenefitGrants = (client: ClientBase) => {
    * @param id
    * @param requestOptions - Request options
    * @returns {BenefitGrant}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    * @throws {ResourceNotFound} Not Found
    * @throws {HTTPValidationError} Validation Error
    */
@@ -208,9 +208,9 @@ export const updateBenefitGrants = (client: ClientBase) => {
    * @param body - Request body
    * @param requestOptions - Request options
    * @returns {BenefitGrant}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    * @throws {NotPermitted} Forbidden
    * @throws {ResourceNotFound} Not Found
    * @throws {BenefitGrantAlreadyExists} Conflict

@@ -28,7 +28,7 @@ def redis(redis_socket: str) -> collections.abc.Iterator[Redis]:
     client.close()
 
 
-# What a snapshot costs once Polar confirmed the newest bucket's pending events: CONFIRM then
+# What a snapshot costs once Repalis confirmed the newest bucket's pending events: CONFIRM then
 # APPLY_SNAPSHOT in one transaction, as the client runs them.
 @pytest.mark.parametrize("pending", PENDING_COUNTS)
 @pytest.mark.parametrize("buckets", BUCKET_COUNTS)

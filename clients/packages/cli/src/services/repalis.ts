@@ -18,11 +18,11 @@ import { Auth } from '@/services/auth'
 export class Polar extends Context.Service<Polar, PolarImpl>()('Polar') {}
 
 type CurrentApiVersion = typeof CURRENT_API_VERSION
-type PolarSDK = ApiClients[CurrentApiVersion]['client']
+type RepalisSDK = ApiClients[CurrentApiVersion]['client']
 
 interface Sdk<V extends ApiVersion> {
-  createPolar: (options: V2026_10.PolarOptions) => ApiClients[V]['client']
-  createPolarCore: (options: V2026_10.PolarOptions) => ApiClients[V]['core']
+  createRepalis: (options: V2026_10.RepalisOptions) => ApiClients[V]['client']
+  createRepalisCore: (options: V2026_10.RepalisOptions) => ApiClients[V]['core']
 }
 
 const SDKS: { [V in ApiVersion]: Sdk<V> } = {
@@ -112,7 +112,7 @@ const describeFailure = (
 interface PolarImpl {
   getClient: (
     environment?: PolarEnvironment,
-  ) => Effect.Effect<PolarSDK, AuthError>
+  ) => Effect.Effect<RepalisSDK, AuthError>
   use: <A, V extends ApiVersion = CurrentApiVersion>(
     fn: (
       client: ApiClients[V]['client'],
@@ -130,7 +130,7 @@ export const make = Effect.gen(function* () {
     Effect.gen(function* () {
       const baseUrl = yield* apiOrigin(environment)
       const { accessToken } = yield* auth.resolve(environment)
-      return SDKS[CURRENT_API_VERSION].createPolar({
+      return SDKS[CURRENT_API_VERSION].createRepalis({
         baseUrl,
         accessToken: Redacted.value(accessToken),
       })
@@ -164,8 +164,8 @@ export const make = Effect.gen(function* () {
               ...requestOptions,
             }
             return fn(
-              sdk.createPolar(clientOptions),
-              sdk.createPolarCore(clientOptions),
+              sdk.createRepalis(clientOptions),
+              sdk.createRepalisCore(clientOptions),
             )
           },
           catch: (error) => {

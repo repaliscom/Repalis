@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import typing
 
-from repalis.base import _Discriminator, PolarClientError
+from repalis.base import _Discriminator, RepalisClientError
 {% if imports %}
 from repalis.{{ version }}.outputs import (
 {% for type in imports %}
@@ -13,7 +13,7 @@ from repalis.{{ version }}.outputs import (
 
 
 {% for error in errors %}
-class {{ error.name }}(PolarClientError):
+class {{ error.name }}(RepalisClientError):
 {% if error.response_type == "json" %}
     error_type = {{ error.type | type_annotation(ref_suffix="Model") }}
     error: {{ error.type | type_annotation(ref_suffix="Model") }}

@@ -4,7 +4,7 @@ from repalis.outpost.client import (
     IngestResult,
     MissingExternalIdError,
     Outpost,
-    PolarOutpostError,
+    RepalisOutpostError,
     UnavailableRedisError,
     connect_redis,
 )
@@ -34,7 +34,7 @@ __all__ = [
     "IngestResult",
     "MissingExternalIdError",
     "Outpost",
-    "PolarOutpostError",
+    "RepalisOutpostError",
     "Reducer",
     "UnavailableRedisError",
     "Updates",

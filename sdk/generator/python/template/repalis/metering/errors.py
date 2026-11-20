@@ -2,11 +2,11 @@ import dataclasses
 import math
 import typing
 
-from repalis import PolarError
+from repalis import RepalisError
 from repalis.metering.events import EventInput
 
 
-class MeteringError(PolarError):
+class MeteringError(RepalisError):
     """Base error for metering configuration and operations."""
 
 
@@ -33,7 +33,7 @@ class DeliveryFailure:
 
 
 class MeteringDeliveryError(MeteringError):
-    """Raised when queued events could not be confirmed by Polar."""
+    """Raised when queued events could not be confirmed by Repalis."""
 
     def __init__(self, failures: list[DeliveryFailure]) -> None:
         self.failures = failures

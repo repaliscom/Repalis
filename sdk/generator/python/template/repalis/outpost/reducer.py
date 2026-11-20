@@ -114,7 +114,7 @@ def get_matcher(clause: Filter | FilterClause) -> EventMatcher:
         read = get_property_reader(clause["property"])
 
         if clause["operator"] in ("like", "not_like"):
-            # Polar compares strings; a number or boolean on either side matches nothing.
+            # Repalis compares strings; a number or boolean on either side matches nothing.
             if not isinstance(expected, str):
                 return lambda event: False
             contains = clause["operator"] == "like"
@@ -171,7 +171,7 @@ def get_matcher(clause: Filter | FilterClause) -> EventMatcher:
     return any_matcher
 
 
-# Credit reducers count Polar's system events: no local event matches them.
+# Credit reducers count Repalis's system events: no local event matches them.
 def with_matchers(
     reducers: collections.abc.Iterable[Reducer],
 ) -> list[ReducerMatcher]:

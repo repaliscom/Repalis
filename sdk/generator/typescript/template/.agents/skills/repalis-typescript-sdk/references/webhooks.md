@@ -1,6 +1,6 @@
 # Webhook processing
 
-Use these instructions whenever implementing or modifying a Polar webhook receiver.
+Use these instructions whenever implementing or modifying a Repalis webhook receiver.
 
 ## Receiver requirements
 
@@ -21,18 +21,18 @@ Replace `enqueueVerifiedWebhook` with a durable, idempotent application operatio
 
 ```typescript
 import express from "express";
-import { webhooks } from "@polar-sh/sdk/{{ (ir.versions[-2] | default({})).version }}";
+import { webhooks } from "@repalis/sdk/{{ (ir.versions[-2] | default({})).version }}";
 
-const webhookSecret = process.env.POLAR_WEBHOOK_SECRET;
+const webhookSecret = process.env.REPALIS_WEBHOOK_SECRET;
 if (!webhookSecret) {
-  throw new Error("POLAR_WEBHOOK_SECRET is required");
+  throw new Error("REPALIS_WEBHOOK_SECRET is required");
 }
 
 const app = express();
 
 // Register this route before app.use(express.json()).
 app.post(
-  "/webhooks/polar",
+  "/webhooks/repalis",
   express.raw({ type: "application/json" }),
   async (request, response, next) => {
     const headers = {
@@ -53,18 +53,18 @@ app.post(
       });
       response.sendStatus(202);
     } catch (error) {
-      if (error instanceof webhooks.PolarWebhookVerificationError) {
+      if (error instanceof webhooks.RepalisWebhookVerificationError) {
         response.status(403).json({ error: "Invalid webhook signature" });
         return;
       }
-      if (error instanceof webhooks.PolarWebhookUnknownTypeError) {
-        console.warn("Ignoring unsupported signed Polar webhook", {
+      if (error instanceof webhooks.RepalisWebhookUnknownTypeError) {
+        console.warn("Ignoring unsupported signed Repalis webhook", {
           eventType: error.eventType,
         });
         response.sendStatus(202);
         return;
       }
-      if (error instanceof webhooks.PolarWebhookError) {
+      if (error instanceof webhooks.RepalisWebhookError) {
         response.status(400).json({ error: "Invalid webhook payload" });
         return;
       }
@@ -86,7 +86,7 @@ Use `benefit_grant.created`, `benefit_grant.updated`, and `benefit_grant.revoked
 
 - Upsert the grant by `event.data.id` on `benefit_grant.created` and `benefit_grant.updated`.
 - Mark that grant revoked on `benefit_grant.revoked`.
-- Correlate through `event.data.customer.external_id` when set, or a stored Polar customer ID otherwise; do not use email as the durable key.
+- Correlate through `event.data.customer.external_id` when set, or a stored Repalis customer ID otherwise; do not use email as the durable key.
 - Derive access from whether any grant with `is_granted` and without `is_revoked` remains for the customer, member, and benefit.
 
 Do not disable a feature merely because one grant was revoked. The same benefit can be granted through more than one subscription or order, so another active grant may still authorize access.

@@ -21,7 +21,7 @@ def test_overlay_is_complete_and_excludes_non_sdk_operations(
     overlay = generate_code_samples_overlay(api, "1.2.3", ["python", "typescript"])
 
     assert overlay["overlay"] == "1.1.0"
-    assert overlay["info"]["title"] == "Polar 2026-04 SDK code samples"
+    assert overlay["info"]["title"] == "Repalis 2026-04 SDK code samples"
     assert overlay["info"]["version"] == "1.2.3"
     assert len(overlay["actions"]) == 3
     targets = [action["target"] for action in overlay["actions"]]
@@ -50,7 +50,7 @@ def test_writes_one_overlay_per_api_version(
     ]
     assert (
         json.loads((tmp_path / "2025-01.overlay.json").read_text())["info"]["title"]
-        == "Polar 2025-01 SDK code samples"
+        == "Repalis 2025-01 SDK code samples"
     )
 
 

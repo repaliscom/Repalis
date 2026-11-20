@@ -1,8 +1,8 @@
 import type { EventInput } from "./event";
 
-import { PolarError } from "../base";
+import { RepalisError } from "../base";
 
-export class MeteringError extends PolarError {}
+export class MeteringError extends RepalisError {}
 export class InvalidActorError extends MeteringError {}
 export class UnknownMeterError extends MeteringError {}
 

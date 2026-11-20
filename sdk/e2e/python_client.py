@@ -6,7 +6,7 @@ import typing
 
 import anyio
 import httpx2
-from repalis.base import PolarError
+from repalis.base import RepalisError
 from repalis.outpost import Outpost
 
 
@@ -58,7 +58,7 @@ async def main() -> None:
                     "result": dataclasses.asdict(result) if result is not None else None
                 }
             except (
-                PolarError,
+                RepalisError,
                 ValueError,
                 TypeError,
                 KeyError,

@@ -1,6 +1,6 @@
 import { createInterface } from "node:readline";
-import { Outpost, type EventInput } from "@polar-sh/sdk/outpost";
-import { createPolarCore } from "@polar-sh/sdk/2026-10";
+import { Outpost, type EventInput } from "@repalis/sdk/outpost";
+import { createRepalisCore } from "@repalis/sdk/2026-10";
 
 type Customer = Parameters<Outpost["actor"]>[0];
 type Command =
@@ -12,7 +12,7 @@ type Command =
 
 const [redisUrl, baseUrl] = process.argv.slice(2);
 const outpost = new Outpost(redisUrl, {
-  client: createPolarCore({ accessToken: "harness-token", baseUrl }),
+  client: createRepalisCore({ accessToken: "harness-token", baseUrl }),
   telemetry: false,
 });
 const respond = (response: { result: unknown } | { error: string }) =>

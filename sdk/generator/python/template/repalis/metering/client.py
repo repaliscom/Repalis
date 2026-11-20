@@ -13,6 +13,6 @@ class MeteringClient(typing.Protocol):
     def events(self) -> EventsClient: ...
 
 
-class PolarClient(MeteringClient, typing.Protocol):
+class RepalisClient(MeteringClient, typing.Protocol):
     @property
     def _client(self) -> AsyncClientBase: ...

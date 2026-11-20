@@ -27,9 +27,9 @@ export const listLicenseKeys = (client: ClientBase) => {
    * @param query - Query parameters
    * @param requestOptions - Request options
    * @returns {ListResourceLicenseKeyRead}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    * @throws {Unauthorized} Not authorized to manage license key.
    * @throws {ResourceNotFound} License key not found.
    * @throws {HTTPValidationError} Validation Error
@@ -69,9 +69,9 @@ export const listLicenseKeys = (client: ClientBase) => {
  * @param query - Query parameters
  * @param requestOptions - Request options
  * @returns {AsyncGenerator<LicenseKeyRead>} A generator that yields items of type LicenseKeyRead.
- * @throws {PolarNetworkError} When a network error occurs
- * @throws {PolarRateLimitError} When the rate limit is exceeded
- * @throws {PolarServerError} When the server returns a 5xx error
+ * @throws {RepalisNetworkError} When a network error occurs
+ * @throws {RepalisRateLimitError} When the rate limit is exceeded
+ * @throws {RepalisServerError} When the server returns a 5xx error
  * @throws {Unauthorized} Not authorized to manage license key.
  * @throws {ResourceNotFound} License key not found.
  * @throws {HTTPValidationError} Validation Error
@@ -111,9 +111,9 @@ export const getLicenseKeys = (client: ClientBase) => {
    * @param id
    * @param requestOptions - Request options
    * @returns {LicenseKeyWithActivations}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    * @throws {ResourceNotFound} License key not found.
    * @throws {HTTPValidationError} Validation Error
    */
@@ -152,9 +152,9 @@ export const rotateLicenseKeys = (client: ClientBase) => {
    * @param id
    * @param requestOptions - Request options
    * @returns {RotatedLicenseKey}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    * @throws {RotateNotPermitted} License key cannot be rotated in its current status. Allowed statuses: disabled, granted.
    * @throws {Unauthorized} Not authorized to manage license key.
    * @throws {ResourceNotFound} License key not found.
@@ -193,9 +193,9 @@ export const validateLicenseKeys = (client: ClientBase) => {
    * @param body - Request body
    * @param requestOptions - Request options
    * @returns {ValidatedLicenseKey}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    * @throws {BadRequest} The requested usage increment exceeds the license key's remaining usage allowance.
    * @throws {ResourceNotFound} License key not found, revoked, disabled, or expired, or the supplied activation is missing or does not match, or the conditions, benefit, or customer do not match.
    * @throws {HTTPValidationError} Validation Error
@@ -233,9 +233,9 @@ export const activateLicenseKeys = (client: ClientBase) => {
    * @param body - Request body
    * @param requestOptions - Request options
    * @returns {LicenseKeyActivationCreated}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    * @throws {NotPermitted} License key is revoked, disabled, or expired, does not support activations, or has reached its activation limit. Use /validate for licenses without activations.
    * @throws {ResourceNotFound} License key not found.
    * @throws {HTTPValidationError} Validation Error
@@ -273,9 +273,9 @@ export const deactivateLicenseKeys = (client: ClientBase) => {
    * @param body - Request body
    * @param requestOptions - Request options
    * @returns {void}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    * @throws {ResourceNotFound} License key or activation not found, or activation does not belong to the license key.
    * @throws {HTTPValidationError} Validation Error
    */

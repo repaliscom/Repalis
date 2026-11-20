@@ -9,7 +9,7 @@ import httpx2
 import pytest
 import typing_extensions
 
-from repalis import PolarDeserializationError, deserialize
+from repalis import RepalisDeserializationError, deserialize
 from repalis.base import (
     _OPEN_ENUM,
     AsyncClientBase,
@@ -20,7 +20,7 @@ from repalis.base import (
     parse_response_json,
     resolve_base_url,
 )
-from repalis.v2026_04 import Polar, PolarAsync
+from repalis.v2026_04 import Repalis, RepalisAsync
 
 SERVERS = {
     "production": "https://api.repalis.com",
@@ -97,13 +97,13 @@ def test_nullable_discriminated_union(hint: typing.Any) -> None:
     [None, [], {}, {"type": "unknown"}, {"type": []}, {"type": "dog", "breed": 42}],
 )
 def test_discriminated_union_rejects_invalid_data(data: object) -> None:
-    with pytest.raises(PolarDeserializationError):
+    with pytest.raises(RepalisDeserializationError):
         deserialize(data, TaggedAnimal)
 
 
 @pytest.mark.parametrize("value", [None, [], {}, b"text"])
 def test_scalar_union_rejects_invalid_data(value: object) -> None:
-    with pytest.raises(PolarDeserializationError):
+    with pytest.raises(RepalisDeserializationError):
         deserialize(value, str | int | float | bool)
 
 
@@ -111,11 +111,11 @@ def test_scalar_union_preserves_fallback_behavior() -> None:
     class CustomInt(int):
         pass
 
-    with pytest.raises(PolarDeserializationError):
+    with pytest.raises(RepalisDeserializationError):
         deserialize(CustomInt(42), int | float)
     assert type(deserialize(7, str | float)) is float
     assert deserialize(7, str | float) == 7.0
-    with pytest.raises(PolarDeserializationError):
+    with pytest.raises(RepalisDeserializationError):
         deserialize(True, int | float)
 
 
@@ -165,7 +165,7 @@ def test_deserialize_model() -> None:
 
 
 def test_deserialize_model_invalid() -> None:
-    with pytest.raises(PolarDeserializationError):
+    with pytest.raises(RepalisDeserializationError):
         deserialize({"type": "cat", "lives": "nine"}, Cat)
 
 
@@ -200,7 +200,7 @@ def test_deserialize_model_without_optional_fields() -> None:
 
 
 def test_deserialize_model_with_invalid_additional_property() -> None:
-    with pytest.raises(PolarDeserializationError):
+    with pytest.raises(RepalisDeserializationError):
         deserialize({"known": 1, "invalid": ["value"]}, ExtensibleModel)
 
 
@@ -275,7 +275,7 @@ def client(request) -> SyncClientBase | AsyncClientBase:
     return cls(
         base_url="https://api.repalis.com",
         version="2026-04",
-        access_token="polar_at_u_xxx",
+        access_token="repalis_at_u_xxx",
     )
 
 
@@ -310,10 +310,10 @@ class TestBuildRequest:
         request = client.build_request(
             method="GET",
             url="/v1/items/",
-            request_access_token="polar_at_u_override",
+            request_access_token="repalis_at_u_override",
         )
 
-        assert request.headers["Authorization"] == "Bearer polar_at_u_override"
+        assert request.headers["Authorization"] == "Bearer repalis_at_u_override"
 
     @pytest.mark.parametrize("client_class", [SyncClientBase, AsyncClientBase])
     @pytest.mark.parametrize("timeout_class", [httpx.Timeout, httpx2.Timeout])
@@ -325,7 +325,7 @@ class TestBuildRequest:
         client = client_class(
             base_url="https://api.repalis.com",
             version="2026-04",
-            access_token="polar_at_u_xxx",
+            access_token="repalis_at_u_xxx",
             timeout=timeout_class(30.0, connect=10.0),
         )
 
@@ -424,7 +424,7 @@ class TestOrganization:
     def test_omitted_by_default(self, client: SyncClientBase | AsyncClientBase) -> None:
         request = client.build_request(method="GET", url="/v1/items/")
 
-        assert "Polar-Organization" not in request.headers
+        assert "Repalis-Organization" not in request.headers
 
     @pytest.mark.parametrize("client_class", [SyncClientBase, AsyncClientBase])
     def test_configured_organization(
@@ -433,21 +433,21 @@ class TestOrganization:
         client = client_class(
             base_url="https://api.repalis.com",
             version="2026-04",
-            access_token="polar_at_u_xxx",
+            access_token="repalis_at_u_xxx",
             organization_id="org_1",
         )
 
         request = client.build_request(method="GET", url="/v1/items/")
 
-        assert request.headers["Polar-Organization"] == "org_1"
+        assert request.headers["Repalis-Organization"] == "org_1"
 
-    @pytest.mark.parametrize("polar_class", [Polar, PolarAsync])
-    def test_polar_organization(self, polar_class: type[Polar | PolarAsync]) -> None:
-        polar = polar_class("polar_at_u_xxx", organization_id="org_1")
+    @pytest.mark.parametrize("repalis_class", [Repalis, RepalisAsync])
+    def test_repalis_organization(self, repalis_class: type[Repalis | RepalisAsync]) -> None:
+        repalis = repalis_class("repalis_at_u_xxx", organization_id="org_1")
 
-        request = polar._client.build_request(method="GET", url="/v1/items/")
+        request = repalis._client.build_request(method="GET", url="/v1/items/")
 
-        assert request.headers["Polar-Organization"] == "org_1"
+        assert request.headers["Repalis-Organization"] == "org_1"
 
 
 def test_user_agent(client: SyncClientBase | AsyncClientBase) -> None:
@@ -492,7 +492,7 @@ def test_parse_response_json_preserves_unknown_enum_value() -> None:
 def test_parse_response_json_open_enum_preserves_other_validation(
     payload: dict[str, object],
 ) -> None:
-    with pytest.raises(PolarDeserializationError):
+    with pytest.raises(RepalisDeserializationError):
         parse_response_json(httpx2.Response(200, json=payload), Order)
 
 
@@ -504,7 +504,7 @@ def test_parse_response_json_open_enum_preserves_other_validation(
     ],
 )
 def test_deserialize_enum_without_marker_stays_closed(hint: typing.Any) -> None:
-    with pytest.raises(PolarDeserializationError):
+    with pytest.raises(RepalisDeserializationError):
         deserialize("requires_review", hint)
 
 
@@ -528,7 +528,7 @@ def test_checkout_discount_rejects_unknown_discriminator(tag: str) -> None:
         deserialize(payload, CheckoutDiscountFixedOnceForeverDuration).type == "fixed"
     )
 
-    with pytest.raises(PolarDeserializationError):
+    with pytest.raises(RepalisDeserializationError):
         deserialize(
             {**payload, tag: "future"}, CheckoutDiscountFixedOnceForeverDuration
         )

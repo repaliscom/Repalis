@@ -2683,12 +2683,12 @@ _STRING = {"kind": "primitive", "type": "string"}
                         {
                             "url": "https://api.example.com",
                             "description": "Production environment",
-                            "x-polar-environment": "production",
+                            "x-repalis-environment": "production",
                         },
                         {
                             "url": "https://sandbox-api.example.com",
                             "description": "Sandbox environment",
-                            "x-polar-environment": "sandbox",
+                            "x-repalis-environment": "sandbox",
                         },
                     ],
                     "paths": {},
@@ -2720,7 +2720,7 @@ _STRING = {"kind": "primitive", "type": "string"}
                     }
                 ]
             },
-            id="Servers use the Polar environment extension",
+            id="Servers use the Repalis environment extension",
         ),
         pytest.param(
             [

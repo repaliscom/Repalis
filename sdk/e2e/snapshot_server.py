@@ -21,7 +21,7 @@ def customer_key(payload: typing.Mapping[str, object]) -> str:
     return f"external:{payload['external_customer_id']}:{payload['reducer_id']}"
 
 
-# Polar's pull interval here: every read finds the Redis stale and pulls first, so a snapshot
+# Repalis's pull interval here: every read finds the Redis stale and pulls first, so a snapshot
 # reaches the clients as fast as a push did.
 PULL_INTERVAL = 0.05
 
@@ -35,11 +35,11 @@ class SnapshotServer:
             "reducers": [],
         }
         self.snapshots: dict[str, Snapshot] = {}
-        # Polar's changes: a pull takes those after its cursor, the index of the last one taken.
+        # Repalis's changes: a pull takes those after its cursor, the index of the last one taken.
         self.changes: list[Snapshot] = []
-        # The external ids Polar stored: a confirm request is answered with those among them.
+        # The external ids Repalis stored: a confirm request is answered with those among them.
         self.ingested: set[str] = set()
-        # Polar is unreachable for this many requests.
+        # Repalis is unreachable for this many requests.
         self.dropped = 0
 
     async def handle(self, request: Request) -> Response:

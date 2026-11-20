@@ -24,9 +24,9 @@ export const listOrganizations = (client: ClientBase) => {
    * @param query - Query parameters
    * @param requestOptions - Request options
    * @returns {ListResourceOrganization}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    * @throws {HTTPValidationError} Validation Error
    */
   return async (
@@ -66,9 +66,9 @@ export const listOrganizations = (client: ClientBase) => {
  * @param query - Query parameters
  * @param requestOptions - Request options
  * @returns {AsyncGenerator<Organization>} A generator that yields items of type Organization.
- * @throws {PolarNetworkError} When a network error occurs
- * @throws {PolarRateLimitError} When the rate limit is exceeded
- * @throws {PolarServerError} When the server returns a 5xx error
+ * @throws {RepalisNetworkError} When a network error occurs
+ * @throws {RepalisRateLimitError} When the rate limit is exceeded
+ * @throws {RepalisServerError} When the server returns a 5xx error
  * @throws {HTTPValidationError} Validation Error
  */
 export const iterListOrganizations = (client: ClientBase) => {
@@ -107,9 +107,9 @@ export const createOrganizations = (client: ClientBase) => {
    * @param body - Request body
    * @param requestOptions - Request options
    * @returns {Organization}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    * @throws {CannotCreateOrganizationError} Forbidden
    * @throws {HTTPValidationError} Validation Error
    */
@@ -142,9 +142,9 @@ export const getOrganizations = (client: ClientBase) => {
    * @param id
    * @param requestOptions - Request options
    * @returns {Organization}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    * @throws {ResourceNotFound} Organization not found.
    * @throws {HTTPValidationError} Validation Error
    */
@@ -177,9 +177,9 @@ export const updateOrganizations = (client: ClientBase) => {
    * @param body - Request body
    * @param requestOptions - Request options
    * @returns {Organization}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    * @throws {OrganizationsUpdate403Error} You don't have the permission to update this organization, or dispute auto-accept isn't enabled for it.
    * @throws {ResourceNotFound} Organization not found.
    * @throws {OrganizationsUpdate409Error} Cannot enforce SSO without an enabled connection and a verified domain.
