@@ -64,6 +64,7 @@ dependencies = [
   "clickhouse-connect[async]>=1.7.1",
   "trafilatura>=2.1.0",
   "firecrawl-py>=4.31.0",
+  "repalis-sdk",
   "anyio==4.16.0", # Potential culprit for Sep 23-24 memory leak
   "markdown-it-py>=4.2.0",
   "tzdata>=2026.2",
@@ -226,6 +227,9 @@ override-dependencies = [
 ]
 exclude-newer = "1 week"
 exclude-newer-package = { reauth = false, plain-client = false, certifi = false, brotli = false, pypdf = false }
+
+[tool.uv.sources]
+repalis-sdk = { path = "../sdk/python", editable = true }
 
 [tool.vercel]
 entrypoint = "repalis.app:app"
