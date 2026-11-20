@@ -72,8 +72,8 @@ test('retries a rejected saved token with refreshed credentials in the same envi
     ),
   ).toEqual(['Bearer saved-token', 'Bearer refreshed-token'])
   expect(fetch.mock.calls.map(([url]) => url)).toEqual([
-    'https://api.polar.sh/v1/organizations/org-1',
-    'https://api.polar.sh/v1/organizations/org-1',
+    'https://api.repalis.com/v1/organizations/org-1',
+    'https://api.repalis.com/v1/organizations/org-1',
   ])
 })
 

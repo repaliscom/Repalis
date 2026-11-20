@@ -70,7 +70,7 @@ describe('installPlugin', () => {
   test('adds the marketplace, then installs into Claude Code', async () => {
     const { exec, calls } = fakeExec({
       'claude plugin marketplace list --json': ok([{ name: 'other' }]),
-      'claude plugin marketplace add polarsource/agent-toolkit': ok(),
+      'claude plugin marketplace add repaliscom/agent-toolkit': ok(),
       [`claude plugin install ${claude.plugin}`]: ok(),
       'claude plugin list --json': ok([
         { id: claude.plugin, version: '0.1.0' },
@@ -79,7 +79,7 @@ describe('installPlugin', () => {
     await run(installPlugin(claude, exec, false))
     expect(calls).toEqual([
       'claude plugin marketplace list --json',
-      'claude plugin marketplace add polarsource/agent-toolkit',
+      'claude plugin marketplace add repaliscom/agent-toolkit',
       `claude plugin install ${claude.plugin}`,
       'claude plugin list --json',
     ])

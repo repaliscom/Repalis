@@ -23,8 +23,8 @@ vi.mock('node:http', async (importOriginal) => {
 vi.mock('open', () => ({ default: vi.fn() }))
 
 const tokenUrls = {
-  sandbox: 'https://sandbox-api.polar.sh/v1/oauth2/token',
-  production: 'https://api.polar.sh/v1/oauth2/token',
+  sandbox: 'https://sandbox-api.repalis.com/v1/oauth2/token',
+  production: 'https://api.repalis.com/v1/oauth2/token',
 }
 
 let api: ReturnType<typeof fakeHttp>
@@ -239,7 +239,7 @@ describe('authorizationUrl', () => {
 
   test('uses the environment dashboard by default', async () => {
     expect(await resolve({})).toMatchObject({
-      success: 'https://sandbox.polar.sh/oauth2/authorize',
+      success: 'https://sandbox.repalis.com/oauth2/authorize',
     })
   })
 

@@ -23,8 +23,8 @@ const pickEnvironment = select<PolarEnvironment>(
   {
     message: 'Which environment do you want to set up?',
     choices: [
-      { title: 'Sandbox', value: 'sandbox', description: 'sandbox.polar.sh' },
-      { title: 'Production', value: 'production', description: 'polar.sh' },
+      { title: 'Sandbox', value: 'sandbox', description: 'sandbox.repalis.com' },
+      { title: 'Production', value: 'production', description: 'repalis.com' },
     ],
   },
   (environment) => environment,

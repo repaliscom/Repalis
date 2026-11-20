@@ -86,8 +86,8 @@ const chooseEnvironment = (flags: EnvironmentFlags, action: string) =>
     return yield* Prompt.Select<PolarEnvironment>({
       message: `Which environment do you want to ${action}?`,
       choices: [
-        { title: 'Sandbox', value: 'sandbox', description: 'sandbox.polar.sh' },
-        { title: 'Production', value: 'production', description: 'polar.sh' },
+        { title: 'Sandbox', value: 'sandbox', description: 'sandbox.repalis.com' },
+        { title: 'Production', value: 'production', description: 'repalis.com' },
       ],
     })
   })
@@ -175,7 +175,7 @@ const selectionLines = (selection: Selection) => {
       return [
         ui.warning('No organizations yet'),
         ui.step(
-          `Create one at ${ui.cyan('https://polar.sh')} or ${ui.cyan('https://sandbox.polar.sh')}, then run ${ui.command(orgCommand)}`,
+          `Create one at ${ui.cyan('https://repalis.com')} or ${ui.cyan('https://sandbox.repalis.com')}, then run ${ui.command(orgCommand)}`,
         ),
         ui.blank,
       ]

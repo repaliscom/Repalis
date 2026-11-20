@@ -28,10 +28,10 @@ describe('apiUrl', () => {
 
   test('uses the environment origin by default', () => {
     expect(withEnv(apiUrl('sandbox', '/cli/events'), {})).toBe(
-      'https://sandbox-api.polar.sh/v1/cli/events',
+      'https://sandbox-api.repalis.com/v1/cli/events',
     )
     expect(withEnv(apiUrl('production', '/cli/events'), {})).toBe(
-      'https://api.polar.sh/v1/cli/events',
+      'https://api.repalis.com/v1/cli/events',
     )
     expect(withEnv(apiUrl('local', '/cli/events'), {})).toBe(
       'http://127.0.0.1:8000/v1/cli/events',
@@ -69,7 +69,7 @@ describe('apiUrl', () => {
 
   test.each(['', '   '])('treats %j POLAR_API_URL as unset', (value) => {
     expect(withEnv(apiOrigin('sandbox'), { POLAR_API_URL: value })).toBe(
-      'https://sandbox-api.polar.sh',
+      'https://sandbox-api.repalis.com',
     )
   })
 })

@@ -4,7 +4,7 @@ export const COMMAND = 'polar'
 
 const repository = {
   type: 'git',
-  url: 'git+https://github.com/polarsource/polar.git',
+  url: 'git+https://github.com/repaliscom/Repalis.git',
   directory: 'clients/packages/cli',
 }
 
@@ -77,7 +77,7 @@ export const mainManifest = (
       'Polar CLI: tunnel webhooks locally and manage your Polar organization from the terminal',
     license: 'Apache-2.0',
     repository,
-    homepage: 'https://polar.sh',
+    homepage: 'https://repalis.com',
     bin: { [COMMAND]: `bin/${COMMAND}.exe` },
     scripts: { postinstall: 'node ./postinstall.mjs' },
     os: ['darwin', 'linux', 'win32'],
@@ -93,7 +93,7 @@ export const placeholderBinary = () =>
     `echo "Error: ${MAIN_PACKAGE}'s postinstall script was not run." >&2`,
     'echo "" >&2',
     'echo "This occurs when installation scripts are disabled." >&2',
-    `echo "Run the package postinstall script or reinstall with scripts enabled, or install with: curl -fsSL https://polar.sh/install.sh | bash" >&2`,
+    `echo "Run the package postinstall script or reinstall with scripts enabled, or install with: curl -fsSL https://repalis.com/install.sh | bash" >&2`,
     'exit 1',
     '',
   ].join('\n')
@@ -102,7 +102,7 @@ export const readme = (version: string) =>
   `# Polar CLI
 
 [![npm](https://img.shields.io/npm/v/${MAIN_PACKAGE}?label=npm)](https://www.npmjs.com/package/${MAIN_PACKAGE})
-[![Release CLI](https://github.com/polarsource/polar/actions/workflows/release_cli.yml/badge.svg)](https://github.com/polarsource/polar/actions/workflows/release_cli.yml)
+[![Release CLI](https://github.com/repaliscom/Repalis/actions/workflows/release_cli.yml/badge.svg)](https://github.com/repaliscom/Repalis/actions/workflows/release_cli.yml)
 
 The Polar CLI helps you build, test and manage your Polar integration from the terminal. It is built for people and for AI agents alike.
 
@@ -141,18 +141,18 @@ bun install -g --trust ${MAIN_PACKAGE}
 ### macOS and Linux
 
 \`\`\`bash
-curl -fsSL https://polar.sh/install.sh | bash
+curl -fsSL https://repalis.com/install.sh | bash
 \`\`\`
 
 ### Windows
 
 \`\`\`powershell
-irm https://polar.sh/install.ps1 | iex
+irm https://repalis.com/install.ps1 | iex
 \`\`\`
 
 ### Without package managers
 
-Download the binary for your platform from the [latest release](https://github.com/polarsource/polar/releases/tag/${MAIN_PACKAGE}@${version}) and put it on your \`PATH\`.
+Download the binary for your platform from the [latest release](https://github.com/repaliscom/Repalis/releases/tag/${MAIN_PACKAGE}@${version}) and put it on your \`PATH\`.
 
 Check that it works with \`polar --version\`.
 
@@ -170,7 +170,7 @@ polar products list --fields id,name,prices.price_amount
 polar customers delete <id> --confirm
 \`\`\`
 
-Prefer tools over a shell? The same capabilities are available through the [Polar MCP server](https://polar.sh/docs/integrate/mcp).
+Prefer tools over a shell? The same capabilities are available through the [Polar MCP server](https://repalis.com/docs/integrate/mcp).
 
 ## Usage
 
@@ -205,7 +205,7 @@ echo "POLAR_ACCESS_TOKEN=$(polar auth token)" >> .env.local
 polar auth token --scope products:read | gh secret set POLAR_ACCESS_TOKEN
 \`\`\`
 
-Every command, argument and flag is in the [command reference](https://polar.sh/docs/integrate/cli/reference).
+Every command, argument and flag is in the [command reference](https://repalis.com/docs/integrate/cli/reference).
 
 ## Upgrading
 
@@ -229,11 +229,11 @@ On Windows, delete \`%USERPROFILE%\\.polar\\bin\` and remove it from your user \
 
 ## Documentation
 
-- [Introduction](https://polar.sh/docs/integrate/cli/introduction)
-- [Authentication](https://polar.sh/docs/integrate/cli/authentication)
-- [Webhooks](https://polar.sh/docs/integrate/cli/webhooks)
-- [Command reference](https://polar.sh/docs/integrate/cli/reference)
-- [Source code](https://github.com/polarsource/polar/tree/main/clients/packages/cli)
+- [Introduction](https://repalis.com/docs/integrate/cli/introduction)
+- [Authentication](https://repalis.com/docs/integrate/cli/authentication)
+- [Webhooks](https://repalis.com/docs/integrate/cli/webhooks)
+- [Command reference](https://repalis.com/docs/integrate/cli/reference)
+- [Source code](https://github.com/repaliscom/Repalis/tree/main/clients/packages/cli)
 
 Version ${version}.
 `

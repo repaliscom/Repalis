@@ -29,7 +29,7 @@ const name = Object.keys(dependencies).find((item) =>
 )
 if (!name) {
   throw new Error(
-    `${manifest.name} does not provide a binary for ${platform}-${arch}. Install with: curl -fsSL https://polar.sh/install.sh | bash`,
+    `${manifest.name} does not provide a binary for ${platform}-${arch}. Install with: curl -fsSL https://repalis.com/install.sh | bash`,
   )
 }
 
@@ -111,7 +111,7 @@ function main() {
   if (linkInstalledPackage()) return
   if (installPackage() && verifyBinary()) return
   throw new Error(
-    `Failed to install ${manifest.name}. Try manually installing ${JSON.stringify(name)}, or install with: curl -fsSL https://polar.sh/install.sh | bash`,
+    `Failed to install ${manifest.name}. Try manually installing ${JSON.stringify(name)}, or install with: curl -fsSL https://repalis.com/install.sh | bash`,
   )
 }
 

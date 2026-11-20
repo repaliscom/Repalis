@@ -19,14 +19,14 @@ export const UsedEnvironments = Context.Reference<Set<PolarEnvironment>>(
 )
 
 const API_ORIGINS = {
-  production: 'https://api.polar.sh',
-  sandbox: 'https://sandbox-api.polar.sh',
+  production: 'https://api.repalis.com',
+  sandbox: 'https://sandbox-api.repalis.com',
   local: 'http://127.0.0.1:8000',
 } as const
 
 const DASHBOARD_ORIGINS = {
-  production: 'https://polar.sh',
-  sandbox: 'https://sandbox.polar.sh',
+  production: 'https://repalis.com',
+  sandbox: 'https://sandbox.repalis.com',
   local: 'http://127.0.0.1:3000',
 } as const
 
@@ -121,7 +121,7 @@ export const describeApiFailure = (
     default:
       return status >= 500
         ? {
-            message: `The Polar API returned an error (${status})`,
+            message: `The Repalis API returned an error (${status})`,
             hint: 'It may be having issues, try again shortly',
           }
         : { message: `The API returned an unexpected status (${status})` }

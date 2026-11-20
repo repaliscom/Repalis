@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
-REPO="polarsource/polar"
+REPO="repaliscom/Repalis"
 TAG_PREFIX="@polar-sh/cli@"
 INSTALL_DIR="/usr/local/bin"
 BINARY_NAME="polar"

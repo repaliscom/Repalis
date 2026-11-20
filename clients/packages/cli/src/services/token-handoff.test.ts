@@ -42,12 +42,12 @@ const callback = (params: Record<string, string>) =>
 
 test('points at the organization token page', () => {
   const page = tokenPage(
-    'https://sandbox.polar.sh',
+    'https://sandbox.repalis.com',
     { organization: acme, name: 'my-app', scopes: ['products:read'] },
     'state',
     'key',
   )
-  expect(page.origin).toBe('https://sandbox.polar.sh')
+  expect(page.origin).toBe('https://sandbox.repalis.com')
   expect(page.pathname).toBe('/dashboard/acme/cli/token')
   expect(Object.fromEntries(page.searchParams)).toEqual({
     state: 'state',
@@ -59,7 +59,7 @@ test('points at the organization token page', () => {
 
 test('omits scopes when none are requested', () => {
   const page = tokenPage(
-    'https://polar.sh',
+    'https://repalis.com',
     {
       organization: acme,
       name: 'x',

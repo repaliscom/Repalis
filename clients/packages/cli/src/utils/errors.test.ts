@@ -8,7 +8,7 @@ import { AuthError } from '@/schemas/Auth'
 import { GitHubReleaseError } from '@/services/github-releases'
 
 const releasesHint =
-  'Releases are published at https://github.com/polarsource/polar/releases'
+  'Releases are published at https://github.com/repaliscom/Repalis/releases'
 
 describe('reportedError', () => {
   test('writes the JSON error envelope for --json=true', () => {

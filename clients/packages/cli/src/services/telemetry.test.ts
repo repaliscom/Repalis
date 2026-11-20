@@ -423,7 +423,7 @@ describe('redact', () => {
     ],
     [
       'URLs including localhost and query strings',
-      'see https://api.polar.sh/v1/x?token=abc then http://localhost:3000/hook.',
+      'see https://api.repalis.com/v1/x?token=abc then http://localhost:3000/hook.',
       'see <redacted> then <redacted>',
     ],
     [
@@ -446,7 +446,7 @@ describe('redact', () => {
       'Unable to read C:\\Users\\seb\\AppData\\Roaming\\polar-cli\\config.json.',
       'Unable to read <redacted>',
     ],
-    ['email addresses', 'user me@polar.sh failed', 'user <redacted> failed'],
+    ['email addresses', 'user me@repalis.com failed', 'user <redacted> failed'],
     [
       'long hashes and opaque tokens',
       'sha 9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08 ok',
@@ -464,7 +464,7 @@ describe('redact', () => {
     ],
     [
       'several categories in one message',
-      'Org 342c8722-fcad-416b-8232-8877dcf8f90e rejected polar_oat_A at https://api.polar.sh/v1 for me@polar.sh in /Users/seb/.config',
+      'Org 342c8722-fcad-416b-8232-8877dcf8f90e rejected polar_oat_A at https://api.repalis.com/v1 for me@repalis.com in /Users/seb/.config',
       'Org <redacted> rejected <redacted> at <redacted> for <redacted> in <redacted>',
     ],
   ])('redacts %s', (_label, input, expected) => {
@@ -501,12 +501,12 @@ describe('redact', () => {
   })
 
   test('is idempotent', () => {
-    const once = redact('me@polar.sh at https://x.y/z with polar_oat_a')
+    const once = redact('me@repalis.com at https://x.y/z with polar_oat_a')
     expect(redact(once)).toBe(once)
   })
 
   test('never lets a secret survive inside a URL or path', () => {
-    expect(redact('https://polar.sh/?t=polar_oat_a')).toBe('<redacted>')
+    expect(redact('https://repalis.com/?t=polar_oat_a')).toBe('<redacted>')
     expect(redact('/Users/seb/polar_oat_a')).toBe('<redacted>')
   })
 

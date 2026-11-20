@@ -132,7 +132,7 @@ const installStep = (result: Pick<InitWritten, 'install'>) =>
 const agentName = (agents: InitWritten['agents']) =>
   agents?.names.length === 1 ? agents.names[0]! : 'your agent'
 
-const CONFIG_DOCS = 'https://polar.sh/docs/integrate/cli/config'
+const CONFIG_DOCS = 'https://repalis.com/docs/integrate/cli/config'
 
 type Rows = ReadonlyArray<readonly [string, string]>
 

@@ -7,7 +7,7 @@ import {
   type SkillsStatus,
 } from '@/schemas/AgentSetup'
 
-export const TOOLKIT_REPOSITORY = 'polarsource/agent-toolkit'
+export const TOOLKIT_REPOSITORY = 'repaliscom/agent-toolkit'
 const BRANCH = 'main'
 export const TREE_URL = `https://api.github.com/repos/${TOOLKIT_REPOSITORY}/git/trees/${BRANCH}?recursive=1`
 export const fileUrl = (file: string) =>

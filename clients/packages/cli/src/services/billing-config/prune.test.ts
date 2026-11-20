@@ -17,7 +17,7 @@ import { authenticatedClient } from '@/services/client'
 import { fakeHttp } from '@/utils/test-utils/http'
 import { fakeAuth } from '@/utils/test-utils/services'
 
-const pruneUrl = 'https://sandbox-api.polar.sh/v1/config/prune'
+const pruneUrl = 'https://sandbox-api.repalis.com/v1/config/prune'
 
 const acme: ActiveOrganization = {
   id: 'org-1',

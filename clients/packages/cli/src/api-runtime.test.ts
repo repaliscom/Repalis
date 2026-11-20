@@ -569,7 +569,7 @@ describe('organization resolution', () => {
       requests.push(request)
       const url = new URL(request.url)
       const environment =
-        url.hostname === 'sandbox-api.polar.sh' ? 'sandbox' : 'production'
+        url.hostname === 'sandbox-api.repalis.com' ? 'sandbox' : 'production'
       const available = organizations.filter(
         (org) => org.environment === environment,
       )
@@ -640,8 +640,8 @@ describe('organization resolution', () => {
           (request) =>
             new URL(request.url).hostname ===
             (organization.environment === 'sandbox'
-              ? 'sandbox-api.polar.sh'
-              : 'api.polar.sh'),
+              ? 'sandbox-api.repalis.com'
+              : 'api.repalis.com'),
         ),
       ).toBe(true)
       expect(
@@ -678,7 +678,7 @@ describe('organization resolution', () => {
       config.state.activeOrganization = selection
       await run(['products', 'list', ...args]).promise
       const url = new URL(requests.at(-1)!.url)
-      expect(url.hostname).toBe('sandbox-api.polar.sh')
+      expect(url.hostname).toBe('sandbox-api.repalis.com')
       expect(url.searchParams.getAll('organization_id')).toEqual([sandbox.id])
       expect(requests).toHaveLength(2)
       expect(new URL(requests[0]!.url).pathname).toBe(
@@ -702,7 +702,7 @@ describe('organization resolution', () => {
       '--org=00000000-0000-4000-8000-00000000aa03',
     ]).promise
     const url = new URL(requests.at(-1)!.url)
-    expect(url.hostname).toBe('api.polar.sh')
+    expect(url.hostname).toBe('api.repalis.com')
     expect(url.searchParams.getAll('organization_id')).toEqual([
       production.id,
       '00000000-0000-4000-8000-00000000aa03',
@@ -733,8 +733,8 @@ describe('organization resolution', () => {
       })
       expect(new URL(requests.at(-1)!.url).hostname).toBe(
         organization.environment === 'sandbox'
-          ? 'sandbox-api.polar.sh'
-          : 'api.polar.sh',
+          ? 'sandbox-api.repalis.com'
+          : 'api.repalis.com',
       )
       expect(scope(requests.at(-1)!)).toBe(organization.id)
     },
@@ -758,7 +758,7 @@ describe('organization resolution', () => {
     ])
     expect(
       requests.every(
-        (request) => new URL(request.url).hostname === 'api.polar.sh',
+        (request) => new URL(request.url).hostname === 'api.repalis.com',
       ),
     ).toBe(true)
     expect(requests.map(scope)).toEqual([
@@ -796,7 +796,7 @@ describe('organization resolution', () => {
     auth.state.environment = 'sandbox'
     await run(['products', 'list']).promise
     const url = new URL(requests.at(-1)!.url)
-    expect(url.hostname).toBe('sandbox-api.polar.sh')
+    expect(url.hostname).toBe('sandbox-api.repalis.com')
     expect(url.searchParams.getAll('organization_id')).toEqual([])
     expect(requests.map(scope)).toEqual([null, sandbox.id])
     expect(requests.at(-1)!.headers.get('authorization')).toBe(

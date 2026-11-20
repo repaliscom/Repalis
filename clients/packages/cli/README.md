@@ -5,7 +5,7 @@ products, customers, orders and the rest of the API, receive webhooks on your
 local machine, and send sample events to your handler.
 
 How to use it is covered in the
-[documentation](https://polar.sh/docs/integrate/cli/introduction). This README
+[documentation](https://repalis.com/docs/integrate/cli/introduction). This README
 covers installing the CLI and working on it.
 
 ## Install
@@ -13,13 +13,13 @@ covers installing the CLI and working on it.
 macOS and Linux:
 
 ```bash
-curl -fsSL https://polar.sh/install.sh | bash
+curl -fsSL https://repalis.com/install.sh | bash
 ```
 
 Windows, from PowerShell. Only x64 is supported:
 
 ```powershell
-irm https://polar.sh/install.ps1 | iex
+irm https://repalis.com/install.ps1 | iex
 ```
 
 The installer puts `polar.exe` in `%USERPROFILE%\.polar\bin` and adds that
@@ -111,7 +111,7 @@ embeds its version from `package.json`; do not edit `src/version.ts` for release
 Merging a CLI version bump into `main` starts
 [Release CLI](../../../.github/workflows/release_cli.yml). It tests the CLI,
 compiles the five supported targets, signs and notarizes the macOS binaries,
-and uploads these assets to a draft release in `polarsource/polar`:
+and uploads these assets to a draft release in `repaliscom/Repalis`:
 
 - `polar-darwin-arm64.zip`
 - `polar-darwin-x64.zip`
@@ -123,7 +123,7 @@ and uploads these assets to a draft release in `polarsource/polar`:
 Only after every upload succeeds does the workflow publish the release, tagged
 `@polar-sh/cli@<version>`. Release notes come from the CLI's changelog. CLI releases
 do not become the monorepo's generic GitHub "latest" release: the updater and
-`install.sh` (served at `polar.sh/install.sh`) list releases, follow pagination,
+`install.sh` (served at `repalis.com/install.sh`) list releases, follow pagination,
 filter stable `@polar-sh/cli@` tags, and compare semantic versions. Publishing is
 independent of the changesets-driven npm release workflow for the other packages.
 
@@ -178,7 +178,7 @@ The workflow skips metadata-only changes. It does not publish the imported
 
 ### Signing secrets
 
-Configure these repository secrets in `polarsource/polar` before the first run:
+Configure these repository secrets in `repaliscom/Repalis` before the first run:
 
 - `MACOS_CERTIFICATE_P12_BASE64`
 - `MACOS_CERTIFICATE_PASSWORD`
@@ -208,24 +208,24 @@ corrections require a new changeset/version.
 
 ### One-time bridge release
 
-Existing installations and the legacy `install.sh` in `polarsource/cli` use that
+Existing installations and the legacy `install.sh` in `repaliscom/cli` use that
 repository.
 After the first monorepo release is published:
 
 1. Disable the old repository's tag-triggered release workflow so it cannot build
    the old source over the bridge release.
-2. Download the five assets from `@polar-sh/cli@<version>` in `polarsource/polar`.
+2. Download the five assets from `@polar-sh/cli@<version>` in `repaliscom/Repalis`.
 3. Upload those **same signed assets and checksums** to a draft `v<version>`
-   release in `polarsource/cli`. Record the monorepo release URL in its notes;
+   release in `repaliscom/cli`. Record the monorepo release URL in its notes;
    the monorepo commit SHA is not a commit in the old repository.
 4. Verify the draft, then publish it as the old repository's latest release.
 
-This is a manual operation with credentials that can publish to `polarsource/cli`;
+This is a manual operation with credentials that can publish to `repaliscom/cli`;
 the monorepo workflow does not publish there. Do not rebuild the bridge binaries
 from the old repository. Existing clients install the bridge via `polar update`,
 then discover future releases from the monorepo. Keep the bridge release available
-indefinitely for users who update later.
+indefefinitely for users who update later.
 
 The legacy installer is deliberately retained as a bridge bootstrap for anyone who
-still fetches it from `polarsource/cli` directly: it installs the bridge version,
+still fetches it from `repaliscom/cli` directly: it installs the bridge version,
 after which `polar update` installs the newest monorepo version.

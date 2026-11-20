@@ -6,7 +6,7 @@ import { VERSION } from '@/version'
 import { version } from '../../package.json'
 
 const page = (number: number) =>
-  `https://api.github.com/repos/polarsource/polar/releases?per_page=100&page=${number}`
+  `https://api.github.com/repos/repaliscom/Repalis/releases?per_page=100&page=${number}`
 
 const release = {
   tag_name: '@polar-sh/cli@1.4.0',
@@ -16,7 +16,7 @@ const release = {
     {
       name: 'polar-darwin-arm64.zip',
       browser_download_url:
-        'https://github.com/polarsource/polar/releases/download/@polar-sh/cli@1.4.0/polar-darwin-arm64.zip',
+        'https://github.com/repaliscom/Repalis/releases/download/@polar-sh/cli@1.4.0/polar-darwin-arm64.zip',
     },
   ],
 }
@@ -67,7 +67,7 @@ describe('getLatestRelease', () => {
     )
     expect(error._tag).toBe('GitHubReleaseError')
     expect(error.message).toContain(
-      'StatusCode: non 2xx status code (403 GET https://api.github.com/repos/polarsource/polar/releases',
+      'StatusCode: non 2xx status code (403 GET https://api.github.com/repos/repaliscom/Repalis/releases',
     )
   })
 
@@ -79,7 +79,7 @@ describe('getLatestRelease', () => {
     )
     expect(error._tag).toBe('GitHubReleaseError')
     expect(error.message).toContain(
-      'Decode error (200 GET https://api.github.com/repos/polarsource/polar/releases',
+      'Decode error (200 GET https://api.github.com/repos/repaliscom/Repalis/releases',
     )
   })
 

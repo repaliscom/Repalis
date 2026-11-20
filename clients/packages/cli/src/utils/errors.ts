@@ -30,7 +30,7 @@ interface ErrorDescription {
 }
 
 const releasesHint =
-  'Releases are published at https://github.com/polarsource/polar/releases'
+  'Releases are published at https://github.com/repaliscom/Repalis/releases'
 
 const listenHint = (code: number) => {
   switch (code) {
@@ -40,7 +40,7 @@ const listenHint = (code: number) => {
       return 'The organization could not be found.'
     default:
       return code >= 500
-        ? 'The Polar API may be having issues, try again shortly.'
+        ? 'The Repalis API may be having issues, try again shortly.'
         : undefined
   }
 }

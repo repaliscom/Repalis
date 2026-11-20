@@ -12,8 +12,8 @@ const acme: ActiveOrganization = {
   slug: 'acme',
   environment: 'sandbox',
 }
-const eventsUrl = 'https://sandbox-api.polar.sh/v1/cli/events'
-const triggerUrl = 'https://sandbox-api.polar.sh/v1/cli/trigger/org-1'
+const eventsUrl = 'https://sandbox-api.repalis.com/v1/cli/events'
+const triggerUrl = 'https://sandbox-api.repalis.com/v1/cli/trigger/org-1'
 const catalog = [
   { type: 'order.created', description: 'Created.' },
   { type: 'order.paid', description: 'Paid.' },

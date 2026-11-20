@@ -2,16 +2,16 @@
 $ErrorActionPreference = "Stop"
 [Net.ServicePointManager]::SecurityProtocol = [Net.ServicePointManager]::SecurityProtocol -bor [Net.SecurityProtocolType]::Tls12
 
-$Repo = "polarsource/polar"
+$Repo = "repaliscom/Repalis"
 $TagPrefix = "@polar-sh/cli@"
 $BinaryName = "polar.exe"
 $Archive = "polar-windows-x64.zip"
-$InstallDir = Join-Path $HOME ".polar\bin"
-$Headers = @{ "User-Agent" = "polar-cli-installer" }
+$InstallDir = Join-Path $HOME ".repalis\bin"
+$Headers = @{ "User-Agent" = "repalis-cli-installer" }
 
 function Write-Info { param($Message) Write-Host "==> $Message" -ForegroundColor Green }
 function Write-Warn { param($Message) Write-Host "warning: $Message" -ForegroundColor Yellow }
-function Stop-Install { param($Message) throw "Polar CLI install failed: $Message" }
+function Stop-Install { param($Message) throw "Repalis CLI install failed: $Message" }
 
 function Get-LatestRelease {
     $Latest = $null
@@ -38,14 +38,14 @@ if ($Architecture -ne "AMD64") {
     Stop-Install "Unsupported architecture: $Architecture. Only x64 is supported."
 }
 
-Write-Info "Finding the latest Polar CLI release..."
+Write-Info "Finding the latest Repalis CLI release..."
 try {
     $Release = Get-LatestRelease
 } catch {
     Stop-Install "Could not reach GitHub. Check your network connection."
 }
 if ($null -eq $Release) {
-    Stop-Install "No Polar CLI release found."
+    Stop-Install "No Repalis CLI release found."
 }
 Write-Info "Version: $($Release.Version)"
 
@@ -94,7 +94,7 @@ try {
         $env:PATH = "$InstallDir;$env:PATH"
     }
 
-    Write-Info "Polar CLI $($Release.Version) installed."
+    Write-Info "Repalis CLI $($Release.Version) installed."
     Write-Host ""
     Write-Host "  Run 'polar --help' to get started."
     Write-Host ""

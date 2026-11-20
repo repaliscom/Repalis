@@ -38,7 +38,7 @@ describe('update command', () => {
       },
     })
   const releases =
-    'https://api.github.com/repos/polarsource/polar/releases?per_page=100&page=1'
+    'https://api.github.com/repos/repaliscom/Repalis/releases?per_page=100&page=1'
   const runUpdate = (
     args: string[],
     updater: ReturnType<typeof fakeUpdater>,

@@ -12,8 +12,8 @@ import { authenticatedClient } from '@/services/client'
 import { fakeHttp } from '@/utils/test-utils/http'
 import { fakeAuth } from '@/utils/test-utils/services'
 
-const planUrl = 'https://sandbox-api.polar.sh/v1/config/plan'
-const organizationUrl = 'https://sandbox-api.polar.sh/v1/organizations/org-1'
+const planUrl = 'https://sandbox-api.repalis.com/v1/config/plan'
+const organizationUrl = 'https://sandbox-api.repalis.com/v1/organizations/org-1'
 
 const acme: ActiveOrganization = {
   id: 'org-1',
@@ -155,7 +155,7 @@ describe('plan', () => {
         },
       ],
     })
-    const names = `GET https://sandbox-api.polar.sh/v1/events/names?organization_id=org-1&source=user&limit=100`
+    const names = `GET https://sandbox-api.repalis.com/v1/events/names?organization_id=org-1&source=user&limit=100`
     api.routes[`${names}&page=1`] = Response.json({
       items: [{ name: 'storage' }],
       pagination: { max_page: 2 },

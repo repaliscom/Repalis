@@ -157,7 +157,7 @@ describe('startListening', () => {
     const rawPayload = '{ "type": "order.created", "data": {} }'
     const headers = {
       'x-polar-triggered': 'true',
-      'user-agent': 'polar.sh webhooks',
+      'user-agent': 'repalis.com webhooks',
       'content-type': 'application/json',
       'webhook-id': 'wh_1',
       'webhook-timestamp': '12345',

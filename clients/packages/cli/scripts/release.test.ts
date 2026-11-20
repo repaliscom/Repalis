@@ -6,7 +6,7 @@ const context = {
   ref: 'refs/heads/main',
   sha: 'release-commit',
   runId: 123,
-  repo: { owner: 'polarsource', repo: 'polar' },
+  repo: { owner: 'repaliscom', repo: 'Repalis' },
   payload: { before: 'previous-commit' },
 }
 const outputs = new Map<string, unknown>()

@@ -7,9 +7,9 @@ import type {
 } from '@/schemas/AgentSetup'
 import * as ui from '@/utils/ui'
 
-const MCP_DOCS = 'https://polar.sh/docs/integrate/mcp'
+const MCP_DOCS = 'https://repalis.com/docs/integrate/mcp'
 
-export const skillsName = (scope: SkillScope) => `Polar skills (${scope})`
+export const skillsName = (scope: SkillScope) => `Repalis skills (${scope})`
 
 export const errorDetail = (error: AgentSetupError) =>
   ui.step(`  ${[error.message, error.hint].filter(Boolean).join(': ')}`)
@@ -18,8 +18,8 @@ export const describeClient = (status: ClientStatus) => {
   if (status.problem) return status.problem
   if (status.installed) return 'Already set up'
   return status.client === 'cursor'
-    ? 'Adds the Polar MCP servers and skills'
-    : 'Installs the Polar plugin: MCP servers and skills'
+    ? 'Adds the Repalis MCP servers and skills'
+    : 'Installs the Repalis plugin: MCP servers and skills'
 }
 
 const clientState = (status: ClientStatus) => {
@@ -77,7 +77,7 @@ export const summary = ({ steps, clients }: AgentSetupResult) => {
   return [
     ui.warning('No Claude Code, Codex or Cursor installation found'),
     ui.step(
-      `Install the Polar skills for another agent with ${ui.command('polar agent setup --skills project')}`,
+      `Install the Repalis skills for another agent with ${ui.command('polar agent setup --skills project')}`,
     ),
     ui.step(`and connect it to the Polar MCP server: ${MCP_DOCS}`),
     ui.blank,

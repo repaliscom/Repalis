@@ -28,7 +28,7 @@ const run = (args: string[]) => {
         TokenHandoff,
         TokenHandoff.of({
           receive: (request, announce) =>
-            announce(new URL('https://polar.sh/dashboard/acme/cli/token')).pipe(
+            announce(new URL('https://repalis.com/dashboard/acme/cli/token')).pipe(
               Effect.as(Redacted.make('polar_oat_secret')),
               Effect.tap(() => Effect.sync(() => requests.push(request))),
             ),

@@ -9,8 +9,8 @@ import { fakeHttp } from '@/utils/test-utils/http'
 import { fakeAuth } from '@/utils/test-utils/services'
 
 const listUrl =
-  'https://sandbox-api.polar.sh/v1/catalogs/?organization_id=org-1&status=draft&status=live'
-const publishUrl = 'https://sandbox-api.polar.sh/v1/catalogs/cat-draft/publish'
+  'https://sandbox-api.repalis.com/v1/catalogs/?organization_id=org-1&status=draft&status=live'
+const publishUrl = 'https://sandbox-api.repalis.com/v1/catalogs/cat-draft/publish'
 
 const acme: ActiveOrganization = {
   id: 'org-1',

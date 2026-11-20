@@ -142,8 +142,8 @@ describe('auth login', () => {
 
     expect(output()).toContain('Logged in to Polar sandbox')
     expect(output()).toContain('No organizations yet')
-    expect(output()).toContain('https://polar.sh')
-    expect(output()).toContain('https://sandbox.polar.sh')
+    expect(output()).toContain('https://repalis.com')
+    expect(output()).toContain('https://sandbox.repalis.com')
     expect(output()).toContain('polar auth org')
   })
 
