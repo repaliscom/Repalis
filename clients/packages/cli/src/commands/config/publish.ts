@@ -90,7 +90,7 @@ const approve = (
             ...(drift && drift.entries.length > 0
               ? [
                   `${ui.INDENT}${warning} ${drift.config.file} has changes that are not in the draft.`,
-                  `${ui.INDENT}Run ${ui.command('polar config apply')} first to include them.`,
+                  `${ui.INDENT}Run ${ui.command('repalis config apply')} first to include them.`,
                   '',
                   `${ui.INDENT}Publishing makes the draft live for new checkouts.`,
                 ]
@@ -128,7 +128,7 @@ const render = (
         ui.blank,
         ui.success(`No draft to publish for ${target(organization)}`),
         ...next(
-          `${ui.INDENT}Run ${ui.command('polar config apply')} to save product, benefit and meter changes to a draft.`,
+          `${ui.INDENT}Run ${ui.command('repalis config apply')} to save product, benefit and meter changes to a draft.`,
         ),
         ui.blank,
       ]
@@ -139,16 +139,16 @@ export const publish = Command.make('publish', { file, org, confirmed }).pipe(
   ),
   Command.withExamples([
     {
-      command: 'polar config publish',
+      command: 'repalis config publish',
       description:
         'Publish the draft after confirmation, warning about changes in repalis.config.ts that the draft is missing',
     },
     {
-      command: 'polar config publish --org acme',
+      command: 'repalis config publish --org acme',
       description: 'Publish the draft of another organization, by slug or ID',
     },
     {
-      command: 'polar config apply --confirm && polar config publish --confirm',
+      command: 'repalis config apply --confirm && repalis config publish --confirm',
       description: 'Save and publish in one go, for scripts and CI',
     },
   ]),
@@ -187,7 +187,7 @@ export const publish = Command.make('publish', { file, org, confirmed }).pipe(
                           errors(plan.issues) > 0
                             ? new BillingConfigError({
                                 message: `Could not compare ${config.file} with the draft, it has ${plural(errors(plan.issues), 'error')}`,
-                                hint: `Run polar config plan to see them, then fix ${config.file}.`,
+                                hint: `Run repalis config plan to see them, then fix ${config.file}.`,
                               })
                             : Effect.succeed<Drift>({
                                 config,

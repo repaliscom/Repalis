@@ -84,7 +84,7 @@ const run = <A>(
 
 beforeEach(async () => {
   api = fakeHttp()
-  const directory = await mkdtemp(join(tmpdir(), 'polar-prune-'))
+  const directory = await mkdtemp(join(tmpdir(), 'repalis-prune-'))
   file = join(directory, 'repalis.json')
   await writeFile(file, source)
 })

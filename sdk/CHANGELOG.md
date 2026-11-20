@@ -35,7 +35,7 @@ History up to [1.0.0-alpha.22] is available in the existing GitHub releases.
 
 ### Changed
 
-- Rename the metering helper, actor, and strategy event method from `ingest()` to `track()` in both SDKs. The HTTP API remains `polar.events.ingest()`.
+- Rename the metering helper, actor, and strategy event method from `ingest()` to `track()` in both SDKs. The HTTP API remains `repalis.events.ingest()`.
 
 ### Fixed
 

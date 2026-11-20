@@ -192,7 +192,7 @@ const message = (exit: Exit.Exit<unknown, unknown>) =>
       : String(Cause.squash(exit.cause))
     : undefined
 
-describe('polar config apply', () => {
+describe('repalis config apply', () => {
   test('applies with --confirm and reports what was applied', async () => {
     const { output, failed, applied } = await run(
       { entries: [created, kept], issues: [] },
@@ -228,7 +228,7 @@ describe('polar config apply', () => {
     expect(output).toContain(
       'Products, benefits, meters and settings are saved to the draft catalog.',
     )
-    expect(output).toContain('Run polar config publish to make it live.')
+    expect(output).toContain('Run repalis config publish to make it live.')
   })
 
   test('does not point at publish when only meters changed', async () => {
@@ -237,7 +237,7 @@ describe('polar config apply', () => {
       { status: 'applied', entries: [created] },
       ['--confirm'],
     )
-    expect(output).not.toContain('polar config publish')
+    expect(output).not.toContain('repalis config publish')
   })
 
   test('plans and applies with --name as the catalog version name', async () => {

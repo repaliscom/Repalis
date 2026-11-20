@@ -217,17 +217,17 @@ build_template_db() {
 }
 if [ "$PG_OK" -eq 1 ] && step "test template db" build_template_db; then
   # Exported in-process too, so the warm-up below clones rather than re-migrating.
-  export POLAR_TEST_DATABASE_TEMPLATE="polar_test"
+  export POLAR_TEST_DATABASE_TEMPLATE="repalis_test"
   # At most once: the env file outlives a single run and would grow unboundedly.
   if [ -n "${CLAUDE_ENV_FILE:-}" ] &&
     ! grep -q POLAR_TEST_DATABASE_TEMPLATE "$CLAUDE_ENV_FILE" 2>/dev/null; then
-    echo 'export POLAR_TEST_DATABASE_TEMPLATE="polar_test"' >> "$CLAUDE_ENV_FILE"
+    echo 'export POLAR_TEST_DATABASE_TEMPLATE="repalis_test"' >> "$CLAUDE_ENV_FILE"
   fi
-  NOTES+=("POLAR_TEST_DATABASE_TEMPLATE=polar_test is set, so pytest clones a pre-migrated database per xdist worker. If you ADD a migration this session, re-run 'POLAR_ENV=testing uv run task db_migrate' in server/ to refresh the template, or the cloned schema will be stale.")
+  NOTES+=("POLAR_TEST_DATABASE_TEMPLATE=repalis_test is set, so pytest clones a pre-migrated database per xdist worker. If you ADD a migration this session, re-run 'POLAR_ENV=testing uv run task db_migrate' in server/ to refresh the template, or the cloned schema will be stale.")
 fi
 
 # mypy is the only CPU-bound step, so it overlaps the frontend install, not the pull.
-MYPY_LOG="$TMP/polar-mypy-warm.log"
+MYPY_LOG="$TMP/repalis-mypy-warm.log"
 uv run --directory "$ROOT/server" task lint_types >"$MYPY_LOG" 2>&1 &
 MYPY_PID=$!
 

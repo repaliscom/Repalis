@@ -40,7 +40,7 @@ export const deprecations =
       if (response.status === 422) {
         return yield* new BillingConfigError({
           message: `${config.file} is not a valid config`,
-          hint: 'Run polar config plan to see what to fix.',
+          hint: 'Run repalis config plan to see what to fix.',
         })
       }
       return yield* unexpected(

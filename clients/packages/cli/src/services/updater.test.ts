@@ -63,7 +63,7 @@ describe('installedPackage', () => {
     await writeFile(join(pkg, 'package.json'), JSON.stringify(manifest))
     await writeFile(join(pkg, 'bin', 'repalis.exe'), 'binary')
     await mkdir(join(dir, 'bin'), { recursive: true })
-    executable = join(dir, 'bin', 'polar')
+    executable = join(dir, 'bin', 'repalis')
     await symlink(join(pkg, 'bin', 'repalis.exe'), executable)
   }
 
@@ -76,19 +76,19 @@ describe('installedPackage', () => {
   })
 
   test('recognises the npm package through the command symlink', async () => {
-    await install({ name: PACKAGE_NAME, bin: { polar: 'bin/repalis.exe' } })
+    await install({ name: PACKAGE_NAME, bin: { repalis: 'bin/repalis.exe' } })
 
     await expect(run(installedPackage(executable))).resolves.toBe(PACKAGE_NAME)
   })
 
   test('ignores packages that are not the CLI', async () => {
-    await install({ name: '@repalis/sdk', bin: { polar: 'bin/repalis.exe' } })
+    await install({ name: '@repalis/sdk', bin: { repalis: 'bin/repalis.exe' } })
 
     await expect(run(installedPackage(executable))).resolves.toBeUndefined()
   })
 
   test('ignores a manifest whose bin is not the running executable', async () => {
-    await install({ name: PACKAGE_NAME, bin: { polar: 'bin/other' } })
+    await install({ name: PACKAGE_NAME, bin: { repalis: 'bin/other' } })
 
     await expect(run(installedPackage(executable))).resolves.toBeUndefined()
   })
@@ -110,7 +110,7 @@ describe('detectMethod', () => {
     await mkdir(join(pkg, 'bin'), { recursive: true })
     await writeFile(
       join(pkg, 'package.json'),
-      JSON.stringify({ name: PACKAGE_NAME, bin: { polar: 'bin/repalis.exe' } }),
+      JSON.stringify({ name: PACKAGE_NAME, bin: { repalis: 'bin/repalis.exe' } }),
     )
     executable = join(pkg, 'bin', 'repalis.exe')
     await writeFile(executable, 'binary')

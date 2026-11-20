@@ -138,20 +138,20 @@ export const prune = Command.make('prune', { file, org, confirmed }).pipe(
   ),
   Command.withExamples([
     {
-      command: 'polar config prune',
+      command: 'repalis config prune',
       description:
         'List the deprecated entries in repalis.config.ts and remove the unused ones after confirmation',
     },
     {
-      command: 'polar config prune billing/repalis.json',
+      command: 'repalis config prune billing/repalis.json',
       description: 'Prune a specific file',
     },
     {
-      command: 'polar config prune --org acme',
+      command: 'repalis config prune --org acme',
       description: 'Check usage in another organization, by slug or ID',
     },
     {
-      command: 'polar config prune --confirm --json',
+      command: 'repalis config prune --confirm --json',
       description: 'Remove without asking and print the result as JSON',
     },
   ]),

@@ -56,7 +56,7 @@ dev start                    # api + worker + web (+ stripe) in tmux session `re
 `--skip-integrations` avoids interactive GitHub/Stripe prompts. `dev up` does **not** load
 sample data; run `dev seed` afterward. That creates
 `admin@repalis.com` with access to seeded orgs (notably `admin-org` with a `Pro` product, plus
-`acme-corp`, `polar`, etc.). Login OTP codes print in the API pane. If seed says "Already
+`acme-corp`, `repalis`, etc.). Login OTP codes print in the API pane. If seed says "Already
 seeded" (exit 2), the DB already has `acme-corp` — use `dev seed --reset` only when you
 intentionally want a wipe.
 

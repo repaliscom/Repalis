@@ -246,7 +246,7 @@ describe('apply', () => {
     const error = await failure(run(await write(source)))
 
     expect(error.message).toBe('Config is not enabled for Acme')
-    expect(error.hint).toContain('run polar config init')
+    expect(error.hint).toContain('run repalis config init')
   })
 
   test('keeps the generic message for other 403s', async () => {

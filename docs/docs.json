@@ -2971,11 +2971,11 @@
     },
     {
       "source": "/features/integrations/evendeals",
-      "destination": "https://www.evendeals.com/integrations/polar"
+      "destination": "https://www.evendeals.com/integrations/repalis"
     },
     {
       "source": "/features/integrations/refgrow",
-      "destination": "https://refgrow.com/polar-affiliate-software"
+      "destination": "https://refgrow.com/repalis-affiliate-software"
     },
     {
       "source": "/api-reference/2026-04/checkoutcreated",

@@ -58,7 +58,7 @@ const helpOnlyServices = Layer.mergeAll(
   FetchHttpClient.layer,
 )
 
-const polar = program({ preview: false })
+const repalis = program({ preview: false })
 
 const docs = new URL('../../../../docs/', import.meta.url)
 const OVERVIEW = 'integrate/cli/reference.mdx'
@@ -195,7 +195,7 @@ const helpFor = (path: string[]) =>
       },
     }
     const { console } = captureConsole()
-    yield* Command.runWith(polar, { version: '0.0.0' })([
+    yield* Command.runWith(repalis, { version: '0.0.0' })([
       ...path.slice(1),
       '--help',
     ]).pipe(
@@ -235,7 +235,7 @@ const groupTitle = (group: string | undefined) =>
 
 const commandPage = (command: CommandTree) =>
   Effect.gen(function* () {
-    const [own, ...children] = paths(command, [polar.name])
+    const [own, ...children] = paths(command, [repalis.name])
     const doc = yield* helpFor(own!)
     const sections = [renderCommand(own!, doc, { heading: false })]
     for (const path of children) {
@@ -266,7 +266,7 @@ const overviewPage = (doc: HelpDoc.HelpDoc) =>
       `## ${groupTitle(group.group)}`,
       group.commands
         .map((child) =>
-          `- [${code(`${polar.name} ${child.name}`)}](/${PAGES}/${child.name}) ${text(child.shortDescription ?? child.description)}`.trimEnd(),
+          `- [${code(`${repalis.name} ${child.name}`)}](/${PAGES}/${child.name}) ${text(child.shortDescription ?? child.description)}`.trimEnd(),
         )
         .join('\n'),
     ]),
@@ -280,7 +280,7 @@ const navigationGroup = (existing: ReadonlyArray<unknown>) => ({
       (page) => typeof page === 'string' && !page.startsWith(PAGES),
     ),
     PAGES,
-    ...polar.subcommands.map((group) => ({
+    ...repalis.subcommands.map((group) => ({
       group: groupTitle(group.group),
       pages: group.commands.map((command) => `${PAGES}/${command.name}`),
     })),
@@ -311,8 +311,8 @@ const withNavigation = (source: string) => {
 
 const build = Effect.gen(function* () {
   const files = new Map<string, string>()
-  files.set(OVERVIEW, overviewPage(yield* helpFor([polar.name])))
-  for (const command of polar.subcommands.flatMap((group) => group.commands)) {
+  files.set(OVERVIEW, overviewPage(yield* helpFor([repalis.name])))
+  for (const command of repalis.subcommands.flatMap((group) => group.commands)) {
     files.set(`${PAGES}/${command.name}.mdx`, yield* commandPage(command))
   }
   files.set(

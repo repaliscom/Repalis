@@ -56,7 +56,7 @@ const describe = (issue: ConfigIssue): Problem => {
           ? undefined
           : issue.suggestion
             ? `Did you mean ${ui.green(quote(issue.suggestion))}? The meter stays at zero until your app sends an event with this exact name.`
-            : `The meter counts events with this name, so it stays at zero until your app sends one. Fine for a new event; if the name looks wrong, compare it with ${ui.command('polar events list_names')}.`,
+            : `The meter counts events with this name, so it stays at zero until your app sends one. Fine for a new event; if the name looks wrong, compare it with ${ui.command('repalis events list_names')}.`,
     }
   }
   const base = {

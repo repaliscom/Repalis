@@ -17,7 +17,7 @@ interface UpdateCheckOptions {
   home?: string
 }
 
-const stateFile = (home: string) => join(home, '.polar', 'update-check.json')
+const stateFile = (home: string) => join(home, '.repalis', 'update-check.json')
 
 const readState = (file: string): UpdateCheckState | undefined => {
   try {

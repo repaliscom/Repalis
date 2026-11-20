@@ -146,7 +146,7 @@ describe('trigger', () => {
     await promise
 
     expect(output()).toContain(
-      'Forwarded by  your polar webhook listen terminal, which shows the response',
+      'Forwarded by  your repalis webhook listen terminal, which shows the response',
     )
     expect(output()).not.toContain('Delivered to')
   })
@@ -247,11 +247,11 @@ describe('trigger', () => {
     ],
     [
       new UnknownEvent({ event: 'order.create', suggestion: 'order.created' }),
-      'Did you mean polar webhook trigger order.created',
+      'Did you mean repalis webhook trigger order.created',
     ],
     [
       new UnknownEvent({ event: 'payout.done' }),
-      'polar webhook trigger --list',
+      'repalis webhook trigger --list',
     ],
     [
       new PayloadRejected({
@@ -260,7 +260,7 @@ describe('trigger', () => {
       'data.x: bad',
     ],
     [
-      new TriggerError({ message: 'Could not reach the Polar API' }),
+      new TriggerError({ message: 'Could not reach the Repalis API' }),
       'Could not reach',
     ],
   ])('explains %s', async (failure, expected) => {
@@ -278,10 +278,10 @@ describe('trigger', () => {
 
   test('explains when the catalog cannot be loaded', async () => {
     trigger.state.listFailure = new TriggerError({
-      message: 'Could not reach the Polar API',
+      message: 'Could not reach the Repalis API',
     })
     const { promise } = run(['--list'])
 
-    await expect(promise).rejects.toThrow('Could not reach the Polar API')
+    await expect(promise).rejects.toThrow('Could not reach the Repalis API')
   })
 })

@@ -4,7 +4,7 @@ import { type ParseError, applyEdits, modify, parse } from 'jsonc-parser'
 import { AgentSetupError, type ClientStatus } from '@/schemas/AgentSetup'
 
 export const MCP_SERVERS = {
-  polar: 'https://mcp.repalis.com/mcp/repalis-mcp',
+  repalis: 'https://mcp.repalis.com/mcp/repalis-mcp',
   'repalis-sandbox': 'https://mcp.repalis.com/mcp/repalis-sandbox',
 } as const
 
@@ -71,7 +71,7 @@ export const configureCursorMcp = (home: string) =>
     if (Option.isNone(configured)) {
       return yield* new AgentSetupError({
         message: `${file} is not valid JSON`,
-        hint: 'Fix it, then run polar agent setup again.',
+        hint: 'Fix it, then run repalis agent setup again.',
       })
     }
     const existing = configured.value

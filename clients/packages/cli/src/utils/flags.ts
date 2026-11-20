@@ -11,7 +11,7 @@ export const production = Flag.Boolean('production').pipe(
 )
 export const local = Flag.Boolean('local').pipe(
   Flag.withDefault(false),
-  Flag.withDescription('Use a local Polar stack on 127.0.0.1'),
+  Flag.withDescription('Use a local Repalis stack on 127.0.0.1'),
   Flag.withHidden,
 )
 export const confirm = Flag.Boolean('confirm').pipe(

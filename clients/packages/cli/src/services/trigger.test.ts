@@ -103,7 +103,7 @@ describe('listEvents', () => {
 
   test('maps network failures', async () => {
     const error = await failure(listEvents())
-    expect(error.message).toBe('Could not reach the Polar API')
+    expect(error.message).toBe('Could not reach the Repalis API')
   })
 })
 

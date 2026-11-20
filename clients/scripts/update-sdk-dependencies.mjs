@@ -17,7 +17,7 @@ packagePaths.push(join('packages', 'cli', 'package.json'))
 
 for (const packagePath of packagePaths) {
   const packageJson = JSON.parse(await readFile(packagePath, 'utf8'))
-  if (packageJson.private && packageJson.name !== 'polar-cli') continue
+  if (packageJson.private && packageJson.name !== '@repalis/cli') continue
 
   let packageUpdated = false
   for (const section of [

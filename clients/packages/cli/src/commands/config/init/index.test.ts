@@ -70,7 +70,7 @@ let directory: string
 let cwd: string
 
 beforeEach(async () => {
-  directory = await realpath(await mkdtemp(join(tmpdir(), 'polar-init-cmd-')))
+  directory = await realpath(await mkdtemp(join(tmpdir(), 'repalis-init-cmd-')))
   cwd = process.cwd()
   process.chdir(directory)
 })
@@ -114,7 +114,7 @@ const run = async (
               keyed.push(...named)
               const format = target.format ?? 'ts'
               return {
-                file: target.file ?? `polar.config.${format}`,
+                file: target.file ?? `repalis.config.${format}`,
                 format,
                 imported: { meters: 0, benefits: 0, products: named.length },
                 keyed: named,
@@ -214,8 +214,8 @@ describe('repalis config init', () => {
     expect(output).toMatch(
       /2 {2}Add your meters, benefits and products +polar\.config\.ts/,
     )
-    expect(output).toContain('polar config plan')
-    expect(output).toContain('polar config apply')
+    expect(output).toContain('repalis config plan')
+    expect(output).toContain('repalis config apply')
   })
 
   test('says what it read from the catalog', async () => {
@@ -442,7 +442,7 @@ describe('repalis config init', () => {
 
     expect(calls).toEqual([])
     expect(message(exit)).toBe(
-      'Not logged in to production. Run polar auth login --production first.',
+      'Not logged in to production. Run repalis auth login --production first.',
     )
   })
 
@@ -450,7 +450,7 @@ describe('repalis config init', () => {
     const { exit } = await run([], {}, { sessions: [], selected: false })
 
     expect(message(exit)).toBe(
-      'Not logged in. Run polar auth login --sandbox or polar auth login --production first.',
+      'Not logged in. Run repalis auth login --sandbox or repalis auth login --production first.',
     )
   })
 
@@ -458,8 +458,8 @@ describe('repalis config init', () => {
     const { output } = await run(['billing/repalis.config.ts', '--json'])
 
     expect(JSON.parse(output).next.slice(-2)).toEqual([
-      'polar config plan billing/repalis.config.ts',
-      'polar config apply billing/repalis.config.ts',
+      'repalis config plan billing/repalis.config.ts',
+      'repalis config apply billing/repalis.config.ts',
     ])
   })
 
@@ -485,8 +485,8 @@ describe('repalis config init', () => {
       organization: acme,
       next: [
         'Describe your meters, benefits and products in repalis.config.ts',
-        'polar config plan',
-        'polar config apply',
+        'repalis config plan',
+        'repalis config apply',
       ],
     })
   })
@@ -501,7 +501,7 @@ describe('repalis config init', () => {
     )
     expect(output).toContain('Option 1  Hand it to Claude Code')
     expect(output).toMatch(
-      /1 {2}Ask it +"Help me set up billing with my Polar config"/,
+      /1 {2}Ask it +"Help me set up billing with my Repalis config"/,
     )
     expect(output).not.toContain('Review its plan')
     expect(output).toMatch(
@@ -523,7 +523,7 @@ describe('repalis config init', () => {
     )
 
     expect(output).toContain('Option 1  Hand it to your agent')
-    expect(output).toMatch(/1 {2}Set up the agent +polar agent setup/)
+    expect(output).toMatch(/1 {2}Set up the agent +repalis agent setup/)
     expect(output).toMatch(/2 {2}Ask it/)
   })
 
@@ -539,11 +539,11 @@ describe('repalis config init', () => {
     expect(result.caller).toBe('Claude Code')
     expect(result.agents).toBeUndefined()
     expect(result.next).toEqual([
-      "If you don't have the repalis-config skill, run polar agent setup --skills project and read .agents/skills/repalis-config/SKILL.md. It sets up Polar for this agent and adds the Polar skills to this project, so tell the user before you run it.",
+      "If you don't have the repalis-config skill, run repalis agent setup --skills project and read .agents/skills/repalis-config/SKILL.md. It sets up Polar for this agent and adds the Repalis skills to this project, so tell the user before you run it.",
       "Write the meters, benefits and products into repalis.config.ts from this app's pricing. Ask the user for any price you cannot find, never invent one.",
-      'Run polar config plan --json and fix every error it reports in the file.',
+      'Run repalis config plan --json and fix every error it reports in the file.',
       'Tell the user what would change and wait for their go-ahead.',
-      'Run polar config apply --confirm. If it saves a draft, ask before running polar config publish --confirm.',
+      'Run repalis config apply --confirm. If it saves a draft, ask before running repalis config publish --confirm.',
     ])
   })
 
@@ -557,8 +557,8 @@ describe('repalis config init', () => {
     const result = JSON.parse(output)
     expect(result.org).toBe('org-2')
     expect(result.next.slice(-2)).toEqual([
-      'polar config plan --org org-2',
-      'polar config apply --org org-2',
+      'repalis config plan --org org-2',
+      'repalis config apply --org org-2',
     ])
   })
 
@@ -757,7 +757,7 @@ describe('repalis config init', () => {
         'Your config matches what is on Repalis. Pick one way to continue.',
       )
       expect(output).toMatch(
-        /1 {2}Ask it +"Help me set up billing with my Polar config"/,
+        /1 {2}Ask it +"Help me set up billing with my Repalis config"/,
       )
       expect(output).toMatch(/2 {2}Edit the config +polar\.config\.ts/)
       expect(output).not.toContain('Preview what would be created')
@@ -771,7 +771,7 @@ describe('repalis config init', () => {
       )
 
       expect(JSON.parse(output).next.slice(1, 3)).toEqual([
-        'repalis.config.ts matches the catalog on Repalis, so the config is set up. If the user asked for no change, run polar config plan to confirm nothing would change, tell them it is ready and stop.',
+        'repalis.config.ts matches the catalog on Repalis, so the config is set up. If the user asked for no change, run repalis config plan to confirm nothing would change, tell them it is ready and stop.',
         'Otherwise make their change in repalis.config.ts. Ask the user for any price you cannot find, never invent one.',
       ])
     })

@@ -16,7 +16,7 @@ const configCommand = (
   { file, org }: Pick<InitWritten, 'file' | 'org'>,
 ) =>
   [
-    `polar config ${command}`,
+    `repalis config ${command}`,
     ...((DEFAULT_CONFIG_FILES as ReadonlyArray<string>).includes(file)
       ? []
       : [file]),
@@ -37,7 +37,7 @@ const PLAIN: Style = { command: (text) => text, file: (text) => text }
 const HIGHLIGHTED: Style = { command: ui.command, file: ui.bold }
 
 const agentSteps = (result: Outcome, { command, file }: Style) => [
-  `If you don't have the repalis-config skill, run ${command('polar agent setup --skills project')} and read ${file('.agents/skills/repalis-config/SKILL.md')}. It sets up Polar for this agent and adds the Polar skills to this project, so tell the user before you run it.`,
+  `If you don't have the repalis-config skill, run ${command('repalis agent setup --skills project')} and read ${file('.agents/skills/repalis-config/SKILL.md')}. It sets up Polar for this agent and adds the Repalis skills to this project, so tell the user before you run it.`,
   ...(imported(result) > 0
     ? [
         `${file(result.file)} matches the catalog on Repalis, so the config is set up. If the user asked for no change, run ${command(configCommand('plan', result))} to confirm nothing would change, tell them it is ready and stop.`,
@@ -175,9 +175,9 @@ const guideLines = (result: InitWritten) => {
         `Hand it to ${agentName(result.agents)}`,
         [
           ...(result.agents?.ready === false
-            ? [['Set up the agent', ui.command('polar agent setup')] as const]
+            ? [['Set up the agent', ui.command('repalis agent setup')] as const]
             : []),
-          ['Ask it', '"Help me set up billing with my Polar config"'],
+          ['Ask it', '"Help me set up billing with my Repalis config"'],
         ],
       ],
       [
@@ -229,8 +229,8 @@ const renderWritten = (result: InitWritten) => [
 ]
 
 export const RERUN = [
-  'polar config init --confirm',
-  'polar config init --confirm --external-id <id>=<external ID>',
+  'repalis config init --confirm',
+  'repalis config init --confirm --external-id <id>=<external ID>',
 ]
 
 const renderRequired = (result: InitRequired) => [

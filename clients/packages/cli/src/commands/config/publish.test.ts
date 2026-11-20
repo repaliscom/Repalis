@@ -100,7 +100,7 @@ const run = async (
   }
 }
 
-describe('polar config publish', () => {
+describe('repalis config publish', () => {
   test('publishes the draft with --confirm', async () => {
     const { output, published, message } = await run(withDraft, ['--confirm'])
     expect(message).toBeUndefined()

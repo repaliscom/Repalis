@@ -35,7 +35,7 @@ const openSuccessPage = (historyLength: number) => {
 describe('callbackPage', () => {
   test.each([
     ['success', 'You are signed in', 'close this tab'],
-    ['denied', 'Sign-in canceled', '<code>polar auth login</code>'],
+    ['denied', 'Sign-in canceled', '<code>repalis auth login</code>'],
     ['invalid', 'Something went wrong', 'invalid or has expired'],
   ] as const)('renders the %s page', (outcome, title, hint) => {
     const html = callbackPage(outcome)

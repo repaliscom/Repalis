@@ -98,7 +98,7 @@ const message = (exit: Exit.Exit<unknown, unknown>) =>
     ? (Cause.squash(exit.cause) as BillingConfigError).message
     : undefined
 
-describe('polar config prune', () => {
+describe('repalis config prune', () => {
   test('removes only the unused entries with --confirm', async () => {
     const { output, removed, pruned, exit } = await run(
       [apples, beta, legacy],

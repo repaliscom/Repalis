@@ -324,7 +324,7 @@ def _ensure_env_file() -> None:
         if not ENV_TEMPLATE.exists():
             # Template was optional in the original layout; tolerate absence.
             ENV_FILE.write_text(
-                "# Polar Docker dev env\n"
+                "# Repalis Docker dev env\n"
                 "# Set POLAR_DOCKER_INSTANCE=N to pin this worktree to instance N\n"
                 "# POLAR_DOCKER_INSTANCE=\n"
             )
@@ -606,7 +606,7 @@ def _instance_was_explicit(ctx: typer.Context) -> bool:
 def _print_access_info(ctx: typer.Context, instance: int) -> None:
     i_flag = f" -i {instance}" if _instance_was_explicit(ctx) else ""
     console.print()
-    console.print("[bold]Polar Docker Development Environment[/bold]")
+    console.print("[bold]Repalis Docker Development Environment[/bold]")
     console.print(f"Instance: {instance} (project {app_project(instance)})")
     console.print(
         f"Database: {db_name(instance)}  Redis DB: {redis_db(instance)}  "
@@ -685,7 +685,7 @@ def register(app: typer.Typer, prompt_setup: callable) -> None:
         - shared services (db, redis, minio, tinybird, prometheus, grafana) →
           the machine-wide `repalis-shared` project
         - app services (api, worker, web) or no service → this instance's
-          `polar-app-N` project
+          `repalis-app-N` project
         """
         if service in SHARED_SERVICES:
             return _shared_compose_cmd(monitoring=True), {}
@@ -738,7 +738,7 @@ def register(app: typer.Typer, prompt_setup: callable) -> None:
         _ensure_network()
         if not _shared_is_running():
             shared_cmd = _shared_compose_cmd(monitoring=monitoring) + ["up", "-d"]
-            console.print("[bold blue]Starting Polar shared infra[/bold blue]")
+            console.print("[bold blue]Starting Repalis shared infra[/bold blue]")
             result = run_command(shared_cmd)
             if not result or result.returncode != 0:
                 console.print("[red]Failed to start shared infra[/red]")
@@ -757,7 +757,7 @@ def register(app: typer.Typer, prompt_setup: callable) -> None:
         cmd = _build_compose_cmd(instance)
 
         console.print(
-            f"\n[bold blue]Starting Polar app stack (instance {instance})[/bold blue]\n"
+            f"\n[bold blue]Starting Repalis app stack (instance {instance})[/bold blue]\n"
         )
 
         if build or pull:

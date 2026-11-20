@@ -64,7 +64,7 @@ describe('planMarkdown', () => {
   test('titles, notes the target and diffs each changed section', () => {
     expect(planMarkdown(config, acme, { entries, issues: [] })).toBe(
       [
-        '## Polar billing plan updated',
+        '## Repalis billing plan updated',
         '',
         '> [!NOTE]',
         "> Applying the config in this pull request changes billing for **Acme\\_Inc** in sandbox. Review every change below before it's applied.",

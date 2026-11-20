@@ -21,7 +21,7 @@ const eventLine = (eventType: string, outcome: string, durationMs: number) =>
 const decodeFailure = (key: string | undefined) =>
   ui.failure(
     'Received an event the CLI could not decode',
-    `Event key: ${key ?? 'unknown'}. Run ${ui.command('polar update')} in case the format changed.`,
+    `Event key: ${key ?? 'unknown'}. Run ${ui.command('repalis update')} in case the format changed.`,
   )
 
 const banner = (organizationName: string, secret: string, forwardUrl: string) =>

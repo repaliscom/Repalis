@@ -238,4 +238,4 @@ export const make = Effect.gen(function* () {
   return Repalis.of({ getClient, use })
 })
 
-export const layer = Layer.effect(Polar, make)
+export const layer = Layer.effect(Repalis, make)

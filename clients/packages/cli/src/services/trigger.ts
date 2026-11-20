@@ -108,7 +108,7 @@ const apiFailure = (status: number, environment: RepalisEnvironment) => {
 
 const unreachable = (error: { message: string }) =>
   new TriggerError({
-    message: 'Could not reach the Polar API',
+    message: 'Could not reach the Repalis API',
     hint: error.message,
   })
 

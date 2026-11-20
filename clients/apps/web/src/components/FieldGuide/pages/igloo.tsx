@@ -152,7 +152,7 @@ function figure() {
     w: igloo.x + igloo.w + PAD - proc0,
     h: h + PAD * 2,
   }
-  const polar = { x: proc.x + proc.w + REACH, y: top, w: 142, h }
+  const repalis = { x: proc.x + proc.w + REACH, y: top, w: 142, h }
   const redis = {
     x: igloo.x,
     y: proc.y + proc.h + 48,
@@ -161,7 +161,7 @@ function figure() {
   }
   const ix = igloo.x + igloo.w / 2
   // The labels sit in the open ground between the process and Repalis.
-  const gap = (proc.x + proc.w + polar.x) / 2
+  const gap = (proc.x + proc.w + repalis.x) / 2
   return (
     <>
       <rect
@@ -188,8 +188,8 @@ function figure() {
         ]}
       />
       <Panel
-        {...polar}
-        name="POLAR"
+        {...repalis}
+        name="REPALIS"
         rows={[
           ['events', cells(0, 0, 8, 6, { head: true })],
           ['reducers', text(0, 0, 'Σ output_tokens', LINE)],
@@ -218,13 +218,13 @@ function figure() {
 
       <line
         x1={igloo.x + igloo.w}
-        x2={polar.x}
+        x2={repalis.x}
         y1={mid}
         y2={mid}
         stroke={MID}
         strokeWidth={HAIR}
       />
-      {head(polar.x, mid, 'right')}
+      {head(repalis.x, mid, 'right')}
       {head(igloo.x + igloo.w, mid, 'left')}
       {text(gap, mid - 8, 'RECONCILIATION', DIM, 7.5, 'middle')}
 
