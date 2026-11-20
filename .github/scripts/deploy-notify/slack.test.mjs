@@ -351,7 +351,7 @@ test('Slack reads send user, thread and pagination arguments as GET query parame
 test('Slack message writes preserve JSON metadata and expose validation errors', async () => {
   const payload = {
     channel: 'CDEPLOY', thread_ts: '1792152000.000001', text: 'Deployed',
-    metadata: { event_type: 'polar_deployment_reply', event_payload: { id: 'deployment-123-1' } },
+    metadata: { event_type: 'repalis_deployment_reply', event_payload: { id: 'deployment-123-1' } },
   };
   const slack = slackClient('test-token', async (url, options) => {
     assert.equal(String(url), 'https://slack.com/api/chat.postMessage');

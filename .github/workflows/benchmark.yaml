@@ -5,21 +5,21 @@ on:
     branches: [main]
     paths:
       - "server/benchmarks/**"
-      - "server/polar/reducer/**"
-      - "server/polar/event/**"
-      - "server/polar/event_type/**"
-      - "server/polar/meter/**"
-      - "server/polar/outpost/**"
-      - "server/polar/kit/db/**"
-      - "server/polar/kit/repository/**"
-      - "server/polar/worker/_enqueue.py"
-      - "server/polar/models/event.py"
-      - "server/polar/models/event_type.py"
-      - "server/polar/models/meter.py"
-      - "server/polar/models/meter_event.py"
-      - "server/polar/models/meter_reducer.py"
-      - "server/polar/models/reducer.py"
-      - "server/polar/models/reducer_bucket.py"
+      - "server/repalis/reducer/**"
+      - "server/repalis/event/**"
+      - "server/repalis/event_type/**"
+      - "server/repalis/meter/**"
+      - "server/repalis/outpost/**"
+      - "server/repalis/kit/db/**"
+      - "server/repalis/kit/repository/**"
+      - "server/repalis/worker/_enqueue.py"
+      - "server/repalis/models/event.py"
+      - "server/repalis/models/event_type.py"
+      - "server/repalis/models/meter.py"
+      - "server/repalis/models/meter_event.py"
+      - "server/repalis/models/meter_reducer.py"
+      - "server/repalis/models/reducer.py"
+      - "server/repalis/models/reducer_bucket.py"
       - "sdk/python/**"
       - "sdk/typescript/**"
       - ".github/workflows/benchmark.yaml"
@@ -27,21 +27,21 @@ on:
     types: [opened, synchronize, reopened, ready_for_review]
     paths:
       - "server/benchmarks/**"
-      - "server/polar/reducer/**"
-      - "server/polar/event/**"
-      - "server/polar/event_type/**"
-      - "server/polar/meter/**"
-      - "server/polar/outpost/**"
-      - "server/polar/kit/db/**"
-      - "server/polar/kit/repository/**"
-      - "server/polar/worker/_enqueue.py"
-      - "server/polar/models/event.py"
-      - "server/polar/models/event_type.py"
-      - "server/polar/models/meter.py"
-      - "server/polar/models/meter_event.py"
-      - "server/polar/models/meter_reducer.py"
-      - "server/polar/models/reducer.py"
-      - "server/polar/models/reducer_bucket.py"
+      - "server/repalis/reducer/**"
+      - "server/repalis/event/**"
+      - "server/repalis/event_type/**"
+      - "server/repalis/meter/**"
+      - "server/repalis/outpost/**"
+      - "server/repalis/kit/db/**"
+      - "server/repalis/kit/repository/**"
+      - "server/repalis/worker/_enqueue.py"
+      - "server/repalis/models/event.py"
+      - "server/repalis/models/event_type.py"
+      - "server/repalis/models/meter.py"
+      - "server/repalis/models/meter_event.py"
+      - "server/repalis/models/meter_reducer.py"
+      - "server/repalis/models/reducer.py"
+      - "server/repalis/models/reducer_bucket.py"
       - "sdk/python/**"
       - "sdk/typescript/**"
       - ".github/workflows/benchmark.yaml"
@@ -72,7 +72,7 @@ env:
 # Instruction counts, on the runners the rest of CI uses, for the pure CPU benchmarks: wall time
 # would add noise, not information. Real time, on CodSpeed's dedicated ARM64 machines, for the
 # Redis benchmarks, whose cost is in another process, the warm reads, which a few simulated
-# calls would measure cold, the flush, whose cost is the wait for Polar, and SDK request
+# calls would measure cold, the flush, whose cost is the wait for Repalis, and SDK request
 # throughput.
 jobs:
   changes:
@@ -105,21 +105,21 @@ jobs:
           filters: |
             server:
               - 'server/benchmarks/**'
-              - 'server/polar/reducer/**'
-              - 'server/polar/event/**'
-              - 'server/polar/event_type/**'
-              - 'server/polar/meter/**'
-              - 'server/polar/outpost/**'
-              - 'server/polar/kit/db/**'
-              - 'server/polar/kit/repository/**'
-              - 'server/polar/worker/_enqueue.py'
-              - 'server/polar/models/event.py'
-              - 'server/polar/models/event_type.py'
-              - 'server/polar/models/meter.py'
-              - 'server/polar/models/meter_event.py'
-              - 'server/polar/models/meter_reducer.py'
-              - 'server/polar/models/reducer.py'
-              - 'server/polar/models/reducer_bucket.py'
+              - 'server/repalis/reducer/**'
+              - 'server/repalis/event/**'
+              - 'server/repalis/event_type/**'
+              - 'server/repalis/meter/**'
+              - 'server/repalis/outpost/**'
+              - 'server/repalis/kit/db/**'
+              - 'server/repalis/kit/repository/**'
+              - 'server/repalis/worker/_enqueue.py'
+              - 'server/repalis/models/event.py'
+              - 'server/repalis/models/event_type.py'
+              - 'server/repalis/models/meter.py'
+              - 'server/repalis/models/meter_event.py'
+              - 'server/repalis/models/meter_reducer.py'
+              - 'server/repalis/models/reducer.py'
+              - 'server/repalis/models/reducer_bucket.py'
               - '.github/workflows/benchmark.yaml'
             sdk:
               - 'sdk/python/**'
@@ -305,13 +305,13 @@ jobs:
       - name: Start Postgres and Redis
         run: |
           docker run -d --name postgres --network host \
-            -e POSTGRES_USER=polar -e POSTGRES_PASSWORD=polar -e POSTGRES_DB=polar_test \
+            -e POSTGRES_USER=repalis -e POSTGRES_PASSWORD=repalis -e POSTGRES_DB=repalis_test \
             postgres:18.6-bookworm -c fsync=off -c synchronous_commit=off -c full_page_writes=off \
             -c autovacuum=off
           docker run -d --name redis --network host redis:7.4-alpine \
             redis-server --save "" --appendonly no
           for _ in $(seq 60); do
-            docker exec postgres pg_isready -U polar >/dev/null 2>&1 \
+            docker exec postgres pg_isready -U repalis >/dev/null 2>&1 \
               && docker exec redis redis-cli ping >/dev/null 2>&1 && exit 0
             sleep 1
           done

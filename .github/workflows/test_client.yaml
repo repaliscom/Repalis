@@ -307,12 +307,12 @@ jobs:
         run: pnpm --dir ../.. --filter @repalis/repalis build
 
       - name: 📦 Build binary
-        run: bun build ./src/cli.ts --compile --no-compile-autoload-dotenv --no-compile-autoload-bunfig --define POLAR_CLI_BUILD='"release"' --target=bun-linux-x64 --outfile polar
+        run: bun build ./src/cli.ts --compile --no-compile-autoload-dotenv --no-compile-autoload-bunfig --define REPALIS_CLI_BUILD='"release"' --target=bun-linux-x64 --outfile repalis
 
       - name: 💨 Smoke test binary
         env:
-          POLAR_CLI_TELEMETRY_OPTOUT: "1"
-        run: ./polar --version
+          REPALIS_CLI_TELEMETRY_OPTOUT: "1"
+        run: ./repalis --version
 
   status:
     name: "Client: Tests 🎨"

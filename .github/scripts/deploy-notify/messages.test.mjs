@@ -73,7 +73,7 @@ test('environment replies link to telemetry and the Render service', () => {
   assert.match(text, /Frontend build: not run in this attempt/);
   assert.ok(text.includes('*test*'));
   assert.ok(text.includes("deployment_environment+%3D+%27test%27"));
-  assert.ok(text.includes('https://polar-sh.sentry.io/issues/?environment=test'));
+  assert.ok(text.includes('https://repalis.sentry.io/issues/?environment=test'));
   assert.ok(text.includes('since=2026-10-16T08%3A13%3A17Z'));
   const deployWorkflow = readFileSync(new URL('../../workflows/deploy.yml', import.meta.url), 'utf8');
   const section = deployWorkflow.split('  deploy-test:')[1].split('\n  deploy-')[0];

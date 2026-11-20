@@ -26,7 +26,7 @@ test('uses the recorded emergency requester only for an emergency-bot merge', as
     ...input,
     run: { ...run, head_commit: { message: 'Fix\n\nEmergency-Merge: /emergency by Yopi\n' } },
     github: { graphql: async () => ({ repository: { pullRequest: {
-      mergedBy: { login: 'polar-merge-bot', __typename: 'Bot' },
+      mergedBy: { login: 'repalis-merge-bot', __typename: 'Bot' },
     } } }) },
   };
   assert.equal(await resolveDeployer(args), 'Yopi');

@@ -78,5 +78,5 @@ jobs:
               --distribution-config "file://$RUNNER_TEMP/distribution.json" > /dev/null
             echo "$fn:$version -> $dist"
           }
-          deploy polar-sandbox-image-resizer E11MGVVO0TOWL1
-          deploy polar-image-resizer EOHRE2VUWCNHK
+          deploy repalis-sandbox-image-resizer E11MGVVO0TOWL1
+          deploy repalis-image-resizer EOHRE2VUWCNHK

@@ -33,7 +33,7 @@ jobs:
         with:
           filters: |
             relevant:
-              - 'server/polar/**'
+              - 'server/repalis/**'
               - 'server/emails/src/types/openapi.ts'
               - 'server/emails/package.json'
               - 'server/emails/pnpm-lock.yaml'

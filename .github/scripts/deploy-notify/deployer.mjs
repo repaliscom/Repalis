@@ -30,7 +30,7 @@ export async function resolveMerger({ github, repo, run, pullRequest }) {
   if (pr.mergedBy?.__typename === 'User') return pr.mergedBy.login;
   const mergeBot = pr.mergedBy?.login.replace(/\[bot\]$/, '');
 
-  if (mergeBot === 'polar-merge-bot') {
+  if (mergeBot === 'repalis-merge-bot') {
     return run.head_commit?.message.match(/(?:^|\n)Emergency-Merge: \/emergency by ([a-zA-Z0-9-]+)\s*$/)?.[1] ?? null;
   }
 
