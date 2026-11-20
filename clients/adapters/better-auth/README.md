@@ -1,15 +1,15 @@
 # @polar-sh/better-auth
 
-A [Better Auth](https://github.com/better-auth/better-auth) plugin for integrating [Polar](https://polar.sh) payments and subscriptions into your authentication flow.
+A [Better Auth](https://github.com/better-auth/better-auth) plugin for integrating [Repalis](https://repalis.com) payments and subscriptions into your authentication flow.
 
 ## Features
 
 - Checkout Integration
 - Customer Portal
 - Automatic personal customer creation on signup
-- Explicit Better Auth organization → Polar team-customer synchronization
+- Explicit Better Auth organization → Repalis team-customer synchronization
 - Event Ingestion & Customer Meters for flexible Usage Based Billing
-- Handle Polar Webhooks securely with signature verification, including member events
+- Handle Repalis Webhooks securely with signature verification, including member events
 - Generic `referenceId` metadata for legacy checkout/subscription filtering
 
 ## Installation
@@ -20,7 +20,7 @@ pnpm add better-auth @polar-sh/better-auth @polar-sh/sdk@1.0.0
 
 ## Preparation
 
-Go to your Polar Organization Settings, and create an Organization Access Token. Add it to your environment.
+Go to your Repalis Organization Settings, and create an Organization Access Token. Add it to your environment.
 
 ```bash
 # .env
@@ -29,26 +29,26 @@ POLAR_ACCESS_TOKEN=...
 
 ### Configuring BetterAuth Server
 
-Create a Polar core client with `createPolarCore` and pass it to the `polar` plugin. The adapter uses standalone SDK functions to keep bundles small.
+Create a Repalis core client with `createRepalisCore` and pass it to the `polar` plugin. The adapter uses standalone SDK functions to keep bundles small.
 
-If you previously passed a client created with `createPolar`, switch that call to `createPolarCore` with the same options.
+If you previously passed a client created with `createRepalis`, switch that call to `createRepalisCore` with the same options.
 
-The Polar plugin comes with a handful additional plugins which adds functionality to your stack.
+The Repalis plugin comes with a handful additional plugins which adds functionality to your stack.
 
 - Checkout - Enables a seamless checkout integration
 - Portal - Makes it possible for your customers to manage their orders, subscriptions & granted benefits
 - Usage - Simple extension for listing customer meters & ingesting events for Usage Based Billing
-- Webhooks - Listen for relevant Polar webhooks
+- Webhooks - Listen for relevant Repalis webhooks
 
 ```typescript
 import { betterAuth } from 'better-auth'
 import { organization } from 'better-auth/plugins'
 import { polar, checkout, portal, usage, webhooks } from '@polar-sh/better-auth'
-import { createPolarCore } from '@polar-sh/sdk/2026-10'
+import { createRepalisCore } from '@polar-sh/sdk/2026-10'
 
-const polarClient = createPolarCore({
+const polarClient = createRepalisCore({
   accessToken: process.env.POLAR_ACCESS_TOKEN,
-  // Use 'sandbox' if you're using the Polar Sandbox environment
+  // Use 'sandbox' if you're using the Repalis Sandbox environment
   // Remember that access tokens, products, etc. are completely separated between environments.
   // Access tokens obtained in Production are for instance not usable in the Sandbox environment.
   environment: 'sandbox',
@@ -76,7 +76,7 @@ const auth = betterAuth({
         checkout({
           products: [
             {
-              productId: '123-456-789', // ID of Product from Polar Dashboard
+              productId: '123-456-789', // ID of Product from Repalis Dashboard
               slug: 'pro', // Custom slug for easy reference in Checkout URL, e.g. /checkout/pro
             },
           ],
@@ -106,7 +106,7 @@ const auth = betterAuth({
 
 ### Configuring BetterAuth Client
 
-You will be using the BetterAuth Client to interact with the Polar functionalities.
+You will be using the BetterAuth Client to interact with the Repalis functionalities.
 
 ```typescript
 import { createAuthClient } from 'better-auth/react'
@@ -114,7 +114,7 @@ import { polarClient } from '@polar-sh/better-auth/client'
 import { organizationClient } from 'better-auth/client/plugins'
 
 // This is all that is needed
-// All Polar plugins, etc. should be attached to the server-side BetterAuth config
+// All Repalis plugins, etc. should be attached to the server-side BetterAuth config
 export const authClient = createAuthClient({
   plugins: [organizationClient(), polarClient()],
 })
@@ -125,12 +125,12 @@ export const authClient = createAuthClient({
 ```typescript
 import { betterAuth } from 'better-auth'
 import { polar, checkout, portal, usage, webhooks } from '@polar-sh/better-auth'
-import { createPolarCore } from '@polar-sh/sdk/2026-10'
+import { createRepalisCore } from '@polar-sh/sdk/2026-10'
 import { organization } from 'better-auth/plugins'
 
-const polarClient = createPolarCore({
+const polarClient = createRepalisCore({
   accessToken: process.env.POLAR_ACCESS_TOKEN,
-  // Use 'sandbox' if you're using the Polar Sandbox environment
+  // Use 'sandbox' if you're using the Repalis Sandbox environment
   // Remember that access tokens, products, etc. are completely separated between environments.
   // Access tokens obtained in Production are for instance not usable in the Sandbox environment.
   environment: 'sandbox',
@@ -159,7 +159,7 @@ const auth = betterAuth({
         }),
       },
       use: [
-        // This is where you add Polar plugins - at least one is required
+        // This is where you add Repalis plugins - at least one is required
         checkout(),
       ],
     }),
@@ -171,16 +171,16 @@ The SDK v1 models returned by the state, benefits, subscriptions, orders, and me
 
 ### Required Options
 
-- `client`: Polar SDK core client instance, created with `createPolarCore`
-- `use`: Array of Polar plugins (checkout, portal, usage, webhooks). Pass at least one plugin.
+- `client`: Repalis SDK core client instance, created with `createRepalisCore`
+- `use`: Array of Repalis plugins (checkout, portal, usage, webhooks). Pass at least one plugin.
 
 ### Optional Options
 
-- `createCustomerOnSignUp`: Automatically create a Polar customer when a user signs up
+- `createCustomerOnSignUp`: Automatically create a Repalis customer when a user signs up
 - `getCustomerCreateParams`: Async function to provide additional personal-customer creation metadata
 - `experimental_organizationSync`: Experimental Better Auth organization synchronization configuration. Set `experimental_organizationSync.enabled` to `true`; `experimental_organizationSync.getTeamCustomerCreateParams` can add team-customer fields such as metadata or billing details. Automatic seat management is separately opt-in through `experimental_organizationSync.syncSeats`, and `experimental_organizationSync.selectSeatProductsForMember` can customize per-member product-seat allocation when it is enabled.
 
-### Calling the Polar SDK
+### Calling the Repalis SDK
 
 The core client has no service properties such as `customers` or `checkouts`. Import the operation you need and pass the core client to it:
 
@@ -190,28 +190,28 @@ import { getStateExternalCustomers } from '@polar-sh/sdk/2026-10/services/custom
 const customerState = await getStateExternalCustomers(polarClient)(userId)
 ```
 
-Custom plugins passed through `use` also receive a `PolarCore` and call SDK operations this way.
+Custom plugins passed through `use` also receive a `RepalisCore` and call SDK operations this way.
 
 ### Customers
 
-When `createCustomerOnSignUp` is enabled, a new Polar Customer is automatically created when a new User is added in the Better-Auth Database. Email and name changes are pushed to the Polar customer, and the Polar customer is deleted when the user is deleted. Anonymous users are skipped.
+When `createCustomerOnSignUp` is enabled, a new Repalis Customer is automatically created when a new User is added in the Better-Auth Database. Email and name changes are pushed to the Repalis customer, and the Repalis customer is deleted when the user is deleted. Anonymous users are skipped.
 
-Customer creation runs after Better Auth inserts the user, so the initial Polar creation request includes `external_id: user.id`. Applications that reject user creation in a `before` database hook do not create a Polar customer.
+Customer creation runs after Better Auth inserts the user, so the initial Repalis creation request includes `external_id: user.id`. Applications that reject user creation in a `before` database hook do not create a Repalis customer.
 
 `getCustomerCreateParams` runs only when a new customer is needed and receives the persisted user. It can add metadata; the user ID, email, and name remain authoritative. An existing customer with the same email and no external ID is linked once. An existing customer linked to the same user is reused; a different external ID produces a conflict without reassigning the customer.
 
 ### Experimental organization synchronization
 
 > [!WARNING]
-> This integration is experimental. If your application already handles organization billing, keep using that implementation and do not enable `experimental_organizationSync`. This option synchronizes Better Auth organizations and members, but it does not migrate existing subscriptions, orders, benefits, or seats. Enabling it on an existing billing setup can leave Better Auth and Polar inconsistent: the new Polar team customer can have the correct roster while billing remains attached to personal customers. Team-customer APIs may then report no subscription and a new checkout can create duplicate billing.
+> This integration is experimental. If your application already handles organization billing, keep using that implementation and do not enable `experimental_organizationSync`. This option synchronizes Better Auth organizations and members, but it does not migrate existing subscriptions, orders, benefits, or seats. Enabling it on an existing billing setup can leave Better Auth and Repalis inconsistent: the new Repalis team customer can have the correct roster while billing remains attached to personal customers. Team-customer APIs may then report no subscription and a new checkout can create duplicate billing.
 
 Experimental organization synchronization is opt-in and requires both Better Auth's `organization()` plugin and `experimental_organizationSync: { enabled: true }` on `polar()`. Enabling it without the Better Auth plugin fails during startup. Use it only when you understand and control the billing cutover for every existing organization.
 
-Organizations created after synchronization is enabled are mirrored normally. Existing Better Auth organizations without a Polar team customer remain on the metadata-based `referenceId` flow: lifecycle hooks skip them instead of failing or partially synchronizing their roster. An explicit `organizationId` checkout requires an existing team customer and is rejected for an unsynchronized organization, preventing Polar from creating a regular customer with the organization ID.
+Organizations created after synchronization is enabled are mirrored normally. Existing Better Auth organizations without a Repalis team customer remain on the metadata-based `referenceId` flow: lifecycle hooks skip them instead of failing or partially synchronizing their roster. An explicit `organizationId` checkout requires an existing team customer and is rejected for an unsynchronized organization, preventing Repalis from creating a regular customer with the organization ID.
 
 The current mapping is deterministic:
 
-| Better Auth                    | Polar                             |
+| Better Auth                    | Repalis                             |
 | ------------------------------ | --------------------------------- |
 | `organization.id`              | Team customer `externalId`        |
 | Organization creator `user.id` | Initial owner member `externalId` |
@@ -219,15 +219,15 @@ The current mapping is deterministic:
 
 On organization creation, the adapter creates or reuses a team customer and supplies the creator as its explicit owner. The team customer has no email by default, avoiding collisions when one user owns several organizations. `experimental_organizationSync.getTeamCustomerCreateParams` may add metadata, locale, address, tax, or other supported team-customer fields, but cannot override `type`, `externalId`, `name`, or owner identity. Organization name changes update the team customer.
 
-The Polar organization access token needs `customers:read`, `customers:write`, `members:read`, and `members:write` scopes. Automatic seat management additionally requires `products:read`, `subscriptions:read`, `subscriptions:write`, `customer_seats:read`, and `customer_seats:write`.
+The Repalis organization access token needs `customers:read`, `customers:write`, `members:read`, and `members:write` scopes. Automatic seat management additionally requires `products:read`, `subscriptions:read`, `subscriptions:write`, `customer_seats:read`, and `customer_seats:write`.
 
-Better Auth users map to Polar member `externalId` values using `user.id` within each team customer. Direct additions and accepted invitations are mirrored, and profile, role, removal, self-leave, and user-deletion paths are synchronized. Better Auth remains the roster source of truth.
+Better Auth users map to Repalis member `externalId` values using `user.id` within each team customer. Direct additions and accepted invitations are mirrored, and profile, role, removal, self-leave, and user-deletion paths are synchronized. Better Auth remains the roster source of truth.
 
 #### Automatic organization seat management
 
-Automatic seat management is disabled by default, even when organization synchronization is enabled. Set `experimental_organizationSync.syncSeats` to `true` to size and assign recurring Polar subscriptions with seat-based pricing from the Better Auth roster. The adapter manages subscriptions in `active`, `trialing`, and `past_due` status. It assigns seats with `externalMemberId = user.id` and `immediateClaim: true`, because accepting a Better Auth invitation already proves membership. Subscription quantities remain at or above the product's minimum even when fewer members are selected; excess seats remain unassigned. Subscription updates omit `prorationBehavior`, so the Polar organization's configured default applies.
+Automatic seat management is disabled by default, even when organization synchronization is enabled. Set `experimental_organizationSync.syncSeats` to `true` to size and assign recurring Repalis subscriptions with seat-based pricing from the Better Auth roster. The adapter manages subscriptions in `active`, `trialing`, and `past_due` status. It assigns seats with `externalMemberId = user.id` and `immediateClaim: true`, because accepting a Better Auth invitation already proves membership. Subscription quantities remain at or above the product's minimum even when fewer members are selected; excess seats remain unassigned. Subscription updates omit `prorationBehavior`, so the Repalis organization's configured default applies.
 
-Include the `webhooks()` plugin and configure Polar to send `subscription.created` and `subscription.active` events. Checkout sets the quantity but does not assign the existing roster; the verified webhook performs that initial provisioning and corrects membership changes that happened while checkout was open.
+Include the `webhooks()` plugin and configure Repalis to send `subscription.created` and `subscription.active` events. Checkout sets the quantity but does not assign the existing roster; the verified webhook performs that initial provisioning and corrects membership changes that happened while checkout was open.
 
 When seat management is enabled, every organization member receives every candidate recurring seat product by default. Use `selectSeatProductsForMember` to return a subset of the supplied product IDs, or `[]` for no seat:
 
@@ -253,22 +253,22 @@ polar({
 })
 ```
 
-The selector receives the Better Auth organization, membership, complete user record (including custom fields), and candidate products as Polar SDK `Product` objects. Returned IDs must come from `products`; unknown IDs fail synchronization. Keep the selector deterministic from these inputs so retries calculate the same desired state. Applications that need additional billing context can fetch it with their Polar SDK client.
+The selector receives the Better Auth organization, membership, complete user record (including custom fields), and candidate products as Repalis SDK `Product` objects. Returned IDs must come from `products`; unknown IDs fail synchronization. Keep the selector deterministic from these inputs so retries calculate the same desired state. Applications that need additional billing context can fetch it with their Repalis SDK client.
 
-When seat management is enabled, organization checkout ignores caller-provided `seats`, `minSeats`, and `maxSeats` for recurring seat products and locks all three to the calculated allocation. Polar exposes one shared seat quantity for every product in a checkout. If selected products need different quantities, the adapter rejects the request; create one checkout per seat-based product instead. A calculated allocation of zero is also rejected.
+When seat management is enabled, organization checkout ignores caller-provided `seats`, `minSeats`, and `maxSeats` for recurring seat products and locks all three to the calculated allocation. Repalis exposes one shared seat quantity for every product in a checkout. If selected products need different quantities, the adapter rejects the request; create one checkout per seat-based product instead. A calculated allocation of zero is also rejected.
 
-One-time seat products are not automatically managed because an order quantity cannot be reduced as the Better Auth roster changes. Personal checkout and non-seat products retain their existing behavior. Better Auth membership plus the selector remain authoritative: later lifecycle or purchase synchronization can overwrite manual Polar portal seat changes. Cross-system writes are not transactional; errors propagate and retries recompute absolute targets from the current roster without post-write assertions.
+One-time seat products are not automatically managed because an order quantity cannot be reduced as the Better Auth roster changes. Personal checkout and non-seat products retain their existing behavior. Better Auth membership plus the selector remain authoritative: later lifecycle or purchase synchronization can overwrite manual Repalis portal seat changes. Cross-system writes are not transactional; errors propagate and retries recompute absolute targets from the current roster without post-write assertions.
 
-Polar permits one owner. The adapter reads Better Auth's configured `creatorRole` (defaulting to `owner`), retains the current valid creator-role member as Polar's canonical owner, and uses the same role for checkout authorization. If a transfer is required, it deterministically selects the earliest eligible owner. Additional creator-role members and `admin` map to `billing_manager`; other roles map to `member`. `experimental_organizationSync.mapBetterAuthRoleToPolarRole` may map non-owners to `member` or `billing_manager`, but cannot assign ownership.
+Repalis permits one owner. The adapter reads Better Auth's configured `creatorRole` (defaulting to `owner`), retains the current valid creator-role member as Repalis's canonical owner, and uses the same role for checkout authorization. If a transfer is required, it deterministically selects the earliest eligible owner. Additional creator-role members and `admin` map to `billing_manager`; other roles map to `member`. `experimental_organizationSync.mapBetterAuthRoleToRepalisRole` may map non-owners to `member` or `billing_manager`, but cannot assign ownership.
 
-Organization deletion in Better Auth does **not** delete the Polar team customer or its billing data. Cross-system writes are not transactional: synchronization errors propagate, but an earlier Better Auth or Polar write cannot be rolled back. Polar synchronization uses deterministic external IDs, and each lifecycle hook updates only the customer or members affected by that Better Auth operation.
+Organization deletion in Better Auth does **not** delete the Repalis team customer or its billing data. Cross-system writes are not transactional: synchronization errors propagate, but an earlier Better Auth or Repalis write cannot be rolled back. Repalis synchronization uses deterministic external IDs, and each lifecycle hook updates only the customer or members affected by that Better Auth operation.
 
 Organization billing is always selected explicitly; the active Better Auth organization is never used implicitly. Pass `organizationId` in:
 
 - the POST body for checkout (as `organization_id`) and usage ingestion (as `organizationId`);
 - the query for portal (GET or POST), customer state, benefits, subscriptions, orders, and usage meters.
 
-The adapter verifies the authenticated user's Better Auth membership before calling Polar. Organization checkout requires a billing-capable role. Team portal and meter requests create a member-scoped customer session with `externalCustomerId = organization.id` and `externalMemberId = user.id`; usage events carry both IDs. Omitting `organizationId` preserves personal-customer behavior.
+The adapter verifies the authenticated user's Better Auth membership before calling Repalis. Organization checkout requires a billing-capable role. Team portal and meter requests create a member-scoped customer session with `externalCustomerId = organization.id` and `externalMemberId = user.id`; usage events carry both IDs. Omitting `organizationId` preserves personal-customer behavior.
 
 ## Checkout Plugin
 
@@ -301,13 +301,13 @@ const auth = betterAuth({
 });
 ```
 
-The checkout endpoint sends the customer's IP address, resolved with Better Auth's `getIP` (see `advanced.ipAddress`), to Polar to show local currency. Set `customerIpAddress` to a function `(headers) => ip` to resolve it yourself, or to `false` to not send it.
+The checkout endpoint sends the customer's IP address, resolved with Better Auth's `getIP` (see `advanced.ipAddress`), to Repalis to show local currency. Set `customerIpAddress` to a function `(headers) => ip` to resolve it yourself, or to `false` to not send it.
 
 When checkouts are enabled, you're able to initialize Checkout Sessions using the checkout-method on the BetterAuth Client. This will redirect the user to the Product Checkout.
 
 ```typescript
 await authClient.checkout({
-  // Any Polar Product ID can be passed here
+  // Any Repalis Product ID can be passed here
   products: ['e651f46d-ac20-4f26-b769-ad088b123df2'],
   // Or, if you setup "products" in the Checkout Config, you can pass the slug
   slug: 'pro',
@@ -320,7 +320,7 @@ If `authenticatedUsersOnly` is `false` - then it will be possible to trigger che
 
 ### Checkout Request Fields
 
-Arguments to `authClient.checkout()` and `authClient.checkoutEmbed()` use snake_case, matching the Polar SDK request fields:
+Arguments to `authClient.checkout()` and `authClient.checkoutEmbed()` use snake_case, matching the Repalis SDK request fields:
 
 - `products`: a product ID or array of product IDs.
 - `custom_field_data`, `metadata`: objects containing custom field values or metadata.
@@ -362,7 +362,7 @@ embed.addEventListener('success', (event) => {
 
 ### Metadata-based organization billing with `referenceId`
 
-The previous `referenceId` setup remains supported when you do not enable Polar organization synchronization. It also keeps working for existing unsynchronized organizations after synchronization is enabled. To use only the metadata-based setup, keep Better Auth's `organization()` plugin but omit the `experimental_organizationSync` option from `polar()`:
+The previous `referenceId` setup remains supported when you do not enable Repalis organization synchronization. It also keeps working for existing unsynchronized organizations after synchronization is enabled. To use only the metadata-based setup, keep Better Auth's `organization()` plugin but omit the `experimental_organizationSync` option from `polar()`:
 
 ```typescript
 const auth = betterAuth({
@@ -393,7 +393,7 @@ await authClient.checkout({
 })
 ```
 
-The checkout remains attached to the authenticated user's personal Polar customer. The `reference_id` argument is stored as `metadata.referenceId` on the checkout, order, and subscription, allowing subscriptions to be queried by organization ID:
+The checkout remains attached to the authenticated user's personal Repalis customer. The `reference_id` argument is stored as `metadata.referenceId` on the checkout, order, and subscription, allowing subscriptions to be queried by organization ID:
 
 ```typescript
 const { data: subscriptions } = await authClient.customer.subscriptions.list({
@@ -404,7 +404,7 @@ const { data: subscriptions } = await authClient.customer.subscriptions.list({
 })
 ```
 
-This is metadata-based tracking, not Polar team-customer billing. The adapter does not authorize Better Auth organization membership for `reference_id`, so your application must verify membership before using the result to grant access.
+This is metadata-based tracking, not Repalis team-customer billing. The adapter does not authorize Better Auth organization membership for `reference_id`, so your application must verify membership before using the result to grant access.
 
 If this is already how your application handles organization billing, keep using it and do not enable `experimental_organizationSync`. Existing billing objects are not migrated to the team customer, so mixing an established `referenceId` setup with experimental team-customer billing can produce an inconsistent billing state. Only applications with an explicit, reviewed cutover plan should enable `experimental_organizationSync` and use `organization_id` for checkout:
 
@@ -447,7 +447,7 @@ The portal-plugin gives the BetterAuth Client a set of customer management metho
 
 ### Customer Portal Management
 
-The following method will redirect the user to the Polar Customer Portal, where they can see orders, purchases, subscriptions, benefits, etc.
+The following method will redirect the user to the Repalis Customer Portal, where they can see orders, purchases, subscriptions, benefits, etc.
 
 ```typescript
 await authClient.customer.portal()
@@ -482,13 +482,13 @@ The customer state object contains:
 
 Thus, with that single object, you have all the required information to check if you should provision access to your service or not.
 
-[You can learn more about the Polar Customer State in the Polar Docs](https://docs.polar.sh/integrate/customer-state).
+[You can learn more about the Repalis Customer State in the Repalis Docs](https://repalis.com/docs/integrate/customer-state).
 
 ### Benefits, Orders & Subscriptions
 
 The portal plugin adds 3 convenient methods for listing benefits, orders & subscriptions relevant to the authenticated user/customer.
 
-These methods use the Polar Customer Portal API: [benefit grants](https://polar.sh/docs/api-reference/current/customer_portal/list-benefit-grants), [orders](https://polar.sh/docs/api-reference/current/customer_portal/list-orders) and [subscriptions](https://polar.sh/docs/api-reference/current/customer_portal/list-subscriptions).
+These methods use the Repalis Customer Portal API: [benefit grants](https://repalis.com/docs/api-reference/current/customer_portal/list-benefit-grants), [orders](https://repalis.com/docs/api-reference/current/customer_portal/list-orders) and [subscriptions](https://repalis.com/docs/api-reference/current/customer_portal/list-subscriptions).
 
 #### Benefits
 
@@ -533,7 +533,7 @@ const { data: subscriptions } = await authClient.customer.subscriptions.list({
 
 **Metadata-based organization filtering**
 
-When Polar organization synchronization is not enabled, pass the Better Auth organization ID as `reference_id`. This filters on the existing `metadata.referenceId` key and does not authorize Better Auth organization membership.
+When Repalis organization synchronization is not enabled, pass the Better Auth organization ID as `reference_id`. This filters on the existing `metadata.referenceId` key and does not authorize Better Auth organization membership.
 
 ```typescript
 const { data: subscriptions } = await authClient.customer.subscriptions.list({
@@ -546,7 +546,7 @@ const { data: subscriptions } = await authClient.customer.subscriptions.list({
 })
 ```
 
-For organization subscriptions, use `query.organizationId` instead. The adapter authorizes membership and uses a member-scoped Polar customer session:
+For organization subscriptions, use `query.organizationId` instead. The adapter authorizes membership and uses a member-scoped Repalis customer session:
 
 ```typescript
 const { data: subscriptions } = await authClient.customer.subscriptions.list({
@@ -583,9 +583,9 @@ const auth = betterAuth({
 
 ### Event Ingestion
 
-Polar's Usage Based Billing builds entirely on event ingestion. Ingest events from your application, create Meters to represent that usage, and add metered prices to Products to charge for it.
+Repalis's Usage Based Billing builds entirely on event ingestion. Ingest events from your application, create Meters to represent that usage, and add metered prices to Products to charge for it.
 
-[Learn more about Usage Based Billing in the Polar Docs.](https://docs.polar.sh/features/usage-based-billing/introduction)
+[Learn more about Usage Based Billing in the Repalis Docs.](https://repalis.com/docs/features/usage-based-billing/introduction)
 
 ```typescript
 const { data: ingested } = await authClient.usage.ingest({
@@ -626,7 +626,7 @@ const { data: customerMeters } = await authClient.usage.meters.list({
 
 ## Webhooks Plugin
 
-The Webhooks plugin can be used to capture incoming events from your Polar organization.
+The Webhooks plugin can be used to capture incoming events from your Repalis organization.
 
 ```typescript
 import { polar, webhooks } from "@polar-sh/better-auth";
@@ -653,7 +653,7 @@ const auth = betterAuth({
 });
 ```
 
-Configure a Webhook endpoint in your Polar Organization Settings page. The endpoint is served at `/polar/webhooks` under your Better Auth base path, which is `/api/auth/polar/webhooks` by default.
+Configure a Webhook endpoint in your Repalis Organization Settings page. The endpoint is served at `/polar/webhooks` under your Better Auth base path, which is `/api/auth/polar/webhooks` by default.
 
 Add the secret to your environment.
 
@@ -662,7 +662,7 @@ Add the secret to your environment.
 POLAR_WEBHOOK_SECRET=...
 ```
 
-The plugin supports handlers for all Polar webhook events:
+The plugin supports handlers for all Repalis webhook events:
 
 - `onPayload` - Called for every incoming Webhook event, in addition to the matching handler below
 - `onCheckoutCreated` - Triggered when a checkout is created
@@ -703,8 +703,8 @@ The plugin supports handlers for all Polar webhook events:
 - `onDiscountCreated` - Triggered when a discount is created
 - `onDiscountUpdated` - Triggered when a discount is updated
 - `onDiscountDeleted` - Triggered when a discount is deleted
-- `onMemberCreated` - Triggered when a Polar member is created
-- `onMemberUpdated` - Triggered when a Polar member is updated
-- `onMemberDeleted` - Triggered when a Polar member is deleted
+- `onMemberCreated` - Triggered when a Repalis member is created
+- `onMemberUpdated` - Triggered when a Repalis member is updated
+- `onMemberDeleted` - Triggered when a Repalis member is deleted
 
 Seat callbacks describe product-seat assignment and claim state; they do not replace Better Auth organization membership. Member webhook callbacks are notification-only. Better Auth is the organization roster source of truth: never create, update, or delete Better Auth memberships from these callbacks. Webhook delivery may be reordered or repeated, so handlers must be idempotent.

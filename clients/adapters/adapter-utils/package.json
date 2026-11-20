@@ -4,7 +4,7 @@
   "description": "Core package for Polar adapters",
   "repository": {
     "type": "git",
-    "url": "https://github.com/polarsource/polar.git",
+    "url": "https://github.com/repaliscom/Repalis.git",
     "directory": "clients/adapters/adapter-utils"
   },
   "main": "./dist/index.cjs",

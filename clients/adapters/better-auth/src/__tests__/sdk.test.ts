@@ -47,10 +47,10 @@ describe('SDK transport', () => {
     )
 
     expect(fetch.mock.calls[0]![0]).toBe(
-      'https://sandbox-api.polar.sh/v1/customers/external/org-123',
+      'https://sandbox-api.repalis.com/v1/customers/external/org-123',
     )
     const [url, init] = fetch.mock.calls[1]!
-    expect(url).toBe('https://sandbox-api.polar.sh/v1/customers/')
+    expect(url).toBe('https://sandbox-api.repalis.com/v1/customers/')
     expect(init.method).toBe('POST')
     expect(JSON.parse(init.body)).toEqual({
       external_id: 'org-123',
@@ -85,14 +85,14 @@ describe('SDK transport', () => {
 
     expect(result).toEqual(benefits)
     const [sessionUrl, sessionInit] = fetch.mock.calls[0]!
-    expect(sessionUrl).toBe('https://api.polar.sh/v1/customer-sessions/')
+    expect(sessionUrl).toBe('https://api.repalis.com/v1/customer-sessions/')
     expect(new Headers(sessionInit.headers).get('Authorization')).toBe(
       'Bearer organization-token',
     )
     const [benefitsUrl, benefitsInit] = fetch.mock.calls[1]!
     const url = new URL(benefitsUrl)
     expect(url.origin + url.pathname).toBe(
-      'https://api.polar.sh/v1/customer-portal/benefit-grants/',
+      'https://api.repalis.com/v1/customer-portal/benefit-grants/',
     )
     expect(url.searchParams.get('page')).toBe('2')
     expect(url.searchParams.get('limit')).toBe('10')

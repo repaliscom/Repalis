@@ -73,7 +73,7 @@ describe('CustomerPortal', () => {
     it('should create customer session and redirect when customerId is valid', async () => {
       const getCustomerId = vi.fn().mockResolvedValue('cust_123')
       mockCustomerSessionCreate.mockResolvedValue({
-        customer_portal_url: 'https://polar.sh/portal/session_123',
+        customer_portal_url: 'https://repalis.com/portal/session_123',
       })
 
       const portal = CustomerPortal({
@@ -92,14 +92,14 @@ describe('CustomerPortal', () => {
       })
       expect(response.status).toBe(307)
       expect(response.headers.get('location')).toBe(
-        'https://polar.sh/portal/session_123',
+        'https://repalis.com/portal/session_123',
       )
     })
 
     it('should create customer session and redirect when externalCustomerId is valid', async () => {
       const getExternalCustomerId = vi.fn().mockResolvedValue('external_123')
       mockCustomerSessionCreate.mockResolvedValue({
-        customer_portal_url: 'https://polar.sh/portal/session_123',
+        customer_portal_url: 'https://repalis.com/portal/session_123',
       })
 
       const portal = CustomerPortal({
@@ -118,7 +118,7 @@ describe('CustomerPortal', () => {
       })
       expect(response.status).toBe(307)
       expect(response.headers.get('location')).toBe(
-        'https://polar.sh/portal/session_123',
+        'https://repalis.com/portal/session_123',
       )
     })
 
@@ -149,7 +149,7 @@ describe('CustomerPortal', () => {
       })
 
       mockCustomerSessionCreate.mockResolvedValue({
-        customer_portal_url: 'https://polar.sh/portal/session_456',
+        customer_portal_url: 'https://repalis.com/portal/session_456',
       })
 
       const portal = CustomerPortal({

@@ -3,7 +3,7 @@
   "version": "1.1.1",
   "repository": {
     "type": "git",
-    "url": "https://github.com/polarsource/polar.git",
+    "url": "https://github.com/repaliscom/Repalis.git",
     "directory": "clients/adapters/nextjs"
   },
   "main": "./dist/index.cjs",

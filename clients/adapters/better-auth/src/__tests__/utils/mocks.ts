@@ -163,7 +163,7 @@ export const createMockProduct = () => ({
 export const createMockCheckout = () => ({
   id: 'checkout-123',
   client_secret: 'checkout_secret',
-  url: 'https://polar.sh/checkout/checkout-123',
+  url: 'https://repalis.com/checkout/checkout-123',
   customer_id: 'customer-123',
   customer_email: 'test@example.com',
   product_id: 'product-123',

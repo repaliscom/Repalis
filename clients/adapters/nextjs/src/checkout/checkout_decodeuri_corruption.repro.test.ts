@@ -51,7 +51,7 @@ describe('Checkout successUrl/returnUrl percent-escape preservation (decodeURI r
   beforeEach(() => {
     vi.clearAllMocks()
     mockCheckoutCreate.mockResolvedValue({
-      url: 'https://polar.sh/checkout/123',
+      url: 'https://repalis.com/checkout/123',
     })
   })
 
