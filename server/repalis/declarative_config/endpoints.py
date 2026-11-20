@@ -3,17 +3,17 @@ from typing import Annotated
 from fastapi import Depends, Query, status
 from pydantic import UUID4
 
-from polar.catalog.service import CatalogNotFound
-from polar.exceptions import NotPermitted, Unauthorized
-from polar.openapi import APITag, destructive
-from polar.postgres import (
+from repalis.catalog.service import CatalogNotFound
+from repalis.exceptions import NotPermitted, Unauthorized
+from repalis.openapi import APITag, destructive
+from repalis.postgres import (
     AsyncReadSession,
     AsyncSession,
     get_db_read_session,
     get_db_session,
 )
-from polar.redis import Redis, get_redis
-from polar.routing import APIRouter
+from repalis.redis import Redis, get_redis
+from repalis.routing import APIRouter
 
 from .auth import ConfigOrganizationWrite, ConfigRead, ConfigWrite
 from .schemas import (

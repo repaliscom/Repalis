@@ -1,9 +1,9 @@
 import pytest
 from cryptography.exceptions import InvalidTag
 
-from polar.config import Environment, settings
-from polar.kit import encryption
-from polar.kit.encryption import (
+from repalis.config import Environment, settings
+from repalis.kit import encryption
+from repalis.kit.encryption import (
     EncryptedString,
     EncryptedStringType,
     LocalKeyProvider,

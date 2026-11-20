@@ -4,18 +4,18 @@ from uuid import UUID
 from sqlalchemy import Select, func, select, update
 from sqlalchemy.orm import joinedload
 
-from polar.authz.types import AccessibleOrganizationID
-from polar.kit.repository import RepositoryBase
-from polar.kit.repository.base import Options
-from polar.models import (
+from repalis.authz.types import AccessibleOrganizationID
+from repalis.kit.repository import RepositoryBase
+from repalis.kit.repository.base import Options
+from repalis.models import (
     CustomerSeat,
     Order,
     Product,
     Subscription,
 )
-from polar.models.customer_seat import SeatStatus
-from polar.order.repository import OrderRepository, order_benefits_revoked_clause
-from polar.subscription.repository import SubscriptionRepository
+from repalis.models.customer_seat import SeatStatus
+from repalis.order.repository import OrderRepository, order_benefits_revoked_clause
+from repalis.subscription.repository import SubscriptionRepository
 
 SeatContainer = Subscription | Order
 

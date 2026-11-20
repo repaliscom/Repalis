@@ -5,22 +5,22 @@ import pytest
 from pytest_mock import MockerFixture
 from redis.exceptions import RedisError
 
-from polar.kit.utils import utc_now
-from polar.meter.aggregation import (
+from repalis.kit.utils import utc_now
+from repalis.meter.aggregation import (
     Aggregation,
     AggregationFunction,
     CountAggregation,
     PropertyAggregation,
     UniqueAggregation,
 )
-from polar.meter.repository import MeterRepository
-from polar.models import Meter, Organization, Reducer
-from polar.models.reducer import ReducerKind
-from polar.postgres import AsyncSession
-from polar.redis import Redis
-from polar.reducer import cache
-from polar.reducer.repository import ReducerRepository
-from polar.reducer.tasks import invalidate_cache
+from repalis.meter.repository import MeterRepository
+from repalis.models import Meter, Organization, Reducer
+from repalis.models.reducer import ReducerKind
+from repalis.postgres import AsyncSession
+from repalis.redis import Redis
+from repalis.reducer import cache
+from repalis.reducer.repository import ReducerRepository
+from repalis.reducer.tasks import invalidate_cache
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_reducer
 

@@ -4,13 +4,13 @@ from uuid import UUID
 
 import structlog
 
-from polar.benefit.grant.repository import BenefitGrantRepository
-from polar.benefit.repository import BenefitRepository
-from polar.exceptions import BadRequest, PolarError, ResourceNotFound
-from polar.kit import jwt
-from polar.kit.db.postgres import AsyncReadSession, AsyncSession
-from polar.kit.utils import utc_now
-from polar.models import SlackApp
+from repalis.benefit.grant.repository import BenefitGrantRepository
+from repalis.benefit.repository import BenefitRepository
+from repalis.exceptions import BadRequest, PolarError, ResourceNotFound
+from repalis.kit import jwt
+from repalis.kit.db.postgres import AsyncReadSession, AsyncSession
+from repalis.kit.utils import utc_now
+from repalis.models import SlackApp
 
 from .client import client as slack_client
 from .manifest import BOT_SCOPES

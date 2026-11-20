@@ -6,7 +6,7 @@ from fakeredis import FakeAsyncRedis, FakeRedis
 from pytest_mock import MockerFixture
 from redis import ConnectionPool
 
-from polar.worker._debounce import (
+from repalis.worker._debounce import (
     DebounceContext,
     DebounceMiddleware,
     check_debounce,

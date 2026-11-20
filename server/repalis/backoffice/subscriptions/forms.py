@@ -4,8 +4,8 @@ from typing import Annotated, Any
 
 from pydantic import Field, create_model, field_validator
 
-from polar.kit.schemas import EmptyStrToNone
-from polar.models.subscription import CustomerCancellationReason, SubscriptionStatus
+from repalis.kit.schemas import EmptyStrToNone
+from repalis.models.subscription import CustomerCancellationReason, SubscriptionStatus
 
 from .. import forms
 

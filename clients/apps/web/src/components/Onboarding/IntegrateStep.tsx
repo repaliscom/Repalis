@@ -121,7 +121,7 @@ redirect(checkout.url)`,
       icon: <PythonIcon size={24} />,
       pythonInstall: 'pip install repalis-sdk',
       code: `import os
-from polar_sdk import Repalis
+from repalis_sdk import Repalis
 
 with Repalis(
     access_token=os.environ.get("POLAR_ACCESS_TOKEN"),

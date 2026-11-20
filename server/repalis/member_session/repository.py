@@ -3,16 +3,16 @@ from uuid import UUID
 from sqlalchemy import delete, select
 from sqlalchemy.orm import contains_eager
 
-from polar.kit.crypto import get_token_hash_candidates
-from polar.kit.repository import (
+from repalis.kit.crypto import get_token_hash_candidates
+from repalis.kit.repository import (
     RepositoryBase,
     RepositorySoftDeletionIDMixin,
     RepositorySoftDeletionMixin,
     RepositoryTokenHashMixin,
 )
-from polar.kit.utils import utc_now
-from polar.models import Member, MemberSession
-from polar.models.customer import Customer
+from repalis.kit.utils import utc_now
+from repalis.models import Member, MemberSession
+from repalis.models.customer import Customer
 
 
 class MemberSessionRepository(

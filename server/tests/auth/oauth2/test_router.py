@@ -10,14 +10,14 @@ from pytest_mock import MockerFixture
 from reauth.factors.oauth2.base import OAuth2Account, OAuth2Enrollment
 from sqlalchemy import select
 
-from polar.auth.authentication_session import AuthenticationSessionService
-from polar.auth.exceptions import UnverifiedEmailError
-from polar.auth.oauth2.apple import AppleFactor
-from polar.auth.oauth2.google import GoogleFactor
-from polar.config import settings
-from polar.kit.utils import utc_now
-from polar.models import Organization, OrganizationDomain, User
-from polar.postgres import AsyncSession
+from repalis.auth.authentication_session import AuthenticationSessionService
+from repalis.auth.exceptions import UnverifiedEmailError
+from repalis.auth.oauth2.apple import AppleFactor
+from repalis.auth.oauth2.google import GoogleFactor
+from repalis.config import settings
+from repalis.kit.utils import utc_now
+from repalis.models import Organization, OrganizationDomain, User
+from repalis.postgres import AsyncSession
 from tests.auth.sso.test_endpoints import create_sso_connection
 from tests.fixtures.base import IsolatedSessionTestClient
 from tests.fixtures.database import SaveFixture

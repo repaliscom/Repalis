@@ -17,12 +17,12 @@ import dramatiq
 from dramatiq import Retry
 from dramatiq.middleware.current_message import CurrentMessage
 
-from polar.config import settings
-from polar.event.service import event as event_service
-from polar.kit.db.postgres import AsyncSession
-from polar.redis import Redis
-from polar.worker import JobQueueManager
-from polar.worker._enqueue import _job_queue_manager
+from repalis.config import settings
+from repalis.event.service import event as event_service
+from repalis.kit.db.postgres import AsyncSession
+from repalis.redis import Redis
+from repalis.worker import JobQueueManager
+from repalis.worker._enqueue import _job_queue_manager
 
 logger = logging.getLogger(__name__)
 

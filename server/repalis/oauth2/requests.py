@@ -11,8 +11,8 @@ from authlib.oauth2.rfc6749 import (
 from starlette.datastructures import URL, ImmutableMultiDict, UploadFile
 from starlette.requests import Request
 
-from polar.auth.models import AuthSubject
-from polar.models import OAuth2Client, User
+from repalis.auth.models import AuthSubject
+from repalis.models import OAuth2Client, User
 
 
 @dataclass

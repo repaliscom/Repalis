@@ -4,17 +4,17 @@ from uuid import UUID
 
 import structlog
 
-from polar.auth.models import Agent, AuthSubject
-from polar.customer_portal.service.downloadables import (
+from repalis.auth.models import Agent, AuthSubject
+from repalis.customer_portal.service.downloadables import (
     downloadable as downloadable_service,
 )
-from polar.exceptions import ValidationError
-from polar.file.repository import FileRepository
-from polar.kit.pagination import PaginationParams
-from polar.logging import Logger
-from polar.models import Benefit, Customer, File, Member, Organization, User
-from polar.models.benefit_grant import BenefitGrantScopeArgs
-from polar.postgres import AsyncReadSession
+from repalis.exceptions import ValidationError
+from repalis.file.repository import FileRepository
+from repalis.kit.pagination import PaginationParams
+from repalis.logging import Logger
+from repalis.models import Benefit, Customer, File, Member, Organization, User
+from repalis.models.benefit_grant import BenefitGrantScopeArgs
+from repalis.postgres import AsyncReadSession
 
 from ..base.service import BenefitPropertiesValidationError, BenefitServiceProtocol
 from . import schemas

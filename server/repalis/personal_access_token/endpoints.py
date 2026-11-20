@@ -1,12 +1,12 @@
 from fastapi import Depends
 from pydantic import UUID4
 
-from polar.authz.dependencies import AuthorizeWebUserRead, AuthorizeWebUserWrite
-from polar.exceptions import ResourceNotFound
-from polar.kit.pagination import ListResource, PaginationParamsQuery
-from polar.openapi import APITag
-from polar.postgres import AsyncSession, get_db_session
-from polar.routing import APIRouter
+from repalis.authz.dependencies import AuthorizeWebUserRead, AuthorizeWebUserWrite
+from repalis.exceptions import ResourceNotFound
+from repalis.kit.pagination import ListResource, PaginationParamsQuery
+from repalis.openapi import APITag
+from repalis.postgres import AsyncSession, get_db_session
+from repalis.routing import APIRouter
 
 from .schemas import PersonalAccessToken
 from .service import personal_access_token as personal_access_token_service

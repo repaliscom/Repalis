@@ -4,17 +4,17 @@ from uuid import UUID
 from sqlalchemy import Select
 from sqlalchemy.orm import joinedload
 
-from polar.authz.types import AccessibleOrganizationID
-from polar.kit.repository import (
+from repalis.authz.types import AccessibleOrganizationID
+from repalis.kit.repository import (
     RepositoryBase,
     RepositorySoftDeletionIDMixin,
     RepositorySoftDeletionMixin,
     RepositorySortingMixin,
     SortingClause,
 )
-from polar.kit.sorting import Sorting
-from polar.models import File
-from polar.models.file import FileServiceTypes
+from repalis.kit.sorting import Sorting
+from repalis.models import File
+from repalis.models.file import FileServiceTypes
 
 from .sorting import FileSortProperty
 

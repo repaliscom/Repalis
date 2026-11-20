@@ -9,8 +9,8 @@ import math
 from dataclasses import dataclass
 from datetime import UTC, datetime
 
-from polar.models import Organization
-from polar.organization_review.schemas import PaymentMetrics
+from repalis.models import Organization
+from repalis.organization_review.schemas import PaymentMetrics
 
 # Aging: 2.5 pts per day, capped at 50.
 # 10d → 25, 14d → 35, 20d → 50 (cap). Beats any single non-aging signal,

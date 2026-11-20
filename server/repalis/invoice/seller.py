@@ -6,8 +6,8 @@ party's billing country: if there's no entry for that country, no VAT
 number is shown.
 """
 
-from polar.config import settings
-from polar.kit.address import Address
+from repalis.config import settings
+from repalis.kit.address import Address
 
 # Locally-correct label for the tax registration line, by country. Any
 # country missing from this map falls back to "VAT".

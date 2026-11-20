@@ -6,12 +6,12 @@ from sqlalchemy import TIMESTAMP, ForeignKey, String, Uuid
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import Mapped, declared_attr, mapped_column, relationship
 
-from polar.kit.db.models import RecordModel
-from polar.organization_review.report import AnyAgentReport
+from repalis.kit.db.models import RecordModel
+from repalis.organization_review.report import AnyAgentReport
 
 if TYPE_CHECKING:
-    from polar.models.organization import Organization
-    from polar.models.organization_review_feedback import OrganizationReviewFeedback
+    from repalis.models.organization import Organization
+    from repalis.models.organization_review_feedback import OrganizationReviewFeedback
 
 
 class OrganizationAgentReview(RecordModel):
@@ -57,7 +57,7 @@ class OrganizationAgentReview(RecordModel):
         The result is *not* cached — call once and bind to a local variable
         if you need it multiple times in the same scope.
         """
-        from polar.organization_review.report import parse_agent_report
+        from repalis.organization_review.report import parse_agent_report
 
         return parse_agent_report(self.report)
 

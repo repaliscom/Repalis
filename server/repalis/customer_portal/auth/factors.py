@@ -10,13 +10,13 @@ from reauth.factors.email_otp import EmailOTPEnrollment
 from reauth.factors.email_otp import EmailOTPFactor as EmailOTPFactorBase
 from sqlalchemy import delete, select
 
-from polar.config import settings
-from polar.kit.crypto import get_legacy_secret
-from polar.kit.utils import utc_now
-from polar.member.repository import MemberRepository
-from polar.models import CustomerSessionEmailOTP
-from polar.organization.repository import OrganizationRepository
-from polar.postgres import AsyncSession, get_db_session
+from repalis.config import settings
+from repalis.kit.crypto import get_legacy_secret
+from repalis.kit.utils import utc_now
+from repalis.member.repository import MemberRepository
+from repalis.models import CustomerSessionEmailOTP
+from repalis.organization.repository import OrganizationRepository
+from repalis.postgres import AsyncSession, get_db_session
 
 from ..service.customer_session import OrganizationDoesNotExist
 from ..service.customer_session import customer_session as customer_session_service

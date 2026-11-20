@@ -2,9 +2,9 @@ from uuid import UUID
 
 from sqlalchemy import Select
 
-from polar.authz.types import AccessibleOrganizationID
-from polar.kit.repository import RepositoryBase, RepositoryIDMixin
-from polar.models import MetricDashboard
+from repalis.authz.types import AccessibleOrganizationID
+from repalis.kit.repository import RepositoryBase, RepositoryIDMixin
+from repalis.models import MetricDashboard
 
 
 class MetricDashboardRepository(

@@ -1,10 +1,10 @@
 from collections.abc import Sequence
 from uuid import UUID
 
-from polar.auth.models import AuthSubject
-from polar.models.notification_recipient import NotificationRecipient
-from polar.models.user import User
-from polar.postgres import AsyncSession
+from repalis.auth.models import AuthSubject
+from repalis.models.notification_recipient import NotificationRecipient
+from repalis.models.user import User
+from repalis.postgres import AsyncSession
 
 from .repository import NotificationRecipientRepository
 from .schemas import (

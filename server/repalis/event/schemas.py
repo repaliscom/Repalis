@@ -22,9 +22,9 @@ from pydantic_core import PydanticCustomError
 from pydantic_extra_types.timezone_name import TimeZoneName
 from typing_extensions import TypedDict
 
-from polar.customer.schemas.customer import CustomerID
-from polar.customer.schemas.customer import CustomerResponse as Customer
-from polar.event.system import (
+from repalis.customer.schemas.customer import CustomerID
+from repalis.customer.schemas.customer import CustomerResponse as Customer
+from repalis.event.system import (
     BalanceCreditOrderMetadata,
     BalanceDisputeMetadata,
     BalanceOrderMetadata,
@@ -58,27 +58,27 @@ from polar.event.system import (
     SubscriptionUpdateClearedMetadata,
     SubscriptionUpdatedMetadata,
 )
-from polar.event.system import SystemEvent as SystemEventEnum
-from polar.event_type.schemas import EventTypeWithStats
-from polar.kit.metadata import (
+from repalis.event.system import SystemEvent as SystemEventEnum
+from repalis.event_type.schemas import EventTypeWithStats
+from repalis.kit.metadata import (
     MAXIMUM_EVENT_NUMERIC_VALUE,
     METADATA_DESCRIPTION,
     EventMetadataValue,
 )
-from polar.kit.schemas import (
+from repalis.kit.schemas import (
     ClassName,
     IDSchema,
     MultipleQueryFilter,
     Schema,
     SetSchemaReference,
 )
-from polar.kit.time_queries import TimeInterval
-from polar.kit.versioning import QuerySchema, Version
-from polar.meter.filter import Filter
-from polar.meter.schemas import MeterID
-from polar.models.event import EventSource
-from polar.organization.schemas import OrganizationID
-from polar.version import V2027_01
+from repalis.kit.time_queries import TimeInterval
+from repalis.kit.versioning import QuerySchema, Version
+from repalis.meter.filter import Filter
+from repalis.meter.schemas import MeterID
+from repalis.models.event import EventSource
+from repalis.organization.schemas import OrganizationID
+from repalis.version import V2027_01
 
 _NAME_DESCRIPTION = "The name of the event."
 _SOURCE_DESCRIPTION = (

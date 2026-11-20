@@ -6,15 +6,15 @@ from uuid import UUID
 from sqlalchemy import Select, delete, func, select, update
 from sqlalchemy.orm import joinedload
 
-from polar.authz.types import AccessibleOrganizationID
-from polar.kit.db.locking import pg_advisory_xact_lock
-from polar.kit.repository import (
+from repalis.authz.types import AccessibleOrganizationID
+from repalis.kit.db.locking import pg_advisory_xact_lock
+from repalis.kit.repository import (
     Options,
     RepositoryBase,
     RepositorySoftDeletionIDMixin,
     RepositorySoftDeletionMixin,
 )
-from polar.models import (
+from repalis.models import (
     Benefit,
     Catalog,
     CatalogBenefit,
@@ -25,7 +25,7 @@ from polar.models import (
     Meter,
     Product,
 )
-from polar.models.catalog import CatalogStatus
+from repalis.models.catalog import CatalogStatus
 
 
 class CatalogMembership(NamedTuple):

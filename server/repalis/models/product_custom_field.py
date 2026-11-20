@@ -4,11 +4,11 @@ from uuid import UUID
 from sqlalchemy import ForeignKey, UniqueConstraint, Uuid
 from sqlalchemy.orm import Mapped, declared_attr, mapped_column, relationship
 
-from polar.custom_field.attachment import AttachedCustomFieldMixin
-from polar.kit.db.models import RecordModel
+from repalis.custom_field.attachment import AttachedCustomFieldMixin
+from repalis.kit.db.models import RecordModel
 
 if TYPE_CHECKING:
-    from polar.models import Product
+    from repalis.models import Product
 
 
 class ProductCustomField(AttachedCustomFieldMixin, RecordModel):

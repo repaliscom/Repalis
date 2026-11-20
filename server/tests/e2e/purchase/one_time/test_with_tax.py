@@ -10,10 +10,10 @@ from unittest.mock import MagicMock
 import pytest
 from httpx2 import AsyncClient
 
-from polar.enums import TaxBehavior, TaxProcessor
-from polar.kit.db.postgres import AsyncSession
-from polar.models import Organization, Product
-from polar.tax.calculation import TaxabilityReason
+from repalis.enums import TaxBehavior, TaxProcessor
+from repalis.kit.db.postgres import AsyncSession
+from repalis.models import Organization, Product
+from repalis.tax.calculation import TaxabilityReason
 from tests.e2e.conftest import E2E_AUTH
 from tests.e2e.infra import DrainFn, EmailCapture, StripeSimulator
 from tests.e2e.purchase.conftest import BILLING_ADDRESS, BUYER_EMAIL, BUYER_NAME

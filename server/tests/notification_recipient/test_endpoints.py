@@ -1,9 +1,9 @@
 import pytest
 from httpx2 import AsyncClient
 
-from polar.models import Organization, UserOrganization
-from polar.models.user import User
-from polar.notification_recipient.schemas import NotificationRecipientPlatform
+from repalis.models import Organization, UserOrganization
+from repalis.models.user import User
+from repalis.notification_recipient.schemas import NotificationRecipientPlatform
 from tests.fixtures.auth import AuthSubjectFixture
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_notification_recipient

@@ -1,9 +1,9 @@
 import typer
 from sqlalchemy import select
 
-from polar.integrations.resend.service import ACTIVE_ORGANIZATION_STATUSES
-from polar.models import User
-from polar.user_organization.repository import UserOrganizationRepository
+from repalis.integrations.resend.service import ACTIVE_ORGANIZATION_STATUSES
+from repalis.models import User
+from repalis.user_organization.repository import UserOrganizationRepository
 
 from .backfill_resend_id import enqueue_sync_users
 from .helper import typer_async

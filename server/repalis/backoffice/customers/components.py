@@ -4,9 +4,9 @@ from collections.abc import Generator, Sequence
 from fastapi import Request
 from tagflow import classes, tag, text
 
-from polar.customer.sorting import CustomerSortProperty
-from polar.kit.sorting import Sorting
-from polar.models import Customer
+from repalis.customer.sorting import CustomerSortProperty
+from repalis.kit.sorting import Sorting
+from repalis.models import Customer
 
 from ..components import datatable
 

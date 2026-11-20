@@ -2,15 +2,15 @@ import asyncio
 import hashlib
 from datetime import datetime
 
-from polar.config import settings
-from polar.customer.repository import CustomerRepository
-from polar.exceptions import PolarError
-from polar.integrations.aws.s3 import S3Service
-from polar.kit.db.postgres import AsyncSession
-from polar.models import CreditNote, CreditNoteItem, Refund
-from polar.models.credit_note import CreditNoteReason
-from polar.models.refund import RefundReason, RefundStatus
-from polar.order.repository import OrderRepository
+from repalis.config import settings
+from repalis.customer.repository import CustomerRepository
+from repalis.exceptions import PolarError
+from repalis.integrations.aws.s3 import S3Service
+from repalis.kit.db.postgres import AsyncSession
+from repalis.models import CreditNote, CreditNoteItem, Refund
+from repalis.models.credit_note import CreditNoteReason
+from repalis.models.refund import RefundReason, RefundStatus
+from repalis.order.repository import OrderRepository
 
 from .generator import CreditNote as CreditNoteDocument
 from .render import render_credit_note_pdf

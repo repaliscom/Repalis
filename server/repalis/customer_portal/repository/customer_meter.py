@@ -3,14 +3,14 @@ from uuid import UUID
 from sqlalchemy import Select, or_, select
 from sqlalchemy.dialects.postgresql import UUID as PGUUID
 
-from polar.auth.models import AuthSubject, Customer, Member
-from polar.kit.repository import (
+from repalis.auth.models import AuthSubject, Customer, Member
+from repalis.kit.repository import (
     RepositoryBase,
     RepositorySoftDeletionIDMixin,
     RepositorySoftDeletionMixin,
 )
-from polar.kit.repository.base import RepositorySortingMixin, SortingClause
-from polar.models import (
+from repalis.kit.repository.base import RepositorySortingMixin, SortingClause
+from repalis.models import (
     Benefit,
     BenefitGrant,
     CustomerMeter,
@@ -18,8 +18,8 @@ from polar.models import (
     Subscription,
     SubscriptionMeter,
 )
-from polar.models.benefit import BenefitType
-from polar.models.subscription import SubscriptionStatus
+from repalis.models.benefit import BenefitType
+from repalis.models.subscription import SubscriptionStatus
 
 from ..sorting.customer_meter import CustomerCustomerMeterSortProperty
 from ..utils import get_customer_id

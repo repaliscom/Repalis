@@ -5,11 +5,11 @@ import httpx2
 import pytest
 from pytest_mock import MockerFixture
 
-from polar.backoffice import app as backoffice_app
-from polar.backoffice.dependencies import get_admin
-from polar.models import Organization, PayoutAccount, User
-from polar.models.backoffice_user_session import BackofficeUserSession
-from polar.postgres import AsyncSession, get_db_read_session, get_db_session
+from repalis.backoffice import app as backoffice_app
+from repalis.backoffice.dependencies import get_admin
+from repalis.models import Organization, PayoutAccount, User
+from repalis.models.backoffice_user_session import BackofficeUserSession
+from repalis.postgres import AsyncSession, get_db_read_session, get_db_session
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (
     create_account,
@@ -169,7 +169,7 @@ class TestDelete:
         organization.payout_account = None
         await save_fixture(organization)
 
-        stripe_mock = mocker.patch("polar.payout_account.service.stripe")
+        stripe_mock = mocker.patch("repalis.payout_account.service.stripe")
         stripe_mock.account_exists = mocker.AsyncMock(return_value=True)
         stripe_mock.retrieve_balance = mocker.AsyncMock(return_value=(0, 0))
         stripe_mock.delete_account = mocker.AsyncMock(return_value=None)
@@ -200,7 +200,7 @@ class TestDelete:
             save_fixture, payout_account=payout_account, account=account
         )
 
-        stripe_mock = mocker.patch("polar.payout_account.service.stripe")
+        stripe_mock = mocker.patch("repalis.payout_account.service.stripe")
         stripe_mock.delete_account = mocker.AsyncMock(return_value=None)
 
         response = await backoffice_client.post(
@@ -226,7 +226,7 @@ class TestDelete:
             save_fixture, organization, user, stripe_id="acct_todelete"
         )
 
-        stripe_mock = mocker.patch("polar.payout_account.service.stripe")
+        stripe_mock = mocker.patch("repalis.payout_account.service.stripe")
         stripe_mock.delete_account = mocker.AsyncMock(return_value=None)
 
         response = await backoffice_client.post(

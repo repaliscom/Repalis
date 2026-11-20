@@ -1,9 +1,9 @@
 import pytest
 from sqlalchemy import select
 
-from polar.kit.db.postgres import AsyncSession
-from polar.kit.encryption import EncryptedString
-from polar.models import Organization, SlackApp
+from repalis.kit.db.postgres import AsyncSession
+from repalis.kit.encryption import EncryptedString
+from repalis.models import Organization, SlackApp
 from scripts.backfill_slack_app_encrypted_secrets import run_backfill
 from tests.fixtures.database import SaveFixture
 

@@ -2,13 +2,13 @@ from uuid import UUID
 
 from sqlalchemy import Select
 
-from polar.auth.models import AuthSubject, Customer, Member
-from polar.kit.repository import (
+from repalis.auth.models import AuthSubject, Customer, Member
+from repalis.kit.repository import (
     RepositoryBase,
     RepositorySoftDeletionIDMixin,
     RepositorySoftDeletionMixin,
 )
-from polar.models import PaymentMethod
+from repalis.models import PaymentMethod
 
 from ..utils import get_customer_id
 

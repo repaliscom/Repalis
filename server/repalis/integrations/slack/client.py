@@ -4,7 +4,7 @@ from typing import Any
 import httpx2
 import structlog
 
-from polar.exceptions import PolarError
+from repalis.exceptions import PolarError
 
 from .payload import SlackPayload
 

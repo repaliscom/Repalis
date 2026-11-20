@@ -1,9 +1,9 @@
 import uuid
 from typing import Annotated
 
-from polar.integrations.stripe.service import StripeAccountRejectReason
-from polar.observability.task_logging import LoggableField
-from polar.worker import AsyncSessionMaker, TaskPriority, actor
+from repalis.integrations.stripe.service import StripeAccountRejectReason
+from repalis.observability.task_logging import LoggableField
+from repalis.worker import AsyncSessionMaker, TaskPriority, actor
 
 from .service import payout_account as payout_account_service
 

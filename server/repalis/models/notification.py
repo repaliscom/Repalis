@@ -5,11 +5,11 @@ from sqlalchemy import ForeignKey, Index, String, Uuid
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from polar.kit.db.models import RecordModel
-from polar.types import JSONDict
+from repalis.kit.db.models import RecordModel
+from repalis.types import JSONDict
 
 if TYPE_CHECKING:
-    from polar.models import User
+    from repalis.models import User
 
 
 class Notification(RecordModel):

@@ -1,7 +1,7 @@
 from fastapi import Request, Response
 from fastapi.responses import JSONResponse, RedirectResponse
 
-from polar.kit.http import add_query_parameters
+from repalis.kit.http import add_query_parameters
 
 from .exceptions import PolarAuthRedirectionError, SSORequired
 

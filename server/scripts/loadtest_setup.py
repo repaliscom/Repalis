@@ -18,20 +18,20 @@ import dramatiq
 import typer
 from anyio import Path as AsyncPath
 
-import polar.tasks  # noqa: F401 - Import tasks to register all dramatiq actors
-from polar.auth.models import AuthSubject
-from polar.customer.schemas.customer import CustomerIndividualCreate
-from polar.customer.service import customer as customer_service
-from polar.kit.db.postgres import create_async_sessionmaker
-from polar.meter.aggregation import AggregationFunction, PropertyAggregation
-from polar.meter.filter import Filter, FilterClause, FilterConjunction, FilterOperator
-from polar.meter.schemas import MeterCreate
-from polar.meter.service import meter as meter_service
-from polar.organization.repository import OrganizationRepository
-from polar.postgres import AsyncSession, create_async_engine
-from polar.redis import create_redis
-from polar.user_organization.service import UserOrganizationService
-from polar.worker import JobQueueManager
+import repalis.tasks  # noqa: F401 - Import tasks to register all dramatiq actors
+from repalis.auth.models import AuthSubject
+from repalis.customer.schemas.customer import CustomerIndividualCreate
+from repalis.customer.service import customer as customer_service
+from repalis.kit.db.postgres import create_async_sessionmaker
+from repalis.meter.aggregation import AggregationFunction, PropertyAggregation
+from repalis.meter.filter import Filter, FilterClause, FilterConjunction, FilterOperator
+from repalis.meter.schemas import MeterCreate
+from repalis.meter.service import meter as meter_service
+from repalis.organization.repository import OrganizationRepository
+from repalis.postgres import AsyncSession, create_async_engine
+from repalis.redis import create_redis
+from repalis.user_organization.service import UserOrganizationService
+from repalis.worker import JobQueueManager
 
 cli = typer.Typer()
 

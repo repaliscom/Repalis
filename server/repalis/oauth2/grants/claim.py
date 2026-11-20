@@ -10,12 +10,12 @@ from authlib.oauth2.rfc8628 import (
     SlowDownError,
 )
 
-from polar.agent.identity_assertion import create_identity_assertion
-from polar.auth.scope import CLAIMED_AGENT_SCOPES
-from polar.kit.crypto import get_token_hash_candidates
-from polar.kit.utils import utc_now
-from polar.models import Agent
-from polar.models.agent import AgentStatus
+from repalis.agent.identity_assertion import create_identity_assertion
+from repalis.auth.scope import CLAIMED_AGENT_SCOPES
+from repalis.kit.crypto import get_token_hash_candidates
+from repalis.kit.utils import utc_now
+from repalis.models import Agent
+from repalis.models.agent import AgentStatus
 
 from ..constants import CLAIM_GRANT_TYPE, CLAIM_POLL_INTERVAL
 from ..sub_type import SubType

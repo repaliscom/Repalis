@@ -3,9 +3,9 @@ from typing import Annotated, Literal, Self
 from fastapi import Path
 from pydantic import UUID4, Discriminator, Field, TypeAdapter, model_validator
 
-from polar.dispute.schemas import Dispute
-from polar.exceptions import ResourceNotFound
-from polar.kit.schemas import (
+from repalis.dispute.schemas import Dispute
+from repalis.exceptions import ResourceNotFound
+from repalis.kit.schemas import (
     ClassName,
     IDSchema,
     MultipleQueryFilter,
@@ -13,15 +13,15 @@ from polar.kit.schemas import (
     SetSchemaReference,
     TimestampedSchema,
 )
-from polar.kit.versioning import QuerySchema
-from polar.models.dispute import DisputeStatus
-from polar.models.support_case import (
+from repalis.kit.versioning import QuerySchema
+from repalis.models.dispute import DisputeStatus
+from repalis.models.support_case import (
     DisputeWinReason,
     SupportCaseMessageAuthorKind,
     SupportCaseMessageType,
     SupportCaseType,
 )
-from polar.organization.schemas import OrganizationID
+from repalis.organization.schemas import OrganizationID
 
 SupportCaseID = Annotated[UUID4, Path(description="The support case ID.")]
 SupportCaseAttachmentID = Annotated[UUID4, Path(description="The attachment ID.")]

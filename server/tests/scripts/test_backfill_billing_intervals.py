@@ -2,14 +2,14 @@ from datetime import UTC, datetime, timedelta
 
 import pytest
 
-from polar.billing_interval.repository import BillingIntervalRepository
-from polar.billing_interval.service import billing_interval as billing_interval_service
-from polar.enums import SubscriptionRecurringInterval
-from polar.models import Customer, Meter, Organization, Product, Subscription
-from polar.models.billing_interval import UsagePolicy
-from polar.models.subscription import SubscriptionStatus
-from polar.postgres import AsyncSession
-from polar.product.tiers import Tiers, TierType
+from repalis.billing_interval.repository import BillingIntervalRepository
+from repalis.billing_interval.service import billing_interval as billing_interval_service
+from repalis.enums import SubscriptionRecurringInterval
+from repalis.models import Customer, Meter, Organization, Product, Subscription
+from repalis.models.billing_interval import UsagePolicy
+from repalis.models.subscription import SubscriptionStatus
+from repalis.postgres import AsyncSession
+from repalis.product.tiers import Tiers, TierType
 from scripts.backfill_billing_intervals import (
     backfill_batch,
     count_subscriptions_without_intervals,

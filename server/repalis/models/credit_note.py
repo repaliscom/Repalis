@@ -5,13 +5,13 @@ from uuid import UUID
 from sqlalchemy import BigInteger, ForeignKey, String, Uuid
 from sqlalchemy.orm import Mapped, declared_attr, mapped_column, relationship
 
-from polar.kit.address import Address, AddressType
-from polar.kit.db.models import RecordModel
-from polar.kit.extensions.sqlalchemy.types import StringEnum
-from polar.tax.tax_id import TaxID, TaxIDType
+from repalis.kit.address import Address, AddressType
+from repalis.kit.db.models import RecordModel
+from repalis.kit.extensions.sqlalchemy.types import StringEnum
+from repalis.tax.tax_id import TaxID, TaxIDType
 
 if TYPE_CHECKING:
-    from polar.models import CreditNoteItem, Order, Refund
+    from repalis.models import CreditNoteItem, Order, Refund
 
 
 class CreditNoteReason(StrEnum):

@@ -1,8 +1,8 @@
 from pydantic import Field
 
-from polar.customer.schemas.customer import ExternalCustomerID
-from polar.kit.versioning import QuerySchema
-from polar.models.member import MemberRole
+from repalis.customer.schemas.customer import ExternalCustomerID
+from repalis.kit.versioning import QuerySchema
+from repalis.models.member import MemberRole
 
 
 class MemberListParams(QuerySchema):

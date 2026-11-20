@@ -1,4 +1,4 @@
-from polar.kit.schemas import Schema
+from repalis.kit.schemas import Schema
 
 
 class GitHubInvitesBenefitRepository(Schema):

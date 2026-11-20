@@ -5,13 +5,13 @@ from decimal import Decimal
 
 import pytest
 
-from polar.config import Environment, settings
-from polar.enums import SubscriptionRecurringInterval
-from polar.kit.address import Address, CountryAlpha2
-from polar.kit.trial import TrialInterval
-from polar.models import Checkout, Meter, Organization, Product
-from polar.models.checkout import BillingAddressFieldMode, CheckoutStatus
-from polar.postgres import AsyncSession
+from repalis.config import Environment, settings
+from repalis.enums import SubscriptionRecurringInterval
+from repalis.kit.address import Address, CountryAlpha2
+from repalis.kit.trial import TrialInterval
+from repalis.models import Checkout, Meter, Organization, Product
+from repalis.models.checkout import BillingAddressFieldMode, CheckoutStatus
+from repalis.postgres import AsyncSession
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_checkout, create_product
 

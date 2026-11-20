@@ -5,8 +5,8 @@ from typing import Any
 
 import pytest
 
-from polar.enums import TaxBehavior
-from polar.merchant_migration.canonical import (
+from repalis.enums import TaxBehavior
+from repalis.merchant_migration.canonical import (
     CanonicalAccount,
     CanonicalCollectionMethod,
     CanonicalCustomer,
@@ -22,7 +22,7 @@ from polar.merchant_migration.canonical import (
     CanonicalSubscriptionAddOn,
     CanonicalSubscriptionStatus,
 )
-from polar.merchant_migration.precheck import (
+from repalis.merchant_migration.precheck import (
     archived_price_keys,
     classify_records,
     imports_archived,
@@ -31,7 +31,7 @@ from polar.merchant_migration.precheck import (
     precheck_engine,
     summarize_records,
 )
-from polar.merchant_migration.schemas import (
+from repalis.merchant_migration.schemas import (
     MerchantMigrationRecordItem,
     PrecheckEntity,
     PrecheckIssueLevel,
@@ -39,8 +39,8 @@ from polar.merchant_migration.schemas import (
     PrecheckRecordStatus,
     PrecheckReport,
 )
-from polar.models import Organization
-from polar.models.organization import OrganizationStatus
+from repalis.models import Organization
+from repalis.models.organization import OrganizationStatus
 from tests.merchant_migration._helpers import canonical_add_on, canonical_discount
 
 

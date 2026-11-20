@@ -6,8 +6,8 @@ import pytest
 from standardwebhooks.webhooks import EmptyWebhookSecretError
 from standardwebhooks.webhooks import Webhook as StandardWebhook
 
-from polar.kit.crypto import generate_token
-from polar.webhook.constants import WEBHOOK_SECRET_PREFIX
+from repalis.kit.crypto import generate_token
+from repalis.webhook.constants import WEBHOOK_SECRET_PREFIX
 from scripts.audit_webhook_signing_secrets import (
     EmptyKey,
     InvalidStandardSecret,

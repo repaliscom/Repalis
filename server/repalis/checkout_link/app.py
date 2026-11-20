@@ -2,9 +2,9 @@ from fastapi import FastAPI, Request
 from fastapi.responses import RedirectResponse
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
-from polar.config import settings
-from polar.exceptions import PolarError, ResourceNotFound
-from polar.kit.routing import TransactionalAPIRoute, get_api_router_class
+from repalis.config import settings
+from repalis.exceptions import PolarError, ResourceNotFound
+from repalis.kit.routing import TransactionalAPIRoute, get_api_router_class
 
 from .endpoints import redirect
 

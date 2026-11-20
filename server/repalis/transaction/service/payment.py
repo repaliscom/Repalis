@@ -5,14 +5,14 @@ import structlog
 from sqlalchemy import select
 from sqlalchemy.exc import IntegrityError
 
-from polar.integrations.stripe.service import stripe as stripe_service
-from polar.integrations.stripe.utils import get_expandable_id
-from polar.kit.math import polar_round
-from polar.logging import Logger
-from polar.models import Transaction
-from polar.models.transaction import Processor, TransactionType
-from polar.postgres import AsyncSession
-from polar.worker import enqueue_job
+from repalis.integrations.stripe.service import stripe as stripe_service
+from repalis.integrations.stripe.utils import get_expandable_id
+from repalis.kit.math import polar_round
+from repalis.logging import Logger
+from repalis.models import Transaction
+from repalis.models.transaction import Processor, TransactionType
+from repalis.postgres import AsyncSession
+from repalis.worker import enqueue_job
 
 from .base import BaseTransactionService, BaseTransactionServiceError
 

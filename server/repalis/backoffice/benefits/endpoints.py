@@ -8,22 +8,22 @@ from sqlalchemy import func, or_
 from sqlalchemy.orm import joinedload
 from tagflow import tag, text
 
-from polar.backoffice.routing import BackofficeRouter
-from polar.benefit import sorting
-from polar.benefit.repository import BenefitRepository
-from polar.benefit.sorting import BenefitSortProperty
-from polar.benefit.strategies.github_repository.properties import (
+from repalis.backoffice.routing import BackofficeRouter
+from repalis.benefit import sorting
+from repalis.benefit.repository import BenefitRepository
+from repalis.benefit.sorting import BenefitSortProperty
+from repalis.benefit.strategies.github_repository.properties import (
     BenefitGitHubRepositoryProperties,
 )
-from polar.integrations.github import client as github
-from polar.integrations.github_repository_benefit.service import (
+from repalis.integrations.github import client as github
+from repalis.integrations.github_repository_benefit.service import (
     github_repository_benefit_user_service,
 )
-from polar.kit.pagination import PaginationParamsQuery
-from polar.kit.schemas import empty_str_to_none
-from polar.models import Benefit
-from polar.models.benefit import BenefitType
-from polar.postgres import AsyncSession, get_db_read_session, get_db_session
+from repalis.kit.pagination import PaginationParamsQuery
+from repalis.kit.schemas import empty_str_to_none
+from repalis.models import Benefit
+from repalis.models.benefit import BenefitType
+from repalis.postgres import AsyncSession, get_db_read_session, get_db_session
 
 from ..components import button, datatable, description_list, input
 from ..layout import layout

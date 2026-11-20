@@ -7,11 +7,11 @@ import sentry_sdk
 import structlog
 from dramatiq.errors import Retry
 
-from polar.config import settings
-from polar.logfire import configure_logfire
-from polar.logging import Logger
-from polar.logging import configure as configure_logging
-from polar.sentry import configure_sentry
+from repalis.config import settings
+from repalis.logfire import configure_logfire
+from repalis.logging import Logger
+from repalis.logging import configure as configure_logging
+from repalis.sentry import configure_sentry
 
 from ._runner import RetryAction, bootstrap, plan_retry, run_task
 from ._sqs import (
@@ -93,7 +93,7 @@ def handler(event: dict[str, Any], context: Any) -> dict[str, Any]:
                 except Exception as exc:
                     sentry_sdk.capture_exception(exc)
                     log.exception(
-                        "polar.worker.sqs_task_failed",
+                        "repalis.worker.sqs_task_failed",
                         message_id=message_id,
                     )
                     if _apply_retry_backoff(record, exc):
@@ -129,7 +129,7 @@ def _apply_retry_backoff(record: dict[str, Any], exception: BaseException) -> bo
         if action is RetryAction.DEAD_LETTER:
             send_to_dlq(consumer_sqs_client, queue_arn, record["body"])
             log.info(
-                "polar.worker.sqs_retry_exhausted",
+                "repalis.worker.sqs_retry_exhausted",
                 actor=envelope.actor,
                 receive_count=receive_count,
             )
@@ -152,7 +152,7 @@ def _apply_retry_backoff(record: dict[str, Any], exception: BaseException) -> bo
                 consumer_sqs_client, queue_arn, retry_body, delay_seconds
             )
             log.info(
-                "polar.worker.sqs_retry_reenqueued",
+                "repalis.worker.sqs_retry_reenqueued",
                 actor=envelope.actor,
                 receive_count=receive_count,
                 backoff_seconds=delay_seconds,
@@ -172,7 +172,7 @@ def _apply_retry_backoff(record: dict[str, Any], exception: BaseException) -> bo
                 ),
             )
             log.info(
-                "polar.worker.sqs_retry_scheduled_eventbridge",
+                "repalis.worker.sqs_retry_scheduled_eventbridge",
                 actor=envelope.actor,
                 receive_count=receive_count,
                 backoff_seconds=delay_seconds,
@@ -186,7 +186,7 @@ def _apply_retry_backoff(record: dict[str, Any], exception: BaseException) -> bo
             delay_seconds,
         )
         log.info(
-            "polar.worker.sqs_retry_scheduled",
+            "repalis.worker.sqs_retry_scheduled",
             actor=envelope.actor,
             receive_count=receive_count,
             backoff_seconds=delay_seconds,
@@ -194,5 +194,5 @@ def _apply_retry_backoff(record: dict[str, Any], exception: BaseException) -> bo
         return True
     except Exception as exc:
         sentry_sdk.capture_exception(exc)
-        log.exception("polar.worker.sqs_backoff_failed")
+        log.exception("repalis.worker.sqs_backoff_failed")
         return True

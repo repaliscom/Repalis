@@ -6,23 +6,23 @@ from fastapi import Depends, Header, Query, Request
 from fastapi.responses import JSONResponse, RedirectResponse
 from pydantic import UUID4
 
-from polar.auth.models import AuthSubject
-from polar.auth.permission import OrganizationPermission
-from polar.authz.service import assert_organization_permission
-from polar.exceptions import BadRequest, ResourceNotFound, Unauthorized
-from polar.kit.db.postgres import AsyncReadSession as AsyncReadSessionT
-from polar.kit.db.postgres import AsyncSession as AsyncSessionT
-from polar.kit.http import ReturnTo, add_query_parameters, get_safe_return_url
-from polar.models import SlackApp
-from polar.openapi import APITag
-from polar.organization.repository import OrganizationRepository
-from polar.postgres import (
+from repalis.auth.models import AuthSubject
+from repalis.auth.permission import OrganizationPermission
+from repalis.authz.service import assert_organization_permission
+from repalis.exceptions import BadRequest, ResourceNotFound, Unauthorized
+from repalis.kit.db.postgres import AsyncReadSession as AsyncReadSessionT
+from repalis.kit.db.postgres import AsyncSession as AsyncSessionT
+from repalis.kit.http import ReturnTo, add_query_parameters, get_safe_return_url
+from repalis.models import SlackApp
+from repalis.openapi import APITag
+from repalis.organization.repository import OrganizationRepository
+from repalis.postgres import (
     AsyncReadSession,
     AsyncSession,
     get_db_read_session,
     get_db_session,
 )
-from polar.routing import APIRouter
+from repalis.routing import APIRouter
 
 from .auth import SlackIntegrationRead, SlackIntegrationWrite
 from .manifest import generate_manifest

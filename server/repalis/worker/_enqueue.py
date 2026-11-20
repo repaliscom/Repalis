@@ -13,9 +13,9 @@ import structlog
 from dramatiq.common import dq_name
 from redis.exceptions import RedisError
 
-from polar.config import settings
-from polar.logging import CorrelationID, Logger
-from polar.redis import Redis
+from repalis.config import settings
+from repalis.logging import CorrelationID, Logger
+from repalis.redis import Redis
 
 from . import _sqs
 from ._debounce import set_debounce_key
@@ -36,7 +36,7 @@ type JSONSerializable = (
 
 
 _job_queue_manager: contextvars.ContextVar["JobQueueManager | None"] = (
-    contextvars.ContextVar("polar.job_queue_manager")
+    contextvars.ContextVar("repalis.job_queue_manager")
 )
 
 FLUSH_BATCH_SIZE = 50
@@ -85,7 +85,7 @@ class JobQueueManager:
         **kwargs: JSONSerializable,
     ) -> None:
         self._enqueued_jobs.append((actor, args, kwargs, delay))
-        log.debug("polar.worker.job_enqueued", actor=actor, delay=delay)
+        log.debug("repalis.worker.job_enqueued", actor=actor, delay=delay)
 
     def enqueue_events(self, *event_ids: uuid.UUID) -> None:
         self._ingested_events.extend(event_ids)
@@ -169,7 +169,7 @@ class JobQueueManager:
 
         for actor_name, message_id in all_messages:
             log.debug(
-                "polar.worker.job_flushed", actor=actor_name, message_id=message_id
+                "repalis.worker.job_flushed", actor=actor_name, message_id=message_id
             )
 
         # Send SQS last so an SQS failure can't drop the Redis jobs above.
@@ -219,7 +219,7 @@ class JobQueueManager:
                 await pipeline.execute()
         except RedisError:
             log.warning(
-                "polar.worker.publish_failed",
+                "repalis.worker.publish_failed",
                 count=len(self._appended),
             )
 

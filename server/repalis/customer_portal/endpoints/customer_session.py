@@ -1,8 +1,8 @@
-from polar.auth.models import is_customer, is_member
-from polar.exceptions import PolarRequestValidationError
-from polar.models import CustomerSession, MemberSession
-from polar.openapi import APITag
-from polar.routing import APIRouter
+from repalis.auth.models import is_customer, is_member
+from repalis.exceptions import PolarRequestValidationError
+from repalis.models import CustomerSession, MemberSession
+from repalis.openapi import APITag
+from repalis.routing import APIRouter
 
 from .. import auth
 from ..schemas.customer_session import (

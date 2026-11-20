@@ -2,11 +2,11 @@ from datetime import datetime
 
 from pydantic import UUID4, Field
 
-from polar.enums import SubscriptionRecurringInterval
-from polar.kit.schemas import IDSchema, Schema, TimestampedSchema
-from polar.kit.versioning import QuerySchema
-from polar.models.pledge import PledgeState
-from polar.models.transaction import PlatformFeeType, Processor, TransactionType
+from repalis.enums import SubscriptionRecurringInterval
+from repalis.kit.schemas import IDSchema, Schema, TimestampedSchema
+from repalis.kit.versioning import QuerySchema
+from repalis.models.pledge import PledgeState
+from repalis.models.transaction import PlatformFeeType, Processor, TransactionType
 
 
 class TransactionUser(IDSchema, Schema):

@@ -5,24 +5,24 @@ from zoneinfo import ZoneInfo
 from fastapi import Depends, Path, Query
 from pydantic import UUID4
 
-from polar.exceptions import PolarRequestValidationError, ResourceNotFound
-from polar.kit.csv import CSVStreamingResponse, IterableCSVWriter
-from polar.kit.time_queries import (
+from repalis.exceptions import PolarRequestValidationError, ResourceNotFound
+from repalis.kit.csv import CSVStreamingResponse, IterableCSVWriter
+from repalis.kit.time_queries import (
     MAX_INTERVAL_DAYS,
     MIN_DATE,
     MIN_INTERVAL_DAYS,
     TimeInterval,
     is_under_limits,
 )
-from polar.openapi import APITag
-from polar.postgres import (
+from repalis.openapi import APITag
+from repalis.postgres import (
     AsyncReadSession,
     AsyncSession,
     get_db_read_session,
     get_db_session,
 )
-from polar.redis import Redis, get_redis
-from polar.routing import APIRouter
+from repalis.redis import Redis, get_redis
+from repalis.routing import APIRouter
 
 from . import auth
 from .metrics import METRICS

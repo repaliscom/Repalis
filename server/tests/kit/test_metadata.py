@@ -2,8 +2,8 @@ import pytest
 from fastapi import Request
 from pydantic import ValidationError
 
-from polar.exceptions import PolarRequestValidationError
-from polar.kit.metadata import MetadataInputMixin, _get_metadata_query
+from repalis.exceptions import PolarRequestValidationError
+from repalis.kit.metadata import MetadataInputMixin, _get_metadata_query
 
 
 class MetadataSchema(MetadataInputMixin): ...

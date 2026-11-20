@@ -1,8 +1,8 @@
 from typing import Any, Unpack, cast
 
-from polar.auth.models import Agent, AuthSubject
-from polar.models import Benefit, Customer, Member, Organization, User
-from polar.models.benefit_grant import BenefitGrantScopeArgs
+from repalis.auth.models import Agent, AuthSubject
+from repalis.models import Benefit, Customer, Member, Organization, User
+from repalis.models.benefit_grant import BenefitGrantScopeArgs
 
 from ..base.service import BenefitServiceProtocol
 from .properties import BenefitFeatureFlagProperties, BenefitGrantFeatureFlagProperties

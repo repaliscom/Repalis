@@ -3,10 +3,10 @@ from typing import Any
 
 from tagflow import document
 
-from polar.backoffice.organizations_v2.views.sections.risk_signals import (
+from repalis.backoffice.organizations_v2.views.sections.risk_signals import (
     render_risk_signals_card,
 )
-from polar.models import OrganizationRiskSignal
+from repalis.models import OrganizationRiskSignal
 
 
 def build_signal(

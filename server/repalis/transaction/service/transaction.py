@@ -9,21 +9,21 @@ from sqlalchemy.exc import NoResultFound
 from sqlalchemy.orm import joinedload, selectinload
 from sqlalchemy.sql.elements import OrderByList
 
-from polar.auth.models import AuthSubject
-from polar.auth.permission import OrganizationPermission
-from polar.authz.repository import select_accessible_org_ids
-from polar.kit.pagination import PaginationParams, paginate
-from polar.kit.sorting import Sorting
-from polar.models import (
+from repalis.auth.models import AuthSubject
+from repalis.auth.permission import OrganizationPermission
+from repalis.authz.repository import select_accessible_org_ids
+from repalis.kit.pagination import PaginationParams, paginate
+from repalis.kit.sorting import Sorting
+from repalis.models import (
     Account,
     Order,
     Product,
     Transaction,
     User,
 )
-from polar.models.organization import Organization
-from polar.models.transaction import PlatformFeeType, TransactionType
-from polar.postgres import AsyncReadSession, AsyncSession
+from repalis.models.organization import Organization
+from repalis.models.transaction import PlatformFeeType, TransactionType
+from repalis.postgres import AsyncReadSession, AsyncSession
 
 from ..schemas import (
     TransactionsBalance,

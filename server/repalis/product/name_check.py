@@ -9,7 +9,7 @@ from pydantic_ai.models.typesafe import TypeSafeModel
 from pydantic_ai.providers.typesafe import TypeSafeProvider
 from typesafe_sdk import AsyncTypeSafeClient, RetryPolicy
 
-from polar.config import settings
+from repalis.config import settings
 
 from .schemas import ProductNameCheck
 

@@ -33,14 +33,14 @@ from sqlalchemy import (
 from sqlalchemy.sql import Select
 from sqlalchemy.sql.util import ClauseAdapter
 
-from polar.event.repository import EventRepository
-from polar.kit.db.postgres import AsyncReadSession
-from polar.logging import Logger
-from polar.meter.aggregation import Aggregation, PropertyAggregation
-from polar.meter.filter import Filter, FilterClause, FilterConjunction, FilterOperator
-from polar.models import Event
-from polar.models.event import EventSource
-from polar.worker import MAX_JOB_PAYLOAD_BYTES
+from repalis.event.repository import EventRepository
+from repalis.kit.db.postgres import AsyncReadSession
+from repalis.logging import Logger
+from repalis.meter.aggregation import Aggregation, PropertyAggregation
+from repalis.meter.filter import Filter, FilterClause, FilterConjunction, FilterOperator
+from repalis.models import Event
+from repalis.models.event import EventSource
+from repalis.worker import MAX_JOB_PAYLOAD_BYTES
 
 from .client import client
 from .schemas import TinybirdEvent

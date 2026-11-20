@@ -1,6 +1,6 @@
 import json
 
-from polar.config import settings
+from repalis.config import settings
 
 _REDIRECT_PATH = "/v1/integrations/slack/callback"
 _EVENTS_PATH = "/v1/integrations/slack/events"

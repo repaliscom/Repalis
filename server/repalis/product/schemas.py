@@ -22,18 +22,18 @@ from pydantic.aliases import AliasChoices
 from pydantic.json_schema import SkipJsonSchema
 from pydantic_core import PydanticCustomError
 
-from polar.benefit.schemas import Benefit, BenefitID, BenefitPublic
-from polar.custom_field.schemas import (
+from repalis.benefit.schemas import Benefit, BenefitID, BenefitPublic
+from repalis.custom_field.schemas import (
     AttachedCustomField,
     AttachedCustomFieldListCreate,
 )
-from polar.enums import (
+from repalis.enums import (
     MeterInterval,
     SubscriptionRecurringInterval,
     TaxBehaviorOption,
 )
-from polar.file.schemas import ProductMediaFileRead
-from polar.kit.currency import (
+from repalis.file.schemas import ProductMediaFileRead
+from repalis.kit.currency import (
     MAXIMUM_PRICE_PER_CURRENCY_DOCSTRING,
     MINIMUM_PRICE_PER_CURRENCY_DOCSTRING,
     PresentmentCurrency,
@@ -41,13 +41,13 @@ from polar.kit.currency import (
     get_maximum_currency_amount,
     get_minimum_currency_amount,
 )
-from polar.kit.db.models import Model
-from polar.kit.external_id import ExternalIDInputMixin, ExternalIDOutputMixin
-from polar.kit.metadata import (
+from repalis.kit.db.models import Model
+from repalis.kit.external_id import ExternalIDInputMixin, ExternalIDOutputMixin
+from repalis.kit.metadata import (
     MetadataInputMixin,
     MetadataOutputMixin,
 )
-from polar.kit.schemas import (
+from repalis.kit.schemas import (
     EmptyStrToNoneValidator,
     IDSchema,
     Int32,
@@ -58,40 +58,40 @@ from polar.kit.schemas import (
     StripValidator,
     TimestampedSchema,
 )
-from polar.kit.trial import TrialConfigurationInputMixin, TrialConfigurationOutputMixin
-from polar.kit.versioning import QuerySchema, Version
-from polar.kit.visibility import Visibility
-from polar.meter.unit import MeterUnit
-from polar.models import Benefit as BenefitModel
-from polar.models.catalog import CatalogStatus
-from polar.models.product import ProductVisibility
-from polar.models.product_price import (
+from repalis.kit.trial import TrialConfigurationInputMixin, TrialConfigurationOutputMixin
+from repalis.kit.versioning import QuerySchema, Version
+from repalis.kit.visibility import Visibility
+from repalis.meter.unit import MeterUnit
+from repalis.models import Benefit as BenefitModel
+from repalis.models.catalog import CatalogStatus
+from repalis.models.product import ProductVisibility
+from repalis.models.product_price import (
     ProductPriceAmountType,
     ProductPriceSource,
     ProductPriceType,
 )
-from polar.models.product_price import (
+from repalis.models.product_price import (
     ProductPriceCustom as ProductPriceCustomModel,
 )
-from polar.models.product_price import (
+from repalis.models.product_price import (
     ProductPriceFixed as ProductPriceFixedModel,
 )
-from polar.models.product_price import (
+from repalis.models.product_price import (
     ProductPriceMeteredTiers as ProductPriceMeteredTiersModel,
 )
-from polar.models.product_price import (
+from repalis.models.product_price import (
     ProductPriceMeteredUnit as ProductPriceMeteredUnitModel,
 )
-from polar.models.product_price import (
+from repalis.models.product_price import (
     ProductPriceSeatUnit as ProductPriceSeatUnitModel,
 )
-from polar.models.product_price import (
+from repalis.models.product_price import (
     ProductPriceUnit as ProductPriceUnitModel,
 )
-from polar.openapi import destructive_when_equals
-from polar.organization.schemas import OrganizationID
-from polar.product.meter_interval import meter_interval_divides_billing_interval
-from polar.product.tiers import (
+from repalis.openapi import destructive_when_equals
+from repalis.organization.schemas import OrganizationID
+from repalis.product.meter_interval import meter_interval_divides_billing_interval
+from repalis.product.tiers import (
     BIGINT_MAX,
     NonContiguousTiersError,
     SeatTiersData,
@@ -103,7 +103,7 @@ from polar.product.tiers import (
     seat_tiers_unit_bounds,
     validate_unit_bounds,
 )
-from polar.version import V2026_10, V2027_01
+from repalis.version import V2026_10, V2027_01
 
 PRODUCT_NAME_MIN_LENGTH = 3
 PRODUCT_NAME_MAX_LENGTH = 64

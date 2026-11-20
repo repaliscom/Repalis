@@ -1,10 +1,10 @@
 from sqlalchemy import select
 from sqlalchemy.orm import selectinload
 
-from polar.kit.services import ResourceServiceReader
-from polar.kit.visibility import Visibility
-from polar.models import Organization, Product
-from polar.postgres import AsyncSession
+from repalis.kit.services import ResourceServiceReader
+from repalis.kit.visibility import Visibility
+from repalis.models import Organization, Product
+from repalis.postgres import AsyncSession
 
 
 class CustomerOrganizationService(ResourceServiceReader[Organization]):

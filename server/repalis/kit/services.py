@@ -5,7 +5,7 @@ from uuid import UUID
 from sqlalchemy.orm import InstrumentedAttribute
 from sqlalchemy.sql.base import ExecutableOption
 
-from polar.kit.utils import utc_now
+from repalis.kit.utils import utc_now
 
 from .db.models import RecordModel
 from .db.postgres import AsyncSession, sql

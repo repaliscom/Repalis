@@ -4,9 +4,9 @@ from functools import wraps
 import typer
 from sqlalchemy import select, update
 
-from polar.models.webhook_endpoint import WebhookEndpoint
-from polar.models.webhook_event import WebhookEvent
-from polar.version import CURRENT_API_VERSION
+from repalis.models.webhook_endpoint import WebhookEndpoint
+from repalis.models.webhook_event import WebhookEvent
+from repalis.version import CURRENT_API_VERSION
 from scripts.helper import (
     configure_script_logging,
     limit_bindparam,

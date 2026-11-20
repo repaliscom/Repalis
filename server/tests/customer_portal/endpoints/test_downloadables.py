@@ -5,15 +5,15 @@ import pytest
 from freezegun import freeze_time
 from httpx2 import AsyncClient
 
-from polar.benefit.strategies.downloadables.schemas import (
+from repalis.benefit.strategies.downloadables.schemas import (
     BenefitDownloadablesCreateProperties,
 )
-from polar.config import settings
-from polar.customer_portal.schemas.downloadables import DownloadableRead
-from polar.kit.utils import utc_now
-from polar.models import Customer, File, Organization, Product
-from polar.postgres import AsyncSession, sql
-from polar.redis import Redis
+from repalis.config import settings
+from repalis.customer_portal.schemas.downloadables import DownloadableRead
+from repalis.kit.utils import utc_now
+from repalis.models import Customer, File, Organization, Product
+from repalis.postgres import AsyncSession, sql
+from repalis.redis import Redis
 from tests.fixtures.auth import CUSTOMER_AUTH_SUBJECT
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.downloadable import TestDownloadable

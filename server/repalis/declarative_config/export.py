@@ -6,20 +6,20 @@ from pydantic import BaseModel, TypeAdapter, ValidationError
 from sqlalchemy import Select
 from sqlalchemy.orm import selectinload
 
-from polar.benefit.repository import BenefitRepository
-from polar.benefit.strategies.meter_credit.properties import (
+from repalis.benefit.repository import BenefitRepository
+from repalis.benefit.strategies.meter_credit.properties import (
     BenefitMeterCreditProperties,
 )
-from polar.catalog.repository import (
+from repalis.catalog.repository import (
     CatalogBenefitRepository,
     CatalogCustomFieldRepository,
     CatalogMeterRepository,
     CatalogProductRepository,
 )
-from polar.catalog.service import catalog as catalog_service
-from polar.custom_field.repository import CustomFieldRepository
-from polar.meter.repository import MeterRepository
-from polar.models import (
+from repalis.catalog.service import catalog as catalog_service
+from repalis.custom_field.repository import CustomFieldRepository
+from repalis.meter.repository import MeterRepository
+from repalis.models import (
     Benefit,
     Catalog,
     CustomField,
@@ -27,10 +27,10 @@ from polar.models import (
     Organization,
     Product,
 )
-from polar.models.benefit import BenefitType
-from polar.models.catalog import CatalogStatus
-from polar.postgres import AsyncReadSession
-from polar.product.repository import ProductRepository
+from repalis.models.benefit import BenefitType
+from repalis.models.catalog import CatalogStatus
+from repalis.postgres import AsyncReadSession
+from repalis.product.repository import ProductRepository
 
 from .schemas import (
     MAXIMUM_BENEFITS,

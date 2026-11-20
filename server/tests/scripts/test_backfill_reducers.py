@@ -1,12 +1,12 @@
 import pytest
 from sqlalchemy import select, update
 
-from polar.kit.db.postgres import AsyncSession
-from polar.kit.utils import utc_now
-from polar.meter.aggregation import AggregationFunction, PropertyAggregation
-from polar.models import Meter, MeterReducer, Organization, Reducer
-from polar.models.reducer import ReducerKind
-from polar.reducer.service import reducer as reducer_service
+from repalis.kit.db.postgres import AsyncSession
+from repalis.kit.utils import utc_now
+from repalis.meter.aggregation import AggregationFunction, PropertyAggregation
+from repalis.models import Meter, MeterReducer, Organization, Reducer
+from repalis.models.reducer import ReducerKind
+from repalis.reducer.service import reducer as reducer_service
 from scripts.backfill_reducers import backfill_batch
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_reducer

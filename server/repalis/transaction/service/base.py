@@ -2,11 +2,11 @@ import itertools
 
 from sqlalchemy import select
 
-from polar.exceptions import PolarError
-from polar.kit.services import ResourceServiceReader
-from polar.models import Transaction
-from polar.models.transaction import TransactionType
-from polar.postgres import AsyncSession
+from repalis.exceptions import PolarError
+from repalis.kit.services import ResourceServiceReader
+from repalis.models import Transaction
+from repalis.models.transaction import TransactionType
+from repalis.postgres import AsyncSession
 
 
 class BaseTransactionServiceError(PolarError): ...

@@ -6,22 +6,22 @@ import structlog
 from itsdangerous import BadSignature, SignatureExpired, URLSafeTimedSerializer
 from sqlalchemy.orm import contains_eager, joinedload
 
-from polar.auth.models import AuthSubject, Customer, Member
-from polar.config import settings
-from polar.exceptions import (
+from repalis.auth.models import AuthSubject, Customer, Member
+from repalis.config import settings
+from repalis.exceptions import (
     BadRequest,
     ResourceNotFound,
     ResourceUnavailable,
 )
-from polar.file.repository import FileRepository
-from polar.file.schemas import FileDownload
-from polar.file.service import file as file_service
-from polar.kit.pagination import PaginationParams, paginate
-from polar.kit.services import ResourceServiceReader
-from polar.kit.utils import utc_now
-from polar.models import Customer as CustomerModel
-from polar.models.downloadable import Downloadable, DownloadableStatus
-from polar.postgres import AsyncSession, sql
+from repalis.file.repository import FileRepository
+from repalis.file.schemas import FileDownload
+from repalis.file.service import file as file_service
+from repalis.kit.pagination import PaginationParams, paginate
+from repalis.kit.services import ResourceServiceReader
+from repalis.kit.utils import utc_now
+from repalis.models import Customer as CustomerModel
+from repalis.models.downloadable import Downloadable, DownloadableStatus
+from repalis.postgres import AsyncSession, sql
 
 from ..repository.downloadable import DownloadableRepository
 from ..schemas.downloadables import (

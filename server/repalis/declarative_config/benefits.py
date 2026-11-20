@@ -1,11 +1,11 @@
 from uuid import UUID
 
-from polar.benefit.strategies.feature_flag.schemas import (
+from repalis.benefit.strategies.feature_flag.schemas import (
     BenefitFeatureFlagCreate,
     BenefitFeatureFlagCreateProperties,
     BenefitFeatureFlagUpdate,
 )
-from polar.benefit.strategies.meter_credit.schemas import (
+from repalis.benefit.strategies.meter_credit.schemas import (
     BenefitMeterCreditCreate,
     BenefitMeterCreditCreateProperties,
     BenefitMeterCreditUpdate,

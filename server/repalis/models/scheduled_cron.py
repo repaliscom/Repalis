@@ -3,7 +3,7 @@ from datetime import datetime
 from sqlalchemy import TIMESTAMP, String
 from sqlalchemy.orm import Mapped, mapped_column
 
-from polar.kit.db.models import Model
+from repalis.kit.db.models import Model
 
 
 class ScheduledCron(Model):

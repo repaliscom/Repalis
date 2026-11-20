@@ -12,60 +12,60 @@ import structlog
 from sqlalchemy import func, select
 from sqlalchemy.orm import joinedload
 
-from polar.account.repository import AccountRepository
-from polar.auth.models import AuthSubject
-from polar.auth.permission import OrganizationPermission
-from polar.authz.service import get_accessible_org_ids
-from polar.billing_entry.service import billing_entry as billing_entry_service
-from polar.checkout.eventstream import CheckoutEvent, publish_checkout_event
-from polar.checkout.guard import has_product_checkout
-from polar.config import settings
-from polar.custom_field.data import validate_custom_field_data
-from polar.customer.repository import CustomerRepository
-from polar.customer.service import customer as customer_service
-from polar.customer_portal.schemas.order import (
+from repalis.account.repository import AccountRepository
+from repalis.auth.models import AuthSubject
+from repalis.auth.permission import OrganizationPermission
+from repalis.authz.service import get_accessible_org_ids
+from repalis.billing_entry.service import billing_entry as billing_entry_service
+from repalis.checkout.eventstream import CheckoutEvent, publish_checkout_event
+from repalis.checkout.guard import has_product_checkout
+from repalis.config import settings
+from repalis.custom_field.data import validate_custom_field_data
+from repalis.customer.repository import CustomerRepository
+from repalis.customer.service import customer as customer_service
+from repalis.customer_portal.schemas.order import (
     CustomerOrderPaymentConfirmation,
     CustomerOrderUpdate,
 )
-from polar.email.billing_migration import previous_billing_provider_for_notice
-from polar.email.schemas import EmailAdapter, EmailTemplate
-from polar.email.sender import Attachment, enqueue_email_template
-from polar.enums import (
+from repalis.email.billing_migration import previous_billing_provider_for_notice
+from repalis.email.schemas import EmailAdapter, EmailTemplate
+from repalis.email.sender import Attachment, enqueue_email_template
+from repalis.enums import (
     PaymentMode,
     PaymentProcessor,
     TaxBehavior,
 )
-from polar.event.repository import EventRepository
-from polar.event.service import event as event_service
-from polar.event.system import (
+from repalis.event.repository import EventRepository
+from repalis.event.service import event as event_service
+from repalis.event.system import (
     BalanceCreditOrderMetadata,
     BalanceOrderMetadata,
     OrderPaidMetadata,
     SystemEvent,
     build_system_event,
 )
-from polar.eventstream.service import publish as eventstream_publish
-from polar.exceptions import PolarError, PolarRequestValidationError, ValidationError
-from polar.file.s3 import S3_SERVICES
-from polar.integrations.stripe.service import (
+from repalis.eventstream.service import publish as eventstream_publish
+from repalis.exceptions import PolarError, PolarRequestValidationError, ValidationError
+from repalis.file.s3 import S3_SERVICES
+from repalis.integrations.stripe.service import (
     STRIPE_METADATA_PAYMENT_TRIGGER,
 )
-from polar.integrations.stripe.service import (
+from repalis.integrations.stripe.service import (
     stripe as stripe_service,
 )
-from polar.invoice.service import invoice as invoice_service
-from polar.kit.currency import (
+from repalis.invoice.service import invoice as invoice_service
+from repalis.kit.currency import (
     format_currency,
     get_maximum_currency_amount,
     get_minimum_currency_amount,
 )
-from polar.kit.db.postgres import AsyncReadSession, AsyncSession
-from polar.kit.metadata import MetadataQuery, apply_metadata_clause
-from polar.kit.pagination import PaginationParams
-from polar.kit.sorting import Sorting
-from polar.kit.utils import utc_now
-from polar.logging import Logger
-from polar.models import (
+from repalis.kit.db.postgres import AsyncReadSession, AsyncSession
+from repalis.kit.metadata import MetadataQuery, apply_metadata_clause
+from repalis.kit.pagination import PaginationParams
+from repalis.kit.sorting import Sorting
+from repalis.kit.utils import utc_now
+from repalis.logging import Logger
+from repalis.models import (
     Checkout,
     Customer,
     Discount,
@@ -81,61 +81,61 @@ from polar.models import (
     User,
     WalletTransaction,
 )
-from polar.models.discount import DiscountDuration, DiscountType
-from polar.models.order import OrderBillingReasonInternal, OrderStatus
-from polar.models.payment import PaymentTrigger
-from polar.models.product import ProductBillingType
-from polar.models.subscription import SubscriptionStatus
-from polar.models.transaction import TransactionType
-from polar.models.webhook_endpoint import WebhookEventType
-from polar.notifications.notification import (
+from repalis.models.discount import DiscountDuration, DiscountType
+from repalis.models.order import OrderBillingReasonInternal, OrderStatus
+from repalis.models.payment import PaymentTrigger
+from repalis.models.product import ProductBillingType
+from repalis.models.subscription import SubscriptionStatus
+from repalis.models.transaction import TransactionType
+from repalis.models.webhook_endpoint import WebhookEventType
+from repalis.notifications.notification import (
     MaintainerNewProductSaleNotificationPayload,
     MaintainerSubscriptionRenewalNotificationPayload,
     NotificationType,
 )
-from polar.notifications.service import PartialNotification
-from polar.notifications.service import notifications as notifications_service
-from polar.organization.repository import OrganizationRepository
-from polar.organization.service import organization as organization_service
-from polar.payment.repository import PaymentRepository
-from polar.payment.service import payment as payment_service
-from polar.payment_method.repository import PaymentMethodRepository
-from polar.payment_method.service import payment_method as payment_method_service
-from polar.product.guard import (
+from repalis.notifications.service import PartialNotification
+from repalis.notifications.service import notifications as notifications_service
+from repalis.organization.repository import OrganizationRepository
+from repalis.organization.service import organization as organization_service
+from repalis.payment.repository import PaymentRepository
+from repalis.payment.service import payment as payment_service
+from repalis.payment_method.repository import PaymentMethodRepository
+from repalis.payment_method.service import payment_method as payment_method_service
+from repalis.product.guard import (
     UnitPrice,
     is_custom_price,
     is_fixed_price,
     is_static_price,
     is_unit_price,
 )
-from polar.product.price_set import (
+from repalis.product.price_set import (
     NoPricesForCurrencies,
     PriceSet,
 )
-from polar.product.repository import ProductRepository
-from polar.product.unit_price import validate_unit_limits
-from polar.receipt.service import receipt as receipt_service
-from polar.subscription.repository import SubscriptionRepository
-from polar.subscription.service import SubscriptionUpdateContext
-from polar.subscription.service import subscription as subscription_service
-from polar.tax.calculation import (
+from repalis.product.repository import ProductRepository
+from repalis.product.unit_price import validate_unit_limits
+from repalis.receipt.service import receipt as receipt_service
+from repalis.subscription.repository import SubscriptionRepository
+from repalis.subscription.service import SubscriptionUpdateContext
+from repalis.subscription.service import subscription as subscription_service
+from repalis.tax.calculation import (
     CalculationExpiredError,
     TaxCalculationLogicalError,
     TaxCode,
 )
-from polar.tax.calculation import tax_calculation as tax_calculation_service
-from polar.tax.calculation.base import UnsupportedCountryError
-from polar.transaction.service.balance import PaymentTransactionForChargeDoesNotExist
-from polar.transaction.service.balance import (
+from repalis.tax.calculation import tax_calculation as tax_calculation_service
+from repalis.tax.calculation.base import UnsupportedCountryError
+from repalis.transaction.service.balance import PaymentTransactionForChargeDoesNotExist
+from repalis.transaction.service.balance import (
     balance_transaction as balance_transaction_service,
 )
-from polar.transaction.service.platform_fee import (
+from repalis.transaction.service.platform_fee import (
     platform_fee_transaction as platform_fee_transaction_service,
 )
-from polar.wallet.repository import WalletTransactionRepository
-from polar.wallet.service import wallet as wallet_service
-from polar.webhook.service import webhook as webhook_service
-from polar.worker import enqueue_job, make_bulk_job_delay_calculator
+from repalis.wallet.repository import WalletTransactionRepository
+from repalis.wallet.service import wallet as wallet_service
+from repalis.webhook.service import webhook as webhook_service
+from repalis.worker import enqueue_job, make_bulk_job_delay_calculator
 
 from .amounts import apply_wallet_balance, calculate_tax, compute_order_amounts
 from .repository import OrderRepository

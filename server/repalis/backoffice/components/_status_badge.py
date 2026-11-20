@@ -4,7 +4,7 @@ from typing import Any
 
 from tagflow import classes, tag, text
 
-from polar.models.organization import OrganizationStatus
+from repalis.models.organization import OrganizationStatus
 
 
 @contextlib.contextmanager

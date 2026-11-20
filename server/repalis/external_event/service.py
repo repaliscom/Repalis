@@ -3,12 +3,12 @@ import uuid
 from collections.abc import AsyncIterator
 from typing import Any, cast
 
-from polar.exceptions import PolarError
-from polar.kit.utils import utc_now
-from polar.models import ExternalEvent
-from polar.models.external_event import ExternalEventSource, StripeEvent
-from polar.postgres import AsyncSession
-from polar.worker import enqueue_job
+from repalis.exceptions import PolarError
+from repalis.kit.utils import utc_now
+from repalis.models import ExternalEvent
+from repalis.models.external_event import ExternalEventSource, StripeEvent
+from repalis.postgres import AsyncSession
+from repalis.worker import enqueue_job
 
 from .repository import ExternalEventRepository
 

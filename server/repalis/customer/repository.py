@@ -23,17 +23,17 @@ from sqlalchemy import (
 from sqlalchemy import inspect as orm_inspect
 from sqlalchemy.orm import InstanceState, InstrumentedAttribute
 
-from polar.authz.types import AccessibleOrganizationID
-from polar.event.system import CustomerUpdatedFields, SystemEvent
-from polar.kit.address import Address
-from polar.kit.repository import (
+from repalis.authz.types import AccessibleOrganizationID
+from repalis.event.system import CustomerUpdatedFields, SystemEvent
+from repalis.kit.address import Address
+from repalis.kit.repository import (
     Options,
     RepositoryBase,
     RepositorySoftDeletionIDMixin,
     RepositorySoftDeletionMixin,
 )
-from polar.kit.time_queries import TimeInterval, get_timestamp_series_cte
-from polar.models import (
+from repalis.kit.time_queries import TimeInterval, get_timestamp_series_cte
+from repalis.models import (
     Customer,
     MerchantMigrationRecord,
     MerchantMigrationRecordStatus,
@@ -41,10 +41,10 @@ from polar.models import (
     PaymentMethod,
     Subscription,
 )
-from polar.models.customer import EXTERNAL_ID_METADATA_KEY
-from polar.models.subscription import SubscriptionStatus
-from polar.models.webhook_endpoint import WebhookEventType
-from polar.worker import enqueue_job
+from repalis.models.customer import EXTERNAL_ID_METADATA_KEY
+from repalis.models.subscription import SubscriptionStatus
+from repalis.models.webhook_endpoint import WebhookEventType
+from repalis.worker import enqueue_job
 
 
 class CustomerStripeIdentity(NamedTuple):

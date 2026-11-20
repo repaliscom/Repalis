@@ -3,8 +3,8 @@ from typing import TYPE_CHECKING
 
 from pydantic import BaseModel
 
-from polar.auth.scope import SCOPES_SUPPORTED
-from polar.config import settings
+from repalis.auth.scope import SCOPES_SUPPORTED
+from repalis.config import settings
 
 from . import constants
 

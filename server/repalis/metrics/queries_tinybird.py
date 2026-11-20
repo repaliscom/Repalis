@@ -5,8 +5,8 @@ from enum import StrEnum
 from typing import Any
 from uuid import UUID
 
-from polar.integrations.tinybird.client import client as tinybird_client
-from polar.kit.time_queries import TimeInterval
+from repalis.integrations.tinybird.client import client as tinybird_client
+from repalis.kit.time_queries import TimeInterval
 
 
 class TinybirdQuery(StrEnum):

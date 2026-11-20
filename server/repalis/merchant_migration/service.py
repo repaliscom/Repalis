@@ -7,45 +7,45 @@ from uuid import UUID
 import stripe as stripe_lib
 import structlog
 
-from polar.auth.models import AuthSubject, Organization, User
-from polar.auth.permission import OrganizationPermission
-from polar.auth.scope import Scope
-from polar.authz.service import assert_organization_permission
-from polar.config import settings
-from polar.customer.repository import CustomerRepository, CustomerStripeIdentity
-from polar.exceptions import NotPermitted, PolarError
-from polar.kit.address import Address
-from polar.kit.db.postgres import AsyncSession
-from polar.kit.encryption import EncryptedString
-from polar.kit.pagination import PaginationParams
-from polar.kit.utils import utc_now
-from polar.logging import Logger
-from polar.models import (
+from repalis.auth.models import AuthSubject, Organization, User
+from repalis.auth.permission import OrganizationPermission
+from repalis.auth.scope import Scope
+from repalis.authz.service import assert_organization_permission
+from repalis.config import settings
+from repalis.customer.repository import CustomerRepository, CustomerStripeIdentity
+from repalis.exceptions import NotPermitted, PolarError
+from repalis.kit.address import Address
+from repalis.kit.db.postgres import AsyncSession
+from repalis.kit.encryption import EncryptedString
+from repalis.kit.pagination import PaginationParams
+from repalis.kit.utils import utc_now
+from repalis.logging import Logger
+from repalis.models import (
     Customer,
     MerchantMigration,
     MerchantMigrationRecord,
     PaymentMethod,
 )
-from polar.models.merchant_migration import (
+from repalis.models.merchant_migration import (
     MERCHANT_MIGRATION_FINISHED_STEPS,
     MerchantMigrationSourcePlatform,
     MerchantMigrationStep,
 )
-from polar.models.merchant_migration_operation import (
+from repalis.models.merchant_migration_operation import (
     MerchantMigrationOperation,
     MerchantMigrationOperationKind,
     MerchantMigrationOperationSelection,
     MerchantMigrationOperationStatus,
 )
-from polar.models.merchant_migration_record import (
+from repalis.models.merchant_migration_record import (
     MerchantMigrationCutoverStatus,
     MerchantMigrationRecordStatus,
     MerchantMigrationRecordType,
 )
-from polar.organization.repository import OrganizationRepository
-from polar.postgres import AsyncReadSession
-from polar.product.repository import ProductRepository
-from polar.worker import can_retry, enqueue_job
+from repalis.organization.repository import OrganizationRepository
+from repalis.postgres import AsyncReadSession
+from repalis.product.repository import ProductRepository
+from repalis.worker import can_retry, enqueue_job
 
 from . import pan_transfer
 from .adapters import PaginatedSourceAdapter, StripeAdapter

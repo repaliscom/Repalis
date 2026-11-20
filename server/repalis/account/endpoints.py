@@ -1,17 +1,17 @@
 from fastapi import Depends
 
-from polar.account_credit.repository import AccountCreditRepository
-from polar.account_credit.schemas import AccountCredit as AccountCreditSchema
-from polar.authz.dependencies import AuthorizeAccountRead, AuthorizeAccountWrite
-from polar.models import Account
-from polar.openapi import APITag
-from polar.postgres import (
+from repalis.account_credit.repository import AccountCreditRepository
+from repalis.account_credit.schemas import AccountCredit as AccountCreditSchema
+from repalis.authz.dependencies import AuthorizeAccountRead, AuthorizeAccountWrite
+from repalis.models import Account
+from repalis.openapi import APITag
+from repalis.postgres import (
     AsyncReadSession,
     AsyncSession,
     get_db_read_session,
     get_db_session,
 )
-from polar.routing import APIRouter
+from repalis.routing import APIRouter
 
 from .schemas import Account as AccountSchema
 from .schemas import AccountUpdate

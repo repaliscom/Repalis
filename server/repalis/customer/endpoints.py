@@ -5,32 +5,32 @@ from typing import Annotated
 from fastapi import Depends, Query
 from pydantic import TypeAdapter
 
-from polar.auth.permission import OrganizationPermission
-from polar.authz.service import (
+from repalis.auth.permission import OrganizationPermission
+from repalis.authz.service import (
     assert_resource_permission,
     get_accessible_org_ids,
 )
-from polar.customer.schemas.customer import (
+from repalis.customer.schemas.customer import (
     CustomerExportParams,
     CustomerGrowthParams,
     CustomerListParams,
     CustomerTopParams,
 )
-from polar.exceptions import ResourceNotFound
-from polar.kit.csv import CSVStreamingResponse, IterableCSVWriter
-from polar.kit.metadata import MetadataQuery, get_metadata_query_openapi_schema
-from polar.kit.pagination import ListResource, PaginationParamsQuery
-from polar.models import Customer, PaymentMethod
-from polar.openapi import APITag, cli_preview, destructive
-from polar.payment_method.schemas import PaymentMethodTypeAdapter
-from polar.postgres import (
+from repalis.exceptions import ResourceNotFound
+from repalis.kit.csv import CSVStreamingResponse, IterableCSVWriter
+from repalis.kit.metadata import MetadataQuery, get_metadata_query_openapi_schema
+from repalis.kit.pagination import ListResource, PaginationParamsQuery
+from repalis.models import Customer, PaymentMethod
+from repalis.openapi import APITag, cli_preview, destructive
+from repalis.payment_method.schemas import PaymentMethodTypeAdapter
+from repalis.postgres import (
     AsyncReadSession,
     AsyncSession,
     get_db_read_session,
     get_db_session,
 )
-from polar.redis import Redis, get_redis
-from polar.routing import APIRouter
+from repalis.redis import Redis, get_redis
+from repalis.routing import APIRouter
 
 from . import auth, sorting
 from .repository import CustomerRepository

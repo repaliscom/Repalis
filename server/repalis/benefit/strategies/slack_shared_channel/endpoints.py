@@ -3,13 +3,13 @@ from typing import Any
 from fastapi import Depends
 from pydantic import Field
 
-from polar.exceptions import PolarRequestValidationError
-from polar.kit.schemas import Schema
-from polar.openapi import APITag
-from polar.organization.resolver import get_payload_organization
-from polar.organization.schemas import OrganizationID
-from polar.postgres import AsyncSession, get_db_session
-from polar.routing import APIRouter
+from repalis.exceptions import PolarRequestValidationError
+from repalis.kit.schemas import Schema
+from repalis.openapi import APITag
+from repalis.organization.resolver import get_payload_organization
+from repalis.organization.schemas import OrganizationID
+from repalis.postgres import AsyncSession, get_db_session
+from repalis.routing import APIRouter
 
 from ...auth import SlackBenefitsWrite
 from .schemas import ChannelNameTemplate

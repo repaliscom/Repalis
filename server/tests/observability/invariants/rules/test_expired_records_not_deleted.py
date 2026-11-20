@@ -4,9 +4,9 @@ from typing import Any
 import pytest
 from pytest_mock import MockerFixture
 
-from polar.config import settings
-from polar.kit.utils import utc_now
-from polar.models import (
+from repalis.config import settings
+from repalis.kit.utils import utc_now
+from repalis.models import (
     AuthenticationSession,
     Customer,
     CustomerEmailVerification,
@@ -31,17 +31,17 @@ from polar.models import (
     WebhookDelivery,
     WebhookEvent,
 )
-from polar.models.checkout import CheckoutStatus
-from polar.models.email_log import EmailLogStatus
-from polar.models.external_event import ExternalEventSource
-from polar.models.webhook_endpoint import WebhookEventType
-from polar.oauth2.sub_type import SubType
-from polar.observability.invariants.rules.expired_records_not_deleted import (
+from repalis.models.checkout import CheckoutStatus
+from repalis.models.email_log import EmailLogStatus
+from repalis.models.external_event import ExternalEventSource
+from repalis.models.webhook_endpoint import WebhookEventType
+from repalis.oauth2.sub_type import SubType
+from repalis.observability.invariants.rules.expired_records_not_deleted import (
     CLEANUP_TASKS,
     ExpiredRecordsNotDeletedInvariant,
     ExpiredRecordsNotDeletedInvariantError,
 )
-from polar.postgres import AsyncSession
+from repalis.postgres import AsyncSession
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (
     create_checkout,

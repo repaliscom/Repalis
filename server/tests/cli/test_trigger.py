@@ -7,24 +7,24 @@ from typing import Any
 import pytest
 from pytest_mock import MockerFixture
 
-from polar.cli.fixtures import (
+from repalis.cli.fixtures import (
     SUPPORTED_EVENTS,
     TriggerFixtures,
     with_column_defaults,
 )
-from polar.cli.listener import mark_active
-from polar.cli.schemas import TriggerRequest
-from polar.cli.service import (
+from repalis.cli.listener import mark_active
+from repalis.cli.schemas import TriggerRequest
+from repalis.cli.service import (
     NoActiveListener,
     apply_overrides,
     list_trigger_events,
     trigger_event,
 )
-from polar.exceptions import PolarRequestValidationError
-from polar.models import Organization
-from polar.models.organization import STATUS_CAPABILITIES, OrganizationStatus
-from polar.models.webhook_endpoint import WebhookEventType
-from polar.redis import Redis
+from repalis.exceptions import PolarRequestValidationError
+from repalis.models import Organization
+from repalis.models.organization import STATUS_CAPABILITIES, OrganizationStatus
+from repalis.models.webhook_endpoint import WebhookEventType
+from repalis.redis import Redis
 
 
 @pytest.fixture
@@ -202,7 +202,7 @@ class TestTriggerEvent:
     async def test_publishes_to_the_listener(
         self, redis: Redis, organization: Organization, mocker: MockerFixture
     ) -> None:
-        publish = mocker.patch("polar.cli.service.publish_webhook_event")
+        publish = mocker.patch("repalis.cli.service.publish_webhook_event")
         await mark_active(redis, organization.id)
 
         response = await trigger_event(
@@ -228,7 +228,7 @@ class TestTriggerEvent:
     async def test_skips_delivery_when_asked(
         self, redis: Redis, organization: Organization, mocker: MockerFixture
     ) -> None:
-        publish = mocker.patch("polar.cli.service.publish_webhook_event")
+        publish = mocker.patch("repalis.cli.service.publish_webhook_event")
 
         response = await trigger_event(
             redis,
@@ -274,7 +274,7 @@ class TestTriggerEvent:
     async def test_response_payload_matches_what_is_delivered(
         self, redis: Redis, organization: Organization, mocker: MockerFixture
     ) -> None:
-        publish = mocker.patch("polar.cli.service.publish_webhook_event")
+        publish = mocker.patch("repalis.cli.service.publish_webhook_event")
         await mark_active(redis, organization.id)
 
         response = await trigger_event(

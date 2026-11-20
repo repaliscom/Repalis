@@ -1,6 +1,6 @@
 import pytest
 
-from polar.kit.email import EmailNotValidError, normalize_email, unalias_email
+from repalis.kit.email import EmailNotValidError, normalize_email, unalias_email
 
 
 class TestUnaliasEmail:

@@ -2,10 +2,10 @@ from typing import Annotated
 
 from fastapi import Depends, Query
 
-from polar.kit.pagination import ListResource, PaginationParamsQuery
-from polar.openapi import APITag
-from polar.postgres import AsyncReadSession, get_db_read_session
-from polar.routing import APIRouter
+from repalis.kit.pagination import ListResource, PaginationParamsQuery
+from repalis.openapi import APITag
+from repalis.postgres import AsyncReadSession, get_db_read_session
+from repalis.routing import APIRouter
 
 from . import auth, sorting
 from .schemas import (

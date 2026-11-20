@@ -2,7 +2,7 @@ from fastapi import Request
 from fastapi.responses import Response
 from tagflow import tag, text
 
-from polar.exceptions import PolarError
+from repalis.exceptions import PolarError
 
 from .layout import layout
 from .responses import TagResponse

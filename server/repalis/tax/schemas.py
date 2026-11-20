@@ -4,9 +4,9 @@ from typing import Any, cast
 import pycountry
 from pydantic import Field, computed_field
 
-from polar.kit.schemas import MultipleQueryFilter, Schema
-from polar.kit.versioning import QuerySchema
-from polar.organization.schemas import OrganizationID
+from repalis.kit.schemas import MultipleQueryFilter, Schema
+from repalis.kit.versioning import QuerySchema
+from repalis.organization.schemas import OrganizationID
 
 
 class TaxJurisdiction(Schema):

@@ -9,7 +9,7 @@ Create Date: 2026-08-24 09:11:37.802689
 import sqlalchemy as sa
 from alembic import op
 
-from polar.kit.versioning import APIVersionType
+from repalis.kit.versioning import APIVersionType
 
 # Polar Custom Imports
 

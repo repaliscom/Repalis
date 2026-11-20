@@ -9,17 +9,17 @@ from sqlalchemy import Boolean, ForeignKey, Index, Text, Uuid, text
 from sqlalchemy.dialects.postgresql import JSONB, TSVECTOR
 from sqlalchemy.orm import Mapped, declared_attr, mapped_column, relationship
 
-from polar.exceptions import PolarError
-from polar.kit.db.models import RecordModel
-from polar.kit.extensions.sqlalchemy.types import StringEnum
-from polar.kit.external_id import ExternalIDMixin
-from polar.kit.metadata import MetadataMixin
-from polar.kit.schemas import SetSchemaReference
-from polar.kit.visibility import Visibility, VisibilityMixin
+from repalis.exceptions import PolarError
+from repalis.kit.db.models import RecordModel
+from repalis.kit.extensions.sqlalchemy.types import StringEnum
+from repalis.kit.external_id import ExternalIDMixin
+from repalis.kit.metadata import MetadataMixin
+from repalis.kit.schemas import SetSchemaReference
+from repalis.kit.visibility import Visibility, VisibilityMixin
 
 if TYPE_CHECKING:
-    from polar.benefit.strategies import BenefitProperties
-    from polar.models import BenefitGrant, Catalog, Organization
+    from repalis.benefit.strategies import BenefitProperties
+    from repalis.models import BenefitGrant, Catalog, Organization
 
 
 class TaxApplicationMustBeSpecified(PolarError):

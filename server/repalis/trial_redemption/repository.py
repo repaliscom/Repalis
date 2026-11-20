@@ -2,8 +2,8 @@ from uuid import UUID
 
 from sqlalchemy import ColumnExpressionArgument, func, or_, select
 
-from polar.kit.repository import RepositoryBase
-from polar.models import Customer, TrialRedemption
+from repalis.kit.repository import RepositoryBase
+from repalis.models import Customer, TrialRedemption
 
 
 class TrialRedemptionRepository(RepositoryBase[TrialRedemption]):

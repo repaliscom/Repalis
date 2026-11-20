@@ -13,8 +13,8 @@ from fastapi import Request
 from fastapi.datastructures import URL
 from tagflow import attr, classes, tag, text
 
-from polar.kit.pagination import PaginationParams
-from polar.kit.sorting import Sorting
+from repalis.kit.pagination import PaginationParams
+from repalis.kit.sorting import Sorting
 
 from .. import formatters
 from ._clipboard_button import clipboard_button

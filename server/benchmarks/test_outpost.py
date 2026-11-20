@@ -7,28 +7,28 @@ from decimal import Decimal
 import pytest
 from pytest_codspeed import BenchmarkFixture
 
-from polar.kit.db.postgres import AsyncSession
-from polar.kit.utils import utc_now
-from polar.models import (
+from repalis.kit.db.postgres import AsyncSession
+from repalis.kit.utils import utc_now
+from repalis.models import (
     Event,
     Organization,
     Reducer,
     ReducerBucket,
 )
-from polar.models.event import EventSource
-from polar.models.reducer import ReducerKind
-from polar.outpost.schemas import (
+from repalis.models.event import EventSource
+from repalis.models.reducer import ReducerKind
+from repalis.outpost.schemas import (
     Changes,
     Confirmation,
     ExternalCustomerConfirmRequest,
     ExternalCustomerMeterUsageIdentity,
     Snapshot,
 )
-from polar.outpost.service import SYNCED_LOOKBACK
-from polar.outpost.service import outpost as outpost_service
-from polar.outpost.stream import Cursor, get_changes_key
-from polar.redis import Redis
-from polar.reducer.service import REDUCER_BUCKET_SIZE, get_reducer_bucket_start
+from repalis.outpost.service import SYNCED_LOOKBACK
+from repalis.outpost.service import outpost as outpost_service
+from repalis.outpost.stream import Cursor, get_changes_key
+from repalis.redis import Redis
+from repalis.reducer.service import REDUCER_BUCKET_SIZE, get_reducer_bucket_start
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (
     METER_TEST_EVENT,

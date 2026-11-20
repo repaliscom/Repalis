@@ -3,7 +3,7 @@ from typing import TYPE_CHECKING
 
 import anyio
 
-from polar.config import settings
+from repalis.config import settings
 
 if TYPE_CHECKING:
     from .schemas import Email

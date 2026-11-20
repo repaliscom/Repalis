@@ -4,12 +4,12 @@ from fastapi import APIRouter as _APIRouter
 from fastapi import Depends
 from fastapi.routing import APIRoute
 
-from polar.auth.dependencies import Authenticator
-from polar.auth.models import AuthSubject
-from polar.auth.scope import Scope
-from polar.models import Organization
-from polar.openapi import APITag
-from polar.routing import APIRouter
+from repalis.auth.dependencies import Authenticator
+from repalis.auth.models import AuthSubject
+from repalis.auth.scope import Scope
+from repalis.models import Organization
+from repalis.openapi import APITag
+from repalis.routing import APIRouter
 
 _Auth = Annotated[
     AuthSubject[Organization],

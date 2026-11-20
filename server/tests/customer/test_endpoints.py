@@ -4,9 +4,9 @@ from datetime import UTC, datetime, timedelta
 import pytest
 from httpx2 import AsyncClient
 
-from polar.kit.utils import utc_now
-from polar.member.repository import MemberRepository
-from polar.models import (
+from repalis.kit.utils import utc_now
+from repalis.member.repository import MemberRepository
+from repalis.models import (
     Benefit,
     Customer,
     Member,
@@ -16,11 +16,11 @@ from polar.models import (
     User,
     UserOrganization,
 )
-from polar.models.customer import CustomerType, _avatar_url_for_email
-from polar.models.subscription import SubscriptionStatus
-from polar.models.user_organization import OrganizationRole
-from polar.postgres import AsyncSession
-from polar.tax.tax_id import TaxIDFormat
+from repalis.models.customer import CustomerType, _avatar_url_for_email
+from repalis.models.subscription import SubscriptionStatus
+from repalis.models.user_organization import OrganizationRole
+from repalis.postgres import AsyncSession
+from repalis.tax.tax_id import TaxIDFormat
 from tests.fixtures.auth import AuthSubjectFixture
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (

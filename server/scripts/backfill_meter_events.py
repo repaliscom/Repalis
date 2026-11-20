@@ -12,12 +12,12 @@ from rich.progress import Progress
 from sqlalchemy import CursorResult, literal, or_, select
 from sqlalchemy.dialects.postgresql import insert
 
-from polar.config import settings
-from polar.event.repository import EventRepository
-from polar.kit.db.postgres import AsyncSession, create_async_sessionmaker
-from polar.kit.db.postgres import create_async_engine as _create_async_engine
-from polar.meter.repository import MeterRepository
-from polar.models import Event, Meter, MeterEvent
+from repalis.config import settings
+from repalis.event.repository import EventRepository
+from repalis.kit.db.postgres import AsyncSession, create_async_sessionmaker
+from repalis.kit.db.postgres import create_async_engine as _create_async_engine
+from repalis.meter.repository import MeterRepository
+from repalis.models import Event, Meter, MeterEvent
 
 cli = typer.Typer()
 

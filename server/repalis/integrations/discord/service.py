@@ -1,8 +1,8 @@
 import structlog
 
-from polar.config import settings
-from polar.exceptions import PolarError
-from polar.logging import Logger
+from repalis.config import settings
+from repalis.exceptions import PolarError
+from repalis.logging import Logger
 
 from .client import bot_client
 from .schemas import DiscordGuild, DiscordGuildRole

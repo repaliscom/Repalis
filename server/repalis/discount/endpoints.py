@@ -3,15 +3,15 @@ from typing import Annotated
 from fastapi import Depends, Path, Query
 from pydantic import UUID4
 
-from polar.exceptions import ResourceNotFound
-from polar.kit.pagination import ListResource, PaginationParamsQuery
-from polar.kit.schemas import SetSchemaReference
-from polar.kit.versioning import version
-from polar.models import Discount
-from polar.openapi import APITag, cli_preview
-from polar.postgres import AsyncSession, get_db_session
-from polar.routing import APIRouter
-from polar.version import V2027_01
+from repalis.exceptions import ResourceNotFound
+from repalis.kit.pagination import ListResource, PaginationParamsQuery
+from repalis.kit.schemas import SetSchemaReference
+from repalis.kit.versioning import version
+from repalis.models import Discount
+from repalis.openapi import APITag, cli_preview
+from repalis.postgres import AsyncSession, get_db_session
+from repalis.routing import APIRouter
+from repalis.version import V2027_01
 
 from . import auth, legacy_schemas, sorting
 from .schemas import Discount as DiscountSchema

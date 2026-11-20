@@ -9,7 +9,7 @@ import anyio
 
 RENDER_CONTEXT = multiprocessing.get_context("forkserver")
 # Share imports, but reclaim the fonts and PDF state after every render.
-RENDER_CONTEXT.set_forkserver_preload(["polar.invoice._renderer_bootstrap"])
+RENDER_CONTEXT.set_forkserver_preload(["repalis.invoice._renderer_bootstrap"])
 
 PASSTHROUGH_ENV_VARS = {
     "HOME",

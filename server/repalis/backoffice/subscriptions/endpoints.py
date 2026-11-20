@@ -9,10 +9,10 @@ from sqlalchemy import func, or_
 from sqlalchemy.orm import contains_eager, joinedload, selectinload
 from tagflow import classes, tag, text
 
-from polar.backoffice.routing import BackofficeRouter
-from polar.kit.pagination import PaginationParamsQuery
-from polar.kit.schemas import empty_str_to_none
-from polar.models import (
+from repalis.backoffice.routing import BackofficeRouter
+from repalis.kit.pagination import PaginationParamsQuery
+from repalis.kit.schemas import empty_str_to_none
+from repalis.models import (
     Customer,
     Order,
     Organization,
@@ -20,15 +20,15 @@ from polar.models import (
     Subscription,
     SubscriptionMeter,
 )
-from polar.models.subscription import SubscriptionStatus
-from polar.order.repository import OrderRepository
-from polar.order.service import order as order_service
-from polar.postgres import AsyncSession, get_db_read_session, get_db_session
-from polar.subscription import sorting
-from polar.subscription.repository import SubscriptionRepository
-from polar.subscription.service import SubscriptionUpdateContext
-from polar.subscription.service import subscription as subscription_service
-from polar.subscription.sorting import SubscriptionSortProperty
+from repalis.models.subscription import SubscriptionStatus
+from repalis.order.repository import OrderRepository
+from repalis.order.service import order as order_service
+from repalis.postgres import AsyncSession, get_db_read_session, get_db_session
+from repalis.subscription import sorting
+from repalis.subscription.repository import SubscriptionRepository
+from repalis.subscription.service import SubscriptionUpdateContext
+from repalis.subscription.service import subscription as subscription_service
+from repalis.subscription.sorting import SubscriptionSortProperty
 
 from ..components import (
     alert,

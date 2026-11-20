@@ -2,20 +2,20 @@ import uuid
 
 import pytest
 
-from polar.auth.oauth2.state import OAuth2StateService
-from polar.auth.sso.factor import (
+from repalis.auth.oauth2.state import OAuth2StateService
+from repalis.auth.sso.factor import (
     SSOClientSecretFactor,
     SSOPrivateKeyJWTFactor,
     build_sso_factor,
 )
-from polar.kit.signer import get_signer
-from polar.models import OrganizationSSOConnection
-from polar.models.organization_sso_connection import (
+from repalis.kit.signer import get_signer
+from repalis.models import OrganizationSSOConnection
+from repalis.models.organization_sso_connection import (
     OIDCAuthMethod,
     OIDCConfiguration,
     OrganizationSSOConnectionType,
 )
-from polar.postgres import AsyncSession
+from repalis.postgres import AsyncSession
 
 
 def build_connection(

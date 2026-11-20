@@ -2,40 +2,40 @@ from typing import Annotated, Literal
 
 from pydantic import UUID4, Discriminator, Field
 
-from polar.benefit.strategies.custom.properties import BenefitGrantCustomProperties
-from polar.benefit.strategies.discord.properties import BenefitGrantDiscordProperties
-from polar.benefit.strategies.downloadables.properties import (
+from repalis.benefit.strategies.custom.properties import BenefitGrantCustomProperties
+from repalis.benefit.strategies.discord.properties import BenefitGrantDiscordProperties
+from repalis.benefit.strategies.downloadables.properties import (
     BenefitGrantDownloadablesProperties,
 )
-from polar.benefit.strategies.feature_flag.properties import (
+from repalis.benefit.strategies.feature_flag.properties import (
     BenefitGrantFeatureFlagProperties,
 )
-from polar.benefit.strategies.github_repository.properties import (
+from repalis.benefit.strategies.github_repository.properties import (
     BenefitGrantGitHubRepositoryProperties,
 )
-from polar.benefit.strategies.license_keys.properties import (
+from repalis.benefit.strategies.license_keys.properties import (
     BenefitGrantLicenseKeysProperties,
 )
-from polar.benefit.strategies.meter_credit.properties import (
+from repalis.benefit.strategies.meter_credit.properties import (
     BenefitGrantMeterCreditProperties,
 )
-from polar.benefit.strategies.slack_shared_channel.properties import (
+from repalis.benefit.strategies.slack_shared_channel.properties import (
     BenefitGrantSlackSharedChannelProperties,
 )
-from polar.customer.schemas.customer import CustomerID, ExternalCustomerID
-from polar.customer.schemas.customer import CustomerResponse as Customer
-from polar.kit.schemas import (
+from repalis.customer.schemas.customer import CustomerID, ExternalCustomerID
+from repalis.customer.schemas.customer import CustomerResponse as Customer
+from repalis.kit.schemas import (
     ClassName,
     MergeJSONSchema,
     MultipleQueryFilter,
     SetSchemaReference,
 )
-from polar.kit.versioning import QuerySchema, Version
-from polar.member.schemas import ExternalMemberID, Member
-from polar.models.benefit import BenefitType
-from polar.models.catalog import CatalogStatus
-from polar.organization.schemas import OrganizationID
-from polar.version import V2027_01
+from repalis.kit.versioning import QuerySchema, Version
+from repalis.member.schemas import ExternalMemberID, Member
+from repalis.models.benefit import BenefitType
+from repalis.models.catalog import CatalogStatus
+from repalis.organization.schemas import OrganizationID
+from repalis.version import V2027_01
 
 from .strategies import BenefitGrantProperties
 from .strategies.base.schemas import BenefitGrantBase, BenefitPublicBase

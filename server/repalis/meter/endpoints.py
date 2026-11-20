@@ -3,21 +3,21 @@ from zoneinfo import ZoneInfo
 
 from fastapi import Depends, Query
 
-from polar.exceptions import PolarRequestValidationError, ResourceNotFound
-from polar.kit.metadata import MetadataQuery, get_metadata_query_openapi_schema
-from polar.kit.pagination import ListResource, PaginationParamsQuery
-from polar.kit.time_queries import is_under_limits
-from polar.kit.versioning import version
-from polar.models import Meter
-from polar.openapi import APITag, cli_preview
-from polar.postgres import (
+from repalis.exceptions import PolarRequestValidationError, ResourceNotFound
+from repalis.kit.metadata import MetadataQuery, get_metadata_query_openapi_schema
+from repalis.kit.pagination import ListResource, PaginationParamsQuery
+from repalis.kit.time_queries import is_under_limits
+from repalis.kit.versioning import version
+from repalis.models import Meter
+from repalis.openapi import APITag, cli_preview
+from repalis.postgres import (
     AsyncReadSession,
     AsyncSession,
     get_db_read_session,
     get_db_session,
 )
-from polar.routing import APIRouter
-from polar.version import V2027_01
+from repalis.routing import APIRouter
+from repalis.version import V2027_01
 
 from . import auth, sorting
 from .schemas import Meter as MeterSchema

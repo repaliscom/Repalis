@@ -2,13 +2,13 @@ from datetime import timedelta
 
 import pytest
 
-from polar.auth.models import AuthSubject
-from polar.kit.pagination import PaginationParams
-from polar.kit.utils import utc_now
-from polar.models import Account, Transaction, User, UserOrganization
-from polar.models.transaction import PlatformFeeType, TransactionType
-from polar.postgres import AsyncSession
-from polar.transaction.service.transaction import transaction as transaction_service
+from repalis.auth.models import AuthSubject
+from repalis.kit.pagination import PaginationParams
+from repalis.kit.utils import utc_now
+from repalis.models import Account, Transaction, User, UserOrganization
+from repalis.models.transaction import PlatformFeeType, TransactionType
+from repalis.postgres import AsyncSession
+from repalis.transaction.service.transaction import transaction as transaction_service
 from tests.fixtures.auth import AuthSubjectFixture
 from tests.fixtures.database import SaveFixture
 from tests.transaction.conftest import create_transaction

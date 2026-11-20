@@ -1,5 +1,5 @@
-from polar.models.product import Product
-from polar.models.product_price import ProductPriceAmountType
+from repalis.models.product import Product
+from repalis.models.product_price import ProductPriceAmountType
 
 from ..schemas import ProductData, ProductsData
 

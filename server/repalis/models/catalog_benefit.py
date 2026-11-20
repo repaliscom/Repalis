@@ -4,10 +4,10 @@ from uuid import UUID
 from sqlalchemy import ForeignKey, String, UniqueConstraint, Uuid
 from sqlalchemy.orm import Mapped, declared_attr, mapped_column, relationship
 
-from polar.kit.db.models import RecordModel
+from repalis.kit.db.models import RecordModel
 
 if TYPE_CHECKING:
-    from polar.models import Benefit, Catalog
+    from repalis.models import Benefit, Catalog
 
 
 class CatalogBenefit(RecordModel):

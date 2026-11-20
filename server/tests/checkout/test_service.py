@@ -12,10 +12,10 @@ from pytest_mock import MockerFixture
 from sqlalchemy import inspect as orm_inspect
 from sqlalchemy.orm import joinedload
 
-from polar.auth.models import Anonymous, AuthSubject
-from polar.checkout import legacy_schemas
-from polar.checkout.guard import has_product_checkout
-from polar.checkout.schemas import (
+from repalis.auth.models import Anonymous, AuthSubject
+from repalis.checkout import legacy_schemas
+from repalis.checkout.guard import has_product_checkout
+from repalis.checkout.schemas import (
     CheckoutConfirm,
     CheckoutConfirmSharedPaymentToken,
     CheckoutConfirmStripe,
@@ -25,7 +25,7 @@ from polar.checkout.schemas import (
     CheckoutUpdate,
     CheckoutUpdatePublic,
 )
-from polar.checkout.service import (
+from repalis.checkout.service import (
     AlreadyActiveSubscriptionError,
     CheckoutCustomerDeleted,
     CheckoutCustomerExternalIdMismatch,
@@ -38,26 +38,26 @@ from polar.checkout.service import (
     SharedPaymentTokenError,
     TrialAlreadyRedeemed,
 )
-from polar.checkout.service import checkout as checkout_service
-from polar.config import Environment, settings
-from polar.customer_seat.service import SeatService
-from polar.customer_session.service import customer_session as customer_session_service
-from polar.discount.repository import DiscountRedemptionRepository
-from polar.discount.service import discount as discount_service
-from polar.enums import (
+from repalis.checkout.service import checkout as checkout_service
+from repalis.config import Environment, settings
+from repalis.customer_seat.service import SeatService
+from repalis.customer_session.service import customer_session as customer_session_service
+from repalis.discount.repository import DiscountRedemptionRepository
+from repalis.discount.service import discount as discount_service
+from repalis.enums import (
     PaymentProcessor,
     SubscriptionRecurringInterval,
     TaxBehavior,
     TaxProcessor,
 )
-from polar.event.system import SystemEvent
-from polar.exceptions import NotPermitted, PaymentNotReady, PolarRequestValidationError
-from polar.integrations.stripe.service import StripeService
-from polar.kit.address import Address, AddressInput, CountryAlpha2
-from polar.kit.currency import PresentmentCurrency
-from polar.kit.trial import TrialInterval
-from polar.kit.utils import utc_now
-from polar.models import (
+from repalis.event.system import SystemEvent
+from repalis.exceptions import NotPermitted, PaymentNotReady, PolarRequestValidationError
+from repalis.integrations.stripe.service import StripeService
+from repalis.kit.address import Address, AddressInput, CountryAlpha2
+from repalis.kit.currency import PresentmentCurrency
+from repalis.kit.trial import TrialInterval
+from repalis.kit.utils import utc_now
+from repalis.models import (
     Account,
     Checkout,
     CheckoutProduct,
@@ -72,43 +72,43 @@ from polar.models import (
     User,
     UserOrganization,
 )
-from polar.models.checkout import BillingAddressFieldMode, CheckoutStatus
-from polar.models.custom_field import CustomFieldType
-from polar.models.customer import CustomerType
-from polar.models.customer_seat import SeatStatus
-from polar.models.discount import DiscountDuration, DiscountType
-from polar.models.member import MemberRole
-from polar.models.order import OrderBillingReasonInternal, OrderStatus
-from polar.models.organization import (
+from repalis.models.checkout import BillingAddressFieldMode, CheckoutStatus
+from repalis.models.custom_field import CustomFieldType
+from repalis.models.customer import CustomerType
+from repalis.models.customer_seat import SeatStatus
+from repalis.models.discount import DiscountDuration, DiscountType
+from repalis.models.member import MemberRole
+from repalis.models.order import OrderBillingReasonInternal, OrderStatus
+from repalis.models.organization import (
     OrganizationStatus,
 )
-from polar.models.product_price import (
+from repalis.models.product_price import (
     ProductPriceAmountType,
     ProductPriceCustom,
     ProductPriceFixed,
     ProductPriceSeatUnit,
     ProductPriceUnit,
 )
-from polar.models.subscription import SubscriptionStatus
-from polar.models.user import IdentityVerificationStatus
-from polar.models.webhook_endpoint import WebhookEventType
-from polar.order.service import OrderService
-from polar.postgres import AsyncSession
-from polar.product.guard import (
+from repalis.models.subscription import SubscriptionStatus
+from repalis.models.user import IdentityVerificationStatus
+from repalis.models.webhook_endpoint import WebhookEventType
+from repalis.order.service import OrderService
+from repalis.postgres import AsyncSession
+from repalis.product.guard import (
     is_fixed_price,
     is_metered_price,
     is_seat_price,
 )
-from polar.product.schemas import ProductPriceFixedCreate
-from polar.product.tiers import Tiers, TierType
-from polar.subscription.service import SubscriptionService
-from polar.tax.calculation import (
+from repalis.product.schemas import ProductPriceFixedCreate
+from repalis.product.tiers import Tiers, TierType
+from repalis.subscription.service import SubscriptionService
+from repalis.tax.calculation import (
     TaxabilityReason,
     TaxCalculationLogicalError,
     TaxCalculationService,
 )
-from polar.tax.tax_id import TaxIDFormat
-from polar.trial_redemption.repository import TrialRedemptionRepository
+from repalis.tax.tax_id import TaxIDFormat
+from repalis.trial_redemption.repository import TrialRedemptionRepository
 from tests.fixtures.auth import AuthSubjectFixture
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.events import get_all_by_name
@@ -140,35 +140,35 @@ PRESET_AMOUNT = 5000
 @pytest.fixture(autouse=True)
 def stripe_service_mock(mocker: MockerFixture) -> MagicMock:
     mock = MagicMock(spec=StripeService)
-    mocker.patch("polar.checkout.service.stripe_service", new=mock)
+    mocker.patch("repalis.checkout.service.stripe_service", new=mock)
     return mock
 
 
 @pytest.fixture(autouse=True)
 def subscription_service_mock(mocker: MockerFixture) -> MagicMock:
     mock = MagicMock(spec=SubscriptionService)
-    mocker.patch("polar.checkout.service.subscription_service", new=mock)
+    mocker.patch("repalis.checkout.service.subscription_service", new=mock)
     return mock
 
 
 @pytest.fixture(autouse=True)
 def order_service_mock(mocker: MockerFixture) -> MagicMock:
     mock = MagicMock(spec=OrderService)
-    mocker.patch("polar.checkout.service.order_service", new=mock)
+    mocker.patch("repalis.checkout.service.order_service", new=mock)
     return mock
 
 
 @pytest.fixture(autouse=True)
 def seat_service_mock(mocker: MockerFixture) -> MagicMock:
     mock = MagicMock(spec=SeatService)
-    mocker.patch("polar.checkout.service.seat_service", new=mock)
+    mocker.patch("repalis.checkout.service.seat_service", new=mock)
     return mock
 
 
 @pytest.fixture(autouse=True)
 def calculate_tax_mock(mocker: MockerFixture) -> AsyncMock:
     mock = mocker.patch(
-        "polar.checkout.service.tax_calculation_service", spec=TaxCalculationService
+        "repalis.checkout.service.tax_calculation_service", spec=TaxCalculationService
     )
     mock.calculate.return_value = (
         {
@@ -5694,7 +5694,7 @@ class TestConfirm:
         checkout_discount_percentage_100_forever: Checkout,
         discount_percentage_100_forever: Discount,
     ) -> None:
-        enqueue_job_mock = mocker.patch("polar.checkout.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.checkout.service.enqueue_job")
 
         stripe_service_mock.create_customer.return_value = SimpleNamespace(
             id="STRIPE_CUSTOMER_ID"
@@ -5753,7 +5753,7 @@ class TestConfirm:
         checkout_one_time_fixed: Checkout,
         discount_percentage_100: Discount,
     ) -> None:
-        enqueue_job_mock = mocker.patch("polar.checkout.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.checkout.service.enqueue_job")
 
         checkout_one_time_fixed.payment_method_type = "upi"
         await save_fixture(checkout_one_time_fixed)
@@ -5798,7 +5798,7 @@ class TestConfirm:
         checkout_one_time_fixed: Checkout,
         discount_percentage_100: Discount,
     ) -> None:
-        mocker.patch("polar.checkout.service.enqueue_job")
+        mocker.patch("repalis.checkout.service.enqueue_job")
 
         checkout_one_time_fixed.is_business_customer = True
         await save_fixture(checkout_one_time_fixed)
@@ -5889,7 +5889,7 @@ class TestConfirm:
         auth_subject: AuthSubject[Anonymous],
         checkout_one_time_free: Checkout,
     ) -> None:
-        enqueue_job_mock = mocker.patch("polar.checkout.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.checkout.service.enqueue_job")
 
         stripe_service_mock.create_customer.return_value = SimpleNamespace(
             id="STRIPE_CUSTOMER_ID"
@@ -6373,7 +6373,7 @@ class TestConfirm:
         product: Product,
         checkout_recurring_fixed: Checkout,
     ) -> None:
-        enqueue_job_mock = mocker.patch("polar.checkout.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.checkout.service.enqueue_job")
 
         organization.subscription_settings["prevent_trial_abuse"] = True
         await save_fixture(organization)
@@ -6878,7 +6878,7 @@ class TestConfirm:
         await save_fixture(organization)
 
         # Mock environment to be sandbox
-        mocker.patch("polar.checkout.service.settings.ENV", Environment.sandbox)
+        mocker.patch("repalis.checkout.service.settings.ENV", Environment.sandbox)
 
         # Setup Stripe mocks
         confirmation_token = MagicMock(spec=stripe_lib.ConfirmationToken)
@@ -6933,13 +6933,13 @@ class TestConfirm:
         await save_fixture(organization)
 
         # Mock Stripe service for customer creation
-        stripe_service_mock = mocker.patch("polar.checkout.service.stripe_service")
+        stripe_service_mock = mocker.patch("repalis.checkout.service.stripe_service")
         stripe_service_mock.create_customer = AsyncMock(
             return_value=SimpleNamespace(id="STRIPE_CUSTOMER_ID")
         )
 
         # Mock the free checkout success flow
-        mocker.patch("polar.checkout.service.enqueue_job")
+        mocker.patch("repalis.checkout.service.enqueue_job")
 
         # Free products should be allowed even when payment not ready
         confirmed_checkout = await checkout_service.confirm(
@@ -7245,13 +7245,13 @@ class TestConfirm:
         assert checkout.is_payment_setup_required is False
 
         # Mock Stripe service for customer creation
-        stripe_service_mock = mocker.patch("polar.checkout.service.stripe_service")
+        stripe_service_mock = mocker.patch("repalis.checkout.service.stripe_service")
         stripe_service_mock.create_customer = AsyncMock(
             return_value=SimpleNamespace(id="STRIPE_CUSTOMER_ID")
         )
 
         # Mock the free checkout success flow
-        mocker.patch("polar.checkout.service.enqueue_job")
+        mocker.patch("repalis.checkout.service.enqueue_job")
 
         # Should be allowed: one-time products have no future charges
         confirmed_checkout = await checkout_service.confirm(
@@ -8284,7 +8284,7 @@ class TestUSShortBillingAddressExposure:
         checkout_one_time_fixed: Checkout,
     ) -> None:
         monkeypatch.setattr(settings, "ENV", Environment.production)
-        posthog_mock = mocker.patch("polar.checkout.service.posthog")
+        posthog_mock = mocker.patch("repalis.checkout.service.posthog")
         checkout_one_time_fixed.customer_billing_address = Address(
             country=CountryAlpha2(country)
         )
@@ -8320,7 +8320,7 @@ class TestMarkOpened:
         session: AsyncSession,
         checkout_one_time_fixed: Checkout,
     ) -> None:
-        posthog_mock = mocker.patch("polar.checkout.service.posthog")
+        posthog_mock = mocker.patch("repalis.checkout.service.posthog")
 
         assert checkout_one_time_fixed.analytics_metadata is None
 
@@ -8335,7 +8335,7 @@ class TestMarkOpened:
         session: AsyncSession,
         checkout_one_time_fixed: Checkout,
     ) -> None:
-        posthog_mock = mocker.patch("polar.checkout.service.posthog")
+        posthog_mock = mocker.patch("repalis.checkout.service.posthog")
 
         checkout_one_time_fixed.customer_email = "test@example.com"
 
@@ -8356,7 +8356,7 @@ class TestMarkOpened:
         session: AsyncSession,
         checkout_one_time_fixed: Checkout,
     ) -> None:
-        posthog_mock = mocker.patch("polar.checkout.service.posthog")
+        posthog_mock = mocker.patch("repalis.checkout.service.posthog")
 
         original_opened_at = utc_now().isoformat()
         checkout_one_time_fixed.analytics_metadata = {"opened_at": original_opened_at}
@@ -8375,7 +8375,7 @@ class TestMarkOpened:
         checkout_one_time_fixed: Checkout,
     ) -> None:
         """When no distinct_id or email, falls back to checkout:{id} for A/B test consistency."""
-        posthog_mock = mocker.patch("polar.checkout.service.posthog")
+        posthog_mock = mocker.patch("repalis.checkout.service.posthog")
 
         checkout_one_time_fixed.customer_email = None
 
@@ -8392,9 +8392,9 @@ class TestMarkOpened:
         checkout_one_time_fixed: Checkout,
     ) -> None:
         """PostHog failures should be caught and logged, not break the checkout flow."""
-        posthog_mock = mocker.patch("polar.checkout.service.posthog")
+        posthog_mock = mocker.patch("repalis.checkout.service.posthog")
         posthog_mock.capture.side_effect = Exception("PostHog is down")
-        log_mock = mocker.patch("polar.checkout.service.log")
+        log_mock = mocker.patch("repalis.checkout.service.log")
 
         assert checkout_one_time_fixed.analytics_metadata is None
 
@@ -8415,7 +8415,7 @@ class TestHandleSuccessPostHogTracking:
         checkout_confirmed_one_time: Checkout,
         payment: Payment,
     ) -> None:
-        posthog_mock = mocker.patch("polar.checkout.service.posthog")
+        posthog_mock = mocker.patch("repalis.checkout.service.posthog")
         checkout_confirmed_one_time.customer_email = "customer@example.com"
 
         checkout = await checkout_service.handle_success(
@@ -8439,7 +8439,7 @@ class TestHandleSuccessPostHogTracking:
         payment: Payment,
     ) -> None:
         """When no distinct_id or email, falls back to checkout:{id} for A/B test consistency."""
-        posthog_mock = mocker.patch("polar.checkout.service.posthog")
+        posthog_mock = mocker.patch("repalis.checkout.service.posthog")
         checkout_confirmed_one_time.customer_email = None
 
         await checkout_service.handle_success(
@@ -8462,9 +8462,9 @@ class TestHandleSuccessPostHogTracking:
         payment: Payment,
     ) -> None:
         """PostHog failures should be caught and logged, not break the checkout flow."""
-        posthog_mock = mocker.patch("polar.checkout.service.posthog")
+        posthog_mock = mocker.patch("repalis.checkout.service.posthog")
         posthog_mock.capture.side_effect = Exception("PostHog is down")
-        log_mock = mocker.patch("polar.checkout.service.log")
+        log_mock = mocker.patch("repalis.checkout.service.log")
 
         checkout = await checkout_service.handle_success(
             session, checkout_confirmed_one_time, payment
@@ -8488,7 +8488,7 @@ async def test_send_expiration_events(
         expires_at=utc_now() - timedelta(days=1),
     )
 
-    mock_send = mocker.patch("polar.checkout.service.webhook_service.send")
+    mock_send = mocker.patch("repalis.checkout.service.webhook_service.send")
 
     await checkout_service.send_expiration_events(session, checkout)
 

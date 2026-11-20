@@ -3,11 +3,11 @@ from uuid import UUID
 
 import structlog
 
-from polar.auth.models import Agent, AuthSubject
-from polar.license_key.service import license_key as license_key_service
-from polar.logging import Logger
-from polar.models import Benefit, Customer, Member, Organization, User
-from polar.models.benefit_grant import BenefitGrantScopeArgs
+from repalis.auth.models import Agent, AuthSubject
+from repalis.license_key.service import license_key as license_key_service
+from repalis.logging import Logger
+from repalis.models import Benefit, Customer, Member, Organization, User
+from repalis.models.benefit_grant import BenefitGrantScopeArgs
 
 from ..base.service import BenefitServiceProtocol
 from .properties import BenefitGrantLicenseKeysProperties, BenefitLicenseKeysProperties

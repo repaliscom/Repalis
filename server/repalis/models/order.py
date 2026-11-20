@@ -22,21 +22,21 @@ from sqlalchemy.dialects.postgresql import JSONB, TSVECTOR
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import Mapped, declared_attr, mapped_column, relationship
 
-from polar.config import settings
-from polar.custom_field.data import CustomFieldDataMixin
-from polar.enums import TaxBehavior, TaxProcessor
-from polar.exceptions import PolarError
-from polar.kit.address import Address, AddressType
-from polar.kit.db.models import OrganizationCreatedAtIndexMixin, RecordModel
-from polar.kit.extensions.sqlalchemy.types import StringEnum
-from polar.kit.metadata import MetadataMixin
-from polar.kit.utils import utc_now
-from polar.models.order_item import OrderItem
-from polar.tax.calculation import TaxBreakdownItem
-from polar.tax.tax_id import TaxID, TaxIDType
+from repalis.config import settings
+from repalis.custom_field.data import CustomFieldDataMixin
+from repalis.enums import TaxBehavior, TaxProcessor
+from repalis.exceptions import PolarError
+from repalis.kit.address import Address, AddressType
+from repalis.kit.db.models import OrganizationCreatedAtIndexMixin, RecordModel
+from repalis.kit.extensions.sqlalchemy.types import StringEnum
+from repalis.kit.metadata import MetadataMixin
+from repalis.kit.utils import utc_now
+from repalis.models.order_item import OrderItem
+from repalis.tax.calculation import TaxBreakdownItem
+from repalis.tax.tax_id import TaxID, TaxIDType
 
 if TYPE_CHECKING:
-    from polar.models import (
+    from repalis.models import (
         Checkout,
         CreditNote,
         Customer,

@@ -11,15 +11,15 @@ import pytest
 from dateutil.relativedelta import relativedelta
 from pytest_mock import MockerFixture
 
-from polar.billing_entry.repository import BillingEntryRepository
-from polar.enums import (
+from repalis.billing_entry.repository import BillingEntryRepository
+from repalis.enums import (
     ProrationBehaviorSetting,
     SubscriptionProrationBehavior,
     SubscriptionRecurringInterval,
 )
-from polar.event.system import SystemEvent
-from polar.kit.trial import TrialInterval
-from polar.models import (
+from repalis.event.system import SystemEvent
+from repalis.kit.trial import TrialInterval
+from repalis.models import (
     BillingEntry,
     Customer,
     Discount,
@@ -29,18 +29,18 @@ from polar.models import (
     Product,
     Subscription,
 )
-from polar.models.billing_entry import BillingEntryDirection, BillingEntryType
-from polar.models.discount import DiscountDuration, DiscountType
-from polar.models.subscription import SubscriptionStatus
-from polar.postgres import AsyncSession
-from polar.product.guard import (
+from repalis.models.billing_entry import BillingEntryDirection, BillingEntryType
+from repalis.models.discount import DiscountDuration, DiscountType
+from repalis.models.subscription import SubscriptionStatus
+from repalis.postgres import AsyncSession
+from repalis.product.guard import (
     is_fixed_price,
     is_seat_price,
 )
-from polar.product.tiers import SeatTierType
-from polar.subscription.repository import SubscriptionUpdateRepository
-from polar.subscription.service import SubscriptionUpdateContext
-from polar.subscription.service import subscription as subscription_service
+from repalis.product.tiers import SeatTierType
+from repalis.subscription.repository import SubscriptionUpdateRepository
+from repalis.subscription.service import SubscriptionUpdateContext
+from repalis.subscription.service import subscription as subscription_service
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.events import get_all_by_name
 from tests.fixtures.random_objects import (

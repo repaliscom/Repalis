@@ -2,23 +2,23 @@ from typing import Annotated
 
 from fastapi import Depends, Query
 
-from polar.authz.dependencies import AuthorizeWebUserRead, AuthorizeWebUserWrite
-from polar.exceptions import NotPermitted, ResourceNotFound
-from polar.kit.metadata import MetadataQuery, get_metadata_query_openapi_schema
-from polar.kit.pagination import ListResource, PaginationParamsQuery
-from polar.kit.sorting import Sorting, SortingGetter
-from polar.kit.versioning import version
-from polar.models import Product
-from polar.openapi import APITag, cli_preview, destructive, open_world
-from polar.postgres import (
+from repalis.authz.dependencies import AuthorizeWebUserRead, AuthorizeWebUserWrite
+from repalis.exceptions import NotPermitted, ResourceNotFound
+from repalis.kit.metadata import MetadataQuery, get_metadata_query_openapi_schema
+from repalis.kit.pagination import ListResource, PaginationParamsQuery
+from repalis.kit.sorting import Sorting, SortingGetter
+from repalis.kit.versioning import version
+from repalis.models import Product
+from repalis.openapi import APITag, cli_preview, destructive, open_world
+from repalis.postgres import (
     AsyncReadSession,
     AsyncSession,
     get_db_read_session,
     get_db_session,
 )
-from polar.product.schemas import ProductListParams
-from polar.routing import APIRouter
-from polar.version import V2027_01
+from repalis.product.schemas import ProductListParams
+from repalis.routing import APIRouter
+from repalis.version import V2027_01
 
 from . import auth, legacy_schemas
 from .name_check import check_product_name

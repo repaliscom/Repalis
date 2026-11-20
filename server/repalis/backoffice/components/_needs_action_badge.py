@@ -1,6 +1,6 @@
 from tagflow import tag, text
 
-from polar.models.support_case import SupportCaseType
+from repalis.models.support_case import SupportCaseType
 
 _NEEDS_ACTION_LABELS: dict[SupportCaseType, str] = {
     SupportCaseType.dispute: "Review evidence",

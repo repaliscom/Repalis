@@ -3,15 +3,15 @@ import uuid
 import pytest
 from httpx2 import AsyncClient
 
-from polar.auth.sso.endpoints import get_sso_connection
-from polar.exceptions import ResourceNotFound
-from polar.models import Organization, OrganizationSSOConnection
-from polar.models.organization_sso_connection import (
+from repalis.auth.sso.endpoints import get_sso_connection
+from repalis.exceptions import ResourceNotFound
+from repalis.models import Organization, OrganizationSSOConnection
+from repalis.models.organization_sso_connection import (
     OIDCAuthMethod,
     OIDCConfiguration,
     OrganizationSSOConnectionType,
 )
-from polar.postgres import AsyncSession
+from repalis.postgres import AsyncSession
 from tests.fixtures.database import SaveFixture
 
 

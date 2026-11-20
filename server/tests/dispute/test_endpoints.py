@@ -5,8 +5,8 @@ import pytest
 from httpx2 import AsyncClient
 from pytest_mock import MockerFixture
 
-from polar.kit.utils import utc_now
-from polar.models import Customer, Dispute, Organization, Product, UserOrganization
+from repalis.kit.utils import utc_now
+from repalis.models import Customer, Dispute, Organization, Product, UserOrganization
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (
     create_dispute,
@@ -215,11 +215,11 @@ class TestAcceptDispute:
     ) -> None:
         case = await create_dispute_case(save_fixture, organization, customer, product)
         # Stub the processor call and the loss side-effects; let the rest run.
-        mocker.patch("polar.dispute.service.dispute_transaction_service.create_dispute")
+        mocker.patch("repalis.dispute.service.dispute_transaction_service.create_dispute")
         mocker.patch(
-            "polar.dispute.service.benefit_grant_service.enqueue_benefits_grants"
+            "repalis.dispute.service.benefit_grant_service.enqueue_benefits_grants"
         )
-        close_mock = mocker.patch("polar.dispute.service.stripe_service.close_dispute")
+        close_mock = mocker.patch("repalis.dispute.service.stripe_service.close_dispute")
         close_mock.return_value = build_stripe_dispute(
             status="lost", balance_transactions=[]
         )

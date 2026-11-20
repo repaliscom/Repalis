@@ -7,9 +7,9 @@ import uuid
 from pydantic import GetCoreSchemaHandler, TypeAdapter
 from pydantic_core import CoreSchema, core_schema
 
-from polar.kit.json import json_obj_serializer
-from polar.redis import Redis
-from polar.worker import JobQueueManager
+from repalis.kit.json import json_obj_serializer
+from repalis.redis import Redis
+from repalis.worker import JobQueueManager
 
 
 class ReducerBucketOutpostEvent(typing.TypedDict):

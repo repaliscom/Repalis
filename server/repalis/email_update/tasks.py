@@ -2,7 +2,7 @@ from logging import Logger
 
 import structlog
 
-from polar.worker import AsyncSessionMaker, CronTrigger, TaskPriority, actor
+from repalis.worker import AsyncSessionMaker, CronTrigger, TaskPriority, actor
 
 from .service import email_update as email_update_service
 

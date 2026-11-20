@@ -2,9 +2,9 @@ from typing import Annotated
 
 from fastapi import Depends, Query
 
-from polar.openapi import APITag
-from polar.postgres import AsyncReadSession, get_db_read_session
-from polar.routing import APIRouter
+from repalis.openapi import APITag
+from repalis.postgres import AsyncReadSession, get_db_read_session
+from repalis.routing import APIRouter
 
 from . import auth
 from .schemas import SearchResults, SearchSearchParams

@@ -7,12 +7,12 @@ import pytest
 from fastapi import FastAPI
 from pytest_mock import MockerFixture
 
-from polar.config import settings
-from polar.exceptions import NotPermitted
-from polar.member_session.service import member_session as member_session_service
-from polar.models import Customer, Member, Organization
-from polar.models.member import MemberRole
-from polar.postgres import AsyncSession
+from repalis.config import settings
+from repalis.exceptions import NotPermitted
+from repalis.member_session.service import member_session as member_session_service
+from repalis.models import Customer, Member, Organization
+from repalis.models.member import MemberRole
+from repalis.postgres import AsyncSession
 from tests.fixtures.base import IsolatedSessionTestClient
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_customer, create_member
@@ -34,7 +34,7 @@ async def portal_client(
 @pytest.fixture(autouse=True)
 def send_code(mocker: MockerFixture) -> MagicMock:
     return mocker.patch(
-        "polar.customer_portal.auth.factors.customer_session_service.send_code",
+        "repalis.customer_portal.auth.factors.customer_session_service.send_code",
         autospec=True,
     )
 
@@ -42,7 +42,7 @@ def send_code(mocker: MockerFixture) -> MagicMock:
 @pytest.fixture(autouse=True)
 def verify_turnstile(mocker: MockerFixture) -> MagicMock:
     return mocker.patch(
-        "polar.customer_portal.auth.endpoints.verify_turnstile", autospec=True
+        "repalis.customer_portal.auth.endpoints.verify_turnstile", autospec=True
     )
 
 

@@ -3,14 +3,14 @@ from uuid import UUID
 from sqlalchemy import update
 from sqlalchemy.orm import joinedload
 
-from polar.kit.crypto import get_token_hash_candidates
-from polar.kit.repository import (
+from repalis.kit.crypto import get_token_hash_candidates
+from repalis.kit.repository import (
     RepositoryBase,
     RepositorySoftDeletionIDMixin,
     RepositorySoftDeletionMixin,
     RepositoryTokenHashMixin,
 )
-from polar.models import Agent, Organization
+from repalis.models import Agent, Organization
 
 
 class AgentRepository(

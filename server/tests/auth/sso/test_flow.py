@@ -13,8 +13,8 @@ from cryptography.hazmat.primitives.asymmetric import rsa
 from fastapi import FastAPI
 from sqlalchemy import select
 
-from polar.kit.utils import utc_now
-from polar.models import (
+from repalis.kit.utils import utc_now
+from repalis.models import (
     OAuth2State,
     Organization,
     OrganizationDomain,
@@ -24,13 +24,13 @@ from polar.models import (
     UserSession,
     UserSessionOrganization,
 )
-from polar.models.organization_sso_connection import (
+from repalis.models.organization_sso_connection import (
     OIDCAuthMethod,
     OIDCConfiguration,
     OrganizationSSOConnectionType,
 )
-from polar.models.user_organization import OrganizationRole
-from polar.postgres import AsyncSession
+from repalis.models.user_organization import OrganizationRole
+from repalis.postgres import AsyncSession
 from tests.fixtures.base import IsolatedSessionTestClient
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_user

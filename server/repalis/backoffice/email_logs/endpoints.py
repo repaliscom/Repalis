@@ -9,14 +9,14 @@ from pydantic import UUID4, BeforeValidator
 from sqlalchemy import or_
 from tagflow import classes, tag, text
 
-from polar.backoffice.routing import BackofficeRouter
-from polar.email.react import render_from_json
-from polar.email.repository import EmailLogRepository
-from polar.email.schemas import EmailTemplate
-from polar.kit.pagination import PaginationParamsQuery
-from polar.logging import Logger
-from polar.models.email_log import EmailLog, EmailLogStatus
-from polar.postgres import AsyncSession, get_db_read_session
+from repalis.backoffice.routing import BackofficeRouter
+from repalis.email.react import render_from_json
+from repalis.email.repository import EmailLogRepository
+from repalis.email.schemas import EmailTemplate
+from repalis.kit.pagination import PaginationParamsQuery
+from repalis.logging import Logger
+from repalis.models.email_log import EmailLog, EmailLogStatus
+from repalis.postgres import AsyncSession, get_db_read_session
 
 from ..components import button, datatable, description_list, input
 from ..layout import layout

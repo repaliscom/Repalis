@@ -10,13 +10,13 @@ from sqlalchemy import func, select
 from sqlalchemy.orm import joinedload
 from tagflow import tag, text
 
-from polar.backoffice.routing import BackofficeRouter
-from polar.dispute.repository import DisputeRepository
-from polar.file.service import file as file_service
-from polar.kit.pagination import PaginationParamsQuery, count_subquery
-from polar.models import BackofficeUser, Organization, User
-from polar.models.backoffice_user_session import BackofficeUserSession
-from polar.models.support_case import (
+from repalis.backoffice.routing import BackofficeRouter
+from repalis.dispute.repository import DisputeRepository
+from repalis.file.service import file as file_service
+from repalis.kit.pagination import PaginationParamsQuery, count_subquery
+from repalis.models import BackofficeUser, Organization, User
+from repalis.models.backoffice_user_session import BackofficeUserSession
+from repalis.models.support_case import (
     DisputeSupportCase,
     SupportCase,
     SupportCaseAttachment,
@@ -24,15 +24,15 @@ from polar.models.support_case import (
     SupportCaseMessageAuthorKind,
     SupportCaseType,
 )
-from polar.postgres import AsyncSession, get_db_read_session, get_db_session
-from polar.support_case.pdf import is_mergeable
-from polar.support_case.repository import (
+from repalis.postgres import AsyncSession, get_db_read_session, get_db_session
+from repalis.support_case.pdf import is_mergeable
+from repalis.support_case.repository import (
     SupportCaseAttachmentRepository,
     SupportCaseMessageRepository,
     SupportCaseRepository,
 )
-from polar.support_case.service import support_case as support_case_service
-from polar.worker import enqueue_job
+from repalis.support_case.service import support_case as support_case_service
+from repalis.worker import enqueue_job
 
 from ..components import (
     datatable,

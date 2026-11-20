@@ -6,13 +6,13 @@ from sqlalchemy import or_
 from sqlalchemy.orm import contains_eager, joinedload
 from tagflow import attr, tag, text
 
-from polar.backoffice.routing import BackofficeRouter
-from polar.kit.pagination import PaginationParamsQuery
-from polar.models import Organization, WebhookEndpoint
-from polar.postgres import AsyncSession, get_db_read_session, get_db_session
-from polar.webhook.repository import WebhookEndpointRepository
-from polar.webhook.schemas import validate_hostname
-from polar.webhook.sorting import WebhookSortProperty
+from repalis.backoffice.routing import BackofficeRouter
+from repalis.kit.pagination import PaginationParamsQuery
+from repalis.models import Organization, WebhookEndpoint
+from repalis.postgres import AsyncSession, get_db_read_session, get_db_session
+from repalis.webhook.repository import WebhookEndpointRepository
+from repalis.webhook.schemas import validate_hostname
+from repalis.webhook.sorting import WebhookSortProperty
 
 from ..components import button, confirmation_dialog, datatable, description_list, input
 from ..layout import layout

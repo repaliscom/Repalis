@@ -4,13 +4,13 @@ from typing import Annotated, cast
 from fastapi import Depends, Query
 from pydantic import UUID4
 
-from polar.benefit.strategies.license_keys.properties import (
+from repalis.benefit.strategies.license_keys.properties import (
     BenefitLicenseKeysProperties,
 )
-from polar.exceptions import ResourceNotFound
-from polar.kit.db.postgres import AsyncSession
-from polar.kit.pagination import ListResource, PaginationParamsQuery
-from polar.license_key.schemas import (
+from repalis.exceptions import ResourceNotFound
+from repalis.kit.db.postgres import AsyncSession
+from repalis.kit.pagination import ListResource, PaginationParamsQuery
+from repalis.license_key.schemas import (
     ActivationNotFoundResponse,
     ActivationNotPermitted,
     LicenseKeyActivate,
@@ -26,12 +26,12 @@ from polar.license_key.schemas import (
     ValidationBadRequestResponse,
     ValidationNotFoundResponse,
 )
-from polar.license_key.service import ROTATABLE_STATUSES, RotateNotPermitted
-from polar.license_key.service import license_key as license_key_service
-from polar.models import LicenseKey, LicenseKeyActivation
-from polar.openapi import APITag
-from polar.postgres import get_db_session
-from polar.routing import APIRouter
+from repalis.license_key.service import ROTATABLE_STATUSES, RotateNotPermitted
+from repalis.license_key.service import license_key as license_key_service
+from repalis.models import LicenseKey, LicenseKeyActivation
+from repalis.openapi import APITag
+from repalis.postgres import get_db_session
+from repalis.routing import APIRouter
 
 from .. import auth
 from ..schemas.license_key import (

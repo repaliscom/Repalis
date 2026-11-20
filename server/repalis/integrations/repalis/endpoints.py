@@ -2,12 +2,12 @@ import json
 
 from fastapi import Depends, HTTPException, Request
 
-from polar.config import settings
-from polar.external_event.service import external_event as external_event_service
-from polar.models.external_event import ExternalEventSource
-from polar.postgres import AsyncSession, get_db_session
-from polar.routing import APIRouter
-from polar.v2026_04.webhooks import (
+from repalis.config import settings
+from repalis.external_event.service import external_event as external_event_service
+from repalis.models.external_event import ExternalEventSource
+from repalis.postgres import AsyncSession, get_db_session
+from repalis.routing import APIRouter
+from repalis.v2026_04.webhooks import (
     PolarWebhookUnknownTypeError,
     PolarWebhookVerificationError,
     validate_event,

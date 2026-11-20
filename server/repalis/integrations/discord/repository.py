@@ -2,12 +2,12 @@ from uuid import UUID
 
 from sqlalchemy.dialects.postgresql import insert as pg_insert
 
-from polar.kit.repository import (
+from repalis.kit.repository import (
     RepositoryBase,
     RepositorySoftDeletionIDMixin,
     RepositorySoftDeletionMixin,
 )
-from polar.models import DiscordGuildConnection
+from repalis.models import DiscordGuildConnection
 
 
 class DiscordGuildConnectionRepository(

@@ -5,11 +5,11 @@ from uuid import UUID
 from sqlalchemy import Select, delete, exists, or_, select
 from sqlalchemy.orm import joinedload
 
-from polar.kit.repository import RepositoryBase
-from polar.kit.repository.base import Options
-from polar.meter.repository import MeterRepository
-from polar.models import Event, Meter, MeterReducer, Reducer, StagedEvent
-from polar.models.reducer import ReducerKind
+from repalis.kit.repository import RepositoryBase
+from repalis.kit.repository.base import Options
+from repalis.meter.repository import MeterRepository
+from repalis.models import Event, Meter, MeterReducer, Reducer, StagedEvent
+from repalis.models.reducer import ReducerKind
 
 
 class ReducerRepository(RepositoryBase[Reducer]):

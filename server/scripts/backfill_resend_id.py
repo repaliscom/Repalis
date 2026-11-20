@@ -7,15 +7,15 @@ import typer
 from rich.progress import Progress
 from sqlalchemy import Select, and_, func, or_, select
 
-from polar import tasks  # noqa: F401
-from polar.config import settings
-from polar.integrations.resend.service import ACTIVE_ORGANIZATION_STATUSES
-from polar.kit.db.postgres import create_async_sessionmaker
-from polar.models import User
-from polar.postgres import create_async_engine
-from polar.redis import create_redis
-from polar.user_organization.repository import UserOrganizationRepository
-from polar.worker import JobQueueManager, enqueue_job
+from repalis import tasks  # noqa: F401
+from repalis.config import settings
+from repalis.integrations.resend.service import ACTIVE_ORGANIZATION_STATUSES
+from repalis.kit.db.postgres import create_async_sessionmaker
+from repalis.models import User
+from repalis.postgres import create_async_engine
+from repalis.redis import create_redis
+from repalis.user_organization.repository import UserOrganizationRepository
+from repalis.worker import JobQueueManager, enqueue_job
 
 from .helper import configure_script_logging, typer_async
 

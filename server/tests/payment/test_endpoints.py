@@ -3,9 +3,9 @@ import uuid
 import pytest
 from httpx2 import AsyncClient
 
-from polar.auth.scope import Scope
-from polar.models import Customer, Organization, Payment, Product, UserOrganization
-from polar.models.payment import PaymentTrigger
+from repalis.auth.scope import Scope
+from repalis.models import Customer, Organization, Payment, Product, UserOrganization
+from repalis.models.payment import PaymentTrigger
 from tests.fixtures.auth import AuthSubjectFixture
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_checkout, create_order, create_payment

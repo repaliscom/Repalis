@@ -2,15 +2,15 @@ from uuid import UUID
 
 import pytest
 
-from polar.benefit.grant.repository import BenefitGrantRepository
-from polar.benefit.strategies.license_keys.schemas import (
+from repalis.benefit.grant.repository import BenefitGrantRepository
+from repalis.benefit.strategies.license_keys.schemas import (
     BenefitLicenseKeysCreateProperties,
 )
-from polar.kit.db.postgres import AsyncSession
-from polar.license_key.repository import LicenseKeyRepository
-from polar.models import BenefitGrant, Customer, LicenseKey, Organization, Product
-from polar.models.license_key import LicenseKeyStatus
-from polar.redis import Redis
+from repalis.kit.db.postgres import AsyncSession
+from repalis.license_key.repository import LicenseKeyRepository
+from repalis.models import BenefitGrant, Customer, LicenseKey, Organization, Product
+from repalis.models.license_key import LicenseKeyStatus
+from repalis.redis import Redis
 from scripts.backfill_license_key_grant_state import (
     diverged_count_statement,
     realign_statement,

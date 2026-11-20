@@ -2,7 +2,7 @@ import uuid
 
 import pytest
 
-from polar.benefit.grant.scope import (
+from repalis.benefit.grant.scope import (
     CustomerDoesntHaveOwnerMember,
     InvalidScopeError,
     MemberIdRequired,
@@ -10,10 +10,10 @@ from polar.benefit.grant.scope import (
     resolve_member,
     resolve_selector,
 )
-from polar.models import Account, BenefitGrant, Member, Order, Product, Subscription
-from polar.models.member import MemberRole
-from polar.models.product_price import ProductPriceSeatUnit
-from polar.postgres import AsyncSession
+from repalis.models import Account, BenefitGrant, Member, Order, Product, Subscription
+from repalis.models.member import MemberRole
+from repalis.models.product_price import ProductPriceSeatUnit
+from repalis.postgres import AsyncSession
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_customer, create_organization
 

@@ -2,16 +2,16 @@ from typing import Annotated
 
 from fastapi import Depends
 
-from polar.auth.dependencies import Authenticator
-from polar.auth.models import (
+from repalis.auth.dependencies import Authenticator
+from repalis.auth.models import (
     Agent,
     AuthSubject,
     User,
     is_single_organization_credential,
 )
-from polar.auth.scope import Scope
-from polar.exceptions import NotPermitted
-from polar.models.organization import Organization
+from repalis.auth.scope import Scope
+from repalis.exceptions import NotPermitted
+from repalis.models.organization import Organization
 
 # Not for unclaimed agents: events embed the customer they belong to.
 _EventRead = Authenticator(

@@ -5,22 +5,22 @@ from fastapi import Path
 from pydantic import UUID4, AwareDatetime, Field, model_validator
 from pydantic_extra_types.timezone_name import TimeZoneName
 
-from polar.customer.schemas.customer import CustomerID
-from polar.kit.external_id import ExternalIDInputMixin, ExternalIDOutputMixin
-from polar.kit.metadata import (
+from repalis.customer.schemas.customer import CustomerID
+from repalis.kit.external_id import ExternalIDInputMixin, ExternalIDOutputMixin
+from repalis.kit.metadata import (
     MetadataInputMixin,
     MetadataOutputMixin,
 )
-from polar.kit.schemas import IDSchema, MultipleQueryFilter, Schema, TimestampedSchema
-from polar.kit.time_queries import MIN_DATETIME, TimeInterval
-from polar.kit.versioning import QuerySchema, Version
-from polar.meter.aggregation import Aggregation, AggregationFunction
-from polar.meter.filter import Filter
-from polar.meter.unit import MeterUnit
-from polar.models.catalog import CatalogStatus
-from polar.openapi import destructive_when_equals
-from polar.organization.schemas import OrganizationID
-from polar.version import V2027_01
+from repalis.kit.schemas import IDSchema, MultipleQueryFilter, Schema, TimestampedSchema
+from repalis.kit.time_queries import MIN_DATETIME, TimeInterval
+from repalis.kit.versioning import QuerySchema, Version
+from repalis.meter.aggregation import Aggregation, AggregationFunction
+from repalis.meter.filter import Filter
+from repalis.meter.unit import MeterUnit
+from repalis.models.catalog import CatalogStatus
+from repalis.openapi import destructive_when_equals
+from repalis.organization.schemas import OrganizationID
+from repalis.version import V2027_01
 
 NAME_MAX_LENGTH = 128
 CUSTOM_LABEL_MAX_LENGTH = 32

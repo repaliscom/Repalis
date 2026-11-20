@@ -9,7 +9,7 @@ Send events from trusted server-side code. Use the application's customer ID as 
 ```python
 import os
 
-from polar.v2026_10 import Polar
+from repalis.v2026_10 import Repalis
 
 
 with Polar(os.environ["POLAR_ACCESS_TOKEN"]) as polar:

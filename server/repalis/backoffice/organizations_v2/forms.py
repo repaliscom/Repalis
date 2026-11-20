@@ -9,10 +9,10 @@ from pydantic import (
     model_validator,
 )
 
-from polar.backoffice import forms
-from polar.enums import RateLimitGroup
-from polar.kit.schemas import EmptyStrToNone, HttpUrlToStr, Int32
-from polar.organization.schemas import NameInput, SlugInput
+from repalis.backoffice import forms
+from repalis.enums import RateLimitGroup
+from repalis.kit.schemas import EmptyStrToNone, HttpUrlToStr, Int32
+from repalis.organization.schemas import NameInput, SlugInput
 
 
 class UpdateAccountSettingsForm(forms.BaseForm):

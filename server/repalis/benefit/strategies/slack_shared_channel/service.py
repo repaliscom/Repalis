@@ -4,13 +4,13 @@ from uuid import UUID
 import httpx2
 import structlog
 
-from polar.auth.models import Agent, AuthSubject
-from polar.benefit.grant.repository import BenefitGrantRepository
-from polar.integrations.slack.client import client as slack_client
-from polar.integrations.slack.repository import SlackAppRepository
-from polar.locker import Locker, TimeoutLockError
-from polar.logging import Logger
-from polar.models import (
+from repalis.auth.models import Agent, AuthSubject
+from repalis.benefit.grant.repository import BenefitGrantRepository
+from repalis.integrations.slack.client import client as slack_client
+from repalis.integrations.slack.repository import SlackAppRepository
+from repalis.locker import Locker, TimeoutLockError
+from repalis.logging import Logger
+from repalis.models import (
     Benefit,
     Customer,
     Member,
@@ -18,7 +18,7 @@ from polar.models import (
     SlackApp,
     User,
 )
-from polar.models.benefit_grant import BenefitGrantScopeArgs
+from repalis.models.benefit_grant import BenefitGrantScopeArgs
 
 from ..base.service import (
     BenefitActionRequiredError,

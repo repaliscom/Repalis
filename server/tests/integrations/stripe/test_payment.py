@@ -7,23 +7,23 @@ from freezegun import freeze_time
 from pytest_mock import MockerFixture
 from sqlalchemy import delete, select
 
-from polar.checkout.repository import CheckoutRepository
-from polar.checkout.service import NotConfirmedCheckout
-from polar.checkout.tasks import checkout_success
-from polar.enums import PaymentProcessor
-from polar.integrations.stripe.payment import (
+from repalis.checkout.repository import CheckoutRepository
+from repalis.checkout.service import NotConfirmedCheckout
+from repalis.checkout.tasks import checkout_success
+from repalis.enums import PaymentProcessor
+from repalis.integrations.stripe.payment import (
     _resolve_trigger,
     handle_failure,
     handle_success,
 )
-from polar.kit.db.postgres import (
+from repalis.kit.db.postgres import (
     AsyncSession,
     create_async_engine,
     create_async_sessionmaker,
 )
-from polar.kit.trial import TrialInterval
-from polar.kit.utils import utc_now
-from polar.models import (
+from repalis.kit.trial import TrialInterval
+from repalis.kit.utils import utc_now
+from repalis.models import (
     Account,
     Checkout,
     Customer,
@@ -33,17 +33,17 @@ from polar.models import (
     TrialRedemption,
     User,
 )
-from polar.models.checkout import CheckoutStatus
-from polar.models.order import OrderStatus
-from polar.models.payment import PaymentTrigger
-from polar.models.subscription import SubscriptionStatus
-from polar.models.wallet import WalletType
-from polar.order.repository import OrderRepository
-from polar.order.tasks import order_paid, wallet_order
-from polar.payment.repository import PaymentRepository
-from polar.payment_method.repository import PaymentMethodRepository
-from polar.subscription.repository import SubscriptionRepository
-from polar.wallet.repository import WalletTransactionRepository
+from repalis.models.checkout import CheckoutStatus
+from repalis.models.order import OrderStatus
+from repalis.models.payment import PaymentTrigger
+from repalis.models.subscription import SubscriptionStatus
+from repalis.models.wallet import WalletType
+from repalis.order.repository import OrderRepository
+from repalis.order.tasks import order_paid, wallet_order
+from repalis.payment.repository import PaymentRepository
+from repalis.payment_method.repository import PaymentMethodRepository
+from repalis.subscription.repository import SubscriptionRepository
+from repalis.wallet.repository import WalletTransactionRepository
 from tests.fixtures.database import SaveFixture, get_database_url, save_fixture_factory
 from tests.fixtures.random_objects import (
     create_account,
@@ -431,7 +431,7 @@ class TestHandleSuccess:
             },
             None,
         )
-        enqueue = mocker.patch("polar.integrations.stripe.payment.enqueue_job")
+        enqueue = mocker.patch("repalis.integrations.stripe.payment.enqueue_job")
 
         with pytest.raises(NotConfirmedCheckout):
             await handle_success(session, intent)
@@ -472,10 +472,10 @@ class TestHandleSuccess:
         )
         charge.payment_method = stripe_method.id
         mocker.patch(
-            "polar.payment_method.service.stripe_service.get_payment_method",
+            "repalis.payment_method.service.stripe_service.get_payment_method",
             return_value=stripe_method,
         )
-        enqueue = mocker.patch("polar.integrations.stripe.payment.enqueue_job")
+        enqueue = mocker.patch("repalis.integrations.stripe.payment.enqueue_job")
 
         await handle_success(session, charge)
 
@@ -557,7 +557,7 @@ class TestHandleSuccess:
             },
             None,
         )
-        enqueue = mocker.patch("polar.integrations.stripe.payment.enqueue_job")
+        enqueue = mocker.patch("repalis.integrations.stripe.payment.enqueue_job")
 
         await handle_success(session, intent)
 
@@ -613,10 +613,10 @@ class TestHandleSuccess:
             None,
         )
         save_method = mocker.patch(
-            "polar.integrations.stripe.payment.payment_method_service.upsert_from_stripe_intent"
+            "repalis.integrations.stripe.payment.payment_method_service.upsert_from_stripe_intent"
         )
-        enqueue = mocker.patch("polar.integrations.stripe.payment.enqueue_job")
-        log = mocker.patch("polar.integrations.stripe.payment.log")
+        enqueue = mocker.patch("repalis.integrations.stripe.payment.enqueue_job")
+        log = mocker.patch("repalis.integrations.stripe.payment.log")
 
         await handle_success(session, intent)
 
@@ -648,7 +648,7 @@ class TestHandleSuccess:
             billing_details={"email": customer.email},
             payment_method_details={"type": "card", "card": {"last4": "4242"}},
         )
-        enqueue = mocker.patch("polar.integrations.stripe.payment.enqueue_job")
+        enqueue = mocker.patch("repalis.integrations.stripe.payment.enqueue_job")
         await handle_success(session, charge)
         payment = await PaymentRepository.from_session(session).get_by_processor_id(
             PaymentProcessor.stripe, charge.id
@@ -690,7 +690,7 @@ class TestHandleSuccess:
             billing_details={"email": customer.email},
             payment_method_details={"type": "card", "card": {"last4": "4242"}},
         )
-        enqueue = mocker.patch("polar.integrations.stripe.payment.enqueue_job")
+        enqueue = mocker.patch("repalis.integrations.stripe.payment.enqueue_job")
         await handle_success(session, charge)
         payment = await PaymentRepository.from_session(session).get_by_processor_id(
             PaymentProcessor.stripe, charge.id

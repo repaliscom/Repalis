@@ -22,7 +22,7 @@ from opentelemetry.metrics import _Gauge as Gauge
 from opentelemetry.util.types import Attributes
 from prometheus_client import Gauge as PromGauge
 
-import polar.observability.metrics  # noqa: F401  # Sets PROMETHEUS_MULTIPROC_DIR
+import repalis.observability.metrics  # noqa: F401  # Sets PROMETHEUS_MULTIPROC_DIR
 
 if TYPE_CHECKING:
     from opentelemetry.context import Context

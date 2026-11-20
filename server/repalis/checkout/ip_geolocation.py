@@ -7,7 +7,7 @@ import ipinfo_db
 import ipinfo_db.reader
 from fastapi import Depends, Request
 
-from polar.config import settings
+from repalis.config import settings
 
 DOWNLOAD_PATH = "https://ipinfo.io/data/free/country_asn.mmdb?token={token}"
 DATABASE_PATH = (

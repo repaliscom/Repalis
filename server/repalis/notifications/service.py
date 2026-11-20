@@ -6,14 +6,14 @@ from pydantic import BaseModel, TypeAdapter
 from sqlalchemy import desc
 from sqlalchemy.orm import joinedload
 
-from polar.kit.extensions.sqlalchemy import sql
-from polar.models.notification import Notification
-from polar.models.user_notification import UserNotification
-from polar.postgres import AsyncSession
-from polar.user_organization.service import (
+from repalis.kit.extensions.sqlalchemy import sql
+from repalis.models.notification import Notification
+from repalis.models.user_notification import UserNotification
+from repalis.postgres import AsyncSession
+from repalis.user_organization.service import (
     user_organization as user_organization_service,
 )
-from polar.worker import enqueue_job
+from repalis.worker import enqueue_job
 
 from .notification import Notification as NotificationSchema
 from .notification import NotificationPayload, NotificationType

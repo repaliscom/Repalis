@@ -3,17 +3,17 @@ from typing import Annotated
 from fastapi import Depends, Query
 from fastapi.responses import RedirectResponse
 
-from polar.dispute.dispute_case import dispute_case as dispute_case_service
-from polar.exceptions import (
+from repalis.dispute.dispute_case import dispute_case as dispute_case_service
+from repalis.exceptions import (
     PolarError,
     PolarRequestValidationError,
     ResourceNotFound,
 )
-from polar.file.service import file as file_service
-from polar.kit.pagination import ListResource, PaginationParamsQuery
-from polar.models import File
-from polar.models.file import FileServiceTypes
-from polar.models.support_case import (
+from repalis.file.service import file as file_service
+from repalis.kit.pagination import ListResource, PaginationParamsQuery
+from repalis.models import File
+from repalis.models.file import FileServiceTypes
+from repalis.models.support_case import (
     DisputeSupportCase,
     ReviewAppealSupportCase,
     SupportCase,
@@ -21,16 +21,16 @@ from polar.models.support_case import (
     SupportCaseMessage,
     SupportCaseMessageAuthorKind,
 )
-from polar.openapi import APITag
-from polar.organization_review.appeal_case import CaseClosedError
-from polar.organization_review.appeal_case import appeal_case as appeal_case_service
-from polar.postgres import (
+from repalis.openapi import APITag
+from repalis.organization_review.appeal_case import CaseClosedError
+from repalis.organization_review.appeal_case import appeal_case as appeal_case_service
+from repalis.postgres import (
     AsyncReadSession,
     AsyncSession,
     get_db_read_session,
     get_db_session,
 )
-from polar.routing import APIRouter
+from repalis.routing import APIRouter
 
 from . import auth, sorting
 from .schemas import (

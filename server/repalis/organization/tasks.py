@@ -3,20 +3,20 @@ from typing import Annotated
 
 import structlog
 
-from polar.email.schemas import (
+from repalis.email.schemas import (
     OrganizationOffboardedEmail,
     OrganizationOffboardedProps,
 )
-from polar.email.sender import enqueue_email_template
-from polar.exceptions import PolarTaskError
-from polar.integrations.plain.service import plain as plain_service
-from polar.models.organization import OrganizationStatus
-from polar.observability.task_logging import LoggableField
-from polar.user.repository import UserRepository
-from polar.user_organization.service import (
+from repalis.email.sender import enqueue_email_template
+from repalis.exceptions import PolarTaskError
+from repalis.integrations.plain.service import plain as plain_service
+from repalis.models.organization import OrganizationStatus
+from repalis.observability.task_logging import LoggableField
+from repalis.user.repository import UserRepository
+from repalis.user_organization.service import (
     user_organization as user_organization_service,
 )
-from polar.worker import (
+from repalis.worker import (
     AsyncSessionMaker,
     CronTrigger,
     TaskPriority,

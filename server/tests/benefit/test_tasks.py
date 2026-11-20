@@ -5,10 +5,10 @@ from dramatiq import Message, Retry, get_broker
 from pytest_mock import MockerFixture
 from sqlalchemy import select
 
-from polar.benefit.grant.repository import BenefitGrantRepository
-from polar.benefit.grant.service import BenefitGrantService
-from polar.benefit.strategies import BenefitRetriableError
-from polar.benefit.tasks import (  # type: ignore[attr-defined]
+from repalis.benefit.grant.repository import BenefitGrantRepository
+from repalis.benefit.grant.service import BenefitGrantService
+from repalis.benefit.strategies import BenefitRetriableError
+from repalis.benefit.tasks import (  # type: ignore[attr-defined]
     BenefitDoesNotExist,
     BenefitGrantDoesNotExist,
     CustomerDoesNotExist,
@@ -20,8 +20,8 @@ from polar.benefit.tasks import (  # type: ignore[attr-defined]
     benefit_revoke,
     benefit_update,
 )
-from polar.kit.utils import utc_now
-from polar.models import (
+from repalis.kit.utils import utc_now
+from repalis.models import (
     Benefit,
     BenefitGrant,
     Customer,
@@ -29,9 +29,9 @@ from polar.models import (
     Organization,
     Subscription,
 )
-from polar.postgres import AsyncSession
-from polar.subscription.service import SubscriptionService
-from polar.subscription.service import subscription as subscription_service
+from repalis.postgres import AsyncSession
+from repalis.subscription.service import SubscriptionService
+from repalis.subscription.service import subscription as subscription_service
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (
     create_benefit_grant,
@@ -427,7 +427,7 @@ class TestBenefitDelete:
         benefit_organization: Benefit,
         session: AsyncSession,
     ) -> None:
-        enqueue_job_mock = mocker.patch("polar.benefit.grant.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.benefit.grant.service.enqueue_job")
 
         grant = BenefitGrant(
             subscription=subscription, customer=customer, benefit=benefit_organization
@@ -548,7 +548,7 @@ class TestBenefitEnqueueGrants:
         benefit_organization_second: Benefit,
         session: AsyncSession,
     ) -> None:
-        enqueue_job_mock = mocker.patch("polar.benefit.tasks.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.benefit.tasks.enqueue_job")
 
         benefit_ids = [benefit_organization.id, benefit_organization_second.id]
 
@@ -582,7 +582,7 @@ class TestBenefitEnqueueGrants:
         subscription: Subscription,
         session: AsyncSession,
     ) -> None:
-        enqueue_job_mock = mocker.patch("polar.benefit.tasks.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.benefit.tasks.enqueue_job")
 
         session.expunge_all()
 

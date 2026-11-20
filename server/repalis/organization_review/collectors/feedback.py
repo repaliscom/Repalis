@@ -1,6 +1,6 @@
 import contextlib
 
-from polar.models.organization_review_feedback import OrganizationReviewFeedback
+from repalis.models.organization_review_feedback import OrganizationReviewFeedback
 
 from ..schemas import (
     PriorDimensionAssessment,

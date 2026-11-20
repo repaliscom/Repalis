@@ -11,7 +11,7 @@ from typing import TYPE_CHECKING
 
 import structlog
 
-from polar.config import settings
+from repalis.config import settings
 
 if TYPE_CHECKING:
     from firecrawl import AsyncFirecrawl

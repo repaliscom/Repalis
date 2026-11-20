@@ -8,11 +8,11 @@ import stripe as stripe_lib
 import structlog
 from opentelemetry import trace
 
-from polar.config import settings
-from polar.enums import TaxBehavior
-from polar.integrations.stripe.service import stripe as stripe_service
-from polar.kit.address import Address
-from polar.logging import Logger
+from repalis.config import settings
+from repalis.enums import TaxBehavior
+from repalis.integrations.stripe.service import stripe as stripe_service
+from repalis.kit.address import Address
+from repalis.logging import Logger
 
 from ..tax_id import IncompatibleTaxIDFormat, TaxID, to_stripe_tax_id
 from .base import (

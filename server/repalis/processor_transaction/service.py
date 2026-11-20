@@ -1,7 +1,7 @@
-from polar.integrations.stripe.service import stripe as stripe_service
-from polar.models import ProcessorTransaction
-from polar.models.processor_transaction import Processor
-from polar.postgres import AsyncSession
+from repalis.integrations.stripe.service import stripe as stripe_service
+from repalis.models import ProcessorTransaction
+from repalis.models.processor_transaction import Processor
+from repalis.postgres import AsyncSession
 
 from .repository import ProcessorTransactionRepository
 

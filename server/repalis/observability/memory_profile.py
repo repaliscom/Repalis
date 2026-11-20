@@ -9,9 +9,9 @@ from collections import Counter
 
 import structlog
 
-from polar.config import settings
-from polar.integrations.aws.s3.client import client as s3_client
-from polar.kit.utils import utc_now
+from repalis.config import settings
+from repalis.integrations.aws.s3.client import client as s3_client
+from repalis.kit.utils import utc_now
 
 log = structlog.get_logger()
 

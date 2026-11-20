@@ -3,23 +3,23 @@ from typing import Annotated
 from fastapi import Depends, Path, Query
 from pydantic import UUID4
 
-from polar.kit.pagination import ListResource, PaginationParamsQuery
-from polar.notification_recipient import (
+from repalis.kit.pagination import ListResource, PaginationParamsQuery
+from repalis.notification_recipient import (
     auth as notification_recipient_auth,
 )
-from polar.notification_recipient.schemas import (
+from repalis.notification_recipient.schemas import (
     NotificationRecipientCreate,
     NotificationRecipientSchema,
 )
-from polar.notification_recipient.service import (
+from repalis.notification_recipient.service import (
     notification_recipient as notification_recipient_service,
 )
-from polar.notifications import (
+from repalis.notifications import (
     auth as notifications_auth,
 )
-from polar.openapi import APITag
-from polar.postgres import AsyncSession, get_db_session
-from polar.routing import APIRouter
+from repalis.openapi import APITag
+from repalis.postgres import AsyncSession, get_db_session
+from repalis.routing import APIRouter
 
 from .schemas import NotificationsList, NotificationsListParams, NotificationsMarkRead
 from .service import notifications

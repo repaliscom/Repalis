@@ -6,11 +6,11 @@ import httpx2
 import pytest
 from pytest_mock import MockerFixture
 
-from polar.backoffice import app as backoffice_app
-from polar.backoffice.dependencies import get_admin
-from polar.kit.utils import utc_now
-from polar.merchant_migration import pan_transfer
-from polar.merchant_migration.canonical import (
+from repalis.backoffice import app as backoffice_app
+from repalis.backoffice.dependencies import get_admin
+from repalis.kit.utils import utc_now
+from repalis.merchant_migration import pan_transfer
+from repalis.merchant_migration.canonical import (
     CanonicalCollectionMethod,
     CanonicalCustomer,
     CanonicalPrice,
@@ -19,23 +19,23 @@ from polar.merchant_migration.canonical import (
     CanonicalSubscription,
     CanonicalSubscriptionStatus,
 )
-from polar.merchant_migration.pan_transfer import (
+from repalis.merchant_migration.pan_transfer import (
     PanStepActor,
     PanStepOwner,
     PanStepStatus,
     PanTransferMethod,
     PanTransferStep,
 )
-from polar.merchant_migration.repository import MerchantMigrationRecordRepository
-from polar.models import MerchantMigration, Organization
-from polar.models.backoffice_user_session import BackofficeUserSession
-from polar.models.merchant_migration import (
+from repalis.merchant_migration.repository import MerchantMigrationRecordRepository
+from repalis.models import MerchantMigration, Organization
+from repalis.models.backoffice_user_session import BackofficeUserSession
+from repalis.models.merchant_migration import (
     MerchantMigrationSourcePlatform,
     MerchantMigrationStep,
 )
-from polar.models.merchant_migration_record import MerchantMigrationRecordStatus
-from polar.postgres import AsyncSession, get_db_read_session, get_db_session
-from polar.redis import Redis, get_redis
+from repalis.models.merchant_migration_record import MerchantMigrationRecordStatus
+from repalis.postgres import AsyncSession, get_db_read_session, get_db_session
+from repalis.redis import Redis, get_redis
 from tests.fixtures.database import SaveFixture
 from tests.merchant_migration._helpers import pan_step_required_inputs
 
@@ -610,7 +610,7 @@ class TestCompleteStep:
             steps=_advance_to("stripe_copy"),
         )
         get_payment_method = mocker.patch(
-            "polar.merchant_migration.cards.stripe_service.get_payment_method"
+            "repalis.merchant_migration.cards.stripe_service.get_payment_method"
         )
 
         response = await backoffice_client.post(

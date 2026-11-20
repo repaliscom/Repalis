@@ -1,4 +1,4 @@
-from polar.exceptions import PolarRequestValidationError
+from repalis.exceptions import PolarRequestValidationError
 
 from .guard import UnitPrice
 

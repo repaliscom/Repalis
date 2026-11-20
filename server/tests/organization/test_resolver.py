@@ -1,12 +1,12 @@
 import pytest
 from pydantic import UUID4, BaseModel
 
-from polar.auth.models import AuthSubject
-from polar.exceptions import PolarRequestValidationError
-from polar.models import Agent, Organization, User, UserOrganization
-from polar.models.user_organization import OrganizationRole
-from polar.organization.resolver import get_payload_organization
-from polar.postgres import AsyncSession
+from repalis.auth.models import AuthSubject
+from repalis.exceptions import PolarRequestValidationError
+from repalis.models import Agent, Organization, User, UserOrganization
+from repalis.models.user_organization import OrganizationRole
+from repalis.organization.resolver import get_payload_organization
+from repalis.postgres import AsyncSession
 from tests.fixtures.auth import AuthSubjectFixture
 from tests.fixtures.database import SaveFixture
 

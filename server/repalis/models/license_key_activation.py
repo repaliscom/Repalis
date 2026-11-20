@@ -9,8 +9,8 @@ from sqlalchemy import (
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import Mapped, declared_attr, mapped_column, relationship
 
-from polar.kit.db.models import RecordModel
-from polar.kit.utils import utc_now
+from repalis.kit.db.models import RecordModel
+from repalis.kit.utils import utc_now
 
 if TYPE_CHECKING:
     from .license_key import LicenseKey

@@ -20,9 +20,9 @@ import gepa
 import structlog
 from pydantic_ai import Agent
 
-from polar.config import settings
-from polar.organization_review.analyzer import SYSTEM_PROMPT, ReviewAnalyzer
-from polar.organization_review.schemas import (
+from repalis.config import settings
+from repalis.organization_review.analyzer import SYSTEM_PROMPT, ReviewAnalyzer
+from repalis.organization_review.schemas import (
     DataSnapshot,
     ReviewAgentReport,
     ReviewContext,

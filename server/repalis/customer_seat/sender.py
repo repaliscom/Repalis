@@ -1,10 +1,10 @@
 import structlog
 
-from polar.config import settings
-from polar.email.schemas import SeatInvitationEmail, SeatInvitationProps
-from polar.email.sender import enqueue_email_template
-from polar.logging import Logger
-from polar.models import CustomerSeat, Organization
+from repalis.config import settings
+from repalis.email.schemas import SeatInvitationEmail, SeatInvitationProps
+from repalis.email.sender import enqueue_email_template
+from repalis.logging import Logger
+from repalis.models import CustomerSeat, Organization
 
 log: Logger = structlog.get_logger()
 

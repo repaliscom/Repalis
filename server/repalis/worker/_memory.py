@@ -7,7 +7,7 @@ import dramatiq
 import logfire
 import structlog
 
-from polar.observability.task_logging import task_log_context
+from repalis.observability.task_logging import task_log_context
 
 log = structlog.get_logger()
 

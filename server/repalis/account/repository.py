@@ -3,14 +3,14 @@ from uuid import UUID
 
 from sqlalchemy import Select, select
 
-from polar.authz.types import AccessibleOrganizationID
-from polar.kit.repository import (
+from repalis.authz.types import AccessibleOrganizationID
+from repalis.kit.repository import (
     Options,
     RepositoryBase,
     RepositorySoftDeletionIDMixin,
     RepositorySoftDeletionMixin,
 )
-from polar.models import Account, Organization
+from repalis.models import Account, Organization
 
 
 class AccountRepository(

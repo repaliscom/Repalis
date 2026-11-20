@@ -1,7 +1,7 @@
 from typing import Any
 
-from polar.models import Organization, OrganizationRiskSignal
-from polar.postgres import AsyncSession
+from repalis.models import Organization, OrganizationRiskSignal
+from repalis.postgres import AsyncSession
 
 from .repository import OrganizationRiskSignalRepository
 

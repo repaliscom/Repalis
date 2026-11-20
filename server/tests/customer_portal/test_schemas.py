@@ -1,10 +1,10 @@
 import pytest
 from pydantic import TypeAdapter
 
-from polar.customer_portal.schemas.organization import CustomerProduct
-from polar.kit.visibility import Visibility
-from polar.models import Organization
-from polar.product.schemas import Product
+from repalis.customer_portal.schemas.organization import CustomerProduct
+from repalis.kit.visibility import Visibility
+from repalis.models import Organization
+from repalis.product.schemas import Product
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (
     create_benefit,

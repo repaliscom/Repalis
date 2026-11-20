@@ -6,19 +6,19 @@ from fastapi.datastructures import URL
 from fastapi.responses import RedirectResponse
 from pydantic import UUID4, BeforeValidator
 
-from polar.checkout import ip_geolocation
-from polar.checkout.service import checkout as checkout_service
-from polar.checkout_link.repository import CheckoutLinkRepository
-from polar.exceptions import ResourceNotFound
-from polar.kit.http import get_ip_address
-from polar.kit.pagination import ListResource, PaginationParamsQuery
-from polar.kit.schemas import EmptyStrToNone, empty_str_to_none
-from polar.kit.versioning import version
-from polar.models import CheckoutLink
-from polar.openapi import APITag, cli_preview
-from polar.postgres import AsyncSession, get_db_session
-from polar.routing import APIRouter
-from polar.version import V2027_01
+from repalis.checkout import ip_geolocation
+from repalis.checkout.service import checkout as checkout_service
+from repalis.checkout_link.repository import CheckoutLinkRepository
+from repalis.exceptions import ResourceNotFound
+from repalis.kit.http import get_ip_address
+from repalis.kit.pagination import ListResource, PaginationParamsQuery
+from repalis.kit.schemas import EmptyStrToNone, empty_str_to_none
+from repalis.kit.versioning import version
+from repalis.models import CheckoutLink
+from repalis.openapi import APITag, cli_preview
+from repalis.postgres import AsyncSession, get_db_session
+from repalis.routing import APIRouter
+from repalis.version import V2027_01
 
 from . import auth, legacy_schemas, sorting
 from .schemas import CheckoutLink as CheckoutLinkSchema

@@ -3,9 +3,9 @@ from typing import Annotated, Any, cast
 import structlog
 from typing_extensions import TypedDict
 
-from polar.config import settings
-from polar.observability.task_logging import LoggableField
-from polar.worker import AsyncSessionMaker, TaskPriority, actor
+from repalis.config import settings
+from repalis.observability.task_logging import LoggableField
+from repalis.worker import AsyncSessionMaker, TaskPriority, actor
 
 from .repository import FileRepository
 from .service import file as file_service

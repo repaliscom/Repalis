@@ -5,15 +5,15 @@ from typing import Annotated
 import structlog
 from dramatiq import Retry
 
-from polar.config import settings
-from polar.exceptions import PolarTaskError
-from polar.kit.utils import utc_now
-from polar.logging import Logger
-from polar.models.checkout import CheckoutStatus
-from polar.observability.task_logging import LoggableField
-from polar.payment.repository import PaymentRepository
-from polar.payment_method.repository import PaymentMethodRepository
-from polar.worker import (
+from repalis.config import settings
+from repalis.exceptions import PolarTaskError
+from repalis.kit.utils import utc_now
+from repalis.logging import Logger
+from repalis.models.checkout import CheckoutStatus
+from repalis.observability.task_logging import LoggableField
+from repalis.payment.repository import PaymentRepository
+from repalis.payment_method.repository import PaymentMethodRepository
+from repalis.worker import (
     AsyncSessionMaker,
     CronTrigger,
     TaskPriority,

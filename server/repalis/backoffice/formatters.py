@@ -1,8 +1,8 @@
 from datetime import datetime as dt
 from decimal import Decimal
 
-from polar.kit.currency import format_currency
-from polar.tax.tax_id import TaxID
+from repalis.kit.currency import format_currency
+from repalis.tax.tax_id import TaxID
 
 
 def datetime(value: dt) -> str:

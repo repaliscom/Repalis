@@ -3,10 +3,10 @@ from uuid import UUID
 
 from sqlalchemy import case, func
 
-from polar.kit.pagination import PaginationParams, paginate
-from polar.kit.repository import RepositoryBase, RepositorySoftDeletionMixin
-from polar.models import Downloadable, File
-from polar.models.file import FileServiceTypes
+from repalis.kit.pagination import PaginationParams, paginate
+from repalis.kit.repository import RepositoryBase, RepositorySoftDeletionMixin
+from repalis.models import Downloadable, File
+from repalis.models.file import FileServiceTypes
 
 type BenefitFileResult = tuple[File, int, int]
 

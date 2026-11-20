@@ -2,8 +2,8 @@ from typing import Annotated
 
 from sqlalchemy import text
 
-from polar.observability.task_logging import LoggableField
-from polar.worker import AsyncSessionMaker, RedisMiddleware, TaskPriority, actor
+from repalis.observability.task_logging import LoggableField
+from repalis.worker import AsyncSessionMaker, RedisMiddleware, TaskPriority, actor
 
 
 @actor(actor_name="dummy", priority=TaskPriority.LOW)

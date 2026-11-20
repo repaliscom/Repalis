@@ -1,4 +1,4 @@
-from polar.kit.db.models import Model, TimestampedModel
+from repalis.kit.db.models import Model, TimestampedModel
 
 from .account import Account
 from .account_credit import AccountCredit

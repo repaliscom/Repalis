@@ -1,9 +1,9 @@
-from polar.auth.models import AuthSubject, Customer, Member
-from polar.exceptions import BadRequest, ResourceNotFound
-from polar.kit.db.postgres import AsyncSession
-from polar.models import Order, Subscription
-from polar.order.repository import OrderRepository
-from polar.subscription.repository import SubscriptionRepository
+from repalis.auth.models import AuthSubject, Customer, Member
+from repalis.exceptions import BadRequest, ResourceNotFound
+from repalis.kit.db.postgres import AsyncSession
+from repalis.models import Order, Subscription
+from repalis.order.repository import OrderRepository
+from repalis.subscription.repository import SubscriptionRepository
 
 from ..schemas.seat import CustomerSeatAssign
 

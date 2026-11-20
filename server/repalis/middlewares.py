@@ -10,11 +10,11 @@ import structlog
 from starlette.datastructures import Headers, MutableHeaders
 from starlette.types import ASGIApp, Message, Receive, Scope, Send
 
-from polar.kit.db.postgres import AsyncSessionMaker
-from polar.logging import ClientContext, CorrelationID, Logger
-from polar.observability.http_telemetry import request_path_template
-from polar.operational_errors import handle_operational_error
-from polar.worker import JobQueueManager
+from repalis.kit.db.postgres import AsyncSessionMaker
+from repalis.logging import ClientContext, CorrelationID, Logger
+from repalis.observability.http_telemetry import request_path_template
+from repalis.operational_errors import handle_operational_error
+from repalis.worker import JobQueueManager
 
 log: Logger = structlog.get_logger()
 

@@ -4,7 +4,7 @@ from typing import Annotated
 from pydantic import AfterValidator, Field, HttpUrl, TypeAdapter
 from tld import get_fld
 
-from polar.kit.schemas import IDSchema, Schema, TimestampedSchema
+from repalis.kit.schemas import IDSchema, Schema, TimestampedSchema
 
 _http_url = TypeAdapter(HttpUrl)
 

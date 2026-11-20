@@ -14,17 +14,17 @@ from pydantic import (
 )
 from pydantic.json_schema import SkipJsonSchema
 
-from polar.custom_field.data import (
+from repalis.custom_field.data import (
     CustomFieldDataInputMixin,
     CustomFieldDataOutputMixin,
 )
-from polar.customer.schemas.customer import CustomerBase, CustomerID, ExternalCustomerID
-from polar.discount.schemas import DiscountMinimal
-from polar.exceptions import ResourceNotFound
-from polar.kit.address import Address, AddressInput
-from polar.kit.currency import format_currency
-from polar.kit.metadata import MetadataInputMixin, MetadataOutputMixin
-from polar.kit.schemas import (
+from repalis.customer.schemas.customer import CustomerBase, CustomerID, ExternalCustomerID
+from repalis.discount.schemas import DiscountMinimal
+from repalis.exceptions import ResourceNotFound
+from repalis.kit.address import Address, AddressInput
+from repalis.kit.currency import format_currency
+from repalis.kit.metadata import MetadataInputMixin, MetadataOutputMixin
+from repalis.kit.schemas import (
     IDSchema,
     Int32,
     MergeJSONSchema,
@@ -33,22 +33,22 @@ from polar.kit.schemas import (
     TimestampedSchema,
     empty_str_to_none,
 )
-from polar.kit.versioning import QuerySchema, Version
-from polar.models.order import (
+from repalis.kit.versioning import QuerySchema, Version
+from repalis.models.order import (
     OrderBillingReason,
     OrderBillingReasonInternal,
     OrderStatus,
 )
-from polar.models.product import ProductBillingType
-from polar.organization.schemas import OrganizationID
-from polar.product.schemas import (
+from repalis.models.product import ProductBillingType
+from repalis.organization.schemas import OrganizationID
+from repalis.product.schemas import (
     ProductBase,
     ProductID,
     ProductPrice,
     ProductVersionOutputMixin,
 )
-from polar.subscription.schemas import SubscriptionBase, SubscriptionID
-from polar.version import V2026_10, V2027_01
+from repalis.subscription.schemas import SubscriptionBase, SubscriptionID
+from repalis.version import V2026_10, V2027_01
 
 OrderID = Annotated[UUID4, Path(description="The order ID.")]
 

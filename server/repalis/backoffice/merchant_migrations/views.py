@@ -6,11 +6,11 @@ from collections.abc import Mapping, Sequence
 from fastapi import Request
 from tagflow import tag, text
 
-from polar.merchant_migration.pan_transfer import (
+from repalis.merchant_migration.pan_transfer import (
     PanStepStatus,
     PanTransferStep,
 )
-from polar.models import MerchantMigration, MerchantMigrationRecord
+from repalis.models import MerchantMigration, MerchantMigrationRecord
 
 from .. import formatters
 from ..components import button

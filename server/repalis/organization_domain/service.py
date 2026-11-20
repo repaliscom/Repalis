@@ -9,18 +9,18 @@ import dns.resolver
 import structlog
 from sqlalchemy.exc import IntegrityError
 
-from polar.auth.permission import ROLE_PERMISSIONS, OrganizationPermission
-from polar.config import settings
-from polar.email.schemas import DomainVerificationLostEmail, DomainVerificationLostProps
-from polar.email.sender import enqueue_email_template
-from polar.exceptions import PolarError
-from polar.kit.pagination import PaginationParams, paginate
-from polar.kit.utils import utc_now
-from polar.logging import Logger
-from polar.models import Organization, OrganizationDomain
-from polar.organization.embed_hosts import WILDCARD_PREFIX, is_shared_host
-from polar.postgres import AsyncReadSession, AsyncSession
-from polar.user_organization.service import (
+from repalis.auth.permission import ROLE_PERMISSIONS, OrganizationPermission
+from repalis.config import settings
+from repalis.email.schemas import DomainVerificationLostEmail, DomainVerificationLostProps
+from repalis.email.sender import enqueue_email_template
+from repalis.exceptions import PolarError
+from repalis.kit.pagination import PaginationParams, paginate
+from repalis.kit.utils import utc_now
+from repalis.logging import Logger
+from repalis.models import Organization, OrganizationDomain
+from repalis.organization.embed_hosts import WILDCARD_PREFIX, is_shared_host
+from repalis.postgres import AsyncReadSession, AsyncSession
+from repalis.user_organization.service import (
     user_organization as user_organization_service,
 )
 

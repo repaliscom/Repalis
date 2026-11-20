@@ -2,10 +2,10 @@ from typing import Annotated
 
 from fastapi import Depends
 
-from polar.auth.dependencies import Authenticator
-from polar.auth.models import AuthSubject, User
-from polar.auth.scope import Scope
-from polar.models.organization import Organization
+from repalis.auth.dependencies import Authenticator
+from repalis.auth.models import AuthSubject, User
+from repalis.auth.scope import Scope
+from repalis.models.organization import Organization
 
 _CustomFieldRead = Authenticator(
     required_scopes={

@@ -8,10 +8,10 @@ from zoneinfo import ZoneInfo
 import structlog
 from redis.exceptions import RedisError
 
-from polar.kit.time_queries import TimeInterval
-from polar.logging import Logger
-from polar.models.product import ProductBillingType
-from polar.redis import Redis
+from repalis.kit.time_queries import TimeInterval
+from repalis.logging import Logger
+from repalis.models.product import ProductBillingType
+from repalis.redis import Redis
 
 from .schemas import MetricsResponse
 

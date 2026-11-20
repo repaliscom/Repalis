@@ -38,7 +38,7 @@ from starlette.types import ASGIApp, Message, Receive, Scope, Send
 from starlette.websockets import WebSocketClose
 from typing_extensions import TypeForm
 
-from polar.kit.schemas import Schema
+from repalis.kit.schemas import Schema
 
 _API_VERSION_PATTERN = re.compile(r"^(\d{4})-(\d{2})$")
 
@@ -545,7 +545,7 @@ def _create_openapi_endpoint(
 ) -> Callable[[], Awaitable[JSONResponse]]:
     @functools.cache
     def get_schema() -> dict[str, typing.Any]:
-        from polar.openapi import get_openapi
+        from repalis.openapi import get_openapi
 
         return get_openapi(
             version=version, route_contexts=route_contexts, webhooks=webhooks

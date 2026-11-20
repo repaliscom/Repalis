@@ -6,15 +6,15 @@ import pytest
 from pytest_mock import MockerFixture
 from sqlalchemy import func, select
 
-from polar.enums import (
+from repalis.enums import (
     SubscriptionProrationBehavior,
     SubscriptionRecurringInterval,
     TaxBehavior,
     TaxBehaviorOption,
     TaxProcessor,
 )
-from polar.kit.address import Address
-from polar.models import (
+from repalis.kit.address import Address
+from repalis.models import (
     BillingEntry,
     Customer,
     OrderItem,
@@ -22,16 +22,16 @@ from polar.models import (
     Product,
     Subscription,
 )
-from polar.models.billing_entry import BillingEntryDirection, BillingEntryType
-from polar.models.discount import DiscountDuration, DiscountType
-from polar.models.product_price import ProductPriceFixed
-from polar.models.subscription import SubscriptionStatus
-from polar.models.subscription_meter import SubscriptionMeter
-from polar.postgres import AsyncSession
-from polar.subscription.service import SubscriptionUpdateContext
-from polar.subscription.service import subscription as subscription_service
-from polar.subscription.update import generate_subscription_update
-from polar.tax.calculation import get_tax_behavior_from_option
+from repalis.models.billing_entry import BillingEntryDirection, BillingEntryType
+from repalis.models.discount import DiscountDuration, DiscountType
+from repalis.models.product_price import ProductPriceFixed
+from repalis.models.subscription import SubscriptionStatus
+from repalis.models.subscription_meter import SubscriptionMeter
+from repalis.postgres import AsyncSession
+from repalis.subscription.service import SubscriptionUpdateContext
+from repalis.subscription.service import subscription as subscription_service
+from repalis.subscription.update import generate_subscription_update
+from repalis.tax.calculation import get_tax_behavior_from_option
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (
     create_active_subscription,
@@ -46,7 +46,7 @@ from tests.fixtures.random_objects import (
 
 @pytest.fixture
 def tax_mock(mocker: MockerFixture) -> MagicMock:
-    return mocker.patch("polar.order.amounts.tax_calculation_service")
+    return mocker.patch("repalis.order.amounts.tax_calculation_service")
 
 
 def set_tax(tax_mock: MagicMock, amount: int) -> None:

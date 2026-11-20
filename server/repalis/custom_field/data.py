@@ -8,10 +8,10 @@ from sqlalchemy import event
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import Mapped, Mapper, ORMDescriptor, mapped_column
 
-from polar.exceptions import PolarRequestValidationError
+from repalis.exceptions import PolarRequestValidationError
 
 if TYPE_CHECKING:
-    from polar.models import CustomField, Organization
+    from repalis.models import CustomField, Organization
 
     from .attachment import AttachedCustomFieldMixin
 

@@ -4,8 +4,8 @@ from urllib.parse import parse_qs
 import pytest
 from httpx2 import Response
 
-from polar.auth.turnstile import verify_turnstile
-from polar.exceptions import NotPermitted
+from repalis.auth.turnstile import verify_turnstile
+from repalis.exceptions import NotPermitted
 
 
 @pytest.mark.anyio

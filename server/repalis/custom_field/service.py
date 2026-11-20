@@ -16,24 +16,24 @@ from sqlalchemy import (
 from sqlalchemy.orm import contains_eager
 from sqlalchemy.sql.elements import OrderByList
 
-from polar.auth.models import AuthSubject, is_organization, is_user
-from polar.auth.permission import OrganizationPermission
-from polar.authz.repository import select_accessible_org_ids
-from polar.authz.service import (
+from repalis.auth.models import AuthSubject, is_organization, is_user
+from repalis.auth.permission import OrganizationPermission
+from repalis.authz.repository import select_accessible_org_ids
+from repalis.authz.service import (
     assert_organization_permission,
     assert_resource_permission,
 )
-from polar.custom_field.sorting import CustomFieldSortProperty
-from polar.declarative_config.guard import assert_catalog_editable
-from polar.exceptions import PolarError, PolarRequestValidationError
-from polar.kit.pagination import PaginationParams, paginate
-from polar.kit.services import ResourceServiceReader
-from polar.kit.sorting import Sorting
-from polar.models import CustomField, Organization, User
-from polar.models.catalog import CatalogStatus
-from polar.models.custom_field import CustomFieldType
-from polar.organization.resolver import get_payload_organization
-from polar.postgres import AsyncReadSession, AsyncSession
+from repalis.custom_field.sorting import CustomFieldSortProperty
+from repalis.declarative_config.guard import assert_catalog_editable
+from repalis.exceptions import PolarError, PolarRequestValidationError
+from repalis.kit.pagination import PaginationParams, paginate
+from repalis.kit.services import ResourceServiceReader
+from repalis.kit.sorting import Sorting
+from repalis.models import CustomField, Organization, User
+from repalis.models.catalog import CatalogStatus
+from repalis.models.custom_field import CustomFieldType
+from repalis.organization.resolver import get_payload_organization
+from repalis.postgres import AsyncReadSession, AsyncSession
 
 from .attachment import attached_custom_fields_models
 from .data import custom_field_data_models

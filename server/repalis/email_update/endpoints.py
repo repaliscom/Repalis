@@ -1,15 +1,15 @@
 from fastapi import Depends, Form
 from fastapi.responses import RedirectResponse
 
-from polar.auth.exceptions import SessionNotFreshError
-from polar.authz.dependencies import AuthorizeWebUserWrite, AuthorizeWebUserWriteFresh
-from polar.config import settings
-from polar.exceptions import PolarRedirectionError
-from polar.kit.db.postgres import AsyncSession
-from polar.kit.http import ReturnTo, get_safe_return_url
-from polar.openapi import APITag
-from polar.postgres import get_db_session
-from polar.routing import APIRouter
+from repalis.auth.exceptions import SessionNotFreshError
+from repalis.authz.dependencies import AuthorizeWebUserWrite, AuthorizeWebUserWriteFresh
+from repalis.config import settings
+from repalis.exceptions import PolarRedirectionError
+from repalis.kit.db.postgres import AsyncSession
+from repalis.kit.http import ReturnTo, get_safe_return_url
+from repalis.openapi import APITag
+from repalis.postgres import get_db_session
+from repalis.routing import APIRouter
 
 from .schemas import EmailUpdateRequest
 from .service import EmailUpdateError

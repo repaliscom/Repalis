@@ -15,11 +15,11 @@ from sqlalchemy import (
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import Mapped, declared_attr, mapped_column, relationship
 
-from polar.kit.db.models import RecordModel
-from polar.kit.extensions.sqlalchemy.types import StringEnum
+from repalis.kit.db.models import RecordModel
+from repalis.kit.extensions.sqlalchemy.types import StringEnum
 
 if TYPE_CHECKING:
-    from polar.models import CatalogBenefit, CatalogMeter, CatalogProduct, Organization
+    from repalis.models import CatalogBenefit, CatalogMeter, CatalogProduct, Organization
 
 
 class CatalogStatus(StrEnum):

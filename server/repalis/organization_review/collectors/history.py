@@ -1,5 +1,5 @@
-from polar.models.organization import Organization, OrganizationStatus
-from polar.models.user import User
+from repalis.models.organization import Organization, OrganizationStatus
+from repalis.models.user import User
 
 from ..schemas import HistoryData, PriorOrganization
 

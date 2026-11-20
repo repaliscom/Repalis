@@ -7,9 +7,9 @@ from fastapi.requests import HTTPConnection
 from fastapi.security import HTTPBearer, OpenIdConnect
 from makefun import with_signature
 
-from polar.auth.scope import Scope
-from polar.exceptions import NotPermitted, Unauthorized
-from polar.oauth2.exceptions import InsufficientScopeError
+from repalis.auth.scope import Scope
+from repalis.exceptions import NotPermitted, Unauthorized
+from repalis.oauth2.exceptions import InsufficientScopeError
 
 from .models import (
     Agent,

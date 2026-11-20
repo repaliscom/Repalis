@@ -1,7 +1,7 @@
 from pydantic import Field
 
-from polar.benefit.schemas import BenefitID
-from polar.kit.versioning import QuerySchema
+from repalis.benefit.schemas import BenefitID
+from repalis.kit.versioning import QuerySchema
 
 
 class CustomerPortalLicenseKeyListParams(QuerySchema):

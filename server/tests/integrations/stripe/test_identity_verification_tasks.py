@@ -4,16 +4,16 @@ from collections.abc import AsyncIterator
 import pytest
 from pytest_mock import MockerFixture
 
-from polar.external_event.repository import ExternalEventRepository
-from polar.integrations.stripe.tasks import identity_verification_session_verified
-from polar.models import User
-from polar.models.external_event import ExternalEventSource, StripeEvent
-from polar.models.user import IdentityVerificationStatus
-from polar.postgres import AsyncSession
-from polar.user.service import (
+from repalis.external_event.repository import ExternalEventRepository
+from repalis.integrations.stripe.tasks import identity_verification_session_verified
+from repalis.models import User
+from repalis.models.external_event import ExternalEventSource, StripeEvent
+from repalis.models.user import IdentityVerificationStatus
+from repalis.postgres import AsyncSession
+from repalis.user.service import (
     IdentityVerificationForUnknownUser,
 )
-from polar.user.service import user as user_service
+from repalis.user.service import user as user_service
 from tests.fixtures.database import SaveFixture
 
 _identity_verification_session_verified = (
@@ -47,7 +47,7 @@ class TestIdentityVerificationSessionVerifiedTask:
         await save_fixture(user)
 
         mocker.patch(
-            "polar.user.service.stripe_service.redact_verification_session",
+            "repalis.user.service.stripe_service.redact_verification_session",
             new_callable=mocker.AsyncMock,
         )
 
@@ -76,7 +76,7 @@ class TestIdentityVerificationSessionVerifiedTask:
 
         # Run the actor against the test session so the event and user are visible.
         mocker.patch(
-            "polar.integrations.stripe.tasks.AsyncSessionMaker",
+            "repalis.integrations.stripe.tasks.AsyncSessionMaker",
             side_effect=lambda: _session_maker(session),
         )
 
@@ -121,7 +121,7 @@ class TestIdentityVerificationSessionVerifiedTask:
         await save_fixture(event)
 
         mocker.patch(
-            "polar.integrations.stripe.tasks.AsyncSessionMaker",
+            "repalis.integrations.stripe.tasks.AsyncSessionMaker",
             side_effect=lambda: _session_maker(session),
         )
 

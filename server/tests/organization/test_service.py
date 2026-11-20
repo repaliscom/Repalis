@@ -7,24 +7,24 @@ from pydantic import HttpUrl, ValidationError
 from pytest_mock import MockerFixture
 from sqlalchemy import update
 
-from polar.auth.models import AuthSubject
-from polar.config import settings
-from polar.dispute.dispute_case import dispute_case as dispute_case_service
-from polar.enums import (
+from repalis.auth.models import AuthSubject
+from repalis.config import settings
+from repalis.dispute.dispute_case import dispute_case as dispute_case_service
+from repalis.enums import (
     InvoiceNumbering,
     PayoutAccountType,
     SubscriptionProrationBehavior,
     SubscriptionRecurringInterval,
 )
-from polar.exceptions import PolarRequestValidationError
-from polar.integrations.stripe.account_risk import (
+from repalis.exceptions import PolarRequestValidationError
+from repalis.integrations.stripe.account_risk import (
     MerchantRiskSignal,
     UnknownAccountRiskEvaluation,
     WebsiteRiskSignal,
 )
-from polar.kit.http import UrlReachability
-from polar.kit.utils import utc_now
-from polar.models import (
+from repalis.kit.http import UrlReachability
+from repalis.kit.utils import utc_now
+from repalis.models import (
     Agent,
     Customer,
     Organization,
@@ -35,13 +35,13 @@ from polar.models import (
     User,
     UserOrganization,
 )
-from polar.models.account import Account
-from polar.models.backoffice_user import BackofficeUser
-from polar.models.benefit import BenefitType
-from polar.models.discount import Discount, DiscountDuration, DiscountType
-from polar.models.member import MemberRole
-from polar.models.order import OrderStatus
-from polar.models.organization import (
+from repalis.models.account import Account
+from repalis.models.backoffice_user import BackofficeUser
+from repalis.models.benefit import BenefitType
+from repalis.models.discount import Discount, DiscountDuration, DiscountType
+from repalis.models.member import MemberRole
+from repalis.models.order import OrderStatus
+from repalis.models.organization import (
     STATUS_CAPABILITIES,
     InvalidStatusTransitionError,
     OrganizationStatus,
@@ -49,17 +49,17 @@ from polar.models.organization import (
     SnoozeType,
     transition_capabilities,
 )
-from polar.models.organization import (
+from repalis.models.organization import (
     OrganizationDetails as OrganizationDetailsDict,
 )
-from polar.models.organization_access_token import OrganizationAccessToken
-from polar.models.organization_review import OrganizationReview
-from polar.models.subscription import SubscriptionStatus
-from polar.models.user import IdentityVerificationStatus
-from polar.models.user_organization import OrganizationRole
-from polar.oauth2.service.oauth2_token import oauth2_token as oauth2_token_service
-from polar.organization.repository import OrganizationRepository
-from polar.organization.schemas import (
+from repalis.models.organization_access_token import OrganizationAccessToken
+from repalis.models.organization_review import OrganizationReview
+from repalis.models.subscription import SubscriptionStatus
+from repalis.models.user import IdentityVerificationStatus
+from repalis.models.user_organization import OrganizationRole
+from repalis.oauth2.service.oauth2_token import oauth2_token as oauth2_token_service
+from repalis.organization.repository import OrganizationRepository
+from repalis.organization.schemas import (
     LegacyOrganizationStatus,
     OrganizationCreate,
     OrganizationDetails,
@@ -74,25 +74,25 @@ from polar.organization.schemas import (
     OrganizationSocialPlatforms,
     OrganizationUpdate,
 )
-from polar.organization.service import (
+from repalis.organization.service import (
     BackofficeActivationResult,
     CannotCreateOrganizationError,
     OrganizationError,
     PayoutAccountAlreadyLinked,
 )
-from polar.organization.service import organization as organization_service
-from polar.organization_email.service import (
+from repalis.organization.service import organization as organization_service
+from repalis.organization_email.service import (
     organization_email as organization_email_service,
 )
-from polar.organization_review.appeal_case import appeal_case as appeal_case_service
-from polar.organization_review.repository import (
+from repalis.organization_review.appeal_case import appeal_case as appeal_case_service
+from repalis.organization_review.repository import (
     OrganizationReviewRepository,
     OrganizationRiskSignalRepository,
 )
-from polar.organization_review.schemas import ActorType, ReviewContext, ReviewVerdict
-from polar.postgres import AsyncSession
-from polar.support_case.repository import SupportCaseMessageRepository
-from polar.user_organization.service import (
+from repalis.organization_review.schemas import ActorType, ReviewContext, ReviewVerdict
+from repalis.postgres import AsyncSession
+from repalis.support_case.repository import SupportCaseMessageRepository
+from repalis.user_organization.service import (
     user_organization as user_organization_service,
 )
 from tests.fixtures.auth import AuthSubjectFixture
@@ -206,7 +206,7 @@ class TestCreate:
         auth_subject: AuthSubject[User],
         session: AsyncSession,
     ) -> None:
-        enqueue_job_mock = mocker.patch("polar.organization.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.organization.service.enqueue_job")
 
         organization = await organization_service.create(
             session,
@@ -236,10 +236,10 @@ class TestCreate:
         session: AsyncSession,
     ) -> None:
         create_customer_mock = mocker.patch(
-            "polar.organization.service.polar_self_service.enqueue_create_customer"
+            "repalis.organization.service.polar_self_service.enqueue_create_customer"
         )
         add_member_mock = mocker.patch(
-            "polar.organization.service.polar_self_service.enqueue_add_member"
+            "repalis.organization.service.polar_self_service.enqueue_add_member"
         )
 
         organization = await organization_service.create(
@@ -309,7 +309,7 @@ class TestCreate:
         session: AsyncSession,
     ) -> None:
         mocker.patch(
-            "polar.organization.service.settings.is_sandbox", return_value=True
+            "repalis.organization.service.settings.is_sandbox", return_value=True
         )
 
         organization = await organization_service.create(
@@ -332,7 +332,7 @@ class TestCreate:
         session: AsyncSession,
     ) -> None:
         mocker.patch(
-            "polar.organization.service.settings.is_sandbox", return_value=False
+            "repalis.organization.service.settings.is_sandbox", return_value=False
         )
 
         organization = await organization_service.create(
@@ -357,9 +357,9 @@ class TestCreate:
         agent = auth_subject.subject
         agent.organization = None
         await save_fixture(agent)
-        enqueue_job_mock = mocker.patch("polar.organization.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.organization.service.enqueue_job")
         create_customer_mock = mocker.patch(
-            "polar.organization.service.polar_self_service.enqueue_create_customer"
+            "repalis.organization.service.polar_self_service.enqueue_create_customer"
         )
 
         organization = await organization_service.create(
@@ -422,7 +422,7 @@ class TestUpdateReviewSubmission:
         session: AsyncSession,
         organization: Organization,
     ) -> None:
-        enqueue_job_mock = mocker.patch("polar.organization.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.organization.service.enqueue_job")
 
         organization.status = OrganizationStatus.CREATED
         session.add(organization)
@@ -460,7 +460,7 @@ class TestUpdateReviewSubmission:
         save_fixture: SaveFixture,
         organization: Organization,
     ) -> None:
-        enqueue_job_mock = mocker.patch("polar.organization.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.organization.service.enqueue_job")
         organization.status = OrganizationStatus.CREATED
         session.add(organization)
         await session.flush()
@@ -504,7 +504,7 @@ class TestUpdateReviewSubmission:
         save_fixture: SaveFixture,
         organization: Organization,
     ) -> None:
-        mocker.patch("polar.organization.service.enqueue_job")
+        mocker.patch("repalis.organization.service.enqueue_job")
         organization.status = OrganizationStatus.CREATED
         organization.website = "https://example.com"
         await create_verified_organization_email(
@@ -765,7 +765,7 @@ class TestUpdateWebsite:
         session: AsyncSession,
         organization: Organization,
     ) -> None:
-        enqueue_job_mock = mocker.patch("polar.organization.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.organization.service.enqueue_job")
 
         await organization_service.update(
             session,
@@ -788,7 +788,7 @@ class TestUpdateWebsite:
     ) -> None:
         organization.website = "https://example.com/"
         await save_fixture(organization)
-        enqueue_job_mock = mocker.patch("polar.organization.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.organization.service.enqueue_job")
 
         await organization_service.update(
             session,
@@ -813,7 +813,7 @@ class TestUpdateEmail:
         session: AsyncSession,
         organization: Organization,
     ) -> None:
-        mocker.patch("polar.organization.service.enqueue_job")
+        mocker.patch("repalis.organization.service.enqueue_job")
 
         await organization_service.update(
             session, organization, OrganizationUpdate(email="support@acme.com")
@@ -834,7 +834,7 @@ class TestUpdateEmail:
     ) -> None:
         organization.email = "support@acme.com"
         await save_fixture(organization)
-        mocker.patch("polar.organization.service.enqueue_job")
+        mocker.patch("repalis.organization.service.enqueue_job")
 
         await organization_service.update(
             session, organization, OrganizationUpdate(email="support@acme.com")
@@ -854,7 +854,7 @@ class TestSubmitForReviewEmail:
         session: AsyncSession,
         organization: Organization,
     ) -> None:
-        mocker.patch("polar.organization.service.enqueue_job")
+        mocker.patch("repalis.organization.service.enqueue_job")
         organization.status = OrganizationStatus.CREATED
         organization.website = "https://example.com"
         organization.email = "other@example.com"
@@ -887,7 +887,7 @@ class TestCheckReviewThreshold:
         organization.total_balance = None
 
         mocker.patch(
-            "polar.organization.service.transaction_service.get_transactions_sum",
+            "repalis.organization.service.transaction_service.get_transactions_sum",
             return_value=7500,
         )
 
@@ -911,7 +911,7 @@ class TestCheckReviewThreshold:
         organization.next_review_threshold = 10000
 
         transaction_sum_mock = mocker.patch(
-            "polar.organization.service.transaction_service.get_transactions_sum",
+            "repalis.organization.service.transaction_service.get_transactions_sum",
             return_value=5000,
         )
 
@@ -937,7 +937,7 @@ class TestCheckReviewThreshold:
         organization.next_review_threshold = 0
 
         transaction_sum_mock = mocker.patch(
-            "polar.organization.service.transaction_service.get_transactions_sum",
+            "repalis.organization.service.transaction_service.get_transactions_sum",
             return_value=5000,
         )
 
@@ -963,10 +963,10 @@ class TestCheckReviewThreshold:
         organization.next_review_threshold = 1000
 
         transaction_sum_mock = mocker.patch(
-            "polar.organization.service.transaction_service.get_transactions_sum",
+            "repalis.organization.service.transaction_service.get_transactions_sum",
             return_value=5000,
         )
-        enqueue_job_mock = mocker.patch("polar.organization.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.organization.service.enqueue_job")
 
         # When
         result = await organization_service.check_review_threshold(
@@ -993,7 +993,7 @@ class TestCheckReviewThreshold:
         organization.total_balance = None
 
         mocker.patch(
-            "polar.organization.service.transaction_service.get_transactions_sum",
+            "repalis.organization.service.transaction_service.get_transactions_sum",
             return_value=0,
         )
 
@@ -1020,7 +1020,7 @@ class TestCheckReviewThreshold:
         organization.next_review_threshold = 1000
 
         mocker.patch(
-            "polar.organization.service.transaction_service.get_transactions_sum",
+            "repalis.organization.service.transaction_service.get_transactions_sum",
             return_value=5000,
         )
 
@@ -1045,10 +1045,10 @@ class TestCheckReviewThreshold:
         organization.next_review_threshold = 1000
 
         mocker.patch(
-            "polar.organization.service.transaction_service.get_transactions_sum",
+            "repalis.organization.service.transaction_service.get_transactions_sum",
             return_value=5000,
         )
-        enqueue_job_mock = mocker.patch("polar.organization.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.organization.service.enqueue_job")
 
         result = await organization_service.check_review_threshold(
             session, organization
@@ -1078,7 +1078,7 @@ class TestCheckReviewThreshold:
         organization.next_review_threshold = 1000
 
         mocker.patch(
-            "polar.organization.service.transaction_service.get_transactions_sum",
+            "repalis.organization.service.transaction_service.get_transactions_sum",
             return_value=5000,
         )
 
@@ -1102,7 +1102,7 @@ class TestCheckReviewThreshold:
         organization.next_review_threshold = 1000
 
         mocker.patch(
-            "polar.organization.service.transaction_service.get_transactions_sum",
+            "repalis.organization.service.transaction_service.get_transactions_sum",
             return_value=5000,
         )
 
@@ -1126,10 +1126,10 @@ class TestCheckReviewThreshold:
         organization.next_review_threshold = 0
 
         mocker.patch(
-            "polar.organization.service.transaction_service.get_transactions_sum",
+            "repalis.organization.service.transaction_service.get_transactions_sum",
             return_value=5000,
         )
-        enqueue_job_mock = mocker.patch("polar.organization.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.organization.service.enqueue_job")
 
         result = await organization_service.check_review_threshold(
             session, organization
@@ -1149,13 +1149,13 @@ class TestCheckReviewThreshold:
         organization.status = OrganizationStatus.ACTIVE
         organization.next_review_threshold = 0
         mocker.patch(
-            "polar.organization.service.settings.is_sandbox", return_value=True
+            "repalis.organization.service.settings.is_sandbox", return_value=True
         )
         mocker.patch(
-            "polar.organization.service.transaction_service.get_transactions_sum",
+            "repalis.organization.service.transaction_service.get_transactions_sum",
             return_value=5000,
         )
-        enqueue_job_mock = mocker.patch("polar.organization.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.organization.service.enqueue_job")
 
         result = await organization_service.check_review_threshold(
             session, organization
@@ -1254,7 +1254,7 @@ class TestConfirmOrganizationReviewed:
         organization: Organization,
     ) -> None:
         organization.status = OrganizationStatus.REVIEW
-        enqueue_job_mock = mocker.patch("polar.organization.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.organization.service.enqueue_job")
 
         result = await organization_service.confirm_organization_reviewed(
             session, organization, 15000
@@ -1375,7 +1375,7 @@ class TestHandleOngoingReviewVerdict:
         organization.next_review_threshold = 50_000
         organization.initially_reviewed_at = datetime(2025, 1, 1, 12, 0, tzinfo=UTC)
 
-        enqueue_job_mock = mocker.patch("polar.organization.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.organization.service.enqueue_job")
 
         # When: verdict is DENY
         result = await organization_service.handle_ongoing_review_verdict(
@@ -1456,7 +1456,7 @@ class TestHandleOngoingReviewVerdict:
         organization.next_review_threshold = 50_000
         organization.initially_reviewed_at = datetime(2025, 1, 1, 12, 0, tzinfo=UTC)
 
-        enqueue_job_mock = mocker.patch("polar.organization.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.organization.service.enqueue_job")
 
         # When: verdict is APPROVE but status is ACTIVE (not REVIEW)
         result = await organization_service.handle_ongoing_review_verdict(
@@ -1491,7 +1491,7 @@ class TestDenyOrganization:
         organization: Organization,
     ) -> None:
         organization.status = OrganizationStatus.REVIEW
-        enqueue_job_mock = mocker.patch("polar.organization.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.organization.service.enqueue_job")
 
         await organization_service.deny_organization(session, organization)
 
@@ -1508,7 +1508,7 @@ class TestDenyOrganization:
         stripe_payout_account: PayoutAccount,
     ) -> None:
         organization.status = OrganizationStatus.REVIEW
-        enqueue_job_mock = mocker.patch("polar.organization.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.organization.service.enqueue_job")
 
         await organization_service.deny_organization(
             session, organization, stripe_reject_reason="terms_of_service"
@@ -1528,7 +1528,7 @@ class TestDenyOrganization:
         stripe_payout_account: PayoutAccount,
     ) -> None:
         organization.status = OrganizationStatus.REVIEW
-        enqueue_job_mock = mocker.patch("polar.organization.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.organization.service.enqueue_job")
 
         await organization_service.deny_organization(session, organization)
 
@@ -1545,7 +1545,7 @@ class TestDenyOrganization:
     ) -> None:
         organization.status = OrganizationStatus.REVIEW
         enqueue_revoke_mock = mocker.patch(
-            "polar.organization.service.polar_self_service.enqueue_revoke_subscription"
+            "repalis.organization.service.polar_self_service.enqueue_revoke_subscription"
         )
 
         await organization_service.deny_organization(session, organization)
@@ -1573,7 +1573,7 @@ class TestBlockOrganization:
         organization: Organization,
     ) -> None:
         organization.status = OrganizationStatus.REVIEW
-        enqueue_job_mock = mocker.patch("polar.organization.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.organization.service.enqueue_job")
 
         await organization_service.block_organization(session, organization)
 
@@ -1590,7 +1590,7 @@ class TestBlockOrganization:
         stripe_payout_account: PayoutAccount,
     ) -> None:
         organization.status = OrganizationStatus.REVIEW
-        enqueue_job_mock = mocker.patch("polar.organization.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.organization.service.enqueue_job")
 
         await organization_service.block_organization(
             session, organization, stripe_reject_reason="fraud"
@@ -1620,7 +1620,7 @@ class TestResetOnboardingForReview:
         organization: Organization,
         status: OrganizationStatus,
     ) -> None:
-        enqueue_job_mock = mocker.patch("polar.organization.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.organization.service.enqueue_job")
         organization.status = status
         organization.capabilities = {**STATUS_CAPABILITIES[status]}
         organization.details_submitted_at = datetime.now(UTC)
@@ -2050,7 +2050,7 @@ class TestBackofficeSubmitAndMaybeActivate:
         save_fixture: SaveFixture,
         organization: Organization,
     ) -> None:
-        mocker.patch("polar.organization.service.enqueue_job")
+        mocker.patch("repalis.organization.service.enqueue_job")
         organization.status = OrganizationStatus.CREATED
         organization.website = "https://example.com"
         await create_verified_organization_email(
@@ -2191,7 +2191,7 @@ class TestSetOrganizationUnderReview:
         # Given organization active
         organization.status = OrganizationStatus.ACTIVE
 
-        enqueue_job_mock = mocker.patch("polar.organization.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.organization.service.enqueue_job")
 
         # When
         result = await organization_service.set_organization_under_review(
@@ -2223,7 +2223,7 @@ class TestSetOrganizationUnderReview:
         # Given an offboarding organization
         organization.status = OrganizationStatus.OFFBOARDING
 
-        mocker.patch("polar.organization.service.enqueue_job")
+        mocker.patch("repalis.organization.service.enqueue_job")
 
         # When reverting it to review
         result = await organization_service.set_organization_under_review(
@@ -2299,7 +2299,7 @@ class TestHandleAccountRiskSignal:
         await create_payout_account(
             save_fixture, organization, user, stripe_id="acct_risk"
         )
-        mocker.patch("polar.organization.service.enqueue_job")
+        mocker.patch("repalis.organization.service.enqueue_job")
 
         await organization_service.handle_account_risk_signal(
             session,
@@ -2334,7 +2334,7 @@ class TestHandleAccountRiskSignal:
         await self._pending_website_eval(
             save_fixture, organization_second, "acctevl_other"
         )
-        mocker.patch("polar.organization.service.enqueue_job")
+        mocker.patch("repalis.organization.service.enqueue_job")
 
         await organization_service.handle_account_risk_signal(
             session,
@@ -2364,7 +2364,7 @@ class TestHandleAccountRiskSignal:
         organization: Organization,
     ) -> None:
         await self._pending_website_eval(save_fixture, organization, "acctevl_ours")
-        mocker.patch("polar.organization.service.enqueue_job")
+        mocker.patch("repalis.organization.service.enqueue_job")
 
         with pytest.raises(UnknownAccountRiskEvaluation):
             await organization_service.handle_account_risk_signal(
@@ -2389,7 +2389,7 @@ class TestHandleAccountRiskSignal:
         organization: Organization,
     ) -> None:
         await self._pending_website_eval(save_fixture, organization, "acctevl_456")
-        mocker.patch("polar.organization.service.enqueue_job")
+        mocker.patch("repalis.organization.service.enqueue_job")
 
         await organization_service.handle_account_risk_signal(
             session,
@@ -2581,7 +2581,7 @@ class TestGetReviewState:
         # Default to reachable so existing tests don't make outbound requests.
         # Individual tests can re-patch via `mocker.patch(...)` to override.
         return mocker.patch(
-            "polar.organization.service.check_url_reachable",
+            "repalis.organization.service.check_url_reachable",
             new=AsyncMock(return_value=UrlReachability(reachable=True, status=200)),
         )
 
@@ -2959,7 +2959,7 @@ class TestGetReviewState:
         organization.website = "https://example.com"
         await save_fixture(organization)
         mocker.patch(
-            "polar.organization.service.check_url_reachable",
+            "repalis.organization.service.check_url_reachable",
             new=AsyncMock(
                 return_value=UrlReachability(reachable=False, error="DNS failed")
             ),
@@ -3659,7 +3659,7 @@ class TestSubmitAppeal:
         )
         await save_fixture(review)
 
-        enqueue_job_mock = mocker.patch("polar.organization.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.organization.service.enqueue_job")
 
         appeal_reason = "We selling templates and not consultancy services"
         result = await organization_service.submit_appeal(
@@ -3748,7 +3748,7 @@ class TestSubmitAppeal:
         )
         await save_fixture(review)
 
-        enqueue_job_mock = mocker.patch("polar.organization.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.organization.service.enqueue_job")
 
         await organization_service.submit_appeal(
             session, organization, "Please review again"
@@ -4243,7 +4243,7 @@ class TestCheckCanDelete:
         customer: Customer,
     ) -> None:
         """Organization with only free active subscriptions can be deleted."""
-        from polar.models.subscription import SubscriptionStatus
+        from repalis.models.subscription import SubscriptionStatus
         from tests.fixtures.random_objects import create_product, create_subscription
 
         free_product = await create_product(
@@ -4273,8 +4273,8 @@ class TestCheckCanDelete:
         customer: Customer,
     ) -> None:
         """Organization with subscriptions made free by a forever discount can be deleted."""
-        from polar.models.discount import DiscountDuration, DiscountType
-        from polar.models.subscription import SubscriptionStatus
+        from repalis.models.discount import DiscountDuration, DiscountType
+        from repalis.models.subscription import SubscriptionStatus
         from tests.fixtures.random_objects import create_discount, create_subscription
 
         discount = await create_discount(
@@ -4306,8 +4306,8 @@ class TestCheckCanDelete:
         customer: Customer,
     ) -> None:
         """Subscription with a 100% off once discount still blocks deletion."""
-        from polar.models.discount import DiscountDuration, DiscountType
-        from polar.models.subscription import SubscriptionStatus
+        from repalis.models.discount import DiscountDuration, DiscountType
+        from repalis.models.subscription import SubscriptionStatus
         from tests.fixtures.random_objects import create_discount, create_subscription
 
         discount = await create_discount(
@@ -4339,7 +4339,7 @@ class TestCheckCanDelete:
         customer: Customer,
     ) -> None:
         """Organization with canceled subscriptions can be deleted."""
-        from polar.models.subscription import SubscriptionStatus
+        from repalis.models.subscription import SubscriptionStatus
         from tests.fixtures.random_objects import create_subscription
 
         await create_subscription(
@@ -4366,7 +4366,7 @@ class TestRequestDeletion:
         organization: Organization,
     ) -> None:
         """Organization with no activity is immediately deleted."""
-        enqueue_job_mock = mocker.patch("polar.organization.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.organization.service.enqueue_job")
 
         result = await organization_service.request_deletion(
             session, auth_subject, organization
@@ -4390,7 +4390,7 @@ class TestRequestDeletion:
         """Organization with orders creates support ticket."""
         await create_order(save_fixture, customer=customer)
 
-        enqueue_job_mock = mocker.patch("polar.organization.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.organization.service.enqueue_job")
 
         result = await organization_service.request_deletion(
             session, auth_subject, organization
@@ -4421,7 +4421,7 @@ class TestRequestDeletion:
             save_fixture, organization, user, type=PayoutAccountType.stripe
         )
         payout_account_delete_mock = mocker.patch(
-            "polar.organization.service.payout_account_service.unlink_and_maybe_delete",
+            "repalis.organization.service.payout_account_service.unlink_and_maybe_delete",
             return_value=None,
         )
 
@@ -4448,11 +4448,11 @@ class TestRequestDeletion:
             save_fixture, organization, user, type=PayoutAccountType.stripe
         )
         mocker.patch(
-            "polar.organization.service.payout_account_service.unlink_and_maybe_delete",
+            "repalis.organization.service.payout_account_service.unlink_and_maybe_delete",
             side_effect=Exception("Stripe API error"),
         )
 
-        enqueue_job_mock = mocker.patch("polar.organization.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.organization.service.enqueue_job")
 
         result = await organization_service.request_deletion(
             session, auth_subject, organization
@@ -4475,7 +4475,7 @@ class TestSoftDeleteOrganization:
         organization: Organization,
     ) -> None:
         enqueue_delete_customer_mock = mocker.patch(
-            "polar.organization.service.polar_self_service.enqueue_delete_customer"
+            "repalis.organization.service.polar_self_service.enqueue_delete_customer"
         )
 
         await organization_service.soft_delete_organization(session, organization)
@@ -4492,7 +4492,7 @@ class TestSoftDeleteOrganization:
         organization: Organization,
         user: User,
     ) -> None:
-        mocker.patch("polar.organization.service.polar_self_service")
+        mocker.patch("repalis.organization.service.polar_self_service")
         review = OrganizationReview(
             organization_id=organization.id,
             verdict=OrganizationReview.Verdict.FAIL,
@@ -4530,7 +4530,7 @@ class TestSoftDeleteOrganization:
     ) -> None:
         # Disputes are live financial matters — they must outlive the merchant
         # deleting their account.
-        mocker.patch("polar.organization.service.polar_self_service")
+        mocker.patch("repalis.organization.service.polar_self_service")
         order = await create_order(save_fixture, customer=customer, product=product)
         payment = await create_payment(save_fixture, organization, order=order)
         dispute = await create_dispute(save_fixture, order, payment)
@@ -4650,7 +4650,7 @@ class TestSoftDeleteOrganization:
     ) -> None:
         # Backoffice/erasure deletions scrub the slug as PII rather than
         # archiving it for reuse, leaving no recoverable trace of the original.
-        mocker.patch("polar.organization.service.polar_self_service")
+        mocker.patch("repalis.organization.service.polar_self_service")
         original_slug = organization.slug
 
         result = await organization_service.soft_delete_organization(
@@ -4887,7 +4887,7 @@ class TestSetOrganizationOffboarding:
         organization: Organization,
     ) -> None:
         organization.status = OrganizationStatus.REVIEW
-        enqueue_job_mock = mocker.patch("polar.organization.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.organization.service.enqueue_job")
 
         await organization_service.set_organization_offboarding(session, organization)
 
@@ -4906,7 +4906,7 @@ class TestSetOrganizationOffboarded:
         organization: Organization,
     ) -> None:
         organization.status = OrganizationStatus.OFFBOARDING
-        enqueue_job_mock = mocker.patch("polar.organization.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.organization.service.enqueue_job")
 
         result = await organization_service.set_organization_offboarded(
             session, organization
@@ -5072,7 +5072,7 @@ class TestUnsnoozeOrganization:
         organization.status = OrganizationStatus.SNOOZED
         organization.snoozed_until = datetime.now(UTC) + timedelta(days=7)
         organization.snooze_type = SnoozeType.NEXT_SALE
-        enqueue_job_mock = mocker.patch("polar.organization.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.organization.service.enqueue_job")
 
         result = await organization_service.unsnooze_organization(session, organization)
 
@@ -5108,7 +5108,7 @@ class TestUnsnoozeExpiredOrganizations:
         organization.snoozed_until = datetime.now(UTC) - timedelta(hours=1)
         organization.snooze_type = SnoozeType.TIME_BASED
         await save_fixture(organization)
-        enqueue_job_mock = mocker.patch("polar.organization.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.organization.service.enqueue_job")
 
         result = await organization_service.unsnooze_expired_organizations(session)
 
@@ -5169,7 +5169,7 @@ class TestUnsnoozeExpiredOrganizations:
             "get_expired_time_based_snoozes",
             return_value=[organization],
         )
-        enqueue_job_mock = mocker.patch("polar.organization.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.organization.service.enqueue_job")
 
         result = await organization_service.unsnooze_expired_organizations(session)
 
@@ -5210,7 +5210,7 @@ class TestOffboardExpiredOrganizations:
             status=OrderStatus.paid,
             created_at=datetime.now(UTC) - timedelta(days=10),
         )
-        enqueue_job_mock = mocker.patch("polar.organization.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.organization.service.enqueue_job")
 
         result = await organization_service.offboard_expired_organizations(session)
 
@@ -5239,7 +5239,7 @@ class TestOffboardExpiredOrganizations:
             status=OrderStatus.paid,
             created_at=datetime.now(UTC) - timedelta(days=149),
         )
-        enqueue_job_mock = mocker.patch("polar.organization.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.organization.service.enqueue_job")
 
         result = await organization_service.offboard_expired_organizations(session)
 
@@ -5295,7 +5295,7 @@ class TestCompleteExpiredOffboarding:
             status=OrderStatus.paid,
             created_at=datetime.now(UTC) - timedelta(days=121),
         )
-        enqueue_job_mock = mocker.patch("polar.organization.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.organization.service.enqueue_job")
 
         result = await organization_service.complete_expired_offboarding(
             session, organization.id
@@ -5396,7 +5396,7 @@ class TestCompleteExpiredOffboarding:
             status=OrderStatus.refunded,
             created_at=datetime.now(UTC) - timedelta(days=1),
         )
-        enqueue_job_mock = mocker.patch("polar.organization.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.organization.service.enqueue_job")
 
         result = await organization_service.complete_expired_offboarding(
             session, organization.id
@@ -5418,7 +5418,7 @@ class TestCompleteExpiredOffboarding:
         await self._make_offboarding(
             save_fixture, organization, status_updated_days_ago=121
         )
-        enqueue_job_mock = mocker.patch("polar.organization.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.organization.service.enqueue_job")
 
         result = await organization_service.complete_expired_offboarding(
             session, organization.id
@@ -5530,7 +5530,7 @@ class TestSetPayoutAccount:
         organization.payout_account = None
         await save_fixture(organization)
 
-        enqueue_job_mock = mocker.patch("polar.organization.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.organization.service.enqueue_job")
 
         await organization_service.set_payout_account(
             session, organization, payout_account
@@ -5605,7 +5605,7 @@ class TestSetPayoutAccount:
         organization.payout_account = old_payout_account
         await save_fixture(organization)
 
-        enqueue_job_mock = mocker.patch("polar.organization.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.organization.service.enqueue_job")
 
         await organization_service.set_payout_account(
             session, organization, new_payout_account
@@ -5633,7 +5633,7 @@ class TestSetPayoutAccount:
         organization.payout_account = payout_account
         await save_fixture(organization)
 
-        enqueue_job_mock = mocker.patch("polar.organization.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.organization.service.enqueue_job")
 
         await organization_service.set_payout_account(
             session, organization, payout_account
@@ -5798,7 +5798,7 @@ class TestStatusTransitions:
     ) -> None:
         organization.status = current
         organization.initially_reviewed_at = datetime(2025, 1, 1, 12, 0, tzinfo=UTC)
-        mocker.patch("polar.organization.service.enqueue_job")
+        mocker.patch("repalis.organization.service.enqueue_job")
 
         result = await organization_service.backoffice_approve(
             session,
@@ -5823,7 +5823,7 @@ class TestStatusTransitions:
     ) -> None:
         organization.status = OrganizationStatus.DENIED
         organization.initially_reviewed_at = datetime(2025, 1, 1, 12, 0, tzinfo=UTC)
-        mocker.patch("polar.organization.service.enqueue_job")
+        mocker.patch("repalis.organization.service.enqueue_job")
 
         result = await organization_service.backoffice_approve(
             session,
@@ -5871,7 +5871,7 @@ class TestStatusTransitions:
 
         await create_payout_account(save_fixture, organization, user)
 
-        mocker.patch("polar.organization.service.enqueue_job")
+        mocker.patch("repalis.organization.service.enqueue_job")
 
         result = await organization_service.backoffice_approve(
             session,
@@ -6224,7 +6224,7 @@ class TestAddUser:
         expected_member_role: MemberRole,
     ) -> None:
         add_member_mock = mocker.patch(
-            "polar.organization.service.polar_self_service.enqueue_add_member"
+            "repalis.organization.service.polar_self_service.enqueue_add_member"
         )
 
         await organization_service.add_user(
@@ -6252,7 +6252,7 @@ class TestCancelExpiredOrganizationsSubscriptions:
         product: Product,
         customer: Customer,
     ) -> None:
-        enqueue_job_mock = mocker.patch("polar.organization.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.organization.service.enqueue_job")
         organization.status = OrganizationStatus.DENIED
         organization.status_updated_at = datetime.now(UTC) - timedelta(days=8)
         await save_fixture(organization)
@@ -6279,7 +6279,7 @@ class TestCancelExpiredOrganizationsSubscriptions:
         product: Product,
         customer: Customer,
     ) -> None:
-        enqueue_job_mock = mocker.patch("polar.organization.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.organization.service.enqueue_job")
         organization.status = OrganizationStatus.DENIED
         organization.status_updated_at = datetime.now(UTC) - timedelta(days=1)
         await save_fixture(organization)
@@ -6344,7 +6344,7 @@ class TestSetStatus:
         self, mocker: MockerFixture, organization: Organization
     ) -> None:
         on_status_changed = mocker.patch(
-            "polar.organization.service.resend_service.on_organization_status_changed"
+            "repalis.organization.service.resend_service.on_organization_status_changed"
         )
 
         organization_service.set_status(organization, OrganizationStatus.DENIED)

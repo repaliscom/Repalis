@@ -6,22 +6,22 @@ from uuid import UUID
 import pytest
 from sqlalchemy import delete, func, select, text
 
-from polar.auth.models import AuthSubject
-from polar.auth.scope import Scope
-from polar.catalog.repository import CatalogRepository
-from polar.catalog.service import CatalogNotDraft
-from polar.catalog.service import catalog as catalog_service
-from polar.config import settings
-from polar.declarative_config.schemas import Config
-from polar.declarative_config.service import (
+from repalis.auth.models import AuthSubject
+from repalis.auth.scope import Scope
+from repalis.catalog.repository import CatalogRepository
+from repalis.catalog.service import CatalogNotDraft
+from repalis.catalog.service import catalog as catalog_service
+from repalis.config import settings
+from repalis.declarative_config.schemas import Config
+from repalis.declarative_config.service import (
     declarative_config as declarative_config_service,
 )
-from polar.kit.db.postgres import (
+from repalis.kit.db.postgres import (
     AsyncSessionMaker,
     create_async_engine,
     create_async_sessionmaker,
 )
-from polar.models import (
+from repalis.models import (
     Account,
     Catalog,
     CatalogBenefit,
@@ -30,9 +30,9 @@ from polar.models import (
     Product,
     User,
 )
-from polar.models.catalog import CatalogStatus
-from polar.postgres import AsyncSession
-from polar.redis import Redis
+from repalis.models.catalog import CatalogStatus
+from repalis.postgres import AsyncSession
+from repalis.redis import Redis
 from tests.fixtures.database import get_database_url, save_fixture_factory
 from tests.fixtures.random_objects import (
     create_account,

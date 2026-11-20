@@ -12,18 +12,18 @@ from pytest_mock import MockerFixture
 from sqlalchemy import select, update
 from sqlalchemy.orm import selectinload
 
-from polar.auth.models import AuthSubject
-from polar.config import settings
-from polar.customer.repository import CustomerRepository
-from polar.customer.service import customer as customer_service
-from polar.discount.service import discount as discount_service
-from polar.enums import PaymentProcessor
-from polar.kit import encryption
-from polar.kit.encryption import LocalKeyProvider
-from polar.kit.pagination import PaginationParams
-from polar.kit.utils import utc_now
-from polar.merchant_migration.adapters.base import ExtractionPage
-from polar.merchant_migration.canonical import (
+from repalis.auth.models import AuthSubject
+from repalis.config import settings
+from repalis.customer.repository import CustomerRepository
+from repalis.customer.service import customer as customer_service
+from repalis.discount.service import discount as discount_service
+from repalis.enums import PaymentProcessor
+from repalis.kit import encryption
+from repalis.kit.encryption import LocalKeyProvider
+from repalis.kit.pagination import PaginationParams
+from repalis.kit.utils import utc_now
+from repalis.merchant_migration.adapters.base import ExtractionPage
+from repalis.merchant_migration.canonical import (
     CanonicalAccount,
     CanonicalCollectionMethod,
     CanonicalCustomer,
@@ -39,31 +39,31 @@ from polar.merchant_migration.canonical import (
     deserialize,
     serialize,
 )
-from polar.merchant_migration.cards import (
+from repalis.merchant_migration.cards import (
     AmbiguousCopiedCard,
 )
-from polar.merchant_migration.cutover import CutoverOutcome, SubscriptionCutover
-from polar.merchant_migration.errors import MerchantMigrationError
-from polar.merchant_migration.importer import CatalogImporter
-from polar.merchant_migration.pan_transfer import (
+from repalis.merchant_migration.cutover import CutoverOutcome, SubscriptionCutover
+from repalis.merchant_migration.errors import MerchantMigrationError
+from repalis.merchant_migration.importer import CatalogImporter
+from repalis.merchant_migration.pan_transfer import (
     STEP_CUTOVER,
     STEP_MOVE_SUBSCRIPTIONS,
     STEP_VERIFY_CARDS,
     PanStepActor,
     PanStepStatus,
 )
-from polar.merchant_migration.repository import (
+from repalis.merchant_migration.repository import (
     MerchantMigrationRecordRepository,
     MerchantMigrationRepository,
 )
-from polar.merchant_migration.schemas import (
+from repalis.merchant_migration.schemas import (
     MerchantMigrationCreate,
     MerchantMigrationImportReport,
     PrecheckEntity,
     PrecheckReasonLevel,
     PrecheckRecordStatus,
 )
-from polar.merchant_migration.service import (
+from repalis.merchant_migration.service import (
     CatalogImportBlocked,
     CatalogImportNotReady,
     CutoverNotStarted,
@@ -78,8 +78,8 @@ from polar.merchant_migration.service import (
     SourceVerificationUnavailable,
     UnsupportedMigrationSource,
 )
-from polar.merchant_migration.service import merchant_migration as service
-from polar.models import (
+from repalis.merchant_migration.service import merchant_migration as service
+from repalis.models import (
     Customer,
     Discount,
     DiscountProduct,
@@ -92,31 +92,31 @@ from polar.models import (
     User,
     UserOrganization,
 )
-from polar.models.discount import DiscountDuration
-from polar.models.merchant_migration import (
+from repalis.models.discount import DiscountDuration
+from repalis.models.merchant_migration import (
     MerchantMigrationSourcePlatform,
     MerchantMigrationStep,
 )
-from polar.models.merchant_migration_operation import (
+from repalis.models.merchant_migration_operation import (
     STALL_THRESHOLD,
     MerchantMigrationOperation,
     MerchantMigrationOperationKind,
     MerchantMigrationOperationSelection,
     MerchantMigrationOperationStatus,
 )
-from polar.models.merchant_migration_record import (
+from repalis.models.merchant_migration_record import (
     MerchantMigrationCutoverStatus,
     MerchantMigrationRecordStatus,
     MerchantMigrationRecordType,
 )
-from polar.models.organization import STATUS_CAPABILITIES, OrganizationStatus
-from polar.models.product_price import ProductPriceFixed
-from polar.models.subscription import SubscriptionStatus
-from polar.payment_method.repository import PaymentMethodRepository
-from polar.postgres import AsyncSession
-from polar.product.service import product as product_service
-from polar.subscription.repository import SubscriptionRepository
-from polar.tax.tax_id import TaxIDFormat
+from repalis.models.organization import STATUS_CAPABILITIES, OrganizationStatus
+from repalis.models.product_price import ProductPriceFixed
+from repalis.models.subscription import SubscriptionStatus
+from repalis.payment_method.repository import PaymentMethodRepository
+from repalis.postgres import AsyncSession
+from repalis.product.service import product as product_service
+from repalis.subscription.repository import SubscriptionRepository
+from repalis.tax.tax_id import TaxIDFormat
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (
     create_customer,
@@ -220,10 +220,10 @@ class TestCreate:
         user_organization: UserOrganization,
     ) -> None:
         stripe_adapter = mocker.patch(
-            "polar.merchant_migration.service.StripeAdapter",
+            "repalis.merchant_migration.service.StripeAdapter",
             return_value=_FakeAdapter(),
         )
-        enqueue = mocker.patch("polar.merchant_migration.service.enqueue_job")
+        enqueue = mocker.patch("repalis.merchant_migration.service.enqueue_job")
 
         migration = await service.create(
             session, auth_subject, _create_schema(organization)
@@ -268,7 +268,7 @@ class TestCreate:
         user_organization: UserOrganization,
     ) -> None:
         organization.status = status
-        stripe_adapter = mocker.patch("polar.merchant_migration.service.StripeAdapter")
+        stripe_adapter = mocker.patch("repalis.merchant_migration.service.StripeAdapter")
 
         with pytest.raises(OrganizationNotOnboarded):
             await service.create(session, auth_subject, _create_schema(organization))
@@ -291,10 +291,10 @@ class TestCreate:
     ) -> None:
         organization.status = status
         mocker.patch(
-            "polar.merchant_migration.service.StripeAdapter",
+            "repalis.merchant_migration.service.StripeAdapter",
             return_value=_FakeAdapter(),
         )
-        mocker.patch("polar.merchant_migration.service.enqueue_job")
+        mocker.patch("repalis.merchant_migration.service.enqueue_job")
 
         migration = await service.create(
             session, auth_subject, _create_schema(organization)
@@ -312,10 +312,10 @@ class TestCreate:
         user_organization: UserOrganization,
     ) -> None:
         mocker.patch(
-            "polar.merchant_migration.service.StripeAdapter",
+            "repalis.merchant_migration.service.StripeAdapter",
             return_value=_FakeAdapter(_catalog()),
         )
-        mocker.patch("polar.merchant_migration.service.enqueue_job")
+        mocker.patch("repalis.merchant_migration.service.enqueue_job")
 
         migration = await service.create(
             session, auth_subject, _create_schema(organization)
@@ -347,10 +347,10 @@ class TestCreate:
         user_organization: UserOrganization,
     ) -> None:
         mocker.patch(
-            "polar.merchant_migration.service.StripeAdapter",
+            "repalis.merchant_migration.service.StripeAdapter",
             return_value=_FakeAdapter(),
         )
-        enqueue = mocker.patch("polar.merchant_migration.service.enqueue_job")
+        enqueue = mocker.patch("repalis.merchant_migration.service.enqueue_job")
         migration = await service.create(
             session, auth_subject, _create_schema(organization)
         )
@@ -382,10 +382,10 @@ class TestCreate:
         user_organization: UserOrganization,
     ) -> None:
         mocker.patch(
-            "polar.merchant_migration.service.StripeAdapter",
+            "repalis.merchant_migration.service.StripeAdapter",
             return_value=_FakeAdapter(),
         )
-        enqueue = mocker.patch("polar.merchant_migration.service.enqueue_job")
+        enqueue = mocker.patch("repalis.merchant_migration.service.enqueue_job")
 
         first = await service.create(
             session, auth_subject, _create_schema(organization)
@@ -418,7 +418,7 @@ class TestCreate:
     ) -> None:
         await build_connected_migration(save_fixture, organization_second)
         mocker.patch(
-            "polar.merchant_migration.service.StripeAdapter",
+            "repalis.merchant_migration.service.StripeAdapter",
             return_value=_FakeAdapter(account_id="acct_test"),
         )
 
@@ -439,7 +439,7 @@ class TestCreate:
     ) -> None:
         existing = await build_connected_migration(save_fixture, organization)
         mocker.patch(
-            "polar.merchant_migration.service.StripeAdapter",
+            "repalis.merchant_migration.service.StripeAdapter",
             return_value=_FakeAdapter(account_id="acct_test"),
         )
 
@@ -465,7 +465,7 @@ class TestCreate:
         repository = MerchantMigrationRepository.from_session(session)
         await repository.soft_delete(existing)
         mocker.patch(
-            "polar.merchant_migration.service.StripeAdapter",
+            "repalis.merchant_migration.service.StripeAdapter",
             return_value=_FakeAdapter(account_id="acct_test"),
         )
 
@@ -485,7 +485,7 @@ class TestCreate:
         user_organization: UserOrganization,
     ) -> None:
         mocker.patch(
-            "polar.merchant_migration.service.StripeAdapter",
+            "repalis.merchant_migration.service.StripeAdapter",
             return_value=_FakeAdapter(account_id=None),
         )
 
@@ -505,12 +505,12 @@ class TestCreate:
         user_organization: UserOrganization,
     ) -> None:
         mocker.patch(
-            "polar.merchant_migration.service.StripeAdapter",
+            "repalis.merchant_migration.service.StripeAdapter",
             return_value=_FakeAdapter(
                 missing_scopes=["Payment Methods", "Subscriptions (write)"]
             ),
         )
-        enqueue = mocker.patch("polar.merchant_migration.service.enqueue_job")
+        enqueue = mocker.patch("repalis.merchant_migration.service.enqueue_job")
 
         with pytest.raises(MissingStripeScopes) as exc_info:
             await service.create(session, auth_subject, _create_schema(organization))
@@ -529,7 +529,7 @@ class TestCreate:
         user_organization: UserOrganization,
     ) -> None:
         mocker.patch(
-            "polar.merchant_migration.service.StripeAdapter",
+            "repalis.merchant_migration.service.StripeAdapter",
             return_value=_FakeAdapter(
                 source_account=CanonicalAccount(
                     country="IN", has_connected_accounts=False
@@ -553,7 +553,7 @@ class TestCreate:
         user_organization: UserOrganization,
     ) -> None:
         mocker.patch(
-            "polar.merchant_migration.service.StripeAdapter",
+            "repalis.merchant_migration.service.StripeAdapter",
             return_value=_FakeAdapter(
                 source_account=CanonicalAccount(
                     country="US", has_connected_accounts=True
@@ -578,12 +578,12 @@ class TestCreate:
         user_organization: UserOrganization,
     ) -> None:
         mocker.patch(
-            "polar.merchant_migration.service.StripeAdapter",
+            "repalis.merchant_migration.service.StripeAdapter",
             return_value=_FakeAdapter(
                 verify_error=stripe_lib.AuthenticationError("bad key")
             ),
         )
-        enqueue = mocker.patch("polar.merchant_migration.service.enqueue_job")
+        enqueue = mocker.patch("repalis.merchant_migration.service.enqueue_job")
 
         with pytest.raises(InvalidSourceCredentials):
             await service.create(session, auth_subject, _create_schema(organization))
@@ -601,7 +601,7 @@ class TestCreate:
         user_organization: UserOrganization,
     ) -> None:
         mocker.patch(
-            "polar.merchant_migration.service.StripeAdapter",
+            "repalis.merchant_migration.service.StripeAdapter",
             return_value=_FakeAdapter(
                 verify_error=stripe_lib.RateLimitError("rate limited")
             ),
@@ -658,7 +658,7 @@ class TestCreate:
 
         # ...and a live key is accepted, stored as livemode.
         mocker.patch(
-            "polar.merchant_migration.service.StripeAdapter",
+            "repalis.merchant_migration.service.StripeAdapter",
             return_value=_FakeAdapter(),
         )
         migration = await service.create(
@@ -706,7 +706,7 @@ class TestRunPrecheck:
             ]
         )
         stripe_adapter = mocker.patch(
-            "polar.merchant_migration.service.StripeAdapter", return_value=adapter
+            "repalis.merchant_migration.service.StripeAdapter", return_value=adapter
         )
 
         report = await service.run_precheck(session, auth_subject, migration.id)
@@ -755,7 +755,7 @@ class TestRunPrecheck:
 
         migration = await build_connected_migration(save_fixture, organization)
         mocker.patch(
-            "polar.merchant_migration.service.StripeAdapter",
+            "repalis.merchant_migration.service.StripeAdapter",
             return_value=_FakeAdapter(_catalog()),
         )
 
@@ -817,10 +817,10 @@ class TestStartPrecheck:
     ) -> None:
         migration = await build_connected_migration(save_fixture, organization)
         mocker.patch(
-            "polar.merchant_migration.service.StripeAdapter",
+            "repalis.merchant_migration.service.StripeAdapter",
             return_value=_FakeAdapter(),
         )
-        enqueue = mocker.patch("polar.merchant_migration.service.enqueue_job")
+        enqueue = mocker.patch("repalis.merchant_migration.service.enqueue_job")
 
         started = await service.start_precheck(session, auth_subject, migration.id)
 
@@ -843,10 +843,10 @@ class TestStartPrecheck:
     ) -> None:
         migration = await build_connected_migration(save_fixture, organization)
         mocker.patch(
-            "polar.merchant_migration.service.StripeAdapter",
+            "repalis.merchant_migration.service.StripeAdapter",
             return_value=_FakeAdapter(),
         )
-        mocker.patch("polar.merchant_migration.service.enqueue_job")
+        mocker.patch("repalis.merchant_migration.service.enqueue_job")
         await service.start_precheck(session, auth_subject, migration.id)
 
         with pytest.raises(MigrationOperationInProgress):
@@ -869,10 +869,10 @@ class TestStartPrecheck:
         )
         await save_fixture(migration)
         mocker.patch(
-            "polar.merchant_migration.service.StripeAdapter",
+            "repalis.merchant_migration.service.StripeAdapter",
             return_value=_FakeAdapter(),
         )
-        enqueue = mocker.patch("polar.merchant_migration.service.enqueue_job")
+        enqueue = mocker.patch("repalis.merchant_migration.service.enqueue_job")
 
         started = await service.start_precheck(session, auth_subject, migration.id)
 
@@ -911,7 +911,7 @@ class TestExecutePrecheck:
             await refresh_for_update(repository, migration)
 
         mocker.patch(
-            "polar.merchant_migration.service.StripeAdapter",
+            "repalis.merchant_migration.service.StripeAdapter",
             return_value=adapter,
         )
         mocker.patch.object(adapter, "extract_page", side_effect=fetch_page)
@@ -920,7 +920,7 @@ class TestExecutePrecheck:
             "refresh_for_update",
             lock_migration,
         )
-        mocker.patch("polar.merchant_migration.service.enqueue_job")
+        mocker.patch("repalis.merchant_migration.service.enqueue_job")
         await service.start_precheck(session, auth_subject, migration.id)
 
         await service.execute_precheck(session, migration.id)
@@ -939,10 +939,10 @@ class TestExecutePrecheck:
     ) -> None:
         migration = await build_connected_migration(save_fixture, organization)
         mocker.patch(
-            "polar.merchant_migration.service.StripeAdapter",
+            "repalis.merchant_migration.service.StripeAdapter",
             return_value=_FakeAdapter(_catalog()),
         )
-        mocker.patch("polar.merchant_migration.service.enqueue_job")
+        mocker.patch("repalis.merchant_migration.service.enqueue_job")
         await service.start_precheck(session, auth_subject, migration.id)
 
         await service.execute_precheck(session, migration.id)
@@ -971,10 +971,10 @@ class TestExecutePrecheck:
     ) -> None:
         migration = await build_connected_migration(save_fixture, organization)
         mocker.patch(
-            "polar.merchant_migration.service.StripeAdapter",
+            "repalis.merchant_migration.service.StripeAdapter",
             return_value=_FakeAdapter(_catalog(), page_size=1),
         )
-        enqueue = mocker.patch("polar.merchant_migration.service.enqueue_job")
+        enqueue = mocker.patch("repalis.merchant_migration.service.enqueue_job")
         await service.start_precheck(session, auth_subject, migration.id)
         enqueue.reset_mock()
 
@@ -1033,10 +1033,10 @@ class TestExecutePrecheck:
         ]
         migration = await build_connected_migration(save_fixture, organization)
         mocker.patch(
-            "polar.merchant_migration.service.StripeAdapter",
+            "repalis.merchant_migration.service.StripeAdapter",
             return_value=_FakeAdapter(products, page_size=1),
         )
-        mocker.patch("polar.merchant_migration.service.enqueue_job")
+        mocker.patch("repalis.merchant_migration.service.enqueue_job")
         await service.start_precheck(session, auth_subject, migration.id)
 
         await service.execute_precheck(session, migration.id)
@@ -1094,7 +1094,7 @@ class TestExecutePrecheck:
             return ExtractionPage(_catalog(), None)
 
         mocker.patch(
-            "polar.merchant_migration.service.StripeAdapter",
+            "repalis.merchant_migration.service.StripeAdapter",
             return_value=adapter,
         )
         mocker.patch.object(adapter, "extract_page", side_effect=replaced_by_import)
@@ -1117,10 +1117,10 @@ class TestExecutePrecheck:
         migration = await build_connected_migration(save_fixture, organization)
         adapter = _FakeAdapter()
         mocker.patch(
-            "polar.merchant_migration.service.StripeAdapter",
+            "repalis.merchant_migration.service.StripeAdapter",
             return_value=adapter,
         )
-        mocker.patch("polar.merchant_migration.service.enqueue_job")
+        mocker.patch("repalis.merchant_migration.service.enqueue_job")
         await service.start_precheck(session, auth_subject, migration.id)
         mocker.patch.object(adapter, "extract_page", side_effect=SourceNotConnected())
 
@@ -1147,10 +1147,10 @@ class TestExecutePrecheck:
         migration = await build_connected_migration(save_fixture, organization)
         adapter = _FakeAdapter()
         mocker.patch(
-            "polar.merchant_migration.service.StripeAdapter",
+            "repalis.merchant_migration.service.StripeAdapter",
             return_value=adapter,
         )
-        mocker.patch("polar.merchant_migration.service.enqueue_job")
+        mocker.patch("repalis.merchant_migration.service.enqueue_job")
         await service.start_precheck(session, auth_subject, migration.id)
         mocker.patch.object(
             adapter,
@@ -1217,7 +1217,7 @@ class TestListRecords:
     ) -> None:
         migration = await build_connected_migration(save_fixture, organization)
         mocker.patch(
-            "polar.merchant_migration.service.StripeAdapter",
+            "repalis.merchant_migration.service.StripeAdapter",
             return_value=_FakeAdapter(_catalog()),
         )
 
@@ -1246,7 +1246,7 @@ class TestListRecords:
     ) -> None:
         migration = await build_connected_migration(save_fixture, organization)
         mocker.patch(
-            "polar.merchant_migration.service.StripeAdapter",
+            "repalis.merchant_migration.service.StripeAdapter",
             return_value=_FakeAdapter(_catalog()),
         )
 
@@ -1276,7 +1276,7 @@ class TestListRecords:
     ) -> None:
         migration = await build_connected_migration(save_fixture, organization)
         mocker.patch(
-            "polar.merchant_migration.service.StripeAdapter",
+            "repalis.merchant_migration.service.StripeAdapter",
             return_value=_FakeAdapter(_catalog()),
         )
 
@@ -1407,7 +1407,7 @@ async def _staged_migration(
 ) -> MerchantMigration:
     migration = await build_connected_migration(save_fixture, organization)
     mocker.patch(
-        "polar.merchant_migration.service.StripeAdapter",
+        "repalis.merchant_migration.service.StripeAdapter",
         return_value=_FakeAdapter(
             records if records is not None else _catalog_with_subscription()
         ),
@@ -1890,7 +1890,7 @@ class TestImportCatalog:
             archived=True,
         )
         mocker.patch(
-            "polar.merchant_migration.service.StripeAdapter",
+            "repalis.merchant_migration.service.StripeAdapter",
             return_value=_FakeAdapter(
                 [
                     archived,
@@ -1988,7 +1988,7 @@ class TestImportCatalog:
             mocker, session, save_fixture, auth_subject, organization
         )
         mocker.patch(
-            "polar.merchant_migration.service.StripeAdapter",
+            "repalis.merchant_migration.service.StripeAdapter",
             return_value=_FakeAdapter(
                 source_account=CanonicalAccount(
                     country="IN", has_connected_accounts=False
@@ -2877,7 +2877,7 @@ class TestImportCatalog:
         catalog = [*_importable_catalog(), canonical_subscription()]
         adapter = _FakeAdapter(catalog)
         mocker.patch(
-            "polar.merchant_migration.service.StripeAdapter", return_value=adapter
+            "repalis.merchant_migration.service.StripeAdapter", return_value=adapter
         )
         copied_cards(mocker, build_stripe_payment_method(customer="cus_1"))
         migration = await build_connected_migration(save_fixture, organization)
@@ -3009,8 +3009,8 @@ class TestImportCatalog:
         migration = await _staged_migration(
             mocker, session, save_fixture, auth_subject, organization
         )
-        mocker.patch("polar.merchant_migration.importer.IMPORT_BATCH_SIZE", 1)
-        enqueue = mocker.patch("polar.merchant_migration.service.enqueue_job")
+        mocker.patch("repalis.merchant_migration.importer.IMPORT_BATCH_SIZE", 1)
+        enqueue = mocker.patch("repalis.merchant_migration.service.enqueue_job")
         await service.import_catalog(session, auth_subject, migration.id)
         enqueue.reset_mock()
         import_next_batch = CatalogImporter.import_next_batch
@@ -3068,7 +3068,7 @@ class TestImportCatalog:
             mocker, session, save_fixture, auth_subject, organization
         )
         mocker.patch(
-            "polar.merchant_migration.importer.product_service.create",
+            "repalis.merchant_migration.importer.product_service.create",
             side_effect=MerchantMigrationError("alice@example.com"),
         )
         await service.import_catalog(session, auth_subject, migration.id)
@@ -3104,7 +3104,7 @@ class TestImportCatalog:
             mocker, session, save_fixture, auth_subject, organization
         )
         mocker.patch(
-            "polar.merchant_migration.importer.product_service.create",
+            "repalis.merchant_migration.importer.product_service.create",
             side_effect=RuntimeError("boom"),
         )
         await service.import_catalog(session, auth_subject, migration.id)
@@ -3809,7 +3809,7 @@ class TestImportPaymentMethodMappings:
         stripe_payment_method = build_stripe_payment_method(customer="cus_sub_1")
         stripe_payment_method.id = "pm_new"
         mocker.patch(
-            "polar.merchant_migration.cards.stripe_service.get_payment_method",
+            "repalis.merchant_migration.cards.stripe_service.get_payment_method",
             new=mocker.AsyncMock(return_value=stripe_payment_method),
         )
 
@@ -3890,7 +3890,7 @@ class TestImportPaymentMethodMappings:
             email="nocard@example.com",
         )
         get_payment_method = mocker.patch(
-            "polar.merchant_migration.cards.stripe_service.get_payment_method"
+            "repalis.merchant_migration.cards.stripe_service.get_payment_method"
         )
 
         await service.import_payment_method_mappings(
@@ -3950,7 +3950,7 @@ class TestImportPaymentMethodMappings:
         stripe_payment_method = build_stripe_payment_method(customer="cus_sub_card")
         stripe_payment_method.id = "pm_new"
         get_payment_method = mocker.patch(
-            "polar.merchant_migration.cards.stripe_service.get_payment_method",
+            "repalis.merchant_migration.cards.stripe_service.get_payment_method",
             new=mocker.AsyncMock(return_value=stripe_payment_method),
         )
 
@@ -3988,7 +3988,7 @@ class TestRunCardVerification:
         organization: Organization,
         user_organization: UserOrganization,
     ) -> None:
-        mocker.patch("polar.merchant_migration.service.enqueue_job")
+        mocker.patch("repalis.merchant_migration.service.enqueue_job")
         migration = await _staged_migration(
             mocker,
             session,
@@ -4011,7 +4011,7 @@ class TestRunCardVerification:
             save_fixture, customer, processor_id="pm_pending"
         )
         link = mocker.patch(
-            "polar.merchant_migration.service.link_payment_method",
+            "repalis.merchant_migration.service.link_payment_method",
             new=mocker.AsyncMock(return_value=payment_method),
         )
 
@@ -4031,7 +4031,7 @@ class TestRunCardVerification:
         organization: Organization,
         product: Product,
     ) -> None:
-        mocker.patch("polar.merchant_migration.service.enqueue_job")
+        mocker.patch("repalis.merchant_migration.service.enqueue_job")
         migration = await build_connected_migration(save_fixture, organization)
         migration.pan_transfer_steps = pan_steps_until(
             migration.pan_transfer_method, STEP_VERIFY_CARDS
@@ -4062,7 +4062,7 @@ class TestRunCardVerification:
             save_fixture, covered_customer, processor_id="pm_copied"
         )
         mocker.patch(
-            "polar.merchant_migration.service.link_payment_method",
+            "repalis.merchant_migration.service.link_payment_method",
             new=mocker.AsyncMock(
                 side_effect=lambda _session, customer, **_kwargs: (
                     payment_method if customer.id == covered_customer.id else None
@@ -4085,7 +4085,7 @@ class TestRunCardVerification:
     ) -> None:
         """Merchants re-run the copy for the customers it missed, so this runs
         again over subscriptions it has already linked."""
-        mocker.patch("polar.merchant_migration.service.enqueue_job")
+        mocker.patch("repalis.merchant_migration.service.enqueue_job")
         migration = await build_connected_migration(save_fixture, organization)
         migration.pan_transfer_steps = pan_steps_until(
             migration.pan_transfer_method, STEP_VERIFY_CARDS
@@ -4126,7 +4126,7 @@ class TestRunCardVerification:
             return landed.get(customer.id)
 
         link = mocker.patch(
-            "polar.merchant_migration.service.link_payment_method",
+            "repalis.merchant_migration.service.link_payment_method",
             new=mocker.AsyncMock(side_effect=_link),
         )
 
@@ -4154,7 +4154,7 @@ class TestRunCardVerification:
         organization: Organization,
         product: Product,
     ) -> None:
-        mocker.patch("polar.merchant_migration.service.enqueue_job")
+        mocker.patch("repalis.merchant_migration.service.enqueue_job")
         migration = await build_connected_migration(save_fixture, organization)
         migration.pan_transfer_steps = pan_steps_until(
             migration.pan_transfer_method, STEP_VERIFY_CARDS
@@ -4186,7 +4186,7 @@ class TestRunCardVerification:
             save_fixture, customer, processor_id="pm_charged"
         )
         link = mocker.patch(
-            "polar.merchant_migration.service.link_payment_method",
+            "repalis.merchant_migration.service.link_payment_method",
             new=mocker.AsyncMock(return_value=linked),
         )
 
@@ -4204,7 +4204,7 @@ class TestRunCardVerification:
         organization: Organization,
         product: Product,
     ) -> None:
-        mocker.patch("polar.merchant_migration.service.enqueue_job")
+        mocker.patch("repalis.merchant_migration.service.enqueue_job")
         migration = await build_connected_migration(save_fixture, organization)
         migration.pan_transfer_steps = pan_steps_until(
             migration.pan_transfer_method, STEP_VERIFY_CARDS
@@ -4248,7 +4248,7 @@ class TestRunCardVerification:
             return linked
 
         mocker.patch(
-            "polar.merchant_migration.service.link_payment_method",
+            "repalis.merchant_migration.service.link_payment_method",
             new=mocker.AsyncMock(side_effect=_link),
         )
 
@@ -4265,7 +4265,7 @@ class TestRunCardVerification:
         organization: Organization,
         product: Product,
     ) -> None:
-        mocker.patch("polar.merchant_migration.service.enqueue_job")
+        mocker.patch("repalis.merchant_migration.service.enqueue_job")
         migration = await build_connected_migration(save_fixture, organization)
         migration.pan_transfer_steps = pan_steps_until(
             migration.pan_transfer_method, STEP_VERIFY_CARDS
@@ -4298,7 +4298,7 @@ class TestRunCardVerification:
             save_fixture, customer, processor_id="pm_shared"
         )
         link = mocker.patch(
-            "polar.merchant_migration.service.link_payment_method",
+            "repalis.merchant_migration.service.link_payment_method",
             new=mocker.AsyncMock(return_value=linked),
         )
 
@@ -4316,7 +4316,7 @@ def _fake_cutover(
     outcome = outcome or CutoverOutcome(MerchantMigrationCutoverStatus.moved)
     runner = mocker.Mock(run=mocker.AsyncMock(return_value=outcome))
     mocker.patch(
-        "polar.merchant_migration.service.SubscriptionCutover",
+        "repalis.merchant_migration.service.SubscriptionCutover",
         return_value=runner,
     )
     mocker.patch.object(
@@ -4362,7 +4362,7 @@ class TestFinishCardChecks:
         save_fixture: SaveFixture,
         organization: Organization,
     ) -> None:
-        mocker.patch("polar.merchant_migration.service.enqueue_job")
+        mocker.patch("repalis.merchant_migration.service.enqueue_job")
         migration = await build_connected_migration(save_fixture, organization)
         migration.step = MerchantMigrationStep.copy_cards
         migration.pan_transfer_steps = pan_steps_until(
@@ -4392,7 +4392,7 @@ class TestStartCutover:
         user_organization: UserOrganization,
         product: Product,
     ) -> None:
-        enqueue = mocker.patch("polar.merchant_migration.service.enqueue_job")
+        enqueue = mocker.patch("repalis.merchant_migration.service.enqueue_job")
         migration = await build_connected_migration(save_fixture, organization)
         migration.pan_transfer_steps = pan_steps_until(
             migration.pan_transfer_method, STEP_CUTOVER
@@ -4435,7 +4435,7 @@ class TestStartCutover:
         organization: Organization,
         user_organization: UserOrganization,
     ) -> None:
-        mocker.patch("polar.merchant_migration.service.enqueue_job")
+        mocker.patch("repalis.merchant_migration.service.enqueue_job")
         migration = await build_connected_migration(save_fixture, organization)
         migration.pan_transfer_steps = pan_steps_until(
             migration.pan_transfer_method, STEP_VERIFY_CARDS
@@ -4456,7 +4456,7 @@ class TestStartCutover:
         user_organization: UserOrganization,
         product: Product,
     ) -> None:
-        enqueue = mocker.patch("polar.merchant_migration.service.enqueue_job")
+        enqueue = mocker.patch("repalis.merchant_migration.service.enqueue_job")
         migration = await build_connected_migration(save_fixture, organization)
         # Already switched a subset once: the step is done, the migration isn't.
         migration.pan_transfer_steps = pan_steps_until(
@@ -4527,7 +4527,7 @@ class TestStartCutover:
         user_organization: UserOrganization,
         product: Product,
     ) -> None:
-        enqueue = mocker.patch("polar.merchant_migration.service.enqueue_job")
+        enqueue = mocker.patch("repalis.merchant_migration.service.enqueue_job")
         migration = await build_connected_migration(save_fixture, organization)
         if reached_switch:
             migration.pan_transfer_steps = pan_steps_until(
@@ -4611,7 +4611,7 @@ class TestStartPanTransfer:
         user_organization: UserOrganization,
         product: Product,
     ) -> None:
-        enqueue = mocker.patch("polar.merchant_migration.service.enqueue_job")
+        enqueue = mocker.patch("repalis.merchant_migration.service.enqueue_job")
         migration = await self._prepared(
             mocker,
             session,
@@ -4656,7 +4656,7 @@ class TestStartPanTransfer:
         user_organization: UserOrganization,
         product: Product,
     ) -> None:
-        mocker.patch("polar.merchant_migration.service.enqueue_job")
+        mocker.patch("repalis.merchant_migration.service.enqueue_job")
         migration = await self._prepared(
             mocker,
             session,
@@ -4687,7 +4687,7 @@ class TestStartPanTransfer:
         user_organization: UserOrganization,
         product: Product,
     ) -> None:
-        mocker.patch("polar.merchant_migration.service.enqueue_job")
+        mocker.patch("repalis.merchant_migration.service.enqueue_job")
         migration = await self._prepared(
             mocker,
             session,
@@ -4813,7 +4813,7 @@ class TestRunCutover:
         organization: Organization,
         product: Product,
     ) -> None:
-        enqueue = mocker.patch("polar.merchant_migration.service.enqueue_job")
+        enqueue = mocker.patch("repalis.merchant_migration.service.enqueue_job")
         runner = _fake_cutover(mocker)
         migration = await build_connected_migration(save_fixture, organization)
         migration.pan_transfer_steps = pan_steps_until(
@@ -4859,7 +4859,7 @@ class TestRunCutover:
         organization: Organization,
         product: Product,
     ) -> None:
-        mocker.patch("polar.merchant_migration.service.enqueue_job")
+        mocker.patch("repalis.merchant_migration.service.enqueue_job")
         _fake_cutover(mocker)
         migration = await build_connected_migration(save_fixture, organization)
         migration.pan_transfer_steps = pan_steps_until(
@@ -4903,7 +4903,7 @@ class TestRunCutover:
         organization: Organization,
         product: Product,
     ) -> None:
-        mocker.patch("polar.merchant_migration.service.enqueue_job")
+        mocker.patch("repalis.merchant_migration.service.enqueue_job")
         runner = _fake_cutover(mocker)
         migration = await build_connected_migration(save_fixture, organization)
         migration.pan_transfer_steps = pan_steps_until(
@@ -4958,7 +4958,7 @@ class TestRunCutover:
         organization: Organization,
         product: Product,
     ) -> None:
-        mocker.patch("polar.merchant_migration.service.enqueue_job")
+        mocker.patch("repalis.merchant_migration.service.enqueue_job")
         runner = _fake_cutover(mocker)
         migration = await build_connected_migration(save_fixture, organization)
         migration.step = MerchantMigrationStep.activate_subscriptions
@@ -5009,7 +5009,7 @@ class TestRunCutover:
         organization: Organization,
         product: Product,
     ) -> None:
-        mocker.patch("polar.merchant_migration.service.enqueue_job")
+        mocker.patch("repalis.merchant_migration.service.enqueue_job")
         runner = _fake_cutover(mocker)
         organization.capabilities = {**STATUS_CAPABILITIES[OrganizationStatus.CREATED]}
         await save_fixture(organization)
@@ -5049,7 +5049,7 @@ class TestRunCutover:
         organization: Organization,
         product: Product,
     ) -> None:
-        mocker.patch("polar.merchant_migration.service.enqueue_job")
+        mocker.patch("repalis.merchant_migration.service.enqueue_job")
         runner = _fake_cutover(mocker)
         migration = await build_connected_migration(save_fixture, organization)
         migration.pan_transfer_steps = pan_steps_until(
@@ -5100,7 +5100,7 @@ class TestRunCutover:
         organization: Organization,
         product: Product,
     ) -> None:
-        mocker.patch("polar.merchant_migration.service.enqueue_job")
+        mocker.patch("repalis.merchant_migration.service.enqueue_job")
         runner = _fake_cutover(mocker)
         migration = await build_connected_migration(save_fixture, organization)
         migration.pan_transfer_steps = pan_steps_until(
@@ -5132,7 +5132,7 @@ class TestRunCutover:
         organization: Organization,
         product: Product,
     ) -> None:
-        enqueue = mocker.patch("polar.merchant_migration.service.enqueue_job")
+        enqueue = mocker.patch("repalis.merchant_migration.service.enqueue_job")
         runner = _fake_cutover(mocker)
         migration = await build_connected_migration(save_fixture, organization)
         migration.pan_transfer_steps = pan_steps_until(
@@ -5168,7 +5168,7 @@ class TestRunCutover:
         save_fixture: SaveFixture,
         organization: Organization,
     ) -> None:
-        enqueue = mocker.patch("polar.merchant_migration.service.enqueue_job")
+        enqueue = mocker.patch("repalis.merchant_migration.service.enqueue_job")
         runner = _fake_cutover(mocker)
         migration = await build_connected_migration(save_fixture, organization)
         migration.pan_transfer_steps = pan_steps_until(

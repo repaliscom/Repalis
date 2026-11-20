@@ -3,15 +3,15 @@ from dataclasses import dataclass
 
 import structlog
 
-from polar.enums import TaxBehavior, TaxBehaviorOption, TaxProcessor
-from polar.logging import Logger
-from polar.models import Customer, Discount, OrderItem, Product, Subscription
-from polar.tax.calculation import (
+from repalis.enums import TaxBehavior, TaxBehaviorOption, TaxProcessor
+from repalis.logging import Logger
+from repalis.models import Customer, Discount, OrderItem, Product, Subscription
+from repalis.tax.calculation import (
     TaxBreakdownItem,
     TaxCalculation,
     TaxCalculationLogicalError,
 )
-from polar.tax.calculation import tax_calculation as tax_calculation_service
+from repalis.tax.calculation import tax_calculation as tax_calculation_service
 
 log: Logger = structlog.get_logger()
 

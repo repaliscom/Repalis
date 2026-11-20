@@ -6,36 +6,36 @@ from dateutil.relativedelta import relativedelta
 from pydantic import UUID4, AliasChoices, AliasPath, Field
 from pydantic.json_schema import SkipJsonSchema
 
-from polar.benefit.schemas import BenefitID
-from polar.benefit.strategies.license_keys.properties import (
+from repalis.benefit.schemas import BenefitID
+from repalis.benefit.strategies.license_keys.properties import (
     BenefitLicenseKeyActivationProperties,
     BenefitLicenseKeyExpirationProperties,
 )
-from polar.customer.schemas.customer import CustomerBase
-from polar.exceptions import BadRequest, NotPermitted, ResourceNotFound, Unauthorized
-from polar.kit.metadata import (
+from repalis.customer.schemas.customer import CustomerBase
+from repalis.exceptions import BadRequest, NotPermitted, ResourceNotFound, Unauthorized
+from repalis.kit.metadata import (
     MAXIMUM_KEYS,
     METADATA_DESCRIPTION,
     MetadataKey,
     MetadataValue,
 )
-from polar.kit.schemas import (
+from repalis.kit.schemas import (
     IDSchema,
     Int32,
     MultipleQueryFilter,
     Schema,
     TimestampedSchema,
 )
-from polar.kit.utils import generate_uuid, utc_now
-from polar.kit.versioning import QuerySchema, Version
-from polar.models.license_key import LicenseKeyStatus
-from polar.models.order import OrderStatus
-from polar.models.subscription import SubscriptionStatus
-from polar.openapi import destructive_when_one_of
-from polar.order.schemas import OrderBase
-from polar.organization.schemas import OrganizationID
-from polar.subscription.schemas import SubscriptionBase
-from polar.version import V2026_10, V2027_01
+from repalis.kit.utils import generate_uuid, utc_now
+from repalis.kit.versioning import QuerySchema, Version
+from repalis.models.license_key import LicenseKeyStatus
+from repalis.models.order import OrderStatus
+from repalis.models.subscription import SubscriptionStatus
+from repalis.openapi import destructive_when_one_of
+from repalis.order.schemas import OrderBase
+from repalis.organization.schemas import OrganizationID
+from repalis.subscription.schemas import SubscriptionBase
+from repalis.version import V2026_10, V2027_01
 
 ###############################################################################
 # RESPONSES

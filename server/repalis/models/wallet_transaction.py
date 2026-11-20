@@ -7,11 +7,11 @@ from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import Mapped, declared_attr, mapped_column, relationship
 from sqlalchemy.sql.sqltypes import BigInteger
 
-from polar.enums import TaxProcessor
-from polar.kit.db.models import IDModel
-from polar.kit.extensions.sqlalchemy.types import StringEnum
-from polar.kit.utils import utc_now
-from polar.tax.calculation import TaxBreakdownItem
+from repalis.enums import TaxProcessor
+from repalis.kit.db.models import IDModel
+from repalis.kit.extensions.sqlalchemy.types import StringEnum
+from repalis.kit.utils import utc_now
+from repalis.tax.calculation import TaxBreakdownItem
 
 if TYPE_CHECKING:
     from .order import Order

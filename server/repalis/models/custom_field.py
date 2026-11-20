@@ -9,12 +9,12 @@ from sqlalchemy import Boolean, ForeignKey, Index, String, Uuid, text
 from sqlalchemy.dialects.postgresql import CITEXT, JSONB
 from sqlalchemy.orm import Mapped, declared_attr, mapped_column, relationship
 
-from polar.kit.db.models import RecordModel
-from polar.kit.metadata import MetadataMixin
-from polar.kit.schemas import Int32
+from repalis.kit.db.models import RecordModel
+from repalis.kit.metadata import MetadataMixin
+from repalis.kit.schemas import Int32
 
 if TYPE_CHECKING:
-    from polar.models import Catalog, Organization
+    from repalis.models import Catalog, Organization
 
 INT32_MIN = -(2**31)
 INT32_MAX = 2**31 - 1

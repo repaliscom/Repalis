@@ -9,10 +9,10 @@ from pydantic import (
     PlainSerializer,
 )
 
-from polar.kit.schemas import Schema
-from polar.meter.aggregation import Aggregation
-from polar.meter.filter import Filter
-from polar.models.reducer import ReducerKind
+from repalis.kit.schemas import Schema
+from repalis.meter.aggregation import Aggregation
+from repalis.meter.filter import Filter
+from repalis.models.reducer import ReducerKind
 
 
 def to_epoch_microseconds(value: datetime) -> int:

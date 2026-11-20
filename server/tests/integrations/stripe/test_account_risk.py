@@ -1,6 +1,6 @@
 from datetime import UTC, datetime
 
-from polar.integrations.stripe.account_risk import (
+from repalis.integrations.stripe.account_risk import (
     MerchantRiskSignal,
     WebsiteRiskSignal,
     is_account_risk_event,
@@ -8,7 +8,7 @@ from polar.integrations.stripe.account_risk import (
     parse_merchant_payload,
     parse_website_payload,
 )
-from polar.models import OrganizationRiskSignal
+from repalis.models import OrganizationRiskSignal
 
 WEBSITE = "v2.signals.account_signal.fraudulent_website_ready"
 MERCHANT = "v2.signals.account_signal.fraudulent_merchant_ready"

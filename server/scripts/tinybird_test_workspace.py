@@ -7,7 +7,7 @@ from typing import Any
 import httpx2
 import typer
 
-from polar.config import settings
+from repalis.config import settings
 
 cli = typer.Typer()
 

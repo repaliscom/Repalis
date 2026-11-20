@@ -3,9 +3,9 @@ from redis import RedisError
 from sqlalchemy import select
 from sqlalchemy.exc import SQLAlchemyError
 
-from polar.postgres import AsyncSession, get_db_session
-from polar.redis import Redis, get_redis
-from polar.routing import APIRouter
+from repalis.postgres import AsyncSession, get_db_session
+from repalis.redis import Redis, get_redis
+from repalis.routing import APIRouter
 
 router = APIRouter(tags=["health"], include_in_schema=False)
 

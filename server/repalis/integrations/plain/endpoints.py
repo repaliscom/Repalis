@@ -3,8 +3,8 @@ import hmac
 
 from fastapi import Header, HTTPException, Request
 
-from polar.config import settings
-from polar.routing import APIRouter
+from repalis.config import settings
+from repalis.routing import APIRouter
 
 from .schemas import CustomerCardsRequest, CustomerCardsResponse
 from .service import plain as plain_service

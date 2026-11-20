@@ -8,9 +8,9 @@ from sqlalchemy import TIMESTAMP, BigInteger, String, Text, Uuid
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import Mapped, mapped_column
 
-from polar.kit.db.models import Model
-from polar.kit.extensions.sqlalchemy.types import StringEnum
-from polar.kit.utils import generate_uuid, utc_now
+from repalis.kit.db.models import Model
+from repalis.kit.extensions.sqlalchemy.types import StringEnum
+from repalis.kit.utils import generate_uuid, utc_now
 
 
 class Processor(StrEnum):

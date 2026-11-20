@@ -17,10 +17,10 @@ from rich.progress import (
 from sqlalchemy import and_, func, or_, select
 from sqlalchemy.sql.elements import ColumnElement
 
-from polar.config import settings
-from polar.kit.db.postgres import AsyncSession, create_async_sessionmaker
-from polar.kit.db.postgres import create_async_engine as _create_async_engine
-from polar.models import SlackApp
+from repalis.config import settings
+from repalis.kit.db.postgres import AsyncSession, create_async_sessionmaker
+from repalis.kit.db.postgres import create_async_engine as _create_async_engine
+from repalis.models import SlackApp
 
 from .helper import configure_script_logging, typer_async
 

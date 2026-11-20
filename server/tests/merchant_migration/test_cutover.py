@@ -9,9 +9,9 @@ from freezegun import freeze_time
 from pytest_mock import MockerFixture
 from sqlalchemy.exc import OperationalError
 
-from polar.enums import RecurringInterval, TaxBehavior
-from polar.kit.utils import utc_now
-from polar.merchant_migration.canonical import (
+from repalis.enums import RecurringInterval, TaxBehavior
+from repalis.kit.utils import utc_now
+from repalis.merchant_migration.canonical import (
     CanonicalAccount,
     CanonicalCollectionMethod,
     CanonicalPaymentMethod,
@@ -25,10 +25,10 @@ from polar.merchant_migration.canonical import (
     deserialize,
     serialize,
 )
-from polar.merchant_migration.cutover import CutoverOutcome, SubscriptionCutover
-from polar.merchant_migration.importer import find_or_create_add_on_product
-from polar.merchant_migration.repository import MerchantMigrationRecordRepository
-from polar.models import (
+from repalis.merchant_migration.cutover import CutoverOutcome, SubscriptionCutover
+from repalis.merchant_migration.importer import find_or_create_add_on_product
+from repalis.merchant_migration.repository import MerchantMigrationRecordRepository
+from repalis.models import (
     Customer,
     MerchantMigration,
     MerchantMigrationRecord,
@@ -37,18 +37,18 @@ from polar.models import (
     ProductPriceFixed,
     Subscription,
 )
-from polar.models.discount import Discount, DiscountDuration, DiscountType
-from polar.models.merchant_migration_record import (
+from repalis.models.discount import Discount, DiscountDuration, DiscountType
+from repalis.models.merchant_migration_record import (
     MerchantMigrationCutoverStatus,
     MerchantMigrationRecordStatus,
     MerchantMigrationRecordType,
 )
-from polar.models.organization import OrganizationStatus
-from polar.models.subscription import CustomerCancellationReason, SubscriptionStatus
-from polar.postgres import AsyncSession
-from polar.product.repository import ProductRepository
-from polar.subscription.repository import SubscriptionRepository
-from polar.subscription.service import subscription as subscription_service
+from repalis.models.organization import OrganizationStatus
+from repalis.models.subscription import CustomerCancellationReason, SubscriptionStatus
+from repalis.postgres import AsyncSession
+from repalis.product.repository import ProductRepository
+from repalis.subscription.repository import SubscriptionRepository
+from repalis.subscription.service import subscription as subscription_service
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (
     create_customer,
@@ -1292,7 +1292,7 @@ class TestRun:
         await save_fixture(pending_record)
         await save_fixture(migration)
         get_payment_method = mocker.patch(
-            "polar.merchant_migration.cards.stripe_service.get_payment_method",
+            "repalis.merchant_migration.cards.stripe_service.get_payment_method",
             new=mocker.AsyncMock(
                 side_effect=stripe_lib.InvalidRequestError("unavailable", "id")
             ),

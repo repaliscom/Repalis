@@ -3,7 +3,7 @@ from typing import Annotated
 
 from fastapi import Depends
 
-from polar.kit.sorting import Sorting, SortingGetter
+from repalis.kit.sorting import Sorting, SortingGetter
 
 
 class EventTypesSortProperty(StrEnum):

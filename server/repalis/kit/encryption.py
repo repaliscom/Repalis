@@ -24,8 +24,8 @@ import sqlalchemy as sa
 from cryptography.hazmat.primitives.ciphers.aead import AESGCM
 from sqlalchemy.engine.interfaces import Dialect
 
-from polar.config import settings
-from polar.kit.extensions.sqlalchemy.types import TypeDecorator
+from repalis.config import settings
+from repalis.kit.extensions.sqlalchemy.types import TypeDecorator
 
 VERSION = "v1"
 NONCE_SIZE = 12

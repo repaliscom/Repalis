@@ -3,24 +3,24 @@ from typing import Annotated
 from fastapi import Depends, Path, Query
 from pydantic import UUID4
 
-from polar.auth.permission import OrganizationPermission
-from polar.authz.service import (
+from repalis.auth.permission import OrganizationPermission
+from repalis.authz.service import (
     assert_organization_permission,
     assert_resource_permission,
 )
-from polar.exceptions import NotPermitted, ResourceNotFound
-from polar.kit.pagination import ListResource, PaginationParamsQuery
-from polar.models import File
-from polar.models.file import FileServiceTypes
-from polar.openapi import APITag
-from polar.organization.resolver import get_payload_organization
-from polar.postgres import (
+from repalis.exceptions import NotPermitted, ResourceNotFound
+from repalis.kit.pagination import ListResource, PaginationParamsQuery
+from repalis.models import File
+from repalis.models.file import FileServiceTypes
+from repalis.openapi import APITag
+from repalis.organization.resolver import get_payload_organization
+from repalis.postgres import (
     AsyncReadSession,
     AsyncSession,
     get_db_read_session,
     get_db_session,
 )
-from polar.routing import APIRouter
+from repalis.routing import APIRouter
 
 from . import auth
 from .schemas import (

@@ -16,8 +16,8 @@ from pydantic import (
     computed_field,
 )
 
-from polar.kit.pagination import PaginationParamsQuery
-from polar.kit.versioning import (
+from repalis.kit.pagination import PaginationParamsQuery
+from repalis.kit.versioning import (
     APIVersion,
     QuerySchema,
     Version,
@@ -28,8 +28,8 @@ from polar.kit.versioning import (
     routes_for_version,
     version,
 )
-from polar.openapi import APITag
-from polar.routing import APIRouter
+from repalis.openapi import APITag
+from repalis.routing import APIRouter
 
 CURRENT_VERSION = APIVersion(2026, 4)
 NEXT_VERSION = APIVersion(2026, 10)

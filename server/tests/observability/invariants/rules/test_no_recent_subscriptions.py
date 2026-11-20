@@ -1,12 +1,12 @@
 import pytest
 
-from polar.models import Customer, Product
-from polar.models.subscription import SubscriptionStatus
-from polar.observability.invariants.rules.no_recent_subscriptions import (
+from repalis.models import Customer, Product
+from repalis.models.subscription import SubscriptionStatus
+from repalis.observability.invariants.rules.no_recent_subscriptions import (
     NoRecentSubscriptionsInvariant,
     NoRecentSubscriptionsInvariantError,
 )
-from polar.postgres import AsyncSession
+from repalis.postgres import AsyncSession
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_subscription
 

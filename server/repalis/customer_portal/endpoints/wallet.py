@@ -2,15 +2,15 @@ from typing import Annotated
 
 from fastapi import Depends
 
-from polar.exceptions import ResourceNotFound
-from polar.kit.db.postgres import AsyncSession
-from polar.kit.pagination import ListResource, PaginationParamsQuery
-from polar.kit.sorting import Sorting, SortingGetter
-from polar.models import Wallet
-from polar.openapi import APITag
-from polar.postgres import get_db_session
-from polar.routing import APIRouter
-from polar.wallet.schemas import WalletID, WalletNotFound
+from repalis.exceptions import ResourceNotFound
+from repalis.kit.db.postgres import AsyncSession
+from repalis.kit.pagination import ListResource, PaginationParamsQuery
+from repalis.kit.sorting import Sorting, SortingGetter
+from repalis.models import Wallet
+from repalis.openapi import APITag
+from repalis.postgres import get_db_session
+from repalis.routing import APIRouter
+from repalis.wallet.schemas import WalletID, WalletNotFound
 
 from .. import auth
 from ..schemas.wallet import CustomerWallet

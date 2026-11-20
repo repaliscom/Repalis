@@ -2,10 +2,10 @@ from uuid import UUID
 
 from sqlalchemy import delete
 
-from polar.kit.repository import RepositoryBase
-from polar.kit.repository.base import RepositoryIDMixin
-from polar.kit.utils import utc_now
-from polar.models import CustomerSessionEmailOTP
+from repalis.kit.repository import RepositoryBase
+from repalis.kit.repository.base import RepositoryIDMixin
+from repalis.kit.utils import utc_now
+from repalis.models import CustomerSessionEmailOTP
 
 
 class CustomerSessionEmailOTPRepository(

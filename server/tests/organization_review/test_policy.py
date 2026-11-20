@@ -3,7 +3,7 @@ from typing import Self
 import pytest
 from pytest_mock import MockerFixture
 
-from polar.organization_review import policy
+from repalis.organization_review import policy
 
 
 @pytest.fixture(autouse=True)
@@ -120,7 +120,7 @@ class TestFetchPolicyContent:
     async def test_download_rejects_empty_export(self, mocker: MockerFixture) -> None:
         mocker.patch.object(policy, "_get_access_token", return_value="token")
         mocker.patch(
-            "polar.organization_review.policy.httpx2.AsyncClient",
+            "repalis.organization_review.policy.httpx2.AsyncClient",
             return_value=_StubClient(),
         )
 

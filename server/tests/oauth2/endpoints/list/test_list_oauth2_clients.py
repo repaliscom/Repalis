@@ -1,8 +1,8 @@
 import pytest
 from httpx2 import AsyncClient
 
-from polar.kit.db.postgres import AsyncSession
-from polar.models import OAuth2Client, User
+from repalis.kit.db.postgres import AsyncSession
+from repalis.models import OAuth2Client, User
 from tests.fixtures.auth import AuthSubjectFixture
 from tests.fixtures.database import SaveFixture
 

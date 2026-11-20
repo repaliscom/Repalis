@@ -21,9 +21,9 @@ from sqlalchemy import (
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import DeclarativeBase, Mapped, Mapper, mapped_column
 
-from polar.enums import RateLimitGroup
-from polar.kit.extensions.sqlalchemy.types import StringEnum
-from polar.kit.utils import generate_uuid, utc_now
+from repalis.enums import RateLimitGroup
+from repalis.kit.extensions.sqlalchemy.types import StringEnum
+from repalis.kit.utils import generate_uuid, utc_now
 
 my_metadata = MetaData(
     naming_convention={

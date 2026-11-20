@@ -1,11 +1,11 @@
 import uuid
 from typing import Annotated
 
-from polar.dispute.service import dispute as dispute_service
-from polar.external_event.service import external_event as external_event_service
-from polar.models.external_event import ExternalEventSource
-from polar.observability.task_logging import LoggableField
-from polar.worker import AsyncSessionMaker, TaskPriority, actor
+from repalis.dispute.service import dispute as dispute_service
+from repalis.external_event.service import external_event as external_event_service
+from repalis.models.external_event import ExternalEventSource
+from repalis.observability.task_logging import LoggableField
+from repalis.worker import AsyncSessionMaker, TaskPriority, actor
 
 
 @actor(

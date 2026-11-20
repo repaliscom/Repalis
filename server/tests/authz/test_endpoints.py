@@ -4,10 +4,10 @@ import pytest
 from httpx2 import AsyncClient
 from pytest_mock import MockerFixture
 
-from polar.auth.scope import READ_ONLY_SCOPES
-from polar.models import Organization, User
-from polar.models.organization import OrganizationStatus
-from polar.models.user_organization import OrganizationRole, UserOrganization
+from repalis.auth.scope import READ_ONLY_SCOPES
+from repalis.models import Organization, User
+from repalis.models.organization import OrganizationStatus
+from repalis.models.user_organization import OrganizationRole, UserOrganization
 from tests.fixtures.auth import AuthSubjectFixture
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_account
@@ -228,7 +228,7 @@ class TestPolicyGuardListBenefitGrants:
         user_organization: UserOrganization,
     ) -> None:
         mocker.patch(
-            "polar.organization.endpoints.polar_self_service.list_benefit_grants",
+            "repalis.organization.endpoints.polar_self_service.list_benefit_grants",
             return_value=[],
         )
 

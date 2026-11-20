@@ -7,16 +7,16 @@ from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 from pydantic import AfterValidator, AwareDatetime, Field
 from sqlalchemy.orm import joinedload
 
-from polar.auth.models import AuthSubject, Organization, User
-from polar.kit.csv import IterableCSVWriter
-from polar.kit.db.postgres import AsyncReadSession
-from polar.kit.schemas import MultipleQueryFilter
-from polar.kit.versioning import QuerySchema, Version
-from polar.models import Product, Subscription
-from polar.models.subscription import SubscriptionStatus
-from polar.organization.schemas import OrganizationID
-from polar.product.schemas import ProductID
-from polar.version import V2027_01
+from repalis.auth.models import AuthSubject, Organization, User
+from repalis.kit.csv import IterableCSVWriter
+from repalis.kit.db.postgres import AsyncReadSession
+from repalis.kit.schemas import MultipleQueryFilter
+from repalis.kit.versioning import QuerySchema, Version
+from repalis.models import Product, Subscription
+from repalis.models.subscription import SubscriptionStatus
+from repalis.organization.schemas import OrganizationID
+from repalis.product.schemas import ProductID
+from repalis.version import V2027_01
 
 from .repository import SubscriptionRepository
 

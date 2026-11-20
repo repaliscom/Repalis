@@ -1,17 +1,17 @@
 from collections import defaultdict
 from uuid import uuid4
 
-from polar.benefit.repository import BenefitRepository
-from polar.catalog.repository import (
+from repalis.benefit.repository import BenefitRepository
+from repalis.catalog.repository import (
     CatalogBenefitRepository,
     CatalogCustomFieldRepository,
     CatalogMeterRepository,
     CatalogProductRepository,
 )
-from polar.catalog.service import CatalogMembers
-from polar.models import Catalog, Product
-from polar.postgres import AsyncSession
-from polar.product.repository import ProductRepository
+from repalis.catalog.service import CatalogMembers
+from repalis.models import Catalog, Product
+from repalis.postgres import AsyncSession
+from repalis.product.repository import ProductRepository
 
 from . import products
 from .validation import ConfigChanges, ProductChange

@@ -3,8 +3,8 @@ from typing import Literal
 from pydantic import BaseModel, Field, create_model
 from typing_extensions import TypeForm
 
-from polar.config import settings
-from polar.exceptions import PolarError
+from repalis.config import settings
+from repalis.exceptions import PolarError
 
 
 class PolarAuthError(PolarError):

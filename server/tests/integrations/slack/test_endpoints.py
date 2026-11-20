@@ -9,15 +9,15 @@ import pytest
 from httpx2 import AsyncClient
 from pytest_mock import MockerFixture
 
-from polar.auth.scope import Scope
-from polar.integrations.slack.repository import SlackAppRepository
-from polar.kit import jwt
-from polar.models import (
+from repalis.auth.scope import Scope
+from repalis.integrations.slack.repository import SlackAppRepository
+from repalis.kit import jwt
+from repalis.models import (
     Organization,
     SlackApp,
     UserOrganization,
 )
-from polar.postgres import AsyncSession
+from repalis.postgres import AsyncSession
 from tests.fixtures.auth import AuthSubjectFixture
 from tests.fixtures.database import SaveFixture
 
@@ -283,7 +283,7 @@ class TestListWorkspaceUsers:
     ) -> None:
         integration = await _create_integration(save_fixture, organization)
         mocker.patch(
-            "polar.integrations.slack.service.SlackAppService.list_workspace_users",
+            "repalis.integrations.slack.service.SlackAppService.list_workspace_users",
             new=AsyncMock(
                 return_value=[
                     {
@@ -408,7 +408,7 @@ class TestPostCredentials:
         mocker: MockerFixture,
     ) -> None:
         mocker.patch(
-            "polar.integrations.slack.service.SlackAppService._validate_credentials",
+            "repalis.integrations.slack.service.SlackAppService._validate_credentials",
             new=AsyncMock(),
         )
         response = await client.post(
@@ -437,7 +437,7 @@ class TestPostCredentials:
     ) -> None:
         await _enable_slack_benefit(save_fixture, organization)
         mocker.patch(
-            "polar.integrations.slack.service.SlackAppService._validate_credentials",
+            "repalis.integrations.slack.service.SlackAppService._validate_credentials",
             new=AsyncMock(),
         )
         response = await client.post(
@@ -467,7 +467,7 @@ class TestPostCredentials:
         mocker: MockerFixture,
     ) -> None:
         mocker.patch(
-            "polar.integrations.slack.service.SlackAppService._validate_credentials",
+            "repalis.integrations.slack.service.SlackAppService._validate_credentials",
             new=AsyncMock(),
         )
         response = await client.post(
@@ -563,7 +563,7 @@ class TestCallback:
         )
         complete_install = AsyncMock()
         mocker.patch(
-            "polar.integrations.slack.service.SlackAppService.complete_install",
+            "repalis.integrations.slack.service.SlackAppService.complete_install",
             new=complete_install,
         )
 

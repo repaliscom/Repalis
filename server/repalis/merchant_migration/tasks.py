@@ -4,11 +4,11 @@ from uuid import UUID
 
 import structlog
 
-from polar.config import settings
-from polar.kit.utils import utc_now
-from polar.logging import Logger
-from polar.observability.task_logging import LoggableField
-from polar.worker import (
+from repalis.config import settings
+from repalis.kit.utils import utc_now
+from repalis.logging import Logger
+from repalis.observability.task_logging import LoggableField
+from repalis.worker import (
     AsyncSessionMaker,
     CronTrigger,
     RedisMiddleware,

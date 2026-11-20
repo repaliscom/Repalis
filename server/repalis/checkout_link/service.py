@@ -7,22 +7,22 @@ from sqlalchemy import UnaryExpression, asc, desc
 from sqlalchemy.orm import contains_eager
 from sqlalchemy.sql.elements import OrderByList
 
-from polar.auth.models import Agent, AuthSubject
-from polar.auth.permission import OrganizationPermission
-from polar.authz.service import (
+from repalis.auth.models import Agent, AuthSubject
+from repalis.auth.permission import OrganizationPermission
+from repalis.authz.service import (
     assert_organization_permission,
     assert_resource_permission,
     get_accessible_org_ids,
 )
-from polar.checkout_link.repository import CheckoutLinkRepository
-from polar.discount.service import discount as discount_service
-from polar.exceptions import PolarRequestValidationError, ValidationError
-from polar.kit.crypto import generate_token
-from polar.kit.pagination import PaginationParams
-from polar.kit.services import ResourceServiceReader
-from polar.kit.sorting import Sorting
-from polar.kit.visibility import Visibility
-from polar.models import (
+from repalis.checkout_link.repository import CheckoutLinkRepository
+from repalis.discount.service import discount as discount_service
+from repalis.exceptions import PolarRequestValidationError, ValidationError
+from repalis.kit.crypto import generate_token
+from repalis.kit.pagination import PaginationParams
+from repalis.kit.services import ResourceServiceReader
+from repalis.kit.sorting import Sorting
+from repalis.kit.visibility import Visibility
+from repalis.models import (
     CheckoutLink,
     CheckoutLinkProduct,
     Discount,
@@ -31,10 +31,10 @@ from polar.models import (
     ProductPrice,
     User,
 )
-from polar.postgres import AsyncSession
-from polar.product.guard import SeatPrice, UnitPrice, is_seat_price, is_unit_price
-from polar.product.repository import ProductPriceRepository, ProductRepository
-from polar.product.service import product as product_service
+from repalis.postgres import AsyncSession
+from repalis.product.guard import SeatPrice, UnitPrice, is_seat_price, is_unit_price
+from repalis.product.repository import ProductPriceRepository, ProductRepository
+from repalis.product.service import product as product_service
 
 from .schemas import (
     CheckoutLinkCreateProduct,

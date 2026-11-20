@@ -1,14 +1,14 @@
 import uuid
 from collections.abc import Sequence
 
-from polar.auth.models import AuthSubject, Organization, User
-from polar.authz.service import get_accessible_org_ids
-from polar.kit.pagination import PaginationParams
-from polar.kit.sorting import Sorting
-from polar.models import Customer, Order, Wallet, WalletTransaction
-from polar.models.wallet import WalletType
-from polar.postgres import AsyncReadSession, AsyncSession
-from polar.tax.calculation import TaxBreakdownItem
+from repalis.auth.models import AuthSubject, Organization, User
+from repalis.authz.service import get_accessible_org_ids
+from repalis.kit.pagination import PaginationParams
+from repalis.kit.sorting import Sorting
+from repalis.models import Customer, Order, Wallet, WalletTransaction
+from repalis.models.wallet import WalletType
+from repalis.postgres import AsyncReadSession, AsyncSession
+from repalis.tax.calculation import TaxBreakdownItem
 
 from .repository import WalletRepository, WalletTransactionRepository
 from .sorting import WalletSortProperty

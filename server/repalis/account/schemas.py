@@ -2,8 +2,8 @@ from datetime import timedelta
 
 from pydantic import Field, field_validator
 
-from polar.kit.address import Address, AddressInput
-from polar.kit.schemas import IDSchema, Schema, TimestampedSchema
+from repalis.kit.address import Address, AddressInput
+from repalis.kit.schemas import IDSchema, Schema, TimestampedSchema
 
 
 class Account(TimestampedSchema, IDSchema):

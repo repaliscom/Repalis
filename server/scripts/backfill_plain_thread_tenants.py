@@ -8,14 +8,14 @@ import typer
 from rich.progress import Progress
 from sqlalchemy import func, or_, select
 
-from polar.config import settings
-from polar.integrations.plain.service import plain as plain_service
-from polar.kit.db.postgres import (
+from repalis.config import settings
+from repalis.integrations.plain.service import plain as plain_service
+from repalis.kit.db.postgres import (
     AsyncSessionMaker,
     create_async_sessionmaker,
 )
-from polar.models import OAuthAccount, Organization, User, UserOrganization
-from polar.postgres import AsyncSession, create_async_engine
+from repalis.models import OAuthAccount, Organization, User, UserOrganization
+from repalis.postgres import AsyncSession, create_async_engine
 
 from .helper import configure_script_logging, typer_async
 

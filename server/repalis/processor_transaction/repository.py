@@ -1,8 +1,8 @@
 from collections.abc import Sequence
 
-from polar.kit.repository.base import RepositoryBase
-from polar.models import ProcessorTransaction
-from polar.models.processor_transaction import Processor
+from repalis.kit.repository.base import RepositoryBase
+from repalis.models import ProcessorTransaction
+from repalis.models.processor_transaction import Processor
 
 
 class ProcessorTransactionRepository(RepositoryBase[ProcessorTransaction]):

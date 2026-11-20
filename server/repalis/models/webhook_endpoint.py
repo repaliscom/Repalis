@@ -7,10 +7,10 @@ from sqlalchemy import TIMESTAMP, Boolean, ForeignKey, Index, String, Uuid, text
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import Mapped, declared_attr, mapped_column, relationship
 
-from polar.kit.db.models.base import RecordModel
-from polar.kit.external_id import ExternalIDMixin
-from polar.kit.versioning import APIVersion, APIVersionType
-from polar.version import CURRENT_API_VERSION
+from repalis.kit.db.models.base import RecordModel
+from repalis.kit.external_id import ExternalIDMixin
+from repalis.kit.versioning import APIVersion, APIVersionType
+from repalis.version import CURRENT_API_VERSION
 
 if TYPE_CHECKING:
     from .organization import Organization

@@ -3,12 +3,12 @@ from datetime import UTC, datetime, timedelta
 
 import pytest
 
-from polar.models import Customer, Organization, Product, User, UserOrganization
-from polar.models.organization import OrganizationStatus
-from polar.models.user_organization import OrganizationRole
-from polar.organization.repository import OrganizationRepository
-from polar.postgres import AsyncSession
-from polar.user_organization.service import (
+from repalis.models import Customer, Organization, Product, User, UserOrganization
+from repalis.models.organization import OrganizationStatus
+from repalis.models.user_organization import OrganizationRole
+from repalis.organization.repository import OrganizationRepository
+from repalis.postgres import AsyncSession
+from repalis.user_organization.service import (
     user_organization as user_organization_service,
 )
 from tests.fixtures.database import SaveFixture

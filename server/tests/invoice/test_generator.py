@@ -7,14 +7,14 @@ from typing import Any
 import pytest
 from fpdf.unicode_script import UNICODE_RANGE_TO_SCRIPT, UnicodeScript
 
-from polar.invoice.generator import (
+from repalis.invoice.generator import (
     Invoice,
     InvoiceGenerator,
     InvoiceItem,
     escape_markdown,
 )
-from polar.kit.address import Address, CountryAlpha2
-from polar.tax.calculation import TaxabilityReason
+from repalis.kit.address import Address, CountryAlpha2
+from repalis.tax.calculation import TaxabilityReason
 
 UNSUPPORTED_BIDI_NAME = (
     "\U0001d4a2\U0001d4a7\U0001d4aa\U0001d49e\U0001d4a6 \U0001f1ed\U0001f1f9"

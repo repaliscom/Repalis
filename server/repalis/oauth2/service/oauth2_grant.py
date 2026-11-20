@@ -5,10 +5,10 @@ from sqlalchemy import delete, select
 from sqlalchemy.dialects.postgresql import insert
 from sqlalchemy.orm import selectinload
 
-from polar.kit.db.postgres import Session as SyncSession
-from polar.kit.services import ResourceServiceReader
-from polar.kit.utils import generate_uuid, utc_now
-from polar.models import OAuth2Grant, OAuth2GrantOrganization
+from repalis.kit.db.postgres import Session as SyncSession
+from repalis.kit.services import ResourceServiceReader
+from repalis.kit.utils import generate_uuid, utc_now
+from repalis.models import OAuth2Grant, OAuth2GrantOrganization
 
 from ..sub_type import SubType
 

@@ -12,7 +12,7 @@ from botocore.stub import ANY, Stubber
 from opentelemetry.sdk.trace import TracerProvider
 from opentelemetry.sdk.trace.export import SimpleSpanProcessor
 
-from polar.observability.s3_span_exporter import REDACTED, S3SpanExporter
+from repalis.observability.s3_span_exporter import REDACTED, S3SpanExporter
 
 BUCKET_NAME = "testing-s3-span-exporter"
 
@@ -35,8 +35,8 @@ class TestExportFailure:
                     from botocore.exceptions import ClientError
                     from opentelemetry.sdk.trace.export import BatchSpanProcessor
 
-                    from polar.logging import Production
-                    from polar.observability.s3_span_exporter import S3SpanExporter
+                    from repalis.logging import Production
+                    from repalis.observability.s3_span_exporter import S3SpanExporter
 
                     client = Mock()
                     client.put_object.side_effect = ClientError(
@@ -110,7 +110,7 @@ def test_export_writes_jsonl_to_s3() -> None:
 
 @pytest.fixture
 def scrubbing_exporter() -> S3SpanExporter:
-    with patch("polar.observability.s3_span_exporter.boto3"):
+    with patch("repalis.observability.s3_span_exporter.boto3"):
         return S3SpanExporter(
             bucket_name="unused",
             service_name="test",
@@ -186,7 +186,7 @@ class TestScrubbing:
         assert result["attributes"]["USERNAME"] == REDACTED
 
     def test_no_scrubbing_without_patterns(self) -> None:
-        with patch("polar.observability.s3_span_exporter.boto3"):
+        with patch("repalis.observability.s3_span_exporter.boto3"):
             exporter = S3SpanExporter(
                 bucket_name="unused",
                 service_name="test",

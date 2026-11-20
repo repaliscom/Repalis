@@ -11,8 +11,8 @@ import structlog
 from dramatiq.asyncio import get_event_loop_thread
 from dramatiq.middleware.asyncio import AsyncIO
 
-from polar.config import settings
-from polar.logging import Logger
+from repalis.config import settings
+from repalis.logging import Logger
 
 log: Logger = structlog.get_logger()
 

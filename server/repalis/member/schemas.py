@@ -4,14 +4,14 @@ from annotated_types import MaxLen
 from fastapi import Path
 from pydantic import UUID4, Field
 
-from polar.kit.email import EmailStrDNS
-from polar.kit.schemas import (
+from repalis.kit.email import EmailStrDNS
+from repalis.kit.schemas import (
     EmptyStrToNoneValidator,
     IDSchema,
     Schema,
     TimestampedSchema,
 )
-from polar.models.member import MemberRole
+from repalis.models.member import MemberRole
 
 ExternalMemberID = Annotated[str, Path(description="The member external ID.")]
 

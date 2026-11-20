@@ -6,10 +6,10 @@ from collections.abc import Generator
 from fastapi import Request
 from tagflow import classes, tag, text
 
-from polar.config import settings
-from polar.models import Organization
-from polar.models.user import IdentityVerificationStatus
-from polar.models.user_organization import OrganizationRole
+from repalis.config import settings
+from repalis.models import Organization
+from repalis.models.user import IdentityVerificationStatus
+from repalis.models.user_organization import OrganizationRole
 
 from ....components import action_bar, button, card
 

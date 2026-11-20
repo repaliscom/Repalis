@@ -6,8 +6,8 @@ from authlib.integrations.sqla_oauth2 import (
 from sqlalchemy import String
 from sqlalchemy.orm import Mapped, declared_attr, mapped_column, relationship
 
-from polar.kit.db.models import RecordModel
-from polar.oauth2.sub_type import SubTypeModelMixin
+from repalis.kit.db.models import RecordModel
+from repalis.oauth2.sub_type import SubTypeModelMixin
 
 if TYPE_CHECKING:
     from .oauth2_authorization_code_organization import (

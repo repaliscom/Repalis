@@ -14,19 +14,19 @@ from sqlalchemy import or_, select
 from sqlalchemy.orm import selectinload
 from tagflow import classes, tag, text
 
-from polar.backoffice.routing import BackofficeRouter
-from polar.integrations.stripe.service import stripe as stripe_service
-from polar.kit.pagination import PaginationParamsQuery
-from polar.kit.schemas import empty_str_to_none
-from polar.models import User, UserOrganization
-from polar.models.user import IdentityVerificationStatus, OAuthAccount
-from polar.organization.sorting import OrganizationSortProperty
-from polar.postgres import AsyncSession, get_db_read_session, get_db_session
-from polar.user import sorting
-from polar.user.repository import UserRepository
-from polar.user.schemas import UserDeletionBlockedReason
-from polar.user.service import user as user_service
-from polar.user.sorting import UserSortProperty
+from repalis.backoffice.routing import BackofficeRouter
+from repalis.integrations.stripe.service import stripe as stripe_service
+from repalis.kit.pagination import PaginationParamsQuery
+from repalis.kit.schemas import empty_str_to_none
+from repalis.models import User, UserOrganization
+from repalis.models.user import IdentityVerificationStatus, OAuthAccount
+from repalis.organization.sorting import OrganizationSortProperty
+from repalis.postgres import AsyncSession, get_db_read_session, get_db_session
+from repalis.user import sorting
+from repalis.user.repository import UserRepository
+from repalis.user.schemas import UserDeletionBlockedReason
+from repalis.user.service import user as user_service
+from repalis.user.sorting import UserSortProperty
 
 from ..components import button, datatable, description_list, input, modal
 from ..layout import layout

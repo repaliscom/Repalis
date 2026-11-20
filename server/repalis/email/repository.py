@@ -5,10 +5,10 @@ from uuid import UUID
 import structlog
 from sqlalchemy import delete, func, select
 
-from polar.enums import EmailSender
-from polar.kit.repository import RepositoryBase, RepositoryIDMixin
-from polar.logging import Logger
-from polar.models.email_log import (
+from repalis.enums import EmailSender
+from repalis.kit.repository import RepositoryBase, RepositoryIDMixin
+from repalis.logging import Logger
+from repalis.models.email_log import (
     EmailLog,
     EmailLogStatus,
 )

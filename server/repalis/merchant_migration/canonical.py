@@ -10,12 +10,12 @@ from typing import Any, Literal
 from fastapi.encoders import jsonable_encoder
 from pydantic import TypeAdapter, ValidationError
 
-from polar.discount.schemas import Amount, _code_validator
-from polar.enums import TaxBehavior
-from polar.kit.address import Address
-from polar.kit.currency import PresentmentCurrency
-from polar.models.merchant_migration_record import MerchantMigrationRecordType
-from polar.tax.tax_id import TaxID, TaxIDFormat
+from repalis.discount.schemas import Amount, _code_validator
+from repalis.enums import TaxBehavior
+from repalis.kit.address import Address
+from repalis.kit.currency import PresentmentCurrency
+from repalis.models.merchant_migration_record import MerchantMigrationRecordType
+from repalis.tax.tax_id import TaxID, TaxIDFormat
 
 
 class CanonicalPricingScheme(StrEnum):

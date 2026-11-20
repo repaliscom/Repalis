@@ -6,9 +6,9 @@ from collections.abc import Generator
 from pydantic import ValidationError
 from tagflow import tag, text
 
-from polar.backoffice.components import button, modal
-from polar.models import Organization
-from polar.models.organization import STATUS_CAPABILITIES, CapabilityName
+from repalis.backoffice.components import button, modal
+from repalis.models import Organization
+from repalis.models.organization import STATUS_CAPABILITIES, CapabilityName
 
 
 class SetCapabilityModal:

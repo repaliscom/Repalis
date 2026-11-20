@@ -2,24 +2,24 @@ from math import ceil
 
 import structlog
 
-from polar.config import settings
-from polar.customer.repository import CustomerRepository
-from polar.email.schemas import (
+from repalis.config import settings
+from repalis.customer.repository import CustomerRepository
+from repalis.email.schemas import (
     CustomerEmailChangedNotificationEmail,
     CustomerEmailChangedNotificationProps,
     CustomerEmailUpdateVerificationEmail,
     CustomerEmailUpdateVerificationProps,
 )
-from polar.email.sender import enqueue_email_template
-from polar.exceptions import PolarError, PolarRequestValidationError
-from polar.integrations.stripe.service import stripe as stripe_service
-from polar.kit.crypto import generate_token_hash_pair
-from polar.kit.utils import utc_now
-from polar.member.service import member_service
-from polar.models import Customer, Organization
-from polar.models.customer import CustomerType
-from polar.models.customer_email_verification import CustomerEmailVerification
-from polar.postgres import AsyncReadSession, AsyncSession
+from repalis.email.sender import enqueue_email_template
+from repalis.exceptions import PolarError, PolarRequestValidationError
+from repalis.integrations.stripe.service import stripe as stripe_service
+from repalis.kit.crypto import generate_token_hash_pair
+from repalis.kit.utils import utc_now
+from repalis.member.service import member_service
+from repalis.models import Customer, Organization
+from repalis.models.customer import CustomerType
+from repalis.models.customer_email_verification import CustomerEmailVerification
+from repalis.postgres import AsyncReadSession, AsyncSession
 
 from .repository import CustomerEmailVerificationRepository
 

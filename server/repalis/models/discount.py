@@ -27,10 +27,10 @@ from sqlalchemy.orm import (
     relationship,
 )
 
-from polar.kit.db.models import RecordModel
-from polar.kit.external_id import ExternalIDMixin
-from polar.kit.math import polar_round
-from polar.kit.metadata import MetadataMixin
+from repalis.kit.db.models import RecordModel
+from repalis.kit.external_id import ExternalIDMixin
+from repalis.kit.math import polar_round
+from repalis.kit.metadata import MetadataMixin
 
 if TYPE_CHECKING:
     from . import DiscountProduct, DiscountRedemption, Organization, Product

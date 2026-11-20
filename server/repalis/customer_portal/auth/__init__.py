@@ -2,11 +2,11 @@ from typing import Annotated
 
 from fastapi import Depends
 
-from polar.auth.dependencies import Authenticator
-from polar.auth.models import Anonymous, AuthSubject, Customer, Member
-from polar.auth.scope import Scope
-from polar.exceptions import NotPermitted
-from polar.models.member import MemberRole
+from repalis.auth.dependencies import Authenticator
+from repalis.auth.models import Anonymous, AuthSubject, Customer, Member
+from repalis.auth.scope import Scope
+from repalis.exceptions import NotPermitted
+from repalis.models.member import MemberRole
 
 _CustomerPortalOAuthAccount = Authenticator(
     required_scopes={Scope.customer_portal_write},

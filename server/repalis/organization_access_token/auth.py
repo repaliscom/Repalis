@@ -2,9 +2,9 @@ from typing import Annotated
 
 from fastapi import Depends
 
-from polar.auth.models import AuthSubject, User
-from polar.auth.scope import Scope
-from polar.authz.dependencies import WebUserAuthorizer, WebUserAuthorizerFresh
+from repalis.auth.models import AuthSubject, User
+from repalis.auth.scope import Scope
+from repalis.authz.dependencies import WebUserAuthorizer, WebUserAuthorizerFresh
 
 _OrganizationAccessTokensRead = WebUserAuthorizer(
     required_scopes={

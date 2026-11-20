@@ -19,22 +19,22 @@ from sqlalchemy import func, or_
 from sqlalchemy.orm import contains_eager, joinedload
 from tagflow import classes, document, tag, text
 
-from polar.backoffice import forms
-from polar.backoffice.orders.components import orders_datatable
-from polar.backoffice.routing import BackofficeRouter
-from polar.benefit.grant.repository import BenefitGrantRepository
-from polar.config import settings
-from polar.customer.repository import CustomerRepository
-from polar.customer.schemas.customer import CustomerUpdate
-from polar.customer.service import customer as customer_service
-from polar.customer_session.service import customer_session as customer_session_service
-from polar.exceptions import PolarRequestValidationError
-from polar.kit.currency import PresentmentCurrency, get_currency_decimal_factor
-from polar.kit.pagination import PaginationParamsQuery
-from polar.kit.schemas import empty_str_to_none
-from polar.member.repository import MemberRepository
-from polar.member_session.service import member_session as member_session_service
-from polar.models import (
+from repalis.backoffice import forms
+from repalis.backoffice.orders.components import orders_datatable
+from repalis.backoffice.routing import BackofficeRouter
+from repalis.benefit.grant.repository import BenefitGrantRepository
+from repalis.config import settings
+from repalis.customer.repository import CustomerRepository
+from repalis.customer.schemas.customer import CustomerUpdate
+from repalis.customer.service import customer as customer_service
+from repalis.customer_session.service import customer_session as customer_session_service
+from repalis.exceptions import PolarRequestValidationError
+from repalis.kit.currency import PresentmentCurrency, get_currency_decimal_factor
+from repalis.kit.pagination import PaginationParamsQuery
+from repalis.kit.schemas import empty_str_to_none
+from repalis.member.repository import MemberRepository
+from repalis.member_session.service import member_session as member_session_service
+from repalis.models import (
     BenefitGrant,
     Customer,
     Member,
@@ -45,14 +45,14 @@ from polar.models import (
     Wallet,
     WalletTransaction,
 )
-from polar.models.wallet import WalletType
-from polar.order.repository import OrderRepository
-from polar.postgres import AsyncSession, get_db_read_session, get_db_session
-from polar.subscription.repository import SubscriptionRepository
-from polar.subscription.sorting import SubscriptionSortProperty
-from polar.wallet.repository import WalletRepository, WalletTransactionRepository
-from polar.wallet.service import wallet as wallet_service
-from polar.worker import enqueue_job
+from repalis.models.wallet import WalletType
+from repalis.order.repository import OrderRepository
+from repalis.postgres import AsyncSession, get_db_read_session, get_db_session
+from repalis.subscription.repository import SubscriptionRepository
+from repalis.subscription.sorting import SubscriptionSortProperty
+from repalis.wallet.repository import WalletRepository, WalletTransactionRepository
+from repalis.wallet.service import wallet as wallet_service
+from repalis.worker import enqueue_job
 
 from ..components import button, datatable, description_list, modal
 from ..formatters import currency

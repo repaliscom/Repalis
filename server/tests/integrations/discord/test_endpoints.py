@@ -2,10 +2,10 @@ from datetime import timedelta
 
 import pytest
 
-from polar.exceptions import Unauthorized
-from polar.integrations.discord.endpoints import get_decoded_token_state
-from polar.kit import jwt
-from polar.kit.utils import utc_now
+from repalis.exceptions import Unauthorized
+from repalis.integrations.discord.endpoints import get_decoded_token_state
+from repalis.kit import jwt
+from repalis.kit.utils import utc_now
 
 
 @pytest.mark.anyio

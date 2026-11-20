@@ -23,7 +23,7 @@ from sqlalchemy.engine.interfaces import Dialect
 from sqlalchemy.types import TypeDecorator
 from stdnum import get_cc_module
 
-from polar.exceptions import PolarError
+from repalis.exceptions import PolarError
 
 if TYPE_CHECKING:
     from stripe.params._customer_create_params import (

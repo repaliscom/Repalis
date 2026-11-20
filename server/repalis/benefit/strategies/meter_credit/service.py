@@ -2,16 +2,16 @@ import uuid
 from datetime import datetime
 from typing import Any, Unpack, cast
 
-from polar.auth.models import Agent, AuthSubject
-from polar.authz.types import AccessibleOrganizationID
-from polar.customer_meter.service import customer_meter as customer_meter_service
-from polar.event.repository import EventRepository
-from polar.event.service import event as event_service
-from polar.event.system import SystemEvent, build_system_event
-from polar.kit.utils import utc_now
-from polar.meter.repository import MeterRepository
-from polar.models import Benefit, Customer, Member, Organization, User
-from polar.models.benefit_grant import BenefitGrantScopeArgs
+from repalis.auth.models import Agent, AuthSubject
+from repalis.authz.types import AccessibleOrganizationID
+from repalis.customer_meter.service import customer_meter as customer_meter_service
+from repalis.event.repository import EventRepository
+from repalis.event.service import event as event_service
+from repalis.event.system import SystemEvent, build_system_event
+from repalis.kit.utils import utc_now
+from repalis.meter.repository import MeterRepository
+from repalis.models import Benefit, Customer, Member, Organization, User
+from repalis.models.benefit_grant import BenefitGrantScopeArgs
 
 from ..base.service import BenefitPropertiesValidationError, BenefitServiceProtocol
 from .properties import BenefitGrantMeterCreditProperties, BenefitMeterCreditProperties

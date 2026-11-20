@@ -4,7 +4,7 @@ from collections.abc import Generator, Sequence
 from fastapi import Request
 from tagflow import tag, text
 
-from polar.config import settings
+from repalis.config import settings
 
 from ..static_urls import static_url
 

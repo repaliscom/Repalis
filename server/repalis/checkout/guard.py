@@ -1,7 +1,7 @@
 from typing import TYPE_CHECKING, TypeIs
 from uuid import UUID
 
-from polar.models import Checkout, Product, ProductPrice
+from repalis.models import Checkout, Product, ProductPrice
 
 if TYPE_CHECKING:
 

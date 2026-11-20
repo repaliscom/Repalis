@@ -3,15 +3,15 @@ from typing import Annotated, Literal
 from pydantic import UUID4, AliasPath, Field, computed_field
 from pydantic.json_schema import SkipJsonSchema
 
-from polar.config import settings
-from polar.discount.schemas import DiscountMinimal
-from polar.enums import PaymentProcessor
-from polar.kit.http import SuccessUrl
-from polar.kit.metadata import (
+from repalis.config import settings
+from repalis.discount.schemas import DiscountMinimal
+from repalis.enums import PaymentProcessor
+from repalis.kit.http import SuccessUrl
+from repalis.kit.metadata import (
     MetadataInputMixin,
     MetadataOutputMixin,
 )
-from polar.kit.schemas import (
+from repalis.kit.schemas import (
     HttpUrlToStr,
     IDSchema,
     Int32,
@@ -20,10 +20,10 @@ from polar.kit.schemas import (
     Schema,
     TimestampedSchema,
 )
-from polar.kit.trial import TrialConfigurationInputMixin, TrialConfigurationOutputMixin
-from polar.kit.versioning import QuerySchema, Version
-from polar.organization.schemas import OrganizationID
-from polar.product.schemas import (
+from repalis.kit.trial import TrialConfigurationInputMixin, TrialConfigurationOutputMixin
+from repalis.kit.versioning import QuerySchema, Version
+from repalis.organization.schemas import OrganizationID
+from repalis.product.schemas import (
     BenefitPublicList,
     ProductBase,
     ProductID,
@@ -31,7 +31,7 @@ from polar.product.schemas import (
     ProductPrice,
     ProductPriceList,
 )
-from polar.version import V2026_10, V2027_01
+from repalis.version import V2026_10, V2027_01
 
 SuccessURL = Annotated[
     SuccessUrl | None,

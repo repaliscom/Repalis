@@ -4,14 +4,14 @@ from typing import Annotated, Any, get_args, get_origin, get_type_hints
 import pytest
 from pydantic import ValidationError
 
-from polar.event.schemas import (
+from repalis.event.schemas import (
     EventCreateCustomer,
     EventCreateExternalCustomer,
     MeterCreditEvent,
 )
-from polar.event.schemas import SystemEvent as SystemEventUnion
-from polar.event.system import SYSTEM_EVENT_LABELS
-from polar.event.system import SystemEvent as SystemEventEnum
+from repalis.event.schemas import SystemEvent as SystemEventUnion
+from repalis.event.system import SYSTEM_EVENT_LABELS
+from repalis.event.system import SystemEvent as SystemEventEnum
 
 
 @pytest.mark.parametrize(

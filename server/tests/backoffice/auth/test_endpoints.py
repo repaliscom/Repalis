@@ -11,13 +11,13 @@ from pydantic import SecretStr
 from sqlalchemy import select
 from starlette.applications import Starlette
 
-from polar.auth.service import auth as auth_service
-from polar.backoffice import app as backoffice_app
-from polar.backoffice.auth.factor import GOOGLE_DISCOVERY_ENDPOINT
-from polar.config import Environment, settings
-from polar.kit.utils import utc_now
-from polar.models import BackofficeUser, BackofficeUserSession, User
-from polar.postgres import AsyncSession, get_db_session
+from repalis.auth.service import auth as auth_service
+from repalis.backoffice import app as backoffice_app
+from repalis.backoffice.auth.factor import GOOGLE_DISCOVERY_ENDPOINT
+from repalis.config import Environment, settings
+from repalis.kit.utils import utc_now
+from repalis.models import BackofficeUser, BackofficeUserSession, User
+from repalis.postgres import AsyncSession, get_db_session
 
 
 @pytest.fixture

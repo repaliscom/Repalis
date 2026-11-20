@@ -9,9 +9,9 @@ import sentry_sdk
 import structlog
 from sqlalchemy.exc import DBAPIError
 
-from polar.locker import TimeoutLockError
-from polar.logging import Logger
-from polar.observability import OPERATIONAL_ERROR_TOTAL
+from repalis.locker import TimeoutLockError
+from repalis.logging import Logger
+from repalis.observability import OPERATIONAL_ERROR_TOTAL
 
 log: Logger = structlog.get_logger()
 
@@ -72,28 +72,28 @@ def _timeout_lock_error_matcher(exc: BaseException) -> bool:
 
 def _external_event_already_handled_error_matcher(exc: BaseException) -> bool:
     # Import deferred to avoid circular dependency with polar.worker
-    from polar.external_event.service import ExternalEventAlreadyHandled
+    from repalis.external_event.service import ExternalEventAlreadyHandled
 
     return isinstance(exc, ExternalEventAlreadyHandled)
 
 
 def _tinybird_operational_error_matcher(exc: BaseException) -> bool:
     # Import deferred to avoid circular dependency with polar.worker
-    from polar.integrations.tinybird.client import TinybirdOperationalError
+    from repalis.integrations.tinybird.client import TinybirdOperationalError
 
     return isinstance(exc, TinybirdOperationalError)
 
 
 def _polar_self_client_operational_error_matcher(exc: BaseException) -> bool:
     # Import deferred to avoid circular dependency with polar.worker
-    from polar.integrations.repalis.client import PolarSelfClientOperationalError
+    from repalis.integrations.repalis.client import PolarSelfClientOperationalError
 
     return isinstance(exc, PolarSelfClientOperationalError)
 
 
 def _email_sender_operational_error_matcher(exc: BaseException) -> bool:
     # Import deferred to avoid circular dependency
-    from polar.email.sender import EmailSenderOperationalError
+    from repalis.email.sender import EmailSenderOperationalError
 
     return isinstance(exc, EmailSenderOperationalError)
 

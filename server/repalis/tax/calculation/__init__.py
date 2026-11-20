@@ -3,17 +3,17 @@ from datetime import datetime
 
 import structlog
 
-from polar.config import settings
-from polar.enums import TaxBehavior, TaxBehaviorOption, TaxProcessor
-from polar.kit.address import (
+from repalis.config import settings
+from repalis.enums import TaxBehavior, TaxBehaviorOption, TaxProcessor
+from repalis.kit.address import (
     CITY_REQUIRED_COUNTRIES,
     POSTAL_CODE_REQUIRED_COUNTRIES,
     STATE_REQUIRED_COUNTRIES,
     Address,
 )
-from polar.kit.utils import utc_now
-from polar.logging import Logger
-from polar.observability import TAX_CALCULATION_TOTAL
+from repalis.kit.utils import utc_now
+from repalis.logging import Logger
+from repalis.observability import TAX_CALCULATION_TOTAL
 
 from ..tax_id import TaxID
 from .base import (

@@ -13,8 +13,8 @@ from sqlalchemy import (
 )
 from sqlalchemy.orm import joinedload, selectinload
 
-from polar.authz.types import AccessibleOrganizationID
-from polar.kit.repository import (
+from repalis.authz.types import AccessibleOrganizationID
+from repalis.kit.repository import (
     Options,
     RepositoryBase,
     RepositorySoftDeletionIDMixin,
@@ -22,16 +22,16 @@ from polar.kit.repository import (
     RepositorySortingMixin,
     SortingClause,
 )
-from polar.kit.utils import utc_now
-from polar.models import (
+from repalis.kit.utils import utc_now
+from repalis.models import (
     Checkout,
     CheckoutProduct,
     Organization,
     Payment,
     Product,
 )
-from polar.models.checkout import CheckoutStatus
-from polar.models.payment import PaymentStatus
+from repalis.models.checkout import CheckoutStatus
+from repalis.models.payment import PaymentStatus
 
 from .sorting import CheckoutSortProperty
 

@@ -5,7 +5,7 @@ import pytest
 from pydantic import Field, ValidationError
 from pydantic.json_schema import JsonSchemaMode
 
-from polar.kit.schemas import Schema, TimestampedSchema
+from repalis.kit.schemas import Schema, TimestampedSchema
 
 
 class StringSchema(Schema):

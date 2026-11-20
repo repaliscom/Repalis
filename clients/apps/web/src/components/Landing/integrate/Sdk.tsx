@@ -19,7 +19,7 @@ const TYPESCRIPT = [
 ]
 
 const PYTHON = [
-  'from polar.v2026_10 import Polar',
+  'from repalis.v2026_10 import Repalis',
   '',
   'polar = Polar(os.environ["POLAR_ACCESS_TOKEN"])',
   '',

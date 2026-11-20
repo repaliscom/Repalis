@@ -1,10 +1,10 @@
 from pydantic import HttpUrl
 
-from polar.kit.crypto import generate_token_hash_pair
-from polar.kit.services import ResourceServiceReader
-from polar.models import Member, MemberSession
-from polar.models.member_session import MEMBER_SESSION_TOKEN_PREFIX
-from polar.postgres import AsyncSession
+from repalis.kit.crypto import generate_token_hash_pair
+from repalis.kit.services import ResourceServiceReader
+from repalis.models import Member, MemberSession
+from repalis.models.member_session import MEMBER_SESSION_TOKEN_PREFIX
+from repalis.postgres import AsyncSession
 
 from .repository import MemberSessionRepository
 

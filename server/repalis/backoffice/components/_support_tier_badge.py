@@ -1,6 +1,6 @@
 from tagflow import tag, text
 
-from polar.models.organization import SupportTier
+from repalis.models.organization import SupportTier
 
 _TIER_BADGE_CLASS: dict[SupportTier, str] = {
     SupportTier.pro: "badge-ghost border border-base-300",

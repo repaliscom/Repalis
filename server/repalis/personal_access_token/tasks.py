@@ -2,8 +2,8 @@ import uuid
 from datetime import UTC, datetime
 from typing import Annotated
 
-from polar.observability.task_logging import LoggableField
-from polar.worker import AsyncSessionMaker, TaskPriority, actor
+from repalis.observability.task_logging import LoggableField
+from repalis.worker import AsyncSessionMaker, TaskPriority, actor
 
 from .service import personal_access_token as personal_access_token_service
 

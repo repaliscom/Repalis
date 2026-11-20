@@ -5,11 +5,11 @@ import pytest
 from httpx2 import AsyncClient
 from pytest_mock import MockerFixture
 
-from polar.kit.utils import utc_now
-from polar.meter.unit import MeterUnit
-from polar.models import Organization, UserOrganization
-from polar.organization.repository import OrganizationRepository
-from polar.postgres import AsyncSession
+from repalis.kit.utils import utc_now
+from repalis.meter.unit import MeterUnit
+from repalis.models import Organization, UserOrganization
+from repalis.organization.repository import OrganizationRepository
+from repalis.postgres import AsyncSession
 from tests.fixtures.auth import AuthSubjectFixture
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (
@@ -88,7 +88,7 @@ class TestApply:
         organization: Organization,
         user_organization: UserOrganization,
     ) -> None:
-        mocker.patch("polar.meter.service.enqueue_job")
+        mocker.patch("repalis.meter.service.enqueue_job")
 
         response = await client.post(
             "/v1/config/apply",
@@ -120,7 +120,7 @@ class TestApply:
     async def test_organization_token(
         self, mocker: MockerFixture, client: AsyncClient
     ) -> None:
-        mocker.patch("polar.meter.service.enqueue_job")
+        mocker.patch("repalis.meter.service.enqueue_job")
 
         response = await client.post("/v1/config/apply", json={"meters": [METER]})
 
@@ -654,7 +654,7 @@ class TestExport:
         organization: Organization,
         user_organization: UserOrganization,
     ) -> None:
-        mocker.patch("polar.declarative_config.export.MAXIMUM_METERS", 1)
+        mocker.patch("repalis.declarative_config.export.MAXIMUM_METERS", 1)
         await create_meter(
             save_fixture,
             organization=organization,

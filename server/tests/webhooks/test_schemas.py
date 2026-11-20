@@ -3,9 +3,9 @@ import typing
 import pytest
 from pydantic import ValidationError
 
-from polar.kit.schemas import HttpsUrl
-from polar.models.webhook_endpoint import WebhookFormat
-from polar.webhook.schemas import WebhookEndpointCreate
+from repalis.kit.schemas import HttpsUrl
+from repalis.models.webhook_endpoint import WebhookFormat
+from repalis.webhook.schemas import WebhookEndpointCreate
 
 
 @pytest.mark.parametrize(

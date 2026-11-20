@@ -1,4 +1,4 @@
-from polar.enums import RecurringInterval
+from repalis.enums import RecurringInterval
 
 
 def meter_interval_divides_billing_interval(

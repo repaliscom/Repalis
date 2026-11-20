@@ -6,7 +6,7 @@ from unittest.mock import patch
 
 import pytest
 
-from polar.worker._asyncio import _EventLoopWatchdog
+from repalis.worker._asyncio import _EventLoopWatchdog
 
 
 @pytest.fixture
@@ -114,7 +114,7 @@ class TestEventLoopWatchdog:
             max_misses=0,
         )
 
-        with patch("polar.worker._asyncio.log") as mock_log:
+        with patch("repalis.worker._asyncio.log") as mock_log:
             watchdog.start()
             time.sleep(0.6)
             watchdog.stop()
@@ -145,7 +145,7 @@ class TestEventLoopWatchdog:
             max_misses=0,
         )
 
-        with patch("polar.worker._asyncio.log") as mock_log:
+        with patch("repalis.worker._asyncio.log") as mock_log:
             watchdog.start()
             time.sleep(0.6)
             watchdog.stop()
@@ -196,7 +196,7 @@ class TestEventLoopWatchdog:
             max_misses=0,
         )
 
-        with patch("polar.worker._asyncio.log") as mock_log:
+        with patch("repalis.worker._asyncio.log") as mock_log:
             watchdog.start()
             time.sleep(1.0)
             watchdog.stop()
@@ -225,7 +225,7 @@ class TestEventLoopWatchdog:
             max_misses=2,
         )
 
-        with patch("polar.worker._asyncio.os._exit") as mock_exit:
+        with patch("repalis.worker._asyncio.os._exit") as mock_exit:
             watchdog.start()
             time.sleep(1.0)
             watchdog.stop()
@@ -256,7 +256,7 @@ class TestEventLoopWatchdog:
             patch.object(
                 _EventLoopWatchdog, "_dump_stacks", side_effect=OSError("broken pipe")
             ),
-            patch("polar.worker._asyncio.os._exit") as mock_exit,
+            patch("repalis.worker._asyncio.os._exit") as mock_exit,
         ):
             watchdog.start()
             time.sleep(1.0)
@@ -291,8 +291,8 @@ class TestEventLoopWatchdog:
                 "_dump_stacks",
                 side_effect=lambda: release.wait(timeout=5),
             ),
-            patch("polar.worker._asyncio.DUMP_TIMEOUT_SECONDS", 0.2),
-            patch("polar.worker._asyncio.os._exit") as mock_exit,
+            patch("repalis.worker._asyncio.DUMP_TIMEOUT_SECONDS", 0.2),
+            patch("repalis.worker._asyncio.os._exit") as mock_exit,
         ):
             watchdog.start()
             time.sleep(1.0)
@@ -317,7 +317,7 @@ class TestEventLoopWatchdog:
             max_misses=0,
         )
 
-        with patch("polar.worker._asyncio.os._exit") as mock_exit:
+        with patch("repalis.worker._asyncio.os._exit") as mock_exit:
             watchdog.start()
             time.sleep(1.0)
             watchdog.stop()

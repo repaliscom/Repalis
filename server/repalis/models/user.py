@@ -24,11 +24,11 @@ from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import Mapped, declared_attr, mapped_column, relationship
 from sqlalchemy.schema import Index, UniqueConstraint
 
-from polar.kit.concurrency import create_task_group
-from polar.kit.db.models import RecordModel
-from polar.kit.encryption import EncryptedString, EncryptedStringType
-from polar.kit.extensions.sqlalchemy.types import StringEnum
-from polar.kit.schemas import Schema
+from repalis.kit.concurrency import create_task_group
+from repalis.kit.db.models import RecordModel
+from repalis.kit.encryption import EncryptedString, EncryptedStringType
+from repalis.kit.extensions.sqlalchemy.types import StringEnum
+from repalis.kit.schemas import Schema
 
 from .account import Account
 

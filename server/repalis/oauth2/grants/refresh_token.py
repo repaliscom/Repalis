@@ -6,8 +6,8 @@ import structlog
 from authlib.oauth2.rfc6749.grants import RefreshTokenGrant as _RefreshTokenGrant
 from sqlalchemy import select
 
-from polar.kit.crypto import get_token_hash_candidates
-from polar.models import OAuth2Token, User, UserOrganization
+from repalis.kit.crypto import get_token_hash_candidates
+from repalis.models import OAuth2Token, User, UserOrganization
 
 from ..sub_type import SubType, SubTypeValue
 

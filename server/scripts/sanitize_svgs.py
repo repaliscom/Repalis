@@ -11,17 +11,17 @@ from py_svg_hush import filter_svg
 from rich.console import Console
 from sqlalchemy import select
 
-from polar.file.s3 import S3_SERVICES
-from polar.file.service import (
+from repalis.file.s3 import S3_SERVICES
+from repalis.file.service import (
     SVG_DATA_URL_MIME_TYPES,
     SVG_MIME_TYPE,
     SVG_SANITIZED_SERVICES,
 )
-from polar.integrations.aws.s3.exceptions import S3FileError
-from polar.integrations.aws.s3.schemas import S3File
-from polar.kit.db.postgres import create_async_sessionmaker
-from polar.models import File
-from polar.postgres import create_async_engine
+from repalis.integrations.aws.s3.exceptions import S3FileError
+from repalis.integrations.aws.s3.schemas import S3File
+from repalis.kit.db.postgres import create_async_sessionmaker
+from repalis.models import File
+from repalis.postgres import create_async_engine
 
 from .helper import configure_script_console_logging, typer_async
 

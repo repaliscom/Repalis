@@ -7,8 +7,8 @@ from babel.dates import format_timedelta
 from fastapi import Request
 from tagflow import tag, text
 
-from polar.models import Organization
-from polar.models.organization import CAPABILITY_METADATA, STATUS_CAPABILITIES
+from repalis.models import Organization
+from repalis.models.organization import CAPABILITY_METADATA, STATUS_CAPABILITIES
 
 from .... import formatters
 from ....components import button, card
@@ -250,7 +250,7 @@ class SettingsSection:
 
                 with tag.div(classes="space-y-2"):
                     # Import OrganizationFeatureSettings to iterate over feature flags
-                    from polar.organization.schemas import OrganizationFeatureSettings
+                    from repalis.organization.schemas import OrganizationFeatureSettings
 
                     feature_settings = self.org.feature_settings or {}
                     if feature_settings:

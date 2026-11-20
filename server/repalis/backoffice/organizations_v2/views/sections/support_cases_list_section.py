@@ -7,7 +7,7 @@ from collections.abc import Generator, Sequence
 from fastapi import Request
 from tagflow import tag, text
 
-from polar.models import Organization
+from repalis.models import Organization
 
 from ....components import card, dispute_status_badge, needs_action_badge
 from ....support_cases.queries import TYPE_LABELS, Row

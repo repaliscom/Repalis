@@ -11,13 +11,13 @@ import pytest
 import structlog
 from starlette.types import Receive, Scope, Send
 
-from polar.logging import ClientContext
+from repalis.logging import ClientContext
 
 
 def _run(scope: Scope) -> dict[str, Any]:
     """Run the middleware against ``scope`` and return the structlog
     contextvars as seen from inside the wrapped app."""
-    from polar.middlewares import LogCorrelationIdMiddleware
+    from repalis.middlewares import LogCorrelationIdMiddleware
 
     captured: dict[str, Any] = {}
 
@@ -80,7 +80,7 @@ class TestClientHeaderCapture:
     def test_cleans_up_context_when_app_raises(self) -> None:
         # The cleanup runs in a finally block, so a failing request must not
         # leak client identification into error-path logging or later requests.
-        from polar.middlewares import LogCorrelationIdMiddleware
+        from repalis.middlewares import LogCorrelationIdMiddleware
 
         async def failing_app(scope: Scope, receive: Receive, send: Send) -> None:
             raise RuntimeError("boom")

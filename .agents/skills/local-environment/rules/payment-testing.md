@@ -114,8 +114,8 @@ actor from inside the api container:
 docker exec polar-app-<N>-api-1 sh -c 'cd /app/server && uv run python -c "
 import asyncio, dramatiq
 import polar.tasks  # registers every actor as a side-effect of import
-from polar.worker import JobQueueManager, enqueue_job
-from polar.redis import create_redis
+from repalis.worker import JobQueueManager, enqueue_job
+from repalis.redis import create_redis
 
 async def main():
     redis = create_redis(\"worker\")

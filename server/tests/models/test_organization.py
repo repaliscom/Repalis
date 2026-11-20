@@ -1,11 +1,11 @@
 import pytest
 from sqlalchemy.orm import joinedload
 
-from polar.kit.utils import utc_now
-from polar.models import Organization, OrganizationReview
-from polar.models.organization import OrganizationStatus
-from polar.organization.repository import OrganizationRepository
-from polar.postgres import AsyncSession
+from repalis.kit.utils import utc_now
+from repalis.models import Organization, OrganizationReview
+from repalis.models.organization import OrganizationStatus
+from repalis.organization.repository import OrganizationRepository
+from repalis.postgres import AsyncSession
 from tests.fixtures.database import SaveFixture
 
 

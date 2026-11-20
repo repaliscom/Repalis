@@ -3,12 +3,12 @@ from datetime import UTC, datetime
 import pytest
 from httpx2 import AsyncClient
 
-from polar.models import OrganizationReview
-from polar.models.organization import Organization
-from polar.models.user import User
-from polar.models.user_organization import UserOrganization
-from polar.organization_review.appeal_case import appeal_case as appeal_case_service
-from polar.postgres import AsyncSession
+from repalis.models import OrganizationReview
+from repalis.models.organization import Organization
+from repalis.models.user import User
+from repalis.models.user_organization import UserOrganization
+from repalis.organization_review.appeal_case import appeal_case as appeal_case_service
+from repalis.postgres import AsyncSession
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (
     create_organization_review,

@@ -9,9 +9,9 @@ from fastapi import Request, Response
 from fastapi.routing import APIRoute
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from polar.config import settings
-from polar.kit.pagination import ListResource
-from polar.openapi import TOOL_ANNOTATIONS, TOOL_DESTRUCTIVE, TOOL_OPEN_WORLD, APITag
+from repalis.config import settings
+from repalis.kit.pagination import ListResource
+from repalis.openapi import TOOL_ANNOTATIONS, TOOL_DESTRUCTIVE, TOOL_OPEN_WORLD, APITag
 
 
 class TransactionalAPIRoute(APIRoute):

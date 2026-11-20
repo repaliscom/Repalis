@@ -72,12 +72,12 @@ from fastapi import Depends, HTTPException, Query, Request
 from pydantic import UUID4, ValidationError
 from tagflow import tag, text
 
-from polar.backoffice.routing import BackofficeRouter
-from polar.kit.pagination import PaginationParamsQuery
-from polar.models import MyEntity
-from polar.my_entity.repository import MyEntityRepository
-from polar.my_entity.sorting import MyEntitySortProperty
-from polar.postgres import AsyncSession, get_db_session
+from repalis.backoffice.routing import BackofficeRouter
+from repalis.kit.pagination import PaginationParamsQuery
+from repalis.models import MyEntity
+from repalis.my_entity.repository import MyEntityRepository
+from repalis.my_entity.sorting import MyEntitySortProperty
+from repalis.postgres import AsyncSession, get_db_session
 
 from ..components import datatable, description_list, button
 from ..layout import layout

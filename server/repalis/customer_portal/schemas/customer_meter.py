@@ -1,10 +1,10 @@
 from pydantic import Field
 
-from polar.customer_meter.schemas import CustomerMeterBase
-from polar.kit.schemas import IDSchema, MultipleQueryFilter, TimestampedSchema
-from polar.kit.versioning import QuerySchema
-from polar.meter.schemas import NAME_DESCRIPTION as METER_NAME_DESCRIPTION
-from polar.meter.schemas import MeterID
+from repalis.customer_meter.schemas import CustomerMeterBase
+from repalis.kit.schemas import IDSchema, MultipleQueryFilter, TimestampedSchema
+from repalis.kit.versioning import QuerySchema
+from repalis.meter.schemas import NAME_DESCRIPTION as METER_NAME_DESCRIPTION
+from repalis.meter.schemas import MeterID
 
 
 class CustomerCustomerMeterMeter(IDSchema, TimestampedSchema):

@@ -7,14 +7,14 @@ from sqlalchemy import and_, or_, select
 from sqlalchemy.dialects.postgresql import insert
 from sqlalchemy.orm import selectinload
 
-from polar.event.service import event as event_service
-from polar.exceptions import PolarTaskError
-from polar.meter.repository import MeterRepository
-from polar.meter.service import meter as meter_service
-from polar.models import Event, Meter, MeterEvent
-from polar.observability.task_logging import LoggableField
-from polar.organization.repository import OrganizationRepository
-from polar.worker import AsyncSessionMaker, TaskPriority, actor, enqueue_job
+from repalis.event.service import event as event_service
+from repalis.exceptions import PolarTaskError
+from repalis.meter.repository import MeterRepository
+from repalis.meter.service import meter as meter_service
+from repalis.models import Event, Meter, MeterEvent
+from repalis.observability.task_logging import LoggableField
+from repalis.organization.repository import OrganizationRepository
+from repalis.worker import AsyncSessionMaker, TaskPriority, actor, enqueue_job
 
 
 class MeterTaskError(PolarTaskError): ...

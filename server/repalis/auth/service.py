@@ -8,14 +8,14 @@ from fastapi.requests import HTTPConnection
 from fastapi.responses import RedirectResponse
 from sqlalchemy import delete
 
-from polar.config import settings
-from polar.enums import TokenType
-from polar.kit.crypto import generate_token_hash_pair
-from polar.kit.http import get_safe_return_url
-from polar.kit.utils import utc_now
-from polar.logging import Logger
-from polar.models import User, UserSession, UserSessionOrganization
-from polar.postgres import AsyncSession
+from repalis.config import settings
+from repalis.enums import TokenType
+from repalis.kit.crypto import generate_token_hash_pair
+from repalis.kit.http import get_safe_return_url
+from repalis.kit.utils import utc_now
+from repalis.logging import Logger
+from repalis.models import User, UserSession, UserSessionOrganization
+from repalis.postgres import AsyncSession
 
 from .repository import UserSessionRepository
 from .schemas import LoginMethod

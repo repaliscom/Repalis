@@ -1,8 +1,8 @@
 from apscheduler.triggers.cron import CronTrigger
 
-from polar.config import settings
-from polar.kit.utils import utc_now
-from polar.worker import AsyncSessionMaker, TaskPriority, actor
+from repalis.config import settings
+from repalis.kit.utils import utc_now
+from repalis.worker import AsyncSessionMaker, TaskPriority, actor
 
 from .repository import ExternalEventRepository
 

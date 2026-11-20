@@ -4,18 +4,18 @@ from typing import TYPE_CHECKING
 
 import structlog
 
-from polar.config import settings
-from polar.email.schemas import (
+from repalis.config import settings
+from repalis.email.schemas import (
     PolarSelfStartupProgramWelcomeEmail,
     PolarSelfStartupProgramWelcomeProps,
 )
-from polar.email.sender import enqueue_email_template
-from polar.exceptions import PolarError
-from polar.integrations.repalis.client import get_client
-from polar.models import Organization
+from repalis.email.sender import enqueue_email_template
+from repalis.exceptions import PolarError
+from repalis.integrations.repalis.client import get_client
+from repalis.models import Organization
 
 if TYPE_CHECKING:
-    from polar.v2026_04.outputs import Discount
+    from repalis.v2026_04.outputs import Discount
 
 log = structlog.get_logger()
 

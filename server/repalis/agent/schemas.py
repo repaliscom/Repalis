@@ -4,10 +4,10 @@ from typing import Annotated, Literal
 
 from pydantic import UUID4, BeforeValidator, EmailStr, Field
 
-from polar.auth.scope import Scope
-from polar.enums import SubscriptionRecurringInterval
-from polar.kit.schemas import Schema
-from polar.product.schemas import ProductPrice
+from repalis.auth.scope import Scope
+from repalis.enums import SubscriptionRecurringInterval
+from repalis.kit.schemas import Schema
+from repalis.product.schemas import ProductPrice
 
 
 class AgentIdentityCreate(Schema):

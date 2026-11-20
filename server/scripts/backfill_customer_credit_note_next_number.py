@@ -7,7 +7,7 @@ Run before deploying the NOT NULL migration:
 import typer
 from sqlalchemy import Update, select, update
 
-from polar.models import Customer
+from repalis.models import Customer
 from scripts.helper import (
     configure_script_logging,
     limit_bindparam,

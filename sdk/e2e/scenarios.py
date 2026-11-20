@@ -1,7 +1,7 @@
 import itertools
 
-from polar.outpost.client import Snapshot
-from polar.outpost.reducer import BUCKET_SIZE, Reducer
+from repalis.outpost.client import Snapshot
+from repalis.outpost.reducer import BUCKET_SIZE, Reducer
 
 from harness import (
     ConfirmStep,

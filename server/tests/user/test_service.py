@@ -4,26 +4,26 @@ from pytest_mock import MockerFixture
 from sqlalchemy import select
 from sqlalchemy.exc import IntegrityError
 
-from polar.kit.utils import utc_now
-from polar.models import (
+from repalis.kit.utils import utc_now
+from repalis.models import (
     NotificationRecipient,
     OAuthAccount,
     Organization,
     User,
     UserOrganization,
 )
-from polar.models.user import IdentityVerificationStatus, OAuthPlatform
-from polar.models.user_organization import OrganizationRole
-from polar.postgres import AsyncSession
-from polar.user.repository import UserRepository
-from polar.user.schemas import UserDeletionBlockedReason, UserUpdate
-from polar.user.service import (
+from repalis.models.user import IdentityVerificationStatus, OAuthPlatform
+from repalis.models.user_organization import OrganizationRole
+from repalis.postgres import AsyncSession
+from repalis.user.repository import UserRepository
+from repalis.user.schemas import UserDeletionBlockedReason, UserUpdate
+from repalis.user.service import (
     IdentityAlreadyVerified,
     IdentityVerificationForUnknownUser,
     IdentityVerificationProcessing,
     UserCannotAuthenticate,
 )
-from polar.user.service import user as user_service
+from repalis.user.service import user as user_service
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (
     create_notification_recipient,
@@ -172,7 +172,7 @@ class TestUpdate:
         await save_fixture(user)
 
         enqueue_mock = mocker.patch(
-            "polar.user.service.polar_self_service.enqueue_update_member"
+            "repalis.user.service.polar_self_service.enqueue_update_member"
         )
 
         await user_service.update(
@@ -199,7 +199,7 @@ class TestUpdate:
         await save_fixture(user)
 
         enqueue_mock = mocker.patch(
-            "polar.user.service.polar_self_service.enqueue_update_member"
+            "repalis.user.service.polar_self_service.enqueue_update_member"
         )
 
         await user_service.update(
@@ -222,7 +222,7 @@ class TestUpdate:
         await save_fixture(user)
 
         enqueue_mock = mocker.patch(
-            "polar.user.service.polar_self_service.enqueue_update_member"
+            "repalis.user.service.polar_self_service.enqueue_update_member"
         )
 
         await user_service.update(
@@ -359,7 +359,7 @@ class TestRequestDeletion:
         await save_fixture(user)
 
         redact_mock = mocker.patch(
-            "polar.user.service.stripe_service.redact_verification_session",
+            "repalis.user.service.stripe_service.redact_verification_session",
             new_callable=mocker.AsyncMock,
         )
 
@@ -382,7 +382,7 @@ class TestRequestDeletion:
         assert user.identity_verification_id is None
 
         redact_mock = mocker.patch(
-            "polar.user.service.stripe_service.redact_verification_session",
+            "repalis.user.service.stripe_service.redact_verification_session",
             new_callable=mocker.AsyncMock,
         )
 
@@ -404,7 +404,7 @@ class TestRequestDeletion:
         await save_fixture(user)
 
         mocker.patch(
-            "polar.user.service.stripe_service.redact_verification_session",
+            "repalis.user.service.stripe_service.redact_verification_session",
             new_callable=mocker.AsyncMock,
             side_effect=stripe_lib.InvalidRequestError(
                 "No such verification session: vs_missing", "id"
@@ -437,7 +437,7 @@ class TestCreateIdentityVerification:
         user: User,
     ) -> None:
         create_mock = mocker.patch(
-            "polar.user.service.stripe_service.create_verification_session",
+            "repalis.user.service.stripe_service.create_verification_session",
             new_callable=mocker.AsyncMock,
             return_value=_verification_session("vs_new", "requires_input"),
         )
@@ -459,12 +459,12 @@ class TestCreateIdentityVerification:
         await save_fixture(user)
 
         mocker.patch(
-            "polar.user.service.stripe_service.get_verification_session",
+            "repalis.user.service.stripe_service.get_verification_session",
             new_callable=mocker.AsyncMock,
             return_value=_verification_session("vs_existing", "requires_input"),
         )
         create_mock = mocker.patch(
-            "polar.user.service.stripe_service.create_verification_session",
+            "repalis.user.service.stripe_service.create_verification_session",
             new_callable=mocker.AsyncMock,
         )
 
@@ -485,12 +485,12 @@ class TestCreateIdentityVerification:
         await save_fixture(user)
 
         mocker.patch(
-            "polar.user.service.stripe_service.get_verification_session",
+            "repalis.user.service.stripe_service.get_verification_session",
             new_callable=mocker.AsyncMock,
             return_value=_verification_session("vs_existing", "requires_input"),
         )
         create_mock = mocker.patch(
-            "polar.user.service.stripe_service.create_verification_session",
+            "repalis.user.service.stripe_service.create_verification_session",
             new_callable=mocker.AsyncMock,
         )
 
@@ -511,12 +511,12 @@ class TestCreateIdentityVerification:
         await save_fixture(user)
 
         mocker.patch(
-            "polar.user.service.stripe_service.get_verification_session",
+            "repalis.user.service.stripe_service.get_verification_session",
             new_callable=mocker.AsyncMock,
             return_value=_verification_session("vs_existing", "processing"),
         )
         create_mock = mocker.patch(
-            "polar.user.service.stripe_service.create_verification_session",
+            "repalis.user.service.stripe_service.create_verification_session",
             new_callable=mocker.AsyncMock,
         )
 
@@ -538,12 +538,12 @@ class TestCreateIdentityVerification:
         await save_fixture(user)
 
         mocker.patch(
-            "polar.user.service.stripe_service.get_verification_session",
+            "repalis.user.service.stripe_service.get_verification_session",
             new_callable=mocker.AsyncMock,
             return_value=_verification_session("vs_existing", "verified"),
         )
         create_mock = mocker.patch(
-            "polar.user.service.stripe_service.create_verification_session",
+            "repalis.user.service.stripe_service.create_verification_session",
             new_callable=mocker.AsyncMock,
         )
 
@@ -564,12 +564,12 @@ class TestCreateIdentityVerification:
         await save_fixture(user)
 
         mocker.patch(
-            "polar.user.service.stripe_service.get_verification_session",
+            "repalis.user.service.stripe_service.get_verification_session",
             new_callable=mocker.AsyncMock,
             return_value=_verification_session("vs_canceled", "canceled"),
         )
         mocker.patch(
-            "polar.user.service.stripe_service.create_verification_session",
+            "repalis.user.service.stripe_service.create_verification_session",
             new_callable=mocker.AsyncMock,
             return_value=_verification_session("vs_new", "requires_input"),
         )
@@ -618,7 +618,7 @@ class TestIdentityVerificationVerified:
         await create_payout_account(save_fixture, organization_second, user)
 
         maybe_activate_mock = mocker.patch(
-            "polar.user.service.organization_service.maybe_activate",
+            "repalis.user.service.organization_service.maybe_activate",
             new_callable=mocker.AsyncMock,
         )
 
@@ -654,7 +654,7 @@ class TestIdentityVerificationVerified:
         await save_fixture(user)
 
         mocker.patch(
-            "polar.user.service.organization_service.maybe_activate",
+            "repalis.user.service.organization_service.maybe_activate",
             new_callable=mocker.AsyncMock,
         )
 
@@ -896,11 +896,11 @@ class TestIdentityVerificationAfterDeletion:
         await save_fixture(user)
 
         mocker.patch(
-            "polar.user.service.stripe_service.redact_verification_session",
+            "repalis.user.service.stripe_service.redact_verification_session",
             new_callable=mocker.AsyncMock,
         )
         maybe_activate_mock = mocker.patch(
-            "polar.user.service.organization_service.maybe_activate",
+            "repalis.user.service.organization_service.maybe_activate",
             new_callable=mocker.AsyncMock,
         )
 

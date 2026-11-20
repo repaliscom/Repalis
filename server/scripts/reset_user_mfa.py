@@ -22,10 +22,10 @@ import uuid
 
 import typer
 
-from polar.auth.factors import BackupCodesFactor, TOTPFactor
-from polar.kit.db.postgres import create_async_sessionmaker
-from polar.postgres import create_async_engine
-from polar.user.repository import UserRepository
+from repalis.auth.factors import BackupCodesFactor, TOTPFactor
+from repalis.kit.db.postgres import create_async_sessionmaker
+from repalis.postgres import create_async_engine
+from repalis.user.repository import UserRepository
 
 cli = typer.Typer()
 

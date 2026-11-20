@@ -10,7 +10,7 @@ from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import Mapped, declared_attr, mapped_column, relationship
 
 if TYPE_CHECKING:
-    from polar.models import Agent, Organization, User
+    from repalis.models import Agent, Organization, User
 
 
 class SubType(StrEnum):

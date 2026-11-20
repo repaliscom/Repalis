@@ -5,12 +5,12 @@ from uuid import UUID
 from sqlalchemy import TIMESTAMP, ForeignKey, Integer, String, Uuid
 from sqlalchemy.orm import Mapped, declared_attr, mapped_column, relationship
 
-from polar.enums import SubscriptionProrationBehavior
-from polar.kit.db.models import RecordModel
-from polar.kit.extensions.sqlalchemy.types import StringEnum
+from repalis.enums import SubscriptionProrationBehavior
+from repalis.kit.db.models import RecordModel
+from repalis.kit.extensions.sqlalchemy.types import StringEnum
 
 if TYPE_CHECKING:
-    from polar.models import Organization, Product
+    from repalis.models import Organization, Product
 
 
 class SubscriptionBulkUpdate(RecordModel):

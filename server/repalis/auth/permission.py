@@ -17,7 +17,7 @@ for a future self-serve transfer flow and will be owner-only when introduced.
 
 from enum import StrEnum
 
-from polar.models.user_organization import OrganizationRole
+from repalis.models.user_organization import OrganizationRole
 
 
 class OrganizationPermission(StrEnum):

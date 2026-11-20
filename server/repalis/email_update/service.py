@@ -3,18 +3,18 @@ from urllib.parse import urlencode
 
 from sqlalchemy import delete
 
-from polar.auth.models import AuthSubject
-from polar.email.schemas import EmailUpdateEmail, EmailUpdateProps
-from polar.email.sender import enqueue_email_template
-from polar.exceptions import PolarError, PolarRequestValidationError
-from polar.integrations.resend.service import resend as resend_service
-from polar.kit.crypto import generate_token_hash_pair
-from polar.kit.services import ResourceServiceReader
-from polar.kit.utils import utc_now
-from polar.models import EmailVerification
-from polar.models.user import User
-from polar.postgres import AsyncSession
-from polar.user.repository import UserRepository
+from repalis.auth.models import AuthSubject
+from repalis.email.schemas import EmailUpdateEmail, EmailUpdateProps
+from repalis.email.sender import enqueue_email_template
+from repalis.exceptions import PolarError, PolarRequestValidationError
+from repalis.integrations.resend.service import resend as resend_service
+from repalis.kit.crypto import generate_token_hash_pair
+from repalis.kit.services import ResourceServiceReader
+from repalis.kit.utils import utc_now
+from repalis.models import EmailVerification
+from repalis.models.user import User
+from repalis.postgres import AsyncSession
+from repalis.user.repository import UserRepository
 
 from .repository import EmailVerificationRepository
 

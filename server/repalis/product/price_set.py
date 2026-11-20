@@ -1,8 +1,8 @@
 from collections.abc import Sequence
 from typing import Self
 
-from polar.exceptions import PolarError
-from polar.models import Product, ProductPrice
+from repalis.exceptions import PolarError
+from repalis.models import Product, ProductPrice
 
 from .guard import (
     CustomPrice,

@@ -4,18 +4,18 @@ from reauth.authentication_session import AuthenticationSession
 from reauth.factors.email_otp import ExpiredOTPException, InvalidOTPException
 from sqlalchemy.orm import joinedload
 
-from polar.auth.authentication_session import InvalidAuthenticationSession
-from polar.auth.exceptions import UnavailableFactorError
-from polar.auth.turnstile import verify_turnstile
-from polar.customer.repository import CustomerRepository
-from polar.exceptions import NotPermitted
-from polar.kit.http import get_ip_address
-from polar.member.repository import MemberRepository
-from polar.member_session.service import member_session as member_session_service
-from polar.models import Member
-from polar.openapi import APITag
-from polar.postgres import AsyncSession, get_db_session
-from polar.routing import APIRouter
+from repalis.auth.authentication_session import InvalidAuthenticationSession
+from repalis.auth.exceptions import UnavailableFactorError
+from repalis.auth.turnstile import verify_turnstile
+from repalis.customer.repository import CustomerRepository
+from repalis.exceptions import NotPermitted
+from repalis.kit.http import get_ip_address
+from repalis.member.repository import MemberRepository
+from repalis.member_session.service import member_session as member_session_service
+from repalis.models import Member
+from repalis.openapi import APITag
+from repalis.postgres import AsyncSession, get_db_session
+from repalis.routing import APIRouter
 
 from ..schemas.customer_session import (
     CustomerSelectionOption,

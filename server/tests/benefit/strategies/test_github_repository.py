@@ -2,19 +2,19 @@ from unittest.mock import AsyncMock, MagicMock
 
 import pytest
 
-from polar.benefit.strategies import BenefitActionRequiredError
-from polar.benefit.strategies.github_repository.properties import (
+from repalis.benefit.strategies import BenefitActionRequiredError
+from repalis.benefit.strategies.github_repository.properties import (
     BenefitGrantGitHubRepositoryProperties,
 )
-from polar.benefit.strategies.github_repository.service import (
+from repalis.benefit.strategies.github_repository.service import (
     BenefitGitHubRepositoryService,
 )
-from polar.models import Benefit, Customer, Member, Organization
-from polar.models.benefit import BenefitType
-from polar.models.customer import CustomerOAuthAccount, CustomerOAuthPlatform
-from polar.models.member import MemberRole
-from polar.postgres import AsyncSession
-from polar.redis import Redis
+from repalis.models import Benefit, Customer, Member, Organization
+from repalis.models.benefit import BenefitType
+from repalis.models.customer import CustomerOAuthAccount, CustomerOAuthPlatform
+from repalis.models.member import MemberRole
+from repalis.postgres import AsyncSession
+from repalis.redis import Redis
 from tests.fixtures.database import SaveFixture
 
 
@@ -134,7 +134,7 @@ class TestGitHubRepositoryRevoke:
         place. With the fix, the soft-deleted member is passed through and its
         OAuth account is used to call ``remove_collaborator``.
         """
-        from polar.kit.utils import utc_now
+        from repalis.kit.utils import utc_now
 
         service = BenefitGitHubRepositoryService(session, redis)
 

@@ -5,15 +5,15 @@ from typing import Annotated, Literal, Unpack
 import structlog
 from dramatiq import Retry
 
-from polar.benefit.grant.repository import BenefitGrantRepository
-from polar.benefit.repository import BenefitRepository
-from polar.customer.repository import CustomerRepository
-from polar.exceptions import PolarTaskError
-from polar.logging import Logger
-from polar.models.benefit_grant import BenefitGrantScopeArgs, BenefitGrantSelectorArgs
-from polar.observability.task_logging import LoggableField
-from polar.product.repository import ProductRepository
-from polar.worker import (
+from repalis.benefit.grant.repository import BenefitGrantRepository
+from repalis.benefit.repository import BenefitRepository
+from repalis.customer.repository import CustomerRepository
+from repalis.exceptions import PolarTaskError
+from repalis.logging import Logger
+from repalis.models.benefit_grant import BenefitGrantScopeArgs, BenefitGrantSelectorArgs
+from repalis.observability.task_logging import LoggableField
+from repalis.product.repository import ProductRepository
+from repalis.worker import (
     AsyncSessionMaker,
     RedisMiddleware,
     TaskPriority,

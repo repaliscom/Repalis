@@ -24,15 +24,15 @@ from sqlalchemy.orm import (
     relationship,
 )
 
-from polar.enums import (
+from repalis.enums import (
     SubscriptionRecurringInterval,
     TaxBehaviorOption,
 )
-from polar.kit.currency import format_currency
-from polar.kit.db.models import RecordModel
-from polar.kit.extensions.sqlalchemy.types import StringEnum
-from polar.kit.math import polar_round
-from polar.product.tiers import (
+from repalis.kit.currency import format_currency
+from repalis.kit.db.models import RecordModel
+from repalis.kit.extensions.sqlalchemy.types import StringEnum
+from repalis.kit.math import polar_round
+from repalis.product.tiers import (
     SeatTiersData,
     SeatTierType,
     Tiers,
@@ -43,7 +43,7 @@ from polar.product.tiers import (
 )
 
 if TYPE_CHECKING:
-    from polar.models import Meter, Product
+    from repalis.models import Meter, Product
 
 
 class ProductPriceType(StrEnum):

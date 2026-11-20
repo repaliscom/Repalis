@@ -2,12 +2,12 @@ from collections.abc import Sequence
 from datetime import date
 from uuid import UUID
 
-from polar.auth.models import AuthSubject, Organization, User
-from polar.auth.permission import OrganizationPermission
-from polar.authz.service import get_accessible_org_ids
-from polar.kit.pagination import PaginationParams, paginate
-from polar.kit.sorting import Sorting
-from polar.postgres import AsyncReadSession
+from repalis.auth.models import AuthSubject, Organization, User
+from repalis.auth.permission import OrganizationPermission
+from repalis.authz.service import get_accessible_org_ids
+from repalis.kit.pagination import PaginationParams, paginate
+from repalis.kit.sorting import Sorting
+from repalis.postgres import AsyncReadSession
 
 from .repository import TaxJurisdictionRepository
 from .schemas import TaxJurisdiction, TaxSummary

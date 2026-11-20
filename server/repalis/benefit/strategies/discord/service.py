@@ -4,19 +4,19 @@ import httpx2
 import structlog
 from httpx_oauth.oauth2 import RefreshTokenError
 
-from polar.auth.models import Agent, AuthSubject
-from polar.config import settings
-from polar.customer.repository import CustomerRepository
-from polar.integrations.discord.oauth import DiscordOAuth2WithProxy
-from polar.integrations.discord.repository import (
+from repalis.auth.models import Agent, AuthSubject
+from repalis.config import settings
+from repalis.customer.repository import CustomerRepository
+from repalis.integrations.discord.oauth import DiscordOAuth2WithProxy
+from repalis.integrations.discord.repository import (
     DiscordGuildConnectionRepository,
 )
-from polar.integrations.discord.service import discord_bot as discord_bot_service
-from polar.logging import Logger
-from polar.member.repository import MemberRepository
-from polar.models import Benefit, Customer, Member, Organization, User
-from polar.models.benefit_grant import BenefitGrantScopeArgs
-from polar.models.customer import CustomerOAuthAccount, CustomerOAuthPlatform
+from repalis.integrations.discord.service import discord_bot as discord_bot_service
+from repalis.logging import Logger
+from repalis.member.repository import MemberRepository
+from repalis.models import Benefit, Customer, Member, Organization, User
+from repalis.models.benefit_grant import BenefitGrantScopeArgs
+from repalis.models.customer import CustomerOAuthAccount, CustomerOAuthPlatform
 
 from ..base.service import (
     BenefitActionRequiredError,

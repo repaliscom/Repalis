@@ -8,20 +8,20 @@ from logfire.testing import CaptureLogfire
 from pytest_mock import MockerFixture
 from sqlalchemy import Select
 
-from polar.billing_entry.service import ReducerUsageAlreadyBilled
-from polar.billing_entry.service import billing_entry as billing_entry_service
-from polar.billing_interval.repository import BillingIntervalRepository
-from polar.billing_interval.types import MeterCharge
-from polar.enums import SubscriptionProrationBehavior, SubscriptionRecurringInterval
-from polar.event.system import SystemEvent
-from polar.kit.utils import utc_now
-from polar.meter.aggregation import (
+from repalis.billing_entry.service import ReducerUsageAlreadyBilled
+from repalis.billing_entry.service import billing_entry as billing_entry_service
+from repalis.billing_interval.repository import BillingIntervalRepository
+from repalis.billing_interval.types import MeterCharge
+from repalis.enums import SubscriptionProrationBehavior, SubscriptionRecurringInterval
+from repalis.event.system import SystemEvent
+from repalis.kit.utils import utc_now
+from repalis.meter.aggregation import (
     AggregationFunction,
     CountAggregation,
     PropertyAggregation,
 )
-from polar.meter.filter import Filter, FilterConjunction
-from polar.models import (
+from repalis.meter.filter import Filter, FilterConjunction
+from repalis.models import (
     BillingEntry,
     BillingInterval,
     Customer,
@@ -35,23 +35,23 @@ from polar.models import (
     ReducerBucket,
     Subscription,
 )
-from polar.models.billing_entry import BillingEntryDirection, BillingEntryType
-from polar.models.billing_interval import UsagePolicy
-from polar.models.event import EventSource
-from polar.models.reducer import ReducerKind
-from polar.models.subscription_product_price import SubscriptionProductPrice
-from polar.postgres import AsyncSession
-from polar.product.guard import (
+from repalis.models.billing_entry import BillingEntryDirection, BillingEntryType
+from repalis.models.billing_interval import UsagePolicy
+from repalis.models.event import EventSource
+from repalis.models.reducer import ReducerKind
+from repalis.models.subscription_product_price import SubscriptionProductPrice
+from repalis.postgres import AsyncSession
+from repalis.product.guard import (
     StaticPrice,
     is_custom_price,
     is_fixed_price,
     is_metered_price,
     is_seat_price,
 )
-from polar.product.tiers import Tiers, TierType
-from polar.reducer.repository import ReducerRepository
-from polar.reducer.service import reducer as reducer_service
-from polar.reducer.types import UsageWindow
+from repalis.product.tiers import Tiers, TierType
+from repalis.reducer.repository import ReducerRepository
+from repalis.reducer.service import reducer as reducer_service
+from repalis.reducer.types import UsageWindow
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (
     create_active_subscription,
@@ -754,7 +754,7 @@ class TestCreateOrderItemsFromPending:
         ]
 
         monkeypatch.setattr(
-            "polar.billing_entry.repository._LINK_PENDING_BATCH_SIZE",
+            "repalis.billing_entry.repository._LINK_PENDING_BATCH_SIZE",
             1,
         )
         execute_spy = mocker.spy(session, "execute")
@@ -1547,7 +1547,7 @@ class TestCreateOrderItemsFromPending:
         metered_subscription: Subscription,
     ) -> None:
         bill = mocker.patch(
-            "polar.billing_entry.service.billing_interval_service.bill_usage",
+            "repalis.billing_entry.service.billing_interval_service.bill_usage",
             return_value={meter.id: (Decimal(10), Decimal(0))},
         )
         await create_metered_event_billing_entry(
@@ -1593,7 +1593,7 @@ class TestCreateOrderItemsFromPending:
         organization: Organization,
     ) -> None:
         mocker.patch(
-            "polar.billing_entry.service.billing_interval_service.bill_usage",
+            "repalis.billing_entry.service.billing_interval_service.bill_usage",
             return_value={meter.id: (Decimal(15), Decimal(16))},
         )
         product_old = await create_product(
@@ -1633,7 +1633,7 @@ class TestCreateOrderItemsFromPending:
         ]
         await save_fixture(subscription)
         mocker.patch(
-            "polar.billing_entry.comparison.billing_interval_service.get_usage_windows",
+            "repalis.billing_entry.comparison.billing_interval_service.get_usage_windows",
             return_value=(
                 UsageWindow(
                     interval_id=uuid.uuid4(),
@@ -2278,11 +2278,11 @@ class TestCreateOrderItemsFromReducers:
         await save_fixture(organization)
         price_id = product_metered_unit.prices[0].id
         mocker.patch(
-            "polar.billing_entry.service.billing_interval_service.get_meter_ids",
+            "repalis.billing_entry.service.billing_interval_service.get_meter_ids",
             return_value={meter.id},
         )
         mocker.patch(
-            "polar.billing_entry.service.billing_interval_service.seal_usage",
+            "repalis.billing_entry.service.billing_interval_service.seal_usage",
             return_value=(
                 {
                     meter.id: MeterCharge(
@@ -2296,7 +2296,7 @@ class TestCreateOrderItemsFromReducers:
             ),
         )
         mocker.patch(
-            "polar.billing_entry.service.reducer_service.mark_as_billed",
+            "repalis.billing_entry.service.reducer_service.mark_as_billed",
             return_value=1,
         )
 

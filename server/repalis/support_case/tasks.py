@@ -4,35 +4,35 @@ from uuid import UUID, uuid4
 
 from sqlalchemy.orm import joinedload
 
-from polar.config import settings
-from polar.email.schemas import (
+from repalis.config import settings
+from repalis.email.schemas import (
     SupportCaseOrganizationNewMessageEmail,
     SupportCaseOrganizationNewMessageProps,
 )
-from polar.email.sender import enqueue_email_template
-from polar.exceptions import PolarTaskError
-from polar.file.s3 import S3_SERVICES
-from polar.kit.utils import utc_now
-from polar.models import File, Organization
-from polar.models.file import FileServiceTypes
-from polar.models.support_case import (
+from repalis.email.sender import enqueue_email_template
+from repalis.exceptions import PolarTaskError
+from repalis.file.s3 import S3_SERVICES
+from repalis.kit.utils import utc_now
+from repalis.models import File, Organization
+from repalis.models.file import FileServiceTypes
+from repalis.models.support_case import (
     DisputeSupportCase,
     SupportCase,
     SupportCaseMessageAuthorKind,
     SupportCaseType,
 )
-from polar.observability.task_logging import LoggableField
-from polar.support_case.pdf import is_mergeable, merge_attachments
-from polar.support_case.repository import (
+from repalis.observability.task_logging import LoggableField
+from repalis.support_case.pdf import is_mergeable, merge_attachments
+from repalis.support_case.repository import (
     SupportCaseAttachmentRepository,
     SupportCaseMessageRepository,
     SupportCaseRepository,
 )
-from polar.support_case.service import support_case as support_case_service
-from polar.user_organization.service import (
+from repalis.support_case.service import support_case as support_case_service
+from repalis.user_organization.service import (
     user_organization as user_organization_service,
 )
-from polar.worker import AsyncSessionMaker, TaskPriority, actor
+from repalis.worker import AsyncSessionMaker, TaskPriority, actor
 
 
 class SupportCaseTaskError(PolarTaskError): ...

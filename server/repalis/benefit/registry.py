@@ -1,8 +1,8 @@
 from typing import Any
 
-from polar.models.benefit import BenefitType
-from polar.postgres import AsyncSession
-from polar.redis import Redis
+from repalis.models.benefit import BenefitType
+from repalis.postgres import AsyncSession
+from repalis.redis import Redis
 
 from .strategies import (
     BenefitActionRequiredError,

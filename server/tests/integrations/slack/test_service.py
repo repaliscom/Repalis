@@ -4,10 +4,10 @@ from uuid import uuid4
 import pytest
 from pytest_mock import MockerFixture
 
-from polar.benefit.grant.repository import BenefitGrantRepository
-from polar.integrations.slack.repository import SlackAppRepository
-from polar.integrations.slack.schemas import SlackIntegrationCredentialsUpdate
-from polar.integrations.slack.service import (
+from repalis.benefit.grant.repository import BenefitGrantRepository
+from repalis.integrations.slack.repository import SlackAppRepository
+from repalis.integrations.slack.schemas import SlackIntegrationCredentialsUpdate
+from repalis.integrations.slack.service import (
     OAUTH_STATE_JWT_TYPE,
     SlackAppService,
     SlackIntegrationAppIdAlreadyLinked,
@@ -15,15 +15,15 @@ from polar.integrations.slack.service import (
     SlackIntegrationInvalidState,
     SlackIntegrationNotConfigured,
 )
-from polar.kit import jwt
-from polar.models import (
+from repalis.kit import jwt
+from repalis.models import (
     Benefit,
     Customer,
     Organization,
     SlackApp,
 )
-from polar.models.benefit import BenefitType
-from polar.postgres import AsyncSession
+from repalis.models.benefit import BenefitType
+from repalis.postgres import AsyncSession
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_benefit, create_benefit_grant
 

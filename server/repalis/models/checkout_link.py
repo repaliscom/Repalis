@@ -5,11 +5,11 @@ from sqlalchemy import Boolean, ForeignKey, Index, Integer, String, Uuid, text
 from sqlalchemy.ext.associationproxy import AssociationProxy, association_proxy
 from sqlalchemy.orm import Mapped, declared_attr, mapped_column, relationship
 
-from polar.enums import PaymentProcessor
-from polar.kit.db.models import RecordModel
-from polar.kit.external_id import ExternalIDMixin
-from polar.kit.metadata import MetadataMixin
-from polar.kit.trial import TrialConfigurationMixin
+from repalis.enums import PaymentProcessor
+from repalis.kit.db.models import RecordModel
+from repalis.kit.external_id import ExternalIDMixin
+from repalis.kit.metadata import MetadataMixin
+from repalis.kit.trial import TrialConfigurationMixin
 
 from .discount import Discount
 from .product import Product

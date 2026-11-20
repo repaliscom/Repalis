@@ -12,9 +12,9 @@ from sqlalchemy import (
 )
 from sqlalchemy.orm import Mapped, declared_attr, mapped_column, relationship
 
-from polar.kit.db.models import RecordModel
-from polar.kit.extensions.sqlalchemy import StringEnum
-from polar.organization_review.schemas import (
+from repalis.kit.db.models import RecordModel
+from repalis.kit.extensions.sqlalchemy import StringEnum
+from repalis.organization_review.schemas import (
     ActorType,
     AUPSection,
     DecisionType,
@@ -23,9 +23,9 @@ from polar.organization_review.schemas import (
 )
 
 if TYPE_CHECKING:
-    from polar.models.backoffice_user import BackofficeUser
-    from polar.models.organization import Organization
-    from polar.models.organization_agent_review import OrganizationAgentReview
+    from repalis.models.backoffice_user import BackofficeUser
+    from repalis.models.organization import Organization
+    from repalis.models.organization_agent_review import OrganizationAgentReview
 
 
 class OrganizationReviewFeedback(RecordModel):

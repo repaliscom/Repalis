@@ -3,18 +3,18 @@ from dataclasses import dataclass
 
 import structlog
 
-from polar.config import settings
-from polar.customer.repository import CustomerRepository
-from polar.email.schemas import CustomerSessionCodeEmail, CustomerSessionCodeProps
-from polar.email.sender import enqueue_email_template
-from polar.exceptions import PolarError
-from polar.member.repository import MemberRepository
-from polar.member.service import member_service
-from polar.models import (
+from repalis.config import settings
+from repalis.customer.repository import CustomerRepository
+from repalis.email.schemas import CustomerSessionCodeEmail, CustomerSessionCodeProps
+from repalis.email.sender import enqueue_email_template
+from repalis.exceptions import PolarError
+from repalis.member.repository import MemberRepository
+from repalis.member.service import member_service
+from repalis.models import (
     Member,
     Organization,
 )
-from polar.postgres import AsyncSession
+from repalis.postgres import AsyncSession
 
 log = structlog.get_logger()
 

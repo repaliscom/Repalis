@@ -9,9 +9,9 @@ from tagflow import classes, document, tag, text
 from fastapi import Request
 from fastapi.responses import HTMLResponse
 
-from polar.backoffice.responses import HXRedirectResponse
-from polar.backoffice.toast import add_toast
-from polar.backoffice.components import datatable, description_list, modal, accordion
+from repalis.backoffice.responses import HXRedirectResponse
+from repalis.backoffice.toast import add_toast
+from repalis.backoffice.components import datatable, description_list, modal, accordion
 ```
 
 ## Endpoint Pattern
@@ -19,7 +19,7 @@ from polar.backoffice.components import datatable, description_list, modal, acco
 ```python
 from fastapi.responses import HTMLResponse
 
-from polar.backoffice.routing import BackofficeRouter
+from repalis.backoffice.routing import BackofficeRouter
 
 router = BackofficeRouter(prefix="/backoffice/resources", tags=["backoffice"])
 
@@ -107,7 +107,7 @@ with tag.div(classes="card bg-base-100 shadow-xl"):
 ### Modals
 
 ```python
-from polar.backoffice.components.modal import modal_trigger, modal_content
+from repalis.backoffice.components.modal import modal_trigger, modal_content
 
 # Trigger button
 with modal_trigger("modal-id", classes="btn btn-sm"):
@@ -125,7 +125,7 @@ with modal_content("modal-id", title="Confirm Action"):
 ### Accordions
 
 ```python
-from polar.backoffice.components.accordion import accordion, accordion_item
+from repalis.backoffice.components.accordion import accordion, accordion_item
 
 with accordion():
     with accordion_item("Details", open=True):
@@ -137,7 +137,7 @@ with accordion():
 ## Datatables
 
 ```python
-from polar.backoffice.components import datatable
+from repalis.backoffice.components import datatable
 
 
 class ResourceDatatable(datatable.Datatable[Resource, ResourceSortProperty]):
@@ -161,7 +161,7 @@ class ResourceStatusColumn(datatable.DatatableColumn[Resource, ResourceSortPrope
 ## Description Lists
 
 ```python
-from polar.backoffice.components.description_list import description_list, dl_item
+from repalis.backoffice.components.description_list import description_list, dl_item
 
 with description_list():
     with dl_item("Name"):
@@ -177,7 +177,7 @@ with description_list():
 
 ```python
 from pydantic import BaseModel
-from polar.backoffice.components.input import text_input, select_input, textarea_input
+from repalis.backoffice.components.input import text_input, select_input, textarea_input
 
 
 class UpdateResourceForm(BaseModel):
@@ -202,7 +202,7 @@ async def update_resource(
 ### Redirects
 
 ```python
-from polar.backoffice.responses import HXRedirectResponse
+from repalis.backoffice.responses import HXRedirectResponse
 
 # After form submission
 return HXRedirectResponse("/backoffice/resources")
@@ -211,7 +211,7 @@ return HXRedirectResponse("/backoffice/resources")
 ### Toast Notifications
 
 ```python
-from polar.backoffice.toast import add_toast
+from repalis.backoffice.toast import add_toast
 
 add_toast(request, "Success message", type="success")
 add_toast(request, "Error message", type="error")

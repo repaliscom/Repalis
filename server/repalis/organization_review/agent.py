@@ -8,19 +8,19 @@ from uuid import UUID
 
 import structlog
 
-from polar.kit.http import SSRFBlockedError, resolve_and_validate_ip
-from polar.models.organization import Organization
-from polar.models.organization_email import OrganizationEmail
-from polar.organization.repository import OrganizationRepository
-from polar.organization_domain.service import (
+from repalis.kit.http import SSRFBlockedError, resolve_and_validate_ip
+from repalis.models.organization import Organization
+from repalis.models.organization_email import OrganizationEmail
+from repalis.organization.repository import OrganizationRepository
+from repalis.organization_domain.service import (
     organization_domain as organization_domain_service,
 )
-from polar.organization_email.repository import OrganizationEmailRepository
-from polar.organization_review.collectors.payout_account import (
+from repalis.organization_email.repository import OrganizationEmailRepository
+from repalis.organization_review.collectors.payout_account import (
     collect_payout_account_data,
 )
-from polar.postgres import AsyncSession
-from polar.worker import AsyncReadSessionMaker
+from repalis.postgres import AsyncSession
+from repalis.worker import AsyncReadSessionMaker
 
 from .analyzer import get_review_analyzer
 from .collectors import (

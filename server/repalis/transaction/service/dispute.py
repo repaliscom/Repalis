@@ -4,15 +4,15 @@ import structlog
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import joinedload
 
-from polar.enums import PaymentProcessor
-from polar.event.service import event as event_service
-from polar.event.system import BalanceDisputeMetadata, SystemEvent, build_system_event
-from polar.integrations.stripe.service import stripe as stripe_service
-from polar.kit.math import polar_round
-from polar.logging import Logger
-from polar.models import Customer, Dispute, Transaction
-from polar.models.transaction import Processor, TransactionType
-from polar.postgres import AsyncSession
+from repalis.enums import PaymentProcessor
+from repalis.event.service import event as event_service
+from repalis.event.system import BalanceDisputeMetadata, SystemEvent, build_system_event
+from repalis.integrations.stripe.service import stripe as stripe_service
+from repalis.kit.math import polar_round
+from repalis.logging import Logger
+from repalis.models import Customer, Dispute, Transaction
+from repalis.models.transaction import Processor, TransactionType
+from repalis.postgres import AsyncSession
 
 from ..repository import DisputeTransactionRepository, PaymentTransactionRepository
 from .balance import balance_transaction as balance_transaction_service

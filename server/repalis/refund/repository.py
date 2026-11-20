@@ -4,8 +4,8 @@ from uuid import UUID
 from sqlalchemy import Select, func, select
 from sqlalchemy.orm import joinedload
 
-from polar.authz.types import AccessibleOrganizationID
-from polar.kit.repository import (
+from repalis.authz.types import AccessibleOrganizationID
+from repalis.kit.repository import (
     Options,
     RepositoryBase,
     RepositorySoftDeletionIDMixin,
@@ -13,8 +13,8 @@ from polar.kit.repository import (
     RepositorySortingMixin,
     SortingClause,
 )
-from polar.models import Refund
-from polar.models.refund import RefundStatus
+from repalis.models import Refund
+from repalis.models.refund import RefundStatus
 
 from .sorting import RefundSortProperty
 

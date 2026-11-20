@@ -1,9 +1,9 @@
 import typing
 from typing import TypeIs
 
-from polar.enums import SubscriptionRecurringInterval
-from polar.models.product import Product
-from polar.models.product_price import (
+from repalis.enums import SubscriptionRecurringInterval
+from repalis.models.product import Product
+from repalis.models.product_price import (
     ProductPrice,
     ProductPriceCustom,
     ProductPriceFixed,

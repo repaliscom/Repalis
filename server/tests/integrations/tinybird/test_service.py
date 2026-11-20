@@ -9,14 +9,14 @@ import httpx2
 import pytest
 from sqlalchemy import select
 
-from polar.integrations.tinybird.client import (
+from repalis.integrations.tinybird.client import (
     MAX_RETRIES,
     TinybirdClient,
     TinybirdOperationalError,
     TinybirdRequestError,
 )
-from polar.integrations.tinybird.schemas import TinybirdEvent
-from polar.integrations.tinybird.service import (
+from repalis.integrations.tinybird.schemas import TinybirdEvent
+from repalis.integrations.tinybird.service import (
     DATASOURCE_EVENTS,
     TinybirdEventsQuery,
     TinybirdEventTypesQuery,
@@ -27,15 +27,15 @@ from polar.integrations.tinybird.service import (
     count_user_events_by_organization,
     events_table,
 )
-from polar.meter.filter import (
+from repalis.meter.filter import (
     Filter,
     FilterClause,
     FilterConjunction,
     FilterOperator,
 )
-from polar.models import Event
-from polar.models.event import EventSource
-from polar.worker import MAX_JOB_PAYLOAD_BYTES
+from repalis.models import Event
+from repalis.models.event import EventSource
+from repalis.worker import MAX_JOB_PAYLOAD_BYTES
 from tests.fixtures.tinybird import tinybird_available
 
 

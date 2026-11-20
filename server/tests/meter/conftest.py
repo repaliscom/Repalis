@@ -3,12 +3,12 @@ from dataclasses import dataclass, field
 
 import pytest
 
-from polar.integrations.tinybird.client import TinybirdClient
-from polar.integrations.tinybird.schemas import TinybirdEvent
-from polar.integrations.tinybird.service import DATASOURCE_EVENTS, _event_to_tinybird
-from polar.kit.db.models import Model
-from polar.models import Event
-from polar.postgres import AsyncSession
+from repalis.integrations.tinybird.client import TinybirdClient
+from repalis.integrations.tinybird.schemas import TinybirdEvent
+from repalis.integrations.tinybird.service import DATASOURCE_EVENTS, _event_to_tinybird
+from repalis.kit.db.models import Model
+from repalis.models import Event
+from repalis.postgres import AsyncSession
 from tests.fixtures.database import SaveFixture, save_fixture_factory
 
 

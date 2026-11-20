@@ -3,7 +3,7 @@ from typing import Any, cast
 
 import pytest
 
-from polar.sentry import before_breadcrumb, before_send
+from repalis.sentry import before_breadcrumb, before_send
 
 # before_send does not touch Postgres or the worker.
 # Override the suite's autouse fixtures so this module can run without them.
@@ -215,7 +215,7 @@ class TestBeforeSend:
 
 
 def _log_record(msg: object) -> logging.LogRecord:
-    return logging.LogRecord("polar.test", logging.INFO, __file__, 1, msg, (), None)
+    return logging.LogRecord("repalis.test", logging.INFO, __file__, 1, msg, (), None)
 
 
 class TestBeforeBreadcrumb:
@@ -226,7 +226,7 @@ class TestBeforeBreadcrumb:
                 "email": "buyer@example.com",
                 "customer_id": "cus_123",
                 "level": "info",
-                "logger": "polar.test",
+                "logger": "repalis.test",
                 "timestamp": "2026-10-15T00:00:00Z",
                 "exc_info": True,
             }

@@ -3,9 +3,9 @@ from httpx2 import AsyncClient
 from pytest_mock import MockerFixture
 from sqlalchemy import update
 
-from polar.kit.utils import utc_now
-from polar.models import Organization, OrganizationDomain, UserOrganization
-from polar.postgres import AsyncSession
+from repalis.kit.utils import utc_now
+from repalis.models import Organization, OrganizationDomain, UserOrganization
+from repalis.postgres import AsyncSession
 from tests.fixtures.database import SaveFixture
 
 
@@ -254,7 +254,7 @@ class TestVerifyOrganizationDomain:
         user_organization: UserOrganization,
     ) -> None:
         lookup_txt_mock = mocker.patch(
-            "polar.organization_domain.service._lookup_txt", return_value={"OTHER"}
+            "repalis.organization_domain.service._lookup_txt", return_value={"OTHER"}
         )
         domain = OrganizationDomain(
             organization=organization,
@@ -280,7 +280,7 @@ class TestVerifyOrganizationDomain:
         user_organization: UserOrganization,
     ) -> None:
         mocker.patch(
-            "polar.organization_domain.service._lookup_txt", return_value={"TOKEN"}
+            "repalis.organization_domain.service._lookup_txt", return_value={"TOKEN"}
         )
         await save_fixture(
             OrganizationDomain(
@@ -312,7 +312,7 @@ class TestVerifyOrganizationDomain:
         user_organization: UserOrganization,
     ) -> None:
         mocker.patch(
-            "polar.organization_domain.service._lookup_txt",
+            "repalis.organization_domain.service._lookup_txt",
             return_value={"v=spf1 -all", "TOKEN"},
         )
         organization.embed_hosts = ["localhost:3000", "acme.com"]
@@ -353,7 +353,7 @@ class TestVerifyOrganizationDomain:
             return {"TOKEN"}
 
         mocker.patch(
-            "polar.organization_domain.service._lookup_txt", side_effect=lookup_txt
+            "repalis.organization_domain.service._lookup_txt", side_effect=lookup_txt
         )
         domain = OrganizationDomain(
             organization=organization,
@@ -381,7 +381,7 @@ class TestVerifyOrganizationDomain:
         user_organization: UserOrganization,
     ) -> None:
         mocker.patch(
-            "polar.organization_domain.service._lookup_txt", return_value={"TOKEN"}
+            "repalis.organization_domain.service._lookup_txt", return_value={"TOKEN"}
         )
         domain = OrganizationDomain(
             organization=organization,

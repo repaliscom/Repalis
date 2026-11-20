@@ -11,11 +11,11 @@ from pydantic import (
     computed_field,
 )
 
-from polar.benefit.schemas import Benefit
-from polar.enums import TaxBehavior
-from polar.kit.currency import format_currency
-from polar.kit.visibility import Visibility
-from polar.notifications.notification import (
+from repalis.benefit.schemas import Benefit
+from repalis.enums import TaxBehavior
+from repalis.kit.currency import format_currency
+from repalis.kit.visibility import Visibility
+from repalis.notifications.notification import (
     MaintainerAccountCreditsGrantedNotificationPayload,
     MaintainerFileFlaggedMaliciousNotificationPayload,
     MaintainerNewPaidSubscriptionNotificationPayload,
@@ -24,11 +24,11 @@ from polar.notifications.notification import (
     MaintainerSubscriptionCancellationNotificationPayload,
     MaintainerSubscriptionRenewalNotificationPayload,
 )
-from polar.order.schemas import OrderBase, OrderItemSchema
-from polar.organization.schemas import Organization
-from polar.payment_method.schemas import PaymentMethodCard
-from polar.product.schemas import BenefitList, ProductBase
-from polar.subscription.schemas import SubscriptionBase
+from repalis.order.schemas import OrderBase, OrderItemSchema
+from repalis.organization.schemas import Organization
+from repalis.payment_method.schemas import PaymentMethodCard
+from repalis.product.schemas import BenefitList, ProductBase
+from repalis.subscription.schemas import SubscriptionBase
 
 
 class EmailTemplate(StrEnum):

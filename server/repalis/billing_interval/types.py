@@ -3,7 +3,7 @@ from datetime import datetime
 from decimal import Decimal
 from uuid import UUID
 
-from polar.models.billing_interval import UsagePolicy
+from repalis.models.billing_interval import UsagePolicy
 
 
 @dataclass(frozen=True)

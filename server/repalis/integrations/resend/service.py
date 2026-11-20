@@ -1,14 +1,14 @@
 import typing
 from uuid import UUID
 
-from polar.config import settings
-from polar.exceptions import PolarError
-from polar.models import User
-from polar.models.organization import OrganizationStatus
-from polar.postgres import AsyncSession
-from polar.user.repository import UserRepository
-from polar.user_organization.repository import UserOrganizationRepository
-from polar.worker import enqueue_job
+from repalis.config import settings
+from repalis.exceptions import PolarError
+from repalis.models import User
+from repalis.models.organization import OrganizationStatus
+from repalis.postgres import AsyncSession
+from repalis.user.repository import UserRepository
+from repalis.user_organization.repository import UserOrganizationRepository
+from repalis.worker import enqueue_job
 
 from .client import ContactDoesNotExist, InvalidIdentifier, client
 

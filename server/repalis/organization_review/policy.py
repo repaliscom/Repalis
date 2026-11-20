@@ -9,7 +9,7 @@ import structlog
 from google.auth.transport.requests import Request as GoogleAuthRequest
 from google.oauth2 import service_account
 
-from polar.config import settings
+from repalis.config import settings
 
 log = structlog.get_logger(__name__)
 

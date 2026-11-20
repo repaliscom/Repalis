@@ -5,9 +5,9 @@ from datetime import timedelta
 import jwt as pyjwt
 import pytest
 
-from polar.kit import jwt
-from polar.kit.signer import get_signer, sign_jws
-from polar.kit.utils import utc_now
+from repalis.kit import jwt
+from repalis.kit.signer import get_signer, sign_jws
+from repalis.kit.utils import utc_now
 
 CLAIMS = {"user_id": "b3a1c9d2", "type": "discord_oauth"}
 

@@ -4,9 +4,9 @@ from typing import TYPE_CHECKING, Any, cast
 
 import logfire
 
-from polar.account.repository import AccountRepository
-from polar.config import settings
-from polar.email.schemas import (
+from repalis.account.repository import AccountRepository
+from repalis.config import settings
+from repalis.email.schemas import (
     EmailAdapter,
     PolarSelfSubscriptionCancellationProps,
     PolarSelfSubscriptionConfirmationProps,
@@ -14,32 +14,32 @@ from polar.email.schemas import (
     PolarSelfSubscriptionPastDueProps,
     PolarSelfSubscriptionRevokedProps,
 )
-from polar.email.sender import Attachment, enqueue_email_template
-from polar.integrations.plain.service import plain as plain_service
-from polar.kit.concurrency import create_task_group
-from polar.models.member import MemberRole
-from polar.models.organization import OrganizationStatus, SupportTier
-from polar.models.user_organization import OrganizationRole
-from polar.organization.repository import OrganizationRepository
-from polar.postgres import AsyncReadSession, AsyncSession
-from polar.startup_program.service import (
+from repalis.email.sender import Attachment, enqueue_email_template
+from repalis.integrations.plain.service import plain as plain_service
+from repalis.kit.concurrency import create_task_group
+from repalis.models.member import MemberRole
+from repalis.models.organization import OrganizationStatus, SupportTier
+from repalis.models.user_organization import OrganizationRole
+from repalis.organization.repository import OrganizationRepository
+from repalis.postgres import AsyncReadSession, AsyncSession
+from repalis.startup_program.service import (
     StartupProgramError,
 )
-from polar.startup_program.service import (
+from repalis.startup_program.service import (
     startup_program as startup_program_service,
 )
-from polar.v2026_04.inputs import (
+from repalis.v2026_04.inputs import (
     CustomerBenefitGrantSlackSharedChannelPropertiesUpdate,
     CustomerBenefitGrantSlackSharedChannelUpdate,
     CustomerBenefitGrantUpdate,
     CustomerPortalCustomerUpdate,
 )
-from polar.v2026_04.literals import SubscriptionProrationBehavior
-from polar.v2026_04.outputs import (
+from repalis.v2026_04.literals import SubscriptionProrationBehavior
+from repalis.v2026_04.outputs import (
     CustomerBenefitGrantSlackSharedChannel,
     ProductPriceFixed,
 )
-from polar.v2026_04.webhooks import (
+from repalis.v2026_04.webhooks import (
     WebhookBenefitGrantCreatedPayload,
     WebhookBenefitGrantRevokedPayload,
     WebhookBenefitGrantUpdatedPayload,
@@ -48,7 +48,7 @@ from polar.v2026_04.webhooks import (
     WebhookSubscriptionPastDuePayload,
     WebhookSubscriptionRevokedPayload,
 )
-from polar.worker import enqueue_job
+from repalis.worker import enqueue_job
 
 from .client import get_client
 from .exceptions import (
@@ -70,7 +70,7 @@ from .schemas import (
 )
 
 if TYPE_CHECKING:
-    from polar.v2026_04.outputs import (
+    from repalis.v2026_04.outputs import (
         BenefitGrant,
         Checkout,
         Customer,
@@ -1054,7 +1054,7 @@ class PolarSelfService:
             )
 
         # Inline: account.service → user_organization.service → this module.
-        from polar.account.service import account as account_service
+        from repalis.account.service import account as account_service
 
         with logfire.span(
             "polar_self.webhook.transaction_fee.applied",

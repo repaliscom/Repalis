@@ -37,14 +37,14 @@ from rich.table import Table
 from sqlalchemy import NotNullable, select
 from sqlalchemy.orm import contains_eager
 
-from polar.enums import PayoutAccountType
-from polar.integrations.stripe.service import StripeAccountRejectReason
-from polar.integrations.stripe.service import stripe as stripe_service
-from polar.kit.db.postgres import AsyncSession, create_async_sessionmaker
-from polar.models import Organization, PayoutAccount
-from polar.models.organization import OrganizationStatus
-from polar.payout_account.service import payout_account as payout_account_service
-from polar.postgres import create_async_engine
+from repalis.enums import PayoutAccountType
+from repalis.integrations.stripe.service import StripeAccountRejectReason
+from repalis.integrations.stripe.service import stripe as stripe_service
+from repalis.kit.db.postgres import AsyncSession, create_async_sessionmaker
+from repalis.models import Organization, PayoutAccount
+from repalis.models.organization import OrganizationStatus
+from repalis.payout_account.service import payout_account as payout_account_service
+from repalis.postgres import create_async_engine
 from scripts.helper import configure_script_console_logging, typer_async
 
 cli = typer.Typer()

@@ -11,29 +11,29 @@ from sqlalchemy.ext.asyncio import async_sessionmaker
 from starlette.types import ASGIApp, Receive, Send
 from starlette.types import Scope as ASGIScope
 
-from polar import rate_limit
-from polar.app import app as polar_app
-from polar.auth.middlewares import AuthSubjectMiddleware
-from polar.auth.models import AuthSubject
-from polar.auth.scope import Scope
-from polar.config import settings
-from polar.event.repository import EventRepository
-from polar.event.schemas import EventCreateExternalCustomer, EventsIngest
-from polar.event.service import event as event_service
-from polar.kit.crypto import get_token_hash
-from polar.kit.db.postgres import AsyncSession
-from polar.kit.utils import utc_now
-from polar.logfire import instrument_sqlalchemy
-from polar.middlewares import TransactionalMiddleware
-from polar.models import Organization, OrganizationAccessToken
-from polar.models.event import EventSource
-from polar.observability.http_middleware import HttpMetricsMiddleware
-from polar.organization_access_token.service import TOKEN_PREFIX
-from polar.organization_access_token.service import (
+from repalis import rate_limit
+from repalis.app import app as polar_app
+from repalis.auth.middlewares import AuthSubjectMiddleware
+from repalis.auth.models import AuthSubject
+from repalis.auth.scope import Scope
+from repalis.config import settings
+from repalis.event.repository import EventRepository
+from repalis.event.schemas import EventCreateExternalCustomer, EventsIngest
+from repalis.event.service import event as event_service
+from repalis.kit.crypto import get_token_hash
+from repalis.kit.db.postgres import AsyncSession
+from repalis.kit.utils import utc_now
+from repalis.logfire import instrument_sqlalchemy
+from repalis.middlewares import TransactionalMiddleware
+from repalis.models import Organization, OrganizationAccessToken
+from repalis.models.event import EventSource
+from repalis.observability.http_middleware import HttpMetricsMiddleware
+from repalis.organization_access_token.service import TOKEN_PREFIX
+from repalis.organization_access_token.service import (
     organization_access_token as organization_access_token_service,
 )
-from polar.redis import Redis
-from polar.reducer.service import REDUCER_BUCKET_SIZE, get_reducer_bucket_start
+from repalis.redis import Redis
+from repalis.reducer.service import REDUCER_BUCKET_SIZE, get_reducer_bucket_start
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import METER_TEST_EVENT, create_meter, create_reducer
 

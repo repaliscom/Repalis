@@ -2,10 +2,10 @@ from datetime import datetime
 
 from pydantic import UUID4, Field
 
-from polar.benefit.schemas import BenefitID
-from polar.file.schemas import FileDownload
-from polar.kit.schemas import MultipleQueryFilter, Schema
-from polar.kit.versioning import QuerySchema
+from repalis.benefit.schemas import BenefitID
+from repalis.file.schemas import FileDownload
+from repalis.kit.schemas import MultipleQueryFilter, Schema
+from repalis.kit.versioning import QuerySchema
 
 
 class DownloadableURL(Schema):

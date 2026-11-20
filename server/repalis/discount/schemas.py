@@ -13,13 +13,13 @@ from pydantic import (
     model_validator,
 )
 
-from polar.kit.currency import PresentmentCurrency
-from polar.kit.external_id import ExternalIDInputMixin, ExternalIDOutputMixin
-from polar.kit.metadata import (
+from repalis.kit.currency import PresentmentCurrency
+from repalis.kit.external_id import ExternalIDInputMixin, ExternalIDOutputMixin
+from repalis.kit.metadata import (
     MetadataInputMixin,
     MetadataOutputMixin,
 )
-from polar.kit.schemas import (
+from repalis.kit.schemas import (
     ClassName,
     EmptyStrToNone,
     IDSchema,
@@ -30,11 +30,11 @@ from polar.kit.schemas import (
     SetSchemaReference,
     TimestampedSchema,
 )
-from polar.kit.versioning import QuerySchema, Version
-from polar.models.discount import DiscountDuration, DiscountType
-from polar.organization.schemas import OrganizationID
-from polar.product.schemas import ProductBase
-from polar.version import V2026_10, V2027_01
+from repalis.kit.versioning import QuerySchema, Version
+from repalis.models.discount import DiscountDuration, DiscountType
+from repalis.organization.schemas import OrganizationID
+from repalis.product.schemas import ProductBase
+from repalis.version import V2026_10, V2027_01
 
 
 class DiscountListParams(QuerySchema):

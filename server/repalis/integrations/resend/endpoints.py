@@ -4,12 +4,12 @@ import structlog
 from fastapi import Depends, HTTPException, Request
 from standardwebhooks.webhooks import Webhook as StandardWebhook
 
-from polar.config import settings
-from polar.email.repository import EmailLogRepository
-from polar.logging import Logger
-from polar.models.email_log import EmailLogStatus
-from polar.postgres import AsyncSession, get_db_session
-from polar.routing import APIRouter
+from repalis.config import settings
+from repalis.email.repository import EmailLogRepository
+from repalis.logging import Logger
+from repalis.models.email_log import EmailLogStatus
+from repalis.postgres import AsyncSession, get_db_session
+from repalis.routing import APIRouter
 
 log: Logger = structlog.get_logger()
 

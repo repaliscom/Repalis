@@ -6,16 +6,16 @@ from sqlalchemy import Select
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import contains_eager
 
-from polar.authz.types import AccessibleOrganizationID
-from polar.kit.repository import (
+from repalis.authz.types import AccessibleOrganizationID
+from repalis.kit.repository import (
     RepositoryBase,
     RepositorySoftDeletionIDMixin,
     RepositorySoftDeletionMixin,
     RepositorySortingMixin,
     SortingClause,
 )
-from polar.kit.repository.base import Options
-from polar.models import Customer, CustomerMeter, Meter
+from repalis.kit.repository.base import Options
+from repalis.models import Customer, CustomerMeter, Meter
 
 from .sorting import CustomerMeterSortProperty
 

@@ -10,24 +10,24 @@ from httpx_oauth.clients.github import GitHubOAuth2
 from httpx_oauth.exceptions import GetProfileError
 from httpx_oauth.oauth2 import BaseOAuth2, GetAccessTokenError
 
-from polar.auth.models import Customer, Member, is_anonymous, is_customer, is_member
-from polar.benefit.grant.repository import BenefitGrantRepository
-from polar.benefit.strategies.base.service import BenefitActionRequiredError
-from polar.config import settings
-from polar.customer.repository import CustomerRepository
-from polar.customer_session.service import customer_session as customer_session_service
-from polar.exceptions import NotPermitted, PolarError, Unauthorized
-from polar.integrations.discord.oauth import user_client as discord_user_client
-from polar.kit import jwt
-from polar.kit.http import ReturnTo, add_query_parameters, get_safe_return_url
-from polar.member.repository import MemberRepository
-from polar.member_session.service import member_session as member_session_service
-from polar.models.benefit import BenefitType
-from polar.models.customer import CustomerOAuthAccount, CustomerOAuthPlatform
-from polar.openapi import APITag
-from polar.postgres import AsyncSession, get_db_session
-from polar.routing import APIRouter
-from polar.worker import enqueue_job
+from repalis.auth.models import Customer, Member, is_anonymous, is_customer, is_member
+from repalis.benefit.grant.repository import BenefitGrantRepository
+from repalis.benefit.strategies.base.service import BenefitActionRequiredError
+from repalis.config import settings
+from repalis.customer.repository import CustomerRepository
+from repalis.customer_session.service import customer_session as customer_session_service
+from repalis.exceptions import NotPermitted, PolarError, Unauthorized
+from repalis.integrations.discord.oauth import user_client as discord_user_client
+from repalis.kit import jwt
+from repalis.kit.http import ReturnTo, add_query_parameters, get_safe_return_url
+from repalis.member.repository import MemberRepository
+from repalis.member_session.service import member_session as member_session_service
+from repalis.models.benefit import BenefitType
+from repalis.models.customer import CustomerOAuthAccount, CustomerOAuthPlatform
+from repalis.openapi import APITag
+from repalis.postgres import AsyncSession, get_db_session
+from repalis.routing import APIRouter
+from repalis.worker import enqueue_job
 
 from .. import auth
 from ..schemas.oauth_accounts import AuthorizeResponse

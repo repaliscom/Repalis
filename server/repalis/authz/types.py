@@ -2,9 +2,9 @@ from collections.abc import Awaitable, Callable
 from typing import Literal, NewType
 from uuid import UUID
 
-from polar.auth.models import Agent, AuthSubject, Organization, User
-from polar.models import Organization as OrganizationModel
-from polar.postgres import AsyncReadSession
+from repalis.auth.models import Agent, AuthSubject, Organization, User
+from repalis.models import Organization as OrganizationModel
+from repalis.postgres import AsyncReadSession
 
 # A UUID that has been verified as accessible by the current auth subject.
 # Only get_accessible_org_ids should produce these values.

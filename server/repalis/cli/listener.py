@@ -1,6 +1,6 @@
 from uuid import UUID
 
-from polar.redis import Redis
+from repalis.redis import Redis
 
 LISTENER_KEY_PREFIX = "cli:listening"
 LISTENER_TTL_SECONDS = 30

@@ -3,13 +3,13 @@ from uuid import UUID
 
 from sqlalchemy import Select, or_, select
 
-from polar.kit.repository import (
+from repalis.kit.repository import (
     RepositoryBase,
     RepositorySoftDeletionIDMixin,
     RepositorySoftDeletionMixin,
 )
-from polar.models import Catalog, CatalogCustomField, CustomField
-from polar.models.catalog import CatalogStatus
+from repalis.models import Catalog, CatalogCustomField, CustomField
+from repalis.models.catalog import CatalogStatus
 
 
 class CustomFieldRepository(

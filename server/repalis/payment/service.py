@@ -4,17 +4,17 @@ from collections.abc import Sequence
 import stripe as stripe_lib
 from sqlalchemy import func, or_
 
-from polar.auth.models import AuthSubject, Organization, User
-from polar.auth.permission import OrganizationPermission
-from polar.authz.service import get_accessible_org_ids
-from polar.enums import PaymentProcessor
-from polar.exceptions import PolarError
-from polar.kit.pagination import PaginationParams
-from polar.kit.sorting import Sorting
-from polar.kit.utils import generate_uuid
-from polar.models import Checkout, Order, Payment, Wallet
-from polar.models.payment import PaymentStatus, PaymentTrigger
-from polar.postgres import AsyncReadSession, AsyncSession
+from repalis.auth.models import AuthSubject, Organization, User
+from repalis.auth.permission import OrganizationPermission
+from repalis.authz.service import get_accessible_org_ids
+from repalis.enums import PaymentProcessor
+from repalis.exceptions import PolarError
+from repalis.kit.pagination import PaginationParams
+from repalis.kit.sorting import Sorting
+from repalis.kit.utils import generate_uuid
+from repalis.models import Checkout, Order, Payment, Wallet
+from repalis.models.payment import PaymentStatus, PaymentTrigger
+from repalis.postgres import AsyncReadSession, AsyncSession
 
 from .repository import PaymentRepository
 from .sorting import PaymentSortProperty

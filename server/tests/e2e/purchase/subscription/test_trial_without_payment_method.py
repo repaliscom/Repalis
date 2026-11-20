@@ -11,12 +11,12 @@ import uuid
 import pytest
 from httpx2 import AsyncClient
 
-from polar.enums import SubscriptionRecurringInterval
-from polar.kit.db.postgres import AsyncSession
-from polar.kit.trial import TrialInterval
-from polar.models import Organization, Product
-from polar.models.subscription import SubscriptionStatus
-from polar.subscription.repository import SubscriptionRepository
+from repalis.enums import SubscriptionRecurringInterval
+from repalis.kit.db.postgres import AsyncSession
+from repalis.kit.trial import TrialInterval
+from repalis.models import Organization, Product
+from repalis.models.subscription import SubscriptionStatus
+from repalis.subscription.repository import SubscriptionRepository
 from tests.e2e.conftest import E2E_AUTH
 from tests.e2e.infra import DrainFn
 from tests.e2e.purchase.conftest import BUYER_EMAIL, BUYER_NAME

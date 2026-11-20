@@ -11,11 +11,11 @@ from sqlalchemy.orm import (
     with_polymorphic,
 )
 
-from polar.authz.types import AccessibleOrganizationID
-from polar.kit.currency import PresentmentCurrency
-from polar.kit.db.locking import pg_advisory_xact_lock
-from polar.kit.metadata import get_metadata_clause
-from polar.kit.repository import (
+from repalis.authz.types import AccessibleOrganizationID
+from repalis.kit.currency import PresentmentCurrency
+from repalis.kit.db.locking import pg_advisory_xact_lock
+from repalis.kit.metadata import get_metadata_clause
+from repalis.kit.repository import (
     Options,
     RepositoryBase,
     RepositoryExternalIDMixin,
@@ -24,7 +24,7 @@ from polar.kit.repository import (
     RepositorySortingMixin,
     SortingClause,
 )
-from polar.models import (
+from repalis.models import (
     Catalog,
     CatalogProduct,
     CheckoutProduct,
@@ -39,9 +39,9 @@ from polar.models import (
     Subscription,
     SubscriptionUpdate,
 )
-from polar.models.catalog import CatalogStatus
-from polar.models.product_price import ProductPriceAmountType, ProductPriceSource
-from polar.postgres import sql
+from repalis.models.catalog import CatalogStatus
+from repalis.models.product_price import ProductPriceAmountType, ProductPriceSource
+from repalis.postgres import sql
 
 from .sorting import ProductSortProperty
 

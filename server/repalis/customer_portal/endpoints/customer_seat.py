@@ -5,18 +5,18 @@ from fastapi import Depends, Query
 from pydantic import UUID4
 from sqlalchemy.orm import joinedload, selectinload
 
-from polar.customer_seat.schemas import CustomerSeat as CustomerSeatSchema
-from polar.customer_seat.schemas import SeatsList
-from polar.customer_seat.service import seat_service
-from polar.exceptions import BadRequest, ResourceNotFound
-from polar.kit.db.postgres import AsyncSession
-from polar.kit.pagination import ListResource, PaginationParamsQuery
-from polar.models import CustomerSeat, Order, Product, Subscription
-from polar.openapi import APITag
-from polar.order.repository import OrderRepository
-from polar.postgres import get_db_session
-from polar.routing import APIRouter
-from polar.subscription.repository import SubscriptionRepository
+from repalis.customer_seat.schemas import CustomerSeat as CustomerSeatSchema
+from repalis.customer_seat.schemas import SeatsList
+from repalis.customer_seat.service import seat_service
+from repalis.exceptions import BadRequest, ResourceNotFound
+from repalis.kit.db.postgres import AsyncSession
+from repalis.kit.pagination import ListResource, PaginationParamsQuery
+from repalis.models import CustomerSeat, Order, Product, Subscription
+from repalis.openapi import APITag
+from repalis.order.repository import OrderRepository
+from repalis.postgres import get_db_session
+from repalis.routing import APIRouter
+from repalis.subscription.repository import SubscriptionRepository
 
 from .. import auth
 from ..schemas.seat import CustomerPortalSeatListParams, CustomerSeatAssign

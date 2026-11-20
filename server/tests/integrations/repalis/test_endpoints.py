@@ -10,7 +10,7 @@ from httpx2 import AsyncClient
 from pytest_mock import MockerFixture
 from standardwebhooks.webhooks import Webhook as StandardWebhook
 
-from polar.version import CURRENT_API_VERSION
+from repalis.version import CURRENT_API_VERSION
 
 WEBHOOK_SECRET = "test_polar_webhook_secret"
 WEBHOOK_URL = "/v1/integrations/repalis/webhook"
@@ -229,7 +229,7 @@ def _sign(
 @pytest.fixture(autouse=True)
 def _set_webhook_secret(mocker: MockerFixture) -> None:
     mocker.patch(
-        "polar.integrations.repalis.endpoints.settings.POLAR_WEBHOOK_SECRET",
+        "repalis.integrations.repalis.endpoints.settings.POLAR_WEBHOOK_SECRET",
         WEBHOOK_SECRET,
     )
 
@@ -237,7 +237,7 @@ def _set_webhook_secret(mocker: MockerFixture) -> None:
 @pytest.fixture
 def enqueue_mock(mocker: MockerFixture) -> AsyncMock:
     return mocker.patch(
-        "polar.integrations.repalis.endpoints.external_event_service.enqueue",
+        "repalis.integrations.repalis.endpoints.external_event_service.enqueue",
         new=AsyncMock(),
     )
 
@@ -269,7 +269,7 @@ class TestWebhook:
         mocker: MockerFixture,
     ) -> None:
         mocker.patch(
-            "polar.integrations.repalis.endpoints.settings.POLAR_WEBHOOK_SECRET", ""
+            "repalis.integrations.repalis.endpoints.settings.POLAR_WEBHOOK_SECRET", ""
         )
         body, headers = _sign(_benefit_grant_event("subscription.active"))
 

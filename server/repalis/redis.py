@@ -9,7 +9,7 @@ from redis import ConnectionError, ReadOnlyError, RedisError, TimeoutError
 from redis.asyncio.retry import Retry
 from redis.backoff import default_backoff
 
-from polar.config import settings
+from repalis.config import settings
 
 # https://github.com/python/typeshed/issues/7597#issuecomment-1117551641
 # Redis is generic at type checking, but not at runtime...

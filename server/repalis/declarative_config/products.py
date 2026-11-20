@@ -2,10 +2,10 @@ from collections.abc import Collection
 from typing import Any
 from uuid import UUID
 
-from polar.custom_field.schemas import AttachedCustomFieldCreate
-from polar.exceptions import PolarRequestValidationError
-from polar.exceptions import ValidationError as RequestValidationError
-from polar.product.schemas import (
+from repalis.custom_field.schemas import AttachedCustomFieldCreate
+from repalis.exceptions import PolarRequestValidationError
+from repalis.exceptions import ValidationError as RequestValidationError
+from repalis.product.schemas import (
     ProductCreateOneTime,
     ProductCreateRecurring,
     ProductPriceCreate,

@@ -53,12 +53,12 @@ from pydantic_ai import Agent
 from sqlalchemy import func, or_, select
 from sqlalchemy.orm import contains_eager, joinedload
 
-from polar.config import settings
-from polar.customer.repository import CustomerRepository
-from polar.exceptions import PolarError
-from polar.kit.currency import format_currency
-from polar.kit.db.postgres import AsyncReadSessionMaker
-from polar.models import (
+from repalis.config import settings
+from repalis.customer.repository import CustomerRepository
+from repalis.exceptions import PolarError
+from repalis.kit.currency import format_currency
+from repalis.kit.db.postgres import AsyncReadSessionMaker
+from repalis.models import (
     Customer,
     Feedback,
     FeedbackType,
@@ -68,9 +68,9 @@ from polar.models import (
     User,
     UserOrganization,
 )
-from polar.order.repository import OrderRepository
-from polar.postgres import AsyncReadSession, AsyncSession
-from polar.user.repository import UserRepository
+from repalis.order.repository import OrderRepository
+from repalis.postgres import AsyncReadSession, AsyncSession
+from repalis.user.repository import UserRepository
 
 from .schemas import (
     CustomerCard,

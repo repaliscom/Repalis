@@ -3,13 +3,13 @@ from typing import Annotated
 
 import structlog
 
-from polar.benefit.grant.repository import BenefitGrantRepository
-from polar.benefit.grant.service import benefit_grant as benefit_grant_service
-from polar.exceptions import PolarTaskError
-from polar.logging import Logger
-from polar.models.license_key import LicenseKeyStatus
-from polar.observability.task_logging import LoggableField
-from polar.worker import AsyncSessionMaker, RedisMiddleware, TaskPriority, actor
+from repalis.benefit.grant.repository import BenefitGrantRepository
+from repalis.benefit.grant.service import benefit_grant as benefit_grant_service
+from repalis.exceptions import PolarTaskError
+from repalis.logging import Logger
+from repalis.models.license_key import LicenseKeyStatus
+from repalis.observability.task_logging import LoggableField
+from repalis.worker import AsyncSessionMaker, RedisMiddleware, TaskPriority, actor
 
 from .repository import LicenseKeyRepository
 

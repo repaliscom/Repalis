@@ -13,11 +13,11 @@ import time
 
 from starlette.types import ASGIApp, Message, Receive, Scope, Send
 
-from polar.observability.http_metrics import (
+from repalis.observability.http_metrics import (
     HTTP_REQUEST_DURATION_SECONDS,
     HTTP_REQUEST_TOTAL,
 )
-from polar.observability.utils import get_path_template
+from repalis.observability.utils import get_path_template
 
 
 class HttpMetricsMiddleware:

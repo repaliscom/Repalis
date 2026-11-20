@@ -1,8 +1,8 @@
 from sqlalchemy import func, or_, select, update
 
-from polar.exceptions import PolarError
-from polar.kit.repository import RepositoryBase
-from polar.models import BackofficeUser
+from repalis.exceptions import PolarError
+from repalis.kit.repository import RepositoryBase
+from repalis.models import BackofficeUser
 
 
 class BackofficeUserRepository(RepositoryBase[BackofficeUser]):

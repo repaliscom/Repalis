@@ -2,9 +2,9 @@ from typing import Any, Literal
 
 from posthog import Posthog
 
-from polar.config import settings
-from polar.logging import ClientContext
-from polar.models import Agent, User
+from repalis.config import settings
+from repalis.logging import ClientContext
+from repalis.models import Agent, User
 
 EventCategory = Literal[
     "agent",

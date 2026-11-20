@@ -1,10 +1,10 @@
 import pytest
 
-from polar.feedback.repository import FeedbackRepository
-from polar.kit.utils import utc_now
-from polar.models import Feedback, Organization, User
-from polar.models.feedback import FeedbackStatus, FeedbackType
-from polar.postgres import AsyncSession
+from repalis.feedback.repository import FeedbackRepository
+from repalis.kit.utils import utc_now
+from repalis.models import Feedback, Organization, User
+from repalis.models.feedback import FeedbackStatus, FeedbackType
+from repalis.postgres import AsyncSession
 from tests.fixtures.database import SaveFixture
 
 

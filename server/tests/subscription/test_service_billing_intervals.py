@@ -6,11 +6,11 @@ import pytest
 from freezegun import freeze_time
 from pytest_mock import MockerFixture
 
-from polar.billing_interval.repository import BillingIntervalRepository
-from polar.billing_interval.service import billing_interval as billing_interval_service
-from polar.enums import SubscriptionProrationBehavior, SubscriptionRecurringInterval
-from polar.kit.trial import TrialInterval
-from polar.models import (
+from repalis.billing_interval.repository import BillingIntervalRepository
+from repalis.billing_interval.service import billing_interval as billing_interval_service
+from repalis.enums import SubscriptionProrationBehavior, SubscriptionRecurringInterval
+from repalis.kit.trial import TrialInterval
+from repalis.models import (
     Customer,
     Meter,
     Organization,
@@ -18,12 +18,12 @@ from polar.models import (
     Product,
     Subscription,
 )
-from polar.models.billing_interval import UsagePolicy
-from polar.models.checkout import CheckoutStatus
-from polar.models.subscription import SubscriptionStatus
-from polar.postgres import AsyncSession
-from polar.subscription.service import SubscriptionUpdateContext
-from polar.subscription.service import subscription as subscription_service
+from repalis.models.billing_interval import UsagePolicy
+from repalis.models.checkout import CheckoutStatus
+from repalis.models.subscription import SubscriptionStatus
+from repalis.postgres import AsyncSession
+from repalis.subscription.service import SubscriptionUpdateContext
+from repalis.subscription.service import subscription as subscription_service
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (
     create_checkout,
@@ -40,8 +40,8 @@ type History = list[tuple[UUID, UsagePolicy, datetime, datetime | None]]
 
 @pytest.fixture(autouse=True)
 def mock_side_effects(mocker: MockerFixture) -> None:
-    mocker.patch("polar.subscription.service.enqueue_job")
-    mocker.patch("polar.subscription.service.publish_checkout_event")
+    mocker.patch("repalis.subscription.service.enqueue_job")
+    mocker.patch("repalis.subscription.service.publish_checkout_event")
     mocker.patch.object(subscription_service, "reset_meters")
     mocker.patch.object(subscription_service, "enqueue_benefits_grants")
 

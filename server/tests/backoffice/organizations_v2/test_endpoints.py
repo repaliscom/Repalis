@@ -7,24 +7,24 @@ import httpx2
 import pytest
 from pytest_mock import MockerFixture
 
-from polar.backoffice import app as backoffice_app
-from polar.backoffice.dependencies import get_admin
-from polar.backoffice.organizations_v2.endpoints import _stripe_reject_reason_for_aup
-from polar.kit.utils import utc_now
-from polar.models import (
+from repalis.backoffice import app as backoffice_app
+from repalis.backoffice.dependencies import get_admin
+from repalis.backoffice.organizations_v2.endpoints import _stripe_reject_reason_for_aup
+from repalis.kit.utils import utc_now
+from repalis.models import (
     BackofficeUser,
     OrganizationDomain,
     OrganizationEmail,
     PayoutAccount,
 )
-from polar.models.backoffice_user_session import BackofficeUserSession
-from polar.models.organization import Organization, OrganizationStatus
-from polar.models.organization_risk_signal import OrganizationRiskSignal
-from polar.models.user import User
-from polar.organization_review.repository import OrganizationReviewRepository
-from polar.organization_review.schemas import AUPSection
-from polar.payout_account.repository import PayoutAccountRepository
-from polar.postgres import AsyncSession, get_db_session
+from repalis.models.backoffice_user_session import BackofficeUserSession
+from repalis.models.organization import Organization, OrganizationStatus
+from repalis.models.organization_risk_signal import OrganizationRiskSignal
+from repalis.models.user import User
+from repalis.organization_review.repository import OrganizationReviewRepository
+from repalis.organization_review.schemas import AUPSection
+from repalis.payout_account.repository import PayoutAccountRepository
+from repalis.postgres import AsyncSession, get_db_session
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (
     create_account,
@@ -186,7 +186,7 @@ class TestDenyDialog:
         organization: Organization,
         stripe_payout_account: PayoutAccount,
     ) -> None:
-        enqueue_job_mock = mocker.patch("polar.organization.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.organization.service.enqueue_job")
 
         response = await backoffice_client.post(
             f"/organizations/{organization.id}/deny-dialog",
@@ -246,7 +246,7 @@ class TestBlockDialog:
         organization: Organization,
         stripe_payout_account: PayoutAccount,
     ) -> None:
-        enqueue_job_mock = mocker.patch("polar.organization.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.organization.service.enqueue_job")
 
         response = await backoffice_client.post(
             f"/organizations/{organization.id}/block-dialog",
@@ -405,7 +405,7 @@ class TestDeletePayoutAccount:
         organization_second.payout_account = payout_account
         await save_fixture(organization_second)
 
-        stripe_mock = mocker.patch("polar.payout_account.service.stripe")
+        stripe_mock = mocker.patch("repalis.payout_account.service.stripe")
         stripe_mock.delete_account = mocker.AsyncMock(return_value=None)
 
         response = await backoffice_client.post(
@@ -638,7 +638,7 @@ class TestEditOrganization:
         await save_fixture(organization)
 
         enqueue_update_customer_slug_mock = mocker.patch(
-            "polar.backoffice.organizations_v2.endpoints"
+            "repalis.backoffice.organizations_v2.endpoints"
             ".polar_self_service.enqueue_update_customer_slug"
         )
 
@@ -668,7 +668,7 @@ class TestEditOrganization:
         await save_fixture(organization)
 
         enqueue_update_customer_slug_mock = mocker.patch(
-            "polar.backoffice.organizations_v2.endpoints"
+            "repalis.backoffice.organizations_v2.endpoints"
             ".polar_self_service.enqueue_update_customer_slug"
         )
 

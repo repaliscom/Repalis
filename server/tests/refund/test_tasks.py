@@ -4,16 +4,16 @@ from unittest.mock import MagicMock
 import pytest
 from pytest_mock import MockerFixture
 
-from polar.email.schemas import ChargebackPreventionRefundEmail
-from polar.kit.currency import format_currency
-from polar.models import Customer, Organization, Product, User
-from polar.models.refund import RefundReason
-from polar.models.user_organization import (
+from repalis.email.schemas import ChargebackPreventionRefundEmail
+from repalis.kit.currency import format_currency
+from repalis.models import Customer, Organization, Product, User
+from repalis.models.refund import RefundReason
+from repalis.models.user_organization import (
     OrganizationNotificationSettings,
     OrganizationRole,
     UserOrganization,
 )
-from polar.refund.tasks import send_chargeback_prevention_notice
+from repalis.refund.tasks import send_chargeback_prevention_notice
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (
     create_order_and_payment,
@@ -24,7 +24,7 @@ from tests.fixtures.random_objects import (
 
 @pytest.fixture(autouse=True)
 def enqueue_email_template_mock(mocker: MockerFixture) -> MagicMock:
-    return mocker.patch("polar.refund.tasks.enqueue_email_template")
+    return mocker.patch("repalis.refund.tasks.enqueue_email_template")
 
 
 async def _add_member(

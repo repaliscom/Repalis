@@ -6,17 +6,17 @@ import dramatiq
 import typer
 from sqlalchemy import select
 
-import polar.tasks  # noqa: F401
-from polar.kit.db.postgres import create_async_sessionmaker
-from polar.kit.utils import utc_now
-from polar.models.organization import Organization, OrganizationStatus
-from polar.models.organization_review import OrganizationReview
-from polar.models.user import IdentityVerificationStatus
-from polar.models.user_organization import UserOrganization
-from polar.postgres import create_async_engine
-from polar.redis import create_redis
-from polar.user.repository import UserRepository
-from polar.worker import JobQueueManager
+import repalis.tasks  # noqa: F401
+from repalis.kit.db.postgres import create_async_sessionmaker
+from repalis.kit.utils import utc_now
+from repalis.models.organization import Organization, OrganizationStatus
+from repalis.models.organization_review import OrganizationReview
+from repalis.models.user import IdentityVerificationStatus
+from repalis.models.user_organization import UserOrganization
+from repalis.postgres import create_async_engine
+from repalis.redis import create_redis
+from repalis.user.repository import UserRepository
+from repalis.worker import JobQueueManager
 
 cli = typer.Typer()
 

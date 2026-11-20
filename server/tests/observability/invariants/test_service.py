@@ -4,10 +4,10 @@ from decimal import Decimal
 import pytest
 from pytest_mock import MockerFixture
 
-from polar.config import Environment, settings
-from polar.observability.invariants.rules.base import Invariant, InvariantError
-from polar.observability.invariants.service import invariant as invariant_service
-from polar.postgres import AsyncSession
+from repalis.config import Environment, settings
+from repalis.observability.invariants.rules.base import Invariant, InvariantError
+from repalis.observability.invariants.service import invariant as invariant_service
+from repalis.postgres import AsyncSession
 
 
 class _AllEnvironmentsInvariant(Invariant):
@@ -53,7 +53,7 @@ async def test_runs_invariant_within_its_environments(
 ) -> None:
     mocker.patch.object(settings, "ENV", Environment.production)
     mocker.patch(
-        "polar.observability.invariants.service.slack_client.chat_post_message"
+        "repalis.observability.invariants.service.slack_client.chat_post_message"
     )
     check_spy = mocker.spy(_ProductionOnlyInvariant, "check")
 
@@ -68,7 +68,7 @@ async def test_runs_invariant_with_no_environment_restriction(
 ) -> None:
     mocker.patch.object(settings, "ENV", Environment.sandbox)
     mocker.patch(
-        "polar.observability.invariants.service.slack_client.chat_post_message"
+        "repalis.observability.invariants.service.slack_client.chat_post_message"
     )
     check_spy = mocker.spy(_AllEnvironmentsInvariant, "check")
 
@@ -85,7 +85,7 @@ async def test_notifies_when_context_is_not_natively_serializable(
     mocker.patch.object(settings, "SLACK_BOT_TOKEN", "token")
     mocker.patch.object(settings, "SLACK_CHANNEL", "channel")
     post_message_mock = mocker.patch(
-        "polar.observability.invariants.service.slack_client.chat_post_message"
+        "repalis.observability.invariants.service.slack_client.chat_post_message"
     )
 
     await invariant_service.check(session, _DecimalContextInvariant)

@@ -5,14 +5,14 @@ from typing import Any
 from unittest.mock import AsyncMock, MagicMock
 
 import pytest
-from polar.v2026_04.outputs import (
+from repalis.v2026_04.outputs import (
     BenefitGrant,
     CustomerIndividual,
     Order,
     Product,
     Subscription,
 )
-from polar.v2026_04.webhooks import (
+from repalis.v2026_04.webhooks import (
     WebhookBenefitGrantCreatedPayload,
     WebhookBenefitGrantRevokedPayload,
     WebhookBenefitGrantUpdatedPayload,
@@ -23,9 +23,9 @@ from polar.v2026_04.webhooks import (
 )
 from pytest_mock import MockerFixture
 
-from polar import deserialize
-from polar.config import settings
-from polar.integrations.repalis.exceptions import (
+from repalis import deserialize
+from repalis.config import settings
+from repalis.integrations.repalis.exceptions import (
     PolarSelfInvoiceNotReady,
     PolarSelfNoActiveSubscription,
     PolarSelfNotApproved,
@@ -38,11 +38,11 @@ from polar.integrations.repalis.exceptions import (
     SupportBenefitError,
     TransactionFeeBenefitError,
 )
-from polar.integrations.repalis.service import polar_self
-from polar.models.member import MemberRole
-from polar.models.organization import Organization, OrganizationStatus, SupportTier
-from polar.postgres import AsyncReadSession, AsyncSession
-from polar.version import CURRENT_API_VERSION
+from repalis.integrations.repalis.service import polar_self
+from repalis.models.member import MemberRole
+from repalis.models.organization import Organization, OrganizationStatus, SupportTier
+from repalis.postgres import AsyncReadSession, AsyncSession
+from repalis.version import CURRENT_API_VERSION
 from tests.fixtures.database import SaveFixture
 
 SELF_ORG_ID = uuid.UUID("00000000-0000-0000-0000-000000000001")
@@ -217,7 +217,7 @@ def _make_payload(
 
 @pytest.fixture
 def configured(mocker: MockerFixture) -> None:
-    settings = mocker.patch("polar.integrations.repalis.service.settings")
+    settings = mocker.patch("repalis.integrations.repalis.service.settings")
     settings.POLAR_SELF_ENABLED = True
     settings.POLAR_ORGANIZATION_ID = str(SELF_ORG_ID)
 
@@ -239,7 +239,7 @@ def organization_repository_mock(mocker: MockerFixture) -> MagicMock:
     active_organization.can_change_plan.return_value = True
     repository.get_by_id = AsyncMock(return_value=active_organization)
     mocker.patch(
-        "polar.integrations.repalis.service.OrganizationRepository.from_session",
+        "repalis.integrations.repalis.service.OrganizationRepository.from_session",
         return_value=repository,
     )
     return repository
@@ -258,7 +258,7 @@ def preview_access_org_repository_mock(mocker: MockerFixture) -> MagicMock:
     organization.feature_settings = {}
     repository.get_by_id = AsyncMock(return_value=organization)
     mocker.patch(
-        "polar.integrations.repalis.service.OrganizationRepository.from_session",
+        "repalis.integrations.repalis.service.OrganizationRepository.from_session",
         return_value=repository,
     )
     return repository
@@ -274,7 +274,7 @@ def sso_org_repository_mock(mocker: MockerFixture) -> MagicMock:
     organization.sso_enforced = True
     repository.get_by_id = AsyncMock(return_value=organization)
     mocker.patch(
-        "polar.integrations.repalis.service.OrganizationRepository.from_session",
+        "repalis.integrations.repalis.service.OrganizationRepository.from_session",
         return_value=repository,
     )
     return repository
@@ -285,7 +285,7 @@ def account_repository_mock(mocker: MockerFixture) -> MagicMock:
     repository = MagicMock()
     repository.get_by_organization = AsyncMock(return_value=MagicMock(id="acc_1"))
     mocker.patch(
-        "polar.integrations.repalis.service.AccountRepository.from_session",
+        "repalis.integrations.repalis.service.AccountRepository.from_session",
         return_value=repository,
     )
     return repository
@@ -294,7 +294,7 @@ def account_repository_mock(mocker: MockerFixture) -> MagicMock:
 @pytest.fixture
 def set_platform_fee_mock(mocker: MockerFixture) -> AsyncMock:
     mock = AsyncMock()
-    mocker.patch("polar.account.service.account.set_platform_fee", mock)
+    mocker.patch("repalis.account.service.account.set_platform_fee", mock)
     return mock
 
 
@@ -302,7 +302,7 @@ def set_platform_fee_mock(mocker: MockerFixture) -> AsyncMock:
 def plain_update_tenant_tier_mock(mocker: MockerFixture) -> AsyncMock:
     mock = AsyncMock()
     mocker.patch(
-        "polar.integrations.repalis.service.plain_service.update_tenant_tier",
+        "repalis.integrations.repalis.service.plain_service.update_tenant_tier",
         mock,
     )
     return mock
@@ -312,7 +312,7 @@ def plain_update_tenant_tier_mock(mocker: MockerFixture) -> AsyncMock:
 def list_grants_mock(mocker: MockerFixture) -> AsyncMock:
     client = MagicMock()
     client.list_customer_benefit_grants = AsyncMock(return_value=[])
-    mocker.patch("polar.integrations.repalis.service.get_client", return_value=client)
+    mocker.patch("repalis.integrations.repalis.service.get_client", return_value=client)
     return client.list_customer_benefit_grants
 
 
@@ -320,7 +320,7 @@ class TestEnqueueUpdateMember:
     def test_enqueues_with_role_value(
         self, configured: None, mocker: MockerFixture
     ) -> None:
-        enqueue = mocker.patch("polar.integrations.repalis.service.enqueue_job")
+        enqueue = mocker.patch("repalis.integrations.repalis.service.enqueue_job")
 
         polar_self.enqueue_update_member(
             external_customer_id="org-123",
@@ -340,7 +340,7 @@ class TestEnqueueUpdateMember:
     def test_enqueues_without_role(
         self, configured: None, mocker: MockerFixture
     ) -> None:
-        enqueue = mocker.patch("polar.integrations.repalis.service.enqueue_job")
+        enqueue = mocker.patch("repalis.integrations.repalis.service.enqueue_job")
 
         polar_self.enqueue_update_member(
             external_customer_id="org-123",
@@ -376,9 +376,9 @@ class TestEnqueueTrackOrganizationReviewUsage:
         )
 
     def test_noop_when_not_configured(self, mocker: MockerFixture) -> None:
-        settings = mocker.patch("polar.integrations.repalis.service.settings")
+        settings = mocker.patch("repalis.integrations.repalis.service.settings")
         settings.POLAR_SELF_ENABLED = False
-        enqueue = mocker.patch("polar.integrations.repalis.service.enqueue_job")
+        enqueue = mocker.patch("repalis.integrations.repalis.service.enqueue_job")
 
         self._call()
 
@@ -387,7 +387,7 @@ class TestEnqueueTrackOrganizationReviewUsage:
     def test_noop_for_self_organization(
         self, configured: None, mocker: MockerFixture
     ) -> None:
-        enqueue = mocker.patch("polar.integrations.repalis.service.enqueue_job")
+        enqueue = mocker.patch("repalis.integrations.repalis.service.enqueue_job")
 
         self._call(external_customer_id=str(SELF_ORG_ID))
 
@@ -396,7 +396,7 @@ class TestEnqueueTrackOrganizationReviewUsage:
     def test_noop_when_cost_is_none(
         self, configured: None, mocker: MockerFixture
     ) -> None:
-        enqueue = mocker.patch("polar.integrations.repalis.service.enqueue_job")
+        enqueue = mocker.patch("repalis.integrations.repalis.service.enqueue_job")
 
         self._call(cost_usd=None)
 
@@ -405,7 +405,7 @@ class TestEnqueueTrackOrganizationReviewUsage:
     def test_noop_when_cost_is_zero(
         self, configured: None, mocker: MockerFixture
     ) -> None:
-        enqueue = mocker.patch("polar.integrations.repalis.service.enqueue_job")
+        enqueue = mocker.patch("repalis.integrations.repalis.service.enqueue_job")
 
         self._call(cost_usd=Decimal(0))
 
@@ -414,7 +414,7 @@ class TestEnqueueTrackOrganizationReviewUsage:
     def test_enqueues_job_with_serialized_cost(
         self, configured: None, mocker: MockerFixture
     ) -> None:
-        enqueue = mocker.patch("polar.integrations.repalis.service.enqueue_job")
+        enqueue = mocker.patch("repalis.integrations.repalis.service.enqueue_job")
 
         self._call(cost_usd=Decimal("0.0123"))
 
@@ -431,7 +431,7 @@ class TestEnqueueTrackOrganizationReviewUsage:
         )
 
     def test_accepts_float_cost(self, configured: None, mocker: MockerFixture) -> None:
-        enqueue = mocker.patch("polar.integrations.repalis.service.enqueue_job")
+        enqueue = mocker.patch("repalis.integrations.repalis.service.enqueue_job")
 
         self._call(cost_usd=0.5)
 
@@ -1337,14 +1337,14 @@ def client_mock(mocker: MockerFixture) -> MagicMock:
     client.update_subscription_discount = AsyncMock(
         return_value=_make_subscription(id="sub_existing", discount_id=None)
     )
-    mocker.patch("polar.integrations.repalis.service.get_client", return_value=client)
+    mocker.patch("repalis.integrations.repalis.service.get_client", return_value=client)
     return client
 
 
 @pytest.mark.anyio
 class TestCancelSubscription:
     async def test_not_configured_raises(self, mocker: MockerFixture) -> None:
-        settings = mocker.patch("polar.integrations.repalis.service.settings")
+        settings = mocker.patch("repalis.integrations.repalis.service.settings")
         settings.POLAR_SELF_ENABLED = False
 
         with pytest.raises(PolarSelfNotConfigured):
@@ -1398,7 +1398,7 @@ class TestCancelSubscription:
 @pytest.mark.anyio
 class TestListPlans:
     async def test_not_configured_raises(self, mocker: MockerFixture) -> None:
-        settings = mocker.patch("polar.integrations.repalis.service.settings")
+        settings = mocker.patch("repalis.integrations.repalis.service.settings")
         settings.POLAR_SELF_ENABLED = False
 
         with pytest.raises(PolarSelfNotConfigured):
@@ -1445,7 +1445,7 @@ class TestListPlans:
 @pytest.mark.anyio
 class TestGetSubscription:
     async def test_not_configured_raises(self, mocker: MockerFixture) -> None:
-        settings = mocker.patch("polar.integrations.repalis.service.settings")
+        settings = mocker.patch("repalis.integrations.repalis.service.settings")
         settings.POLAR_SELF_ENABLED = False
 
         with pytest.raises(PolarSelfNotConfigured):
@@ -1479,7 +1479,7 @@ class TestStartCheckout:
     async def test_not_configured_raises(
         self, mocker: MockerFixture, read_session_mock: AsyncReadSession
     ) -> None:
-        settings = mocker.patch("polar.integrations.repalis.service.settings")
+        settings = mocker.patch("repalis.integrations.repalis.service.settings")
         settings.POLAR_SELF_ENABLED = False
 
         with pytest.raises(PolarSelfNotConfigured):
@@ -1678,7 +1678,7 @@ class TestChangePlan:
     async def test_not_configured_raises(
         self, mocker: MockerFixture, read_session_mock: AsyncReadSession
     ) -> None:
-        settings = mocker.patch("polar.integrations.repalis.service.settings")
+        settings = mocker.patch("repalis.integrations.repalis.service.settings")
         settings.POLAR_SELF_ENABLED = False
 
         with pytest.raises(PolarSelfNotConfigured):
@@ -1834,7 +1834,7 @@ class TestChangePlan:
         to a non-eligible plan must clear the discount — otherwise the Startup
         Program discount would leak onto the new plan."""
         mocker.patch(
-            "polar.integrations.repalis.service.settings.POLAR_SCALE_PRODUCT_ID",
+            "repalis.integrations.repalis.service.settings.POLAR_SCALE_PRODUCT_ID",
             "prod_scale",
         )
         client_mock.list_recurring_products.return_value = [
@@ -1913,11 +1913,11 @@ class TestChangePlan:
             id="sub_existing", product_id="prod_pro", amount=2000
         )
         mocker.patch(
-            "polar.integrations.repalis.service.settings.POLAR_SCALE_PRODUCT_ID",
+            "repalis.integrations.repalis.service.settings.POLAR_SCALE_PRODUCT_ID",
             "prod_scale",
         )
         mocker.patch(
-            "polar.integrations.repalis.service.startup_program_service."
+            "repalis.integrations.repalis.service.startup_program_service."
             "resolve_checkout_discount_id",
             AsyncMock(return_value="disc_startup"),
         )
@@ -1960,7 +1960,7 @@ class TestChangePlan:
             id="sub_existing", product_id="prod_pro", amount=2000
         )
         mocker.patch(
-            "polar.integrations.repalis.service.startup_program_service."
+            "repalis.integrations.repalis.service.startup_program_service."
             "resolve_checkout_discount_id",
             AsyncMock(return_value=None),
         )
@@ -1984,7 +1984,7 @@ class TestClaimStartupProgram:
     async def test_not_configured_raises(
         self, mocker: MockerFixture, read_session_mock: AsyncReadSession
     ) -> None:
-        settings = mocker.patch("polar.integrations.repalis.service.settings")
+        settings = mocker.patch("repalis.integrations.repalis.service.settings")
         settings.POLAR_SELF_ENABLED = False
 
         with pytest.raises(PolarSelfNotConfigured):
@@ -2002,15 +2002,15 @@ class TestClaimStartupProgram:
     ) -> None:
         """Free plan → claim creates a checkout (no PATCH path)."""
         mocker.patch(
-            "polar.integrations.repalis.service.settings.STARTUP_PROGRAM_ENABLED",
+            "repalis.integrations.repalis.service.settings.STARTUP_PROGRAM_ENABLED",
             True,
         )
         mocker.patch(
-            "polar.integrations.repalis.service.settings.POLAR_SCALE_PRODUCT_ID",
+            "repalis.integrations.repalis.service.settings.POLAR_SCALE_PRODUCT_ID",
             "prod_scale",
         )
         mocker.patch(
-            "polar.integrations.repalis.service.startup_program_service."
+            "repalis.integrations.repalis.service.startup_program_service."
             "resolve_checkout_discount_id",
             AsyncMock(return_value="disc_startup"),
         )
@@ -2046,18 +2046,18 @@ class TestClaimStartupProgram:
         mocker: MockerFixture,
         read_session_mock: AsyncReadSession,
     ) -> None:
-        from polar.startup_program.service import StartupProgramError
+        from repalis.startup_program.service import StartupProgramError
 
         mocker.patch(
-            "polar.integrations.repalis.service.settings.STARTUP_PROGRAM_ENABLED",
+            "repalis.integrations.repalis.service.settings.STARTUP_PROGRAM_ENABLED",
             True,
         )
         mocker.patch(
-            "polar.integrations.repalis.service.settings.POLAR_SCALE_PRODUCT_ID",
+            "repalis.integrations.repalis.service.settings.POLAR_SCALE_PRODUCT_ID",
             "prod_scale",
         )
         mocker.patch(
-            "polar.integrations.repalis.service.startup_program_service."
+            "repalis.integrations.repalis.service.startup_program_service."
             "resolve_checkout_discount_id",
             AsyncMock(return_value=None),
         )
@@ -2083,15 +2083,15 @@ class TestClaimStartupProgram:
         product to Scale so the proration at the switch reflects the discount.
         Both calls happen via PATCH; no ``create_checkout``."""
         mocker.patch(
-            "polar.integrations.repalis.service.settings.STARTUP_PROGRAM_ENABLED",
+            "repalis.integrations.repalis.service.settings.STARTUP_PROGRAM_ENABLED",
             True,
         )
         mocker.patch(
-            "polar.integrations.repalis.service.settings.POLAR_SCALE_PRODUCT_ID",
+            "repalis.integrations.repalis.service.settings.POLAR_SCALE_PRODUCT_ID",
             "prod_scale",
         )
         mocker.patch(
-            "polar.integrations.repalis.service.startup_program_service."
+            "repalis.integrations.repalis.service.startup_program_service."
             "resolve_checkout_discount_id",
             AsyncMock(return_value="disc_startup"),
         )
@@ -2133,15 +2133,15 @@ class TestClaimStartupProgram:
         read_session_mock: AsyncReadSession,
     ) -> None:
         mocker.patch(
-            "polar.integrations.repalis.service.settings.STARTUP_PROGRAM_ENABLED",
+            "repalis.integrations.repalis.service.settings.STARTUP_PROGRAM_ENABLED",
             True,
         )
         mocker.patch(
-            "polar.integrations.repalis.service.settings.POLAR_SCALE_PRODUCT_ID",
+            "repalis.integrations.repalis.service.settings.POLAR_SCALE_PRODUCT_ID",
             "prod_scale",
         )
         mocker.patch(
-            "polar.integrations.repalis.service.startup_program_service."
+            "repalis.integrations.repalis.service.startup_program_service."
             "resolve_checkout_discount_id",
             AsyncMock(return_value="disc_startup"),
         )
@@ -2241,14 +2241,14 @@ def orders_client_mock(mocker: MockerFixture) -> MagicMock:
     client.list_customer_orders = AsyncMock(return_value=([], 0))
     client.get_order = AsyncMock(return_value=None)
     client.get_order_invoice = AsyncMock(return_value=None)
-    mocker.patch("polar.integrations.repalis.service.get_client", return_value=client)
+    mocker.patch("repalis.integrations.repalis.service.get_client", return_value=client)
     return client
 
 
 @pytest.mark.anyio
 class TestListOrders:
     async def test_not_configured_raises(self, mocker: MockerFixture) -> None:
-        settings = mocker.patch("polar.integrations.repalis.service.settings")
+        settings = mocker.patch("repalis.integrations.repalis.service.settings")
         settings.POLAR_SELF_ENABLED = False
 
         with pytest.raises(PolarSelfNotConfigured):
@@ -2275,7 +2275,7 @@ class TestListOrders:
 @pytest.mark.anyio
 class TestGetOrderInvoiceUrl:
     async def test_not_configured_raises(self, mocker: MockerFixture) -> None:
-        settings = mocker.patch("polar.integrations.repalis.service.settings")
+        settings = mocker.patch("repalis.integrations.repalis.service.settings")
         settings.POLAR_SELF_ENABLED = False
 
         with pytest.raises(PolarSelfNotConfigured):
@@ -2361,13 +2361,13 @@ def order_webhook_client_mock(mocker: MockerFixture) -> MagicMock:
     )
     client.trigger_order_invoice_generation = AsyncMock()
     client.get_order_invoice = AsyncMock(return_value="https://example.com/inv.pdf")
-    mocker.patch("polar.integrations.repalis.service.get_client", return_value=client)
+    mocker.patch("repalis.integrations.repalis.service.get_client", return_value=client)
     return client
 
 
 @pytest.fixture
 def enqueue_email_mock(mocker: MockerFixture) -> MagicMock:
-    return mocker.patch("polar.integrations.repalis.service.enqueue_email_template")
+    return mocker.patch("repalis.integrations.repalis.service.enqueue_email_template")
 
 
 @pytest.mark.anyio
@@ -2603,7 +2603,7 @@ class TestHandleOrderCreatedEvent:
     ) -> None:
         # polar-self emails must never be sent from the sandbox environment.
         mocker.patch(
-            "polar.integrations.repalis.service.settings.is_sandbox",
+            "repalis.integrations.repalis.service.settings.is_sandbox",
             return_value=True,
         )
         order_webhook_client_mock.get_order.return_value = _make_order()
@@ -2669,7 +2669,7 @@ def subscription_webhook_client_mock(mocker: MockerFixture) -> MagicMock:
     client.list_billing_contacts = AsyncMock(
         return_value=[_make_contact("billing@example.com")]
     )
-    mocker.patch("polar.integrations.repalis.service.get_client", return_value=client)
+    mocker.patch("repalis.integrations.repalis.service.get_client", return_value=client)
     return client
 
 
@@ -2743,7 +2743,7 @@ class TestHandleSubscriptionCanceledEvent:
         mocker: MockerFixture,
     ) -> None:
         mocker.patch(
-            "polar.integrations.repalis.service.settings.is_sandbox",
+            "repalis.integrations.repalis.service.settings.is_sandbox",
             return_value=True,
         )
         payload = _make_subscription_canceled_payload(amount=2000)
@@ -2808,7 +2808,7 @@ class TestHandleSubscriptionPastDueEvent:
         mocker: MockerFixture,
     ) -> None:
         mocker.patch(
-            "polar.integrations.repalis.service.settings.is_sandbox",
+            "repalis.integrations.repalis.service.settings.is_sandbox",
             return_value=True,
         )
         payload = _make_subscription_past_due_payload(amount=2000)
@@ -2895,7 +2895,7 @@ class TestHandleSubscriptionRevokedEvent:
         mocker: MockerFixture,
     ) -> None:
         mocker.patch(
-            "polar.integrations.repalis.service.settings.is_sandbox",
+            "repalis.integrations.repalis.service.settings.is_sandbox",
             return_value=True,
         )
         payload = _make_subscription_revoked_payload(amount=2000)

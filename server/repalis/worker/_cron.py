@@ -11,9 +11,9 @@ from apscheduler.triggers.cron import CronTrigger
 from sqlalchemy import Engine
 from sqlalchemy.orm import Session
 
-from polar.kit.utils import utc_now
-from polar.logging import Logger
-from polar.models import ScheduledCron
+from repalis.kit.utils import utc_now
+from repalis.logging import Logger
+from repalis.models import ScheduledCron
 
 from .repository import CronRepository
 

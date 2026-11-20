@@ -30,11 +30,11 @@ from sqlalchemy.dialects.postgresql import JSONB, TSVECTOR
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import Mapped, declared_attr, mapped_column, relationship
 
-from polar.config import settings
-from polar.kit.address import Address, AddressType
-from polar.kit.db.models import RecordModel
-from polar.kit.metadata import MetadataMixin
-from polar.tax.tax_id import TaxID, TaxIDType
+from repalis.config import settings
+from repalis.kit.address import Address, AddressType
+from repalis.kit.db.models import RecordModel
+from repalis.kit.metadata import MetadataMixin
+from repalis.tax.tax_id import TaxID, TaxIDType
 
 if TYPE_CHECKING:
     from .benefit_grant import BenefitGrant

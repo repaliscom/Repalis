@@ -5,14 +5,14 @@ import httpx2
 import pytest
 from pytest_mock import MockerFixture
 
-from polar.backoffice import app as backoffice_app
-from polar.backoffice.dependencies import get_admin
-from polar.kit.utils import utc_now
-from polar.models import Customer, Organization, Product, Subscription
-from polar.models.backoffice_user_session import BackofficeUserSession
-from polar.models.order import OrderStatus
-from polar.models.subscription import SubscriptionStatus
-from polar.postgres import AsyncSession, get_db_read_session, get_db_session
+from repalis.backoffice import app as backoffice_app
+from repalis.backoffice.dependencies import get_admin
+from repalis.kit.utils import utc_now
+from repalis.models import Customer, Organization, Product, Subscription
+from repalis.models.backoffice_user_session import BackofficeUserSession
+from repalis.models.order import OrderStatus
+from repalis.models.subscription import SubscriptionStatus
+from repalis.postgres import AsyncSession, get_db_read_session, get_db_session
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (
     create_active_subscription,
@@ -130,7 +130,7 @@ class TestUpdateStatus:
         product: Product,
         customer: Customer,
     ) -> None:
-        enqueue_job_mock = mocker.patch("polar.subscription.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.subscription.service.enqueue_job")
         subscription = await create_subscription(
             save_fixture,
             product=product,
@@ -162,8 +162,8 @@ class TestUpdateStatus:
         product: Product,
         customer: Customer,
     ) -> None:
-        mocker.patch("polar.subscription.service.enqueue_job")
-        mocker.patch("polar.order.service.enqueue_job")
+        mocker.patch("repalis.subscription.service.enqueue_job")
+        mocker.patch("repalis.order.service.enqueue_job")
         subscription = await create_subscription(
             save_fixture,
             product=product,

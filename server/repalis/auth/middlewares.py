@@ -11,19 +11,19 @@ from fastapi.security.utils import get_authorization_scheme_param
 from starlette.types import ASGIApp, Receive, Send
 from starlette.types import Scope as ASGIScope
 
-from polar.authz.service import get_accessible_organization
-from polar.config import settings
-from polar.customer_session.service import (
+from repalis.authz.service import get_accessible_organization
+from repalis.config import settings
+from repalis.customer_session.service import (
     CUSTOMER_SESSION_TOKEN_PREFIX,
 )
-from polar.customer_session.service import (
+from repalis.customer_session.service import (
     customer_session as customer_session_service,
 )
-from polar.exception_handlers import polar_exception_handler
-from polar.kit.utils import utc_now
-from polar.logging import Logger
-from polar.member_session.service import member_session as member_session_service
-from polar.models import (
+from repalis.exception_handlers import polar_exception_handler
+from repalis.kit.utils import utc_now
+from repalis.logging import Logger
+from repalis.member_session.service import member_session as member_session_service
+from repalis.models import (
     Agent,
     CustomerSession,
     MemberSession,
@@ -34,27 +34,27 @@ from polar.models import (
     User,
     UserSession,
 )
-from polar.models.member_session import MEMBER_SESSION_TOKEN_PREFIX
-from polar.oauth2.constants import is_access_token_prefix, is_registration_token_prefix
-from polar.oauth2.exception_handlers import OAuth2Error, oauth2_error_exception_handler
-from polar.oauth2.exceptions import InvalidTokenError
-from polar.oauth2.service.oauth2_token import oauth2_token as oauth2_token_service
-from polar.organization_access_token.service import (
+from repalis.models.member_session import MEMBER_SESSION_TOKEN_PREFIX
+from repalis.oauth2.constants import is_access_token_prefix, is_registration_token_prefix
+from repalis.oauth2.exception_handlers import OAuth2Error, oauth2_error_exception_handler
+from repalis.oauth2.exceptions import InvalidTokenError
+from repalis.oauth2.service.oauth2_token import oauth2_token as oauth2_token_service
+from repalis.organization_access_token.service import (
     TOKEN_PREFIX as ORGANIZATION_ACCESS_TOKEN_PREFIX,
 )
-from polar.organization_access_token.service import (
+from repalis.organization_access_token.service import (
     organization_access_token as organization_access_token_service,
 )
-from polar.personal_access_token.service import (
+from repalis.personal_access_token.service import (
     TOKEN_PREFIX as PERSONAL_ACCESS_TOKEN_PREFIX,
 )
-from polar.personal_access_token.service import (
+from repalis.personal_access_token.service import (
     personal_access_token as personal_access_token_service,
 )
-from polar.postgres import AsyncSession
-from polar.redis import Redis
-from polar.sentry import set_sentry_user
-from polar.worker import JobQueueManager, enqueue_job
+from repalis.postgres import AsyncSession
+from repalis.redis import Redis
+from repalis.sentry import set_sentry_user
+from repalis.worker import JobQueueManager, enqueue_job
 
 from .exceptions import (
     InvalidRequestedOrganization,

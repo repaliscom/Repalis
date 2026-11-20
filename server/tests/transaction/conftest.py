@@ -3,8 +3,8 @@ from datetime import datetime
 
 import pytest
 
-from polar.enums import SubscriptionRecurringInterval
-from polar.models import (
+from repalis.enums import SubscriptionRecurringInterval
+from repalis.models import (
     Account,
     Customer,
     Dispute,
@@ -16,8 +16,8 @@ from polar.models import (
     Refund,
     Transaction,
 )
-from polar.models.pledge import PledgeType
-from polar.models.transaction import PlatformFeeType, Processor, TransactionType
+from repalis.models.pledge import PledgeType
+from repalis.models.transaction import PlatformFeeType, Processor, TransactionType
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (
     create_order,

@@ -8,9 +8,9 @@ import structlog
 import typer
 from sqlalchemy import select
 
-from polar.kit.db.postgres import create_async_sessionmaker
-from polar.models import Customer, Subscription
-from polar.postgres import create_async_engine
+from repalis.kit.db.postgres import create_async_sessionmaker
+from repalis.models import Customer, Subscription
+from repalis.postgres import create_async_engine
 
 cli = typer.Typer()
 

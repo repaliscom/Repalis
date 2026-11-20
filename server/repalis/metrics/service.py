@@ -8,29 +8,29 @@ from zoneinfo import ZoneInfo
 import logfire
 from sqlalchemy import ColumnElement, FromClause, select, text
 
-from polar.auth.models import AuthSubject
-from polar.auth.permission import OrganizationPermission
-from polar.authz.service import (
+from repalis.auth.models import AuthSubject
+from repalis.auth.permission import OrganizationPermission
+from repalis.authz.service import (
     assert_organization_permission,
     assert_resource_permission,
     get_accessible_org_ids,
 )
-from polar.authz.types import AccessibleOrganizationID
-from polar.config import settings
-from polar.customer.repository import CustomerRepository
-from polar.kit.time_queries import TimeInterval, get_timestamp_series_cte
-from polar.models import (
+from repalis.authz.types import AccessibleOrganizationID
+from repalis.config import settings
+from repalis.customer.repository import CustomerRepository
+from repalis.kit.time_queries import TimeInterval, get_timestamp_series_cte
+from repalis.models import (
     Customer,
     MetricDashboard,
     Organization,
     Product,
     User,
 )
-from polar.models.product import ProductBillingType
-from polar.organization.resolver import get_payload_organization
-from polar.postgres import AsyncReadSession, AsyncSession
-from polar.product.repository import ProductRepository
-from polar.redis import Redis
+from repalis.models.product import ProductBillingType
+from repalis.organization.resolver import get_payload_organization
+from repalis.postgres import AsyncReadSession, AsyncSession
+from repalis.product.repository import ProductRepository
+from repalis.redis import Redis
 
 from .cache import build_cache_key, get_cached_metrics, set_cached_metrics
 from .metrics import (

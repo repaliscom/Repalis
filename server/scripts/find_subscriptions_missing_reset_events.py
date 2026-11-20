@@ -40,14 +40,14 @@ import structlog
 import typer
 from sqlalchemy import String, cast, select
 
-from polar.event.system import SystemEvent
-from polar.kit.db.postgres import create_async_sessionmaker
-from polar.models import BillingEntry, Event, Subscription
-from polar.models.billing_entry import BillingEntryType
-from polar.models.event import EventSource
-from polar.models.product_price import ProductPriceMeteredUnit
-from polar.models.subscription import SubscriptionStatus
-from polar.postgres import create_async_engine
+from repalis.event.system import SystemEvent
+from repalis.kit.db.postgres import create_async_sessionmaker
+from repalis.models import BillingEntry, Event, Subscription
+from repalis.models.billing_entry import BillingEntryType
+from repalis.models.event import EventSource
+from repalis.models.product_price import ProductPriceMeteredUnit
+from repalis.models.subscription import SubscriptionStatus
+from repalis.postgres import create_async_engine
 
 cli = typer.Typer()
 

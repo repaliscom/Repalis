@@ -5,10 +5,10 @@ from sqlalchemy import BigInteger, ForeignKey, String, Uuid
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import Mapped, declared_attr, mapped_column, relationship
 
-from polar.kit.db.models import RecordModel
+from repalis.kit.db.models import RecordModel
 
 if TYPE_CHECKING:
-    from polar.models import CreditNote
+    from repalis.models import CreditNote
 
 
 class CreditNoteItem(RecordModel):

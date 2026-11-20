@@ -16,23 +16,23 @@ import stripe as stripe_lib
 import typer
 from sqlalchemy import update
 
-from polar import tasks  # noqa: F401
-from polar.enums import PaymentMode, PaymentProcessor
-from polar.integrations.stripe import payment as stripe_payment
-from polar.integrations.stripe.service import stripe as stripe_service
-from polar.integrations.stripe.utils import get_expandable_id
-from polar.kit.db.postgres import create_async_sessionmaker
-from polar.models import Customer, Order, PaymentMethod, Subscription
-from polar.models.order import OrderStatus
-from polar.models.payment import PaymentTrigger
-from polar.order.repository import OrderRepository
-from polar.order.service import order as order_service
-from polar.payment_method.repository import PaymentMethodRepository
-from polar.payment_method.service import GENERATED_SEPA_PAYMENT_METHOD_TYPES
-from polar.payment_method.service import payment_method as payment_method_service
-from polar.postgres import AsyncSession, create_async_engine
-from polar.redis import create_redis
-from polar.worker import JobQueueManager
+from repalis import tasks  # noqa: F401
+from repalis.enums import PaymentMode, PaymentProcessor
+from repalis.integrations.stripe import payment as stripe_payment
+from repalis.integrations.stripe.service import stripe as stripe_service
+from repalis.integrations.stripe.utils import get_expandable_id
+from repalis.kit.db.postgres import create_async_sessionmaker
+from repalis.models import Customer, Order, PaymentMethod, Subscription
+from repalis.models.order import OrderStatus
+from repalis.models.payment import PaymentTrigger
+from repalis.order.repository import OrderRepository
+from repalis.order.service import order as order_service
+from repalis.payment_method.repository import PaymentMethodRepository
+from repalis.payment_method.service import GENERATED_SEPA_PAYMENT_METHOD_TYPES
+from repalis.payment_method.service import payment_method as payment_method_service
+from repalis.postgres import AsyncSession, create_async_engine
+from repalis.redis import create_redis
+from repalis.worker import JobQueueManager
 from scripts.helper import configure_script_console_logging, typer_async
 
 cli = typer.Typer()

@@ -16,8 +16,8 @@ from sqlalchemy import (
 )
 from sqlalchemy.orm import Mapped, declared_attr, mapped_column, relationship
 
-from polar.kit.db.models import RecordModel
-from polar.kit.utils import utc_now
+from repalis.kit.db.models import RecordModel
+from repalis.kit.utils import utc_now
 
 from .benefit import Benefit
 from .benefit_grant import BenefitGrant

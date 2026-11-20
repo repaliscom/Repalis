@@ -1,6 +1,6 @@
 from sqlalchemy import ColumnElement, Text, or_
 
-from polar.models import Organization
+from repalis.models import Organization
 
 
 def organization_ilike(term: str) -> ColumnElement[bool]:

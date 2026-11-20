@@ -4,9 +4,9 @@ from typing import Any
 import pytest
 from httpx2 import AsyncClient
 
-from polar.enums import SubscriptionRecurringInterval
-from polar.kit.utils import utc_now
-from polar.models import (
+from repalis.enums import SubscriptionRecurringInterval
+from repalis.kit.utils import utc_now
+from repalis.models import (
     Benefit,
     Catalog,
     Customer,
@@ -16,11 +16,11 @@ from polar.models import (
     ProductPriceFixed,
     UserOrganization,
 )
-from polar.models.catalog import CatalogStatus
-from polar.models.custom_field import CustomFieldType
-from polar.organization_review.repository import OrganizationRiskSignalRepository
-from polar.postgres import AsyncSession
-from polar.version import V2026_04, V2026_10, V2027_01
+from repalis.models.catalog import CatalogStatus
+from repalis.models.custom_field import CustomFieldType
+from repalis.organization_review.repository import OrganizationRiskSignalRepository
+from repalis.postgres import AsyncSession
+from repalis.version import V2026_04, V2026_10, V2027_01
 from tests.fixtures.auth import AuthSubjectFixture
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (

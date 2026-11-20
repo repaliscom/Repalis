@@ -3,7 +3,7 @@ from datetime import timedelta
 
 from sqlalchemy import func, over, select
 
-from polar.models import Organization, Subscription
+from repalis.models import Organization, Subscription
 
 from .base import Invariant, InvariantError
 

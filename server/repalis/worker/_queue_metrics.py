@@ -5,9 +5,9 @@ import structlog
 from prometheus_client import Gauge
 from redis import RedisError
 
-import polar.observability.metrics  # noqa: F401  # Sets PROMETHEUS_MULTIPROC_DIR
-from polar.logging import Logger
-from polar.redis import Redis
+import repalis.observability.metrics  # noqa: F401  # Sets PROMETHEUS_MULTIPROC_DIR
+from repalis.logging import Logger
+from repalis.redis import Redis
 
 from ._queues import TaskQueue
 

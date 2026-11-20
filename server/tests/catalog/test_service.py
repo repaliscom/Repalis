@@ -5,22 +5,22 @@ import pytest
 from pytest_mock import MockerFixture
 from sqlalchemy import update
 
-from polar.auth.models import AuthSubject
-from polar.auth.scope import Scope
-from polar.catalog.schemas import CatalogUpdate
-from polar.catalog.service import (
+from repalis.auth.models import AuthSubject
+from repalis.auth.scope import Scope
+from repalis.catalog.schemas import CatalogUpdate
+from repalis.catalog.service import (
     CatalogMembers,
     CatalogMissingCurrency,
     CatalogNotDraft,
     CatalogNotFound,
     CatalogRemovals,
 )
-from polar.catalog.service import catalog as catalog_service
-from polar.enums import TaxBehaviorOption
-from polar.exceptions import NotPermitted
-from polar.kit.currency import PresentmentCurrency
-from polar.kit.utils import utc_now
-from polar.models import (
+from repalis.catalog.service import catalog as catalog_service
+from repalis.enums import TaxBehaviorOption
+from repalis.exceptions import NotPermitted
+from repalis.kit.currency import PresentmentCurrency
+from repalis.kit.utils import utc_now
+from repalis.models import (
     Catalog,
     CatalogBenefit,
     CatalogMeter,
@@ -29,11 +29,11 @@ from polar.models import (
     User,
     UserOrganization,
 )
-from polar.models.catalog import CatalogStatus
-from polar.models.user_organization import OrganizationRole
-from polar.models.webhook_endpoint import WebhookEventType
-from polar.oauth2.exceptions import InsufficientScopeError
-from polar.postgres import AsyncSession
+from repalis.models.catalog import CatalogStatus
+from repalis.models.user_organization import OrganizationRole
+from repalis.models.webhook_endpoint import WebhookEventType
+from repalis.oauth2.exceptions import InsufficientScopeError
+from repalis.postgres import AsyncSession
 from tests.fixtures.auth import AuthSubjectFixture
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_benefit, create_meter, create_product
@@ -221,7 +221,7 @@ class TestPublishDraft:
         organization: Organization,
         catalogs: tuple[Catalog, Catalog, Catalog, Catalog],
     ) -> None:
-        send_mock = mocker.patch("polar.catalog.service.webhook_service.send")
+        send_mock = mocker.patch("repalis.catalog.service.webhook_service.send")
         _, _, draft, _ = catalogs
         draft.settings = {"default_tax_behavior": "exclusive"}
         organization.default_presentment_currency = PresentmentCurrency.eur
@@ -250,7 +250,7 @@ class TestPublishDraft:
         organization: Organization,
         catalogs: tuple[Catalog, Catalog, Catalog, Catalog],
     ) -> None:
-        send_mock = mocker.patch("polar.catalog.service.webhook_service.send")
+        send_mock = mocker.patch("repalis.catalog.service.webhook_service.send")
         _, _, draft, _ = catalogs
         draft.settings = {"default_tax_behavior": "location"}
         await save_fixture(draft)

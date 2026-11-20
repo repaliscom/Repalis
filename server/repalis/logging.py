@@ -7,8 +7,8 @@ from typing import Any
 import structlog
 from logfire.integrations.structlog import LogfireProcessor
 
-from polar.config import settings
-from polar.observability.task_logging import TaskLogFilter
+from repalis.config import settings
+from repalis.observability.task_logging import TaskLogFilter
 
 Logger = structlog.stdlib.BoundLogger
 
@@ -170,7 +170,7 @@ def configure(*, logfire: bool = False) -> None:
 
 class CorrelationID:
     _correlation_id: typing.ClassVar[contextvars.ContextVar[str | None]] = (
-        contextvars.ContextVar("polar.correlation_id", default=None)
+        contextvars.ContextVar("repalis.correlation_id", default=None)
     )
 
     @classmethod
@@ -194,7 +194,7 @@ class ClientContext:
     path — notably PostHog. Empty outside an HTTP request (e.g. workers)."""
 
     _client_context: typing.ClassVar[contextvars.ContextVar[dict[str, str] | None]] = (
-        contextvars.ContextVar("polar.client_context", default=None)
+        contextvars.ContextVar("repalis.client_context", default=None)
     )
 
     @classmethod

@@ -3,13 +3,13 @@ from decimal import Decimal
 
 import pytest
 
-from polar.enums import SubscriptionRecurringInterval
-from polar.kit.utils import utc_now
-from polar.meter.repository import MeterRepository
-from polar.models import Catalog, Customer, Meter, Organization
-from polar.models.catalog import CatalogStatus
-from polar.models.customer_seat import SeatStatus
-from polar.postgres import AsyncSession
+from repalis.enums import SubscriptionRecurringInterval
+from repalis.kit.utils import utc_now
+from repalis.meter.repository import MeterRepository
+from repalis.models import Catalog, Customer, Meter, Organization
+from repalis.models.catalog import CatalogStatus
+from repalis.models.customer_seat import SeatStatus
+from repalis.postgres import AsyncSession
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (
     create_active_subscription,

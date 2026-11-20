@@ -41,7 +41,7 @@ polar/{module}/
 
 ```python
 # polar/{module}/repository.py
-from polar.kit.repository import (
+from repalis.kit.repository import (
     RepositoryBase,
     RepositorySoftDeletionMixin,
     RepositorySortingMixin,
@@ -172,9 +172,9 @@ See the handbook's [API versioning guide](https://linear.app/polarsh/document/ap
 # polar/{module}/schemas.py
 from pydantic import Field
 
-from polar.kit.schemas import MultipleQueryFilter
-from polar.kit.versioning import QuerySchema
-from polar.organization.schemas import OrganizationID
+from repalis.kit.schemas import MultipleQueryFilter
+from repalis.kit.versioning import QuerySchema
+from repalis.organization.schemas import OrganizationID
 
 
 class ResourceListParams(QuerySchema):
@@ -188,7 +188,7 @@ from typing import Annotated
 
 from fastapi import Query
 
-from polar.kit.pagination import ListResource, Pagination, PaginationParamsQuery
+from repalis.kit.pagination import ListResource, Pagination, PaginationParamsQuery
 
 router = APIRouter(prefix="/resources", tags=["resources"])
 
@@ -243,9 +243,9 @@ Define per-module authenticators in the module's `auth.py`:
 
 ```python
 # polar/{module}/auth.py
-from polar.auth.dependencies import Authenticator
-from polar.auth.models import AuthSubject
-from polar.auth.scope import Scope
+from repalis.auth.dependencies import Authenticator
+from repalis.auth.models import AuthSubject
+from repalis.auth.scope import Scope
 
 ResourcesRead = Annotated[
     AuthSubject[User | Organization],
@@ -276,7 +276,7 @@ dependencies from `polar/auth/dependencies.py` instead of defining your own: `We
 
 ```python
 # polar/{module}/schemas.py
-from polar.kit.schemas import IDSchema, Schema, TimestampedSchema
+from repalis.kit.schemas import IDSchema, Schema, TimestampedSchema
 
 
 class ResourceBase(Schema):
@@ -307,8 +307,8 @@ class ResourceUpdate(Schema):
 # polar/{module}/tasks.py
 from typing import Annotated
 
-from polar.observability.task_logging import LoggableField
-from polar.worker import AsyncSessionMaker, TaskPriority, actor, enqueue_job
+from repalis.observability.task_logging import LoggableField
+from repalis.worker import AsyncSessionMaker, TaskPriority, actor, enqueue_job
 
 
 class ResourceTaskError(PolarTaskError): ...
@@ -405,7 +405,7 @@ Name the singleton the bare domain noun in its module; importers alias it with a
 # service.py
 appeal_case = AppealCaseService()
 # caller
-from polar.organization_review.appeal_case import appeal_case as appeal_case_service
+from repalis.organization_review.appeal_case import appeal_case as appeal_case_service
 ```
 
 ### Creating ORM objects — pass objects, not ids

@@ -8,20 +8,20 @@ from fastapi import Depends, Request
 from sse_starlette.sse import EventSourceResponse
 from standardwebhooks.webhooks import Webhook as StandardWebhook
 
-from polar.cli import auth
-from polar.cli.listener import mark_active, mark_inactive
-from polar.cli.schemas import TriggerEvent, TriggerRequest, TriggerResponse
-from polar.cli.service import NoActiveListener, list_trigger_events, trigger_event
-from polar.eventstream.endpoints import subscribe
-from polar.eventstream.service import Receivers
-from polar.exceptions import ResourceNotFound
-from polar.kit.utils import utc_now
-from polar.openapi import APITag
-from polar.organization.schemas import OrganizationID
-from polar.organization.service import organization as organization_service
-from polar.postgres import AsyncSession, get_db_session
-from polar.redis import Redis, get_redis
-from polar.routing import APIRouter
+from repalis.cli import auth
+from repalis.cli.listener import mark_active, mark_inactive
+from repalis.cli.schemas import TriggerEvent, TriggerRequest, TriggerResponse
+from repalis.cli.service import NoActiveListener, list_trigger_events, trigger_event
+from repalis.eventstream.endpoints import subscribe
+from repalis.eventstream.service import Receivers
+from repalis.exceptions import ResourceNotFound
+from repalis.kit.utils import utc_now
+from repalis.openapi import APITag
+from repalis.organization.schemas import OrganizationID
+from repalis.organization.service import organization as organization_service
+from repalis.postgres import AsyncSession, get_db_session
+from repalis.redis import Redis, get_redis
+from repalis.routing import APIRouter
 
 log = structlog.get_logger()
 

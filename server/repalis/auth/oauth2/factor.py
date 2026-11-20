@@ -5,9 +5,9 @@ from reauth.factors.oauth2.base import OAuth2Account
 from reauth.factors.oauth2.base import OAuth2Enrollment as OAuth2EnrollmentDataclass
 from sqlalchemy import select, update
 
-from polar.models import OAuthAccount
-from polar.models.user import OAuthPlatform
-from polar.postgres import AsyncSession
+from repalis.models import OAuthAccount
+from repalis.models.user import OAuthPlatform
+from repalis.postgres import AsyncSession
 
 
 class OAuth2FactorProtocol(typing.Protocol):

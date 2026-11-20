@@ -4,7 +4,7 @@ import pytest
 from typer.testing import CliRunner
 
 import scripts.tinybird as tinybird_script
-from polar.config import settings
+from repalis.config import settings
 from scripts.tinybird import build_tb_command, cli, validate_tinybird_target
 
 runner = CliRunner()

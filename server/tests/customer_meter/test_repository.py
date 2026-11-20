@@ -3,14 +3,14 @@ import uuid
 import pytest
 from pytest_mock import MockerFixture
 
-from polar.customer_meter.repository import CustomerMeterRepository
-from polar.meter.aggregation import (
+from repalis.customer_meter.repository import CustomerMeterRepository
+from repalis.meter.aggregation import (
     AggregationFunction,
     PropertyAggregation,
 )
-from polar.meter.filter import Filter, FilterClause, FilterConjunction, FilterOperator
-from polar.models import Customer, CustomerMeter, Meter, Organization
-from polar.postgres import AsyncSession
+from repalis.meter.filter import Filter, FilterClause, FilterConjunction, FilterOperator
+from repalis.models import Customer, CustomerMeter, Meter, Organization
+from repalis.postgres import AsyncSession
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_meter
 

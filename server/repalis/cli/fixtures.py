@@ -8,12 +8,12 @@ from pydantic import TypeAdapter
 from sqlalchemy import Column, ColumnDefault
 from sqlalchemy.orm import class_mapper
 
-from polar.customer.schemas.state import CustomerState
-from polar.enums import PaymentProcessor, SubscriptionRecurringInterval, TaxBehavior
-from polar.kit.address import Address
-from polar.kit.utils import utc_now
-from polar.kit.visibility import Visibility
-from polar.models import (
+from repalis.customer.schemas.state import CustomerState
+from repalis.enums import PaymentProcessor, SubscriptionRecurringInterval, TaxBehavior
+from repalis.kit.address import Address
+from repalis.kit.utils import utc_now
+from repalis.kit.visibility import Visibility
+from repalis.models import (
     Benefit,
     BenefitGrant,
     Checkout,
@@ -31,19 +31,19 @@ from polar.models import (
     Subscription,
     SubscriptionProductPrice,
 )
-from polar.models.benefit import BenefitType
-from polar.models.checkout import CheckoutStatus
-from polar.models.customer_seat import SeatStatus
-from polar.models.discount import DiscountDuration, DiscountPercentage, DiscountType
-from polar.models.member import MemberRole
-from polar.models.order import OrderBillingReasonInternal, OrderStatus
-from polar.models.payment import PaymentStatus
-from polar.models.product_price import ProductPriceSource
-from polar.models.refund import RefundReason, RefundStatus
-from polar.models.subscription import SubscriptionStatus
-from polar.models.webhook_endpoint import WebhookEventType
-from polar.version import CURRENT_API_VERSION
-from polar.webhook.webhooks import BaseWebhookPayload, WebhookPayloadTypeAdapter
+from repalis.models.benefit import BenefitType
+from repalis.models.checkout import CheckoutStatus
+from repalis.models.customer_seat import SeatStatus
+from repalis.models.discount import DiscountDuration, DiscountPercentage, DiscountType
+from repalis.models.member import MemberRole
+from repalis.models.order import OrderBillingReasonInternal, OrderStatus
+from repalis.models.payment import PaymentStatus
+from repalis.models.product_price import ProductPriceSource
+from repalis.models.refund import RefundReason, RefundStatus
+from repalis.models.subscription import SubscriptionStatus
+from repalis.models.webhook_endpoint import WebhookEventType
+from repalis.version import CURRENT_API_VERSION
+from repalis.webhook.webhooks import BaseWebhookPayload, WebhookPayloadTypeAdapter
 
 _CustomerStateAdapter: TypeAdapter[CustomerState] = TypeAdapter(CustomerState)
 

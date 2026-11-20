@@ -14,16 +14,16 @@ import typer
 from sqlalchemy import select
 from sqlalchemy.dialects.postgresql import insert
 
-from polar import tasks  # noqa: F401
-from polar.event.service import event as event_service
-from polar.integrations.tinybird.client import TinybirdClient, client
-from polar.kit.db.postgres import AsyncSession, create_async_sessionmaker
-from polar.kit.utils import utc_now
-from polar.models import Customer, Event
-from polar.models.event import EventSource
-from polar.postgres import create_async_engine
-from polar.redis import create_redis
-from polar.worker import JobQueueManager
+from repalis import tasks  # noqa: F401
+from repalis.event.service import event as event_service
+from repalis.integrations.tinybird.client import TinybirdClient, client
+from repalis.kit.db.postgres import AsyncSession, create_async_sessionmaker
+from repalis.kit.utils import utc_now
+from repalis.models import Customer, Event
+from repalis.models.event import EventSource
+from repalis.postgres import create_async_engine
+from repalis.redis import create_redis
+from repalis.worker import JobQueueManager
 
 cli = typer.Typer()
 

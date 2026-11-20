@@ -10,7 +10,7 @@ from sqlalchemy import CHAR, BigInteger, ForeignKey, SmallInteger, Uuid
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import Mapped, mapped_column
 
-from polar.kit.db.models import RecordModel
+from repalis.kit.db.models import RecordModel
 
 
 class AuthenticationSession(RecordModel):

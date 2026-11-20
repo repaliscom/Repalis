@@ -4,8 +4,8 @@ from typing import TYPE_CHECKING, Any, Self
 from fpdf.enums import Align, TableBordersLayout, XPos, YPos
 from pydantic import BaseModel, Field
 
-from polar.config import settings
-from polar.invoice.generator import (
+from repalis.config import settings
+from repalis.invoice.generator import (
     Invoice,
     InvoiceGenerator,
     InvoiceHeadingItem,
@@ -14,12 +14,12 @@ from polar.invoice.generator import (
     escape_markdown,
     format_date,
 )
-from polar.invoice.seller import get_polar_additional_info
-from polar.kit.currency import format_currency
-from polar.kit.utils import utc_now
+from repalis.invoice.seller import get_polar_additional_info
+from repalis.kit.currency import format_currency
+from repalis.kit.utils import utc_now
 
 if TYPE_CHECKING:
-    from polar.models import Order, Payment, Refund
+    from repalis.models import Order, Payment, Refund
 
 
 class ReceiptRefund(BaseModel):

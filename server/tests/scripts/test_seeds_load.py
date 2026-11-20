@@ -12,11 +12,11 @@ from sqlalchemy import event as sqlalchemy_event
 from sqlalchemy.ext.asyncio import AsyncSession as SQLAlchemyAsyncSession
 from typer.testing import CliRunner
 
-from polar.event.repository import EventRepository
-from polar.integrations.tinybird.client import client as tinybird_client
-from polar.integrations.tinybird.service import DATASOURCE_EVENTS
-from polar.kit.db.postgres import AsyncSession
-from polar.models import (
+from repalis.event.repository import EventRepository
+from repalis.integrations.tinybird.client import client as tinybird_client
+from repalis.integrations.tinybird.service import DATASOURCE_EVENTS
+from repalis.kit.db.postgres import AsyncSession
+from repalis.models import (
     Benefit,
     Checkout,
     CheckoutLink,
@@ -41,8 +41,8 @@ from polar.models import (
     SupportCase,
     UserOrganization,
 )
-from polar.models.subscription import SubscriptionStatus
-from polar.redis import Redis
+from repalis.models.subscription import SubscriptionStatus
+from repalis.redis import Redis
 from scripts.seed_repalis_for_repalis import BENEFITS as POLAR_SELF_BENEFITS
 from scripts.seed_repalis_for_repalis import PRODUCTS as POLAR_SELF_PRODUCTS
 from scripts.seeds_load import (

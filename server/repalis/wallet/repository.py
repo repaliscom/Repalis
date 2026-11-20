@@ -4,9 +4,9 @@ from uuid import UUID
 from sqlalchemy import Select, func, select
 from sqlalchemy.orm import contains_eager, joinedload
 
-from polar.authz.types import AccessibleOrganizationID
-from polar.kit.pagination import PaginationParams
-from polar.kit.repository import (
+from repalis.authz.types import AccessibleOrganizationID
+from repalis.kit.pagination import PaginationParams
+from repalis.kit.repository import (
     Options,
     RepositoryBase,
     RepositoryIDMixin,
@@ -15,8 +15,8 @@ from polar.kit.repository import (
     RepositorySortingMixin,
     SortingClause,
 )
-from polar.models import Customer, Wallet, WalletTransaction
-from polar.models.wallet import WalletType
+from repalis.models import Customer, Wallet, WalletTransaction
+from repalis.models.wallet import WalletType
 
 from .sorting import WalletSortProperty
 

@@ -3,8 +3,8 @@ from uuid import UUID
 
 from pydantic import UUID4, Field
 
-from polar.kit.schemas import Schema, TimestampedSchema
-from polar.models.feedback import FeedbackStatus, FeedbackType
+from repalis.kit.schemas import Schema, TimestampedSchema
+from repalis.models.feedback import FeedbackStatus, FeedbackType
 
 
 class FeedbackCreate(Schema):

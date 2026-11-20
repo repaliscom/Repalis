@@ -3,21 +3,21 @@ from collections.abc import Awaitable, Callable
 import pytest
 from pytest_mock import MockerFixture
 
-from polar.enums import SubscriptionProrationBehavior, SubscriptionRecurringInterval
-from polar.kit.utils import utc_now
-from polar.models import (
+from repalis.enums import SubscriptionProrationBehavior, SubscriptionRecurringInterval
+from repalis.kit.utils import utc_now
+from repalis.models import (
     Customer,
     Organization,
     Product,
     SubscriptionBulkUpdate,
 )
-from polar.postgres import AsyncSession
-from polar.subscription.bulk_update import (
+from repalis.postgres import AsyncSession
+from repalis.subscription.bulk_update import (
     subscription_bulk_update as subscription_bulk_update_service,
 )
-from polar.subscription.repository import SubscriptionRepository
-from polar.subscription.service import SubscriptionUpdateContext
-from polar.subscription.service import subscription as subscription_service
+from repalis.subscription.repository import SubscriptionRepository
+from repalis.subscription.service import SubscriptionUpdateContext
+from repalis.subscription.service import subscription as subscription_service
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_active_subscription, create_product
 
@@ -46,8 +46,8 @@ def start_bulk_update(
     old_pro: Product,
 ) -> StartBulkUpdate:
     """Publish a new Pro priced in `currency` and start moving subscriptions to it."""
-    mocker.patch("polar.subscription.bulk_update.enqueue_job")
-    mocker.patch("polar.subscription.service.enqueue_job")
+    mocker.patch("repalis.subscription.bulk_update.enqueue_job")
+    mocker.patch("repalis.subscription.service.enqueue_job")
 
     async def start(currency: str) -> SubscriptionBulkUpdate:
         old_pro.is_current = False

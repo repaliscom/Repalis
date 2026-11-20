@@ -6,19 +6,19 @@ import structlog
 from sqlalchemy import Select, func, select
 from sqlalchemy.orm import joinedload
 
-from polar.auth.models import AuthSubject, Customer, Member
-from polar.auth.permission import OrganizationPermission
-from polar.authz.service import get_accessible_org_ids
-from polar.benefit.grant.repository import BenefitGrantRepository
-from polar.benefit.strategies import BenefitGrantProperties
-from polar.benefit.strategies.license_keys.properties import (
+from repalis.auth.models import AuthSubject, Customer, Member
+from repalis.auth.permission import OrganizationPermission
+from repalis.authz.service import get_accessible_org_ids
+from repalis.benefit.grant.repository import BenefitGrantRepository
+from repalis.benefit.strategies import BenefitGrantProperties
+from repalis.benefit.strategies.license_keys.properties import (
     BenefitLicenseKeyExpirationProperties,
     BenefitLicenseKeysProperties,
 )
-from polar.exceptions import BadRequest, NotPermitted, PolarError, ResourceNotFound
-from polar.kit.pagination import PaginationParams, paginate
-from polar.kit.utils import utc_now
-from polar.models import (
+from repalis.exceptions import BadRequest, NotPermitted, PolarError, ResourceNotFound
+from repalis.kit.pagination import PaginationParams, paginate
+from repalis.kit.utils import utc_now
+from repalis.models import (
     Benefit,
     BenefitGrant,
     LicenseKey,
@@ -26,11 +26,11 @@ from polar.models import (
     Organization,
     User,
 )
-from polar.models.license_key import LicenseKeyStatus
-from polar.models.webhook_endpoint import WebhookEventType
-from polar.postgres import AsyncReadSession, AsyncSession
-from polar.webhook.service import webhook as webhook_service
-from polar.worker import enqueue_job
+from repalis.models.license_key import LicenseKeyStatus
+from repalis.models.webhook_endpoint import WebhookEventType
+from repalis.postgres import AsyncReadSession, AsyncSession
+from repalis.webhook.service import webhook as webhook_service
+from repalis.worker import enqueue_job
 
 from .repository import LicenseKeyRepository
 from .schemas import (

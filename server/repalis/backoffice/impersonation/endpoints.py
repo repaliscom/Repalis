@@ -12,16 +12,16 @@ from fastapi import (
 from fastapi.responses import RedirectResponse
 from sqlalchemy import select
 
-from polar.auth.scope import READ_ONLY_SCOPES
-from polar.auth.service import auth as auth_service
-from polar.backoffice.routing import BackofficeRouter
-from polar.config import settings
-from polar.kit.http import is_localhost
-from polar.models import (
+from repalis.auth.scope import READ_ONLY_SCOPES
+from repalis.auth.service import auth as auth_service
+from repalis.backoffice.routing import BackofficeRouter
+from repalis.config import settings
+from repalis.kit.http import is_localhost
+from repalis.models import (
     User,
 )
-from polar.organization.repository import OrganizationRepository
-from polar.postgres import AsyncSession, get_db_session
+from repalis.organization.repository import OrganizationRepository
+from repalis.postgres import AsyncSession, get_db_session
 
 from ..responses import HXRedirectResponse
 

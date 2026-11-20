@@ -1,26 +1,26 @@
 from collections.abc import Sequence
 from uuid import UUID
 
-from polar.auth.models import AuthSubject
-from polar.auth.permission import OrganizationPermission
-from polar.authz.service import (
+from repalis.auth.models import AuthSubject
+from repalis.auth.permission import OrganizationPermission
+from repalis.authz.service import (
     assert_resource_permission,
     get_accessible_org_ids,
 )
-from polar.customer.repository import CustomerRepository
-from polar.event.system import SYSTEM_EVENT_LABELS
-from polar.event.tinybird_repository import TinybirdEventRepository
-from polar.event_type.repository import EventTypeRepository
-from polar.event_type.schemas import EventTypeWithStats
-from polar.event_type.sorting import EventTypesSortProperty
-from polar.integrations.tinybird.service import (
+from repalis.customer.repository import CustomerRepository
+from repalis.event.system import SYSTEM_EVENT_LABELS
+from repalis.event.tinybird_repository import TinybirdEventRepository
+from repalis.event_type.repository import EventTypeRepository
+from repalis.event_type.schemas import EventTypeWithStats
+from repalis.event_type.sorting import EventTypesSortProperty
+from repalis.integrations.tinybird.service import (
     TinybirdEventTypeStats,
 )
-from polar.kit.pagination import PaginationParams
-from polar.kit.sorting import Sorting
-from polar.models import EventType, Organization, User
-from polar.models.event import EventSource
-from polar.postgres import AsyncReadSession, AsyncSession
+from repalis.kit.pagination import PaginationParams
+from repalis.kit.sorting import Sorting
+from repalis.models import EventType, Organization, User
+from repalis.models.event import EventSource
+from repalis.postgres import AsyncReadSession, AsyncSession
 
 
 class EventTypeService:

@@ -7,10 +7,10 @@ Runs every Monday at 9 AM UTC and sends the report to Slack.
 import httpx2
 import structlog
 
-from polar.config import Environment, settings
-from polar.integrations.slack.client import client as slack_client
-from polar.logging import Logger
-from polar.worker import CronTrigger, TaskPriority, actor
+from repalis.config import Environment, settings
+from repalis.integrations.slack.client import client as slack_client
+from repalis.logging import Logger
+from repalis.worker import CronTrigger, TaskPriority, actor
 
 from .client import GrafanaCloudAPIError, GrafanaCloudConfigError
 from .service import slo_report_service

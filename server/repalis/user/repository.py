@@ -3,14 +3,14 @@ from uuid import UUID
 
 from sqlalchemy import func, or_
 
-from polar.kit.repository import (
+from repalis.kit.repository import (
     RepositoryBase,
     RepositorySoftDeletionIDMixin,
     RepositorySoftDeletionMixin,
     RepositorySortingMixin,
 )
-from polar.kit.repository.base import SortingClause
-from polar.models import OAuthAccount, User
+from repalis.kit.repository.base import SortingClause
+from repalis.models import OAuthAccount, User
 
 from .sorting import UserSortProperty
 

@@ -4,7 +4,7 @@ from uuid import UUID
 from sqlalchemy import ForeignKey, Uuid
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from polar.kit.db.models import Model
+from repalis.kit.db.models import Model
 
 if TYPE_CHECKING:
     from .meter import Meter

@@ -1,6 +1,6 @@
-from polar.config import settings
-from polar.integrations.aws.s3 import S3Service
-from polar.models.file import FileServiceTypes
+from repalis.config import settings
+from repalis.integrations.aws.s3 import S3Service
+from repalis.models.file import FileServiceTypes
 
 
 def _get_s3_service(bucket: str) -> S3Service:

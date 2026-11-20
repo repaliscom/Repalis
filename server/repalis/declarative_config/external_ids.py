@@ -4,12 +4,12 @@ from uuid import UUID
 
 from sqlalchemy import Select
 
-from polar.benefit.repository import BenefitRepository
-from polar.exceptions import PolarRequestValidationError, ValidationError
-from polar.meter.repository import MeterRepository
-from polar.models import Benefit, Meter, Organization, Product
-from polar.postgres import AsyncSession
-from polar.product.repository import ProductRepository
+from repalis.benefit.repository import BenefitRepository
+from repalis.exceptions import PolarRequestValidationError, ValidationError
+from repalis.meter.repository import MeterRepository
+from repalis.models import Benefit, Meter, Organization, Product
+from repalis.postgres import AsyncSession
+from repalis.product.repository import ProductRepository
 
 from .schemas import ConfigExternalIDAssignment, ConfigResource
 

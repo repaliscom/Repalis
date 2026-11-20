@@ -26,12 +26,12 @@ from sqlalchemy.orm import (
     relationship,
 )
 
-from polar.kit.db.models import RecordModel
-from polar.observability.task_logging import LoggableField
+from repalis.kit.db.models import RecordModel
+from repalis.observability.task_logging import LoggableField
 
 if TYPE_CHECKING:
-    from polar.benefit.strategies import BenefitGrantProperties
-    from polar.models import Benefit, Customer, Member, Order, Subscription
+    from repalis.benefit.strategies import BenefitGrantProperties
+    from repalis.models import Benefit, Customer, Member, Order, Subscription
 
 
 class BenefitGrantError(TypedDict):

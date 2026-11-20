@@ -1,4 +1,4 @@
-from polar.models.organization_risk_signal import OrganizationRiskSignal
+from repalis.models.organization_risk_signal import OrganizationRiskSignal
 
 from ..schemas import RiskSignalData, RiskSignalEntry
 

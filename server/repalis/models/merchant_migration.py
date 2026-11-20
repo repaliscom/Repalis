@@ -6,9 +6,9 @@ from sqlalchemy import ForeignKey, Uuid
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import Mapped, declared_attr, mapped_column, relationship
 
-from polar.kit.db.models import RecordModel
-from polar.kit.extensions.sqlalchemy.types import StringEnum
-from polar.merchant_migration.pan_transfer import (
+from repalis.kit.db.models import RecordModel
+from repalis.kit.extensions.sqlalchemy.types import StringEnum
+from repalis.merchant_migration.pan_transfer import (
     PanTransferMethod,
     PanTransferStep,
     PanTransferStepsType,
@@ -20,7 +20,7 @@ from .merchant_migration_operation import (
 )
 
 if TYPE_CHECKING:
-    from polar.models.organization import Organization
+    from repalis.models.organization import Organization
 
 
 class MerchantMigrationSourcePlatform(StrEnum):

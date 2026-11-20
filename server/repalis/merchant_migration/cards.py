@@ -12,12 +12,12 @@ from uuid import UUID
 
 import stripe as stripe_lib
 
-from polar.customer.repository import CustomerRepository
-from polar.integrations.stripe.service import stripe as stripe_service
-from polar.integrations.stripe.utils import get_expandable_id
-from polar.models import Customer, PaymentMethod
-from polar.payment_method.service import payment_method as payment_method_service
-from polar.postgres import AsyncSession
+from repalis.customer.repository import CustomerRepository
+from repalis.integrations.stripe.service import stripe as stripe_service
+from repalis.integrations.stripe.utils import get_expandable_id
+from repalis.models import Customer, PaymentMethod
+from repalis.payment_method.service import payment_method as payment_method_service
+from repalis.postgres import AsyncSession
 
 from .canonical import CanonicalPaymentMethod
 from .errors import MerchantMigrationError

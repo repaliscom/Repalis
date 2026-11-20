@@ -5,7 +5,7 @@ from collections.abc import Callable
 from fastapi.params import Depends
 from fastapi.routing import APIRoute
 
-from polar.auth.dependencies import _Authenticator
+from repalis.auth.dependencies import _Authenticator
 
 
 def _find_authenticator(dependency: typing.Any) -> _Authenticator | None:

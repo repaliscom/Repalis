@@ -1,11 +1,11 @@
 import pytest
 
-from polar.benefit.grant.repository import BenefitGrantRepository
-from polar.benefit.strategies import BenefitActionRequiredError
-from polar.kit.utils import utc_now
-from polar.models import BenefitGrant, Customer, Member, Organization, Payment, Product
-from polar.models.benefit import BenefitType
-from polar.postgres import AsyncSession
+from repalis.benefit.grant.repository import BenefitGrantRepository
+from repalis.benefit.strategies import BenefitActionRequiredError
+from repalis.kit.utils import utc_now
+from repalis.models import BenefitGrant, Customer, Member, Organization, Payment, Product
+from repalis.models.benefit import BenefitType
+from repalis.postgres import AsyncSession
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_benefit, create_order, create_refund
 

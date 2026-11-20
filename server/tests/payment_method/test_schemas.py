@@ -4,7 +4,7 @@ from uuid import uuid4
 
 import pytest
 
-from polar.payment_method.schemas import (
+from repalis.payment_method.schemas import (
     PaymentMethodCard,
     PaymentMethodGeneric,
     PaymentMethodKrCard,

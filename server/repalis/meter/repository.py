@@ -4,13 +4,13 @@ from uuid import UUID
 from sqlalchemy import ColumnElement, Select, case, exists, func, or_, select
 from sqlalchemy.orm import undefer, with_polymorphic
 
-from polar.authz.types import AccessibleOrganizationID
-from polar.kit.repository import (
+from repalis.authz.types import AccessibleOrganizationID
+from repalis.kit.repository import (
     RepositoryBase,
     RepositoryExternalIDMixin,
     RepositoryIDMixin,
 )
-from polar.models import (
+from repalis.models import (
     Catalog,
     CatalogMeter,
     CustomerSeat,
@@ -21,9 +21,9 @@ from polar.models import (
     Subscription,
     SubscriptionProductPrice,
 )
-from polar.models.catalog import CatalogStatus
-from polar.models.customer_seat import SeatStatus
-from polar.models.subscription import SubscriptionStatus
+from repalis.models.catalog import CatalogStatus
+from repalis.models.customer_seat import SeatStatus
+from repalis.models.subscription import SubscriptionStatus
 
 
 class MeterRepository(

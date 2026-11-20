@@ -3,8 +3,8 @@ from typing import Any
 
 from fastapi import Depends, Request
 
-from polar.kit.signer import get_published_signers
-from polar.routing import APIRouter
+from repalis.kit.signer import get_published_signers
+from repalis.routing import APIRouter
 
 from ..authorization_server import AuthorizationServer
 from ..dependencies import get_authorization_server

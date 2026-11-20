@@ -3,7 +3,7 @@ from typing import Any
 from pydantic import field_validator
 from pydantic_extra_types.color import Color
 
-from polar.kit.schemas import Schema
+from repalis.kit.schemas import Schema
 
 
 class DiscordGuildRole(Schema):

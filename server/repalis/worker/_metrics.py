@@ -3,16 +3,16 @@ from typing import Any
 
 import dramatiq
 
-from polar.observability import (
+from repalis.observability import (
     TASK_DURATION,
     TASK_EXECUTIONS,
     TASK_RETRIES,
 )
-from polar.observability.memory_profile import (
+from repalis.observability.memory_profile import (
     start_memory_profiler,
     stop_memory_profiler,
 )
-from polar.observability.remote_write import start_remote_write_pusher
+from repalis.observability.remote_write import start_remote_write_pusher
 
 
 class PrometheusMiddleware(dramatiq.Middleware):

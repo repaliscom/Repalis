@@ -5,9 +5,9 @@ from typing import Annotated, Any, Self
 
 from pydantic import UUID4, Field, computed_field
 
-from polar.kit.schemas import IDSchema, Schema, StripValidator
-from polar.kit.utils import human_readable_size
-from polar.organization.schemas import OrganizationID
+from repalis.kit.schemas import IDSchema, Schema, StripValidator
+from repalis.kit.utils import human_readable_size
+from repalis.organization.schemas import OrganizationID
 
 
 class S3FileCreatePart(Schema):

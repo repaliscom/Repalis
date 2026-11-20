@@ -2,45 +2,45 @@ from uuid import UUID
 
 from fastapi import Depends, Request
 
-from polar.auth.dependencies import Authenticator
-from polar.auth.exceptions import SessionNotFreshError
-from polar.auth.models import AuthSubject
-from polar.authz.dependencies import (
+from repalis.auth.dependencies import Authenticator
+from repalis.auth.exceptions import SessionNotFreshError
+from repalis.auth.models import AuthSubject
+from repalis.authz.dependencies import (
     AuthorizeUserRead,
     AuthorizeUserWrite,
     AuthorizeWebUserRead,
     AuthorizeWebUserWrite,
     AuthorizeWebUserWriteFresh,
 )
-from polar.authz.repository import AuthzRepository
-from polar.customer_portal.endpoints.downloadables import router as downloadables_router
-from polar.customer_portal.endpoints.license_keys import router as license_keys_router
-from polar.customer_portal.endpoints.order import router as order_router
-from polar.customer_portal.endpoints.subscription import router as subscription_router
-from polar.exceptions import ResourceNotFound
-from polar.kit.http import get_ip_address
-from polar.models import User
-from polar.models.user import OAuthPlatform
-from polar.openapi import APITag
-from polar.organization.schemas import OrganizationWithRole
-from polar.postgres import (
+from repalis.authz.repository import AuthzRepository
+from repalis.customer_portal.endpoints.downloadables import router as downloadables_router
+from repalis.customer_portal.endpoints.license_keys import router as license_keys_router
+from repalis.customer_portal.endpoints.order import router as order_router
+from repalis.customer_portal.endpoints.subscription import router as subscription_router
+from repalis.exceptions import ResourceNotFound
+from repalis.kit.http import get_ip_address
+from repalis.models import User
+from repalis.models.user import OAuthPlatform
+from repalis.openapi import APITag
+from repalis.organization.schemas import OrganizationWithRole
+from repalis.postgres import (
     AsyncReadSession,
     AsyncSession,
     get_db_read_session,
     get_db_session,
 )
-from polar.routing import APIRouter
-from polar.user.oauth_service import oauth_account_service
-from polar.user.service import user as user_service
-from polar.user_organization.repository import UserOrganizationRepository
-from polar.user_organization.schemas import (
+from repalis.routing import APIRouter
+from repalis.user.oauth_service import oauth_account_service
+from repalis.user.service import user as user_service
+from repalis.user_organization.repository import UserOrganizationRepository
+from repalis.user_organization.schemas import (
     UserOrganizationNotificationSettings,
     UserOrganizationNotificationSettingsUpdate,
 )
-from polar.user_organization.service import (
+from repalis.user_organization.service import (
     UserNotMemberOfOrganization,
 )
-from polar.user_organization.service import (
+from repalis.user_organization.service import (
     user_organization as user_organization_service,
 )
 

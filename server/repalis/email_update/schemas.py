@@ -1,8 +1,8 @@
 from pydantic import field_validator
 
-from polar.kit.email import EmailStrDNS
-from polar.kit.http import get_safe_return_url
-from polar.kit.schemas import Schema
+from repalis.kit.email import EmailStrDNS
+from repalis.kit.http import get_safe_return_url
+from repalis.kit.schemas import Schema
 
 
 class EmailUpdateRequest(Schema):

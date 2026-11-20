@@ -35,13 +35,13 @@ import stripe as stripe_lib
 from httpx2 import AsyncClient
 from sqlalchemy import select
 
-from polar.auth.scope import Scope
-from polar.enums import SubscriptionRecurringInterval
-from polar.kit.db.postgres import AsyncSession
-from polar.kit.trial import TrialInterval
-from polar.models import Meter, Order, Organization, Product
-from polar.subscription.repository import SubscriptionRepository
-from polar.worker import JobQueueManager
+from repalis.auth.scope import Scope
+from repalis.enums import SubscriptionRecurringInterval
+from repalis.kit.db.postgres import AsyncSession
+from repalis.kit.trial import TrialInterval
+from repalis.models import Meter, Order, Organization, Product
+from repalis.subscription.repository import SubscriptionRepository
+from repalis.worker import JobQueueManager
 from tests.e2e.infra import DrainFn, SchedulerSimulator, StripeSimulator
 from tests.e2e.infra.stripe_simulator import simulate_webhook
 from tests.e2e.purchase.conftest import BILLING_ADDRESS, BUYER_EMAIL, BUYER_NAME

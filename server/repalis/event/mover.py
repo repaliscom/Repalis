@@ -12,22 +12,22 @@ import dramatiq
 import logfire
 import structlog
 
-from polar import tasks  # noqa: F401
-from polar.config import settings
-from polar.event.repository import EventRepository
-from polar.event.service import event as event_service
-from polar.kit.db.postgres import create_async_sessionmaker
-from polar.kit.utils import utc_now
-from polar.logfire import configure_logfire
-from polar.logging import Logger
-from polar.logging import configure as configure_logging
-from polar.observability import STAGED_EVENTS_BACKLOG, STAGED_EVENTS_OLDEST_AGE
-from polar.observability.remote_write import start_remote_write_pusher
-from polar.postgres import AsyncSession, create_async_engine
-from polar.redis import create_redis
-from polar.sentry import configure_sentry
-from polar.worker import JobQueueManager
-from polar.worker._health import _run_exposition_server, set_heartbeat_checker
+from repalis import tasks  # noqa: F401
+from repalis.config import settings
+from repalis.event.repository import EventRepository
+from repalis.event.service import event as event_service
+from repalis.kit.db.postgres import create_async_sessionmaker
+from repalis.kit.utils import utc_now
+from repalis.logfire import configure_logfire
+from repalis.logging import Logger
+from repalis.logging import configure as configure_logging
+from repalis.observability import STAGED_EVENTS_BACKLOG, STAGED_EVENTS_OLDEST_AGE
+from repalis.observability.remote_write import start_remote_write_pusher
+from repalis.postgres import AsyncSession, create_async_engine
+from repalis.redis import create_redis
+from repalis.sentry import configure_sentry
+from repalis.worker import JobQueueManager
+from repalis.worker._health import _run_exposition_server, set_heartbeat_checker
 
 log: Logger = structlog.get_logger()
 

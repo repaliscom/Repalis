@@ -15,7 +15,7 @@ import dramatiq
 from fastapi import Request
 from pydantic import Field, create_model, model_validator
 
-from polar import tasks  # noqa
+from repalis import tasks  # noqa
 
 from .. import forms
 

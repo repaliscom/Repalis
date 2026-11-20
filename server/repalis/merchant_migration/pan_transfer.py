@@ -25,9 +25,9 @@ from sqlalchemy import Dialect
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.types import TypeDecorator
 
-from polar.exceptions import PolarRequestValidationError, ValidationError
-from polar.kit.schemas import Schema
-from polar.kit.utils import utc_now
+from repalis.exceptions import PolarRequestValidationError, ValidationError
+from repalis.kit.schemas import Schema
+from repalis.kit.utils import utc_now
 
 from .errors import MerchantMigrationError
 

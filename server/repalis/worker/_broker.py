@@ -17,11 +17,11 @@ from dramatiq.results.backends import RedisBackend as ResultsBackend
 from redis.backoff import default_backoff
 from redis.retry import Retry
 
-from polar.config import settings
-from polar.logging import CorrelationID, Logger
-from polar.observability.task_logging import set_sentry_task_context, task_log_context
-from polar.operational_errors import handle_operational_error
-from polar.redis import REDIS_RETRY_ON_ERRROR, SyncFailoverRedis
+from repalis.config import settings
+from repalis.logging import CorrelationID, Logger
+from repalis.observability.task_logging import set_sentry_task_context, task_log_context
+from repalis.operational_errors import handle_operational_error
+from repalis.redis import REDIS_RETRY_ON_ERRROR, SyncFailoverRedis
 
 from . import _sqs
 from ._asyncio import MonitoredAsyncIO

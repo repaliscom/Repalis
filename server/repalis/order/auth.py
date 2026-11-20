@@ -4,14 +4,14 @@ from typing import Annotated, Any
 from fastapi import Depends
 from sqlalchemy.orm import joinedload
 
-from polar.auth.dependencies import Authenticator
-from polar.auth.models import AuthSubject, Organization, User
-from polar.auth.permission import OrganizationPermission
-from polar.auth.scope import Scope
-from polar.authz.service import assert_resource_permission
-from polar.exceptions import ResourceNotFound
-from polar.models import Order
-from polar.postgres import AsyncSession, get_db_session
+from repalis.auth.dependencies import Authenticator
+from repalis.auth.models import AuthSubject, Organization, User
+from repalis.auth.permission import OrganizationPermission
+from repalis.auth.scope import Scope
+from repalis.authz.service import assert_resource_permission
+from repalis.exceptions import ResourceNotFound
+from repalis.models import Order
+from repalis.postgres import AsyncSession, get_db_session
 
 from .repository import OrderRepository
 from .schemas import OrderID

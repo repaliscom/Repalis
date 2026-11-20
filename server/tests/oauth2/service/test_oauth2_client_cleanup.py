@@ -4,11 +4,11 @@ import pytest
 from pytest_mock import MockerFixture
 from sqlalchemy import select
 
-from polar.config import settings
-from polar.kit.db.postgres import AsyncSession
-from polar.kit.utils import utc_now
-from polar.models import Agent, OAuth2Client, User
-from polar.oauth2.repository import OAuth2ClientRepository
+from repalis.config import settings
+from repalis.kit.db.postgres import AsyncSession
+from repalis.kit.utils import utc_now
+from repalis.models import Agent, OAuth2Client, User
+from repalis.oauth2.repository import OAuth2ClientRepository
 from tests.fixtures.database import SaveFixture
 from tests.oauth2.conftest import create_oauth2_token
 

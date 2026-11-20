@@ -4,24 +4,24 @@ from typing import Annotated
 from fastapi import Path
 from pydantic import UUID4, Field
 
-from polar.customer.schemas.customer import CustomerID, ExternalCustomerID
-from polar.dispute.schemas import DisputeBase
-from polar.kit.currency import format_currency
-from polar.kit.metadata import (
+from repalis.customer.schemas.customer import CustomerID, ExternalCustomerID
+from repalis.dispute.schemas import DisputeBase
+from repalis.kit.currency import format_currency
+from repalis.kit.metadata import (
     MetadataInputMixin,
     MetadataOutputMixin,
 )
-from polar.kit.schemas import IDSchema, MultipleQueryFilter, Schema, TimestampedSchema
-from polar.kit.versioning import QuerySchema
-from polar.models.refund import (
+from repalis.kit.schemas import IDSchema, MultipleQueryFilter, Schema, TimestampedSchema
+from repalis.kit.versioning import QuerySchema
+from repalis.models.refund import (
     ManualRefundReason,
     RefundReason,
     RefundStatus,
 )
-from polar.openapi import destructive_when_equals
-from polar.order.schemas import OrderID
-from polar.organization.schemas import OrganizationID
-from polar.subscription.schemas import SubscriptionID
+from repalis.openapi import destructive_when_equals
+from repalis.order.schemas import OrderID
+from repalis.organization.schemas import OrganizationID
+from repalis.subscription.schemas import SubscriptionID
 
 RefundID = Annotated[UUID4, Path(description="The refund ID.")]
 

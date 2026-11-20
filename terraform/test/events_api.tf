@@ -304,7 +304,7 @@ module "events_api" {
   # Tracks :latest; the deploy-ecs-test job in deploy.yml rolls it after each build.
   image = "ghcr.io/repaliscom/repalis:latest"
   command = [
-    "uv", "run", "uvicorn", "polar.event_ingestion_api_app:app",
+    "uv", "run", "uvicorn", "repalis.event_ingestion_api_app:app",
     "--host", "0.0.0.0", "--port", tostring(local.events_api_port),
     "--limit-max-requests", "50000", "--limit-max-requests-jitter", "10000",
     "--timeout-graceful-shutdown", "30",

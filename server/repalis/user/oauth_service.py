@@ -1,12 +1,12 @@
 import structlog
 from sqlalchemy import func, select
 
-from polar.exceptions import PolarError
-from polar.kit.services import ResourceServiceReader
-from polar.logging import Logger
-from polar.models import OAuthAccount, User
-from polar.models.user import OAuthPlatform
-from polar.postgres import AsyncSession
+from repalis.exceptions import PolarError
+from repalis.kit.services import ResourceServiceReader
+from repalis.logging import Logger
+from repalis.models import OAuthAccount, User
+from repalis.models.user import OAuthPlatform
+from repalis.postgres import AsyncSession
 
 log: Logger = structlog.get_logger()
 

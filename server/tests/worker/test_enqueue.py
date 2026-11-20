@@ -6,10 +6,10 @@ import pytest
 from pytest_mock import MockerFixture
 from redis.exceptions import RedisError
 
-import polar.tasks  # noqa: F401  (registers actors with the broker)
-from polar.logging import CorrelationID
-from polar.redis import Redis
-from polar.worker import JobQueueManager
+import repalis.tasks  # noqa: F401  (registers actors with the broker)
+from repalis.logging import CorrelationID
+from repalis.redis import Redis
+from repalis.worker import JobQueueManager
 
 
 @pytest.mark.anyio

@@ -9,12 +9,12 @@ from exponent_server_sdk import (
     PushServerError,
 )
 
-from polar.notification_recipient.service import (
+from repalis.notification_recipient.service import (
     notification_recipient as notification_recipient_service,
 )
-from polar.notifications.service import notifications
-from polar.observability.task_logging import LoggableField
-from polar.worker import AsyncSessionMaker, TaskPriority, actor
+from repalis.notifications.service import notifications
+from repalis.observability.task_logging import LoggableField
+from repalis.worker import AsyncSessionMaker, TaskPriority, actor
 
 log = structlog.get_logger()
 

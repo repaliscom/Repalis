@@ -1,6 +1,6 @@
 from datetime import timedelta
 
-from polar.backoffice.merchant_migrations.status import (
+from repalis.backoffice.merchant_migrations.status import (
     PAN_STEP_LABELS,
     AttentionLevel,
     attention,
@@ -9,21 +9,21 @@ from polar.backoffice.merchant_migrations.status import (
     step_inputs,
     step_position,
 )
-from polar.kit.utils import utc_now
-from polar.merchant_migration import pan_transfer
-from polar.merchant_migration.pan_transfer import (
+from repalis.kit.utils import utc_now
+from repalis.merchant_migration import pan_transfer
+from repalis.merchant_migration.pan_transfer import (
     PanStepActor,
     PanStepOwner,
     PanTransferMethod,
     PanTransferStep,
     templates_for,
 )
-from polar.models import MerchantMigration
-from polar.models.merchant_migration import (
+from repalis.models import MerchantMigration
+from repalis.models.merchant_migration import (
     MerchantMigrationSourcePlatform,
     MerchantMigrationStep,
 )
-from polar.models.merchant_migration_record import (
+from repalis.models.merchant_migration_record import (
     MerchantMigrationRecordStatus,
     MerchantMigrationRecordType,
 )

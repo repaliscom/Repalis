@@ -16,12 +16,12 @@ from dateutil.relativedelta import relativedelta
 from sqlalchemy.exc import DBAPIError
 from sqlalchemy.orm import joinedload, noload, selectinload
 
-from polar.customer.repository import CustomerRepository
-from polar.discount.repository import DiscountRepository
-from polar.enums import PaymentProcessor
-from polar.kit.utils import utc_now
-from polar.logging import Logger
-from polar.models import (
+from repalis.customer.repository import CustomerRepository
+from repalis.discount.repository import DiscountRepository
+from repalis.enums import PaymentProcessor
+from repalis.kit.utils import utc_now
+from repalis.logging import Logger
+from repalis.models import (
     Customer,
     Discount,
     MerchantMigration,
@@ -31,18 +31,18 @@ from polar.models import (
     ProductPriceUnit,
     Subscription,
 )
-from polar.models.discount import DiscountDuration
-from polar.models.merchant_migration_record import (
+from repalis.models.discount import DiscountDuration
+from repalis.models.merchant_migration_record import (
     MerchantMigrationCutoverStatus,
     MerchantMigrationRecordStatus,
 )
-from polar.models.subscription import CustomerCancellationReason, SubscriptionStatus
-from polar.payment_method.repository import PaymentMethodRepository
-from polar.postgres import AsyncSession
-from polar.product.repository import ProductRepository
-from polar.subscription.repository import SubscriptionRepository
-from polar.subscription.service import subscription as subscription_service
-from polar.worker import JobQueueManager
+from repalis.models.subscription import CustomerCancellationReason, SubscriptionStatus
+from repalis.payment_method.repository import PaymentMethodRepository
+from repalis.postgres import AsyncSession
+from repalis.product.repository import ProductRepository
+from repalis.subscription.repository import SubscriptionRepository
+from repalis.subscription.service import subscription as subscription_service
+from repalis.worker import JobQueueManager
 
 from . import pan_transfer
 from .adapters import SourceAdapter

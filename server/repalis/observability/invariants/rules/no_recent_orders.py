@@ -2,9 +2,9 @@ from datetime import datetime, timedelta
 
 from sqlalchemy import func, select
 
-from polar.config import Environment
-from polar.kit.utils import utc_now
-from polar.models import Order
+from repalis.config import Environment
+from repalis.kit.utils import utc_now
+from repalis.models import Order
 
 from .base import Invariant, InvariantError
 

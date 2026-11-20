@@ -1,11 +1,11 @@
 import pytest
 from botocore.stub import ANY, Stubber
 
-from polar.config import settings
-from polar.invoice.service import invoice as invoice_service
-from polar.kit.address import Address, CountryAlpha2
-from polar.models import Customer, Order, Product
-from polar.tax.tax_id import TaxIDFormat
+from repalis.config import settings
+from repalis.invoice.service import invoice as invoice_service
+from repalis.kit.address import Address, CountryAlpha2
+from repalis.models import Customer, Order, Product
+from repalis.tax.tax_id import TaxIDFormat
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_order
 

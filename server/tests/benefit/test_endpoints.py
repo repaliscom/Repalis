@@ -4,10 +4,10 @@ from typing import Any
 import pytest
 from httpx2 import AsyncClient
 
-from polar.auth.scope import Scope
-from polar.kit.utils import utc_now
-from polar.kit.visibility import Visibility
-from polar.models import (
+from repalis.auth.scope import Scope
+from repalis.kit.utils import utc_now
+from repalis.kit.visibility import Visibility
+from repalis.models import (
     Benefit,
     Catalog,
     Customer,
@@ -17,11 +17,11 @@ from polar.models import (
     Subscription,
     UserOrganization,
 )
-from polar.models.benefit import BenefitType
-from polar.models.catalog import CatalogStatus
-from polar.models.downloadable import DownloadableStatus
-from polar.models.file import FileServiceTypes
-from polar.version import V2027_01
+from repalis.models.benefit import BenefitType
+from repalis.models.catalog import CatalogStatus
+from repalis.models.downloadable import DownloadableStatus
+from repalis.models.file import FileServiceTypes
+from repalis.version import V2027_01
 from tests.fixtures.auth import AuthSubjectFixture
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (

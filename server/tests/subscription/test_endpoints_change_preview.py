@@ -4,7 +4,7 @@ import pytest
 from httpx2 import AsyncClient
 from sqlalchemy import func, select
 
-from polar.models import (
+from repalis.models import (
     BillingEntry,
     Customer,
     Organization,
@@ -12,7 +12,7 @@ from polar.models import (
     Subscription,
     UserOrganization,
 )
-from polar.postgres import AsyncSession
+from repalis.postgres import AsyncSession
 from tests.fixtures.auth import AuthSubjectFixture
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (

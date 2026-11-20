@@ -3,8 +3,8 @@ from uuid import UUID
 from sqlalchemy import Select
 from sqlalchemy.orm import joinedload
 
-from polar.auth.models import AuthSubject, Customer, Member
-from polar.kit.repository import (
+from repalis.auth.models import AuthSubject, Customer, Member
+from repalis.kit.repository import (
     Options,
     RepositoryBase,
     RepositorySoftDeletionIDMixin,
@@ -12,8 +12,8 @@ from polar.kit.repository import (
     RepositorySortingMixin,
     SortingClause,
 )
-from polar.models import Customer as CustomerModel
-from polar.models import Wallet
+from repalis.models import Customer as CustomerModel
+from repalis.models import Wallet
 
 from ..sorting.wallet import CustomerWalletSortProperty
 from ..utils import get_customer_id

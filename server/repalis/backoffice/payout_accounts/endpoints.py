@@ -11,15 +11,15 @@ from sqlalchemy import or_, select
 from sqlalchemy.orm import joinedload
 from tagflow import classes, tag, text
 
-from polar.backoffice.routing import BackofficeRouter
-from polar.enums import PayoutAccountType
-from polar.kit.pagination import PaginationParamsQuery
-from polar.kit.schemas import empty_str_to_none
-from polar.models import Organization, PayoutAccount
-from polar.organization.repository import OrganizationRepository
-from polar.payout_account.repository import PayoutAccountRepository
-from polar.payout_account.service import payout_account as payout_account_service
-from polar.postgres import AsyncSession, get_db_read_session, get_db_session
+from repalis.backoffice.routing import BackofficeRouter
+from repalis.enums import PayoutAccountType
+from repalis.kit.pagination import PaginationParamsQuery
+from repalis.kit.schemas import empty_str_to_none
+from repalis.models import Organization, PayoutAccount
+from repalis.organization.repository import OrganizationRepository
+from repalis.payout_account.repository import PayoutAccountRepository
+from repalis.payout_account.service import payout_account as payout_account_service
+from repalis.postgres import AsyncSession, get_db_read_session, get_db_session
 
 from ..components import button, datatable, description_list, input
 from ..layout import layout

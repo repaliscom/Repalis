@@ -14,10 +14,10 @@ from sqlalchemy import (
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import Mapped, declared_attr, mapped_column, relationship
 
-from polar.kit.db.models.base import RecordModel
-from polar.kit.extensions.sqlalchemy.types import StringEnum
-from polar.kit.versioning import APIVersion, APIVersionType
-from polar.version import CURRENT_API_VERSION
+from repalis.kit.db.models.base import RecordModel
+from repalis.kit.extensions.sqlalchemy.types import StringEnum
+from repalis.kit.versioning import APIVersion, APIVersionType
+from repalis.version import CURRENT_API_VERSION
 
 from .webhook_endpoint import WebhookEventType
 

@@ -2,16 +2,16 @@ import pytest
 from pydantic import ValidationError
 from sqlalchemy import func, select
 
-from polar.meter.aggregation import (
+from repalis.meter.aggregation import (
     Aggregation,
     AggregationFunction,
     CountAggregation,
     PropertyAggregation,
     UniqueAggregation,
 )
-from polar.models import Event, Organization
-from polar.models.event import EventSource
-from polar.postgres import AsyncSession
+from repalis.models import Event, Organization
+from repalis.models.event import EventSource
+from repalis.postgres import AsyncSession
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_event
 

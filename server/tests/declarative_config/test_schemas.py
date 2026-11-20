@@ -2,12 +2,12 @@ import pytest
 from pydantic import ValidationError
 from pydantic.json_schema import models_json_schema
 
-from polar.declarative_config.schemas import (
+from repalis.declarative_config.schemas import (
     Config,
     ConfigExport,
     ConfigWebhookEndpoint,
 )
-from polar.version import CURRENT_API_VERSION
+from repalis.version import CURRENT_API_VERSION
 
 
 def test_export_schema_is_not_split() -> None:

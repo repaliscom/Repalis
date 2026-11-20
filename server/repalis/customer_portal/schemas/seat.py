@@ -2,8 +2,8 @@ from uuid import UUID
 
 from pydantic import UUID4, Field
 
-from polar.customer_seat.schemas import SeatAssign
-from polar.kit.versioning import QuerySchema
+from repalis.customer_seat.schemas import SeatAssign
+from repalis.kit.versioning import QuerySchema
 
 
 class CustomerSeatAssign(SeatAssign):

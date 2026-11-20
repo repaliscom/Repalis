@@ -5,8 +5,8 @@ from uuid import UUID
 from sqlalchemy import Select, SQLColumnExpression, exists, func, or_, select
 from sqlalchemy.orm import contains_eager, joinedload
 
-from polar.authz.types import AccessibleOrganizationID
-from polar.kit.repository import (
+from repalis.authz.types import AccessibleOrganizationID
+from repalis.kit.repository import (
     Options,
     RepositoryBase,
     RepositorySoftDeletionIDMixin,
@@ -14,7 +14,7 @@ from polar.kit.repository import (
     RepositorySortingMixin,
     SortingClause,
 )
-from polar.models import (
+from repalis.models import (
     Benefit,
     BenefitGrant,
     Customer,
@@ -25,10 +25,10 @@ from polar.models import (
     ProductBenefit,
     Subscription,
 )
-from polar.models.benefit import BenefitType
-from polar.models.benefit_grant import BenefitGrantScope
-from polar.models.customer_seat import SeatStatus
-from polar.order.repository import order_benefits_revoked_clause
+from repalis.models.benefit import BenefitType
+from repalis.models.benefit_grant import BenefitGrantScope
+from repalis.models.customer_seat import SeatStatus
+from repalis.order.repository import order_benefits_revoked_clause
 
 from .sorting import BenefitGrantSortProperty
 

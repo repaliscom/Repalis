@@ -2,18 +2,18 @@ import uuid
 
 import structlog
 
-from polar.auth.models import AuthSubject, User
-from polar.auth.permission import OrganizationPermission
-from polar.authz.service import assert_resource_permission
-from polar.enums import SubscriptionProrationBehavior
-from polar.exceptions import NotPermitted, PolarError, PolarRequestValidationError
-from polar.kit.utils import utc_now
-from polar.logging import Logger
-from polar.models import Organization, Product, Subscription, SubscriptionBulkUpdate
-from polar.postgres import AsyncReadSession, AsyncSession
-from polar.product.repository import ProductRepository
-from polar.product.service import product as product_service
-from polar.worker import enqueue_job
+from repalis.auth.models import AuthSubject, User
+from repalis.auth.permission import OrganizationPermission
+from repalis.authz.service import assert_resource_permission
+from repalis.enums import SubscriptionProrationBehavior
+from repalis.exceptions import NotPermitted, PolarError, PolarRequestValidationError
+from repalis.kit.utils import utc_now
+from repalis.logging import Logger
+from repalis.models import Organization, Product, Subscription, SubscriptionBulkUpdate
+from repalis.postgres import AsyncReadSession, AsyncSession
+from repalis.product.repository import ProductRepository
+from repalis.product.service import product as product_service
+from repalis.worker import enqueue_job
 
 from .repository import SubscriptionBulkUpdateRepository, SubscriptionRepository
 from .schemas import SubscriptionBulkUpdateCreate

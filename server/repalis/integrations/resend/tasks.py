@@ -1,8 +1,8 @@
 from typing import Annotated
 from uuid import UUID
 
-from polar.observability.task_logging import LoggableField
-from polar.worker import AsyncSessionMaker, TaskPriority, actor
+from repalis.observability.task_logging import LoggableField
+from repalis.worker import AsyncSessionMaker, TaskPriority, actor
 
 from .service import resend as resend_service
 

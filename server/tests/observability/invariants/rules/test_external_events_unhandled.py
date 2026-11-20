@@ -3,14 +3,14 @@ from datetime import timedelta
 import pytest
 from pytest_mock import MockerFixture
 
-from polar.kit.utils import utc_now
-from polar.models import ExternalEvent
-from polar.models.external_event import ExternalEventSource
-from polar.observability.invariants.rules.external_events_unhandled import (
+from repalis.kit.utils import utc_now
+from repalis.models import ExternalEvent
+from repalis.models.external_event import ExternalEventSource
+from repalis.observability.invariants.rules.external_events_unhandled import (
     ExternalEventsUnhandledInvariant,
     ExternalEventsUnhandledInvariantError,
 )
-from polar.postgres import AsyncSession
+from repalis.postgres import AsyncSession
 from tests.fixtures.database import SaveFixture
 
 
@@ -26,7 +26,7 @@ class TestCheck:
     ) -> None:
         now = utc_now()
         mocker.patch(
-            "polar.observability.invariants.rules.external_events_unhandled.utc_now",
+            "repalis.observability.invariants.rules.external_events_unhandled.utc_now",
             return_value=now,
         )
         for index, (age, handled_at) in enumerate(

@@ -3,8 +3,8 @@ from typing import Annotated, Literal
 from annotated_types import Gt
 from pydantic.types import UUID4
 
-from polar.kit.schemas import Int32, Schema
-from polar.models.benefit import BenefitType
+from repalis.kit.schemas import Int32, Schema
+from repalis.models.benefit import BenefitType
 
 from ..base.schemas import (
     BenefitBase,

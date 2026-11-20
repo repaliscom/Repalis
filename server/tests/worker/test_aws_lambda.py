@@ -11,20 +11,20 @@ from logfire.integrations.structlog import LogfireProcessor
 from logfire.testing import CaptureLogfire
 from pytest_mock import MockerFixture
 
-from polar.config import settings
-from polar.worker._sqs import build_envelope
+from repalis.config import settings
+from repalis.worker._sqs import build_envelope
 
 
 @pytest.fixture
 def aws_lambda(mocker: MockerFixture) -> Iterator[ModuleType]:
-    mocker.patch("polar.sentry.configure_sentry")
-    mocker.patch("polar.logfire.configure_logfire")
-    mocker.patch("polar.logging.configure")
-    mocker.patch("polar.worker._runner.bootstrap")
-    mocker.patch("polar.worker._sqs.get_consumer_sqs_client")
-    mocker.patch("polar.worker._sqs.get_consumer_scheduler_client")
+    mocker.patch("repalis.sentry.configure_sentry")
+    mocker.patch("repalis.logfire.configure_logfire")
+    mocker.patch("repalis.logging.configure")
+    mocker.patch("repalis.worker._runner.bootstrap")
+    mocker.patch("repalis.worker._sqs.get_consumer_sqs_client")
+    mocker.patch("repalis.worker._sqs.get_consumer_scheduler_client")
     mocker.patch("asyncio.set_event_loop")
-    module = importlib.import_module("polar.worker.aws_lambda")
+    module = importlib.import_module("repalis.worker.aws_lambda")
     mocker.patch.object(
         module,
         "log",
@@ -51,7 +51,7 @@ class TestHandler:
         mocker: MockerFixture,
     ) -> None:
         mocker.patch(
-            "polar.worker._runner.build_registry",
+            "repalis.worker._runner.build_registry",
             return_value={"dummy": mocker.AsyncMock(side_effect=exception)},
         )
         mocker.patch.object(aws_lambda, "send_delayed_message")
@@ -77,9 +77,9 @@ class TestHandler:
             and span.attributes.get("logfire.span_type") == "span"
         ]
         assert task_span.context is not None
-        log_names = {"polar.worker.sqs_retry_reenqueued"}
+        log_names = {"repalis.worker.sqs_retry_reenqueued"}
         if not isinstance(exception, Retry):
-            log_names.add("polar.worker.sqs_task_failed")
+            log_names.add("repalis.worker.sqs_task_failed")
         logs = [span for span in spans if span.name in log_names]
         assert {span.name for span in logs} == log_names
         for span in logs:
@@ -94,11 +94,11 @@ class TestHandler:
         mocker: MockerFixture,
     ) -> None:
         mocker.patch(
-            "polar.worker._runner.build_registry",
+            "repalis.worker._runner.build_registry",
             return_value={"dummy": mocker.AsyncMock()},
         )
         mocker.patch.object(settings, "LOGFIRE_IGNORED_ACTORS", {"dummy"})
-        mocker.patch("polar.worker._debounce.log", aws_lambda.log)
+        mocker.patch("repalis.worker._debounce.log", aws_lambda.log)
         redis = mocker.Mock()
         redis.hgetall = mocker.AsyncMock(
             return_value={
@@ -107,7 +107,7 @@ class TestHandler:
                 "enqueue_timestamp": str(int(time.time())),
             }
         )
-        mocker.patch("polar.worker._runner.RedisMiddleware.get", return_value=redis)
+        mocker.patch("repalis.worker._runner.RedisMiddleware.get", return_value=redis)
         context = mocker.Mock()
         context.get_remaining_time_in_millis.return_value = 30000
         event = {
@@ -137,7 +137,7 @@ class TestHandler:
         mocker: MockerFixture,
     ) -> None:
         mocker.patch(
-            "polar.worker._runner.build_registry",
+            "repalis.worker._runner.build_registry",
             return_value={"dummy": mocker.AsyncMock(side_effect=ValueError("boom"))},
         )
         mocker.patch.object(settings, "LOGFIRE_IGNORED_ACTORS", {"dummy"})
@@ -156,6 +156,6 @@ class TestHandler:
 
         assert aws_lambda.handler(event, context) == {"batchItemFailures": []}
         assert {span.name for span in capfire.exporter.exported_spans} == {
-            "polar.worker.sqs_task_failed",
-            "polar.worker.sqs_retry_reenqueued",
+            "repalis.worker.sqs_task_failed",
+            "repalis.worker.sqs_retry_reenqueued",
         }

@@ -3,12 +3,12 @@ from typing import Literal
 
 import stripe as stripe_lib
 
-from polar.enums import PaymentProcessor
-from polar.integrations.stripe.service import stripe as stripe_service
-from polar.integrations.stripe.utils import get_expandable_id
-from polar.models import Dispute, Refund, Transaction
-from polar.models.transaction import Processor, ProcessorFeeType, TransactionType
-from polar.postgres import AsyncSession
+from repalis.enums import PaymentProcessor
+from repalis.integrations.stripe.service import stripe as stripe_service
+from repalis.integrations.stripe.utils import get_expandable_id
+from repalis.models import Dispute, Refund, Transaction
+from repalis.models.transaction import Processor, ProcessorFeeType, TransactionType
+from repalis.postgres import AsyncSession
 
 from .base import BaseTransactionService, BaseTransactionServiceError
 

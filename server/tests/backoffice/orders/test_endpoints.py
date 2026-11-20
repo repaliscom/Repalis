@@ -5,13 +5,13 @@ import httpx2
 import pytest
 from pytest_mock import MockerFixture
 
-from polar.backoffice import app as backoffice_app
-from polar.backoffice.dependencies import get_admin
-from polar.kit.address import Address, CountryAlpha2
-from polar.models import Customer, Order, Product
-from polar.models.backoffice_user_session import BackofficeUserSession
-from polar.postgres import AsyncSession, get_db_read_session, get_db_session
-from polar.tax.tax_id import TaxIDFormat
+from repalis.backoffice import app as backoffice_app
+from repalis.backoffice.dependencies import get_admin
+from repalis.kit.address import Address, CountryAlpha2
+from repalis.models import Customer, Order, Product
+from repalis.models.backoffice_user_session import BackofficeUserSession
+from repalis.postgres import AsyncSession, get_db_read_session, get_db_session
+from repalis.tax.tax_id import TaxIDFormat
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (
     create_order_and_payment,
@@ -78,7 +78,7 @@ class TestRefund:
             Address(country=CountryAlpha2("FR")) if has_billing_address else None
         )
         await save_fixture(order)
-        create = mocker.patch("polar.backoffice.orders.endpoints.refund_service.create")
+        create = mocker.patch("repalis.backoffice.orders.endpoints.refund_service.create")
 
         response = await backoffice_client.post(
             f"/orders/{order.id}/refund",
@@ -136,9 +136,9 @@ class TestRefund:
         amount: int,
         tax: int,
     ) -> None:
-        create = mocker.patch("polar.backoffice.orders.endpoints.refund_service.create")
+        create = mocker.patch("repalis.backoffice.orders.endpoints.refund_service.create")
         update = mocker.patch(
-            "polar.backoffice.orders.endpoints.customer_service.update"
+            "repalis.backoffice.orders.endpoints.customer_service.update"
         )
         response = await backoffice_client.post(
             f"/orders/{order.id}/refund",
@@ -173,7 +173,7 @@ class TestRefund:
         mocker: MockerFixture,
         data: dict[str, str],
     ) -> None:
-        create = mocker.patch("polar.backoffice.orders.endpoints.refund_service.create")
+        create = mocker.patch("repalis.backoffice.orders.endpoints.refund_service.create")
         response = await backoffice_client.post(f"/orders/{order.id}/refund", data=data)
         assert response.status_code == 200
         create.assert_not_awaited()
@@ -189,7 +189,7 @@ class TestRefund:
         order.billing_address = Address(country=CountryAlpha2("FR"))
         order.update_refunds(order.net_amount, 0)
         await save_fixture(order)
-        create = mocker.patch("polar.backoffice.orders.endpoints.refund_service.create")
+        create = mocker.patch("repalis.backoffice.orders.endpoints.refund_service.create")
         response = await backoffice_client.post(
             f"/orders/{order.id}/refund",
             data={
@@ -219,11 +219,11 @@ class TestCreditNote:
         payment = await create_payment(save_fixture, order.organization, order=order)
         refund = await create_refund(save_fixture, order, payment)
         mocker.patch(
-            "polar.credit_note.service.render_credit_note_pdf", return_value=b"pdf"
+            "repalis.credit_note.service.render_credit_note_pdf", return_value=b"pdf"
         )
-        mocker.patch("polar.credit_note.service.S3Service.upload")
+        mocker.patch("repalis.credit_note.service.S3Service.upload")
         mocker.patch(
-            "polar.credit_note.service.S3Service.generate_presigned_download_url",
+            "repalis.credit_note.service.S3Service.generate_presigned_download_url",
             return_value=("https://example.com/credit-note.pdf", None),
         )
         path = f"/orders/{order.id}/refunds/{refund.id}/credit-note"

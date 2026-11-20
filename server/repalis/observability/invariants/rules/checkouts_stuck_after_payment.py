@@ -1,8 +1,8 @@
 from datetime import timedelta
 from uuid import UUID
 
-from polar.checkout.repository import CheckoutRepository
-from polar.kit.utils import utc_now
+from repalis.checkout.repository import CheckoutRepository
+from repalis.kit.utils import utc_now
 
 from .base import Invariant, InvariantError
 

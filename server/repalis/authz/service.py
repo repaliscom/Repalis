@@ -1,7 +1,7 @@
 from typing import Protocol
 from uuid import UUID
 
-from polar.auth.models import (
+from repalis.auth.models import (
     Agent,
     AuthSubject,
     Organization,
@@ -10,10 +10,10 @@ from polar.auth.models import (
     is_organization,
     is_user,
 )
-from polar.auth.permission import PERMISSION_DENIED_MESSAGE, OrganizationPermission
-from polar.exceptions import NotPermitted
-from polar.models.organization import Organization as OrganizationModel
-from polar.postgres import AsyncReadSession
+from repalis.auth.permission import PERMISSION_DENIED_MESSAGE, OrganizationPermission
+from repalis.exceptions import NotPermitted
+from repalis.models.organization import Organization as OrganizationModel
+from repalis.postgres import AsyncReadSession
 
 from .repository import AuthzRepository
 from .types import AccessibleOrganizationID

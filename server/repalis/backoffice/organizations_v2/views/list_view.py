@@ -12,12 +12,12 @@ from fastapi import Request
 from sqlalchemy import Select, func, select
 from tagflow import tag, text
 
-from polar.models import Organization, PayoutAccount
-from polar.models.organization import (
+from repalis.models import Organization, PayoutAccount
+from repalis.models.organization import (
     FIRST_REVIEW_THRESHOLD_CENTS,
     OrganizationStatus,
 )
-from polar.postgres import AsyncSession
+from repalis.postgres import AsyncSession
 
 from ... import formatters
 from ...components import (

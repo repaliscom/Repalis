@@ -8,26 +8,26 @@ from httpx2 import AsyncClient
 from pytest_mock import MockerFixture
 from sqlalchemy.orm import joinedload
 
-from polar.agent.identity_assertion import (
+from repalis.agent.identity_assertion import (
     IDENTITY_ASSERTION_TTL,
     decode_identity_assertion,
 )
-from polar.agent.repository import AgentRepository
-from polar.agent.service import CLAIM_TOKEN_TTL, CLAIM_TTL
-from polar.agent.words import WORDS
-from polar.auth.models import AuthSubject
-from polar.auth.scope import CLAIMED_AGENT_SCOPES, UNCLAIMED_AGENT_SCOPES
-from polar.config import settings
-from polar.kit.crypto import get_token_hash
-from polar.kit.email import mask_email
-from polar.kit.utils import utc_now
-from polar.models import Agent, OAuth2Token, Organization, Product, User
-from polar.models.agent import AgentStatus
-from polar.models.user_organization import OrganizationRole
-from polar.oauth2.constants import CLAIM_GRANT_TYPE
-from polar.oauth2.sub_type import SubType
-from polar.postgres import AsyncSession
-from polar.user_organization.service import (
+from repalis.agent.repository import AgentRepository
+from repalis.agent.service import CLAIM_TOKEN_TTL, CLAIM_TTL
+from repalis.agent.words import WORDS
+from repalis.auth.models import AuthSubject
+from repalis.auth.scope import CLAIMED_AGENT_SCOPES, UNCLAIMED_AGENT_SCOPES
+from repalis.config import settings
+from repalis.kit.crypto import get_token_hash
+from repalis.kit.email import mask_email
+from repalis.kit.utils import utc_now
+from repalis.models import Agent, OAuth2Token, Organization, Product, User
+from repalis.models.agent import AgentStatus
+from repalis.models.user_organization import OrganizationRole
+from repalis.oauth2.constants import CLAIM_GRANT_TYPE
+from repalis.oauth2.sub_type import SubType
+from repalis.postgres import AsyncSession
+from repalis.user_organization.service import (
     user_organization as user_organization_service,
 )
 from tests.fixtures.auth import make_session_stale
@@ -292,10 +292,10 @@ class TestConfirmClaim:
         organization: Organization,
         auth_subject: AuthSubject[User],
     ) -> None:
-        posthog_mock = mocker.patch("polar.agent.service.posthog")
-        enqueue_job_mock = mocker.patch("polar.organization.service.enqueue_job")
+        posthog_mock = mocker.patch("repalis.agent.service.posthog")
+        enqueue_job_mock = mocker.patch("repalis.organization.service.enqueue_job")
         create_customer_mock = mocker.patch(
-            "polar.organization.service.polar_self_service.enqueue_create_customer"
+            "repalis.organization.service.polar_self_service.enqueue_create_customer"
         )
         pre_claim_token = OAuth2Token(
             client_id=claim_agent.oauth2_client.client_id,

@@ -104,39 +104,39 @@ module "production" {
 
   workers = {
     "scheduler" = {
-      start_command      = "uv run python -m polar.worker.scheduler"
+      start_command      = "uv run python -m repalis.worker.scheduler"
       plan               = "standard"
       custom_domains     = [{ name = "scheduler.repalis.com" }]
       dramatiq_prom_port = "10000"
     }
     "worker" = {
-      start_command      = "uv run dramatiq polar.worker.run -p 2 -t 8 --queues low_priority"
+      start_command      = "uv run dramatiq repalis.worker.run -p 2 -t 8 --queues low_priority"
       custom_domains     = [{ name = "worker.repalis.com" }]
       dramatiq_prom_port = "10000"
     }
     "worker-medium-priority" = {
-      start_command      = "uv run dramatiq polar.worker.run -p 2 -t 4 --queues medium_priority"
+      start_command      = "uv run dramatiq repalis.worker.run -p 2 -t 4 --queues medium_priority"
       custom_domains     = [{ name = "worker-medium-priority.repalis.com" }]
       dramatiq_prom_port = "10001"
     }
     "worker-high-priority" = {
-      start_command      = "uv run dramatiq polar.worker.run -p 2 -t 4 --queues high_priority"
+      start_command      = "uv run dramatiq repalis.worker.run -p 2 -t 4 --queues high_priority"
       custom_domains     = [{ name = "worker-high-priority.repalis.com" }]
       dramatiq_prom_port = "10001"
     }
     "worker-webhook" = {
-      start_command      = "uv run dramatiq polar.worker.run -p 1 -t 16 --queues webhooks"
+      start_command      = "uv run dramatiq repalis.worker.run -p 1 -t 16 --queues webhooks"
       custom_domains     = [{ name = "worker-webhook.repalis.com" }]
       dramatiq_prom_port = "10001"
       database_pool_size = "16"
     }
     worker-tinybird = {
-      start_command      = "uv run dramatiq polar.worker.run_without_db -p 4 -t 32 --queues tinybird"
+      start_command      = "uv run dramatiq repalis.worker.run_without_db -p 4 -t 32 --queues tinybird"
       custom_domains     = [{ name = "worker-tinybird.repalis.com" }]
       dramatiq_prom_port = "10002"
     }
     worker-invoices-receipts = {
-      start_command      = "uv run dramatiq polar.worker.run -p 1 -t 3 --queues invoices_and_receipts"
+      start_command      = "uv run dramatiq repalis.worker.run -p 1 -t 3 --queues invoices_and_receipts"
       plan               = "standard"
       custom_domains     = [{ name = "worker-invoices-receipts.repalis.com" }]
       dramatiq_prom_port = "10003"

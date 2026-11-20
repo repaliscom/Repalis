@@ -10,7 +10,7 @@ Metrics:
 
 import os
 
-from polar.config import settings
+from repalis.config import settings
 
 # Setup multiprocess prometheus directory
 prometheus_dir = settings.WORKER_PROMETHEUS_DIR

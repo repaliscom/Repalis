@@ -4,8 +4,8 @@ import secrets
 import string
 import zlib
 
-from polar.config import HASH_SEPARATOR
-from polar.kit.hash_secrets import get_hash_secrets
+from repalis.config import HASH_SEPARATOR
+from repalis.kit.hash_secrets import get_hash_secrets
 
 
 def _crc32_to_base62(number: int) -> str:

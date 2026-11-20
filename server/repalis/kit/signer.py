@@ -21,8 +21,8 @@ from cryptography.hazmat.primitives import hashes, serialization
 from cryptography.hazmat.primitives.asymmetric import padding, rsa
 from joserfc.jwk import KeySet, RSAKey
 
-from polar.config import settings
-from polar.kit.jwk import load_jwks
+from repalis.config import settings
+from repalis.kit.jwk import load_jwks
 
 ALGORITHM = "RS256"
 KMS_SIGNING_ALGORITHM = "RSASSA_PKCS1_V1_5_SHA_256"

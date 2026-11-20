@@ -5,7 +5,7 @@ import pytest
 from sqlalchemy import select, text
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from polar.kit.time_queries import TimeInterval, get_timestamp_series_cte
+from repalis.kit.time_queries import TimeInterval, get_timestamp_series_cte
 
 
 @pytest.mark.anyio

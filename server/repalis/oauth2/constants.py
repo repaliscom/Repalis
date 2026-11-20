@@ -1,4 +1,4 @@
-from polar.config import settings
+from repalis.config import settings
 
 from .sub_type import SubType
 

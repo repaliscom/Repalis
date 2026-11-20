@@ -2,10 +2,10 @@ from typing import Annotated
 
 from fastapi import Depends, Path
 
-from polar.exceptions import ResourceNotFound
-from polar.openapi import APITag
-from polar.postgres import AsyncSession, get_db_session
-from polar.routing import APIRouter
+from repalis.exceptions import ResourceNotFound
+from repalis.openapi import APITag
+from repalis.postgres import AsyncSession, get_db_session
+from repalis.routing import APIRouter
 
 from ..schemas.organization import CustomerOrganizationData
 from ..service.organization import (

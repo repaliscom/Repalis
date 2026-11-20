@@ -3,7 +3,7 @@ from uuid import UUID
 
 from sqlalchemy import Select, false, select
 
-from polar.auth.models import (
+from repalis.auth.models import (
     Agent,
     AuthSubject,
     User,
@@ -11,13 +11,13 @@ from polar.auth.models import (
     is_organization,
     is_user,
 )
-from polar.auth.permission import (
+from repalis.auth.permission import (
     AGENT_PERMISSIONS,
     OrganizationPermission,
     roles_with_permission,
 )
-from polar.models import OAuth2Token, Organization, UserOrganization, UserSession
-from polar.postgres import AsyncReadSession
+from repalis.models import OAuth2Token, Organization, UserOrganization, UserSession
+from repalis.postgres import AsyncReadSession
 
 
 def select_user_org_ids(

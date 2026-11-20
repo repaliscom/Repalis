@@ -1,7 +1,7 @@
 import pytest
 from pydantic import ValidationError
 
-from polar.kit.address import Address, AddressInput
+from repalis.kit.address import Address, AddressInput
 
 
 @pytest.mark.parametrize(

@@ -1,8 +1,8 @@
 import pytest
 
-from polar.models import Customer, Product
-from polar.postgres import AsyncSession
-from polar.refund.repository import RefundRepository
+from repalis.models import Customer, Product
+from repalis.postgres import AsyncSession
+from repalis.refund.repository import RefundRepository
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_order_and_payment, create_refund
 

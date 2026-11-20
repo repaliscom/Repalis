@@ -1,12 +1,12 @@
 import pytest
 
-from polar.models import Organization, Product
-from polar.models.subscription import SubscriptionStatus
-from polar.observability.invariants.rules.subscriptions_canceled_deleted_customer import (
+from repalis.models import Organization, Product
+from repalis.models.subscription import SubscriptionStatus
+from repalis.observability.invariants.rules.subscriptions_canceled_deleted_customer import (
     SubscriptionsCanceledDeletedCustomerInvariant,
     SubscriptionsCanceledDeletedCustomerInvariantError,
 )
-from polar.postgres import AsyncSession
+from repalis.postgres import AsyncSession
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_customer, create_subscription
 

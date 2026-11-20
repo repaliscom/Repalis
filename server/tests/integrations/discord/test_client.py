@@ -3,7 +3,7 @@ from unittest.mock import Mock
 import pytest
 from httpx2 import Response
 
-from polar.integrations.discord.client import DiscordClient
+from repalis.integrations.discord.client import DiscordClient
 
 GUILD_ID = "123456789"
 ROLE_ID = "987654321"

@@ -6,13 +6,13 @@ from uuid import UUID
 
 from pydantic import ValidationError
 
-from polar.exceptions import PolarError, PolarRequestValidationError
-from polar.kit.utils import generate_uuid
-from polar.models import Organization
-from polar.models.webhook_endpoint import WebhookEventType
-from polar.redis import Redis
-from polar.webhook.eventstream import publish_webhook_event
-from polar.webhook.webhooks import WebhookPayload, WebhookPayloadTypeAdapter
+from repalis.exceptions import PolarError, PolarRequestValidationError
+from repalis.kit.utils import generate_uuid
+from repalis.models import Organization
+from repalis.models.webhook_endpoint import WebhookEventType
+from repalis.redis import Redis
+from repalis.webhook.eventstream import publish_webhook_event
+from repalis.webhook.webhooks import WebhookPayload, WebhookPayloadTypeAdapter
 
 from .fixtures import SUPPORTED_EVENTS, TriggerFixtures
 from .listener import has_active_listener

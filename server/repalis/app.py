@@ -7,25 +7,25 @@ from typing import TypedDict
 import structlog
 from fastapi import APIRouter, FastAPI
 
-from polar import worker  # noqa
-from polar.agent.endpoints import auth_md_router
-from polar.api import router
-from polar.auth.exception_handlers import (
+from repalis import worker  # noqa
+from repalis.agent.endpoints import auth_md_router
+from repalis.api import router
+from repalis.auth.exception_handlers import (
     PolarAuthRedirectionError,
     SSORequired,
     auth_redirection_error_exception_handler,
     sso_required_exception_handler,
 )
-from polar.auth.middlewares import AuthSubjectMiddleware
-from polar.auth.models import ORGANIZATION_HEADER
-from polar.backoffice import app as backoffice_app
-from polar.checkout import ip_geolocation
-from polar.checkout_link.app import app as checkout_link_redirect_app
-from polar.config import settings
-from polar.exception_handlers import add_exception_handlers
-from polar.health.endpoints import router as health_router
-from polar.kit.cors import CORSConfig, CORSMatcherMiddleware, Scope
-from polar.kit.db.postgres import (
+from repalis.auth.middlewares import AuthSubjectMiddleware
+from repalis.auth.models import ORGANIZATION_HEADER
+from repalis.backoffice import app as backoffice_app
+from repalis.checkout import ip_geolocation
+from repalis.checkout_link.app import app as checkout_link_redirect_app
+from repalis.config import settings
+from repalis.exception_handlers import add_exception_handlers
+from repalis.health.endpoints import router as health_router
+from repalis.kit.cors import CORSConfig, CORSMatcherMiddleware, Scope
+from repalis.kit.db.postgres import (
     AsyncEngine,
     AsyncSessionMaker,
     Engine,
@@ -33,19 +33,19 @@ from polar.kit.db.postgres import (
     create_async_sessionmaker,
     create_sync_sessionmaker,
 )
-from polar.kit.hash_secrets import get_hash_secrets
-from polar.kit.http import HSTSMiddleware
-from polar.kit.versioning import VERSION_HEADER, add_versioned_routers
-from polar.logfire import (
+from repalis.kit.hash_secrets import get_hash_secrets
+from repalis.kit.http import HSTSMiddleware
+from repalis.kit.versioning import VERSION_HEADER, add_versioned_routers
+from repalis.logfire import (
     configure_logfire,
     instrument_fastapi,
     instrument_httpx,
     instrument_redis,
     instrument_sqlalchemy,
 )
-from polar.logging import Logger
-from polar.logging import configure as configure_logging
-from polar.middlewares import (
+from repalis.logging import Logger
+from repalis.logging import configure as configure_logging
+from repalis.middlewares import (
     CacheControlMiddleware,
     LogCorrelationIdMiddleware,
     MaxBodySizeMiddleware,
@@ -55,29 +55,29 @@ from polar.middlewares import (
     SandboxResponseHeaderMiddleware,
     TransactionalMiddleware,
 )
-from polar.oauth2.endpoints.well_known import router as well_known_router
-from polar.oauth2.exception_handlers import OAuth2Error, oauth2_error_exception_handler
-from polar.observability.http_middleware import HttpMetricsMiddleware
-from polar.observability.memory_profile import (
+from repalis.oauth2.endpoints.well_known import router as well_known_router
+from repalis.oauth2.exception_handlers import OAuth2Error, oauth2_error_exception_handler
+from repalis.observability.http_middleware import HttpMetricsMiddleware
+from repalis.observability.memory_profile import (
     start_memory_profiler,
     stop_memory_profiler,
 )
-from polar.observability.remote_write import (
+from repalis.observability.remote_write import (
     start_remote_write_pusher,
     stop_remote_write_pusher,
 )
-from polar.observability.slo import start_slo_metrics, stop_slo_metrics
-from polar.postgres import (
+from repalis.observability.slo import start_slo_metrics, stop_slo_metrics
+from repalis.postgres import (
     AsyncDriver,
     create_async_engine,
     create_async_read_engine,
     create_sync_engine,
 )
-from polar.posthog import configure_posthog
-from polar.redis import Redis, create_redis
-from polar.sentry import configure_sentry
-from polar.version import CURRENT_API_VERSION, VERSIONS
-from polar.webhook.webhooks import get_webhook_routes
+from repalis.posthog import configure_posthog
+from repalis.redis import Redis, create_redis
+from repalis.sentry import configure_sentry
+from repalis.version import CURRENT_API_VERSION, VERSIONS
+from repalis.webhook.webhooks import get_webhook_routes
 
 from . import rate_limit
 

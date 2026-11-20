@@ -10,17 +10,17 @@ from uuid import UUID
 
 from sqlalchemy.orm import joinedload, selectinload
 
-from polar.auth.models import AuthSubject
-from polar.customer.repository import CustomerRepository
-from polar.customer.service import customer as customer_service
-from polar.discount.repository import DiscountRepository
-from polar.discount.schemas import DiscountFixedCreate, DiscountPercentageCreate
-from polar.discount.service import discount as discount_service
-from polar.enums import SubscriptionRecurringInterval
-from polar.kit.address import Address, CountryAlpha2
-from polar.kit.currency import PresentmentCurrency
-from polar.kit.db.postgres import AsyncSession
-from polar.models import (
+from repalis.auth.models import AuthSubject
+from repalis.customer.repository import CustomerRepository
+from repalis.customer.service import customer as customer_service
+from repalis.discount.repository import DiscountRepository
+from repalis.discount.schemas import DiscountFixedCreate, DiscountPercentageCreate
+from repalis.discount.service import discount as discount_service
+from repalis.enums import SubscriptionRecurringInterval
+from repalis.kit.address import Address, CountryAlpha2
+from repalis.kit.currency import PresentmentCurrency
+from repalis.kit.db.postgres import AsyncSession
+from repalis.models import (
     Customer,
     Discount,
     DiscountProduct,
@@ -34,26 +34,26 @@ from polar.models import (
     Subscription,
     User,
 )
-from polar.models.discount import DiscountDuration
-from polar.models.merchant_migration import MerchantMigrationSourcePlatform
-from polar.models.merchant_migration_record import (
+from repalis.models.discount import DiscountDuration
+from repalis.models.merchant_migration import MerchantMigrationSourcePlatform
+from repalis.models.merchant_migration_record import (
     MerchantMigrationRecordStatus,
     MerchantMigrationRecordType,
 )
-from polar.models.product_price import (
+from repalis.models.product_price import (
     ProductPriceAmountType,
     ProductPriceFixed,
     ProductPriceSource,
 )
-from polar.product.repository import ProductPriceRepository, ProductRepository
-from polar.product.schemas import (
+from repalis.product.repository import ProductPriceRepository, ProductRepository
+from repalis.product.schemas import (
     ProductCreateRecurring,
     ProductPriceCreate,
     ProductPriceFixedCreate,
 )
-from polar.product.service import product as product_service
-from polar.product.tiers import Tier, Tiers, TierType
-from polar.subscription.service import subscription as subscription_service
+from repalis.product.service import product as product_service
+from repalis.product.tiers import Tier, Tiers, TierType
+from repalis.subscription.service import subscription as subscription_service
 
 from .canonical import (
     CanonicalCustomer,

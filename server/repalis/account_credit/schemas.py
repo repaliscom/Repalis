@@ -1,7 +1,7 @@
 from datetime import datetime
 from uuid import UUID
 
-from polar.kit.schemas import Schema
+from repalis.kit.schemas import Schema
 
 
 class AccountCredit(Schema):

@@ -14,8 +14,8 @@ import uuid
 
 import anyio
 from anyio.streams.buffered import BufferedByteReceiveStream
-from polar.outpost.client import EventInput, Snapshot
-from polar.outpost.reducer import Reducer
+from repalis.outpost.client import EventInput, Snapshot
+from repalis.outpost.reducer import Reducer
 from redis.asyncio import Redis
 from redis.exceptions import ConnectionError as RedisConnectionError
 

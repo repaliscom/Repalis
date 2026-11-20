@@ -6,11 +6,11 @@ from typing import Any
 import pytest
 from sqlalchemy import Select, select
 
-from polar.kit.utils import utc_now
-from polar.models import OAuthAccount, User
-from polar.models.user import OAuthPlatform
-from polar.postgres import AsyncSession
-from polar.user.repository import UserRepository
+from repalis.kit.utils import utc_now
+from repalis.models import OAuthAccount, User
+from repalis.models.user import OAuthPlatform
+from repalis.postgres import AsyncSession
+from repalis.user.repository import UserRepository
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_user
 

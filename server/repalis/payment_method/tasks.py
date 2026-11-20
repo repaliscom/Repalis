@@ -2,9 +2,9 @@ import uuid
 from datetime import timedelta
 from typing import Annotated
 
-from polar.kit.utils import utc_now
-from polar.observability.task_logging import LoggableField
-from polar.worker import (
+from repalis.kit.utils import utc_now
+from repalis.observability.task_logging import LoggableField
+from repalis.worker import (
     AsyncSessionMaker,
     CronTrigger,
     TaskPriority,

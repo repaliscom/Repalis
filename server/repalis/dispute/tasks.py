@@ -1,18 +1,18 @@
 import uuid
 from typing import Annotated
 
-from polar.kit.utils import utc_now
-from polar.models.support_case import (
+from repalis.kit.utils import utc_now
+from repalis.models.support_case import (
     SupportCaseAudience,
     SupportCaseMessageAuthorKind,
 )
-from polar.observability.task_logging import LoggableField
-from polar.support_case.repository import (
+from repalis.observability.task_logging import LoggableField
+from repalis.support_case.repository import (
     SupportCaseMessageRepository,
     SupportCaseRepository,
 )
-from polar.support_case.service import support_case as support_case_service
-from polar.worker import (
+from repalis.support_case.service import support_case as support_case_service
+from repalis.worker import (
     AsyncSessionMaker,
     CronTrigger,
     TaskPriority,

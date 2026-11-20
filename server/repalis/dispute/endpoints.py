@@ -2,17 +2,17 @@ from typing import Annotated
 
 from fastapi import Depends, Query
 
-from polar.exceptions import ResourceNotFound
-from polar.kit.pagination import ListResource, PaginationParamsQuery
-from polar.models import Dispute
-from polar.openapi import APITag
-from polar.postgres import (
+from repalis.exceptions import ResourceNotFound
+from repalis.kit.pagination import ListResource, PaginationParamsQuery
+from repalis.models import Dispute
+from repalis.openapi import APITag
+from repalis.postgres import (
     AsyncReadSession,
     AsyncSession,
     get_db_read_session,
     get_db_session,
 )
-from polar.routing import APIRouter
+from repalis.routing import APIRouter
 
 from . import auth, sorting
 from .schemas import Dispute as DisputeSchema

@@ -3,10 +3,10 @@ from enum import StrEnum
 
 from pydantic import UUID4, Field
 
-from polar.auth.scope import SCOPES_SUPPORTED, Scope
-from polar.kit.schemas import MultipleQueryFilter, Schema, TimestampedSchema
-from polar.kit.versioning import QuerySchema
-from polar.organization.schemas import OrganizationID
+from repalis.auth.scope import SCOPES_SUPPORTED, Scope
+from repalis.kit.schemas import MultipleQueryFilter, Schema, TimestampedSchema
+from repalis.kit.versioning import QuerySchema
+from repalis.organization.schemas import OrganizationID
 
 AvailableScope = StrEnum(  # type: ignore
     "AvailableScope",

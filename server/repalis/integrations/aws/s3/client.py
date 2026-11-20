@@ -3,8 +3,8 @@ from typing import TYPE_CHECKING
 import boto3
 from botocore.config import Config
 
-from polar.config import settings
-from polar.kit.aws import get_credentials
+from repalis.config import settings
+from repalis.kit.aws import get_credentials
 
 if TYPE_CHECKING:
     from mypy_boto3_s3.client import S3Client

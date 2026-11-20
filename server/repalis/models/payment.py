@@ -7,9 +7,9 @@ from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import Mapped, declared_attr, mapped_column, relationship
 
-from polar.enums import PaymentProcessor
-from polar.kit.db.models import RecordModel
-from polar.kit.extensions.sqlalchemy.types import StringEnum
+from repalis.enums import PaymentProcessor
+from repalis.kit.db.models import RecordModel
+from repalis.kit.extensions.sqlalchemy.types import StringEnum
 
 # Stripe decline codes that indicate the payment method is permanently unusable
 # and should not be retried automatically via the dunning process.

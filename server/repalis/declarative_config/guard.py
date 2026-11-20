@@ -1,8 +1,8 @@
 from uuid import UUID
 
-from polar.exceptions import PolarError
-from polar.organization.repository import OrganizationRepository
-from polar.postgres import AsyncReadSession
+from repalis.exceptions import PolarError
+from repalis.organization.repository import OrganizationRepository
+from repalis.postgres import AsyncReadSession
 
 
 class DeclarativeConfigManaged(PolarError):

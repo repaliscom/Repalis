@@ -14,7 +14,7 @@ from sqlalchemy import (
 from sqlalchemy.ext.associationproxy import AssociationProxy, association_proxy
 from sqlalchemy.orm import Mapped, declared_attr, mapped_column, relationship
 
-from polar.kit.db.models.base import RecordModel
+from repalis.kit.db.models.base import RecordModel
 
 if TYPE_CHECKING:
     from .customer import Customer

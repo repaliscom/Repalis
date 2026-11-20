@@ -6,12 +6,12 @@ from sqlalchemy import ForeignKey, Index, String, Text, Uuid, text
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import Mapped, declared_attr, mapped_column, relationship
 
-from polar.kit.db.models import RecordModel
-from polar.kit.extensions.sqlalchemy.types import StringEnum
+from repalis.kit.db.models import RecordModel
+from repalis.kit.extensions.sqlalchemy.types import StringEnum
 
 if TYPE_CHECKING:
-    from polar.models.merchant_migration import MerchantMigration
-    from polar.models.organization import Organization
+    from repalis.models.merchant_migration import MerchantMigration
+    from repalis.models.organization import Organization
 
 
 class MerchantMigrationRecordType(StrEnum):

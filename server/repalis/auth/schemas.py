@@ -7,8 +7,8 @@ from reauth.authentication_session import (
 )
 from reauth.factors import FactorBase
 
-from polar.kit.http import ReturnTo
-from polar.kit.schemas import Schema
+from repalis.kit.http import ReturnTo
+from repalis.kit.schemas import Schema
 
 from .sso.factor import SSOFactorMixin
 

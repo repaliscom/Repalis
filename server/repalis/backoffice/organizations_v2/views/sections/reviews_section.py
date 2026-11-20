@@ -7,10 +7,10 @@ from collections.abc import Generator, Sequence
 from fastapi import Request
 from tagflow import tag, text
 
-from polar.models import Organization
-from polar.models.organization_agent_review import OrganizationAgentReview
-from polar.models.organization_risk_signal import OrganizationRiskSignal
-from polar.organization_review.schemas import AUP_SECTION_LABELS, ActorType
+from repalis.models import Organization
+from repalis.models.organization_agent_review import OrganizationAgentReview
+from repalis.models.organization_risk_signal import OrganizationRiskSignal
+from repalis.organization_review.schemas import AUP_SECTION_LABELS, ActorType
 
 from ....components import card
 from ._shared import (

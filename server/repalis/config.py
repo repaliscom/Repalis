@@ -15,8 +15,8 @@ from pydantic_ai.providers.gateway import gateway_provider
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from sqlalchemy import URL
 
-from polar.enums import EmailSender, TaxProcessor
-from polar.kit.address import Address, CountryAlpha2
+from repalis.enums import EmailSender, TaxProcessor
+from repalis.kit.address import Address, CountryAlpha2
 
 # A token hash reads `<secret_id>$<digest>`. The digest is 64 characters
 HASH_SEPARATOR = "$"

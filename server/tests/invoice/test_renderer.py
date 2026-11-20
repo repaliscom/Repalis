@@ -5,7 +5,7 @@ from pathlib import Path
 
 import pytest
 
-from polar.invoice.renderer import build_renderer_env
+from repalis.invoice.renderer import build_renderer_env
 
 
 class TestRendererEnvironment:
@@ -22,8 +22,8 @@ class TestRendererEnvironment:
                 sys.executable,
                 "-c",
                 (
-                    "import polar.invoice._renderer_bootstrap; "
-                    "from polar.config import settings; "
+                    "import repalis.invoice._renderer_bootstrap; "
+                    "from repalis.config import settings; "
                     "assert settings.S3_CUSTOMER_INVOICES_BUCKET_NAME "
                     "== 'testing-polar-s3', settings.S3_CUSTOMER_INVOICES_BUCKET_NAME"
                 ),
@@ -60,7 +60,7 @@ class TestRendererEnvironment:
                 sys.executable,
                 "-c",
                 (
-                    "import polar.invoice._renderer_bootstrap; import os; "
+                    "import repalis.invoice._renderer_bootstrap; import os; "
                     "assert os.environ.get('PROMETHEUS_MULTIPROC_DIR') "
                     f"!= {prometheus_dir!r}; "
                     "assert os.environ['POLAR_CUSTOM_OVERRIDE'] == '1'"

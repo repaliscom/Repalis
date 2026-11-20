@@ -1,7 +1,7 @@
 from typing import TYPE_CHECKING, ClassVar, Self
 
-from polar.config import settings
-from polar.invoice.generator import (
+from repalis.config import settings
+from repalis.invoice.generator import (
     Invoice,
     InvoiceGenerator,
     InvoiceHeadingItem,
@@ -10,14 +10,14 @@ from polar.invoice.generator import (
     escape_markdown,
     format_date,
 )
-from polar.invoice.seller import get_polar_additional_info
-from polar.kit.currency import format_currency
-from polar.kit.utils import utc_now
-from polar.models.credit_note import CreditNoteReason
-from polar.models.refund import RefundStatus
+from repalis.invoice.seller import get_polar_additional_info
+from repalis.kit.currency import format_currency
+from repalis.kit.utils import utc_now
+from repalis.models.credit_note import CreditNoteReason
+from repalis.models.refund import RefundStatus
 
 if TYPE_CHECKING:
-    from polar.models import CreditNote as CreditNoteModel
+    from repalis.models import CreditNote as CreditNoteModel
 
 
 class CreditNote(Invoice):

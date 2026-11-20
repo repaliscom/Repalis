@@ -6,12 +6,12 @@ from fastapi.openapi.utils import get_openapi as _get_openapi
 from fastapi.routing import RouteContext
 from starlette.routing import BaseRoute
 
-from polar.kit.metadata import add_metadata_query_schema
-from polar.kit.versioning import api_version_context, prune_version_omitted_schemas
-from polar.oauth2.schemas import add_oauth2_form_schemas
+from repalis.kit.metadata import add_metadata_query_schema
+from repalis.kit.versioning import api_version_context, prune_version_omitted_schemas
+from repalis.oauth2.schemas import add_oauth2_form_schemas
 
 if TYPE_CHECKING:
-    from polar.kit.versioning import APIVersion
+    from repalis.kit.versioning import APIVersion
 
 
 class OpenAPIExternalDoc(TypedDict):

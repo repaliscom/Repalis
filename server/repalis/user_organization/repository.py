@@ -4,10 +4,10 @@ from uuid import UUID
 
 from sqlalchemy import Exists, SQLColumnExpression, select, update
 
-from polar.models import Organization, UserOrganization
-from polar.models.organization import OrganizationStatus
-from polar.models.user_organization import OrganizationRole
-from polar.postgres import AsyncReadSession, AsyncSession
+from repalis.models import Organization, UserOrganization
+from repalis.models.organization import OrganizationStatus
+from repalis.models.user_organization import OrganizationRole
+from repalis.postgres import AsyncReadSession, AsyncSession
 
 
 class UserOrganizationRepository:

@@ -4,10 +4,10 @@ from fastapi import Depends, Request
 from fastapi.security import OpenIdConnect
 from fastapi.security.utils import get_authorization_scheme_param
 
-from polar.exceptions import Unauthorized
-from polar.kit.db.postgres import SyncSessionMaker
-from polar.models import OAuth2Token
-from polar.postgres import AsyncSession, get_db_session
+from repalis.exceptions import Unauthorized
+from repalis.kit.db.postgres import SyncSessionMaker
+from repalis.models import OAuth2Token
+from repalis.postgres import AsyncSession, get_db_session
 
 from .authorization_server import AuthorizationServer
 from .exceptions import InvalidTokenError

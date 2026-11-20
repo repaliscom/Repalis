@@ -26,31 +26,31 @@ from pydantic import (
 from pydantic.json_schema import JsonSchemaValue, SkipJsonSchema
 from pydantic_core import core_schema as cs
 
-from polar.benefit.schemas import Benefit as BenefitSchema
-from polar.benefit.schemas import BenefitGrantWebhook
-from polar.checkout.schemas import Checkout as CheckoutSchema
-from polar.customer.schemas.customer import CustomerBase
-from polar.customer.schemas.customer import CustomerResponse as CustomerSchema
-from polar.customer.schemas.state import CustomerState as CustomerStateSchema
-from polar.customer_seat.schemas import CustomerSeat as CustomerSeatSchema
-from polar.discount.schemas import Discount as DiscountSchema
-from polar.exceptions import PolarError
-from polar.integrations.discord.webhook import (
+from repalis.benefit.schemas import Benefit as BenefitSchema
+from repalis.benefit.schemas import BenefitGrantWebhook
+from repalis.checkout.schemas import Checkout as CheckoutSchema
+from repalis.customer.schemas.customer import CustomerBase
+from repalis.customer.schemas.customer import CustomerResponse as CustomerSchema
+from repalis.customer.schemas.state import CustomerState as CustomerStateSchema
+from repalis.customer_seat.schemas import CustomerSeat as CustomerSeatSchema
+from repalis.discount.schemas import Discount as DiscountSchema
+from repalis.exceptions import PolarError
+from repalis.integrations.discord.webhook import (
     DiscordEmbedField,
     DiscordPayload,
     get_branded_discord_embed,
 )
-from polar.integrations.slack.payload import (
+from repalis.integrations.slack.payload import (
     SlackPayload,
     SlackText,
     escape_slack_text,
     get_branded_slack_payload,
 )
-from polar.kit.schemas import IDSchema, Schema
-from polar.kit.utils import generate_uuid
-from polar.kit.versioning import APIVersion, Version, api_version_context
-from polar.member.schemas import Member as MemberSchema
-from polar.models import (
+from repalis.kit.schemas import IDSchema, Schema
+from repalis.kit.utils import generate_uuid
+from repalis.kit.versioning import APIVersion, Version, api_version_context
+from repalis.member.schemas import Member as MemberSchema
+from repalis.models import (
     Benefit,
     BenefitGrant,
     Checkout,
@@ -65,15 +65,15 @@ from polar.models import (
     Subscription,
     User,
 )
-from polar.models.order import OrderStatus
-from polar.models.subscription import SubscriptionStatus
-from polar.models.webhook_endpoint import WebhookEventType, WebhookFormat
-from polar.order.schemas import Order as OrderSchema
-from polar.organization.schemas import Organization as OrganizationSchema
-from polar.product.schemas import Product as ProductSchema
-from polar.refund.schemas import Refund as RefundSchema
-from polar.subscription.schemas import Subscription as SubscriptionSchema
-from polar.version import V2027_01
+from repalis.models.order import OrderStatus
+from repalis.models.subscription import SubscriptionStatus
+from repalis.models.webhook_endpoint import WebhookEventType, WebhookFormat
+from repalis.order.schemas import Order as OrderSchema
+from repalis.organization.schemas import Organization as OrganizationSchema
+from repalis.product.schemas import Product as ProductSchema
+from repalis.refund.schemas import Refund as RefundSchema
+from repalis.subscription.schemas import Subscription as SubscriptionSchema
+from repalis.version import V2027_01
 
 WebhookTypeObject = (
     tuple[Literal[WebhookEventType.checkout_created], Checkout]

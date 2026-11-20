@@ -4,15 +4,15 @@ from typing import Annotated
 from pydantic import UUID4, Field, computed_field, field_validator
 from pydantic.json_schema import SkipJsonSchema
 
-from polar.kit.external_id import ExternalIDInputMixin, ExternalIDOutputMixin
-from polar.kit.metadata import MetadataInputMixin, MetadataOutputMixin
-from polar.kit.schemas import IDSchema, Schema, TimestampedSchema
-from polar.kit.versioning import Version
-from polar.kit.visibility import Visibility
-from polar.models.benefit import BenefitType, BenefitVisibility
-from polar.models.benefit_grant import BenefitGrantError
-from polar.organization.schemas import OrganizationID, OrganizationPublicBase
-from polar.version import V2026_10, V2027_01
+from repalis.kit.external_id import ExternalIDInputMixin, ExternalIDOutputMixin
+from repalis.kit.metadata import MetadataInputMixin, MetadataOutputMixin
+from repalis.kit.schemas import IDSchema, Schema, TimestampedSchema
+from repalis.kit.versioning import Version
+from repalis.kit.visibility import Visibility
+from repalis.models.benefit import BenefitType, BenefitVisibility
+from repalis.models.benefit_grant import BenefitGrantError
+from repalis.organization.schemas import OrganizationID, OrganizationPublicBase
+from repalis.version import V2026_10, V2027_01
 
 BENEFIT_DESCRIPTION_MIN_LENGTH = 3
 BENEFIT_DESCRIPTION_MAX_LENGTH = 42

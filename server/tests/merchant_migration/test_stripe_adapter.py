@@ -5,13 +5,13 @@ import pytest
 import stripe as stripe_lib
 from pytest_mock import MockerFixture
 
-from polar.enums import TaxBehavior
-from polar.merchant_migration.adapters.stripe import (
+from repalis.enums import TaxBehavior
+from repalis.merchant_migration.adapters.stripe import (
     CANCELLATION_COMMENT_PREFIX,
     StripeAdapter,
     StripeMissingScope,
 )
-from polar.merchant_migration.canonical import (
+from repalis.merchant_migration.canonical import (
     CanonicalCustomer,
     CanonicalDiscount,
     CanonicalDiscountDuration,
@@ -23,7 +23,7 @@ from polar.merchant_migration.canonical import (
     CanonicalSubscription,
     CanonicalSubscriptionStatus,
 )
-from polar.tax.tax_id import TaxIDFormat
+from repalis.tax.tax_id import TaxIDFormat
 
 
 def _adapter(mocker: MockerFixture) -> tuple[StripeAdapter, Any]:

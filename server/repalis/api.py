@@ -1,78 +1,78 @@
 from fastapi import APIRouter
 
-from polar.account.endpoints import router as accounts_router
-from polar.agent.endpoints import router as agent_router
-from polar.auth.endpoints import router as auth_router
-from polar.benefit.endpoints import router as benefits_router
-from polar.benefit.grant.endpoints import router as benefit_grants_router
-from polar.benefit.strategies.slack_shared_channel.endpoints import (
+from repalis.account.endpoints import router as accounts_router
+from repalis.agent.endpoints import router as agent_router
+from repalis.auth.endpoints import router as auth_router
+from repalis.benefit.endpoints import router as benefits_router
+from repalis.benefit.grant.endpoints import router as benefit_grants_router
+from repalis.benefit.strategies.slack_shared_channel.endpoints import (
     router as slack_shared_channel_benefit_router,
 )
-from polar.catalog.endpoints import router as catalog_router
-from polar.checkout.endpoints import router as checkout_router
-from polar.checkout_link.endpoints import router as checkout_link_router
-from polar.cli.endpoints import router as cli_router
-from polar.custom_field.endpoints import router as custom_field_router
-from polar.customer.endpoints import router as customer_router
-from polar.customer_meter.endpoints import router as customer_meter_router
-from polar.customer_portal.endpoints import router as customer_portal_router
-from polar.customer_seat.endpoints import router as customer_seat_router
-from polar.customer_session.endpoints import router as customer_session_router
-from polar.declarative_config.endpoints import router as declarative_config_router
-from polar.discount.endpoints import router as discount_router
-from polar.dispute.endpoints import router as dispute_router
-from polar.email_update.endpoints import router as email_update_router
-from polar.event.endpoints import ingest_router as event_ingest_router
-from polar.event.endpoints import router as event_router
-from polar.event_type.endpoints import router as event_type_router
-from polar.eventstream.endpoints import router as stream_router
-from polar.feedback.endpoints import router as feedback_router
-from polar.file.endpoints import router as files_router
-from polar.integrations.chargeback_stop.endpoints import (
+from repalis.catalog.endpoints import router as catalog_router
+from repalis.checkout.endpoints import router as checkout_router
+from repalis.checkout_link.endpoints import router as checkout_link_router
+from repalis.cli.endpoints import router as cli_router
+from repalis.custom_field.endpoints import router as custom_field_router
+from repalis.customer.endpoints import router as customer_router
+from repalis.customer_meter.endpoints import router as customer_meter_router
+from repalis.customer_portal.endpoints import router as customer_portal_router
+from repalis.customer_seat.endpoints import router as customer_seat_router
+from repalis.customer_session.endpoints import router as customer_session_router
+from repalis.declarative_config.endpoints import router as declarative_config_router
+from repalis.discount.endpoints import router as discount_router
+from repalis.dispute.endpoints import router as dispute_router
+from repalis.email_update.endpoints import router as email_update_router
+from repalis.event.endpoints import ingest_router as event_ingest_router
+from repalis.event.endpoints import router as event_router
+from repalis.event_type.endpoints import router as event_type_router
+from repalis.eventstream.endpoints import router as stream_router
+from repalis.feedback.endpoints import router as feedback_router
+from repalis.file.endpoints import router as files_router
+from repalis.integrations.chargeback_stop.endpoints import (
     router as chargeback_stop_router,
 )
-from polar.integrations.discord.endpoints import router as discord_router
-from polar.integrations.github.endpoints import router as github_router
-from polar.integrations.github_repository_benefit.endpoints import (
+from repalis.integrations.discord.endpoints import router as discord_router
+from repalis.integrations.github.endpoints import router as github_router
+from repalis.integrations.github_repository_benefit.endpoints import (
     router as github_repository_benefit_router,
 )
-from polar.integrations.plain.endpoints import router as plain_router
-from polar.integrations.repalis.endpoints import router as polar_self_router
-from polar.integrations.resend.endpoints import router as resend_router
-from polar.integrations.slack.endpoints import router as slack_router
-from polar.integrations.stripe.endpoints import router as stripe_router
-from polar.license_key.endpoints import router as license_key_router
-from polar.mcp_event.endpoints import router as mcp_event_router
-from polar.member.endpoints import customer_members_router
-from polar.member.endpoints import router as member_router
-from polar.merchant_migration.endpoints import router as merchant_migration_router
-from polar.meter.endpoints import router as meter_router
-from polar.metrics.endpoints import router as metrics_router
-from polar.notifications.endpoints import router as notifications_router
-from polar.oauth2.endpoints.oauth2 import router as oauth2_router
-from polar.order.endpoints import router as order_router
-from polar.organization.endpoints import router as organization_router
-from polar.organization_access_token.endpoints import (
+from repalis.integrations.plain.endpoints import router as plain_router
+from repalis.integrations.repalis.endpoints import router as polar_self_router
+from repalis.integrations.resend.endpoints import router as resend_router
+from repalis.integrations.slack.endpoints import router as slack_router
+from repalis.integrations.stripe.endpoints import router as stripe_router
+from repalis.license_key.endpoints import router as license_key_router
+from repalis.mcp_event.endpoints import router as mcp_event_router
+from repalis.member.endpoints import customer_members_router
+from repalis.member.endpoints import router as member_router
+from repalis.merchant_migration.endpoints import router as merchant_migration_router
+from repalis.meter.endpoints import router as meter_router
+from repalis.metrics.endpoints import router as metrics_router
+from repalis.notifications.endpoints import router as notifications_router
+from repalis.oauth2.endpoints.oauth2 import router as oauth2_router
+from repalis.order.endpoints import router as order_router
+from repalis.organization.endpoints import router as organization_router
+from repalis.organization_access_token.endpoints import (
     router as organization_access_token_router,
 )
-from polar.organization_domain.endpoints import router as organization_domain_router
-from polar.organization_email.endpoints import router as organization_email_router
-from polar.outpost.endpoints import router as outpost_router
-from polar.payment.endpoints import router as payment_router
-from polar.payout.endpoints import router as payout_router
-from polar.payout_account.endpoints import router as payout_account_router
-from polar.personal_access_token.endpoints import router as pat_router
-from polar.product.endpoints import router as product_router
-from polar.refund.endpoints import router as refund_router
-from polar.search.endpoints import router as search_router
-from polar.sso.endpoints import router as sso_router
-from polar.subscription.endpoints import router as subscription_router
-from polar.support_case.endpoints import router as support_case_router
-from polar.tax.endpoints import router as tax_router
-from polar.transaction.endpoints import router as transaction_router
-from polar.user.endpoints import router as user_router
-from polar.wallet.endpoints import router as wallet_router
-from polar.webhook.endpoints import router as webhook_router
+from repalis.organization_domain.endpoints import router as organization_domain_router
+from repalis.organization_email.endpoints import router as organization_email_router
+from repalis.outpost.endpoints import router as outpost_router
+from repalis.payment.endpoints import router as payment_router
+from repalis.payout.endpoints import router as payout_router
+from repalis.payout_account.endpoints import router as payout_account_router
+from repalis.personal_access_token.endpoints import router as pat_router
+from repalis.product.endpoints import router as product_router
+from repalis.refund.endpoints import router as refund_router
+from repalis.search.endpoints import router as search_router
+from repalis.sso.endpoints import router as sso_router
+from repalis.subscription.endpoints import router as subscription_router
+from repalis.support_case.endpoints import router as support_case_router
+from repalis.tax.endpoints import router as tax_router
+from repalis.transaction.endpoints import router as transaction_router
+from repalis.user.endpoints import router as user_router
+from repalis.wallet.endpoints import router as wallet_router
+from repalis.webhook.endpoints import router as webhook_router
 
 router = APIRouter(prefix="/v1")
 

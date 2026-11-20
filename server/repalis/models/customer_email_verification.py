@@ -4,10 +4,10 @@ from uuid import UUID
 from sqlalchemy import TIMESTAMP, ForeignKey, String, Uuid
 from sqlalchemy.orm import Mapped, declared_attr, mapped_column, relationship
 
-from polar.config import settings
-from polar.kit.db.models import RecordModel
-from polar.kit.utils import utc_now
-from polar.models.customer import Customer
+from repalis.config import settings
+from repalis.kit.db.models import RecordModel
+from repalis.kit.utils import utc_now
+from repalis.models.customer import Customer
 
 
 def get_expires_at() -> datetime:

@@ -8,17 +8,17 @@ from decimal import Decimal
 import structlog
 from sqlalchemy import and_, false, or_
 
-from polar.billing_interval.repository import BillingIntervalRepository
-from polar.billing_interval.service import billing_interval as billing_interval_service
-from polar.billing_interval.service import select_settlement_windows
-from polar.event.repository import EventRepository
-from polar.meter.service import meter as meter_service
-from polar.models import BillingEntry, Meter, Subscription
-from polar.models.reducer import ReducerKind
-from polar.postgres import AsyncSession
-from polar.reducer.bucket_repository import ReducerBucketRepository
-from polar.reducer.repository import ReducerRepository
-from polar.reducer.service import REDUCER_BUCKET_SIZE
+from repalis.billing_interval.repository import BillingIntervalRepository
+from repalis.billing_interval.service import billing_interval as billing_interval_service
+from repalis.billing_interval.service import select_settlement_windows
+from repalis.event.repository import EventRepository
+from repalis.meter.service import meter as meter_service
+from repalis.models import BillingEntry, Meter, Subscription
+from repalis.models.reducer import ReducerKind
+from repalis.postgres import AsyncSession
+from repalis.reducer.bucket_repository import ReducerBucketRepository
+from repalis.reducer.repository import ReducerRepository
+from repalis.reducer.service import REDUCER_BUCKET_SIZE
 
 log = structlog.get_logger(__name__)
 

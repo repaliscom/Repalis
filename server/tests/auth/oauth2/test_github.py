@@ -2,10 +2,10 @@ import pytest
 from pytest_mock import MockerFixture
 from reauth.factors.oauth2.base import OAuth2Account
 
-from polar.auth.exceptions import UnverifiedEmailError
-from polar.auth.oauth2.github import GitHubFactor
-from polar.auth.oauth2.state import OAuth2StateService
-from polar.postgres import AsyncSession
+from repalis.auth.exceptions import UnverifiedEmailError
+from repalis.auth.oauth2.github import GitHubFactor
+from repalis.auth.oauth2.state import OAuth2StateService
+from repalis.postgres import AsyncSession
 
 
 @pytest.mark.anyio

@@ -6,11 +6,11 @@ from uuid import UUID
 from sqlalchemy import TIMESTAMP, BigInteger, ForeignKey, Index, String, Uuid, text
 from sqlalchemy.orm import Mapped, declared_attr, mapped_column, relationship
 
-from polar.kit.db.models import RecordModel
-from polar.kit.extensions.sqlalchemy.types import StringEnum
+from repalis.kit.db.models import RecordModel
+from repalis.kit.extensions.sqlalchemy.types import StringEnum
 
 if TYPE_CHECKING:
-    from polar.models import (
+    from repalis.models import (
         Customer,
         Discount,
         Event,

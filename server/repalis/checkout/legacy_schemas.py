@@ -3,8 +3,8 @@ from typing import Annotated
 from pydantic import UUID4, BaseModel, Field
 from pydantic.json_schema import SkipJsonSchema
 
-from polar.kit.schemas import SetSchemaReference
-from polar.product.legacy_schemas import ProductPriceCreateList
+from repalis.kit.schemas import SetSchemaReference
+from repalis.product.legacy_schemas import ProductPriceCreateList
 
 from . import schemas
 from .schemas import (

@@ -2,12 +2,12 @@ from typing import Protocol
 
 from pydantic import UUID4
 
-from polar.auth.models import AuthSubject, is_agent, is_organization
-from polar.authz.service import get_accessible_org_ids
-from polar.exceptions import PolarRequestValidationError
-from polar.models import Agent, Organization, User
-from polar.organization.repository import OrganizationRepository
-from polar.postgres import AsyncReadSession
+from repalis.auth.models import AuthSubject, is_agent, is_organization
+from repalis.authz.service import get_accessible_org_ids
+from repalis.exceptions import PolarRequestValidationError
+from repalis.models import Agent, Organization, User
+from repalis.organization.repository import OrganizationRepository
+from repalis.postgres import AsyncReadSession
 
 
 class _OrganizationIDModelNone(Protocol):

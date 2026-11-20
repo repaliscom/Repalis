@@ -4,18 +4,18 @@ from fastapi import Depends, Query
 from pydantic import UUID4
 from sqlalchemy.orm import joinedload
 
-from polar.auth.permission import OrganizationPermission
-from polar.authz.service import assert_organization_permission
-from polar.exceptions import ResourceNotFound
-from polar.kit.csv import CSVStreamingResponse
-from polar.kit.db.postgres import AsyncSessionMaker
-from polar.kit.pagination import ListResource, PaginationParamsQuery
-from polar.locker import Locker, get_locker
-from polar.models import Organization, Payout
-from polar.openapi import APITag
-from polar.organization.service import organization as organization_service
-from polar.postgres import AsyncSession, get_db_session, get_db_sessionmaker
-from polar.routing import APIRouter
+from repalis.auth.permission import OrganizationPermission
+from repalis.authz.service import assert_organization_permission
+from repalis.exceptions import ResourceNotFound
+from repalis.kit.csv import CSVStreamingResponse
+from repalis.kit.db.postgres import AsyncSessionMaker
+from repalis.kit.pagination import ListResource, PaginationParamsQuery
+from repalis.locker import Locker, get_locker
+from repalis.models import Organization, Payout
+from repalis.openapi import APITag
+from repalis.organization.service import organization as organization_service
+from repalis.postgres import AsyncSession, get_db_session, get_db_sessionmaker
+from repalis.routing import APIRouter
 
 from . import auth as payouts_auth
 from . import sorting

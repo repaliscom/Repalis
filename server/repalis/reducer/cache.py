@@ -5,14 +5,14 @@ import structlog
 from pydantic import TypeAdapter
 from redis.exceptions import RedisError, WatchError
 
-from polar.kit.schemas import Schema
-from polar.logging import Logger
-from polar.meter.aggregation import Aggregation
-from polar.meter.filter import Filter
-from polar.models import Reducer
-from polar.models.reducer import ReducerKind
-from polar.postgres import AsyncSession
-from polar.redis import Redis
+from repalis.kit.schemas import Schema
+from repalis.logging import Logger
+from repalis.meter.aggregation import Aggregation
+from repalis.meter.filter import Filter
+from repalis.models import Reducer
+from repalis.models.reducer import ReducerKind
+from repalis.postgres import AsyncSession
+from repalis.redis import Redis
 
 from .repository import ReducerRepository
 

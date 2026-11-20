@@ -9,21 +9,21 @@ from uuid import UUID
 
 import structlog
 
-from polar.event.repository import EventRepository
-from polar.exceptions import PolarError
-from polar.logging import Logger
-from polar.meter.aggregation import AggregationFunction
-from polar.models import BillingInterval, Customer, Subscription
-from polar.models.billing_interval import UsagePolicy
-from polar.models.subscription import SubscriptionStatus
-from polar.organization.repository import OrganizationRepository
-from polar.postgres import AsyncReadSession, AsyncSession
-from polar.product.guard import is_metered_price
-from polar.redis import Redis
-from polar.reducer.service import finalize_quantity, merge_summaries
-from polar.reducer.service import reducer as reducer_service
-from polar.reducer.types import MeterUsage, UsageWindow, WindowUsage
-from polar.subscription.repository import SubscriptionRepository
+from repalis.event.repository import EventRepository
+from repalis.exceptions import PolarError
+from repalis.logging import Logger
+from repalis.meter.aggregation import AggregationFunction
+from repalis.models import BillingInterval, Customer, Subscription
+from repalis.models.billing_interval import UsagePolicy
+from repalis.models.subscription import SubscriptionStatus
+from repalis.organization.repository import OrganizationRepository
+from repalis.postgres import AsyncReadSession, AsyncSession
+from repalis.product.guard import is_metered_price
+from repalis.redis import Redis
+from repalis.reducer.service import finalize_quantity, merge_summaries
+from repalis.reducer.service import reducer as reducer_service
+from repalis.reducer.types import MeterUsage, UsageWindow, WindowUsage
+from repalis.subscription.repository import SubscriptionRepository
 
 from .repository import BillingIntervalRepository
 from .types import IntervalChangePlan, MeterCharge, SubscriptionMeterBillingState

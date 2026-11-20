@@ -9,10 +9,10 @@ from reauth.factors.oauth2.oidc import (
     PrivateKeyJWTOIDCFactor,
 )
 
-from polar.kit.signer import get_signer
-from polar.models import OrganizationSSOConnection
-from polar.models.organization_sso_connection import OIDCAuthMethod
-from polar.sso.schemas import DISCOVERY_PATH
+from repalis.kit.signer import get_signer
+from repalis.models import OrganizationSSOConnection
+from repalis.models.organization_sso_connection import OIDCAuthMethod
+from repalis.sso.schemas import DISCOVERY_PATH
 
 from ..oauth2.state import OAuth2StateService
 

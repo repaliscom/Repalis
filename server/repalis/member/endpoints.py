@@ -3,19 +3,19 @@ from uuid import UUID
 
 from fastapi import Depends, Query
 
-from polar.auth.permission import OrganizationPermission
-from polar.authz.service import assert_resource_permission
-from polar.customer.schemas.customer import CustomerID, ExternalCustomerID
-from polar.exceptions import NotPermitted, PolarRequestValidationError, ResourceNotFound
-from polar.kit.pagination import ListResource, PaginationParamsQuery
-from polar.openapi import APITag, cli_preview, destructive
-from polar.postgres import (
+from repalis.auth.permission import OrganizationPermission
+from repalis.authz.service import assert_resource_permission
+from repalis.customer.schemas.customer import CustomerID, ExternalCustomerID
+from repalis.exceptions import NotPermitted, PolarRequestValidationError, ResourceNotFound
+from repalis.kit.pagination import ListResource, PaginationParamsQuery
+from repalis.openapi import APITag, cli_preview, destructive
+from repalis.postgres import (
     AsyncReadSession,
     AsyncSession,
     get_db_read_session,
     get_db_session,
 )
-from polar.routing import APIRouter
+from repalis.routing import APIRouter
 
 from . import auth, sorting
 from .query import MemberCustomerListParams, MemberListParams

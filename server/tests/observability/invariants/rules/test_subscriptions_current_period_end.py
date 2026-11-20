@@ -2,15 +2,15 @@ from datetime import timedelta
 
 import pytest
 
-from polar.kit.utils import utc_now
-from polar.models import Customer, Product
-from polar.models.subscription import SubscriptionStatus
-from polar.observability.invariants.rules.subscriptions_current_period_end import (
+from repalis.kit.utils import utc_now
+from repalis.models import Customer, Product
+from repalis.models.subscription import SubscriptionStatus
+from repalis.observability.invariants.rules.subscriptions_current_period_end import (
     SubscriptionsCurrentPeriodEndInvariant,
     SubscriptionsCurrentPeriodEndInvariantError,
 )
-from polar.postgres import AsyncSession
-from polar.subscription.repository import SubscriptionRepository
+from repalis.postgres import AsyncSession
+from repalis.subscription.repository import SubscriptionRepository
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_subscription
 

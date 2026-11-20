@@ -2,9 +2,9 @@ from typing import Annotated
 
 from fastapi import Depends
 
-from polar.auth.dependencies import Authenticator
-from polar.auth.models import AuthSubject, Organization, User
-from polar.auth.scope import Scope
+from repalis.auth.dependencies import Authenticator
+from repalis.auth.models import AuthSubject, Organization, User
+from repalis.auth.scope import Scope
 
 _SeatRead = Authenticator(
     required_scopes={

@@ -3,12 +3,12 @@ import uuid
 import pytest
 from pytest_mock import MockerFixture
 
-from polar.kit.address import Address, CountryAlpha2
-from polar.kit.db.postgres import AsyncSession
-from polar.locker import TimeoutLockError
-from polar.models import Account
-from polar.receipt.service import receipt as receipt_service
-from polar.receipt.tasks import ReceiptOrderDoesNotExist, receipt_render
+from repalis.kit.address import Address, CountryAlpha2
+from repalis.kit.db.postgres import AsyncSession
+from repalis.locker import TimeoutLockError
+from repalis.models import Account
+from repalis.receipt.service import receipt as receipt_service
+from repalis.receipt.tasks import ReceiptOrderDoesNotExist, receipt_render
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (
     create_customer,
@@ -26,8 +26,8 @@ def _patch_locker(mocker: MockerFixture, *, raises_timeout: bool = False) -> Non
     cm.__aexit__ = mocker.AsyncMock(return_value=None)
     locker = mocker.MagicMock()
     locker.lock = mocker.MagicMock(return_value=cm)
-    mocker.patch("polar.receipt.tasks.Locker", return_value=locker)
-    mocker.patch("polar.receipt.tasks.RedisMiddleware.get")
+    mocker.patch("repalis.receipt.tasks.Locker", return_value=locker)
+    mocker.patch("repalis.receipt.tasks.RedisMiddleware.get")
 
 
 @pytest.mark.anyio
@@ -67,7 +67,7 @@ class TestReceiptRender:
         await receipt_service.allocate(session, order)
         await session.flush()
 
-        enqueue_job_mock = mocker.patch("polar.receipt.tasks.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.receipt.tasks.enqueue_job")
         _patch_locker(mocker, raises_timeout=True)
 
         await receipt_render(order.id)

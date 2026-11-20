@@ -6,7 +6,7 @@ from sqlalchemy import CursorResult, func, select, update
 from sqlalchemy.dialects.postgresql import insert
 from sqlalchemy.orm import Session
 
-from polar.models import ScheduledCron
+from repalis.models import ScheduledCron
 
 
 class CronRepository:

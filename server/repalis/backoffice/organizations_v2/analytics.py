@@ -3,7 +3,7 @@
 from pydantic import UUID4
 from sqlalchemy import func, select
 
-from polar.models import (
+from repalis.models import (
     Benefit,
     CheckoutLink,
     Dispute,
@@ -16,13 +16,13 @@ from polar.models import (
     Transaction,
     WebhookEndpoint,
 )
-from polar.models.dispute import DisputeStatus
-from polar.models.organization import PayoutAccountNotReady
-from polar.models.payment import PaymentStatus
-from polar.models.refund import RefundStatus
-from polar.models.transaction import TransactionType
-from polar.payment.repository import PaymentRepository
-from polar.postgres import AsyncSession
+from repalis.models.dispute import DisputeStatus
+from repalis.models.organization import PayoutAccountNotReady
+from repalis.models.payment import PaymentStatus
+from repalis.models.refund import RefundStatus
+from repalis.models.transaction import TransactionType
+from repalis.payment.repository import PaymentRepository
+from repalis.postgres import AsyncSession
 
 
 class PaymentAnalyticsService:

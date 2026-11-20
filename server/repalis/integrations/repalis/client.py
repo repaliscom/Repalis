@@ -9,22 +9,22 @@ from uuid import UUID
 import logfire
 from pydantic_core.core_schema import ErrorType
 
-from polar.base import (
+from repalis.base import (
     PolarClientError,
     PolarNetworkError,
     PolarRateLimitError,
     PolarServerError,
 )
-from polar.config import settings
-from polar.exceptions import PolarError as InternalPolarError
-from polar.v2026_04 import PolarAsync as PolarSDK
-from polar.v2026_04.errors import (
+from repalis.config import settings
+from repalis.exceptions import PolarError as InternalPolarError
+from repalis.v2026_04 import PolarAsync as PolarSDK
+from repalis.v2026_04.errors import (
     AlreadyCanceledSubscription,
     HTTPValidationError,
     OrderNotEligibleForInvoice,
     ResourceNotFound,
 )
-from polar.v2026_04.inputs import (
+from repalis.v2026_04.inputs import (
     CostMetadataInput,
     CustomerBenefitGrantUpdate,
     CustomerPortalCustomerUpdate,
@@ -34,15 +34,15 @@ from polar.v2026_04.inputs import (
     LLMMetadata,
     MemberUpdate,
 )
-from polar.v2026_04.literals import (
+from repalis.v2026_04.literals import (
     DiscountDuration,
     MemberRole,
     SubscriptionProrationBehavior,
 )
-from polar.v2026_04.literals import (
+from repalis.v2026_04.literals import (
     Role as MemberCreateRole,
 )
-from polar.v2026_04.outputs import (
+from repalis.v2026_04.outputs import (
     BenefitGrant,
     Checkout,
     Customer,
@@ -172,7 +172,7 @@ class PolarSelfClient:
         owner_email: str,
         owner_name: str,
     ) -> Customer:
-        with logfire.span("polar.create_customer", external_id=external_id) as span:
+        with logfire.span("repalis.create_customer", external_id=external_id) as span:
             try:
                 return await _retry_network_error(
                     lambda: self._sdk.customers.get_external(external_id)
@@ -203,7 +203,7 @@ class PolarSelfClient:
 
     async def cancel_subscription(self, *, subscription_id: str) -> Subscription:
         with logfire.span(
-            "polar.cancel_subscription",
+            "repalis.cancel_subscription",
             subscription_id=subscription_id,
         ) as span:
             try:
@@ -218,7 +218,7 @@ class PolarSelfClient:
 
     async def revoke_subscription(self, *, subscription_id: str) -> None:
         with logfire.span(
-            "polar.revoke_subscription",
+            "repalis.revoke_subscription",
             subscription_id=subscription_id,
         ) as span:
             try:
@@ -237,7 +237,7 @@ class PolarSelfClient:
 
     async def uncancel_subscription(self, *, subscription_id: str) -> Subscription:
         with logfire.span(
-            "polar.uncancel_subscription",
+            "repalis.uncancel_subscription",
             subscription_id=subscription_id,
         ) as span:
             try:
@@ -252,7 +252,7 @@ class PolarSelfClient:
 
     async def get_customer_by_external_id(self, external_id: str) -> Customer:
         with logfire.span(
-            "polar.get_customer_by_external_id", external_id=external_id
+            "repalis.get_customer_by_external_id", external_id=external_id
         ) as span:
             try:
                 return await _retry_network_error(
@@ -279,7 +279,7 @@ class PolarSelfClient:
         limit: int = 50,
     ) -> tuple[list[Order], int]:
         with logfire.span(
-            "polar.list_customer_orders",
+            "repalis.list_customer_orders",
             external_customer_id=external_customer_id,
             page=page,
             limit=limit,
@@ -305,7 +305,7 @@ class PolarSelfClient:
             return items, total
 
     async def get_order(self, *, order_id: str) -> Order | None:
-        with logfire.span("polar.get_order", order_id=order_id) as span:
+        with logfire.span("repalis.get_order", order_id=order_id) as span:
             try:
                 return await _retry_network_error(
                     lambda: self._sdk.orders.get(order_id)
@@ -319,7 +319,7 @@ class PolarSelfClient:
                 _raise_network_error(span, e, "get_order")
 
     async def get_order_invoice(self, *, order_id: str) -> str | None:
-        with logfire.span("polar.get_order_invoice", order_id=order_id) as span:
+        with logfire.span("repalis.get_order_invoice", order_id=order_id) as span:
             try:
                 invoice = await _retry_network_error(
                     lambda: self._sdk.orders.invoice(order_id)
@@ -342,7 +342,7 @@ class PolarSelfClient:
         scope rather than retrying.
         """
         with logfire.span(
-            "polar.trigger_order_invoice_generation", order_id=order_id
+            "repalis.trigger_order_invoice_generation", order_id=order_id
         ) as span:
             try:
                 await _retry_network_error(
@@ -360,7 +360,7 @@ class PolarSelfClient:
 
     async def list_recurring_products(self, *, organization_id: str) -> list[Product]:
         with logfire.span(
-            "polar.list_recurring_products", organization_id=organization_id
+            "repalis.list_recurring_products", organization_id=organization_id
         ) as span:
             try:
                 products = await _retry_network_error(
@@ -387,7 +387,7 @@ class PolarSelfClient:
         self, *, external_customer_id: str
     ) -> Subscription | None:
         with logfire.span(
-            "polar.get_active_subscription",
+            "repalis.get_active_subscription",
             external_customer_id=external_customer_id,
         ) as span:
             try:
@@ -421,7 +421,7 @@ class PolarSelfClient:
         discount_id: str | None = None,
     ) -> Checkout:
         with logfire.span(
-            "polar.create_checkout",
+            "repalis.create_checkout",
             product_id=product_id,
             external_customer_id=external_customer_id,
             subscription_id=subscription_id,
@@ -451,7 +451,7 @@ class PolarSelfClient:
         proration_behavior: SubscriptionProrationBehavior | None = None,
     ) -> Subscription:
         with logfire.span(
-            "polar.update_subscription_product",
+            "repalis.update_subscription_product",
             subscription_id=subscription_id,
             product_id=product_id,
         ) as span:
@@ -476,7 +476,7 @@ class PolarSelfClient:
         next billing cycle per the API.
         """
         with logfire.span(
-            "polar.update_subscription_discount",
+            "repalis.update_subscription_discount",
             subscription_id=subscription_id,
             discount_id=discount_id,
         ) as span:
@@ -494,7 +494,7 @@ class PolarSelfClient:
         self, *, external_customer_id: str, external_id: str
     ) -> Member | None:
         with logfire.span(
-            "polar.get_member_by_external_id",
+            "repalis.get_member_by_external_id",
             external_customer_id=external_customer_id,
             external_id=external_id,
         ) as span:
@@ -511,7 +511,7 @@ class PolarSelfClient:
     async def list_billing_contacts(self, *, customer_id: str) -> list[Member]:
         contacts: list[Member] = []
         with logfire.span(
-            "polar.list_billing_contacts", customer_id=customer_id
+            "repalis.list_billing_contacts", customer_id=customer_id
         ) as span:
 
             async def list_role(role: MemberRole) -> list[Member]:
@@ -550,7 +550,7 @@ class PolarSelfClient:
         role: str = "member",
     ) -> None:
         with logfire.span(
-            "polar.add_member",
+            "repalis.add_member",
             customer_id=customer_id,
             external_id=external_id,
             role=role,
@@ -582,7 +582,7 @@ class PolarSelfClient:
         role: str | None = None,
     ) -> None:
         with logfire.span(
-            "polar.update_member",
+            "repalis.update_member",
             external_customer_id=external_customer_id,
             external_id=external_id,
             role=role,
@@ -615,7 +615,7 @@ class PolarSelfClient:
         # The Polar API replaces metadata wholesale on update; callers must
         # merge any existing keys they want to preserve before passing them in.
         with logfire.span(
-            "polar.update_customer_metadata", external_id=external_id
+            "repalis.update_customer_metadata", external_id=external_id
         ) as span:
             try:
                 await _retry_network_error(
@@ -645,7 +645,7 @@ class PolarSelfClient:
         metadata: dict[str, str | int | float | bool] | None = None,
     ) -> Discount:
         with logfire.span(
-            "polar.create_percentage_discount",
+            "repalis.create_percentage_discount",
             name=name,
             basis_points=basis_points,
             organization_id=organization_id,
@@ -668,7 +668,7 @@ class PolarSelfClient:
                 _raise_network_error(span, e, "create_percentage_discount")
 
     async def get_discount(self, *, discount_id: str) -> Discount | None:
-        with logfire.span("polar.get_discount", discount_id=discount_id) as span:
+        with logfire.span("repalis.get_discount", discount_id=discount_id) as span:
             try:
                 return await _retry_network_error(
                     lambda: self._sdk.discounts.get(discount_id)
@@ -683,7 +683,7 @@ class PolarSelfClient:
 
     async def delete_discount(self, *, discount_id: str) -> None:
         """Soft-delete a discount. Idempotent on 404 (already deleted)."""
-        with logfire.span("polar.delete_discount", discount_id=discount_id) as span:
+        with logfire.span("repalis.delete_discount", discount_id=discount_id) as span:
             try:
                 await _retry_network_error(
                     lambda: self._sdk.discounts.delete(discount_id)
@@ -700,7 +700,7 @@ class PolarSelfClient:
         self, *, external_customer_id: str, external_id: str
     ) -> None:
         with logfire.span(
-            "polar.remove_member",
+            "repalis.remove_member",
             external_customer_id=external_customer_id,
             external_id=external_id,
         ) as span:
@@ -723,7 +723,7 @@ class PolarSelfClient:
         self, *, customer_id: str
     ) -> list[BenefitGrant]:
         with logfire.span(
-            "polar.list_customer_benefit_grants", customer_id=customer_id
+            "repalis.list_customer_benefit_grants", customer_id=customer_id
         ) as span:
             try:
                 grants = await _retry_network_error(
@@ -745,7 +745,7 @@ class PolarSelfClient:
             return grants
 
     async def delete_customer(self, *, external_id: str) -> None:
-        with logfire.span("polar.delete_customer", external_id=external_id) as span:
+        with logfire.span("repalis.delete_customer", external_id=external_id) as span:
             try:
                 await _retry_network_error(
                     lambda: self._sdk.customers.delete_external(
@@ -777,7 +777,7 @@ class PolarSelfClient:
         ]
 
         with logfire.span(
-            "polar.track_event_ingestion",
+            "repalis.track_event_ingestion",
             org_count=len(events),
             cutoff=cutoff.isoformat(),
         ) as span:
@@ -850,7 +850,7 @@ class PolarSelfClient:
         ]
 
         with logfire.span(
-            f"polar.{operation}",
+            f"repalis.{operation}",
             external_customer_id=external_customer_id,
             vendor=vendor,
             model=model,
@@ -941,7 +941,7 @@ class PolarSelfClient:
         external_member_id: str | None = None,
     ) -> CustomerPortalCustomer:
         with logfire.span(
-            "polar.portal.get_customer",
+            "repalis.portal.get_customer",
             external_customer_id=external_customer_id,
             external_member_id=external_member_id,
         ) as span:
@@ -957,9 +957,9 @@ class PolarSelfClient:
             try:
                 return await _retry_network_error(get_customer)
             except (PolarClientError, PolarServerError) as e:
-                _raise_error(span, e, "polar.portal.get_customer")
+                _raise_error(span, e, "repalis.portal.get_customer")
             except PolarNetworkError as e:
-                _raise_network_error(span, e, "polar.portal.get_customer")
+                _raise_network_error(span, e, "repalis.portal.get_customer")
 
     async def portal_list_payment_methods(
         self,
@@ -968,7 +968,7 @@ class PolarSelfClient:
         external_member_id: str | None = None,
     ) -> list[CustomerPaymentMethod]:
         with logfire.span(
-            "polar.portal.list_payment_methods",
+            "repalis.portal.list_payment_methods",
             external_customer_id=external_customer_id,
             external_member_id=external_member_id,
         ) as span:
@@ -987,9 +987,9 @@ class PolarSelfClient:
             try:
                 methods = await _retry_network_error(list_payment_methods)
             except (PolarClientError, PolarServerError) as e:
-                _raise_error(span, e, "polar.portal.list_payment_methods")
+                _raise_error(span, e, "repalis.portal.list_payment_methods")
             except PolarNetworkError as e:
-                _raise_network_error(span, e, "polar.portal.list_payment_methods")
+                _raise_network_error(span, e, "repalis.portal.list_payment_methods")
 
             span.set_attribute("payment_method_count", len(methods))
             return methods
@@ -1002,7 +1002,7 @@ class PolarSelfClient:
         external_member_id: str | None = None,
     ) -> None:
         with logfire.span(
-            "polar.portal.delete_payment_method",
+            "repalis.portal.delete_payment_method",
             external_customer_id=external_customer_id,
             external_member_id=external_member_id,
             payment_method_id=payment_method_id,
@@ -1024,9 +1024,9 @@ class PolarSelfClient:
                     span.set_attribute("http.status_code", 400)
                     span.set_attribute("error.type", type(e).__name__)
                     raise PolarSelfPaymentMethodInUse(payment_method_id) from e
-                _raise_error(span, e, "polar.portal.delete_payment_method")
+                _raise_error(span, e, "repalis.portal.delete_payment_method")
             except PolarNetworkError as e:
-                _raise_network_error(span, e, "polar.portal.delete_payment_method")
+                _raise_network_error(span, e, "repalis.portal.delete_payment_method")
 
     async def portal_create_customer_session(
         self,
@@ -1037,7 +1037,7 @@ class PolarSelfClient:
         """Create a short-lived customer session token for the mirrored
         Polar billing customer."""
         with logfire.span(
-            "polar.portal.create_customer_session",
+            "repalis.portal.create_customer_session",
             external_customer_id=external_customer_id,
             external_member_id=external_member_id,
         ) as span:
@@ -1050,9 +1050,9 @@ class PolarSelfClient:
                 )
                 return session.token
             except (PolarClientError, PolarServerError) as e:
-                _raise_error(span, e, "polar.portal.create_customer_session")
+                _raise_error(span, e, "repalis.portal.create_customer_session")
             except PolarNetworkError as e:
-                _raise_network_error(span, e, "polar.portal.create_customer_session")
+                _raise_network_error(span, e, "repalis.portal.create_customer_session")
 
     async def portal_update_customer(
         self,
@@ -1062,7 +1062,7 @@ class PolarSelfClient:
         **update: Unpack[CustomerPortalCustomerUpdate],
     ) -> CustomerPortalCustomer:
         with logfire.span(
-            "polar.portal.update_customer",
+            "repalis.portal.update_customer",
             external_customer_id=external_customer_id,
             external_member_id=external_member_id,
         ) as span:
@@ -1082,9 +1082,9 @@ class PolarSelfClient:
                     _raise_validation_error(
                         span, e, set(CustomerPortalCustomerUpdate.__annotations__)
                     )
-                _raise_error(span, e, "polar.portal.update_customer")
+                _raise_error(span, e, "repalis.portal.update_customer")
             except PolarNetworkError as e:
-                _raise_network_error(span, e, "polar.portal.update_customer")
+                _raise_network_error(span, e, "repalis.portal.update_customer")
 
     async def portal_list_benefit_grants(
         self,
@@ -1093,7 +1093,7 @@ class PolarSelfClient:
         external_member_id: str | None = None,
     ) -> list[CustomerBenefitGrant]:
         with logfire.span(
-            "polar.portal.list_benefit_grants",
+            "repalis.portal.list_benefit_grants",
             external_customer_id=external_customer_id,
             external_member_id=external_member_id,
         ) as span:
@@ -1110,9 +1110,9 @@ class PolarSelfClient:
             try:
                 grants = await _retry_network_error(list_benefit_grants)
             except (PolarClientError, PolarServerError) as e:
-                _raise_error(span, e, "polar.portal.list_benefit_grants")
+                _raise_error(span, e, "repalis.portal.list_benefit_grants")
             except PolarNetworkError as e:
-                _raise_network_error(span, e, "polar.portal.list_benefit_grants")
+                _raise_network_error(span, e, "repalis.portal.list_benefit_grants")
 
             span.set_attribute("grant_count", len(grants))
             return grants
@@ -1126,7 +1126,7 @@ class PolarSelfClient:
         external_member_id: str | None = None,
     ) -> CustomerBenefitGrant:
         with logfire.span(
-            "polar.portal.update_benefit_grant",
+            "repalis.portal.update_benefit_grant",
             external_customer_id=external_customer_id,
             external_member_id=external_member_id,
             benefit_grant_id=benefit_grant_id,
@@ -1147,9 +1147,9 @@ class PolarSelfClient:
                     raise PolarSelfBenefitGrantNotFound(benefit_grant_id) from e
                 if e.status_code == 422:
                     _raise_validation_error(span, e, {"benefit_type", "properties"})
-                _raise_error(span, e, "polar.portal.update_benefit_grant")
+                _raise_error(span, e, "repalis.portal.update_benefit_grant")
             except PolarNetworkError as e:
-                _raise_network_error(span, e, "polar.portal.update_benefit_grant")
+                _raise_network_error(span, e, "repalis.portal.update_benefit_grant")
 
 
 _client: PolarSelfClient | None = None

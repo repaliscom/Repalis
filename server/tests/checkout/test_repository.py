@@ -3,14 +3,14 @@ from datetime import datetime, timedelta
 import pytest
 from sqlalchemy import select
 
-from polar.checkout.repository import CheckoutRepository
-from polar.kit.address import Address, CountryAlpha2
-from polar.kit.utils import utc_now
-from polar.models import Checkout, Customer, Organization, Product
-from polar.models.checkout import CheckoutStatus
-from polar.models.discount import DiscountDuration, DiscountType
-from polar.postgres import AsyncSession
-from polar.tax.tax_id import TaxIDFormat
+from repalis.checkout.repository import CheckoutRepository
+from repalis.kit.address import Address, CountryAlpha2
+from repalis.kit.utils import utc_now
+from repalis.models import Checkout, Customer, Organization, Product
+from repalis.models.checkout import CheckoutStatus
+from repalis.models.discount import DiscountDuration, DiscountType
+from repalis.postgres import AsyncSession
+from repalis.tax.tax_id import TaxIDFormat
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_checkout, create_discount
 

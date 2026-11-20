@@ -15,25 +15,25 @@ from sqlalchemy import delete, func, select
 from sqlalchemy import event as sqlalchemy_event
 from sqlalchemy.orm import joinedload, selectinload
 
-import polar.tasks  # noqa: F401
-from polar.auth.models import AuthSubject
-from polar.auth.scope import Scope
-from polar.benefit.schemas import BenefitCreate
-from polar.benefit.strategies.custom.schemas import BenefitCustomCreate
-from polar.benefit.strategies.downloadables.schemas import BenefitDownloadablesCreate
-from polar.benefit.strategies.feature_flag.schemas import (
+import repalis.tasks  # noqa: F401
+from repalis.auth.models import AuthSubject
+from repalis.auth.scope import Scope
+from repalis.benefit.schemas import BenefitCreate
+from repalis.benefit.strategies.custom.schemas import BenefitCustomCreate
+from repalis.benefit.strategies.downloadables.schemas import BenefitDownloadablesCreate
+from repalis.benefit.strategies.feature_flag.schemas import (
     BenefitFeatureFlagCreate,
     BenefitFeatureFlagCreateProperties,
 )
 
 # Import tasks to register all dramatiq actors
-from polar.benefit.strategies.license_keys.schemas import BenefitLicenseKeysCreate
-from polar.config import settings
-from polar.customer.schemas.customer import CustomerIndividualCreate
-from polar.customer.service import customer as customer_service
-from polar.customer_session.service import CUSTOMER_SESSION_TOKEN_PREFIX
-from polar.dispute.dispute_case import dispute_case as dispute_case_service
-from polar.enums import (
+from repalis.benefit.strategies.license_keys.schemas import BenefitLicenseKeysCreate
+from repalis.config import settings
+from repalis.customer.schemas.customer import CustomerIndividualCreate
+from repalis.customer.service import customer as customer_service
+from repalis.customer_session.service import CUSTOMER_SESSION_TOKEN_PREFIX
+from repalis.dispute.dispute_case import dispute_case as dispute_case_service
+from repalis.enums import (
     PaymentProcessor,
     PayoutAccountType,
     SubscriptionProrationBehavior,
@@ -41,78 +41,78 @@ from polar.enums import (
     TaxBehavior,
     TaxBehaviorOption,
 )
-from polar.event.repository import EventRepository
-from polar.event.service import event as event_service
-from polar.event.system import SystemEvent as SystemEventEnum
-from polar.event_type.repository import EventTypeRepository
-from polar.integrations.tinybird.client import client as tinybird_client
-from polar.integrations.tinybird.service import DATASOURCE_EVENTS
-from polar.integrations.tinybird.service import ingest_events as tinybird_ingest_events
-from polar.kit.crypto import generate_token, generate_token_hash_pair
-from polar.kit.currency import PresentmentCurrency
-from polar.kit.db.postgres import create_async_sessionmaker
-from polar.kit.trial import TrialInterval
-from polar.kit.utils import generate_uuid, utc_now
-from polar.kit.visibility import Visibility
-from polar.meter.aggregation import CountAggregation
-from polar.meter.filter import Filter, FilterClause, FilterConjunction, FilterOperator
-from polar.models.benefit import Benefit, BenefitType
-from polar.models.checkout import Checkout, CheckoutStatus
-from polar.models.checkout_link import CheckoutLink
-from polar.models.checkout_link_product import CheckoutLinkProduct
-from polar.models.checkout_product import CheckoutProduct
-from polar.models.customer import Customer, CustomerType
-from polar.models.customer_seat import CustomerSeat, SeatStatus
-from polar.models.customer_session import CustomerSession
-from polar.models.discount import DiscountDuration, DiscountPercentage
-from polar.models.event import Event as EventModel
-from polar.models.file import File, FileServiceTypes
-from polar.models.member import Member, MemberRole
-from polar.models.meter import Meter
-from polar.models.oauth2_client import OAuth2Client
-from polar.models.order import Order
-from polar.models.organization import (
+from repalis.event.repository import EventRepository
+from repalis.event.service import event as event_service
+from repalis.event.system import SystemEvent as SystemEventEnum
+from repalis.event_type.repository import EventTypeRepository
+from repalis.integrations.tinybird.client import client as tinybird_client
+from repalis.integrations.tinybird.service import DATASOURCE_EVENTS
+from repalis.integrations.tinybird.service import ingest_events as tinybird_ingest_events
+from repalis.kit.crypto import generate_token, generate_token_hash_pair
+from repalis.kit.currency import PresentmentCurrency
+from repalis.kit.db.postgres import create_async_sessionmaker
+from repalis.kit.trial import TrialInterval
+from repalis.kit.utils import generate_uuid, utc_now
+from repalis.kit.visibility import Visibility
+from repalis.meter.aggregation import CountAggregation
+from repalis.meter.filter import Filter, FilterClause, FilterConjunction, FilterOperator
+from repalis.models.benefit import Benefit, BenefitType
+from repalis.models.checkout import Checkout, CheckoutStatus
+from repalis.models.checkout_link import CheckoutLink
+from repalis.models.checkout_link_product import CheckoutLinkProduct
+from repalis.models.checkout_product import CheckoutProduct
+from repalis.models.customer import Customer, CustomerType
+from repalis.models.customer_seat import CustomerSeat, SeatStatus
+from repalis.models.customer_session import CustomerSession
+from repalis.models.discount import DiscountDuration, DiscountPercentage
+from repalis.models.event import Event as EventModel
+from repalis.models.file import File, FileServiceTypes
+from repalis.models.member import Member, MemberRole
+from repalis.models.meter import Meter
+from repalis.models.oauth2_client import OAuth2Client
+from repalis.models.order import Order
+from repalis.models.organization import (
     Organization,
     OrganizationCustomerEmailSettings,
     OrganizationDetails,
     OrganizationStatus,
 )
-from polar.models.organization_access_token import OrganizationAccessToken
-from polar.models.organization_domain import OrganizationDomain
-from polar.models.organization_review import OrganizationReview
-from polar.models.organization_sso_connection import (
+from repalis.models.organization_access_token import OrganizationAccessToken
+from repalis.models.organization_domain import OrganizationDomain
+from repalis.models.organization_review import OrganizationReview
+from repalis.models.organization_sso_connection import (
     OrganizationSSOConnection,
     OrganizationSSOConnectionType,
 )
-from polar.models.payout_account import PayoutAccount
-from polar.models.product import Product
-from polar.models.product_benefit import ProductBenefit
-from polar.models.product_price import (
+from repalis.models.payout_account import PayoutAccount
+from repalis.models.product import Product
+from repalis.models.product_benefit import ProductBenefit
+from repalis.models.product_price import (
     ProductPriceAmountType,
     ProductPriceFixed,
     ProductPriceSeatUnit,
 )
-from polar.models.subscription import Subscription, SubscriptionStatus
-from polar.models.subscription_product_price import SubscriptionProductPrice
-from polar.models.support_case import (
+from repalis.models.subscription import Subscription, SubscriptionStatus
+from repalis.models.subscription_product_price import SubscriptionProductPrice
+from repalis.models.support_case import (
     SupportCase,
     SupportCaseAudience,
     SupportCaseMessage,
     SupportCaseMessageAuthorKind,
     SupportCaseType,
 )
-from polar.models.user import IdentityVerificationStatus, User
-from polar.models.user_organization import UserOrganization
-from polar.models.webhook_endpoint import (
+from repalis.models.user import IdentityVerificationStatus, User
+from repalis.models.user_organization import UserOrganization
+from repalis.models.webhook_endpoint import (
     WebhookEndpoint,
     WebhookEventType,
     WebhookFormat,
 )
-from polar.organization.schemas import OrganizationCreate
-from polar.organization.service import organization as organization_service
-from polar.organization_review.appeal_case import appeal_case as appeal_case_service
-from polar.postgres import AsyncSession, create_async_engine
-from polar.product.schemas import (
+from repalis.organization.schemas import OrganizationCreate
+from repalis.organization.service import organization as organization_service
+from repalis.organization_review.appeal_case import appeal_case as appeal_case_service
+from repalis.postgres import AsyncSession, create_async_engine
+from repalis.product.schemas import (
     ProductCreate,
     ProductCreateOneTime,
     ProductCreateRecurring,
@@ -120,14 +120,14 @@ from polar.product.schemas import (
     ProductPriceMeteredUnitCreate,
     ProductPriceSeatBasedCreate,
 )
-from polar.product.service import product as product_service
-from polar.product.tiers import TiersInput, TierType
-from polar.redis import Redis, create_redis
-from polar.support_case.service import support_case as support_case_service
-from polar.user.repository import UserRepository
-from polar.user.service import user as user_service
-from polar.webhook.service import generate_webhook_secret
-from polar.worker import JobQueueManager
+from repalis.product.service import product as product_service
+from repalis.product.tiers import TiersInput, TierType
+from repalis.redis import Redis, create_redis
+from repalis.support_case.service import support_case as support_case_service
+from repalis.user.repository import UserRepository
+from repalis.user.service import user as user_service
+from repalis.webhook.service import generate_webhook_secret
+from repalis.worker import JobQueueManager
 from scripts.db import assert_dev_or_testing
 from scripts.seed_repalis_for_repalis import (
     BENEFITS as POLAR_SELF_BENEFITS,

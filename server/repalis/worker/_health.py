@@ -20,17 +20,17 @@ from starlette.requests import Request
 from starlette.responses import JSONResponse
 from starlette.routing import Route
 
-from polar.config import settings
-from polar.external_event.repository import ExternalEventRepository
-from polar.kit.db.postgres import AsyncSessionMaker, create_async_sessionmaker
-from polar.kit.http import HSTSMiddleware
-from polar.kit.utils import utc_now
-from polar.logfire import configure_logfire
-from polar.logging import Logger
-from polar.logging import configure as configure_logging
-from polar.postgres import AsyncEngine, create_async_engine
-from polar.redis import Redis
-from polar.webhook.repository import WebhookEventRepository
+from repalis.config import settings
+from repalis.external_event.repository import ExternalEventRepository
+from repalis.kit.db.postgres import AsyncSessionMaker, create_async_sessionmaker
+from repalis.kit.http import HSTSMiddleware
+from repalis.kit.utils import utc_now
+from repalis.logfire import configure_logfire
+from repalis.logging import Logger
+from repalis.logging import configure as configure_logging
+from repalis.postgres import AsyncEngine, create_async_engine
+from repalis.redis import Redis
+from repalis.webhook.repository import WebhookEventRepository
 
 log: Logger = structlog.get_logger()
 

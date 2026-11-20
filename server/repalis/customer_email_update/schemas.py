@@ -1,5 +1,5 @@
-from polar.kit.email import EmailStrDNS
-from polar.kit.schemas import Schema
+from repalis.kit.email import EmailStrDNS
+from repalis.kit.schemas import Schema
 
 
 class CustomerEmailUpdateRequest(Schema):

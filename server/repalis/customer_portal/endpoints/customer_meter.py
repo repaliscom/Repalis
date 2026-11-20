@@ -2,13 +2,13 @@ from typing import Annotated
 
 from fastapi import Depends, Query
 
-from polar.customer_meter.schemas import CustomerMeterID
-from polar.exceptions import ResourceNotFound
-from polar.kit.pagination import ListResource, PaginationParamsQuery
-from polar.models import CustomerMeter
-from polar.openapi import APITag
-from polar.postgres import AsyncSession, get_db_session
-from polar.routing import APIRouter
+from repalis.customer_meter.schemas import CustomerMeterID
+from repalis.exceptions import ResourceNotFound
+from repalis.kit.pagination import ListResource, PaginationParamsQuery
+from repalis.models import CustomerMeter
+from repalis.openapi import APITag
+from repalis.postgres import AsyncSession, get_db_session
+from repalis.routing import APIRouter
 
 from .. import auth
 from ..schemas.customer_meter import CustomerCustomerMeter as CustomerMeterSchema

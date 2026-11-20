@@ -1,7 +1,7 @@
-from polar.kit.email import normalize_email
-from polar.models import Customer, Organization, Product, TrialRedemption
-from polar.postgres import AsyncSession
-from polar.trial_redemption.repository import TrialRedemptionRepository
+from repalis.kit.email import normalize_email
+from repalis.models import Customer, Organization, Product, TrialRedemption
+from repalis.postgres import AsyncSession
+from repalis.trial_redemption.repository import TrialRedemptionRepository
 
 
 class TrialRedemptionService:

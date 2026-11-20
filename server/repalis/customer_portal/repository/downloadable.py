@@ -3,11 +3,11 @@ from uuid import UUID
 from sqlalchemy import Select
 from sqlalchemy.dialects.postgresql import insert as pg_insert
 
-from polar.auth.models import AuthSubject, Customer, Member, is_member
-from polar.kit.repository import RepositoryBase
-from polar.models.downloadable import Downloadable, DownloadableStatus
-from polar.models.file import File
-from polar.postgres import sql
+from repalis.auth.models import AuthSubject, Customer, Member, is_member
+from repalis.kit.repository import RepositoryBase
+from repalis.models.downloadable import Downloadable, DownloadableStatus
+from repalis.models.file import File
+from repalis.postgres import sql
 
 
 class DownloadableRepository(RepositoryBase[Downloadable]):
@@ -51,7 +51,7 @@ class DownloadableRepository(RepositoryBase[Downloadable]):
     def get_customer_statement(
         self, auth_subject: AuthSubject[Customer | Member]
     ) -> Select[Downloadable]:
-        from polar.models import Benefit
+        from repalis.models import Benefit
 
         statement = (
             sql.select(Downloadable)

@@ -5,8 +5,8 @@ from uuid import UUID
 from sqlalchemy import TIMESTAMP, BigInteger, ForeignKey, Index, String, Text, Uuid
 from sqlalchemy.orm import Mapped, declared_attr, mapped_column, relationship
 
-from polar.kit.db.models import RecordModel
-from polar.kit.metadata import MetadataMixin
+from repalis.kit.db.models import RecordModel
+from repalis.kit.metadata import MetadataMixin
 
 if TYPE_CHECKING:
     from .account import Account

@@ -5,16 +5,16 @@ import structlog
 from sqlalchemy import select
 from sqlalchemy.orm import joinedload
 
-from polar.auth.models import AuthSubject
-from polar.email.schemas import OAuth2LeakedClientEmail, OAuth2LeakedClientProps
-from polar.email.sender import enqueue_email_template
-from polar.enums import TokenType
-from polar.kit.crypto import generate_token, get_token_hash_candidates
-from polar.kit.pagination import PaginationParams, paginate
-from polar.kit.services import ResourceServiceReader
-from polar.logging import Logger
-from polar.models import OAuth2Client, User
-from polar.postgres import AsyncSession
+from repalis.auth.models import AuthSubject
+from repalis.email.schemas import OAuth2LeakedClientEmail, OAuth2LeakedClientProps
+from repalis.email.sender import enqueue_email_template
+from repalis.enums import TokenType
+from repalis.kit.crypto import generate_token, get_token_hash_candidates
+from repalis.kit.pagination import PaginationParams, paginate
+from repalis.kit.services import ResourceServiceReader
+from repalis.logging import Logger
+from repalis.models import OAuth2Client, User
+from repalis.postgres import AsyncSession
 
 from ..constants import CLIENT_REGISTRATION_TOKEN_PREFIX, CLIENT_SECRET_PREFIX
 

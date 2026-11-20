@@ -2,10 +2,10 @@ from datetime import UTC, datetime
 
 import pytest
 
-from polar.billing_interval.repository import BillingIntervalRepository
-from polar.models import BillingInterval, Customer, Meter, Product, Subscription
-from polar.models.billing_interval import UsagePolicy
-from polar.postgres import AsyncSession
+from repalis.billing_interval.repository import BillingIntervalRepository
+from repalis.models import BillingInterval, Customer, Meter, Product, Subscription
+from repalis.models.billing_interval import UsagePolicy
+from repalis.postgres import AsyncSession
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_active_subscription
 

@@ -3,12 +3,12 @@ from typing import Any
 import pytest
 from pytest_mock import MockerFixture
 
-from polar.config import Environment, settings
-from polar.worker import _sqs
+from repalis.config import Environment, settings
+from repalis.worker import _sqs
 
 
 def get_boto3_client_kwargs(mocker: MockerFixture) -> dict[str, Any]:
-    boto3_client = mocker.patch("polar.worker._sqs.boto3.client")
+    boto3_client = mocker.patch("repalis.worker._sqs.boto3.client")
 
     _sqs.get_sqs_client()
 
@@ -61,12 +61,12 @@ def test_sqs_endpoint_url_does_not_select_static_aws_credentials(
 @pytest.mark.anyio
 async def test_send_jobs_reuses_client_and_queue_url(mocker: MockerFixture) -> None:
     queue_url = "https://sqs.example.com/polar-test-tasks-default"
-    client = mocker.patch("polar.worker._sqs.sqs_client")
+    client = mocker.patch("repalis.worker._sqs.sqs_client")
     client.get_queue_url.return_value = {"QueueUrl": queue_url}
     client.send_message_batch.return_value = {}
-    mocker.patch("polar.worker._sqs._queue_url_cache", {})
+    mocker.patch("repalis.worker._sqs._queue_url_cache", {})
     mocker.patch(
-        "polar.worker._sqs.actor_to_queue_name", return_value="polar-test-tasks-default"
+        "repalis.worker._sqs.actor_to_queue_name", return_value="polar-test-tasks-default"
     )
 
     jobs = [_sqs.Job("dummy", (), {})]

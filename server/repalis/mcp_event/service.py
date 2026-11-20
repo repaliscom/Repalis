@@ -8,19 +8,19 @@ from uuid import UUID
 
 import httpx2
 
-from polar.auth.models import AuthSubject
-from polar.auth.permission import OrganizationPermission
-from polar.authz.service import assert_organization_permission
-from polar.config import Environment, settings
-from polar.exceptions import PolarError, ResourceNotFound
-from polar.kit.db.postgres import AsyncSession
-from polar.kit.http import SSRFBlockedError, SSRFSafeTransport
-from polar.kit.utils import generate_uuid, utc_now
-from polar.models import Organization, User, WebhookEndpoint
-from polar.models.webhook_endpoint import WebhookEventType, WebhookFormat
-from polar.organization.resolver import get_payload_organization
-from polar.webhook.repository import WebhookEndpointRepository
-from polar.webhook.tasks import sign_webhook
+from repalis.auth.models import AuthSubject
+from repalis.auth.permission import OrganizationPermission
+from repalis.authz.service import assert_organization_permission
+from repalis.config import Environment, settings
+from repalis.exceptions import PolarError, ResourceNotFound
+from repalis.kit.db.postgres import AsyncSession
+from repalis.kit.http import SSRFBlockedError, SSRFSafeTransport
+from repalis.kit.utils import generate_uuid, utc_now
+from repalis.models import Organization, User, WebhookEndpoint
+from repalis.models.webhook_endpoint import WebhookEventType, WebhookFormat
+from repalis.organization.resolver import get_payload_organization
+from repalis.webhook.repository import WebhookEndpointRepository
+from repalis.webhook.tasks import sign_webhook
 
 from .catalog import MCP_EVENTS
 from .schemas import MCPEventArguments, MCPEventSubscribe, MCPEventUnsubscribe

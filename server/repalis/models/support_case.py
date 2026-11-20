@@ -18,17 +18,17 @@ from sqlalchemy import (
 from sqlalchemy.dialects.postgresql import ARRAY
 from sqlalchemy.orm import Mapped, declared_attr, mapped_column, relationship
 
-from polar.kit.db.models import RecordModel
-from polar.kit.extensions.sqlalchemy.types import StringEnum
+from repalis.kit.db.models import RecordModel
+from repalis.kit.extensions.sqlalchemy.types import StringEnum
 
 if TYPE_CHECKING:
-    from polar.models.backoffice_user import BackofficeUser
-    from polar.models.customer import Customer
-    from polar.models.dispute import Dispute
-    from polar.models.file import File
-    from polar.models.organization import Organization
-    from polar.models.organization_review import OrganizationReview
-    from polar.models.user import User
+    from repalis.models.backoffice_user import BackofficeUser
+    from repalis.models.customer import Customer
+    from repalis.models.dispute import Dispute
+    from repalis.models.file import File
+    from repalis.models.organization import Organization
+    from repalis.models.organization_review import OrganizationReview
+    from repalis.models.user import User
 
 
 class SupportCaseType(StrEnum):

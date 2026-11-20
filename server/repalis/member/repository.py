@@ -4,14 +4,14 @@ from uuid import UUID
 from sqlalchemy import Select, func, select, update
 from sqlalchemy.orm import joinedload
 
-from polar.authz.types import AccessibleOrganizationID
-from polar.kit.repository import (
+from repalis.authz.types import AccessibleOrganizationID
+from repalis.kit.repository import (
     RepositoryBase,
     RepositorySoftDeletionIDMixin,
     RepositorySoftDeletionMixin,
 )
-from polar.models.customer import Customer
-from polar.models.member import Member, MemberRole
+from repalis.models.customer import Customer
+from repalis.models.member import Member, MemberRole
 
 
 class MemberRepository(

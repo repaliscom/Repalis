@@ -6,14 +6,14 @@ from collections.abc import Sequence
 import pytest
 from sqlalchemy import select
 
-from polar.enums import SubscriptionRecurringInterval
-from polar.kit.db.postgres import AsyncSession
-from polar.models import Organization, Product, User, UserOrganization
-from polar.models.benefit import BenefitType
-from polar.models.benefit_grant import BenefitGrant
-from polar.models.billing_entry import BillingEntry, BillingEntryType
-from polar.models.product_price import ProductPriceSeatUnit
-from polar.worker import JobQueueManager
+from repalis.enums import SubscriptionRecurringInterval
+from repalis.kit.db.postgres import AsyncSession
+from repalis.models import Organization, Product, User, UserOrganization
+from repalis.models.benefit import BenefitType
+from repalis.models.benefit_grant import BenefitGrant
+from repalis.models.billing_entry import BillingEntry, BillingEntryType
+from repalis.models.product_price import ProductPriceSeatUnit
+from repalis.worker import JobQueueManager
 from tests.e2e.infra import DrainFn, DrainResult
 from tests.e2e.purchase.subscription.conftest import monthly_product  # noqa: F401
 from tests.fixtures.database import SaveFixture

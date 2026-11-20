@@ -4,7 +4,7 @@ from uuid import UUID
 from sqlalchemy import TIMESTAMP, ForeignKey, String, Uuid
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from polar.kit.db.models import RecordModel
+from repalis.kit.db.models import RecordModel
 
 from .backoffice_user import BackofficeUser
 

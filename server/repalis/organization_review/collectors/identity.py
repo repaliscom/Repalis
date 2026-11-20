@@ -1,8 +1,8 @@
 import stripe as stripe_lib
 import structlog
 
-from polar.integrations.stripe.service import stripe as stripe_service
-from polar.models import User
+from repalis.integrations.stripe.service import stripe as stripe_service
+from repalis.models import User
 
 from ..schemas import IdentityData
 

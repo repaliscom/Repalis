@@ -6,7 +6,7 @@ from sqlalchemy import TIMESTAMP, ForeignKey, Index, String, Uuid, text
 from sqlalchemy.dialects.postgresql import CITEXT
 from sqlalchemy.orm import Mapped, declared_attr, mapped_column, relationship
 
-from polar.kit.db.models.base import RecordModel
+from repalis.kit.db.models.base import RecordModel
 
 if TYPE_CHECKING:
     from .organization import Organization

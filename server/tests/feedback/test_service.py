@@ -1,13 +1,13 @@
 import pytest
 from pytest_mock import MockerFixture
 
-from polar.auth.models import AuthSubject
-from polar.exceptions import PolarRequestValidationError
-from polar.feedback.schemas import FeedbackCreate
-from polar.feedback.service import feedback as feedback_service
-from polar.models import Organization, User, UserOrganization
-from polar.models.feedback import FeedbackType
-from polar.postgres import AsyncSession
+from repalis.auth.models import AuthSubject
+from repalis.exceptions import PolarRequestValidationError
+from repalis.feedback.schemas import FeedbackCreate
+from repalis.feedback.service import feedback as feedback_service
+from repalis.models import Organization, User, UserOrganization
+from repalis.models.feedback import FeedbackType
+from repalis.postgres import AsyncSession
 from tests.fixtures.auth import AuthSubjectFixture
 
 
@@ -56,7 +56,7 @@ class TestSubmit:
         user_organization: UserOrganization,
         auth_subject: AuthSubject[User],
     ) -> None:
-        enqueue_job_mock = mocker.patch("polar.feedback.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.feedback.service.enqueue_job")
 
         feedback = await feedback_service.submit(
             session, auth_subject, _build_payload(organization, type=type)

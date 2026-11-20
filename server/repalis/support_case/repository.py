@@ -6,19 +6,19 @@ from sqlalchemy import ColumnElement, Select, func, select
 from sqlalchemy.dialects.postgresql import insert as pg_insert
 from sqlalchemy.orm import joinedload
 
-from polar.auth.models import AuthSubject, Organization, User, is_organization, is_user
-from polar.auth.permission import OrganizationPermission
-from polar.authz.repository import select_accessible_org_ids
-from polar.kit.repository import (
+from repalis.auth.models import AuthSubject, Organization, User, is_organization, is_user
+from repalis.auth.permission import OrganizationPermission
+from repalis.authz.repository import select_accessible_org_ids
+from repalis.kit.repository import (
     RepositorySortingMixin,
     SortingClause,
 )
-from polar.kit.repository.base import (
+from repalis.kit.repository.base import (
     RepositoryBase,
     RepositorySoftDeletionIDMixin,
     RepositorySoftDeletionMixin,
 )
-from polar.models.support_case import (
+from repalis.models.support_case import (
     DisputeSupportCase,
     ReviewAppealSupportCase,
     SupportCase,

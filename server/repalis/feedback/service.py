@@ -1,11 +1,11 @@
-from polar.auth.models import AuthSubject
-from polar.exceptions import PolarError, PolarRequestValidationError
-from polar.kit.db.postgres import AsyncSession
-from polar.models import Feedback, User
-from polar.user_organization.service import (
+from repalis.auth.models import AuthSubject
+from repalis.exceptions import PolarError, PolarRequestValidationError
+from repalis.kit.db.postgres import AsyncSession
+from repalis.models import Feedback, User
+from repalis.user_organization.service import (
     user_organization as user_organization_service,
 )
-from polar.worker import enqueue_job
+from repalis.worker import enqueue_job
 
 from .repository import FeedbackRepository
 from .schemas import FeedbackCreate

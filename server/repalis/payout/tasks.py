@@ -3,11 +3,11 @@ from typing import Annotated
 
 import structlog
 
-from polar.exceptions import PolarTaskError
-from polar.logging import Logger
-from polar.models.payout import PayoutStatus
-from polar.observability.task_logging import LoggableField
-from polar.worker import (
+from repalis.exceptions import PolarTaskError
+from repalis.logging import Logger
+from repalis.models.payout import PayoutStatus
+from repalis.observability.task_logging import LoggableField
+from repalis.worker import (
     AsyncSessionMaker,
     CronTrigger,
     TaskPriority,

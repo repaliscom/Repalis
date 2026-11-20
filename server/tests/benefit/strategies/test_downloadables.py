@@ -3,17 +3,17 @@ from uuid import UUID, uuid4
 
 import pytest
 
-from polar.auth.models import AuthSubject
-from polar.benefit.strategies.base.service import BenefitPropertiesValidationError
-from polar.benefit.strategies.downloadables.properties import (
+from repalis.auth.models import AuthSubject
+from repalis.benefit.strategies.base.service import BenefitPropertiesValidationError
+from repalis.benefit.strategies.downloadables.properties import (
     BenefitDownloadablesProperties,
 )
-from polar.benefit.strategies.downloadables.schemas import (
+from repalis.benefit.strategies.downloadables.schemas import (
     BenefitDownloadablesCreateProperties,
 )
-from polar.benefit.strategies.downloadables.service import BenefitDownloadablesService
-from polar.file.schemas import FileRead
-from polar.models import (
+from repalis.benefit.strategies.downloadables.service import BenefitDownloadablesService
+from repalis.file.schemas import FileRead
+from repalis.models import (
     Benefit,
     Customer,
     Downloadable,
@@ -23,10 +23,10 @@ from polar.models import (
     User,
     UserOrganization,
 )
-from polar.models.benefit import BenefitType
-from polar.models.downloadable import DownloadableStatus
-from polar.postgres import AsyncSession
-from polar.redis import Redis
+from repalis.models.benefit import BenefitType
+from repalis.models.downloadable import DownloadableStatus
+from repalis.postgres import AsyncSession
+from repalis.redis import Redis
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.downloadable import TestDownloadable
 from tests.fixtures.file import TestFile, uploaded_fixture

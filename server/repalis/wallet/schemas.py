@@ -3,17 +3,17 @@ from typing import Annotated
 from fastapi import Path
 from pydantic import UUID4, Field
 
-from polar.customer.schemas.customer import CustomerID, ExternalCustomerID
-from polar.exceptions import ResourceNotFound
-from polar.kit.schemas import (
+from repalis.customer.schemas.customer import CustomerID, ExternalCustomerID
+from repalis.exceptions import ResourceNotFound
+from repalis.kit.schemas import (
     CUSTOMER_ID_EXAMPLE,
     IDSchema,
     MultipleQueryFilter,
     TimestampedSchema,
 )
-from polar.kit.versioning import QuerySchema
-from polar.models.wallet import WalletType
-from polar.organization.schemas import OrganizationID
+from repalis.kit.versioning import QuerySchema
+from repalis.models.wallet import WalletType
+from repalis.organization.schemas import OrganizationID
 
 WalletID = Annotated[UUID4, Path(description="The wallet ID.")]
 

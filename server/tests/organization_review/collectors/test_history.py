@@ -1,10 +1,10 @@
 from datetime import UTC, datetime
 from unittest.mock import MagicMock
 
-from polar.models.organization import OrganizationStatus
-from polar.models.organization_review import OrganizationReview
-from polar.organization_review.collectors.history import collect_history_data
-from polar.organization_review.schemas import HistoryData
+from repalis.models.organization import OrganizationStatus
+from repalis.models.organization_review import OrganizationReview
+from repalis.organization_review.collectors.history import collect_history_data
+from repalis.organization_review.schemas import HistoryData
 
 
 def _build_user(

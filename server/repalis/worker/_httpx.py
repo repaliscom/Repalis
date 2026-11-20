@@ -3,9 +3,9 @@ import httpx2
 import structlog
 from dramatiq.asyncio import get_event_loop_thread
 
-from polar.kit.http import SSRFSafeTransport
-from polar.logfire import instrument_httpx
-from polar.logging import Logger
+from repalis.kit.http import SSRFSafeTransport
+from repalis.logfire import instrument_httpx
+from repalis.logging import Logger
 
 log: Logger = structlog.get_logger()
 

@@ -10,12 +10,12 @@ from typing import Any, TypeVar
 
 from pydantic import ValidationError
 
-from polar.enums import TaxBehavior
-from polar.integrations.stripe import stripe_lib
-from polar.kit.address import Address
-from polar.kit.schemas import Schema
-from polar.kit.utils import utc_now
-from polar.tax.tax_id import COUNTRY_TAX_ID_MAP, TaxID, TaxIDFormat, from_stripe_tax_id
+from repalis.enums import TaxBehavior
+from repalis.integrations.stripe import stripe_lib
+from repalis.kit.address import Address
+from repalis.kit.schemas import Schema
+from repalis.kit.utils import utc_now
+from repalis.tax.tax_id import COUNTRY_TAX_ID_MAP, TaxID, TaxIDFormat, from_stripe_tax_id
 
 from ..canonical import (
     CanonicalAccount,

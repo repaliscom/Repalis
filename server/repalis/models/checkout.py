@@ -24,28 +24,28 @@ from sqlalchemy.ext.associationproxy import AssociationProxy, association_proxy
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import Mapped, Mapper, declared_attr, mapped_column, relationship
 
-from polar.checkout.payment_methods import get_payment_method_types, get_payment_mode
-from polar.config import settings
-from polar.custom_field.data import CustomFieldDataMixin
-from polar.enums import PaymentProcessor, TaxBehavior, TaxProcessor
-from polar.kit.address import (
+from repalis.checkout.payment_methods import get_payment_method_types, get_payment_mode
+from repalis.config import settings
+from repalis.custom_field.data import CustomFieldDataMixin
+from repalis.enums import PaymentProcessor, TaxBehavior, TaxProcessor
+from repalis.kit.address import (
     CITY_REQUIRED_COUNTRIES,
     POSTAL_CODE_REQUIRED_COUNTRIES,
     STATE_REQUIRED_COUNTRIES,
     Address,
     AddressType,
 )
-from polar.kit.db.models import OrganizationCreatedAtIndexMixin, RecordModel
-from polar.kit.extensions.sqlalchemy.types import StringEnum
-from polar.kit.metadata import MetadataColumn, MetadataMixin
-from polar.kit.trial import TrialConfigurationMixin, TrialInterval
-from polar.kit.utils import utc_now
-from polar.product.guard import (
+from repalis.kit.db.models import OrganizationCreatedAtIndexMixin, RecordModel
+from repalis.kit.extensions.sqlalchemy.types import StringEnum
+from repalis.kit.metadata import MetadataColumn, MetadataMixin
+from repalis.kit.trial import TrialConfigurationMixin, TrialInterval
+from repalis.kit.utils import utc_now
+from repalis.product.guard import (
     is_discount_applicable,
     is_metered_price,
 )
-from polar.tax.calculation import TaxBreakdownItem
-from polar.tax.tax_id import TaxID, TaxIDType
+from repalis.tax.calculation import TaxBreakdownItem
+from repalis.tax.tax_id import TaxID, TaxIDType
 
 from .customer import Customer
 from .discount import Discount, DiscountDuration, DiscountPercentage
@@ -55,7 +55,7 @@ from .product_price import ProductPrice
 from .subscription import Subscription
 
 if TYPE_CHECKING:
-    from polar.custom_field.attachment import AttachedCustomFieldMixin
+    from repalis.custom_field.attachment import AttachedCustomFieldMixin
 
     from .checkout_product import CheckoutProduct
 

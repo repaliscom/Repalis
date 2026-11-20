@@ -14,33 +14,33 @@ from sqlalchemy import or_, select
 from sqlalchemy.dialects.postgresql import insert
 from sqlalchemy.orm import contains_eager
 
-from polar.auth.models import AuthSubject, is_agent, is_organization, is_user
-from polar.auth.permission import OrganizationPermission
-from polar.authz.repository import select_accessible_org_ids
-from polar.authz.service import get_accessible_org_ids
-from polar.authz.types import AccessibleOrganizationID
-from polar.customer.repository import CustomerRepository
-from polar.customer_meter.repository import CustomerMeterRepository
-from polar.event.tinybird_repository import TinybirdEventRepository
-from polar.event_type.repository import EventTypeRepository
-from polar.event_type.schemas import EventTypeWithStats
-from polar.event_type.service import event_type_service
-from polar.exceptions import PolarError, PolarRequestValidationError, ValidationError
-from polar.integrations.tinybird.service import (
+from repalis.auth.models import AuthSubject, is_agent, is_organization, is_user
+from repalis.auth.permission import OrganizationPermission
+from repalis.authz.repository import select_accessible_org_ids
+from repalis.authz.service import get_accessible_org_ids
+from repalis.authz.types import AccessibleOrganizationID
+from repalis.customer.repository import CustomerRepository
+from repalis.customer_meter.repository import CustomerMeterRepository
+from repalis.event.tinybird_repository import TinybirdEventRepository
+from repalis.event_type.repository import EventTypeRepository
+from repalis.event_type.schemas import EventTypeWithStats
+from repalis.event_type.service import event_type_service
+from repalis.exceptions import PolarError, PolarRequestValidationError, ValidationError
+from repalis.integrations.tinybird.service import (
     TinybirdTimeseriesStats,
     chunk_tinybird_events,
     events_to_tinybird,
 )
-from polar.kit.metadata import MetadataQuery
-from polar.kit.pagination import PaginationParams
-from polar.kit.sorting import Sorting
-from polar.kit.time_queries import TimeInterval
-from polar.kit.utils import generate_uuid, utc_now
-from polar.logging import Logger
-from polar.meter.aggregation import PropertyAggregation
-from polar.meter.filter import Filter
-from polar.meter.repository import MeterRepository
-from polar.models import (
+from repalis.kit.metadata import MetadataQuery
+from repalis.kit.pagination import PaginationParams
+from repalis.kit.sorting import Sorting
+from repalis.kit.time_queries import TimeInterval
+from repalis.kit.utils import generate_uuid, utc_now
+from repalis.logging import Logger
+from repalis.meter.aggregation import PropertyAggregation
+from repalis.meter.filter import Filter
+from repalis.meter.repository import MeterRepository
+from repalis.models import (
     Agent,
     Customer,
     CustomerMeter,
@@ -51,12 +51,12 @@ from polar.models import (
     Organization,
     User,
 )
-from polar.models.event import EventSource
-from polar.organization.repository import OrganizationRepository
-from polar.postgres import AsyncReadSession, AsyncSession
-from polar.redis import Redis
-from polar.reducer.service import reducer as reducer_service
-from polar.worker import enqueue_events, enqueue_job
+from repalis.models.event import EventSource
+from repalis.organization.repository import OrganizationRepository
+from repalis.postgres import AsyncReadSession, AsyncSession
+from repalis.redis import Redis
+from repalis.reducer.service import reducer as reducer_service
+from repalis.worker import enqueue_events, enqueue_job
 
 from .repository import EventRepository
 from .schemas import (

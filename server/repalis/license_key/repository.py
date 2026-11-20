@@ -3,22 +3,22 @@ from uuid import UUID
 from sqlalchemy import Select, or_, update
 from sqlalchemy.orm import joinedload
 
-from polar.auth.models import (
+from repalis.auth.models import (
     AuthSubject,
     Customer,
     Member,
     is_member,
 )
-from polar.authz.types import AccessibleOrganizationID
-from polar.kit.repository import (
+from repalis.authz.types import AccessibleOrganizationID
+from repalis.kit.repository import (
     Options,
     RepositoryBase,
     RepositorySoftDeletionIDMixin,
     RepositorySoftDeletionMixin,
 )
-from polar.kit.utils import utc_now
-from polar.models import LicenseKey
-from polar.models.license_key import LicenseKeyStatus
+from repalis.kit.utils import utc_now
+from repalis.models import LicenseKey
+from repalis.models.license_key import LicenseKeyStatus
 
 
 class LicenseKeyRepository(

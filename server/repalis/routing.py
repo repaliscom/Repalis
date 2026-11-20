@@ -1,5 +1,5 @@
-from polar.auth.routing import DocumentedAuthSubjectAPIRoute
-from polar.kit.routing import (
+from repalis.auth.routing import DocumentedAuthSubjectAPIRoute
+from repalis.kit.routing import (
     IncludedInSchemaAPIRoute,
     PaginationAPIRoute,
     SpeakeasyGroupAPIRoute,
@@ -10,7 +10,7 @@ from polar.kit.routing import (
     TransactionalAPIRoute,
     get_api_router_class,
 )
-from polar.kit.versioning import VersionedAPIRoute
+from repalis.kit.versioning import VersionedAPIRoute
 
 
 class APIRoute(

@@ -5,11 +5,11 @@ from uuid import uuid4
 
 import pytest
 
-from polar.auth.models import Anonymous, AuthSubject, Subject
-from polar.auth.scope import UNCLAIMED_AGENT_SCOPES, Scope
-from polar.config import settings
-from polar.kit.utils import utc_now
-from polar.models import (
+from repalis.auth.models import Anonymous, AuthSubject, Subject
+from repalis.auth.scope import UNCLAIMED_AGENT_SCOPES, Scope
+from repalis.config import settings
+from repalis.kit.utils import utc_now
+from repalis.models import (
     Agent,
     BackofficeUser,
     BackofficeUserSession,

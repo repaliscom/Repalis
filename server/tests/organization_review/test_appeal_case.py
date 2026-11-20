@@ -5,33 +5,33 @@ from unittest.mock import patch
 import pytest
 from pytest_mock import MockerFixture
 
-from polar.models import OrganizationReview
-from polar.models.backoffice_user import BackofficeUser
-from polar.models.organization import Organization
-from polar.models.support_case import (
+from repalis.models import OrganizationReview
+from repalis.models.backoffice_user import BackofficeUser
+from repalis.models.organization import Organization
+from repalis.models.support_case import (
     SupportCaseMessageAuthorKind,
     SupportCaseMessageType,
     SupportCaseParticipant,
     SupportCaseParticipantKind,
     SupportCaseType,
 )
-from polar.models.user import User
-from polar.organization_review.appeal_case import (
+from repalis.models.user import User
+from repalis.organization_review.appeal_case import (
     HUMAN_REVIEW_GREETING,
     HUMAN_REVIEW_GREETING_DELAY_MS,
     CaseAlreadyExistsError,
     CaseClosedError,
 )
-from polar.organization_review.appeal_case import (
+from repalis.organization_review.appeal_case import (
     appeal_case as appeal_case_service,
 )
-from polar.organization_review.tasks import post_appeal_greeting
-from polar.postgres import AsyncSession
-from polar.support_case.repository import (
+from repalis.organization_review.tasks import post_appeal_greeting
+from repalis.postgres import AsyncSession
+from repalis.support_case.repository import (
     SupportCaseMessageRepository,
     SupportCaseParticipantRepository,
 )
-from polar.support_case.schemas import ReviewAppealSupportCaseMessageCreate
+from repalis.support_case.schemas import ReviewAppealSupportCaseMessageCreate
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_organization_review
 
@@ -81,10 +81,10 @@ class TestRequestHumanReview:
         user: User,
     ) -> None:
         enqueue_job_mock = mocker.patch(
-            "polar.organization_review.appeal_case.enqueue_job"
+            "repalis.organization_review.appeal_case.enqueue_job"
         )
         publish_mock = mocker.patch(
-            "polar.organization_review.appeal_case.publish_appeal_update"
+            "repalis.organization_review.appeal_case.publish_appeal_update"
         )
 
         case = await appeal_case_service.request_human_review(
@@ -204,7 +204,7 @@ class TestReplyNotifiesMerchant:
         organization: Organization,
         user: User,
     ) -> None:
-        enqueue = mocker.patch("polar.organization_review.appeal_case.enqueue_job")
+        enqueue = mocker.patch("repalis.organization_review.appeal_case.enqueue_job")
         case = await appeal_case_service.request_human_review(
             session,
             denied_review,
@@ -214,7 +214,7 @@ class TestReplyNotifiesMerchant:
         )
         enqueue.reset_mock()
         publish = mocker.patch(
-            "polar.organization_review.appeal_case.publish_appeal_update"
+            "repalis.organization_review.appeal_case.publish_appeal_update"
         )
         message = await appeal_case_service.add_reply(
             session,
@@ -236,7 +236,7 @@ class TestReplyNotifiesMerchant:
         organization: Organization,
         user: User,
     ) -> None:
-        enqueue = mocker.patch("polar.organization_review.appeal_case.enqueue_job")
+        enqueue = mocker.patch("repalis.organization_review.appeal_case.enqueue_job")
         case = await appeal_case_service.request_human_review(
             session,
             denied_review,
@@ -246,7 +246,7 @@ class TestReplyNotifiesMerchant:
         )
         enqueue.reset_mock()
         publish = mocker.patch(
-            "polar.organization_review.appeal_case.publish_appeal_update"
+            "repalis.organization_review.appeal_case.publish_appeal_update"
         )
         await appeal_case_service.add_reply(
             session,
@@ -268,7 +268,7 @@ class TestReplyNotifiesMerchant:
         user: User,
         backoffice_user: BackofficeUser,
     ) -> None:
-        enqueue = mocker.patch("polar.organization_review.appeal_case.enqueue_job")
+        enqueue = mocker.patch("repalis.organization_review.appeal_case.enqueue_job")
         case = await appeal_case_service.request_human_review(
             session,
             denied_review,
@@ -278,7 +278,7 @@ class TestReplyNotifiesMerchant:
         )
         enqueue.reset_mock()
         publish = mocker.patch(
-            "polar.organization_review.appeal_case.publish_appeal_update"
+            "repalis.organization_review.appeal_case.publish_appeal_update"
         )
         message = await appeal_case_service.record_decision(
             session,
@@ -303,9 +303,9 @@ class TestPostAppealGreeting:
         organization: Organization,
         user: User,
     ) -> None:
-        mocker.patch("polar.organization_review.appeal_case.enqueue_job")
+        mocker.patch("repalis.organization_review.appeal_case.enqueue_job")
         publish_mock = mocker.patch(
-            "polar.organization_review.tasks.publish_appeal_update"
+            "repalis.organization_review.tasks.publish_appeal_update"
         )
         case = await appeal_case_service.request_human_review(
             session,
@@ -316,7 +316,7 @@ class TestPostAppealGreeting:
         )
 
         with patch(
-            "polar.organization_review.tasks.AsyncSessionMaker",
+            "repalis.organization_review.tasks.AsyncSessionMaker",
             side_effect=lambda: _session_maker(session),
         ):
             await _post_appeal_greeting(case.id)
@@ -342,7 +342,7 @@ class TestPostAppealGreeting:
         organization: Organization,
         user: User,
     ) -> None:
-        mocker.patch("polar.organization_review.appeal_case.enqueue_job")
+        mocker.patch("repalis.organization_review.appeal_case.enqueue_job")
         case = await appeal_case_service.request_human_review(
             session,
             denied_review,
@@ -352,7 +352,7 @@ class TestPostAppealGreeting:
         )
 
         with patch(
-            "polar.organization_review.tasks.AsyncSessionMaker",
+            "repalis.organization_review.tasks.AsyncSessionMaker",
             side_effect=lambda: _session_maker(session),
         ):
             await _post_appeal_greeting(case.id)

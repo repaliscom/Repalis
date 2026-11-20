@@ -14,13 +14,13 @@ from sqlalchemy import (
 )
 from sqlalchemy.orm import Mapped, declared_attr, mapped_column, relationship
 
-from polar.kit.db.models.base import RecordModel
-from polar.kit.extensions.sqlalchemy.types import StringEnum
-from polar.kit.external_id import ExternalIDMixin
-from polar.kit.metadata import MetadataMixin
-from polar.meter.aggregation import Aggregation, AggregationType
-from polar.meter.filter import Filter, FilterType
-from polar.meter.unit import MeterUnit
+from repalis.kit.db.models.base import RecordModel
+from repalis.kit.extensions.sqlalchemy.types import StringEnum
+from repalis.kit.external_id import ExternalIDMixin
+from repalis.kit.metadata import MetadataMixin
+from repalis.meter.aggregation import Aggregation, AggregationType
+from repalis.meter.filter import Filter, FilterType
+from repalis.meter.unit import MeterUnit
 
 if TYPE_CHECKING:
     from .catalog import Catalog

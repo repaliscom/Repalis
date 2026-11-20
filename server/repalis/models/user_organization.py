@@ -6,12 +6,12 @@ from sqlalchemy import ForeignKey, Index, Uuid
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import Mapped, declared_attr, mapped_column, relationship
 
-from polar.kit.db.models import TimestampedModel
-from polar.kit.extensions.sqlalchemy.types import StringEnum
-from polar.kit.versioning import Version
-from polar.models.organization import Organization
-from polar.models.user import User
-from polar.version import V2027_01
+from repalis.kit.db.models import TimestampedModel
+from repalis.kit.extensions.sqlalchemy.types import StringEnum
+from repalis.kit.versioning import Version
+from repalis.models.organization import Organization
+from repalis.models.user import User
+from repalis.version import V2027_01
 
 
 class OrganizationRole(StrEnum):

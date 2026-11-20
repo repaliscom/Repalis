@@ -25,13 +25,13 @@ from sqlalchemy.dialects.postgresql import TIMESTAMP
 from sqlalchemy.orm import aliased
 from sqlalchemy.sql.selectable import CompoundSelect
 
-from polar.auth.models import AuthSubject, is_organization, is_user
-from polar.auth.permission import OrganizationPermission
-from polar.authz.repository import select_accessible_org_ids
-from polar.config import settings
-from polar.enums import SubscriptionRecurringInterval
-from polar.kit.time_queries import TimeInterval
-from polar.models import (
+from repalis.auth.models import AuthSubject, is_organization, is_user
+from repalis.auth.permission import OrganizationPermission
+from repalis.authz.repository import select_accessible_org_ids
+from repalis.config import settings
+from repalis.enums import SubscriptionRecurringInterval
+from repalis.kit.time_queries import TimeInterval
+from repalis.models import (
     Checkout,
     CheckoutProduct,
     Customer,
@@ -43,8 +43,8 @@ from polar.models import (
     Transaction,
     User,
 )
-from polar.models.product import ProductBillingType
-from polar.models.transaction import TransactionType
+from repalis.models.product import ProductBillingType
+from repalis.models.transaction import TransactionType
 
 from .fx import closest_recorded_exchange_rate, recorded_exchange_rate
 

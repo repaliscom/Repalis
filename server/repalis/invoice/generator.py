@@ -25,15 +25,15 @@ from fpdf.fonts import FontFace
 from fpdf.table import Table
 from pydantic import BaseModel
 
-from polar.config import Environment, settings
-from polar.invoice.seller import get_polar_additional_info
-from polar.kit.address import Address
-from polar.kit.currency import format_currency
-from polar.kit.utils import utc_now
-from polar.tax.calculation.base import TaxabilityReason, TaxBreakdownItem
+from repalis.config import Environment, settings
+from repalis.invoice.seller import get_polar_additional_info
+from repalis.kit.address import Address
+from repalis.kit.currency import format_currency
+from repalis.kit.utils import utc_now
+from repalis.tax.calculation.base import TaxabilityReason, TaxBreakdownItem
 
 if TYPE_CHECKING:
-    from polar.models import Order
+    from repalis.models import Order
 
 
 def format_number(n: int) -> str:

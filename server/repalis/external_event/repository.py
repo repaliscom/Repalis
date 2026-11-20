@@ -6,13 +6,13 @@ from uuid import UUID
 from sqlalchemy import delete, func, select
 from sqlalchemy.dialects.postgresql import insert as pg_insert
 
-from polar.kit.repository import (
+from repalis.kit.repository import (
     RepositoryBase,
     RepositoryIDMixin,
     RepositorySortingMixin,
     SortingClause,
 )
-from polar.models.external_event import ExternalEvent, ExternalEventSource
+from repalis.models.external_event import ExternalEvent, ExternalEventSource
 
 from .sorting import ExternalEventSortProperty
 

@@ -2,8 +2,8 @@ from collections.abc import Sequence
 
 from redis.exceptions import RedisError
 
-from polar.integrations.stripe.service import stripe as stripe_service
-from polar.redis import Redis
+from repalis.integrations.stripe.service import stripe as stripe_service
+from repalis.redis import Redis
 
 from .mrr import MrrBreakdown
 

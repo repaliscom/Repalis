@@ -1,4 +1,4 @@
-from polar.wallet.schemas import WalletBase
+from repalis.wallet.schemas import WalletBase
 
 
 class CustomerWallet(WalletBase):

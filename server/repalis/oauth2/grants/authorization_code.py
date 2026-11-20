@@ -21,14 +21,14 @@ from authlib.oidc.core.util import create_half_hash
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from polar.authz.repository import select_accessible_org_ids
-from polar.kit.crypto import (
+from repalis.authz.repository import select_accessible_org_ids
+from repalis.kit.crypto import (
     generate_token,
     get_token_hash,
     get_token_hash_candidates,
 )
-from polar.kit.signer import get_signer, sign_jws
-from polar.models import (
+from repalis.kit.signer import get_signer, sign_jws
+from repalis.models import (
     OAuth2AuthorizationCode,
     OAuth2AuthorizationCodeOrganization,
     OAuth2Client,

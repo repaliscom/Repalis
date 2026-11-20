@@ -4,11 +4,11 @@ from uuid import UUID
 from sqlalchemy import ForeignKey, Integer, UniqueConstraint, Uuid
 from sqlalchemy.orm import Mapped, declared_attr, mapped_column, relationship
 
-from polar.kit.db.models import RecordModel
+from repalis.kit.db.models import RecordModel
 
 if TYPE_CHECKING:
-    from polar.models import Product
-    from polar.models.file import ProductMediaFile
+    from repalis.models import Product
+    from repalis.models.file import ProductMediaFile
 
 
 class ProductMedia(RecordModel):

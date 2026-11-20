@@ -4,15 +4,15 @@ from collections.abc import Generator, Sequence
 from fastapi import Request
 from tagflow import attr, classes, tag, text
 
-from polar.enums import PaymentProcessor
-from polar.kit.sorting import Sorting
-from polar.models import Order, Payment, Refund
-from polar.models.order import OrderStatus
-from polar.models.payment import PaymentStatus
-from polar.models.refund import RefundStatus
-from polar.order.sorting import OrderSortProperty
-from polar.payment.sorting import PaymentSortProperty
-from polar.refund.sorting import RefundSortProperty
+from repalis.enums import PaymentProcessor
+from repalis.kit.sorting import Sorting
+from repalis.models import Order, Payment, Refund
+from repalis.models.order import OrderStatus
+from repalis.models.payment import PaymentStatus
+from repalis.models.refund import RefundStatus
+from repalis.order.sorting import OrderSortProperty
+from repalis.payment.sorting import PaymentSortProperty
+from repalis.refund.sorting import RefundSortProperty
 
 from ..components import datatable
 

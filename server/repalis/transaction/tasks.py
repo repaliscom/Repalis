@@ -3,9 +3,9 @@ from typing import Annotated
 
 from dramatiq import Retry
 
-from polar.exceptions import PolarTaskError
-from polar.observability.task_logging import LoggableField
-from polar.worker import AsyncSessionMaker, CronTrigger, TaskPriority, actor, can_retry
+from repalis.exceptions import PolarTaskError
+from repalis.observability.task_logging import LoggableField
+from repalis.worker import AsyncSessionMaker, CronTrigger, TaskPriority, actor, can_retry
 
 from .repository import PaymentTransactionRepository
 from .service.processor_fee import (

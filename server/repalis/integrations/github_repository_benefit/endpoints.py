@@ -6,23 +6,23 @@ from fastapi.responses import RedirectResponse
 from httpx_oauth.integrations.fastapi import OAuth2AuthorizeCallback
 from httpx_oauth.oauth2 import OAuth2Token
 
-from polar.authz.dependencies import AuthorizeWebUserRead, AuthorizeWebUserWrite
-from polar.config import settings
-from polar.eventstream.service import publish
-from polar.exceptions import (
+from repalis.authz.dependencies import AuthorizeWebUserRead, AuthorizeWebUserWrite
+from repalis.config import settings
+from repalis.eventstream.service import publish
+from repalis.exceptions import (
     ResourceAlreadyExists,
     Unauthorized,
 )
-from polar.integrations.github_repository_benefit.schemas import (
+from repalis.integrations.github_repository_benefit.schemas import (
     GitHubInvitesBenefitRepositories,
 )
-from polar.kit import jwt
-from polar.kit.http import ReturnTo, add_query_parameters, get_safe_return_url
-from polar.logging import Logger
-from polar.openapi import APITag
-from polar.postgres import AsyncSession, get_db_session
-from polar.redis import Redis, get_redis
-from polar.routing import APIRouter
+from repalis.kit import jwt
+from repalis.kit.http import ReturnTo, add_query_parameters, get_safe_return_url
+from repalis.logging import Logger
+from repalis.openapi import APITag
+from repalis.postgres import AsyncSession, get_db_session
+from repalis.redis import Redis, get_redis
+from repalis.routing import APIRouter
 
 from .service import github_oauth_client, github_repository_benefit_user_service
 

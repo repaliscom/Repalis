@@ -5,8 +5,8 @@ from uuid import UUID
 
 from sqlalchemy import func, select, update
 
-from polar.kit.repository import RepositoryBase
-from polar.models import BillingInterval, Customer, Subscription
+from repalis.kit.repository import RepositoryBase
+from repalis.models import BillingInterval, Customer, Subscription
 
 from .types import IntervalChangePlan
 

@@ -2,14 +2,14 @@ from uuid import UUID
 
 from sqlalchemy import Select, func, select
 
-from polar.kit.repository import (
+from repalis.kit.repository import (
     RepositoryBase,
     RepositorySoftDeletionIDMixin,
     RepositorySoftDeletionMixin,
 )
-from polar.models import Feedback
-from polar.models.feedback import FeedbackStatus, FeedbackType
-from polar.models.organization import Organization
+from repalis.models import Feedback
+from repalis.models.feedback import FeedbackStatus, FeedbackType
+from repalis.models.organization import Organization
 
 
 class FeedbackRepository(

@@ -6,10 +6,10 @@ from decimal import Decimal
 
 import structlog
 
-from polar.logging import Logger
-from polar.meter.aggregation import AggregationFunction
-from polar.models import Reducer
-from polar.redis import Redis
+from repalis.logging import Logger
+from repalis.meter.aggregation import AggregationFunction
+from repalis.models import Reducer
+from repalis.redis import Redis
 
 log: Logger = structlog.get_logger()
 

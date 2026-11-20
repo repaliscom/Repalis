@@ -7,20 +7,20 @@ import structlog
 from dramatiq import Retry
 from sqlalchemy.orm import joinedload, selectinload
 
-from polar.exceptions import PolarTaskError
-from polar.kit.utils import utc_now
-from polar.logging import Logger
-from polar.models import Order, Product
-from polar.models.order import OrderBillingReasonInternal
-from polar.models.payment import PaymentTrigger
-from polar.observability.task_logging import LoggableField
-from polar.payment.repository import PaymentRepository
-from polar.payment_method.repository import PaymentMethodRepository
-from polar.product.repository import ProductRepository
-from polar.subscription.repository import SubscriptionRepository
-from polar.transaction.service.balance import PaymentTransactionForChargeDoesNotExist
-from polar.wallet.repository import WalletTransactionRepository
-from polar.worker import (
+from repalis.exceptions import PolarTaskError
+from repalis.kit.utils import utc_now
+from repalis.logging import Logger
+from repalis.models import Order, Product
+from repalis.models.order import OrderBillingReasonInternal
+from repalis.models.payment import PaymentTrigger
+from repalis.observability.task_logging import LoggableField
+from repalis.payment.repository import PaymentRepository
+from repalis.payment_method.repository import PaymentMethodRepository
+from repalis.product.repository import ProductRepository
+from repalis.subscription.repository import SubscriptionRepository
+from repalis.transaction.service.balance import PaymentTransactionForChargeDoesNotExist
+from repalis.wallet.repository import WalletTransactionRepository
+from repalis.worker import (
     AsyncSessionMaker,
     CronTrigger,
     TaskPriority,

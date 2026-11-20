@@ -24,9 +24,9 @@ import typer
 from rich.console import Console
 from sqlalchemy import Select, Update, and_, func, select, update
 
-from polar.kit.db.postgres import create_async_sessionmaker
-from polar.models import CheckoutLink, CheckoutLinkProduct
-from polar.postgres import create_async_engine
+from repalis.kit.db.postgres import create_async_sessionmaker
+from repalis.models import CheckoutLink, CheckoutLinkProduct
+from repalis.postgres import create_async_engine
 from scripts.helper import (
     configure_script_console_logging,
     limit_bindparam,

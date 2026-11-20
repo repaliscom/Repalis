@@ -3,12 +3,12 @@ from uuid import UUID
 
 from sqlalchemy import Select
 
-from polar.kit.repository import (
+from repalis.kit.repository import (
     RepositoryBase,
     RepositorySoftDeletionIDMixin,
     RepositorySoftDeletionMixin,
 )
-from polar.models import OrganizationSSOConnection
+from repalis.models import OrganizationSSOConnection
 
 
 class OrganizationSSOConnectionRepository(

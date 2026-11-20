@@ -1,11 +1,11 @@
 from collections.abc import Sequence
 from uuid import UUID
 
-from polar.eventstream.service import publish as eventstream_publish
-from polar.exceptions import PolarError
-from polar.models import BackofficeUser, File, Organization, User
-from polar.models.organization_review import OrganizationReview
-from polar.models.support_case import (
+from repalis.eventstream.service import publish as eventstream_publish
+from repalis.exceptions import PolarError
+from repalis.models import BackofficeUser, File, Organization, User
+from repalis.models.organization_review import OrganizationReview
+from repalis.models.support_case import (
     ReviewAppealSupportCase,
     SupportCaseAudience,
     SupportCaseMessage,
@@ -13,14 +13,14 @@ from polar.models.support_case import (
     SupportCaseMessageType,
     SupportCaseParticipantKind,
 )
-from polar.postgres import AsyncReadSession, AsyncSession
-from polar.support_case.repository import (
+from repalis.postgres import AsyncReadSession, AsyncSession
+from repalis.support_case.repository import (
     ReviewAppealSupportCaseRepository,
     SupportCaseMessageRepository,
 )
-from polar.support_case.schemas import ReviewAppealSupportCaseMessageCreate
-from polar.support_case.service import support_case as support_case_service
-from polar.worker import enqueue_job
+from repalis.support_case.schemas import ReviewAppealSupportCaseMessageCreate
+from repalis.support_case.service import support_case as support_case_service
+from repalis.worker import enqueue_job
 
 HUMAN_REVIEW_GREETING = (
     "Thanks for reaching out! Our team will review your appeal and get back to "

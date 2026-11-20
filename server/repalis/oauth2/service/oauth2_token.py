@@ -4,15 +4,15 @@ from uuid import UUID
 
 import structlog
 
-from polar.email.schemas import OAuth2LeakedTokenEmail, OAuth2LeakedTokenProps
-from polar.email.sender import enqueue_email_template
-from polar.enums import TokenType
-from polar.kit.services import ResourceServiceReader
-from polar.logging import Logger
-from polar.models import Agent, OAuth2Token, Organization, User
-from polar.oauth2.repository import OAuth2TokenRepository
-from polar.postgres import AsyncSession
-from polar.user_organization.service import (
+from repalis.email.schemas import OAuth2LeakedTokenEmail, OAuth2LeakedTokenProps
+from repalis.email.sender import enqueue_email_template
+from repalis.enums import TokenType
+from repalis.kit.services import ResourceServiceReader
+from repalis.logging import Logger
+from repalis.models import Agent, OAuth2Token, Organization, User
+from repalis.oauth2.repository import OAuth2TokenRepository
+from repalis.postgres import AsyncSession
+from repalis.user_organization.service import (
     user_organization as user_organization_service,
 )
 

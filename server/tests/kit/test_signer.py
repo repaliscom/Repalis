@@ -3,9 +3,9 @@ from authlib.jose import JsonWebKey
 from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.asymmetric import padding
 
-from polar.config import Environment, settings
-from polar.kit import signer
-from polar.kit.signer import KMSSigner
+from repalis.config import Environment, settings
+from repalis.kit import signer
+from repalis.kit.signer import KMSSigner
 
 
 def test_local_signature_verifies_against_the_published_key() -> None:

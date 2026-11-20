@@ -3,8 +3,8 @@ from urllib.parse import quote
 
 import httpx2
 
-from polar.config import settings
-from polar.exceptions import PolarError
+from repalis.config import settings
+from repalis.exceptions import PolarError
 
 
 class ResendClientError(PolarError):

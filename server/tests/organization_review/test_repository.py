@@ -2,20 +2,20 @@ from datetime import UTC, datetime
 
 import pytest
 
-from polar.models.account import Account
-from polar.models.backoffice_user import BackofficeUser
-from polar.models.dispute import DisputeStatus
-from polar.models.organization import Organization
-from polar.models.payment import PaymentStatus
-from polar.models.product import Product
-from polar.models.product_price import ProductPriceSource
-from polar.models.webhook_endpoint import WebhookEndpoint, WebhookFormat
-from polar.organization_review.report import (
+from repalis.models.account import Account
+from repalis.models.backoffice_user import BackofficeUser
+from repalis.models.dispute import DisputeStatus
+from repalis.models.organization import Organization
+from repalis.models.payment import PaymentStatus
+from repalis.models.product import Product
+from repalis.models.product_price import ProductPriceSource
+from repalis.models.webhook_endpoint import WebhookEndpoint, WebhookFormat
+from repalis.organization_review.report import (
     AgentReportV2,
     AnyAgentReport,
 )
-from polar.organization_review.repository import OrganizationReviewRepository
-from polar.organization_review.schemas import (
+from repalis.organization_review.repository import OrganizationReviewRepository
+from repalis.organization_review.schemas import (
     AUP_SECTION_LABELS,
     ActorType,
     AUPSection,
@@ -35,7 +35,7 @@ from polar.organization_review.schemas import (
     RiskLevel,
     UsageInfo,
 )
-from polar.postgres import AsyncSession
+from repalis.postgres import AsyncSession
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (
     create_checkout,

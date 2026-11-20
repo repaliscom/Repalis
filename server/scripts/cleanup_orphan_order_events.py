@@ -6,11 +6,11 @@ from uuid import UUID
 import typer
 from sqlalchemy import delete, select
 
-from polar.integrations.tinybird.client import client as tinybird_client
-from polar.integrations.tinybird.service import DATASOURCE_EVENTS
-from polar.kit.db.postgres import create_async_sessionmaker
-from polar.models import Event, Order
-from polar.postgres import create_async_engine
+from repalis.integrations.tinybird.client import client as tinybird_client
+from repalis.integrations.tinybird.service import DATASOURCE_EVENTS
+from repalis.kit.db.postgres import create_async_sessionmaker
+from repalis.models import Event, Order
+from repalis.postgres import create_async_engine
 
 from .helper import configure_script_logging, typer_async
 

@@ -3,20 +3,20 @@ import uuid
 import pytest
 from pydantic import HttpUrl
 
-from polar.auth.models import AuthSubject
-from polar.checkout_link.schemas import (
+from repalis.auth.models import AuthSubject
+from repalis.checkout_link.schemas import (
     CheckoutLinkCreateProducts,
     CheckoutLinkUpdate,
 )
-from polar.checkout_link.service import checkout_link as checkout_link_service
-from polar.enums import PaymentProcessor, SubscriptionRecurringInterval
-from polar.exceptions import PolarRequestValidationError
-from polar.kit.pagination import PaginationParams
-from polar.kit.trial import TrialInterval
-from polar.models import Discount, Organization, Product, User, UserOrganization
-from polar.models.checkout_link import CheckoutLink
-from polar.models.product_price import ProductPriceFixed
-from polar.postgres import AsyncSession
+from repalis.checkout_link.service import checkout_link as checkout_link_service
+from repalis.enums import PaymentProcessor, SubscriptionRecurringInterval
+from repalis.exceptions import PolarRequestValidationError
+from repalis.kit.pagination import PaginationParams
+from repalis.kit.trial import TrialInterval
+from repalis.models import Discount, Organization, Product, User, UserOrganization
+from repalis.models.checkout_link import CheckoutLink
+from repalis.models.product_price import ProductPriceFixed
+from repalis.postgres import AsyncSession
 from tests.fixtures.auth import AuthSubjectFixture
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (
@@ -613,7 +613,7 @@ class TestUpdate:
         product: Product,
         product_one_time: Product,
     ) -> None:
-        from polar.kit.trial import TrialInterval
+        from repalis.kit.trial import TrialInterval
 
         checkout_link_with_trial = await create_checkout_link(
             save_fixture,

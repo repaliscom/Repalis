@@ -4,9 +4,9 @@ from pydantic import BaseModel, BeforeValidator, Field, StringConstraints
 from sqlalchemy import String
 from sqlalchemy.orm import Mapped, mapped_column
 
-from polar.kit.schemas import empty_str_to_none
-from polar.kit.versioning import Version
-from polar.version import V2027_01
+from repalis.kit.schemas import empty_str_to_none
+from repalis.kit.versioning import Version
+from repalis.version import V2027_01
 
 ExternalIDColumn = Annotated[
     str | None, mapped_column(String, nullable=True, default=None)

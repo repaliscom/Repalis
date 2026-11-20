@@ -55,9 +55,9 @@ module "vercel" {
         proxied = true
       }
     },
-    # polar.new and www.polar.new live in a separate zone and are managed separately.
-    { name = "polar.new" },
-    { name = "www.polar.new", redirect = "polar.new", redirect_status_code = 308 },
+    # repalis.new and www.repalis.new live in a separate zone and are managed separately.
+    { name = "repalis.new" },
+    { name = "www.repalis.new", redirect = "repalis.new", redirect_status_code = 308 },
   ]
 
   config = {

@@ -37,23 +37,23 @@ from sqlalchemy.dialects.postgresql import CITEXT, JSONB
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import Mapped, declared_attr, mapped_column, relationship
 
-from polar.config import settings
-from polar.enums import (
+from repalis.config import settings
+from repalis.enums import (
     AutoProrationBehavior,
     InvoiceNumbering,
     ProrationBehaviorSetting,
     SubscriptionProrationBehavior,
     TaxBehaviorOption,
 )
-from polar.exceptions import PolarError
-from polar.kit.currency import PresentmentCurrency
-from polar.kit.db.models import RateLimitGroupMixin, RecordModel
-from polar.kit.extensions.sqlalchemy import StringEnum
+from repalis.exceptions import PolarError
+from repalis.kit.currency import PresentmentCurrency
+from repalis.kit.db.models import RateLimitGroupMixin, RecordModel
+from repalis.kit.extensions.sqlalchemy import StringEnum
 
 from .account import Account
 
 if TYPE_CHECKING:
-    from polar.email.sender import EmailFromReply
+    from repalis.email.sender import EmailFromReply
 
     from .organization_agent_review import OrganizationAgentReview
     from .organization_review import OrganizationReview

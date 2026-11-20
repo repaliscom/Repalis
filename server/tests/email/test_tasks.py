@@ -6,14 +6,14 @@ import pytest
 from pytest_mock import MockerFixture
 from sqlalchemy import select
 
-from polar.config import Environment, settings
-from polar.email.repository import EmailLogRepository
-from polar.email.sender import SendEmailError
-from polar.email.tasks import email_log_prune, email_send
-from polar.enums import EmailSender
-from polar.kit.utils import utc_now
-from polar.models.email_log import EmailLog, EmailLogStatus
-from polar.postgres import AsyncSession
+from repalis.config import Environment, settings
+from repalis.email.repository import EmailLogRepository
+from repalis.email.sender import SendEmailError
+from repalis.email.tasks import email_log_prune, email_send
+from repalis.enums import EmailSender
+from repalis.kit.utils import utc_now
+from repalis.models.email_log import EmailLog, EmailLogStatus
+from repalis.postgres import AsyncSession
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_email_log
 
@@ -36,7 +36,7 @@ class TestEmailSend:
         mocker: MockerFixture,
     ) -> None:
         mock_send = mocker.patch(
-            "polar.email.tasks.email_sender.send",
+            "repalis.email.tasks.email_sender.send",
             return_value="resend_123",
         )
 
@@ -67,7 +67,7 @@ class TestEmailSend:
         mocker: MockerFixture,
     ) -> None:
         mocker.patch(
-            "polar.email.tasks.email_sender.send",
+            "repalis.email.tasks.email_sender.send",
             side_effect=SendEmailError("connection refused"),
         )
 
@@ -95,7 +95,7 @@ class TestEmailSend:
         mocker: MockerFixture,
     ) -> None:
         mocker.patch(
-            "polar.email.tasks.email_sender.send",
+            "repalis.email.tasks.email_sender.send",
             return_value="resend_123",
         )
 
@@ -121,11 +121,11 @@ class TestEmailSend:
         mocker: MockerFixture,
     ) -> None:
         mocker.patch(
-            "polar.email.tasks.email_sender.send",
+            "repalis.email.tasks.email_sender.send",
             return_value=None,
         )
         mocker.patch(
-            "polar.email.tasks.render_from_json",
+            "repalis.email.tasks.render_from_json",
             return_value="<p>Rendered</p>",
         )
 
@@ -160,11 +160,11 @@ class TestEmailSend:
         mocker: MockerFixture,
     ) -> None:
         mock_send = mocker.patch(
-            "polar.email.tasks.email_sender.send",
+            "repalis.email.tasks.email_sender.send",
             return_value=None,
         )
         mocker.patch(
-            "polar.email.tasks.render_from_json",
+            "repalis.email.tasks.render_from_json",
             return_value="<p>Rendered</p>",
         )
 
@@ -198,11 +198,11 @@ class TestEmailSend:
         mocker: MockerFixture,
     ) -> None:
         mock_send = mocker.patch(
-            "polar.email.tasks.email_sender.send",
+            "repalis.email.tasks.email_sender.send",
             return_value=None,
         )
         mocker.patch(
-            "polar.email.tasks.render_from_json",
+            "repalis.email.tasks.render_from_json",
             return_value="<p>Rendered</p>",
         )
 
@@ -227,11 +227,11 @@ class TestEmailSend:
         mocker: MockerFixture,
     ) -> None:
         mocker.patch(
-            "polar.email.tasks.email_sender.send",
+            "repalis.email.tasks.email_sender.send",
             return_value=None,
         )
         mocker.patch(
-            "polar.email.tasks.settings.EMAIL_SENDER",
+            "repalis.email.tasks.settings.EMAIL_SENDER",
             EmailSender.logger,
         )
 
@@ -256,14 +256,14 @@ class TestEmailSend:
         mocker: MockerFixture,
     ) -> None:
         mocker.patch(
-            "polar.email.tasks.email_sender.send",
+            "repalis.email.tasks.email_sender.send",
             side_effect=SendEmailError("send failed"),
         )
         mocker.patch(
-            "polar.email.tasks.AsyncSessionMaker",
+            "repalis.email.tasks.AsyncSessionMaker",
             side_effect=RuntimeError("db down"),
         )
-        log_exception = mocker.patch("polar.email.tasks.log.exception")
+        log_exception = mocker.patch("repalis.email.tasks.log.exception")
 
         with pytest.raises(SendEmailError, match="send failed"):
             await email_send(
@@ -303,9 +303,9 @@ class TestEmailSend:
                 error=error,
             )
         mocker.patch.object(settings, "ENV", Environment.production)
-        mocker.patch("polar.email.tasks.email_sender.send", return_value=None)
+        mocker.patch("repalis.email.tasks.email_sender.send", return_value=None)
         remove_suppression = mocker.patch(
-            "polar.email.tasks.email_sender.remove_suppression"
+            "repalis.email.tasks.email_sender.remove_suppression"
         )
 
         await email_send(
@@ -331,9 +331,9 @@ class TestEmailSend:
             save_fixture, created_at=utc_now(), status=EmailLogStatus.failed
         )
         mocker.patch.object(settings, "ENV", Environment.production)
-        send = mocker.patch("polar.email.tasks.email_sender.send", return_value=None)
+        send = mocker.patch("repalis.email.tasks.email_sender.send", return_value=None)
         mocker.patch(
-            "polar.email.tasks.email_sender.remove_suppression",
+            "repalis.email.tasks.email_sender.remove_suppression",
             side_effect=RuntimeError("database down"),
         )
 
@@ -362,9 +362,9 @@ class TestEmailSend:
             save_fixture, created_at=utc_now(), status=EmailLogStatus.failed
         )
         mocker.patch.object(settings, "ENV", environment)
-        mocker.patch("polar.email.tasks.email_sender.send", return_value=None)
+        mocker.patch("repalis.email.tasks.email_sender.send", return_value=None)
         remove_suppression = mocker.patch(
-            "polar.email.tasks.email_sender.remove_suppression"
+            "repalis.email.tasks.email_sender.remove_suppression"
         )
 
         await email_send(
@@ -391,7 +391,7 @@ class TestEmailLogPrune:
         mocker: MockerFixture,
     ) -> None:
         mocker.patch(
-            "polar.email.tasks.AsyncSessionMaker",
+            "repalis.email.tasks.AsyncSessionMaker",
             side_effect=lambda: _session_maker(session),
         )
         retention = settings.EMAIL_LOG_RETENTION_PERIOD

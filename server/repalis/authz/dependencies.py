@@ -4,23 +4,23 @@ from uuid import UUID
 
 from fastapi import Depends
 
-from polar.account.repository import AccountRepository
-from polar.auth.dependencies import Authenticator, WebUserSession
-from polar.auth.exceptions import SessionNotFreshError
-from polar.auth.models import Agent, AuthSubject, Organization, User
-from polar.auth.scope import Scope
-from polar.config import settings
-from polar.exceptions import NotPermitted, ResourceNotFound
-from polar.kit.utils import utc_now
-from polar.models import Organization as OrganizationModel
-from polar.models import PayoutAccount as PayoutAccountModel
-from polar.models import UserSession
-from polar.models.account import Account as AccountModel
-from polar.oauth2.exceptions import InsufficientScopeError
-from polar.organization.repository import OrganizationRepository
-from polar.organization.schemas import OrganizationID
-from polar.payout_account.repository import PayoutAccountRepository
-from polar.postgres import AsyncSession, get_db_session
+from repalis.account.repository import AccountRepository
+from repalis.auth.dependencies import Authenticator, WebUserSession
+from repalis.auth.exceptions import SessionNotFreshError
+from repalis.auth.models import Agent, AuthSubject, Organization, User
+from repalis.auth.scope import Scope
+from repalis.config import settings
+from repalis.exceptions import NotPermitted, ResourceNotFound
+from repalis.kit.utils import utc_now
+from repalis.models import Organization as OrganizationModel
+from repalis.models import PayoutAccount as PayoutAccountModel
+from repalis.models import UserSession
+from repalis.models.account import Account as AccountModel
+from repalis.oauth2.exceptions import InsufficientScopeError
+from repalis.organization.repository import OrganizationRepository
+from repalis.organization.schemas import OrganizationID
+from repalis.payout_account.repository import PayoutAccountRepository
+from repalis.postgres import AsyncSession, get_db_session
 
 from .policies import finance as finance_policy
 from .policies import members

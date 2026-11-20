@@ -34,21 +34,21 @@ from sqlalchemy.orm import (
 )
 from sqlalchemy.orm.attributes import set_committed_value
 
-from polar.enums import MeterInterval, SubscriptionRecurringInterval
-from polar.kit.db.models import RecordModel
-from polar.kit.extensions.sqlalchemy import StringEnum
-from polar.kit.external_id import ExternalIDMixin
-from polar.kit.metadata import MetadataMixin
-from polar.kit.schemas import SetSchemaReference
-from polar.kit.trial import TrialConfigurationMixin
-from polar.kit.visibility import Visibility, VisibilityMixin
-from polar.models.product_price import ProductPriceAmountType
-from polar.tax.calculation import TaxCode
+from repalis.enums import MeterInterval, SubscriptionRecurringInterval
+from repalis.kit.db.models import RecordModel
+from repalis.kit.extensions.sqlalchemy import StringEnum
+from repalis.kit.external_id import ExternalIDMixin
+from repalis.kit.metadata import MetadataMixin
+from repalis.kit.schemas import SetSchemaReference
+from repalis.kit.trial import TrialConfigurationMixin
+from repalis.kit.visibility import Visibility, VisibilityMixin
+from repalis.models.product_price import ProductPriceAmountType
+from repalis.tax.calculation import TaxCode
 
 from .product_price import ProductPrice
 
 if TYPE_CHECKING:
-    from polar.models import (
+    from repalis.models import (
         Benefit,
         Catalog,
         Organization,
@@ -56,7 +56,7 @@ if TYPE_CHECKING:
         ProductCustomField,
         ProductMedia,
     )
-    from polar.models.file import ProductMediaFile
+    from repalis.models.file import ProductMediaFile
 
 
 class ProductBillingType(StrEnum):

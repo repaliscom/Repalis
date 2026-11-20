@@ -3,21 +3,21 @@ from typing import Annotated
 
 from fastapi import Depends, Query, Response
 
-from polar.exceptions import ResourceNotFound
-from polar.kit.db.postgres import AsyncSession
-from polar.kit.pagination import ListResource, PaginationParamsQuery
-from polar.kit.sorting import Sorting, SortingGetter
-from polar.models import Order
-from polar.openapi import APITag
-from polar.order.schemas import OrderID
-from polar.order.service import (
+from repalis.exceptions import ResourceNotFound
+from repalis.kit.db.postgres import AsyncSession
+from repalis.kit.pagination import ListResource, PaginationParamsQuery
+from repalis.kit.sorting import Sorting, SortingGetter
+from repalis.models import Order
+from repalis.openapi import APITag
+from repalis.order.schemas import OrderID
+from repalis.order.service import (
     MissingInvoiceBillingDetails,
     OrderNotEligibleForInvoice,
     PaymentAlreadyInProgress,
 )
-from polar.payment.repository import PaymentRepository
-from polar.postgres import get_db_session
-from polar.routing import APIRouter
+from repalis.payment.repository import PaymentRepository
+from repalis.postgres import get_db_session
+from repalis.routing import APIRouter
 
 from .. import auth
 from ..schemas.order import (

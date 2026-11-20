@@ -24,25 +24,25 @@ Do not run old and new clients against the same mutation as a comparison strateg
 
 ## Replace client construction
 
-The old SDK exposed synchronous and `_async` operations on `polar_sdk.Polar`. The new SDK uses separate `Polar` and `PolarAsync` clients in a versioned module.
+The old SDK exposed synchronous and `_async` operations on `polar_sdk.Polar`. The new SDK uses separate `Polar` and `RepalisAsync` clients in a versioned module.
 
 ```python
-# Before: polar-sdk<1.0.0
-from polar_sdk import Polar
+# Before: repalis-sdk<1.0.0
+from repalis_sdk import Repalis
 
-polar = Polar(access_token=access_token)
-organization = await polar.organizations.get_async(organization_id)
+repalis = Repalis(access_token=access_token)
+organization = await repalis.organizations.get_async(organization_id)
 ```
 
 ```python
 # After
-from polar.v2026_10 import PolarAsync
+from repalis.v2026_10 import RepalisAsync
 
-polar = PolarAsync(access_token)
+polar = RepalisAsync(access_token)
 organization = await polar.organizations.get(organization_id)
 ```
 
-Use `Polar` for synchronous code and `PolarAsync` for asynchronous code. Remove `_async` suffixes after switching to `PolarAsync`. Preserve the selected environment and any organization scoping, but pass only options accepted by the new constructor.
+Use `Polar` for synchronous code and `RepalisAsync` for asynchronous code. Remove `_async` suffixes after switching to `RepalisAsync`. Preserve the selected environment and any organization scoping, but pass only options accepted by the new constructor.
 
 ## Migrate operation calls
 
@@ -100,7 +100,7 @@ for organization in polar.organizations.iter_list(limit=100):
     process_organization(organization)
 ```
 
-Use `async for` with `PolarAsync`. If the application needs page metadata, call `list` directly and advance the `page` query itself; do not expect `.next()` on the response.
+Use `async for` with `RepalisAsync`. If the application needs page metadata, call `list` directly and advance the `page` query itself; do not expect `.next()` on the response.
 
 ## Migrate models and errors
 

@@ -1,9 +1,9 @@
 from typing import Any
 
-from polar.v2026_04.outputs import Product, Subscription
+from repalis.v2026_04.outputs import Product, Subscription
 
-from polar import deserialize
-from polar.integrations.repalis.schemas import (
+from repalis import deserialize
+from repalis.integrations.repalis.schemas import (
     OrganizationPlan,
     OrganizationSubscription,
 )

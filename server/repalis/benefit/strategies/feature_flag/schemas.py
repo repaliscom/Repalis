@@ -1,7 +1,7 @@
 from typing import Literal
 
-from polar.kit.schemas import Schema
-from polar.models.benefit import BenefitType
+from repalis.kit.schemas import Schema
+from repalis.models.benefit import BenefitType
 
 from ..base.schemas import (
     BenefitBase,

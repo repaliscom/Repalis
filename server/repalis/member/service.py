@@ -9,29 +9,29 @@ from sqlalchemy.exc import IntegrityError, MultipleResultsFound
 from sqlalchemy.orm import joinedload
 from sqlalchemy.sql.elements import OrderByList
 
-from polar.auth.models import AuthSubject, Organization, User
-from polar.auth.permission import OrganizationPermission
-from polar.authz.service import assert_resource_permission, get_accessible_org_ids
-from polar.authz.types import AccessibleOrganizationID
-from polar.customer.repository import CustomerRepository
-from polar.customer_seat.repository import CustomerSeatRepository
-from polar.exceptions import (
+from repalis.auth.models import AuthSubject, Organization, User
+from repalis.auth.permission import OrganizationPermission
+from repalis.authz.service import assert_resource_permission, get_accessible_org_ids
+from repalis.authz.types import AccessibleOrganizationID
+from repalis.customer.repository import CustomerRepository
+from repalis.customer_seat.repository import CustomerSeatRepository
+from repalis.exceptions import (
     NotPermitted,
     PolarError,
     PolarRequestValidationError,
     ResourceNotFound,
 )
-from polar.kit.pagination import PaginationParams
-from polar.kit.repository import Options
-from polar.kit.sorting import Sorting
-from polar.models.customer import Customer, CustomerType
-from polar.models.member import Member, MemberRole
-from polar.models.organization import Organization as OrgModel
-from polar.models.webhook_endpoint import WebhookEventType
-from polar.organization.repository import OrganizationRepository
-from polar.postgres import AsyncReadSession, AsyncSession
-from polar.webhook.service import webhook as webhook_service
-from polar.worker import enqueue_job
+from repalis.kit.pagination import PaginationParams
+from repalis.kit.repository import Options
+from repalis.kit.sorting import Sorting
+from repalis.models.customer import Customer, CustomerType
+from repalis.models.member import Member, MemberRole
+from repalis.models.organization import Organization as OrgModel
+from repalis.models.webhook_endpoint import WebhookEventType
+from repalis.organization.repository import OrganizationRepository
+from repalis.postgres import AsyncReadSession, AsyncSession
+from repalis.webhook.service import webhook as webhook_service
+from repalis.worker import enqueue_job
 
 from .repository import MemberRepository
 from .sorting import MemberSortProperty
@@ -283,7 +283,7 @@ class MemberService:
 
         enqueue_job("customer_seat.revoke_seats_for_member", member_id=member.id)
 
-        from polar.benefit.grant.service import (
+        from repalis.benefit.grant.service import (
             benefit_grant as benefit_grant_service,
         )
 
@@ -320,7 +320,7 @@ class MemberService:
         Unlike delete(), this skips the owner guard since the entire
         customer is being removed.
         """
-        from polar.benefit.grant.service import (
+        from repalis.benefit.grant.service import (
             benefit_grant as benefit_grant_service,
         )
 

@@ -17,7 +17,7 @@ from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.engine.interfaces import Dialect
 from sqlalchemy.types import TypeDecorator
 
-from polar.kit.schemas import EmptyStrToNone
+from repalis.kit.schemas import EmptyStrToNone
 
 
 def upper_if_str(value: Any) -> Any:

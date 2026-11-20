@@ -7,19 +7,19 @@ from sqlalchemy import CursorResult, Select, func
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import joinedload
 
-from polar.config import settings
-from polar.exceptions import PolarError
-from polar.integrations.repalis.service import billing_member_role
-from polar.integrations.repalis.service import polar_self as polar_self_service
-from polar.integrations.resend.service import resend as resend_service
-from polar.kit.utils import utc_now
-from polar.models import User, UserOrganization
-from polar.models.user import IdentityVerificationStatus
-from polar.models.user_organization import (
+from repalis.config import settings
+from repalis.exceptions import PolarError
+from repalis.integrations.repalis.service import billing_member_role
+from repalis.integrations.repalis.service import polar_self as polar_self_service
+from repalis.integrations.resend.service import resend as resend_service
+from repalis.kit.utils import utc_now
+from repalis.models import User, UserOrganization
+from repalis.models.user import IdentityVerificationStatus
+from repalis.models.user_organization import (
     OrganizationNotificationSettings,
     OrganizationRole,
 )
-from polar.postgres import AsyncReadSession, AsyncSession, sql
+from repalis.postgres import AsyncReadSession, AsyncSession, sql
 
 from .repository import UserOrganizationRepository
 
@@ -408,7 +408,7 @@ class UserOrganizationService:
             UserNotMemberOfOrganization: If the user is not a member of the organization
             CannotRemoveOrganizationOwner: If the user holds the `owner` role
         """
-        from polar.organization.repository import OrganizationRepository
+        from repalis.organization.repository import OrganizationRepository
 
         org_repo = OrganizationRepository.from_session(session)
         organization = await org_repo.get_by_id(organization_id)

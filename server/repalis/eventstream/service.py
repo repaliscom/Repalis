@@ -4,10 +4,10 @@ from uuid import UUID
 import structlog
 from pydantic import BaseModel
 
-from polar.kit.utils import generate_uuid
-from polar.logging import Logger
-from polar.redis import Redis
-from polar.worker import enqueue_job
+from repalis.kit.utils import generate_uuid
+from repalis.logging import Logger
+from repalis.redis import Redis
+from repalis.worker import enqueue_job
 
 log: Logger = structlog.get_logger()
 

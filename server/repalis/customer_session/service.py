@@ -5,21 +5,21 @@ from pydantic import HttpUrl
 from sqlalchemy.exc import MultipleResultsFound
 from sqlalchemy.orm import joinedload
 
-from polar.auth.models import AuthSubject, Organization, User
-from polar.auth.permission import OrganizationPermission
-from polar.authz.service import assert_resource_permission, get_accessible_org_ids
-from polar.customer.repository import CustomerRepository
-from polar.enums import TokenType
-from polar.exceptions import PolarError, PolarRequestValidationError
-from polar.kit.crypto import generate_token_hash_pair
-from polar.kit.services import ResourceServiceReader
-from polar.logging import Logger
-from polar.member.repository import MemberRepository
-from polar.member.service import member_service
-from polar.member_session.service import member_session as member_session_service
-from polar.models import Customer, CustomerSession, Member, MemberSession
-from polar.models.customer import CustomerType
-from polar.postgres import AsyncSession
+from repalis.auth.models import AuthSubject, Organization, User
+from repalis.auth.permission import OrganizationPermission
+from repalis.authz.service import assert_resource_permission, get_accessible_org_ids
+from repalis.customer.repository import CustomerRepository
+from repalis.enums import TokenType
+from repalis.exceptions import PolarError, PolarRequestValidationError
+from repalis.kit.crypto import generate_token_hash_pair
+from repalis.kit.services import ResourceServiceReader
+from repalis.logging import Logger
+from repalis.member.repository import MemberRepository
+from repalis.member.service import member_service
+from repalis.member_session.service import member_session as member_session_service
+from repalis.models import Customer, CustomerSession, Member, MemberSession
+from repalis.models.customer import CustomerType
+from repalis.postgres import AsyncSession
 
 from .repository import CustomerSessionRepository
 from .schemas import CustomerSessionCreate, CustomerSessionCustomerIDCreate

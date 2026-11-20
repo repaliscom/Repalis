@@ -15,14 +15,14 @@ from pydantic import (
 )
 from pydantic.aliases import AliasChoices
 
-from polar.kit.address import Address, AddressInput
-from polar.kit.email import EmailStrDNS
-from polar.kit.locale import Locale
-from polar.kit.metadata import (
+from repalis.kit.address import Address, AddressInput
+from repalis.kit.email import EmailStrDNS
+from repalis.kit.locale import Locale
+from repalis.kit.metadata import (
     MetadataInputMixin,
     MetadataOutputMixin,
 )
-from polar.kit.schemas import (
+from repalis.kit.schemas import (
     CUSTOMER_ID_EXAMPLE,
     ORGANIZATION_ID_EXAMPLE,
     ClassName,
@@ -34,17 +34,17 @@ from polar.kit.schemas import (
     SetSchemaReference,
     TimestampedSchema,
 )
-from polar.kit.time_queries import TimeInterval
-from polar.kit.versioning import QuerySchema
-from polar.member import MemberOwnerCreate
-from polar.models.customer import CustomerType
-from polar.organization.schemas import OrganizationID
-from polar.payment_method.schemas import (
+from repalis.kit.time_queries import TimeInterval
+from repalis.kit.versioning import QuerySchema
+from repalis.member import MemberOwnerCreate
+from repalis.models.customer import CustomerType
+from repalis.organization.schemas import OrganizationID
+from repalis.payment_method.schemas import (
     PaymentMethodCard,
     PaymentMethodGeneric,
     PaymentMethodKrCard,
 )
-from polar.tax.tax_id import TaxID
+from repalis.tax.tax_id import TaxID
 
 CustomerID = Annotated[UUID4, Path(description="The customer ID.")]
 ExternalCustomerID = Annotated[str, Path(description="The customer external ID.")]

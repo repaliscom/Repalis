@@ -7,22 +7,22 @@ import pytest
 from pytest_mock import MockerFixture
 from sqlalchemy import update
 
-from polar.billing_interval.repository import BillingIntervalRepository
-from polar.billing_interval.service import (
+from repalis.billing_interval.repository import BillingIntervalRepository
+from repalis.billing_interval.service import (
     BILL_USAGE_LOCK_TIMEOUT,
     ReducerUsageUnavailable,
     get_meter_charge,
     get_usage_period_start,
     split_windows,
 )
-from polar.billing_interval.service import billing_interval as billing_interval_service
-from polar.billing_interval.types import MeterCharge
-from polar.meter.aggregation import AggregationFunction
-from polar.models import Customer, Meter, Organization, Product
-from polar.models.subscription import SubscriptionStatus
-from polar.postgres import AsyncSession
-from polar.reducer.service import reducer as reducer_service
-from polar.reducer.types import MeterUsage, UsageSummary, UsageWindow, WindowUsage
+from repalis.billing_interval.service import billing_interval as billing_interval_service
+from repalis.billing_interval.types import MeterCharge
+from repalis.meter.aggregation import AggregationFunction
+from repalis.models import Customer, Meter, Organization, Product
+from repalis.models.subscription import SubscriptionStatus
+from repalis.postgres import AsyncSession
+from repalis.reducer.service import reducer as reducer_service
+from repalis.reducer.types import MeterUsage, UsageSummary, UsageWindow, WindowUsage
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_subscription
 
@@ -192,7 +192,7 @@ class TestBillUsage:
             failing,
             side_effect=write_then_fail,
         )
-        log = mocker.patch("polar.billing_interval.service.log")
+        log = mocker.patch("repalis.billing_interval.service.log")
 
         quantities = await billing_interval_service.bill_usage(
             session,

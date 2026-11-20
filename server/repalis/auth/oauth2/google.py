@@ -3,9 +3,9 @@ from reauth.factors.oauth2.base import OAuth2Account, OAuth2GetProfileException
 from reauth.factors.oauth2.base import OAuth2Enrollment as OAuth2EnrollmentDataclass
 from reauth.factors.oauth2.google import GoogleOAuth2Factor as GoogleOAuth2FactorBase
 
-from polar.auth.exceptions import GetEmailError, UnverifiedEmailError
-from polar.config import settings
-from polar.postgres import AsyncSession, get_db_session
+from repalis.auth.exceptions import GetEmailError, UnverifiedEmailError
+from repalis.config import settings
+from repalis.postgres import AsyncSession, get_db_session
 
 from .factor import OAuth2FactorMixin
 from .state import OAuth2StateService, get_oauth2_state_service

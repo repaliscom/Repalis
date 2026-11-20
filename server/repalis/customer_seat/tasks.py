@@ -4,12 +4,12 @@ from typing import Annotated
 import structlog
 from sqlalchemy.orm import selectinload
 
-from polar.exceptions import PolarTaskError
-from polar.logging import Logger
-from polar.models.product import Product
-from polar.observability.task_logging import LoggableField
-from polar.product.repository import ProductRepository
-from polar.worker import AsyncSessionMaker, TaskPriority, actor
+from repalis.exceptions import PolarTaskError
+from repalis.logging import Logger
+from repalis.models.product import Product
+from repalis.observability.task_logging import LoggableField
+from repalis.product.repository import ProductRepository
+from repalis.worker import AsyncSessionMaker, TaskPriority, actor
 
 from .repository import CustomerSeatRepository
 from .service import seat_service

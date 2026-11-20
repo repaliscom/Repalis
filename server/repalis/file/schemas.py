@@ -3,7 +3,7 @@ from typing import Annotated, Any, Literal, Self
 
 from pydantic import UUID4, Discriminator, Field, TypeAdapter, computed_field
 
-from polar.integrations.aws.s3.schemas import (
+from repalis.integrations.aws.s3.schemas import (
     S3DownloadURL,
     S3File,
     S3FileCreate,
@@ -11,10 +11,10 @@ from polar.integrations.aws.s3.schemas import (
     S3FileUpload,
     S3FileUploadCompleted,
 )
-from polar.kit.schemas import ClassName, MultipleQueryFilter, Schema, SetSchemaReference
-from polar.kit.versioning import QuerySchema
-from polar.models.file import File, FileServiceTypes
-from polar.organization.schemas import OrganizationID
+from repalis.kit.schemas import ClassName, MultipleQueryFilter, Schema, SetSchemaReference
+from repalis.kit.versioning import QuerySchema
+from repalis.models.file import File, FileServiceTypes
+from repalis.organization.schemas import OrganizationID
 
 from .s3 import S3_SERVICES
 

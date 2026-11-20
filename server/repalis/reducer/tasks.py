@@ -4,11 +4,11 @@ from typing import Annotated
 
 from apscheduler.triggers.cron import CronTrigger
 
-from polar.billing_interval.service import billing_interval as billing_interval_service
-from polar.customer.repository import CustomerRepository
-from polar.exceptions import PolarTaskError
-from polar.observability.task_logging import LoggableField
-from polar.worker import (
+from repalis.billing_interval.service import billing_interval as billing_interval_service
+from repalis.customer.repository import CustomerRepository
+from repalis.exceptions import PolarTaskError
+from repalis.observability.task_logging import LoggableField
+from repalis.worker import (
     AsyncSessionMaker,
     RedisMiddleware,
     TaskPriority,

@@ -5,10 +5,10 @@ import multiprocessing
 import anyio
 import pytest
 
-from polar.invoice.generator import InvoiceItem
-from polar.kit.address import Address, CountryAlpha2
-from polar.receipt.generator import Receipt, ReceiptRefund
-from polar.receipt.render import (
+from repalis.invoice.generator import InvoiceItem
+from repalis.kit.address import Address, CountryAlpha2
+from repalis.receipt.generator import Receipt, ReceiptRefund
+from repalis.receipt.render import (
     ReceiptRenderError,
     ReceiptRenderRequest,
     render_receipt_pdf,
@@ -88,7 +88,7 @@ class TestRenderReceiptPDF:
     async def test_timeout_kills_renderer(
         self, receipt: Receipt, monkeypatch: pytest.MonkeyPatch
     ) -> None:
-        monkeypatch.setattr("polar.receipt.render.RENDER_TIMEOUT_SECONDS", 0.001)
+        monkeypatch.setattr("repalis.receipt.render.RENDER_TIMEOUT_SECONDS", 0.001)
 
         with pytest.raises(ReceiptRenderError, match="timed out"):
             await render_receipt_pdf(receipt)

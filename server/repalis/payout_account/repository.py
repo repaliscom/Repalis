@@ -2,14 +2,14 @@ from uuid import UUID
 
 from sqlalchemy import Select
 
-from polar.auth.models import User
-from polar.kit.repository import (
+from repalis.auth.models import User
+from repalis.kit.repository import (
     Options,
     RepositoryBase,
     RepositorySoftDeletionIDMixin,
     RepositorySoftDeletionMixin,
 )
-from polar.models import PayoutAccount
+from repalis.models import PayoutAccount
 
 
 class PayoutAccountRepository(

@@ -15,14 +15,14 @@ from reauth.factors.oauth2.base import (
 from reauth.factors.oauth2.oidc import OIDCException
 from reauth.factors.oauth2.state import ExpiredStateException, InvalidStateException
 
-from polar.authz.dependencies import AuthorizeWebUserWrite
-from polar.config import settings
-from polar.kit.http import ReturnTo
-from polar.postgres import AsyncSession
-from polar.routing import APIRouter
-from polar.user.repository import UserRepository
-from polar.user.service import UserCannotAuthenticate
-from polar.user.service import user as user_service
+from repalis.authz.dependencies import AuthorizeWebUserWrite
+from repalis.config import settings
+from repalis.kit.http import ReturnTo
+from repalis.postgres import AsyncSession
+from repalis.routing import APIRouter
+from repalis.user.repository import UserRepository
+from repalis.user.service import UserCannotAuthenticate
+from repalis.user.service import user as user_service
 
 from ..authentication_session import (
     AuthenticationSessionService,

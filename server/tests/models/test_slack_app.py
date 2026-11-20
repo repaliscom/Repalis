@@ -2,9 +2,9 @@ import pytest
 from cryptography.exceptions import InvalidTag
 from sqlalchemy import select
 
-from polar.kit.encryption import EncryptedString
-from polar.models import Organization, SlackApp
-from polar.postgres import AsyncSession
+from repalis.kit.encryption import EncryptedString
+from repalis.models import Organization, SlackApp
+from repalis.postgres import AsyncSession
 from tests.fixtures.database import SaveFixture
 
 

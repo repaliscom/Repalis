@@ -9,14 +9,14 @@ from typing import Any
 from fastapi import Request
 from tagflow import tag, text
 
-from polar.integrations.stripe.account_risk import (
+from repalis.integrations.stripe.account_risk import (
     MerchantSignalPayload,
     WebsiteSignalPayload,
     parse_merchant_payload,
     parse_website_payload,
 )
-from polar.models import Organization
-from polar.models.organization_risk_signal import OrganizationRiskSignal
+from repalis.models import Organization
+from repalis.models.organization_risk_signal import OrganizationRiskSignal
 
 from ....components import card
 

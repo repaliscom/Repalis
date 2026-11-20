@@ -5,10 +5,10 @@ from sqlalchemy import Column, ForeignKey, Index, String, Uuid, func
 from sqlalchemy.ext.associationproxy import AssociationProxy, association_proxy
 from sqlalchemy.orm import Mapped, declared_attr, mapped_column, relationship
 
-from polar.kit.db.models import RecordModel
+from repalis.kit.db.models import RecordModel
 
 if TYPE_CHECKING:
-    from polar.models import Customer, Organization, Product
+    from repalis.models import Customer, Organization, Product
 
 
 class TrialRedemption(RecordModel):

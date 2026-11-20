@@ -17,9 +17,9 @@ from sqlalchemy import (
     or_,
 )
 
-from polar.kit.time_queries import TimeInterval
-from polar.models import Checkout, CustomerSeat, Order, Subscription
-from polar.models.checkout import CheckoutStatus
+from repalis.kit.time_queries import TimeInterval
+from repalis.models import Checkout, CustomerSeat, Order, Subscription
+from repalis.models.checkout import CheckoutStatus
 
 from .queries import MetricQuery
 from .queries_tinybird import TinybirdQuery

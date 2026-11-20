@@ -8,8 +8,8 @@ from logfire.testing import CaptureLogfire, TestExporter
 from opentelemetry.sdk.trace.export import SimpleSpanProcessor
 from opentelemetry.trace import SpanKind
 
-from polar.logfire import instrument_fastapi, instrument_httpx
-from polar.observability.http_telemetry import HttpURLSpanProcessor
+from repalis.logfire import instrument_fastapi, instrument_httpx
+from repalis.observability.http_telemetry import HttpURLSpanProcessor
 
 
 @pytest.mark.anyio

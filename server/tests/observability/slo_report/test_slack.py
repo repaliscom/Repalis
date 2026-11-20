@@ -1,7 +1,7 @@
 from datetime import UTC, datetime
 
-from polar.observability.slo_report.report import EndpointSLOStatus, SLOReport
-from polar.observability.slo_report.slack import format_slo_report_slack_payload
+from repalis.observability.slo_report.report import EndpointSLOStatus, SLOReport
+from repalis.observability.slo_report.slack import format_slo_report_slack_payload
 
 
 class TestFormatSLOReportSlackPayload:

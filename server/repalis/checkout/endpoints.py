@@ -6,33 +6,33 @@ from pydantic import UUID4
 from sqlalchemy.orm import joinedload
 from sse_starlette.sse import EventSourceResponse
 
-from polar.auth.permission import OrganizationPermission
-from polar.authz.service import assert_resource_permission
-from polar.eventstream.endpoints import subscribe
-from polar.eventstream.service import Receivers
-from polar.exceptions import NotPermitted, PaymentNotReady, ResourceNotFound
-from polar.kit.http import get_ip_address
-from polar.kit.pagination import ListResource, PaginationParamsQuery
-from polar.kit.schemas import (
+from repalis.auth.permission import OrganizationPermission
+from repalis.authz.service import assert_resource_permission
+from repalis.eventstream.endpoints import subscribe
+from repalis.eventstream.service import Receivers
+from repalis.exceptions import NotPermitted, PaymentNotReady, ResourceNotFound
+from repalis.kit.http import get_ip_address
+from repalis.kit.pagination import ListResource, PaginationParamsQuery
+from repalis.kit.schemas import (
     SetSchemaReference,
 )
-from polar.kit.versioning import version
-from polar.models import Checkout
-from polar.openapi import APITag
-from polar.organization.embed_hosts import (
+from repalis.kit.versioning import version
+from repalis.models import Checkout
+from repalis.openapi import APITag
+from repalis.organization.embed_hosts import (
     csp_frame_ancestors,
     match_origin,
     parse_origin,
 )
-from polar.postgres import (
+from repalis.postgres import (
     AsyncReadSession,
     AsyncSession,
     get_db_read_session,
     get_db_session,
 )
-from polar.redis import Redis, get_redis
-from polar.routing import APIRouter
-from polar.version import V2027_01
+from repalis.redis import Redis, get_redis
+from repalis.routing import APIRouter
+from repalis.version import V2027_01
 
 from . import auth, ip_geolocation, legacy_schemas, sorting
 from .repository import CheckoutRepository

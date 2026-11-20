@@ -9,7 +9,7 @@ Create Date: 2026-09-21 16:22:22.566766
 import sqlalchemy as sa
 from alembic import op
 
-from polar.config import settings
+from repalis.config import settings
 
 # revision identifiers, used by Alembic.
 revision = "508561324a89"

@@ -1,7 +1,7 @@
 import dramatiq
 
-from polar.worker._broker import get_broker
-from polar.worker._encoder import JSONEncoder
+from repalis.worker._broker import get_broker
+from repalis.worker._encoder import JSONEncoder
 
 # Entrypoint for workers whose queues never touch PostgreSQL. Building the broker
 # without the SQLAlchemy middleware avoids creating a database engine/pool the
@@ -12,11 +12,11 @@ broker = get_broker(database=False)
 dramatiq.set_broker(broker)
 dramatiq.set_encoder(JSONEncoder(broker))
 
-from polar import tasks
-from polar.logfire import configure_logfire
-from polar.logging import configure as configure_logging
-from polar.posthog import configure_posthog
-from polar.sentry import configure_sentry
+from repalis import tasks
+from repalis.logfire import configure_logfire
+from repalis.logging import configure as configure_logging
+from repalis.posthog import configure_posthog
+from repalis.sentry import configure_sentry
 
 configure_sentry()
 configure_logfire("worker")

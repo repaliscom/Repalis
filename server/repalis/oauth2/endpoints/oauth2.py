@@ -4,16 +4,16 @@ from typing import Literal, cast
 from fastapi import Depends, Form, HTTPException, Request, Response
 from fastapi.openapi.constants import REF_TEMPLATE
 
-from polar.auth.dependencies import WebUserOrAnonymous
-from polar.auth.models import is_user
-from polar.authz.dependencies import AuthorizeWebUserRead, AuthorizeWebUserWrite
-from polar.authz.service import get_accessible_org_ids
-from polar.kit.pagination import ListResource, PaginationParamsQuery
-from polar.models import OAuth2Token, Organization
-from polar.openapi import APITag
-from polar.organization.repository import OrganizationRepository
-from polar.postgres import AsyncSession, get_db_session
-from polar.routing import APIRouter
+from repalis.auth.dependencies import WebUserOrAnonymous
+from repalis.auth.models import is_user
+from repalis.authz.dependencies import AuthorizeWebUserRead, AuthorizeWebUserWrite
+from repalis.authz.service import get_accessible_org_ids
+from repalis.kit.pagination import ListResource, PaginationParamsQuery
+from repalis.models import OAuth2Token, Organization
+from repalis.openapi import APITag
+from repalis.organization.repository import OrganizationRepository
+from repalis.postgres import AsyncSession, get_db_session
+from repalis.routing import APIRouter
 
 from ..authorization_server import (
     AuthorizationServer,

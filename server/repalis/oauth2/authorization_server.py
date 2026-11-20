@@ -28,16 +28,16 @@ from sqlalchemy.orm import Session
 from starlette.requests import Request
 from starlette.responses import Response
 
-from polar.auth.scope import Scope
-from polar.kit.crypto import (
+from repalis.auth.scope import Scope
+from repalis.kit.crypto import (
     generate_token,
     get_token_hash,
     get_token_hash_candidates,
 )
-from polar.logging import Logger
-from polar.models import OAuth2Client, OAuth2Token, User
-from polar.models.oauth2_token_organization import OAuth2TokenOrganization
-from polar.oauth2.sub_type import SubType, SubTypeValue
+from repalis.logging import Logger
+from repalis.models import OAuth2Client, OAuth2Token, User
+from repalis.models.oauth2_token_organization import OAuth2TokenOrganization
+from repalis.oauth2.sub_type import SubType, SubTypeValue
 
 from .constants import (
     ACCESS_TOKEN_PREFIX,

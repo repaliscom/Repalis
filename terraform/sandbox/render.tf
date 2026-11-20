@@ -87,12 +87,12 @@ module "sandbox" {
 
   workers = {
     worker-sandbox = {
-      start_command      = "uv run dramatiq polar.worker.run -p 4 -t 8 -f polar.worker.scheduler:start"
+      start_command      = "uv run dramatiq repalis.worker.run -p 4 -t 8 -f repalis.worker.scheduler:start"
       custom_domains     = [{ name = "worker-sandbox.repalis.com" }]
       dramatiq_prom_port = "10000"
     }
     worker-sandbox-event-mover = {
-      start_command      = "uv run python -m polar.event.mover"
+      start_command      = "uv run python -m repalis.event.mover"
       num_instances      = 2
       dramatiq_prom_port = "10001"
     }

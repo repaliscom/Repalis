@@ -1,6 +1,6 @@
 from tagflow import tag, text
 
-from polar.models.dispute import DisputeStatus
+from repalis.models.dispute import DisputeStatus
 
 _DISPUTE_STATUS_BADGES: dict[DisputeStatus, tuple[str, str]] = {
     DisputeStatus.needs_response: ("badge-warning", "Needs response"),

@@ -1,8 +1,8 @@
 from typing import Any
 from uuid import UUID
 
-from polar.backoffice.merchant_migrations.mrr import Money, MrrBreakdown, breakdown
-from polar.merchant_migration.canonical import (
+from repalis.backoffice.merchant_migrations.mrr import Money, MrrBreakdown, breakdown
+from repalis.merchant_migration.canonical import (
     CanonicalCollectionMethod,
     CanonicalPrice,
     CanonicalPricingScheme,
@@ -12,9 +12,9 @@ from polar.merchant_migration.canonical import (
     CanonicalSubscriptionStatus,
     serialize,
 )
-from polar.merchant_migration.repository import CanonicalRow
-from polar.models import MerchantMigration
-from polar.models.merchant_migration_record import (
+from repalis.merchant_migration.repository import CanonicalRow
+from repalis.models import MerchantMigration
+from repalis.models.merchant_migration_record import (
     MerchantMigrationRecordStatus,
     MerchantMigrationRecordType,
 )

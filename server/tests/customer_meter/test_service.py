@@ -6,31 +6,31 @@ import pytest
 from pytest_mock import MockerFixture
 from redis import RedisError
 
-from polar.config import settings
-from polar.customer_meter.repository import CustomerMeterRepository
-from polar.customer_meter.service import customer_meter as customer_meter_service
-from polar.enums import SubscriptionRecurringInterval
-from polar.event.repository import EventRepository
-from polar.event.system import SystemEvent
-from polar.kit.utils import generate_uuid, utc_now
-from polar.meter.aggregation import (
+from repalis.config import settings
+from repalis.customer_meter.repository import CustomerMeterRepository
+from repalis.customer_meter.service import customer_meter as customer_meter_service
+from repalis.enums import SubscriptionRecurringInterval
+from repalis.event.repository import EventRepository
+from repalis.event.system import SystemEvent
+from repalis.kit.utils import generate_uuid, utc_now
+from repalis.meter.aggregation import (
     AggregationFunction,
     CountAggregation,
     PropertyAggregation,
 )
-from polar.meter.filter import Filter, FilterClause, FilterConjunction, FilterOperator
-from polar.models import (
+from repalis.meter.filter import Filter, FilterClause, FilterConjunction, FilterOperator
+from repalis.models import (
     Customer,
     CustomerMeter,
     Event,
     Meter,
     Organization,
 )
-from polar.models.event import EventSource
-from polar.postgres import AsyncSession
-from polar.redis import Redis
-from polar.reducer.service import reducer as reducer_service
-from polar.reducer.types import UsageSummary
+from repalis.models.event import EventSource
+from repalis.postgres import AsyncSession
+from repalis.redis import Redis
+from repalis.reducer.service import reducer as reducer_service
+from repalis.reducer.types import UsageSummary
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (
     METER_TEST_EVENT,
@@ -825,7 +825,7 @@ class TestUpdateCustomerMeter:
         customer_with_external_id: Customer,
         organization: Organization,
     ) -> None:
-        from polar.meter.aggregation import UniqueAggregation
+        from repalis.meter.aggregation import UniqueAggregation
 
         meter = await create_meter(
             save_fixture,
@@ -1509,7 +1509,7 @@ class TestUpdateCustomer:
         await customer_meter_service.update_customer(session, redis, customer)
 
         # Check that no customer meter was created
-        from polar.customer_meter.repository import CustomerMeterRepository
+        from repalis.customer_meter.repository import CustomerMeterRepository
 
         repository = CustomerMeterRepository.from_session(session)
         customer_meter = await repository.get_by_customer_and_meter(
@@ -1534,7 +1534,7 @@ class TestUpdateCustomer:
         await customer_meter_service.update_customer(session, redis, customer)
 
         # Check that customer meter was created
-        from polar.customer_meter.repository import CustomerMeterRepository
+        from repalis.customer_meter.repository import CustomerMeterRepository
 
         repository = CustomerMeterRepository.from_session(session)
         customer_meter = await repository.get_by_customer_and_meter(
@@ -1599,7 +1599,7 @@ async def late_usage(
 ) -> tuple[Customer, Meter]:
     """A reset 30 minutes ago, 3 tokens timestamped after it, and 5 tokens timestamped
     before it but ingested after it."""
-    mocker.patch("polar.reducer.service.enqueue_job")
+    mocker.patch("repalis.reducer.service.enqueue_job")
     meter = await create_meter(
         save_fixture,
         organization=organization,
@@ -1671,7 +1671,7 @@ class TestUpdateCustomerMeterFromReducer:
     ) -> None:
         customer, meter = late_usage
         mocker.patch(
-            "polar.reducer.redis_store.get_bucket_totals", side_effect=RedisError
+            "repalis.reducer.redis_store.get_bucket_totals", side_effect=RedisError
         )
 
         customer_meter, updated = await customer_meter_service.update_customer_meter(
@@ -1779,7 +1779,7 @@ class TestUpdateCustomerOnReducerBilling:
         subscription = await create_active_subscription(
             save_fixture, product=product, customer=customer
         )
-        enqueue_job = mocker.patch("polar.customer_meter.service.enqueue_job")
+        enqueue_job = mocker.patch("repalis.customer_meter.service.enqueue_job")
 
         await customer_meter_service.update_customer_meter(
             session, redis, customer, meter, activate_meter=True
@@ -1817,7 +1817,7 @@ class TestUpdateCustomerOnReducerBilling:
             ),
         )
         await reducer_service.sync_meter(session, other_meter)
-        enqueue_job = mocker.patch("polar.customer_meter.service.enqueue_job")
+        enqueue_job = mocker.patch("repalis.customer_meter.service.enqueue_job")
 
         await customer_meter_service.update_customer(session, redis, customer)
 

@@ -3,9 +3,9 @@ import uuid
 import pytest
 from httpx2 import AsyncClient
 
-from polar.auth.scope import Scope
-from polar.models import Customer, Order, UserOrganization, Wallet
-from polar.models.wallet import WalletType
+from repalis.auth.scope import Scope
+from repalis.models import Customer, Order, UserOrganization, Wallet
+from repalis.models.wallet import WalletType
 from tests.fixtures.auth import AuthSubjectFixture
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_wallet

@@ -12,8 +12,8 @@ from dataclasses import dataclass
 from datetime import UTC, datetime
 from typing import Any
 
-from polar.exceptions import PolarError
-from polar.models.organization_risk_signal import OrganizationRiskSignal
+from repalis.exceptions import PolarError
+from repalis.models.organization_risk_signal import OrganizationRiskSignal
 
 _REFERENCE_LINE = re.compile(r"^\[(\d+)\]\s+(\S+)$")
 _NOTES_MARKER = "NOTES:"

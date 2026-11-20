@@ -9,11 +9,11 @@ from pydantic import (
     TypeAdapter,
 )
 
-from polar.kit.metadata import (
+from repalis.kit.metadata import (
     MetadataInputMixin,
     MetadataOutputMixin,
 )
-from polar.kit.schemas import (
+from repalis.kit.schemas import (
     ClassName,
     IDSchema,
     MergeJSONSchema,
@@ -22,9 +22,9 @@ from polar.kit.schemas import (
     SetSchemaReference,
     TimestampedSchema,
 )
-from polar.kit.versioning import QuerySchema, Version
-from polar.models.catalog import CatalogStatus
-from polar.models.custom_field import (
+from repalis.kit.versioning import QuerySchema, Version
+from repalis.models.catalog import CatalogStatus
+from repalis.models.custom_field import (
     CustomFieldCheckboxProperties,
     CustomFieldDateProperties,
     CustomFieldNumberProperties,
@@ -32,8 +32,8 @@ from polar.models.custom_field import (
     CustomFieldTextProperties,
     CustomFieldType,
 )
-from polar.organization.schemas import OrganizationID
-from polar.version import V2027_01
+from repalis.organization.schemas import OrganizationID
+from repalis.version import V2027_01
 
 Slug = Annotated[
     str,

@@ -5,12 +5,12 @@ from uuid import UUID
 from sqlalchemy import select
 from sqlalchemy.orm import joinedload
 
-from polar.auth.models import AuthSubject, Organization, User
-from polar.kit.pagination import PaginationParams
-from polar.kit.sorting import Sorting
-from polar.models import BackofficeUser, Customer, Dispute, File, Order
-from polar.models.dispute import DisputeStatus
-from polar.models.support_case import (
+from repalis.auth.models import AuthSubject, Organization, User
+from repalis.kit.pagination import PaginationParams
+from repalis.kit.sorting import Sorting
+from repalis.models import BackofficeUser, Customer, Dispute, File, Order
+from repalis.models.dispute import DisputeStatus
+from repalis.models.support_case import (
     DisputeSupportCase,
     SupportCase,
     SupportCaseAttachment,
@@ -22,7 +22,7 @@ from polar.models.support_case import (
     SupportCaseParticipantKind,
     SupportCaseType,
 )
-from polar.postgres import AsyncReadSession, AsyncSession
+from repalis.postgres import AsyncReadSession, AsyncSession
 
 from .repository import (
     SupportCaseAttachmentRepository,

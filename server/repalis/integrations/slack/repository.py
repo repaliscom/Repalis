@@ -1,7 +1,7 @@
 from uuid import UUID
 
-from polar.kit.repository import RepositoryBase
-from polar.models import SlackApp
+from repalis.kit.repository import RepositoryBase
+from repalis.models import SlackApp
 
 
 class SlackAppRepository(

@@ -7,13 +7,13 @@ from fastapi import Depends, Request
 from redis.exceptions import ConnectionError
 from sse_starlette.sse import EventSourceResponse
 
-from polar.auth.models import is_user
-from polar.authz.dependencies import AuthorizeOrgAccess, AuthorizeWebUserRead
-from polar.observability import HTTP_SSE_CONNECTIONS_OPENED
-from polar.observability.utils import get_path_template
-from polar.postgres import AsyncSession, get_db_session
-from polar.redis import Redis, get_redis
-from polar.routing import APIRouter
+from repalis.auth.models import is_user
+from repalis.authz.dependencies import AuthorizeOrgAccess, AuthorizeWebUserRead
+from repalis.observability import HTTP_SSE_CONNECTIONS_OPENED
+from repalis.observability.utils import get_path_template
+from repalis.postgres import AsyncSession, get_db_session
+from repalis.redis import Redis, get_redis
+from repalis.routing import APIRouter
 
 from .service import Receivers
 

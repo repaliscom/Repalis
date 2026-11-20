@@ -4,18 +4,18 @@ from unittest.mock import AsyncMock, MagicMock
 
 import pytest
 from dramatiq import Retry
-from polar.v2026_04.errors import ResourceNotFound
-from polar.v2026_04.outputs import ResourceNotFound as ResourceNotFoundData
+from repalis.v2026_04.errors import ResourceNotFound
+from repalis.v2026_04.outputs import ResourceNotFound as ResourceNotFoundData
 from pytest_mock import MockerFixture
 
-from polar.config import settings
-from polar.integrations.plain.service import TenantOperationError
-from polar.integrations.repalis.client import PolarSelfClient
-from polar.integrations.repalis.exceptions import (
+from repalis.config import settings
+from repalis.integrations.plain.service import TenantOperationError
+from repalis.integrations.repalis.client import PolarSelfClient
+from repalis.integrations.repalis.exceptions import (
     PolarSelfInvoiceNotReady,
     PolarSelfOrderNotEligible,
 )
-from polar.integrations.repalis.tasks import (
+from repalis.integrations.repalis.tasks import (
     add_member,
     create_customer,
     delete_customer,
@@ -37,7 +37,7 @@ def plain_service_mock(mocker: MockerFixture) -> MagicMock:
     mock.upsert_customer = AsyncMock()
     mock.add_customer_to_tenant = AsyncMock()
     mock.remove_customer_from_tenant = AsyncMock()
-    mocker.patch("polar.integrations.repalis.tasks.plain_service", mock)
+    mocker.patch("repalis.integrations.repalis.tasks.plain_service", mock)
     return mock
 
 
@@ -49,7 +49,7 @@ class TestCreateCustomer:
         plain_service_mock: MagicMock,
     ) -> None:
         client = AsyncMock(spec=PolarSelfClient)
-        mocker.patch("polar.integrations.repalis.tasks.get_client", return_value=client)
+        mocker.patch("repalis.integrations.repalis.tasks.get_client", return_value=client)
 
         await create_customer(
             external_id="org-123",
@@ -82,7 +82,7 @@ class TestCreateCustomer:
     ) -> None:
         monkeypatch.setattr(settings, "PLAIN_DEFAULT_TIER_EXTERNAL_ID", "free")
         client = AsyncMock(spec=PolarSelfClient)
-        mocker.patch("polar.integrations.repalis.tasks.get_client", return_value=client)
+        mocker.patch("repalis.integrations.repalis.tasks.get_client", return_value=client)
 
         await create_customer(
             external_id="org-123",
@@ -110,7 +110,7 @@ class TestAddMember:
         fake_customer = MagicMock(id="polar-customer-123")
         client = AsyncMock(spec=PolarSelfClient)
         client.get_customer_by_external_id.return_value = fake_customer
-        mocker.patch("polar.integrations.repalis.tasks.get_client", return_value=client)
+        mocker.patch("repalis.integrations.repalis.tasks.get_client", return_value=client)
 
         await add_member(
             external_customer_id="org-123",
@@ -141,8 +141,8 @@ class TestAddMember:
             404,
             ResourceNotFoundData(error="ResourceNotFound", detail="Not found"),
         )
-        mocker.patch("polar.integrations.repalis.tasks.get_client", return_value=client)
-        mocker.patch("polar.integrations.repalis.tasks.can_retry", return_value=True)
+        mocker.patch("repalis.integrations.repalis.tasks.get_client", return_value=client)
+        mocker.patch("repalis.integrations.repalis.tasks.can_retry", return_value=True)
 
         with pytest.raises(Retry):
             await add_member(
@@ -164,8 +164,8 @@ class TestAddMember:
         )
         client = AsyncMock(spec=PolarSelfClient)
         client.get_customer_by_external_id.side_effect = not_found
-        mocker.patch("polar.integrations.repalis.tasks.get_client", return_value=client)
-        mocker.patch("polar.integrations.repalis.tasks.can_retry", return_value=False)
+        mocker.patch("repalis.integrations.repalis.tasks.get_client", return_value=client)
+        mocker.patch("repalis.integrations.repalis.tasks.can_retry", return_value=False)
 
         with pytest.raises(ResourceNotFound):
             await add_member(
@@ -184,7 +184,7 @@ class TestRemoveMember:
         plain_service_mock: MagicMock,
     ) -> None:
         client = AsyncMock(spec=PolarSelfClient)
-        mocker.patch("polar.integrations.repalis.tasks.get_client", return_value=client)
+        mocker.patch("repalis.integrations.repalis.tasks.get_client", return_value=client)
 
         await remove_member(
             external_customer_id="org-123",
@@ -207,7 +207,7 @@ class TestRemoveMember:
         plain_service_mock: MagicMock,
     ) -> None:
         client = AsyncMock(spec=PolarSelfClient)
-        mocker.patch("polar.integrations.repalis.tasks.get_client", return_value=client)
+        mocker.patch("repalis.integrations.repalis.tasks.get_client", return_value=client)
         plain_service_mock.remove_customer_from_tenant.side_effect = (
             TenantOperationError("org-123", "remove_customer", "Plain API failure")
         )
@@ -233,7 +233,7 @@ class TestRemoveMember:
         plain_service_mock: MagicMock,
     ) -> None:
         client = AsyncMock(spec=PolarSelfClient)
-        mocker.patch("polar.integrations.repalis.tasks.get_client", return_value=client)
+        mocker.patch("repalis.integrations.repalis.tasks.get_client", return_value=client)
         plain_service_mock.remove_customer_from_tenant.side_effect = [
             TenantOperationError("org-123", "remove_customer", "Plain API failure"),
             None,
@@ -270,7 +270,7 @@ class TestUpdateMember:
     ) -> None:
         client = AsyncMock(spec=PolarSelfClient)
         client.get_member_by_external_id.return_value = MagicMock(id="member-123")
-        mocker.patch("polar.integrations.repalis.tasks.get_client", return_value=client)
+        mocker.patch("repalis.integrations.repalis.tasks.get_client", return_value=client)
 
         await update_member(
             external_customer_id="org-123",
@@ -291,7 +291,7 @@ class TestUpdateMember:
     ) -> None:
         client = AsyncMock(spec=PolarSelfClient)
         client.get_member_by_external_id.return_value = MagicMock(id="member-123")
-        mocker.patch("polar.integrations.repalis.tasks.get_client", return_value=client)
+        mocker.patch("repalis.integrations.repalis.tasks.get_client", return_value=client)
 
         await update_member(
             external_customer_id="org-123",
@@ -316,8 +316,8 @@ class TestUpdateMember:
             404,
             ResourceNotFoundData(error="ResourceNotFound", detail="Not found"),
         )
-        mocker.patch("polar.integrations.repalis.tasks.get_client", return_value=client)
-        mocker.patch("polar.integrations.repalis.tasks.can_retry", return_value=True)
+        mocker.patch("repalis.integrations.repalis.tasks.get_client", return_value=client)
+        mocker.patch("repalis.integrations.repalis.tasks.can_retry", return_value=True)
 
         with pytest.raises(Retry):
             await update_member(
@@ -338,8 +338,8 @@ class TestUpdateMember:
             404,
             ResourceNotFoundData(error="ResourceNotFound", detail="Not found"),
         )
-        mocker.patch("polar.integrations.repalis.tasks.get_client", return_value=client)
-        mocker.patch("polar.integrations.repalis.tasks.can_retry", return_value=False)
+        mocker.patch("repalis.integrations.repalis.tasks.get_client", return_value=client)
+        mocker.patch("repalis.integrations.repalis.tasks.can_retry", return_value=False)
 
         await update_member(
             external_customer_id="org-123",
@@ -361,7 +361,7 @@ class TestUpdateCustomerSlug:
         fake_customer.metadata = {"slug": "old-slug", "other": "keep"}
         client = AsyncMock(spec=PolarSelfClient)
         client.get_customer_by_external_id_or_none.return_value = fake_customer
-        mocker.patch("polar.integrations.repalis.tasks.get_client", return_value=client)
+        mocker.patch("repalis.integrations.repalis.tasks.get_client", return_value=client)
 
         await update_customer_slug(external_id="org-123", slug="new-slug")
 
@@ -379,7 +379,7 @@ class TestUpdateCustomerSlug:
         fake_customer.metadata = None
         client = AsyncMock(spec=PolarSelfClient)
         client.get_customer_by_external_id_or_none.return_value = fake_customer
-        mocker.patch("polar.integrations.repalis.tasks.get_client", return_value=client)
+        mocker.patch("repalis.integrations.repalis.tasks.get_client", return_value=client)
 
         await update_customer_slug(external_id="org-123", slug="new-slug")
 
@@ -394,7 +394,7 @@ class TestUpdateCustomerSlug:
     ) -> None:
         client = AsyncMock(spec=PolarSelfClient)
         client.get_customer_by_external_id_or_none.return_value = None
-        mocker.patch("polar.integrations.repalis.tasks.get_client", return_value=client)
+        mocker.patch("repalis.integrations.repalis.tasks.get_client", return_value=client)
 
         await update_customer_slug(external_id="org-123", slug="new-slug")
 
@@ -408,7 +408,7 @@ class TestDeleteCustomer:
         mocker: MockerFixture,
     ) -> None:
         client = AsyncMock(spec=PolarSelfClient)
-        mocker.patch("polar.integrations.repalis.tasks.get_client", return_value=client)
+        mocker.patch("repalis.integrations.repalis.tasks.get_client", return_value=client)
 
         await delete_customer(external_id="org-123")
 
@@ -420,7 +420,7 @@ class TestRevokeSubscription:
     async def test_revokes_active_subscription(self, mocker: MockerFixture) -> None:
         client = AsyncMock(spec=PolarSelfClient)
         client.get_active_subscription.return_value = MagicMock(id="sub-123")
-        mocker.patch("polar.integrations.repalis.tasks.get_client", return_value=client)
+        mocker.patch("repalis.integrations.repalis.tasks.get_client", return_value=client)
 
         await revoke_subscription(external_customer_id="org-123")
 
@@ -434,7 +434,7 @@ class TestRevokeSubscription:
     ) -> None:
         client = AsyncMock(spec=PolarSelfClient)
         client.get_active_subscription.return_value = None
-        mocker.patch("polar.integrations.repalis.tasks.get_client", return_value=client)
+        mocker.patch("repalis.integrations.repalis.tasks.get_client", return_value=client)
 
         await revoke_subscription(external_customer_id="org-123")
 
@@ -446,7 +446,7 @@ class TestFlushEventIngestion:
     SELF_ORG_ID = uuid.UUID("00000000-0000-0000-0000-000000000001")
 
     def _patch_settings(self, mocker: MockerFixture, *, enabled: bool = True) -> None:
-        settings = mocker.patch("polar.integrations.repalis.tasks.settings")
+        settings = mocker.patch("repalis.integrations.repalis.tasks.settings")
         settings.POLAR_SELF_ENABLED = enabled
         settings.POLAR_ORGANIZATION_ID = str(self.SELF_ORG_ID)
 
@@ -454,7 +454,7 @@ class TestFlushEventIngestion:
         self._patch_settings(mocker, enabled=False)
         client = AsyncMock(spec=PolarSelfClient)
         get_client = mocker.patch(
-            "polar.integrations.repalis.tasks.get_client", return_value=client
+            "repalis.integrations.repalis.tasks.get_client", return_value=client
         )
 
         await track_event_ingestion()
@@ -468,15 +468,15 @@ class TestFlushEventIngestion:
             return_value=None
         )
         mocker.patch(
-            "polar.integrations.repalis.tasks.EventRepository.from_session",
+            "repalis.integrations.repalis.tasks.EventRepository.from_session",
             return_value=repository,
         )
         mocker.patch(
-            "polar.integrations.repalis.tasks.count_user_events_by_organization",
+            "repalis.integrations.repalis.tasks.count_user_events_by_organization",
             return_value={},
         )
         client = AsyncMock(spec=PolarSelfClient)
-        mocker.patch("polar.integrations.repalis.tasks.get_client", return_value=client)
+        mocker.patch("repalis.integrations.repalis.tasks.get_client", return_value=client)
 
         await track_event_ingestion()
 
@@ -494,15 +494,15 @@ class TestFlushEventIngestion:
             return_value=last_flush
         )
         mocker.patch(
-            "polar.integrations.repalis.tasks.EventRepository.from_session",
+            "repalis.integrations.repalis.tasks.EventRepository.from_session",
             return_value=repository,
         )
         count_mock = mocker.patch(
-            "polar.integrations.repalis.tasks.count_user_events_by_organization",
+            "repalis.integrations.repalis.tasks.count_user_events_by_organization",
             return_value=counts,
         )
         client = AsyncMock(spec=PolarSelfClient)
-        mocker.patch("polar.integrations.repalis.tasks.get_client", return_value=client)
+        mocker.patch("repalis.integrations.repalis.tasks.get_client", return_value=client)
 
         await track_event_ingestion()
 
@@ -524,7 +524,7 @@ class TestTrackOrganizationReviewUsage:
         mocker: MockerFixture,
     ) -> None:
         client = AsyncMock(spec=PolarSelfClient)
-        mocker.patch("polar.integrations.repalis.tasks.get_client", return_value=client)
+        mocker.patch("repalis.integrations.repalis.tasks.get_client", return_value=client)
 
         await track_organization_review_usage(
             external_customer_id="org-123",
@@ -554,7 +554,7 @@ def webhook_order_created_context(mocker: MockerFixture) -> None:
     session_ctx = AsyncMock()
     session_ctx.__aenter__.return_value = MagicMock()
     mocker.patch(
-        "polar.integrations.repalis.tasks.AsyncSessionMaker",
+        "repalis.integrations.repalis.tasks.AsyncSessionMaker",
         return_value=session_ctx,
     )
 
@@ -563,12 +563,12 @@ def webhook_order_created_context(mocker: MockerFixture) -> None:
     handle_cm = AsyncMock()
     handle_cm.__aenter__.return_value = event_mock
     mocker.patch(
-        "polar.integrations.repalis.tasks.external_event_service.handle",
+        "repalis.integrations.repalis.tasks.external_event_service.handle",
         return_value=handle_cm,
     )
 
     mocker.patch(
-        "polar.integrations.repalis.tasks.deserialize",
+        "repalis.integrations.repalis.tasks.deserialize",
         return_value=MagicMock(name="payload"),
     )
 
@@ -580,8 +580,8 @@ class TestWebhookOrderCreated:
         webhook_order_created_context: None,
         mocker: MockerFixture,
     ) -> None:
-        mocker.patch("polar.integrations.repalis.tasks.can_retry", return_value=True)
-        service_mock = mocker.patch("polar.integrations.repalis.tasks.polar_self")
+        mocker.patch("repalis.integrations.repalis.tasks.can_retry", return_value=True)
+        service_mock = mocker.patch("repalis.integrations.repalis.tasks.polar_self")
         service_mock.handle_order_created_event = AsyncMock(
             side_effect=PolarSelfInvoiceNotReady("ord_1")
         )
@@ -598,9 +598,9 @@ class TestWebhookOrderCreated:
         # message instead of raising Retry, so the Retries middleware cannot
         # burn up to 20 attempts on an order that will never become eligible.
         can_retry_mock = mocker.patch(
-            "polar.integrations.repalis.tasks.can_retry", return_value=True
+            "repalis.integrations.repalis.tasks.can_retry", return_value=True
         )
-        service_mock = mocker.patch("polar.integrations.repalis.tasks.polar_self")
+        service_mock = mocker.patch("repalis.integrations.repalis.tasks.polar_self")
         service_mock.handle_order_created_event = AsyncMock(
             side_effect=PolarSelfOrderNotEligible("ord_1")
         )
@@ -614,8 +614,8 @@ class TestWebhookOrderCreated:
         webhook_order_created_context: None,
         mocker: MockerFixture,
     ) -> None:
-        mocker.patch("polar.integrations.repalis.tasks.can_retry", return_value=False)
-        service_mock = mocker.patch("polar.integrations.repalis.tasks.polar_self")
+        mocker.patch("repalis.integrations.repalis.tasks.can_retry", return_value=False)
+        service_mock = mocker.patch("repalis.integrations.repalis.tasks.polar_self")
         service_mock.handle_order_created_event = AsyncMock(
             side_effect=PolarSelfInvoiceNotReady("ord_1")
         )

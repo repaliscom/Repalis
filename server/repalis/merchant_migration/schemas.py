@@ -5,23 +5,23 @@ from typing import Any, Self
 
 from pydantic import UUID4, ConfigDict, Field, model_validator
 
-from polar.enums import TaxBehavior
-from polar.kit.address import Address, AddressInput
-from polar.kit.schemas import IDSchema, Schema, TimestampedSchema
-from polar.kit.versioning import QuerySchema
-from polar.models.merchant_migration import (
+from repalis.enums import TaxBehavior
+from repalis.kit.address import Address, AddressInput
+from repalis.kit.schemas import IDSchema, Schema, TimestampedSchema
+from repalis.kit.versioning import QuerySchema
+from repalis.models.merchant_migration import (
     MerchantMigrationSourcePlatform,
     MerchantMigrationStep,
 )
-from polar.models.merchant_migration_operation import (
+from repalis.models.merchant_migration_operation import (
     MerchantMigrationOperationKind,
     MerchantMigrationOperationStatus,
 )
-from polar.models.merchant_migration_record import (
+from repalis.models.merchant_migration_record import (
     MerchantMigrationCutoverStatus,
     MerchantMigrationRecordStatus,
 )
-from polar.organization.schemas import OrganizationID
+from repalis.organization.schemas import OrganizationID
 
 from .canonical import CanonicalPaymentMethodType
 from .pan_transfer import PanTransferMethod, PanTransferStep

@@ -6,17 +6,17 @@ from fastapi import Depends, Query, Request
 from fastapi.responses import RedirectResponse
 from httpx_oauth.oauth2 import GetAccessTokenError
 
-from polar.auth.permission import OrganizationPermission
-from polar.authz.dependencies import AuthorizeWebUserRead, AuthorizeWebUserWrite
-from polar.authz.service import assert_organization_permission
-from polar.config import settings
-from polar.exceptions import NotPermitted, ResourceNotFound, Unauthorized
-from polar.kit import jwt
-from polar.kit.http import ReturnTo, add_query_parameters, get_safe_return_url
-from polar.openapi import APITag
-from polar.organization.schemas import OrganizationID
-from polar.postgres import AsyncSession, get_db_session
-from polar.routing import APIRouter
+from repalis.auth.permission import OrganizationPermission
+from repalis.authz.dependencies import AuthorizeWebUserRead, AuthorizeWebUserWrite
+from repalis.authz.service import assert_organization_permission
+from repalis.config import settings
+from repalis.exceptions import NotPermitted, ResourceNotFound, Unauthorized
+from repalis.kit import jwt
+from repalis.kit.http import ReturnTo, add_query_parameters, get_safe_return_url
+from repalis.openapi import APITag
+from repalis.organization.schemas import OrganizationID
+from repalis.postgres import AsyncSession, get_db_session
+from repalis.routing import APIRouter
 
 from . import oauth
 from .repository import DiscordGuildConnectionRepository

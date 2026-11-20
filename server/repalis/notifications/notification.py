@@ -6,14 +6,14 @@ from typing import TYPE_CHECKING, Annotated, Literal
 import pycountry
 from pydantic import UUID4, BaseModel, Discriminator, computed_field
 
-from polar.config import settings
-from polar.kit.currency import format_currency
-from polar.kit.schemas import Schema
-from polar.models.order import OrderBillingReasonInternal
-from polar.models.subscription import CustomerCancellationReason
+from repalis.config import settings
+from repalis.kit.currency import format_currency
+from repalis.kit.schemas import Schema
+from repalis.models.order import OrderBillingReasonInternal
+from repalis.models.subscription import CustomerCancellationReason
 
 if TYPE_CHECKING:
-    from polar.email.schemas import Email
+    from repalis.email.schemas import Email
 
 
 class NotificationType(StrEnum):
@@ -39,7 +39,7 @@ class NotificationPayloadBase(BaseModel):
         pass
 
     def to_email(self) -> Email:
-        from polar.email.schemas import EmailAdapter
+        from repalis.email.schemas import EmailAdapter
 
         return EmailAdapter.validate_python(
             {

@@ -4,23 +4,23 @@ from uuid import UUID
 import pytest
 from dateutil.relativedelta import relativedelta
 
-from polar.benefit.grant.repository import BenefitGrantRepository
-from polar.benefit.grant.service import benefit_grant as benefit_grant_service
-from polar.benefit.strategies.license_keys.properties import (
+from repalis.benefit.grant.repository import BenefitGrantRepository
+from repalis.benefit.grant.service import benefit_grant as benefit_grant_service
+from repalis.benefit.strategies.license_keys.properties import (
     BenefitGrantLicenseKeysProperties,
 )
-from polar.benefit.strategies.license_keys.schemas import (
+from repalis.benefit.strategies.license_keys.schemas import (
     BenefitLicenseKeyExpirationProperties,
     BenefitLicenseKeysCreateProperties,
 )
-from polar.benefit.tasks import benefit_grant, benefit_revoke
-from polar.kit.utils import utc_now
-from polar.license_key.repository import LicenseKeyRepository
-from polar.models import BenefitGrant, Customer, LicenseKey, Organization, Product
-from polar.models.benefit import BenefitType
-from polar.models.license_key import LicenseKeyStatus
-from polar.postgres import AsyncSession
-from polar.redis import Redis
+from repalis.benefit.tasks import benefit_grant, benefit_revoke
+from repalis.kit.utils import utc_now
+from repalis.license_key.repository import LicenseKeyRepository
+from repalis.models import BenefitGrant, Customer, LicenseKey, Organization, Product
+from repalis.models.benefit import BenefitType
+from repalis.models.license_key import LicenseKeyStatus
+from repalis.postgres import AsyncSession
+from repalis.redis import Redis
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.license_key import TestLicenseKey
 from tests.fixtures.random_objects import (

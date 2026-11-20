@@ -4,8 +4,8 @@ from unittest.mock import MagicMock
 import pytest
 from pytest_mock import MockerFixture
 
-from polar.config import settings
-from polar.kit.hash_secrets import (
+from repalis.config import settings
+from repalis.kit.hash_secrets import (
     HashSecretsError,
     _fetch_hash_secrets,
     get_hash_secrets,
@@ -36,7 +36,7 @@ def stub_client(mocker: MockerFixture, versions: list[dict[str, Any]]) -> MagicM
     client.get_secret_value.side_effect = lambda SecretId, VersionId: {
         "SecretString": f"secret-for-{VersionId}"
     }
-    mocker.patch("polar.kit.hash_secrets._client", return_value=client)
+    mocker.patch("repalis.kit.hash_secrets._client", return_value=client)
     return client
 
 

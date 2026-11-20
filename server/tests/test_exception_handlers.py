@@ -8,8 +8,8 @@ from fastapi.exceptions import RequestValidationError
 from pydantic import ValidationError as PydanticValidationError
 from pydantic_core import PydanticCustomError
 
-from polar.exception_handlers import request_validation_exception_handler
-from polar.exceptions import PolarRequestValidationError
+from repalis.exception_handlers import request_validation_exception_handler
+from repalis.exceptions import PolarRequestValidationError
 
 
 def _dummy_request() -> Request:

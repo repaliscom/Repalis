@@ -1,8 +1,8 @@
-from polar.auth.models import Agent, AuthSubject, Organization, User
-from polar.auth.permission import OrganizationPermission
-from polar.authz.types import PolicyResult
-from polar.models import Organization as OrganizationModel
-from polar.postgres import AsyncReadSession
+from repalis.auth.models import Agent, AuthSubject, Organization, User
+from repalis.auth.permission import OrganizationPermission
+from repalis.authz.types import PolicyResult
+from repalis.models import Organization as OrganizationModel
+from repalis.postgres import AsyncReadSession
 
 from . import _require_permission
 

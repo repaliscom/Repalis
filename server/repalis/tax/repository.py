@@ -8,10 +8,10 @@ from sqlalchemy.dialects.postgresql import aggregate_order_by
 from sqlalchemy.sql.elements import OrderByList
 from sqlalchemy.sql.expression import asc, desc
 
-from polar.kit.repository import RepositoryBase
-from polar.kit.sorting import Sorting
-from polar.models import Order, Transaction
-from polar.models.transaction import TransactionType
+from repalis.kit.repository import RepositoryBase
+from repalis.kit.sorting import Sorting
+from repalis.models import Order, Transaction
+from repalis.models.transaction import TransactionType
 
 from .sorting import TaxJurisdictionSortProperty
 

@@ -4,21 +4,21 @@ from uuid import UUID
 
 import stripe as stripe_lib
 
-from polar.auth.models import AuthSubject, Customer, Member
-from polar.customer.repository import CustomerRepository
-from polar.exceptions import PolarError, PolarRequestValidationError
-from polar.integrations.stripe.service import stripe as stripe_service
-from polar.integrations.stripe.utils import get_expandable_id
-from polar.kit.http import add_query_parameters
-from polar.kit.pagination import PaginationParams
-from polar.models import Customer as CustomerModel
-from polar.models import PaymentMethod
-from polar.order.service import order as order_service
-from polar.payment_method.repository import PaymentMethodRepository
-from polar.payment_method.service import payment_method as payment_method_service
-from polar.postgres import AsyncSession
-from polar.subscription.service import subscription as subscription_service
-from polar.tax.tax_id import (
+from repalis.auth.models import AuthSubject, Customer, Member
+from repalis.customer.repository import CustomerRepository
+from repalis.exceptions import PolarError, PolarRequestValidationError
+from repalis.integrations.stripe.service import stripe as stripe_service
+from repalis.integrations.stripe.utils import get_expandable_id
+from repalis.kit.http import add_query_parameters
+from repalis.kit.pagination import PaginationParams
+from repalis.models import Customer as CustomerModel
+from repalis.models import PaymentMethod
+from repalis.order.service import order as order_service
+from repalis.payment_method.repository import PaymentMethodRepository
+from repalis.payment_method.service import payment_method as payment_method_service
+from repalis.postgres import AsyncSession
+from repalis.subscription.service import subscription as subscription_service
+from repalis.tax.tax_id import (
     IncompatibleTaxIDFormat,
     InvalidTaxID,
     to_stripe_tax_id,

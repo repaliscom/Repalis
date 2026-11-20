@@ -3,21 +3,21 @@ import uuid
 import pytest
 from httpx2 import AsyncClient
 
-from polar.auth.models import AuthSubject
-from polar.kit.utils import utc_now
-from polar.models import (
+from repalis.auth.models import AuthSubject
+from repalis.kit.utils import utc_now
+from repalis.models import (
     Organization,
     OrganizationDomain,
     OrganizationSSOConnection,
     User,
     UserOrganization,
 )
-from polar.models.organization_sso_connection import (
+from repalis.models.organization_sso_connection import (
     OIDCAuthMethod,
     OIDCConfiguration,
     OrganizationSSOConnectionType,
 )
-from polar.sso.schemas import RESERVED_AUTHORIZATION_PARAMETERS
+from repalis.sso.schemas import RESERVED_AUTHORIZATION_PARAMETERS
 from tests.fixtures.database import SaveFixture
 
 

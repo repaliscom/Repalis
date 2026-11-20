@@ -1,9 +1,9 @@
 from typing import Any
 from uuid import UUID
 
-from polar.auth.models import AuthSubject, Customer, Member, is_customer, is_member
-from polar.exceptions import NotPermitted
-from polar.models import Customer as CustomerModel
+from repalis.auth.models import AuthSubject, Customer, Member, is_customer, is_member
+from repalis.exceptions import NotPermitted
+from repalis.models import Customer as CustomerModel
 
 
 def get_audit_context(auth_subject: AuthSubject[Customer | Member]) -> dict[str, Any]:

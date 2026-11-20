@@ -4,20 +4,20 @@ from fastapi import Depends, Query, Request
 from pydantic import UUID4
 from sse_starlette import EventSourceResponse
 
-from polar.auth.permission import OrganizationPermission
-from polar.authz.service import assert_resource_permission, get_accessible_org_ids
-from polar.eventstream.endpoints import subscribe
-from polar.eventstream.service import Receivers
-from polar.exceptions import BadRequest, ResourceNotFound
-from polar.models import CustomerSeat, Order, Subscription
-from polar.models.customer_seat import SeatStatus
-from polar.openapi import APITag, open_world
-from polar.order.repository import OrderRepository
-from polar.organization.repository import OrganizationRepository
-from polar.postgres import AsyncSession, get_db_session
-from polar.redis import Redis, get_redis
-from polar.routing import APIRouter
-from polar.subscription.repository import SubscriptionRepository
+from repalis.auth.permission import OrganizationPermission
+from repalis.authz.service import assert_resource_permission, get_accessible_org_ids
+from repalis.eventstream.endpoints import subscribe
+from repalis.eventstream.service import Receivers
+from repalis.exceptions import BadRequest, ResourceNotFound
+from repalis.models import CustomerSeat, Order, Subscription
+from repalis.models.customer_seat import SeatStatus
+from repalis.openapi import APITag, open_world
+from repalis.order.repository import OrderRepository
+from repalis.organization.repository import OrganizationRepository
+from repalis.postgres import AsyncSession, get_db_session
+from repalis.redis import Redis, get_redis
+from repalis.routing import APIRouter
+from repalis.subscription.repository import SubscriptionRepository
 
 from .auth import SeatRead, SeatWrite
 from .repository import CustomerSeatRepository

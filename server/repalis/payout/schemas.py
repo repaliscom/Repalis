@@ -3,12 +3,12 @@ from uuid import UUID
 
 from pydantic import UUID4, AliasPath, Field
 
-from polar.enums import PayoutAccountType
-from polar.kit.schemas import IDSchema, MultipleQueryFilter, Schema, TimestampedSchema
-from polar.kit.versioning import QuerySchema
-from polar.models.payout import PayoutStatus
-from polar.models.payout_attempt import PayoutAttemptStatus
-from polar.transaction.schemas import TransactionEmbedded
+from repalis.enums import PayoutAccountType
+from repalis.kit.schemas import IDSchema, MultipleQueryFilter, Schema, TimestampedSchema
+from repalis.kit.versioning import QuerySchema
+from repalis.models.payout import PayoutStatus
+from repalis.models.payout_attempt import PayoutAttemptStatus
+from repalis.transaction.schemas import TransactionEmbedded
 
 
 class PayoutCreate(Schema):

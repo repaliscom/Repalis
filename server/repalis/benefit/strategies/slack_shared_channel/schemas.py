@@ -3,10 +3,10 @@ from typing import Annotated, Literal
 from pydantic import UUID4, AfterValidator, Field, StringConstraints
 from pydantic.json_schema import SkipJsonSchema
 
-from polar.kit.schemas import Schema
-from polar.kit.versioning import Version
-from polar.models.benefit import BenefitType
-from polar.version import V2026_10
+from repalis.kit.schemas import Schema
+from repalis.kit.versioning import Version
+from repalis.models.benefit import BenefitType
+from repalis.version import V2026_10
 
 from ..base.schemas import (
     BenefitBase,

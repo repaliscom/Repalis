@@ -2,10 +2,10 @@ from typing import Annotated, Literal
 
 from pydantic import UUID4, AfterValidator, Discriminator, Field, TypeAdapter
 
-from polar.customer.schemas.customer import CustomerBillingNameInput
-from polar.kit.address import Address, AddressInput
-from polar.kit.http import get_safe_return_url
-from polar.kit.schemas import (
+from repalis.customer.schemas.customer import CustomerBillingNameInput
+from repalis.kit.address import Address, AddressInput
+from repalis.kit.http import get_safe_return_url
+from repalis.kit.schemas import (
     ClassName,
     EmptyStrToNoneValidator,
     IDSchema,
@@ -14,13 +14,13 @@ from polar.kit.schemas import (
     SetSchemaReference,
     TimestampedSchema,
 )
-from polar.models.customer import CustomerType
-from polar.payment_method.schemas import (
+from repalis.models.customer import CustomerType
+from repalis.payment_method.schemas import (
     PaymentMethodCard,
     PaymentMethodGeneric,
     PaymentMethodKrCard,
 )
-from polar.tax.tax_id import TaxID
+from repalis.tax.tax_id import TaxID
 
 
 class CustomerPortalOAuthAccount(Schema):

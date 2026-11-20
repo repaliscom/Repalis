@@ -7,8 +7,8 @@ from fastapi import Request
 from starlette.datastructures import URL
 from tagflow import attr, tag, text
 
-from polar.file.service import file as file_service
-from polar.models import File, Organization
+from repalis.file.service import file as file_service
+from repalis.models import File, Organization
 
 from ....components import card, empty_state
 

@@ -8,17 +8,17 @@ import pytest
 from pytest_mock import MockerFixture
 from sqlalchemy import delete
 
-from polar.auth.models import AuthSubject
-from polar.auth.scope import Scope
-from polar.config import settings
-from polar.custom_field.schemas import AttachedCustomFieldCreate
-from polar.enums import SubscriptionRecurringInterval, TaxBehaviorOption
-from polar.exceptions import PolarRequestValidationError
-from polar.kit.currency import PresentmentCurrency
-from polar.kit.db.postgres import create_async_engine, create_async_sessionmaker
-from polar.kit.pagination import PaginationParams
-from polar.kit.trial import TrialInterval
-from polar.models import (
+from repalis.auth.models import AuthSubject
+from repalis.auth.scope import Scope
+from repalis.config import settings
+from repalis.custom_field.schemas import AttachedCustomFieldCreate
+from repalis.enums import SubscriptionRecurringInterval, TaxBehaviorOption
+from repalis.exceptions import PolarRequestValidationError
+from repalis.kit.currency import PresentmentCurrency
+from repalis.kit.db.postgres import create_async_engine, create_async_sessionmaker
+from repalis.kit.pagination import PaginationParams
+from repalis.kit.trial import TrialInterval
+from repalis.models import (
     Account,
     Benefit,
     Customer,
@@ -29,26 +29,26 @@ from polar.models import (
     User,
     UserOrganization,
 )
-from polar.models.benefit import BenefitType
-from polar.models.custom_field import CustomFieldType
-from polar.models.discount import DiscountDuration, DiscountType
-from polar.models.file import FileServiceTypes, ProductMediaFile
-from polar.models.organization import OrganizationStatus
-from polar.models.product_price import (
+from repalis.models.benefit import BenefitType
+from repalis.models.custom_field import CustomFieldType
+from repalis.models.discount import DiscountDuration, DiscountType
+from repalis.models.file import FileServiceTypes, ProductMediaFile
+from repalis.models.organization import OrganizationStatus
+from repalis.models.product_price import (
     ProductPriceAmountType,
     ProductPriceFixed,
     ProductPriceMeteredTiers,
 )
-from polar.organization_review.schemas import ReviewContext
-from polar.postgres import AsyncSession
-from polar.product.guard import (
+from repalis.organization_review.schemas import ReviewContext
+from repalis.postgres import AsyncSession
+from repalis.product.guard import (
     is_fixed_price,
     is_metered_price,
     is_seat_price,
     is_static_price,
     is_unit_price,
 )
-from polar.product.schemas import (
+from repalis.product.schemas import (
     ExistingProductPrice,
     ProductCreate,
     ProductCreateOneTime,
@@ -61,10 +61,10 @@ from polar.product.schemas import (
     ProductPriceUnitBasedCreate,
     ProductUpdate,
 )
-from polar.product.service import ProductNotDeletable
-from polar.product.service import product as product_service
-from polar.product.sorting import ProductSortProperty
-from polar.product.tiers import Tiers, TiersInput, TierType
+from repalis.product.service import ProductNotDeletable
+from repalis.product.service import product as product_service
+from repalis.product.sorting import ProductSortProperty
+from repalis.product.tiers import Tiers, TiersInput, TierType
 from tests.fixtures.auth import AuthSubjectFixture
 from tests.fixtures.database import (
     SaveFixture,
@@ -91,7 +91,7 @@ from tests.fixtures.random_objects import (
 
 @pytest.fixture
 def enqueue_job_mock(mocker: MockerFixture) -> AsyncMock:
-    return mocker.patch("polar.product.service.enqueue_job")
+    return mocker.patch("repalis.product.service.enqueue_job")
 
 
 @pytest.mark.anyio

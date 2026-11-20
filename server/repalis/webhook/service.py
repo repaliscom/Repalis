@@ -14,30 +14,30 @@ from sqlalchemy import cast as sql_cast
 from sqlalchemy.exc import MultipleResultsFound
 from sqlalchemy.orm import joinedload
 
-from polar.auth.models import AuthSubject
-from polar.auth.permission import OrganizationPermission
-from polar.authz.service import (
+from repalis.auth.models import AuthSubject
+from repalis.auth.permission import OrganizationPermission
+from repalis.authz.service import (
     assert_organization_permission,
     assert_resource_permission,
     get_accessible_org_ids,
 )
-from polar.checkout.eventstream import CheckoutEvent, publish_checkout_event
-from polar.checkout.repository import CheckoutRepository
-from polar.config import settings
-from polar.customer.schemas.state import CustomerState
-from polar.declarative_config.guard import (
+from repalis.checkout.eventstream import CheckoutEvent, publish_checkout_event
+from repalis.checkout.repository import CheckoutRepository
+from repalis.config import settings
+from repalis.customer.schemas.state import CustomerState
+from repalis.declarative_config.guard import (
     DeclarativeConfigManaged,
     assert_catalog_editable,
 )
-from polar.email.schemas import EmailAdapter
-from polar.email.sender import enqueue_email_template
-from polar.exceptions import PolarError, PolarRequestValidationError, ResourceNotFound
-from polar.kit.crypto import generate_token
-from polar.kit.db.postgres import AsyncSession
-from polar.kit.pagination import PaginationParams
-from polar.kit.utils import generate_uuid, utc_now
-from polar.logging import Logger
-from polar.models import (
+from repalis.email.schemas import EmailAdapter
+from repalis.email.sender import enqueue_email_template
+from repalis.exceptions import PolarError, PolarRequestValidationError, ResourceNotFound
+from repalis.kit.crypto import generate_token
+from repalis.kit.db.postgres import AsyncSession
+from repalis.kit.pagination import PaginationParams
+from repalis.kit.utils import generate_uuid, utc_now
+from repalis.logging import Logger
+from repalis.models import (
     Benefit,
     BenefitGrant,
     Checkout,
@@ -54,22 +54,22 @@ from polar.models import (
     WebhookDelivery,
     WebhookEvent,
 )
-from polar.models.webhook_endpoint import (
+from repalis.models.webhook_endpoint import (
     WebhookEndpoint,
     WebhookEventType,
     WebhookFormat,
 )
-from polar.organization.resolver import get_payload_organization
-from polar.user_organization.service import (
+from repalis.organization.resolver import get_payload_organization
+from repalis.user_organization.service import (
     user_organization as user_organization_service,
 )
-from polar.version import CURRENT_API_VERSION
-from polar.webhook.repository import (
+from repalis.version import CURRENT_API_VERSION
+from repalis.webhook.repository import (
     WebhookDeliveryRepository,
     WebhookEndpointRepository,
     WebhookEventRepository,
 )
-from polar.worker import enqueue_job
+from repalis.worker import enqueue_job
 
 from .constants import (
     WEBHOOK_SECRET_KEY_BYTES,

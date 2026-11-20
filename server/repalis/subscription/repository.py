@@ -10,7 +10,7 @@ from sqlalchemy.orm import contains_eager, undefer, with_polymorphic
 from sqlalchemy.orm.attributes import set_committed_value
 from sqlalchemy.orm.strategy_options import joinedload, raiseload, selectinload
 
-from polar.auth.models import (
+from repalis.auth.models import (
     AuthSubject,
     Member,
     Organization,
@@ -20,17 +20,17 @@ from polar.auth.models import (
     is_organization,
     is_user,
 )
-from polar.auth.models import (
+from repalis.auth.models import (
     Customer as AuthCustomer,
 )
-from polar.auth.permission import OrganizationPermission
-from polar.authz.repository import select_accessible_org_ids
-from polar.email.deduplication import (
+from repalis.auth.permission import OrganizationPermission
+from repalis.authz.repository import select_accessible_org_ids
+from repalis.email.deduplication import (
     subscription_renewal_reminder_key_sql,
     subscription_trial_conversion_reminder_key_sql,
 )
-from polar.enums import SubscriptionRecurringInterval
-from polar.kit.repository import (
+from repalis.enums import SubscriptionRecurringInterval
+from repalis.kit.repository import (
     Options,
     RepositoryBase,
     RepositorySoftDeletionIDMixin,
@@ -38,7 +38,7 @@ from polar.kit.repository import (
     RepositorySortingMixin,
     SortingClause,
 )
-from polar.models import (
+from repalis.models import (
     Benefit,
     BenefitGrant,
     Customer,
@@ -54,11 +54,11 @@ from polar.models import (
     SubscriptionProductPrice,
     SubscriptionUpdate,
 )
-from polar.models.benefit import BenefitType
-from polar.models.customer_seat import SeatStatus
-from polar.models.email_log import EmailLog
-from polar.models.subscription import SubscriptionStatus
-from polar.product.guard import is_metered_price
+from repalis.models.benefit import BenefitType
+from repalis.models.customer_seat import SeatStatus
+from repalis.models.email_log import EmailLog
+from repalis.models.subscription import SubscriptionStatus
+from repalis.product.guard import is_metered_price
 
 from .sorting import SubscriptionSortProperty
 

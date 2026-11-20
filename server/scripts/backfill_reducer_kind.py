@@ -4,7 +4,7 @@ from functools import wraps
 import typer
 from sqlalchemy import select, update
 
-from polar.models.reducer import Reducer, ReducerKind
+from repalis.models.reducer import Reducer, ReducerKind
 from scripts.helper import (
     configure_script_logging,
     limit_bindparam,

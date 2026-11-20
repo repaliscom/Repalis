@@ -1,12 +1,12 @@
 import pytest
 
-from polar.enums import PayoutAccountType
-from polar.kit.utils import utc_now
-from polar.models import Organization, User
-from polar.models.payout import PayoutStatus
-from polar.models.transaction import TransactionType
-from polar.payout.repository import PayoutRepository
-from polar.postgres import AsyncSession
+from repalis.enums import PayoutAccountType
+from repalis.kit.utils import utc_now
+from repalis.models import Organization, User
+from repalis.models.payout import PayoutStatus
+from repalis.models.transaction import TransactionType
+from repalis.payout.repository import PayoutRepository
+from repalis.postgres import AsyncSession
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (
     create_account,

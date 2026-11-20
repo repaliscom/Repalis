@@ -7,19 +7,19 @@ from httpx_oauth.clients.github import GitHubOAuth2
 from httpx_oauth.oauth2 import OAuth2Token, RefreshTokenError
 from sqlalchemy.exc import IntegrityError
 
-import polar.integrations.github.client as github
-from polar.config import settings
-from polar.exceptions import PolarError, ResourceAlreadyExists
-from polar.integrations.github.service.user import github_user as github_user_service
-from polar.integrations.github_repository_benefit.schemas import (
+import repalis.integrations.github.client as github
+from repalis.config import settings
+from repalis.exceptions import PolarError, ResourceAlreadyExists
+from repalis.integrations.github.service.user import github_user as github_user_service
+from repalis.integrations.github_repository_benefit.schemas import (
     GitHubInvitesBenefitOrganization,
     GitHubInvitesBenefitRepository,
 )
-from polar.logging import Logger
-from polar.models import OAuthAccount, User
-from polar.models.user import OAuthPlatform
-from polar.postgres import AsyncSession
-from polar.redis import Redis
+from repalis.logging import Logger
+from repalis.models import OAuthAccount, User
+from repalis.models.user import OAuthPlatform
+from repalis.postgres import AsyncSession
+from repalis.redis import Redis
 
 from .types import SimpleUser
 

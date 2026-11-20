@@ -2,18 +2,18 @@ from uuid import UUID
 
 from fastapi import Depends
 
-from polar.authz.dependencies import AuthorizeOrgManageRead, AuthorizeOrgManageUser
-from polar.exceptions import NotPermitted, ResourceNotFound
-from polar.kit.pagination import ListResource, PaginationParamsQuery
-from polar.models import OrganizationSSOConnection
-from polar.openapi import APITag
-from polar.postgres import (
+from repalis.authz.dependencies import AuthorizeOrgManageRead, AuthorizeOrgManageUser
+from repalis.exceptions import NotPermitted, ResourceNotFound
+from repalis.kit.pagination import ListResource, PaginationParamsQuery
+from repalis.models import OrganizationSSOConnection
+from repalis.openapi import APITag
+from repalis.postgres import (
     AsyncReadSession,
     AsyncSession,
     get_db_read_session,
     get_db_session,
 )
-from polar.routing import APIRouter
+from repalis.routing import APIRouter
 
 from .schemas import (
     OrganizationSSOConnection as OrganizationSSOConnectionSchema,

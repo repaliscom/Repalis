@@ -6,36 +6,36 @@ import pytest
 from pytest_mock import MockerFixture
 from sqlalchemy.exc import DBAPIError, IntegrityError
 
-from polar.auth.models import AuthSubject, User
-from polar.checkout.schemas import CheckoutUpdatePublic
-from polar.checkout.service import checkout as checkout_service
-from polar.discount.legacy_schemas import (
+from repalis.auth.models import AuthSubject, User
+from repalis.checkout.schemas import CheckoutUpdatePublic
+from repalis.checkout.service import checkout as checkout_service
+from repalis.discount.legacy_schemas import (
     DiscountFixedCreate,
     DiscountUpdate,
 )
-from polar.discount.repository import DiscountRepository
-from polar.discount.service import DiscountNotRedeemableError
-from polar.discount.service import discount as discount_service
-from polar.exceptions import PolarRequestValidationError
-from polar.kit.currency import PresentmentCurrency
-from polar.kit.utils import utc_now
-from polar.models import (
+from repalis.discount.repository import DiscountRepository
+from repalis.discount.service import DiscountNotRedeemableError
+from repalis.discount.service import discount as discount_service
+from repalis.exceptions import PolarRequestValidationError
+from repalis.kit.currency import PresentmentCurrency
+from repalis.kit.utils import utc_now
+from repalis.models import (
     Discount,
     Organization,
     Product,
     UserOrganization,
 )
-from polar.models.discount import (
+from repalis.models.discount import (
     DiscountDuration,
     DiscountFixed,
     DiscountPercentage,
     DiscountType,
 )
-from polar.models.order import OrderStatus
-from polar.models.payment import PaymentStatus
-from polar.models.refund import RefundReason
-from polar.models.webhook_endpoint import WebhookEventType
-from polar.postgres import AsyncSession
+from repalis.models.order import OrderStatus
+from repalis.models.payment import PaymentStatus
+from repalis.models.refund import RefundReason
+from repalis.models.webhook_endpoint import WebhookEventType
+from repalis.postgres import AsyncSession
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (
     create_checkout,
@@ -51,7 +51,7 @@ from tests.fixtures.random_objects import (
 
 @pytest.fixture
 def webhook_service_send_mock(mocker: MockerFixture) -> AsyncMock:
-    return mocker.patch("polar.discount.service.webhook_service.send")
+    return mocker.patch("repalis.discount.service.webhook_service.send")
 
 
 @pytest.mark.anyio

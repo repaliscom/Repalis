@@ -12,10 +12,10 @@ from sqlalchemy import (
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy.sql.sqltypes import BigInteger
 
-from polar.enums import PayoutAccountType
-from polar.kit.db.models import RecordModel
-from polar.kit.extensions.sqlalchemy.types import StringEnum
-from polar.models.transaction import TransactionType
+from repalis.enums import PayoutAccountType
+from repalis.kit.db.models import RecordModel
+from repalis.kit.extensions.sqlalchemy.types import StringEnum
+from repalis.models.transaction import TransactionType
 
 from .payout_attempt import PayoutAttempt, PayoutAttemptStatus
 

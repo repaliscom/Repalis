@@ -3,17 +3,17 @@ from datetime import timedelta
 
 import structlog
 
-from polar.config import Environment, settings
-from polar.exceptions import PolarTaskError
-from polar.integrations.slack.client import client as slack_client
-from polar.integrations.slack.payload import (
+from repalis.config import Environment, settings
+from repalis.exceptions import PolarTaskError
+from repalis.integrations.slack.client import client as slack_client
+from repalis.integrations.slack.payload import (
     SlackPayload,
     SlackText,
     get_branded_slack_payload,
 )
-from polar.logging import Logger
-from polar.models import MerchantMigration
-from polar.redis import Redis
+from repalis.logging import Logger
+from repalis.models import MerchantMigration
+from repalis.redis import Redis
 
 from .pan_transfer import PanTransferStep
 

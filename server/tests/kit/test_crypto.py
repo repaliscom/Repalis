@@ -1,8 +1,8 @@
 import pytest
 from pydantic import ValidationError
 
-from polar.config import HASH_SEPARATOR, Settings, settings
-from polar.kit.crypto import get_token_hash, get_token_hash_candidates
+from repalis.config import HASH_SEPARATOR, Settings, settings
+from repalis.kit.crypto import get_token_hash, get_token_hash_candidates
 
 SECRETS = {"k1": "first secret", "k2": "second secret"}
 

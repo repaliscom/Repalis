@@ -13,9 +13,9 @@ from uuid import UUID
 
 from sqlalchemy import Select, and_, func, or_, select
 
-from polar.models import BackofficeUser, Dispute, Organization
-from polar.models.dispute import DisputeStatus
-from polar.models.support_case import (
+from repalis.models import BackofficeUser, Dispute, Organization
+from repalis.models.dispute import DisputeStatus
+from repalis.models.support_case import (
     DisputeSupportCase,
     SupportCase,
     SupportCaseMessage,
@@ -24,7 +24,7 @@ from polar.models.support_case import (
     SupportCaseParticipantKind,
     SupportCaseType,
 )
-from polar.support_case.repository import SupportCaseMessageRepository
+from repalis.support_case.repository import SupportCaseMessageRepository
 
 # (case, organization, is_open, assignee_email, awaiting_platform, unread,
 #  dispute_status, evidence_due_by, evidence_past_due, needs_action) — the

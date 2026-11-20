@@ -11,10 +11,10 @@ from pydantic import (
     field_validator,
 )
 
-from polar.kit.schemas import Schema, TimestampedSchema
-from polar.kit.versioning import QuerySchema
-from polar.models import SlackApp
-from polar.organization.schemas import OrganizationID
+from repalis.kit.schemas import Schema, TimestampedSchema
+from repalis.kit.versioning import QuerySchema
+from repalis.models import SlackApp
+from repalis.organization.schemas import OrganizationID
 
 
 class SlackIntegrationListParams(QuerySchema):

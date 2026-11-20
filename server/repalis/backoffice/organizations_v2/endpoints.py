@@ -25,26 +25,26 @@ from sqlalchemy.orm import contains_eager, joinedload
 from sse_starlette.sse import EventSourceResponse
 from tagflow import tag, text
 
-from polar.account.repository import AccountRepository
-from polar.account_credit.repository import AccountCreditRepository
-from polar.account_credit.service import account_credit_service
-from polar.backoffice.routing import BackofficeRouter
-from polar.config import settings
-from polar.enums import PayoutAccountType
-from polar.exceptions import PolarRequestValidationError
-from polar.file.repository import FileRepository
-from polar.file.sorting import FileSortProperty
-from polar.integrations.plain.service import (
+from repalis.account.repository import AccountRepository
+from repalis.account_credit.repository import AccountCreditRepository
+from repalis.account_credit.service import account_credit_service
+from repalis.backoffice.routing import BackofficeRouter
+from repalis.config import settings
+from repalis.enums import PayoutAccountType
+from repalis.exceptions import PolarRequestValidationError
+from repalis.file.repository import FileRepository
+from repalis.file.sorting import FileSortProperty
+from repalis.integrations.plain.service import (
     AccountReviewThreadCreationError,
     plain_thread_url,
 )
-from polar.integrations.plain.service import plain as plain_service
-from polar.integrations.repalis.service import polar_self as polar_self_service
-from polar.integrations.stripe.service import StripeAccountRejectReason
-from polar.integrations.stripe.service import stripe as stripe_service
-from polar.kit.pagination import count_subquery
-from polar.kit.sorting import Sorting
-from polar.models import (
+from repalis.integrations.plain.service import plain as plain_service
+from repalis.integrations.repalis.service import polar_self as polar_self_service
+from repalis.integrations.stripe.service import StripeAccountRejectReason
+from repalis.integrations.stripe.service import stripe as stripe_service
+from repalis.kit.pagination import count_subquery
+from repalis.kit.sorting import Sorting
+from repalis.models import (
     AccountCredit,
     Organization,
     OrganizationRiskSignal,
@@ -52,51 +52,51 @@ from polar.models import (
     User,
     UserOrganization,
 )
-from polar.models.backoffice_user_session import BackofficeUserSession
-from polar.models.customer import Customer
-from polar.models.file import FileServiceTypes
-from polar.models.order import Order, OrderStatus
-from polar.models.organization import (
+from repalis.models.backoffice_user_session import BackofficeUserSession
+from repalis.models.customer import Customer
+from repalis.models.file import FileServiceTypes
+from repalis.models.order import Order, OrderStatus
+from repalis.models.organization import (
     CAPABILITY_METADATA,
     CAPABILITY_NAMES,
     OrganizationStatus,
     SnoozeType,
 )
-from polar.models.organization_agent_review import OrganizationAgentReview
-from polar.models.organization_review import OrganizationReview
-from polar.models.support_case import (
+from repalis.models.organization_agent_review import OrganizationAgentReview
+from repalis.models.organization_review import OrganizationReview
+from repalis.models.support_case import (
     ReviewAppealSupportCase,
     SupportCaseMessageAuthorKind,
     SupportCaseType,
 )
-from polar.models.transaction import TransactionType
-from polar.organization.repository import OrganizationRepository
-from polar.organization.schemas import OrganizationFeatureSettings
-from polar.organization.service import (
+from repalis.models.transaction import TransactionType
+from repalis.organization.repository import OrganizationRepository
+from repalis.organization.schemas import OrganizationFeatureSettings
+from repalis.organization.service import (
     SNOOZE_MAX_DAYS,
     SNOOZE_MIN_DAYS,
     ActivationGate,
     BackofficeActivationResult,
     OrganizationError,
 )
-from polar.organization.service import organization as organization_service
-from polar.organization_domain.repository import OrganizationDomainRepository
-from polar.organization_email.repository import OrganizationEmailRepository
-from polar.organization_email.service import (
+from repalis.organization.service import organization as organization_service
+from repalis.organization_domain.repository import OrganizationDomainRepository
+from repalis.organization_email.repository import OrganizationEmailRepository
+from repalis.organization_email.service import (
     organization_email as organization_email_service,
 )
-from polar.organization_review.appeal_case import (
+from repalis.organization_review.appeal_case import (
     AppealCaseError,
 )
-from polar.organization_review.appeal_case import (
+from repalis.organization_review.appeal_case import (
     appeal_case as appeal_case_service,
 )
-from polar.organization_review.repository import (
+from repalis.organization_review.repository import (
     FLAGGED_PRODUCT_NAME_TYPES,
     OrganizationReviewRepository,
     OrganizationRiskSignalRepository,
 )
-from polar.organization_review.schemas import (
+from repalis.organization_review.schemas import (
     AUP_SECTION_LABELS,
     ActorType,
     AUPSection,
@@ -105,21 +105,21 @@ from polar.organization_review.schemas import (
     ReviewContext,
     ReviewVerdict,
 )
-from polar.payout.repository import PayoutRepository
-from polar.payout_account.service import payout_account as payout_account_service
-from polar.postgres import AsyncSession, get_db_session
-from polar.startup_program.service import (
+from repalis.payout.repository import PayoutRepository
+from repalis.payout_account.service import payout_account as payout_account_service
+from repalis.postgres import AsyncSession, get_db_session
+from repalis.startup_program.service import (
     StartupProgramError,
 )
-from polar.startup_program.service import (
+from repalis.startup_program.service import (
     startup_program as startup_program_service,
 )
-from polar.support_case.repository import (
+from repalis.support_case.repository import (
     SupportCaseMessageRepository,
 )
-from polar.support_case.schemas import ReviewAppealSupportCaseMessageCreate
-from polar.transaction.service.transaction import transaction as transaction_service
-from polar.worker import enqueue_job
+from repalis.support_case.schemas import ReviewAppealSupportCaseMessageCreate
+from repalis.transaction.service.transaction import transaction as transaction_service
+from repalis.worker import enqueue_job
 
 from ..components import button, input, modal
 from ..dependencies import get_admin
@@ -4474,7 +4474,7 @@ async def remove_member(
 
     # Remove the user from the organization
     try:
-        from polar.user_organization.service import (
+        from repalis.user_organization.service import (
             user_organization as user_organization_service,
         )
 
@@ -4983,7 +4983,7 @@ async def revoke_credit(
         raise HTTPException(status_code=404, detail="Credit not found")
 
     if request.method == "POST":
-        from polar.account_credit.service import CreditAlreadyRevokedError
+        from repalis.account_credit.service import CreditAlreadyRevokedError
 
         try:
             await account_credit_service.revoke(

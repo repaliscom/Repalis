@@ -12,38 +12,38 @@ from babel.dates import format_date
 from freezegun import freeze_time
 from pytest_mock import MockerFixture
 
-from polar.auth.models import AuthSubject
-from polar.billing_entry.repository import BillingEntryRepository
-from polar.checkout.eventstream import CheckoutEvent
-from polar.customer_seat.repository import CustomerSeatRepository
-from polar.email.schemas import (
+from repalis.auth.models import AuthSubject
+from repalis.billing_entry.repository import BillingEntryRepository
+from repalis.checkout.eventstream import CheckoutEvent
+from repalis.customer_seat.repository import CustomerSeatRepository
+from repalis.email.schemas import (
     SubscriptionRenewalReminderEmail,
     SubscriptionRevokedEmail,
     SubscriptionTrialConversionReminderEmail,
     SubscriptionTrialPaymentMethodRequiredEmail,
 )
-from polar.enums import (
+from repalis.enums import (
     PaymentMode,
     PaymentProcessor,
     SubscriptionProrationBehavior,
     SubscriptionRecurringInterval,
     TaxBehavior,
 )
-from polar.event.repository import EventRepository
-from polar.event.system import SystemEvent
-from polar.exceptions import (
+from repalis.event.repository import EventRepository
+from repalis.event.system import SystemEvent
+from repalis.exceptions import (
     PaymentNotReady,
     PolarRequestValidationError,
     ResourceUnavailable,
 )
-from polar.kit.currency import PresentmentCurrency
-from polar.kit.pagination import PaginationParams
-from polar.kit.trial import TrialInterval
-from polar.kit.utils import utc_now
-from polar.locker import Locker
-from polar.meter.aggregation import AggregationFunction, PropertyAggregation
-from polar.meter.filter import Filter, FilterConjunction
-from polar.models import (
+from repalis.kit.currency import PresentmentCurrency
+from repalis.kit.pagination import PaginationParams
+from repalis.kit.trial import TrialInterval
+from repalis.kit.utils import utc_now
+from repalis.locker import Locker
+from repalis.meter.aggregation import AggregationFunction, PropertyAggregation
+from repalis.meter.filter import Filter, FilterConjunction
+from repalis.models import (
     Benefit,
     BillingEntry,
     BillingInterval,
@@ -60,48 +60,48 @@ from polar.models import (
     User,
     UserOrganization,
 )
-from polar.models.benefit import BenefitType
-from polar.models.billing_entry import BillingEntryDirection, BillingEntryType
-from polar.models.billing_interval import UsagePolicy
-from polar.models.checkout import CheckoutStatus
-from polar.models.customer import CustomerType
-from polar.models.customer_seat import SeatStatus
-from polar.models.discount import DiscountDuration, DiscountType
-from polar.models.merchant_migration_record import MerchantMigrationCutoverStatus
-from polar.models.order import OrderBillingReasonInternal, OrderStatus
-from polar.models.organization import OrganizationStatus
-from polar.models.product_price import ProductPriceAmountType, ProductPriceSeatUnit
-from polar.models.subscription import CustomerCancellationReason, SubscriptionStatus
-from polar.models.webhook_endpoint import WebhookEventType
-from polar.notifications.notification import (
+from repalis.models.benefit import BenefitType
+from repalis.models.billing_entry import BillingEntryDirection, BillingEntryType
+from repalis.models.billing_interval import UsagePolicy
+from repalis.models.checkout import CheckoutStatus
+from repalis.models.customer import CustomerType
+from repalis.models.customer_seat import SeatStatus
+from repalis.models.discount import DiscountDuration, DiscountType
+from repalis.models.merchant_migration_record import MerchantMigrationCutoverStatus
+from repalis.models.order import OrderBillingReasonInternal, OrderStatus
+from repalis.models.organization import OrganizationStatus
+from repalis.models.product_price import ProductPriceAmountType, ProductPriceSeatUnit
+from repalis.models.subscription import CustomerCancellationReason, SubscriptionStatus
+from repalis.models.webhook_endpoint import WebhookEventType
+from repalis.notifications.notification import (
     MaintainerSubscriptionCancellationNotificationPayload,
     NotificationType,
 )
-from polar.notifications.service import PartialNotification
-from polar.order.repository import OrderRepository
-from polar.order.service import PaymentFailed, PaymentFailedReason
-from polar.order.service import order as order_service
-from polar.postgres import AsyncSession
-from polar.product.guard import (
+from repalis.notifications.service import PartialNotification
+from repalis.order.repository import OrderRepository
+from repalis.order.service import PaymentFailed, PaymentFailedReason
+from repalis.order.service import order as order_service
+from repalis.postgres import AsyncSession
+from repalis.product.guard import (
     MeteredPrice,
     is_fixed_price,
     is_metered_price,
     is_seat_price,
     is_static_price,
 )
-from polar.product.price_set import PriceSet
-from polar.redis import Redis
-from polar.reducer.service import get_reducer_bucket_start
-from polar.reducer.service import reducer as reducer_service
-from polar.subscription.repository import SubscriptionUpdateRepository
-from polar.subscription.schemas import (
+from repalis.product.price_set import PriceSet
+from repalis.redis import Redis
+from repalis.reducer.service import get_reducer_bucket_start
+from repalis.reducer.service import reducer as reducer_service
+from repalis.subscription.repository import SubscriptionUpdateRepository
+from repalis.subscription.schemas import (
     SubscriptionCreateCustomer,
     SubscriptionCreateExternalCustomer,
     SubscriptionUpdateBase,
     SubscriptionUpdateBillingPeriod,
     SubscriptionUpdateSeats,
 )
-from polar.subscription.service import (
+from repalis.subscription.service import (
     AboveMaximumSeats,
     AlreadyActiveSubscription,
     AlreadyCanceledSubscription,
@@ -120,10 +120,10 @@ from polar.subscription.service import (
     SubscriptionUpdateContext,
     TrialAlreadyRedeemed,
 )
-from polar.subscription.service import subscription as subscription_service
-from polar.subscription.update import generate_subscription_update
-from polar.trial_redemption.repository import TrialRedemptionRepository
-from polar.trial_redemption.service import trial_redemption as trial_redemption_service
+from repalis.subscription.service import subscription as subscription_service
+from repalis.subscription.update import generate_subscription_update
+from repalis.trial_redemption.repository import TrialRedemptionRepository
+from repalis.trial_redemption.service import trial_redemption as trial_redemption_service
 from tests.fixtures.auth import AuthSubjectFixture
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.events import get_all_by_name
@@ -255,7 +255,7 @@ def subscription_hooks(mocker: MockerFixture) -> Hooks:
 
 @pytest.fixture
 def publish_checkout_event_mock(mocker: MockerFixture) -> AsyncMock:
-    return mocker.patch("polar.subscription.service.publish_checkout_event")
+    return mocker.patch("repalis.subscription.service.publish_checkout_event")
 
 
 @pytest.fixture
@@ -265,17 +265,17 @@ def enqueue_benefits_grants_mock(mocker: MockerFixture) -> MagicMock:
 
 @pytest.fixture
 def enqueue_job_mock(mocker: MockerFixture) -> MagicMock:
-    return mocker.patch("polar.subscription.service.enqueue_job")
+    return mocker.patch("repalis.subscription.service.enqueue_job")
 
 
 @pytest.fixture
 def enqueue_email_mock(mocker: MockerFixture) -> MagicMock:
-    return mocker.patch("polar.subscription.service.enqueue_email_template")
+    return mocker.patch("repalis.subscription.service.enqueue_email_template")
 
 
 @pytest.fixture
 def webhook_service_send_mock(mocker: MockerFixture) -> AsyncMock:
-    return mocker.patch("polar.subscription.service.webhook_service.send")
+    return mocker.patch("repalis.subscription.service.webhook_service.send")
 
 
 @pytest.fixture
@@ -4971,7 +4971,7 @@ class TestResetMeters:
         )
         subscription_meter = subscription.meters[0]
         get_rollover_units_mock = mocker.patch(
-            "polar.subscription.service.customer_meter_service.get_rollover_units",
+            "repalis.subscription.service.customer_meter_service.get_rollover_units",
             return_value=0,
         )
 
@@ -5002,7 +5002,7 @@ class TestResetMeters:
         subscription_meter = subscription.meters[0]
         reset_at = utc_now()
         get_rollover_units_mock = mocker.patch(
-            "polar.subscription.service.customer_meter_service.get_rollover_units",
+            "repalis.subscription.service.customer_meter_service.get_rollover_units",
             return_value=25,
         )
 
@@ -5309,7 +5309,7 @@ class TestEnqueueBenefitsGrants:
         benefits: list[Benefit],
         subscription: Subscription,
     ) -> None:
-        enqueue_job_mock = mocker.patch("polar.subscription.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.subscription.service.enqueue_job")
 
         product = await set_product_benefits(
             save_fixture,
@@ -5338,7 +5338,7 @@ class TestEnqueueBenefitsGrants:
         benefits: list[Benefit],
         subscription: Subscription,
     ) -> None:
-        enqueue_job_mock = mocker.patch("polar.subscription.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.subscription.service.enqueue_job")
 
         product = await set_product_benefits(
             save_fixture,
@@ -5383,7 +5383,7 @@ class TestEnqueueBenefitsGrants:
         benefits: list[Benefit],
         subscription: Subscription,
     ) -> None:
-        enqueue_job_mock = mocker.patch("polar.subscription.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.subscription.service.enqueue_job")
 
         product = await set_product_benefits(
             save_fixture,
@@ -5417,7 +5417,7 @@ class TestEnqueueBenefitsGrants:
         save_fixture: SaveFixture,
         organization: Organization,
     ) -> None:
-        enqueue_job_mock = mocker.patch("polar.subscription.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.subscription.service.enqueue_job")
 
         product = await create_product(
             save_fixture,
@@ -5448,7 +5448,7 @@ class TestEnqueueBenefitsGrants:
     ) -> None:
         from tests.fixtures.random_objects import create_customer
 
-        enqueue_job_mock = mocker.patch("polar.subscription.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.subscription.service.enqueue_job")
 
         product = await create_product(
             save_fixture,
@@ -6610,7 +6610,7 @@ class TestUpdateProduct:
         await save_fixture(subscription)
 
         applies_at = utc_now() - timedelta(seconds=1)
-        mocker.patch("polar.subscription.update.utc_now", return_value=applies_at)
+        mocker.patch("repalis.subscription.update.utc_now", return_value=applies_at)
         settle_mock = mocker.patch.object(
             subscription_service, "_enqueue_meter_cycle_order"
         )
@@ -7238,7 +7238,7 @@ class TestUpdateProduct:
             revoked_at=utc_now(),
         )
 
-        enqueue_job_mock = mocker.patch("polar.customer_seat.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.customer_seat.service.enqueue_job")
 
         async with SubscriptionUpdateContext(
             session, subscription, subscription_service
@@ -11497,7 +11497,7 @@ class TestEnqueueBenefitsGrantsGracePeriod:
         subscription.past_due_at = utc_now() - timedelta(days=2)
         await save_fixture(subscription)
 
-        enqueue_job_mock = mocker.patch("polar.subscription.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.subscription.service.enqueue_job")
         await subscription_service.enqueue_benefits_grants(session, subscription)
         enqueue_job_mock.assert_not_called()
 
@@ -11523,7 +11523,7 @@ class TestEnqueueBenefitsGrantsGracePeriod:
         subscription.past_due_at = utc_now() - timedelta(days=8)
         await save_fixture(subscription)
 
-        enqueue_job_mock = mocker.patch("polar.subscription.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.subscription.service.enqueue_job")
 
         await subscription_service.enqueue_benefits_grants(session, subscription)
         enqueue_job_mock.assert_called_once_with(
@@ -11557,7 +11557,7 @@ class TestEnqueueBenefitsGrantsGracePeriod:
         subscription.past_due_at = utc_now() - timedelta(minutes=1)
         await save_fixture(subscription)
 
-        enqueue_job_mock = mocker.patch("polar.subscription.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.subscription.service.enqueue_job")
 
         await subscription_service.enqueue_benefits_grants(session, subscription)
         enqueue_job_mock.assert_called_once_with(
@@ -11590,7 +11590,7 @@ class TestEnqueueBenefitsGrantsGracePeriod:
         subscription.status = SubscriptionStatus.canceled
         await save_fixture(subscription)
 
-        enqueue_job_mock = mocker.patch("polar.subscription.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.subscription.service.enqueue_job")
         await subscription_service.enqueue_benefits_grants(session, subscription)
         enqueue_job_mock.assert_called_once_with(
             "benefit.enqueue_benefits_grants",
@@ -12364,7 +12364,7 @@ class TestNewSubscriptionNotification:
     ) -> None:
         mocker.patch.object(subscription_service, "_send_webhook")
         send_to_org_members_mock = mocker.patch(
-            "polar.subscription.service.notifications_service.send_to_org_members"
+            "repalis.subscription.service.notifications_service.send_to_org_members"
         )
         subscription = await create_trialing_subscription(
             save_fixture, product=product, customer=customer
@@ -12391,7 +12391,7 @@ class TestNewSubscriptionNotification:
     ) -> None:
         mocker.patch.object(subscription_service, "_send_webhook")
         send_to_org_members_mock = mocker.patch(
-            "polar.subscription.service.notifications_service.send_to_org_members"
+            "repalis.subscription.service.notifications_service.send_to_org_members"
         )
         subscription = await create_subscription(
             save_fixture,
@@ -12434,7 +12434,7 @@ class TestCancellationNotification:
         customer: Customer,
     ) -> None:
         send_to_org_members_mock = mocker.patch(
-            "polar.subscription.service.notifications_service.send_to_org_members"
+            "repalis.subscription.service.notifications_service.send_to_org_members"
         )
         subscription = await create_active_subscription(
             save_fixture, product=product, customer=customer
@@ -12470,7 +12470,7 @@ class TestCancellationNotification:
         customer: Customer,
     ) -> None:
         send_to_org_members_mock = mocker.patch(
-            "polar.subscription.service.notifications_service.send_to_org_members"
+            "repalis.subscription.service.notifications_service.send_to_org_members"
         )
         subscription = await create_active_subscription(
             save_fixture, product=product, customer=customer
@@ -12496,7 +12496,7 @@ class TestCancellationNotification:
         customer: Customer,
     ) -> None:
         send_to_org_members_mock = mocker.patch(
-            "polar.subscription.service.notifications_service.send_to_org_members"
+            "repalis.subscription.service.notifications_service.send_to_org_members"
         )
         subscription = await create_canceled_subscription(
             save_fixture,
@@ -12522,7 +12522,7 @@ class TestCancellationNotification:
         customer: Customer,
     ) -> None:
         send_to_org_members_mock = mocker.patch(
-            "polar.subscription.service.notifications_service.send_to_org_members"
+            "repalis.subscription.service.notifications_service.send_to_org_members"
         )
         subscription = await create_active_subscription(
             save_fixture, product=product, customer=customer

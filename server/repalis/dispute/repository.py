@@ -6,9 +6,9 @@ from sqlalchemy import Select, select
 from sqlalchemy.dialects.postgresql import insert as pg_insert
 from sqlalchemy.orm import contains_eager, joinedload
 
-from polar.authz.types import AccessibleOrganizationID
-from polar.enums import PaymentProcessor
-from polar.kit.repository import (
+from repalis.authz.types import AccessibleOrganizationID
+from repalis.enums import PaymentProcessor
+from repalis.kit.repository import (
     Options,
     RepositoryBase,
     RepositorySoftDeletionIDMixin,
@@ -16,9 +16,9 @@ from polar.kit.repository import (
     RepositorySortingMixin,
     SortingClause,
 )
-from polar.models import Dispute, Order, Organization, Payment
-from polar.models.dispute import DisputeAlertProcessor, DisputeStatus
-from polar.models.support_case import (
+from repalis.models import Dispute, Order, Organization, Payment
+from repalis.models.dispute import DisputeAlertProcessor, DisputeStatus
+from repalis.models.support_case import (
     DisputeSupportCase,
     SupportCaseMessage,
     SupportCaseMessageType,

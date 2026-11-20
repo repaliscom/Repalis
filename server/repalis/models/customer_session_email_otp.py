@@ -4,7 +4,7 @@ from reauth.factors.email_otp import EmailOTP as EmailOTPDataclass
 from sqlalchemy import CHAR, BigInteger, ForeignKey, String, Uuid
 from sqlalchemy.orm import Mapped, mapped_column
 
-from polar.kit.db.models import RecordModel
+from repalis.kit.db.models import RecordModel
 
 
 class CustomerSessionEmailOTP(RecordModel):

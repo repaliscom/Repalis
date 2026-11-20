@@ -4,35 +4,35 @@ from unittest.mock import MagicMock
 import pytest
 from pytest_mock import MockerFixture
 
-from polar.auth.models import AuthSubject
-from polar.auth.scope import Scope
-from polar.email.schemas import OrganizationAccessTokenLeakedEmail
-from polar.enums import TokenType
-from polar.exceptions import PolarRequestValidationError
-from polar.kit.crypto import get_token_hash
-from polar.kit.utils import utc_now
-from polar.models import (
+from repalis.auth.models import AuthSubject
+from repalis.auth.scope import Scope
+from repalis.email.schemas import OrganizationAccessTokenLeakedEmail
+from repalis.enums import TokenType
+from repalis.exceptions import PolarRequestValidationError
+from repalis.kit.crypto import get_token_hash
+from repalis.kit.utils import utc_now
+from repalis.models import (
     Organization,
     OrganizationAccessToken,
     PersonalAccessToken,
     User,
     UserOrganization,
 )
-from polar.organization_access_token.schemas import (
+from repalis.organization_access_token.schemas import (
     AvailableScope,
     OrganizationAccessTokenCreate,
 )
-from polar.organization_access_token.service import (
+from repalis.organization_access_token.service import (
     organization_access_token as organization_access_token_service,
 )
-from polar.postgres import AsyncSession
+from repalis.postgres import AsyncSession
 from tests.fixtures.database import SaveFixture
 
 
 @pytest.fixture(autouse=True)
 def enqueue_email_mock(mocker: MockerFixture) -> MagicMock:
     return mocker.patch(
-        "polar.organization_access_token.service.enqueue_email_template", autospec=True
+        "repalis.organization_access_token.service.enqueue_email_template", autospec=True
     )
 
 

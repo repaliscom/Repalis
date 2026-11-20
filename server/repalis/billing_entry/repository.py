@@ -7,17 +7,17 @@ from sqlalchemy import Select, and_, func, or_, select, update
 from sqlalchemy.orm import with_polymorphic
 from sqlalchemy.orm.strategy_options import contains_eager, joinedload
 
-from polar.config import settings
-from polar.kit.db.locking import pg_advisory_xact_lock
-from polar.kit.repository import (
+from repalis.config import settings
+from repalis.kit.db.locking import pg_advisory_xact_lock
+from repalis.kit.repository import (
     Options,
     RepositoryBase,
     RepositorySoftDeletionIDMixin,
     RepositorySoftDeletionMixin,
 )
-from polar.models import BillingEntry
-from polar.models.billing_entry import BillingEntryType
-from polar.models.product_price import (
+from repalis.models import BillingEntry
+from repalis.models.billing_entry import BillingEntryType
+from repalis.models.product_price import (
     ProductPrice,
     ProductPriceMeteredTiers,
     ProductPriceMeteredUnit,

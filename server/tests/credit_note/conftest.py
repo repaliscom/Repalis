@@ -2,10 +2,10 @@ from datetime import UTC, datetime
 
 import pytest
 
-from polar.kit.address import Address, CountryAlpha2
-from polar.models import CreditNote, CreditNoteItem, Customer, Order, Organization
-from polar.models.credit_note import CreditNoteReason
-from polar.tax.tax_id import TaxIDFormat
+from repalis.kit.address import Address, CountryAlpha2
+from repalis.models import CreditNote, CreditNoteItem, Customer, Order, Organization
+from repalis.models.credit_note import CreditNoteReason
+from repalis.tax.tax_id import TaxIDFormat
 
 
 @pytest.fixture

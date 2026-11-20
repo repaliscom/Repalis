@@ -14,12 +14,12 @@ from unittest.mock import MagicMock
 import pytest
 from starlette.types import Receive, Scope, Send
 
-from polar.logging import ClientContext
+from repalis.logging import ClientContext
 
 
 @pytest.fixture
 def mock_posthog_client() -> Iterator[MagicMock]:
-    from polar.posthog import posthog
+    from repalis.posthog import posthog
 
     original = posthog.client
     client = MagicMock()
@@ -46,7 +46,7 @@ def _http_scope(headers: list[tuple[bytes, bytes]]) -> Scope:
 def _run_request(scope: Scope, inside_request: Callable[[], None]) -> None:
     """Drive the middleware; ``inside_request`` runs while ClientContext is
     populated (i.e. as if a handler emitted a PostHog event mid-request)."""
-    from polar.middlewares import LogCorrelationIdMiddleware
+    from repalis.middlewares import LogCorrelationIdMiddleware
 
     async def mock_app(scope: Scope, receive: Receive, send: Send) -> None:
         inside_request()
@@ -67,7 +67,7 @@ class TestPostHogClientContext:
     def test_client_identification_attached_to_events(
         self, mock_posthog_client: MagicMock
     ) -> None:
-        from polar.posthog import posthog
+        from repalis.posthog import posthog
 
         _run_request(
             _http_scope(
@@ -88,7 +88,7 @@ class TestPostHogClientContext:
     def test_no_client_identification_for_non_mobile_request(
         self, mock_posthog_client: MagicMock
     ) -> None:
-        from polar.posthog import posthog
+        from repalis.posthog import posthog
 
         _run_request(
             _http_scope([]),
@@ -100,7 +100,7 @@ class TestPostHogClientContext:
     def test_context_does_not_leak_after_request(
         self, mock_posthog_client: MagicMock
     ) -> None:
-        from polar.posthog import posthog
+        from repalis.posthog import posthog
 
         _run_request(
             _http_scope([(b"x-polar-client-version", b"mobile/1.4.0")]),

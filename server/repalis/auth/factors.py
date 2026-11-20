@@ -23,22 +23,22 @@ from reauth.factors.totp import TOTPEnrollment as TOTPEnrollmentDataclass
 from reauth.factors.totp import TOTPFactor as TOTPFactorBase
 from sqlalchemy import delete, select, update
 
-from polar.config import settings
-from polar.email.schemas import LoginCodeEmail, LoginCodeProps
-from polar.email.sender import enqueue_email_template
-from polar.exceptions import ResourceNotFound
-from polar.kit.crypto import (
+from repalis.config import settings
+from repalis.email.schemas import LoginCodeEmail, LoginCodeProps
+from repalis.email.sender import enqueue_email_template
+from repalis.exceptions import ResourceNotFound
+from repalis.kit.crypto import (
     get_current_secret_id,
     get_legacy_secret,
     get_token_hash_candidates,
 )
-from polar.kit.utils import utc_now
-from polar.logging import Logger
-from polar.models import BackupCodesEnrollment, EmailOTP, TOTPEnrollment
-from polar.organization.repository import OrganizationRepository
-from polar.postgres import AsyncSession, get_db_session
-from polar.sso.repository import OrganizationSSOConnectionRepository
-from polar.user.repository import UserRepository
+from repalis.kit.utils import utc_now
+from repalis.logging import Logger
+from repalis.models import BackupCodesEnrollment, EmailOTP, TOTPEnrollment
+from repalis.organization.repository import OrganizationRepository
+from repalis.postgres import AsyncSession, get_db_session
+from repalis.sso.repository import OrganizationSSOConnectionRepository
+from repalis.user.repository import UserRepository
 
 from .oauth2.apple import AppleFactor, get_apple_factor
 from .oauth2.github import GitHubFactor, get_github_factor

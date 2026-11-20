@@ -3,10 +3,10 @@ from uuid import uuid4
 import pytest
 from sqlalchemy import func, select
 
-from polar.kit.db.postgres import Session
-from polar.models import OAuth2Grant, User
-from polar.oauth2.service.oauth2_grant import oauth2_grant as oauth2_grant_service
-from polar.oauth2.sub_type import SubType
+from repalis.kit.db.postgres import Session
+from repalis.models import OAuth2Grant, User
+from repalis.oauth2.service.oauth2_grant import oauth2_grant as oauth2_grant_service
+from repalis.oauth2.sub_type import SubType
 
 
 @pytest.mark.anyio

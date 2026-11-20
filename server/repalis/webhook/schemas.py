@@ -17,25 +17,25 @@ from pydantic import (
 from pydantic.json_schema import JsonSchemaValue, SkipJsonSchema
 from pydantic_core import core_schema
 
-from polar.kit.external_id import ExternalIDOutputMixin
-from polar.kit.schemas import (
+from repalis.kit.external_id import ExternalIDOutputMixin
+from repalis.kit.schemas import (
     HttpsUrl,
     IDSchema,
     MultipleQueryFilter,
     Schema,
     TimestampedSchema,
 )
-from polar.kit.versioning import (
+from repalis.kit.versioning import (
     _ACTIVE_API_VERSION,
     APIVersion,
     QuerySchema,
     Version,
 )
-from polar.models.webhook_endpoint import WebhookEventType, WebhookFormat
-from polar.openapi import destructive_when_equals
-from polar.organization.schemas import OrganizationID
-from polar.version import CURRENT_API_VERSION, V2027_01, VERSIONS
-from polar.webhook.constants import (
+from repalis.models.webhook_endpoint import WebhookEventType, WebhookFormat
+from repalis.openapi import destructive_when_equals
+from repalis.organization.schemas import OrganizationID
+from repalis.version import CURRENT_API_VERSION, V2027_01, VERSIONS
+from repalis.webhook.constants import (
     uses_standard_webhook_signature as secret_uses_standard_webhook_signature,
 )
 

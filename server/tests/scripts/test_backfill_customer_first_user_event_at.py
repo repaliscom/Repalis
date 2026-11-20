@@ -6,12 +6,12 @@ import pytest
 from pytest_mock import MockerFixture
 from sqlalchemy import select
 
-from polar.integrations.tinybird.service import (
+from repalis.integrations.tinybird.service import (
     event_types_by_customer_id_table,
     event_types_by_external_customer_id_table,
 )
-from polar.kit.db.postgres import AsyncSession
-from polar.models import Customer, Organization
+from repalis.kit.db.postgres import AsyncSession
+from repalis.models import Customer, Organization
 from scripts.backfill_customer_first_user_event_at import (
     _pages_by_key,
     backfill_organization,

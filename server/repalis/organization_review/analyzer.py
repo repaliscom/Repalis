@@ -5,9 +5,9 @@ from urllib.parse import urlparse
 import structlog
 from pydantic_ai import Agent
 
-from polar.config import settings
-from polar.models.organization_risk_signal import OrganizationRiskSignal
-from polar.observability.baggage import organization_baggage
+from repalis.config import settings
+from repalis.models.organization_risk_signal import OrganizationRiskSignal
+from repalis.observability.baggage import organization_baggage
 
 from .collectors.setup import is_on_verified_domain
 from .known_domains import known_domains_for_prompt, match_known_domain

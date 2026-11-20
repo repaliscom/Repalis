@@ -7,9 +7,9 @@ import botocore
 import structlog
 from botocore.client import ClientError
 
-from polar.config import settings
-from polar.kit.http import get_content_disposition
-from polar.kit.utils import generate_uuid, utc_now
+from repalis.config import settings
+from repalis.kit.http import get_content_disposition
+from repalis.kit.utils import generate_uuid, utc_now
 
 from .client import client, get_client
 from .exceptions import S3FileError

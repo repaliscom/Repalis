@@ -10,18 +10,18 @@ os.environ["PYTHONTZPATH"] = ""
 
 from fastapi.routing import iter_route_contexts
 
-from polar.kit.versioning import (
+from repalis.kit.versioning import (
     APIVersion,
     finalize_versioned_routes,
     routes_for_version,
 )
-from polar.version import CURRENT_API_VERSION, VERSIONS
+from repalis.version import CURRENT_API_VERSION, VERSIONS
 
 
 def generate_schemas(versions: list[APIVersion]) -> dict[str, dict[str, Any]]:
-    from polar.api import router
-    from polar.openapi import get_openapi
-    from polar.webhook.webhooks import get_webhook_routes
+    from repalis.api import router
+    from repalis.openapi import get_openapi
+    from repalis.webhook.webhooks import get_webhook_routes
 
     route_contexts = tuple(iter_route_contexts(router.routes))
     finalize_versioned_routes(route_contexts, VERSIONS)

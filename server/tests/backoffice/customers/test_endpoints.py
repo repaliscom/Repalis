@@ -7,12 +7,12 @@ import httpx2
 import pytest
 from pytest_mock import MockerFixture
 
-from polar.backoffice import app as backoffice_app
-from polar.backoffice.dependencies import get_admin
-from polar.models import Customer, Organization, WalletTransaction
-from polar.models.backoffice_user_session import BackofficeUserSession
-from polar.postgres import AsyncSession, get_db_read_session, get_db_session
-from polar.wallet.service import wallet as wallet_service
+from repalis.backoffice import app as backoffice_app
+from repalis.backoffice.dependencies import get_admin
+from repalis.models import Customer, Organization, WalletTransaction
+from repalis.models.backoffice_user_session import BackofficeUserSession
+from repalis.postgres import AsyncSession, get_db_read_session, get_db_session
+from repalis.wallet.service import wallet as wallet_service
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (
     create_customer,

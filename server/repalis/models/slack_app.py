@@ -5,8 +5,8 @@ from sqlalchemy import TIMESTAMP, ForeignKey, String, Uuid
 from sqlalchemy.dialects.postgresql import ARRAY
 from sqlalchemy.orm import Mapped, declared_attr, mapped_column, relationship
 
-from polar.kit.db.models.base import RecordModel
-from polar.kit.encryption import EncryptedString, EncryptedStringType
+from repalis.kit.db.models.base import RecordModel
+from repalis.kit.encryption import EncryptedString, EncryptedStringType
 
 from .organization import Organization
 

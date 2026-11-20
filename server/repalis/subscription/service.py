@@ -18,42 +18,42 @@ from sqlalchemy.orm import (
     undefer,
 )
 
-from polar.auth.models import AuthSubject
-from polar.auth.permission import OrganizationPermission
-from polar.authz.service import assert_resource_permission
-from polar.authz.types import AccessibleOrganizationID
-from polar.benefit.grant.repository import BenefitGrantRepository
-from polar.benefit.strategies.meter_credit.properties import (
+from repalis.auth.models import AuthSubject
+from repalis.auth.permission import OrganizationPermission
+from repalis.authz.service import assert_resource_permission
+from repalis.authz.types import AccessibleOrganizationID
+from repalis.benefit.grant.repository import BenefitGrantRepository
+from repalis.benefit.strategies.meter_credit.properties import (
     BenefitMeterCreditProperties,
 )
-from polar.billing_entry.repository import BillingEntryRepository
-from polar.billing_entry.service import MeteredLineItem
-from polar.billing_entry.service import billing_entry as billing_entry_service
-from polar.billing_interval.service import billing_interval as billing_interval_service
-from polar.checkout.eventstream import CheckoutEvent, publish_checkout_event
-from polar.checkout.guard import has_product_checkout
-from polar.config import settings
-from polar.customer.repository import CustomerRepository
-from polar.customer.service import customer as customer_service
-from polar.customer_meter.service import customer_meter as customer_meter_service
-from polar.customer_seat.service import seat_service
-from polar.discount.repository import DiscountRedemptionRepository, DiscountRepository
-from polar.discount.service import discount as discount_service
-from polar.email.billing_migration import previous_billing_provider_for_notice
-from polar.email.deduplication import (
+from repalis.billing_entry.repository import BillingEntryRepository
+from repalis.billing_entry.service import MeteredLineItem
+from repalis.billing_entry.service import billing_entry as billing_entry_service
+from repalis.billing_interval.service import billing_interval as billing_interval_service
+from repalis.checkout.eventstream import CheckoutEvent, publish_checkout_event
+from repalis.checkout.guard import has_product_checkout
+from repalis.config import settings
+from repalis.customer.repository import CustomerRepository
+from repalis.customer.service import customer as customer_service
+from repalis.customer_meter.service import customer_meter as customer_meter_service
+from repalis.customer_seat.service import seat_service
+from repalis.discount.repository import DiscountRedemptionRepository, DiscountRepository
+from repalis.discount.service import discount as discount_service
+from repalis.email.billing_migration import previous_billing_provider_for_notice
+from repalis.email.deduplication import (
     subscription_renewal_reminder_key,
     subscription_trial_conversion_reminder_key,
 )
-from polar.email.schemas import EmailAdapter, EmailTemplate
-from polar.email.sender import enqueue_email_template
-from polar.enums import (
+from repalis.email.schemas import EmailAdapter, EmailTemplate
+from repalis.email.sender import enqueue_email_template
+from repalis.enums import (
     PaymentMode,
     ProrationBehaviorSetting,
     SubscriptionProrationBehavior,
     TaxBehavior,
 )
-from polar.event.service import event as event_service
-from polar.event.system import (
+from repalis.event.service import event as event_service
+from repalis.event.system import (
     SubscriptionCanceledMetadata,
     SubscriptionCreatedMetadata,
     SubscriptionCycledMetadata,
@@ -69,23 +69,23 @@ from polar.event.system import (
     SystemEvent,
     build_system_event,
 )
-from polar.exceptions import (
+from repalis.exceptions import (
     PaymentNotReady,
     PolarError,
     PolarRequestValidationError,
     ResourceUnavailable,
     ValidationError,
 )
-from polar.invoice.generator import format_date
-from polar.kit.db.postgres import AsyncReadSession, AsyncSession
-from polar.kit.metadata import MetadataQuery, apply_metadata_clause
-from polar.kit.pagination import PaginationParams
-from polar.kit.sorting import Sorting
-from polar.kit.utils import utc_now
-from polar.kit.visibility import Visibility
-from polar.logging import Logger
-from polar.meter.repository import MeterRepository
-from polar.models import (
+from repalis.invoice.generator import format_date
+from repalis.kit.db.postgres import AsyncReadSession, AsyncSession
+from repalis.kit.metadata import MetadataQuery, apply_metadata_clause
+from repalis.kit.pagination import PaginationParams
+from repalis.kit.sorting import Sorting
+from repalis.kit.utils import utc_now
+from repalis.kit.visibility import Visibility
+from repalis.logging import Logger
+from repalis.meter.repository import MeterRepository
+from repalis.models import (
     Benefit,
     BenefitGrant,
     BillingEntry,
@@ -104,30 +104,30 @@ from polar.models import (
     SubscriptionProductPrice,
     User,
 )
-from polar.models.billing_entry import BillingEntryDirection, BillingEntryType
-from polar.models.discount import DiscountPercentage
-from polar.models.order import OrderBillingReasonInternal
-from polar.models.product_price import (
+from repalis.models.billing_entry import BillingEntryDirection, BillingEntryType
+from repalis.models.discount import DiscountPercentage
+from repalis.models.order import OrderBillingReasonInternal
+from repalis.models.product_price import (
     ProductPriceFixed,
     ProductPriceSeatUnit,
     ProductPriceUnit,
 )
-from polar.models.subscription import CustomerCancellationReason, SubscriptionStatus
-from polar.models.webhook_endpoint import WebhookEventType
-from polar.notifications.notification import (
+from repalis.models.subscription import CustomerCancellationReason, SubscriptionStatus
+from repalis.models.webhook_endpoint import WebhookEventType
+from repalis.notifications.notification import (
     MaintainerNewPaidSubscriptionNotificationPayload,
     MaintainerNewTrialNotificationPayload,
     MaintainerSubscriptionCancellationNotificationPayload,
     NotificationType,
 )
-from polar.notifications.service import PartialNotification
-from polar.notifications.service import notifications as notifications_service
-from polar.order.repository import OrderRepository
-from polar.organization.repository import (
+from repalis.notifications.service import PartialNotification
+from repalis.notifications.service import notifications as notifications_service
+from repalis.order.repository import OrderRepository
+from repalis.organization.repository import (
     SUBSCRIPTION_CANCELLATION_STATUSES,
     OrganizationRepository,
 )
-from polar.product.guard import (
+from repalis.product.guard import (
     is_custom_price,
     is_metered_price,
     is_recurring_product,
@@ -135,13 +135,13 @@ from polar.product.guard import (
     is_static_price,
     is_unit_price,
 )
-from polar.product.price_set import NoPricesForCurrencies, PriceSet
-from polar.product.repository import ProductRepository
-from polar.product.service import product as product_service
-from polar.redis import Redis
-from polar.trial_redemption.service import trial_redemption as trial_redemption_service
-from polar.webhook.service import webhook as webhook_service
-from polar.worker import enqueue_job, make_bulk_job_delay_calculator
+from repalis.product.price_set import NoPricesForCurrencies, PriceSet
+from repalis.product.repository import ProductRepository
+from repalis.product.service import product as product_service
+from repalis.redis import Redis
+from repalis.trial_redemption.service import trial_redemption as trial_redemption_service
+from repalis.webhook.service import webhook as webhook_service
+from repalis.worker import enqueue_job, make_bulk_job_delay_calculator
 
 from .repository import SubscriptionRepository, SubscriptionUpdateRepository
 from .schemas import (
@@ -3930,7 +3930,7 @@ class SubscriptionService:
     ) -> Order:
         """Non-locking and keyed on the subscription: a preview must not lock the
         balance, and repeated identical previews reuse the tax calculation."""
-        from polar.order.service import order as order_service
+        from repalis.order.service import order as order_service
 
         return await order_service.build_subscription_order(
             session,
@@ -5018,7 +5018,7 @@ class SubscriptionService:
         cutoff: datetime | None = None,
         period_start: datetime | None = None,
     ) -> Order:
-        from polar.order.service import order as order_service
+        from repalis.order.service import order as order_service
 
         return await order_service.create_subscription_order(
             session,

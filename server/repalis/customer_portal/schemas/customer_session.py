@@ -2,8 +2,8 @@ from datetime import datetime
 
 from pydantic import UUID4, Field
 
-from polar.kit.email import EmailStrDNS
-from polar.kit.schemas import IDSchema, Schema
+from repalis.kit.email import EmailStrDNS
+from repalis.kit.schemas import IDSchema, Schema
 
 
 class CustomerSessionCodeAuthenticateResponse(Schema):

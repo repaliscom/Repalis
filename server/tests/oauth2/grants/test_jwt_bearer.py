@@ -8,20 +8,20 @@ from authlib.oauth2.rfc7523.jwt_bearer import JWT_BEARER_GRANT_TYPE
 from httpx2 import AsyncClient
 from sqlalchemy import select
 
-from polar.agent.identity_assertion import (
+from repalis.agent.identity_assertion import (
     IDENTITY_ASSERTION_TYPE,
     create_identity_assertion,
     decode_identity_assertion,
 )
-from polar.auth.scope import CLAIMED_AGENT_SCOPES, UNCLAIMED_AGENT_SCOPES
-from polar.kit import jwt
-from polar.kit.crypto import get_token_hash
-from polar.kit.db.postgres import Session
-from polar.kit.utils import utc_now
-from polar.models import Agent, OAuth2Token, User
-from polar.models.agent import AgentStatus
-from polar.oauth2.constants import ISSUER
-from polar.oauth2.sub_type import SubType
+from repalis.auth.scope import CLAIMED_AGENT_SCOPES, UNCLAIMED_AGENT_SCOPES
+from repalis.kit import jwt
+from repalis.kit.crypto import get_token_hash
+from repalis.kit.db.postgres import Session
+from repalis.kit.utils import utc_now
+from repalis.models import Agent, OAuth2Token, User
+from repalis.models.agent import AgentStatus
+from repalis.oauth2.constants import ISSUER
+from repalis.oauth2.sub_type import SubType
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_agent
 

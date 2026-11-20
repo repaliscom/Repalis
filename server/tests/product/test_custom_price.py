@@ -1,8 +1,8 @@
 import pytest
 
-from polar.exceptions import PolarRequestValidationError
-from polar.models import ProductPriceCustom
-from polar.product.custom_price import validate_custom_price_amount
+from repalis.exceptions import PolarRequestValidationError
+from repalis.models import ProductPriceCustom
+from repalis.product.custom_price import validate_custom_price_amount
 
 
 def _custom_price(

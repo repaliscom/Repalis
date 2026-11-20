@@ -74,7 +74,7 @@ finding. Always show what you searched for, so a false positive is cheap to dism
 ## Reuse
 
 ### 🟠 Should fix
-- `file:line` — <what the new code does>. Fix: `from polar.kit.schemas import EmptyStrToNone`
+- `file:line` — <what the new code does>. Fix: `from repalis.kit.schemas import EmptyStrToNone`
   (searched: `rg "empty_str|strip_to_none" server/polar`)
 
 ### 🟡 Question

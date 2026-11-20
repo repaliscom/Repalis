@@ -13,17 +13,17 @@ from dataclasses import dataclass, field
 from typing import Any
 from uuid import UUID
 
-from polar.kit.currency import get_currency_decimal_factor
-from polar.kit.math import polar_round
-from polar.merchant_migration.canonical import (
+from repalis.kit.currency import get_currency_decimal_factor
+from repalis.kit.math import polar_round
+from repalis.merchant_migration.canonical import (
     CanonicalPricingScheme,
     CanonicalSubscriptionStatus,
     PriceKey,
     price_key,
     subscription_price_key_values,
 )
-from polar.merchant_migration.repository import CanonicalRow
-from polar.models.merchant_migration_record import MerchantMigrationRecordStatus
+from repalis.merchant_migration.repository import CanonicalRow
+from repalis.models.merchant_migration_record import MerchantMigrationRecordStatus
 
 # Source subscriptions that are actually producing revenue. Matches Polar's own
 # billable statuses, so a trial counts as expected revenue and a canceled

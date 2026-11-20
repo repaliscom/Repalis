@@ -2,7 +2,7 @@
 
 import pytest
 
-from polar.auth.scope import Scope
+from repalis.auth.scope import Scope
 from tests.fixtures.auth import AuthSubjectFixture
 
 # Auth preset with seat management scopes (extends the purchase scopes).

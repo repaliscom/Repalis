@@ -6,12 +6,12 @@ import pytest
 from sqlalchemy import event as sqlalchemy_event
 from sqlalchemy import select
 
-from polar.event.repository import _INSERT_STAGED_EVENTS_COLUMNS, EventRepository
-from polar.event.system import SystemEvent
-from polar.kit.utils import utc_now
-from polar.models import Event, Organization, StagedEvent
-from polar.models.event import EventSource
-from polar.postgres import AsyncSession
+from repalis.event.repository import _INSERT_STAGED_EVENTS_COLUMNS, EventRepository
+from repalis.event.system import SystemEvent
+from repalis.kit.utils import utc_now
+from repalis.models import Event, Organization, StagedEvent
+from repalis.models.event import EventSource
+from repalis.postgres import AsyncSession
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_customer
 

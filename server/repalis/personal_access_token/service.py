@@ -5,18 +5,18 @@ from uuid import UUID
 import structlog
 from sqlalchemy import Select, select, update
 
-from polar.auth.models import AuthSubject
-from polar.email.schemas import (
+from repalis.auth.models import AuthSubject
+from repalis.email.schemas import (
     PersonalAccessTokenLeakedEmail,
     PersonalAccessTokenLeakedProps,
 )
-from polar.email.sender import enqueue_email_template
-from polar.enums import TokenType
-from polar.kit.pagination import PaginationParams, paginate
-from polar.kit.services import ResourceServiceReader
-from polar.logging import Logger
-from polar.models import PersonalAccessToken, User
-from polar.postgres import AsyncSession
+from repalis.email.sender import enqueue_email_template
+from repalis.enums import TokenType
+from repalis.kit.pagination import PaginationParams, paginate
+from repalis.kit.services import ResourceServiceReader
+from repalis.logging import Logger
+from repalis.models import PersonalAccessToken, User
+from repalis.postgres import AsyncSession
 
 from .repository import PersonalAccessTokenRepository
 

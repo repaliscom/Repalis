@@ -9,31 +9,31 @@ from sqlalchemy import UnaryExpression, asc, desc
 from sqlalchemy.orm import Session
 from sqlalchemy.sql.elements import OrderByList
 
-from polar.auth.models import AuthSubject, Organization
-from polar.auth.permission import OrganizationPermission
-from polar.auth.scope import Scope
-from polar.authz.service import (
+from repalis.auth.models import AuthSubject, Organization
+from repalis.auth.permission import OrganizationPermission
+from repalis.auth.scope import Scope
+from repalis.authz.service import (
     assert_organization_permission,
     assert_resource_permission,
     get_accessible_org_ids,
 )
-from polar.config import settings
-from polar.email.schemas import (
+from repalis.config import settings
+from repalis.email.schemas import (
     OrganizationAccessTokenLeakedEmail,
     OrganizationAccessTokenLeakedProps,
 )
-from polar.email.sender import enqueue_email_template
-from polar.enums import TokenType
-from polar.exceptions import PolarRequestValidationError
-from polar.kit.crypto import generate_token_hash_pair, get_token_hash
-from polar.kit.pagination import PaginationParams
-from polar.kit.sorting import Sorting
-from polar.kit.utils import utc_now
-from polar.logging import Logger
-from polar.models import OrganizationAccessToken, User
-from polar.organization.resolver import get_payload_organization
-from polar.postgres import AsyncSession
-from polar.user_organization.service import (
+from repalis.email.sender import enqueue_email_template
+from repalis.enums import TokenType
+from repalis.exceptions import PolarRequestValidationError
+from repalis.kit.crypto import generate_token_hash_pair, get_token_hash
+from repalis.kit.pagination import PaginationParams
+from repalis.kit.sorting import Sorting
+from repalis.kit.utils import utc_now
+from repalis.logging import Logger
+from repalis.models import OrganizationAccessToken, User
+from repalis.organization.resolver import get_payload_organization
+from repalis.postgres import AsyncSession
+from repalis.user_organization.service import (
     user_organization as user_organization_service,
 )
 

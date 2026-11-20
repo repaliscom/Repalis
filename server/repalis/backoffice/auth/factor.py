@@ -7,9 +7,9 @@ from reauth.crypto import get_token_hash
 from reauth.factors.oauth2.base import OAuth2Enrollment
 from reauth.factors.oauth2.oidc import OIDCFactor
 
-from polar.auth.oauth2.state import OAuth2StateService
-from polar.config import settings
-from polar.postgres import AsyncSession, get_db_session
+from repalis.auth.oauth2.state import OAuth2StateService
+from repalis.config import settings
+from repalis.postgres import AsyncSession, get_db_session
 
 GOOGLE_DISCOVERY_ENDPOINT = (
     "https://accounts.google.com/.well-known/openid-configuration"

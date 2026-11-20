@@ -1,11 +1,11 @@
 import structlog
 
-from polar.enums import TokenType
-from polar.kit.services import ResourceServiceReader
-from polar.logging import Logger
-from polar.models import OAuth2AuthorizationCode
-from polar.oauth2.repository import OAuth2AuthorizationCodeRepository
-from polar.postgres import AsyncSession
+from repalis.enums import TokenType
+from repalis.kit.services import ResourceServiceReader
+from repalis.logging import Logger
+from repalis.models import OAuth2AuthorizationCode
+from repalis.oauth2.repository import OAuth2AuthorizationCodeRepository
+from repalis.postgres import AsyncSession
 
 log: Logger = structlog.get_logger()
 

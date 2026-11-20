@@ -3,10 +3,10 @@ from uuid import UUID
 
 import structlog
 
-from polar.email.sender import enqueue_email_template
-from polar.notifications.service import notifications
-from polar.observability.task_logging import LoggableField
-from polar.worker import AsyncSessionMaker, TaskPriority, actor
+from repalis.email.sender import enqueue_email_template
+from repalis.notifications.service import notifications
+from repalis.observability.task_logging import LoggableField
+from repalis.worker import AsyncSessionMaker, TaskPriority, actor
 
 log = structlog.get_logger()
 

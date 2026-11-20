@@ -10,11 +10,11 @@ from reauth.factors.oauth2.state import (
 )
 from sqlalchemy import delete, select
 
-from polar.config import settings
-from polar.kit.crypto import get_legacy_secret
-from polar.kit.utils import utc_now
-from polar.models import OAuth2State
-from polar.postgres import AsyncSession, get_db_session
+from repalis.config import settings
+from repalis.kit.crypto import get_legacy_secret
+from repalis.kit.utils import utc_now
+from repalis.models import OAuth2State
+from repalis.postgres import AsyncSession, get_db_session
 
 TOKEN_PREFIX = "polar_oauth2_"
 

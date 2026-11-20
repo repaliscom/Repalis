@@ -3,11 +3,11 @@ from typing import Annotated
 
 from opentelemetry import trace
 
-from polar.config import settings
-from polar.customer.repository import CustomerRepository
-from polar.exceptions import PolarTaskError
-from polar.observability.task_logging import LoggableField
-from polar.worker import (
+from repalis.config import settings
+from repalis.customer.repository import CustomerRepository
+from repalis.exceptions import PolarTaskError
+from repalis.observability.task_logging import LoggableField
+from repalis.worker import (
     AsyncSessionMaker,
     RedisMiddleware,
     TaskPriority,

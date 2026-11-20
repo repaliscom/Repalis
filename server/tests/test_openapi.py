@@ -10,9 +10,9 @@ from openapi_kit.diff import compare
 from openapi_kit.parser import OpenAPIParser
 from pydantic import Field
 
-from polar.kit.schemas import Schema
-from polar.kit.versioning import APIVersion
-from polar.openapi import (
+from repalis.kit.schemas import Schema
+from repalis.kit.versioning import APIVersion
+from repalis.openapi import (
     VERSIONING_POLICY_URL,
     APITag,
     add_destructive_tool_annotations,
@@ -21,8 +21,8 @@ from polar.openapi import (
     destructive_when_one_of,
     open_world,
 )
-from polar.routing import APIRouter
-from polar.version import V2026_10, V2027_01, VERSIONS
+from repalis.routing import APIRouter
+from repalis.version import V2026_10, V2027_01, VERSIONS
 
 OPENAPI_VERSION_PARAMS = {
     version: pytest.param(

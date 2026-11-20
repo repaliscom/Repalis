@@ -1,9 +1,9 @@
 import typer
 
-from polar.kit.db.postgres import AsyncSession, create_async_sessionmaker
-from polar.postgres import create_async_engine
-from polar.reducer.repository import ReducerRepository
-from polar.reducer.service import reducer as reducer_service
+from repalis.kit.db.postgres import AsyncSession, create_async_sessionmaker
+from repalis.postgres import create_async_engine
+from repalis.reducer.repository import ReducerRepository
+from repalis.reducer.service import reducer as reducer_service
 
 from .helper import configure_script_logging, typer_async
 

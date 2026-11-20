@@ -5,7 +5,7 @@ from sqlalchemy.dialects.postgresql.asyncpg import PGDialect_asyncpg
 from sqlalchemy.dialects.postgresql.psycopg import PGDialect_psycopg
 from sqlalchemy.engine import make_url
 
-from polar.config import settings
+from repalis.config import settings
 
 
 def build_dsn(

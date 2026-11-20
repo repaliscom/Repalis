@@ -1,8 +1,8 @@
 import pytest
 from httpx2 import AsyncClient
 
-from polar.auth.scope import Scope
-from polar.models import Organization, UserOrganization
+from repalis.auth.scope import Scope
+from repalis.models import Organization, UserOrganization
 from tests.fixtures.auth import AuthSubjectFixture
 
 

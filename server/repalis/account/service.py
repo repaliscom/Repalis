@@ -2,13 +2,13 @@ import uuid
 
 from sqlalchemy.orm.strategy_options import joinedload
 
-from polar.account.repository import AccountRepository
-from polar.auth.models import AuthSubject
-from polar.auth.permission import OrganizationPermission
-from polar.authz.service import get_accessible_org_ids
-from polar.config import settings
-from polar.models import Account, Organization, User
-from polar.postgres import AsyncReadSession, AsyncSession
+from repalis.account.repository import AccountRepository
+from repalis.auth.models import AuthSubject
+from repalis.auth.permission import OrganizationPermission
+from repalis.authz.service import get_accessible_org_ids
+from repalis.config import settings
+from repalis.models import Account, Organization, User
+from repalis.postgres import AsyncReadSession, AsyncSession
 
 from .schemas import AccountUpdate
 

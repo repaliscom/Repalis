@@ -1,7 +1,7 @@
 from collections.abc import Sequence
 from itertools import pairwise
 
-from polar.models import Organization, OrganizationEmail
+from repalis.models import Organization, OrganizationEmail
 
 from ..schemas import OrganizationData, SupportEmailChange
 

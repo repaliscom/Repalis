@@ -18,21 +18,21 @@ from reauth.factors.oauth2.base import (
 from reauth.factors.oauth2.oidc import OIDCException, OIDCFactorBase
 from reauth.factors.oauth2.state import ExpiredStateException, InvalidStateException
 
-from polar.config import settings
-from polar.exceptions import ResourceNotFound
-from polar.kit.email import validate_email_syntax
-from polar.models import Organization, OrganizationSSOConnection
-from polar.openapi import APITag
-from polar.organization.repository import OrganizationRepository
-from polar.organization.service import organization as organization_service
-from polar.organization_domain.repository import OrganizationDomainRepository
-from polar.postgres import AsyncSession, get_db_session
-from polar.routing import APIRouter
-from polar.sso.repository import OrganizationSSOConnectionRepository
-from polar.user.repository import UserRepository
-from polar.user.service import UserCannotAuthenticate
-from polar.user.service import user as user_service
-from polar.user_organization.repository import UserOrganizationRepository
+from repalis.config import settings
+from repalis.exceptions import ResourceNotFound
+from repalis.kit.email import validate_email_syntax
+from repalis.models import Organization, OrganizationSSOConnection
+from repalis.openapi import APITag
+from repalis.organization.repository import OrganizationRepository
+from repalis.organization.service import organization as organization_service
+from repalis.organization_domain.repository import OrganizationDomainRepository
+from repalis.postgres import AsyncSession, get_db_session
+from repalis.routing import APIRouter
+from repalis.sso.repository import OrganizationSSOConnectionRepository
+from repalis.user.repository import UserRepository
+from repalis.user.service import UserCannotAuthenticate
+from repalis.user.service import user as user_service
+from repalis.user_organization.repository import UserOrganizationRepository
 
 from ..authentication_session import (
     AuthenticationSessionService,

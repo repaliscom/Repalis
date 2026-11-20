@@ -15,10 +15,10 @@ from sqlalchemy import (
 )
 from sqlalchemy.orm import Mapped, declared_attr, mapped_column, relationship
 
-from polar.config import settings
-from polar.kit.address import Address, AddressType
-from polar.kit.db.models import RecordModel
-from polar.kit.math import polar_round
+from repalis.config import settings
+from repalis.kit.address import Address, AddressType
+from repalis.kit.db.models import RecordModel
+from repalis.kit.math import polar_round
 
 if TYPE_CHECKING:
     from .account_credit import AccountCredit

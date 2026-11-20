@@ -14,11 +14,11 @@ from pydantic import (
     model_validator,
 )
 
-from polar.benefit.strategies.base.schemas import (
+from repalis.benefit.strategies.base.schemas import (
     BENEFIT_DESCRIPTION_MAX_LENGTH,
     BENEFIT_DESCRIPTION_MIN_LENGTH,
 )
-from polar.custom_field.schemas import (
+from repalis.custom_field.schemas import (
     CheckboxPropertiesInput,
     DatePropertiesInput,
     Name,
@@ -27,21 +27,21 @@ from polar.custom_field.schemas import (
     Slug,
     TextPropertiesInput,
 )
-from polar.enums import MeterInterval, SubscriptionRecurringInterval, TaxBehaviorOption
-from polar.kit.currency import PresentmentCurrency
-from polar.kit.external_id import ExternalID
-from polar.kit.metadata import MetadataInputMixin, MetadataOutputType
-from polar.kit.schemas import IDSchema, Int32, Schema, SetSchemaReference
-from polar.kit.trial import TrialConfigurationInputMixin, TrialInterval
-from polar.kit.versioning import QuerySchema
-from polar.kit.visibility import Visibility
-from polar.meter.aggregation import Aggregation
-from polar.meter.filter import Filter
-from polar.meter.schemas import MeterCreateBase
-from polar.meter.unit import MeterUnit
-from polar.models.benefit import BenefitType, BenefitVisibility
-from polar.models.catalog import CatalogStatus
-from polar.models.custom_field import (
+from repalis.enums import MeterInterval, SubscriptionRecurringInterval, TaxBehaviorOption
+from repalis.kit.currency import PresentmentCurrency
+from repalis.kit.external_id import ExternalID
+from repalis.kit.metadata import MetadataInputMixin, MetadataOutputType
+from repalis.kit.schemas import IDSchema, Int32, Schema, SetSchemaReference
+from repalis.kit.trial import TrialConfigurationInputMixin, TrialInterval
+from repalis.kit.versioning import QuerySchema
+from repalis.kit.visibility import Visibility
+from repalis.meter.aggregation import Aggregation
+from repalis.meter.filter import Filter
+from repalis.meter.schemas import MeterCreateBase
+from repalis.meter.unit import MeterUnit
+from repalis.models.benefit import BenefitType, BenefitVisibility
+from repalis.models.catalog import CatalogStatus
+from repalis.models.custom_field import (
     CustomFieldCheckboxProperties,
     CustomFieldDateProperties,
     CustomFieldNumberProperties,
@@ -49,11 +49,11 @@ from polar.models.custom_field import (
     CustomFieldTextProperties,
     CustomFieldType,
 )
-from polar.models.product import ProductVisibility
-from polar.models.product_price import ProductPriceAmountType
-from polar.organization.schemas import OrganizationID
-from polar.product.meter_interval import meter_interval_divides_billing_interval
-from polar.product.schemas import (
+from repalis.models.product import ProductVisibility
+from repalis.models.product_price import ProductPriceAmountType
+from repalis.organization.schemas import OrganizationID
+from repalis.product.meter_interval import meter_interval_divides_billing_interval
+from repalis.product.schemas import (
     PriceAmount,
     ProductDescription,
     ProductName,
@@ -63,8 +63,8 @@ from polar.product.schemas import (
     ProductPriceUnitBasedCreate,
     UnitLabel,
 )
-from polar.product.tiers import TiersInput, TierType
-from polar.webhook.schemas import (
+from repalis.product.tiers import TiersInput, TierType
+from repalis.webhook.schemas import (
     AvailableAPIVersion,
     CreatableEndpointFormat,
     EndpointEvents,

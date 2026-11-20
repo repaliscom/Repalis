@@ -4,8 +4,8 @@ from uuid import UUID
 from sqlalchemy import TIMESTAMP, ForeignKey, String, Text, Uuid
 from sqlalchemy.orm import Mapped, declared_attr, mapped_column, relationship
 
-from polar.auth.scope import Scope, scope_to_set
-from polar.kit.db.models.base import RecordModel
+from repalis.auth.scope import Scope, scope_to_set
+from repalis.kit.db.models.base import RecordModel
 
 from .organization import Organization
 

@@ -11,9 +11,9 @@ from uuid import UUID
 from fastapi import Request
 from tagflow import attr, tag, text
 
-from polar.enums import PaymentProcessor
-from polar.models import Dispute, Organization
-from polar.models.support_case import (
+from repalis.enums import PaymentProcessor
+from repalis.models import Dispute, Organization
+from repalis.models.support_case import (
     DisputeSupportCase,
     DisputeWinReason,
     SupportCase,
@@ -23,7 +23,7 @@ from polar.models.support_case import (
     SupportCaseMessageType,
     SupportCaseType,
 )
-from polar.support_case.pdf import is_mergeable
+from repalis.support_case.pdf import is_mergeable
 
 from .... import formatters
 from ....components import button, card, dispute_status_badge, evidence_due_label

@@ -1,7 +1,7 @@
 import structlog
 
-from polar.exceptions import PolarError
-from polar.integrations.github.client import GitHub, TokenAuthStrategy
+from repalis.exceptions import PolarError
+from repalis.integrations.github.client import GitHub, TokenAuthStrategy
 
 from .. import client as github
 

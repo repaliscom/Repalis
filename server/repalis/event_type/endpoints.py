@@ -2,13 +2,13 @@ from typing import Annotated
 
 from fastapi import Depends, Query
 
-from polar.event_type import auth, schemas, sorting
-from polar.event_type.service import event_type_service
-from polar.exceptions import ResourceNotFound
-from polar.kit.pagination import ListResource, PaginationParamsQuery
-from polar.openapi import APITag
-from polar.postgres import AsyncSession, get_db_session
-from polar.routing import APIRouter
+from repalis.event_type import auth, schemas, sorting
+from repalis.event_type.service import event_type_service
+from repalis.exceptions import ResourceNotFound
+from repalis.kit.pagination import ListResource, PaginationParamsQuery
+from repalis.openapi import APITag
+from repalis.postgres import AsyncSession, get_db_session
+from repalis.routing import APIRouter
 
 from .schemas import EventTypeListParams
 

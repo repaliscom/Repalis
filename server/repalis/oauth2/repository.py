@@ -5,11 +5,11 @@ from uuid import UUID
 from sqlalchemy import ColumnElement, and_, delete, func, or_, select, update
 from sqlalchemy.orm import joinedload
 
-from polar.config import settings
-from polar.enums import TokenType
-from polar.kit.crypto import get_token_hash_candidates
-from polar.kit.repository import RepositoryBase, RepositoryTokenHashMixin
-from polar.models import (
+from repalis.config import settings
+from repalis.enums import TokenType
+from repalis.kit.crypto import get_token_hash_candidates
+from repalis.kit.repository import RepositoryBase, RepositoryTokenHashMixin
+from repalis.models import (
     OAuth2AuthorizationCode,
     OAuth2Client,
     OAuth2Token,

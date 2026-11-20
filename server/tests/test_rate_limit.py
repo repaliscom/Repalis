@@ -4,19 +4,19 @@ from pytest_mock import MockerFixture
 from starlette.responses import Response
 from starlette.types import Receive, Scope, Send
 
-from polar.app import create_app
-from polar.auth.middlewares import AuthSubjectMiddleware
-from polar.auth.models import AuthSubject, Subject
-from polar.config import Environment, settings
-from polar.enums import RateLimitGroup
-from polar.middlewares import TransactionalMiddleware
-from polar.rate_limit import (
+from repalis.app import create_app
+from repalis.auth.middlewares import AuthSubjectMiddleware
+from repalis.auth.models import AuthSubject, Subject
+from repalis.config import Environment, settings
+from repalis.enums import RateLimitGroup
+from repalis.middlewares import TransactionalMiddleware
+from repalis.rate_limit import (
     _authenticate,
     get_authentication_middleware,
     get_ip_middleware,
     get_middleware,
 )
-from polar.redis import Redis
+from repalis.redis import Redis
 from tests.fixtures.auth import AuthSubjectFixture
 
 _AUTHENTICATION_PATHS = [
@@ -192,8 +192,8 @@ class TestMiddleware:
         assert statuses == [204] * 6 + [429]
 
     def test_app_middleware_order(self, mocker: MockerFixture, redis: Redis) -> None:
-        mocker.patch("polar.app.settings.is_testing", return_value=False)
-        create_redis = mocker.patch("polar.app.create_redis", return_value=redis)
+        mocker.patch("repalis.app.settings.is_testing", return_value=False)
+        create_redis = mocker.patch("repalis.app.create_redis", return_value=redis)
         app = create_app()
         create_redis.assert_called_once_with("rate-limit")
         assert app.state.rate_limit_redis is redis

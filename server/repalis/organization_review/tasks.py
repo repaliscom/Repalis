@@ -4,34 +4,34 @@ from typing import Annotated
 
 import structlog
 
-from polar.config import Environment, settings
-from polar.exceptions import PolarTaskError
-from polar.integrations.repalis.service import polar_self
-from polar.models.organization import (
+from repalis.config import Environment, settings
+from repalis.exceptions import PolarTaskError
+from repalis.integrations.repalis.service import polar_self
+from repalis.models.organization import (
     FIRST_REVIEW_THRESHOLD_CENTS,
     Organization,
     OrganizationStatus,
 )
-from polar.models.organization_review import OrganizationReview
-from polar.models.support_case import (
+from repalis.models.organization_review import OrganizationReview
+from repalis.models.support_case import (
     SupportCaseAudience,
     SupportCaseMessageAuthorKind,
 )
-from polar.observability.task_logging import LoggableField
-from polar.organization.repository import (
+from repalis.observability.task_logging import LoggableField
+from repalis.organization.repository import (
     OrganizationRepository,
 )
-from polar.organization.repository import (
+from repalis.organization.repository import (
     OrganizationReviewRepository as OrgReviewRepository,
 )
-from polar.organization.service import organization as organization_service
-from polar.postgres import AsyncSession
-from polar.support_case.repository import (
+from repalis.organization.service import organization as organization_service
+from repalis.postgres import AsyncSession
+from repalis.support_case.repository import (
     SupportCaseMessageRepository,
     SupportCaseRepository,
 )
-from polar.support_case.service import support_case as support_case_service
-from polar.worker import AsyncSessionMaker, TaskPriority, actor
+from repalis.support_case.service import support_case as support_case_service
+from repalis.worker import AsyncSessionMaker, TaskPriority, actor
 
 from .agent import run_organization_review
 from .appeal_case import HUMAN_REVIEW_GREETING, publish_appeal_update

@@ -1,6 +1,6 @@
 from typing import NotRequired, TypedDict
 
-from polar.config import settings
+from repalis.config import settings
 
 
 class DiscordEmbedFooter(TypedDict):

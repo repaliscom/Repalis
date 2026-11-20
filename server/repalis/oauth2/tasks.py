@@ -1,5 +1,5 @@
-from polar.kit.utils import utc_now
-from polar.worker import AsyncSessionMaker, CronTrigger, TaskPriority, actor
+from repalis.kit.utils import utc_now
+from repalis.worker import AsyncSessionMaker, CronTrigger, TaskPriority, actor
 
 from .repository import OAuth2ClientRepository
 from .service.oauth2_token import oauth2_token as oauth2_token_service

@@ -2,11 +2,11 @@ from typing import Annotated
 
 from fastapi import Depends
 
-from polar.auth.dependencies import Authenticator
-from polar.auth.models import Agent, AuthSubject, Organization, User
-from polar.auth.scope import Scope
-from polar.authz.dependencies import AuthzContext, OrgPolicyGuard
-from polar.authz.policies import organization as org_policy
+from repalis.auth.dependencies import Authenticator
+from repalis.auth.models import Agent, AuthSubject, Organization, User
+from repalis.auth.scope import Scope
+from repalis.authz.dependencies import AuthzContext, OrgPolicyGuard
+from repalis.authz.policies import organization as org_policy
 
 OrganizationsRead = Annotated[
     AuthSubject[User | Organization | Agent],

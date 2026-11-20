@@ -3,9 +3,9 @@ from uuid import UUID
 from sqlalchemy import ForeignKey, Index, String, Uuid
 from sqlalchemy.orm import Mapped, declared_attr, mapped_column, relationship
 
-from polar.kit.db.models.base import RecordModel
-from polar.models.organization import Organization
-from polar.models.user import User
+from repalis.kit.db.models.base import RecordModel
+from repalis.models.organization import Organization
+from repalis.models.user import User
 
 
 class DiscordGuildConnection(RecordModel):

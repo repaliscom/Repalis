@@ -3,12 +3,12 @@ from typing import Annotated
 from pydantic import UUID4, AliasChoices, AliasPath, Field, model_validator
 from pydantic.json_schema import SkipJsonSchema
 
-from polar.enums import PaymentProcessor
-from polar.kit.schemas import MultipleQueryFilter, Schema
-from polar.kit.versioning import QuerySchema, Version
-from polar.models.product import ProductBillingType
-from polar.order.schemas import OrderBase, OrderItemSchema, OrderUpdateBase
-from polar.product.schemas import (
+from repalis.enums import PaymentProcessor
+from repalis.kit.schemas import MultipleQueryFilter, Schema
+from repalis.kit.versioning import QuerySchema, Version
+from repalis.models.product import ProductBillingType
+from repalis.order.schemas import OrderBase, OrderItemSchema, OrderUpdateBase
+from repalis.product.schemas import (
     BenefitPublicList,
     ProductBase,
     ProductID,
@@ -16,8 +16,8 @@ from polar.product.schemas import (
     ProductPrice,
     ProductPriceList,
 )
-from polar.subscription.schemas import SubscriptionBase, SubscriptionID
-from polar.version import V2026_10
+from repalis.subscription.schemas import SubscriptionBase, SubscriptionID
+from repalis.version import V2026_10
 
 from .organization import CustomerOrganization
 

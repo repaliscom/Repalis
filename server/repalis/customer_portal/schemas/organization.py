@@ -2,15 +2,15 @@ from typing import Annotated, Self
 
 from pydantic import Field, model_validator
 
-from polar.file.schemas import ProductMediaFileRead
-from polar.kit.schemas import Schema
-from polar.kit.versioning import Version
-from polar.models.organization import OrganizationCustomerPortalSettings
-from polar.organization.schemas import (
+from repalis.file.schemas import ProductMediaFileRead
+from repalis.kit.schemas import Schema
+from repalis.kit.versioning import Version
+from repalis.models.organization import OrganizationCustomerPortalSettings
+from repalis.organization.schemas import (
     OrganizationPublicBase,
 )
-from polar.product.schemas import BenefitPublicList, ProductBase, ProductPrice
-from polar.version import V2026_10
+from repalis.product.schemas import BenefitPublicList, ProductBase, ProductPrice
+from repalis.version import V2026_10
 
 
 class CustomerProduct(ProductBase):

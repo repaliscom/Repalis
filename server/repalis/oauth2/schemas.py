@@ -14,13 +14,13 @@ from pydantic import (
     TypeAdapter,
 )
 
-from polar.auth.scope import (
+from repalis.auth.scope import (
     SCOPES_SUPPORTED,
     SCOPES_SUPPORTED_DISPLAY_NAMES,
     Scope,
     scope_to_list,
 )
-from polar.kit.schemas import Schema, TimestampedSchema
+from repalis.kit.schemas import Schema, TimestampedSchema
 
 from .sub_type import SubType
 

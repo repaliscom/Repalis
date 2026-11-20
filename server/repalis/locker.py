@@ -7,9 +7,9 @@ from fastapi import Depends
 from redis.asyncio.lock import Lock
 from redis.exceptions import LockNotOwnedError
 
-from polar.exceptions import PolarError
-from polar.logging import Logger
-from polar.redis import Redis, get_redis
+from repalis.exceptions import PolarError
+from repalis.logging import Logger
+from repalis.redis import Redis, get_redis
 
 log: Logger = structlog.get_logger()
 

@@ -4,20 +4,20 @@ from fastapi import Depends, HTTPException, Query, Request
 from pydantic import UUID4
 from starlette.responses import RedirectResponse
 
-from polar.auth.dependencies import WebUserOrAnonymous
-from polar.auth.models import is_user
-from polar.config import settings
-from polar.external_event.service import external_event as external_event_service
-from polar.kit.http import get_safe_return_url
-from polar.models.external_event import ExternalEventSource
-from polar.payout_account.repository import PayoutAccountRepository
-from polar.payout_account.service import (
+from repalis.auth.dependencies import WebUserOrAnonymous
+from repalis.auth.models import is_user
+from repalis.config import settings
+from repalis.external_event.service import external_event as external_event_service
+from repalis.kit.http import get_safe_return_url
+from repalis.models.external_event import ExternalEventSource
+from repalis.payout_account.repository import PayoutAccountRepository
+from repalis.payout_account.service import (
     PayoutAccountExternalLinkUnsupported,
     PayoutAccountRejected,
 )
-from polar.payout_account.service import payout_account as payout_account_service
-from polar.postgres import AsyncSession, get_db_session
-from polar.routing import APIRouter
+from repalis.payout_account.service import payout_account as payout_account_service
+from repalis.postgres import AsyncSession, get_db_session
+from repalis.routing import APIRouter
 
 from .account_risk import is_account_risk_event
 

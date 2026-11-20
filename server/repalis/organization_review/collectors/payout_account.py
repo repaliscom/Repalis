@@ -1,6 +1,6 @@
 import structlog
 
-from polar.models import PayoutAccount
+from repalis.models import PayoutAccount
 
 from ..schemas import PayoutAccountData
 

@@ -18,7 +18,7 @@ from sqlalchemy import (
 )
 from sqlalchemy.orm import contains_eager, joinedload, raiseload, selectinload
 
-from polar.auth.models import (
+from repalis.auth.models import (
     AuthSubject,
     Member,
     User,
@@ -27,10 +27,10 @@ from polar.auth.models import (
     is_organization,
     is_user,
 )
-from polar.auth.permission import OrganizationPermission
-from polar.authz.repository import select_accessible_org_ids
-from polar.authz.types import AccessibleOrganizationID
-from polar.kit.repository import (
+from repalis.auth.permission import OrganizationPermission
+from repalis.authz.repository import select_accessible_org_ids
+from repalis.authz.types import AccessibleOrganizationID
+from repalis.kit.repository import (
     Options,
     RepositoryBase,
     RepositorySoftDeletionIDMixin,
@@ -38,13 +38,13 @@ from polar.kit.repository import (
     RepositorySortingMixin,
     SortingClause,
 )
-from polar.kit.utils import utc_now
-from polar.metrics.fx import (
+from repalis.kit.utils import utc_now
+from repalis.metrics.fx import (
     closest_recorded_exchange_rate,
     payment_exchange_rate,
     usd_settled_payment_clauses,
 )
-from polar.models import (
+from repalis.models import (
     Customer,
     Discount,
     Dispute,
@@ -58,11 +58,11 @@ from polar.models import (
     Subscription,
     Transaction,
 )
-from polar.models.dispute import DisputeStatus
-from polar.models.order import OrderBillingReasonInternal, OrderStatus
-from polar.models.payment import PaymentStatus
-from polar.models.refund import RefundStatus
-from polar.models.subscription import SubscriptionStatus
+from repalis.models.dispute import DisputeStatus
+from repalis.models.order import OrderBillingReasonInternal, OrderStatus
+from repalis.models.payment import PaymentStatus
+from repalis.models.refund import RefundStatus
+from repalis.models.subscription import SubscriptionStatus
 
 from .sorting import OrderSortProperty
 

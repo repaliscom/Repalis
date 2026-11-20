@@ -4,10 +4,10 @@ import pytest
 from httpx2 import AsyncClient
 from sqlalchemy import select
 
-from polar.auth.scope import READ_ONLY_SCOPES
-from polar.models import Feedback, Organization, User, UserOrganization
-from polar.models.feedback import FeedbackStatus, FeedbackType
-from polar.postgres import AsyncSession
+from repalis.auth.scope import READ_ONLY_SCOPES
+from repalis.models import Feedback, Organization, User, UserOrganization
+from repalis.models.feedback import FeedbackStatus, FeedbackType
+from repalis.postgres import AsyncSession
 from tests.fixtures.auth import AuthSubjectFixture
 
 

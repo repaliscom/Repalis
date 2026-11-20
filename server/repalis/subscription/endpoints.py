@@ -4,25 +4,25 @@ from zoneinfo import ZoneInfo
 import structlog
 from fastapi import Depends, Query
 
-from polar.auth.permission import OrganizationPermission
-from polar.authz.service import assert_resource_permission
-from polar.exceptions import NotPermitted, PaymentNotReady, ResourceNotFound
-from polar.kit.csv import CSVStreamingResponse
-from polar.kit.metadata import MetadataQuery, get_metadata_query_openapi_schema
-from polar.kit.pagination import ListResource, PaginationParamsQuery
-from polar.kit.versioning import version
-from polar.models import Subscription, SubscriptionBulkUpdate
-from polar.openapi import APITag, cli_preview
-from polar.order.service import PaymentActionRequired, PaymentFailed
-from polar.postgres import (
+from repalis.auth.permission import OrganizationPermission
+from repalis.authz.service import assert_resource_permission
+from repalis.exceptions import NotPermitted, PaymentNotReady, ResourceNotFound
+from repalis.kit.csv import CSVStreamingResponse
+from repalis.kit.metadata import MetadataQuery, get_metadata_query_openapi_schema
+from repalis.kit.pagination import ListResource, PaginationParamsQuery
+from repalis.kit.versioning import version
+from repalis.models import Subscription, SubscriptionBulkUpdate
+from repalis.openapi import APITag, cli_preview
+from repalis.order.service import PaymentActionRequired, PaymentFailed
+from repalis.postgres import (
     AsyncReadSession,
     AsyncSession,
     get_db_read_session,
     get_db_session,
 )
-from polar.routing import APIRouter
-from polar.subscription.schemas import SubscriptionListParams
-from polar.version import V2027_01
+from repalis.routing import APIRouter
+from repalis.subscription.schemas import SubscriptionListParams
+from repalis.version import V2027_01
 
 from . import auth, sorting
 from .bulk_update import subscription_bulk_update as subscription_bulk_update_service

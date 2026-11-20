@@ -3,7 +3,7 @@ from datetime import datetime
 from decimal import Decimal
 from uuid import UUID
 
-from polar.meter.aggregation import AggregationFunction
+from repalis.meter.aggregation import AggregationFunction
 
 
 @dataclass(frozen=True)

@@ -6,8 +6,8 @@ from collections.abc import Generator
 from fastapi import Request
 from tagflow import tag, text
 
-from polar.enums import PayoutAccountType
-from polar.models import Organization
+from repalis.enums import PayoutAccountType
+from repalis.models import Organization
 
 from ....components import button, card
 

@@ -1,5 +1,5 @@
-from polar.exceptions import PolarRequestValidationError
-from polar.kit.currency import (
+from repalis.exceptions import PolarRequestValidationError
+from repalis.kit.currency import (
     format_currency,
     get_maximum_currency_amount,
     get_minimum_currency_amount,

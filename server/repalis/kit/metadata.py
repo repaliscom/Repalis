@@ -8,7 +8,7 @@ from sqlalchemy import ColumnExpressionArgument, Select, and_, or_, true
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import Mapped, mapped_column
 
-from polar.exceptions import PolarRequestValidationError
+from repalis.exceptions import PolarRequestValidationError
 
 MetadataColumn = Annotated[
     dict[str, Any], mapped_column(JSONB, nullable=False, default=dict)

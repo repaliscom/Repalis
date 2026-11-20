@@ -1,10 +1,10 @@
 import uuid
 from typing import Annotated
 
-from polar.exceptions import PolarTaskError
-from polar.integrations.resend.service import resend as resend_service
-from polar.observability.task_logging import LoggableField
-from polar.worker import AsyncSessionMaker, TaskPriority, actor
+from repalis.exceptions import PolarTaskError
+from repalis.integrations.resend.service import resend as resend_service
+from repalis.observability.task_logging import LoggableField
+from repalis.worker import AsyncSessionMaker, TaskPriority, actor
 
 from .repository import UserRepository
 

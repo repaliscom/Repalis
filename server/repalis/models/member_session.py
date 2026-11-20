@@ -6,9 +6,9 @@ from uuid import UUID
 from sqlalchemy import TIMESTAMP, ForeignKey, String, Uuid
 from sqlalchemy.orm import Mapped, declared_attr, mapped_column, relationship
 
-from polar.config import settings
-from polar.kit.db.models.base import RecordModel
-from polar.kit.utils import utc_now
+from repalis.config import settings
+from repalis.kit.db.models.base import RecordModel
+from repalis.kit.utils import utc_now
 
 if TYPE_CHECKING:
     from .customer import Customer

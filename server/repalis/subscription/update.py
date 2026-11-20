@@ -3,9 +3,9 @@ from datetime import datetime
 
 from parse import Decimal
 
-from polar.enums import ProrationBehaviorSetting, SubscriptionProrationBehavior
-from polar.kit.utils import utc_now
-from polar.models import (
+from repalis.enums import ProrationBehaviorSetting, SubscriptionProrationBehavior
+from repalis.kit.utils import utc_now
+from repalis.models import (
     BillingEntry,
     Discount,
     Product,
@@ -13,19 +13,19 @@ from polar.models import (
     Subscription,
     SubscriptionUpdate,
 )
-from polar.models.billing_entry import BillingEntryDirection, BillingEntryType
-from polar.models.product_price import (
+from repalis.models.billing_entry import BillingEntryDirection, BillingEntryType
+from repalis.models.product_price import (
     ProductPriceFixed,
     ProductPriceSeatUnit,
     ProductPriceUnit,
 )
-from polar.product.guard import (
+from repalis.product.guard import (
     is_fixed_price,
     is_recurring_product,
     is_seat_price,
     is_unit_price,
 )
-from polar.product.price_set import PriceSet
+from repalis.product.price_set import PriceSet
 
 
 def _calculate_time_proration(

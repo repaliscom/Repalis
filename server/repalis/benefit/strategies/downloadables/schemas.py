@@ -3,9 +3,9 @@ from typing import Annotated, Any, Literal
 from annotated_types import Len
 from pydantic import UUID4, Field, model_validator
 
-from polar.file.schemas import DownloadableFileRead
-from polar.kit.schemas import Schema
-from polar.models.benefit import BenefitType
+from repalis.file.schemas import DownloadableFileRead
+from repalis.kit.schemas import Schema
+from repalis.models.benefit import BenefitType
 
 from ..base.schemas import (
     BenefitBase,

@@ -3,11 +3,11 @@ from collections.abc import AsyncGenerator
 import pytest
 from fastapi import FastAPI
 from httpx2 import ASGITransport, AsyncClient
-from polar.v2026_04 import PolarAsync
+from repalis.v2026_04 import PolarAsync
 
-from polar.auth.scope import Scope
-from polar.kit.utils import utc_now
-from polar.models import Benefit, Customer, Organization, Product, UserOrganization
+from repalis.auth.scope import Scope
+from repalis.kit.utils import utc_now
+from repalis.models import Benefit, Customer, Organization, Product, UserOrganization
 from tests.fixtures.auth import AuthSubjectFixture
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (

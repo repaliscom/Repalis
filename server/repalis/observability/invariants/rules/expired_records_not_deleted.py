@@ -5,11 +5,11 @@ from datetime import datetime, timedelta
 from sqlalchemy import Column, ColumnElement, and_, func, or_, select
 from sqlalchemy.sql.visitors import iterate
 
-from polar.checkout.repository import expired_pending_anonymization
-from polar.config import settings
-from polar.kit.db.models import RecordModel
-from polar.kit.utils import utc_now
-from polar.models import (
+from repalis.checkout.repository import expired_pending_anonymization
+from repalis.config import settings
+from repalis.kit.db.models import RecordModel
+from repalis.kit.utils import utc_now
+from repalis.models import (
     AuthenticationSession,
     Checkout,
     CustomerEmailVerification,
@@ -29,8 +29,8 @@ from polar.models import (
     WebhookDelivery,
     WebhookEvent,
 )
-from polar.models.merchant_migration import MERCHANT_MIGRATION_FINISHED_STEPS
-from polar.oauth2.repository import stale_oauth2_client
+from repalis.models.merchant_migration import MERCHANT_MIGRATION_FINISHED_STEPS
+from repalis.oauth2.repository import stale_oauth2_client
 
 from .base import Invariant, InvariantError
 

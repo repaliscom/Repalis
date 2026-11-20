@@ -1,6 +1,6 @@
 from fastapi.routing import iter_route_contexts
 
-from polar.event_ingestion_api_app import app
+from repalis.event_ingestion_api_app import app
 
 
 def test_serves_only_event_ingestion_and_health_check() -> None:

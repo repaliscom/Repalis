@@ -8,7 +8,7 @@ from pydantic_core import PydanticCustomError
 from sqlalchemy import Boolean, Integer
 from sqlalchemy.orm import Mapped, mapped_column
 
-from polar.kit.extensions.sqlalchemy.types import StringEnum
+from repalis.kit.extensions.sqlalchemy.types import StringEnum
 
 
 class TrialInterval(StrEnum):

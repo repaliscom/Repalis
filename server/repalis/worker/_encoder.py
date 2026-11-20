@@ -3,7 +3,7 @@ from typing import Any
 
 import dramatiq
 
-from polar.kit.json import json_obj_serializer
+from repalis.kit.json import json_obj_serializer
 
 
 class JSONEncoder(dramatiq.JSONEncoder):

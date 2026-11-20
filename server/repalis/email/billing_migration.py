@@ -1,8 +1,8 @@
-from polar.email.schemas import EmailTemplate
-from polar.merchant_migration.repository import MerchantMigrationRecordRepository
-from polar.models import MerchantMigrationSourcePlatform, Subscription
-from polar.order.repository import OrderRepository
-from polar.postgres import AsyncSession
+from repalis.email.schemas import EmailTemplate
+from repalis.merchant_migration.repository import MerchantMigrationRecordRepository
+from repalis.models import MerchantMigrationSourcePlatform, Subscription
+from repalis.order.repository import OrderRepository
+from repalis.postgres import AsyncSession
 
 PRE_BILLING_NOTICE_TEMPLATES: frozenset[EmailTemplate] = frozenset(
     {

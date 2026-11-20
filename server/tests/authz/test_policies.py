@@ -1,14 +1,14 @@
 import pytest
 
-from polar.auth.models import AuthSubject
-from polar.authz.policies import finance as finance_policy
-from polar.authz.policies import members
-from polar.authz.policies import organization as org_policy
-from polar.kit.utils import utc_now
-from polar.models import Agent, Organization, User
-from polar.models.agent import AgentStatus
-from polar.models.user_organization import OrganizationRole, UserOrganization
-from polar.postgres import AsyncSession
+from repalis.auth.models import AuthSubject
+from repalis.authz.policies import finance as finance_policy
+from repalis.authz.policies import members
+from repalis.authz.policies import organization as org_policy
+from repalis.kit.utils import utc_now
+from repalis.models import Agent, Organization, User
+from repalis.models.agent import AgentStatus
+from repalis.models.user_organization import OrganizationRole, UserOrganization
+from repalis.postgres import AsyncSession
 from tests.fixtures.auth import AuthSubjectFixture
 from tests.fixtures.database import SaveFixture
 

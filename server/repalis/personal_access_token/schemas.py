@@ -2,8 +2,8 @@ from datetime import datetime
 
 from pydantic import UUID4
 
-from polar.auth.scope import Scope
-from polar.kit.schemas import Schema, TimestampedSchema
+from repalis.auth.scope import Scope
+from repalis.kit.schemas import Schema, TimestampedSchema
 
 
 class PersonalAccessToken(TimestampedSchema):

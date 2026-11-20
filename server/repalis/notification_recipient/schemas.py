@@ -2,7 +2,7 @@ from enum import StrEnum
 
 from pydantic import UUID4, Field
 
-from polar.kit.schemas import IDSchema, Schema, TimestampedSchema
+from repalis.kit.schemas import IDSchema, Schema, TimestampedSchema
 
 
 class NotificationRecipientPlatform(StrEnum):

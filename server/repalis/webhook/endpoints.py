@@ -3,15 +3,15 @@ from typing import Annotated
 from fastapi import Depends, Path, Query
 from pydantic import UUID4
 
-from polar.exceptions import ResourceNotFound
-from polar.kit.pagination import ListResource, PaginationParamsQuery
-from polar.kit.schemas import SetSchemaReference
-from polar.kit.versioning import version
-from polar.models import WebhookEndpoint
-from polar.openapi import APITag, cli_preview, destructive, open_world
-from polar.postgres import AsyncSession, get_db_session
-from polar.routing import APIRouter
-from polar.version import V2026_10, V2027_01
+from repalis.exceptions import ResourceNotFound
+from repalis.kit.pagination import ListResource, PaginationParamsQuery
+from repalis.kit.schemas import SetSchemaReference
+from repalis.kit.versioning import version
+from repalis.models import WebhookEndpoint
+from repalis.openapi import APITag, cli_preview, destructive, open_world
+from repalis.postgres import AsyncSession, get_db_session
+from repalis.routing import APIRouter
+from repalis.version import V2026_10, V2027_01
 
 from .auth import WebhooksRead, WebhooksWrite
 from .schemas import (

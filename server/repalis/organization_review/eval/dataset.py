@@ -19,11 +19,11 @@ from pydantic_evals import Case, Dataset
 from sqlalchemy import select
 from sqlalchemy.orm import selectinload
 
-from polar.kit.schemas import Schema
-from polar.models.organization_agent_review import OrganizationAgentReview
-from polar.models.organization_review_feedback import OrganizationReviewFeedback
-from polar.organization_review.report import parse_agent_report
-from polar.organization_review.schemas import (
+from repalis.kit.schemas import Schema
+from repalis.models.organization_agent_review import OrganizationAgentReview
+from repalis.models.organization_review_feedback import OrganizationReviewFeedback
+from repalis.organization_review.report import parse_agent_report
+from repalis.organization_review.schemas import (
     ActorType,
     DataSnapshot,
     DecisionType,

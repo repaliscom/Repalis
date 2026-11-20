@@ -8,10 +8,10 @@ import redis
 import redis.asyncio
 import structlog
 
-from polar.config import settings
-from polar.logging import Logger
-from polar.observability import TASK_DEBOUNCE_DELAY, TASK_DEBOUNCED
-from polar.redis import SyncFailoverRedis
+from repalis.config import settings
+from repalis.logging import Logger
+from repalis.observability import TASK_DEBOUNCE_DELAY, TASK_DEBOUNCED
+from repalis.redis import SyncFailoverRedis
 
 if TYPE_CHECKING:
     from ._enqueue import JSONSerializable

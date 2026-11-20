@@ -2,7 +2,7 @@ from datetime import datetime
 
 from tagflow import tag, text
 
-from polar.models.dispute import DisputeStatus
+from repalis.models.dispute import DisputeStatus
 
 
 def evidence_due_label(

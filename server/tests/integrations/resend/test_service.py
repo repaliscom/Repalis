@@ -6,14 +6,14 @@ import httpx2
 import pytest
 from pytest_mock import MockerFixture
 
-from polar.config import settings
-from polar.integrations.resend.client import ResendAPIError
-from polar.integrations.resend.service import UserDoesNotExist
-from polar.integrations.resend.service import resend as resend_service
-from polar.kit.utils import utc_now
-from polar.models import Organization, User, UserOrganization
-from polar.models.organization import OrganizationStatus
-from polar.postgres import AsyncSession
+from repalis.config import settings
+from repalis.integrations.resend.client import ResendAPIError
+from repalis.integrations.resend.service import UserDoesNotExist
+from repalis.integrations.resend.service import resend as resend_service
+from repalis.kit.utils import utc_now
+from repalis.models import Organization, User, UserOrganization
+from repalis.models.organization import OrganizationStatus
+from repalis.postgres import AsyncSession
 from tests.fixtures.database import SaveFixture
 
 
@@ -160,7 +160,7 @@ class TestSyncUser:
         failure_stage: str,
     ) -> None:
         mocker.patch.object(settings, "RESEND_ACTIVE_USERS_SEGMENT_ID", "active-users")
-        delete = mocker.patch("polar.integrations.resend.service.client.delete_contact")
+        delete = mocker.patch("repalis.integrations.resend.service.client.delete_contact")
         previous_email = user.email
         user.email = "new@example.com"
         user.resend_id = "old-contact"
@@ -485,7 +485,7 @@ class TestSyncOrganizationMembers:
         mocker: MockerFixture,
     ) -> None:
         mocker.patch.object(settings, "RESEND_ACTIVE_USERS_SEGMENT_ID", "active-users")
-        enqueue_job_mock = mocker.patch("polar.integrations.resend.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.integrations.resend.service.enqueue_job")
 
         await resend_service.sync_organization_members(session, organization.id)
 
@@ -516,7 +516,7 @@ class TestOnOrganizationStatusChanged:
         enqueued: bool,
     ) -> None:
         mocker.patch.object(settings, "RESEND_ACTIVE_USERS_SEGMENT_ID", "active-users")
-        enqueue_job_mock = mocker.patch("polar.integrations.resend.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.integrations.resend.service.enqueue_job")
         organization_id = uuid4()
 
         resend_service.on_organization_status_changed(

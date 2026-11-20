@@ -21,29 +21,29 @@ from sqlalchemy import (
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import aliased, joinedload
 
-from polar.auth.models import AuthSubject, Organization, User, is_organization, is_user
-from polar.authz.repository import select_accessible_org_ids
-from polar.config import settings
-from polar.enums import TaxBehavior
-from polar.kit.db.locking import pg_advisory_xact_lock
-from polar.kit.pagination import count_subquery
-from polar.kit.repository import (
+from repalis.auth.models import AuthSubject, Organization, User, is_organization, is_user
+from repalis.authz.repository import select_accessible_org_ids
+from repalis.config import settings
+from repalis.enums import TaxBehavior
+from repalis.kit.db.locking import pg_advisory_xact_lock
+from repalis.kit.pagination import count_subquery
+from repalis.kit.repository import (
     RepositoryBase,
     RepositorySoftDeletionIDMixin,
     RepositorySoftDeletionMixin,
 )
-from polar.models import (
+from repalis.models import (
     Customer,
     MerchantMigration,
     MerchantMigrationRecord,
     MerchantMigrationSourcePlatform,
     PaymentMethod,
 )
-from polar.models.merchant_migration import MERCHANT_MIGRATION_FINISHED_STEPS
-from polar.models.merchant_migration_operation import (
+from repalis.models.merchant_migration import MERCHANT_MIGRATION_FINISHED_STEPS
+from repalis.models.merchant_migration_operation import (
     MerchantMigrationOperationSelection,
 )
-from polar.models.merchant_migration_record import (
+from repalis.models.merchant_migration_record import (
     MerchantMigrationCutoverStatus,
     MerchantMigrationRecordStatus,
     MerchantMigrationRecordType,

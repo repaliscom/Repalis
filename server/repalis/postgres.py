@@ -3,8 +3,8 @@ from typing import Literal
 
 from fastapi import Request
 
-from polar.config import settings
-from polar.kit.db.postgres import (
+from repalis.config import settings
+from repalis.kit.db.postgres import (
     AsyncEngine,
     AsyncReadSession,
     AsyncReadSessionMaker,
@@ -13,8 +13,8 @@ from polar.kit.db.postgres import (
     Engine,
     sql,
 )
-from polar.kit.db.postgres import create_async_engine as _create_async_engine
-from polar.kit.db.postgres import create_sync_engine as _create_sync_engine
+from repalis.kit.db.postgres import create_async_engine as _create_async_engine
+from repalis.kit.db.postgres import create_sync_engine as _create_sync_engine
 
 type ProcessName = Literal["app", "worker", "scheduler", "script"]
 type AsyncDriver = Literal["asyncpg", "psycopg"]

@@ -1,7 +1,7 @@
 import structlog
 
-from polar.logging import Logger
-from polar.worker import TaskQueue, actor
+from repalis.logging import Logger
+from repalis.worker import TaskQueue, actor
 
 from .client import TinybirdPayloadTooLargeError, client
 from .schemas import TinybirdEvent

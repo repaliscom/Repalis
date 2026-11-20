@@ -6,14 +6,14 @@ import structlog
 from opentelemetry import trace
 from sqlalchemy.orm import joinedload, selectinload
 
-from polar.exceptions import PolarTaskError
-from polar.kit.utils import utc_now
-from polar.logging import Logger
-from polar.models import Subscription, SubscriptionMeter
-from polar.observability.task_logging import LoggableField
-from polar.product.repository import ProductRepository
-from polar.subscription.repository import SubscriptionRepository
-from polar.worker import (
+from repalis.exceptions import PolarTaskError
+from repalis.kit.utils import utc_now
+from repalis.logging import Logger
+from repalis.models import Subscription, SubscriptionMeter
+from repalis.observability.task_logging import LoggableField
+from repalis.product.repository import ProductRepository
+from repalis.subscription.repository import SubscriptionRepository
+from repalis.worker import (
     AsyncSessionMaker,
     CronTrigger,
     RedisMiddleware,

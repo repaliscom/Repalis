@@ -1,4 +1,4 @@
-from polar.worker import AsyncSessionMaker, CronTrigger, TaskPriority, actor
+from repalis.worker import AsyncSessionMaker, CronTrigger, TaskPriority, actor
 
 from .repository.customer_session_authentication_session import (
     CustomerSessionAuthenticationSessionRepository,

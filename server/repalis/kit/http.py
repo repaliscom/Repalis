@@ -15,7 +15,7 @@ from safe_redirect_url import url_has_allowed_host_and_scheme
 from starlette.datastructures import MutableHeaders
 from starlette.types import ASGIApp, Message, Receive, Scope, Send
 
-from polar.config import settings
+from repalis.config import settings
 
 
 def get_content_disposition(filename: str) -> str:

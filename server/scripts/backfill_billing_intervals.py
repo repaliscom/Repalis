@@ -17,11 +17,11 @@ import typer
 from sqlalchemy import Select, exists, func, select
 from sqlalchemy.orm import with_polymorphic
 
-from polar.billing_interval.repository import BillingIntervalRepository
-from polar.billing_interval.service import USAGE_POLICIES, derive_meter_billing_states
-from polar.billing_interval.service import billing_interval as billing_interval_service
-from polar.kit.db.postgres import AsyncSession, create_async_sessionmaker
-from polar.models import (
+from repalis.billing_interval.repository import BillingIntervalRepository
+from repalis.billing_interval.service import USAGE_POLICIES, derive_meter_billing_states
+from repalis.billing_interval.service import billing_interval as billing_interval_service
+from repalis.kit.db.postgres import AsyncSession, create_async_sessionmaker
+from repalis.models import (
     BillingInterval,
     Meter,
     ProductPrice,
@@ -30,9 +30,9 @@ from polar.models import (
     Subscription,
     SubscriptionProductPrice,
 )
-from polar.models.billing_interval import UsagePolicy
-from polar.models.subscription import SubscriptionStatus
-from polar.postgres import create_async_engine
+from repalis.models.billing_interval import UsagePolicy
+from repalis.models.subscription import SubscriptionStatus
+from repalis.postgres import create_async_engine
 
 from .helper import configure_script_console_logging, typer_async
 

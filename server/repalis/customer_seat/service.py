@@ -8,17 +8,17 @@ from typing import Any
 import structlog
 from sqlalchemy import inspect as sa_inspect
 
-from polar.auth.models import AuthSubject
-from polar.authz.service import get_accessible_org_ids
-from polar.customer.repository import CustomerRepository
-from polar.customer_seat.sender import send_seat_invitation_email
-from polar.eventstream.service import publish as eventstream_publish
-from polar.exceptions import PolarError
-from polar.kit.db.postgres import AsyncSession
-from polar.member.repository import MemberRepository
-from polar.member.service import member_service
-from polar.member_session.service import member_session as member_session_service
-from polar.models import (
+from repalis.auth.models import AuthSubject
+from repalis.authz.service import get_accessible_org_ids
+from repalis.customer.repository import CustomerRepository
+from repalis.customer_seat.sender import send_seat_invitation_email
+from repalis.eventstream.service import publish as eventstream_publish
+from repalis.exceptions import PolarError
+from repalis.kit.db.postgres import AsyncSession
+from repalis.member.repository import MemberRepository
+from repalis.member.service import member_service
+from repalis.member_session.service import member_session as member_session_service
+from repalis.models import (
     Customer,
     CustomerSeat,
     Member,
@@ -28,13 +28,13 @@ from polar.models import (
     Subscription,
     User,
 )
-from polar.models.customer_seat import SeatStatus
-from polar.models.order import OrderStatus
-from polar.models.webhook_endpoint import WebhookEventType
-from polar.organization.repository import OrganizationRepository
-from polar.postgres import AsyncReadSession
-from polar.webhook.service import webhook as webhook_service
-from polar.worker import enqueue_job, make_bulk_job_delay_calculator
+from repalis.models.customer_seat import SeatStatus
+from repalis.models.order import OrderStatus
+from repalis.models.webhook_endpoint import WebhookEventType
+from repalis.organization.repository import OrganizationRepository
+from repalis.postgres import AsyncReadSession
+from repalis.webhook.service import webhook as webhook_service
+from repalis.worker import enqueue_job, make_bulk_job_delay_calculator
 
 from .repository import CustomerSeatRepository
 

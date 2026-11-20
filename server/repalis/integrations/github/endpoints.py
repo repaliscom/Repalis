@@ -1,9 +1,9 @@
 from fastapi import Depends, Header, Request
 from fastapi.responses import JSONResponse
 
-from polar.openapi import APITag
-from polar.postgres import AsyncSession, get_db_session
-from polar.routing import APIRouter
+from repalis.openapi import APITag
+from repalis.postgres import AsyncSession, get_db_session
+from repalis.routing import APIRouter
 
 from .service.secret_scanning import secret_scanning as secret_scanning_service
 

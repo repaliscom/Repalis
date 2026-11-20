@@ -12,8 +12,8 @@ from sqlalchemy import (
 )
 from sqlalchemy.orm import InstrumentedAttribute
 
-from polar.models import Transaction
-from polar.models.transaction import TransactionType
+from repalis.models import Transaction
+from repalis.models.transaction import TransactionType
 
 
 def payment_exchange_rate() -> ColumnElement[Decimal]:

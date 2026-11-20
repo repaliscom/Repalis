@@ -11,12 +11,12 @@ import pytest
 from httpx2 import AsyncClient
 from standardwebhooks.webhooks import Webhook as StandardWebhook
 
-from polar.kit.utils import utc_now
-from polar.mcp_event.catalog import MCP_EVENTS
-from polar.models import Organization, User, WebhookEndpoint
-from polar.models.user_organization import OrganizationRole, UserOrganization
-from polar.models.webhook_endpoint import WebhookEventType, WebhookFormat
-from polar.postgres import AsyncSession
+from repalis.kit.utils import utc_now
+from repalis.mcp_event.catalog import MCP_EVENTS
+from repalis.models import Organization, User, WebhookEndpoint
+from repalis.models.user_organization import OrganizationRole, UserOrganization
+from repalis.models.webhook_endpoint import WebhookEventType, WebhookFormat
+from repalis.postgres import AsyncSession
 from tests.fixtures.auth import AuthSubjectFixture
 from tests.fixtures.database import SaveFixture
 

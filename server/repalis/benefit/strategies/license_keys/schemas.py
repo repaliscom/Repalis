@@ -2,8 +2,8 @@ from typing import Literal
 
 from pydantic import Field, model_validator
 
-from polar.kit.schemas import EmptyStrToNone, Int32, Schema
-from polar.models.benefit import BenefitType
+from repalis.kit.schemas import EmptyStrToNone, Int32, Schema
+from repalis.models.benefit import BenefitType
 
 from ..base.schemas import (
     BenefitBase,

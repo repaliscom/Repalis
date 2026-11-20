@@ -4,9 +4,9 @@ from unittest.mock import MagicMock
 import pytest
 from pytest_mock import MockerFixture
 
-from polar.email.schemas import OAuth2LeakedTokenEmail
-from polar.enums import TokenType
-from polar.models import (
+from repalis.email.schemas import OAuth2LeakedTokenEmail
+from repalis.enums import TokenType
+from repalis.models import (
     Agent,
     OAuth2Client,
     OAuth2Token,
@@ -14,8 +14,8 @@ from polar.models import (
     User,
     UserOrganization,
 )
-from polar.oauth2.service.oauth2_token import oauth2_token as oauth2_token_service
-from polar.postgres import AsyncSession
+from repalis.oauth2.service.oauth2_token import oauth2_token as oauth2_token_service
+from repalis.postgres import AsyncSession
 from tests.fixtures.database import SaveFixture
 
 from ..conftest import create_oauth2_token
@@ -24,7 +24,7 @@ from ..conftest import create_oauth2_token
 @pytest.fixture(autouse=True)
 def enqueue_email_mock(mocker: MockerFixture) -> MagicMock:
     return mocker.patch(
-        "polar.oauth2.service.oauth2_token.enqueue_email_template", autospec=True
+        "repalis.oauth2.service.oauth2_token.enqueue_email_template", autospec=True
     )
 
 

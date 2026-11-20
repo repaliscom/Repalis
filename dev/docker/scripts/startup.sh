@@ -204,7 +204,7 @@ if [[ "${1:-api}" == "api" ]]; then
     echo "Checking for seed data..."
     SEED_CHECK=$(uv run python -c "
 import asyncio
-from polar.postgres import create_async_engine
+from repalis.postgres import create_async_engine
 from sqlalchemy import text
 
 async def check():
@@ -232,7 +232,7 @@ case "${1:-api}" in
     api)
         echo "Starting API server with hot-reload..."
         echo "API will be available at http://localhost:8000"
-        exec uv run uvicorn polar.app:app \
+        exec uv run uvicorn repalis.app:app \
             --reload \
             --reload-dir polar \
             --host 0.0.0.0 \
@@ -246,8 +246,8 @@ case "${1:-api}" in
             -t 1 \
             --queues high_priority medium_priority low_priority \
             --watch polar \
-            -f polar.worker.scheduler:start \
-            polar.worker.run
+            -f repalis.worker.scheduler:start \
+            repalis.worker.run
         ;;
     shell)
         echo "Starting shell..."

@@ -6,10 +6,10 @@ from sqlalchemy import TIMESTAMP, BigInteger, Index, String, Uuid, extract
 from sqlalchemy import cast as sqla_cast
 from sqlalchemy.orm import Mapped, mapped_column
 
-from polar.kit.db.models import Model
-from polar.kit.metadata import MetadataMixin
-from polar.kit.utils import generate_uuid, utc_now
-from polar.models.event import EventSource
+from repalis.kit.db.models import Model
+from repalis.kit.metadata import MetadataMixin
+from repalis.kit.utils import generate_uuid, utc_now
+from repalis.models.event import EventSource
 
 
 class StagedEvent(Model, MetadataMixin):

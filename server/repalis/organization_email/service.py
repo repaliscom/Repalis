@@ -3,17 +3,17 @@ import secrets
 import string
 from datetime import timedelta
 
-from polar.config import settings
-from polar.email.schemas import (
+from repalis.config import settings
+from repalis.email.schemas import (
     OrganizationEmailVerificationEmail,
     OrganizationEmailVerificationProps,
 )
-from polar.email.sender import enqueue_email_template
-from polar.exceptions import PolarError
-from polar.kit.crypto import get_token_hash, get_token_hash_candidates
-from polar.kit.utils import utc_now
-from polar.models import Organization, OrganizationEmail
-from polar.postgres import AsyncReadSession, AsyncSession
+from repalis.email.sender import enqueue_email_template
+from repalis.exceptions import PolarError
+from repalis.kit.crypto import get_token_hash, get_token_hash_candidates
+from repalis.kit.utils import utc_now
+from repalis.models import Organization, OrganizationEmail
+from repalis.postgres import AsyncReadSession, AsyncSession
 
 from .repository import OrganizationEmailRepository
 from .schemas import OrganizationEmailStatus

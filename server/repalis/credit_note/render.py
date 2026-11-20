@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 
-from polar.invoice.renderer import PDFRenderError, render_pdf
+from repalis.invoice.renderer import PDFRenderError, render_pdf
 
 from .generator import CreditNote, CreditNoteGenerator
 

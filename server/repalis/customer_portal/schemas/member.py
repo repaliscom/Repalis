@@ -1,9 +1,9 @@
 from pydantic import Field
 
-from polar.kit.email import EmailStrDNS
-from polar.kit.schemas import IDSchema, Schema, TimestampedSchema
-from polar.member.schemas import MemberNameInput
-from polar.models.member import MemberRole
+from repalis.kit.email import EmailStrDNS
+from repalis.kit.schemas import IDSchema, Schema, TimestampedSchema
+from repalis.member.schemas import MemberNameInput
+from repalis.models.member import MemberRole
 
 
 class CustomerPortalMember(IDSchema, TimestampedSchema):

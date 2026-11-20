@@ -5,7 +5,7 @@ from uuid import UUID
 from sqlalchemy import TIMESTAMP, Column, ForeignKey, Index, String, Uuid, func
 from sqlalchemy.orm import Mapped, declared_attr, mapped_column, relationship
 
-from polar.kit.db.models.base import RecordModel
+from repalis.kit.db.models.base import RecordModel
 
 if TYPE_CHECKING:
     from .organization import Organization

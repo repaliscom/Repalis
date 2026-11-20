@@ -11,15 +11,15 @@ import pytest
 import stripe as stripe_lib
 from httpx2 import AsyncClient
 
-from polar.checkout.repository import CheckoutRepository
-from polar.discount.repository import DiscountRedemptionRepository
-from polar.enums import PaymentProcessor
-from polar.kit.db.postgres import AsyncSession
-from polar.models import Organization, Product
-from polar.models.checkout import CheckoutStatus
-from polar.models.discount import DiscountDuration, DiscountType
-from polar.models.payment import PaymentStatus
-from polar.payment.repository import PaymentRepository
+from repalis.checkout.repository import CheckoutRepository
+from repalis.discount.repository import DiscountRedemptionRepository
+from repalis.enums import PaymentProcessor
+from repalis.kit.db.postgres import AsyncSession
+from repalis.models import Organization, Product
+from repalis.models.checkout import CheckoutStatus
+from repalis.models.discount import DiscountDuration, DiscountType
+from repalis.models.payment import PaymentStatus
+from repalis.payment.repository import PaymentRepository
 from tests.e2e.conftest import E2E_AUTH
 from tests.e2e.infra import DrainFn, StripeSimulator
 from tests.e2e.infra.stripe_simulator import simulate_webhook

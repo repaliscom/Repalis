@@ -1,4 +1,4 @@
-from polar.kit.versioning import APIVersion
+from repalis.kit.versioning import APIVersion
 
 V2026_04 = APIVersion(year=2026, month=4)
 V2026_10 = APIVersion(year=2026, month=10)

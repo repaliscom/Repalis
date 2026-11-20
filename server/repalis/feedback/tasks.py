@@ -3,11 +3,11 @@ from uuid import UUID
 
 from sqlalchemy.orm import joinedload
 
-from polar.integrations.plain.service import plain as plain_service
-from polar.models import Feedback
-from polar.models.feedback import FeedbackStatus
-from polar.observability.task_logging import LoggableField
-from polar.worker import AsyncSessionMaker, TaskPriority, actor
+from repalis.integrations.plain.service import plain as plain_service
+from repalis.models import Feedback
+from repalis.models.feedback import FeedbackStatus
+from repalis.observability.task_logging import LoggableField
+from repalis.worker import AsyncSessionMaker, TaskPriority, actor
 
 from .repository import FeedbackRepository
 

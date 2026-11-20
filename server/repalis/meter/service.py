@@ -23,29 +23,29 @@ from sqlalchemy.exc import MultipleResultsFound
 from sqlalchemy.orm import aliased, joinedload, with_polymorphic
 from sqlalchemy.sql.elements import OrderByList
 
-from polar.auth.models import Agent, AuthSubject, Organization, User
-from polar.auth.permission import OrganizationPermission
-from polar.authz.service import (
+from repalis.auth.models import Agent, AuthSubject, Organization, User
+from repalis.auth.permission import OrganizationPermission
+from repalis.authz.service import (
     assert_organization_permission,
     assert_resource_permission,
     get_accessible_org_ids,
 )
-from polar.billing_entry.repository import BillingEntryRepository
-from polar.config import settings
-from polar.customer.repository import CustomerRepository
-from polar.declarative_config.guard import (
+from repalis.billing_entry.repository import BillingEntryRepository
+from repalis.config import settings
+from repalis.customer.repository import CustomerRepository
+from repalis.declarative_config.guard import (
     DeclarativeConfigManaged,
     assert_catalog_editable,
 )
-from polar.event.repository import EventRepository
-from polar.event.tinybird_repository import TinybirdEventRepository
-from polar.exceptions import PolarError, PolarRequestValidationError, ValidationError
-from polar.kit.metadata import MetadataQuery, apply_metadata_clause, get_metadata_clause
-from polar.kit.pagination import PaginationParams
-from polar.kit.sorting import Sorting
-from polar.kit.time_queries import TimeInterval, get_timestamp_series_cte
-from polar.meter.aggregation import AggregationFunction
-from polar.models import (
+from repalis.event.repository import EventRepository
+from repalis.event.tinybird_repository import TinybirdEventRepository
+from repalis.exceptions import PolarError, PolarRequestValidationError, ValidationError
+from repalis.kit.metadata import MetadataQuery, apply_metadata_clause, get_metadata_clause
+from repalis.kit.pagination import PaginationParams
+from repalis.kit.sorting import Sorting
+from repalis.kit.time_queries import TimeInterval, get_timestamp_series_cte
+from repalis.meter.aggregation import AggregationFunction
+from repalis.models import (
     Benefit,
     BillingEntry,
     Customer,
@@ -58,12 +58,12 @@ from polar.models import (
     ProductPriceMeteredUnit,
     SubscriptionProductPrice,
 )
-from polar.models.catalog import CatalogStatus
-from polar.organization.resolver import get_payload_organization
-from polar.postgres import AsyncReadSession, AsyncSession
-from polar.reducer.service import reducer as reducer_service
-from polar.subscription.repository import SubscriptionProductPriceRepository
-from polar.worker import enqueue_job, make_bulk_job_delay_calculator
+from repalis.models.catalog import CatalogStatus
+from repalis.organization.resolver import get_payload_organization
+from repalis.postgres import AsyncReadSession, AsyncSession
+from repalis.reducer.service import reducer as reducer_service
+from repalis.subscription.repository import SubscriptionProductPriceRepository
+from repalis.worker import enqueue_job, make_bulk_job_delay_calculator
 
 from .repository import MeterRepository
 from .schemas import (

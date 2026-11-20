@@ -2,8 +2,8 @@ from functools import cached_property
 from typing import Any, Generic, TypeGuard, TypeVar
 from uuid import UUID
 
-from polar.enums import RateLimitGroup
-from polar.models import (
+from repalis.enums import RateLimitGroup
+from repalis.models import (
     Agent,
     Customer,
     CustomerSession,

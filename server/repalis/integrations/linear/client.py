@@ -2,8 +2,8 @@ import typing
 
 import httpx2
 
-from polar.config import settings
-from polar.exceptions import PolarError
+from repalis.config import settings
+from repalis.exceptions import PolarError
 
 from .schemas import Issue, IssueCreateFromTemplateInput, IssueCreatePayload
 

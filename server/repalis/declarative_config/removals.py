@@ -1,8 +1,8 @@
-from polar.catalog.repository import CatalogProductRepository, CatalogRepository
-from polar.catalog.service import catalog as catalog_service
-from polar.models import Catalog, Organization
-from polar.postgres import AsyncReadSession
-from polar.product.repository import ProductRepository
+from repalis.catalog.repository import CatalogProductRepository, CatalogRepository
+from repalis.catalog.service import catalog as catalog_service
+from repalis.models import Catalog, Organization
+from repalis.postgres import AsyncReadSession
+from repalis.product.repository import ProductRepository
 
 from .export import export_config
 from .schemas import (

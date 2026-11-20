@@ -5,9 +5,9 @@ from sqlalchemy import Select, select
 from sqlalchemy.dialects.postgresql import insert
 from sqlalchemy.exc import IntegrityError
 
-from polar.authz.types import AccessibleOrganizationID
-from polar.kit.repository import RepositoryBase, RepositoryIDMixin
-from polar.models import EventType
+from repalis.authz.types import AccessibleOrganizationID
+from repalis.kit.repository import RepositoryBase, RepositoryIDMixin
+from repalis.models import EventType
 
 
 class EventTypeRepository(

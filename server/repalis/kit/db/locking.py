@@ -4,7 +4,7 @@ from collections.abc import Sequence
 from sqlalchemy import ARRAY, Text, bindparam, func, select
 from sqlalchemy.exc import DBAPIError
 
-from polar.kit.db.postgres import AsyncReadSession, AsyncSession
+from repalis.kit.db.postgres import AsyncReadSession, AsyncSession
 
 
 async def pg_advisory_xact_lock(

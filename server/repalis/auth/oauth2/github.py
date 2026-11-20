@@ -7,8 +7,8 @@ from reauth.factors.oauth2.github import (
     get_primary_email,
 )
 
-from polar.config import settings
-from polar.postgres import AsyncSession, get_db_session
+from repalis.config import settings
+from repalis.postgres import AsyncSession, get_db_session
 
 from ..exceptions import GetEmailError, UnverifiedEmailError
 from .factor import OAuth2FactorMixin

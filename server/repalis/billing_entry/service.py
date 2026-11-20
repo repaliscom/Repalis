@@ -12,27 +12,27 @@ import structlog
 from babel.dates import format_date
 from babel.numbers import format_decimal
 
-from polar.billing_interval.service import billing_interval as billing_interval_service
-from polar.billing_interval.types import MeterCharge
-from polar.event.repository import EventRepository
-from polar.event.system import SystemEvent
-from polar.exceptions import PolarError
-from polar.kit.math import non_negative_running_sum, polar_round
-from polar.kit.utils import utc_now
-from polar.meter.aggregation import AggregationFunction
-from polar.meter.service import meter as meter_service
-from polar.models import BillingEntry, Event, Meter, OrderItem, Product, Subscription
-from polar.models.billing_entry import BillingEntryDirection, BillingEntryType
-from polar.models.event import EventSource
-from polar.postgres import AsyncReadSession, AsyncSession
-from polar.product.guard import (
+from repalis.billing_interval.service import billing_interval as billing_interval_service
+from repalis.billing_interval.types import MeterCharge
+from repalis.event.repository import EventRepository
+from repalis.event.system import SystemEvent
+from repalis.exceptions import PolarError
+from repalis.kit.math import non_negative_running_sum, polar_round
+from repalis.kit.utils import utc_now
+from repalis.meter.aggregation import AggregationFunction
+from repalis.meter.service import meter as meter_service
+from repalis.models import BillingEntry, Event, Meter, OrderItem, Product, Subscription
+from repalis.models.billing_entry import BillingEntryDirection, BillingEntryType
+from repalis.models.event import EventSource
+from repalis.postgres import AsyncReadSession, AsyncSession
+from repalis.product.guard import (
     MeteredPrice,
     StaticPrice,
     is_metered_price,
     is_unit_price,
 )
-from polar.product.repository import ProductPriceRepository, ProductRepository
-from polar.reducer.service import reducer as reducer_service
+from repalis.product.repository import ProductPriceRepository, ProductRepository
+from repalis.reducer.service import reducer as reducer_service
 
 from .comparison import Comparison, Quantities, compare
 from .repository import BillingEntryRepository

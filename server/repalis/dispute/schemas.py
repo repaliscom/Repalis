@@ -4,19 +4,19 @@ from typing import Annotated
 from fastapi import Path
 from pydantic import UUID4, Field
 
-from polar.customer.schemas.customer import CustomerBase
-from polar.exceptions import ResourceNotFound
-from polar.kit.schemas import (
+from repalis.customer.schemas.customer import CustomerBase
+from repalis.exceptions import ResourceNotFound
+from repalis.kit.schemas import (
     ORDER_ID_EXAMPLE,
     PAYMENT_ID_EXAMPLE,
     IDSchema,
     MultipleQueryFilter,
     TimestampedSchema,
 )
-from polar.kit.versioning import QuerySchema
-from polar.models.dispute import DisputeStatus
-from polar.order.schemas import OrderID
-from polar.organization.schemas import OrganizationID
+from repalis.kit.versioning import QuerySchema
+from repalis.models.dispute import DisputeStatus
+from repalis.order.schemas import OrderID
+from repalis.organization.schemas import OrganizationID
 
 DisputeID = Annotated[UUID4, Path(description="The dispute ID.")]
 

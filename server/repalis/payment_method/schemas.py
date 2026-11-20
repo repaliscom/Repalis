@@ -2,8 +2,8 @@ from typing import Literal
 
 from pydantic import UUID4, AliasPath, Field, TypeAdapter
 
-from polar.enums import PaymentProcessor
-from polar.kit.schemas import IDSchema, Schema, TimestampedSchema
+from repalis.enums import PaymentProcessor
+from repalis.kit.schemas import IDSchema, Schema, TimestampedSchema
 
 
 class PaymentMethodBase(TimestampedSchema, IDSchema):

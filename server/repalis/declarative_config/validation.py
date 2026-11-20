@@ -7,24 +7,24 @@ from dataclasses import field as dataclass_field
 from decimal import Decimal
 from typing import Any, cast
 
-from polar.benefit.repository import BenefitRepository
-from polar.benefit.strategies.meter_credit.properties import (
+from repalis.benefit.repository import BenefitRepository
+from repalis.benefit.strategies.meter_credit.properties import (
     BenefitMeterCreditProperties,
 )
-from polar.catalog.repository import (
+from repalis.catalog.repository import (
     CatalogBenefitRepository,
     CatalogProductRepository,
 )
-from polar.catalog.service import CatalogMembers
-from polar.catalog.service import catalog as catalog_service
-from polar.custom_field.repository import CustomFieldRepository
-from polar.event.system import SystemEvent
-from polar.event_type.repository import EventTypeRepository
-from polar.kit.currency import PresentmentCurrency
-from polar.meter.filter import Filter, FilterOperator
-from polar.meter.repository import MeterRepository
-from polar.meter.schemas import MeterCreateBase
-from polar.models import (
+from repalis.catalog.service import CatalogMembers
+from repalis.catalog.service import catalog as catalog_service
+from repalis.custom_field.repository import CustomFieldRepository
+from repalis.event.system import SystemEvent
+from repalis.event_type.repository import EventTypeRepository
+from repalis.kit.currency import PresentmentCurrency
+from repalis.meter.filter import Filter, FilterOperator
+from repalis.meter.repository import MeterRepository
+from repalis.meter.schemas import MeterCreateBase
+from repalis.models import (
     Benefit,
     Catalog,
     CustomField,
@@ -39,13 +39,13 @@ from polar.models import (
     ProductPriceUnit,
     WebhookEndpoint,
 )
-from polar.models.benefit import BenefitType
-from polar.models.catalog import CatalogStatus
-from polar.models.product_price import ProductPriceSource
-from polar.postgres import AsyncSession
-from polar.product.repository import ProductRepository
-from polar.product.service import product as product_service
-from polar.webhook.repository import WebhookEndpointRepository
+from repalis.models.benefit import BenefitType
+from repalis.models.catalog import CatalogStatus
+from repalis.models.product_price import ProductPriceSource
+from repalis.postgres import AsyncSession
+from repalis.product.repository import ProductRepository
+from repalis.product.service import product as product_service
+from repalis.webhook.repository import WebhookEndpointRepository
 
 from . import products as config_products
 from .schemas import (

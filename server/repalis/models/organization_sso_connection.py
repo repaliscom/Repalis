@@ -6,8 +6,8 @@ from sqlalchemy import Boolean, ForeignKey, String, Uuid
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import Mapped, declared_attr, mapped_column, relationship
 
-from polar.kit.db.models.base import RecordModel
-from polar.kit.extensions.sqlalchemy.types import StringEnum
+from repalis.kit.db.models.base import RecordModel
+from repalis.kit.extensions.sqlalchemy.types import StringEnum
 
 if TYPE_CHECKING:
     from .organization import Organization

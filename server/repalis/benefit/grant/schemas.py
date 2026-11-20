@@ -1,8 +1,8 @@
 from pydantic import UUID4, ConfigDict, Field
 
-from polar.kit.external_id import ExternalID
-from polar.kit.schemas import BENEFIT_ID_EXAMPLE, CUSTOMER_ID_EXAMPLE, Schema
-from polar.organization.schemas import OrganizationID
+from repalis.kit.external_id import ExternalID
+from repalis.kit.schemas import BENEFIT_ID_EXAMPLE, CUSTOMER_ID_EXAMPLE, Schema
+from repalis.organization.schemas import OrganizationID
 
 
 class BenefitGrantUpdate(Schema):

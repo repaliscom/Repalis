@@ -9,23 +9,23 @@ from cryptography.hazmat.primitives.serialization import load_pem_public_key
 from fastapi.exceptions import RequestValidationError
 from pydantic import BeforeValidator, TypeAdapter, ValidationError
 
-from polar.auth.service import auth as auth_service
-from polar.customer_session.service import customer_session as customer_session_service
-from polar.enums import TokenType
-from polar.exceptions import PolarError
-from polar.kit.schemas import Schema
-from polar.oauth2.service.oauth2_authorization_code import (
+from repalis.auth.service import auth as auth_service
+from repalis.customer_session.service import customer_session as customer_session_service
+from repalis.enums import TokenType
+from repalis.exceptions import PolarError
+from repalis.kit.schemas import Schema
+from repalis.oauth2.service.oauth2_authorization_code import (
     oauth2_authorization_code as oauth2_authorization_code_service,
 )
-from polar.oauth2.service.oauth2_client import oauth2_client as oauth2_client_service
-from polar.oauth2.service.oauth2_token import oauth2_token as oauth2_token_service
-from polar.organization_access_token.service import (
+from repalis.oauth2.service.oauth2_client import oauth2_client as oauth2_client_service
+from repalis.oauth2.service.oauth2_token import oauth2_token as oauth2_token_service
+from repalis.organization_access_token.service import (
     organization_access_token as organization_access_token_service,
 )
-from polar.personal_access_token.service import (
+from repalis.personal_access_token.service import (
     personal_access_token as personal_access_token_service,
 )
-from polar.postgres import AsyncSession
+from repalis.postgres import AsyncSession
 
 from ..client import GitHub
 

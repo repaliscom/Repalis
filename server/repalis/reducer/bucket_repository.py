@@ -32,12 +32,12 @@ from sqlalchemy import (
 )
 from sqlalchemy.dialects.postgresql import insert
 
-from polar.event.repository import EventRepository
-from polar.kit.db.locking import pg_advisory_xact_locks
-from polar.kit.repository import RepositoryBase
-from polar.kit.utils import utc_now
-from polar.meter.aggregation import PropertyAggregation
-from polar.models import (
+from repalis.event.repository import EventRepository
+from repalis.kit.db.locking import pg_advisory_xact_locks
+from repalis.kit.repository import RepositoryBase
+from repalis.kit.utils import utc_now
+from repalis.meter.aggregation import PropertyAggregation
+from repalis.models import (
     Customer,
     Event,
     MeterReducer,
@@ -45,8 +45,8 @@ from polar.models import (
     ReducerBucket,
     StagedEvent,
 )
-from polar.models.event import EventSource
-from polar.models.reducer import ReducerKind
+from repalis.models.event import EventSource
+from repalis.models.reducer import ReducerKind
 
 from .redis_store import BucketId, get_reducer_bucket_key
 

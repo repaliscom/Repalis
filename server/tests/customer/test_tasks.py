@@ -6,12 +6,12 @@ import pytest
 from pytest_mock import MockerFixture
 from sqlalchemy import select
 
-from polar.customer.service import customer as customer_service
-from polar.customer.tasks import customer_event, customer_resolve_first_user_event_at
-from polar.event.system import SystemEvent
-from polar.models import Event, Organization
-from polar.models.event import EventSource
-from polar.postgres import AsyncSession
+from repalis.customer.service import customer as customer_service
+from repalis.customer.tasks import customer_event, customer_resolve_first_user_event_at
+from repalis.event.system import SystemEvent
+from repalis.models import Event, Organization
+from repalis.models.event import EventSource
+from repalis.postgres import AsyncSession
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_customer, create_event
 
@@ -44,11 +44,11 @@ class TestCustomerResolveFirstUserEventAt:
         )
         first_user_event_at = customer.created_at - timedelta(days=30)
         get_first_user_event_at_mock = mocker.patch(
-            "polar.customer.tasks.tinybird_service.get_first_user_event_at",
+            "repalis.customer.tasks.tinybird_service.get_first_user_event_at",
             return_value=first_user_event_at,
         )
         mocker.patch(
-            "polar.customer.tasks.AsyncSessionMaker",
+            "repalis.customer.tasks.AsyncSessionMaker",
             side_effect=lambda: _session_maker(session),
         )
 
@@ -73,11 +73,11 @@ class TestCustomerResolveFirstUserEventAt:
             save_fixture, organization=organization, external_id="EXTERNAL_ID"
         )
         get_first_user_event_at_mock = mocker.patch(
-            "polar.customer.tasks.tinybird_service.get_first_user_event_at",
+            "repalis.customer.tasks.tinybird_service.get_first_user_event_at",
             return_value=None,
         )
         mocker.patch(
-            "polar.customer.tasks.AsyncSessionMaker",
+            "repalis.customer.tasks.AsyncSessionMaker",
             side_effect=lambda: _session_maker(session),
         )
 
@@ -98,13 +98,13 @@ class TestCustomerResolveFirstUserEventAt:
             save_fixture, organization=organization, external_id="EXTERNAL_ID"
         )
         get_first_user_event_at_mock = mocker.patch(
-            "polar.customer.tasks.tinybird_service.get_first_user_event_at",
+            "repalis.customer.tasks.tinybird_service.get_first_user_event_at",
             return_value=customer.created_at - timedelta(days=30),
         )
         await customer_service.delete(session, customer)
         await session.flush()
         mocker.patch(
-            "polar.customer.tasks.AsyncSessionMaker",
+            "repalis.customer.tasks.AsyncSessionMaker",
             side_effect=lambda: _session_maker(session),
         )
 
@@ -134,11 +134,11 @@ class TestCustomerResolveFirstUserEventAt:
             timestamp=timestamp,
         )
         mocker.patch(
-            "polar.customer.tasks.tinybird_service.get_first_user_event_at",
+            "repalis.customer.tasks.tinybird_service.get_first_user_event_at",
             return_value=None,
         )
         mocker.patch(
-            "polar.customer.tasks.AsyncSessionMaker",
+            "repalis.customer.tasks.AsyncSessionMaker",
             side_effect=lambda: _session_maker(session),
         )
 
@@ -169,7 +169,7 @@ class TestCustomerEvent:
         assert customer.external_id is None
 
         mocker.patch(
-            "polar.customer.tasks.AsyncSessionMaker",
+            "repalis.customer.tasks.AsyncSessionMaker",
             side_effect=lambda: _session_maker(session),
         )
 
@@ -193,7 +193,7 @@ class TestCustomerEvent:
         )
 
         mocker.patch(
-            "polar.customer.tasks.AsyncSessionMaker",
+            "repalis.customer.tasks.AsyncSessionMaker",
             side_effect=lambda: _session_maker(session),
         )
 

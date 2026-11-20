@@ -3,18 +3,18 @@ from typing import Annotated
 from fastapi import Depends, Path, Query
 from pydantic import UUID4
 
-from polar.customer_meter.schemas import CustomerMeterListParams
-from polar.customer_session.service import AmbiguousExternalCustomerID
-from polar.event.schemas import MeterCreditEvent
-from polar.exceptions import NotPermitted, ResourceNotFound
-from polar.kit.pagination import ListResource, PaginationParamsQuery
-from polar.kit.versioning import version
-from polar.models import CustomerMeter, Event
-from polar.openapi import APITag, destructive
-from polar.postgres import AsyncSession, get_db_session
-from polar.redis import Redis, get_redis
-from polar.routing import APIRouter
-from polar.version import V2027_01
+from repalis.customer_meter.schemas import CustomerMeterListParams
+from repalis.customer_session.service import AmbiguousExternalCustomerID
+from repalis.event.schemas import MeterCreditEvent
+from repalis.exceptions import NotPermitted, ResourceNotFound
+from repalis.kit.pagination import ListResource, PaginationParamsQuery
+from repalis.kit.versioning import version
+from repalis.models import CustomerMeter, Event
+from repalis.openapi import APITag, destructive
+from repalis.postgres import AsyncSession, get_db_session
+from repalis.redis import Redis, get_redis
+from repalis.routing import APIRouter
+from repalis.version import V2027_01
 
 from . import auth, sorting
 from .schemas import CustomerMeter as CustomerMeterSchema

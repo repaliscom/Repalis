@@ -31,12 +31,12 @@ import os
 from typing import Annotated
 
 import typer
-from polar.v2026_04 import PolarAsync
-from polar.v2026_04.inputs import (
+from repalis.v2026_04 import PolarAsync
+from repalis.v2026_04.inputs import (
     ProductPriceFixedCreate,
     ProductUpdate,
 )
-from polar.v2026_04.outputs import Benefit, Product
+from repalis.v2026_04.outputs import Benefit, Product
 
 cli = typer.Typer(invoke_without_command=True)
 

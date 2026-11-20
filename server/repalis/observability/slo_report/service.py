@@ -10,10 +10,10 @@ from datetime import timedelta
 
 import structlog
 
-from polar.config import Environment, settings
-from polar.kit.utils import utc_now
-from polar.logging import Logger
-from polar.observability.slo import CRITICAL_ENDPOINTS
+from repalis.config import Environment, settings
+from repalis.kit.utils import utc_now
+from repalis.logging import Logger
+from repalis.observability.slo import CRITICAL_ENDPOINTS
 
 from .client import GrafanaCloudAPIError, GrafanaCloudPrometheusClient
 from .report import EndpointSLOStatus, SLOReport

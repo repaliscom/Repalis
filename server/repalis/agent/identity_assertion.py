@@ -10,9 +10,9 @@ from datetime import UTC, datetime, timedelta
 from typing import Final
 from uuid import UUID
 
-from polar.kit import jwt
-from polar.kit.utils import utc_now
-from polar.oauth2.constants import ISSUER
+from repalis.kit import jwt
+from repalis.kit.utils import utc_now
+from repalis.oauth2.constants import ISSUER
 
 IDENTITY_ASSERTION_TYPE: Final = "agent_identity_assertion"
 IDENTITY_ASSERTION_TTL = timedelta(days=30)

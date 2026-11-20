@@ -6,10 +6,10 @@ from uuid import UUID
 
 from pydantic import AfterValidator, ConfigDict, Field
 
-from polar.kit.schemas import IDSchema, Schema
-from polar.models.webhook_endpoint import WebhookEventType
-from polar.webhook.constants import WEBHOOK_SECRET_PREFIX
-from polar.webhook.schemas import EndpointURL
+from repalis.kit.schemas import IDSchema, Schema
+from repalis.models.webhook_endpoint import WebhookEventType
+from repalis.webhook.constants import WEBHOOK_SECRET_PREFIX
+from repalis.webhook.schemas import EndpointURL
 
 
 def _validate_secret(value: str) -> str:

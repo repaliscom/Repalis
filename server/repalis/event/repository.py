@@ -29,13 +29,13 @@ from sqlalchemy import (
 from sqlalchemy.dialects.postgresql import aggregate_order_by, insert
 from sqlalchemy.orm import joinedload, with_polymorphic
 
-from polar.authz.types import AccessibleOrganizationID
-from polar.kit.db.postgres import json_serializer
-from polar.kit.repository import RepositoryBase, RepositoryIDMixin
-from polar.kit.repository.base import Options
-from polar.kit.time_queries import TimeInterval, get_timestamp_series_cte
-from polar.kit.utils import generate_uuid, utc_now
-from polar.models import (
+from repalis.authz.types import AccessibleOrganizationID
+from repalis.kit.db.postgres import json_serializer
+from repalis.kit.repository import RepositoryBase, RepositoryIDMixin
+from repalis.kit.repository.base import Options
+from repalis.kit.time_queries import TimeInterval, get_timestamp_series_cte
+from repalis.kit.utils import generate_uuid, utc_now
+from repalis.models import (
     BillingEntry,
     Customer,
     Event,
@@ -43,8 +43,8 @@ from polar.models import (
     MeterEvent,
     StagedEvent,
 )
-from polar.models.event import EventSource
-from polar.models.product_price import (
+from repalis.models.event import EventSource
+from repalis.models.product_price import (
     ProductPrice,
     ProductPriceMeteredTiers,
     ProductPriceMeteredUnit,

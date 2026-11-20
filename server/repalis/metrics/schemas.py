@@ -4,14 +4,14 @@ from typing import TYPE_CHECKING, Annotated
 from pydantic import UUID4, AwareDatetime, Field, create_model
 from pydantic_extra_types.timezone_name import TimeZoneName
 
-from polar.customer.schemas.customer import CustomerID
-from polar.kit.schemas import IDSchema, MultipleQueryFilter, Schema, TimestampedSchema
-from polar.kit.time_queries import TimeInterval
-from polar.kit.versioning import QuerySchema, Version
-from polar.models.product import ProductBillingType
-from polar.organization.schemas import OrganizationID
-from polar.product.schemas import ProductID
-from polar.version import V2027_01
+from repalis.customer.schemas.customer import CustomerID
+from repalis.kit.schemas import IDSchema, MultipleQueryFilter, Schema, TimestampedSchema
+from repalis.kit.time_queries import TimeInterval
+from repalis.kit.versioning import QuerySchema, Version
+from repalis.models.product import ProductBillingType
+from repalis.organization.schemas import OrganizationID
+from repalis.product.schemas import ProductID
+from repalis.version import V2027_01
 
 from .metrics import METRICS, MetricType
 

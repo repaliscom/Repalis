@@ -10,16 +10,16 @@ from githubkit.exception import (
     RequestTimeout,
 )
 
-from polar.auth.models import Agent, AuthSubject, is_user
-from polar.integrations.github import client as github
-from polar.integrations.github_repository_benefit.service import (
+from repalis.auth.models import Agent, AuthSubject, is_user
+from repalis.integrations.github import client as github
+from repalis.integrations.github_repository_benefit.service import (
     GitHubRepositoryInstallationError,
     github_repository_benefit_user_service,
 )
-from polar.logging import Logger
-from polar.models import Benefit, Customer, Member, Organization, User
-from polar.models.benefit_grant import BenefitGrantScopeArgs
-from polar.models.customer import CustomerOAuthPlatform
+from repalis.logging import Logger
+from repalis.models import Benefit, Customer, Member, Organization, User
+from repalis.models.benefit_grant import BenefitGrantScopeArgs
+from repalis.models.customer import CustomerOAuthPlatform
 
 from ..base.service import (
     BenefitActionRequiredError,

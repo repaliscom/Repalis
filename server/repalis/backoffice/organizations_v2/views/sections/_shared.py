@@ -5,8 +5,8 @@ from typing import TYPE_CHECKING
 from tagflow import tag, text
 
 if TYPE_CHECKING:
-    from polar.models import Organization
-    from polar.organization_review.schemas import DimensionAssessment
+    from repalis.models import Organization
+    from repalis.organization_review.schemas import DimensionAssessment
 
 # DaisyUI badge class for each RiskLevel value
 RISK_LEVEL_BADGE: dict[str, str] = {

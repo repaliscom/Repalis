@@ -5,9 +5,9 @@ from sqlalchemy import Boolean, ForeignKey, String, Uuid
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import Mapped, declared_attr, mapped_column, relationship
 
-from polar.enums import PayoutAccountStatus, PayoutAccountType
-from polar.kit.db.models import RecordModel
-from polar.kit.extensions.sqlalchemy import StringEnum
+from repalis.enums import PayoutAccountStatus, PayoutAccountType
+from repalis.kit.db.models import RecordModel
+from repalis.kit.extensions.sqlalchemy import StringEnum
 
 if TYPE_CHECKING:
     from .organization import Organization

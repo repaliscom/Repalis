@@ -7,11 +7,11 @@ from authlib.oauth2.rfc6749.errors import InvalidGrantError, InvalidRequestError
 from authlib.oauth2.rfc6749.hooks import hooked
 from authlib.oauth2.rfc7523.jwt_bearer import JWT_BEARER_GRANT_TYPE
 
-from polar.agent.identity_assertion import decode_identity_assertion
-from polar.auth.scope import CLAIMED_AGENT_SCOPES, UNCLAIMED_AGENT_SCOPES
-from polar.kit import jwt
-from polar.models import Agent
-from polar.models.agent import AgentStatus
+from repalis.agent.identity_assertion import decode_identity_assertion
+from repalis.auth.scope import CLAIMED_AGENT_SCOPES, UNCLAIMED_AGENT_SCOPES
+from repalis.kit import jwt
+from repalis.models import Agent
+from repalis.models.agent import AgentStatus
 
 from ..sub_type import SubType, SubTypeValue
 from .agent import AgentGrant

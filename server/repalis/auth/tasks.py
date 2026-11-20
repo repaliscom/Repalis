@@ -1,7 +1,7 @@
 import structlog
 
-from polar.logging import Logger
-from polar.worker import AsyncSessionMaker, CronTrigger, TaskPriority, actor
+from repalis.logging import Logger
+from repalis.worker import AsyncSessionMaker, CronTrigger, TaskPriority, actor
 
 from .oauth2.state import OAuth2StateService
 from .repository import AuthenticationSessionRepository, EmailOTPRepository

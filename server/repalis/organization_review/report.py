@@ -27,7 +27,7 @@ from typing import Any, Literal
 
 from pydantic import Field
 
-from polar.kit.schemas import Schema
+from repalis.kit.schemas import Schema
 
 from .schemas import (
     AgentReviewResult,

@@ -2,10 +2,10 @@ from typing import Any, NamedTuple
 
 from pydantic import TypeAdapter
 
-from polar.customer.schemas.customer import CustomerResponse
-from polar.models.webhook_endpoint import WebhookEventType
-from polar.order.schemas import Order
-from polar.subscription.schemas import Subscription
+from repalis.customer.schemas.customer import CustomerResponse
+from repalis.models.webhook_endpoint import WebhookEventType
+from repalis.order.schemas import Order
+from repalis.subscription.schemas import Subscription
 
 
 class MCPEventDefinition(NamedTuple):

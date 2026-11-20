@@ -2,13 +2,13 @@ from uuid import UUID
 
 from sqlalchemy import Select, update
 
-from polar.kit.repository import (
+from repalis.kit.repository import (
     RepositoryBase,
     RepositorySoftDeletionIDMixin,
     RepositorySoftDeletionMixin,
 )
-from polar.kit.utils import utc_now
-from polar.models import OrganizationDomain
+from repalis.kit.utils import utc_now
+from repalis.models import OrganizationDomain
 
 
 class OrganizationDomainRepository(

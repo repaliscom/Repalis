@@ -24,11 +24,11 @@ from rich.table import Table
 from sqlalchemy import CursorResult, Select, func, select, type_coerce, update
 from sqlalchemy.dialects.postgresql import JSONB
 
-from polar.billing_entry.repository import BillingEntryRepository
-from polar.kit.db.postgres import AsyncSession, create_async_sessionmaker
-from polar.kit.utils import utc_now
-from polar.meter.aggregation import AggregationFunction
-from polar.models import (
+from repalis.billing_entry.repository import BillingEntryRepository
+from repalis.kit.db.postgres import AsyncSession, create_async_sessionmaker
+from repalis.kit.utils import utc_now
+from repalis.meter.aggregation import AggregationFunction
+from repalis.models import (
     BillingEntry,
     Meter,
     Organization,
@@ -36,9 +36,9 @@ from polar.models import (
     Subscription,
     SubscriptionProductPrice,
 )
-from polar.models.billing_entry import BillingEntryType
-from polar.models.subscription import SubscriptionStatus
-from polar.postgres import create_async_engine
+from repalis.models.billing_entry import BillingEntryType
+from repalis.models.subscription import SubscriptionStatus
+from repalis.postgres import create_async_engine
 from scripts.helper import configure_script_logging, typer_async
 
 cli = typer.Typer()

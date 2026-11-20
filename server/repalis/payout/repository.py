@@ -5,10 +5,10 @@ from uuid import UUID
 from sqlalchemy import Select, exists, func, select, update
 from sqlalchemy.orm import joinedload
 
-from polar.authz.types import AccessibleOrganizationID
-from polar.config import settings
-from polar.enums import PayoutAccountType
-from polar.kit.repository import (
+from repalis.authz.types import AccessibleOrganizationID
+from repalis.config import settings
+from repalis.enums import PayoutAccountType
+from repalis.kit.repository import (
     Options,
     RepositoryBase,
     RepositorySoftDeletionIDMixin,
@@ -16,10 +16,10 @@ from polar.kit.repository import (
     RepositorySortingMixin,
     SortingClause,
 )
-from polar.kit.utils import utc_now
-from polar.models import Organization, Payout, PayoutAttempt, Transaction
-from polar.models.payout import PayoutStatus
-from polar.payout.sorting import PayoutSortProperty
+from repalis.kit.utils import utc_now
+from repalis.models import Organization, Payout, PayoutAttempt, Transaction
+from repalis.models.payout import PayoutStatus
+from repalis.payout.sorting import PayoutSortProperty
 
 
 class PayoutRepository(

@@ -16,13 +16,13 @@ from pydantic import (
 from pydantic.json_schema import SkipJsonSchema
 from pydantic.networks import HttpUrl
 
-from polar.auth.permission import ROLE_PERMISSIONS, OrganizationPermission
-from polar.config import settings
-from polar.enums import ProrationBehaviorSetting, TaxBehaviorOption
-from polar.kit.address import CountryAlpha2, CountryAlpha2Input
-from polar.kit.currency import PresentmentCurrency
-from polar.kit.email import EmailStrDNS
-from polar.kit.schemas import (
+from repalis.auth.permission import ROLE_PERMISSIONS, OrganizationPermission
+from repalis.config import settings
+from repalis.enums import ProrationBehaviorSetting, TaxBehaviorOption
+from repalis.kit.address import CountryAlpha2, CountryAlpha2Input
+from repalis.kit.currency import PresentmentCurrency
+from repalis.kit.email import EmailStrDNS
+from repalis.kit.schemas import (
     ORGANIZATION_ID_EXAMPLE,
     HttpUrlToStr,
     IDSchema,
@@ -31,8 +31,8 @@ from polar.kit.schemas import (
     SlugValidator,
     TimestampedSchema,
 )
-from polar.kit.versioning import QuerySchema, Version
-from polar.models.organization import (
+from repalis.kit.versioning import QuerySchema, Version
+from repalis.models.organization import (
     OrganizationCustomerEmailSettings,
     OrganizationCustomerPortalSettings,
     OrganizationDisputeSettings,
@@ -40,14 +40,14 @@ from polar.models.organization import (
     OrganizationSubscriptionSettings,
     resolve_default_customer_email_settings,
 )
-from polar.models.organization_review import OrganizationReview
-from polar.models.support_case import ReviewAppealSupportCase
-from polar.models.user_organization import (
+from repalis.models.organization_review import OrganizationReview
+from repalis.models.support_case import ReviewAppealSupportCase
+from repalis.models.user_organization import (
     OrganizationNotificationSettings,
     OrganizationRole,
 )
-from polar.organization.embed_hosts import InvalidEmbedHost, validate_host_pattern
-from polar.version import V2026_10, V2027_01
+from repalis.organization.embed_hosts import InvalidEmbedHost, validate_host_pattern
+from repalis.version import V2026_10, V2027_01
 
 OrganizationID = Annotated[
     UUID4,

@@ -1,8 +1,8 @@
 import abc
 import typing
 
-from polar.config import Environment
-from polar.postgres import AsyncReadSession
+from repalis.config import Environment
+from repalis.postgres import AsyncReadSession
 
 
 class InvariantError(Exception):

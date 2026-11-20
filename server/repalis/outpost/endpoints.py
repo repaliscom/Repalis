@@ -3,12 +3,12 @@ from typing import Annotated
 import anyio.to_thread
 from fastapi import Body, Depends, Query, Response
 
-from polar.exceptions import ResourceNotFound
-from polar.kit.db.postgres import AsyncSessionMaker
-from polar.openapi import APITag
-from polar.postgres import AsyncSession, get_db_session, get_db_sessionmaker
-from polar.redis import Redis, get_redis
-from polar.routing import APIRouter
+from repalis.exceptions import ResourceNotFound
+from repalis.kit.db.postgres import AsyncSessionMaker
+from repalis.openapi import APITag
+from repalis.postgres import AsyncSession, get_db_session, get_db_sessionmaker
+from repalis.redis import Redis, get_redis
+from repalis.routing import APIRouter
 
 from . import stream
 from .auth import OutpostWrite

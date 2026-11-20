@@ -1,11 +1,11 @@
 import pytest
 from sqlalchemy import select
 
-from polar.auth.models import AuthSubject
-from polar.customer_session.service import customer_session as customer_session_service
-from polar.models import Member, Organization, User, UserOrganization
-from polar.models.member import MemberRole
-from polar.postgres import AsyncSession
+from repalis.auth.models import AuthSubject
+from repalis.customer_session.service import customer_session as customer_session_service
+from repalis.models import Member, Organization, User, UserOrganization
+from repalis.models.member import MemberRole
+from repalis.postgres import AsyncSession
 from tests.fixtures.auth import AuthSubjectFixture
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_customer
@@ -39,7 +39,7 @@ class TestCreateGracefulFallback:
             email="no-member@example.com",
         )
 
-        from polar.customer_session.schemas import CustomerSessionCustomerIDCreate
+        from repalis.customer_session.schemas import CustomerSessionCustomerIDCreate
 
         create_schema = CustomerSessionCustomerIDCreate(
             customer_id=customer.id,

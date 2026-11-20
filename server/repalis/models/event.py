@@ -36,9 +36,9 @@ from sqlalchemy.orm import (
 )
 from sqlalchemy.sql.elements import BinaryExpression
 
-from polar.kit.db.models import Model
-from polar.kit.metadata import MetadataMixin, get_nested_metadata_value
-from polar.kit.utils import generate_uuid, utc_now
+from repalis.kit.db.models import Model
+from repalis.kit.metadata import MetadataMixin, get_nested_metadata_value
+from repalis.kit.utils import generate_uuid, utc_now
 
 from .customer import Customer
 
@@ -272,7 +272,7 @@ class Event(Model, MetadataMixin):
     def label(self) -> str:
         if self.source == EventSource.system:
             # Lazy import to avoid a circular dependency
-            from polar.event.system import SYSTEM_EVENT_LABELS
+            from repalis.event.system import SYSTEM_EVENT_LABELS
 
             return SYSTEM_EVENT_LABELS.get(self.name, self.name)
         if self.event_types is not None:

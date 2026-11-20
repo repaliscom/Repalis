@@ -9,7 +9,7 @@ from githubkit import (
     TokenAuthStrategy,
 )
 
-from polar.config import settings
+from repalis.config import settings
 
 
 class UnexpectedStatusCode(Exception): ...

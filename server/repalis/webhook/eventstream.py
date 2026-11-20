@@ -1,10 +1,10 @@
 from enum import StrEnum
 from uuid import UUID
 
-from polar.cli.listener import has_active_listener
-from polar.eventstream.service import publish
-from polar.kit.utils import generate_uuid
-from polar.redis import Redis, create_redis
+from repalis.cli.listener import has_active_listener
+from repalis.eventstream.service import publish
+from repalis.kit.utils import generate_uuid
+from repalis.redis import Redis, create_redis
 
 
 class WebhookEvent(StrEnum):

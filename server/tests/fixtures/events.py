@@ -1,10 +1,10 @@
 from collections.abc import Sequence
 from uuid import UUID
 
-from polar.authz.types import AccessibleOrganizationID
-from polar.event.repository import EventRepository
-from polar.models import Event
-from polar.postgres import AsyncSession
+from repalis.authz.types import AccessibleOrganizationID
+from repalis.event.repository import EventRepository
+from repalis.models import Event
+from repalis.postgres import AsyncSession
 
 
 async def get_all_by_name(session: AsyncSession, name: str) -> Sequence[Event]:

@@ -8,12 +8,12 @@ from reauth.authentication_session import (
 )
 from reauth.factors.oauth2.oidc import OIDCFactor
 
-from polar.config import settings
-from polar.kit.crypto import generate_token_hash_pair, get_legacy_secret
-from polar.kit.http import is_localhost
-from polar.kit.utils import utc_now
-from polar.models import BackofficeUser, BackofficeUserSession
-from polar.postgres import AsyncSession
+from repalis.config import settings
+from repalis.kit.crypto import generate_token_hash_pair, get_legacy_secret
+from repalis.kit.http import is_localhost
+from repalis.kit.utils import utc_now
+from repalis.models import BackofficeUser, BackofficeUserSession
+from repalis.postgres import AsyncSession
 
 from .repository import (
     BackofficeAuthenticationSessionRepository,

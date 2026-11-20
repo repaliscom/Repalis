@@ -1,17 +1,17 @@
 import pytest
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from polar.enums import SubscriptionRecurringInterval
-from polar.kit.utils import utc_now
-from polar.models import (
+from repalis.enums import SubscriptionRecurringInterval
+from repalis.kit.utils import utc_now
+from repalis.models import (
     Customer,
     Order,
     Organization,
     Subscription,
 )
-from polar.models.customer_seat import CustomerSeat, SeatStatus
-from polar.models.order import OrderStatus
-from polar.models.subscription import SubscriptionStatus
+from repalis.models.customer_seat import CustomerSeat, SeatStatus
+from repalis.models.order import OrderStatus
+from repalis.models.subscription import SubscriptionStatus
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (
     create_customer_seat,

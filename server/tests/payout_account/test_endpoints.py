@@ -5,9 +5,9 @@ import stripe as stripe_lib
 from httpx2 import AsyncClient
 from pytest_mock import MockerFixture
 
-from polar.auth.scope import READ_ONLY_SCOPES
-from polar.integrations.stripe.service import StripeService
-from polar.models import Organization, PayoutAccount, User, UserOrganization
+from repalis.auth.scope import READ_ONLY_SCOPES
+from repalis.integrations.stripe.service import StripeService
+from repalis.models import Organization, PayoutAccount, User, UserOrganization
 from tests.fixtures.auth import AuthSubjectFixture
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (
@@ -362,7 +362,7 @@ class TestSync:
 @pytest.fixture
 def stripe_service_mock(mocker: MockerFixture) -> StripeService:
     mock = mocker.MagicMock(spec=StripeService)
-    mocker.patch("polar.payout_account.service.stripe", new=mock)
+    mocker.patch("repalis.payout_account.service.stripe", new=mock)
     return mock
 
 

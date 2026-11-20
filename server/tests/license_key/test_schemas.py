@@ -5,11 +5,11 @@ from datetime import datetime
 import pytest
 from pydantic import ValidationError
 
-from polar.benefit.strategies.license_keys.schemas import (
+from repalis.benefit.strategies.license_keys.schemas import (
     BenefitLicenseKeyExpirationProperties,
     BenefitLicenseKeysCreateProperties,
 )
-from polar.license_key.schemas import LicenseKeyCreate
+from repalis.license_key.schemas import LicenseKeyCreate
 
 INT32_MAX = 2147483647
 

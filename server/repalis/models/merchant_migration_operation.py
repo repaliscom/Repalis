@@ -17,9 +17,9 @@ from sqlalchemy import Dialect
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.types import TypeDecorator
 
-from polar.enums import TaxBehavior
-from polar.kit.schemas import Schema
-from polar.kit.utils import utc_now
+from repalis.enums import TaxBehavior
+from repalis.kit.schemas import Schema
+from repalis.kit.utils import utc_now
 
 # How long an operation may sit in pending/running without progress before GET
 # marks it failed. Workers bump ``last_progress_at`` on every successful batch.

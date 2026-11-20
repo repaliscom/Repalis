@@ -2,17 +2,17 @@ from datetime import datetime
 from typing import Any
 from uuid import UUID
 
-from polar.exceptions import PolarError
-from polar.kit.services import ResourceServiceReader
-from polar.kit.utils import utc_now
-from polar.models import Account, AccountCredit, Organization
-from polar.notifications.notification import (
+from repalis.exceptions import PolarError
+from repalis.kit.services import ResourceServiceReader
+from repalis.kit.utils import utc_now
+from repalis.models import Account, AccountCredit, Organization
+from repalis.notifications.notification import (
     MaintainerAccountCreditsGrantedNotificationPayload,
     NotificationType,
 )
-from polar.notifications.service import PartialNotification
-from polar.notifications.service import notifications as notifications_service
-from polar.postgres import AsyncSession
+from repalis.notifications.service import PartialNotification
+from repalis.notifications.service import notifications as notifications_service
+from repalis.postgres import AsyncSession
 
 from .repository import AccountCreditRepository
 

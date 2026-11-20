@@ -13,7 +13,7 @@ from pathlib import Path
 from alembic.config import Config
 from alembic.script import ScriptDirectory
 
-from polar.models import Model
+from repalis.models import Model
 
 FILENAME_RE = re.compile(r"^(\d{4}-\d{2}-\d{2}-\d{4})_")
 VERSIONS_GIT_PATH = "server/migrations/versions"

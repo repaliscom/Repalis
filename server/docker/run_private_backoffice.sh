@@ -23,7 +23,7 @@ trap 'exit 0' TERM INT
 
 TS_KUBE_SECRET="" TS_AUTHKEY="$tailscale_oauth_secret" start containerboot
 
-start uv run uvicorn polar.app:app \
+start uv run uvicorn repalis.app:app \
   --host 127.0.0.1 --port 10000 --workers 1 \
   --proxy-headers --forwarded-allow-ips=127.0.0.1 \
   --no-access-log --timeout-graceful-shutdown 30

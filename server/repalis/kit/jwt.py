@@ -5,7 +5,7 @@ from typing import Any, Literal
 
 import jwt
 
-from polar.kit.signer import ALGORITHM, get_published_signers, get_signer, sign_jws
+from repalis.kit.signer import ALGORITHM, get_published_signers, get_signer, sign_jws
 
 from .utils import utc_now
 

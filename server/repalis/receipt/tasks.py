@@ -3,12 +3,12 @@ from typing import Annotated
 
 import structlog
 
-from polar.exceptions import PolarTaskError
-from polar.locker import Locker, TimeoutLockError
-from polar.logging import Logger
-from polar.observability.task_logging import LoggableField
-from polar.order.repository import OrderRepository
-from polar.worker import (
+from repalis.exceptions import PolarTaskError
+from repalis.locker import Locker, TimeoutLockError
+from repalis.logging import Logger
+from repalis.observability.task_logging import LoggableField
+from repalis.order.repository import OrderRepository
+from repalis.worker import (
     AsyncSessionMaker,
     RedisMiddleware,
     TaskPriority,

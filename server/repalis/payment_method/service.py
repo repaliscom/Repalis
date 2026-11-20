@@ -7,21 +7,21 @@ from babel.dates import format_date
 from sqlalchemy import select
 from sqlalchemy.orm import joinedload
 
-from polar.config import settings
-from polar.customer.repository import CustomerRepository
-from polar.customer.service import customer as customer_service
-from polar.email.deduplication import payment_method_expiration_reminder_key
-from polar.email.schemas import EmailAdapter
-from polar.email.sender import enqueue_email_template
-from polar.enums import PaymentProcessor
-from polar.exceptions import PolarError
-from polar.integrations.stripe.service import stripe as stripe_service
-from polar.integrations.stripe.utils import get_expandable_id
-from polar.models import Checkout, Customer, Order, PaymentMethod, Subscription
-from polar.models.organization import resolve_default_customer_email_settings
-from polar.organization.repository import OrganizationRepository
-from polar.postgres import AsyncSession
-from polar.subscription.repository import SubscriptionRepository
+from repalis.config import settings
+from repalis.customer.repository import CustomerRepository
+from repalis.customer.service import customer as customer_service
+from repalis.email.deduplication import payment_method_expiration_reminder_key
+from repalis.email.schemas import EmailAdapter
+from repalis.email.sender import enqueue_email_template
+from repalis.enums import PaymentProcessor
+from repalis.exceptions import PolarError
+from repalis.integrations.stripe.service import stripe as stripe_service
+from repalis.integrations.stripe.utils import get_expandable_id
+from repalis.models import Checkout, Customer, Order, PaymentMethod, Subscription
+from repalis.models.organization import resolve_default_customer_email_settings
+from repalis.organization.repository import OrganizationRepository
+from repalis.postgres import AsyncSession
+from repalis.subscription.repository import SubscriptionRepository
 
 from .repository import PaymentMethodRepository
 from .schemas import PaymentMethodCard

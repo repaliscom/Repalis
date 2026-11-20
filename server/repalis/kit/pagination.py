@@ -11,11 +11,11 @@ from sqlalchemy.sql._typing import _ColumnsClauseArgument
 from sqlalchemy.sql.selectable import Subquery
 from typing_extensions import TypeForm
 
-from polar.config import settings
-from polar.kit.db.models import RecordModel
-from polar.kit.db.models.base import Model
-from polar.kit.db.postgres import AsyncReadSession
-from polar.kit.schemas import ClassName, Schema
+from repalis.config import settings
+from repalis.kit.db.models import RecordModel
+from repalis.kit.db.models.base import Model
+from repalis.kit.db.postgres import AsyncReadSession
+from repalis.kit.schemas import ClassName, Schema
 
 
 class PaginationParams(NamedTuple):

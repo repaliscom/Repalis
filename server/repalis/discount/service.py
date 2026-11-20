@@ -8,25 +8,25 @@ from sqlalchemy import Select, UnaryExpression, asc, delete, desc, func, or_, se
 from sqlalchemy.exc import DBAPIError, IntegrityError
 from sqlalchemy.sql.elements import OrderByList
 
-from polar.auth.models import Agent, AuthSubject, is_agent, is_organization, is_user
-from polar.auth.permission import OrganizationPermission
-from polar.authz.repository import select_accessible_org_ids
-from polar.authz.service import (
+from repalis.auth.models import Agent, AuthSubject, is_agent, is_organization, is_user
+from repalis.auth.permission import OrganizationPermission
+from repalis.authz.repository import select_accessible_org_ids
+from repalis.authz.service import (
     assert_organization_permission,
     assert_resource_permission,
 )
-from polar.discount.repository import (
+from repalis.discount.repository import (
     DiscountRedemptionRepository,
     DiscountRepository,
 )
-from polar.exceptions import PolarError, PolarRequestValidationError
-from polar.kit.db.locking import is_lock_not_available_error
-from polar.kit.email import EmailNotValidError, unalias_email
-from polar.kit.pagination import PaginationParams, paginate
-from polar.kit.services import ResourceServiceReader
-from polar.kit.sorting import Sorting
-from polar.kit.utils import utc_now
-from polar.models import (
+from repalis.exceptions import PolarError, PolarRequestValidationError
+from repalis.kit.db.locking import is_lock_not_available_error
+from repalis.kit.email import EmailNotValidError, unalias_email
+from repalis.kit.pagination import PaginationParams, paginate
+from repalis.kit.services import ResourceServiceReader
+from repalis.kit.sorting import Sorting
+from repalis.kit.utils import utc_now
+from repalis.models import (
     Customer,
     Discount,
     DiscountProduct,
@@ -34,14 +34,14 @@ from polar.models import (
     Product,
     User,
 )
-from polar.models.checkout import Checkout
-from polar.models.discount import DiscountFixed, DiscountType
-from polar.models.discount_redemption import DiscountRedemption
-from polar.models.webhook_endpoint import WebhookEventType
-from polar.organization.resolver import get_payload_organization
-from polar.postgres import AsyncSession
-from polar.product.repository import ProductRepository
-from polar.webhook.service import webhook as webhook_service
+from repalis.models.checkout import Checkout
+from repalis.models.discount import DiscountFixed, DiscountType
+from repalis.models.discount_redemption import DiscountRedemption
+from repalis.models.webhook_endpoint import WebhookEventType
+from repalis.organization.resolver import get_payload_organization
+from repalis.postgres import AsyncSession
+from repalis.product.repository import ProductRepository
+from repalis.webhook.service import webhook as webhook_service
 
 from . import legacy_schemas
 from .schemas import DiscountCreate, DiscountUpdate

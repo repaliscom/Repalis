@@ -6,23 +6,23 @@ from typing import Any
 import structlog
 from py_svg_hush import filter_svg
 
-from polar.auth.models import Agent, AuthSubject
-from polar.auth.permission import OrganizationPermission
-from polar.authz.service import get_accessible_org_ids
-from polar.exceptions import BadRequest
-from polar.integrations.aws.s3 import S3Service
-from polar.integrations.aws.s3.schemas import S3File
-from polar.kit.pagination import PaginationParams
-from polar.kit.utils import utc_now
-from polar.models import Organization, ProductMedia, User
-from polar.models.file import File, FileServiceTypes, ProductMediaFile
-from polar.notifications.notification import (
+from repalis.auth.models import Agent, AuthSubject
+from repalis.auth.permission import OrganizationPermission
+from repalis.authz.service import get_accessible_org_ids
+from repalis.exceptions import BadRequest
+from repalis.integrations.aws.s3 import S3Service
+from repalis.integrations.aws.s3.schemas import S3File
+from repalis.kit.pagination import PaginationParams
+from repalis.kit.utils import utc_now
+from repalis.models import Organization, ProductMedia, User
+from repalis.models.file import File, FileServiceTypes, ProductMediaFile
+from repalis.notifications.notification import (
     MaintainerFileFlaggedMaliciousNotificationPayload,
     NotificationType,
 )
-from polar.notifications.service import PartialNotification
-from polar.notifications.service import notifications as notifications_service
-from polar.postgres import AsyncReadSession, AsyncSession, sql
+from repalis.notifications.service import PartialNotification
+from repalis.notifications.service import notifications as notifications_service
+from repalis.postgres import AsyncReadSession, AsyncSession, sql
 
 from .repository import FileRepository
 from .s3 import S3_SERVICES

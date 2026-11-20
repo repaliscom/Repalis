@@ -6,10 +6,10 @@ from reauth.factors.oauth2.base import OAuth2Account
 from reauth.factors.oauth2.base import OAuth2Enrollment as OAuth2EnrollmentDataclass
 from sqlalchemy import update
 
-from polar.config import settings
-from polar.models import OAuthAccount
-from polar.models.user import OAuthPlatform
-from polar.postgres import AsyncSession, get_db_session
+from repalis.config import settings
+from repalis.models import OAuthAccount
+from repalis.models.user import OAuthPlatform
+from repalis.postgres import AsyncSession, get_db_session
 
 from ..exceptions import GetEmailError, UnverifiedEmailError
 from .factor import OAuth2FactorMixin

@@ -2,7 +2,7 @@ from enum import StrEnum
 
 from sqlalchemy.orm import Mapped, mapped_column
 
-from polar.kit.extensions.sqlalchemy import StringEnum
+from repalis.kit.extensions.sqlalchemy import StringEnum
 
 
 class Visibility(StrEnum):

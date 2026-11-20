@@ -7,7 +7,7 @@ from email_validator import validate_email as _validate_email
 from pydantic import AfterValidator, EmailStr
 from pydantic_core import PydanticCustomError
 
-from polar.config import settings
+from repalis.config import settings
 
 if settings.is_testing() or settings.is_development():
     email_validator.TEST_ENVIRONMENT = True

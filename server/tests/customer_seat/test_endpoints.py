@@ -5,16 +5,16 @@ import pytest
 from httpx2 import AsyncClient
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from polar.auth.scope import Scope
-from polar.models import (
+from repalis.auth.scope import Scope
+from repalis.models import (
     Customer,
     CustomerSeat,
     Order,
     Subscription,
     UserOrganization,
 )
-from polar.models.customer_seat import SeatStatus
-from polar.models.user_organization import OrganizationRole
+from repalis.models.customer_seat import SeatStatus
+from repalis.models.user_organization import OrganizationRole
 from tests.fixtures.auth import AuthSubjectFixture
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (

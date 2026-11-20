@@ -3,7 +3,7 @@ from typing import Any, Literal
 import httpx2
 import structlog
 
-from polar.config import settings
+from repalis.config import settings
 
 log = structlog.get_logger()
 

@@ -12,21 +12,21 @@ from rich.progress import Progress
 from rich.table import Table
 from sqlalchemy import select
 
-from polar import tasks  # noqa: F401
-from polar.integrations.stripe.service import stripe as stripe_service
-from polar.kit.db.postgres import create_async_sessionmaker
-from polar.models import Payment, Transaction
-from polar.models.payment import PaymentStatus
-from polar.models.transaction import TransactionType
-from polar.order.repository import OrderRepository
-from polar.order.service import order as order_service
-from polar.payment.repository import PaymentRepository
-from polar.postgres import create_async_engine
-from polar.redis import create_redis
-from polar.transaction.service.payment import (
+from repalis import tasks  # noqa: F401
+from repalis.integrations.stripe.service import stripe as stripe_service
+from repalis.kit.db.postgres import create_async_sessionmaker
+from repalis.models import Payment, Transaction
+from repalis.models.payment import PaymentStatus
+from repalis.models.transaction import TransactionType
+from repalis.order.repository import OrderRepository
+from repalis.order.service import order as order_service
+from repalis.payment.repository import PaymentRepository
+from repalis.postgres import create_async_engine
+from repalis.redis import create_redis
+from repalis.transaction.service.payment import (
     payment_transaction as payment_transaction_service,
 )
-from polar.worker import JobQueueManager
+from repalis.worker import JobQueueManager
 
 cli = typer.Typer()
 

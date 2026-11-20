@@ -11,7 +11,7 @@ Metrics:
 
 import os
 
-from polar.config import settings
+from repalis.config import settings
 
 # Setup multiprocess prometheus directory before importing prometheus_client
 # This enables metrics to be shared across API server processes

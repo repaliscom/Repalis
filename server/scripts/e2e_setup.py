@@ -10,22 +10,22 @@ import dramatiq
 import typer
 from sqlalchemy import select
 
-import polar.tasks  # noqa: F401
-from polar.auth.models import AuthSubject
-from polar.auth.permission import ROLE_PERMISSIONS, OrganizationPermission
-from polar.auth.scope import Scope
-from polar.kit.db.postgres import create_async_sessionmaker
-from polar.models import Organization, OrganizationAccessToken, User, UserOrganization
-from polar.organization_access_token.schemas import (
+import repalis.tasks  # noqa: F401
+from repalis.auth.models import AuthSubject
+from repalis.auth.permission import ROLE_PERMISSIONS, OrganizationPermission
+from repalis.auth.scope import Scope
+from repalis.kit.db.postgres import create_async_sessionmaker
+from repalis.models import Organization, OrganizationAccessToken, User, UserOrganization
+from repalis.organization_access_token.schemas import (
     AvailableScope,
     OrganizationAccessTokenCreate,
 )
-from polar.organization_access_token.service import (
+from repalis.organization_access_token.service import (
     organization_access_token as organization_access_token_service,
 )
-from polar.postgres import AsyncSession, create_async_engine
-from polar.redis import create_redis
-from polar.worker import JobQueueManager
+from repalis.postgres import AsyncSession, create_async_engine
+from repalis.redis import create_redis
+from repalis.worker import JobQueueManager
 
 TOKEN_COMMENT = "E2E tests (dev e2e setup)"
 TOKEN_SCOPES = [

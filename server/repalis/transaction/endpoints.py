@@ -4,16 +4,16 @@ from zoneinfo import ZoneInfo
 from fastapi import Depends, Query
 from pydantic import UUID4
 
-from polar.account.service import account as account_service
-from polar.auth.permission import OrganizationPermission
-from polar.exceptions import ResourceNotFound
-from polar.kit.csv import CSVStreamingResponse
-from polar.kit.pagination import ListResource, PaginationParamsQuery
-from polar.kit.sorting import Sorting, SortingGetter
-from polar.openapi import APITag
-from polar.postgres import AsyncReadSession, get_db_read_session
-from polar.routing import APIRouter
-from polar.transaction import (
+from repalis.account.service import account as account_service
+from repalis.auth.permission import OrganizationPermission
+from repalis.exceptions import ResourceNotFound
+from repalis.kit.csv import CSVStreamingResponse
+from repalis.kit.pagination import ListResource, PaginationParamsQuery
+from repalis.kit.sorting import Sorting, SortingGetter
+from repalis.openapi import APITag
+from repalis.postgres import AsyncReadSession, get_db_read_session
+from repalis.routing import APIRouter
+from repalis.transaction import (
     auth as transactions_auth,
 )
 

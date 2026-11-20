@@ -2,8 +2,8 @@ import dramatiq
 import structlog
 from dramatiq.asyncio import get_event_loop_thread
 
-from polar.logging import Logger
-from polar.redis import Redis, create_redis
+from repalis.logging import Logger
+from repalis.redis import Redis, create_redis
 
 log: Logger = structlog.get_logger()
 

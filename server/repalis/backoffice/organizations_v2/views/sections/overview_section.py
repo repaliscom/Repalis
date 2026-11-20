@@ -9,18 +9,18 @@ from urllib.parse import urlparse
 from fastapi import Request
 from tagflow import tag, text
 
-from polar.enums import PayoutAccountStatus
-from polar.models import (
+from repalis.enums import PayoutAccountStatus
+from repalis.models import (
     Organization,
     OrganizationDomain,
     OrganizationEmail,
     OrganizationReviewFeedback,
 )
-from polar.models.organization_risk_signal import OrganizationRiskSignal
-from polar.organization_review.collectors.setup import is_on_verified_domain
-from polar.organization_review.report import AnyAgentReport
-from polar.organization_review.schemas import DimensionAssessment, ReviewVerdict
-from polar.organization_review.thresholds import (
+from repalis.models.organization_risk_signal import OrganizationRiskSignal
+from repalis.organization_review.collectors.setup import is_on_verified_domain
+from repalis.organization_review.report import AnyAgentReport
+from repalis.organization_review.schemas import DimensionAssessment, ReviewVerdict
+from repalis.organization_review.thresholds import (
     AUTH_RATE,
     CHARGEBACK_RATE,
     DISPUTE_RATE,

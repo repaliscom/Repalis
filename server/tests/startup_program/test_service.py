@@ -5,9 +5,9 @@ from unittest.mock import AsyncMock, MagicMock
 import pytest
 from pytest_mock import MockerFixture
 
-from polar.config import settings
-from polar.models import Organization
-from polar.startup_program.service import (
+from repalis.config import settings
+from repalis.models import Organization
+from repalis.startup_program.service import (
     DISCOUNT_BASIS_POINTS,
     DISCOUNT_DURATION_IN_MONTHS,
     DISCOUNT_ID_KEY,
@@ -15,7 +15,7 @@ from polar.startup_program.service import (
     StartupProgramError,
     StartupProgramStatus,
 )
-from polar.startup_program.service import startup_program as startup_program_service
+from repalis.startup_program.service import startup_program as startup_program_service
 
 POLAR_ORG_ID = str(uuid.UUID("00000000-0000-0000-0000-0000000000a1"))
 SCALE_PRODUCT_ID = "prod_scale"
@@ -72,7 +72,7 @@ def client_mock(mocker: MockerFixture) -> MagicMock:
     client.delete_discount = AsyncMock(return_value=None)
     client.update_customer_metadata = AsyncMock(return_value=None)
     client.list_billing_contacts = AsyncMock(return_value=[])
-    mocker.patch("polar.startup_program.service.get_client", return_value=client)
+    mocker.patch("repalis.startup_program.service.get_client", return_value=client)
     return client
 
 
@@ -213,7 +213,7 @@ class TestMarkInvited:
         organization: Organization,
     ) -> None:
         enqueue_mock = mocker.patch(
-            "polar.startup_program.service.enqueue_email_template"
+            "repalis.startup_program.service.enqueue_email_template"
         )
         client_mock.get_customer_by_external_id_or_none.return_value = (
             _make_sdk_customer(external_id=str(organization.id))

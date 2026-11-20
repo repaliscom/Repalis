@@ -3,9 +3,9 @@ from typing import Annotated
 from fastapi import Path
 from pydantic import UUID4, Field
 
-from polar.customer.schemas.customer import CustomerID
-from polar.customer.schemas.customer import CustomerResponse as Customer
-from polar.kit.schemas import (
+from repalis.customer.schemas.customer import CustomerID
+from repalis.customer.schemas.customer import CustomerResponse as Customer
+from repalis.kit.schemas import (
     CUSTOMER_ID_EXAMPLE,
     METER_ID_EXAMPLE,
     IDSchema,
@@ -13,10 +13,10 @@ from polar.kit.schemas import (
     Schema,
     TimestampedSchema,
 )
-from polar.kit.versioning import QuerySchema, Version
-from polar.meter.schemas import Meter, MeterID
-from polar.organization.schemas import OrganizationID
-from polar.version import V2027_01
+from repalis.kit.versioning import QuerySchema, Version
+from repalis.meter.schemas import Meter, MeterID
+from repalis.organization.schemas import OrganizationID
+from repalis.version import V2027_01
 
 CustomerMeterID = Annotated[UUID4, Path(description="The customer meter ID.")]
 

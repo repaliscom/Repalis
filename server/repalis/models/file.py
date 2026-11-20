@@ -19,10 +19,10 @@ from sqlalchemy.orm import (
     relationship,
 )
 
-from polar.kit.db.models import RecordModel
+from repalis.kit.db.models import RecordModel
 
 if TYPE_CHECKING:
-    from polar.models import (
+    from repalis.models import (
         Organization,
     )
 

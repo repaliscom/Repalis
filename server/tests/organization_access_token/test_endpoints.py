@@ -3,11 +3,11 @@ from datetime import timedelta
 import pytest
 from httpx2 import AsyncClient
 
-from polar.auth.models import AuthSubject
-from polar.auth.scope import Scope
-from polar.kit.crypto import get_token_hash
-from polar.kit.utils import utc_now
-from polar.models import Organization, OrganizationAccessToken, User, UserOrganization
+from repalis.auth.models import AuthSubject
+from repalis.auth.scope import Scope
+from repalis.kit.crypto import get_token_hash
+from repalis.kit.utils import utc_now
+from repalis.models import Organization, OrganizationAccessToken, User, UserOrganization
 from tests.fixtures.auth import AuthSubjectFixture, make_session_stale
 from tests.fixtures.database import SaveFixture
 

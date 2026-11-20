@@ -3,8 +3,8 @@ from pathlib import Path
 from fastapi import APIRouter, Depends, FastAPI, Request
 from tagflow import tag, text
 
-from polar.exceptions import PolarError
-from polar.observability.http_metrics import exclude_app_from_metrics
+from repalis.exceptions import PolarError
+from repalis.observability.http_metrics import exclude_app_from_metrics
 
 from .ascii_logo import POLAR_ASCII_LOGO
 from .auth.endpoints import router as auth_router

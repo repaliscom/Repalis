@@ -3,15 +3,15 @@ from typing import Annotated, Literal
 
 from sqlalchemy.orm import joinedload
 
-from polar.event.repository import EventRepository
-from polar.event.service import event as event_service
-from polar.event.system import CustomerUpdatedFields, SystemEvent, build_system_event
-from polar.exceptions import PolarTaskError
-from polar.integrations.tinybird import service as tinybird_service
-from polar.models import Customer
-from polar.models.webhook_endpoint import CustomerWebhookEventType, WebhookEventType
-from polar.observability.task_logging import LoggableField
-from polar.worker import AsyncSessionMaker, RedisMiddleware, TaskPriority, actor
+from repalis.event.repository import EventRepository
+from repalis.event.service import event as event_service
+from repalis.event.system import CustomerUpdatedFields, SystemEvent, build_system_event
+from repalis.exceptions import PolarTaskError
+from repalis.integrations.tinybird import service as tinybird_service
+from repalis.models import Customer
+from repalis.models.webhook_endpoint import CustomerWebhookEventType, WebhookEventType
+from repalis.observability.task_logging import LoggableField
+from repalis.worker import AsyncSessionMaker, RedisMiddleware, TaskPriority, actor
 
 from .repository import CustomerRepository
 from .service import customer as customer_service

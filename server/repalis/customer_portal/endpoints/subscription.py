@@ -3,26 +3,26 @@ from typing import Annotated
 import structlog
 from fastapi import Depends, Query
 
-from polar.exceptions import NotPermitted, ResourceNotFound
-from polar.kit.db.postgres import AsyncSession
-from polar.kit.pagination import ListResource, PaginationParamsQuery
-from polar.kit.sorting import Sorting, SortingGetter
-from polar.models import Subscription
-from polar.openapi import APITag
-from polar.order.service import PaymentFailed
-from polar.postgres import get_db_session
-from polar.routing import APIRouter
-from polar.subscription.schemas import (
+from repalis.exceptions import NotPermitted, ResourceNotFound
+from repalis.kit.db.postgres import AsyncSession
+from repalis.kit.pagination import ListResource, PaginationParamsQuery
+from repalis.kit.sorting import Sorting, SortingGetter
+from repalis.models import Subscription
+from repalis.openapi import APITag
+from repalis.order.service import PaymentFailed
+from repalis.postgres import get_db_session
+from repalis.routing import APIRouter
+from repalis.subscription.schemas import (
     SubscriptionCancelPreview,
     SubscriptionChargePreview,
     SubscriptionID,
     SubscriptionMeterChargePreview,
 )
-from polar.subscription.service import (
+from repalis.subscription.service import (
     AlreadyCanceledSubscription,
     SubscriptionNotScheduledToCancel,
 )
-from polar.subscription.service import subscription as subscription_service
+from repalis.subscription.service import subscription as subscription_service
 
 from .. import auth
 from ..schemas.subscription import (

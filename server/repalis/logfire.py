@@ -22,8 +22,8 @@ from opentelemetry.sdk.trace.sampling import (
 )
 from starlette.routing import Host
 
-from polar.observability.http_telemetry import HttpURLSpanProcessor, server_request_hook
-from polar.observability.s3_span_exporter import S3SpanExporter
+from repalis.observability.http_telemetry import HttpURLSpanProcessor, server_request_hook
+from repalis.observability.s3_span_exporter import S3SpanExporter
 
 if TYPE_CHECKING:
     from opentelemetry.context import Context
@@ -31,11 +31,11 @@ if TYPE_CHECKING:
     from opentelemetry.trace.span import TraceState
     from opentelemetry.util.types import Attributes
 
-from polar.config import settings
-from polar.kit.aws import get_credentials
-from polar.kit.db.postgres import Engine
-from polar.observability.otel_prometheus import PrometheusMeterProvider
-from polar.redis import Redis
+from repalis.config import settings
+from repalis.kit.aws import get_credentials
+from repalis.kit.db.postgres import Engine
+from repalis.observability.otel_prometheus import PrometheusMeterProvider
+from repalis.redis import Redis
 
 Matcher = Callable[[str, "Attributes | None"], bool]
 

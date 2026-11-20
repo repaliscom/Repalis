@@ -7,8 +7,8 @@ from fastapi.exceptions import RequestValidationError
 from fastapi.requests import HTTPConnection
 from fastapi.responses import JSONResponse, RedirectResponse
 
-from polar.config import settings
-from polar.exceptions import (
+from repalis.config import settings
+from repalis.exceptions import (
     PolarError,
     PolarRedirectionError,
     PolarRequestValidationError,

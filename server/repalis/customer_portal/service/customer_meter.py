@@ -4,11 +4,11 @@ from collections.abc import Sequence
 from sqlalchemy.orm import joinedload
 from sqlalchemy.orm.strategy_options import contains_eager
 
-from polar.auth.models import AuthSubject, Customer, Member
-from polar.kit.db.postgres import AsyncSession
-from polar.kit.pagination import PaginationParams
-from polar.kit.sorting import Sorting
-from polar.models import CustomerMeter, Meter
+from repalis.auth.models import AuthSubject, Customer, Member
+from repalis.kit.db.postgres import AsyncSession
+from repalis.kit.pagination import PaginationParams
+from repalis.kit.sorting import Sorting
+from repalis.models import CustomerMeter, Meter
 
 from ..repository.customer_meter import CustomerMeterRepository
 from ..sorting.customer_meter import CustomerCustomerMeterSortProperty

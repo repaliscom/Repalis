@@ -3,11 +3,11 @@ from uuid import UUID
 from sqlalchemy import delete, select
 from sqlalchemy.orm import contains_eager
 
-from polar.kit.crypto import get_token_hash_candidates
-from polar.kit.repository import RepositoryBase, RepositoryTokenHashMixin
-from polar.kit.utils import utc_now
-from polar.models.customer import Customer
-from polar.models.customer_email_verification import CustomerEmailVerification
+from repalis.kit.crypto import get_token_hash_candidates
+from repalis.kit.repository import RepositoryBase, RepositoryTokenHashMixin
+from repalis.kit.utils import utc_now
+from repalis.models.customer import Customer
+from repalis.models.customer_email_verification import CustomerEmailVerification
 
 
 class CustomerEmailVerificationRepository(

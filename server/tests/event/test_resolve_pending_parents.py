@@ -7,10 +7,10 @@ import pytest
 from sqlalchemy import event as sqlalchemy_event
 from sqlalchemy import select
 
-from polar.event.repository import EventRepository
-from polar.kit.db.postgres import AsyncSession
-from polar.models import Account, Event, Organization
-from polar.models.event import EventSource
+from repalis.event.repository import EventRepository
+from repalis.kit.db.postgres import AsyncSession
+from repalis.models import Account, Event, Organization
+from repalis.models.event import EventSource
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_organization
 

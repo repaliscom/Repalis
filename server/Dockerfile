@@ -35,11 +35,11 @@ RUN pnpm run build
 
 FROM node-builder AS build-backoffice
 
-COPY polar/backoffice/pnpm-lock.yaml polar/backoffice/package.json polar/backoffice/pnpm-workspace.yaml ./
+COPY repalis/backoffice/pnpm-lock.yaml repalis/backoffice/package.json repalis/backoffice/pnpm-workspace.yaml ./
 RUN --mount=type=cache,target=/pnpm/store \
   pnpm install --frozen-lockfile --store-dir=/pnpm/store
 
-COPY polar/backoffice/ .
+COPY repalis/backoffice/ .
 RUN pnpm run build
 
 # Deployment builds refresh IPInfo; font URLs and checksums are version-pinned.
@@ -103,9 +103,9 @@ RUN --mount=type=bind,source=uv.lock,target=uv.lock \
 # Copy build artifacts in their own layers before the source, so they keep their
 # digests and are not re-uploaded when only the source changes.
 COPY --from=download-ipinfo /data /data
-COPY --from=download-cjk-fonts /fonts/ /app/server/polar/invoice/fonts/
+COPY --from=download-cjk-fonts /fonts/ /app/server/repalis/invoice/fonts/
 COPY --from=build-emails-bin /app/bin/react-email-pkg /app/server/
-COPY --from=build-backoffice /app/static /app/server/polar/backoffice/static
+COPY --from=build-backoffice /app/static /app/server/repalis/backoffice/static
 COPY . /app/server/
 
 ARG RELEASE_VERSION
@@ -114,7 +114,7 @@ ENV RELEASE_VERSION=${RELEASE_VERSION} \
   POLAR_IP_GEOLOCATION_DATABASE_DIRECTORY_PATH=/data \
   POLAR_IP_GEOLOCATION_DATABASE_NAME=country_asn.mmdb
 
-CMD ["uv", "run", "uvicorn", "polar.app:app", \
+CMD ["uv", "run", "uvicorn", "repalis.app:app", \
   "--host", "0.0.0.0", "--port", "10000", \
   "--limit-max-requests", "50000", "--limit-max-requests-jitter", "10000", \
   "--timeout-graceful-shutdown", "30"]
@@ -158,9 +158,9 @@ FROM lambda-base AS lambda
 
 COPY --from=lambda-build /app/server/.venv /app/server/.venv
 COPY --from=download-ipinfo /data /data
-COPY --from=download-cjk-fonts /fonts/ /app/server/polar/invoice/fonts/
+COPY --from=download-cjk-fonts /fonts/ /app/server/repalis/invoice/fonts/
 COPY --from=build-emails-bin /app/bin/react-email-pkg /app/server/
-COPY --from=build-backoffice /app/static /app/server/polar/backoffice/static
+COPY --from=build-backoffice /app/static /app/server/repalis/backoffice/static
 COPY . /app/server/
 
 COPY --from=tailscale /usr/local/bin/tailscaled /usr/local/bin/tailscale /var/runtime/
@@ -187,4 +187,4 @@ ENV RELEASE_VERSION=${RELEASE_VERSION} \
   POLAR_IP_GEOLOCATION_DATABASE_NAME=country_asn.mmdb
 
 ENTRYPOINT ["/var/runtime/polar-bootstrap"]
-CMD ["polar.worker.aws_lambda.handler"]
+CMD ["repalis.worker.aws_lambda.handler"]

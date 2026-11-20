@@ -1,9 +1,9 @@
 import pytest
 
-from polar.exceptions import PolarRequestValidationError
-from polar.kit.utils import utc_now
-from polar.merchant_migration import pan_transfer
-from polar.merchant_migration.pan_transfer import (
+from repalis.exceptions import PolarRequestValidationError
+from repalis.kit.utils import utc_now
+from repalis.merchant_migration import pan_transfer
+from repalis.merchant_migration.pan_transfer import (
     STEP_CUTOVER,
     STEP_RESOLVE_UNCOVERED,
     STEP_VERIFY_CARDS,
@@ -18,8 +18,8 @@ from polar.merchant_migration.pan_transfer import (
     PanTransferStep,
     PanTransferStepsType,
 )
-from polar.models import MerchantMigration
-from polar.models.merchant_migration import MerchantMigrationSourcePlatform
+from repalis.models import MerchantMigration
+from repalis.models.merchant_migration import MerchantMigrationSourcePlatform
 from tests.merchant_migration._helpers import pan_step_required_inputs
 
 

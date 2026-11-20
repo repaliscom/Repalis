@@ -6,22 +6,22 @@ import pytest
 from pytest_mock import MockerFixture
 from sqlalchemy import select
 
-from polar.email.deduplication import payment_method_expiration_reminder_key
-from polar.email.react import serialize_email_props
-from polar.enums import EmailSender
-from polar.kit.utils import utc_now
-from polar.models import Customer, PaymentMethod, Product, Subscription
-from polar.models.email_log import EmailLog, EmailLogStatus
-from polar.models.subscription import SubscriptionStatus
-from polar.payment_method.repository import (
+from repalis.email.deduplication import payment_method_expiration_reminder_key
+from repalis.email.react import serialize_email_props
+from repalis.enums import EmailSender
+from repalis.kit.utils import utc_now
+from repalis.models import Customer, PaymentMethod, Product, Subscription
+from repalis.models.email_log import EmailLog, EmailLogStatus
+from repalis.models.subscription import SubscriptionStatus
+from repalis.payment_method.repository import (
     PaymentMethodRepository,
     expiring_periods,
 )
-from polar.payment_method.service import (
+from repalis.payment_method.service import (
     payment_method as payment_method_service,
 )
-from polar.payment_method.tasks import EXPIRATION_REMINDER_WINDOW
-from polar.postgres import AsyncSession
+from repalis.payment_method.tasks import EXPIRATION_REMINDER_WINDOW
+from repalis.postgres import AsyncSession
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (
     create_active_subscription,
@@ -358,7 +358,7 @@ class TestDedupRoundTrip:
         """The dedup query must match the key the sender actually writes."""
         payment_method = await create_expiring_card(save_fixture, customer, product)
         enqueue_mock = mocker.patch(
-            "polar.payment_method.service.enqueue_email_template", autospec=True
+            "repalis.payment_method.service.enqueue_email_template", autospec=True
         )
 
         await payment_method_service.send_expiration_reminder_email(

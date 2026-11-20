@@ -9,23 +9,23 @@ import pytest
 from pytest_mock import MockerFixture
 from sqlalchemy import select
 
-from polar.auth.models import AuthSubject
-from polar.auth.permission import ROLE_PERMISSIONS, OrganizationPermission
-from polar.auth.scope import Scope
-from polar.benefit.repository import BenefitRepository
-from polar.benefit.strategies.meter_credit.properties import (
+from repalis.auth.models import AuthSubject
+from repalis.auth.permission import ROLE_PERMISSIONS, OrganizationPermission
+from repalis.auth.scope import Scope
+from repalis.benefit.repository import BenefitRepository
+from repalis.benefit.strategies.meter_credit.properties import (
     BenefitMeterCreditProperties,
 )
-from polar.catalog.repository import (
+from repalis.catalog.repository import (
     CatalogBenefitRepository,
     CatalogMeterRepository,
     CatalogProductRepository,
     CatalogRepository,
 )
-from polar.catalog.service import catalog as catalog_service
-from polar.catalog.service import compute_version_hash
-from polar.custom_field.repository import CustomFieldRepository
-from polar.declarative_config.schemas import (
+from repalis.catalog.service import catalog as catalog_service
+from repalis.catalog.service import compute_version_hash
+from repalis.custom_field.repository import CustomFieldRepository
+from repalis.declarative_config.schemas import (
     Config,
     ConfigAction,
     ConfigBenefit,
@@ -45,7 +45,7 @@ from polar.declarative_config.schemas import (
     ConfigResource,
     ConfigSkippedReason,
 )
-from polar.declarative_config.service import (
+from repalis.declarative_config.service import (
     ConfigAsCodeNotEnabled,
     ConfigBenefitConflict,
     ConfigCatalogPublished,
@@ -54,23 +54,23 @@ from polar.declarative_config.service import (
     ConfigProductConflict,
     ConfigUnsupportedResources,
 )
-from polar.declarative_config.service import (
+from repalis.declarative_config.service import (
     declarative_config as declarative_config_service,
 )
-from polar.enums import (
+from repalis.enums import (
     MeterInterval,
     SubscriptionProrationBehavior,
     SubscriptionRecurringInterval,
     TaxBehaviorOption,
 )
-from polar.exceptions import NotPermitted, PolarRequestValidationError
-from polar.kit.trial import TrialInterval
-from polar.kit.utils import utc_now
-from polar.kit.visibility import Visibility
-from polar.meter.aggregation import AggregationFunction
-from polar.meter.repository import MeterRepository
-from polar.meter.unit import MeterUnit
-from polar.models import (
+from repalis.exceptions import NotPermitted, PolarRequestValidationError
+from repalis.kit.trial import TrialInterval
+from repalis.kit.utils import utc_now
+from repalis.kit.visibility import Visibility
+from repalis.meter.aggregation import AggregationFunction
+from repalis.meter.repository import MeterRepository
+from repalis.meter.unit import MeterUnit
+from repalis.models import (
     Agent,
     Benefit,
     Catalog,
@@ -88,23 +88,23 @@ from polar.models import (
     User,
     UserOrganization,
 )
-from polar.models.benefit import BenefitType
-from polar.models.catalog import CatalogStatus
-from polar.models.custom_field import CustomFieldText, CustomFieldType
-from polar.models.discount import DiscountDuration, DiscountType
-from polar.models.product_price import ProductPriceAmountType
-from polar.models.subscription import SubscriptionStatus
-from polar.models.user_organization import OrganizationRole
-from polar.models.webhook_endpoint import WebhookEventType, WebhookFormat
-from polar.oauth2.exceptions import InsufficientScopeError
-from polar.postgres import AsyncSession
-from polar.product.guard import is_metered_price
-from polar.product.repository import ProductRepository
-from polar.product.tiers import Tiers
-from polar.redis import Redis
-from polar.version import CURRENT_API_VERSION, V2026_04
-from polar.webhook.repository import WebhookEndpointRepository
-from polar.webhook.service import webhook as webhook_service
+from repalis.models.benefit import BenefitType
+from repalis.models.catalog import CatalogStatus
+from repalis.models.custom_field import CustomFieldText, CustomFieldType
+from repalis.models.discount import DiscountDuration, DiscountType
+from repalis.models.product_price import ProductPriceAmountType
+from repalis.models.subscription import SubscriptionStatus
+from repalis.models.user_organization import OrganizationRole
+from repalis.models.webhook_endpoint import WebhookEventType, WebhookFormat
+from repalis.oauth2.exceptions import InsufficientScopeError
+from repalis.postgres import AsyncSession
+from repalis.product.guard import is_metered_price
+from repalis.product.repository import ProductRepository
+from repalis.product.tiers import Tiers
+from repalis.redis import Redis
+from repalis.version import CURRENT_API_VERSION, V2026_04
+from repalis.webhook.repository import WebhookEndpointRepository
+from repalis.webhook.service import webhook as webhook_service
 from tests.fixtures.auth import AuthSubjectFixture
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (
@@ -775,7 +775,7 @@ class TestApply:
         auth_subject: AuthSubject[Organization],
         organization: Organization,
     ) -> None:
-        enqueue_job_mock = mocker.patch("polar.meter.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.meter.service.enqueue_job")
 
         result = await declarative_config_service.apply(
             session,
@@ -805,7 +805,7 @@ class TestApply:
         auth_subject: AuthSubject[Organization],
         organization: Organization,
     ) -> None:
-        mocker.patch("polar.meter.service.enqueue_job")
+        mocker.patch("repalis.meter.service.enqueue_job")
 
         result = await declarative_config_service.apply(
             session,
@@ -837,7 +837,7 @@ class TestApply:
         await create_meter(
             save_fixture, organization=organization, external_id="my-meter"
         )
-        enqueue_job_mock = mocker.patch("polar.meter.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.meter.service.enqueue_job")
 
         result = await declarative_config_service.apply(
             session,
@@ -865,7 +865,7 @@ class TestApply:
             external_id="sdk-tool-calls",
             user_metadata={"team": "sdk"},
         )
-        mocker.patch("polar.meter.service.enqueue_job")
+        mocker.patch("repalis.meter.service.enqueue_job")
 
         result = await declarative_config_service.apply(
             session,
@@ -903,7 +903,7 @@ class TestApply:
         other_meter = await create_meter(
             save_fixture, organization=organization_second, external_id="sdk-tool-calls"
         )
-        mocker.patch("polar.meter.service.enqueue_job")
+        mocker.patch("repalis.meter.service.enqueue_job")
 
         result = await declarative_config_service.apply(
             session,
@@ -932,7 +932,7 @@ class TestApply:
             external_id="my-meter",
             last_billed_event=event,
         )
-        mocker.patch("polar.meter.service.enqueue_job")
+        mocker.patch("repalis.meter.service.enqueue_job")
 
         result = await declarative_config_service.apply(
             session,
@@ -1003,7 +1003,7 @@ class TestApply:
             user_metadata={"team": "sdk"},
         )
 
-        mocker.patch("polar.meter.service.enqueue_job")
+        mocker.patch("repalis.meter.service.enqueue_job")
 
         result = await declarative_config_service.apply(
             session,
@@ -1036,10 +1036,10 @@ class TestApply:
             save_fixture, organization=organization, external_id="sdk-tool-calls"
         )
         mocker.patch(
-            "polar.declarative_config.service.MeterRepository.get_all_by_external_ids",
+            "repalis.declarative_config.service.MeterRepository.get_all_by_external_ids",
             return_value=[],
         )
-        mocker.patch("polar.meter.service.enqueue_job")
+        mocker.patch("repalis.meter.service.enqueue_job")
 
         with pytest.raises(ConfigMeterConflict):
             await declarative_config_service.apply(
@@ -1058,7 +1058,7 @@ class TestApply:
         auth_subject: AuthSubject[Organization],
         organization: Organization,
     ) -> None:
-        mocker.patch("polar.meter.service.enqueue_job")
+        mocker.patch("repalis.meter.service.enqueue_job")
 
         result = await declarative_config_service.apply(
             session,
@@ -1105,7 +1105,7 @@ class TestApply:
         auth_subject: AuthSubject[Organization],
         organization: Organization,
     ) -> None:
-        mocker.patch("polar.meter.service.enqueue_job")
+        mocker.patch("repalis.meter.service.enqueue_job")
         meter = await create_meter(
             save_fixture, organization=organization, external_id="sdk-tool-calls"
         )
@@ -1196,7 +1196,7 @@ class TestApply:
             external_id="beta",
         )
         mocker.patch(
-            "polar.declarative_config.validation.BenefitRepository.get_all_by_external_ids",
+            "repalis.declarative_config.validation.BenefitRepository.get_all_by_external_ids",
             return_value=[],
         )
 
@@ -1255,7 +1255,7 @@ class TestApply:
         auth_subject: AuthSubject[Organization],
         organization: Organization,
     ) -> None:
-        mocker.patch("polar.meter.service.enqueue_job")
+        mocker.patch("repalis.meter.service.enqueue_job")
         config = {
             "meters": [TOOL_CALLS_METER],
             "benefits": [CREDITS_BENEFIT, BETA_BENEFIT],
@@ -1389,7 +1389,7 @@ class TestApply:
         auth_subject: AuthSubject[Organization],
         organization: Organization,
     ) -> None:
-        mocker.patch("polar.meter.service.enqueue_job")
+        mocker.patch("repalis.meter.service.enqueue_job")
 
         result = await declarative_config_service.apply(
             session,
@@ -1562,7 +1562,7 @@ class TestApply:
             external_id="pack",
         )
         mocker.patch(
-            "polar.declarative_config.validation.ProductRepository.get_all_by_external_ids",
+            "repalis.declarative_config.validation.ProductRepository.get_all_by_external_ids",
             return_value=[],
         )
 
@@ -1612,7 +1612,7 @@ class TestApply:
         redis: Redis,
         auth_subject: AuthSubject[Organization],
     ) -> None:
-        mocker.patch("polar.meter.service.enqueue_job")
+        mocker.patch("repalis.meter.service.enqueue_job")
         metered_price = PRO_PRODUCT["prices"][1]
 
         with pytest.raises(ConfigInvalid) as exc_info:
@@ -1647,7 +1647,7 @@ class TestApply:
         auth_subject: AuthSubject[Organization],
         organization: Organization,
     ) -> None:
-        mocker.patch("polar.meter.service.enqueue_job")
+        mocker.patch("repalis.meter.service.enqueue_job")
         config = {"meters": [TOOL_CALLS_METER], "products": [USAGE_PRODUCT]}
 
         await declarative_config_service.apply(
@@ -4857,7 +4857,7 @@ class TestMeterVersioning:
         auth_subject: AuthSubject[Organization],
         organization: Organization,
     ) -> None:
-        mocker.patch("polar.meter.service.enqueue_job")
+        mocker.patch("repalis.meter.service.enqueue_job")
         meters_repo = MeterRepository.from_session(session)
         products_repo = ProductRepository.from_session(session)
         await declarative_config_service.apply(
@@ -4927,7 +4927,7 @@ class TestMeterVersioning:
         redis: Redis,
         auth_subject: AuthSubject[Organization],
     ) -> None:
-        mocker.patch("polar.meter.service.enqueue_job")
+        mocker.patch("repalis.meter.service.enqueue_job")
         await declarative_config_service.apply(
             session,
             redis,
@@ -4970,7 +4970,7 @@ class TestMeterVersioning:
         auth_subject: AuthSubject[Organization],
         organization: Organization,
     ) -> None:
-        mocker.patch("polar.meter.service.enqueue_job")
+        mocker.patch("repalis.meter.service.enqueue_job")
         meters_repo = MeterRepository.from_session(session)
         await declarative_config_service.apply(
             session,
@@ -5775,7 +5775,7 @@ class TestExport:
         redis: Redis,
         auth_subject: AuthSubject[Organization],
     ) -> None:
-        mocker.patch("polar.meter.service.enqueue_job")
+        mocker.patch("repalis.meter.service.enqueue_job")
         await declarative_config_service.apply(
             session, redis, auth_subject, Config.model_validate(ROUND_TRIP_CONFIG)
         )
@@ -6389,7 +6389,7 @@ class TestCatalogDrafts:
         auth_subject: AuthSubject[Organization],
         organization: Organization,
     ) -> None:
-        enqueue_job_mock = mocker.patch("polar.meter.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.meter.service.enqueue_job")
         meters_repo = MeterRepository.from_session(session)
         await declarative_config_service.apply(
             session,
@@ -6441,7 +6441,7 @@ class TestCatalogDrafts:
         auth_subject: AuthSubject[Organization],
         organization: Organization,
     ) -> None:
-        mocker.patch("polar.meter.service.enqueue_job")
+        mocker.patch("repalis.meter.service.enqueue_job")
         # Published before meters were versioned, so it lists none.
         await save_fixture(
             Catalog(

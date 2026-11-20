@@ -8,7 +8,7 @@ from pydantic_core import PydanticCustomError
 from sqlalchemy import Dialect, TypeDecorator
 from sqlalchemy.dialects.postgresql import JSONB
 
-from polar.exceptions import PolarError
+from repalis.exceptions import PolarError
 
 BIGINT_MAX = 9223372036854775807
 

@@ -7,12 +7,12 @@ import structlog
 from dramatiq.asyncio import get_event_loop_thread
 from sqlalchemy import Connection, event
 
-from polar.config import settings
-from polar.kit.db.postgres import AsyncSessionMaker as AsyncSessionMakerType
-from polar.kit.db.postgres import create_async_sessionmaker
-from polar.logfire import instrument_sqlalchemy
-from polar.logging import Logger
-from polar.postgres import (
+from repalis.config import settings
+from repalis.kit.db.postgres import AsyncSessionMaker as AsyncSessionMakerType
+from repalis.kit.db.postgres import create_async_sessionmaker
+from repalis.logfire import instrument_sqlalchemy
+from repalis.logging import Logger
+from repalis.postgres import (
     AsyncEngine,
     AsyncReadSession,
     AsyncSession,

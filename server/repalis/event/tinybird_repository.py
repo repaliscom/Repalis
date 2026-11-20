@@ -2,7 +2,7 @@ from collections.abc import Sequence
 from datetime import datetime
 from uuid import UUID
 
-from polar.integrations.tinybird.service import (
+from repalis.integrations.tinybird.service import (
     TinybirdCustomerStat,
     TinybirdEventsQuery,
     TinybirdEventTypesQuery,
@@ -11,10 +11,10 @@ from polar.integrations.tinybird.service import (
     TinybirdTimeseriesStats,
     TinybirdVarianceStat,
 )
-from polar.kit.metadata import MetadataQuery
-from polar.meter.filter import Filter
-from polar.models import Meter
-from polar.models.event import EventSource
+from repalis.kit.metadata import MetadataQuery
+from repalis.meter.filter import Filter
+from repalis.models import Meter
+from repalis.models.event import EventSource
 
 type EventNameStats = tuple[str, EventSource, int, datetime, datetime]
 

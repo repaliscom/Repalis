@@ -3,9 +3,9 @@ from urllib.parse import urlencode, urlsplit
 from fastapi import Depends, Request
 from fastapi.exceptions import HTTPException
 
-from polar.config import settings
-from polar.models import BackofficeUserSession
-from polar.postgres import AsyncSession, get_db_session
+from repalis.config import settings
+from repalis.models import BackofficeUserSession
+from repalis.postgres import AsyncSession, get_db_session
 
 from .auth.service import get_user_session
 

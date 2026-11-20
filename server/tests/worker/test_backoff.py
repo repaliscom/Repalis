@@ -8,10 +8,10 @@ from dramatiq.errors import Retry
 from dramatiq.middleware.retries import DEFAULT_MAX_BACKOFF
 from pytest_mock import MockerFixture
 
-import polar.tasks  # noqa: F401  (registers actors with the broker)
-from polar.config import settings
-from polar.worker import _sqs
-from polar.worker._runner import (
+import repalis.tasks  # noqa: F401  (registers actors with the broker)
+from repalis.config import settings
+from repalis.worker import _sqs
+from repalis.worker._runner import (
     RetryAction,
     compute_retry_backoff,
     get_actor_max_retries,

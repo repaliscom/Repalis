@@ -1,12 +1,12 @@
 import uuid
 from collections.abc import Sequence
 
-from polar.auth.models import AuthSubject, Customer, Member
-from polar.kit.db.postgres import AsyncSession
-from polar.kit.pagination import PaginationParams
-from polar.kit.services import ResourceServiceReader
-from polar.kit.sorting import Sorting
-from polar.models import Wallet
+from repalis.auth.models import AuthSubject, Customer, Member
+from repalis.kit.db.postgres import AsyncSession
+from repalis.kit.pagination import PaginationParams
+from repalis.kit.services import ResourceServiceReader
+from repalis.kit.sorting import Sorting
+from repalis.models import Wallet
 
 from ..repository.wallet import CustomerWalletRepository
 from ..sorting.wallet import CustomerWalletSortProperty

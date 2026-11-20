@@ -4,17 +4,17 @@ from typing import Any
 import pytest
 from pydantic import TypeAdapter, ValidationError
 
-from polar.customer.repository import CustomerRepository
-from polar.customer.schemas.customer import (
+from repalis.customer.repository import CustomerRepository
+from repalis.customer.schemas.customer import (
     CustomerBillingNameInput,
     CustomerNameInput,
 )
-from polar.customer.schemas.customer import CustomerResponse as Customer
-from polar.customer.schemas.state import CustomerState
-from polar.models import Organization
-from polar.models.customer import Customer as CustomerModel
-from polar.models.customer import CustomerType
-from polar.postgres import AsyncSession
+from repalis.customer.schemas.customer import CustomerResponse as Customer
+from repalis.customer.schemas.state import CustomerState
+from repalis.models import Organization
+from repalis.models.customer import Customer as CustomerModel
+from repalis.models.customer import CustomerType
+from repalis.postgres import AsyncSession
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_customer
 

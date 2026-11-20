@@ -11,8 +11,8 @@ from typing import Any
 import httpx2
 import structlog
 
-from polar.config import settings
-from polar.logging import Logger
+from repalis.config import settings
+from repalis.logging import Logger
 
 log: Logger = structlog.get_logger()
 

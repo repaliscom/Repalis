@@ -4,8 +4,8 @@ from uuid import UUID
 from sqlalchemy import BigInteger, ForeignKey, Uuid
 from sqlalchemy.orm import Mapped, declared_attr, mapped_column, relationship
 
-from polar.kit.db.models import RecordModel
-from polar.models.product_price import (
+from repalis.kit.db.models import RecordModel
+from repalis.models.product_price import (
     ProductPrice,
     ProductPriceCustom,
     ProductPriceFixed,
@@ -14,7 +14,7 @@ from polar.models.product_price import (
 )
 
 if TYPE_CHECKING:
-    from polar.models import Subscription
+    from repalis.models import Subscription
 
 
 class SubscriptionProductPrice(RecordModel):

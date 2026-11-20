@@ -6,11 +6,11 @@ from pathlib import Path
 
 from rich import print
 
-from polar.auth.scope import SCOPES_SUPPORTED
-from polar.kit.crypto import generate_token
-from polar.kit.db.postgres import create_async_sessionmaker
-from polar.models import OAuth2Client
-from polar.postgres import create_async_engine
+from repalis.auth.scope import SCOPES_SUPPORTED
+from repalis.kit.crypto import generate_token
+from repalis.kit.db.postgres import create_async_sessionmaker
+from repalis.models import OAuth2Client
+from repalis.postgres import create_async_engine
 
 from .constants import (
     CLIENT_ID_PREFIX,

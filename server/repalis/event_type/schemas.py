@@ -5,11 +5,11 @@ from uuid import UUID
 from fastapi import Path
 from pydantic import UUID4, Field, field_validator
 
-from polar.customer.schemas.customer import CustomerID
-from polar.kit.schemas import IDSchema, MultipleQueryFilter, Schema, TimestampedSchema
-from polar.kit.versioning import QuerySchema
-from polar.models.event import EventSource
-from polar.organization.schemas import OrganizationID
+from repalis.customer.schemas.customer import CustomerID
+from repalis.kit.schemas import IDSchema, MultipleQueryFilter, Schema, TimestampedSchema
+from repalis.kit.versioning import QuerySchema
+from repalis.models.event import EventSource
+from repalis.organization.schemas import OrganizationID
 
 
 class EventTypeUpdate(Schema):

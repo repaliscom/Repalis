@@ -6,13 +6,13 @@ from sqlalchemy import func, or_
 from sqlalchemy.orm import contains_eager, joinedload, selectinload
 from tagflow import tag, text
 
-from polar.backoffice.routing import BackofficeRouter
-from polar.kit.pagination import PaginationParamsQuery
-from polar.models import Organization, Product, ProductBenefit
-from polar.models.product_price import ProductPrice
-from polar.postgres import AsyncSession, get_db_read_session
-from polar.product import sorting
-from polar.product.guard import (
+from repalis.backoffice.routing import BackofficeRouter
+from repalis.kit.pagination import PaginationParamsQuery
+from repalis.models import Organization, Product, ProductBenefit
+from repalis.models.product_price import ProductPrice
+from repalis.postgres import AsyncSession, get_db_read_session
+from repalis.product import sorting
+from repalis.product.guard import (
     is_custom_price,
     is_fixed_price,
     is_metered_tiers_price,
@@ -20,8 +20,8 @@ from polar.product.guard import (
     is_seat_price,
     is_unit_price,
 )
-from polar.product.repository import ProductRepository
-from polar.product.sorting import ProductSortProperty
+from repalis.product.repository import ProductRepository
+from repalis.product.sorting import ProductSortProperty
 
 from .. import formatters
 from ..components import button, datatable, description_list, input

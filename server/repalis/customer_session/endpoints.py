@@ -1,9 +1,9 @@
 from fastapi import Depends
 
-from polar.models import CustomerSession, MemberSession
-from polar.openapi import APITag
-from polar.postgres import AsyncSession, get_db_session
-from polar.routing import APIRouter
+from repalis.models import CustomerSession, MemberSession
+from repalis.openapi import APITag
+from repalis.postgres import AsyncSession, get_db_session
+from repalis.routing import APIRouter
 
 from . import auth
 from .schemas import CustomerSession as CustomerSessionSchema

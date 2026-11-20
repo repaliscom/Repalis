@@ -1,27 +1,27 @@
 import structlog
 from fastapi import Depends
 
-from polar.customer_email_update.schemas import (
+from repalis.customer_email_update.schemas import (
     CustomerEmailUpdateRequest,
     CustomerEmailUpdateVerifyRequest,
     CustomerEmailUpdateVerifyResponse,
 )
-from polar.customer_email_update.service import (
+from repalis.customer_email_update.service import (
     InvalidCustomerEmailUpdate,
 )
-from polar.customer_email_update.service import (
+from repalis.customer_email_update.service import (
     customer_email_update as customer_email_update_service,
 )
-from polar.customer_session.service import customer_session as customer_session_service
-from polar.exceptions import NotPermitted
-from polar.openapi import APITag
-from polar.postgres import (
+from repalis.customer_session.service import customer_session as customer_session_service
+from repalis.exceptions import NotPermitted
+from repalis.openapi import APITag
+from repalis.postgres import (
     AsyncReadSession,
     AsyncSession,
     get_db_read_session,
     get_db_session,
 )
-from polar.routing import APIRouter
+from repalis.routing import APIRouter
 
 from .. import auth
 from ..utils import get_audit_context, get_customer

@@ -7,10 +7,10 @@ from sqlalchemy import TIMESTAMP, ForeignKey, Index, String, Text, Uuid, text
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import Mapped, declared_attr, mapped_column, relationship
 
-from polar.kit.db.models import RecordModel
+from repalis.kit.db.models import RecordModel
 
 if TYPE_CHECKING:
-    from polar.models.organization import Organization
+    from repalis.models.organization import Organization
 
 
 class OrganizationReview(RecordModel):

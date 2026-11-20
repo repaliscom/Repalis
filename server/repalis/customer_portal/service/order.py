@@ -7,18 +7,18 @@ from sqlalchemy import UnaryExpression, asc, desc
 from sqlalchemy.orm import contains_eager
 from sqlalchemy.sql.elements import OrderByList
 
-from polar.auth.models import AuthSubject, Customer, Member
-from polar.enums import PaymentProcessor
-from polar.exceptions import PolarError
-from polar.invoice.service import invoice as invoice_service
-from polar.kit.db.postgres import AsyncSession
-from polar.kit.pagination import PaginationParams
-from polar.kit.sorting import Sorting
-from polar.models import Order, Product
-from polar.models.product import ProductBillingType
-from polar.order.service import InvoiceDoesNotExist, ReceiptNotAllocated
-from polar.order.service import order as order_service
-from polar.receipt.service import receipt as receipt_service
+from repalis.auth.models import AuthSubject, Customer, Member
+from repalis.enums import PaymentProcessor
+from repalis.exceptions import PolarError
+from repalis.invoice.service import invoice as invoice_service
+from repalis.kit.db.postgres import AsyncSession
+from repalis.kit.pagination import PaginationParams
+from repalis.kit.sorting import Sorting
+from repalis.models import Order, Product
+from repalis.models.product import ProductBillingType
+from repalis.order.service import InvoiceDoesNotExist, ReceiptNotAllocated
+from repalis.order.service import order as order_service
+from repalis.receipt.service import receipt as receipt_service
 
 from ..repository.order import CustomerOrderRepository
 from ..schemas.order import (

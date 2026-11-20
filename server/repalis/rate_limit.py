@@ -5,11 +5,11 @@ from ratelimit import RateLimitMiddleware, Rule
 from ratelimit.backends.redis import RedisBackend
 from ratelimit.types import ASGIApp, Scope
 
-from polar.auth.models import AuthSubject, Subject, is_anonymous
-from polar.config import Environment, settings
-from polar.enums import RateLimitGroup
-from polar.kit.http import get_ip_address
-from polar.redis import Redis
+from repalis.auth.models import AuthSubject, Subject, is_anonymous
+from repalis.config import Environment, settings
+from repalis.enums import RateLimitGroup
+from repalis.kit.http import get_ip_address
+from repalis.redis import Redis
 
 
 async def _authenticate_ip(scope: Scope) -> tuple[str, RateLimitGroup]:

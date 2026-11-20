@@ -13,17 +13,17 @@ from pydantic import (
 )
 from pydantic.json_schema import SkipJsonSchema
 
-from polar.custom_field.data import CustomFieldDataOutputMixin
-from polar.customer.schemas.customer import CustomerBase, CustomerID, ExternalCustomerID
-from polar.discount.schemas import DiscountID, DiscountMinimal
-from polar.enums import (
+from repalis.custom_field.data import CustomFieldDataOutputMixin
+from repalis.customer.schemas.customer import CustomerBase, CustomerID, ExternalCustomerID
+from repalis.discount.schemas import DiscountID, DiscountMinimal
+from repalis.enums import (
     ProrationBehaviorSetting,
     SubscriptionProrationBehavior,
     SubscriptionRecurringInterval,
 )
-from polar.kit.currency import PresentmentCurrency, format_currency
-from polar.kit.metadata import MetadataInputMixin, MetadataOutputMixin
-from polar.kit.schemas import (
+from repalis.kit.currency import PresentmentCurrency, format_currency
+from repalis.kit.metadata import MetadataInputMixin, MetadataOutputMixin
+from repalis.kit.schemas import (
     CUSTOMER_ID_EXAMPLE,
     METER_ID_EXAMPLE,
     PRODUCT_ID_EXAMPLE,
@@ -35,13 +35,13 @@ from polar.kit.schemas import (
     SetSchemaReference,
     TimestampedSchema,
 )
-from polar.kit.versioning import QuerySchema, Version, VersionedJsonSchema
-from polar.meter.schemas import Meter
-from polar.models.subscription import CustomerCancellationReason, SubscriptionStatus
-from polar.openapi import destructive_when_equals
-from polar.organization.schemas import OrganizationID
-from polar.product.schemas import Product, ProductID, ProductPrice
-from polar.version import V2026_10, V2027_01
+from repalis.kit.versioning import QuerySchema, Version, VersionedJsonSchema
+from repalis.meter.schemas import Meter
+from repalis.models.subscription import CustomerCancellationReason, SubscriptionStatus
+from repalis.openapi import destructive_when_equals
+from repalis.organization.schemas import OrganizationID
+from repalis.product.schemas import Product, ProductID, ProductPrice
+from repalis.version import V2026_10, V2027_01
 
 SubscriptionID = Annotated[UUID4, Path(description="The subscription ID.")]
 

@@ -6,17 +6,17 @@ from sqlalchemy import TIMESTAMP, ForeignKey, Index, Uuid
 from sqlalchemy.orm import Mapped, declared_attr, mapped_column, relationship
 from sqlalchemy.sql.sqltypes import Integer
 
-from polar.enums import SubscriptionProrationBehavior
-from polar.kit.db.models import RecordModel
-from polar.kit.extensions.sqlalchemy.types import StringEnum
-from polar.kit.utils import utc_now
-from polar.product.guard import is_recurring_product
-from polar.product.price_set import PriceSet
+from repalis.enums import SubscriptionProrationBehavior
+from repalis.kit.db.models import RecordModel
+from repalis.kit.extensions.sqlalchemy.types import StringEnum
+from repalis.kit.utils import utc_now
+from repalis.product.guard import is_recurring_product
+from repalis.product.price_set import PriceSet
 
 from .subscription_product_price import SubscriptionProductPrice
 
 if TYPE_CHECKING:
-    from polar.models import Discount, Product, Subscription
+    from repalis.models import Discount, Product, Subscription
 
 
 class SubscriptionUpdate(RecordModel):

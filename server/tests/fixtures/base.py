@@ -7,13 +7,13 @@ from fastapi import FastAPI
 from sqlalchemy.ext.asyncio import async_sessionmaker
 from starlette.types import Receive, Scope, Send
 
-from polar.app import app as polar_app
-from polar.auth.dependencies import _auth_subject_factory_cache
-from polar.auth.models import AuthSubject, Subject
-from polar.checkout.ip_geolocation import _get_client_dependency
-from polar.kit.versioning import VERSION_HEADER, APIVersion
-from polar.postgres import AsyncSession, get_db_read_session, get_db_session
-from polar.redis import Redis, get_redis
+from repalis.app import app as polar_app
+from repalis.auth.dependencies import _auth_subject_factory_cache
+from repalis.auth.models import AuthSubject, Subject
+from repalis.checkout.ip_geolocation import _get_client_dependency
+from repalis.kit.versioning import VERSION_HEADER, APIVersion
+from repalis.postgres import AsyncSession, get_db_read_session, get_db_session
+from repalis.redis import Redis, get_redis
 
 
 class IsolatedSessionTestClient(httpx2.AsyncClient):

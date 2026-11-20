@@ -7,11 +7,11 @@ import httpx2
 import structlog
 from email_validator import validate_email
 
-from polar.config import settings
-from polar.enums import EmailSender as EmailSenderType
-from polar.exceptions import PolarError
-from polar.logging import Logger
-from polar.worker import enqueue_job
+from repalis.config import settings
+from repalis.enums import EmailSender as EmailSenderType
+from repalis.exceptions import PolarError
+from repalis.logging import Logger
+from repalis.worker import enqueue_job
 
 from .react import serialize_email_props
 

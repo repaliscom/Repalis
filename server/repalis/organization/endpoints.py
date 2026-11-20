@@ -5,10 +5,10 @@ from uuid import UUID
 from fastapi import Depends, Query, Request, Response, status
 from sqlalchemy.orm import joinedload
 
-from polar.account.schemas import Account as AccountSchema
-from polar.account.service import account as account_service
-from polar.auth.permission import ROLE_PERMISSIONS
-from polar.authz.dependencies import (
+from repalis.account.schemas import Account as AccountSchema
+from repalis.account.service import account as account_service
+from repalis.auth.permission import ROLE_PERMISSIONS
+from repalis.authz.dependencies import (
     AuthorizeFinanceRead,
     AuthorizeMembersManage,
     AuthorizeMembersRead,
@@ -20,19 +20,19 @@ from polar.authz.dependencies import (
     AuthorizeOrgManageUser,
     AuthorizeOrgManageUserRead,
 )
-from polar.config import settings
-from polar.email.schemas import OrganizationInviteEmail, OrganizationInviteProps
-from polar.email.sender import enqueue_email_template
-from polar.exceptions import (
+from repalis.config import settings
+from repalis.email.schemas import OrganizationInviteEmail, OrganizationInviteProps
+from repalis.email.sender import enqueue_email_template
+from repalis.exceptions import (
     NotPermitted,
     PolarRequestValidationError,
     ResourceNotFound,
 )
-from polar.integrations.repalis.exceptions import (
+from repalis.integrations.repalis.exceptions import (
     PolarSelfPaidSubscriptionAlreadyExists,
     PolarSelfPaymentMethodInUse,
 )
-from polar.integrations.repalis.schemas import (
+from repalis.integrations.repalis.schemas import (
     OrganizationBenefitGrant,
     OrganizationBenefitGrantUpdate,
     OrganizationBillingDetails,
@@ -50,71 +50,71 @@ from polar.integrations.repalis.schemas import (
     OrganizationSubscriptionUpdate,
     organization_payment_method_from_sdk,
 )
-from polar.integrations.repalis.service import polar_self as polar_self_service
-from polar.kit.concurrency import create_task_group
-from polar.kit.http import check_url_reachable, get_ip_address
-from polar.kit.pagination import ListResource, Pagination, PaginationParamsQuery
-from polar.kit.versioning import version
-from polar.models import Account, Organization, UserOrganization, UserSession
-from polar.models.support_case import (
+from repalis.integrations.repalis.service import polar_self as polar_self_service
+from repalis.kit.concurrency import create_task_group
+from repalis.kit.http import check_url_reachable, get_ip_address
+from repalis.kit.pagination import ListResource, Pagination, PaginationParamsQuery
+from repalis.kit.versioning import version
+from repalis.models import Account, Organization, UserOrganization, UserSession
+from repalis.models.support_case import (
     SupportCase,
 )
-from polar.models.user_organization import OrganizationRole
-from polar.openapi import APITag
-from polar.organization.repository import (
+from repalis.models.user_organization import OrganizationRole
+from repalis.openapi import APITag
+from repalis.organization.repository import (
     OrganizationReviewRepository,
 )
-from polar.organization_domain.service import (
+from repalis.organization_domain.service import (
     organization_domain as organization_domain_service,
 )
-from polar.organization_review.appeal_case import (
+from repalis.organization_review.appeal_case import (
     AppealNotRejectedError,
     CaseAlreadyExistsError,
 )
-from polar.organization_review.appeal_case import (
+from repalis.organization_review.appeal_case import (
     appeal_case as appeal_case_service,
 )
-from polar.payout_account.repository import PayoutAccountRepository
-from polar.postgres import (
+from repalis.payout_account.repository import PayoutAccountRepository
+from repalis.postgres import (
     AsyncReadSession,
     AsyncSession,
     get_db_read_session,
     get_db_session,
 )
-from polar.routing import APIRouter
-from polar.sso.repository import OrganizationSSOConnectionRepository
-from polar.sso.service import SSORequiresVerifiedDomain
-from polar.startup_program.service import (
+from repalis.routing import APIRouter
+from repalis.sso.repository import OrganizationSSOConnectionRepository
+from repalis.sso.service import SSORequiresVerifiedDomain
+from repalis.startup_program.service import (
     StartupProgramError,
 )
-from polar.startup_program.service import (
+from repalis.startup_program.service import (
     startup_program as startup_program_service,
 )
-from polar.support_case.schemas import (
+from repalis.support_case.schemas import (
     HumanReviewRequest,
     SupportCaseNotFound,
 )
-from polar.support_case.schemas import (
+from repalis.support_case.schemas import (
     SupportCase as SupportCaseSchema,
 )
-from polar.user.service import UserCannotAuthenticate
-from polar.user.service import user as user_service
-from polar.user_organization.schemas import (
+from repalis.user.service import UserCannotAuthenticate
+from repalis.user.service import user as user_service
+from repalis.user_organization.schemas import (
     OrganizationMember,
     OrganizationMemberInvite,
     OrganizationMemberRoleUpdate,
 )
-from polar.user_organization.service import (
+from repalis.user_organization.service import (
     CannotRemoveOrganizationOwner,
     ConcurrentRoleModification,
     InvalidOwnerRoleAssignment,
     OwnerRoleCannotBeRemoved,
     UserNotMemberOfOrganization,
 )
-from polar.user_organization.service import (
+from repalis.user_organization.service import (
     user_organization as user_organization_service,
 )
-from polar.version import V2027_01
+from repalis.version import V2027_01
 
 from . import auth, legacy_schemas, sorting
 from .embed_hosts import is_shared_host

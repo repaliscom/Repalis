@@ -2,7 +2,7 @@ from collections.abc import Callable
 from pathlib import Path
 from string import Template
 
-from polar.oauth2.constants import SERVICE_DOCUMENTATION
+from repalis.oauth2.constants import SERVICE_DOCUMENTATION
 
 _TEMPLATE = Template((Path(__file__).parent / "auth.md").read_text())
 

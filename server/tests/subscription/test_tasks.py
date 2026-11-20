@@ -5,14 +5,14 @@ import pytest
 from freezegun.api import freeze_time
 from pytest_mock import MockerFixture
 
-from polar.enums import SubscriptionRecurringInterval
-from polar.kit.utils import utc_now
-from polar.models import Customer, Organization, Product, Subscription
-from polar.models.organization import OrganizationStatus
-from polar.models.subscription import SubscriptionStatus
-from polar.postgres import AsyncSession
-from polar.subscription.service import SubscriptionMeterCycleLag, SubscriptionService
-from polar.subscription.tasks import (  # type: ignore[attr-defined]
+from repalis.enums import SubscriptionRecurringInterval
+from repalis.kit.utils import utc_now
+from repalis.models import Customer, Organization, Product, Subscription
+from repalis.models.organization import OrganizationStatus
+from repalis.models.subscription import SubscriptionStatus
+from repalis.postgres import AsyncSession
+from repalis.subscription.service import SubscriptionMeterCycleLag, SubscriptionService
+from repalis.subscription.tasks import (  # type: ignore[attr-defined]
     SubscriptionDoesNotExist,
     SubscriptionTierDoesNotExist,
     scan_grace_expired_revocations,
@@ -67,7 +67,7 @@ class TestSubscriptionCancelForOrganization:
             "cancel_for_organization",
             return_value=True,
         )
-        enqueue_job_mock = mocker.patch("polar.subscription.tasks.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.subscription.tasks.enqueue_job")
 
         session.expunge_all()
 
@@ -87,7 +87,7 @@ class TestSubscriptionCancelForOrganization:
             "cancel_for_organization",
             return_value=False,
         )
-        enqueue_job_mock = mocker.patch("polar.subscription.tasks.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.subscription.tasks.enqueue_job")
 
         session.expunge_all()
 
@@ -402,7 +402,7 @@ class TestScanGraceExpiredRevocations:
             granted=grant_active,
             subscription=subscription,
         )
-        enqueue_job_mock = mocker.patch("polar.subscription.tasks.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.subscription.tasks.enqueue_job")
 
         session.expunge_all()
 

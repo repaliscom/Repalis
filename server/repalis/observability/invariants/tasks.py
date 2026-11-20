@@ -1,8 +1,8 @@
 from typing import Annotated
 
-from polar.exceptions import PolarTaskError
-from polar.observability.task_logging import LoggableField
-from polar.worker import (
+from repalis.exceptions import PolarTaskError
+from repalis.observability.task_logging import LoggableField
+from repalis.worker import (
     AsyncReadSessionMaker,
     CronTrigger,
     TaskPriority,

@@ -1,9 +1,9 @@
 from pydantic import UUID4, Field
 
-from polar.kit.schemas import Schema
-from polar.kit.versioning import QuerySchema
-from polar.notification_recipient.schemas import NotificationRecipientPlatform
-from polar.notifications.notification import Notification
+from repalis.kit.schemas import Schema
+from repalis.kit.versioning import QuerySchema
+from repalis.notification_recipient.schemas import NotificationRecipientPlatform
+from repalis.notifications.notification import Notification
 
 
 class NotificationsList(Schema):

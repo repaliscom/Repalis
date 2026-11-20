@@ -60,8 +60,8 @@ uv run task emails
 Then, use `enqueue_email_template` to send the email via the background worker. This serializes the template data and enqueues a job — rendering happens in the worker, keeping the API request fast.
 
 ```python
-from polar.email.schemas import CustomerGreetingsEmail, CustomerGreetingsProps
-from polar.email.sender import enqueue_email_template
+from repalis.email.schemas import CustomerGreetingsEmail, CustomerGreetingsProps
+from repalis.email.sender import enqueue_email_template
 
 enqueue_email_template(
     CustomerGreetingsEmail(
@@ -81,7 +81,7 @@ enqueue_email_template(
 If you need to render a template directly, use `render_email_template` from an async context:
 
 ```python
-from polar.email.react import render_email_template
+from repalis.email.react import render_email_template
 
 body = await render_email_template(email)
 ```

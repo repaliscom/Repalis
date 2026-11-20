@@ -27,11 +27,11 @@ from sqlalchemy import ColumnElement, Text, Update, func, select, update
 from sqlalchemy import cast as sql_cast
 from sqlalchemy.orm import InstrumentedAttribute
 
-from polar.kit.address import SUBDIVISIONS, Address
-from polar.kit.db.models import RecordModel
-from polar.kit.db.postgres import AsyncSession, create_async_sessionmaker
-from polar.models import Checkout, CreditNote, Customer, Order
-from polar.postgres import create_async_engine
+from repalis.kit.address import SUBDIVISIONS, Address
+from repalis.kit.db.models import RecordModel
+from repalis.kit.db.postgres import AsyncSession, create_async_sessionmaker
+from repalis.models import Checkout, CreditNote, Customer, Order
+from repalis.postgres import create_async_engine
 from scripts.helper import configure_script_logging, read_engine, typer_async
 
 cli = typer.Typer()

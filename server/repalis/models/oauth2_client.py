@@ -5,13 +5,13 @@ from authlib.integrations.sqla_oauth2 import OAuth2ClientMixin
 from sqlalchemy import ForeignKey, String, UniqueConstraint, Uuid
 from sqlalchemy.orm import Mapped, declared_attr, mapped_column, relationship
 
-from polar.kit.crypto import get_token_hash, get_token_hash_candidates
-from polar.kit.db.models import RateLimitGroupMixin, RecordModel
-from polar.kit.encryption import EncryptedString, EncryptedStringType
-from polar.oauth2.sub_type import SubType
+from repalis.kit.crypto import get_token_hash, get_token_hash_candidates
+from repalis.kit.db.models import RateLimitGroupMixin, RecordModel
+from repalis.kit.encryption import EncryptedString, EncryptedStringType
+from repalis.oauth2.sub_type import SubType
 
 if TYPE_CHECKING:
-    from polar.models import User
+    from repalis.models import User
 
 OAUTH2_CLIENT_SECRET_CONTEXT = {
     "table": "oauth2_clients",

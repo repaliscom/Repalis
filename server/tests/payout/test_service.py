@@ -13,27 +13,27 @@ from unittest.mock import MagicMock
 import pytest
 from pytest_mock import MockerFixture
 
-from polar.config import settings
-from polar.enums import PayoutAccountType
-from polar.exceptions import PolarRequestValidationError
-from polar.integrations.stripe.service import StripeService
-from polar.kit.address import Address, CountryAlpha2
-from polar.kit.db.postgres import AsyncSessionMaker
-from polar.kit.utils import utc_now
-from polar.locker import Locker
-from polar.models import Account, Organization, Payout, Transaction, User
-from polar.models.organization import (
+from repalis.config import settings
+from repalis.enums import PayoutAccountType
+from repalis.exceptions import PolarRequestValidationError
+from repalis.integrations.stripe.service import StripeService
+from repalis.kit.address import Address, CountryAlpha2
+from repalis.kit.db.postgres import AsyncSessionMaker
+from repalis.kit.utils import utc_now
+from repalis.locker import Locker
+from repalis.models import Account, Organization, Payout, Transaction, User
+from repalis.models.organization import (
     STATUS_CAPABILITIES,
     OrganizationStatus,
     PayoutAccountNotReady,
 )
-from polar.models.payout import PayoutStatus
-from polar.models.payout_attempt import PayoutAttemptStatus
-from polar.models.transaction import Processor, TransactionType
-from polar.organization_email.service import SupportEmailNotVerified
-from polar.payout.repository import PayoutRepository
-from polar.payout.schemas import PayoutGenerateInvoice
-from polar.payout.service import (
+from repalis.models.payout import PayoutStatus
+from repalis.models.payout_attempt import PayoutAttemptStatus
+from repalis.models.transaction import Processor, TransactionType
+from repalis.organization_email.service import SupportEmailNotVerified
+from repalis.payout.repository import PayoutRepository
+from repalis.payout.schemas import PayoutGenerateInvoice
+from repalis.payout.service import (
     InsufficientBalance,
     InvoiceAlreadyExists,
     MissingInvoiceBillingDetails,
@@ -47,12 +47,12 @@ from polar.payout.service import (
     PayoutNotPending,
     PayoutNotSucceeded,
 )
-from polar.payout.service import payout as payout_service
-from polar.postgres import AsyncSession
-from polar.transaction.repository import (
+from repalis.payout.service import payout as payout_service
+from repalis.postgres import AsyncSession
+from repalis.transaction.repository import (
     PayoutTransactionRepository,
 )
-from polar.transaction.service.payout import (
+from repalis.transaction.service.payout import (
     PayoutTransactionService,
 )
 from tests.fixtures import random_objects as ro
@@ -68,14 +68,14 @@ from tests.transaction.conftest import create_transaction
 @pytest.fixture(autouse=True)
 def payout_transaction_service_mock(mocker: MockerFixture) -> MagicMock:
     mock = MagicMock(spec=PayoutTransactionService)
-    mocker.patch("polar.payout.service.payout_transaction_service", new=mock)
+    mocker.patch("repalis.payout.service.payout_transaction_service", new=mock)
     return mock
 
 
 @pytest.fixture(autouse=True)
 def stripe_service_mock(mocker: MockerFixture) -> MagicMock:
     mock = MagicMock(spec=StripeService)
-    mocker.patch("polar.payout.service.stripe_service", new=mock)
+    mocker.patch("repalis.payout.service.stripe_service", new=mock)
     return mock
 
 
@@ -238,7 +238,7 @@ class TestCreate:
     ) -> None:
         # A REVIEW/SNOOZED org can request a payout: it is reserved and held
         # until the org is approved, instead of being blocked.
-        enqueue_job_mock = mocker.patch("polar.payout.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.payout.service.enqueue_job")
 
         organization.status = status
         organization.capabilities = {**STATUS_CAPABILITIES[status]}
@@ -277,7 +277,7 @@ class TestCreate:
     ) -> None:
         # The default organization fixture is ACTIVE: the payout is pending and
         # both the created event and the Stripe transfer are enqueued.
-        enqueue_job_mock = mocker.patch("polar.payout.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.payout.service.enqueue_job")
 
         await create_payout_account(save_fixture, organization, user)
 
@@ -310,7 +310,7 @@ class TestCreate:
     ) -> None:
         # An offboarded org's payout is auto-processed (pending, not held): both
         # the created event and the Stripe transfer are enqueued.
-        enqueue_job_mock = mocker.patch("polar.payout.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.payout.service.enqueue_job")
 
         organization.status = OrganizationStatus.OFFBOARDING
         organization.set_status(OrganizationStatus.OFFBOARDED)
@@ -593,7 +593,7 @@ class TestEstimate:
     ) -> None:
         """Test that regular currencies return net_amount unchanged."""
         mocker.patch(
-            "polar.payout.service.platform_fee_transaction_service.get_payout_fees",
+            "repalis.payout.service.platform_fee_transaction_service.get_payout_fees",
             return_value=[],
         )
 
@@ -619,7 +619,7 @@ class TestTriggerStripePayouts:
         organization_second: Organization,
         user_second: User,
     ) -> None:
-        enqueue_job_mock = mocker.patch("polar.payout.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.payout.service.enqueue_job")
 
         account_1 = await create_account(save_fixture, user)
         payout_account_1 = await create_payout_account(
@@ -873,7 +873,7 @@ class TestTransfer:
         # a payout the ledger already reversed. (The task's FOR UPDATE re-read is
         # what surfaces the committed status in production.)
         mocker.patch(
-            "polar.payout.service.platform_fee_transaction_service"
+            "repalis.payout.service.platform_fee_transaction_service"
             ".create_payout_fees_reversal_balances"
         )
         account = await create_account(save_fixture, user)
@@ -927,7 +927,7 @@ class TestTransfer:
         # different payout account and cancel + refund instead of sending funds
         # to the abandoned account.
         fee_reversal_mock = mocker.patch(
-            "polar.payout.service.platform_fee_transaction_service"
+            "repalis.payout.service.platform_fee_transaction_service"
             ".create_payout_fees_reversal_balances"
         )
         account = await create_account(save_fixture, user)
@@ -1550,7 +1550,7 @@ class TestTriggerInvoiceGeneration:
         organization: Organization,
         user: User,
     ) -> None:
-        enqueue_job_mock = mocker.patch("polar.payout.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.payout.service.enqueue_job")
 
         account = await create_account(
             save_fixture,
@@ -1587,7 +1587,7 @@ class TestTriggerInvoiceGeneration:
         organization: Organization,
         user: User,
     ) -> None:
-        enqueue_job_mock = mocker.patch("polar.payout.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.payout.service.enqueue_job")
 
         account = await create_account(
             save_fixture,
@@ -1630,7 +1630,7 @@ class TestReleaseHeldPayouts:
         organization: Organization,
         user: User,
     ) -> None:
-        enqueue_job_mock = mocker.patch("polar.payout.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.payout.service.enqueue_job")
 
         account = await create_account(save_fixture, user)
         payout_account = await create_payout_account(
@@ -1683,7 +1683,7 @@ class TestReleaseHeldPayouts:
         organization: Organization,
         user: User,
     ) -> None:
-        enqueue_job_mock = mocker.patch("polar.payout.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.payout.service.enqueue_job")
 
         account = await create_account(save_fixture, user)
         payout_account = await create_payout_account(
@@ -1715,7 +1715,7 @@ class TestReleaseHeldPayout:
     ) -> None:
         organization.status = OrganizationStatus.REVIEW
         await save_fixture(organization)
-        enqueue_job_mock = mocker.patch("polar.payout.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.payout.service.enqueue_job")
 
         payout_account = await create_payout_account(
             save_fixture, organization, user, type=PayoutAccountType.stripe
@@ -1757,7 +1757,7 @@ class TestReleaseHeldPayout:
         account: Account,
         user: User,
     ) -> None:
-        enqueue_job_mock = mocker.patch("polar.payout.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.payout.service.enqueue_job")
         payout_account = await create_payout_account(
             save_fixture, organization, user, type=PayoutAccountType.stripe
         )
@@ -1967,7 +1967,7 @@ class TestCancelHeldPayout:
         payout_transaction_service_mock: MagicMock,
     ) -> None:
         fee_reversal_mock = mocker.patch(
-            "polar.payout.service.platform_fee_transaction_service"
+            "repalis.payout.service.platform_fee_transaction_service"
             ".create_payout_fees_reversal_balances"
         )
 
@@ -2020,7 +2020,7 @@ class TestCancelHeldPayout:
         # already-canceled payout (the loser of a concurrent race) raises
         # instead of writing a duplicate set of reversals.
         mocker.patch(
-            "polar.payout.service.platform_fee_transaction_service"
+            "repalis.payout.service.platform_fee_transaction_service"
             ".create_payout_fees_reversal_balances"
         )
         account = await create_account(save_fixture, user)

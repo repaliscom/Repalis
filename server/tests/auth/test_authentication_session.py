@@ -2,13 +2,13 @@ import pytest
 from pytest_mock import MockerFixture
 from starlette.requests import Request
 
-from polar.auth.authentication_session import (
+from repalis.auth.authentication_session import (
     AuthenticationSessionService,
     get_optional_authentication_session,
 )
-from polar.config import settings
-from polar.models import AuthenticationSession
-from polar.postgres import AsyncSession
+from repalis.config import settings
+from repalis.models import AuthenticationSession
+from repalis.postgres import AsyncSession
 from tests.fixtures.database import SaveFixture
 
 

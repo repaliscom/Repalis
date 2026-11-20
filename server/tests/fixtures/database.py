@@ -12,9 +12,9 @@ from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.ext.asyncio import AsyncEngine, AsyncSession
 from sqlalchemy_utils import create_database, database_exists, drop_database
 
-from polar.config import settings
-from polar.kit.db.postgres import create_async_engine
-from polar.models import Model
+from repalis.config import settings
+from repalis.kit.db.postgres import create_async_engine
+from repalis.models import Model
 
 
 def get_database_url(worker_id: str, driver: str = "asyncpg") -> str:

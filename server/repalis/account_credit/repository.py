@@ -4,14 +4,14 @@ from uuid import UUID
 from sqlalchemy import asc
 from sqlalchemy.orm import joinedload
 
-from polar.kit.repository import (
+from repalis.kit.repository import (
     Options,
     RepositoryBase,
     RepositorySoftDeletionIDMixin,
     RepositorySoftDeletionMixin,
 )
-from polar.kit.utils import utc_now
-from polar.models import AccountCredit
+from repalis.kit.utils import utc_now
+from repalis.models import AccountCredit
 
 
 class AccountCreditRepository(

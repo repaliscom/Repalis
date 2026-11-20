@@ -37,10 +37,10 @@ import typer
 from rich.console import Console
 from sqlalchemy import func, select, update
 
-from polar.kit.db.postgres import AsyncSession, create_async_sessionmaker
-from polar.kit.email import EmailNotValidError, normalize_email
-from polar.models import TrialRedemption
-from polar.postgres import create_async_engine
+from repalis.kit.db.postgres import AsyncSession, create_async_sessionmaker
+from repalis.kit.email import EmailNotValidError, normalize_email
+from repalis.models import TrialRedemption
+from repalis.postgres import create_async_engine
 from scripts.helper import configure_script_console_logging, typer_async
 
 cli = typer.Typer()

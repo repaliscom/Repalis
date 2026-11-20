@@ -6,45 +6,45 @@ from typing import assert_never
 import stripe as stripe_lib
 from sqlalchemy.orm import joinedload
 
-from polar.account.repository import AccountRepository
-from polar.auth.models import AuthSubject, Organization, User
-from polar.auth.permission import OrganizationPermission
-from polar.authz.service import get_accessible_org_ids
-from polar.benefit.grant.service import benefit_grant as benefit_grant_service
-from polar.customer.repository import CustomerRepository
-from polar.customer_seat.service import seat_service as customer_seat_service
-from polar.dispute.dispute_case import dispute_case as dispute_case_service
-from polar.enums import PaymentProcessor
-from polar.exceptions import PolarError
-from polar.integrations.chargeback_stop.types import (
+from repalis.account.repository import AccountRepository
+from repalis.auth.models import AuthSubject, Organization, User
+from repalis.auth.permission import OrganizationPermission
+from repalis.authz.service import get_accessible_org_ids
+from repalis.benefit.grant.service import benefit_grant as benefit_grant_service
+from repalis.customer.repository import CustomerRepository
+from repalis.customer_seat.service import seat_service as customer_seat_service
+from repalis.dispute.dispute_case import dispute_case as dispute_case_service
+from repalis.enums import PaymentProcessor
+from repalis.exceptions import PolarError
+from repalis.integrations.chargeback_stop.types import (
     RETRACTED_ALERT_STATUS,
     ChargebackStopAlert,
 )
-from polar.integrations.stripe.service import stripe as stripe_service
-from polar.integrations.stripe.utils import get_expandable_id
-from polar.kit.math import polar_round
-from polar.kit.pagination import PaginationParams
-from polar.kit.sorting import Sorting
-from polar.kit.utils import utc_now
-from polar.models import Dispute, Order, Payment
-from polar.models.dispute import DisputeAlertProcessor, DisputeStatus
-from polar.models.support_case import DisputeSupportCase
-from polar.payment.repository import PaymentRepository
-from polar.postgres import AsyncReadSession, AsyncSession
-from polar.product.repository import ProductRepository
-from polar.refund.service import refund as refund_service
-from polar.subscription.repository import SubscriptionRepository
-from polar.subscription.service import SubscriptionUpdateContext
-from polar.subscription.service import subscription as subscription_service
-from polar.support_case.repository import SupportCaseMessageRepository
-from polar.transaction.repository import PaymentTransactionRepository
-from polar.transaction.service.dispute import (
+from repalis.integrations.stripe.service import stripe as stripe_service
+from repalis.integrations.stripe.utils import get_expandable_id
+from repalis.kit.math import polar_round
+from repalis.kit.pagination import PaginationParams
+from repalis.kit.sorting import Sorting
+from repalis.kit.utils import utc_now
+from repalis.models import Dispute, Order, Payment
+from repalis.models.dispute import DisputeAlertProcessor, DisputeStatus
+from repalis.models.support_case import DisputeSupportCase
+from repalis.payment.repository import PaymentRepository
+from repalis.postgres import AsyncReadSession, AsyncSession
+from repalis.product.repository import ProductRepository
+from repalis.refund.service import refund as refund_service
+from repalis.subscription.repository import SubscriptionRepository
+from repalis.subscription.service import SubscriptionUpdateContext
+from repalis.subscription.service import subscription as subscription_service
+from repalis.support_case.repository import SupportCaseMessageRepository
+from repalis.transaction.repository import PaymentTransactionRepository
+from repalis.transaction.service.dispute import (
     DisputeTransactionAlreadyExistsError,
 )
-from polar.transaction.service.dispute import (
+from repalis.transaction.service.dispute import (
     dispute_transaction as dispute_transaction_service,
 )
-from polar.transaction.service.transaction import (
+from repalis.transaction.service.transaction import (
     transaction as transaction_service,
 )
 

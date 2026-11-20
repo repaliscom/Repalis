@@ -3,9 +3,9 @@ from typing import Annotated, Any, Literal
 from fastapi import Path
 from pydantic import UUID4, Field, TypeAdapter
 
-from polar.customer.schemas.customer import CustomerID
-from polar.enums import PaymentProcessor
-from polar.kit.schemas import (
+from repalis.customer.schemas.customer import CustomerID
+from repalis.enums import PaymentProcessor
+from repalis.kit.schemas import (
     CHECKOUT_ID_EXAMPLE,
     ORGANIZATION_ID_EXAMPLE,
     ClassName,
@@ -15,9 +15,9 @@ from polar.kit.schemas import (
     SetSchemaReference,
     TimestampedSchema,
 )
-from polar.kit.versioning import QuerySchema
-from polar.models.payment import PaymentStatus, PaymentTrigger
-from polar.organization.schemas import OrganizationID
+from repalis.kit.versioning import QuerySchema
+from repalis.models.payment import PaymentStatus, PaymentTrigger
+from repalis.organization.schemas import OrganizationID
 
 PaymentID = Annotated[UUID4, Path(description="The payment ID.")]
 

@@ -6,15 +6,15 @@ from sqlalchemy import TIMESTAMP, ForeignKey, String, Text, Uuid
 from sqlalchemy.dialects.postgresql import ARRAY
 from sqlalchemy.orm import Mapped, declared_attr, mapped_column, relationship
 
-from polar.auth.scope import Scope
-from polar.config import settings
-from polar.kit.db.models.base import RecordModel
-from polar.kit.extensions.sqlalchemy import StringEnum
-from polar.kit.utils import utc_now
-from polar.models.user import User
+from repalis.auth.scope import Scope
+from repalis.config import settings
+from repalis.kit.db.models.base import RecordModel
+from repalis.kit.extensions.sqlalchemy import StringEnum
+from repalis.kit.utils import utc_now
+from repalis.models.user import User
 
 if TYPE_CHECKING:
-    from polar.models.user_session_organization import UserSessionOrganization
+    from repalis.models.user_session_organization import UserSessionOrganization
 
 
 def get_expires_at() -> datetime:

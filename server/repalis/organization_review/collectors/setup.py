@@ -4,13 +4,13 @@ from urllib.parse import urlparse
 import httpx2
 import structlog
 
-from polar.kit.http import (
+from repalis.kit.http import (
     SSRFBlockedError,
     SSRFSafeTransport,
     resolve_and_validate_ip,
 )
-from polar.models.checkout_link import CheckoutLink
-from polar.models.webhook_endpoint import WebhookEndpoint
+from repalis.models.checkout_link import CheckoutLink
+from repalis.models.webhook_endpoint import WebhookEndpoint
 
 from ..known_domains import match_known_domain
 from ..schemas import (

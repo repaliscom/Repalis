@@ -15,40 +15,40 @@ from pydantic import BaseModel, Field, TypeAdapter
 from pydantic import ValidationError as PydanticValidationError
 from sqlalchemy.exc import IntegrityError
 
-from polar.account.service import account as account_service
-from polar.agent.repository import AgentRepository
-from polar.auth.models import AuthSubject, is_agent, is_user
-from polar.authz.service import get_accessible_org_ids
-from polar.checkout_link.repository import CheckoutLinkRepository
-from polar.config import settings
-from polar.customer.repository import CustomerRepository
-from polar.enums import InvoiceNumbering, SubscriptionProrationBehavior
-from polar.exceptions import (
+from repalis.account.service import account as account_service
+from repalis.agent.repository import AgentRepository
+from repalis.auth.models import AuthSubject, is_agent, is_user
+from repalis.authz.service import get_accessible_org_ids
+from repalis.checkout_link.repository import CheckoutLinkRepository
+from repalis.config import settings
+from repalis.customer.repository import CustomerRepository
+from repalis.enums import InvoiceNumbering, SubscriptionProrationBehavior
+from repalis.exceptions import (
     PolarError,
     PolarRequestValidationError,
     ValidationError,
 )
-from polar.integrations.repalis.service import billing_member_role
-from polar.integrations.repalis.service import polar_self as polar_self_service
-from polar.integrations.resend.service import resend as resend_service
-from polar.integrations.stripe.account_risk import (
+from repalis.integrations.repalis.service import billing_member_role
+from repalis.integrations.repalis.service import polar_self as polar_self_service
+from repalis.integrations.resend.service import resend as resend_service
+from repalis.integrations.stripe.account_risk import (
     ACTIONABLE_RISK_LEVELS,
     AccountRiskSignal,
     MerchantRiskSignal,
     UnknownAccountRiskEvaluation,
     WebsiteRiskSignal,
 )
-from polar.integrations.stripe.service import StripeAccountRejectReason
-from polar.integrations.stripe.service import stripe as stripe_service
-from polar.kit.anonymization import anonymize_email_for_deletion, anonymize_for_deletion
-from polar.kit.currency import PresentmentCurrency
-from polar.kit.http import check_url_reachable
-from polar.kit.pagination import PaginationParams
-from polar.kit.repository import Options
-from polar.kit.sorting import Sorting
-from polar.member.repository import MemberRepository
-from polar.member.service import member_service
-from polar.models import (
+from repalis.integrations.stripe.service import StripeAccountRejectReason
+from repalis.integrations.stripe.service import stripe as stripe_service
+from repalis.kit.anonymization import anonymize_email_for_deletion, anonymize_for_deletion
+from repalis.kit.currency import PresentmentCurrency
+from repalis.kit.http import check_url_reachable
+from repalis.kit.pagination import PaginationParams
+from repalis.kit.repository import Options
+from repalis.kit.sorting import Sorting
+from repalis.member.repository import MemberRepository
+from repalis.member.service import member_service
+from repalis.models import (
     Agent,
     BackofficeUser,
     Customer,
@@ -58,9 +58,9 @@ from polar.models import (
     User,
     UserOrganization,
 )
-from polar.models.benefit import BenefitType
-from polar.models.member import MemberRole
-from polar.models.organization import (
+from repalis.models.benefit import BenefitType
+from repalis.models.member import MemberRole
+from repalis.models.organization import (
     FIRST_REVIEW_THRESHOLD_CENTS,
     STATUS_CAPABILITIES,
     CapabilityName,
@@ -71,49 +71,49 @@ from polar.models.organization import (
     OrganizationStatus,
     SnoozeType,
 )
-from polar.models.organization_review import OrganizationReview
-from polar.models.transaction import TransactionType
-from polar.models.user import IdentityVerificationStatus
-from polar.models.user_organization import OrganizationRole
-from polar.models.webhook_endpoint import WebhookEventType
-from polar.oauth2.service.oauth2_token import (
+from repalis.models.organization_review import OrganizationReview
+from repalis.models.transaction import TransactionType
+from repalis.models.user import IdentityVerificationStatus
+from repalis.models.user_organization import OrganizationRole
+from repalis.models.webhook_endpoint import WebhookEventType
+from repalis.oauth2.service.oauth2_token import (
     oauth2_token as oauth2_token_service,
 )
-from polar.organization_access_token.repository import (
+from repalis.organization_access_token.repository import (
     OrganizationAccessTokenRepository,
 )
-from polar.organization_domain.repository import OrganizationDomainRepository
-from polar.organization_email.service import (
+from repalis.organization_domain.repository import OrganizationDomainRepository
+from repalis.organization_email.service import (
     organization_email as organization_email_service,
 )
-from polar.organization_review.appeal_case import (
+from repalis.organization_review.appeal_case import (
     appeal_case as appeal_case_service,
 )
-from polar.organization_review.repository import (
+from repalis.organization_review.repository import (
     OrganizationReviewRepository as AgentReviewRepository,
 )
-from polar.organization_review.repository import (
+from repalis.organization_review.repository import (
     OrganizationRiskSignalRepository,
 )
-from polar.organization_review.risk_signal import risk_signal as risk_signal_service
-from polar.organization_review.schemas import (
+from repalis.organization_review.risk_signal import risk_signal as risk_signal_service
+from repalis.organization_review.schemas import (
     ActorType,
     DecisionType,
     ReviewContext,
     ReviewVerdict,
 )
-from polar.payout_account.repository import PayoutAccountRepository
-from polar.payout_account.service import payout_account as payout_account_service
-from polar.postgres import AsyncReadSession, AsyncSession, sql
-from polar.posthog import posthog
-from polar.product.repository import ProductRepository
-from polar.transaction.service.transaction import transaction as transaction_service
-from polar.user_organization.service import (
+from repalis.payout_account.repository import PayoutAccountRepository
+from repalis.payout_account.service import payout_account as payout_account_service
+from repalis.postgres import AsyncReadSession, AsyncSession, sql
+from repalis.posthog import posthog
+from repalis.product.repository import ProductRepository
+from repalis.transaction.service.transaction import transaction as transaction_service
+from repalis.user_organization.service import (
     user_organization as user_organization_service,
 )
-from polar.webhook.repository import WebhookEndpointRepository
-from polar.webhook.service import webhook as webhook_service
-from polar.worker import enqueue_job
+from repalis.webhook.repository import WebhookEndpointRepository
+from repalis.webhook.service import webhook as webhook_service
+from repalis.worker import enqueue_job
 
 from .repository import (
     OFFBOARD_EXPIRED_BATCH_SIZE,

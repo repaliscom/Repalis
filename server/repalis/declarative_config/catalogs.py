@@ -6,16 +6,16 @@ from uuid import UUID
 
 from pydantic import BaseModel
 
-from polar.benefit.repository import BenefitRepository
-from polar.benefit.strategies.meter_credit.properties import (
+from repalis.benefit.repository import BenefitRepository
+from repalis.benefit.strategies.meter_credit.properties import (
     BenefitMeterCreditProperties,
 )
-from polar.catalog.repository import CatalogRepository
-from polar.catalog.service import CatalogEntries
-from polar.catalog.service import catalog as catalog_service
-from polar.models import Catalog, Organization
-from polar.postgres import AsyncReadSession
-from polar.product.repository import ProductRepository
+from repalis.catalog.repository import CatalogRepository
+from repalis.catalog.service import CatalogEntries
+from repalis.catalog.service import catalog as catalog_service
+from repalis.models import Catalog, Organization
+from repalis.postgres import AsyncReadSession
+from repalis.product.repository import ProductRepository
 
 from .schemas import (
     ConfigBenefitMeterCredit,

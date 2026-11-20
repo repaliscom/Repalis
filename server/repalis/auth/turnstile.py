@@ -1,7 +1,7 @@
 import httpx2
 
-from polar.config import settings
-from polar.exceptions import NotPermitted
+from repalis.config import settings
+from repalis.exceptions import NotPermitted
 
 turnstile_client = httpx2.AsyncClient(
     base_url="https://challenges.cloudflare.com/turnstile/v0"

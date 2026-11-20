@@ -6,20 +6,20 @@ from uuid import UUID
 from sqlalchemy import CursorResult, Select, delete, func, or_, select
 from sqlalchemy.orm import contains_eager, joinedload
 
-from polar.authz.types import AccessibleOrganizationID
-from polar.kit.repository import (
+from repalis.authz.types import AccessibleOrganizationID
+from repalis.kit.repository import (
     Options,
     RepositoryBase,
     RepositorySoftDeletionIDMixin,
     RepositorySoftDeletionMixin,
 )
-from polar.kit.utils import utc_now
-from polar.models import (
+from repalis.kit.utils import utc_now
+from repalis.models import (
     WebhookDelivery,
     WebhookEndpoint,
     WebhookEvent,
 )
-from polar.models.webhook_endpoint import WebhookEventType, WebhookFormat
+from repalis.models.webhook_endpoint import WebhookEventType, WebhookFormat
 
 
 class WebhookEventRepository(

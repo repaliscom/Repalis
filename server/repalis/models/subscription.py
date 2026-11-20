@@ -30,14 +30,14 @@ from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import Mapped, declared_attr, mapped_column, relationship
 from sqlalchemy.orm.attributes import OP_BULK_REPLACE, Event
 
-from polar.config import settings
-from polar.custom_field.data import CustomFieldDataMixin
-from polar.enums import MeterInterval, SubscriptionRecurringInterval, TaxBehavior
-from polar.kit.db.models import RecordModel
-from polar.kit.extensions.sqlalchemy.types import StringEnum
-from polar.kit.metadata import MetadataMixin
-from polar.kit.utils import utc_now
-from polar.product.guard import is_metered_price
+from repalis.config import settings
+from repalis.custom_field.data import CustomFieldDataMixin
+from repalis.enums import MeterInterval, SubscriptionRecurringInterval, TaxBehavior
+from repalis.kit.db.models import RecordModel
+from repalis.kit.extensions.sqlalchemy.types import StringEnum
+from repalis.kit.metadata import MetadataMixin
+from repalis.kit.utils import utc_now
+from repalis.product.guard import is_metered_price
 
 from .product_price import ProductPrice
 from .subscription_meter import SubscriptionMeter

@@ -7,27 +7,27 @@ from sqlalchemy import Select, UnaryExpression, asc, desc, select
 from sqlalchemy.orm import contains_eager, joinedload, selectinload
 from sqlalchemy.sql.elements import OrderByList
 
-from polar.auth.models import AuthSubject, Customer, Member
-from polar.exceptions import PolarError
-from polar.kit.db.postgres import AsyncSession
-from polar.kit.pagination import PaginationParams, paginate
-from polar.kit.services import ResourceServiceReader
-from polar.kit.sorting import Sorting
-from polar.kit.visibility import Visibility
-from polar.models import (
+from repalis.auth.models import AuthSubject, Customer, Member
+from repalis.exceptions import PolarError
+from repalis.kit.db.postgres import AsyncSession
+from repalis.kit.pagination import PaginationParams, paginate
+from repalis.kit.services import ResourceServiceReader
+from repalis.kit.sorting import Sorting
+from repalis.kit.visibility import Visibility
+from repalis.models import (
     Organization,
     Product,
     Subscription,
     SubscriptionMeter,
 )
-from polar.models.subscription import CustomerCancellationReason
-from polar.payment_method.service import payment_method as payment_method_service
-from polar.subscription.schemas import SubscriptionChargePreview
-from polar.subscription.service import (
+from repalis.models.subscription import CustomerCancellationReason
+from repalis.payment_method.service import payment_method as payment_method_service
+from repalis.subscription.schemas import SubscriptionChargePreview
+from repalis.subscription.service import (
     AlreadyCanceledSubscription,
     SubscriptionUpdateContext,
 )
-from polar.subscription.service import subscription as subscription_service
+from repalis.subscription.service import subscription as subscription_service
 
 from ..schemas.subscription import (
     CustomerSubscriptionChangePreview,

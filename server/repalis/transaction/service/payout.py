@@ -1,10 +1,10 @@
 from collections.abc import Iterable
 
-from polar.enums import PayoutAccountType
-from polar.kit.utils import generate_uuid
-from polar.models import Payout, Transaction
-from polar.models.transaction import Processor, TransactionType
-from polar.postgres import AsyncSession
+from repalis.enums import PayoutAccountType
+from repalis.kit.utils import generate_uuid
+from repalis.models import Payout, Transaction
+from repalis.models.transaction import Processor, TransactionType
+from repalis.postgres import AsyncSession
 
 from ..repository import (
     BalanceTransactionRepository,

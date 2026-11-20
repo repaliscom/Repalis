@@ -1,11 +1,11 @@
 from typing import Any, Protocol, Unpack, cast
 
-from polar.auth.models import Agent, AuthSubject
-from polar.exceptions import PolarError, PolarRequestValidationError, ValidationError
-from polar.models import Benefit, Customer, Member, Organization, User
-from polar.models.benefit_grant import BenefitGrantScopeArgs
-from polar.postgres import AsyncSession
-from polar.redis import Redis
+from repalis.auth.models import Agent, AuthSubject
+from repalis.exceptions import PolarError, PolarRequestValidationError, ValidationError
+from repalis.models import Benefit, Customer, Member, Organization, User
+from repalis.models.benefit_grant import BenefitGrantScopeArgs
+from repalis.postgres import AsyncSession
+from repalis.redis import Redis
 
 from .properties import BenefitGrantProperties, BenefitProperties
 

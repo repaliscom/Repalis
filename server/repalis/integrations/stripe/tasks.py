@@ -7,30 +7,30 @@ import stripe as stripe_lib
 import structlog
 from dramatiq import Retry
 
-from polar.checkout.service import NotConfirmedCheckout
-from polar.dispute.service import dispute as dispute_service
-from polar.enums import PaymentProcessor
-from polar.external_event.service import external_event as external_event_service
-from polar.integrations.stripe.service import stripe as stripe_service
-from polar.logging import Logger
-from polar.models.dispute import DisputeStatus
-from polar.observability.task_logging import LoggableField
-from polar.organization.service import organization as organization_service
-from polar.payment.service import UnhandledPaymentIntent
-from polar.payment.service import payment as payment_service
-from polar.payment_method.repository import PaymentMethodRepository
-from polar.payment_method.service import payment_method as payment_method_service
-from polar.payout.service import payout as payout_service
-from polar.payout_account.service import payout_account as payout_account_service
-from polar.refund.service import MissingRelatedDispute, RefundPendingCreation
-from polar.refund.service import refund as refund_service
-from polar.subscription.service import subscription as subscription_service
-from polar.transaction.service.payment import BalanceTransactionNotAvailableError
-from polar.transaction.service.payment import (
+from repalis.checkout.service import NotConfirmedCheckout
+from repalis.dispute.service import dispute as dispute_service
+from repalis.enums import PaymentProcessor
+from repalis.external_event.service import external_event as external_event_service
+from repalis.integrations.stripe.service import stripe as stripe_service
+from repalis.logging import Logger
+from repalis.models.dispute import DisputeStatus
+from repalis.observability.task_logging import LoggableField
+from repalis.organization.service import organization as organization_service
+from repalis.payment.service import UnhandledPaymentIntent
+from repalis.payment.service import payment as payment_service
+from repalis.payment_method.repository import PaymentMethodRepository
+from repalis.payment_method.service import payment_method as payment_method_service
+from repalis.payout.service import payout as payout_service
+from repalis.payout_account.service import payout_account as payout_account_service
+from repalis.refund.service import MissingRelatedDispute, RefundPendingCreation
+from repalis.refund.service import refund as refund_service
+from repalis.subscription.service import subscription as subscription_service
+from repalis.transaction.service.payment import BalanceTransactionNotAvailableError
+from repalis.transaction.service.payment import (
     payment_transaction as payment_transaction_service,
 )
-from polar.user.service import user as user_service
-from polar.worker import AsyncSessionMaker, TaskPriority, actor, can_retry, get_retries
+from repalis.user.service import user as user_service
+from repalis.worker import AsyncSessionMaker, TaskPriority, actor, can_retry, get_retries
 
 from . import payment
 from .account_risk import UnknownAccountRiskEvaluation, parse_account_signal

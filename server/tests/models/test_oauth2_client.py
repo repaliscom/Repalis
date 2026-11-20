@@ -2,11 +2,11 @@ import pytest
 from cryptography.exceptions import InvalidTag
 from sqlalchemy import select
 
-from polar.config import settings
-from polar.kit.crypto import get_token_hash
-from polar.kit.encryption import EncryptedString
-from polar.models import OAuth2Client, User
-from polar.postgres import AsyncSession
+from repalis.config import settings
+from repalis.kit.crypto import get_token_hash
+from repalis.kit.encryption import EncryptedString
+from repalis.models import OAuth2Client, User
+from repalis.postgres import AsyncSession
 from tests.fixtures.database import SaveFixture
 
 

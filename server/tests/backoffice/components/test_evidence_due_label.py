@@ -6,8 +6,8 @@ from datetime import UTC, datetime
 
 from tagflow import document, tag
 
-from polar.backoffice.components import evidence_due_label
-from polar.models.dispute import DisputeStatus
+from repalis.backoffice.components import evidence_due_label
+from repalis.models.dispute import DisputeStatus
 
 DEADLINE = datetime(2026, 7, 20, 8, 29, tzinfo=UTC)
 

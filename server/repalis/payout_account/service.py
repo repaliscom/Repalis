@@ -5,18 +5,18 @@ import stripe as stripe_lib
 import structlog
 from sqlalchemy.orm import selectinload
 
-from polar.auth.models import AuthSubject
-from polar.authz.service import get_accessible_org_ids
-from polar.enums import PayoutAccountType
-from polar.exceptions import PolarError
-from polar.integrations.stripe.service import StripeAccountRejectReason, stripe
-from polar.kit.db.postgres import AsyncReadSession
-from polar.models import Organization, PayoutAccount, User
-from polar.organization.repository import OrganizationRepository
-from polar.organization.resolver import get_payload_organization
-from polar.payout.repository import PayoutRepository
-from polar.postgres import AsyncSession
-from polar.worker import enqueue_job
+from repalis.auth.models import AuthSubject
+from repalis.authz.service import get_accessible_org_ids
+from repalis.enums import PayoutAccountType
+from repalis.exceptions import PolarError
+from repalis.integrations.stripe.service import StripeAccountRejectReason, stripe
+from repalis.kit.db.postgres import AsyncReadSession
+from repalis.models import Organization, PayoutAccount, User
+from repalis.organization.repository import OrganizationRepository
+from repalis.organization.resolver import get_payload_organization
+from repalis.payout.repository import PayoutRepository
+from repalis.postgres import AsyncSession
+from repalis.worker import enqueue_job
 
 from .repository import PayoutAccountRepository
 from .schemas import PayoutAccountCreate, PayoutAccountLink
@@ -151,7 +151,7 @@ class PayoutAccountService:
         # Don't make it active while a ready account is still paying them out.
         if current is None or not current.is_payout_ready:
             # Late import: organization.service imports payout_account.service.
-            from polar.organization.service import organization as organization_service
+            from repalis.organization.service import organization as organization_service
 
             await organization_service.set_payout_account(
                 session, organization, payout_account
@@ -358,7 +358,7 @@ class PayoutAccountService:
         payout_account = await repository.update(payout_account)
 
         # Late import: organization.service imports payout_account.service.
-        from polar.organization.service import organization as organization_service
+        from repalis.organization.service import organization as organization_service
 
         organization_repository = OrganizationRepository.from_session(session)
         organizations = await organization_repository.get_all_by_payout_account(
@@ -393,7 +393,7 @@ class PayoutAccountService:
         )
 
         # Late import: organization.service imports payout_account.service.
-        from polar.organization.service import organization as organization_service
+        from repalis.organization.service import organization as organization_service
 
         await organization_service.set_payout_account(
             session, organization, payout_account

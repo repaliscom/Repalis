@@ -8,12 +8,12 @@ from sqlalchemy import text
 from sqlalchemy.exc import SQLAlchemyError
 from starlette.exceptions import HTTPException
 
-from polar import tasks
-from polar.logfire import configure_logfire
-from polar.logging import configure as configure_logging
-from polar.postgres import create_sync_engine
-from polar.sentry import configure_sentry
-from polar.subscription.scheduler import (
+from repalis import tasks
+from repalis.logfire import configure_logfire
+from repalis.logging import configure as configure_logging
+from repalis.postgres import create_sync_engine
+from repalis.sentry import configure_sentry
+from repalis.subscription.scheduler import (
     SubscriptionJobStore,
     SubscriptionResumeJobStore,
 )

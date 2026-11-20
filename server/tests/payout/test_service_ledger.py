@@ -12,15 +12,15 @@ from functools import partial
 
 import pytest
 
-from polar.kit.utils import utc_now
-from polar.locker import Locker
-from polar.models import Account, Organization, User
-from polar.models.organization import OrganizationStatus
-from polar.models.payout import PayoutStatus
-from polar.payout.service import payout as payout_service
-from polar.postgres import AsyncSession
-from polar.transaction.repository import TransactionRepository
-from polar.transaction.service.transaction import transaction as transaction_service
+from repalis.kit.utils import utc_now
+from repalis.locker import Locker
+from repalis.models import Account, Organization, User
+from repalis.models.organization import OrganizationStatus
+from repalis.models.payout import PayoutStatus
+from repalis.payout.service import payout as payout_service
+from repalis.postgres import AsyncSession
+from repalis.transaction.repository import TransactionRepository
+from repalis.transaction.service.transaction import transaction as transaction_service
 from tests.fixtures import random_objects as ro
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_payout_account

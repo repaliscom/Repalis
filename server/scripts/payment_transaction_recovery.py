@@ -7,15 +7,15 @@ import dramatiq
 import structlog
 import typer
 
-from polar.integrations.stripe.payment import resolve_order
-from polar.integrations.stripe.service import stripe as stripe_service
-from polar.kit.db.postgres import create_async_sessionmaker
-from polar.postgres import create_async_engine
-from polar.redis import create_redis
-from polar.transaction.service.payment import (
+from repalis.integrations.stripe.payment import resolve_order
+from repalis.integrations.stripe.service import stripe as stripe_service
+from repalis.kit.db.postgres import create_async_sessionmaker
+from repalis.postgres import create_async_engine
+from repalis.redis import create_redis
+from repalis.transaction.service.payment import (
     payment_transaction as payment_transaction_service,
 )
-from polar.worker import JobQueueManager, enqueue_job
+from repalis.worker import JobQueueManager, enqueue_job
 
 cli = typer.Typer()
 

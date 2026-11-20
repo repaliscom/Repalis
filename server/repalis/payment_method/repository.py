@@ -5,17 +5,17 @@ from uuid import UUID
 from sqlalchemy import Select, and_, or_, select, update
 from sqlalchemy.orm import joinedload
 
-from polar.email.deduplication import payment_method_expiration_reminder_key_sql
-from polar.enums import PaymentProcessor
-from polar.kit.repository import (
+from repalis.email.deduplication import payment_method_expiration_reminder_key_sql
+from repalis.enums import PaymentProcessor
+from repalis.kit.repository import (
     Options,
     RepositoryBase,
     RepositorySoftDeletionIDMixin,
     RepositorySoftDeletionMixin,
 )
-from polar.models import Customer, PaymentMethod, Subscription
-from polar.models.email_log import EmailLog
-from polar.models.payment_method import card_expiration
+from repalis.models import Customer, PaymentMethod, Subscription
+from repalis.models.email_log import EmailLog
+from repalis.models.payment_method import card_expiration
 
 
 def expiring_periods(now: datetime, window_end: datetime) -> list[tuple[int, int]]:

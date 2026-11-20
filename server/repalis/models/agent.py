@@ -6,10 +6,10 @@ from uuid import UUID
 from sqlalchemy import TIMESTAMP, ForeignKey, String, Uuid
 from sqlalchemy.orm import Mapped, declared_attr, mapped_column, relationship
 
-from polar.kit.db.models import RecordModel
+from repalis.kit.db.models import RecordModel
 
 if TYPE_CHECKING:
-    from polar.models import OAuth2Client, Organization, User
+    from repalis.models import OAuth2Client, Organization, User
 
 
 class AgentStatus(StrEnum):

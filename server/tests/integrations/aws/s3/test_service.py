@@ -3,8 +3,8 @@ from unittest.mock import MagicMock
 import pytest
 from botocore.client import ClientError
 
-from polar.integrations.aws.s3.exceptions import S3FileError
-from polar.integrations.aws.s3.service import S3Service
+from repalis.integrations.aws.s3.exceptions import S3FileError
+from repalis.integrations.aws.s3.service import S3Service
 
 
 class TestGetObjectOrRaise:

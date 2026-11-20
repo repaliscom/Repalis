@@ -1,19 +1,19 @@
 import pytest
 
-from polar.auth.models import AuthSubject
-from polar.models import Organization, User
-from polar.models.backoffice_user import BackofficeUser
-from polar.models.support_case import (
+from repalis.auth.models import AuthSubject
+from repalis.models import Organization, User
+from repalis.models.backoffice_user import BackofficeUser
+from repalis.models.support_case import (
     SupportCaseAudience,
     SupportCaseMessageAuthorKind,
     SupportCaseMessageType,
     SupportCaseParticipant,
     SupportCaseParticipantKind,
 )
-from polar.models.user_organization import OrganizationRole, UserOrganization
-from polar.postgres import AsyncSession
-from polar.support_case.repository import SupportCaseParticipantRepository
-from polar.support_case.service import support_case as support_case_service
+from repalis.models.user_organization import OrganizationRole, UserOrganization
+from repalis.postgres import AsyncSession
+from repalis.support_case.repository import SupportCaseParticipantRepository
+from repalis.support_case.service import support_case as support_case_service
 from tests.fixtures.auth import AuthSubjectFixture
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (

@@ -3,8 +3,8 @@ from uuid import UUID
 
 from pydantic import Field
 
-from polar.kit.schemas import Schema
-from polar.models.webhook_endpoint import WebhookEventType
+from repalis.kit.schemas import Schema
+from repalis.models.webhook_endpoint import WebhookEventType
 
 
 class TriggerEvent(Schema):

@@ -1,14 +1,14 @@
 from fastapi import Depends
 
-from polar.auth.models import is_organization
-from polar.exceptions import ResourceNotFound
-from polar.kit.versioning import api_version_context
-from polar.models import WebhookEndpoint
-from polar.openapi import APITag
-from polar.postgres import AsyncSession, get_db_session
-from polar.routing import APIRouter
-from polar.version import CURRENT_API_VERSION
-from polar.webhook.auth import WebhooksWrite
+from repalis.auth.models import is_organization
+from repalis.exceptions import ResourceNotFound
+from repalis.kit.versioning import api_version_context
+from repalis.models import WebhookEndpoint
+from repalis.openapi import APITag
+from repalis.postgres import AsyncSession, get_db_session
+from repalis.routing import APIRouter
+from repalis.version import CURRENT_API_VERSION
+from repalis.webhook.auth import WebhooksWrite
 
 from .catalog import MCP_EVENTS
 from .schemas import (

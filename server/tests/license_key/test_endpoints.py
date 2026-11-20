@@ -5,18 +5,18 @@ import pytest
 from dateutil.relativedelta import relativedelta
 from httpx2 import AsyncClient
 
-from polar.auth.models import AuthSubject
-from polar.benefit.grant.repository import BenefitGrantRepository
-from polar.benefit.strategies.license_keys.schemas import (
+from repalis.auth.models import AuthSubject
+from repalis.benefit.grant.repository import BenefitGrantRepository
+from repalis.benefit.strategies.license_keys.schemas import (
     BenefitLicenseKeyActivationCreateProperties,
     BenefitLicenseKeysCreateProperties,
 )
-from polar.kit.pagination import PaginationParams
-from polar.kit.utils import generate_uuid, utc_now
-from polar.kit.versioning import APIVersion
-from polar.license_key.repository import LicenseKeyRepository
-from polar.license_key.service import license_key as license_key_service
-from polar.models import (
+from repalis.kit.pagination import PaginationParams
+from repalis.kit.utils import generate_uuid, utc_now
+from repalis.kit.versioning import APIVersion
+from repalis.license_key.repository import LicenseKeyRepository
+from repalis.license_key.service import license_key as license_key_service
+from repalis.models import (
     Customer,
     LicenseKey,
     Organization,
@@ -24,10 +24,10 @@ from polar.models import (
     User,
     UserOrganization,
 )
-from polar.models.license_key import LicenseKeyStatus
-from polar.postgres import AsyncSession
-from polar.redis import Redis
-from polar.version import V2026_04, V2026_10, V2027_01
+from repalis.models.license_key import LicenseKeyStatus
+from repalis.postgres import AsyncSession
+from repalis.redis import Redis
+from repalis.version import V2026_04, V2026_10, V2027_01
 from tests.fixtures.auth import CUSTOMER_AUTH_SUBJECT, AuthSubjectFixture
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.license_key import TestLicenseKey

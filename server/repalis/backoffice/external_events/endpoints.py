@@ -7,16 +7,16 @@ from pydantic import UUID4, BeforeValidator
 from sqlalchemy import or_
 from tagflow import tag, text
 
-from polar.backoffice.routing import BackofficeRouter
-from polar.external_event import sorting
-from polar.external_event.repository import ExternalEventRepository
-from polar.external_event.service import external_event as external_event_service
-from polar.external_event.sorting import ExternalEventSortProperty
-from polar.kit.pagination import PaginationParamsQuery
-from polar.kit.schemas import empty_str_to_none
-from polar.models import ExternalEvent
-from polar.models.external_event import ExternalEventSource
-from polar.postgres import AsyncSession, get_db_read_session, get_db_session
+from repalis.backoffice.routing import BackofficeRouter
+from repalis.external_event import sorting
+from repalis.external_event.repository import ExternalEventRepository
+from repalis.external_event.service import external_event as external_event_service
+from repalis.external_event.sorting import ExternalEventSortProperty
+from repalis.kit.pagination import PaginationParamsQuery
+from repalis.kit.schemas import empty_str_to_none
+from repalis.models import ExternalEvent
+from repalis.models.external_event import ExternalEventSource
+from repalis.postgres import AsyncSession, get_db_read_session, get_db_session
 
 from ..components import button, datatable, input, modal
 from ..layout import layout

@@ -2,22 +2,22 @@ from collections.abc import Sequence
 
 from fastapi import Depends, Query
 
-from polar.authz.dependencies import (
+from repalis.authz.dependencies import (
     AuthorizePayoutAccountRead,
     AuthorizePayoutAccountWrite,
     AuthorizeWebPayoutsRead,
     AuthorizeWebPayoutsWrite,
 )
-from polar.kit.pagination import ListResource, Pagination
-from polar.models import PayoutAccount
-from polar.openapi import APITag
-from polar.postgres import (
+from repalis.kit.pagination import ListResource, Pagination
+from repalis.models import PayoutAccount
+from repalis.openapi import APITag
+from repalis.postgres import (
     AsyncReadSession,
     AsyncSession,
     get_db_read_session,
     get_db_session,
 )
-from polar.routing import APIRouter
+from repalis.routing import APIRouter
 
 from .schemas import PayoutAccount as PayoutAccountSchema
 from .schemas import (

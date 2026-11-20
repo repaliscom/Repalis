@@ -11,21 +11,21 @@ from datetime import timedelta
 from enum import StrEnum
 from uuid import UUID
 
-from polar.kit.utils import utc_now
-from polar.merchant_migration.pan_transfer import (
+from repalis.kit.utils import utc_now
+from repalis.merchant_migration.pan_transfer import (
     PanStepOwner,
     PanTransferMethod,
     PanTransferStep,
     current,
     templates_for,
 )
-from polar.merchant_migration.repository import RecordCounts
-from polar.models import MerchantMigration
-from polar.models.merchant_migration import (
+from repalis.merchant_migration.repository import RecordCounts
+from repalis.models import MerchantMigration
+from repalis.models.merchant_migration import (
     MERCHANT_MIGRATION_FINISHED_STEPS,
     MerchantMigrationStep,
 )
-from polar.models.merchant_migration_record import (
+from repalis.models.merchant_migration_record import (
     MerchantMigrationRecordStatus,
     MerchantMigrationRecordType,
 )

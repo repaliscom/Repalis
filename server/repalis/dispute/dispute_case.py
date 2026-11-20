@@ -2,9 +2,9 @@ from collections.abc import Sequence
 from datetime import datetime
 from uuid import UUID
 
-from polar.exceptions import PolarError
-from polar.models import Dispute, File, Organization, User
-from polar.models.support_case import (
+from repalis.exceptions import PolarError
+from repalis.models import Dispute, File, Organization, User
+from repalis.models.support_case import (
     DisputeSupportCase,
     SupportCaseAudience,
     SupportCaseMessage,
@@ -12,14 +12,14 @@ from polar.models.support_case import (
     SupportCaseMessageType,
     SupportCaseParticipantKind,
 )
-from polar.postgres import AsyncReadSession, AsyncSession
-from polar.support_case.repository import (
+from repalis.postgres import AsyncReadSession, AsyncSession
+from repalis.support_case.repository import (
     DisputeSupportCaseRepository,
     SupportCaseMessageRepository,
 )
-from polar.support_case.schemas import DisputeSupportCaseMessageCreate
-from polar.support_case.service import support_case as support_case_service
-from polar.worker import enqueue_job
+from repalis.support_case.schemas import DisputeSupportCaseMessageCreate
+from repalis.support_case.service import support_case as support_case_service
+from repalis.worker import enqueue_job
 
 DISPUTE_GREETING = (
     "Thanks for submitting your response. The Polar team will review your evidence "

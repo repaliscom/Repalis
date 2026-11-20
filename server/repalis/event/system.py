@@ -13,14 +13,14 @@ from typing import (
 from pydantic import Field
 from sqlalchemy.orm import Mapped
 
-from polar.enums import SubscriptionProrationBehavior
-from polar.kit.address import AddressDict
-from polar.kit.utils import utc_now
-from polar.kit.versioning import Version
-from polar.models import Customer, Event, Organization
-from polar.models.benefit import BenefitType
-from polar.models.event import EventSource
-from polar.version import V2027_01
+from repalis.enums import SubscriptionProrationBehavior
+from repalis.kit.address import AddressDict
+from repalis.kit.utils import utc_now
+from repalis.kit.versioning import Version
+from repalis.models import Customer, Event, Organization
+from repalis.models.benefit import BenefitType
+from repalis.models.event import EventSource
+from repalis.version import V2027_01
 
 
 class SystemEvent(StrEnum):

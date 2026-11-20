@@ -12,12 +12,12 @@ from sqlalchemy.sql.expression import ColumnExpressionArgument
 from sqlalchemy.sql.operators import and_, eq
 from sqlalchemy.sql.selectable import Alias, FromClause, Join, TableClause
 
-from polar.config import settings
-from polar.kit.crypto import get_current_secret_id
-from polar.kit.db.postgres import AsyncReadSession, AsyncSession
-from polar.kit.pagination import count_subquery
-from polar.kit.sorting import Sorting
-from polar.kit.utils import utc_now
+from repalis.config import settings
+from repalis.kit.crypto import get_current_secret_id
+from repalis.kit.db.postgres import AsyncReadSession, AsyncSession
+from repalis.kit.pagination import count_subquery
+from repalis.kit.sorting import Sorting
+from repalis.kit.utils import utc_now
 
 
 class ModelDeletedAtProtocol(Protocol):

@@ -12,7 +12,7 @@ Metrics:
 import os
 from typing import TYPE_CHECKING
 
-from polar.config import settings
+from repalis.config import settings
 
 if TYPE_CHECKING:
     from starlette.types import ASGIApp

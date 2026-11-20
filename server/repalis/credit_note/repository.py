@@ -2,13 +2,13 @@ from uuid import UUID
 
 from sqlalchemy.orm import joinedload, selectinload
 
-from polar.kit.repository import (
+from repalis.kit.repository import (
     Options,
     RepositoryBase,
     RepositorySoftDeletionIDMixin,
     RepositorySoftDeletionMixin,
 )
-from polar.models import CreditNote, Order
+from repalis.models import CreditNote, Order
 
 
 class CreditNoteRepository(

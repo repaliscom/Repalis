@@ -16,12 +16,12 @@ from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import Mapped, declared_attr, mapped_column, relationship
 
-from polar.enums import PaymentProcessor
-from polar.kit.db.models import RecordModel
-from polar.kit.metadata import MetadataMixin
+from repalis.enums import PaymentProcessor
+from repalis.kit.db.models import RecordModel
+from repalis.kit.metadata import MetadataMixin
 
 if TYPE_CHECKING:
-    from polar.models import (
+    from repalis.models import (
         CreditNote,
         Customer,
         Dispute,

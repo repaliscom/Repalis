@@ -11,7 +11,7 @@ from sqlalchemy.orm import (
 )
 
 if TYPE_CHECKING:
-    from polar.models import CustomField
+    from repalis.models import CustomField
 
 
 class AttachedCustomFieldMixin:

@@ -2,18 +2,18 @@ from datetime import timedelta
 
 import pytest
 
-from polar.enums import SubscriptionRecurringInterval
-from polar.kit.db.postgres import AsyncSession
-from polar.kit.utils import utc_now
-from polar.meter.aggregation import (
+from repalis.enums import SubscriptionRecurringInterval
+from repalis.kit.db.postgres import AsyncSession
+from repalis.kit.utils import utc_now
+from repalis.meter.aggregation import (
     AggregationFunction,
     CountAggregation,
     PropertyAggregation,
 )
-from polar.models import BillingEntry, Customer, OrderItem, Organization
-from polar.models.billing_entry import BillingEntryDirection, BillingEntryType
-from polar.models.subscription import SubscriptionStatus
-from polar.models.subscription_product_price import SubscriptionProductPrice
+from repalis.models import BillingEntry, Customer, OrderItem, Organization
+from repalis.models.billing_entry import BillingEntryDirection, BillingEntryType
+from repalis.models.subscription import SubscriptionStatus
+from repalis.models.subscription_product_price import SubscriptionProductPrice
 from scripts.soft_delete_overdue_metered_billing_entries import (
     candidate_statement,
     soft_delete_batch,

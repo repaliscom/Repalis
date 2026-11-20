@@ -1,4 +1,4 @@
-from polar.routing import APIRouter
+from repalis.routing import APIRouter
 
 from ..auth.endpoints import router as customer_session_auth_router
 from .benefit_grant import router as benefit_grant_router

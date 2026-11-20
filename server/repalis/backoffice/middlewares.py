@@ -5,8 +5,8 @@ from starlette.datastructures import MutableHeaders
 from starlette.types import ASGIApp, Message, Receive, Scope, Send
 from tagflow import document
 
-from polar.file.s3 import S3_SERVICES
-from polar.models.file import FileServiceTypes
+from repalis.file.s3 import S3_SERVICES
+from repalis.models.file import FileServiceTypes
 
 
 @functools.cache

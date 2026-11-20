@@ -8,13 +8,13 @@ from pydantic import UUID4, Field, ValidationError
 from sqlalchemy.orm import joinedload
 from tagflow import attr, document, tag, text
 
-from polar.backoffice.routing import BackofficeRouter
-from polar.feedback.repository import FeedbackRepository
-from polar.integrations.plain.service import PlainServiceError, plain
-from polar.kit.pagination import PaginationParamsQuery
-from polar.models import Feedback
-from polar.models.feedback import FeedbackStatus, FeedbackType
-from polar.postgres import AsyncSession, get_db_read_session, get_db_session
+from repalis.backoffice.routing import BackofficeRouter
+from repalis.feedback.repository import FeedbackRepository
+from repalis.integrations.plain.service import PlainServiceError, plain
+from repalis.kit.pagination import PaginationParamsQuery
+from repalis.models import Feedback
+from repalis.models.feedback import FeedbackStatus, FeedbackType
+from repalis.postgres import AsyncSession, get_db_read_session, get_db_session
 
 from .. import forms
 from ..components import (

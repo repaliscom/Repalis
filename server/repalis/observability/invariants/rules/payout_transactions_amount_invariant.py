@@ -3,8 +3,8 @@ from datetime import timedelta
 
 from sqlalchemy import func, over, select
 
-from polar.models import Transaction
-from polar.models.transaction import TransactionType
+from repalis.models import Transaction
+from repalis.models.transaction import TransactionType
 
 from .base import Invariant, InvariantError
 

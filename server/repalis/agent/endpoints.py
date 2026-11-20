@@ -1,19 +1,19 @@
 from fastapi import Depends, Request, Response
 from fastapi.responses import PlainTextResponse
 
-from polar.auth.exceptions import SessionNotFreshError
-from polar.authz.dependencies import AuthorizeWebUserRead, AuthorizeWebUserWriteFresh
-from polar.config import settings
-from polar.exceptions import ResourceNotFound
-from polar.oauth2.constants import CLAIM_POLL_INTERVAL
-from polar.openapi import APITag
-from polar.postgres import (
+from repalis.auth.exceptions import SessionNotFreshError
+from repalis.authz.dependencies import AuthorizeWebUserRead, AuthorizeWebUserWriteFresh
+from repalis.config import settings
+from repalis.exceptions import ResourceNotFound
+from repalis.oauth2.constants import CLAIM_POLL_INTERVAL
+from repalis.openapi import APITag
+from repalis.postgres import (
     AsyncReadSession,
     AsyncSession,
     get_db_read_session,
     get_db_session,
 )
-from polar.routing import APIRouter
+from repalis.routing import APIRouter
 
 from .auth_md import render_auth_md
 from .schemas import (

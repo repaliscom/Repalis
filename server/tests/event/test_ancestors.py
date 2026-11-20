@@ -1,12 +1,12 @@
 import pytest
 from sqlalchemy import select
 
-from polar.auth.models import AuthSubject
-from polar.event.repository import EventRepository
-from polar.event.schemas import EventCreateExternalCustomer, EventsIngest
-from polar.event.service import event as event_service
-from polar.kit.db.postgres import AsyncSession
-from polar.models import Account, Event, Organization
+from repalis.auth.models import AuthSubject
+from repalis.event.repository import EventRepository
+from repalis.event.schemas import EventCreateExternalCustomer, EventsIngest
+from repalis.event.service import event as event_service
+from repalis.kit.db.postgres import AsyncSession
+from repalis.models import Account, Event, Organization
 from tests.fixtures.auth import AuthSubjectFixture
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (

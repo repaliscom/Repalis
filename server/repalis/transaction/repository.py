@@ -5,14 +5,14 @@ from uuid import UUID
 from sqlalchemy import Select, and_, func, or_, select, update
 from sqlalchemy.orm import selectinload
 
-from polar.kit.repository import (
+from repalis.kit.repository import (
     Options,
     RepositoryBase,
     RepositorySoftDeletionIDMixin,
     RepositorySoftDeletionMixin,
 )
-from polar.models import Account, Order, Payment, Transaction
-from polar.models.transaction import PlatformFeeType, TransactionType
+from repalis.models import Account, Order, Payment, Transaction
+from repalis.models.transaction import PlatformFeeType, TransactionType
 
 
 class TransactionRepository(

@@ -9,9 +9,9 @@ import structlog
 import trafilatura
 from pydantic_ai import Agent, RunContext
 
-from polar.config import settings
-from polar.kit.http import SSRFBlockedError, SSRFSafeTransport
-from polar.observability.baggage import organization_baggage
+from repalis.config import settings
+from repalis.kit.http import SSRFBlockedError, SSRFSafeTransport
+from repalis.observability.baggage import organization_baggage
 
 from ..schemas import UsageInfo, WebsiteData, WebsitePage
 from .firecrawl_client import scrape_markdown

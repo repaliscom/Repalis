@@ -18,8 +18,8 @@ from sqlalchemy import (
 )
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from polar.kit.db.models import RecordModel
-from polar.kit.utils import utc_now
+from repalis.kit.db.models import RecordModel
+from repalis.kit.utils import utc_now
 
 if TYPE_CHECKING:
     from .customer import Customer

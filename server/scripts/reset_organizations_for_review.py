@@ -21,17 +21,17 @@ import typer
 from rich.console import Console
 from rich.table import Table
 
-from polar import tasks  # noqa: F401  -- registers dramatiq actors
-from polar.kit.db.postgres import create_async_sessionmaker
-from polar.models import Organization
-from polar.models.organization import OrganizationStatus
-from polar.organization.repository import OrganizationRepository
-from polar.organization.service import (
+from repalis import tasks  # noqa: F401  -- registers dramatiq actors
+from repalis.kit.db.postgres import create_async_sessionmaker
+from repalis.models import Organization
+from repalis.models.organization import OrganizationStatus
+from repalis.organization.repository import OrganizationRepository
+from repalis.organization.service import (
     organization as organization_service,
 )
-from polar.postgres import AsyncSession, create_async_engine
-from polar.redis import create_redis
-from polar.worker import JobQueueManager
+from repalis.postgres import AsyncSession, create_async_engine
+from repalis.redis import create_redis
+from repalis.worker import JobQueueManager
 from scripts.helper import configure_script_console_logging, typer_async
 
 cli = typer.Typer()

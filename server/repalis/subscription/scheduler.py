@@ -12,11 +12,11 @@ from apscheduler.triggers.date import DateTrigger
 from sqlalchemy import ColumnElement, Select, func, select, update
 from sqlalchemy.orm import Session
 
-from polar.kit.utils import utc_now
-from polar.logging import Logger
-from polar.models import Customer, Organization, Subscription
-from polar.models.subscription import SubscriptionStatus
-from polar.postgres import create_sync_engine
+from repalis.kit.utils import utc_now
+from repalis.logging import Logger
+from repalis.models import Customer, Organization, Subscription
+from repalis.models.subscription import SubscriptionStatus
+from repalis.postgres import create_sync_engine
 
 log: Logger = structlog.get_logger()
 

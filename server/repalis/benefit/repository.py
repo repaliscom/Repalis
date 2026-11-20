@@ -4,8 +4,8 @@ from uuid import UUID
 from sqlalchemy import Select, or_, select
 from sqlalchemy.orm import joinedload, undefer
 
-from polar.authz.types import AccessibleOrganizationID
-from polar.kit.repository import (
+from repalis.authz.types import AccessibleOrganizationID
+from repalis.kit.repository import (
     Options,
     RepositoryBase,
     RepositoryExternalIDMixin,
@@ -14,10 +14,10 @@ from polar.kit.repository import (
     RepositorySortingMixin,
     SortingClause,
 )
-from polar.models import Benefit, Catalog, CatalogBenefit
-from polar.models.benefit import BenefitType
-from polar.models.catalog import CatalogStatus
-from polar.models.product_benefit import ProductBenefit
+from repalis.models import Benefit, Catalog, CatalogBenefit
+from repalis.models.benefit import BenefitType
+from repalis.models.catalog import CatalogStatus
+from repalis.models.product_benefit import ProductBenefit
 
 from .sorting import BenefitSortProperty
 

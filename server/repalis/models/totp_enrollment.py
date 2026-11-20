@@ -5,7 +5,7 @@ from reauth.factors.totp import TOTPEnrollment as TOTPEnrollmentDataclass
 from sqlalchemy import CHAR, ForeignKey, Integer, SmallInteger, String, Uuid
 from sqlalchemy.orm import Mapped, mapped_column
 
-from polar.kit.db.models import RecordModel
+from repalis.kit.db.models import RecordModel
 
 
 class TOTPEnrollment(RecordModel):

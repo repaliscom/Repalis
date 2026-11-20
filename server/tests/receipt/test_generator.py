@@ -1,7 +1,7 @@
-from polar.invoice.generator import InvoiceItem
-from polar.kit.address import Address, CountryAlpha2
-from polar.kit.utils import utc_now
-from polar.receipt.generator import (
+from repalis.invoice.generator import InvoiceItem
+from repalis.kit.address import Address, CountryAlpha2
+from repalis.kit.utils import utc_now
+from repalis.receipt.generator import (
     Receipt,
     ReceiptGenerator,
     ReceiptPayment,

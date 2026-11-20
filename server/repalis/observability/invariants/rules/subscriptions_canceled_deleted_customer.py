@@ -3,7 +3,7 @@ from collections.abc import Sequence
 
 from sqlalchemy import and_, select
 
-from polar.models import Customer, Subscription
+from repalis.models import Customer, Subscription
 
 from .base import Invariant, InvariantError
 

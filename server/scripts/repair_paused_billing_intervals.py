@@ -14,11 +14,11 @@ import typer
 from sqlalchemy import Select, exists, func, select
 from sqlalchemy.orm import aliased
 
-from polar.kit.db.postgres import create_async_sessionmaker
-from polar.models import BillingInterval, Subscription
-from polar.models.billing_interval import UsagePolicy
-from polar.models.subscription import SubscriptionStatus
-from polar.postgres import create_async_engine
+from repalis.kit.db.postgres import create_async_sessionmaker
+from repalis.models import BillingInterval, Subscription
+from repalis.models.billing_interval import UsagePolicy
+from repalis.models.subscription import SubscriptionStatus
+from repalis.postgres import create_async_engine
 
 from .backfill_billing_intervals import record_active_period
 from .helper import configure_script_console_logging, typer_async

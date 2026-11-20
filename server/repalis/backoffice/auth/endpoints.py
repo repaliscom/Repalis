@@ -7,12 +7,12 @@ from fastapi.responses import RedirectResponse
 from reauth.authentication_session import AuthenticationSessionException
 from reauth.exceptions import ReauthException
 
-from polar.backoffice_user.repository import BackofficeUserRepository
-from polar.config import settings
-from polar.kit.http import is_localhost
-from polar.models import BackofficeUser
-from polar.openapi import APITag
-from polar.postgres import AsyncSession, get_db_session
+from repalis.backoffice_user.repository import BackofficeUserRepository
+from repalis.config import settings
+from repalis.kit.http import is_localhost
+from repalis.models import BackofficeUser
+from repalis.openapi import APITag
+from repalis.postgres import AsyncSession, get_db_session
 
 from ..routing import BackofficeRouter
 from .factor import (

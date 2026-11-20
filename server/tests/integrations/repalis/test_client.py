@@ -4,40 +4,40 @@ from typing import Any
 from unittest.mock import AsyncMock, MagicMock
 
 import pytest
-from polar.base import PolarNetworkError, PolarServerError, deserialize
-from polar.v2026_04.errors import (
+from repalis.base import PolarNetworkError, PolarServerError, deserialize
+from repalis.v2026_04.errors import (
     AlreadyCanceledSubscription as SDKAlreadyCanceledSubscription,
 )
-from polar.v2026_04.errors import HTTPValidationError as SDKHTTPValidationError
-from polar.v2026_04.errors import (
+from repalis.v2026_04.errors import HTTPValidationError as SDKHTTPValidationError
+from repalis.v2026_04.errors import (
     MissingInvoiceBillingDetails as SDKMissingInvoiceBillingDetails,
 )
-from polar.v2026_04.errors import (
+from repalis.v2026_04.errors import (
     OrderNotEligibleForInvoice as SDKOrderNotEligibleForInvoice,
 )
-from polar.v2026_04.errors import (
+from repalis.v2026_04.errors import (
     ResourceNotFound as SDKResourceNotFound,
 )
-from polar.v2026_04.outputs import (
+from repalis.v2026_04.outputs import (
     AlreadyCanceledSubscription as AlreadyCanceledSubscriptionData,
 )
-from polar.v2026_04.outputs import (
+from repalis.v2026_04.outputs import (
     MissingInvoiceBillingDetails as MissingInvoiceBillingDetailsData,
 )
-from polar.v2026_04.outputs import (
+from repalis.v2026_04.outputs import (
     OrderNotEligibleForInvoice as OrderNotEligibleForInvoiceData,
 )
-from polar.v2026_04.outputs import (
+from repalis.v2026_04.outputs import (
     ResourceNotFound as ResourceNotFoundData,
 )
 from pytest_mock import MockerFixture
 
-from polar.integrations.repalis.client import (
+from repalis.integrations.repalis.client import (
     PolarSelfClient,
     PolarSelfClientError,
     PolarSelfClientOperationalError,
 )
-from polar.integrations.repalis.exceptions import (
+from repalis.integrations.repalis.exceptions import (
     PolarSelfCustomerNotFound,
     PolarSelfOrderNotEligible,
 )
@@ -399,7 +399,7 @@ def _failing_iter() -> AsyncIterator[Any]:
 @pytest.mark.anyio
 class TestNetworkErrorRetry:
     async def test_retries_once_then_succeeds(self, mocker: MockerFixture) -> None:
-        mocker.patch("polar.integrations.repalis.client.NETWORK_RETRY_DELAY_SECONDS", 0)
+        mocker.patch("repalis.integrations.repalis.client.NETWORK_RETRY_DELAY_SECONDS", 0)
         client = _client()
         grant = object()
         iter_list = mocker.patch.object(
@@ -414,7 +414,7 @@ class TestNetworkErrorRetry:
         assert iter_list.call_count == 2
 
     async def test_repeated_network_errors_raise(self, mocker: MockerFixture) -> None:
-        mocker.patch("polar.integrations.repalis.client.NETWORK_RETRY_DELAY_SECONDS", 0)
+        mocker.patch("repalis.integrations.repalis.client.NETWORK_RETRY_DELAY_SECONDS", 0)
         client = _client()
         get = mocker.patch.object(
             client._sdk.orders,

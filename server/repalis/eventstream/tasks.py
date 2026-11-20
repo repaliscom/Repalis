@@ -1,4 +1,4 @@
-from polar.worker import RedisMiddleware, TaskPriority, actor
+from repalis.worker import RedisMiddleware, TaskPriority, actor
 
 from .service import send_event
 

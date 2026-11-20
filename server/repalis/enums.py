@@ -5,8 +5,8 @@ from typing import Annotated, Literal
 
 from dateutil.relativedelta import relativedelta
 
-from polar.kit.versioning import Version
-from polar.version import V2027_01
+from repalis.kit.versioning import Version
+from repalis.version import V2027_01
 
 
 class Platforms(StrEnum):

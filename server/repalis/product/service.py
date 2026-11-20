@@ -7,36 +7,36 @@ from typing import Literal
 from sqlalchemy import select
 from sqlalchemy.orm import contains_eager, selectinload, undefer
 
-from polar.auth.models import Agent, AuthSubject
-from polar.auth.permission import OrganizationPermission
-from polar.authz.service import (
+from repalis.auth.models import Agent, AuthSubject
+from repalis.auth.permission import OrganizationPermission
+from repalis.authz.service import (
     assert_organization_permission,
     assert_resource_permission,
     get_accessible_org_ids,
 )
-from polar.authz.types import AccessibleOrganizationID
-from polar.benefit.service import benefit as benefit_service
-from polar.catalog.repository import CatalogRepository
-from polar.checkout_link.repository import CheckoutLinkRepository
-from polar.custom_field.service import custom_field as custom_field_service
-from polar.declarative_config.guard import (
+from repalis.authz.types import AccessibleOrganizationID
+from repalis.benefit.service import benefit as benefit_service
+from repalis.catalog.repository import CatalogRepository
+from repalis.checkout_link.repository import CheckoutLinkRepository
+from repalis.custom_field.service import custom_field as custom_field_service
+from repalis.declarative_config.guard import (
     DeclarativeConfigManaged,
     assert_catalog_editable,
 )
-from polar.enums import SubscriptionRecurringInterval
-from polar.exceptions import (
+from repalis.enums import SubscriptionRecurringInterval
+from repalis.exceptions import (
     NotPermitted,
     PolarError,
     PolarRequestValidationError,
     ValidationError,
 )
-from polar.file.service import file as file_service
-from polar.kit.db.postgres import AsyncReadSession, AsyncSession
-from polar.kit.metadata import MetadataQuery, apply_metadata_clause
-from polar.kit.pagination import PaginationParams
-from polar.kit.sorting import Sorting
-from polar.meter.repository import MeterRepository
-from polar.models import (
+from repalis.file.service import file as file_service
+from repalis.kit.db.postgres import AsyncReadSession, AsyncSession
+from repalis.kit.metadata import MetadataQuery, apply_metadata_clause
+from repalis.kit.pagination import PaginationParams
+from repalis.kit.sorting import Sorting
+from repalis.meter.repository import MeterRepository
+from repalis.models import (
     Benefit,
     Organization,
     OrganizationRiskSignal,
@@ -47,17 +47,17 @@ from polar.models import (
     ProductVisibility,
     User,
 )
-from polar.models.catalog import CatalogStatus
-from polar.models.organization import OrganizationStatus
-from polar.models.product_custom_field import ProductCustomField
-from polar.models.product_price import ProductPriceSource
-from polar.models.webhook_endpoint import WebhookEventType
-from polar.organization.repository import OrganizationRepository
-from polar.organization.resolver import get_payload_organization
-from polar.organization_review.repository import OrganizationRiskSignalRepository
-from polar.organization_review.risk_signal import risk_signal as risk_signal_service
-from polar.organization_review.schemas import ReviewContext
-from polar.product.guard import (
+from repalis.models.catalog import CatalogStatus
+from repalis.models.organization import OrganizationStatus
+from repalis.models.product_custom_field import ProductCustomField
+from repalis.models.product_price import ProductPriceSource
+from repalis.models.webhook_endpoint import WebhookEventType
+from repalis.organization.repository import OrganizationRepository
+from repalis.organization.resolver import get_payload_organization
+from repalis.organization_review.repository import OrganizationRiskSignalRepository
+from repalis.organization_review.risk_signal import risk_signal as risk_signal_service
+from repalis.organization_review.schemas import ReviewContext
+from repalis.product.guard import (
     is_custom_price,
     is_fixed_price,
     is_metered_price,
@@ -65,9 +65,9 @@ from polar.product.guard import (
     is_static_price,
     is_unit_price,
 )
-from polar.product.repository import ProductRepository
-from polar.webhook.service import webhook as webhook_service
-from polar.worker import enqueue_job
+from repalis.product.repository import ProductRepository
+from repalis.webhook.service import webhook as webhook_service
+from repalis.worker import enqueue_job
 
 from .name_check import FLAGGED_PRODUCT_PHRASES
 from .schemas import (

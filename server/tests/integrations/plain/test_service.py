@@ -14,14 +14,14 @@ from plain_client import (
 )
 from pytest_mock import MockerFixture
 
-from polar.integrations.plain.service import (
+from repalis.integrations.plain.service import (
     CUSTOMER_CARD_TTL_SECONDS,
     PlainCustomerError,
     PlainService,
 )
-from polar.models import Feedback, Organization, User
-from polar.models.feedback import FeedbackType
-from polar.models.organization import OrganizationStatus
+from repalis.models import Feedback, Organization, User
+from repalis.models.feedback import FeedbackType
+from repalis.models.organization import OrganizationStatus
 
 
 @contextlib.asynccontextmanager
@@ -105,7 +105,7 @@ def plain_client(mocker: MockerFixture) -> MagicMock:
     client.customer_by_email = AsyncMock()
     client.upsert_customer = AsyncMock()
     mocker.patch(
-        "polar.integrations.plain.service.PlainService._get_plain_client",
+        "repalis.integrations.plain.service.PlainService._get_plain_client",
         return_value=_mock_client(client),
     )
     return client
@@ -129,7 +129,7 @@ def _ok_result() -> MagicMock:
 def feedback_thread_client(mocker: MockerFixture, plain_client: MagicMock) -> MagicMock:
     # Don't hit the LLM gateway from thread-creation tests.
     mocker.patch(
-        "polar.integrations.plain.service._generate_thread_subject",
+        "repalis.integrations.plain.service._generate_thread_subject",
         AsyncMock(return_value="Generated subject"),
     )
     plain_client.customer_by_email.return_value = _customer_by_email_payload(
@@ -210,10 +210,10 @@ class TestCreateFeedbackThread:
 @pytest.mark.anyio
 class TestGenerateThreadSubject:
     async def test_returns_model_output(self, mocker: MockerFixture) -> None:
-        from polar.integrations.plain.service import _generate_thread_subject
+        from repalis.integrations.plain.service import _generate_thread_subject
 
         get_model = mocker.patch(
-            "polar.integrations.plain.service.settings.get_pydantic_gateway_model",
+            "repalis.integrations.plain.service.settings.get_pydantic_gateway_model",
             return_value=(MagicMock(), "openai", "gpt-5.5"),
         )
         agent = MagicMock()
@@ -221,7 +221,7 @@ class TestGenerateThreadSubject:
             return_value=MagicMock(output='  "Custom domain setup"  ')
         )
         agent_cls = mocker.patch(
-            "polar.integrations.plain.service.Agent", return_value=agent
+            "repalis.integrations.plain.service.Agent", return_value=agent
         )
 
         subject = await _generate_thread_subject(
@@ -235,10 +235,10 @@ class TestGenerateThreadSubject:
         assert agent_cls.call_args.kwargs["model_settings"] == {}
 
     async def test_falls_back_on_error(self, mocker: MockerFixture) -> None:
-        from polar.integrations.plain.service import _generate_thread_subject
+        from repalis.integrations.plain.service import _generate_thread_subject
 
         mocker.patch(
-            "polar.integrations.plain.service.settings.get_pydantic_gateway_model",
+            "repalis.integrations.plain.service.settings.get_pydantic_gateway_model",
             side_effect=RuntimeError("gateway down"),
         )
 
@@ -247,7 +247,7 @@ class TestGenerateThreadSubject:
         assert subject == "Re: your recent question"
 
     async def test_falls_back_on_empty_content(self) -> None:
-        from polar.integrations.plain.service import _generate_thread_subject
+        from repalis.integrations.plain.service import _generate_thread_subject
 
         subject = await _generate_thread_subject("   ", "Re: your recent question")
 

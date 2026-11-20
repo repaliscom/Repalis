@@ -6,30 +6,30 @@ from fastapi import Depends, Query
 from fastapi.exceptions import RequestValidationError
 from pydantic import UUID4
 
-from polar.exceptions import (
+from repalis.exceptions import (
     NotPermitted,
     PolarRequestValidationError,
     ResourceNotFound,
 )
-from polar.kit.metadata import MetadataQuery, get_metadata_query_openapi_schema
-from polar.kit.pagination import (
+from repalis.kit.metadata import MetadataQuery, get_metadata_query_openapi_schema
+from repalis.kit.pagination import (
     ListResource,
     ListResourceWithCursorPagination,
     PaginationParamsQuery,
 )
-from polar.kit.time_queries import is_under_limits
-from polar.kit.versioning import version
-from polar.models import Event
-from polar.openapi import APITag
-from polar.postgres import (
+from repalis.kit.time_queries import is_under_limits
+from repalis.kit.versioning import version
+from repalis.models import Event
+from repalis.openapi import APITag
+from repalis.postgres import (
     AsyncReadSession,
     AsyncSession,
     get_db_read_session,
     get_db_session,
 )
-from polar.redis import Redis, get_redis
-from polar.routing import APIRouter
-from polar.version import V2027_01
+from repalis.redis import Redis, get_redis
+from repalis.routing import APIRouter
+from repalis.version import V2027_01
 
 from . import auth, sorting
 from .schemas import (

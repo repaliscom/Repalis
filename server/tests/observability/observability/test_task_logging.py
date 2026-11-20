@@ -5,9 +5,9 @@ import dramatiq
 import pytest
 from dramatiq.brokers.stub import StubBroker
 
-from polar.models.benefit_grant import BenefitGrantScopeArgs
-from polar.observability import task_logging
-from polar.observability.task_logging import (
+from repalis.models.benefit_grant import BenefitGrantScopeArgs
+from repalis.observability import task_logging
+from repalis.observability.task_logging import (
     LoggableField,
     _loggable_paths,
     register_task_logging,

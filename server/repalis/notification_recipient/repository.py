@@ -1,13 +1,13 @@
 from collections.abc import Sequence
 from uuid import UUID
 
-from polar.kit.repository import (
+from repalis.kit.repository import (
     RepositoryBase,
     RepositorySoftDeletionIDMixin,
     RepositorySoftDeletionMixin,
 )
-from polar.kit.repository.base import Options
-from polar.models.notification_recipient import NotificationRecipient
+from repalis.kit.repository.base import Options
+from repalis.models.notification_recipient import NotificationRecipient
 
 from .schemas import NotificationRecipientPlatform
 

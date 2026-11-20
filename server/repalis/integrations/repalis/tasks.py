@@ -5,19 +5,19 @@ from typing import Annotated
 
 from dramatiq import Retry
 
-from polar import deserialize
-from polar.base import PolarClientError
-from polar.config import settings
-from polar.event.repository import EventRepository
-from polar.external_event.service import external_event as external_event_service
-from polar.integrations.plain.service import plain as plain_service
-from polar.integrations.tinybird.service import count_user_events_by_organization
-from polar.kit.utils import utc_now
-from polar.models.external_event import ExternalEventSource
-from polar.models.member import MemberRole
-from polar.observability.task_logging import LoggableField
-from polar.v2026_04.errors import ResourceNotFound
-from polar.v2026_04.webhooks import (
+from repalis import deserialize
+from repalis.base import PolarClientError
+from repalis.config import settings
+from repalis.event.repository import EventRepository
+from repalis.external_event.service import external_event as external_event_service
+from repalis.integrations.plain.service import plain as plain_service
+from repalis.integrations.tinybird.service import count_user_events_by_organization
+from repalis.kit.utils import utc_now
+from repalis.models.external_event import ExternalEventSource
+from repalis.models.member import MemberRole
+from repalis.observability.task_logging import LoggableField
+from repalis.v2026_04.errors import ResourceNotFound
+from repalis.v2026_04.webhooks import (
     WebhookBenefitGrantCreatedPayload,
     WebhookBenefitGrantRevokedPayload,
     WebhookBenefitGrantUpdatedPayload,
@@ -26,7 +26,7 @@ from polar.v2026_04.webhooks import (
     WebhookSubscriptionPastDuePayload,
     WebhookSubscriptionRevokedPayload,
 )
-from polar.worker import (
+from repalis.worker import (
     AsyncSessionMaker,
     CronTrigger,
     TaskPriority,

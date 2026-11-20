@@ -7,17 +7,17 @@ import structlog
 from sqlalchemy import func, update
 from sqlalchemy.exc import IntegrityError
 
-from polar.exceptions import PolarError
-from polar.integrations.repalis.service import polar_self as polar_self_service
-from polar.integrations.resend.service import resend as resend_service
-from polar.integrations.stripe.service import stripe as stripe_service
-from polar.kit.anonymization import anonymize_email_for_deletion
-from polar.models import NotificationRecipient, User
-from polar.models.user import IdentityVerificationStatus
-from polar.organization.repository import OrganizationRepository
-from polar.organization.service import organization as organization_service
-from polar.postgres import AsyncSession
-from polar.worker import enqueue_job
+from repalis.exceptions import PolarError
+from repalis.integrations.repalis.service import polar_self as polar_self_service
+from repalis.integrations.resend.service import resend as resend_service
+from repalis.integrations.stripe.service import stripe as stripe_service
+from repalis.kit.anonymization import anonymize_email_for_deletion
+from repalis.models import NotificationRecipient, User
+from repalis.models.user import IdentityVerificationStatus
+from repalis.organization.repository import OrganizationRepository
+from repalis.organization.service import organization as organization_service
+from repalis.postgres import AsyncSession
+from repalis.worker import enqueue_job
 
 from .repository import UserRepository
 from .schemas import (

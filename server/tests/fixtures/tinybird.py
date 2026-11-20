@@ -9,11 +9,11 @@ from unittest.mock import patch
 import httpx2
 import pytest
 
-from polar.config import settings
-from polar.integrations.tinybird import service as tinybird_service
-from polar.integrations.tinybird.client import TinybirdClient
-from polar.integrations.tinybird.schemas import TinybirdEvent
-from polar.metrics import queries_tinybird
+from repalis.config import settings
+from repalis.integrations.tinybird import service as tinybird_service
+from repalis.integrations.tinybird.client import TinybirdClient
+from repalis.integrations.tinybird.schemas import TinybirdEvent
+from repalis.metrics import queries_tinybird
 from scripts.tinybird_test_workspace import (
     create_workspace,
     delete_workspace,

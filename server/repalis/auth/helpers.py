@@ -6,11 +6,11 @@ from urllib.parse import urlencode
 from fastapi import Request, Response
 from reauth.factors import FactorBase
 
-from polar.config import settings
-from polar.kit.email import validate_email_syntax
-from polar.kit.http import is_localhost
-from polar.organization.repository import OrganizationRepository
-from polar.postgres import AsyncSession
+from repalis.config import settings
+from repalis.kit.email import validate_email_syntax
+from repalis.kit.http import is_localhost
+from repalis.organization.repository import OrganizationRepository
+from repalis.postgres import AsyncSession
 
 from .exceptions import PolarAuthRedirectionError
 

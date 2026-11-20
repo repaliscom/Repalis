@@ -7,8 +7,8 @@ from sqlalchemy import TIMESTAMP, BigInteger, Boolean, ForeignKey, String, Uuid
 from sqlalchemy.ext.associationproxy import AssociationProxy, association_proxy
 from sqlalchemy.orm import Mapped, declared_attr, mapped_column, relationship
 
-from polar.kit.db.models import RecordModel
-from polar.models.product_price import (
+from repalis.kit.db.models import RecordModel
+from repalis.models.product_price import (
     ProductPrice,
     ProductPriceCustom,
     ProductPriceFixed,
@@ -17,7 +17,7 @@ from polar.models.product_price import (
 )
 
 if TYPE_CHECKING:
-    from polar.models import Order, Product, Wallet
+    from repalis.models import Order, Product, Wallet
 
 
 class OrderItem(RecordModel):

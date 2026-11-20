@@ -5,7 +5,7 @@ from pydantic import BaseModel, Field, create_model
 from pydantic_core import ErrorDetails, InitErrorDetails, PydanticCustomError
 from pydantic_core import ValidationError as PydanticValidationError
 
-from polar.config import settings
+from repalis.config import settings
 
 
 class PolarError(Exception):

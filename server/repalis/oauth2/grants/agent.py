@@ -10,7 +10,7 @@ from authlib.oauth2.rfc6749.util import extract_basic_authorization
 from sqlalchemy import Select, select
 from sqlalchemy.orm import contains_eager, joinedload
 
-from polar.models import Agent, OAuth2Client, User
+from repalis.models import Agent, OAuth2Client, User
 
 if typing.TYPE_CHECKING:
     from ..authorization_server import AuthorizationServer

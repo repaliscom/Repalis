@@ -17,10 +17,10 @@ from dramatiq.middleware.current_message import CurrentMessage
 from dramatiq.middleware.group_callbacks import GroupCallbacks
 from dramatiq.middleware.retries import DEFAULT_MAX_BACKOFF
 
-from polar import tasks  # noqa: F401  (registers all actors with the broker)
-from polar.config import settings
-from polar.logging import CorrelationID, Logger
-from polar.observability.task_logging import set_sentry_task_context, task_log_context
+from repalis import tasks  # noqa: F401  (registers all actors with the broker)
+from repalis.config import settings
+from repalis.logging import CorrelationID, Logger
+from repalis.observability.task_logging import set_sentry_task_context, task_log_context
 
 from . import _sqs
 from ._broker import TASK_TIME_LIMIT_DEFAULT_MS
@@ -229,7 +229,7 @@ async def run_task(
     max_age = actor_obj.options.get("max_age")
     if max_age and int(time.time() * 1000) - message.message_timestamp >= max_age:
         log.warning(
-            "polar.worker.task_age_limit_exceeded",
+            "repalis.worker.task_age_limit_exceeded",
             actor_name=actor_name,
             max_age=max_age,
         )

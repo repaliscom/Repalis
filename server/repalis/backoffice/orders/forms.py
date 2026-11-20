@@ -4,8 +4,8 @@ from typing import Annotated, Any, Literal
 from fastapi import Request
 from pydantic import Field, create_model
 
-from polar.kit.schemas import EmptyStrToNone
-from polar.models.refund import ManualRefundReason, RefundReason
+from repalis.kit.schemas import EmptyStrToNone
+from repalis.models.refund import ManualRefundReason, RefundReason
 
 from .. import forms
 

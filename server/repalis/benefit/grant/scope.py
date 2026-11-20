@@ -3,23 +3,23 @@ from uuid import UUID
 import structlog
 from sqlalchemy.orm import joinedload
 
-from polar.customer.repository import CustomerRepository
-from polar.exceptions import PolarError
-from polar.logging import Logger
-from polar.member.repository import MemberRepository
-from polar.member.service import member_service
-from polar.models import Member, Organization
-from polar.models.benefit_grant import (
+from repalis.customer.repository import CustomerRepository
+from repalis.exceptions import PolarError
+from repalis.logging import Logger
+from repalis.member.repository import MemberRepository
+from repalis.member.service import member_service
+from repalis.models import Member, Organization
+from repalis.models.benefit_grant import (
     BenefitGrantScope,
     BenefitGrantScopeArgs,
     BenefitGrantSelector,
     BenefitGrantSelectorArgs,
 )
-from polar.models.order import Order
-from polar.models.subscription import Subscription
-from polar.order.repository import OrderRepository
-from polar.postgres import AsyncSession
-from polar.subscription.repository import SubscriptionRepository
+from repalis.models.order import Order
+from repalis.models.subscription import Subscription
+from repalis.order.repository import OrderRepository
+from repalis.postgres import AsyncSession
+from repalis.subscription.repository import SubscriptionRepository
 
 from .repository import BenefitGrantRepository
 

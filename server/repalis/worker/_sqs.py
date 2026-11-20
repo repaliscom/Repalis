@@ -13,10 +13,10 @@ import structlog
 from botocore.config import Config
 from botocore.exceptions import ClientError
 
-from polar.config import settings
-from polar.kit.aws import get_credentials
-from polar.kit.json import json_obj_serializer
-from polar.logging import Logger
+from repalis.config import settings
+from repalis.kit.aws import get_credentials
+from repalis.kit.json import json_obj_serializer
+from repalis.logging import Logger
 
 if TYPE_CHECKING:
     from mypy_boto3_scheduler.client import EventBridgeSchedulerClient
@@ -152,7 +152,7 @@ def resolve_queue_url(client: "SQSClient", queue_name: str) -> str:
         if queue_name == default_queue_name:
             raise
         log.warning(
-            "polar.worker.sqs_queue_missing_fallback",
+            "repalis.worker.sqs_queue_missing_fallback",
             queue=queue_name,
             fallback=default_queue_name,
         )
@@ -329,10 +329,10 @@ def send_jobs_sync(jobs: list[Job]) -> None:
             failed = response.get("Failed", [])
             if failed:
                 log.error(
-                    "polar.worker.sqs_send_failed", queue=queue_name, failed=failed
+                    "repalis.worker.sqs_send_failed", queue=queue_name, failed=failed
                 )
                 raise SQSSendError(queue_name, list(failed))
-            log.debug("polar.worker.sqs_jobs_sent", queue=queue_name, count=len(batch))
+            log.debug("repalis.worker.sqs_jobs_sent", queue=queue_name, count=len(batch))
 
 
 __all__ = [

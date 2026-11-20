@@ -4,9 +4,9 @@ import pytest
 from pytest_mock import MockerFixture
 from sqlalchemy.orm import joinedload
 
-from polar.event.system import SystemEvent
-from polar.integrations.stripe.service import StripeService
-from polar.models import (
+from repalis.event.system import SystemEvent
+from repalis.integrations.stripe.service import StripeService
+from repalis.models import (
     Account,
     Customer,
     Order,
@@ -16,20 +16,20 @@ from polar.models import (
     Transaction,
     User,
 )
-from polar.models.refund import RefundStatus
-from polar.models.transaction import Processor, TransactionType
-from polar.postgres import AsyncSession
-from polar.transaction.repository import BalanceTransactionRepository
-from polar.transaction.service.balance import BalanceTransactionService
-from polar.transaction.service.processor_fee import ProcessorFeeTransactionService
-from polar.transaction.service.refund import (  # type: ignore[attr-defined]
+from repalis.models.refund import RefundStatus
+from repalis.models.transaction import Processor, TransactionType
+from repalis.postgres import AsyncSession
+from repalis.transaction.repository import BalanceTransactionRepository
+from repalis.transaction.service.balance import BalanceTransactionService
+from repalis.transaction.service.processor_fee import ProcessorFeeTransactionService
+from repalis.transaction.service.refund import (  # type: ignore[attr-defined]
     NotCanceledRefundError,
     NotSucceededRefundError,
     RefundTransactionAlreadyExistsError,
     RefundTransactionDoesNotExistError,
     processor_fee_transaction_service,
 )
-from polar.transaction.service.refund import (
+from repalis.transaction.service.refund import (
     refund_transaction as refund_transaction_service,
 )
 from tests.fixtures.database import SaveFixture
@@ -45,8 +45,8 @@ from tests.transaction.conftest import create_transaction
 @pytest.fixture(autouse=True)
 def stripe_service_mock(mocker: MockerFixture) -> MagicMock:
     mock = MagicMock(spec=StripeService)
-    mocker.patch("polar.refund.service.stripe_service", new=mock)
-    mocker.patch("polar.transaction.service.refund.stripe_service", new=mock)
+    mocker.patch("repalis.refund.service.stripe_service", new=mock)
+    mocker.patch("repalis.transaction.service.refund.stripe_service", new=mock)
     return mock
 
 
@@ -54,7 +54,7 @@ def stripe_service_mock(mocker: MockerFixture) -> MagicMock:
 def balance_transaction_service_mock(mocker: MockerFixture) -> MagicMock:
     mock = MagicMock(spec=BalanceTransactionService)
     mocker.patch(
-        "polar.transaction.service.refund.balance_transaction_service", new=mock
+        "repalis.transaction.service.refund.balance_transaction_service", new=mock
     )
     return mock
 

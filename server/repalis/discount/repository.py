@@ -11,8 +11,8 @@ from sqlalchemy import (
 )
 from sqlalchemy.orm import InstrumentedAttribute, raiseload
 
-from polar.kit.repository import RepositoryBase, RepositoryIDMixin
-from polar.models import (
+from repalis.kit.repository import RepositoryBase, RepositoryIDMixin
+from repalis.models import (
     Checkout,
     Customer,
     Discount,
@@ -22,9 +22,9 @@ from polar.models import (
     Refund,
     Subscription,
 )
-from polar.models.order import OrderStatus
-from polar.models.payment import PaymentStatus
-from polar.models.refund import RefundReason, RefundStatus
+from repalis.models.order import OrderStatus
+from repalis.models.payment import PaymentStatus
+from repalis.models.refund import RefundReason, RefundStatus
 
 
 class DiscountRepository(RepositoryBase[Discount], RepositoryIDMixin[Discount, UUID]):

@@ -7,15 +7,15 @@ from sqlalchemy import Select, UnaryExpression, and_, asc, desc, or_, select
 from sqlalchemy.orm import contains_eager, joinedload
 from sqlalchemy.sql.elements import OrderByList
 
-from polar.auth.models import AuthSubject, Customer, Member, is_customer, is_member
-from polar.customer.repository import CustomerRepository
-from polar.exceptions import NotPermitted, PolarRequestValidationError
-from polar.kit.db.postgres import AsyncSession
-from polar.kit.pagination import PaginationParams, paginate
-from polar.kit.services import ResourceServiceReader
-from polar.kit.sorting import Sorting
-from polar.kit.visibility import Visibility
-from polar.models import (
+from repalis.auth.models import AuthSubject, Customer, Member, is_customer, is_member
+from repalis.customer.repository import CustomerRepository
+from repalis.exceptions import NotPermitted, PolarRequestValidationError
+from repalis.kit.db.postgres import AsyncSession
+from repalis.kit.pagination import PaginationParams, paginate
+from repalis.kit.services import ResourceServiceReader
+from repalis.kit.sorting import Sorting
+from repalis.kit.visibility import Visibility
+from repalis.models import (
     Benefit,
     BenefitGrant,
     Order,
@@ -24,8 +24,8 @@ from polar.models import (
     ProductBenefit,
     Subscription,
 )
-from polar.models.benefit import BenefitType
-from polar.worker import enqueue_job
+from repalis.models.benefit import BenefitType
+from repalis.worker import enqueue_job
 
 from ..schemas.benefit_grant import (
     CustomerBenefitGrantDiscordUpdate,
@@ -185,7 +185,7 @@ class CustomerBenefitGrantService(ResourceServiceReader[BenefitGrant]):
                 # Check member's OAuth accounts first if member_id is set
                 oauth_account = None
                 if benefit_grant.member_id:
-                    from polar.member.repository import MemberRepository
+                    from repalis.member.repository import MemberRepository
 
                     member_repository = MemberRepository.from_session(session)
                     member = await member_repository.get_by_id(benefit_grant.member_id)

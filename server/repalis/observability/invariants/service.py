@@ -3,11 +3,11 @@ from typing import Any
 
 import structlog
 
-from polar.config import settings
-from polar.integrations.slack.client import client as slack_client
-from polar.integrations.slack.payload import SlackPayload, get_branded_slack_payload
-from polar.logging import Logger
-from polar.postgres import AsyncReadSession
+from repalis.config import settings
+from repalis.integrations.slack.client import client as slack_client
+from repalis.integrations.slack.payload import SlackPayload, get_branded_slack_payload
+from repalis.logging import Logger
+from repalis.postgres import AsyncReadSession
 
 from .rules import Invariant, InvariantError
 

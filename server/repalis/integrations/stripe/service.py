@@ -20,11 +20,11 @@ from stripe.params._setup_intent_create_params import SetupIntentCreateParams
 from stripe.params._setup_intent_retrieve_params import SetupIntentRetrieveParams
 from stripe.params.tax._calculation_create_params import CalculationCreateParams
 
-from polar.config import settings
-from polar.integrations.stripe import stripe_lib
-from polar.kit.http import get_safe_return_url
-from polar.logfire import instrument_httpx
-from polar.logging import Logger
+from repalis.config import settings
+from repalis.integrations.stripe import stripe_lib
+from repalis.kit.http import get_safe_return_url
+from repalis.logfire import instrument_httpx
+from repalis.logging import Logger
 
 if TYPE_CHECKING:
     from stripe.params._account_create_params import AccountCreateParams
@@ -39,7 +39,7 @@ if TYPE_CHECKING:
         TransactionCreateReversalParams,
     )
 
-    from polar.models import User
+    from repalis.models import User
 
 #: Stripe PaymentIntent metadata key carrying the
 #: :class:`polar.models.payment.PaymentTrigger`. Producers (in

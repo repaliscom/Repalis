@@ -16,18 +16,18 @@ from opentelemetry.proto.resource.v1.resource_pb2 import Resource
 from sqlalchemy.ext.asyncio import AsyncEngine
 from sqlalchemy.orm import selectinload
 
-from polar.config import settings
-from polar.customer.repository import CustomerRepository
-from polar.exceptions import BadRequest, ResourceNotFound
-from polar.kit.db.postgres import AsyncReadSession
-from polar.meter.aggregation import UniqueAggregation
-from polar.models import Customer, Organization, Reducer
-from polar.models.reducer import ReducerKind
-from polar.redis import Redis
-from polar.reducer.bucket_repository import get_customer_identities
-from polar.reducer.repository import ReducerRepository
-from polar.reducer.service import get_reducer_bucket_start
-from polar.reducer.service import reducer as reducer_service
+from repalis.config import settings
+from repalis.customer.repository import CustomerRepository
+from repalis.exceptions import BadRequest, ResourceNotFound
+from repalis.kit.db.postgres import AsyncReadSession
+from repalis.meter.aggregation import UniqueAggregation
+from repalis.models import Customer, Organization, Reducer
+from repalis.models.reducer import ReducerKind
+from repalis.redis import Redis
+from repalis.reducer.bucket_repository import get_customer_identities
+from repalis.reducer.repository import ReducerRepository
+from repalis.reducer.service import get_reducer_bucket_start
+from repalis.reducer.service import reducer as reducer_service
 
 from . import stream
 from .schemas import (
@@ -151,7 +151,7 @@ class OutpostService:
         self, resource: Resource, organization: Organization
     ) -> None:
         overrides = {
-            "polar.organization_id": str(organization.id),
+            "repalis.organization_id": str(organization.id),
             "service.name": "outpost",
             "deployment.environment.name": settings.ENV,
         }

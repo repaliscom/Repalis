@@ -7,10 +7,10 @@ import logfire
 import structlog
 from opentelemetry import trace
 
-from polar.config import settings
-from polar.enums import TaxBehavior
-from polar.kit.address import Address
-from polar.logging import Logger
+from repalis.config import settings
+from repalis.enums import TaxBehavior
+from repalis.kit.address import Address
+from repalis.logging import Logger
 
 from ..tax_id import TaxID
 from .base import (

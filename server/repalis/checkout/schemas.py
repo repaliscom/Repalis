@@ -15,36 +15,36 @@ from pydantic import (
 )
 from pydantic.json_schema import SkipJsonSchema
 
-from polar.custom_field.data import (
+from repalis.custom_field.data import (
     CustomFieldDataInputMixin,
     CustomFieldDataOutputMixin,
 )
-from polar.custom_field.schemas import AttachedCustomField
-from polar.customer.schemas.customer import (
+from repalis.custom_field.schemas import AttachedCustomField
+from repalis.customer.schemas.customer import (
     CustomerBillingNameInput,
     CustomerID,
     CustomerNameInput,
     ExternalCustomerID,
 )
-from polar.discount.schemas import (
+from repalis.discount.schemas import (
     DiscountFixedBase,
     DiscountOnceForeverDurationBase,
     DiscountPercentageBase,
     DiscountRepeatDurationBase,
 )
-from polar.enums import PaymentProcessor, TaxBehavior
-from polar.kit.address import Address, AddressInput
-from polar.kit.currency import PresentmentCurrency
-from polar.kit.email import EmailStrDNS
-from polar.kit.http import SuccessUrl
-from polar.kit.locale import Locale
-from polar.kit.metadata import (
+from repalis.enums import PaymentProcessor, TaxBehavior
+from repalis.kit.address import Address, AddressInput
+from repalis.kit.currency import PresentmentCurrency
+from repalis.kit.email import EmailStrDNS
+from repalis.kit.http import SuccessUrl
+from repalis.kit.locale import Locale
+from repalis.kit.metadata import (
     METADATA_DESCRIPTION,
     MetadataField,
     MetadataInputMixin,
     MetadataOutputMixin,
 )
-from polar.kit.schemas import (
+from repalis.kit.schemas import (
     EmptyStrToNone,
     EmptyStrToNoneValidator,
     HttpUrlToStr,
@@ -56,20 +56,20 @@ from polar.kit.schemas import (
     StripValidator,
     TimestampedSchema,
 )
-from polar.kit.trial import (
+from repalis.kit.trial import (
     TrialConfigurationInputMixin,
     TrialConfigurationOutputMixin,
     TrialInterval,
 )
-from polar.kit.versioning import QuerySchema, Version
-from polar.models.checkout import (
+from repalis.kit.versioning import QuerySchema, Version
+from repalis.models.checkout import (
     CheckoutBillingAddressFields,
     CheckoutCustomerBillingAddressFields,
     CheckoutStatus,
 )
-from polar.models.discount import DiscountDuration, DiscountType
-from polar.organization.schemas import OrganizationID, OrganizationPublicBase
-from polar.product.schemas import (
+from repalis.models.discount import DiscountDuration, DiscountType
+from repalis.organization.schemas import OrganizationID, OrganizationPublicBase
+from repalis.product.schemas import (
     BenefitPublicList,
     ProductBase,
     ProductID,
@@ -79,7 +79,7 @@ from polar.product.schemas import (
     ProductPriceList,
     ProductVersionOutputMixin,
 )
-from polar.version import V2026_10, V2027_01
+from repalis.version import V2026_10, V2027_01
 
 Amount = Annotated[
     int,

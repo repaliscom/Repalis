@@ -10,32 +10,32 @@ from pydantic import UUID4, ValidationError
 from starlette.datastructures import UploadFile
 from tagflow import tag, text
 
-from polar.backoffice.routing import BackofficeRouter
-from polar.config import settings
-from polar.kit.pagination import PaginationParamsQuery
-from polar.merchant_migration.cards import PaymentMethodMappingCSVError
-from polar.merchant_migration.pan_transfer import (
+from repalis.backoffice.routing import BackofficeRouter
+from repalis.config import settings
+from repalis.kit.pagination import PaginationParamsQuery
+from repalis.merchant_migration.cards import PaymentMethodMappingCSVError
+from repalis.merchant_migration.pan_transfer import (
     STEP_STRIPE_COPY,
     PanStepOwner,
     PanStepStatus,
     PanTransferStep,
 )
-from polar.merchant_migration.repository import (
+from repalis.merchant_migration.repository import (
     MerchantMigrationRecordRepository,
     MerchantMigrationRepository,
 )
-from polar.merchant_migration.service import (
+from repalis.merchant_migration.service import (
     merchant_migration as merchant_migration_service,
 )
-from polar.models import MerchantMigration
-from polar.models.merchant_migration_record import MerchantMigrationRecordStatus
-from polar.postgres import (
+from repalis.models import MerchantMigration
+from repalis.models.merchant_migration_record import MerchantMigrationRecordStatus
+from repalis.postgres import (
     AsyncReadSession,
     AsyncSession,
     get_db_read_session,
     get_db_session,
 )
-from polar.redis import Redis, get_redis
+from repalis.redis import Redis, get_redis
 
 from .. import formatters
 from ..components import (

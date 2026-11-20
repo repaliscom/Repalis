@@ -8,7 +8,7 @@ from babel.dates import format_timedelta
 from fastapi import Request
 from tagflow import tag, text
 
-from polar.models import AccountCredit, Organization
+from repalis.models import AccountCredit, Organization
 
 from ....components import button, card
 

@@ -16,12 +16,12 @@ from reauth.authentication_session import (
 from reauth.factors import FactorBase
 from sqlalchemy import delete, select, update
 
-from polar.auth.authentication_session import InvalidAuthenticationSession
-from polar.config import settings
-from polar.kit.crypto import get_legacy_secret
-from polar.kit.http import is_localhost
-from polar.models import CustomerSessionAuthenticationSession
-from polar.postgres import AsyncSession, get_db_session
+from repalis.auth.authentication_session import InvalidAuthenticationSession
+from repalis.config import settings
+from repalis.kit.crypto import get_legacy_secret
+from repalis.kit.http import is_localhost
+from repalis.models import CustomerSessionAuthenticationSession
+from repalis.postgres import AsyncSession, get_db_session
 
 from .factors import get_factors
 

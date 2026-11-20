@@ -2,13 +2,13 @@ from datetime import timedelta
 
 import pytest
 
-from polar.kit.utils import utc_now
-from polar.models import Customer, Product
-from polar.observability.invariants.rules.no_recent_orders import (
+from repalis.kit.utils import utc_now
+from repalis.models import Customer, Product
+from repalis.observability.invariants.rules.no_recent_orders import (
     NoRecentOrdersInvariant,
     NoRecentOrdersInvariantError,
 )
-from polar.postgres import AsyncSession
+from repalis.postgres import AsyncSession
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_order
 

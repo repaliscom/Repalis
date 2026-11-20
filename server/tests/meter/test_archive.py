@@ -5,16 +5,16 @@ from unittest.mock import MagicMock
 import pytest
 from pytest_mock.plugin import MockerFixture
 
-from polar.auth.models import AuthSubject
-from polar.enums import SubscriptionRecurringInterval
-from polar.exceptions import PolarRequestValidationError
-from polar.integrations.tinybird.client import TinybirdClient
-from polar.meter.service import meter as meter_service
-from polar.models import Benefit, Customer, Meter, Organization, Product, Subscription
-from polar.models.benefit import BenefitType
-from polar.models.subscription import SubscriptionStatus
-from polar.postgres import AsyncSession
-from polar.product.tiers import Tiers, TierType
+from repalis.auth.models import AuthSubject
+from repalis.enums import SubscriptionRecurringInterval
+from repalis.exceptions import PolarRequestValidationError
+from repalis.integrations.tinybird.client import TinybirdClient
+from repalis.meter.service import meter as meter_service
+from repalis.models import Benefit, Customer, Meter, Organization, Product, Subscription
+from repalis.models.benefit import BenefitType
+from repalis.models.subscription import SubscriptionStatus
+from repalis.postgres import AsyncSession
+from repalis.product.tiers import Tiers, TierType
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (
     create_active_subscription,
@@ -28,7 +28,7 @@ from tests.fixtures.random_objects import (
 
 @pytest.fixture
 def enqueue_job_mock(mocker: MockerFixture) -> MagicMock:
-    return mocker.patch("polar.meter.service.enqueue_job")
+    return mocker.patch("repalis.meter.service.enqueue_job")
 
 
 @pytest.fixture

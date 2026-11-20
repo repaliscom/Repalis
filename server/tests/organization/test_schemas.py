@@ -1,14 +1,14 @@
 import pytest
 from pydantic import ValidationError
 
-from polar.enums import SubscriptionProrationBehavior
-from polar.kit.currency import PresentmentCurrency
-from polar.models.organization import (
+from repalis.enums import SubscriptionProrationBehavior
+from repalis.kit.currency import PresentmentCurrency
+from repalis.models.organization import (
     OrganizationSubscriptionSettings,
     resolve_default_customer_email_settings,
 )
-from polar.organization import legacy_schemas
-from polar.organization.schemas import OrganizationCreate, OrganizationUpdate
+from repalis.organization import legacy_schemas
+from repalis.organization.schemas import OrganizationCreate, OrganizationUpdate
 
 
 def test_reset_proration_behavior_accepted_in_schema() -> None:

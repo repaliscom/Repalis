@@ -5,10 +5,10 @@ from sqlalchemy import ForeignKey, UniqueConstraint, Uuid
 from sqlalchemy.dialects.postgresql import CITEXT
 from sqlalchemy.orm import Mapped, declared_attr, mapped_column, relationship
 
-from polar.kit.db.models import RecordModel
+from repalis.kit.db.models import RecordModel
 
 if TYPE_CHECKING:
-    from polar.models import Catalog, CustomField
+    from repalis.models import Catalog, CustomField
 
 
 class CatalogCustomField(RecordModel):

@@ -4,9 +4,9 @@ from uuid import UUID
 
 from sqlalchemy import Select, func, select
 
-from polar.authz.types import AccessibleOrganizationID
-from polar.enums import PaymentProcessor
-from polar.kit.repository import (
+from repalis.authz.types import AccessibleOrganizationID
+from repalis.enums import PaymentProcessor
+from repalis.kit.repository import (
     Options,
     RepositoryBase,
     RepositorySoftDeletionIDMixin,
@@ -14,13 +14,13 @@ from polar.kit.repository import (
     RepositorySortingMixin,
     SortingClause,
 )
-from polar.models import Order, Payment, Transaction
-from polar.models.payment import (
+from repalis.models import Order, Payment, Transaction
+from repalis.models.payment import (
     DUNNING_COUNTING_TRIGGERS,
     PaymentStatus,
     PaymentTrigger,
 )
-from polar.models.transaction import TransactionType
+from repalis.models.transaction import TransactionType
 
 from .sorting import PaymentSortProperty
 

@@ -24,13 +24,13 @@ from sqlalchemy.orm import (
     relationship,
 )
 
-from polar.enums import PaymentProcessor
-from polar.kit.db.models import RecordModel
-from polar.kit.extensions.sqlalchemy.types import StringEnum
-from polar.kit.utils import utc_now
+from repalis.enums import PaymentProcessor
+from repalis.kit.db.models import RecordModel
+from repalis.kit.extensions.sqlalchemy.types import StringEnum
+from repalis.kit.utils import utc_now
 
 if TYPE_CHECKING:
-    from polar.models import Customer, Order, Payment
+    from repalis.models import Customer, Order, Payment
 
 
 EVIDENCE_REVIEW_MARGIN = timedelta(days=3)
@@ -150,7 +150,7 @@ class Dispute(RecordModel):
     @declared_attr
     def case_id(cls) -> Mapped[UUID | None]:
         # The live merchant support case for this dispute, if one was opened.
-        from polar.models.support_case import DisputeSupportCase
+        from repalis.models.support_case import DisputeSupportCase
 
         return column_property(
             select(DisputeSupportCase.id)

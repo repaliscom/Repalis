@@ -1,4 +1,4 @@
-from polar.config import settings
+from repalis.config import settings
 
 
 def get_credentials() -> tuple[str | None, str | None]:

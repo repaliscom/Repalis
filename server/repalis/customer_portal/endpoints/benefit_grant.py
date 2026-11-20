@@ -3,14 +3,14 @@ from typing import Annotated
 from fastapi import Depends, Path, Query
 from pydantic import UUID4
 
-from polar.exceptions import NotPermitted, ResourceNotFound
-from polar.kit.db.postgres import AsyncSession
-from polar.kit.pagination import ListResource, PaginationParamsQuery
-from polar.kit.sorting import Sorting, SortingGetter
-from polar.models import BenefitGrant
-from polar.openapi import APITag
-from polar.postgres import get_db_session
-from polar.routing import APIRouter
+from repalis.exceptions import NotPermitted, ResourceNotFound
+from repalis.kit.db.postgres import AsyncSession
+from repalis.kit.pagination import ListResource, PaginationParamsQuery
+from repalis.kit.sorting import Sorting, SortingGetter
+from repalis.models import BenefitGrant
+from repalis.openapi import APITag
+from repalis.postgres import get_db_session
+from repalis.routing import APIRouter
 
 from .. import auth
 from ..schemas.benefit_grant import (

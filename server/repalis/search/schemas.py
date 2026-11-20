@@ -2,8 +2,8 @@ from typing import Annotated, Literal
 
 from pydantic import UUID4, Discriminator, Field, TypeAdapter
 
-from polar.kit.schemas import Schema
-from polar.kit.versioning import QuerySchema
+from repalis.kit.schemas import Schema
+from repalis.kit.versioning import QuerySchema
 
 type SearchResultType = Literal["product", "customer", "order", "subscription"]
 

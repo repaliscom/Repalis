@@ -20,28 +20,28 @@ from reauth.factors.totp import (
     NotEnrolledTOTPException,
 )
 
-from polar.auth.dependencies import WebUserOrAnonymous
-from polar.auth.exceptions import (
+from repalis.auth.dependencies import WebUserOrAnonymous
+from repalis.auth.exceptions import (
     PolarAuthError,
     PolarAuthRedirectionError,
     SessionNotFreshError,
     SSORequired,
     UnavailableFactorError,
 )
-from polar.auth.models import is_user
-from polar.auth.oauth2.github import get_github_factor
-from polar.auth.oauth2.google import get_google_factor
-from polar.authz.dependencies import AuthorizeWebUserRead, AuthorizeWebUserWriteFresh
-from polar.config import settings
-from polar.exceptions import NotPermitted, ResourceNotFound
-from polar.kit.http import get_ip_address, get_safe_return_url
-from polar.openapi import APITag
-from polar.postgres import AsyncSession, get_db_session
-from polar.routing import APIRouter
-from polar.user.repository import UserRepository
-from polar.user.service import UserCannotAuthenticate
-from polar.user.service import user as user_service
-from polar.user_organization.repository import UserOrganizationRepository
+from repalis.auth.models import is_user
+from repalis.auth.oauth2.github import get_github_factor
+from repalis.auth.oauth2.google import get_google_factor
+from repalis.authz.dependencies import AuthorizeWebUserRead, AuthorizeWebUserWriteFresh
+from repalis.config import settings
+from repalis.exceptions import NotPermitted, ResourceNotFound
+from repalis.kit.http import get_ip_address, get_safe_return_url
+from repalis.openapi import APITag
+from repalis.postgres import AsyncSession, get_db_session
+from repalis.routing import APIRouter
+from repalis.user.repository import UserRepository
+from repalis.user.service import UserCannotAuthenticate
+from repalis.user.service import user as user_service
+from repalis.user_organization.repository import UserOrganizationRepository
 
 from .authentication_session import (
     AuthenticationSessionService,

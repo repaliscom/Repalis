@@ -4,32 +4,32 @@ from collections.abc import Sequence
 from pydantic import BaseModel
 from sqlalchemy import case, delete
 
-from polar.auth.models import Agent, AuthSubject
-from polar.auth.permission import OrganizationPermission
-from polar.authz.service import (
+from repalis.auth.models import Agent, AuthSubject
+from repalis.auth.permission import OrganizationPermission
+from repalis.authz.service import (
     assert_organization_permission,
     assert_resource_permission,
     get_accessible_org_ids,
 )
-from polar.catalog.repository import CatalogRepository
-from polar.declarative_config.guard import (
+from repalis.catalog.repository import CatalogRepository
+from repalis.declarative_config.guard import (
     DeclarativeConfigManaged,
     assert_catalog_editable,
 )
-from polar.exceptions import NotPermitted, PolarRequestValidationError
-from polar.kit.db.postgres import AsyncReadSession, AsyncSession
-from polar.kit.metadata import MetadataQuery, apply_metadata_clause
-from polar.kit.pagination import PaginationParams
-from polar.kit.sorting import Sorting
-from polar.kit.visibility import Visibility
-from polar.models import Benefit, Organization, ProductBenefit, User
-from polar.models.benefit import BenefitType
-from polar.models.catalog import CatalogStatus
-from polar.models.webhook_endpoint import WebhookEventType
-from polar.organization.resolver import get_payload_organization
-from polar.redis import Redis
-from polar.webhook.service import webhook as webhook_service
-from polar.worker import enqueue_job
+from repalis.exceptions import NotPermitted, PolarRequestValidationError
+from repalis.kit.db.postgres import AsyncReadSession, AsyncSession
+from repalis.kit.metadata import MetadataQuery, apply_metadata_clause
+from repalis.kit.pagination import PaginationParams
+from repalis.kit.sorting import Sorting
+from repalis.kit.visibility import Visibility
+from repalis.models import Benefit, Organization, ProductBenefit, User
+from repalis.models.benefit import BenefitType
+from repalis.models.catalog import CatalogStatus
+from repalis.models.webhook_endpoint import WebhookEventType
+from repalis.organization.resolver import get_payload_organization
+from repalis.redis import Redis
+from repalis.webhook.service import webhook as webhook_service
+from repalis.worker import enqueue_job
 
 from .grant.service import benefit_grant as benefit_grant_service
 from .registry import get_benefit_strategy

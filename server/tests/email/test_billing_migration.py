@@ -1,12 +1,12 @@
 import pytest
 
-from polar.email.billing_migration import previous_billing_provider_for_notice
-from polar.email.schemas import EmailTemplate
-from polar.merchant_migration.repository import MerchantMigrationRepository
-from polar.models import Customer, Organization, Product, Subscription
-from polar.models.merchant_migration_record import MerchantMigrationCutoverStatus
-from polar.models.order import OrderBillingReasonInternal
-from polar.postgres import AsyncSession
+from repalis.email.billing_migration import previous_billing_provider_for_notice
+from repalis.email.schemas import EmailTemplate
+from repalis.merchant_migration.repository import MerchantMigrationRepository
+from repalis.models import Customer, Organization, Product, Subscription
+from repalis.models.merchant_migration_record import MerchantMigrationCutoverStatus
+from repalis.models.order import OrderBillingReasonInternal
+from repalis.postgres import AsyncSession
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_active_subscription, create_order
 from tests.merchant_migration._helpers import (

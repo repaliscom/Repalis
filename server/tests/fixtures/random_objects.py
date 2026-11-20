@@ -11,8 +11,8 @@ from typing import Any, Literal, TypeIs, Unpack
 import pytest
 from authlib.oauth2.rfc7523.jwt_bearer import JWT_BEARER_GRANT_TYPE
 
-from polar.auth.scope import CLAIMED_AGENT_SCOPES, UNCLAIMED_AGENT_SCOPES
-from polar.enums import (
+from repalis.auth.scope import CLAIMED_AGENT_SCOPES, UNCLAIMED_AGENT_SCOPES
+from repalis.enums import (
     EmailSender,
     PaymentProcessor,
     PayoutAccountType,
@@ -20,13 +20,13 @@ from polar.enums import (
     TaxBehavior,
     TaxProcessor,
 )
-from polar.kit.address import Address
-from polar.kit.trial import TrialInterval
-from polar.kit.utils import utc_now
-from polar.kit.visibility import Visibility
-from polar.meter.aggregation import Aggregation, CountAggregation
-from polar.meter.filter import Filter, FilterClause, FilterConjunction, FilterOperator
-from polar.models import (
+from repalis.kit.address import Address
+from repalis.kit.trial import TrialInterval
+from repalis.kit.utils import utc_now
+from repalis.kit.visibility import Visibility
+from repalis.meter.aggregation import Aggregation, CountAggregation
+from repalis.meter.filter import Filter, FilterClause, FilterConjunction, FilterOperator
+from repalis.models import (
     Account,
     Agent,
     Benefit,
@@ -85,19 +85,19 @@ from polar.models import (
     WalletTransaction,
     WebhookEndpoint,
 )
-from polar.models.agent import AgentStatus
-from polar.models.benefit import BenefitType
-from polar.models.benefit_grant import (
+from repalis.models.agent import AgentStatus
+from repalis.models.benefit import BenefitType
+from repalis.models.benefit_grant import (
     BenefitGrant,
     BenefitGrantScope,
 )
-from polar.models.billing_entry import BillingEntryDirection, BillingEntryType
-from polar.models.checkout import (
+from repalis.models.billing_entry import BillingEntryDirection, BillingEntryType
+from repalis.models.checkout import (
     CheckoutAnalyticsMetadata,
     CheckoutStatus,
     get_expires_at,
 )
-from polar.models.custom_field import (
+from repalis.models.custom_field import (
     CustomFieldCheckbox,
     CustomFieldCheckboxProperties,
     CustomFieldNumber,
@@ -109,31 +109,31 @@ from polar.models.custom_field import (
     CustomFieldTextProperties,
     CustomFieldType,
 )
-from polar.models.customer_seat import SeatStatus
-from polar.models.discount import (
+from repalis.models.customer_seat import SeatStatus
+from repalis.models.discount import (
     DiscountDuration,
     DiscountFixed,
     DiscountPercentage,
     DiscountType,
 )
-from polar.models.dispute import DisputeAlertProcessor, DisputeStatus
-from polar.models.email_log import EmailLogStatus
-from polar.models.event import EventSource
-from polar.models.file import FileServiceTypes
-from polar.models.member import MemberRole
-from polar.models.notification_recipient import NotificationRecipient
-from polar.models.order import OrderBillingReasonInternal, OrderStatus
-from polar.models.organization import STATUS_CAPABILITIES, OrganizationStatus
-from polar.models.payment import PaymentStatus, PaymentTrigger
-from polar.models.payout import PayoutStatus
-from polar.models.payout_attempt import PayoutAttemptStatus
-from polar.models.pledge import Pledge, PledgeState, PledgeType
-from polar.models.product_price import (
+from repalis.models.dispute import DisputeAlertProcessor, DisputeStatus
+from repalis.models.email_log import EmailLogStatus
+from repalis.models.event import EventSource
+from repalis.models.file import FileServiceTypes
+from repalis.models.member import MemberRole
+from repalis.models.notification_recipient import NotificationRecipient
+from repalis.models.order import OrderBillingReasonInternal, OrderStatus
+from repalis.models.organization import STATUS_CAPABILITIES, OrganizationStatus
+from repalis.models.payment import PaymentStatus, PaymentTrigger
+from repalis.models.payout import PayoutStatus
+from repalis.models.payout_attempt import PayoutAttemptStatus
+from repalis.models.pledge import Pledge, PledgeState, PledgeType
+from repalis.models.product_price import (
     ProductPriceAmountType,
 )
-from polar.models.reducer import ReducerKind
-from polar.models.subscription import SubscriptionStatus
-from polar.models.support_case import (
+from repalis.models.reducer import ReducerKind
+from repalis.models.subscription import SubscriptionStatus
+from repalis.models.support_case import (
     DisputeSupportCase,
     ReviewAppealSupportCase,
     SupportCase,
@@ -141,17 +141,17 @@ from polar.models.support_case import (
     SupportCaseMessageAuthorKind,
     SupportCaseMessageType,
 )
-from polar.models.transaction import Processor, TransactionType
-from polar.models.user import OAuthAccount, OAuthPlatform
-from polar.models.user_organization import OrganizationRole
-from polar.models.wallet import WalletType
-from polar.models.webhook_endpoint import WebhookEventType, WebhookFormat
-from polar.notification_recipient.schemas import NotificationRecipientPlatform
-from polar.oauth2.constants import CLAIM_GRANT_TYPE
-from polar.product.price_set import PriceSet
-from polar.product.tiers import SeatTierType, Tiers, TierType
-from polar.tax.calculation import TaxBreakdownItem
-from polar.tax.tax_id import TaxID
+from repalis.models.transaction import Processor, TransactionType
+from repalis.models.user import OAuthAccount, OAuthPlatform
+from repalis.models.user_organization import OrganizationRole
+from repalis.models.wallet import WalletType
+from repalis.models.webhook_endpoint import WebhookEventType, WebhookFormat
+from repalis.notification_recipient.schemas import NotificationRecipientPlatform
+from repalis.oauth2.constants import CLAIM_GRANT_TYPE
+from repalis.product.price_set import PriceSet
+from repalis.product.tiers import SeatTierType, Tiers, TierType
+from repalis.tax.calculation import TaxBreakdownItem
+from repalis.tax.tax_id import TaxID
 from tests.fixtures.database import SaveFixture
 
 

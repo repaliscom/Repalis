@@ -9,14 +9,14 @@ from pydantic import (
     StringConstraints,
 )
 
-from polar.kit.schemas import (
+from repalis.kit.schemas import (
     EmptyStrToNone,
     HttpsUrl,
     IDSchema,
     Schema,
     TimestampedSchema,
 )
-from polar.models.organization_sso_connection import (
+from repalis.models.organization_sso_connection import (
     OIDCAuthMethod,
     OrganizationSSOConnectionType,
 )

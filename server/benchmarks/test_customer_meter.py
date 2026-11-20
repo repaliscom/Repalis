@@ -7,16 +7,16 @@ import pytest
 from pytest_codspeed import BenchmarkFixture
 from sqlalchemy import text, update
 
-from polar.customer_meter.service import customer_meter as customer_meter_service
-from polar.event.repository import EventRepository
-from polar.kit.db.postgres import AsyncSession
-from polar.kit.utils import utc_now
-from polar.meter.aggregation import AggregationFunction, PropertyAggregation
-from polar.models import Customer, CustomerMeter, Event, Meter, Organization
-from polar.models.event import EventSource
-from polar.redis import Redis
-from polar.reducer.service import REDUCER_BUCKET_SIZE, get_reducer_bucket_start
-from polar.reducer.service import reducer as reducer_service
+from repalis.customer_meter.service import customer_meter as customer_meter_service
+from repalis.event.repository import EventRepository
+from repalis.kit.db.postgres import AsyncSession
+from repalis.kit.utils import utc_now
+from repalis.meter.aggregation import AggregationFunction, PropertyAggregation
+from repalis.models import Customer, CustomerMeter, Event, Meter, Organization
+from repalis.models.event import EventSource
+from repalis.redis import Redis
+from repalis.reducer.service import REDUCER_BUCKET_SIZE, get_reducer_bucket_start
+from repalis.reducer.service import reducer as reducer_service
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (
     METER_TEST_EVENT,

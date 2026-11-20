@@ -6,10 +6,10 @@ from pathlib import Path
 
 import pytest
 
-from polar.email.react import render_email_template
-from polar.models.order import OrderBillingReasonInternal
-from polar.models.subscription import CustomerCancellationReason
-from polar.notifications.notification import (
+from repalis.email.react import render_email_template
+from repalis.models.order import OrderBillingReasonInternal
+from repalis.models.subscription import CustomerCancellationReason
+from repalis.notifications.notification import (
     MaintainerAccountCreditsGrantedNotificationPayload,
     MaintainerFileFlaggedMaliciousNotificationPayload,
     MaintainerNewPaidSubscriptionNotificationPayload,

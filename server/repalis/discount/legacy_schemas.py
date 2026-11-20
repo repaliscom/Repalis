@@ -2,7 +2,7 @@ from typing import Annotated, Self
 
 from pydantic import Discriminator, Field, model_validator
 
-from polar.kit.currency import PresentmentCurrency
+from repalis.kit.currency import PresentmentCurrency
 
 from . import schemas
 from .schemas import Amount, Amounts, Currency, DiscountPercentageCreate

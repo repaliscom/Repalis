@@ -5,9 +5,9 @@ from typing import TYPE_CHECKING, Any
 
 from pydantic import Field, computed_field
 
-from polar.enums import PayoutAccountType
-from polar.kit.schemas import Schema
-from polar.models.organization_risk_signal import OrganizationRiskSignal
+from repalis.enums import PayoutAccountType
+from repalis.kit.schemas import Schema
+from repalis.models.organization_risk_signal import OrganizationRiskSignal
 
 if TYPE_CHECKING:
     from pydantic_ai.usage import RunUsage as Usage

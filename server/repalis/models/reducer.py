@@ -6,11 +6,11 @@ from uuid import UUID
 from sqlalchemy import TIMESTAMP, ForeignKey, Uuid
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from polar.kit.db.models import RecordModel
-from polar.kit.extensions.sqlalchemy.types import StringEnum
-from polar.kit.utils import utc_now
-from polar.meter.aggregation import Aggregation, AggregationType
-from polar.meter.filter import Filter, FilterType
+from repalis.kit.db.models import RecordModel
+from repalis.kit.extensions.sqlalchemy.types import StringEnum
+from repalis.kit.utils import utc_now
+from repalis.meter.aggregation import Aggregation, AggregationType
+from repalis.meter.filter import Filter, FilterType
 
 if TYPE_CHECKING:
     from .meter_reducer import MeterReducer

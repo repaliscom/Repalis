@@ -9,11 +9,11 @@ from uuid import UUID
 from fastapi import Request
 from tagflow import classes, tag, text
 
-from polar.config import settings
-from polar.models import Organization, User
-from polar.models.organization import OrganizationStatus, SnoozeType
-from polar.organization_review.schemas import ReviewVerdict
-from polar.startup_program.service import StartupProgramStatus
+from repalis.config import settings
+from repalis.models import Organization, User
+from repalis.models.organization import OrganizationStatus, SnoozeType
+from repalis.organization_review.schemas import ReviewVerdict
+from repalis.startup_program.service import StartupProgramStatus
 
 from ...components import (
     Tab,

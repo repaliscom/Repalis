@@ -13,20 +13,20 @@ from dramatiq import Retry
 from dramatiq.common import compute_backoff
 from standardwebhooks.webhooks import Webhook as StandardWebhook
 
-from polar.config import Environment, settings
-from polar.kit.db.postgres import AsyncSession
-from polar.kit.http import SSRFBlockedError
-from polar.kit.utils import utc_now
-from polar.logging import Logger
-from polar.models.webhook_delivery import WebhookDelivery
-from polar.models.webhook_endpoint import WebhookFormat
-from polar.observability.task_logging import LoggableField
-from polar.webhook.repository import (
+from repalis.config import Environment, settings
+from repalis.kit.db.postgres import AsyncSession
+from repalis.kit.http import SSRFBlockedError
+from repalis.kit.utils import utc_now
+from repalis.logging import Logger
+from repalis.models.webhook_delivery import WebhookDelivery
+from repalis.models.webhook_endpoint import WebhookFormat
+from repalis.observability.task_logging import LoggableField
+from repalis.webhook.repository import (
     WebhookDeliveryRepository,
     WebhookEndpointRepository,
     WebhookEventRepository,
 )
-from polar.worker import (
+from repalis.worker import (
     AsyncSessionMaker,
     HTTPXMiddleware,
     TaskPriority,
@@ -341,8 +341,8 @@ async def webhook_event_publish(
 async def _webhook_event_publish(
     session: AsyncSession, *, webhook_event_id: UUID, organization_id: UUID
 ) -> None:
-    from polar.eventstream.service import publish
-    from polar.webhook.eventstream import WebhookEvent
+    from repalis.eventstream.service import publish
+    from repalis.webhook.eventstream import WebhookEvent
 
     repository = WebhookEventRepository.from_session(session)
     event = await repository.get_by_id(

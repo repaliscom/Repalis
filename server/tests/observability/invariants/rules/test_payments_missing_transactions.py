@@ -2,15 +2,15 @@ from datetime import timedelta
 
 import pytest
 
-from polar.kit.utils import utc_now
-from polar.models import Organization
-from polar.models.payment import PaymentStatus
-from polar.models.transaction import TransactionType
-from polar.observability.invariants.rules.payments_missing_transactions import (
+from repalis.kit.utils import utc_now
+from repalis.models import Organization
+from repalis.models.payment import PaymentStatus
+from repalis.models.transaction import TransactionType
+from repalis.observability.invariants.rules.payments_missing_transactions import (
     PaymentsMissingTransactionsInvariant,
     PaymentsMissingTransactionsInvariantError,
 )
-from polar.postgres import AsyncSession
+from repalis.postgres import AsyncSession
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_payment, create_payment_transaction
 from tests.transaction.conftest import create_transaction

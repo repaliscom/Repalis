@@ -3,12 +3,12 @@ from collections.abc import AsyncGenerator
 import httpx2
 import pytest
 
-from polar.backoffice import app as backoffice_app
-from polar.backoffice.dependencies import get_admin
-from polar.email.schemas import EmailTemplate
-from polar.kit.utils import utc_now
-from polar.models import BackofficeUserSession
-from polar.postgres import AsyncSession, get_db_read_session, get_db_session
+from repalis.backoffice import app as backoffice_app
+from repalis.backoffice.dependencies import get_admin
+from repalis.email.schemas import EmailTemplate
+from repalis.kit.utils import utc_now
+from repalis.models import BackofficeUserSession
+from repalis.postgres import AsyncSession, get_db_read_session, get_db_session
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_email_log
 

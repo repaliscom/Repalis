@@ -1,11 +1,11 @@
 from fastapi import Depends
 
-from polar.authz.dependencies import AuthorizeWebUserWrite
-from polar.kit.db.postgres import AsyncSession
-from polar.models import Feedback as FeedbackModel
-from polar.openapi import APITag
-from polar.postgres import get_db_session
-from polar.routing import APIRouter
+from repalis.authz.dependencies import AuthorizeWebUserWrite
+from repalis.kit.db.postgres import AsyncSession
+from repalis.models import Feedback as FeedbackModel
+from repalis.openapi import APITag
+from repalis.postgres import get_db_session
+from repalis.routing import APIRouter
 
 from .schemas import Feedback, FeedbackCreate
 from .service import feedback as feedback_service

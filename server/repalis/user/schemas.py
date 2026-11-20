@@ -7,12 +7,12 @@ from typing import Literal
 
 from pydantic import UUID4, EmailStr, Field, computed_field
 
-from polar.auth.scope import Scope
-from polar.config import settings
-from polar.kit.address import CountryAlpha2Input
-from polar.kit.schemas import Schema, TimestampedSchema, UUID4ToStr
-from polar.models.user import IdentityVerificationStatus, OAuthPlatform
-from polar.organization.schemas import OrganizationWithRole
+from repalis.auth.scope import Scope
+from repalis.config import settings
+from repalis.kit.address import CountryAlpha2Input
+from repalis.kit.schemas import Schema, TimestampedSchema, UUID4ToStr
+from repalis.models.user import IdentityVerificationStatus, OAuthPlatform
+from repalis.organization.schemas import OrganizationWithRole
 
 
 class UserBase(Schema):

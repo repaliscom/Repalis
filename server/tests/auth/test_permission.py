@@ -1,10 +1,10 @@
-from polar.auth.permission import (
+from repalis.auth.permission import (
     AGENT_PERMISSIONS,
     ROLE_PERMISSIONS,
     OrganizationPermission,
     roles_with_permission,
 )
-from polar.models.user_organization import OrganizationRole
+from repalis.models.user_organization import OrganizationRole
 
 
 def test_finance_role_permissions() -> None:

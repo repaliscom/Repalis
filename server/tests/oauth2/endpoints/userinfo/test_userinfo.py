@@ -1,7 +1,7 @@
 import pytest
 from httpx2 import AsyncClient
 
-from polar.models import Agent, OAuth2Client, User
+from repalis.models import Agent, OAuth2Client, User
 from tests.fixtures.database import SaveFixture
 
 from ...conftest import create_oauth2_token

@@ -12,11 +12,11 @@ from authlib.oauth2.rfc6749.grants import BaseGrant, TokenEndpointMixin
 from authlib.oauth2.rfc6749.hooks import hooked
 from sqlalchemy import select
 
-from polar.auth.models import AuthSubject
-from polar.authz.repository import select_accessible_org_ids
-from polar.kit.crypto import get_current_secret_id, get_token_hash_candidates
-from polar.kit.utils import utc_now
-from polar.models import User, UserSession
+from repalis.auth.models import AuthSubject
+from repalis.authz.repository import select_accessible_org_ids
+from repalis.kit.crypto import get_current_secret_id, get_token_hash_candidates
+from repalis.kit.utils import utc_now
+from repalis.models import User, UserSession
 
 from ..sub_type import SubType, SubTypeValue
 

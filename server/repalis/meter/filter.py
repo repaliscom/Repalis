@@ -16,12 +16,12 @@ from sqlalchemy import (
 )
 from sqlalchemy.dialects.postgresql import JSONB
 
-from polar.kit.metadata import get_nested_metadata_attr, get_nested_metadata_value
-from polar.kit.schemas import Int32
-from polar.meter.property import PropertyPath
+from repalis.kit.metadata import get_nested_metadata_attr, get_nested_metadata_value
+from repalis.kit.schemas import Int32
+from repalis.meter.property import PropertyPath
 
 if TYPE_CHECKING:
-    from polar.models import Event
+    from repalis.models import Event
 
 
 # String length limit for filtering values

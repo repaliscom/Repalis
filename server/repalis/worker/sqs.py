@@ -6,7 +6,7 @@ import sentry_sdk
 import structlog
 import typer
 
-from polar.logging import Logger
+from repalis.logging import Logger
 
 from ._enqueue import resolve_sqs_actors
 from ._runner import bootstrap, run_task, shutdown
@@ -72,7 +72,7 @@ async def _poll_loop(actors: list[str], max_iterations: int) -> None:
                             )
                         except Exception:
                             log.exception(
-                                "polar.worker.sqs_poll_failed", actor=envelope.actor
+                                "repalis.worker.sqs_poll_failed", actor=envelope.actor
                             )
                             continue
                         await asyncio.to_thread(

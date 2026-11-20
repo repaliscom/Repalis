@@ -17,20 +17,20 @@ from uuid import UUID
 
 from pydantic import TypeAdapter, ValidationError
 
-from polar.customer.repository import CustomerStripeIdentity
-from polar.discount.schemas import BasisPoints, DurationInMonths
-from polar.enums import SubscriptionRecurringInterval, TaxBehavior
-from polar.invoice.generator import format_date
-from polar.kit.address import Address
-from polar.kit.currency import (
+from repalis.customer.repository import CustomerStripeIdentity
+from repalis.discount.schemas import BasisPoints, DurationInMonths
+from repalis.enums import SubscriptionRecurringInterval, TaxBehavior
+from repalis.invoice.generator import format_date
+from repalis.kit.address import Address
+from repalis.kit.currency import (
     PresentmentCurrency,
     format_currency,
     get_maximum_currency_amount,
     get_minimum_currency_amount,
 )
-from polar.models import Organization
-from polar.models.organization import OrganizationStatus
-from polar.product.schemas import PRODUCT_NAME_MIN_LENGTH
+from repalis.models import Organization
+from repalis.models.organization import OrganizationStatus
+from repalis.product.schemas import PRODUCT_NAME_MIN_LENGTH
 
 from .canonical import (
     CanonicalAccount,

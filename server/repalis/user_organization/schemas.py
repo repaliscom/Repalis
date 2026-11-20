@@ -4,9 +4,9 @@ from uuid import UUID
 
 from pydantic import AliasPath, Field
 
-from polar.kit.email import EmailStrDNS
-from polar.kit.schemas import Schema
-from polar.models.user_organization import (
+from repalis.kit.email import EmailStrDNS
+from repalis.kit.schemas import Schema
+from repalis.models.user_organization import (
     OrganizationNotificationSettings,
     OrganizationRole,
 )

@@ -2,11 +2,11 @@ from uuid import UUID
 
 from sqlalchemy import delete
 
-from polar.kit.crypto import get_token_hash_candidates
-from polar.kit.repository import RepositoryBase, RepositoryTokenHashMixin
-from polar.kit.repository.base import RepositoryIDMixin
-from polar.kit.utils import utc_now
-from polar.models import AuthenticationSession, EmailOTP, UserSession
+from repalis.kit.crypto import get_token_hash_candidates
+from repalis.kit.repository import RepositoryBase, RepositoryTokenHashMixin
+from repalis.kit.repository.base import RepositoryIDMixin
+from repalis.kit.utils import utc_now
+from repalis.models import AuthenticationSession, EmailOTP, UserSession
 
 
 class EmailOTPRepository(RepositoryBase[EmailOTP], RepositoryIDMixin[EmailOTP, UUID]):

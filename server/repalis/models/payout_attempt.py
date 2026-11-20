@@ -9,9 +9,9 @@ from alembic_utils.replaceable_entity import register_entities
 from sqlalchemy import TIMESTAMP, BigInteger, ForeignKey, String, Uuid
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from polar.enums import PayoutAccountType
-from polar.kit.db.models import RecordModel
-from polar.kit.extensions.sqlalchemy.types import StringEnum
+from repalis.enums import PayoutAccountType
+from repalis.kit.db.models import RecordModel
+from repalis.kit.extensions.sqlalchemy.types import StringEnum
 
 if TYPE_CHECKING:
     from .payout import Payout

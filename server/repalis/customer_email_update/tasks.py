@@ -1,4 +1,4 @@
-from polar.worker import AsyncSessionMaker, CronTrigger, TaskPriority, actor
+from repalis.worker import AsyncSessionMaker, CronTrigger, TaskPriority, actor
 
 from .service import customer_email_update as customer_email_update_service
 

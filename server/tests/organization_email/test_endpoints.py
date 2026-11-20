@@ -2,12 +2,12 @@ import pytest
 from httpx2 import AsyncClient
 from pytest_mock import MockerFixture
 
-from polar.email.schemas import OrganizationEmailVerificationEmail
-from polar.models import Organization, UserOrganization
-from polar.organization_email.service import (
+from repalis.email.schemas import OrganizationEmailVerificationEmail
+from repalis.models import Organization, UserOrganization
+from repalis.organization_email.service import (
     organization_email as organization_email_service,
 )
-from polar.postgres import AsyncSession
+from repalis.postgres import AsyncSession
 from tests.fixtures.database import SaveFixture
 
 SUPPORT_EMAIL = "support@acme.com"
@@ -63,7 +63,7 @@ class TestGetOrganizationEmail:
         organization_with_email: Organization,
         user_organization: UserOrganization,
     ) -> None:
-        mocker.patch("polar.organization_email.service.enqueue_email_template")
+        mocker.patch("repalis.organization_email.service.enqueue_email_template")
         await organization_email_service.send_code(session, organization_with_email)
         await session.flush()
 
@@ -97,7 +97,7 @@ class TestSendOrganizationEmailCode:
         user_organization: UserOrganization,
     ) -> None:
         enqueue_email_mock = mocker.patch(
-            "polar.organization_email.service.enqueue_email_template"
+            "repalis.organization_email.service.enqueue_email_template"
         )
         response = await client.post(
             f"/v1/organizations/{organization_with_email.id}/email/send-code"
@@ -134,7 +134,7 @@ class TestVerifyOrganizationEmail:
         user_organization: UserOrganization,
     ) -> None:
         enqueue_email_mock = mocker.patch(
-            "polar.organization_email.service.enqueue_email_template"
+            "repalis.organization_email.service.enqueue_email_template"
         )
         await organization_email_service.send_code(session, organization_with_email)
         await session.flush()

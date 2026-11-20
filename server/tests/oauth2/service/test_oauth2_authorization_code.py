@@ -1,11 +1,11 @@
 import pytest
 
-from polar.enums import TokenType
-from polar.models import OAuth2AuthorizationCode, OAuth2Client, User
-from polar.oauth2.service.oauth2_authorization_code import (
+from repalis.enums import TokenType
+from repalis.models import OAuth2AuthorizationCode, OAuth2Client, User
+from repalis.oauth2.service.oauth2_authorization_code import (
     oauth2_authorization_code as oauth2_authorization_code_service,
 )
-from polar.postgres import AsyncSession
+from repalis.postgres import AsyncSession
 from tests.fixtures.database import SaveFixture
 
 from ..conftest import create_oauth2_authorization_code

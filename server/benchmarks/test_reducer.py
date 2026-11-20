@@ -6,16 +6,16 @@ import pytest
 from pytest_codspeed import BenchmarkFixture
 from sqlalchemy import func, select
 
-from polar.kit.db.postgres import AsyncSession
-from polar.kit.utils import utc_now
-from polar.models import Customer, Event, Organization, Reducer, ReducerBucket
-from polar.models.event import EventSource
-from polar.redis import Redis
-from polar.reducer.service import (
+from repalis.kit.db.postgres import AsyncSession
+from repalis.kit.utils import utc_now
+from repalis.models import Customer, Event, Organization, Reducer, ReducerBucket
+from repalis.models.event import EventSource
+from repalis.redis import Redis
+from repalis.reducer.service import (
     REDUCER_BUCKET_SIZE,
     get_reducer_bucket_start,
 )
-from polar.reducer.service import reducer as reducer_service
+from repalis.reducer.service import reducer as reducer_service
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (
     METER_TEST_EVENT,

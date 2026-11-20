@@ -3,14 +3,14 @@ from datetime import timedelta
 import pytest
 from httpx2 import AsyncClient
 
-from polar.auth.scope import Scope
-from polar.kit.utils import utc_now
-from polar.models import User
-from polar.models.organization import Organization
-from polar.models.user_organization import OrganizationRole, UserOrganization
-from polar.models.webhook_delivery import WebhookDelivery
-from polar.models.webhook_endpoint import WebhookEndpoint, WebhookFormat
-from polar.version import V2026_04, V2026_10, V2027_01
+from repalis.auth.scope import Scope
+from repalis.kit.utils import utc_now
+from repalis.models import User
+from repalis.models.organization import Organization
+from repalis.models.user_organization import OrganizationRole, UserOrganization
+from repalis.models.webhook_delivery import WebhookDelivery
+from repalis.models.webhook_endpoint import WebhookEndpoint, WebhookFormat
+from repalis.version import V2026_04, V2026_10, V2027_01
 from tests.fixtures.auth import AuthSubjectFixture
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_webhook_endpoint

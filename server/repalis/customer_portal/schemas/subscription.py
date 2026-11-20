@@ -11,7 +11,7 @@ from pydantic import (
 )
 from pydantic.json_schema import SkipJsonSchema
 
-from polar.kit.schemas import (
+from repalis.kit.schemas import (
     IDSchema,
     Int32,
     MultipleQueryFilter,
@@ -19,10 +19,10 @@ from polar.kit.schemas import (
     SetSchemaReference,
     TimestampedSchema,
 )
-from polar.kit.versioning import QuerySchema, Version
-from polar.meter.schemas import NAME_DESCRIPTION as METER_NAME_DESCRIPTION
-from polar.models.subscription import CustomerCancellationReason
-from polar.product.schemas import (
+from repalis.kit.versioning import QuerySchema, Version
+from repalis.meter.schemas import NAME_DESCRIPTION as METER_NAME_DESCRIPTION
+from repalis.models.subscription import CustomerCancellationReason
+from repalis.product.schemas import (
     BenefitPublicList,
     ProductBase,
     ProductID,
@@ -30,12 +30,12 @@ from polar.product.schemas import (
     ProductPrice,
     ProductPriceList,
 )
-from polar.subscription.schemas import (
+from repalis.subscription.schemas import (
     PendingSubscriptionUpdate,
     SubscriptionBase,
     SubscriptionMeterBase,
 )
-from polar.version import V2026_10
+from repalis.version import V2026_10
 
 from .organization import CustomerOrganization
 

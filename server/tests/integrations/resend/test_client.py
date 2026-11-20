@@ -4,7 +4,7 @@ from unittest.mock import Mock
 import httpx2
 import pytest
 
-from polar.integrations.resend.client import ResendAPIError, ResendClient
+from repalis.integrations.resend.client import ResendAPIError, ResendClient
 
 
 @pytest.mark.anyio

@@ -2,8 +2,8 @@ from typing import Any
 
 import pytest
 
-from polar.enums import PayoutAccountStatus, PayoutAccountType
-from polar.models import PayoutAccount
+from repalis.enums import PayoutAccountStatus, PayoutAccountType
+from repalis.models import PayoutAccount
 
 
 def build_payout_account(

@@ -14,35 +14,35 @@ from sqlalchemy import func, or_
 from sqlalchemy.orm import contains_eager, joinedload
 from tagflow import attr, tag, text
 
-from polar.backoffice.routing import BackofficeRouter
-from polar.credit_note.repository import CreditNoteRepository
-from polar.credit_note.service import credit_note as credit_note_service
-from polar.customer.schemas.customer import CustomerUpdate
-from polar.customer.service import customer as customer_service
-from polar.exceptions import PolarRequestValidationError
-from polar.invoice.service import invoice as invoice_service
-from polar.kit.address import AddressInput
-from polar.kit.currency import format_currency, get_currency_decimal_factor
-from polar.kit.pagination import PaginationParamsQuery
-from polar.kit.schemas import empty_str_to_none
-from polar.models import Customer, Order, Organization, Product
-from polar.models.order import OrderBillingReason, OrderStatus
-from polar.models.payment import PaymentTrigger
-from polar.models.refund import RefundReason, RefundStatus
-from polar.order import sorting
-from polar.order.repository import OrderRepository
-from polar.order.service import order as order_service
-from polar.payment.repository import PaymentRepository
-from polar.postgres import (
+from repalis.backoffice.routing import BackofficeRouter
+from repalis.credit_note.repository import CreditNoteRepository
+from repalis.credit_note.service import credit_note as credit_note_service
+from repalis.customer.schemas.customer import CustomerUpdate
+from repalis.customer.service import customer as customer_service
+from repalis.exceptions import PolarRequestValidationError
+from repalis.invoice.service import invoice as invoice_service
+from repalis.kit.address import AddressInput
+from repalis.kit.currency import format_currency, get_currency_decimal_factor
+from repalis.kit.pagination import PaginationParamsQuery
+from repalis.kit.schemas import empty_str_to_none
+from repalis.models import Customer, Order, Organization, Product
+from repalis.models.order import OrderBillingReason, OrderStatus
+from repalis.models.payment import PaymentTrigger
+from repalis.models.refund import RefundReason, RefundStatus
+from repalis.order import sorting
+from repalis.order.repository import OrderRepository
+from repalis.order.service import order as order_service
+from repalis.payment.repository import PaymentRepository
+from repalis.postgres import (
     AsyncReadSession,
     AsyncSession,
     get_db_read_session,
     get_db_session,
 )
-from polar.refund.repository import RefundRepository
-from polar.refund.service import refund as refund_service
-from polar.tax.calculation.base import TaxabilityReason
-from polar.worker import enqueue_job
+from repalis.refund.repository import RefundRepository
+from repalis.refund.service import refund as refund_service
+from repalis.tax.calculation.base import TaxabilityReason
+from repalis.worker import enqueue_job
 
 from .. import formatters
 from ..components import button, datatable, description_list, input, modal

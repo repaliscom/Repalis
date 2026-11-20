@@ -3,9 +3,9 @@ from typing import Annotated, Literal
 
 from pydantic import BeforeValidator, Discriminator, Field, Tag
 
-from polar.kit.schemas import SetSchemaReference
-from polar.models.product_price import ProductPriceAmountType
-from polar.models.product_price import (
+from repalis.kit.schemas import SetSchemaReference
+from repalis.models.product_price import ProductPriceAmountType
+from repalis.models.product_price import (
     ProductPriceSeatUnit as ProductPriceSeatUnitModel,
 )
 

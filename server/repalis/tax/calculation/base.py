@@ -3,9 +3,9 @@ from datetime import datetime
 from enum import StrEnum
 from typing import Literal, Protocol, TypedDict, overload
 
-from polar.enums import TaxBehavior
-from polar.exceptions import PolarError
-from polar.kit.address import Address
+from repalis.enums import TaxBehavior
+from repalis.exceptions import PolarError
+from repalis.kit.address import Address
 
 from ..tax_id import TaxID
 

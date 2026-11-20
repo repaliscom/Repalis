@@ -5,21 +5,21 @@ from uuid import UUID
 import pytest
 from pytest_mock import MockerFixture
 
-from polar.benefit.grant.repository import BenefitGrantRepository
-from polar.benefit.grant.service import BenefitGrantService
-from polar.benefit.grant.service import benefit_grant as benefit_grant_service
-from polar.benefit.strategies.license_keys.schemas import (
+from repalis.benefit.grant.repository import BenefitGrantRepository
+from repalis.benefit.grant.service import BenefitGrantService
+from repalis.benefit.grant.service import benefit_grant as benefit_grant_service
+from repalis.benefit.strategies.license_keys.schemas import (
     BenefitLicenseKeysCreateProperties,
 )
-from polar.license_key.repository import LicenseKeyRepository
-from polar.license_key.tasks import (
+from repalis.license_key.repository import LicenseKeyRepository
+from repalis.license_key.tasks import (
     LicenseKeyDoesNotExist,
     sync_benefit_grant,
 )
-from polar.models import BenefitGrant, Customer, LicenseKey, Organization, Product
-from polar.models.license_key import LicenseKeyStatus
-from polar.postgres import AsyncSession
-from polar.redis import Redis
+from repalis.models import BenefitGrant, Customer, LicenseKey, Organization, Product
+from repalis.models.license_key import LicenseKeyStatus
+from repalis.postgres import AsyncSession
+from repalis.redis import Redis
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.license_key import TestLicenseKey
 from tests.fixtures.random_objects import create_member

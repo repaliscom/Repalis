@@ -2,8 +2,8 @@ from collections.abc import Sequence
 from datetime import timedelta
 from uuid import UUID
 
-from polar.kit.utils import utc_now
-from polar.payment.repository import PaymentRepository
+from repalis.kit.utils import utc_now
+from repalis.payment.repository import PaymentRepository
 
 from .base import Invariant, InvariantError
 

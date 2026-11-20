@@ -22,7 +22,7 @@ import os
 
 from fastapi import FastAPI, HTTPException, Request, Response
 
-from polar.v2026_10.webhooks import (
+from repalis.v2026_10.webhooks import (
     PolarWebhookError,
     PolarWebhookUnknownTypeError,
     PolarWebhookVerificationError,

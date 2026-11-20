@@ -3,16 +3,16 @@ from uuid import UUID
 import structlog
 from fastapi import Depends
 
-from polar.auth.models import is_member
-from polar.exceptions import NotPermitted, PolarRequestValidationError, ResourceNotFound
-from polar.kit.pagination import ListResource, PaginationParamsQuery
-from polar.member.repository import MemberRepository
-from polar.member.service import member_service
-from polar.models.customer import CustomerType
-from polar.models.member import Member, MemberRole
-from polar.openapi import APITag
-from polar.postgres import AsyncSession, get_db_session
-from polar.routing import APIRouter
+from repalis.auth.models import is_member
+from repalis.exceptions import NotPermitted, PolarRequestValidationError, ResourceNotFound
+from repalis.kit.pagination import ListResource, PaginationParamsQuery
+from repalis.member.repository import MemberRepository
+from repalis.member.service import member_service
+from repalis.models.customer import CustomerType
+from repalis.models.member import Member, MemberRole
+from repalis.openapi import APITag
+from repalis.postgres import AsyncSession, get_db_session
+from repalis.routing import APIRouter
 
 from .. import auth
 from ..schemas.member import (

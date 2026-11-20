@@ -26,9 +26,9 @@ from cramjam import snappy
 from prometheus_client import CollectorRegistry, Metric, multiprocess
 from prometheus_client.samples import Sample
 
-from polar.config import settings
-from polar.redis import Redis, create_redis
-from polar.worker._queue_metrics import collect_queue_metrics
+from repalis.config import settings
+from repalis.redis import Redis, create_redis
+from repalis.worker._queue_metrics import collect_queue_metrics
 
 log = structlog.get_logger()
 

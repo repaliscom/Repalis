@@ -3,15 +3,15 @@ from typing import Annotated
 from fastapi import Depends, Query
 from pydantic import UUID4
 
-from polar.benefit.schemas import BenefitGrantListParams
-from polar.exceptions import NotPermitted, ResourceNotFound
-from polar.kit.pagination import ListResource, PaginationParamsQuery
-from polar.kit.versioning import version
-from polar.models import BenefitGrant as BenefitGrantModel
-from polar.openapi import APITag, open_world
-from polar.postgres import AsyncSession, get_db_session
-from polar.routing import APIRouter
-from polar.version import V2027_01
+from repalis.benefit.schemas import BenefitGrantListParams
+from repalis.exceptions import NotPermitted, ResourceNotFound
+from repalis.kit.pagination import ListResource, PaginationParamsQuery
+from repalis.kit.versioning import version
+from repalis.models import BenefitGrant as BenefitGrantModel
+from repalis.openapi import APITag, open_world
+from repalis.postgres import AsyncSession, get_db_session
+from repalis.routing import APIRouter
+from repalis.version import V2027_01
 
 from ..auth import BenefitGrantsRead, BenefitGrantsWrite
 from ..schemas import BenefitGrant

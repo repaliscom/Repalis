@@ -4,9 +4,9 @@ from typing import Any
 import pytest
 from sqlalchemy import select
 
-from polar.kit.db.postgres import AsyncSession
-from polar.models import Meter, Product
-from polar.models.product_price import (
+from repalis.kit.db.postgres import AsyncSession
+from repalis.models import Meter, Product
+from repalis.models.product_price import (
     ProductPrice,
     ProductPriceAmountType,
     ProductPriceFixed,
@@ -15,7 +15,7 @@ from polar.models.product_price import (
     ProductPriceUnit,
     TieredPrice,
 )
-from polar.product.tiers import (
+from repalis.product.tiers import (
     SeatTierType,
     Tiers,
     TierType,

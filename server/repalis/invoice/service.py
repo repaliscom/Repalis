@@ -3,14 +3,14 @@ import hashlib
 import json
 from datetime import datetime
 
-from polar.config import settings
-from polar.exceptions import PolarError
-from polar.integrations.aws.s3 import S3Service
-from polar.kit.utils import utc_now
-from polar.models import Account, Order, Payout
-from polar.models.transaction import PlatformFeeType
-from polar.postgres import AsyncSession
-from polar.transaction.repository import TransactionRepository
+from repalis.config import settings
+from repalis.exceptions import PolarError
+from repalis.integrations.aws.s3 import S3Service
+from repalis.kit.utils import utc_now
+from repalis.models import Account, Order, Payout
+from repalis.models.transaction import PlatformFeeType
+from repalis.postgres import AsyncSession
+from repalis.transaction.repository import TransactionRepository
 
 from .generator import (
     Invoice,

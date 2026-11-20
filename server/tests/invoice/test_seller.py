@@ -1,12 +1,12 @@
 import pytest
 from pytest_mock import MockerFixture
 
-from polar.invoice.seller import (
+from repalis.invoice.seller import (
     get_polar_additional_info,
     get_polar_vat_label,
     get_polar_vat_number,
 )
-from polar.kit.address import Address, CountryAlpha2
+from repalis.kit.address import Address, CountryAlpha2
 
 
 def _address(country: str, state: str | None = None) -> Address:
@@ -24,9 +24,9 @@ VAT_NUMBERS = {
 
 @pytest.fixture(autouse=True)
 def configured_vat_numbers(mocker: MockerFixture) -> None:
-    mocker.patch("polar.invoice.seller.settings.INVOICES_VAT_NUMBERS", VAT_NUMBERS)
+    mocker.patch("repalis.invoice.seller.settings.INVOICES_VAT_NUMBERS", VAT_NUMBERS)
     mocker.patch(
-        "polar.invoice.seller.settings.INVOICES_ADDITIONAL_INFO",
+        "repalis.invoice.seller.settings.INVOICES_ADDITIONAL_INFO",
         "[support@repalis.com](mailto:support@repalis.com)",
     )
 
@@ -98,17 +98,17 @@ class TestGetPolarAdditionalInfo:
         assert info == "[support@repalis.com](mailto:support@repalis.com)"
 
     def test_empty_settings_returns_none(self, mocker: MockerFixture) -> None:
-        mocker.patch("polar.invoice.seller.settings.INVOICES_ADDITIONAL_INFO", None)
-        mocker.patch("polar.invoice.seller.settings.INVOICES_VAT_NUMBERS", {})
+        mocker.patch("repalis.invoice.seller.settings.INVOICES_ADDITIONAL_INFO", None)
+        mocker.patch("repalis.invoice.seller.settings.INVOICES_VAT_NUMBERS", {})
         assert get_polar_additional_info(_address("FR")) is None
         assert get_polar_additional_info(None) is None
 
     def test_only_vat_when_no_additional_info(self, mocker: MockerFixture) -> None:
-        mocker.patch("polar.invoice.seller.settings.INVOICES_ADDITIONAL_INFO", None)
+        mocker.patch("repalis.invoice.seller.settings.INVOICES_ADDITIONAL_INFO", None)
         assert get_polar_additional_info(_address("FR")) == "VAT: EU372061545"
 
     def test_only_additional_info_when_no_vat(self, mocker: MockerFixture) -> None:
-        mocker.patch("polar.invoice.seller.settings.INVOICES_VAT_NUMBERS", {})
+        mocker.patch("repalis.invoice.seller.settings.INVOICES_VAT_NUMBERS", {})
         assert get_polar_additional_info(_address("FR")) == (
             "[support@repalis.com](mailto:support@repalis.com)"
         )

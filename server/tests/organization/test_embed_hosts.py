@@ -1,6 +1,6 @@
 import pytest
 
-from polar.organization.embed_hosts import (
+from repalis.organization.embed_hosts import (
     InvalidEmbedHost,
     csp_frame_ancestors,
     is_shared_host,

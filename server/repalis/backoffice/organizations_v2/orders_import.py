@@ -13,23 +13,23 @@ from sqlalchemy import func
 from sse_starlette.event import ServerSentEvent
 from tagflow import document, tag, text
 
-from polar import tasks  # noqa: F401
-from polar.benefit.grant.repository import BenefitGrantRepository
-from polar.benefit.repository import BenefitRepository
-from polar.customer.repository import CustomerRepository
-from polar.customer.service import customer as customer_service
-from polar.exceptions import PolarError
-from polar.kit.address import SUPPORTED_COUNTRIES, Address, CountryAlpha2
-from polar.license_key.repository import LicenseKeyRepository
-from polar.models import Benefit, BenefitGrant, Customer, Order, Organization, Product
-from polar.models.benefit import BenefitType
-from polar.models.order import OrderBillingReason, OrderStatus
-from polar.models.order_item import OrderItem
-from polar.order.repository import OrderRepository
-from polar.postgres import AsyncSession
-from polar.product.repository import ProductRepository
-from polar.worker import enqueue_job
-from polar.worker._enqueue import JobQueueManager
+from repalis import tasks  # noqa: F401
+from repalis.benefit.grant.repository import BenefitGrantRepository
+from repalis.benefit.repository import BenefitRepository
+from repalis.customer.repository import CustomerRepository
+from repalis.customer.service import customer as customer_service
+from repalis.exceptions import PolarError
+from repalis.kit.address import SUPPORTED_COUNTRIES, Address, CountryAlpha2
+from repalis.license_key.repository import LicenseKeyRepository
+from repalis.models import Benefit, BenefitGrant, Customer, Order, Organization, Product
+from repalis.models.benefit import BenefitType
+from repalis.models.order import OrderBillingReason, OrderStatus
+from repalis.models.order_item import OrderItem
+from repalis.order.repository import OrderRepository
+from repalis.postgres import AsyncSession
+from repalis.product.repository import ProductRepository
+from repalis.worker import enqueue_job
+from repalis.worker._enqueue import JobQueueManager
 
 from ..components import alert
 

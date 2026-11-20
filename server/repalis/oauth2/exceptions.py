@@ -1,7 +1,7 @@
 from authlib.oauth2.rfc6750 import InvalidTokenError as _InvalidTokenError
 
-from polar.config import settings
-from polar.exceptions import get_resource_metadata_attribute
+from repalis.config import settings
+from repalis.exceptions import get_resource_metadata_attribute
 
 
 class InvalidTokenError(_InvalidTokenError):

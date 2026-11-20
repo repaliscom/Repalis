@@ -19,16 +19,16 @@ from sqlalchemy import (
 )
 from sqlalchemy.orm import joinedload, with_polymorphic
 
-from polar.authz.types import AccessibleOrganizationID
-from polar.kit.repository import (
+from repalis.authz.types import AccessibleOrganizationID
+from repalis.kit.repository import (
     RepositoryBase,
     RepositorySoftDeletionIDMixin,
     RepositorySoftDeletionMixin,
     RepositorySortingMixin,
     SortingClause,
 )
-from polar.kit.repository.base import Options
-from polar.models import (
+from repalis.kit.repository.base import Options
+from repalis.models import (
     Customer,
     Order,
     Organization,
@@ -39,22 +39,22 @@ from polar.models import (
     User,
     UserOrganization,
 )
-from polar.models.discount import (
+from repalis.models.discount import (
     Discount,
     DiscountDuration,
     DiscountPercentage,
     DiscountType,
 )
-from polar.models.order import OrderStatus
-from polar.models.organization import (
+from repalis.models.order import OrderStatus
+from repalis.models.organization import (
     CAPABILITY_NAMES,
     STATUS_CAPABILITIES,
     OrganizationStatus,
     SnoozeType,
 )
-from polar.models.organization_review import OrganizationReview
-from polar.models.subscription import SubscriptionStatus
-from polar.models.user_organization import OrganizationRole
+from repalis.models.organization_review import OrganizationReview
+from repalis.models.subscription import SubscriptionStatus
+from repalis.models.user_organization import OrganizationRole
 
 from .sorting import OrganizationSortProperty
 

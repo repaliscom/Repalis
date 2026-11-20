@@ -3,8 +3,8 @@ from collections.abc import Generator
 
 from tagflow import attr
 
-from polar.backoffice.components import confirmation_dialog
-from polar.models import User
+from repalis.backoffice.components import confirmation_dialog
+from repalis.models import User
 
 
 class DeleteIdentityVerificationModal:

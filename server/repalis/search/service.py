@@ -13,11 +13,11 @@ from sqlalchemy import (
     union_all,
 )
 
-from polar.auth.models import AuthSubject, User
-from polar.auth.scope import Scope
-from polar.authz.repository import select_accessible_org_ids
-from polar.kit.db.postgres import AsyncReadSession
-from polar.models import (
+from repalis.auth.models import AuthSubject, User
+from repalis.auth.scope import Scope
+from repalis.authz.repository import select_accessible_org_ids
+from repalis.kit.db.postgres import AsyncReadSession
+from repalis.models import (
     Customer,
     Order,
     Organization,

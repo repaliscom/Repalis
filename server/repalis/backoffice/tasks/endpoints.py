@@ -6,8 +6,8 @@ from fastapi import Query, Request
 from pydantic import ValidationError
 from tagflow import tag, text
 
-from polar.backoffice.routing import BackofficeRouter
-from polar.worker import enqueue_job
+from repalis.backoffice.routing import BackofficeRouter
+from repalis.worker import enqueue_job
 
 from ..components import button, datatable, input, modal
 from ..layout import layout

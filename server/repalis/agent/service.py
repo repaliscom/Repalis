@@ -8,25 +8,25 @@ import structlog
 from authlib.oauth2 import OAuth2Error
 from authlib.oauth2.rfc7523.jwt_bearer import JWT_BEARER_GRANT_TYPE
 
-from polar.auth.scope import CLAIMED_AGENT_SCOPES, UNCLAIMED_AGENT_SCOPES
-from polar.exceptions import PolarError, ResourceNotFound
-from polar.kit.crypto import (
+from repalis.auth.scope import CLAIMED_AGENT_SCOPES, UNCLAIMED_AGENT_SCOPES
+from repalis.exceptions import PolarError, ResourceNotFound
+from repalis.kit.crypto import (
     generate_token,
     generate_token_hash_pair,
     get_token_hash,
     get_token_hash_candidates,
 )
-from polar.kit.email import mask_email
-from polar.kit.utils import utc_now
-from polar.logging import Logger
-from polar.models import Agent, OAuth2Client, User
-from polar.models.agent import AgentStatus
-from polar.oauth2.constants import CLAIM_GRANT_TYPE, CLIENT_ID_PREFIX
-from polar.oauth2.repository import OAuth2TokenRepository
-from polar.organization.service import organization as organization_service
-from polar.postgres import AsyncReadSession, AsyncSession
-from polar.posthog import posthog
-from polar.product.repository import ProductRepository
+from repalis.kit.email import mask_email
+from repalis.kit.utils import utc_now
+from repalis.logging import Logger
+from repalis.models import Agent, OAuth2Client, User
+from repalis.models.agent import AgentStatus
+from repalis.oauth2.constants import CLAIM_GRANT_TYPE, CLIENT_ID_PREFIX
+from repalis.oauth2.repository import OAuth2TokenRepository
+from repalis.organization.service import organization as organization_service
+from repalis.postgres import AsyncReadSession, AsyncSession
+from repalis.posthog import posthog
+from repalis.product.repository import ProductRepository
 
 from .identity_assertion import (
     IDENTITY_ASSERTION_TTL,

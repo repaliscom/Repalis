@@ -10,33 +10,33 @@ from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import joinedload
 from sqlalchemy.sql.elements import OrderByList
 
-from polar.auth.models import AuthSubject
-from polar.auth.permission import OrganizationPermission
-from polar.authz.service import (
+from repalis.auth.models import AuthSubject
+from repalis.auth.permission import OrganizationPermission
+from repalis.authz.service import (
     assert_organization_permission,
     get_accessible_org_ids,
 )
-from polar.benefit.grant.repository import BenefitGrantRepository
-from polar.config import settings
-from polar.customer_meter.repository import CustomerMeterRepository
-from polar.customer_session.service import customer_session as customer_session_service
-from polar.exceptions import PolarRequestValidationError, ValidationError
-from polar.kit.address import Address
-from polar.kit.anonymization import (
+from repalis.benefit.grant.repository import BenefitGrantRepository
+from repalis.config import settings
+from repalis.customer_meter.repository import CustomerMeterRepository
+from repalis.customer_session.service import customer_session as customer_session_service
+from repalis.exceptions import PolarRequestValidationError, ValidationError
+from repalis.kit.address import Address
+from repalis.kit.anonymization import (
     ANONYMIZED_EMAIL_DOMAIN,
     anonymize_email_for_deletion,
     anonymize_for_deletion,
 )
-from polar.kit.email import EmailNotValidError, unalias_email
-from polar.kit.metadata import MetadataQuery, apply_metadata_clause
-from polar.kit.pagination import PaginationParams
-from polar.kit.sorting import Sorting
-from polar.kit.time_queries import TimeInterval, is_under_limits
-from polar.kit.utils import utc_now
-from polar.member.repository import MemberRepository
-from polar.member.service import member_service
-from polar.member_session.service import member_session as member_session_service
-from polar.models import (
+from repalis.kit.email import EmailNotValidError, unalias_email
+from repalis.kit.metadata import MetadataQuery, apply_metadata_clause
+from repalis.kit.pagination import PaginationParams
+from repalis.kit.sorting import Sorting
+from repalis.kit.time_queries import TimeInterval, is_under_limits
+from repalis.kit.utils import utc_now
+from repalis.member.repository import MemberRepository
+from repalis.member.service import member_service
+from repalis.member_session.service import member_session as member_session_service
+from repalis.models import (
     BenefitGrant,
     Customer,
     Order,
@@ -45,21 +45,21 @@ from polar.models import (
     Subscription,
     User,
 )
-from polar.models.customer import CustomerType
-from polar.models.member import MemberRole
-from polar.models.webhook_endpoint import CustomerWebhookEventType, WebhookEventType
-from polar.order.repository import OrderRepository
-from polar.organization.resolver import get_payload_organization
-from polar.payment_method.repository import PaymentMethodRepository
-from polar.postgres import AsyncReadSession, AsyncSession
-from polar.redis import Redis
-from polar.subscription.repository import SubscriptionRepository
-from polar.tax.tax_id import InvalidTaxID, TaxID, validate_tax_id
-from polar.user_organization.service import (
+from repalis.models.customer import CustomerType
+from repalis.models.member import MemberRole
+from repalis.models.webhook_endpoint import CustomerWebhookEventType, WebhookEventType
+from repalis.order.repository import OrderRepository
+from repalis.organization.resolver import get_payload_organization
+from repalis.payment_method.repository import PaymentMethodRepository
+from repalis.postgres import AsyncReadSession, AsyncSession
+from repalis.redis import Redis
+from repalis.subscription.repository import SubscriptionRepository
+from repalis.tax.tax_id import InvalidTaxID, TaxID, validate_tax_id
+from repalis.user_organization.service import (
     user_organization as user_organization_service,
 )
-from polar.webhook.service import webhook as webhook_service
-from polar.worker import enqueue_job
+from repalis.webhook.service import webhook as webhook_service
+from repalis.worker import enqueue_job
 
 from .repository import CustomerRepository
 from .schemas.customer import (

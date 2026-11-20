@@ -3,12 +3,12 @@ import uuid
 import pytest
 from httpx2 import AsyncClient
 
-from polar.auth.scope import Scope
-from polar.checkout.repository import CheckoutRepository
-from polar.checkout.service import CHECKOUT_CLIENT_SECRET_PREFIX
-from polar.enums import SubscriptionRecurringInterval
-from polar.kit.visibility import Visibility
-from polar.models import (
+from repalis.auth.scope import Scope
+from repalis.checkout.repository import CheckoutRepository
+from repalis.checkout.service import CHECKOUT_CLIENT_SECRET_PREFIX
+from repalis.enums import SubscriptionRecurringInterval
+from repalis.kit.visibility import Visibility
+from repalis.models import (
     Checkout,
     CheckoutLink,
     Discount,
@@ -17,9 +17,9 @@ from polar.models import (
     User,
     UserOrganization,
 )
-from polar.models.organization import OrganizationStatus
-from polar.postgres import AsyncSession
-from polar.version import V2027_01
+from repalis.models.organization import OrganizationStatus
+from repalis.postgres import AsyncSession
+from repalis.version import V2027_01
 from tests.fixtures.auth import AuthSubjectFixture
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (

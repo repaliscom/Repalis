@@ -10,13 +10,13 @@ import logfire
 import structlog
 from opentelemetry import trace
 
-from polar.config import settings
-from polar.logging import Logger
+from repalis.config import settings
+from repalis.logging import Logger
 
 from .schemas import TinybirdEvent
 
 log: Logger = structlog.get_logger()
-tracer = trace.get_tracer("polar.integrations.tinybird")
+tracer = trace.get_tracer("repalis.integrations.tinybird")
 
 MAX_PAYLOAD_BYTES = 10 * 1024 * 1024  # 10MB
 RETRYABLE_STATUS_CODES = {409, 429}

@@ -9,23 +9,23 @@ from sqlalchemy import select
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import joinedload
 
-from polar.auth.models import AuthSubject
-from polar.auth.permission import OrganizationPermission
-from polar.authz.service import assert_organization_permission, get_accessible_org_ids
-from polar.benefit.repository import BenefitRepository
-from polar.benefit.strategies import BenefitRetriableError
-from polar.customer.repository import CustomerRepository
-from polar.event.service import event as event_service
-from polar.event.system import BenefitGrantMetadata, SystemEvent, build_system_event
-from polar.eventstream.service import publish as eventstream_publish
-from polar.exceptions import PolarError, PolarRequestValidationError, ResourceNotFound
-from polar.kit.pagination import PaginationParams, paginate
-from polar.kit.sorting import Sorting
-from polar.kit.utils import utc_now
-from polar.logging import Logger
-from polar.member.repository import MemberRepository
-from polar.member.service import member_service
-from polar.models import (
+from repalis.auth.models import AuthSubject
+from repalis.auth.permission import OrganizationPermission
+from repalis.authz.service import assert_organization_permission, get_accessible_org_ids
+from repalis.benefit.repository import BenefitRepository
+from repalis.benefit.strategies import BenefitRetriableError
+from repalis.customer.repository import CustomerRepository
+from repalis.event.service import event as event_service
+from repalis.event.system import BenefitGrantMetadata, SystemEvent, build_system_event
+from repalis.eventstream.service import publish as eventstream_publish
+from repalis.exceptions import PolarError, PolarRequestValidationError, ResourceNotFound
+from repalis.kit.pagination import PaginationParams, paginate
+from repalis.kit.sorting import Sorting
+from repalis.kit.utils import utc_now
+from repalis.logging import Logger
+from repalis.member.repository import MemberRepository
+from repalis.member.service import member_service
+from repalis.models import (
     Benefit,
     BenefitGrant,
     Customer,
@@ -34,14 +34,14 @@ from polar.models import (
     Product,
     User,
 )
-from polar.models.benefit import BenefitType
-from polar.models.benefit_grant import BenefitGrantScope, BenefitGrantSelector
-from polar.models.webhook_endpoint import WebhookEventType
-from polar.organization.resolver import get_payload_organization
-from polar.postgres import AsyncSession
-from polar.redis import Redis
-from polar.webhook.service import webhook as webhook_service
-from polar.worker import can_retry, enqueue_job
+from repalis.models.benefit import BenefitType
+from repalis.models.benefit_grant import BenefitGrantScope, BenefitGrantSelector
+from repalis.models.webhook_endpoint import WebhookEventType
+from repalis.organization.resolver import get_payload_organization
+from repalis.postgres import AsyncSession
+from repalis.redis import Redis
+from repalis.webhook.service import webhook as webhook_service
+from repalis.worker import can_retry, enqueue_job
 
 from ..registry import get_benefit_strategy
 from ..strategies import (

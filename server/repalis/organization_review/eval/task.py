@@ -2,8 +2,8 @@
 
 from typing import Any
 
-from polar.organization_review.analyzer import ReviewAnalyzer
-from polar.organization_review.schemas import ReviewContext
+from repalis.organization_review.analyzer import ReviewAnalyzer
+from repalis.organization_review.schemas import ReviewContext
 
 from .dataset import EvalInput
 

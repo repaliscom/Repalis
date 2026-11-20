@@ -3,20 +3,20 @@ from typing import Annotated
 from fastapi import Depends, Query
 from pydantic import UUID4
 
-from polar.auth.permission import OrganizationPermission
-from polar.authz.service import (
+from repalis.auth.permission import OrganizationPermission
+from repalis.authz.service import (
     assert_resource_permission,
     get_accessible_org_ids,
 )
-from polar.exceptions import NotPermitted, ResourceNotFound
-from polar.kit.db.postgres import AsyncReadSession, AsyncSession
-from polar.kit.pagination import ListResource, PaginationParamsQuery
-from polar.kit.versioning import version
-from polar.models import LicenseKey, LicenseKeyActivation
-from polar.openapi import APITag, cli_preview, destructive
-from polar.postgres import get_db_read_session, get_db_session
-from polar.routing import APIRouter
-from polar.version import V2027_01
+from repalis.exceptions import NotPermitted, ResourceNotFound
+from repalis.kit.db.postgres import AsyncReadSession, AsyncSession
+from repalis.kit.pagination import ListResource, PaginationParamsQuery
+from repalis.kit.versioning import version
+from repalis.models import LicenseKey, LicenseKeyActivation
+from repalis.openapi import APITag, cli_preview, destructive
+from repalis.postgres import get_db_read_session, get_db_session
+from repalis.routing import APIRouter
+from repalis.version import V2027_01
 
 from . import auth
 from .repository import LicenseKeyRepository

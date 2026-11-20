@@ -4,8 +4,8 @@ from typing import Any, NamedTuple
 
 import structlog
 
-from polar.config import settings
-from polar.logging import Logger
+from repalis.config import settings
+from repalis.logging import Logger
 
 log: Logger = structlog.get_logger()
 
@@ -46,7 +46,7 @@ def _client() -> Any:
     import boto3
     from botocore.config import Config
 
-    from polar.kit.aws import get_credentials
+    from repalis.kit.aws import get_credentials
 
     access_key_id, secret_access_key = get_credentials()
     return boto3.client(

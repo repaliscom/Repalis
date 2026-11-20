@@ -5,16 +5,16 @@ from typing import TYPE_CHECKING, Annotated, Any, Literal, overload
 from dateutil.relativedelta import relativedelta
 from pydantic import AfterValidator, Discriminator, EmailStr, Field, Tag
 
-from polar.kit.address import AddressInput
-from polar.kit.http import get_safe_return_url
-from polar.kit.schemas import Schema
-from polar.v2026_04.outputs import (
+from repalis.kit.address import AddressInput
+from repalis.kit.http import get_safe_return_url
+from repalis.kit.schemas import Schema
+from repalis.v2026_04.outputs import (
     PaymentMethodCard,
     ProductPriceFixed,
 )
 
 if TYPE_CHECKING:
-    from polar.v2026_04.outputs import (
+    from repalis.v2026_04.outputs import (
         Checkout,
         CustomerBenefitGrantSlackSharedChannel,
         CustomerPaymentMethod,

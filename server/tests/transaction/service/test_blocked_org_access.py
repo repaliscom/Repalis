@@ -1,17 +1,17 @@
 import pytest
 
-from polar.auth.models import AuthSubject
-from polar.kit.pagination import PaginationParams
-from polar.models import (
+from repalis.auth.models import AuthSubject
+from repalis.kit.pagination import PaginationParams
+from repalis.models import (
     Account,
     Organization,
     User,
     UserOrganization,
 )
-from polar.models.organization import OrganizationStatus
-from polar.models.transaction import TransactionType
-from polar.postgres import AsyncSession
-from polar.transaction.service.transaction import transaction as transaction_service
+from repalis.models.organization import OrganizationStatus
+from repalis.models.transaction import TransactionType
+from repalis.postgres import AsyncSession
+from repalis.transaction.service.transaction import transaction as transaction_service
 from tests.fixtures.database import SaveFixture
 from tests.transaction.conftest import create_transaction
 

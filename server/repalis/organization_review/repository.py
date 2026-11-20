@@ -4,33 +4,33 @@ from uuid import UUID
 from sqlalchemy import NotNullable, func, select, update
 from sqlalchemy.orm import joinedload, selectinload
 
-from polar.kit.repository.base import (
+from repalis.kit.repository.base import (
     RepositoryBase,
     RepositorySoftDeletionIDMixin,
     RepositorySoftDeletionMixin,
 )
-from polar.kit.utils import utc_now
-from polar.models.backoffice_user import BackofficeUser
-from polar.models.checkout import Checkout
-from polar.models.checkout_link import CheckoutLink
-from polar.models.checkout_link_product import CheckoutLinkProduct
-from polar.models.dispute import Dispute, DisputeStatus
-from polar.models.organization import Organization
-from polar.models.organization_access_token import OrganizationAccessToken
-from polar.models.organization_agent_review import OrganizationAgentReview
-from polar.models.organization_review import OrganizationReview
-from polar.models.organization_review_feedback import OrganizationReviewFeedback
-from polar.models.organization_risk_signal import OrganizationRiskSignal
-from polar.models.payment import Payment, PaymentStatus
-from polar.models.payout_account import PayoutAccount
-from polar.models.product import Product
-from polar.models.product_price import ProductPrice, ProductPriceSource
-from polar.models.refund import Refund, RefundStatus
-from polar.models.user import User
-from polar.models.user_organization import UserOrganization
-from polar.models.webhook_endpoint import WebhookEndpoint, WebhookFormat
-from polar.organization_review.report import AnyAgentReport
-from polar.organization_review.schemas import (
+from repalis.kit.utils import utc_now
+from repalis.models.backoffice_user import BackofficeUser
+from repalis.models.checkout import Checkout
+from repalis.models.checkout_link import CheckoutLink
+from repalis.models.checkout_link_product import CheckoutLinkProduct
+from repalis.models.dispute import Dispute, DisputeStatus
+from repalis.models.organization import Organization
+from repalis.models.organization_access_token import OrganizationAccessToken
+from repalis.models.organization_agent_review import OrganizationAgentReview
+from repalis.models.organization_review import OrganizationReview
+from repalis.models.organization_review_feedback import OrganizationReviewFeedback
+from repalis.models.organization_risk_signal import OrganizationRiskSignal
+from repalis.models.payment import Payment, PaymentStatus
+from repalis.models.payout_account import PayoutAccount
+from repalis.models.product import Product
+from repalis.models.product_price import ProductPrice, ProductPriceSource
+from repalis.models.refund import Refund, RefundStatus
+from repalis.models.user import User
+from repalis.models.user_organization import UserOrganization
+from repalis.models.webhook_endpoint import WebhookEndpoint, WebhookFormat
+from repalis.organization_review.report import AnyAgentReport
+from repalis.organization_review.schemas import (
     ActorType,
     AUPSection,
     DecisionType,

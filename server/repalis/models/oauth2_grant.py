@@ -4,9 +4,9 @@ from uuid import UUID
 from sqlalchemy import ForeignKey, String, Text, UniqueConstraint, Uuid
 from sqlalchemy.orm import Mapped, declared_attr, mapped_column, relationship
 
-from polar.kit.db.models import RecordModel
-from polar.models.organization import Organization
-from polar.models.user import User
+from repalis.kit.db.models import RecordModel
+from repalis.models.organization import Organization
+from repalis.models.user import User
 
 if TYPE_CHECKING:
     from .oauth2_grant_organization import OAuth2GrantOrganization

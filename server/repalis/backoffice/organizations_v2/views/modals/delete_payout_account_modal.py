@@ -6,9 +6,9 @@ from collections.abc import Generator
 from pydantic import ValidationError
 from tagflow import tag, text
 
-from polar.backoffice.components import button, modal
-from polar.enums import PayoutAccountType
-from polar.models import PayoutAccount
+from repalis.backoffice.components import button, modal
+from repalis.enums import PayoutAccountType
+from repalis.models import PayoutAccount
 
 
 class DeletePayoutAccountModal:

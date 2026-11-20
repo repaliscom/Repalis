@@ -5,14 +5,14 @@ from pydantic import UUID4, AliasChoices, Discriminator, Field
 from pydantic.aliases import AliasPath
 from pydantic.json_schema import SkipJsonSchema
 
-from polar.benefit.strategies import BenefitGrantProperties
-from polar.custom_field.data import CustomFieldDataOutputMixin
-from polar.enums import SubscriptionRecurringInterval
-from polar.kit.metadata import (
+from repalis.benefit.strategies import BenefitGrantProperties
+from repalis.custom_field.data import CustomFieldDataOutputMixin
+from repalis.enums import SubscriptionRecurringInterval
+from repalis.kit.metadata import (
     MetadataOutputMixin,
     MetadataOutputType,
 )
-from polar.kit.schemas import (
+from repalis.kit.schemas import (
     BENEFIT_GRANT_ID_EXAMPLE,
     BENEFIT_ID_EXAMPLE,
     METER_ID_EXAMPLE,
@@ -23,11 +23,11 @@ from polar.kit.schemas import (
     SetSchemaReference,
     TimestampedSchema,
 )
-from polar.kit.versioning import Version, VersionedJsonSchema
-from polar.models.benefit import BenefitType
-from polar.models.subscription import SubscriptionStatus
-from polar.subscription.schemas import SubscriptionMeterBase
-from polar.version import V2026_10
+from repalis.kit.versioning import Version, VersionedJsonSchema
+from repalis.models.benefit import BenefitType
+from repalis.models.subscription import SubscriptionStatus
+from repalis.subscription.schemas import SubscriptionMeterBase
+from repalis.version import V2026_10
 
 from .customer import (
     CustomerIndividual,

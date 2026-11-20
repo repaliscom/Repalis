@@ -1,9 +1,9 @@
 import pytest
 
-from polar.credit_note.generator import CreditNote as CreditNoteDocument
-from polar.models import CreditNote, Refund
-from polar.models.credit_note import CreditNoteReason
-from polar.models.refund import RefundStatus
+from repalis.credit_note.generator import CreditNote as CreditNoteDocument
+from repalis.models import CreditNote, Refund
+from repalis.models.credit_note import CreditNoteReason
+from repalis.models.refund import RefundStatus
 
 
 class TestFromCreditNote:

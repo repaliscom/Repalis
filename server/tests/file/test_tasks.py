@@ -6,17 +6,17 @@ from typing import Any
 import pytest
 from pytest_mock import MockerFixture
 
-from polar.config import settings
-from polar.file.tasks import guardduty_scan_result
-from polar.kit.utils import utc_now
-from polar.models import File, Organization
-from polar.models.file import FileServiceTypes
-from polar.notifications.notification import (
+from repalis.config import settings
+from repalis.file.tasks import guardduty_scan_result
+from repalis.kit.utils import utc_now
+from repalis.models import File, Organization
+from repalis.models.file import FileServiceTypes
+from repalis.notifications.notification import (
     MaintainerFileFlaggedMaliciousNotificationPayload,
     NotificationType,
 )
-from polar.notifications.service import PartialNotification
-from polar.postgres import AsyncSession
+from repalis.notifications.service import PartialNotification
+from repalis.postgres import AsyncSession
 from tests.fixtures.database import SaveFixture
 
 _guardduty_scan_result = guardduty_scan_result.__wrapped__  # type: ignore[attr-defined]
@@ -80,11 +80,11 @@ class TestGuardDutyScanResult:
     ) -> None:
         file = await create_file(save_fixture, organization)
         mocker.patch(
-            "polar.file.tasks.AsyncSessionMaker",
+            "repalis.file.tasks.AsyncSessionMaker",
             side_effect=lambda: _session_maker(session),
         )
         send_to_org_members_mock = mocker.patch(
-            "polar.file.service.notifications_service.send_to_org_members"
+            "repalis.file.service.notifications_service.send_to_org_members"
         )
 
         await _guardduty_scan_result(
@@ -124,11 +124,11 @@ class TestGuardDutyScanResult:
         file.flagged_malicious_details = {"scanResultStatus": "THREATS_FOUND"}
         await save_fixture(file)
         mocker.patch(
-            "polar.file.tasks.AsyncSessionMaker",
+            "repalis.file.tasks.AsyncSessionMaker",
             side_effect=lambda: _session_maker(session),
         )
         send_to_org_members_mock = mocker.patch(
-            "polar.file.service.notifications_service.send_to_org_members"
+            "repalis.file.service.notifications_service.send_to_org_members"
         )
 
         await _guardduty_scan_result(
@@ -145,7 +145,7 @@ class TestGuardDutyScanResult:
         session: AsyncSession,
     ) -> None:
         mocker.patch(
-            "polar.file.tasks.AsyncSessionMaker",
+            "repalis.file.tasks.AsyncSessionMaker",
             side_effect=lambda: _session_maker(session),
         )
 
@@ -164,7 +164,7 @@ class TestGuardDutyScanResult:
     ) -> None:
         file = await create_file(save_fixture, organization)
         mocker.patch(
-            "polar.file.tasks.AsyncSessionMaker",
+            "repalis.file.tasks.AsyncSessionMaker",
             side_effect=lambda: _session_maker(session),
         )
 

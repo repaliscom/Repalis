@@ -5,9 +5,9 @@ from authlib.integrations.sqla_oauth2 import OAuth2TokenMixin
 from sqlalchemy import Index, String, text
 from sqlalchemy.orm import Mapped, declared_attr, mapped_column, relationship
 
-from polar.auth.scope import Scope, scope_to_set
-from polar.kit.db.models import RecordModel
-from polar.oauth2.sub_type import SubType, SubTypeModelMixin
+from repalis.auth.scope import Scope, scope_to_set
+from repalis.kit.db.models import RecordModel
+from repalis.oauth2.sub_type import SubType, SubTypeModelMixin
 
 if TYPE_CHECKING:
     from .oauth2_client import OAuth2Client

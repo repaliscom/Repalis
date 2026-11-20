@@ -10,21 +10,21 @@ from typing import Any
 
 from sqlalchemy.orm import selectinload
 
-from polar.auth.models import Agent, AuthSubject, User
-from polar.auth.permission import OrganizationPermission
-from polar.auth.scope import Scope
-from polar.authz.service import assert_organization_permission, get_accessible_org_ids
-from polar.authz.types import AccessibleOrganizationID
-from polar.benefit.grant.repository import BenefitGrantRepository
-from polar.benefit.repository import BenefitRepository
-from polar.checkout_link.repository import CheckoutLinkRepository
-from polar.custom_field.repository import CustomFieldRepository
-from polar.exceptions import PolarError, PolarRequestValidationError
-from polar.kit.pagination import PaginationParams
-from polar.kit.utils import utc_now
-from polar.meter.repository import MeterRepository
-from polar.meter.service import meter as meter_service
-from polar.models import (
+from repalis.auth.models import Agent, AuthSubject, User
+from repalis.auth.permission import OrganizationPermission
+from repalis.auth.scope import Scope
+from repalis.authz.service import assert_organization_permission, get_accessible_org_ids
+from repalis.authz.types import AccessibleOrganizationID
+from repalis.benefit.grant.repository import BenefitGrantRepository
+from repalis.benefit.repository import BenefitRepository
+from repalis.checkout_link.repository import CheckoutLinkRepository
+from repalis.custom_field.repository import CustomFieldRepository
+from repalis.exceptions import PolarError, PolarRequestValidationError
+from repalis.kit.pagination import PaginationParams
+from repalis.kit.utils import utc_now
+from repalis.meter.repository import MeterRepository
+from repalis.meter.service import meter as meter_service
+from repalis.models import (
     Benefit,
     Catalog,
     CatalogBenefit,
@@ -37,14 +37,14 @@ from polar.models import (
     Product,
     ProductMedia,
 )
-from polar.models.catalog import CatalogStatus
-from polar.models.webhook_endpoint import WebhookEventType
-from polar.oauth2.exceptions import InsufficientScopeError
-from polar.organization.repository import OrganizationRepository
-from polar.postgres import AsyncReadSession, AsyncSession
-from polar.product.repository import ProductRepository
-from polar.product.service import product as product_service
-from polar.webhook.service import webhook as webhook_service
+from repalis.models.catalog import CatalogStatus
+from repalis.models.webhook_endpoint import WebhookEventType
+from repalis.oauth2.exceptions import InsufficientScopeError
+from repalis.organization.repository import OrganizationRepository
+from repalis.postgres import AsyncReadSession, AsyncSession
+from repalis.product.repository import ProductRepository
+from repalis.product.service import product as product_service
+from repalis.webhook.service import webhook as webhook_service
 
 from .repository import (
     CatalogBenefitRepository,

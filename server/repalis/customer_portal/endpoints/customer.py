@@ -7,24 +7,24 @@ from fastapi.responses import Response
 from pydantic import UUID4
 from sse_starlette import EventSourceResponse
 
-from polar.customer.service import customer as main_customer_service
-from polar.eventstream.endpoints import subscribe
-from polar.eventstream.service import Receivers
-from polar.exceptions import ResourceNotFound
-from polar.kit.http import get_content_disposition
-from polar.kit.pagination import ListResource, PaginationParamsQuery
-from polar.models import Customer
-from polar.openapi import APITag
-from polar.organization.embed_hosts import csp_frame_ancestors, match_origin
-from polar.payment_method.service import PaymentMethodInUseByActiveSubscription
-from polar.postgres import (
+from repalis.customer.service import customer as main_customer_service
+from repalis.eventstream.endpoints import subscribe
+from repalis.eventstream.service import Receivers
+from repalis.exceptions import ResourceNotFound
+from repalis.kit.http import get_content_disposition
+from repalis.kit.pagination import ListResource, PaginationParamsQuery
+from repalis.models import Customer
+from repalis.openapi import APITag
+from repalis.organization.embed_hosts import csp_frame_ancestors, match_origin
+from repalis.payment_method.service import PaymentMethodInUseByActiveSubscription
+from repalis.postgres import (
     AsyncReadSession,
     AsyncSession,
     get_db_read_session,
     get_db_session,
 )
-from polar.redis import Redis, get_redis
-from polar.routing import APIRouter
+from repalis.redis import Redis, get_redis
+from repalis.routing import APIRouter
 
 from .. import auth
 from ..schemas.customer import (

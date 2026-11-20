@@ -4,11 +4,11 @@ from uuid import UUID
 
 from pydantic import UUID4, Field, field_validator, model_validator
 
-from polar.kit.email import EmailStrDNS
-from polar.kit.schemas import Schema, TimestampedSchema
-from polar.kit.versioning import QuerySchema
-from polar.member.schemas import Member
-from polar.models.customer_seat import SeatStatus
+from repalis.kit.email import EmailStrDNS
+from repalis.kit.schemas import Schema, TimestampedSchema
+from repalis.kit.versioning import QuerySchema
+from repalis.member.schemas import Member
+from repalis.models.customer_seat import SeatStatus
 
 
 class SeatAssign(Schema):

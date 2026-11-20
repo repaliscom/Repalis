@@ -17,9 +17,9 @@ from sentry_sdk.integrations.modules import ModulesIntegration
 from sentry_sdk.integrations.starlette import StarletteIntegration
 from sentry_sdk.integrations.threading import ThreadingIntegration
 
-from polar.auth.models import AuthSubject, Subject, is_user
-from polar.config import settings
-from polar.observability.http_telemetry import url_without_request_values
+from repalis.auth.models import AuthSubject, Subject, is_user
+from repalis.config import settings
+from repalis.observability.http_telemetry import url_without_request_values
 
 if TYPE_CHECKING:
     from sentry_sdk._types import Breadcrumb, BreadcrumbHint, Event, Hint

@@ -1,8 +1,8 @@
 from enum import StrEnum
 from typing import Literal, TypedDict, overload
 
-from polar.eventstream.service import publish
-from polar.models.checkout import CheckoutStatus
+from repalis.eventstream.service import publish
+from repalis.models.checkout import CheckoutStatus
 
 
 class CheckoutEvent(StrEnum):

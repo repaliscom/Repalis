@@ -6,24 +6,24 @@ import pytest
 from pytest_mock import MockerFixture
 from sqlalchemy.exc import IntegrityError
 
-from polar.auth.models import AuthSubject
-from polar.enums import SubscriptionRecurringInterval
-from polar.exceptions import NotPermitted, PolarRequestValidationError
-from polar.kit.pagination import PaginationParams
-from polar.member.repository import MemberRepository
-from polar.member.service import member_service
-from polar.models import (
+from repalis.auth.models import AuthSubject
+from repalis.enums import SubscriptionRecurringInterval
+from repalis.exceptions import NotPermitted, PolarRequestValidationError
+from repalis.kit.pagination import PaginationParams
+from repalis.member.repository import MemberRepository
+from repalis.member.service import member_service
+from repalis.models import (
     CustomerSeat,
     Member,
     Organization,
     User,
     UserOrganization,
 )
-from polar.models.customer import CustomerType
-from polar.models.customer_seat import SeatStatus
-from polar.models.member import MemberRole
-from polar.models.webhook_endpoint import WebhookEventType
-from polar.postgres import AsyncSession
+from repalis.models.customer import CustomerType
+from repalis.models.customer_seat import SeatStatus
+from repalis.models.member import MemberRole
+from repalis.models.webhook_endpoint import WebhookEventType
+from repalis.postgres import AsyncSession
 from tests.fixtures.auth import AuthSubjectFixture
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (
@@ -440,7 +440,7 @@ class TestCreateOwnerMember:
         )
         await save_fixture(existing)
 
-        webhook_send_mock = mocker.patch("polar.member.service.webhook_service.send")
+        webhook_send_mock = mocker.patch("repalis.member.service.webhook_service.send")
 
         member = await member_service.create_owner_member(
             session, customer, organization
@@ -887,7 +887,7 @@ class TestUpdate:
         organization: Organization,
     ) -> None:
         """Test that cannot change role when member is the only owner."""
-        from polar.exceptions import PolarRequestValidationError
+        from repalis.exceptions import PolarRequestValidationError
 
         customer = await create_customer(
             save_fixture,
@@ -919,7 +919,7 @@ class TestUpdate:
         organization: Organization,
     ) -> None:
         """Test that cannot promote member to owner when an owner already exists."""
-        from polar.exceptions import PolarRequestValidationError
+        from repalis.exceptions import PolarRequestValidationError
 
         customer = await create_customer(
             save_fixture,
@@ -1043,7 +1043,7 @@ class TestUpdate:
         event must fire before the promoted member's so a single-owner-enforcing
         consumer never briefly observes two owners.
         """
-        webhook_send_mock = mocker.patch("polar.member.service.webhook_service.send")
+        webhook_send_mock = mocker.patch("repalis.member.service.webhook_service.send")
 
         customer = await create_customer(
             save_fixture, organization=organization, email="customer@example.com"
@@ -1085,7 +1085,7 @@ class TestUpdate:
     ) -> None:
         """The customer-portal transfer path (``current_owner = caller_member``)
         also notifies subscribers about the demoted former owner."""
-        webhook_send_mock = mocker.patch("polar.member.service.webhook_service.send")
+        webhook_send_mock = mocker.patch("repalis.member.service.webhook_service.send")
 
         customer = await create_customer(
             save_fixture, organization=organization, email="customer@example.com"
@@ -1127,7 +1127,7 @@ class TestUpdate:
     ) -> None:
         """A non-transfer role change still emits exactly one ``member.updated``
         for the changed member (no regression from the transfer fix)."""
-        webhook_send_mock = mocker.patch("polar.member.service.webhook_service.send")
+        webhook_send_mock = mocker.patch("repalis.member.service.webhook_service.send")
 
         customer = await create_customer(
             save_fixture, organization=organization, email="customer@example.com"
@@ -1158,7 +1158,7 @@ class TestUpdate:
         organization: Organization,
     ) -> None:
         """An update with no effective changes short-circuits and sends no webhook."""
-        webhook_send_mock = mocker.patch("polar.member.service.webhook_service.send")
+        webhook_send_mock = mocker.patch("repalis.member.service.webhook_service.send")
 
         customer = await create_customer(
             save_fixture, organization=organization, email="customer@example.com"
@@ -1484,7 +1484,7 @@ class TestDelete:
         organization: Organization,
     ) -> None:
         """Test that deleting a member enqueues a job to revoke their seats."""
-        enqueue_job_mock: MagicMock = mocker.patch("polar.member.service.enqueue_job")
+        enqueue_job_mock: MagicMock = mocker.patch("repalis.member.service.enqueue_job")
 
         customer = await create_customer(
             save_fixture,
@@ -1538,7 +1538,7 @@ class TestDelete:
         repository access) orphaned after deletion.
         """
         enqueue_member_mock: MagicMock = mocker.patch(
-            "polar.benefit.grant.service.BenefitGrantService"
+            "repalis.benefit.grant.service.BenefitGrantService"
             ".enqueue_member_grant_deletions"
         )
 
@@ -1575,7 +1575,7 @@ class TestDelete:
         organization: Organization,
     ) -> None:
         """Test that the only owner cannot be deleted."""
-        from polar.exceptions import PolarRequestValidationError
+        from repalis.exceptions import PolarRequestValidationError
 
         customer = await create_customer(
             save_fixture,
@@ -1607,7 +1607,7 @@ class TestDeleteByCustomer:
         session: AsyncSession,
         organization: Organization,
     ) -> None:
-        enqueue_job_mock: MagicMock = mocker.patch("polar.member.service.enqueue_job")
+        enqueue_job_mock: MagicMock = mocker.patch("repalis.member.service.enqueue_job")
 
         customer = await create_customer(
             save_fixture,
@@ -1653,7 +1653,7 @@ class TestDeleteByCustomer:
         organization: Organization,
     ) -> None:
         enqueue_member_mock: MagicMock = mocker.patch(
-            "polar.benefit.grant.service.BenefitGrantService"
+            "repalis.benefit.grant.service.BenefitGrantService"
             ".enqueue_member_grant_deletions"
         )
 

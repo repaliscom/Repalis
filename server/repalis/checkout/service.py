@@ -13,12 +13,12 @@ from sqlalchemy import func, select
 from sqlalchemy.exc import DBAPIError
 from sqlalchemy.orm import contains_eager, joinedload, selectinload
 
-from polar.auth.models import Agent, Anonymous, AuthSubject
-from polar.auth.permission import OrganizationPermission
-from polar.authz.service import assert_resource_permission, get_accessible_org_ids
-from polar.checkout.guard import has_product_checkout
-from polar.checkout.legacy_schemas import CheckoutProductPriceUpdateMixin
-from polar.checkout.schemas import (
+from repalis.auth.models import Agent, Anonymous, AuthSubject
+from repalis.auth.permission import OrganizationPermission
+from repalis.authz.service import assert_resource_permission, get_accessible_org_ids
+from repalis.checkout.guard import has_product_checkout
+from repalis.checkout.legacy_schemas import CheckoutProductPriceUpdateMixin
+from repalis.checkout.schemas import (
     CheckoutConfirm,
     CheckoutConfirmBase,
     CheckoutConfirmSharedPaymentToken,
@@ -31,22 +31,22 @@ from polar.checkout.schemas import (
     CheckoutUpdatePublic,
     CustomerIPAddress,
 )
-from polar.config import settings
-from polar.custom_field.data import validate_custom_field_data
-from polar.customer.repository import CustomerRepository
-from polar.customer_seat.repository import CustomerSeatRepository
-from polar.customer_seat.service import seat_service
-from polar.customer_session.service import customer_session as customer_session_service
-from polar.discount.service import DiscountNotRedeemableError
-from polar.discount.service import discount as discount_service
-from polar.enums import PaymentProcessor, TaxBehavior
-from polar.event.service import event as event_service
-from polar.event.system import (
+from repalis.config import settings
+from repalis.custom_field.data import validate_custom_field_data
+from repalis.customer.repository import CustomerRepository
+from repalis.customer_seat.repository import CustomerSeatRepository
+from repalis.customer_seat.service import seat_service
+from repalis.customer_session.service import customer_session as customer_session_service
+from repalis.discount.service import DiscountNotRedeemableError
+from repalis.discount.service import discount as discount_service
+from repalis.enums import PaymentProcessor, TaxBehavior
+from repalis.event.service import event as event_service
+from repalis.event.system import (
     CheckoutCreatedMetadata,
     SystemEvent,
     build_checkout_event,
 )
-from polar.exceptions import (
+from repalis.exceptions import (
     NotPermitted,
     PaymentNotReady,
     PolarError,
@@ -54,23 +54,23 @@ from polar.exceptions import (
     ResourceNotFound,
     ValidationError,
 )
-from polar.integrations.stripe.service import stripe as stripe_service
-from polar.integrations.stripe.utils import get_fingerprint
-from polar.kit.address import STATE_REQUIRED_COUNTRIES, AddressInput
-from polar.kit.crypto import generate_token
-from polar.kit.currency import (
+from repalis.integrations.stripe.service import stripe as stripe_service
+from repalis.integrations.stripe.utils import get_fingerprint
+from repalis.kit.address import STATE_REQUIRED_COUNTRIES, AddressInput
+from repalis.kit.crypto import generate_token
+from repalis.kit.currency import (
     get_presentment_currency,
 )
-from polar.kit.db.locking import is_lock_not_available_error
-from polar.kit.email import EmailNotValidError, validate_email_syntax
-from polar.kit.operator import attrgetter
-from polar.kit.pagination import PaginationParams
-from polar.kit.sorting import Sorting
-from polar.kit.utils import utc_now
-from polar.kit.visibility import Visibility
-from polar.logging import Logger
-from polar.member.service import member_service
-from polar.models import (
+from repalis.kit.db.locking import is_lock_not_available_error
+from repalis.kit.email import EmailNotValidError, validate_email_syntax
+from repalis.kit.operator import attrgetter
+from repalis.kit.pagination import PaginationParams
+from repalis.kit.sorting import Sorting
+from repalis.kit.utils import utc_now
+from repalis.kit.visibility import Visibility
+from repalis.logging import Logger
+from repalis.member.service import member_service
+from repalis.models import (
     Checkout,
     CheckoutLink,
     Customer,
@@ -84,25 +84,25 @@ from polar.models import (
     Subscription,
     User,
 )
-from polar.models.checkout import (
+from repalis.models.checkout import (
     US_SHORT_BILLING_ADDRESS_EXPERIMENT,
     CheckoutStatus,
 )
-from polar.models.checkout_product import CheckoutProduct
-from polar.models.customer import CustomerType
-from polar.models.order import OrderBillingReasonInternal
-from polar.models.product_price import ProductPriceSource
-from polar.models.webhook_endpoint import WebhookEventType
-from polar.observability.checkout_metrics import (
+from repalis.models.checkout_product import CheckoutProduct
+from repalis.models.customer import CustomerType
+from repalis.models.order import OrderBillingReasonInternal
+from repalis.models.product_price import ProductPriceSource
+from repalis.models.webhook_endpoint import WebhookEventType
+from repalis.observability.checkout_metrics import (
     CHECKOUT_CREATED_TOTAL,
     CHECKOUT_SUCCEEDED_TOTAL,
 )
-from polar.order.service import order as order_service
-from polar.organization.embed_hosts import match_origin, parse_origin
-from polar.postgres import AsyncReadSession, AsyncSession
-from polar.posthog import posthog
-from polar.product.custom_price import validate_custom_price_amount
-from polar.product.guard import (
+from repalis.order.service import order as order_service
+from repalis.organization.embed_hosts import match_origin, parse_origin
+from repalis.postgres import AsyncReadSession, AsyncSession
+from repalis.posthog import posthog
+from repalis.product.custom_price import validate_custom_price_amount
+from repalis.product.guard import (
     CustomPrice,
     SeatPrice,
     UnitPrice,
@@ -111,30 +111,30 @@ from polar.product.guard import (
     is_seat_price,
     is_static_price,
 )
-from polar.product.price_set import (
+from repalis.product.price_set import (
     NoPricesForCurrencies,
     PriceSet,
     calculate_upfront_amount,
 )
-from polar.product.repository import ProductPriceRepository, ProductRepository
-from polar.product.schemas import ProductPriceCreateList
-from polar.product.service import product as product_service
-from polar.product.unit_price import validate_unit_limits
-from polar.subscription.repository import SubscriptionRepository
-from polar.subscription.service import subscription as subscription_service
-from polar.tax.calculation import TaxCode
-from polar.tax.calculation import tax_calculation as tax_calculation_service
-from polar.tax.calculation.base import TaxCalculationLogicalError
-from polar.tax.tax_id import (
+from repalis.product.repository import ProductPriceRepository, ProductRepository
+from repalis.product.schemas import ProductPriceCreateList
+from repalis.product.service import product as product_service
+from repalis.product.unit_price import validate_unit_limits
+from repalis.subscription.repository import SubscriptionRepository
+from repalis.subscription.service import subscription as subscription_service
+from repalis.tax.calculation import TaxCode
+from repalis.tax.calculation import tax_calculation as tax_calculation_service
+from repalis.tax.calculation.base import TaxCalculationLogicalError
+from repalis.tax.tax_id import (
     IncompatibleTaxIDFormat,
     InvalidTaxID,
     TaxID,
     to_stripe_tax_id,
     validate_tax_id,
 )
-from polar.trial_redemption.service import trial_redemption as trial_redemption_service
-from polar.webhook.service import webhook as webhook_service
-from polar.worker import enqueue_job
+from repalis.trial_redemption.service import trial_redemption as trial_redemption_service
+from repalis.webhook.service import webhook as webhook_service
+from repalis.worker import enqueue_job
 
 from . import ip_geolocation
 from .eventstream import CheckoutEvent, publish_checkout_event

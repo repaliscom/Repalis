@@ -1,7 +1,7 @@
 import httpx
 from httpx_oauth.clients.discord import DiscordOAuth2
 
-from polar.config import settings
+from repalis.config import settings
 
 
 class DiscordOAuth2WithProxy(DiscordOAuth2):

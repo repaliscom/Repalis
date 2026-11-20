@@ -11,8 +11,8 @@ from sqlalchemy.orm import (
     mapped_column,
 )
 
-from polar.kit.db.models import RecordModel
-from polar.kit.metadata import MetadataMixin
+from repalis.kit.db.models import RecordModel
+from repalis.kit.metadata import MetadataMixin
 
 
 # Basic campaign structure (alpha)

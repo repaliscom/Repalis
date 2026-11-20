@@ -5,14 +5,14 @@ from uuid import UUID
 from sqlalchemy import Select, select, update
 from sqlalchemy.orm import joinedload, selectinload
 
-from polar.authz.types import AccessibleOrganizationID
-from polar.kit.repository import (
+from repalis.authz.types import AccessibleOrganizationID
+from repalis.kit.repository import (
     Options,
     RepositoryBase,
     RepositorySoftDeletionIDMixin,
     RepositorySoftDeletionMixin,
 )
-from polar.models import (
+from repalis.models import (
     Benefit,
     CheckoutLink,
     CheckoutLinkProduct,
@@ -20,7 +20,7 @@ from polar.models import (
     Product,
     ProductBenefit,
 )
-from polar.models.benefit import BenefitType
+from repalis.models.benefit import BenefitType
 
 if TYPE_CHECKING:
     from sqlalchemy.orm.strategy_options import _AbstractLoad

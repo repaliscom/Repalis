@@ -3,19 +3,19 @@ import uuid
 import stripe as stripe_lib
 import structlog
 
-from polar.checkout.repository import CheckoutRepository
-from polar.checkout.service import NotConfirmedCheckout
-from polar.checkout.service import checkout as checkout_service
-from polar.exceptions import PolarError
-from polar.integrations.stripe.service import (
+from repalis.checkout.repository import CheckoutRepository
+from repalis.checkout.service import NotConfirmedCheckout
+from repalis.checkout.service import checkout as checkout_service
+from repalis.exceptions import PolarError
+from repalis.integrations.stripe.service import (
     STRIPE_METADATA_PAYMENT_TRIGGER,
 )
-from polar.integrations.stripe.service import (
+from repalis.integrations.stripe.service import (
     stripe as stripe_service,
 )
-from polar.integrations.stripe.utils import get_expandable_id
-from polar.logging import Logger
-from polar.models import (
+from repalis.integrations.stripe.utils import get_expandable_id
+from repalis.logging import Logger
+from repalis.models import (
     Checkout,
     Order,
     Organization,
@@ -24,16 +24,16 @@ from polar.models import (
     Wallet,
     WalletTransaction,
 )
-from polar.models.checkout import CheckoutStatus
-from polar.models.payment import DUNNING_COUNTING_TRIGGERS, PaymentTrigger
-from polar.order.repository import OrderRepository
-from polar.order.service import order as order_service
-from polar.organization.repository import OrganizationRepository
-from polar.payment.service import payment as payment_service
-from polar.payment_method.service import payment_method as payment_method_service
-from polar.postgres import AsyncSession
-from polar.wallet.repository import WalletRepository, WalletTransactionRepository
-from polar.worker import enqueue_job
+from repalis.models.checkout import CheckoutStatus
+from repalis.models.payment import DUNNING_COUNTING_TRIGGERS, PaymentTrigger
+from repalis.order.repository import OrderRepository
+from repalis.order.service import order as order_service
+from repalis.organization.repository import OrganizationRepository
+from repalis.payment.service import payment as payment_service
+from repalis.payment_method.service import payment_method as payment_method_service
+from repalis.postgres import AsyncSession
+from repalis.wallet.repository import WalletRepository, WalletTransactionRepository
+from repalis.worker import enqueue_job
 
 log: Logger = structlog.get_logger()
 

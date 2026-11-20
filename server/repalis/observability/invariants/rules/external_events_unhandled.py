@@ -1,8 +1,8 @@
 import uuid
 from datetime import timedelta
 
-from polar.external_event.repository import ExternalEventRepository
-from polar.kit.utils import utc_now
+from repalis.external_event.repository import ExternalEventRepository
+from repalis.kit.utils import utc_now
 
 from .base import Invariant, InvariantError
 

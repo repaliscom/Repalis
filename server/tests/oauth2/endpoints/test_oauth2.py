@@ -7,16 +7,16 @@ from httpx2 import AsyncClient
 from pytest_mock import MockerFixture
 from sqlalchemy import select
 
-from polar.auth.models import AuthSubject
-from polar.auth.scope import UNCLAIMED_AGENT_SCOPES, Scope
-from polar.auth.service import USER_SESSION_TOKEN_PREFIX
-from polar.config import settings
-from polar.kit.crypto import generate_token_hash_pair, get_token_hash
-from polar.kit.db.postgres import Session
-from polar.kit.encryption import EncryptedString
-from polar.kit.hash_secrets import HashSecrets
-from polar.kit.utils import utc_now
-from polar.models import (
+from repalis.auth.models import AuthSubject
+from repalis.auth.scope import UNCLAIMED_AGENT_SCOPES, Scope
+from repalis.auth.service import USER_SESSION_TOKEN_PREFIX
+from repalis.config import settings
+from repalis.kit.crypto import generate_token_hash_pair, get_token_hash
+from repalis.kit.db.postgres import Session
+from repalis.kit.encryption import EncryptedString
+from repalis.kit.hash_secrets import HashSecrets
+from repalis.kit.utils import utc_now
+from repalis.models import (
     Agent,
     OAuth2AuthorizationCode,
     OAuth2Client,
@@ -28,10 +28,10 @@ from polar.models import (
     UserOrganization,
     UserSession,
 )
-from polar.models.user_organization import OrganizationRole
-from polar.models.user_session_organization import UserSessionOrganization
-from polar.oauth2.service.oauth2_grant import oauth2_grant as oauth2_grant_service
-from polar.oauth2.sub_type import SubType
+from repalis.models.user_organization import OrganizationRole
+from repalis.models.user_session_organization import UserSessionOrganization
+from repalis.oauth2.service.oauth2_grant import oauth2_grant as oauth2_grant_service
+from repalis.oauth2.sub_type import SubType
 from tests.fixtures.auth import AuthSubjectFixture
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_agent
@@ -2123,7 +2123,7 @@ class TestOAuth2Token:
         in for a session that never touches the dashboard."""
         secrets = {"k1": "retired", "k2": "current"}
         mocker.patch(
-            "polar.kit.crypto.get_hash_secrets",
+            "repalis.kit.crypto.get_hash_secrets",
             return_value=HashSecrets(secrets, "k1", "legacy"),
         )
         # The fixture hashed the client secret before the patch.
@@ -2140,7 +2140,7 @@ class TestOAuth2Token:
         await save_fixture(user_session)
 
         mocker.patch(
-            "polar.kit.crypto.get_hash_secrets",
+            "repalis.kit.crypto.get_hash_secrets",
             return_value=HashSecrets(secrets, "k2", "legacy"),
         )
         data = {

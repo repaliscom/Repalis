@@ -34,15 +34,15 @@ import typer
 from sqlalchemy import select, update
 from sqlalchemy.exc import IntegrityError
 
-from polar.kit.db.postgres import create_async_sessionmaker
-from polar.models import UserOrganization
-from polar.models.user_organization import OrganizationRole
-from polar.organization.repository import OrganizationRepository
-from polar.organization.service import CannotChangeOwnerError
-from polar.organization.service import organization as organization_service
-from polar.postgres import create_async_engine
-from polar.user.repository import UserRepository
-from polar.user_organization.repository import UserOrganizationRepository
+from repalis.kit.db.postgres import create_async_sessionmaker
+from repalis.models import UserOrganization
+from repalis.models.user_organization import OrganizationRole
+from repalis.organization.repository import OrganizationRepository
+from repalis.organization.service import CannotChangeOwnerError
+from repalis.organization.service import organization as organization_service
+from repalis.postgres import create_async_engine
+from repalis.user.repository import UserRepository
+from repalis.user_organization.repository import UserOrganizationRepository
 
 cli = typer.Typer()
 

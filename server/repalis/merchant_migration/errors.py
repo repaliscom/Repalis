@@ -1,4 +1,4 @@
-from polar.exceptions import PolarError
+from repalis.exceptions import PolarError
 
 
 class MerchantMigrationError(PolarError):

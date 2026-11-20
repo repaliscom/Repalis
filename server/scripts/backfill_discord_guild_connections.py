@@ -14,10 +14,10 @@ import typer
 from sqlalchemy import Select, func, select
 from sqlalchemy.dialects.postgresql import insert
 
-from polar.config import settings
-from polar.kit.db.postgres import create_async_engine, create_async_sessionmaker
-from polar.models import Benefit, DiscordGuildConnection
-from polar.models.benefit import BenefitType
+from repalis.config import settings
+from repalis.kit.db.postgres import create_async_engine, create_async_sessionmaker
+from repalis.models import Benefit, DiscordGuildConnection
+from repalis.models.benefit import BenefitType
 
 from .helper import configure_script_logging, typer_async
 

@@ -2,7 +2,7 @@ from typing import Any
 
 import pytest
 
-from polar.models import (
+from repalis.models import (
     MerchantMigration,
     MerchantMigrationSourcePlatform,
     MerchantMigrationStep,

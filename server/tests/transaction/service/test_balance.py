@@ -2,11 +2,11 @@ import pytest
 from pytest_mock import MockerFixture
 from sqlalchemy.orm import joinedload
 
-from polar.models import Account, Transaction, User
-from polar.models.transaction import TransactionType
-from polar.postgres import AsyncSession
-from polar.transaction.service.balance import PaymentTransactionForChargeDoesNotExist
-from polar.transaction.service.balance import (
+from repalis.models import Account, Transaction, User
+from repalis.models.transaction import TransactionType
+from repalis.postgres import AsyncSession
+from repalis.transaction.service.balance import PaymentTransactionForChargeDoesNotExist
+from repalis.transaction.service.balance import (
     balance_transaction as balance_transaction_service,
 )
 from tests.fixtures.database import SaveFixture
@@ -190,7 +190,7 @@ class TestCreateReversalBalance:
         user: User,
         account: Account,
     ) -> None:
-        enqueue_job_mock = mocker.patch("polar.transaction.service.balance.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.transaction.service.balance.enqueue_job")
 
         balance_transactions = await create_balance_transactions(
             save_fixture, destination_account=account, amount=1000

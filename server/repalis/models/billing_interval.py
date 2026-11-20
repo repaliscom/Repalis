@@ -13,12 +13,12 @@ from sqlalchemy import (
 )
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from polar.kit.db.models import IDModel
-from polar.kit.extensions.sqlalchemy.types import StringEnum
-from polar.kit.utils import utc_now
+from repalis.kit.db.models import IDModel
+from repalis.kit.extensions.sqlalchemy.types import StringEnum
+from repalis.kit.utils import utc_now
 
 if TYPE_CHECKING:
-    from polar.models import Customer, Meter, Organization, ProductPrice, Subscription
+    from repalis.models import Customer, Meter, Organization, ProductPrice, Subscription
 
 
 class UsagePolicy(StrEnum):
