@@ -95,7 +95,7 @@ describe('PolarEmbedCheckout', () => {
 
     it('creates an iframe with the correct src', async () => {
       const promise = PolarEmbedCheckout.create(
-        'https://buy.polar.sh/polar_cl_123',
+        'https://buy.repalis.com/polar_cl_123',
       )
 
       // Simulate the loaded event from the iframe
@@ -122,7 +122,7 @@ describe('PolarEmbedCheckout', () => {
 
     it('sets theme query parameter when provided', async () => {
       const promise = PolarEmbedCheckout.create(
-        'https://buy.polar.sh/polar_cl_123',
+        'https://buy.repalis.com/polar_cl_123',
         { theme: 'dark' },
       )
 
@@ -145,7 +145,7 @@ describe('PolarEmbedCheckout', () => {
 
     it('matches the iframe color-scheme to a theme already on the link', async () => {
       const promise = PolarEmbedCheckout.create(
-        'https://buy.polar.sh/polar_cl_123?theme=dark',
+        'https://buy.repalis.com/polar_cl_123?theme=dark',
       )
 
       window.dispatchEvent(
@@ -167,7 +167,7 @@ describe('PolarEmbedCheckout', () => {
 
     it('lets the theme option override a theme on the link', async () => {
       const promise = PolarEmbedCheckout.create(
-        'https://buy.polar.sh/polar_cl_123?theme=dark',
+        'https://buy.repalis.com/polar_cl_123?theme=dark',
         { theme: 'light' },
       )
 
@@ -190,7 +190,7 @@ describe('PolarEmbedCheckout', () => {
 
     it('adds polar-no-scroll class to body', async () => {
       const promise = PolarEmbedCheckout.create(
-        'https://buy.polar.sh/polar_cl_123',
+        'https://buy.repalis.com/polar_cl_123',
       )
 
       expect(document.body.classList.contains('polar-no-scroll')).toBe(true)
@@ -210,7 +210,7 @@ describe('PolarEmbedCheckout', () => {
       const onLoaded = vi.fn()
 
       const promise = PolarEmbedCheckout.create(
-        'https://buy.polar.sh/polar_cl_123',
+        'https://buy.repalis.com/polar_cl_123',
         { onLoaded },
       )
 
@@ -239,7 +239,7 @@ describe('PolarEmbedCheckout', () => {
 
     it('removes the iframe from the DOM', async () => {
       const promise = PolarEmbedCheckout.create(
-        'https://buy.polar.sh/polar_cl_123',
+        'https://buy.repalis.com/polar_cl_123',
       )
 
       window.dispatchEvent(
@@ -260,7 +260,7 @@ describe('PolarEmbedCheckout', () => {
 
     it('removes polar-no-scroll class from body', async () => {
       const promise = PolarEmbedCheckout.create(
-        'https://buy.polar.sh/polar_cl_123',
+        'https://buy.repalis.com/polar_cl_123',
       )
 
       window.dispatchEvent(
@@ -287,7 +287,7 @@ describe('PolarEmbedCheckout', () => {
 
     it('dispatches close event and removes iframe', async () => {
       const promise = PolarEmbedCheckout.create(
-        'https://buy.polar.sh/polar_cl_123',
+        'https://buy.repalis.com/polar_cl_123',
       )
 
       window.dispatchEvent(
@@ -314,7 +314,7 @@ describe('PolarEmbedCheckout', () => {
 
     it('prevents close after confirmed event', async () => {
       const promise = PolarEmbedCheckout.create(
-        'https://buy.polar.sh/polar_cl_123',
+        'https://buy.repalis.com/polar_cl_123',
       )
 
       window.dispatchEvent(
@@ -352,7 +352,7 @@ describe('PolarEmbedCheckout', () => {
       const closeListener = vi.fn()
 
       const promise = PolarEmbedCheckout.create(
-        'https://buy.polar.sh/polar_cl_123',
+        'https://buy.repalis.com/polar_cl_123',
       )
 
       window.dispatchEvent(
@@ -382,7 +382,7 @@ describe('PolarEmbedCheckout', () => {
       const closeListener = vi.fn()
 
       const promise = PolarEmbedCheckout.create(
-        'https://buy.polar.sh/polar_cl_123',
+        'https://buy.repalis.com/polar_cl_123',
       )
 
       window.dispatchEvent(
@@ -409,7 +409,7 @@ describe('PolarEmbedCheckout', () => {
 
     it('skips the default loaded action when preventDefault is called', async () => {
       const promise = PolarEmbedCheckout.create(
-        'https://buy.polar.sh/polar_cl_123',
+        'https://buy.repalis.com/polar_cl_123',
         { onLoaded: (event) => event.preventDefault() },
       )
 
@@ -431,7 +431,7 @@ describe('PolarEmbedCheckout', () => {
 
     it('skips the default close action when preventDefault is called', async () => {
       const promise = PolarEmbedCheckout.create(
-        'https://buy.polar.sh/polar_cl_123',
+        'https://buy.repalis.com/polar_cl_123',
       )
 
       window.dispatchEvent(
@@ -458,7 +458,7 @@ describe('PolarEmbedCheckout', () => {
 
     it('skips the default confirmed action when preventDefault is called', async () => {
       const promise = PolarEmbedCheckout.create(
-        'https://buy.polar.sh/polar_cl_123',
+        'https://buy.repalis.com/polar_cl_123',
       )
 
       window.dispatchEvent(
@@ -492,7 +492,7 @@ describe('PolarEmbedCheckout', () => {
 
     it('skips the default success action when preventDefault is called', async () => {
       const promise = PolarEmbedCheckout.create(
-        'https://buy.polar.sh/polar_cl_123',
+        'https://buy.repalis.com/polar_cl_123',
       )
 
       window.dispatchEvent(
@@ -542,7 +542,7 @@ describe('PolarEmbedCheckout', () => {
 
     it('re-enables closing after success event', async () => {
       const promise = PolarEmbedCheckout.create(
-        'https://buy.polar.sh/polar_cl_123',
+        'https://buy.repalis.com/polar_cl_123',
       )
 
       window.dispatchEvent(
@@ -601,7 +601,7 @@ describe('PolarEmbedCheckout', () => {
       const listener = vi.fn()
 
       const promise = PolarEmbedCheckout.create(
-        'https://buy.polar.sh/polar_cl_123',
+        'https://buy.repalis.com/polar_cl_123',
       )
 
       window.dispatchEvent(
@@ -630,7 +630,7 @@ describe('PolarEmbedCheckout', () => {
       const listener = vi.fn()
 
       const promise = PolarEmbedCheckout.create(
-        'https://buy.polar.sh/polar_cl_123',
+        'https://buy.repalis.com/polar_cl_123',
       )
 
       window.dispatchEvent(
@@ -670,7 +670,7 @@ describe('PolarEmbedCheckout', () => {
 
     it('attaches click handlers to elements with data-polar-checkout', () => {
       const link = document.createElement('a')
-      link.href = 'https://buy.polar.sh/polar_cl_123'
+      link.href = 'https://buy.repalis.com/polar_cl_123'
       link.setAttribute('data-polar-checkout', '')
       document.body.appendChild(link)
 

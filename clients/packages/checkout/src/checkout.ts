@@ -211,7 +211,7 @@ class EmbedCheckout {
    *
    * @example
    * ```html
-   * <a href="https://buy.polar.sh/polar_cl_123" data-polar-checkout data-polar-checkout-theme="dark">Checkout</a>
+   * <a href="https://buy.repalis.com/polar_cl_123" data-polar-checkout data-polar-checkout-theme="dark">Checkout</a>
    * ```
    */
   public static init(): void {

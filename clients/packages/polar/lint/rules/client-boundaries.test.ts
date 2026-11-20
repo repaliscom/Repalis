@@ -28,7 +28,7 @@ new RuleTester().run('client-boundaries', rule, {
     {
       name: 'HTTP requests outside client',
       filename: 'src/internal/api/events.ts',
-      code: `fetch('https://api.polar.sh/v1/events')`,
+      code: `fetch('https://api.repalis.com/v1/events')`,
     },
     {
       name: 'tests are exempt',
@@ -46,7 +46,7 @@ new RuleTester().run('client-boundaries', rule, {
     {
       name: 'making an HTTP request',
       filename: 'src/client/customer.ts',
-      code: `fetch('https://api.polar.sh/v1/events')`,
+      code: `fetch('https://api.repalis.com/v1/events')`,
       errors: [{ messageId: 'fetch' }],
     },
     {
