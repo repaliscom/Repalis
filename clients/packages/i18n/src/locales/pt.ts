@@ -3,18 +3,18 @@ export default {
     footer: {
       poweredBy: 'Desenvolvido por',
       merchantOfRecord:
-        'Este pedido é processado pela Polar, nossa parceira de vendas online, responsável pela cobrança, suporte ao pedido e devoluções.',
+        'Este pedido é processado pela Repalis, nossa parceira de vendas online, responsável pela cobrança, suporte ao pedido e devoluções.',
       mandateSubscriptionTrial:
-        'Ao clicar em "{buttonLabel}", você autoriza a Polar Software, Inc., nossa revendedora online e comerciante responsável, a cobrar o valor mostrado acima no seu método de pagamento selecionado no final do seu período de teste e em cada data de cobrança subsequente até que você cancele, e concorda com os {buyerTermsLink}. Você pode cancelar a qualquer momento antes do final do seu teste para evitar a cobrança.',
+        'Ao clicar em "{buttonLabel}", você autoriza a Repalis Software, Inc., nossa revendedora online e comerciante responsável, a cobrar o valor mostrado acima no seu método de pagamento selecionado no final do seu período de teste e em cada data de cobrança subsequente até que você cancele, e concorda com os {buyerTermsLink}. Você pode cancelar a qualquer momento antes do final do seu teste para evitar a cobrança.',
       mandateSubscription:
-        'Ao clicar em "{buttonLabel}", você autoriza a Polar Software, Inc., nossa revendedora online e comerciante responsável, a cobrar imediatamente o valor mostrado acima no seu método de pagamento selecionado e a cobrar o mesmo valor em cada data de cobrança subsequente até que você cancele, e concorda com os {buyerTermsLink}.',
+        'Ao clicar em "{buttonLabel}", você autoriza a Repalis Software, Inc., nossa revendedora online e comerciante responsável, a cobrar imediatamente o valor mostrado acima no seu método de pagamento selecionado e a cobrar o mesmo valor em cada data de cobrança subsequente até que você cancele, e concorda com os {buyerTermsLink}.',
       buyerTermsLink: 'Termos de Compra',
       mandateOneTime:
-        'Ao clicar em "{buttonLabel}", você autoriza a Polar Software, Inc., nossa revendedora online e vendedora oficial, a cobrar o valor mostrado acima na sua forma de pagamento selecionada e concorda com os {buyerTermsLink}. Esta é uma cobrança única.',
+        'Ao clicar em "{buttonLabel}", você autoriza a Repalis Software, Inc., nossa revendedora online e vendedora oficial, a cobrar o valor mostrado acima na sua forma de pagamento selecionada e concorda com os {buyerTermsLink}. Esta é uma cobrança única.',
       mandateSubscriptionTrialDiscounted:
-        'Ao clicar em "{buttonLabel}", você autoriza a Polar Software, Inc., nossa revendedora online e comerciante responsável, a cobrar do método de pagamento selecionado o valor com desconto exibido acima ao final do seu período de teste, e o preço regular em cada data de cobrança após o término do desconto, até que você cancele, e concorda com os {buyerTermsLink}. Você pode cancelar a qualquer momento antes do fim do período de teste para evitar a cobrança.',
+        'Ao clicar em "{buttonLabel}", você autoriza a Repalis Software, Inc., nossa revendedora online e comerciante responsável, a cobrar do método de pagamento selecionado o valor com desconto exibido acima ao final do seu período de teste, e o preço regular em cada data de cobrança após o término do desconto, até que você cancele, e concorda com os {buyerTermsLink}. Você pode cancelar a qualquer momento antes do fim do período de teste para evitar a cobrança.',
       mandateSubscriptionDiscounted:
-        'Ao clicar em "{buttonLabel}", você autoriza a Polar Software, Inc., nossa revendedora online e comerciante responsável, a cobrar imediatamente do método de pagamento selecionado o valor com desconto exibido acima, e o preço regular em cada data de cobrança após o término do desconto, até que você cancele, e concorda com os {buyerTermsLink}.',
+        'Ao clicar em "{buttonLabel}", você autoriza a Repalis Software, Inc., nossa revendedora online e comerciante responsável, a cobrar imediatamente do método de pagamento selecionado o valor com desconto exibido acima, e o preço regular em cada data de cobrança após o término do desconto, até que você cancele, e concorda com os {buyerTermsLink}.',
     },
     form: {
       email: 'E-mail',

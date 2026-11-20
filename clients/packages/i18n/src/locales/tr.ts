@@ -3,18 +3,18 @@ export default {
     footer: {
       poweredBy: 'Altyapı:',
       merchantOfRecord:
-        'Bu sipariş, siparişle ilgili soruları ve iadeleri de yöneten çevrimiçi satıcımız ve Kayıtlı Satıcımız (Merchant of Record) Polar tarafından işlenmektedir.',
+        'Bu sipariş, siparişle ilgili soruları ve iadeleri de yöneten çevrimiçi satıcımız ve Kayıtlı Satıcımız (Merchant of Record) Repalis tarafından işlenmektedir.',
       mandateSubscriptionTrial:
-        '"{buttonLabel}" düğmesine tıklayarak, çevrimiçi satıcımız ve kayıtlı satıcı olarak Polar Software, Inc.\'in, deneme sürenizin sonunda ve sonraki her fatura tarihinde, siz iptal edene kadar seçtiğiniz ödeme yönteminden yukarıda gösterilen tutarı tahsil etmesine yetki vermiş ve {buyerTermsLink} koşullarını kabul etmiş olursunuz. Tahsilat yapılmaması için deneme süreniz sona ermeden istediğiniz zaman iptal edebilirsiniz.',
+        '"{buttonLabel}" düğmesine tıklayarak, çevrimiçi satıcımız ve kayıtlı satıcı olarak Repalis Software, Inc.\'in, deneme sürenizin sonunda ve sonraki her fatura tarihinde, siz iptal edene kadar seçtiğiniz ödeme yönteminden yukarıda gösterilen tutarı tahsil etmesine yetki vermiş ve {buyerTermsLink} koşullarını kabul etmiş olursunuz. Tahsilat yapılmaması için deneme süreniz sona ermeden istediğiniz zaman iptal edebilirsiniz.',
       mandateSubscription:
-        '"{buttonLabel}" düğmesine tıklayarak, çevrimiçi satıcımız ve kayıtlı satıcı olarak Polar Software, Inc.\'in, seçtiğiniz ödeme yönteminden yukarıda gösterilen tutarı derhal tahsil etmesine ve siz iptal edene kadar sonraki her fatura tarihinde aynı tutarı tahsil etmesine yetki vermiş ve {buyerTermsLink} koşullarını kabul etmiş olursunuz.',
+        '"{buttonLabel}" düğmesine tıklayarak, çevrimiçi satıcımız ve kayıtlı satıcı olarak Repalis Software, Inc.\'in, seçtiğiniz ödeme yönteminden yukarıda gösterilen tutarı derhal tahsil etmesine ve siz iptal edene kadar sonraki her fatura tarihinde aynı tutarı tahsil etmesine yetki vermiş ve {buyerTermsLink} koşullarını kabul etmiş olursunuz.',
       mandateOneTime:
-        '"{buttonLabel}" düğmesine tıklayarak, çevrimiçi satıcımız ve kayıtlı satıcı olarak Polar Software, Inc.\'in, seçtiğiniz ödeme yönteminden yukarıda gösterilen tutarı tahsil etmesine yetki vermiş ve {buyerTermsLink} koşullarını kabul etmiş olursunuz. Bu tek seferlik bir tahsilattır.',
+        '"{buttonLabel}" düğmesine tıklayarak, çevrimiçi satıcımız ve kayıtlı satıcı olarak Repalis Software, Inc.\'in, seçtiğiniz ödeme yönteminden yukarıda gösterilen tutarı tahsil etmesine yetki vermiş ve {buyerTermsLink} koşullarını kabul etmiş olursunuz. Bu tek seferlik bir tahsilattır.',
       buyerTermsLink: 'Alıcı Koşulları',
       mandateSubscriptionTrialDiscounted:
-        '"{buttonLabel}" düğmesine tıklayarak, Polar Software, Inc.\'i, çevrimiçi yeniden satıcımız ve kayıtlı satıcı olarak, deneme sürenizin sonunda yukarıda gösterilen indirimli tutarı seçtiğiniz ödeme yönteminden tahsil etmeye; indirim süreniz sona erdikten sonra iptal edene kadar her fatura tarihinde normal fiyatı tahsil etmeye; ve {buyerTermsLink} koşullarını kabul etmiş olursunuz. Ücretlendirilmemek için deneme süreniz bitmeden istediğiniz zaman iptal edebilirsiniz.',
+        '"{buttonLabel}" düğmesine tıklayarak, Repalis Software, Inc.\'i, çevrimiçi yeniden satıcımız ve kayıtlı satıcı olarak, deneme sürenizin sonunda yukarıda gösterilen indirimli tutarı seçtiğiniz ödeme yönteminden tahsil etmeye; indirim süreniz sona erdikten sonra iptal edene kadar her fatura tarihinde normal fiyatı tahsil etmeye; ve {buyerTermsLink} koşullarını kabul etmiş olursunuz. Ücretlendirilmemek için deneme süreniz bitmeden istediğiniz zaman iptal edebilirsiniz.',
       mandateSubscriptionDiscounted:
-        '"{buttonLabel}" düğmesine tıklayarak, Polar Software, Inc.\'i, çevrimiçi yeniden satıcımız ve kayıtlı satıcı olarak, seçtiğiniz ödeme yönteminden yukarıda gösterilen indirimli tutarı derhal tahsil etmeye; indirim süreniz sona erdikten sonra iptal edene kadar her fatura tarihinde normal fiyatı tahsil etmeye; ve {buyerTermsLink} koşullarını kabul etmiş olursunuz.',
+        '"{buttonLabel}" düğmesine tıklayarak, Repalis Software, Inc.\'i, çevrimiçi yeniden satıcımız ve kayıtlı satıcı olarak, seçtiğiniz ödeme yönteminden yukarıda gösterilen indirimli tutarı derhal tahsil etmeye; indirim süreniz sona erdikten sonra iptal edene kadar her fatura tarihinde normal fiyatı tahsil etmeye; ve {buyerTermsLink} koşullarını kabul etmiş olursunuz.',
     },
     form: {
       email: 'E-posta',

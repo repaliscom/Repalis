@@ -37,7 +37,7 @@ that writes takes `AsyncSession`.
 
 ## References
 
-- `server/polar/postgres.py` (request middleware, `get_db_session`),
-  `server/polar/worker/_sqlalchemy.py` (task session).
-- `server/polar/kit/db/postgres.py` (`AsyncReadSession` / `AsyncSession`).
+- `server/repalis/postgres.py` (request middleware, `get_db_session`),
+  `server/repalis/worker/_sqlalchemy.py` (task session).
+- `server/repalis/kit/db/postgres.py` (`AsyncReadSession` / `AsyncSession`).
 - `server/AGENTS.md`, "CRITICAL: Never call `session.commit()`".

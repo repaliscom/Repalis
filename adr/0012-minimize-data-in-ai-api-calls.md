@@ -54,6 +54,6 @@ You **may** send:
 
 ## References
 
-- Gateway: `settings.get_pydantic_gateway_model()` in `polar/config.py`
-- Review prompts: `server/polar/organization_review/analyzer.py`
-- Compass tools: `server/polar/compass/assistant/`
+- Gateway: `settings.get_pydantic_gateway_model()` in `repalis/config.py`
+- Review prompts: `server/repalis/organization_review/analyzer.py`
+- Compass tools: `server/repalis/compass/assistant/`

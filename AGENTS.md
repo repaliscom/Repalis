@@ -1,4 +1,4 @@
-# Polar
+# Repalis
 
 Open source payment infrastructure platform for developers. Monorepo with a Python/FastAPI
 backend and a Next.js frontend.
@@ -24,7 +24,7 @@ per-area `AGENTS.md` linked from the Architecture and Conventions sections befor
 ```
 polar/
 ├── server/                 # Python/FastAPI backend — see server/AGENTS.md
-│   ├── polar/
+│   ├── repalis/
 │   │   ├── {module}/
 │   │   │   ├── endpoints.py     # FastAPI routes
 │   │   │   ├── service.py       # Business logic (singleton)
@@ -32,7 +32,7 @@ polar/
 │   │   │   ├── schemas.py       # Pydantic models
 │   │   │   └── tasks.py         # Dramatiq background jobs
 │   │   ├── models/             # SQLAlchemy models (global, not per-module)
-│   │   └── backoffice/         # Admin UI (HTMX + DaisyUI) — see server/polar/backoffice/AGENTS.md
+│   │   └── backoffice/         # Admin UI (HTMX + DaisyUI) — see server/repalis/backoffice/AGENTS.md
 │   └── migrations/             # Alembic database migrations
 ├── clients/                # Turborepo + pnpm frontend — see clients/AGENTS.md
 │   ├── adapters/               # Published framework and authentication adapters
@@ -121,7 +121,7 @@ uv run alembic upgrade head                               # apply migrations
 `uv run task test` adds coverage and runs serially. Use `task test_fast` (`-n auto`, no coverage)
 interactively, or scope to a path: `POLAR_ENV=testing uv run python -m pytest tests/<module>`.
 
-Set `POLAR_TEST_DATABASE_TEMPLATE=polar_test` (with `polar_test` created and migrated) and each
+Set `POLAR_TEST_DATABASE_TEMPLATE=repalis_test` (with `repalis_test` created and migrated) and each
 xdist worker clones that database instead of replaying the whole migration history into its own
 — see `tests/fixtures/database.py`. CI does this in `test_server.yaml`. **If you add a migration,
 re-run `POLAR_ENV=testing uv run task db_migrate` to refresh the template**, or workers will
@@ -148,7 +148,7 @@ Detailed, review-enforced patterns live next to the code — read the relevant f
 - **Frontend** → `clients/AGENTS.md`: Orbit `<Box />` design system (raw Tailwind is **deprecated**
   for layout/spacing/color/etc.), TanStack Query for data, Zustand for state, 250-line `max-lines` limit,
   React Compiler is on for web/orbit (no manual memoization there; react-hook-form via `useWatch`/`useFormState`).
-- **Backoffice** → `server/polar/backoffice/AGENTS.md`: HTMX + DaisyUI patterns.
+- **Backoffice** → `server/repalis/backoffice/AGENTS.md`: HTMX + DaisyUI patterns.
 
 **i18n:** add new translatable strings only to `clients/packages/i18n/src/locales/en.ts` — a CI
 job auto-translates the rest. Don't edit other locale files. (More in `clients/AGENTS.md`.)
@@ -176,12 +176,12 @@ directory. Invoke as `/name` in Cursor and Claude Code, or `$name` in Codex.
 
 ## Documentation
 
-- **Handbook**: [Engineering Handbook](https://linear.app/polarsh/document/engineering-handbook-438113df8882)
-- **Design docs**: [Design documents](https://linear.app/polarsh/document/design-documents-1b03e0f6e82b) — write one only when
+- **Handbook**: [Engineering Handbook](https://linear.app/repalis/document/engineering-handbook-438113df8882)
+- **Design docs**: [Design documents](https://linear.app/repalis/document/design-documents-1b03e0f6e82b) — write one only when
   Polar stores or processes new data, changes login or permissions, adds a
   new system, or adds a third-party tool that can see Polar data. Start from the
-  [design document template](https://linear.app/polarsh/document/design-document-template-02c5d83b61b2).
-- **API guidelines**: [REST API Guidelines](https://linear.app/polarsh/document/rest-api-guidelines-65841b9f4bcc)
+  [design document template](https://linear.app/repalis/document/design-document-template-02c5d83b61b2).
+- **API guidelines**: [REST API Guidelines](https://linear.app/repalis/document/rest-api-guidelines-65841b9f4bcc)
 - **User/developer docs**: `docs/` (Mintlify) — `cd docs && pnpm dev` to serve locally.
 
 Mintlify API reference is generated from committed `docs/openapi/{version}.openapi.json`. After
@@ -206,7 +206,7 @@ Add new operations and webhooks to the matching groups in `docs/docs.json`; that
 ## Driving the local UI
 
 **Login.** Email OTP codes are printed in the API pane / log (`LOGIN CODE: …`). Grab with
-`tmux capture-pane -t polar:services.0 -p | grep -a "LOGIN CODE" | tail -1`. `admin@repalis.com`
+`tmux capture-pane -t repalis:services.0 -p | grep -a "LOGIN CODE" | tail -1`. `admin@repalis.com`
 is the conventional test account.
 
 **Onboarding gotcha.** The org-creation wizard's "Launch Dashboard" button only submits once the

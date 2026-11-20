@@ -62,8 +62,8 @@ scope until they get one.
 - [Webhook events](https://repalis.com/docs/integrate/webhooks/events) — `subscription.updated` as
   catch-all; cancellation, renewal, and pause sequences always list `subscription.updated`
   alongside the specialized event.
-- `server/polar/subscription/service.py` — `_after_subscription_updated` fires
+- `server/repalis/subscription/service.py` — `_after_subscription_updated` fires
   `subscription.updated` before specialized handlers.
-- `server/polar/order/service.py` — `_on_order_updated` fires `order.updated` then `order.paid`.
+- `server/repalis/order/service.py` — `_on_order_updated` fires `order.updated` then `order.paid`.
 - [PR #14508](https://github.com/repaliscom/Repalis/pull/14508#discussion_r4016359549) — review
   that recorded this convention for `subscription.migrated`.

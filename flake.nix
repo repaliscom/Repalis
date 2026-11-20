@@ -1,5 +1,5 @@
 {
-  description = "Polar development shell";
+  description = "Repalis development shell";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";

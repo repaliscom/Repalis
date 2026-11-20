@@ -14,7 +14,7 @@ Secrets we persist — OAuth tokens, OAuth2 client secrets, Slack secrets — us
 `String`/`Text` columns, so any database-level leak (a dump, a replica, a backup, a
 SQL-injection read) exposed them directly. We now encrypt them, and this ADR fixes **how a
 secret column is modelled** so every new one is done the same way. The
-[secrets-encryption design](https://linear.app/polarsh/document/secrets-encryption-e53b64456f92) covers the threat
+[secrets-encryption design](https://linear.app/repalis/document/secrets-encryption-e53b64456f92) covers the threat
 model, KMS mechanics, key rotation, and migration; this ADR is the column-shape rule.
 
 ## Decision
@@ -22,7 +22,7 @@ model, KMS mechanics, key rotation, and migration; this ADR is the column-shape 
 A secret is never a plain-text column. Choose the column(s) from how the secret is read:
 
 - **Read by row id only → one `EncryptedString` column.** Map it with `EncryptedStringType`
-  (`polar/kit/encryption.py`). It stores the envelope ciphertext (data key wrapped by a KMS
+  (`repalis/kit/encryption.py`). It stores the envelope ciphertext (data key wrapped by a KMS
   master key in prod/sandbox, a static key in local/CI); loading a row does no crypto, and
   decryption is an explicit `await value.decrypt(id=...)`. The column's context (`{table,
   column}`) plus the row `id` bind each ciphertext to its row.
@@ -58,8 +58,8 @@ helpers (`encrypt_*`, `hash_secret`, `set_*`), never by hand-rolling crypto at t
 
 ## References
 
-- Design doc: [Encrypting secrets at rest](https://linear.app/polarsh/document/secrets-encryption-e53b64456f92).
-- Primitives: `polar/kit/encryption.py` (`EncryptedString`, `EncryptedStringType`),
-  `polar/kit/crypto.py` (`get_token_hash`).
+- Design doc: [Encrypting secrets at rest](https://linear.app/repalis/document/secrets-encryption-e53b64456f92).
+- Primitives: `repalis/kit/encryption.py` (`EncryptedString`, `EncryptedStringType`),
+  `repalis/kit/crypto.py` (`get_token_hash`).
 - Applications: `OAuthAccount`, `SlackApp` — `EncryptedString` columns; `OAuth2Client` —
   `*_hash` + `*_encrypted` hybrid.

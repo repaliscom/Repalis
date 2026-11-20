@@ -3,18 +3,18 @@ export default {
     footer: {
       poweredBy: 'Bereitgestellt von',
       merchantOfRecord:
-        'Diese Bestellung wird von unserem Online-Reseller & Merchant of Record, Polar, bearbeitet, der auch Anfragen und Rücksendungen im Zusammenhang mit der Bestellung abwickelt.',
+        'Diese Bestellung wird von unserem Online-Reseller & Merchant of Record, Repalis, bearbeitet, der auch Anfragen und Rücksendungen im Zusammenhang mit der Bestellung abwickelt.',
       mandateSubscriptionTrial:
-        'Mit Klick auf „{buttonLabel}“ autorisieren Sie Polar Software, Inc., unseren Online-Wiederverkäufer und Vertragspartner (Merchant of Record), Ihre gewählte Zahlungsmethode am Ende Ihres Testzeitraums und an jedem darauffolgenden Abrechnungsdatum bis zu Ihrer Kündigung mit dem oben angegebenen Betrag zu belasten, und stimmen den {buyerTermsLink} zu. Sie können jederzeit vor Ablauf des Testzeitraums kündigen, um eine Belastung zu vermeiden.',
+        'Mit Klick auf „{buttonLabel}“ autorisieren Sie Repalis Software, Inc., unseren Online-Wiederverkäufer und Vertragspartner (Merchant of Record), Ihre gewählte Zahlungsmethode am Ende Ihres Testzeitraums und an jedem darauffolgenden Abrechnungsdatum bis zu Ihrer Kündigung mit dem oben angegebenen Betrag zu belasten, und stimmen den {buyerTermsLink} zu. Sie können jederzeit vor Ablauf des Testzeitraums kündigen, um eine Belastung zu vermeiden.',
       mandateSubscription:
-        'Mit Klick auf „{buttonLabel}“ autorisieren Sie Polar Software, Inc., unseren Online-Wiederverkäufer und Vertragspartner (Merchant of Record), Ihre gewählte Zahlungsmethode sofort mit dem oben angegebenen Betrag zu belasten und denselben Betrag an jedem darauffolgenden Abrechnungsdatum bis zu Ihrer Kündigung abzubuchen, und stimmen den {buyerTermsLink} zu.',
+        'Mit Klick auf „{buttonLabel}“ autorisieren Sie Repalis Software, Inc., unseren Online-Wiederverkäufer und Vertragspartner (Merchant of Record), Ihre gewählte Zahlungsmethode sofort mit dem oben angegebenen Betrag zu belasten und denselben Betrag an jedem darauffolgenden Abrechnungsdatum bis zu Ihrer Kündigung abzubuchen, und stimmen den {buyerTermsLink} zu.',
       buyerTermsLink: 'Käuferbedingungen',
       mandateOneTime:
-        'Mit Klick auf "{buttonLabel}" autorisieren Sie Polar Software, Inc., unseren Online-Wiederverkäufer und Vertragspartner, Ihre ausgewählte Zahlungsmethode mit dem oben angegebenen Betrag zu belasten, und stimmen den {buyerTermsLink} zu. Dies ist eine einmalige Zahlung.',
+        'Mit Klick auf "{buttonLabel}" autorisieren Sie Repalis Software, Inc., unseren Online-Wiederverkäufer und Vertragspartner, Ihre ausgewählte Zahlungsmethode mit dem oben angegebenen Betrag zu belasten, und stimmen den {buyerTermsLink} zu. Dies ist eine einmalige Zahlung.',
       mandateSubscriptionTrialDiscounted:
-        'Indem Sie auf „{buttonLabel}“ klicken, ermächtigen Sie Polar Software, Inc., unseren Online-Wiederverkäufer und Händler der Aufzeichnung, den oben angegebenen rabattierten Betrag am Ende Ihres Testzeitraums von der von Ihnen ausgewählten Zahlungsmethode abzubuchen und nach Ablauf Ihres Rabatts bis zu Ihrer Kündigung an jedem Abrechnungsdatum den regulären Preis zu berechnen, und Sie stimmen den {buyerTermsLink} zu. Sie können jederzeit vor Ende Ihres Testzeitraums kündigen, um eine Belastung zu vermeiden.',
+        'Indem Sie auf „{buttonLabel}“ klicken, ermächtigen Sie Repalis Software, Inc., unseren Online-Wiederverkäufer und Händler der Aufzeichnung, den oben angegebenen rabattierten Betrag am Ende Ihres Testzeitraums von der von Ihnen ausgewählten Zahlungsmethode abzubuchen und nach Ablauf Ihres Rabatts bis zu Ihrer Kündigung an jedem Abrechnungsdatum den regulären Preis zu berechnen, und Sie stimmen den {buyerTermsLink} zu. Sie können jederzeit vor Ende Ihres Testzeitraums kündigen, um eine Belastung zu vermeiden.',
       mandateSubscriptionDiscounted:
-        'Indem Sie auf „{buttonLabel}“ klicken, ermächtigen Sie Polar Software, Inc., unseren Online-Wiederverkäufer und Händler der Aufzeichnung, den oben angegebenen rabattierten Betrag von Ihrer ausgewählten Zahlungsmethode sofort abzubuchen und nach Ablauf Ihres Rabatts bis zu Ihrer Kündigung an jedem Abrechnungsdatum den regulären Preis zu berechnen, und Sie stimmen den {buyerTermsLink} zu.',
+        'Indem Sie auf „{buttonLabel}“ klicken, ermächtigen Sie Repalis Software, Inc., unseren Online-Wiederverkäufer und Händler der Aufzeichnung, den oben angegebenen rabattierten Betrag von Ihrer ausgewählten Zahlungsmethode sofort abzubuchen und nach Ablauf Ihres Rabatts bis zu Ihrer Kündigung an jedem Abrechnungsdatum den regulären Preis zu berechnen, und Sie stimmen den {buyerTermsLink} zu.',
     },
     form: {
       email: 'E-Mail',

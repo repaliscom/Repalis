@@ -3,18 +3,18 @@ export default {
     footer: {
       poweredBy: 'Működteti',
       merchantOfRecord:
-        'Ezt a megrendelést online viszonteladónk és hivatalos kereskedőnk, a Polar dolgozza fel, aki a megrendeléssel kapcsolatos kérdéseket és visszaküldéseket is kezeli.',
+        'Ezt a megrendelést online viszonteladónk és hivatalos kereskedőnk, a Repalis dolgozza fel, aki a megrendeléssel kapcsolatos kérdéseket és visszaküldéseket is kezeli.',
       mandateSubscriptionTrial:
-        'A(z) „{buttonLabel}” gombra kattintva felhatalmazza a Polar Software, Inc.-t, online viszonteladónkat és bejegyzett kereskedőnket, hogy a kiválasztott fizetési módot a próbaidőszak végén, majd minden további számlázási napon megterhelje a fent látható összeggel, amíg le nem mondja az előfizetést, valamint elfogadja a(z) {buyerTermsLink} rendelkezéseit. A terhelés elkerülése érdekében a próbaidőszak vége előtt bármikor lemondhatja az előfizetést.',
+        'A(z) „{buttonLabel}” gombra kattintva felhatalmazza a Repalis Software, Inc.-t, online viszonteladónkat és bejegyzett kereskedőnket, hogy a kiválasztott fizetési módot a próbaidőszak végén, majd minden további számlázási napon megterhelje a fent látható összeggel, amíg le nem mondja az előfizetést, valamint elfogadja a(z) {buyerTermsLink} rendelkezéseit. A terhelés elkerülése érdekében a próbaidőszak vége előtt bármikor lemondhatja az előfizetést.',
       mandateSubscription:
-        'A(z) „{buttonLabel}” gombra kattintva felhatalmazza a Polar Software, Inc.-t, online viszonteladónkat és bejegyzett kereskedőnket, hogy a kiválasztott fizetési módot azonnal megterhelje a fent látható összeggel, majd ugyanezt az összeget minden további számlázási napon felszámítsa, amíg le nem mondja az előfizetést, valamint elfogadja a(z) {buyerTermsLink} rendelkezéseit.',
+        'A(z) „{buttonLabel}” gombra kattintva felhatalmazza a Repalis Software, Inc.-t, online viszonteladónkat és bejegyzett kereskedőnket, hogy a kiválasztott fizetési módot azonnal megterhelje a fent látható összeggel, majd ugyanezt az összeget minden további számlázási napon felszámítsa, amíg le nem mondja az előfizetést, valamint elfogadja a(z) {buyerTermsLink} rendelkezéseit.',
       buyerTermsLink: 'Vásárlási feltételek',
       mandateOneTime:
-        'A(z) „{buttonLabel}” gombra kattintva felhatalmazza a Polar Software, Inc.-t, online viszonteladónkat és hivatalos kereskedőnket, hogy a kiválasztott fizetési módot megterhelje a fent látható összeggel, valamint elfogadja a(z) {buyerTermsLink} rendelkezéseit. Ez egy egyszeri terhelés.',
+        'A(z) „{buttonLabel}” gombra kattintva felhatalmazza a Repalis Software, Inc.-t, online viszonteladónkat és hivatalos kereskedőnket, hogy a kiválasztott fizetési módot megterhelje a fent látható összeggel, valamint elfogadja a(z) {buyerTermsLink} rendelkezéseit. Ez egy egyszeri terhelés.',
       mandateSubscriptionTrialDiscounted:
-        'Azzal, hogy a "{buttonLabel}," gombra kattint, felhatalmazza a Polar Software, Inc.-et, mint online viszonteladót és a kereskedői jogok birtokosát, hogy a kiválasztott fizetési módról a próbaidőszak végén levonja a fent látható kedvezményes összeget, majd a kedvezmény lejárta után minden számlázási napon a rendszeres árat egészen a lemondásig, továbbá elfogadja a {buyerTermsLink} feltételeit. A terhelés elkerülése érdekében a próbaidőszak vége előtt bármikor lemondhat.',
+        'Azzal, hogy a "{buttonLabel}," gombra kattint, felhatalmazza a Repalis Software, Inc.-et, mint online viszonteladót és a kereskedői jogok birtokosát, hogy a kiválasztott fizetési módról a próbaidőszak végén levonja a fent látható kedvezményes összeget, majd a kedvezmény lejárta után minden számlázási napon a rendszeres árat egészen a lemondásig, továbbá elfogadja a {buyerTermsLink} feltételeit. A terhelés elkerülése érdekében a próbaidőszak vége előtt bármikor lemondhat.',
       mandateSubscriptionDiscounted:
-        'Azzal, hogy a "{buttonLabel}," gombra kattint, felhatalmazza a Polar Software, Inc.-et, mint online viszonteladót és a kereskedői jogok birtokosát, hogy a kiválasztott fizetési módról azonnal levonja a fent látható kedvezményes összeget, majd a kedvezmény lejárta után minden számlázási napon a rendszeres árat egészen a lemondásig, továbbá elfogadja a {buyerTermsLink} feltételeit.',
+        'Azzal, hogy a "{buttonLabel}," gombra kattint, felhatalmazza a Repalis Software, Inc.-et, mint online viszonteladót és a kereskedői jogok birtokosát, hogy a kiválasztott fizetési módról azonnal levonja a fent látható kedvezményes összeget, majd a kedvezmény lejárta után minden számlázási napon a rendszeres árat egészen a lemondásig, továbbá elfogadja a {buyerTermsLink} feltételeit.',
     },
     form: {
       email: 'E-mail cím',

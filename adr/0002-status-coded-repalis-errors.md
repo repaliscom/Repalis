@@ -37,7 +37,7 @@ re-raise a business error as a validation error.
 
 ## References
 
-- `server/polar/exceptions.py` (base + subclasses), `server/polar/exception_handlers.py`
+- `server/repalis/exceptions.py` (base + subclasses), `server/repalis/exception_handlers.py`
   (handlers, 422 separation).
-- Real usage: `server/polar/checkout/service.py`, `server/polar/checkout/endpoints.py`.
+- Real usage: `server/repalis/checkout/service.py`, `server/repalis/checkout/endpoints.py`.
 - `server/AGENTS.md`, "Errors to status-coded `PolarError`".

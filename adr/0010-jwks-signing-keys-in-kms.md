@@ -50,7 +50,7 @@ key and moving `CURRENT_JWK_KID`, never by asking KMS to rotate a key.
 
 - **Envelope-encrypt the key set and decrypt it at process start**: reuses ADR-0008 and needs
   no new KMS key, but the private key still ends up in process memory, and loading it at
-  import needs a synchronous unwrap added to `polar/kit/encryption.py`. Rejected: it protects
+  import needs a synchronous unwrap added to `repalis/kit/encryption.py`. Rejected: it protects
   the key at rest without ever removing it from the process.
 - **A table of keys, one row per key**: better audit trail, and the natural home for scheduled
   rotation since the retirement window becomes data rather than a runbook step. Puts the
@@ -66,4 +66,4 @@ key and moving `CURRENT_JWK_KID`, never by asking KMS to rotate a key.
 - [Rotating KMS keys](https://docs.aws.amazon.com/kms/latest/developerguide/rotate-keys.html)
   and [Key spec reference](https://docs.aws.amazon.com/kms/latest/developerguide/asymmetric-key-specs.html)
   — the key types automatic rotation excludes, and the signing algorithms RSA keys support.
-- `polar/kit/jwk.py`, `polar/oauth2/grants/authorization_code.py` (`IDTokenSigning`).
+- `repalis/kit/jwk.py`, `repalis/oauth2/grants/authorization_code.py` (`IDTokenSigning`).

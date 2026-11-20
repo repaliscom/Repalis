@@ -50,8 +50,8 @@ jobs:
             migration_heads:
               - 'server/migrations/versions/**'
               - 'server/migrations/env.py'
-              - 'server/polar/models/**'
-              - 'server/polar/kit/db/models/**'
+              - 'server/repalis/models/**'
+              - 'server/repalis/kit/db/models/**'
               - 'server/scripts/check_migrations.py'
               - 'server/tests/scripts/test_check_migrations.py'
               - '.github/workflows/test_server.yaml'
@@ -225,7 +225,7 @@ jobs:
             if [[ "$file" == server/migrations/* ]]; then
               continue
             fi
-            if [[ "$file" == server/polar/models/* ]]; then
+            if [[ "$file" == server/repalis/models/* ]]; then
               continue
             fi
             if [[ "$file" == server/scripts/* ]]; then
@@ -434,7 +434,7 @@ jobs:
     env:
       POLAR_ENV: testing
       POLAR_EMAIL_RENDERER_BINARY_PATH: ${{ github.workspace }}/server/emails/bin/react-email-pkg
-      POLAR_TEST_DATABASE_TEMPLATE: polar_test
+      POLAR_TEST_DATABASE_TEMPLATE: repalis_test
       POLAR_TEST_XDIST: "true"
       POLAR_TEST_TINYBIRD_REQUIRED: ${{ matrix.shard == 'tinybird' && 'true' || 'false' }}
 
@@ -442,9 +442,9 @@ jobs:
       postgres:
         image: postgres:18.6-bookworm
         env:
-          POSTGRES_USER: polar
-          POSTGRES_PASSWORD: polar
-          POSTGRES_DB: polar_test
+          POSTGRES_USER: repalis
+          POSTGRES_PASSWORD: repalis
+          POSTGRES_DB: repalis_test
           POSTGRES_PORT: 5432
         options: >-
           --health-cmd pg_isready
