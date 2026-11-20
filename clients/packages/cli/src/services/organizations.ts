@@ -8,7 +8,7 @@ import {
 } from '@/schemas/Auth'
 import { Auth } from '@/services/auth'
 import { CLIConfig } from '@/services/config'
-import { Polar } from '@/services/repalis'
+import { Repalis } from '@/services/repalis'
 
 export class Organizations extends Context.Service<
   Organizations,
@@ -32,7 +32,7 @@ const isUuid = (value: string) =>
 export const layer = Layer.effect(
   Organizations,
   Effect.gen(function* () {
-    const polar = yield* Polar
+    const polar = yield* Repalis
     const auth = yield* Auth
     const config = yield* CLIConfig
     const list = (environment: RepalisEnvironment) =>

@@ -26,7 +26,7 @@ describe('isInjectedScriptError', () => {
       false,
     ],
     ['Stripe.js', ['app:///clover/stripe.js'], false],
-    ['inline script in our page', ['app:///checkout/polar_c_abc'], false],
+    ['inline script in our page', ['app:///checkout/repalis_c_abc'], false],
     ['frame without a filename', [undefined], false],
     ['no frames', [], false],
   ])('%s → %s', (_, filenames, expected) => {

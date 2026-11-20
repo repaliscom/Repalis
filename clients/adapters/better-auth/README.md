@@ -29,7 +29,7 @@ REPALIS_ACCESS_TOKEN=...
 
 ### Configuring BetterAuth Server
 
-Create a Repalis core client with `createRepalisCore` and pass it to the `polar` plugin. The adapter uses standalone SDK functions to keep bundles small.
+Create a Repalis core client with `createRepalisCore` and pass it to the `repalis` plugin. The adapter uses standalone SDK functions to keep bundles small.
 
 If you previously passed a client created with `createRepalis`, switch that call to `createRepalisCore` with the same options.
 
@@ -43,7 +43,7 @@ The Repalis plugin comes with a handful additional plugins which adds functional
 ```typescript
 import { betterAuth } from 'better-auth'
 import { organization } from 'better-auth/plugins'
-import { polar, checkout, portal, usage, webhooks } from '@repalis/better-auth'
+import { repalis, checkout, portal, usage, webhooks } from '@repalis/better-auth'
 import { createRepalisCore } from '@repalis/sdk/2026-10'
 
 const repalisClient = createRepalisCore({
@@ -58,7 +58,7 @@ const auth = betterAuth({
   // ... Better Auth config
   plugins: [
     organization(),
-    polar({
+    repalis({
       client: repalisClient,
       createCustomerOnSignUp: true,
       // Experimental: do not enable this if your application already
@@ -124,7 +124,7 @@ export const authClient = createAuthClient({
 
 ```typescript
 import { betterAuth } from 'better-auth'
-import { polar, checkout, portal, usage, webhooks } from '@repalis/better-auth'
+import { repalis, checkout, portal, usage, webhooks } from '@repalis/better-auth'
 import { createRepalisCore } from '@repalis/sdk/2026-10'
 import { organization } from 'better-auth/plugins'
 
@@ -140,7 +140,7 @@ const auth = betterAuth({
   // ... Better Auth config
   plugins: [
     organization(),
-    polar({
+    repalis({
       client: repalisClient,
       createCustomerOnSignUp: true,
       getCustomerCreateParams: async ({ user }) => ({
@@ -205,7 +205,7 @@ Customer creation runs after Better Auth inserts the user, so the initial Repali
 > [!WARNING]
 > This integration is experimental. If your application already handles organization billing, keep using that implementation and do not enable `experimental_organizationSync`. This option synchronizes Better Auth organizations and members, but it does not migrate existing subscriptions, orders, benefits, or seats. Enabling it on an existing billing setup can leave Better Auth and Repalis inconsistent: the new Repalis team customer can have the correct roster while billing remains attached to personal customers. Team-customer APIs may then report no subscription and a new checkout can create duplicate billing.
 
-Experimental organization synchronization is opt-in and requires both Better Auth's `organization()` plugin and `experimental_organizationSync: { enabled: true }` on `polar()`. Enabling it without the Better Auth plugin fails during startup. Use it only when you understand and control the billing cutover for every existing organization.
+Experimental organization synchronization is opt-in and requires both Better Auth's `organization()` plugin and `experimental_organizationSync: { enabled: true }` on `repalis()`. Enabling it without the Better Auth plugin fails during startup. Use it only when you understand and control the billing cutover for every existing organization.
 
 Organizations created after synchronization is enabled are mirrored normally. Existing Better Auth organizations without a Repalis team customer remain on the metadata-based `referenceId` flow: lifecycle hooks skip them instead of failing or partially synchronizing their roster. An explicit `organizationId` checkout requires an existing team customer and is rejected for an unsynchronized organization, preventing Repalis from creating a regular customer with the organization ID.
 
@@ -232,7 +232,7 @@ Include the `webhooks()` plugin and configure Repalis to send `subscription.crea
 When seat management is enabled, every organization member receives every candidate recurring seat product by default. Use `selectSeatProductsForMember` to return a subset of the supplied product IDs, or `[]` for no seat:
 
 ```typescript
-polar({
+repalis({
   client,
   experimental_organizationSync: {
     enabled: true,
@@ -275,12 +275,12 @@ The adapter verifies the authenticated user's Better Auth membership before call
 To support checkouts in your app, simply pass the Checkout plugin to the use-property.
 
 ```typescript
-import { polar, checkout } from "@repalis/better-auth";
+import { repalis, checkout } from "@repalis/better-auth";
 
 const auth = betterAuth({
     // ... Better Auth config
     plugins: [
-        polar({
+        repalis({
             ...
             use: [
                 checkout({
@@ -362,13 +362,13 @@ embed.addEventListener('success', (event) => {
 
 ### Metadata-based organization billing with `referenceId`
 
-The previous `referenceId` setup remains supported when you do not enable Repalis organization synchronization. It also keeps working for existing unsynchronized organizations after synchronization is enabled. To use only the metadata-based setup, keep Better Auth's `organization()` plugin but omit the `experimental_organizationSync` option from `polar()`:
+The previous `referenceId` setup remains supported when you do not enable Repalis organization synchronization. It also keeps working for existing unsynchronized organizations after synchronization is enabled. To use only the metadata-based setup, keep Better Auth's `organization()` plugin but omit the `experimental_organizationSync` option from `repalis()`:
 
 ```typescript
 const auth = betterAuth({
   plugins: [
     organization(),
-    polar({
+    repalis({
       client: repalisClient,
       createCustomerOnSignUp: true,
       use: [
@@ -422,12 +422,12 @@ Do not send both `organizationId` and `reference_id` when listing subscriptions;
 A plugin which enables customer management of their purchases, orders and subscriptions.
 
 ```typescript
-import { polar, checkout, portal } from "@repalis/better-auth";
+import { repalis, checkout, portal } from "@repalis/better-auth";
 
 const auth = betterAuth({
     // ... Better Auth config
     plugins: [
-        polar({
+        repalis({
             ...
             use: [
                 checkout(...),
@@ -564,12 +564,12 @@ const { data: subscriptions } = await authClient.customer.subscriptions.list({
 A simple plugin for Usage Based Billing.
 
 ```typescript
-import { polar, checkout, portal, usage } from "@repalis/better-auth";
+import { repalis, checkout, portal, usage } from "@repalis/better-auth";
 
 const auth = betterAuth({
     // ... Better Auth config
     plugins: [
-        polar({
+        repalis({
             ...
             use: [
                 checkout(...),
@@ -629,12 +629,12 @@ const { data: customerMeters } = await authClient.usage.meters.list({
 The Webhooks plugin can be used to capture incoming events from your Repalis organization.
 
 ```typescript
-import { polar, webhooks } from "@repalis/better-auth";
+import { repalis, webhooks } from "@repalis/better-auth";
 
 const auth = betterAuth({
     // ... Better Auth config
     plugins: [
-        polar({
+        repalis({
             ...
             use: [
                 webhooks({
@@ -653,7 +653,7 @@ const auth = betterAuth({
 });
 ```
 
-Configure a Webhook endpoint in your Repalis Organization Settings page. The endpoint is served at `/polar/webhooks` under your Better Auth base path, which is `/api/auth/polar/webhooks` by default.
+Configure a Webhook endpoint in your Repalis Organization Settings page. The endpoint is served at `/repalis/webhooks` under your Better Auth base path, which is `/api/auth/repalis/webhooks` by default.
 
 Add the secret to your environment.
 

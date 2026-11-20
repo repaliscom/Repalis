@@ -1,10 +1,10 @@
 export default defineEventHandler((event) => {
   const {
-    private: { polarWebhookSecret },
+    private: { repalisWebhookSecret },
   } = useRuntimeConfig()
 
   const webhooksHandler = Webhooks({
-    webhookSecret: polarWebhookSecret,
+    webhookSecret: repalisWebhookSecret,
     onPayload: async () => {
       // Handle the payload
       // No need to return an acknowledge response

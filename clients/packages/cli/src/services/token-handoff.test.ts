@@ -73,19 +73,19 @@ test('omits scopes when none are requested', () => {
 
 test('decrypts a token encrypted by the browser', async () => {
   const { privateKey, spki } = keys()
-  const encrypted = await encryptLikeTheBrowser(spki, 'polar_oat_secret')
+  const encrypted = await encryptLikeTheBrowser(spki, 'repalis_oat_secret')
   const result = parseHandoff(
     callback({ encrypted_token: encrypted }),
     privateKey,
   )
   expect(result.outcome).toBe('success')
   if (result.outcome === 'success')
-    expect(Redacted.value(result.value)).toBe('polar_oat_secret')
+    expect(Redacted.value(result.value)).toBe('repalis_oat_secret')
 })
 
 test('rejects a token encrypted for another key', async () => {
   const { spki } = keys()
-  const encrypted = await encryptLikeTheBrowser(spki, 'polar_oat_secret')
+  const encrypted = await encryptLikeTheBrowser(spki, 'repalis_oat_secret')
   const result = parseHandoff(
     callback({ encrypted_token: encrypted }),
     keys().privateKey,

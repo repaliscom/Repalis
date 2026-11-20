@@ -14,7 +14,7 @@ const source = [
 
 describe('issues', () => {
   const config = {
-    file: 'polar.json',
+    file: 'repalis.json',
     source,
     input: JSON.parse(source) as unknown,
     generated: false,
@@ -58,7 +58,7 @@ describe('issues', () => {
 
   test('keeps a null the file actually contains, drops a null meaning no value', () => {
     const nulls = {
-      file: 'polar.json',
+      file: 'repalis.json',
       source: '{\n  "meters": [\n    { "name": null }\n  ]\n}',
       input: { meters: [{ name: null }] },
       generated: false,
@@ -110,7 +110,7 @@ describe('issues', () => {
 
   test('locates an issue in the language the config is written in', () => {
     const script = {
-      file: 'polar.config.ts',
+      file: 'repalis.config.ts',
       source:
         "export default defineConfig({\n  meters: ({ meter }) => ({\n    calls: meter('').count(),\n  }),\n})\n",
       input: { meters: [{ external_id: 'calls', name: '' }] },

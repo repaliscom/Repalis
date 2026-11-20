@@ -12,7 +12,7 @@ import { extractApiErrorMessage } from '@/utils/api/errors'
 import { schemas } from '@repalis/client'
 import { Check as CheckIcon } from '@repalis/orbit/icons'
 import { useCallback, useEffect, useRef } from 'react'
-import { loadPolarStripe } from '@/utils/stripe'
+import { loadRepalisStripe } from '@/utils/stripe'
 
 interface Props {
   organization: schemas['Organization']
@@ -23,7 +23,7 @@ export const AccountPageApproved = ({ organization }: Props) => {
   const identityVerificationStatus = currentUser?.identity_verification_status
   const pollingRef = useRef<ReturnType<typeof setInterval> | null>(null)
 
-  const stripePromise = loadPolarStripe()
+  const stripePromise = loadRepalisStripe()
   const createIdentityVerification = useCreateIdentityVerification()
 
   const startIdentityVerification = useCallback(async () => {

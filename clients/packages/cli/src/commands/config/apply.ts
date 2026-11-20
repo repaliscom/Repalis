@@ -110,10 +110,10 @@ export const apply = Command.make('apply', { file, org, confirmed, name }).pipe(
     {
       command: 'polar config apply',
       description:
-        'Show what applying polar.config.ts would change, then save it to the draft after confirmation',
+        'Show what applying repalis.config.ts would change, then save it to the draft after confirmation',
     },
     {
-      command: 'polar config apply billing/polar.json',
+      command: 'polar config apply billing/repalis.json',
       description: 'Apply a specific file',
     },
     {

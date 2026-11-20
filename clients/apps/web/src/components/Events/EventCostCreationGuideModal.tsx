@@ -27,7 +27,7 @@ const polar = new Polar({
   accessToken: process.env["REPALIS_ACCESS_TOKEN"] ?? "",
 });
 
-const result = await polar.events.ingest({
+const result = await repalis.events.ingest({
   events: [
     {
       name: "<value>",

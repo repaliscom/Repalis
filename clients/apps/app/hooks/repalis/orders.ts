@@ -9,7 +9,7 @@ export const useOrder = (id: string) => {
     queryKey: ['orders', { id }],
     queryFn: () =>
       unwrap(
-        polar.GET('/v1/orders/{id}', {
+        repalis.GET('/v1/orders/{id}', {
           params: {
             path: { id },
           },
@@ -31,7 +31,7 @@ export const useOrders = (
     queryKey: ['orders', { organizationId, ...(parameters || {}) }],
     queryFn: ({ pageParam = 1 }) =>
       unwrap(
-        polar.GET('/v1/orders/', {
+        repalis.GET('/v1/orders/', {
           params: {
             query: {
               organization_id: organizationId,

@@ -4,7 +4,7 @@ import { rpc } from './client'
 
 const fetchMock = vi.fn<typeof fetch>()
 
-const EVENTS_URL = 'https://api.polar.test/v1/mcp/events/'
+const EVENTS_URL = 'https://api.repalis.test/v1/mcp/events/'
 
 const urlOf = (input: Parameters<typeof fetch>[0]) =>
   new URL(input instanceof Request ? input.url : input).href
@@ -101,7 +101,7 @@ test('events/list returns the backend catalog as webhook events', async () => {
   const [{ url, init }] = eventsCalls()
   expect(url).toBe(EVENTS_URL)
   const headers = new Headers(init?.headers)
-  expect(headers.get('Authorization')).toBe('Bearer polar_oat_test')
+  expect(headers.get('Authorization')).toBe('Bearer repalis_oat_test')
   expect(headers.get('User-Agent')).toBe('repalis-mcp')
   expect(headers.get('Repalis-Version')).toBe(spec.apiVersion)
 })

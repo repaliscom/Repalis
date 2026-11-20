@@ -44,7 +44,7 @@ export const SettingsConfig = Schema.Struct({
 
 export type SettingsConfig = typeof SettingsConfig.Type
 
-export const PolarConfig = Schema.Struct({
+export const RepalisConfig = Schema.Struct({
   settings: Schema.optionalKey(SettingsConfig),
   meters: Schema.Array(MeterConfig),
   benefits: Schema.optionalKey(Schema.Array(BenefitConfig)),
@@ -52,9 +52,9 @@ export const PolarConfig = Schema.Struct({
   webhooks: Schema.optionalKey(Schema.Array(WebhookEndpointConfig)),
 })
 
-export type PolarConfig = typeof PolarConfig.Type
+export type RepalisConfig = typeof RepalisConfig.Type
 
-export const validateConfig = Schema.decodeUnknownEffect(PolarConfig, {
+export const validateConfig = Schema.decodeUnknownEffect(RepalisConfig, {
   errors: 'all',
   onExcessProperty: 'error',
 })
@@ -306,7 +306,7 @@ export interface Config<
   Events extends EventDefinitions | undefined = undefined,
   Webhooks extends WebhookEntries = Record<never, never>,
 > {
-  readonly toJSON: () => PolarConfig
+  readonly toJSON: () => RepalisConfig
   readonly [runtimeConfig]: () => ConnectedConfig<
     Meters,
     Benefits,
@@ -443,7 +443,7 @@ export const defineConfig = <
       `Webhooks with handlers each get their own signing secret, but more than one reads ${sharedSecret}. Give each a different .secret().`,
     )
   }
-  const config = Schema.decodeUnknownSync(PolarConfig, {
+  const config = Schema.decodeUnknownSync(RepalisConfig, {
     errors: 'all',
     onExcessProperty: 'error',
   })({

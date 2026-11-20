@@ -1,4 +1,4 @@
-export const CLIENT_ID = 'polar_ci_yZLBGwoWZVsOdfN5CODRwVSTlJfwJhXqwg65e2CuNMZ'
+export const CLIENT_ID = 'repalis_ci_yZLBGwoWZVsOdfN5CODRwVSTlJfwJhXqwg65e2CuNMZ'
 
 export const discovery = {
   authorizationEndpoint: 'https://repalis.com/oauth2/authorize',
@@ -13,11 +13,11 @@ Uncomment these lines and update the client ID to run against a local version of
 To get the CLIENT_ID:
 1. Create a new Oauth app at http://127.0.0.1:3000/dashboard/account/developer
 2. Select "Public Client" and give it all the scopes
-3. Set "Redirect URIs" to "polar://oauth/callback"
+3. Set "Redirect URIs" to "repalis://oauth/callback"
 
 And make sure to set the EXPO_PUBLIC_REPALIS_SERVER_URL is set to "http://127.0.0.1:8000".
 
-export const CLIENT_ID = 'polar_ci_hbFdMZZRghgdm2F4LMceQSrcQNunmjlh6ukGJ1dG0Vg'
+export const CLIENT_ID = 'repalis_ci_hbFdMZZRghgdm2F4LMceQSrcQNunmjlh6ukGJ1dG0Vg'
 
 export const discovery = {
   authorizationEndpoint: 'http://127.0.0.1:3000/oauth2/authorize',

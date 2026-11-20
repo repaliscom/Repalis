@@ -1,6 +1,6 @@
 import type { ToolMode } from './clients'
 
-const SHARED = `Polar API responses are large, and every tool result you read costs context. To answer accurately with as little as possible:
+const SHARED = `Repalis API responses are large, and every tool result you read costs context. To answer accurately with as little as possible:
 - Page through, filter and aggregate in code, and return only the final figures and the few rows the answer needs. Don't return whole API responses or full objects, and don't fetch samples just to look at them.
 - List responses are { items, pagination: { total_count, max_page } }. Use limit=100 and fetch the remaining pages together.
 - Narrow requests with filters such as organization_id, customer_id and product_id instead of fetching everything.

@@ -19,7 +19,7 @@ const source = [
 ].join('\n')
 
 const config: LoadedConfig = {
-  file: 'polar.json',
+  file: 'repalis.json',
   source,
   input: JSON.parse(source),
   generated: false,
@@ -54,7 +54,7 @@ const locked = {
 }
 
 const run = async (result: PlanResult, args: string[] = []) => {
-  const cli = runCli(plan, ['polar.json', ...args])
+  const cli = runCli(plan, ['repalis.json', ...args])
   const exit = await Effect.runPromiseExit(
     cli.effect.pipe(
       Effect.provideService(

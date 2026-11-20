@@ -112,7 +112,7 @@ test('gives up when GitHub does not respond', async () => {
 })
 
 test('installs the skills, then reports them current until a file changes', async () => {
-  const directory = await mkdtemp(join(tmpdir(), 'polar-skills-'))
+  const directory = await mkdtemp(join(tmpdir(), 'repalis-skills-'))
   const http = toolkit()
   const states = await Effect.runPromise(
     Effect.gen(function* () {
@@ -137,7 +137,7 @@ test('installs the skills, then reports them current until a file changes', asyn
 })
 
 test('replaces a symlinked skill directory instead of writing through it', async () => {
-  const directory = await mkdtemp(join(tmpdir(), 'polar-skills-'))
+  const directory = await mkdtemp(join(tmpdir(), 'repalis-skills-'))
   const outside = await mkdtemp(join(tmpdir(), 'polar-outside-'))
   await writeFile(join(outside, 'SKILL.md'), 'keep me\n')
   await mkdir(directory, { recursive: true })

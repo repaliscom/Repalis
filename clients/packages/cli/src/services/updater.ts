@@ -225,7 +225,7 @@ const retainRunningImage = (
         // Hard links cannot cross volumes, so keep the link beside the executable.
         const directory = yield* fs.makeTempDirectory({
           directory: path.dirname(executable),
-          prefix: 'polar-update-',
+          prefix: 'repalis-update-',
         })
         const remove = fs
           .remove(directory, { recursive: true, force: true })

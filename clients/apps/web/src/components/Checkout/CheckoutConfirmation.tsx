@@ -21,9 +21,9 @@ import LogoType from '../Brand/logos/LogoType'
 import { SpinnerNoMargin } from '@repalis/orbit'
 import CheckoutBenefits from './CheckoutBenefits'
 import CheckoutSeatInvitations from './CheckoutSeatInvitations'
-import { loadPolarStripe } from '@/utils/stripe'
+import { loadRepalisStripe } from '@/utils/stripe'
 
-const stripePromise = loadPolarStripe()
+const stripePromise = loadRepalisStripe()
 
 const isIntegrationError = (
   // oxlint-disable-next-line typescript/no-explicit-any

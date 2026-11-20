@@ -16,7 +16,7 @@ export const CustomerPortal = ({
   getCustomerId,
   returnUrl,
 }: CustomerPortalConfig) => {
-  const polar = createRepalisCore({ accessToken, environment })
+  const repalis = createRepalisCore({ accessToken, environment })
 
   return async (event: H3Event) => {
     const retUrl = returnUrl ? new URL(returnUrl) : undefined
@@ -34,7 +34,7 @@ export const CustomerPortal = ({
     }
 
     try {
-      const result = await createCustomerSessions(polar)({
+      const result = await createCustomerSessions(repalis)({
         customer_id: customerId,
         return_url: retUrl ? decodeURI(retUrl.toString()) : undefined,
       })

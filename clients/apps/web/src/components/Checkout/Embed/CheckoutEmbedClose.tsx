@@ -22,7 +22,7 @@ const CheckoutEmbedClose: React.FC<
   }, [checkout])
 
   useEffect(() => {
-    const layoutElement = document.getElementById('polar-embed-layout')
+    const layoutElement = document.getElementById('repalis-embed-layout')
     if (!layoutElement) {
       return
     }
@@ -31,7 +31,7 @@ const CheckoutEmbedClose: React.FC<
       if (closeButtonRef.current?.contains(target)) {
         return
       }
-      const contentElement = document.getElementById('polar-embed-content')
+      const contentElement = document.getElementById('repalis-embed-content')
       if (contentElement && !contentElement.contains(target)) {
         onClose()
       }

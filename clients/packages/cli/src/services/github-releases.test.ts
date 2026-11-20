@@ -14,9 +14,9 @@ const release = {
   prerelease: false,
   assets: [
     {
-      name: 'polar-darwin-arm64.zip',
+      name: 'repalis-darwin-arm64.zip',
       browser_download_url:
-        'https://github.com/repaliscom/Repalis/releases/download/@repalis/cli@1.4.0/polar-darwin-arm64.zip',
+        'https://github.com/repaliscom/Repalis/releases/download/@repalis/cli@1.4.0/repalis-darwin-arm64.zip',
     },
   ],
 }

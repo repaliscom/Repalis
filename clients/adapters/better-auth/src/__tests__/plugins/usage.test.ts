@@ -198,7 +198,7 @@ describe('usage plugin', () => {
 
       await expect(handler(ctx)).rejects.toThrow('Meters list failed')
       expect(ctx.context.logger.error).toHaveBeenCalledWith(
-        expect.stringContaining('Polar meters list failed'),
+        expect.stringContaining('Repalis meters list failed'),
       )
     })
 
@@ -367,7 +367,7 @@ describe('usage plugin', () => {
       await expect(handler(ctx)).rejects.toThrow('User not found')
     })
 
-    it('rejects an anonymous user before calling Polar', async () => {
+    it('rejects an anonymous user before calling Repalis', async () => {
       const ctx = {
         context: {
           session: { user: { id: 'anon-uuid-123', isAnonymous: true } },
@@ -424,7 +424,7 @@ describe('usage plugin', () => {
 
       await expect(handler(ctx)).rejects.toThrow('Ingestion failed')
       expect(ctx.context.logger.error).toHaveBeenCalledWith(
-        expect.stringContaining('Polar ingestion failed'),
+        expect.stringContaining('Repalis ingestion failed'),
       )
     })
 
@@ -446,7 +446,7 @@ describe('usage plugin', () => {
 
       await expect(handler(ctx)).rejects.toThrow('Ingestion failed')
       expect(ctx.context.logger.error).toHaveBeenCalledWith(
-        'Polar ingestion failed. Error: Network timeout',
+        'Repalis ingestion failed. Error: Network timeout',
       )
     })
   })
@@ -518,7 +518,7 @@ describe('usage plugin', () => {
       })
     })
 
-    it('rejects unauthorized organization usage before calling Polar', async () => {
+    it('rejects unauthorized organization usage before calling Repalis', async () => {
       const endpoints = usage()(mockClient) as any
       vi.mocked(resolveBillingPrincipal).mockRejectedValue(
         new APIError('FORBIDDEN', { message: 'Not a member' }),

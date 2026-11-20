@@ -40,9 +40,9 @@ export const hasBetterAuthCreatorRole = (
 /**
  * Map Better Auth organization roles to Repalis's fixed member roles.
  *
- * Only the member selected as Polar's canonical owner can become `owner`.
+ * Only the member selected as Repalis's canonical owner can become `owner`.
  * Additional Better Auth owners intentionally become billing managers because
- * Polar allows exactly one owner per customer.
+ * Repalis allows exactly one owner per customer.
  */
 export const mapBetterAuthRoleToRepalis = (
   input: BetterAuthRoleMappingInput,

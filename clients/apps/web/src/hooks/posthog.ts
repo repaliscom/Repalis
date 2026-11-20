@@ -60,7 +60,7 @@ type Verb =
 
 export type EventName = `${Surface}:${Category}:${Noun}:${Verb}`
 
-export interface PolarHog {
+export interface RepalisHog {
   setPersistence: (
     persistence: 'localStorage' | 'sessionStorage' | 'cookie' | 'memory',
   ) => void
@@ -73,7 +73,7 @@ export interface PolarHog {
   reset: () => void
 }
 
-export const usePostHog = (): PolarHog => {
+export const usePostHog = (): RepalisHog => {
   const posthog = useOuterPostHog()
 
   const setPersistence = useCallback(
@@ -83,7 +83,7 @@ export const usePostHog = (): PolarHog => {
     [posthog],
   )
 
-  const capture: PolarHog['capture'] = useCallback(
+  const capture: RepalisHog['capture'] = useCallback(
     (event, properties, options) => {
       if (process.env.NODE_ENV === 'development') {
         console.debug(`[posthog] ${event}`, properties ?? {})
@@ -93,7 +93,7 @@ export const usePostHog = (): PolarHog => {
     [posthog],
   )
 
-  const identify: PolarHog['identify'] = useCallback(
+  const identify: RepalisHog['identify'] = useCallback(
     (user) => {
       const posthogId = `user:${user.id}`
 
@@ -104,7 +104,7 @@ export const usePostHog = (): PolarHog => {
     [posthog],
   )
 
-  const reset: PolarHog['reset'] = useCallback(() => {
+  const reset: RepalisHog['reset'] = useCallback(() => {
     posthog.reset()
     document.cookie = `${DISTINCT_ID_COOKIE}=; max-age=0; path=/; samesite=lax`
   }, [posthog])

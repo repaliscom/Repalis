@@ -17,7 +17,7 @@ let config: string
 
 beforeEach(async () => {
   directory = await mkdtemp(join(tmpdir(), 'polar-generate-'))
-  config = join(directory, 'polar.config.json')
+  config = join(directory, 'repalis.config.json')
   await writeFile(join(directory, 'pyproject.toml'), '')
   vi.spyOn(process, 'cwd').mockReturnValue(directory)
 })
@@ -84,7 +84,7 @@ describe('polar config generate', () => {
       'tool_call: typing.Literal["tool_call"] = "tool_call"',
     )
     expect(output).toContain(
-      `repalis_types.py written from ${at('polar.config.json')}: 1 meter, 0 benefits, 0 products, 0 events`,
+      `repalis_types.py written from ${at('repalis.config.json')}: 1 meter, 0 benefits, 0 products, 0 events`,
     )
     expect(output).toContain('polar config generate --check')
   })
@@ -111,7 +111,7 @@ describe('polar config generate', () => {
 
   test('finds the project above a config kept in a subfolder', async () => {
     await mkdir(at('billing'))
-    config = at('billing', 'polar.config.json')
+    config = at('billing', 'repalis.config.json')
     vi.spyOn(process, 'cwd').mockReturnValue(at('billing'))
 
     const { exit } = await run()
@@ -185,7 +185,7 @@ describe('polar config generate', () => {
     const { output } = await run(['--json'])
 
     expect(JSON.parse(output)).toEqual({
-      config: at('polar.config.json'),
+      config: at('repalis.config.json'),
       file: at('repalis_types.py'),
       language: 'py',
       status: 'written',

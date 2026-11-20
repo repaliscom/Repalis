@@ -4,7 +4,7 @@
 // color, not "secondary text". Semantic (decision) tokens in semantics.stylex.ts
 // reference these; never consume them directly in components.
 //
-// The neutral ramps (`gray*` light, `polar*` dark) are the canonical Polar
+// The neutral ramps (`gray*` light, `polar*` dark) are the canonical Repalis
 // scale, kept in lockstep with apps/web/src/styles/globals.css `@theme`. Treat
 // that file and this one as the same ramp expressed in two systems.
 //
@@ -33,7 +33,7 @@ export const palette = stylex.defineVars({
   gray900: 'oklch(0.21 0.034 264.665)',
   gray950: 'oklch(0.13 0.028 261.692)',
 
-  // Dark-mode neutrals (the Polar dark ramp).
+  // Dark-mode neutrals (the Repalis dark ramp).
   polar50: 'hsl(0, 0%, 85%)',
   polar100: 'hsl(0, 0%, 79%)',
   polar200: 'hsl(0, 0%, 68%)',

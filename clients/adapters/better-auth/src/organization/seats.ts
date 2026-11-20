@@ -153,7 +153,7 @@ const getMinimumSeats = (
   )
   if (minimums.length === 0) {
     throw new Error(
-      `Polar seat product "${productId}" has no seat-based price with a minimum quantity`,
+      `Repalis seat product "${productId}" has no seat-based price with a minimum quantity`,
     )
   }
   return Math.max(...minimums)

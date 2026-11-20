@@ -21,7 +21,7 @@ export interface UsageOptions {
 export const usage =
   (_usageOptions?: UsageOptions) =>
   (
-    polar: RepalisCore,
+    repalis: RepalisCore,
     rootOptions?: Pick<RepalisOptions, 'experimental_organizationSync'>,
   ) => {
     return {
@@ -55,7 +55,7 @@ export const usage =
             : undefined
 
           try {
-            const customerSession = await createCustomerSessions(polar)({
+            const customerSession = await createCustomerSessions(repalis)({
               external_customer_id:
                 principal?.externalCustomerId ?? ctx.context.session.user.id,
               ...(principal?.kind === 'team'
@@ -64,7 +64,7 @@ export const usage =
             })
 
             const customerMeters: models.ListResourceCustomerCustomerMeter =
-              await listCustomerMetersCustomerPortal(polar)(
+              await listCustomerMetersCustomerPortal(repalis)(
                 {
                   page: ctx.query?.page,
                   limit: ctx.query?.limit,
@@ -76,7 +76,7 @@ export const usage =
           } catch (e: unknown) {
             if (e instanceof Error) {
               ctx.context.logger.error(
-                `Polar meters list failed. Error: ${e.message}`,
+                `Repalis meters list failed. Error: ${e.message}`,
               )
             }
 
@@ -126,7 +126,7 @@ export const usage =
 
           try {
             const ingestion: models.EventsIngestResponse = await ingestEvents(
-              polar,
+              repalis,
             )({
               events: [
                 {
@@ -146,7 +146,7 @@ export const usage =
           } catch (e: unknown) {
             if (e instanceof Error) {
               ctx.context.logger.error(
-                `Polar ingestion failed. Error: ${e.message}`,
+                `Repalis ingestion failed. Error: ${e.message}`,
               )
             }
 

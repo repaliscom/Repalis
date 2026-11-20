@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { polar } from '../index'
+import { repalis } from '../index'
 import { checkout } from '../plugins/checkout'
 import { portal } from '../plugins/portal'
 import { usage } from '../plugins/usage'
@@ -12,7 +12,7 @@ vi.mock('../plugins/portal')
 vi.mock('../plugins/usage')
 vi.mock('../plugins/webhooks')
 
-describe('polar plugin', () => {
+describe('repalis plugin', () => {
   let mockClient: ReturnType<typeof createMockRepalisClient>
 
   beforeEach(() => {
@@ -51,9 +51,9 @@ describe('polar plugin', () => {
       use: [checkout()],
     })
 
-    const plugin = polar(options)
+    const plugin = repalis(options)
 
-    expect(plugin.id).toBe('polar')
+    expect(plugin.id).toBe('repalis')
   })
 
   it('should combine endpoints from all plugins', () => {
@@ -70,7 +70,7 @@ describe('polar plugin', () => {
       use: [checkout(), portal()],
     })
 
-    const plugin = polar(options)
+    const plugin = repalis(options)
 
     expect(plugin.endpoints).toHaveProperty('checkout/create')
     expect(plugin.endpoints).toHaveProperty('portal/url')
@@ -84,7 +84,7 @@ describe('polar plugin', () => {
       use: [checkout()],
     })
 
-    const plugin = polar(options)
+    const plugin = repalis(options)
     const initResult = plugin.init({} as never)
 
     expect(initResult.options).toHaveProperty('databaseHooks')
@@ -101,7 +101,7 @@ describe('polar plugin', () => {
       experimental_organizationSync: { enabled: true },
       use: [checkout()],
     })
-    const plugin = polar(options)
+    const plugin = repalis(options)
     const context = {
       getPlugin: vi.fn().mockReturnValue(null),
       logger: { error: vi.fn(), warn: vi.fn() },
@@ -118,7 +118,7 @@ describe('polar plugin', () => {
       use: [] as any,
     })
 
-    const plugin = polar(options)
+    const plugin = repalis(options)
 
     expect(plugin.endpoints).toEqual({})
   })
@@ -135,7 +135,7 @@ describe('polar plugin', () => {
       use: [checkout(), portal()],
     })
 
-    const plugin = polar(options)
+    const plugin = repalis(options)
 
     expect(plugin.endpoints).toHaveProperty('test/endpoint1')
     expect(plugin.endpoints).toHaveProperty('test/endpoint2')
@@ -150,9 +150,9 @@ describe('polar plugin', () => {
       use: [checkout()],
     })
 
-    const plugin = polar(options)
+    const plugin = repalis(options)
 
     expect(plugin).toBeDefined()
-    expect(plugin.id).toBe('polar')
+    expect(plugin.id).toBe('repalis')
   })
 })

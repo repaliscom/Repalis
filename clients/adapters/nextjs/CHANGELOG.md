@@ -14,7 +14,7 @@
 
 ### Minor Changes
 
-- e381ab0: Send the customer IP address when creating a checkout so Polar can show the visitor's local currency. When the `customer_ip_address` query param is not passed, the checkout route uses the first valid IP from the `x-forwarded-for`, `x-real-ip` and `cf-connecting-ip` headers. Use the new `customerIpAddress` option to resolve it yourself, or set it to `false` to stop sending it.
+- e381ab0: Send the customer IP address when creating a checkout so Repalis can show the visitor's local currency. When the `customer_ip_address` query param is not passed, the checkout route uses the first valid IP from the `x-forwarded-for`, `x-real-ip` and `cf-connecting-ip` headers. Use the new `customerIpAddress` option to resolve it yourself, or set it to `false` to stop sending it.
 
 ### Patch Changes
 
@@ -33,7 +33,7 @@
 
 ### Major Changes
 
-- 332b802: Migrate to the new Polar SDK (`@repalis/sdk/2026-10`) and use standalone SDK functions so application bundles include only the API operations used by each adapter.
+- 332b802: Migrate to the new Repalis SDK (`@repalis/sdk/2026-10`) and use standalone SDK functions so application bundles include only the API operations used by each adapter.
 
 ### Minor Changes
 
@@ -117,7 +117,7 @@
 
 ### Minor Changes
 
-- 4512e82: Bump Polar SDK
+- 4512e82: Bump Repalis SDK
 
 ### Patch Changes
 
@@ -151,7 +151,7 @@
 
 ### Patch Changes
 
-- 3250323: Update Polar SDK to 0.38.1
+- 3250323: Update Repalis SDK to 0.38.1
 - Updated dependencies [3250323]
   - @repalis/adapter-utils@0.2.10
 
@@ -201,7 +201,7 @@
 
 ### Patch Changes
 
-- 39f4d39: Update Polar SDK version
+- 39f4d39: Update Repalis SDK version
 - Updated dependencies [39f4d39]
   - @repalis/adapter-utils@0.2.4
 
@@ -231,7 +231,7 @@
 
 ### Patch Changes
 
-- 87de0c5: Bump Polar SDK
+- 87de0c5: Bump Repalis SDK
 - Updated dependencies [87de0c5]
   - @repalis/adapter-utils@0.2.1
 
@@ -317,7 +317,7 @@
 
 ### Patch Changes
 
-- 9dd847d: Bump Polar SDK
+- 9dd847d: Bump Repalis SDK
 - Updated dependencies [9dd847d]
   - @repalis/adapter-utils@0.1.8
 

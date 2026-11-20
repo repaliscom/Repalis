@@ -16,7 +16,7 @@ export const GET = Checkout({
   accessToken: process.env.REPALIS_ACCESS_TOKEN!,
   successUrl: process.env.SUCCESS_URL,
   returnUrl: 'https://myapp.com', // Optional Return URL, which renders a Back-button in the Checkout
-  environment: 'sandbox', // Use sandbox if you're testing Polar - omit the parameter or pass 'production' otherwise
+  environment: 'sandbox', // Use sandbox if you're testing Repalis - omit the parameter or pass 'production' otherwise
   theme: 'dark', // Enforces the theme - System-preferred theme will be set if left omitted
 })
 ```
@@ -51,7 +51,7 @@ export const GET = CustomerPortal({
   accessToken: process.env.REPALIS_ACCESS_TOKEN!,
   getCustomerId: async (req: NextRequest) => '', // Function to resolve a Repalis Customer ID
   returnUrl: 'https://myapp.com', // Optional Return URL, which renders a Back-button in the Customer Portal
-  environment: 'sandbox', // Use sandbox if you're testing Polar - omit the parameter or pass 'production' otherwise
+  environment: 'sandbox', // Use sandbox if you're testing Repalis - omit the parameter or pass 'production' otherwise
 })
 ```
 
@@ -62,7 +62,7 @@ If you identify customers by your own user ID, pass `getExternalCustomerId` inst
 A simple utility which resolves incoming webhook payloads by verifying their signature with your webhook secret.
 
 ```typescript
-// api/webhook/polar/route.ts
+// api/webhook/repalis/route.ts
 import { Webhooks } from '@repalis/nextjs'
 
 export const POST = Webhooks({

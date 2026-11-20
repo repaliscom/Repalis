@@ -66,7 +66,7 @@ const originOverride = (name: string) =>
 
 export const apiOverride = originOverride('REPALIS_API_URL')
 
-export const dashboardOverride = originOverride('POLAR_DASHBOARD_URL')
+export const dashboardOverride = originOverride('REPALIS_DASHBOARD_URL')
 
 export const apiOrigin = (environment: RepalisEnvironment) =>
   Effect.gen(function* () {
@@ -82,7 +82,7 @@ export const dashboardOrigin = (environment: RepalisEnvironment) =>
     if (yield* apiOverride)
       return yield* new AuthError({
         message:
-          'REPALIS_API_URL is set, so POLAR_DASHBOARD_URL is needed too. Point it at the matching dashboard, e.g. http://127.0.0.1:3000.',
+          'REPALIS_API_URL is set, so REPALIS_DASHBOARD_URL is needed too. Point it at the matching dashboard, e.g. http://127.0.0.1:3000.',
       })
     return DASHBOARD_ORIGINS[environment]
   })

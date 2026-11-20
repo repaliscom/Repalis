@@ -43,7 +43,7 @@ export const EmbedError = ({
     <p
       role="alert"
       className="p-4 text-center text-sm text-red-500"
-      data-polar-embed-theme={theme === 'dark' ? 'dark' : 'light'}
+      data-repalis-embed-theme={theme === 'dark' ? 'dark' : 'light'}
     >
       {t(ERROR_TRANSLATION_KEYS[code])}
     </p>

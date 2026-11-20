@@ -19,7 +19,7 @@ export const useUserOrganizationNotificationSettings = (
     queryFn: organizationId
       ? () =>
           unwrap(
-            polar.GET(
+            repalis.GET(
               '/v1/users/me/organizations/{organization_id}/notification-settings',
               {
                 params: { path: { organization_id: organizationId } },
@@ -44,7 +44,7 @@ export const useUpdateUserOrganizationNotificationSettings = () => {
       notification_settings: schemas['OrganizationNotificationSettings']
     }) =>
       unwrap(
-        polar.PATCH(
+        repalis.PATCH(
           '/v1/users/me/organizations/{organization_id}/notification-settings',
           {
             params: { path: { organization_id: organizationId } },

@@ -6,8 +6,8 @@ import { isRecord } from './json'
 // them works: invalid tokens get a 401 there, valid ones without the
 // endpoint's scope a 403.
 const VALIDATION_PATHS: ReadonlyArray<readonly [string, string]> = [
-  ['polar_at_', '/v1/oauth2/userinfo'],
-  ['polar_oat_', '/v1/organizations/?limit=1'],
+  ['repalis_at_', '/v1/oauth2/userinfo'],
+  ['repalis_oat_', '/v1/organizations/?limit=1'],
 ]
 const VALIDATION_TTL_MILLIS = 60_000
 const MAX_CACHED_TOKENS = 1_000
@@ -25,14 +25,14 @@ const accountOf = (token: string, body: unknown) => {
   if (!isRecord(body)) {
     return undefined
   }
-  if (token.startsWith('polar_oat_')) {
+  if (token.startsWith('repalis_oat_')) {
     const organization = Array.isArray(body.items) ? body.items[0] : undefined
     return isRecord(organization) && typeof organization.id === 'string'
       ? `organization:${organization.id}`
       : undefined
   }
   return typeof body.sub === 'string'
-    ? `${token.startsWith('polar_at_o_') ? 'organization' : 'user'}:${body.sub}`
+    ? `${token.startsWith('repalis_at_o_') ? 'organization' : 'user'}:${body.sub}`
     : undefined
 }
 

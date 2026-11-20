@@ -13,4 +13,4 @@ export function RepalisQueryClientProvider({
   )
 }
 
-export const PolarQueryClientProvider = RepalisQueryClientProvider
+export const RepalisQueryClientProvider = RepalisQueryClientProvider

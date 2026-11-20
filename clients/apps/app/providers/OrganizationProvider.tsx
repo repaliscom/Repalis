@@ -20,7 +20,7 @@ export interface OrganizationContextValue {
 
 const stub = (): never => {
   throw new Error(
-    'You forgot to wrap your component in <PolarOrganizationProvider>.',
+    'You forgot to wrap your component in <RepalisOrganizationProvider>.',
   )
 }
 

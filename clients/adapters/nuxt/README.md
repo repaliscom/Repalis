@@ -22,9 +22,9 @@ export default defineNuxtConfig({
   runtimeConfig: {
     private: {
       repalisAccessToken: '', // NUXT_PRIVATE_REPALIS_ACCESS_TOKEN
-      polarServer: '', // NUXT_PRIVATE_REPALIS_SERVER - "sandbox" or "production"
-      polarCheckoutSuccessUrl: '', // NUXT_PRIVATE_REPALIS_CHECKOUT_SUCCESS_URL
-      polarWebhookSecret: '', // NUXT_PRIVATE_REPALIS_WEBHOOK_SECRET
+      repalisServer: '', // NUXT_PRIVATE_REPALIS_SERVER - "sandbox" or "production"
+      repalisCheckoutSuccessUrl: '', // NUXT_PRIVATE_REPALIS_CHECKOUT_SUCCESS_URL
+      repalisWebhookSecret: '', // NUXT_PRIVATE_REPALIS_WEBHOOK_SECRET
     },
   },
 })
@@ -40,14 +40,14 @@ Create a Checkout handler which takes care of redirections.
 // server/routes/api/checkout.get.ts
 export default defineEventHandler((event) => {
   const {
-    private: { repalisAccessToken, polarCheckoutSuccessUrl, polarServer },
+    private: { repalisAccessToken, repalisCheckoutSuccessUrl, repalisServer },
   } = useRuntimeConfig()
 
   const checkoutHandler = Checkout({
     accessToken: repalisAccessToken,
-    successUrl: polarCheckoutSuccessUrl,
+    successUrl: repalisCheckoutSuccessUrl,
     returnUrl: 'https://myapp.com', // Optional Return URL, which renders a Back-button in the Checkout
-    environment: polarServer as 'sandbox' | 'production',
+    environment: repalisServer as 'sandbox' | 'production',
     theme: 'dark', // Enforces the theme - System-preferred theme will be set if left omitted
   })
 
@@ -80,12 +80,12 @@ Create a customer portal where your customer can view orders and subscriptions.
 // server/routes/api/portal.get.ts
 export default defineEventHandler((event) => {
   const {
-    private: { repalisAccessToken, polarServer },
+    private: { repalisAccessToken, repalisServer },
   } = useRuntimeConfig()
 
   const customerPortalHandler = CustomerPortal({
     accessToken: repalisAccessToken,
-    environment: polarServer as 'sandbox' | 'production',
+    environment: repalisServer as 'sandbox' | 'production',
     getCustomerId: (event) => {
       // Use your own logic to get the Repalis customer ID - from a database, session, etc.
       return Promise.resolve('9d89909b-216d-475e-8005-053dba7cff07')
@@ -105,11 +105,11 @@ A simple utility which resolves incoming webhook payloads by verifying their sig
 // server/routes/webhook/polar.post.ts
 export default defineEventHandler((event) => {
   const {
-    private: { polarWebhookSecret },
+    private: { repalisWebhookSecret },
   } = useRuntimeConfig()
 
   const webhooksHandler = Webhooks({
-    webhookSecret: polarWebhookSecret,
+    webhookSecret: repalisWebhookSecret,
     onPayload: async (payload) => {
       // Handle the payload
       // No need to return an acknowledge response

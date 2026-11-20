@@ -3,9 +3,9 @@ $ErrorActionPreference = "Stop"
 [Net.ServicePointManager]::SecurityProtocol = [Net.ServicePointManager]::SecurityProtocol -bor [Net.SecurityProtocolType]::Tls12
 
 $Repo = "repaliscom/Repalis"
-$TagPrefix = "@polar-sh/cli@"
-$BinaryName = "polar.exe"
-$Archive = "polar-windows-x64.zip"
+$TagPrefix = "@repalis/cli@"
+$BinaryName = "repalis.exe"
+$Archive = "repalis-windows-x64.zip"
 $InstallDir = Join-Path $HOME ".repalis\bin"
 $Headers = @{ "User-Agent" = "repalis-cli-installer" }
 
@@ -50,7 +50,7 @@ if ($null -eq $Release) {
 Write-Info "Version: $($Release.Version)"
 
 $BaseUrl = "https://github.com/$Repo/releases/download/$([uri]::EscapeDataString($Release.Tag))"
-$TempDir = Join-Path $env:TEMP "polar-install-$([guid]::NewGuid())"
+$TempDir = Join-Path $env:TEMP "repalis-install-$([guid]::NewGuid())"
 New-Item -ItemType Directory -Force -Path $TempDir | Out-Null
 
 try {
@@ -84,7 +84,7 @@ try {
     try {
         Copy-Item -Path (Join-Path $TempDir $BinaryName) -Destination (Join-Path $InstallDir $BinaryName) -Force
     } catch {
-        Stop-Install "Could not write $BinaryName. If polar is running, close it and try again."
+        Stop-Install "Could not write $BinaryName. If repalis is running, close it and try again."
     }
 
     $UserPath = [Environment]::GetEnvironmentVariable("PATH", "User")
@@ -96,7 +96,7 @@ try {
 
     Write-Info "Repalis CLI $($Release.Version) installed."
     Write-Host ""
-    Write-Host "  Run 'polar --help' to get started."
+    Write-Host "  Run 'repalis --help' to get started."
     Write-Host ""
     if (-not $OnPath) {
         Write-Warn "Restart other open terminals so they pick up the new PATH."

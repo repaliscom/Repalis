@@ -55,14 +55,14 @@ let directory: string
 
 beforeEach(async () => {
   api = fakeHttp()
-  directory = await mkdtemp(join(tmpdir(), 'polar-config-'))
+  directory = await mkdtemp(join(tmpdir(), 'repalis-config-'))
 })
 
 afterEach(async () => {
   await rm(directory, { recursive: true, force: true })
 })
 
-const write = async (content: string, name = 'polar.json') => {
+const write = async (content: string, name = 'repalis.json') => {
   const file = join(directory, name)
   await writeFile(file, content)
   return file

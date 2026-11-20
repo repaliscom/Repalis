@@ -20,7 +20,7 @@ import { createServer } from './server'
 import { Sandbox } from './sandbox'
 import { allScopes, readScopes } from './spec'
 
-export { PolarApiOutbound } from './outbound'
+export { RepalisApiOutbound } from './outbound'
 
 const OPENAI_APPS_CHALLENGE_PATH = '/.well-known/openai-apps-challenge'
 const OPENAI_APPS_CHALLENGE_TOKEN =
@@ -84,7 +84,7 @@ const handle = Effect.fn('handle')(function* (request: Request) {
       authorization_servers: [apiUrl],
       scopes_supported: allScopes,
       bearer_methods_supported: ['header'],
-      resource_name: 'Polar',
+      resource_name: 'Repalis',
     })
   }
 

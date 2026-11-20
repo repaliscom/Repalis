@@ -11,7 +11,7 @@ export const useCreateNotificationRecipient = () => {
   return useMutation({
     mutationFn: async (expoPushToken: string) => {
       return unwrap(
-        polar.POST('/v1/notifications/recipients', {
+        repalis.POST('/v1/notifications/recipients', {
           body: {
             expo_push_token: expoPushToken,
             platform: Platform.OS as 'ios' | 'android',
@@ -36,7 +36,7 @@ export const useGetNotificationRecipient = (
     queryKey: ['notification_recipient', expoPushToken],
     queryFn: async () => {
       const response = await unwrap(
-        polar.GET('/v1/notifications/recipients', {
+        repalis.GET('/v1/notifications/recipients', {
           params: {
             query: {
               expo_push_token: expoPushToken,
@@ -103,7 +103,7 @@ export const useListNotifications = (): UseQueryResult<
 
   return useQuery({
     queryKey: ['notifications'],
-    queryFn: () => unwrap(polar.GET('/v1/notifications')),
+    queryFn: () => unwrap(repalis.GET('/v1/notifications')),
     enabled: !!session,
   })
 }
@@ -114,7 +114,7 @@ export const useNotificationsMarkRead = () => {
   return useMutation({
     mutationFn: (variables: { notificationId: string }) =>
       unwrap(
-        polar.POST('/v1/notifications/read', {
+        repalis.POST('/v1/notifications/read', {
           body: { notification_id: variables.notificationId },
         }),
       ),

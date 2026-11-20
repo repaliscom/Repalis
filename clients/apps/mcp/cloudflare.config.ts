@@ -3,11 +3,11 @@ import * as entrypoint from './src/index.ts' with { type: 'cf-worker' }
 
 const REPALIS_SERVERS = {
   'repalis-mcp': 'https://api.repalis.com',
-  'polar-sandbox': 'https://sandbox-api.repalis.com',
+  'repalis-sandbox': 'https://sandbox-api.repalis.com',
 }
 
 const LOCAL_REPALIS_SERVERS = {
-  'polar-local': process.env.POLAR_LOCAL_API_URL ?? 'http://127.0.0.1:8000',
+  'repalis-local': process.env.REPALIS_LOCAL_API_URL ?? 'http://127.0.0.1:8000',
 }
 
 export default defineConfig(({ mode }) => ({

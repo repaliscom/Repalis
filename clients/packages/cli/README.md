@@ -53,7 +53,7 @@ flow and no environment to choose:
 
 ```bash
 export REPALIS_API_URL=http://127.0.0.1:8000
-export REPALIS_ACCESS_TOKEN=polar_oat_...
+export REPALIS_ACCESS_TOKEN=repalis_oat_...
 bun src/cli.ts <command>
 ```
 
@@ -90,15 +90,15 @@ error type and status code, the name of the flag, argument or subcommand behind
 a usage mistake, the environment (sandbox or production), the duration, the CLI version,
 OS, architecture, Bun version, whether it ran in CI, and which AI coding agent
 (if any) invoked it. Events are keyed by a random install id stored in
-`~/.polar/telemetry.json`. Access tokens, organization IDs, URLs and payloads
+`~/.repalis/telemetry.json`. Access tokens, organization IDs, URLs and payloads
 are never sent. The PostHog project key is a public write-only token, the same
 one the website uses.
 
 Telemetry is wired around the root command in `src/cli.ts`, so new commands are
 covered automatically. Only the compiled release binary sends events, which the
-release workflow marks with `--define POLAR_CLI_BUILD='"release"'`; running
+release workflow marks with `--define REPALIS_CLI_BUILD='"release"'`; running
 from source or from `bin/cli.js` sends nothing. Opt out with
-`POLAR_CLI_TELEMETRY_OPTOUT=1` (`DO_NOT_TRACK=1` is honoured too).
+`REPALIS_CLI_TELEMETRY_OPTOUT=1` (`DO_NOT_TRACK=1` is honoured too).
 
 ## Releases
 
@@ -113,11 +113,11 @@ Merging a CLI version bump into `main` starts
 compiles the five supported targets, signs and notarizes the macOS binaries,
 and uploads these assets to a draft release in `repaliscom/Repalis`:
 
-- `polar-darwin-arm64.zip`
-- `polar-darwin-x64.zip`
-- `polar-linux-arm64.tar.gz`
-- `polar-linux-x64.tar.gz`
-- `polar-windows-x64.zip`
+- `repalis-darwin-arm64.zip`
+- `repalis-darwin-x64.zip`
+- `repalis-linux-arm64.tar.gz`
+- `repalis-linux-x64.tar.gz`
+- `repalis-windows-x64.zip`
 - `checksums.txt`
 
 Only after every upload succeeds does the workflow publish the release, tagged

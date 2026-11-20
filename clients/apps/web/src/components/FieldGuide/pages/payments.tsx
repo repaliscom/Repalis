@@ -186,7 +186,7 @@ const morFigure = (
   </>
 )
 
-export const polarBilling = landscape(
+export const repalisBilling = landscape(
   'm-mor',
   'Repalis Billing',
   'Billing, payments and tax in one, with Repalis as your merchant of record.',

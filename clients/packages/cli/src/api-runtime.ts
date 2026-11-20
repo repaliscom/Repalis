@@ -2,7 +2,7 @@ import { ApiCommandError, ApiRuntime } from '@repalis/cli-commands'
 import { Console, Effect, Layer, Option, Result, Stdio, Terminal } from 'effect'
 import { Prompt } from 'effect/cli'
 import { Organizations } from '@/services/organizations'
-import { Polar } from '@/services/repalis'
+import { Repalis } from '@/services/repalis'
 import { formatRecordPreview } from '@/utils/api-preview'
 import { selectFields } from '@/utils/fields'
 import { printJson } from '@/utils/json'
@@ -11,7 +11,7 @@ import * as ui from '@/utils/ui'
 export const layer = Layer.effect(
   ApiRuntime,
   Effect.gen(function* () {
-    const polar = yield* Polar
+    const polar = yield* Repalis
     const organizations = yield* Organizations
 
     return ApiRuntime.of({

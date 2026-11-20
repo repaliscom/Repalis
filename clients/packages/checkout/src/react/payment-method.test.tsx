@@ -3,7 +3,7 @@ import { afterEach, beforeAll, describe, expect, it, vi } from 'vitest'
 import { RepalisPaymentMethod } from './payment-method'
 
 const ALLOWED_ORIGIN = 'http://127.0.0.1:3000'
-const CUSTOMER_SESSION_TOKEN = 'polar_cst_test_token'
+const CUSTOMER_SESSION_TOKEN = 'repalis_cst_test_token'
 
 beforeAll(() => {
   // @ts-expect-error - Global defined at build time by tsdown
@@ -63,12 +63,12 @@ describe('RepalisPaymentMethod', () => {
 
   it('forwards a member token verbatim — no client-side type sniffing', () => {
     const { container } = render(
-      <RepalisPaymentMethod sessionToken="polar_mst_xyz" />,
+      <RepalisPaymentMethod sessionToken="repalis_mst_xyz" />,
     )
 
     const iframe = container.querySelector('iframe')!
     expect(new URL(iframe.src).searchParams.get('session_token')).toBe(
-      'polar_mst_xyz',
+      'repalis_mst_xyz',
     )
   })
 

@@ -3,7 +3,7 @@ import type { User } from 'better-auth'
 import type { Member, Organization } from 'better-auth/plugins/organization'
 
 export type RepalisMemberRole = models.MemberRole
-export type PolarNonOwnerMemberRole = Exclude<RepalisMemberRole, 'owner'>
+export type RepalisNonOwnerMemberRole = Exclude<RepalisMemberRole, 'owner'>
 
 export type BetterAuthOrganizationUser = User & Record<string, unknown>
 
@@ -13,7 +13,7 @@ export interface BetterAuthRoleMappingInput {
    */
   role: string
   /**
-   * Whether this member was selected as Polar's sole owner.
+   * Whether this member was selected as Repalis's sole owner.
    */
   isCanonicalOwner: boolean
 }
@@ -26,14 +26,14 @@ export interface BetterAuthRoleMappingOptions {
    */
   creatorRole?: string
   /**
-   * Better Auth roles that can manage billing in Polar.
+   * Better Auth roles that can manage billing in Repalis.
    *
    * @default ["admin"]
    */
   billingManagerRoles?: readonly string[]
 }
 
-export interface PolarOrganizationMemberRoleInput {
+export interface RepalisOrganizationMemberRoleInput {
   /** Better Auth's raw, potentially comma-separated role value. */
   role: string
   /** Parsed and de-duplicated Better Auth roles. */
@@ -51,8 +51,8 @@ export type BetterAuthOrganizationMemberMirror = Pick<
 
 export interface RepalisOrganizationRoleSyncOptions extends BetterAuthRoleMappingOptions {
   mapBetterAuthRoleToRepalisRole?: (
-    data: PolarOrganizationMemberRoleInput,
-  ) => PolarNonOwnerMemberRole | Promise<PolarNonOwnerMemberRole>
+    data: RepalisOrganizationMemberRoleInput,
+  ) => RepalisNonOwnerMemberRole | Promise<RepalisNonOwnerMemberRole>
 }
 
 export type RepalisOrganizationCustomerCreateParams = Omit<
@@ -94,14 +94,14 @@ export interface RepalisOrganizationOptions {
     owner: User & Record<string, unknown>
   }) => Promise<RepalisOrganizationCustomerCreateParams>
   /**
-   * Map non-canonical Better Auth members to a Polar billing role.
+   * Map non-canonical Better Auth members to a Repalis billing role.
    *
-   * Ownership is intentionally not exposed: the adapter alone selects Polar's
+   * Ownership is intentionally not exposed: the adapter alone selects Repalis's
    * single canonical owner. Return `member` or `billing_manager` only.
    */
   mapBetterAuthRoleToRepalisRole?: (
-    data: PolarOrganizationMemberRoleInput,
-  ) => PolarNonOwnerMemberRole | Promise<PolarNonOwnerMemberRole>
+    data: RepalisOrganizationMemberRoleInput,
+  ) => RepalisNonOwnerMemberRole | Promise<RepalisNonOwnerMemberRole>
   /**
    * Automatically synchronize recurring seat-based subscriptions with the
    * Better Auth organization roster.

@@ -59,7 +59,7 @@ export const show = command({
 
 Register it in the group's `index.ts` (`group(name, description)` +
 `Command.withSubcommands`) and in `src/program.ts`. Preview-only commands go in
-the `previews` list there and only appear with `POLAR_PREVIEW=1`.
+the `previews` list there and only appear with `REPALIS_PREVIEW=1`.
 
 Rules of thumb:
 

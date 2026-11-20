@@ -117,7 +117,7 @@ export function NumberSamples() {
 }
 
 const truncateSentence =
-  'Orbit is the Polar design system: tokens, primitives and components for building product interfaces quickly and consistently.'
+  'Orbit is the Repalis design system: tokens, primitives and components for building product interfaces quickly and consistently.'
 
 export function TruncateSamples() {
   return (

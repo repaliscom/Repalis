@@ -3,14 +3,14 @@ import type { RepalisEmbedCheckout as RepalisEmbedCheckoutType } from '@repalis/
 import type { BetterAuthClientPlugin } from 'better-auth'
 import type { BetterFetch, BetterFetchOption } from 'better-auth/client'
 import type { CheckoutParams } from './plugins/checkout'
-import type { polar } from './server'
+import type { repalis } from './server'
 
 export type { RepalisEmbedCheckoutType as RepalisEmbedCheckout }
 
 export const repalisClient = () => {
   return {
     id: 'repalis-client',
-    $InferServerPlugin: {} as ReturnType<typeof polar>,
+    $InferServerPlugin: {} as ReturnType<typeof repalis>,
     getActions: ($fetch: BetterFetch) => {
       return {
         checkoutEmbed: async (

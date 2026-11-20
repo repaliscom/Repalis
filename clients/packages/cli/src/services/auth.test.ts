@@ -217,7 +217,7 @@ describe('token override', () => {
     expect(activity()).toBe(0)
   })
 
-  test('targets production unless POLAR_ENVIRONMENT says otherwise', async () => {
+  test('targets production unless REPALIS_ENVIRONMENT says otherwise', async () => {
     override = 'ci-secret'
     const auth = await Effect.runPromise(authEffect())
     expect(await Effect.runPromise(auth.environments)).toEqual(['production'])
@@ -225,7 +225,7 @@ describe('token override', () => {
     expect(await Effect.runPromise(auth.environments)).toEqual(['sandbox'])
     environment = 'staging'
     await expect(Effect.runPromise(auth.environments)).rejects.toThrow(
-      'POLAR_ENVIRONMENT must be "sandbox", "production" or "local"',
+      'REPALIS_ENVIRONMENT must be "sandbox", "production" or "local"',
     )
     expect(credentials.state.reads).toBe(0)
   })

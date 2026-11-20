@@ -25,7 +25,7 @@ function Wordmark() {
             Orbit
           </Text>
           <Text variant="caption" color="muted">
-            Polar Design System
+            Repalis Design System
           </Text>
         </Box>
       </Box>

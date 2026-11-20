@@ -3,7 +3,7 @@ import { HttpClient, HttpClientRequest, HttpClientResponse } from 'effect/http'
 import { ToolError } from './results'
 
 export const DOCS_URL = 'https://repalis.com/docs'
-const SEARCH_URL = 'https://api.mintlify.com/discovery/v1/search/polar'
+const SEARCH_URL = 'https://api.mintlify.com/discovery/v1/search/repalis'
 const SEARCH_PAGE_SIZE = 8
 
 const SearchResults = Schema.Array(
@@ -72,7 +72,7 @@ export class Docs extends Context.Service<
             const url = new URL(`${pagePath(path)}.md`, `${DOCS_URL}/`)
             if (!url.href.startsWith(`${DOCS_URL}/`)) {
               return yield* new ToolError({
-                message: `Not a Polar docs page: ${path}`,
+                message: `Not a Repalis docs page: ${path}`,
               })
             }
             const response = yield* client.get(url)

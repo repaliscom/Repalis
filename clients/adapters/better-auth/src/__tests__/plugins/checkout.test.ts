@@ -299,7 +299,7 @@ describe('checkout plugin', () => {
       )
     })
 
-    it('rejects unauthorized organization checkout before calling Polar', async () => {
+    it('rejects unauthorized organization checkout before calling Repalis', async () => {
       vi.mocked(getSessionFromCtx).mockResolvedValue({
         user: { id: 'user-123' },
       })
@@ -322,7 +322,7 @@ describe('checkout plugin', () => {
       expect(mockClient.checkouts.create).not.toHaveBeenCalled()
     })
 
-    it('rejects anonymous organization checkout before calling Polar', async () => {
+    it('rejects anonymous organization checkout before calling Repalis', async () => {
       vi.mocked(getSessionFromCtx).mockResolvedValue(null)
       vi.mocked(resolveBillingPrincipal).mockRejectedValue(
         new APIError('UNAUTHORIZED', {

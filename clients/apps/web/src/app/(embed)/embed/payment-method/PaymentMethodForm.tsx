@@ -148,7 +148,7 @@ export const PaymentMethodForm = ({
       }
       const search = new URLSearchParams(window.location.search)
       search.delete('redirect_status')
-      search.delete('polar_setup_intent')
+      search.delete('repalis_setup_intent')
       router.replace(`${window.location.pathname}?${search.toString()}`)
     })()
   }, [

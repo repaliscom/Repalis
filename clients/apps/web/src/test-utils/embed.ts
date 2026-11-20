@@ -11,8 +11,8 @@ export const listenToParentMessages = () => {
 }
 
 export const getEmbedCloseButton = (): HTMLButtonElement => {
-  const layout = document.getElementById('polar-embed-layout')
-  const content = document.getElementById('polar-embed-content')
+  const layout = document.getElementById('repalis-embed-layout')
+  const content = document.getElementById('repalis-embed-content')
   const button = Array.from(layout?.querySelectorAll('button') ?? []).find(
     (candidate) => !content?.contains(candidate),
   )

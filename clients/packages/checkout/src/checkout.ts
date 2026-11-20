@@ -416,23 +416,23 @@ class EmbedCheckout {
 }
 
 declare global {
-  interface PolarWindow {
+  interface RepalisWindow {
     EmbedCheckout: typeof EmbedCheckout
   }
   interface Window {
-    Polar: Partial<PolarWindow>
-    Repalis: Partial<PolarWindow>
+    Repalis: Partial<RepalisWindow>
+    Repalis: Partial<RepalisWindow>
   }
 }
 
 if (typeof window !== 'undefined') {
   const repalisObj = {
     ...(window.Repalis ?? {}),
-    ...(window.Polar ?? {}),
+    ...(window.Repalis ?? {}),
     EmbedCheckout,
   }
   window.Repalis = repalisObj
-  window.Polar = repalisObj
+  window.Repalis = repalisObj
 }
 
 if (typeof document !== 'undefined') {

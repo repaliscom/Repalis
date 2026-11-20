@@ -85,7 +85,7 @@ const run = <A>(
 beforeEach(async () => {
   api = fakeHttp()
   const directory = await mkdtemp(join(tmpdir(), 'polar-prune-'))
-  file = join(directory, 'polar.json')
+  file = join(directory, 'repalis.json')
   await writeFile(file, source)
 })
 
@@ -152,7 +152,7 @@ const script = (filter: string) =>
 
 describe('prune with a script config', () => {
   beforeEach(async () => {
-    file = join(file, '..', 'polar.config.mjs')
+    file = join(file, '..', 'repalis.config.mjs')
   })
 
   test('removes the unused entries', async () => {

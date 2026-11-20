@@ -18,7 +18,7 @@ export const createServer = Effect.fn('createServer')(function* (
 ) {
   const { telemetry } = yield* RequestLog
   const server = new McpServer(
-    { name: 'polar', version },
+    { name: 'repalis', version },
     { instructions: instructionsFor(toolMode, telemetry) },
   )
   server.server.registerCapabilities({ tools: { listChanged: false } })

@@ -1,4 +1,4 @@
-# @polar-sh/hono
+# @repalis-sh/hono
 
 ## 2.1.5
 
@@ -14,7 +14,7 @@
 
 ### Patch Changes
 
-- 4e4bb72: Export the `RepalisBetterAuthPlugin` type so projects that emit declarations can wrap `polar()` in an exported function.
+- 4e4bb72: Export the `RepalisBetterAuthPlugin` type so projects that emit declarations can wrap `repalis()` in an exported function.
 
 ## 2.1.3
 
@@ -44,7 +44,7 @@
 
 ### Minor Changes
 
-- e381ab0: Send the customer IP address when creating a checkout so Polar can show the visitor's local currency. The IP is resolved with Better Auth's `getIP`, so it follows your `advanced.ipAddress` settings. Use the new `customerIpAddress` option to resolve it yourself, or set it to `false` to stop sending it.
+- e381ab0: Send the customer IP address when creating a checkout so Repalis can show the visitor's local currency. The IP is resolved with Better Auth's `getIP`, so it follows your `advanced.ipAddress` settings. Use the new `customerIpAddress` option to resolve it yourself, or set it to `false` to stop sending it.
 
 ### Patch Changes
 
@@ -71,7 +71,7 @@
 
   Better Auth 1.7 no longer types a top-level `query` on client calls to endpoints that also accept a body. To open the portal for an organization, pass the query through `fetchOptions`: `authClient.customer.portal({ fetchOptions: { query: { organizationId } } })`.
 
-- 4d92bf4: Migrate to the new Polar SDK (`@repalis/sdk/2026-10`) and use standalone SDK functions so application bundles include only the API operations used by the adapter.
+- 4d92bf4: Migrate to the new Repalis SDK (`@repalis/sdk/2026-10`) and use standalone SDK functions so application bundles include only the API operations used by the adapter.
 
   Create the `client` option with `createRepalisCore` instead of `createRepalis`, importing it from `@repalis/sdk/2026-10`. Custom plugins passed through `use` now receive a `RepalisCore` and must use standalone SDK functions with it.
 
@@ -81,9 +81,9 @@
 
 ### Patch Changes
 
-- 1dd23c2: Create signup customers after Better Auth inserts the user, including the user ID in the initial Polar request so customer.created webhooks can identify the user. Skip Polar calls when a before-create hook rejects signup, retain one-time linking for existing customers without an external ID, and reject conflicting customer identities without attempting to replace an immutable external ID.
+- 1dd23c2: Create signup customers after Better Auth inserts the user, including the user ID in the initial Repalis request so customer.created webhooks can identify the user. Skip Repalis calls when a before-create hook rejects signup, retain one-time linking for existing customers without an external ID, and reject conflicting customer identities without attempting to replace an immutable external ID.
 - 4fc5571: Do not claim an existing team customer as an individual customer on signup. `onAfterUserCreate` now filters the relink path to individual customers only and throws a CONFLICT when a team customer already holds the signup email, instead of overwriting the team customer's `external_id` with the new user's id (which left the user without an individual customer and corrupted the team customer).
-- f9019bc: Reject anonymous sessions from `/usage/ingest` before forwarding the session id as a Polar `externalCustomerId`. Without this guard, an anonymous better-auth session (which carries both `user.id` and `isAnonymous === true`) passed the existing `user.id` check and forwarded its anonymous id to `polar.events.ingest`, inserting orphan `meter_event` rows that inflate merchant org-wide meter totals under the README-default Organization Access Token. Mirrors the guard already applied to the sibling `/customer/portal` handler.
+- f9019bc: Reject anonymous sessions from `/usage/ingest` before forwarding the session id as a Repalis `externalCustomerId`. Without this guard, an anonymous better-auth session (which carries both `user.id` and `isAnonymous === true`) passed the existing `user.id` check and forwarded its anonymous id to `repalis.events.ingest`, inserting orphan `meter_event` rows that inflate merchant org-wide meter totals under the README-default Organization Access Token. Mirrors the guard already applied to the sibling `/customer/portal` handler.
 - Updated dependencies [193578b]
   - @repalis/adapter-utils@1.0.0
 
@@ -95,7 +95,7 @@
 
   Enable organization synchronization with Better Auth's `organization` plugin and `experimental_organizationSync.enabled`. Automatic seat management is separately opt-in with `experimental_organizationSync.syncSeats`; use `experimental_organizationSync.selectSeatProductsForMember` to configure dynamic per-member product allocation.
 
-  Do not enable this option if the application already synchronizes organization billing, because competing implementations can leave Better Auth and Polar in an inconsistent state.
+  Do not enable this option if the application already synchronizes organization billing, because competing implementations can leave Better Auth and Repalis in an inconsistent state.
 
 ## 1.8.4
 
@@ -184,14 +184,14 @@
 
 ### Patch Changes
 
-- 85c32f7: Add clients-only export as `@polar/better-auth/client`
+- 85c32f7: Add clients-only export as `@repalis/better-auth/client`
 
 ## 1.5.0
 
 ### Minor Changes
 
-- 266eba1: Bump Polar SDK
-- 4512e82: Bump Polar SDK
+- 266eba1: Bump Repalis SDK
+- 4512e82: Bump Repalis SDK
 
 ## 1.4.0
 
@@ -227,7 +227,7 @@
 
 ### Patch Changes
 
-- 3250323: Update Polar SDK to 0.38.1
+- 3250323: Update Repalis SDK to 0.38.1
 
 ## 1.1.10
 
@@ -286,7 +286,7 @@
 
 - 5817078: Update better auth version
 - a04c344: Fix type of User in getCustomerCreateParams
-- 39f4d39: Update Polar SDK version
+- 39f4d39: Update Repalis SDK version
 
 ## 1.1.1
 
@@ -340,7 +340,7 @@
 
 ### Patch Changes
 
-- 87de0c5: Bump Polar SDK
+- 87de0c5: Bump Repalis SDK
 
 ## 1.0.1
 
@@ -419,7 +419,7 @@
 
 ### Patch Changes
 
-- e49adbe: Add polar sdk as peer dep
+- e49adbe: Add repalis sdk as peer dep
 
 ## 0.0.4
 
@@ -473,7 +473,7 @@
 
 ### Patch Changes
 
-- 9dd847d: Bump Polar SDK
+- 9dd847d: Bump Repalis SDK
 - Updated dependencies [9dd847d]
   - @repalis/adapter-utils@0.1.8
 
@@ -550,7 +550,7 @@
 - 234ba51: resolve core from workspace
 - Updated dependencies [49d21c1]
 - Updated dependencies [234ba51]
-  - @polar-sh/adapter-core@0.1.5
+  - @repalis-sh/adapter-core@0.1.5
 
 ## 0.2.4
 

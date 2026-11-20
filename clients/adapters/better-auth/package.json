@@ -1,7 +1,7 @@
 {
   "name": "@repalis/better-auth",
   "version": "2.1.5",
-  "description": "Polar integration for better-auth",
+  "description": "Repalis integration for better-auth",
   "repository": {
     "type": "git",
     "url": "https://github.com/repaliscom/Repalis.git",
@@ -50,7 +50,7 @@
     "dist"
   ],
   "keywords": [
-    "polar",
+    "repalis",
     "better-auth",
     "payments",
     "subscriptions"

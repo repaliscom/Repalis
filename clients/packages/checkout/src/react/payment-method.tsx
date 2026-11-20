@@ -17,7 +17,7 @@ type IncomingMessage =
   | { event: 'error'; code: EmbedPaymentMethodErrorCode }
   | { event: 'resize'; height: number }
 
-const isPolarMessage = (
+const isRepalisMessage = (
   // oxlint-disable-next-line typescript/no-explicit-any
   message: any,
 ): message is IncomingMessage & { type: typeof REPALIS_PAYMENT_METHOD_EVENT } => {
@@ -56,7 +56,7 @@ interface RepalisPaymentMethodBaseProps {
   /**
    * A short-lived session token returned by
    * `POST /v1/customer-sessions`. Pass whatever the API returned —
-   * the SDK detects the prefix (`polar_cst_` vs `polar_mst_`) and
+   * the SDK detects the prefix (`repalis_cst_` vs `repalis_mst_`) and
    * routes the request to the right endpoint internally.
    */
   sessionToken: string
@@ -108,7 +108,7 @@ export type RepalisPaymentMethodProps = RepalisPaymentMethodBaseProps
 export type RepalisPaymentMethodProps = RepalisPaymentMethodBaseProps
 
 /**
- * Embeds the Polar "add payment method" form as a bare, chrome-less
+ * Embeds the Repalis "add payment method" form as a bare, chrome-less
  * iframe inside the parent React tree.
  *
  * The merchant is responsible for any surrounding UI (modal, sheet,
@@ -181,7 +181,7 @@ export const RepalisPaymentMethod = ({
 
     const messageListener = ({ data, origin }: MessageEvent) => {
       if (!isAllowedOrigin(origin)) return
-      if (!isPolarMessage(data)) return
+      if (!isRepalisMessage(data)) return
 
       switch (data.event) {
         case 'loaded':

@@ -12,7 +12,7 @@ export const useProduct = (
     queryKey: ['product', organizationId, { id }],
     queryFn: () =>
       unwrap(
-        polar.GET('/v1/products/{id}', { params: { path: { id: id ?? '' } } }),
+        repalis.GET('/v1/products/{id}', { params: { path: { id: id ?? '' } } }),
       ),
     enabled: !!organizationId && !!id,
   })
@@ -31,7 +31,7 @@ export const useProducts = (
     queryKey: ['products', organizationId, { ...options }],
     queryFn: () =>
       unwrap(
-        polar.GET('/v1/products/', {
+        repalis.GET('/v1/products/', {
           params: { query: { organization_id: organizationId, ...options } },
         }),
       ),
@@ -51,7 +51,7 @@ export const useInfiniteProducts = (
     queryKey: ['infinite', 'products', organizationId, { ...options }],
     queryFn: ({ pageParam = 1 }) =>
       unwrap(
-        polar.GET('/v1/products/', {
+        repalis.GET('/v1/products/', {
           params: {
             query: {
               organization_id: organizationId,

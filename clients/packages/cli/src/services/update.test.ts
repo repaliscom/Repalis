@@ -35,34 +35,34 @@ import {
 } from '@/services/update'
 import { fakeHttp } from '@/utils/test-utils/http'
 
-const makeTemp = () => mkdtemp(join(tmpdir(), 'polar-test-'))
+const makeTemp = () => mkdtemp(join(tmpdir(), 'repalis-test-'))
 
 describe('getReleaseArchiveName', () => {
   test('uses zip archives for darwin releases', () => {
     expect(getReleaseArchiveName({ os: 'darwin', arch: 'arm64' })).toBe(
-      'polar-darwin-arm64.zip',
+      'repalis-darwin-arm64.zip',
     )
     expect(getReleaseArchiveName({ os: 'darwin', arch: 'x64' })).toBe(
-      'polar-darwin-x64.zip',
+      'repalis-darwin-x64.zip',
     )
   })
 
   test('uses tar.gz archives for linux releases', () => {
     expect(getReleaseArchiveName({ os: 'linux', arch: 'x64' })).toBe(
-      'polar-linux-x64.tar.gz',
+      'repalis-linux-x64.tar.gz',
     )
   })
 
   test('uses zip archives for windows releases', () => {
     expect(getReleaseArchiveName({ os: 'windows', arch: 'x64' })).toBe(
-      'polar-windows-x64.zip',
+      'repalis-windows-x64.zip',
     )
   })
 })
 
 describe('binaryNameFor', () => {
   test('adds the exe extension on windows only', () => {
-    expect(binaryNameFor('windows')).toBe('polar.exe')
+    expect(binaryNameFor('windows')).toBe('repalis.exe')
     expect(binaryNameFor('darwin')).toBe('polar')
     expect(binaryNameFor('linux')).toBe('polar')
   })
@@ -71,24 +71,24 @@ describe('binaryNameFor', () => {
 describe('getArchiveExtractionCommand', () => {
   test('uses ditto for zip archives on macOS', () => {
     expect(
-      getArchiveExtractionCommand('/tmp/polar.zip', '/tmp/out', 'darwin'),
-    ).toEqual(['ditto', '-x', '-k', '/tmp/polar.zip', '/tmp/out'])
+      getArchiveExtractionCommand('/tmp/repalis.zip', '/tmp/out', 'darwin'),
+    ).toEqual(['ditto', '-x', '-k', '/tmp/repalis.zip', '/tmp/out'])
   })
 
   test('uses the bundled tar for zip archives on windows', () => {
     expect(
       getArchiveExtractionCommand(
-        'C:\\Temp\\polar.zip',
+        'C:\\Temp\\repalis.zip',
         'C:\\Temp\\out',
         'win32',
       ),
-    ).toEqual(['tar', '-xf', 'C:\\Temp\\polar.zip', '-C', 'C:\\Temp\\out'])
+    ).toEqual(['tar', '-xf', 'C:\\Temp\\repalis.zip', '-C', 'C:\\Temp\\out'])
   })
 
   test('uses tar for tar.gz archives', () => {
     expect(
-      getArchiveExtractionCommand('/tmp/polar.tar.gz', '/tmp/out'),
-    ).toEqual(['tar', '-xzf', '/tmp/polar.tar.gz', '-C', '/tmp/out'])
+      getArchiveExtractionCommand('/tmp/repalis.tar.gz', '/tmp/out'),
+    ).toEqual(['tar', '-xzf', '/tmp/repalis.tar.gz', '-C', '/tmp/out'])
   })
 })
 
@@ -111,7 +111,7 @@ describe('replaceBinary on macOS and Linux', () => {
     }).pipe(Effect.provide(BunFileSystem.layer))
 
   const tempFiles = async () =>
-    (await readdir(dir)).filter((file) => file.startsWith('.polar-update-'))
+    (await readdir(dir)).filter((file) => file.startsWith('.repalis-update-'))
 
   beforeEach(async () => {
     writeError = undefined
@@ -221,7 +221,7 @@ describe('replaceBinary on windows', () => {
     copyError = undefined
     dir = await makeTemp()
     newBinaryPath = join(dir, 'polar-new.exe')
-    binaryPath = join(dir, 'polar.exe')
+    binaryPath = join(dir, 'repalis.exe')
     await writeFile(newBinaryPath, 'new binary')
     await writeFile(binaryPath, 'old binary')
   })
@@ -260,7 +260,7 @@ describe('replaceBinary on windows', () => {
       'Could not replace',
     )
     await expect(readFile(binaryPath, 'utf8')).resolves.toBe('old binary')
-    await expect(readdir(dir)).resolves.not.toContain('polar.exe.old')
+    await expect(readdir(dir)).resolves.not.toContain('repalis.exe.old')
   })
 })
 
@@ -270,7 +270,7 @@ describe('removeRetiredBinary', () => {
 
   beforeEach(async () => {
     dir = await makeTemp()
-    binaryPath = join(dir, 'polar.exe')
+    binaryPath = join(dir, 'repalis.exe')
     await writeFile(retiredBinaryPath(binaryPath), 'old binary')
   })
 
@@ -287,7 +287,7 @@ describe('removeRetiredBinary', () => {
   test('leaves other platforms alone', async () => {
     removeRetiredBinary(binaryPath, 'darwin')
 
-    await expect(readdir(dir)).resolves.toEqual(['polar.exe.old'])
+    await expect(readdir(dir)).resolves.toEqual(['repalis.exe.old'])
   })
 
   test('does nothing when no binary was retired', () => {

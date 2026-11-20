@@ -1,8 +1,8 @@
 {
   "name": "@repalis/orbit",
   "version": "0.1.0",
-  "description": "Orbit — Design system for Polar",
-  "author": "Polar",
+  "description": "Orbit — Design system for Repalis",
+  "author": "Repalis",
   "license": "Apache-2.0",
   "type": "module",
   "private": true,

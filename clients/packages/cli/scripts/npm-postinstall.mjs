@@ -93,7 +93,7 @@ function verifyBinary() {
     childProcess.spawnSync(targetBinary, ['--version'], {
       stdio: 'ignore',
       windowsHide: true,
-      env: { ...process.env, POLAR_CLI_TELEMETRY_OPTOUT: '1' },
+      env: { ...process.env, REPALIS_CLI_TELEMETRY_OPTOUT: '1' },
     }).status === 0
   )
 }

@@ -48,7 +48,7 @@ const repalisMember = (
   role: RepalisMember['role'],
   overrides: Partial<RepalisMember> = {},
 ): RepalisMember => ({
-  id: `polar-member-${userId}`,
+  id: `repalis-member-${userId}`,
   created_at: createdAt.toISOString(),
   modified_at: null,
   customer_id: `customer-${organizationId}`,
@@ -84,7 +84,7 @@ const createHarness = (
       billing_name: null,
       billing_address: null,
       tax_id: null,
-      organization_id: 'polar-organization',
+      organization_id: 'repalis-organization',
       deleted_at: null,
       first_user_event_at: null,
       avatar_url: null,
@@ -194,7 +194,7 @@ describe('organization member and owner synchronization', () => {
         },
       ),
     ).rejects.toThrow(
-      'Polar team customer with external ID "organization-123" was not found',
+      'Repalis team customer with external ID "organization-123" was not found',
     )
   })
 
@@ -220,7 +220,7 @@ describe('organization member and owner synchronization', () => {
     ).toHaveBeenCalledOnce()
   })
 
-  it('scopes one Better Auth user to each Polar team customer', async () => {
+  it('scopes one Better Auth user to each Repalis team customer', async () => {
     const secondOrganizationId = 'organization-456'
     const shared = betterAuthMember('shared-user', 'member')
     const harness = createHarness({
@@ -296,7 +296,7 @@ describe('organization member and owner synchronization', () => {
       [organizationId]: [
         repalisMember('old-owner', 'owner'),
         repalisMember('successor', 'billing_manager'),
-        repalisMember('unrelated', 'member', { name: 'Existing Polar name' }),
+        repalisMember('unrelated', 'member', { name: 'Existing Repalis name' }),
       ],
     })
 
@@ -317,7 +317,7 @@ describe('organization member and owner synchronization', () => {
       'member',
     )
     expect(harness.members.get(`${organizationId}:unrelated`)).toMatchObject({
-      name: 'Existing Polar name',
+      name: 'Existing Repalis name',
       role: 'member',
     })
     expect(

@@ -18,7 +18,7 @@ export const useOrganizationAccount = (organizationId?: string) => {
     queryFn: organizationId
       ? () =>
           unwrap(
-            polar.GET('/v1/organizations/{id}/account', {
+            repalis.GET('/v1/organizations/{id}/account', {
               params: { path: { id: organizationId } },
             }),
           )
@@ -44,7 +44,7 @@ export const usePayoutAccount = (payoutAccountId?: string) => {
     queryFn: payoutAccountId
       ? () =>
           unwrap(
-            polar.GET('/v1/payout-accounts/{id}', {
+            repalis.GET('/v1/payout-accounts/{id}', {
               params: { path: { id: payoutAccountId } },
             }),
           )
@@ -62,7 +62,7 @@ export const useTransactionsSummary = (accountId?: string) => {
     queryFn: accountId
       ? () =>
           unwrap(
-            polar.GET('/v1/transactions/summary', {
+            repalis.GET('/v1/transactions/summary', {
               params: { query: { account_id: accountId } },
             }),
           )
@@ -78,7 +78,7 @@ export const usePayoutEstimate = (organizationId?: string) => {
     queryFn: organizationId
       ? () =>
           unwrap(
-            polar.GET('/v1/payouts/estimate', {
+            repalis.GET('/v1/payouts/estimate', {
               params: { query: { organization_id: organizationId } },
             }),
           )
@@ -103,7 +103,7 @@ export const useNextPayoutAt = (account?: schemas['Account']) => {
     queryFn: account
       ? () =>
           unwrap(
-            polar.GET('/v1/payouts/', {
+            repalis.GET('/v1/payouts/', {
               params: {
                 query: {
                   account_id: account.id,
@@ -157,7 +157,7 @@ export const useCreatePayout = (organizationId?: string) => {
         throw new Error('organizationId is required to create a payout')
       }
       return unwrap(
-        polar.POST('/v1/payouts/', {
+        repalis.POST('/v1/payouts/', {
           body: { organization_id: organizationId },
         }),
       )
@@ -186,6 +186,6 @@ export const usePayouts = () => {
 
   return useQuery({
     queryKey: ['finance', 'payouts'],
-    queryFn: () => unwrap(polar.GET('/v1/payouts/')),
+    queryFn: () => unwrap(repalis.GET('/v1/payouts/')),
   })
 }

@@ -350,7 +350,7 @@ describe('resolveBillingPrincipal', () => {
       })
     })
 
-    it('denies a role mapped to an ordinary Polar member', async () => {
+    it('denies a role mapped to an ordinary Repalis member', async () => {
       const { context } = createContext(createMembership({ role: 'finance' }))
 
       await expect(

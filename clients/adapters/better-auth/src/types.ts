@@ -18,7 +18,7 @@ export type Product = {
   slug: string
 }
 
-export type PolarPlugin = (
+export type RepalisPlugin = (
   client: RepalisCore,
   options?: RepalisOptions,
 ) => ReturnType<
@@ -28,13 +28,13 @@ export type PolarPlugin = (
   | ReturnType<typeof webhooks>
 >
 
-export type PolarPlugins = [PolarPlugin, ...PolarPlugin[]]
+export type RepalisPlugins = [RepalisPlugin, ...RepalisPlugin[]]
 
-export type PolarEndpoints = UnionToIntersection<ReturnType<PolarPlugin>>
+export type RepalisEndpoints = UnionToIntersection<ReturnType<RepalisPlugin>>
 
 export interface RepalisOptions {
   /**
-   * Polar core client created with createRepalisCore
+   * Repalis core client created with createRepalisCore
    */
   client: RepalisCore
   /**
@@ -58,13 +58,13 @@ export interface RepalisOptions {
    *
    * Do not enable this for applications that already handle organization
    * billing. Existing billing data is not migrated and can become inconsistent
-   * with the newly synchronized Polar team customer.
+   * with the newly synchronized Repalis team customer.
    *
    * Organization support is disabled when omitted.
    */
   experimental_organizationSync?: RepalisOrganizationOptions
   /**
-   * Use Polar plugins
+   * Use Repalis plugins
    */
-  use: PolarPlugins
+  use: RepalisPlugins
 }

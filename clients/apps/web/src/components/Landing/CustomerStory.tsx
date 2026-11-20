@@ -9,7 +9,7 @@ const STORY = {
   href: '/customers/stilla-ai',
   label: 'Read the Stilla AI story',
   quote:
-    'The Polar team treated us like a design partner, not just a customer. They built features we needed on tight timelines and worked collaboratively to resolve issues. That’s rare.',
+    'The Repalis team treated us like a design partner, not just a customer. They built features we needed on tight timelines and worked collaboratively to resolve issues. That’s rare.',
   name: 'Siavash Ghorbani',
   company: 'Stilla AI',
 }

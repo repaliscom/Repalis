@@ -9,7 +9,7 @@ import { ThemingPresetProps } from '@repalis/ui/hooks/theming'
 import { Elements, ElementsConsumer } from '@stripe/react-stripe-js'
 import { Stripe } from '@stripe/stripe-js'
 import { useEffect, useMemo, useState } from 'react'
-import { loadPolarStripe } from '@/utils/stripe'
+import { loadRepalisStripe } from '@/utils/stripe'
 import { OrderPaymentRetry } from './OrderPaymentRetry'
 import { PortalDialog } from './PortalDialog'
 import { SavedCardsSelector } from './SavedCardsSelector'
@@ -43,7 +43,7 @@ export const OrderPaymentRetryModal = ({
       pm.type === 'card' || (pm.type === 'kr_card' && order.currency === 'krw'),
   )
 
-  const stripePromise = useMemo(() => loadPolarStripe(), [])
+  const stripePromise = useMemo(() => loadRepalisStripe(), [])
 
   // Resolve Stripe instance for saved payment methods that may require 3DS authentication
   const [stripe, setStripe] = useState<Stripe | null>(null)

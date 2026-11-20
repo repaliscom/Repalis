@@ -2,7 +2,7 @@ import { afterEach, beforeAll, describe, expect, it, vi } from 'vitest'
 import { RepalisEmbedPaymentMethod } from './payment-method'
 
 const ALLOWED_ORIGIN = 'http://127.0.0.1:3000'
-const CUSTOMER_SESSION_TOKEN = 'polar_cst_test_token'
+const CUSTOMER_SESSION_TOKEN = 'repalis_cst_test_token'
 
 beforeAll(() => {
   // @ts-expect-error - Global defined at build time by tsdown
@@ -135,7 +135,7 @@ describe('RepalisEmbedPaymentMethod', () => {
 
     it('forwards a member token verbatim — no client-side type sniffing', async () => {
       const promise = RepalisEmbedPaymentMethod.create({
-        sessionToken: 'polar_mst_test_member',
+        sessionToken: 'repalis_mst_test_member',
       })
 
       dispatchLoaded()
@@ -144,7 +144,7 @@ describe('RepalisEmbedPaymentMethod', () => {
       const iframe = document.querySelector('iframe')!
       const src = new URL(iframe.src)
       expect(src.searchParams.get('session_token')).toBe(
-        'polar_mst_test_member',
+        'repalis_mst_test_member',
       )
 
       embed.close()
@@ -549,10 +549,10 @@ describe('RepalisEmbedPaymentMethod', () => {
     })
   })
 
-  describe('window.Polar', () => {
-    it('exposes EmbedPaymentMethod on window.Polar', () => {
-      expect(window.Polar).toBeDefined()
-      expect(window.Polar.EmbedPaymentMethod).toBe(RepalisEmbedPaymentMethod)
+  describe('window.Repalis', () => {
+    it('exposes EmbedPaymentMethod on window.Repalis', () => {
+      expect(window.Repalis).toBeDefined()
+      expect(window.Repalis.EmbedPaymentMethod).toBe(RepalisEmbedPaymentMethod)
     })
   })
 })

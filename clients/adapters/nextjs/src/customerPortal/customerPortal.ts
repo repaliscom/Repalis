@@ -31,7 +31,7 @@ export type CustomerPortalConfig =
 export const CustomerPortal = (config: CustomerPortalConfig) => {
   const { accessToken, environment, returnUrl } = config
 
-  const polar = createRepalisCore({
+  const repalis = createRepalisCore({
     accessToken,
     environment,
   })
@@ -52,7 +52,7 @@ export const CustomerPortal = (config: CustomerPortalConfig) => {
       }
 
       try {
-        const { customer_portal_url } = await createCustomerSessions(polar)({
+        const { customer_portal_url } = await createCustomerSessions(repalis)({
           return_url: decodedReturnUrl,
           external_customer_id: externalCustomerId,
         })
@@ -74,7 +74,7 @@ export const CustomerPortal = (config: CustomerPortalConfig) => {
     }
 
     try {
-      const { customer_portal_url } = await createCustomerSessions(polar)({
+      const { customer_portal_url } = await createCustomerSessions(repalis)({
         return_url: decodedReturnUrl,
         customer_id: customerId,
       })

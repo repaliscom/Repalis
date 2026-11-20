@@ -6,9 +6,9 @@ export default defineNuxtConfig({
   runtimeConfig: {
     private: {
       repalisAccessToken: '',
-      polarServer: '',
-      polarCheckoutSuccessUrl: '',
-      polarWebhookSecret: '',
+      repalisServer: '',
+      repalisCheckoutSuccessUrl: '',
+      repalisWebhookSecret: '',
     },
   },
 })

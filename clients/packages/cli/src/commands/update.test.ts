@@ -140,7 +140,7 @@ describe('downloadAndUpdate', () => {
   let binaryPath: string
 
   beforeEach(async () => {
-    dir = await mkdtemp(join(tmpdir(), 'polar-test-'))
+    dir = await mkdtemp(join(tmpdir(), 'repalis-test-'))
     binaryPath = join(dir, 'polar')
     await writeFile(binaryPath, 'old binary')
     vi.spyOn(Bun, 'spawn').mockImplementation(((command: string[]) => {

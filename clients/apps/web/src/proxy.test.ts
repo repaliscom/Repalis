@@ -355,7 +355,7 @@ describe('middleware function', () => {
 
   it('lets unauthenticated agent claims through so the page can offer sign-in', async () => {
     const request = new NextRequest(
-      'https://example.com/agent/claim?token=polar_acl_123',
+      'https://example.com/agent/claim?token=repalis_acl_123',
     )
 
     const response = await proxy(request)
@@ -463,14 +463,14 @@ describe('checkout frame ancestors', () => {
 
   it('asks for the policy of a framed checkout', async () => {
     const response = await proxy(
-      framedRequest('https://repalis.com/checkout/polar_c_123'),
+      framedRequest('https://repalis.com/checkout/repalis_c_123'),
     )
 
     expect(response.status).toBe(200)
     expect(mockFetch).toHaveBeenCalledOnce()
 
     const [url, init] = mockFetch.mock.calls[0]
-    expect(url).toContain('/v1/checkouts/client/polar_c_123/embed-policy')
+    expect(url).toContain('/v1/checkouts/client/repalis_c_123/embed-policy')
     expect(init.headers).toMatchObject({
       Referer: 'https://example.com/pricing',
       'Sec-Fetch-Dest': 'iframe',
@@ -479,11 +479,11 @@ describe('checkout frame ancestors', () => {
 
   it('resolves the same secret on the confirmation page', async () => {
     await proxy(
-      framedRequest('https://repalis.com/checkout/polar_c_123/confirmation'),
+      framedRequest('https://repalis.com/checkout/repalis_c_123/confirmation'),
     )
 
     expect(mockFetch.mock.calls[0][0]).toContain(
-      '/v1/checkouts/client/polar_c_123/embed-policy',
+      '/v1/checkouts/client/repalis_c_123/embed-policy',
     )
   })
 
@@ -496,7 +496,7 @@ describe('checkout frame ancestors', () => {
     })
 
     const response = await proxy(
-      framedRequest('https://repalis.com/checkout/polar_c_123'),
+      framedRequest('https://repalis.com/checkout/repalis_c_123'),
     )
 
     const policy = response.headers.get('Content-Security-Policy')
@@ -507,7 +507,7 @@ describe('checkout frame ancestors', () => {
   })
 
   it('asks nothing on a top-level navigation, and refuses framing', async () => {
-    const request = new NextRequest('https://repalis.com/checkout/polar_c_123', {
+    const request = new NextRequest('https://repalis.com/checkout/repalis_c_123', {
       headers: { 'Sec-Fetch-Dest': 'document' },
     })
 
@@ -529,7 +529,7 @@ describe('checkout frame ancestors', () => {
     'asks for every destination that can hold a document: %s',
     async (destination) => {
       await proxy(
-        new NextRequest('https://repalis.com/checkout/polar_c_123', {
+        new NextRequest('https://repalis.com/checkout/repalis_c_123', {
           headers: { 'Sec-Fetch-Dest': destination },
         }),
       )
@@ -539,7 +539,7 @@ describe('checkout frame ancestors', () => {
   )
 
   it('asks when the browser sends no fetch destination', async () => {
-    await proxy(new NextRequest('https://repalis.com/checkout/polar_c_123'))
+    await proxy(new NextRequest('https://repalis.com/checkout/repalis_c_123'))
 
     expect(mockFetch).toHaveBeenCalledOnce()
   })
@@ -554,7 +554,7 @@ describe('checkout frame ancestors', () => {
     mockFetch.mockRejectedValue(new Error('unreachable'))
 
     const response = await proxy(
-      framedRequest('https://repalis.com/checkout/polar_c_123'),
+      framedRequest('https://repalis.com/checkout/repalis_c_123'),
     )
 
     expect(response.status).toBe(200)
@@ -583,7 +583,7 @@ describe('payment method embed policy', () => {
   })
 
   const EMBED_URL =
-    'https://repalis.com/embed/payment-method?session_token=polar_cst_123&embed_origin=https%3A%2F%2Fexample.com'
+    'https://repalis.com/embed/payment-method?session_token=repalis_cst_123&embed_origin=https%3A%2F%2Fexample.com'
 
   const framedRequest = (url: string, headers: Record<string, string> = {}) =>
     new NextRequest(url, {
@@ -598,11 +598,11 @@ describe('payment method embed policy', () => {
     expect(url).toContain(
       '/v1/customer-portal/customers/me/embed-policy?embed_origin=https%3A%2F%2Fexample.com',
     )
-    expect(init.headers).toEqual({ Authorization: 'Bearer polar_cst_123' })
+    expect(init.headers).toEqual({ Authorization: 'Bearer repalis_cst_123' })
     expect(response.headers.get('Content-Security-Policy')).toContain(
       'frame-ancestors https://example.com;',
     )
-    expect(getForwardedRequestHeader(response, 'x-polar-embed-origin')).toBe(
+    expect(getForwardedRequestHeader(response, 'x-repalis-embed-origin')).toBe(
       'https://example.com',
     )
   })
@@ -616,7 +616,7 @@ describe('payment method embed policy', () => {
     const response = await proxy(framedRequest(EMBED_URL))
 
     expect(
-      getForwardedRequestHeader(response, 'x-polar-embed-origin'),
+      getForwardedRequestHeader(response, 'x-repalis-embed-origin'),
     ).toBeNull()
   })
 
@@ -624,11 +624,11 @@ describe('payment method embed policy', () => {
     mockFetch.mockResolvedValue({ ok: false })
 
     const response = await proxy(
-      framedRequest(EMBED_URL, { 'x-polar-embed-origin': 'https://evil.com' }),
+      framedRequest(EMBED_URL, { 'x-repalis-embed-origin': 'https://evil.com' }),
     )
 
     expect(
-      getForwardedRequestHeader(response, 'x-polar-embed-origin'),
+      getForwardedRequestHeader(response, 'x-repalis-embed-origin'),
     ).toBeNull()
     expect(response.headers.get('Content-Security-Policy')).toContain(
       "frame-ancestors 'none';",
@@ -644,7 +644,7 @@ describe('payment method embed policy', () => {
     expect(response.headers.get('Content-Security-Policy')).toContain(
       "frame-ancestors 'none';",
     )
-    expect(getForwardedRequestHeader(response, 'x-polar-embed-origin')).toBe(
+    expect(getForwardedRequestHeader(response, 'x-repalis-embed-origin')).toBe(
       'https://example.com',
     )
   })
@@ -652,7 +652,7 @@ describe('payment method embed policy', () => {
   it('lets Polar embed itself without asking for the policy', async () => {
     const response = await proxy(
       framedRequest(
-        'https://repalis.com/embed/payment-method?session_token=polar_cst_123&embed_origin=https%3A%2F%2Frepalis.com',
+        'https://repalis.com/embed/payment-method?session_token=repalis_cst_123&embed_origin=https%3A%2F%2Frepalis.com',
       ),
     )
 
@@ -660,7 +660,7 @@ describe('payment method embed policy', () => {
     expect(response.headers.get('Content-Security-Policy')).toContain(
       "frame-ancestors 'self';",
     )
-    expect(getForwardedRequestHeader(response, 'x-polar-embed-origin')).toBe(
+    expect(getForwardedRequestHeader(response, 'x-repalis-embed-origin')).toBe(
       'https://repalis.com',
     )
   })
@@ -668,7 +668,7 @@ describe('payment method embed policy', () => {
   it('lets Polar embed itself when the Host header differs from the URL host', async () => {
     const response = await proxy(
       framedRequest(
-        'http://localhost:3000/embed/payment-method?session_token=polar_cst_123&embed_origin=http%3A%2F%2F127.0.0.1%3A3000',
+        'http://localhost:3000/embed/payment-method?session_token=repalis_cst_123&embed_origin=http%3A%2F%2F127.0.0.1%3A3000',
         { Host: '127.0.0.1:3000' },
       ),
     )

@@ -159,7 +159,7 @@ export const SetupReadinessSection = ({ organization, step }: Props) => {
       ) : (
         <Box flexDirection="column" rowGap="l">
           <Text variant="caption" color="muted">
-            Integrate your application with the Polar API to manage orders,
+            Integrate your application with the Repalis API to manage orders,
             customers, and subscriptions programmatically from your own code.{' '}
             <LearnMore href={DOCS.api} />
           </Text>

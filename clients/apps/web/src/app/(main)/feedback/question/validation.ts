@@ -20,7 +20,7 @@ export type ValidationStatus = z.infer<typeof validationSchema>['status']
 
 const VALIDATION_SYSTEM_PROMPT = `You classify incoming messages for the Polar support assistant.
 
-About Polar:
+About Repalis:
 ${REPALIS_DESCRIPTION}
 
 Return one of:

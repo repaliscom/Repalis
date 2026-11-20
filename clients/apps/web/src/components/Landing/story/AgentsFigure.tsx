@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react'
 import { Shimmer } from '../Shimmer'
 import { Sheet, Window } from './Frame'
 
-/** A Claude Code session connected to the Polar MCP server. Tool names are the documented MCP operations. */
+/** A Claude Code session connected to the Repalis MCP server. Tool names are the documented MCP operations. */
 export interface Turn {
   prompt: string
   tool: string
@@ -100,7 +100,7 @@ export const AgentsFigure = ({ turns = TURNS }: { turns?: Turn[] }) => {
   const current = turns[turn]
 
   return (
-    <Window flow={3} narrow innerRef={ref} aside="Polar MCP server">
+    <Window flow={3} narrow innerRef={ref} aside="Repalis MCP server">
       <Grid templateColumns={{ base: '1fr', lg: '2fr 3fr' }} gap="xs">
         <Sheet
           title="Connect"

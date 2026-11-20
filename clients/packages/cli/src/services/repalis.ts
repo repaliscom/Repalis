@@ -15,7 +15,7 @@ import {
 import { apiOrigin } from '@/services/api'
 import { Auth } from '@/services/auth'
 
-export class Polar extends Context.Service<Polar, PolarImpl>()('Polar') {}
+export class Repalis extends Context.Service<Repalis, RepalisImpl>()('Repalis') {}
 
 type CurrentApiVersion = typeof CURRENT_API_VERSION
 type RepalisSDK = ApiClients[CurrentApiVersion]['client']
@@ -109,7 +109,7 @@ const describeFailure = (
     : `The Repalis API rejected the request (${statusCode}).`
 }
 
-interface PolarImpl {
+interface RepalisImpl {
   getClient: (
     environment?: RepalisEnvironment,
   ) => Effect.Effect<RepalisSDK, AuthError>
@@ -235,7 +235,7 @@ export const make = Effect.gen(function* () {
       )
     })
 
-  return Polar.of({ getClient, use })
+  return Repalis.of({ getClient, use })
 })
 
 export const layer = Layer.effect(Polar, make)

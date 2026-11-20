@@ -175,7 +175,7 @@ export const DashboardSidebar = ({
       <SidebarFooter>
         {isOnFreePlan && !isSubSidebar && (
           <div className="dark:bg-repalis-900 dark:border-repalis-700 flex flex-col gap-y-2 rounded-sm border border-gray-100 bg-white p-4">
-            <h3 className="text-sm">Introducing Polar Plans</h3>
+            <h3 className="text-sm">Introducing Repalis Plans</h3>
             <p className="dark:text-repalis-500 text-sm text-gray-500">
               Get a lower fee with our subscription plans
             </p>

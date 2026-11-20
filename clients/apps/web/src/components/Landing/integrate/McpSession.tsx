@@ -101,7 +101,7 @@ export const McpSession = () => {
         <span className="text-white">
           <span className="text-repalis-300">✻ </span>Claude Code
         </span>
-        <span className="text-repalis-500">~/acme · Polar MCP connected</span>
+        <span className="text-repalis-500">~/acme · Repalis MCP connected</span>
       </div>
       <div className="whitespace-pre-wrap text-white">
         <span className="text-repalis-500">{'> '}</span>

@@ -9,7 +9,7 @@ export const useCustomer = (organizationId: string | undefined, id: string) => {
     queryKey: ['customers', organizationId, { id }],
     queryFn: () =>
       unwrap(
-        polar.GET('/v1/customers/{id}', {
+        repalis.GET('/v1/customers/{id}', {
           params: {
             path: { id },
           },
@@ -32,7 +32,7 @@ export const useCustomers = (
     queryKey: ['customers', { organizationId, ...(parameters || {}) }],
     queryFn: ({ pageParam = 1 }) =>
       unwrap(
-        polar.GET('/v1/customers/', {
+        repalis.GET('/v1/customers/', {
           params: {
             query: {
               organization_id: organizationId,

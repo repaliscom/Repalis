@@ -36,11 +36,11 @@ export interface ResolveBillingPrincipalInput {
   session: BillingPrincipalSession | null
   /** Explicit organization selection. Active organization is never inferred. */
   organizationId?: string | undefined
-  /** Reject team billing when the root Polar integration explicitly disabled it. */
+  /** Reject team billing when the root Repalis integration explicitly disabled it. */
   organizationEnabled?: boolean | undefined
   /** Organization permission required by the endpoint. @default "member" */
   authorization?: BillingAuthorization | undefined
-  /** Better Auth-to-Polar role mapping used by billing authorization. */
+  /** Better Auth-to-Repalis role mapping used by billing authorization. */
   roleMapping?: RepalisOrganizationRoleSyncOptions | undefined
 }
 
@@ -59,13 +59,13 @@ const isBillingRole = async (
   }
 
   if (roleMapping?.mapBetterAuthRoleToRepalisRole) {
-    const polarRole = await roleMapping.mapBetterAuthRoleToRepalisRole({
+    const repalisRole = await roleMapping.mapBetterAuthRoleToRepalisRole({
       role,
       roles: parseBetterAuthRoles(role),
       organizationId,
       user,
     })
-    return polarRole === 'billing_manager'
+    return repalisRole === 'billing_manager'
   }
 
   return (
@@ -80,10 +80,10 @@ const isBillingRole = async (
 }
 
 /**
- * Resolve the Polar billing identity and authorize explicit organization access.
+ * Resolve the Repalis billing identity and authorize explicit organization access.
  *
  * This function performs local Better Auth authorization only. It deliberately
- * does not infer an active organization or make Polar repair/API calls.
+ * does not infer an active organization or make Repalis repair/API calls.
  */
 export const resolveBillingPrincipal = async ({
   context,

@@ -116,12 +116,12 @@ export const PaymentMethodEmbed = ({
     if (mode !== 'modal') return
 
     const handleOutsideClick = (event: MouseEvent) => {
-      const content = document.getElementById('polar-embed-content')
+      const content = document.getElementById('repalis-embed-content')
       if (content && !content.contains(event.target as Node)) {
         onOutsideClick()
       }
     }
-    const layout = document.getElementById('polar-embed-layout')
+    const layout = document.getElementById('repalis-embed-layout')
     layout?.addEventListener('click', handleOutsideClick)
     return () => layout?.removeEventListener('click', handleOutsideClick)
   }, [mode])
@@ -144,7 +144,7 @@ export const PaymentMethodEmbed = ({
 
   if (redirectStatus) {
     return (
-      <div className={colorScheme} data-polar-embed-theme={colorScheme}>
+      <div className={colorScheme} data-repalis-embed-theme={colorScheme}>
         <div className="flex h-screen w-full items-center justify-center dark:text-white">
           {form}
         </div>
@@ -154,7 +154,7 @@ export const PaymentMethodEmbed = ({
 
   if (mode === 'inline') {
     return (
-      <div className={colorScheme} data-polar-embed-theme={colorScheme}>
+      <div className={colorScheme} data-repalis-embed-theme={colorScheme}>
         {form}
       </div>
     )
@@ -163,13 +163,13 @@ export const PaymentMethodEmbed = ({
   return (
     <div
       className={colorScheme}
-      id="polar-embed-layout"
-      data-polar-embed-theme={colorScheme}
+      id="repalis-embed-layout"
+      data-repalis-embed-theme={colorScheme}
     >
       <div className="flex h-full w-full items-center justify-center p-0 md:p-12 dark:text-white">
         <div
           className="dark:bg-repalis-900 h-full w-full max-w-lg overflow-y-auto rounded-none bg-white p-8 md:h-auto md:rounded-2xl"
-          id="polar-embed-content"
+          id="repalis-embed-content"
         >
           <div className="mb-6 flex items-center justify-between">
             <h2 className="text-lg font-medium">

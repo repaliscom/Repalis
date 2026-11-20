@@ -184,7 +184,7 @@ export const METRIC_GROUPS: MetricGroup[] = [
         slug: 'net_revenue',
         display_name: 'Net Revenue',
         description:
-          'Revenue after deducting Polar fees and payment processing costs.',
+          'Revenue after deducting Repalis fees and payment processing costs.',
       },
       {
         slug: 'cumulative_revenue',
@@ -436,7 +436,7 @@ export const METRIC_GROUPS: MetricGroup[] = [
         slug: 'costs',
         display_name: 'Costs',
         description:
-          'Total platform costs including Polar fees and payment processing.',
+          'Total platform costs including Repalis fees and payment processing.',
       },
       {
         slug: 'cumulative_costs',

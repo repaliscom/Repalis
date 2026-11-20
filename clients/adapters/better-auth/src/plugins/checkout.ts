@@ -101,7 +101,7 @@ export type CheckoutParams = z.infer<typeof CheckoutParams>
 export const checkout =
   (checkoutOptions: CheckoutOptions = {}) =>
   (
-    polar: RepalisCore,
+    repalis: RepalisCore,
     rootOptions?: Pick<RepalisOptions, 'experimental_organizationSync'>,
   ) => {
     return {
@@ -172,13 +172,13 @@ export const checkout =
           if (
             principal?.kind === 'team' &&
             !(await isTeamCustomerSynchronized(
-              polar,
+              repalis,
               principal.externalCustomerId,
             ))
           ) {
             throw new APIError('BAD_REQUEST', {
               message:
-                'Polar team customer was not found for this Better Auth organization. Use reference_id for an existing unsynchronized organization.',
+                'Repalis team customer was not found for this Better Auth organization. Use reference_id for an existing unsynchronized organization.',
             })
           }
 
@@ -191,7 +191,7 @@ export const checkout =
             organizationOptions?.enabled &&
             organizationOptions.syncSeats
           ) {
-            const products = await getCheckoutSeatProducts(polar, productIds)
+            const products = await getCheckoutSeatProducts(repalis, productIds)
             if (products.length > 0) {
               const betterAuthOrganizationOptions =
                 getBetterAuthOrganizationOptions(ctx.context)
@@ -250,7 +250,7 @@ export const checkout =
           const headers = ctx.request?.headers ?? ctx.headers
 
           try {
-            const checkout = await createCheckouts(polar)({
+            const checkout = await createCheckouts(repalis)({
               external_customer_id:
                 principal?.externalCustomerId ?? session?.user.id,
               products: productIds,
@@ -292,7 +292,7 @@ export const checkout =
             })
 
             if (ctx.body.discount_code && !ctx.body.discount_id) {
-              await clientUpdateCheckouts(polar)(checkout.client_secret, {
+              await clientUpdateCheckouts(repalis)(checkout.client_secret, {
                 discount_code: ctx.body.discount_code,
               })
             }

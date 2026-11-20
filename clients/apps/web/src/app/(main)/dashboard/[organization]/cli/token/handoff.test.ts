@@ -45,15 +45,15 @@ describe('getRequestedScopes', () => {
 describe('encryptForCLI', () => {
   it('encrypts the token so only the CLI private key can read it', async () => {
     const { privateKey, publicKey } = await generateCLIKeys()
-    const encrypted = await encryptForCLI(publicKey, 'polar_oat_secret')
+    const encrypted = await encryptForCLI(publicKey, 'repalis_oat_secret')
 
-    expect(encrypted).not.toContain('polar_oat_secret')
+    expect(encrypted).not.toContain('repalis_oat_secret')
     const decrypted = await crypto.subtle.decrypt(
       { name: 'RSA-OAEP' },
       privateKey,
       Buffer.from(encrypted, 'base64url'),
     )
-    expect(new TextDecoder().decode(decrypted)).toBe('polar_oat_secret')
+    expect(new TextDecoder().decode(decrypted)).toBe('repalis_oat_secret')
   })
 })
 

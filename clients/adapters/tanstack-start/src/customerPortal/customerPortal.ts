@@ -15,7 +15,7 @@ export const CustomerPortal = <TPath extends string = string>({
   getCustomerId,
   returnUrl,
 }: CustomerPortalConfig): StartRouteHandler<TPath> => {
-  const polar = createRepalisCore({
+  const repalis = createRepalisCore({
     accessToken,
     environment,
   })
@@ -30,7 +30,7 @@ export const CustomerPortal = <TPath extends string = string>({
     }
 
     try {
-      const result = await createCustomerSessions(polar)({
+      const result = await createCustomerSessions(repalis)({
         customer_id: customerId,
         return_url: retUrl ? decodeURI(retUrl.toString()) : undefined,
       })

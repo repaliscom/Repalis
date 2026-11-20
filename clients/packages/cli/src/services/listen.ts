@@ -190,7 +190,7 @@ export const startListening = ({
                 : 'event'
               const startedAt = performance.now()
               const triggered =
-                webhook.value.headers['x-polar-triggered'] === 'true'
+                webhook.value.headers['x-repalis-triggered'] === 'true'
               const record = (
                 outcome: Pick<
                   Delivery,

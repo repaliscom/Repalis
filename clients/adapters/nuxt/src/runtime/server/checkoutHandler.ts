@@ -63,7 +63,7 @@ export const Checkout = ({
   includeCheckoutId = true,
   customerIpAddress: customerIpAddressOption,
 }: CheckoutConfig) => {
-  const polar = createRepalisCore({ accessToken, environment })
+  const repalis = createRepalisCore({ accessToken, environment })
 
   return async (event: H3Event) => {
     const {
@@ -92,7 +92,7 @@ export const Checkout = ({
 
       const retUrl = returnUrl ? new URL(returnUrl) : undefined
 
-      const result = await createCheckouts(polar)({
+      const result = await createCheckouts(repalis)({
         products,
         success_url: success
           ? success.toString().replaceAll('%7BCHECKOUT_ID%7D', '{CHECKOUT_ID}')
@@ -123,7 +123,7 @@ export const Checkout = ({
       })
 
       if (discountCode && !discountId) {
-        await clientUpdateCheckouts(polar)(result.client_secret, {
+        await clientUpdateCheckouts(repalis)(result.client_secret, {
           discount_code: discountCode,
         })
       }

@@ -1,6 +1,6 @@
 import { afterEach, expect, test, vi } from 'vitest'
 import { Effect, Redacted } from 'effect'
-import type { Polar as PolarSDK } from '@repalis/sdk/2026-10'
+import type { Polar as RepalisSDK } from '@repalis/sdk/2026-10'
 import { AuthError, type RepalisEnvironment } from '@/schemas/Auth'
 import { UsedEnvironments } from '@/services/api'
 import { Auth, type Credential } from '@/services/auth'
@@ -16,7 +16,7 @@ type Resolve = (
   rejected?: Redacted.Redacted<string>,
 ) => Effect.Effect<Credential, AuthError>
 
-const polarWith = (resolve: Resolve) =>
+const repalisWith = (resolve: Resolve) =>
   Effect.runPromise(
     make.pipe(
       Effect.provideService(Auth, Auth.of({ ...fakeAuth().auth, resolve })),
@@ -30,7 +30,7 @@ afterEach(() => {
 
 test('notes the environment even when there is no saved session', async () => {
   const used = new Set<RepalisEnvironment>()
-  const polar = await polarWith(() =>
+  const polar = await repalisWith(() =>
     Effect.fail(new AuthError({ message: 'Not logged in to production.' })),
   )
   await Effect.runPromise(
@@ -47,7 +47,7 @@ test('retries a rejected saved token with refreshed credentials in the same envi
     .fn<Resolve>()
     .mockReturnValueOnce(Effect.succeed(saved))
     .mockReturnValueOnce(Effect.succeed(keyringCredential('refreshed-token')))
-  const polar = await polarWith(resolve)
+  const polar = await repalisWith(resolve)
   const organization = { id: 'org-1', name: 'First', slug: 'first' }
   const fetch = vi
     .fn<typeof globalThis.fetch>()
@@ -107,9 +107,9 @@ test.each([
   'bounds retries for $credential.source credentials on HTTP $status',
   async ({ credential, status, attempts, message }) => {
     const resolve = vi.fn<Resolve>(() => Effect.succeed(credential))
-    const polar = await polarWith(resolve)
+    const polar = await repalisWith(resolve)
     const request = vi
-      .fn<(client: PolarSDK) => Promise<string>>()
+      .fn<(client: RepalisSDK) => Promise<string>>()
       .mockRejectedValue({ statusCode: status })
 
     await expect(Effect.runPromise(polar.use(request))).rejects.toMatchObject({
@@ -127,7 +127,7 @@ test('passes the one-second request timeout to the SDK', async () => {
     'fetch',
     vi.fn().mockResolvedValue(Response.json({ id: 'customer-1' })),
   )
-  const polar = await polarWith(() => Effect.succeed(overrideCredential()))
+  const polar = await repalisWith(() => Effect.succeed(overrideCredential()))
   await Effect.runPromise(
     polar.use((client) => client.customers.get('customer-1'), 'sandbox', {
       timeout: 1,
@@ -138,11 +138,11 @@ test('passes the one-second request timeout to the SDK', async () => {
 
 test('preserves refresh failures without retrying the API request', async () => {
   const error = new AuthError({ message: 'Unable to refresh saved session.' })
-  const polar = await polarWith((_environment, rejected) =>
+  const polar = await repalisWith((_environment, rejected) =>
     rejected ? Effect.fail(error) : Effect.succeed(keyringCredential()),
   )
   const request = vi
-    .fn<(client: PolarSDK) => Promise<string>>()
+    .fn<(client: RepalisSDK) => Promise<string>>()
     .mockRejectedValue({ statusCode: 401 })
 
   expect(await Effect.runPromise(polar.use(request).pipe(Effect.flip))).toBe(
@@ -161,7 +161,7 @@ test.each([
       .fn<typeof globalThis.fetch>()
       .mockResolvedValue(Response.json({ id: 'org-1' }))
     vi.stubGlobal('fetch', fetch)
-    const polar = await polarWith(() => Effect.succeed(overrideCredential()))
+    const polar = await repalisWith(() => Effect.succeed(overrideCredential()))
     await Effect.runPromise(
       polar.use((client) => client.organizations.get('org-1'), 'sandbox', {
         organizationId,
@@ -258,9 +258,9 @@ test.each([
       'Polar API request failed (TypeError). Check your connection and try again.',
   },
 ])('surfaces the API message for $name', async ({ rejection, message }) => {
-  const polar = await polarWith(() => Effect.succeed(overrideCredential()))
+  const polar = await repalisWith(() => Effect.succeed(overrideCredential()))
   const request = vi
-    .fn<(client: PolarSDK) => Promise<string>>()
+    .fn<(client: RepalisSDK) => Promise<string>>()
     .mockRejectedValue(rejection)
 
   await expect(Effect.runPromise(polar.use(request))).rejects.toMatchObject({
@@ -274,9 +274,9 @@ const notAccessible = {
 }
 
 test('explains an inaccessible organization in a parsed error body', async () => {
-  const polar = await polarWith(() => Effect.succeed(overrideCredential()))
+  const polar = await repalisWith(() => Effect.succeed(overrideCredential()))
   const request = vi
-    .fn<(client: PolarSDK) => Promise<string>>()
+    .fn<(client: RepalisSDK) => Promise<string>>()
     .mockRejectedValue({ statusCode: 403, error: notAccessible })
 
   await expect(
@@ -295,7 +295,7 @@ test('explains an inaccessible organization in a raw API response', async () => 
     'fetch',
     vi.fn().mockResolvedValue(Response.json(notAccessible, { status: 403 })),
   )
-  const polar = await polarWith(() => Effect.succeed(overrideCredential()))
+  const polar = await repalisWith(() => Effect.succeed(overrideCredential()))
   await expect(
     Effect.runPromise(
       polar.use((client) => client.products.list(), 'sandbox', {

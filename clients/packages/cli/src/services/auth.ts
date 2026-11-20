@@ -44,7 +44,7 @@ export const make = (
     () => process.env['REPALIS_ACCESS_TOKEN'],
   ),
   environmentOverride: Effect.Effect<string | undefined> = Effect.sync(
-    () => process.env['POLAR_ENVIRONMENT'],
+    () => process.env['REPALIS_ENVIRONMENT'],
   ),
 ) =>
   Effect.gen(function* () {
@@ -65,7 +65,7 @@ export const make = (
       if (isEnvironment(value)) return value
       return yield* new AuthError({
         message:
-          'POLAR_ENVIRONMENT must be "sandbox", "production" or "local".',
+          'REPALIS_ENVIRONMENT must be "sandbox", "production" or "local".',
       })
     })
     const requireSavedMode = Effect.gen(function* () {

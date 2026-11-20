@@ -26,7 +26,7 @@ export interface PortalConfig {
 export const portal =
   ({ returnUrl, theme }: PortalConfig = {}) =>
   (
-    polar: RepalisCore,
+    repalis: RepalisCore,
     rootOptions?: Pick<RepalisOptions, 'experimental_organizationSync'>,
   ) => {
     const retUrl = returnUrl ? new URL(returnUrl) : undefined
@@ -69,7 +69,7 @@ export const portal =
             : undefined
 
           try {
-            const customerSession = await createCustomerSessions(polar)({
+            const customerSession = await createCustomerSessions(repalis)({
               external_customer_id:
                 principal?.externalCustomerId ?? ctx.context.session.user.id,
               ...(principal?.kind === 'team'
@@ -128,7 +128,7 @@ export const portal =
 
           try {
             const state: models.CustomerState = await getStateExternalCustomers(
-              polar,
+              repalis,
             )(principal?.externalCustomerId ?? ctx.context.session.user.id)
 
             return ctx.json(state)
@@ -177,7 +177,7 @@ export const portal =
             : undefined
 
           try {
-            const customerSession = await createCustomerSessions(polar)({
+            const customerSession = await createCustomerSessions(repalis)({
               external_customer_id:
                 principal?.externalCustomerId ?? ctx.context.session.user.id,
               ...(principal?.kind === 'team'
@@ -186,7 +186,7 @@ export const portal =
             })
 
             const benefits: models.ListResourceCustomerBenefitGrant =
-              await listBenefitGrantsCustomerPortal(polar)(
+              await listBenefitGrantsCustomerPortal(repalis)(
                 {
                   page: ctx.query?.page,
                   limit: ctx.query?.limit,
@@ -198,7 +198,7 @@ export const portal =
           } catch (e: unknown) {
             if (e instanceof Error) {
               ctx.context.logger.error(
-                `Polar benefits list failed. Error: ${e.message}`,
+                `Repalis benefits list failed. Error: ${e.message}`,
               )
             }
 
@@ -250,7 +250,7 @@ export const portal =
           if (ctx.query?.reference_id) {
             try {
               const subscriptions: models.ListResourceSubscription =
-                await listSubscriptions(polar)({
+                await listSubscriptions(repalis)({
                   page: ctx.query?.page,
                   limit: ctx.query?.limit,
                   active: ctx.query?.active,
@@ -275,7 +275,7 @@ export const portal =
           }
 
           try {
-            const customerSession = await createCustomerSessions(polar)({
+            const customerSession = await createCustomerSessions(repalis)({
               external_customer_id:
                 principal?.externalCustomerId ?? ctx.context.session.user.id,
               ...(principal?.kind === 'team'
@@ -284,7 +284,7 @@ export const portal =
             })
 
             const subscriptions: models.ListResourceCustomerSubscription =
-              await listSubscriptionsCustomerPortal(polar)(
+              await listSubscriptionsCustomerPortal(repalis)(
                 {
                   page: ctx.query?.page,
                   limit: ctx.query?.limit,
@@ -340,7 +340,7 @@ export const portal =
             : undefined
 
           try {
-            const customerSession = await createCustomerSessions(polar)({
+            const customerSession = await createCustomerSessions(repalis)({
               external_customer_id:
                 principal?.externalCustomerId ?? ctx.context.session.user.id,
               ...(principal?.kind === 'team'
@@ -349,7 +349,7 @@ export const portal =
             })
 
             const orders: models.ListResourceCustomerOrder =
-              await listOrdersCustomerPortal(polar)(
+              await listOrdersCustomerPortal(repalis)(
                 {
                   page: ctx.query?.page,
                   limit: ctx.query?.limit,
@@ -362,7 +362,7 @@ export const portal =
           } catch (e: unknown) {
             if (e instanceof Error) {
               ctx.context.logger.error(
-                `Polar orders list failed. Error: ${e.message}`,
+                `Repalis orders list failed. Error: ${e.message}`,
               )
             }
 

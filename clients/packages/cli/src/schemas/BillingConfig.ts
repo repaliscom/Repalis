@@ -10,14 +10,14 @@ export type Format = typeof Format.Type
 
 export const CONFIG_FILES: Record<Format, ReadonlyArray<string>> = {
   ts: [
-    'polar.config.ts',
+    'repalis.config.ts',
     'polar.config.mts',
     'polar.config.cts',
-    'polar.config.js',
-    'polar.config.mjs',
+    'repalis.config.js',
+    'repalis.config.mjs',
     'polar.config.cjs',
   ],
-  json: ['polar.config.json', 'polar.json'],
+  json: ['repalis.config.json', 'repalis.json'],
 }
 
 export const DEFAULT_CONFIG_FILES: ReadonlyArray<string> = FORMATS.flatMap(

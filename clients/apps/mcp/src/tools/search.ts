@@ -7,7 +7,7 @@ import { spec } from '../spec'
 
 const SEARCH_LIMITS = { cpuMs: 5_000, subRequests: 0 }
 
-const description = `Search the Polar API OpenAPI spec (API version ${spec.apiVersion}) by writing JavaScript. \`spec\` lists every operation exposed by this server and nothing else: a method not listed under a path is not available, even if the public Polar API or the docs mention it. On read-only connections, execute can call only the listed GET operations. The code runs in a sandbox without network access. For guides and concepts, use search_docs instead.
+const description = `Search the Repalis API OpenAPI spec (API version ${spec.apiVersion}) by writing JavaScript. \`spec\` lists every operation exposed by this server and nothing else: a method not listed under a path is not available, even if the public Repalis API or the docs mention it. On read-only connections, execute can call only the listed GET operations. The code runs in a sandbox without network access. For guides and concepts, use search_docs instead.
 
 Available in your code:
 
@@ -56,7 +56,7 @@ export const registerSearchTool = Effect.fn('registerSearchTool')(function* (
   server.registerTool(
     'search',
     {
-      title: 'Search the Polar API',
+      title: 'Search the Repalis API',
       description,
       inputSchema: Schema.Struct({
         code: Schema.String.annotate({
@@ -65,7 +65,7 @@ export const registerSearchTool = Effect.fn('registerSearchTool')(function* (
         ...intentField,
       }).pipe(Schema.toStandardSchemaV1, Schema.toStandardJSONSchemaV1),
       annotations: {
-        title: 'Search the Polar API',
+        title: 'Search the Repalis API',
         readOnlyHint: true,
         openWorldHint: false,
       },

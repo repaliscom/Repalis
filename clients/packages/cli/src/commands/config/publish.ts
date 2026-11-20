@@ -141,7 +141,7 @@ export const publish = Command.make('publish', { file, org, confirmed }).pipe(
     {
       command: 'polar config publish',
       description:
-        'Publish the draft after confirmation, warning about changes in polar.config.ts that the draft is missing',
+        'Publish the draft after confirmation, warning about changes in repalis.config.ts that the draft is missing',
     },
     {
       command: 'polar config publish --org acme',

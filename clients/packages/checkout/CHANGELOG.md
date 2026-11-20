@@ -128,7 +128,7 @@
 
 ### Patch Changes
 
-- f22a0d1: Update Polar SDK
+- f22a0d1: Update Repalis SDK
 
 ## 0.1.12
 

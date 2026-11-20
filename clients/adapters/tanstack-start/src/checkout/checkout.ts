@@ -33,7 +33,7 @@ export const Checkout = <TPath extends string = string>({
   includeCheckoutId = true,
   customerIpAddress,
 }: CheckoutConfig): StartRouteHandler<TPath> => {
-  const polar = createRepalisCore({
+  const repalis = createRepalisCore({
     accessToken,
     environment,
   })
@@ -58,7 +58,7 @@ export const Checkout = <TPath extends string = string>({
     const retUrl = returnUrl ? new URL(returnUrl) : undefined
 
     try {
-      const result = await createCheckouts(polar)({
+      const result = await createCheckouts(repalis)({
         products,
         success_url: success
           ? success.toString().replaceAll('%7BCHECKOUT_ID%7D', '{CHECKOUT_ID}')
@@ -99,7 +99,7 @@ export const Checkout = <TPath extends string = string>({
 
       const discountCode = url.searchParams.get('discount_code')
       if (discountCode?.trim() && !url.searchParams.get('discount_id')) {
-        await clientUpdateCheckouts(polar)(result.client_secret, {
+        await clientUpdateCheckouts(repalis)(result.client_secret, {
           discount_code: discountCode,
         })
       }

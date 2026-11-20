@@ -50,14 +50,14 @@ const teamCustomer: models.CustomerTeam = {
   billing_name: null,
   billing_address: null,
   tax_id: null,
-  organization_id: 'polar-organization-123',
+  organization_id: 'repalis-organization-123',
   deleted_at: null,
   first_user_event_at: null,
   avatar_url: null,
 }
 
-const polarOwner: RepalisMember = {
-  id: 'polar-member-123',
+const repalisOwner: RepalisMember = {
+  id: 'repalis-member-123',
   created_at: new Date().toISOString(),
   modified_at: null,
   customer_id: teamCustomer.id,
@@ -151,10 +151,10 @@ describe('organization hook installation', () => {
       .mockResolvedValue(teamCustomer)
     vi.mocked(client.customers.create).mockResolvedValue(teamCustomer)
     vi.mocked(client.customers.members.listExternal).mockResolvedValue(
-      memberPage([polarOwner]),
+      memberPage([repalisOwner]),
     )
     vi.mocked(client.customers.members.getExternal).mockResolvedValue(
-      polarOwner,
+      repalisOwner,
     )
 
     installOrganizationHooks(
@@ -176,11 +176,11 @@ describe('organization hook installation', () => {
     expect(client.customers.create).toHaveBeenCalledOnce()
     expect(client.customers.members.listExternal).not.toHaveBeenCalled()
     const applicationCallOrder = applicationHook.mock.invocationCallOrder[0]
-    const polarCallOrder = vi.mocked(client.customers.create).mock
+    const repalisCallOrder = vi.mocked(client.customers.create).mock
       .invocationCallOrder[0]
     expect(applicationCallOrder).toBeDefined()
-    expect(polarCallOrder).toBeDefined()
-    expect(applicationCallOrder).toBeLessThan(polarCallOrder ?? 0)
+    expect(repalisCallOrder).toBeDefined()
+    expect(applicationCallOrder).toBeLessThan(repalisCallOrder ?? 0)
   })
 
   it('does not synchronize when the application hook fails', async () => {
@@ -310,8 +310,8 @@ describe('organization hook installation', () => {
       ],
     )
     const invitedRepalisMember = {
-      ...polarOwner,
-      id: 'polar-invited-member',
+      ...repalisOwner,
+      id: 'repalis-invited-member',
       external_id: invitedUser.id,
       email: invitedUser.email,
       name: invitedUser.name,
@@ -320,11 +320,11 @@ describe('organization hook installation', () => {
     let invitedExists = false
     vi.mocked(client.customers.getExternal).mockResolvedValue(teamCustomer)
     vi.mocked(client.customers.members.listExternal).mockResolvedValue(
-      memberPage([polarOwner]),
+      memberPage([repalisOwner]),
     )
     vi.mocked(client.customers.members.getExternal).mockImplementation(
       async (_organizationId, memberExternalId) => {
-        if (memberExternalId === owner.id) return polarOwner
+        if (memberExternalId === owner.id) return repalisOwner
         if (invitedExists) return invitedRepalisMember
         throw notFound()
       },
@@ -379,14 +379,14 @@ describe('organization hook installation', () => {
     )
   })
 
-  it('runs the application role-update hook before Polar synchronization', async () => {
+  it('runs the application role-update hook before Repalis synchronization', async () => {
     const afterUpdateMemberRole = vi.fn()
     const context = createContext({
       organizationHooks: { afterUpdateMemberRole },
     })
     vi.mocked(client.customers.getExternal).mockResolvedValue(teamCustomer)
     vi.mocked(client.customers.members.listExternal).mockResolvedValue(
-      memberPage([polarOwner]),
+      memberPage([repalisOwner]),
     )
 
     installOrganizationHooks(
@@ -411,7 +411,7 @@ describe('organization hook installation', () => {
     )
   })
 
-  it('runs the application removal hook before deleting the Polar member', async () => {
+  it('runs the application removal hook before deleting the Repalis member', async () => {
     const afterRemoveMember = vi.fn()
     const departingUser = createMockUser({ id: 'departing-user' })
     const departingMember: Member = {
@@ -426,7 +426,7 @@ describe('organization hook installation', () => {
     })
     vi.mocked(client.customers.getExternal).mockResolvedValue(teamCustomer)
     vi.mocked(client.customers.members.listExternal).mockResolvedValue(
-      memberPage([polarOwner]),
+      memberPage([repalisOwner]),
     )
     vi.mocked(client.customers.members.deleteExternal).mockResolvedValue(
       undefined,

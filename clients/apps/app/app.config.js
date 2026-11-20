@@ -8,7 +8,7 @@ const plugins = [
   [
     'expo-splash-screen',
     {
-      // oxlint-disable-next-line @polar/no-hardcoded-colors
+      // oxlint-disable-next-line @repalis/no-hardcoded-colors
       backgroundColor: '#000000',
       ios: {
         image: './assets/images/splash.jpg',
@@ -41,8 +41,8 @@ if (!IS_WIDGET_BUILD) {
     '@sentry/react-native/expo',
     {
       url: 'https://sentry.io/',
-      project: 'polar-app',
-      organization: 'polar-sh',
+      project: 'repalis-app',
+      organization: 'repalis',
     },
   ])
 }
@@ -59,7 +59,7 @@ module.exports = {
     scheme: 'repalis',
     userInterfaceStyle: 'dark',
     newArchEnabled: true,
-    owner: 'polar-sh',
+    owner: 'repalis',
     ios: {
       appleTeamId: '55U3YA3QTA',
       supportsTablet: false,
@@ -77,16 +77,16 @@ module.exports = {
           '$(AppIdentifierPrefix)com.repalis.app',
         ],
       },
-      associatedDomains: ['applinks:polar.godetour.link'],
+      associatedDomains: ['applinks:repalis.godetour.link'],
     },
     android: {
       adaptiveIcon: {
         foregroundImage: './assets/images/adaptive-icon.png',
-        // oxlint-disable-next-line @polar/no-hardcoded-colors
+        // oxlint-disable-next-line @repalis/no-hardcoded-colors
         backgroundColor: '#000000',
       },
       package: 'com.repalis.app',
-      scheme: 'polar',
+      scheme: 'repalis',
       googleServicesFile: './google-services.json',
       intentFilters: [
         {
@@ -95,7 +95,7 @@ module.exports = {
           data: [
             {
               scheme: 'https',
-              host: 'polar.godetour.link',
+              host: 'repalis.godetour.link',
               pathPrefix: '/baSjUTJtg8',
             },
           ],

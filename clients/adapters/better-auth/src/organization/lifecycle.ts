@@ -43,7 +43,7 @@ const ORGANIZATION_SYNC_CONCURRENCY = 5
 
 /**
  * Run every synchronization while limiting the number of organizations that
- * can issue Polar requests at once. Like Promise.allSettled, a failure does not
+ * can issue Repalis requests at once. Like Promise.allSettled, a failure does not
  * prevent the remaining synchronizations from being attempted.
  */
 const synchronizeWithConcurrency = async <T>(

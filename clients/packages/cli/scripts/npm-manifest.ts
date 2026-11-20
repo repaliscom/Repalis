@@ -1,6 +1,6 @@
 export const MAIN_PACKAGE = '@repalis/cli'
 export const PLATFORM_PACKAGE_PREFIX = `${MAIN_PACKAGE}-`
-export const COMMAND = 'polar'
+export const COMMAND = 'repalis'
 
 const repository = {
   type: 'git',
@@ -47,7 +47,7 @@ export const binaryName = (os: Target['os']) =>
 export const platformManifest = (target: Target, version: string) => ({
   name: platformPackageName(target),
   version,
-  description: `Polar CLI binary for ${platformName(target)}`,
+  description: `Repalis CLI binary for ${platformName(target)}`,
   license: 'Apache-2.0',
   repository,
   os: [target.os],
@@ -74,7 +74,7 @@ export const mainManifest = (
     name: MAIN_PACKAGE,
     version,
     description:
-      'Polar CLI: tunnel webhooks locally and manage your Repalis organization from the terminal',
+      'Repalis CLI: tunnel webhooks locally and manage your Repalis organization from the terminal',
     license: 'Apache-2.0',
     repository,
     homepage: 'https://repalis.com',
@@ -99,12 +99,12 @@ export const placeholderBinary = () =>
   ].join('\n')
 
 export const readme = (version: string) =>
-  `# Polar CLI
+  `# Repalis CLI
 
 [![npm](https://img.shields.io/npm/v/${MAIN_PACKAGE}?label=npm)](https://www.npmjs.com/package/${MAIN_PACKAGE})
 [![Release CLI](https://github.com/repaliscom/Repalis/actions/workflows/release_cli.yml/badge.svg)](https://github.com/repaliscom/Repalis/actions/workflows/release_cli.yml)
 
-The Polar CLI helps you build, test and manage your Polar integration from the terminal. It is built for people and for AI agents alike.
+The Repalis CLI helps you build, test and manage your Polar integration from the terminal. It is built for people and for AI agents alike.
 
 **With the CLI, you can:**
 
@@ -116,8 +116,8 @@ The Polar CLI helps you build, test and manage your Polar integration from the t
 
 \`\`\`bash
 npm install -g ${MAIN_PACKAGE}
-polar auth login
-polar webhook listen 3000
+repalis auth login
+repalis webhook listen 3000
 \`\`\`
 
 ## Installation
@@ -154,7 +154,7 @@ irm https://repalis.com/install.ps1 | iex
 
 Download the binary for your platform from the [latest release](https://github.com/repaliscom/Repalis/releases/tag/${MAIN_PACKAGE}@${version}) and put it on your \`PATH\`.
 
-Check that it works with \`polar --version\`.
+Check that it works with \`repalis --version\`.
 
 ## Built for agents
 
@@ -166,43 +166,43 @@ Point Claude Code, Cursor, Codex or any other agent at \`polar\` and it can run 
 - \`REPALIS_ACCESS_TOKEN\` authenticates without a browser, in CI or a sandboxed agent.
 
 \`\`\`bash
-polar products list --fields id,name,prices.price_amount
-polar customers delete <id> --confirm
+repalis products list --fields id,name,prices.price_amount
+repalis customers delete <id> --confirm
 \`\`\`
 
-Prefer tools over a shell? The same capabilities are available through the [Polar MCP server](https://repalis.com/docs/integrate/mcp).
+Prefer tools over a shell? The same capabilities are available through the [Repalis MCP server](https://repalis.com/docs/integrate/mcp).
 
 ## Usage
 
 Sign in once, in sandbox or production, and pick the organization to work on:
 
 \`\`\`bash
-polar auth login --sandbox
-polar auth org
+repalis auth login --sandbox
+repalis auth org
 \`\`\`
 
 **Webhooks.** \`listen\` creates a webhook endpoint for you and forwards every delivery to your local server. \`trigger\` sends a sample event through it.
 
 \`\`\`bash
-polar webhook listen 3000
-polar webhook trigger order.paid
-polar webhook listen --print-secret   # the signing secret for your .env
+repalis webhook listen 3000
+repalis webhook trigger order.paid
+repalis webhook listen --print-secret   # the signing secret for your .env
 \`\`\`
 
 **API objects.** API commands print the response as JSON; \`--fields\` keeps only the fields you name. Commands that delete or revoke ask before they act; pass \`--confirm\` to run them unattended.
 
 \`\`\`bash
-polar products list
-polar customers get <id>
-polar orders list --fields id,total_amount,customer.email
-polar subscriptions revoke <id>
+repalis products list
+repalis customers get <id>
+repalis orders list --fields id,total_amount,customer.email
+repalis subscriptions revoke <id>
 \`\`\`
 
 **Tokens.** Create an organization access token for your app or CI. When \`REPALIS_ACCESS_TOKEN\` is set, the CLI uses it instead of your login.
 
 \`\`\`bash
-echo "REPALIS_ACCESS_TOKEN=$(polar auth token)" >> .env.local
-polar auth token --scope products:read | gh secret set REPALIS_ACCESS_TOKEN
+echo "REPALIS_ACCESS_TOKEN=$(repalis auth token)" >> .env.local
+repalis auth token --scope products:read | gh secret set REPALIS_ACCESS_TOKEN
 \`\`\`
 
 Every command, argument and flag is in the [command reference](https://repalis.com/docs/integrate/cli/reference).
@@ -210,7 +210,7 @@ Every command, argument and flag is in the [command reference](https://repalis.c
 ## Upgrading
 
 \`\`\`bash
-polar update
+repalis update
 \`\`\`
 
 \`update\` detects how the CLI was installed and upgrades through the same channel. With npm, \`npm install -g ${MAIN_PACKAGE}\` does the same.
@@ -220,9 +220,9 @@ polar update
 Sign out first so no sessions are left in your OS keychain, then remove the binary the way you installed it:
 
 \`\`\`bash
-polar auth logout --all
+repalis auth logout --all
 npm uninstall -g ${MAIN_PACKAGE}          # npm
-rm /usr/local/bin/polar                   # install.sh
+rm /usr/local/bin/repalis                   # install.sh
 \`\`\`
 
 On Windows, delete \`%USERPROFILE%\\.polar\\bin\` and remove it from your user \`PATH\`.

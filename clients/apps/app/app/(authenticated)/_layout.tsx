@@ -2,7 +2,7 @@ import { ErrorFallback } from '@/components/Errors/Fallback'
 import { useTheme } from '@/design-system/useTheme'
 import { useAppOpenTracking } from '@/hooks/useAppOpenTracking'
 import NotificationsProvider from '@/providers/NotificationsProvider'
-import { PolarOrganizationProvider } from '@/providers/OrganizationProvider'
+import { RepalisOrganizationProvider } from '@/providers/OrganizationProvider'
 import { RepalisClientProvider } from '@/providers/RepalisClientProvider'
 import { RepalisQueryClientProvider } from '@/providers/RepalisQueryClientProvider'
 import { useSession } from '@/providers/SessionProvider'
@@ -78,11 +78,11 @@ export default function Providers() {
           <NotificationsProvider>
             <AuthenticatedErrorBoundary>
               <UserProvider>
-                <PolarOrganizationProvider>
+                <RepalisOrganizationProvider>
                   <ToastProvider>
                     <RootLayout />
                   </ToastProvider>
-                </PolarOrganizationProvider>
+                </RepalisOrganizationProvider>
               </UserProvider>
             </AuthenticatedErrorBoundary>
           </NotificationsProvider>

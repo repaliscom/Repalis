@@ -35,7 +35,7 @@ export const useMetrics = (
       const timezone = Intl.DateTimeFormat().resolvedOptions()
         .timeZone as operations['metrics:get']['parameters']['query']['timezone']
       const metrics = await unwrap(
-        polar.GET('/v1/metrics/', {
+        repalis.GET('/v1/metrics/', {
           params: {
             query: {
               organization_id: organizationId,

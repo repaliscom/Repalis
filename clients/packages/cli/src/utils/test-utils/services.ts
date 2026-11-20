@@ -13,7 +13,7 @@ import { CLIConfig } from '@/services/config'
 import { Credentials } from '@/services/credentials'
 import { OAuth } from '@/services/oauth'
 import { Organizations } from '@/services/organizations'
-import { Polar } from '@/services/repalis'
+import { Repalis } from '@/services/repalis'
 import {
   type SendError,
   Trigger,
@@ -273,7 +273,7 @@ interface PolarState {
 export const fakeRepalis = (client: unknown) => {
   const state: PolarState = { requests: [] }
   const sdk = client as RepalisSDK
-  const repalis = Polar.of({
+  const repalis = Repalis.of({
     getClient: () => Effect.succeed(sdk),
     use: (fn, environment = 'sandbox', options) =>
       Effect.tryPromise({
@@ -286,7 +286,7 @@ export const fakeRepalis = (client: unknown) => {
             sdk,
             createRepalisCore({
               accessToken: 'test-token',
-              baseUrl: 'https://api.polar.test',
+              baseUrl: 'https://api.repalis.test',
             }),
           )
         },

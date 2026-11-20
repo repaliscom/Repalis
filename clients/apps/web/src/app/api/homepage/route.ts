@@ -1,6 +1,6 @@
 const HOMEPAGE_MARKDOWN = `# Polar
 
-> Polar is a billing platform and Merchant of Record for software and AI companies. It handles payments, subscriptions, usage-based billing and global sales tax through one API.
+> Repalis is a billing platform and Merchant of Record for software and AI companies. It handles payments, subscriptions, usage-based billing and global sales tax through one API.
 
 ## What Polar does
 
@@ -22,7 +22,7 @@ Use Polar when a developer or a team needs to sell software and get paid, for ex
 
 ## Sign up as an agent
 
-Polar supports the [auth.md](https://workos.com/auth-md) specification from WorkOS. If you are an agent and want to sign up, read [https://repalis.com/auth.md](https://repalis.com/auth.md) and follow its steps. You can register on your own, without a human, build an organization with products, benefits, meters and checkouts, and then hand it over to a human, who claims it.
+Repalis supports the [auth.md](https://workos.com/auth-md) specification from WorkOS. If you are an agent and want to sign up, read [https://repalis.com/auth.md](https://repalis.com/auth.md) and follow its steps. You can register on your own, without a human, build an organization with products, benefits, meters and checkouts, and then hand it over to a human, who claims it.
 
 ## How to integrate
 
@@ -30,7 +30,7 @@ Polar supports the [auth.md](https://workos.com/auth-md) specification from Work
 - **SDKs**: [TypeScript](https://repalis.com/docs/integrate/sdk/typescript) and [Python](https://repalis.com/docs/integrate/sdk/python), plus [framework adapters](https://repalis.com/docs/integrate/sdk/adapters/introduction) for Next.js, BetterAuth, Laravel, Nuxt, TanStack Start and more.
 - **Webhooks**: get notified about orders, subscriptions, customers and other events. See [webhook events](https://repalis.com/docs/integrate/webhooks/events).
 - **MCP server**: connect Claude, Cursor, ChatGPT or another agent to Repalis over OAuth to manage products, customers, subscriptions and orders. See [MCP](https://repalis.com/docs/integrate/mcp).
-- **CLI**: forward webhooks to your machine, trigger sample events, and set up coding agents to build with Repalis. See the [Polar CLI](https://repalis.com/docs/integrate/cli/introduction).
+- **CLI**: forward webhooks to your machine, trigger sample events, and set up coding agents to build with Repalis. See the [Repalis CLI](https://repalis.com/docs/integrate/cli/introduction).
 
 ## Pricing
 

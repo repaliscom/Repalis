@@ -1,7 +1,7 @@
 {
   "name": "@repalis/client",
-  "description": "Polar Internal API Client",
-  "author": "Polar",
+  "description": "Repalis Internal API Client",
+  "author": "Repalis",
   "license": "Apache-2.0",
   "type": "module",
   "private": true,

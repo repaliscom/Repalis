@@ -11,7 +11,7 @@ import {
 } from '@/services/agent-setup/cursor'
 
 test('adds the Polar servers to mcp.json without touching what is there', async () => {
-  const home = await mkdtemp(join(tmpdir(), 'polar-cursor-'))
+  const home = await mkdtemp(join(tmpdir(), 'repalis-cursor-'))
   const file = join(home, '.cursor', 'mcp.json')
   await mkdir(join(home, '.cursor'))
   await writeFile(
@@ -38,11 +38,11 @@ test('adds the Polar servers to mcp.json without touching what is there', async 
   expect(source).toContain('// my servers')
   expect(source).toContain('"linear"')
   expect(source).toContain('http://127.0.0.1:9000/mcp')
-  expect(source).toContain(MCP_SERVERS['polar-sandbox'])
+  expect(source).toContain(MCP_SERVERS['repalis-sandbox'])
 })
 
 test('refuses to edit an mcp.json that is not valid JSON', async () => {
-  const home = await mkdtemp(join(tmpdir(), 'polar-cursor-'))
+  const home = await mkdtemp(join(tmpdir(), 'repalis-cursor-'))
   const file = join(home, '.cursor', 'mcp.json')
   await mkdir(join(home, '.cursor'))
   await writeFile(file, '{ "mcpServers": { "polar": {')

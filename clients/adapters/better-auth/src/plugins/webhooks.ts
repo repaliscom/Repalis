@@ -29,10 +29,10 @@ export interface WebhooksOptions extends Omit<
 
 export const webhooks =
   (options: WebhooksOptions) =>
-  (polar: RepalisCore, rootOptions?: WebhookRootOptions) => {
+  (repalis: RepalisCore, rootOptions?: WebhookRootOptions) => {
     return {
-      polarWebhooks: createAuthEndpoint(
-        '/polar/webhooks',
+      repalisWebhooks: createAuthEndpoint(
+        '/repalis/webhooks',
         {
           method: 'POST',
           metadata: {
@@ -48,7 +48,7 @@ export const webhooks =
           }
           if (!secret) {
             throw new APIError('INTERNAL_SERVER_ERROR', {
-              message: 'Polar webhook secret not found',
+              message: 'Repalis webhook secret not found',
             })
           }
 
@@ -110,7 +110,7 @@ export const webhooks =
                 where: [{ field: 'id', value: organizationId }],
               })
               if (organization) {
-                const subscription = await getSubscriptions(polar)(
+                const subscription = await getSubscriptions(repalis)(
                   event.data.id,
                 )
                 if (
@@ -134,7 +134,7 @@ export const webhooks =
                       organizationOptions.mapBetterAuthRoleToRepalisRole,
                   }
                   for (const member of roster) {
-                    await ensureMemberMirror(polar, roleOptions, {
+                    await ensureMemberMirror(repalis, roleOptions, {
                       organizationId,
                       user: member.user,
                       betterAuthRole: member.role,
@@ -142,7 +142,7 @@ export const webhooks =
                   }
                   await synchronizeOrganizationSeats({
                     authContext: ctx.context,
-                    client: polar,
+                    client: repalis,
                     organizationId,
                     organizationOptions,
                     betterAuthOrganizationOptions,
@@ -159,10 +159,10 @@ export const webhooks =
           } catch (e: unknown) {
             if (e instanceof Error) {
               ctx.context.logger.error(
-                `Polar webhook failed. Error: ${e.message}`,
+                `Repalis webhook failed. Error: ${e.message}`,
               )
             } else {
-              ctx.context.logger.error(`Polar webhook failed. Error: ${e}`)
+              ctx.context.logger.error(`Repalis webhook failed. Error: ${e}`)
             }
 
             throw new APIError('INTERNAL_SERVER_ERROR', {

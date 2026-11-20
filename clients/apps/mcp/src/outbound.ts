@@ -11,7 +11,7 @@ export interface RepalisApiOutboundProps {
   readOnly: boolean
 }
 
-export class PolarApiOutbound extends WorkerEntrypoint<
+export class RepalisApiOutbound extends WorkerEntrypoint<
   Env,
   RepalisApiOutboundProps
 > {
@@ -43,7 +43,7 @@ export class PolarApiOutbound extends WorkerEntrypoint<
   }
 }
 
-export const polarApiClient = (token: string) =>
+export const repalisApiClient = (token: string) =>
   Effect.map(
     HttpClient.HttpClient,
     HttpClient.mapRequest((request) =>

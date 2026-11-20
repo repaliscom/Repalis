@@ -2,7 +2,7 @@ import { expect } from 'vitest'
 import worker from '../src/index'
 
 export const request = (path: string, init?: RequestInit) =>
-  worker.fetch(new Request(`https://mcp.polar.test${path}`, init))
+  worker.fetch(new Request(`https://mcp.repalis.test${path}`, init))
 
 export const rpc = async (
   method: string,
@@ -13,7 +13,7 @@ export const rpc = async (
   const response = await request(`/mcp/repalis-mcp${query}`, {
     method: 'POST',
     headers: {
-      Authorization: 'Bearer polar_oat_test',
+      Authorization: 'Bearer repalis_oat_test',
       'Content-Type': 'application/json',
       Accept: 'application/json, text/event-stream',
       'Mcp-Protocol-Version': '2025-11-25',

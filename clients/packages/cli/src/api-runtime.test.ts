@@ -58,7 +58,7 @@ describe('generated commands', () => {
           }).organizations,
         ),
       ),
-      Layer.provide(Polar.layer),
+      Layer.provide(Repalis.layer),
       Layer.provide(Layer.succeed(Auth, auth.auth)),
     )
     return {
@@ -469,7 +469,7 @@ describe('destructive flags', () => {
           }).organizations,
         ),
       ),
-      Layer.provide(Polar.layer),
+      Layer.provide(Repalis.layer),
       Layer.provide(Layer.succeed(Auth, auth.auth)),
     )
     return {
@@ -609,7 +609,7 @@ describe('organization resolution', () => {
       Layer.succeed(Auth, auth.auth),
       Layer.succeed(CLIConfig, config.config),
     )
-    const polar = Polar.layer.pipe(Layer.provide(dependencies))
+    const polar = Repalis.layer.pipe(Layer.provide(dependencies))
     const organizations = OrganizationsService.layer.pipe(
       Layer.provide(Layer.mergeAll(polar, dependencies)),
     )

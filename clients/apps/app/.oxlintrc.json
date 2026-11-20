@@ -7,7 +7,7 @@
       "specifier": "./oxlint-plugins/expo.js"
     },
     {
-      "name": "@polar",
+      "name": "@repalis",
       "specifier": "./oxlint-plugins/index.js"
     }
   ],
@@ -97,17 +97,17 @@
     "expo/use-dom-exports": ["error"],
     "expo/no-env-var-destructuring": ["error"],
     "expo/no-dynamic-env-var": ["error"],
-    "@polar/no-view": "error",
-    "@polar/no-text": "error",
-    "@polar/no-stylesheet-create": "error",
-    "@polar/no-image": "error",
-    "@polar/no-flatlist": "error",
-    "@polar/no-touchable": "error",
-    "@polar/no-jsx-logical-and": "error",
-    "@polar/no-restyle-use-theme": "error",
-    "@polar/no-hardcoded-spacing": "error",
-    "@polar/no-hardcoded-colors": "error",
-    "@polar/no-hardcoded-dimensions": "error",
+    "@repalis/no-view": "error",
+    "@repalis/no-text": "error",
+    "@repalis/no-stylesheet-create": "error",
+    "@repalis/no-image": "error",
+    "@repalis/no-flatlist": "error",
+    "@repalis/no-touchable": "error",
+    "@repalis/no-jsx-logical-and": "error",
+    "@repalis/no-restyle-use-theme": "error",
+    "@repalis/no-hardcoded-spacing": "error",
+    "@repalis/no-hardcoded-colors": "error",
+    "@repalis/no-hardcoded-dimensions": "error",
     "react/rules-of-hooks": "error",
     "react/exhaustive-deps": "warn"
   },

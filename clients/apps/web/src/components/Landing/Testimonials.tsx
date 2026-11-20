@@ -18,7 +18,7 @@ const TESTIMONIALS: Testimonial[] = [
     company: 'Vercel',
     avatar: '/assets/landing/testamonials/rauch.jpg',
     quote: [
-      'The speed at which Polar is executing on the financial infrastructure primitives the new world needs is very impressive.',
+      'The speed at which Repalis is executing on the financial infrastructure primitives the new world needs is very impressive.',
     ],
   },
   {
@@ -48,7 +48,7 @@ const TESTIMONIALS: Testimonial[] = [
     company: 'FastAPI',
     avatar: '/assets/landing/testamonials/sebastian.jpg',
     quote: [
-      'Polar has been giving us the high attention support of a startup, with an enterprise-level product and service.',
+      'Repalis has been giving us the high attention support of a startup, with an enterprise-level product and service.',
     ],
   },
 ]

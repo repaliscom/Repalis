@@ -20,7 +20,7 @@ export const Route = createFileRoute('/api/checkout')({
         accessToken: process.env.REPALIS_ACCESS_TOKEN!,
         successUrl: process.env.SUCCESS_URL,
         returnUrl: 'https://myapp.com', // Optional Return URL, which renders a Back-button in the Checkout
-        environment: 'sandbox', // Use sandbox if you're testing Polar - omit the parameter or pass 'production' otherwise
+        environment: 'sandbox', // Use sandbox if you're testing Repalis - omit the parameter or pass 'production' otherwise
         theme: 'dark', // Enforces the theme - System-preferred theme will be set if left omitted
       }),
     },
@@ -61,7 +61,7 @@ export const Route = createFileRoute('/api/portal')({
         accessToken: process.env.REPALIS_ACCESS_TOKEN!,
         getCustomerId: async (request: Request) => '', // Function to resolve a Repalis Customer ID
         returnUrl: 'https://myapp.com', // Optional Return URL, which renders a Back-button in the Customer Portal
-        environment: 'sandbox', // Use sandbox if you're testing Polar - omit the parameter or pass 'production' otherwise
+        environment: 'sandbox', // Use sandbox if you're testing Repalis - omit the parameter or pass 'production' otherwise
       }),
     },
   },
@@ -73,11 +73,11 @@ export const Route = createFileRoute('/api/portal')({
 A simple utility which resolves incoming webhook payloads by verifying their signature with your webhook secret.
 
 ```typescript
-// routes/api/webhook/polar.ts
+// routes/api/webhook/repalis.ts
 import { Webhooks } from '@repalis/tanstack-start'
 import { createFileRoute } from '@tanstack/react-router'
 
-export const Route = createFileRoute('/api/webhook/polar')({
+export const Route = createFileRoute('/api/webhook/repalis')({
   server: {
     handlers: {
       POST: Webhooks({

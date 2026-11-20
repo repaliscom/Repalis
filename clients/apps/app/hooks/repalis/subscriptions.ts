@@ -9,7 +9,7 @@ export const useSubscription = (id: string) => {
   return useQuery({
     queryKey: ['subscription', id],
     queryFn: () =>
-      unwrap(polar.GET('/v1/subscriptions/{id}', { params: { path: { id } } })),
+      unwrap(repalis.GET('/v1/subscriptions/{id}', { params: { path: { id } } })),
   })
 }
 
@@ -26,7 +26,7 @@ export const useSubscriptions = (
     queryKey: ['subscriptions', { organizationId, ...(parameters || {}) }],
     queryFn: async ({ pageParam = 1 }) =>
       unwrap(
-        polar.GET('/v1/subscriptions/', {
+        repalis.GET('/v1/subscriptions/', {
           params: {
             query: {
               organization_id: organizationId,
@@ -52,7 +52,7 @@ export const useUpdateSubscription = (id: string) => {
 
   return useMutation({
     mutationFn: (body: schemas['SubscriptionUpdate']) =>
-      polar.PATCH('/v1/subscriptions/{id}', {
+      repalis.PATCH('/v1/subscriptions/{id}', {
         params: { path: { id } },
         body,
         headers: SUBSCRIPTION_UPDATE_HEADERS,

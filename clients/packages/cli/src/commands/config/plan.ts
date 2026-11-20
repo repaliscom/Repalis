@@ -53,10 +53,10 @@ export const plan = Command.make('plan', { file, org, prComment }).pipe(
   Command.withExamples([
     {
       command: 'polar config plan',
-      description: 'Check polar.config.ts in the current directory',
+      description: 'Check repalis.config.ts in the current directory',
     },
     {
-      command: 'polar config plan billing/polar.json',
+      command: 'polar config plan billing/repalis.json',
       description: 'Check a specific file',
     },
     {

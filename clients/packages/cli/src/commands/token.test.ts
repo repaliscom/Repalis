@@ -29,7 +29,7 @@ const run = (args: string[]) => {
         TokenHandoff.of({
           receive: (request, announce) =>
             announce(new URL('https://repalis.com/dashboard/acme/cli/token')).pipe(
-              Effect.as(Redacted.make('polar_oat_secret')),
+              Effect.as(Redacted.make('repalis_oat_secret')),
               Effect.tap(() => Effect.sync(() => requests.push(request))),
             ),
         }),
@@ -56,7 +56,7 @@ test('prints only the token', async () => {
   ])
   await promise
 
-  expect(output().trim()).toBe('polar_oat_secret')
+  expect(output().trim()).toBe('repalis_oat_secret')
   expect(requests).toEqual([
     {
       organization: { slug: 'acme', environment: 'sandbox' },

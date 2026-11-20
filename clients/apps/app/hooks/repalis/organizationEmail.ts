@@ -16,7 +16,7 @@ export const useOrganizationEmail = (organizationId?: string) => {
     queryFn: organizationId
       ? () =>
           unwrap(
-            polar.GET('/v1/organizations/{id}/email/', {
+            repalis.GET('/v1/organizations/{id}/email/', {
               params: { path: { id: organizationId } },
             }),
           )
@@ -32,7 +32,7 @@ export const useSendOrganizationEmailCode = (organizationId?: string) => {
       if (!organizationId) {
         throw new Error('organizationId is required to send a code')
       }
-      const { error, response } = await polar.POST(
+      const { error, response } = await repalis.POST(
         '/v1/organizations/{id}/email/send-code',
         { params: { path: { id: organizationId } } },
       )
@@ -57,7 +57,7 @@ export const useVerifyOrganizationEmail = (organizationId?: string) => {
         throw new Error('organizationId is required to verify the email')
       }
       return unwrap(
-        polar.POST('/v1/organizations/{id}/email/verify', {
+        repalis.POST('/v1/organizations/{id}/email/verify', {
           params: { path: { id: organizationId } },
           body: { code },
         }),

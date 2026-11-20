@@ -762,7 +762,7 @@ describe('portal plugin', () => {
       expect(mockClient.customerSessions.create).not.toHaveBeenCalled()
     })
 
-    it('rejects a non-member before calling Polar', async () => {
+    it('rejects a non-member before calling Repalis', async () => {
       const endpoints = portal()(mockClient) as any
       vi.mocked(resolveBillingPrincipal).mockRejectedValue(
         new APIError('FORBIDDEN', { message: 'Not a member' }),

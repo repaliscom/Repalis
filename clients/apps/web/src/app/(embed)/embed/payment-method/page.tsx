@@ -26,7 +26,7 @@ interface SearchParams {
   set_default?: string
   locale?: string
   redirect_status?: string
-  polar_setup_intent?: string
+  repalis_setup_intent?: string
 }
 
 const resolveLocale = (locale: string | undefined): AcceptedLocale =>
@@ -58,7 +58,7 @@ export default async function Page(props: {
     set_default,
     locale: localeParam,
     redirect_status,
-    polar_setup_intent,
+    repalis_setup_intent,
   } = await props.searchParams
 
   const locale = resolveLocale(localeParam)
@@ -126,7 +126,7 @@ export default async function Page(props: {
       }}
       setupCurrency={setupCurrency}
       redirectStatus={redirect_status}
-      setupIntentId={polar_setup_intent}
+      setupIntentId={repalis_setup_intent}
     />
   )
 }

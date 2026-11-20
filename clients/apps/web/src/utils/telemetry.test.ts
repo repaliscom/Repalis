@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { redactClaimTokens } from './telemetry'
 
-const TOKEN = 'polar_acl_Ab3dEf9hIjKlMnOpQrStUvWxYz0123456789abc0Xy1Z'
+const TOKEN = 'repalis_acl_Ab3dEf9hIjKlMnOpQrStUvWxYz0123456789abc0Xy1Z'
 
 describe('redactClaimTokens', () => {
   it.each([
@@ -22,8 +22,8 @@ describe('redactClaimTokens', () => {
     ],
     [
       'other URL',
-      'https://repalis.com/dashboard?token=polar_oat_x',
-      'https://repalis.com/dashboard?token=polar_oat_x',
+      'https://repalis.com/dashboard?token=repalis_oat_x',
+      'https://repalis.com/dashboard?token=repalis_oat_x',
     ],
   ])('%s', (_, value, expected) => {
     expect(redactClaimTokens(value)).toBe(expected)

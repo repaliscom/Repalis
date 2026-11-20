@@ -2,7 +2,7 @@ export { createRepalis, createRepalisCore, errors, webhooks } from './sdk'
 export type {
   Environment,
   models,
-  Polar,
+  Repalis,
   RepalisCore,
   RepalisOptions,
   RequestOptions,
@@ -75,5 +75,5 @@ export type {
 } from './schema/webhook'
 export type { WebhookRoute } from './client/webhooks'
 export { defineConfig } from './schema/config'
-export type { Config, PolarConfig } from './schema/config'
+export type { Config, RepalisConfig } from './schema/config'
 export { generateConfig } from './generate'

@@ -15,7 +15,7 @@ export const useInfiniteDiscounts = (
     queryKey: ['infinite', 'discounts', organizationId, { ...params }],
     queryFn: ({ pageParam = 1 }) =>
       unwrap(
-        polar.GET('/v1/discounts/', {
+        repalis.GET('/v1/discounts/', {
           params: {
             query: {
               organization_id: organizationId,

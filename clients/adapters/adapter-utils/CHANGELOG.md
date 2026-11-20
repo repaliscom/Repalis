@@ -11,7 +11,7 @@
 
 ### Minor Changes
 
-- e381ab0: Send the customer IP address when creating a checkout so Polar can show the visitor's local currency. When the `customer_ip_address` query param is not passed, the checkout route uses the first valid IP from the `x-forwarded-for`, `x-real-ip` and `cf-connecting-ip` headers. Use the new `customerIpAddress` option to resolve it yourself, or set it to `false` to stop sending it.
+- e381ab0: Send the customer IP address when creating a checkout so Repalis can show the visitor's local currency. When the `customer_ip_address` query param is not passed, the checkout route uses the first valid IP from the `x-forwarded-for`, `x-real-ip` and `cf-connecting-ip` headers. Use the new `customerIpAddress` option to resolve it yourself, or set it to `false` to stop sending it.
 
 ## 1.0.1
 
@@ -23,13 +23,13 @@
 
 ### Major Changes
 
-- 193578b: Migrate webhook and entitlement types to the new Polar SDK (`@repalis/sdk/2026-10`).
+- 193578b: Migrate webhook and entitlement types to the new Repalis SDK (`@repalis/sdk/2026-10`).
 
 ## 0.4.7
 
 ### Patch Changes
 
-- 10d913c: Add typed handlers for Polar member created, updated, deleted, customer seat assigned, claimed, and revoked webhook events.
+- 10d913c: Add typed handlers for Repalis member created, updated, deleted, customer seat assigned, claimed, and revoked webhook events.
 
 ## 0.4.6
 
@@ -74,7 +74,7 @@
 
 ### Minor Changes
 
-- 4512e82: Bump Polar SDK
+- 4512e82: Bump Repalis SDK
 
 ## 0.3.0
 
@@ -86,7 +86,7 @@
 
 ### Patch Changes
 
-- 3250323: Update Polar SDK to 0.38.1
+- 3250323: Update Repalis SDK to 0.38.1
 
 ## 0.2.9
 
@@ -124,7 +124,7 @@
 
 ### Patch Changes
 
-- 39f4d39: Update Polar SDK version
+- 39f4d39: Update Repalis SDK version
 
 ## 0.2.3
 
@@ -142,7 +142,7 @@
 
 ### Patch Changes
 
-- 87de0c5: Bump Polar SDK
+- 87de0c5: Bump Repalis SDK
 
 ## 0.2.0
 
@@ -203,7 +203,7 @@
 
 ### Patch Changes
 
-- 9dd847d: Bump Polar SDK
+- 9dd847d: Bump Repalis SDK
 
 ## 0.1.7
 

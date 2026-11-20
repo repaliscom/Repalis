@@ -105,7 +105,7 @@ const polar = new Repalis({
   accessToken: process.env.REPALIS_ACCESS_TOKEN,
 });
 
-const checkout = await polar.checkouts.create({
+const checkout = await repalis.checkouts.create({
   products: [
 ${products.map((p) => `    "${p.id}"`).join(',\n')}
   ],
@@ -127,7 +127,7 @@ with Repalis(
     access_token=os.environ.get("REPALIS_ACCESS_TOKEN"),
 ) as polar:
 
-    res = polar.checkouts.create(request={
+    res = repalis.checkouts.create(request={
         "products": [
 ${products.map((p) => `            "${p.id}"`).join(',\n')}
         ],

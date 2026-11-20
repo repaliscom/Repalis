@@ -26,7 +26,7 @@ const source = [
 ].join('\n')
 
 const config: LoadedConfig = {
-  file: 'polar.json',
+  file: 'repalis.json',
   source,
   input: JSON.parse(source),
   generated: false,
@@ -144,7 +144,7 @@ const run = async (
       _options?: CatalogOptions,
     ) => Effect.succeed(result),
   )
-  const cli = runCli(apply, ['polar.json', ...args], options)
+  const cli = runCli(apply, ['repalis.json', ...args], options)
   const exit = await Effect.runPromiseExit(
     cli.effect.pipe(
       Effect.provideService(
@@ -208,7 +208,7 @@ describe('polar config apply', () => {
       /│ {2}\+ tool-calls *│\n *│ {6}events {7}all events *│\n *│ {6}aggregation {2}count *│/,
     )
     expect(output).toContain(
-      'polar.json applied to Acme (sandbox): 2 entries (1 created, 0 updated, 1 unchanged)',
+      'repalis.json applied to Acme (sandbox): 2 entries (1 created, 0 updated, 1 unchanged)',
     )
     expect(output).toMatch(
       /╯\n\n {2}Apply\n {2}╭─+╮\n {2}│ {2}Applying 1 change \(\d+ms\) *│\n {2}╰─+╯\n {2}polar\.json applied to Acme/,
@@ -287,7 +287,7 @@ describe('polar config apply', () => {
     )
     expect(failed).toBe(false)
     expect(applied).toBe(1)
-    expect(output).toContain('polar.json applied to Acme (sandbox): 1 entry')
+    expect(output).toContain('repalis.json applied to Acme (sandbox): 1 entry')
   })
 
   test('needs --confirm when there is no terminal to ask', async () => {
@@ -353,7 +353,7 @@ describe('polar config apply', () => {
       )
       expect(failed).toBe(false)
       expect(JSON.parse(output)).toMatchObject({
-        file: 'polar.json',
+        file: 'repalis.json',
         status: 'applied',
         issues: [{ severity: 'warning', code: 'unknown_event' }],
       })

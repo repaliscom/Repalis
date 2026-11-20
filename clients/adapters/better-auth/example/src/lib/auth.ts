@@ -1,8 +1,8 @@
-import { checkout, polar, portal, usage, webhooks } from '@repalis/better-auth'
+import { checkout, repalis, portal, usage, webhooks } from '@repalis/better-auth'
 import { betterAuth } from 'better-auth'
 import { organization } from 'better-auth/plugins'
 import Database from 'better-sqlite3'
-import { polarSDK } from './repalis'
+import { repalisSDK } from './repalis'
 
 export const auth = betterAuth({
   emailAndPassword: {
@@ -10,8 +10,8 @@ export const auth = betterAuth({
   },
   plugins: [
     organization(),
-    polar({
-      client: polarSDK,
+    repalis({
+      client: repalisSDK,
       createCustomerOnSignUp: true,
       async getCustomerCreateParams() {
         return {

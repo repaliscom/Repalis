@@ -4,7 +4,7 @@ import ts from 'typescript'
 import { expect, test } from 'vitest'
 import { generateConfig } from './generate'
 import * as api from './index'
-import type { Config, MeterConfig, PolarConfig } from './index'
+import type { Config, MeterConfig, RepalisConfig } from './index'
 
 const meter: MeterConfig = {
   external_id: 'tokens',
@@ -31,7 +31,7 @@ const clauses = [
   { property: '', operator: 'not_like', value: '' },
 ] satisfies MeterConfig['filter']['clauses']
 
-const cases: [string, PolarConfig][] = [
+const cases: [string, RepalisConfig][] = [
   ['tokens example', { meters: [meter] }],
   ['empty config', { meters: [] }],
   [

@@ -69,7 +69,7 @@ export const replaceBinary = (
         ),
       )
 
-    const tempPath = join(dirname(binaryPath), `.polar-update-${Date.now()}`)
+    const tempPath = join(dirname(binaryPath), `.repalis-update-${Date.now()}`)
 
     yield* Effect.gen(function* () {
       const newBinary = yield* fs.readFile(newBinaryPath)
@@ -156,7 +156,7 @@ export function getReleaseArchiveName(platform: {
 }
 
 export const binaryNameFor = (os: string) =>
-  os === 'windows' ? 'polar.exe' : 'polar'
+  os === 'windows' ? 'repalis.exe' : 'polar'
 
 export function getArchiveExtractionCommand(
   archivePath: string,
@@ -222,7 +222,7 @@ export const install = (
       )
 
     const tempDir = yield* fs
-      .makeTempDirectory({ prefix: 'polar-update-' })
+      .makeTempDirectory({ prefix: 'repalis-update-' })
       .pipe(
         Effect.mapError(
           (cause) =>

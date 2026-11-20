@@ -15,7 +15,7 @@ export const useCustomFields = (
     queryKey: ['custom_fields', { organizationId, ...(parameters || {}) }],
     queryFn: () =>
       unwrap(
-        polar.GET('/v1/custom-fields/', {
+        repalis.GET('/v1/custom-fields/', {
           params: {
             query: {
               organization_id: organizationId,

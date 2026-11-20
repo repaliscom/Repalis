@@ -13,7 +13,7 @@ export const useCheckoutLink = (
     queryKey: ['checkout_link', organizationId, { id }],
     queryFn: () =>
       unwrap(
-        polar.GET('/v1/checkout-links/{id}', {
+        repalis.GET('/v1/checkout-links/{id}', {
           params: { path: { id: id ?? '' } },
         }),
       ),
@@ -34,7 +34,7 @@ export const useInfiniteCheckoutLinks = (
     queryKey: ['infinite', 'checkout_links', organizationId, { ...params }],
     queryFn: ({ pageParam = 1 }) =>
       unwrap(
-        polar.GET('/v1/checkout-links/', {
+        repalis.GET('/v1/checkout-links/', {
           params: {
             query: {
               organization_id: organizationId,
@@ -59,7 +59,7 @@ export const useCheckoutLinkCreate = (organizationId: string | undefined) => {
   return useMutation({
     mutationFn: (data: schemas['CheckoutLinkCreateProducts']) =>
       unwrap(
-        polar.POST('/v1/checkout-links/', {
+        repalis.POST('/v1/checkout-links/', {
           body: data,
         }),
       ),
@@ -84,7 +84,7 @@ export const useCheckoutLinkUpdate = (
   return useMutation({
     mutationFn: (data: schemas['CheckoutLinkUpdate']) =>
       unwrap(
-        polar.PATCH('/v1/checkout-links/{id}', {
+        repalis.PATCH('/v1/checkout-links/{id}', {
           params: { path: { id } },
           body: data,
         }),

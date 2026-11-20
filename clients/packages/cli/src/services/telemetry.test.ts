@@ -36,7 +36,7 @@ const outcome: CommandOutcome = {
 type Env = Record<string, string>
 
 const telemetry = (
-  env: Env = { POLAR_CLI_POSTHOG_KEY: 'phc_test' },
+  env: Env = { REPALIS_CLI_POSTHOG_KEY: 'phc_test' },
   build: BuildKind = 'release',
   { writable = true, used = new Set<RepalisEnvironment>() } = {},
 ) => {
@@ -91,34 +91,34 @@ const telemetry = (
 
 describe('opt out', () => {
   test.each(['1', 'true', 'YES'])(
-    'honours POLAR_CLI_TELEMETRY_OPTOUT=%s',
+    'honours REPALIS_CLI_TELEMETRY_OPTOUT=%s',
     (value) => {
-      expect(isOptedOut({ POLAR_CLI_TELEMETRY_OPTOUT: value })).toBe(true)
+      expect(isOptedOut({ REPALIS_CLI_TELEMETRY_OPTOUT: value })).toBe(true)
     },
   )
 
   test('honours DO_NOT_TRACK and ignores other values', () => {
     expect(isOptedOut({ DO_NOT_TRACK: '1' })).toBe(true)
-    expect(isOptedOut({ POLAR_CLI_TELEMETRY_OPTOUT: '0' })).toBe(false)
+    expect(isOptedOut({ REPALIS_CLI_TELEMETRY_OPTOUT: '0' })).toBe(false)
     expect(isOptedOut({})).toBe(false)
   })
 
   test('records nothing when opted out', async () => {
     const { record, events } = telemetry({
-      POLAR_CLI_POSTHOG_KEY: 'phc_test',
-      POLAR_CLI_TELEMETRY_OPTOUT: '1',
+      REPALIS_CLI_POSTHOG_KEY: 'phc_test',
+      REPALIS_CLI_TELEMETRY_OPTOUT: '1',
     })
     await record()
     expect(events).toHaveLength(0)
   })
 
   test('records nothing from development builds unless forced', async () => {
-    const dev = telemetry({ POLAR_CLI_POSTHOG_KEY: 'phc_test' }, 'development')
+    const dev = telemetry({ REPALIS_CLI_POSTHOG_KEY: 'phc_test' }, 'development')
     await dev.record()
     expect(dev.events).toHaveLength(0)
 
     const forced = telemetry(
-      { POLAR_CLI_POSTHOG_KEY: 'phc_test', POLAR_CLI_TELEMETRY_FORCE: '1' },
+      { REPALIS_CLI_POSTHOG_KEY: 'phc_test', REPALIS_CLI_TELEMETRY_FORCE: '1' },
       'development',
     )
     await forced.record()
@@ -126,8 +126,8 @@ describe('opt out', () => {
 
     const redirected = telemetry(
       {
-        POLAR_CLI_POSTHOG_KEY: 'phc_test',
-        POLAR_CLI_TELEMETRY_URL: 'http://x',
+        REPALIS_CLI_POSTHOG_KEY: 'phc_test',
+        REPALIS_CLI_TELEMETRY_URL: 'http://x',
       },
       'development',
     )
@@ -137,7 +137,7 @@ describe('opt out', () => {
 
   test('recognises compiled binaries', () => {
     expect(isCompiledBinary('/$bunfs/root/polar')).toBe(true)
-    expect(isCompiledBinary('B:\\~BUN\\root\\polar.exe')).toBe(true)
+    expect(isCompiledBinary('B:\\~BUN\\root\\repalis.exe')).toBe(true)
     expect(isCompiledBinary('/Users/dev/polar/src/cli.ts')).toBe(false)
     expect(isCompiledBinary()).toBe(false)
   })
@@ -361,7 +361,7 @@ describe('outcomes', () => {
       error: 'ShowHelp:UnknownSubcommand',
       errorMessage: 'status',
     })
-    expect(unknown('polar_oat_short')).toEqual({
+    expect(unknown('repalis_oat_short')).toEqual({
       error: 'ShowHelp:UnknownSubcommand',
       errorMessage: '<redacted>',
     })
@@ -393,7 +393,7 @@ describe('redact', () => {
     ],
     [
       'Polar tokens of every kind',
-      'polar_oat_AbC123 polar_pat_x-y.z polar_at_q polar_ci_gBnJ',
+      'repalis_oat_AbC123 repalis_pat_x-y.z polar_at_q polar_ci_gBnJ',
       '<redacted> <redacted> <redacted> <redacted>',
     ],
     [
@@ -438,7 +438,7 @@ describe('redact', () => {
     ],
     [
       'temporary directories',
-      'tar: /var/folders/ab/T/polar-update-x/polar: Cannot open, see /tmp/log and /private/var/x',
+      'tar: /var/folders/ab/T/repalis-update-x/polar: Cannot open, see /tmp/log and /private/var/x',
       'tar: <redacted> Cannot open, see <redacted> and <redacted>',
     ],
     [
@@ -459,12 +459,12 @@ describe('redact', () => {
     ],
     [
       'tokens wrapped in punctuation',
-      '(polar_oat_abc) token=polar_oat_def, "ghp_x".',
+      '(repalis_oat_abc) token=repalis_oat_def, "ghp_x".',
       '(<redacted>) token=<redacted>, "<redacted>".',
     ],
     [
       'several categories in one message',
-      'Org 342c8722-fcad-416b-8232-8877dcf8f90e rejected polar_oat_A at https://api.repalis.com/v1 for me@repalis.com in /Users/seb/.config',
+      'Org 342c8722-fcad-416b-8232-8877dcf8f90e rejected repalis_oat_A at https://api.repalis.com/v1 for me@repalis.com in /Users/seb/.config',
       'Org <redacted> rejected <redacted> at <redacted> for <redacted> in <redacted>',
     ],
   ])('redacts %s', (_label, input, expected) => {
@@ -488,7 +488,7 @@ describe('redact', () => {
   })
 
   test('truncates to 200 characters after redacting', () => {
-    const long = `${'try again '.repeat(30)}polar_oat_secret ${'x '.repeat(50)}`
+    const long = `${'try again '.repeat(30)}repalis_oat_secret ${'x '.repeat(50)}`
     const result = redact(long)
     expect(result).toHaveLength(200)
     expect(result).not.toContain('polar_oat')
@@ -501,13 +501,13 @@ describe('redact', () => {
   })
 
   test('is idempotent', () => {
-    const once = redact('me@repalis.com at https://x.y/z with polar_oat_a')
+    const once = redact('me@repalis.com at https://x.y/z with repalis_oat_a')
     expect(redact(once)).toBe(once)
   })
 
   test('never lets a secret survive inside a URL or path', () => {
-    expect(redact('https://repalis.com/?t=polar_oat_a')).toBe('<redacted>')
-    expect(redact('/Users/seb/polar_oat_a')).toBe('<redacted>')
+    expect(redact('https://repalis.com/?t=repalis_oat_a')).toBe('<redacted>')
+    expect(redact('/Users/seb/repalis_oat_a')).toBe('<redacted>')
   })
 
   test('applies to failure messages and ignores non-numeric codes', () => {
@@ -523,7 +523,7 @@ describe('redact', () => {
       errorMessage: 'Organization <redacted> is missing.',
     })
     const notFound = Object.assign(
-      new Error("ENOENT: no such file '/Users/seb/.polar/x'"),
+      new Error("ENOENT: no such file '/Users/seb/.repalis/x'"),
       { code: 'ENOENT' },
     )
     expect(describeFailure(notFound)).toEqual({
@@ -536,7 +536,7 @@ describe('redact', () => {
 describe('Telemetry.record', () => {
   test('dispatches one event with a stable install id and no secrets', async () => {
     const { record, events, files } = telemetry({
-      POLAR_CLI_POSTHOG_KEY: 'phc_test',
+      REPALIS_CLI_POSTHOG_KEY: 'phc_test',
       CLAUDECODE: '1',
       CI: 'true',
     })
@@ -591,7 +591,7 @@ describe('Telemetry.record', () => {
   })
 
   test('reports no agent outside an AI coding tool', async () => {
-    const { record, events } = telemetry({ POLAR_CLI_POSTHOG_KEY: 'phc_test' })
+    const { record, events } = telemetry({ REPALIS_CLI_POSTHOG_KEY: 'phc_test' })
     await record()
     expect(events[0]!.properties['agent']).toBeNull()
     expect(events[0]!.properties['ci']).toBe(false)
@@ -643,7 +643,7 @@ describe('Telemetry.record', () => {
             Sender,
             Sender.of({ dispatch: () => Effect.die(new Error('boom')) }),
           ),
-          Layer.succeed(Environment, { POLAR_CLI_POSTHOG_KEY: 'phc_test' }),
+          Layer.succeed(Environment, { REPALIS_CLI_POSTHOG_KEY: 'phc_test' }),
           Layer.succeed(Build, 'release' as const),
         ),
       ),
@@ -687,10 +687,10 @@ describe('send', () => {
     expect(JSON.parse(await http.requests[0]!.text())).toEqual(event)
   })
 
-  test('honours POLAR_CLI_TELEMETRY_URL', async () => {
+  test('honours REPALIS_CLI_TELEMETRY_URL', async () => {
     const local = 'http://127.0.0.1:9/capture/'
     http.routes[`POST ${local}`] = () => new Response(null, { status: 202 })
-    await run({ POLAR_CLI_TELEMETRY_URL: local })
+    await run({ REPALIS_CLI_TELEMETRY_URL: local })
     expect(http.urls()).toEqual([local])
   })
 

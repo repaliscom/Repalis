@@ -15,7 +15,7 @@ const TYPESCRIPT = [
   '})',
   '',
   '// every entitlement and balance, one call',
-  "const state = await polar.customers.getStateExternal('acme')",
+  "const state = await repalis.customers.getStateExternal('acme')",
 ]
 
 const PYTHON = [
@@ -24,7 +24,7 @@ const PYTHON = [
   'polar = Polar(os.environ["REPALIS_ACCESS_TOKEN"])',
   '',
   '# every entitlement and balance, one call',
-  'state = polar.customers.get_state_external("acme")',
+  'state = repalis.customers.get_state_external("acme")',
 ]
 
 interface Client {

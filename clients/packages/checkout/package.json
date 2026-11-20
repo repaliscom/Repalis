@@ -1,7 +1,7 @@
 {
   "name": "@repalis/checkout",
   "description": "Repalis Checkout SDK",
-  "author": "Polar",
+  "author": "Repalis",
   "license": "Apache-2.0",
   "type": "module",
   "version": "0.6.0",

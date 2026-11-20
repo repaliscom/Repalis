@@ -22,7 +22,7 @@ import {
 } from './render'
 import { API_URL, server } from './server'
 
-export const CLIENT_SECRET = 'polar_c_test'
+export const CLIENT_SECRET = 'repalis_c_test'
 export const CHECKOUT_URL = `http://localhost:3000/checkout/${CLIENT_SECRET}`
 export const DISTINCT_ID = 'distinct_test'
 export const CUSTOMER_SESSION_TOKEN = 'cst_test'
@@ -385,8 +385,8 @@ export const renderCheckout = ({
     benefitGrants,
   })
   document.cookie = distinctId
-    ? `polar_distinct_id=${distinctId}; path=/`
-    : 'polar_distinct_id=; max-age=0; path=/'
+    ? `repalis_distinct_id=${distinctId}; path=/`
+    : 'repalis_distinct_id=; max-age=0; path=/'
 
   const result = renderWithProviders(
     <UserContextProvider

@@ -188,7 +188,7 @@ describe('organization lifecycle gaps', () => {
       createdAt: new Date(2024, 0, index + 1),
     }))
     const { context } = createAuthContext(manyMemberships)
-    const failure = new Error('Polar update failed')
+    const failure = new Error('Repalis update failed')
     vi.mocked(updateMemberMirror).mockImplementation(async (_client, input) => {
       if (input.organizationId === 'org-0') throw failure
     })

@@ -5,7 +5,7 @@ import { AgentSetupError, type ClientStatus } from '@/schemas/AgentSetup'
 
 export const MCP_SERVERS = {
   polar: 'https://mcp.repalis.com/mcp/repalis-mcp',
-  'polar-sandbox': 'https://mcp.repalis.com/mcp/repalis-sandbox',
+  'repalis-sandbox': 'https://mcp.repalis.com/mcp/repalis-sandbox',
 } as const
 
 const cursorDirectory = (home: string) => path.join(home, '.cursor')

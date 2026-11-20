@@ -30,7 +30,7 @@ const withDraft: Catalogs = {
 }
 
 const config: LoadedConfig = {
-  file: 'polar.json',
+  file: 'repalis.json',
   source: '{"products":[{"external_id":"pro"}]}',
   input: { products: [{ external_id: 'pro' }] },
   generated: false,
@@ -114,7 +114,7 @@ describe('polar config publish', () => {
   test('compares the config file with the draft', async () => {
     const { output, planned } = await run(withDraft, ['--confirm'])
     expect(planned).toEqual(['cat-draft'])
-    expect(output).toContain('polar.json matches the draft')
+    expect(output).toContain('repalis.json matches the draft')
     expect(output).not.toContain('Not in the draft')
   })
 
@@ -125,8 +125,8 @@ describe('polar config publish', () => {
       { section: 'benefits', id: 'support', action: 'unchanged', diff: [] },
     ])
     expect(published).toEqual(['cat-draft'])
-    expect(output).toContain('polar.json has 2 changes not in the draft')
-    expect(output).toContain('Not in the draft polar.json')
+    expect(output).toContain('repalis.json has 2 changes not in the draft')
+    expect(output).toContain('Not in the draft repalis.json')
     expect(output).toMatch(/~ pro/)
     expect(output).toMatch(/~ tokens/)
     expect(output).not.toContain('support')
@@ -142,8 +142,8 @@ describe('polar config publish', () => {
       },
       { section: 'webhooks', id: 'orders', action: 'updated', diff: [] },
     ])
-    expect(output).toContain('polar.json has 1 change not in the draft')
-    expect(output).toContain('Not in the draft polar.json')
+    expect(output).toContain('repalis.json has 1 change not in the draft')
+    expect(output).toContain('Not in the draft repalis.json')
     expect(output).toMatch(/currency/)
     expect(output).not.toContain('orders')
   })
@@ -156,7 +156,7 @@ describe('polar config publish', () => {
       [repriced],
     )
     expect(terminal).toContain(
-      'Warning: polar.json has changes that are not in the draft.',
+      'Warning: repalis.json has changes that are not in the draft.',
     )
   })
 
@@ -201,7 +201,7 @@ describe('polar config publish', () => {
     )
     expect(published).toEqual([])
     expect(message).toBe(
-      'Could not compare polar.json with the draft, it has 1 error',
+      'Could not compare repalis.json with the draft, it has 1 error',
     )
   })
 

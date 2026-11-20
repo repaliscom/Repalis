@@ -223,7 +223,7 @@ const DiscordBenefitForm = ({
     organization.id,
     guildId ?? undefined,
   )
-  const polarBotRolePosition = useMemo(() => {
+  const repalisBotRolePosition = useMemo(() => {
     if (!discordGuild) {
       return undefined
     }
@@ -275,7 +275,7 @@ const DiscordBenefitForm = ({
                       </SelectTrigger>
                       <SelectContent>
                         <SelectGroup>
-                          {polarBotRolePosition &&
+                          {repalisBotRolePosition &&
                             discordGuild.roles.map((role, index) =>
                               role.is_polar_bot ? (
                                 <React.Fragment key={role.id}>
@@ -298,7 +298,7 @@ const DiscordBenefitForm = ({
                                   key={role.id}
                                   value={role.id}
                                   disabled={
-                                    role.position > polarBotRolePosition
+                                    role.position > repalisBotRolePosition
                                   }
                                 >
                                   <div className="flex items-center gap-2">

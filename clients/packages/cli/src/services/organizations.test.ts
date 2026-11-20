@@ -3,12 +3,12 @@ import { Effect, Layer } from 'effect'
 import type { ActiveOrganization, RepalisEnvironment } from '@/schemas/Auth'
 import { Auth } from '@/services/auth'
 import { Organizations, layer } from '@/services/organizations'
-import { Polar } from '@/services/repalis'
+import { Repalis } from '@/services/repalis'
 import { CLIConfig } from '@/services/config'
 import {
   fakeAuth,
   fakeConfig,
-  fakePolar,
+  fakeRepalis,
   overrideCredential,
 } from '@/utils/test-utils/services'
 
@@ -40,7 +40,7 @@ let requests: Array<{
 let denied: boolean
 
 const environmentOf = () => polar.state.requests.at(-1)!.environment
-const polar = fakePolar({
+const polar = fakeRepalis({
   organizations: {
     list: ({ page = 1, slug }: { page?: number; slug?: string }) => {
       const environment = environmentOf()

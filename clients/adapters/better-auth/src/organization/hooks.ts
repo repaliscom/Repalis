@@ -40,9 +40,9 @@ type AfterRemoveMemberData = Parameters<
 >[0]
 
 /**
- * Compose Polar's customer, roster, and single-owner synchronization into
+ * Compose Repalis's customer, roster, and single-owner synchronization into
  * Better Auth's organization lifecycle hooks. Application after-hooks run
- * first; Polar synchronization runs only after they succeed.
+ * first; Repalis synchronization runs only after they succeed.
  */
 export const installOrganizationHooks = (
   ctx: AuthContext,
@@ -132,7 +132,7 @@ export const installOrganizationHooks = (
     const isInitialCreator =
       members.length === 1 && members[0]?.userId === data.member.userId
 
-    // afterCreateOrganization mirrors the creator as the Polar team owner.
+    // afterCreateOrganization mirrors the creator as the Repalis team owner.
     if (isInitialCreator) return
 
     await syncMember(data)

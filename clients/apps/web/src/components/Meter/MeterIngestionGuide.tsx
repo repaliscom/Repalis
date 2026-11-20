@@ -56,7 +56,7 @@ const polar = new Polar({
 });
 
 export const GET = async (req: Request, res: Response) => {
-  await polar.events.ingest({
+  await repalis.events.ingest({
     events: [
       {
         name: "api_call",

@@ -7,7 +7,7 @@ import {
 import { Effect, Schema } from 'effect'
 import { HttpClientRequest, HttpClientResponse } from 'effect/http'
 import { isRecord } from './json'
-import { polarApiClient, type RepalisApiOutboundProps } from './outbound'
+import { repalisApiClient, type RepalisApiOutboundProps } from './outbound'
 
 // ChatGPT's MCP events docs use -32015; the protocol draft uses -32027.
 const CALLBACK_ENDPOINT_ERROR = -32015
@@ -55,7 +55,7 @@ const apiError = (status: number, body: unknown) => {
   const error = isRecord(body) ? body.error : undefined
   const detail = isRecord(body) ? body.detail : undefined
   const message =
-    typeof detail === 'string' ? detail : `Polar API returned ${status}`
+    typeof detail === 'string' ? detail : `Repalis API returned ${status}`
   switch (status) {
     case 400:
       return error === 'CallbackEndpointError'
@@ -90,7 +90,7 @@ export const registerEvents = Effect.fn('registerEvents')(function* (
   server: McpServer,
   { apiUrl, token }: RepalisApiOutboundProps,
 ) {
-  const client = yield* polarApiClient(token)
+  const client = yield* repalisApiClient(token)
 
   const send = (request: HttpClientRequest.HttpClientRequest) =>
     client.execute(request).pipe(

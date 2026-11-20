@@ -15,7 +15,7 @@ describe('npm platform packages', () => {
     const windows = findTarget('bun-windows-x64')
     expect(platformPackageName(windows)).toBe('@repalis/cli-windows-x64')
     expect(platformDirectory(windows)).toBe('cli-windows-x64')
-    expect(binaryName(windows.os)).toBe('polar.exe')
+    expect(binaryName(windows.os)).toBe('repalis.exe')
 
     const linux = findTarget('bun-linux-arm64')
     expect(platformPackageName(linux)).toBe('@repalis/cli-linux-arm64')
@@ -51,7 +51,7 @@ describe('npm main package', () => {
     const manifest = mainManifest('1.4.0', binaries)
 
     expect(manifest.name).toBe('@repalis/cli')
-    expect(manifest.bin).toEqual({ polar: 'bin/polar.exe' })
+    expect(manifest.bin).toEqual({ polar: 'bin/repalis.exe' })
     expect(manifest.scripts).toEqual({ postinstall: 'node ./postinstall.mjs' })
     expect(Object.keys(manifest.optionalDependencies)).toEqual([
       '@repalis/cli-darwin-arm64',
@@ -71,12 +71,12 @@ describe('npm main package', () => {
         ...binaries,
         '@repalis/cli-linux-x64': '1.3.9',
       }),
-    ).toThrow(/does not match @polar-sh\/cli@1.4.0/)
+    ).toThrow(/does not match @repalis\/cli@1.4.0/)
   })
 
   test('refuses unrelated packages and empty releases', () => {
     expect(() => mainManifest('1.4.0', { '@repalis/sdk': '1.4.0' })).toThrow(
-      /not a @polar-sh\/cli platform package/,
+      /not a @repalis\/cli platform package/,
     )
     expect(() => mainManifest('1.4.0', {})).toThrow(/No platform packages/)
   })

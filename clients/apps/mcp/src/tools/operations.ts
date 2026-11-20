@@ -8,7 +8,7 @@ import { HttpClientRequest, type HttpMethod } from 'effect/http'
 import generatedTools from '../generated/tools.json'
 import { intentJsonSchema } from '../intent'
 import { RequestLog } from '../log'
-import { polarApiClient, type RepalisApiOutboundProps } from '../outbound'
+import { repalisApiClient, type RepalisApiOutboundProps } from '../outbound'
 import { makeToolRunner, ToolError } from '../results'
 import { rejectedFields } from '../spec'
 
@@ -79,7 +79,7 @@ export const registerOperationTools = Effect.fn('registerOperationTools')(
     { apiUrl, token, readOnly }: RepalisApiOutboundProps,
   ) {
     const runTool = yield* makeToolRunner
-    const client = yield* polarApiClient(token)
+    const client = yield* repalisApiClient(token)
 
     const execute = Effect.fn('Operation.execute')(
       function* (definition: OperationTool, args: Arguments) {
@@ -102,7 +102,7 @@ export const registerOperationTools = Effect.fn('registerOperationTools')(
             rejectedFields(JSON.parse(text)),
           ).pipe(Effect.orElseSucceed(() => undefined))
           return yield* new ToolError({
-            message: `Polar API ${response.status}: ${text}`,
+            message: `Repalis API ${response.status}: ${text}`,
             kind: 'api',
             status: response.status,
             ...(fields && { fields }),

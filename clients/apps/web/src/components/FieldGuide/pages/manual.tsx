@@ -327,7 +327,7 @@ export const manual: Piece[] = [
               route="v"
               dot={false}
             >
-              polar.config.ts
+              repalis.config.ts
             </Callout>
           </g>
         </Figure>,
@@ -372,7 +372,7 @@ export const manual: Piece[] = [
       const rows: TermTok[][] = [
         [{ t: '$ ' }, { t: 'polar apply' }, D(' --env prod')],
         [],
-        [D('Reading   '), { t: 'polar.config.ts' }],
+        [D('Reading   '), { t: 'repalis.config.ts' }],
         [D('Found     '), { t: '1 event, 1 meter, 2 products' }],
         [D('Planning  '), { t: 'against prod' }, D('  (deployed 3 days ago)')],
         [],

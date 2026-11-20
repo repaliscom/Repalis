@@ -684,10 +684,10 @@ describe('RepalisEmbedCheckout', () => {
     })
   })
 
-  describe('window.Polar', () => {
-    it('exposes EmbedCheckout on window.Polar', () => {
-      expect(window.Polar).toBeDefined()
-      expect(window.Polar.EmbedCheckout).toBe(RepalisEmbedCheckout)
+  describe('window.Repalis', () => {
+    it('exposes EmbedCheckout on window.Repalis', () => {
+      expect(window.Repalis).toBeDefined()
+      expect(window.Repalis.EmbedCheckout).toBe(RepalisEmbedCheckout)
     })
   })
 })

@@ -4,7 +4,7 @@ import type { ReactNode } from 'react'
 import { agentOps } from './agents'
 import { marginCheck } from './check'
 import { delegation, economics, rollup } from './identities'
-import { polarBilling, psp } from './payments'
+import { repalisBilling, psp } from './payments'
 import { branchReplay, simulationCompare } from './simulations'
 import { cover } from './cover'
 import { fold } from './fold'
@@ -65,7 +65,7 @@ export const chapters: { title: string; ids: string[] }[] = [
 ]
 const ORDER = chapters.flatMap((c) => c.ids)
 const all = [
-  polarBilling,
+  repalisBilling,
   psp,
   delegation,
   rollup,

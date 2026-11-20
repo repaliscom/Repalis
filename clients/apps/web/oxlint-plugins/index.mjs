@@ -13,9 +13,9 @@ import noStyleText from './no-style-text.mjs'
 import requireCustomerPortalPage from './require-customer-portal-page.mjs'
 import requireExternalLinkRel from './require-external-link-rel.mjs'
 
-const polarPlugin = {
+const repalisPlugin = {
   meta: {
-    name: 'polar',
+    name: 'repalis',
   },
   rules: {
     'no-broken-mdx-links': noBrokenMdxLinks,
@@ -36,4 +36,4 @@ const polarPlugin = {
   },
 }
 
-export default polarPlugin
+export default repalisPlugin

@@ -15,17 +15,17 @@ import { HttpClient, HttpClientRequest } from 'effect/http'
 import { UsedEnvironments } from '@/services/api'
 import { VERSION } from '@/version'
 
-const OPT_OUT_VARIABLE = 'POLAR_CLI_TELEMETRY_OPTOUT'
-const ENDPOINT_VARIABLE = 'POLAR_CLI_TELEMETRY_URL'
-const PROJECT_KEY_VARIABLE = 'POLAR_CLI_POSTHOG_KEY'
-const FORCE_VARIABLE = 'POLAR_CLI_TELEMETRY_FORCE'
+const OPT_OUT_VARIABLE = 'REPALIS_CLI_TELEMETRY_OPTOUT'
+const ENDPOINT_VARIABLE = 'REPALIS_CLI_TELEMETRY_URL'
+const PROJECT_KEY_VARIABLE = 'REPALIS_CLI_POSTHOG_KEY'
+const FORCE_VARIABLE = 'REPALIS_CLI_TELEMETRY_FORCE'
 export const SENDER_COMMAND = '__telemetry'
 const ENDPOINT = 'https://us.i.posthog.com/capture/'
 const PROJECT_KEY = 'phc_H2ajVAY4cy0uQpcgN5fzpv8JC3yP8VZOjx2EXiFBbgz'
 const EVENT = 'cli_command'
 const SEND_TIMEOUT = '5 seconds'
 
-declare const POLAR_CLI_BUILD: string | undefined
+declare const REPALIS_CLI_BUILD: string | undefined
 
 type Env = Record<string, string | undefined>
 
@@ -38,7 +38,7 @@ export type BuildKind = 'release' | 'development'
 
 export const Build = Context.Reference<BuildKind>('polar/Telemetry/Build', {
   defaultValue: () =>
-    typeof POLAR_CLI_BUILD !== 'undefined' && POLAR_CLI_BUILD === 'release'
+    typeof REPALIS_CLI_BUILD !== 'undefined' && REPALIS_CLI_BUILD === 'release'
       ? 'release'
       : 'development',
 })

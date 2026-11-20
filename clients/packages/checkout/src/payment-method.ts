@@ -1,7 +1,7 @@
 const REPALIS_PAYMENT_METHOD_EVENT = 'REPALIS_PAYMENT_METHOD'
 const EMBED_PATH = '/embed/payment-method'
 
-const REDIRECT_STATUS_PARAM = 'polar_payment_method_status'
+const REDIRECT_STATUS_PARAM = 'repalis_payment_method_status'
 
 /**
  * Message sent to the parent window when the embedded payment method
@@ -103,7 +103,7 @@ interface EmbedPaymentMethodCreateOptions {
   /**
    * A short-lived session token returned by
    * `POST /v1/customer-sessions`. Pass whatever the API returned —
-   * the SDK detects the prefix (`polar_cst_` vs `polar_mst_`) and
+   * the SDK detects the prefix (`repalis_cst_` vs `repalis_mst_`) and
    * routes the request to the right endpoint internally.
    */
   sessionToken: string
@@ -135,7 +135,7 @@ interface EmbedPaymentMethodCreateInlineOptions {
   /**
    * A short-lived session token returned by
    * `POST /v1/customer-sessions`. Pass whatever the API returned —
-   * the SDK detects the prefix (`polar_cst_` vs `polar_mst_`) and
+   * the SDK detects the prefix (`repalis_cst_` vs `repalis_mst_`) and
    * routes the request to the right endpoint internally.
    */
   sessionToken: string
@@ -221,7 +221,7 @@ class EmbedPaymentMethod {
   /**
    * Send a message from the iframe to the parent window.
    *
-   * Used internally by the Polar-hosted iframe page; not normally called
+   * Used internally by the Repalis-hosted iframe page; not normally called
    * by SDK consumers.
    */
   public static postMessage(
@@ -240,7 +240,7 @@ class EmbedPaymentMethod {
    * @example
    * ```ts
    * const embed = await RepalisEmbedPaymentMethod.create({
-   *   sessionToken: 'polar_cst_xxx',
+   *   sessionToken: 'repalis_cst_xxx',
    *   theme: 'dark',
    * })
    *
@@ -392,7 +392,7 @@ class EmbedPaymentMethod {
    * @example
    * ```html
    * <button
-   *   data-repalis-payment-method="polar_cst_xxx"
+   *   data-repalis-payment-method="repalis_cst_xxx"
    *   data-repalis-payment-method-theme="dark"
    * >
    *   Add payment method
@@ -637,18 +637,18 @@ class EmbedPaymentMethod {
 }
 
 declare global {
-  interface PolarWindow {
+  interface RepalisWindow {
     EmbedPaymentMethod: typeof EmbedPaymentMethod
   }
   interface Window {
-    Polar: Partial<PolarWindow>
-    Repalis?: Partial<PolarWindow>
+    Repalis: Partial<RepalisWindow>
+    Repalis?: Partial<RepalisWindow>
   }
 }
 
 if (typeof window !== 'undefined') {
-  window.Polar = {
-    ...(window.Polar ?? {}),
+  window.Repalis = {
+    ...(window.Repalis ?? {}),
     EmbedPaymentMethod,
   }
   window.Repalis = {

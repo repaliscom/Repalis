@@ -18,7 +18,7 @@ export const useOrganizations = (
     queryFn: async () => {
       try {
         return await unwrap(
-          polar.GET('/v1/organizations/', {
+          repalis.GET('/v1/organizations/', {
             params: {
               query: {
                 limit: 100,
@@ -43,7 +43,7 @@ export const useCreateOrganization = () => {
   return useMutation({
     mutationFn: (organization: schemas['OrganizationCreate']) =>
       unwrap(
-        polar.POST('/v1/organizations/', {
+        repalis.POST('/v1/organizations/', {
           body: organization,
         }),
       ),
@@ -58,7 +58,7 @@ export const useDeleteOrganization = () => {
 
   return useMutation({
     mutationFn: async (organizationId: string) => {
-      const { data, error } = await polar.DELETE('/v1/organizations/{id}', {
+      const { data, error } = await repalis.DELETE('/v1/organizations/{id}', {
         params: { path: { id: organizationId } },
       })
       return { data, error }

@@ -29,7 +29,7 @@ describe('Checkout page', () => {
       expect(api.requests).toContainEqual(
         expect.objectContaining({
           method: 'POST',
-          path: '/v1/checkouts/client/polar_c_test/opened',
+          path: '/v1/checkouts/client/repalis_c_test/opened',
           body: { distinct_id: DISTINCT_ID },
         }),
       ),
@@ -104,7 +104,7 @@ describe('Checkout page', () => {
     expect(api.requests).toContainEqual(
       expect.objectContaining({
         method: 'POST',
-        path: '/v1/checkouts/client/polar_c_test/confirm',
+        path: '/v1/checkouts/client/repalis_c_test/confirm',
       }),
     )
   })

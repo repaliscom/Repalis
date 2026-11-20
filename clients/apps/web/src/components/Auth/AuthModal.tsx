@@ -11,7 +11,7 @@ export const AuthModal = ({ returnTo, signup }: AuthModalProps) => {
 
   const lastLoginMethod =
     typeof document !== 'undefined'
-      ? ((document.cookie.match(/polar_last_login_method=(\w+)/)?.[1] ??
+      ? ((document.cookie.match(/repalis_last_login_method=(\w+)/)?.[1] ??
           null) as LoginMethod)
       : null
 

@@ -177,7 +177,7 @@ export const EditEventTypeModal = ({
               lang="typescript"
               code={
                 labelPropertySelector
-                  ? `await polar.events.ingest({
+                  ? `await repalis.events.ingest({
   events: [{
     name: "${eventName}",
     customerId: "<value>",
@@ -187,7 +187,7 @@ export const EditEventTypeModal = ({
     },
   }],
 });`
-                  : `await polar.events.ingest({
+                  : `await repalis.events.ingest({
   events: [{
     name: "${eventName}",
     customerId: "<value>",

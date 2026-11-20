@@ -141,7 +141,7 @@ export const BillingBenefitGrants = ({
       <Box flexDirection="column" rowGap="l">
         <SectionDescription
           title="Slack channel"
-          description="Shared Slack Connect channel with the Polar team, included in your plan"
+          description="Shared Slack Connect channel with the Repalis team, included in your plan"
         />
         {grants.map((grant) => (
           <Box

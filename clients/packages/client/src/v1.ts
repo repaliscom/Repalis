@@ -3166,7 +3166,7 @@ export interface paths {
     }
     /**
      * List Organization Orders
-     * @description List Polar orders billed to this organization.
+     * @description List Repalis orders billed to this organization.
      *
      *     **Scopes**: `payouts:read` `payouts:write` `transactions:read` `transactions:write`
      */
@@ -3216,7 +3216,7 @@ export interface paths {
     }
     /**
      * List Organization Payment Methods
-     * @description List the saved payment methods used to pay Polar invoices.
+     * @description List the saved payment methods used to pay Repalis invoices.
      *
      *     **Scopes**: `organizations:read` `organizations:write`
      */
@@ -3240,7 +3240,7 @@ export interface paths {
     put?: never
     /**
      * Create Organization Customer Session
-     * @description Create a customer session token bound to this org's Polar billing
+     * @description Create a customer session token bound to this org's Repalis billing
      *     customer. The returned token authenticates against
      *     `/v1/customer-portal/customers/me/*` for the duration of its TTL.
      *
@@ -3265,7 +3265,7 @@ export interface paths {
     post?: never
     /**
      * Delete Organization Payment Method
-     * @description Delete a saved payment method used to pay Polar invoices.
+     * @description Delete a saved payment method used to pay Repalis invoices.
      *
      *     **Scopes**: `organizations:write`
      */
@@ -3286,7 +3286,7 @@ export interface paths {
     put?: never
     /**
      * Set Default Organization Payment Method
-     * @description Set the default payment method used to pay Polar invoices.
+     * @description Set the default payment method used to pay Repalis invoices.
      *
      *     **Scopes**: `organizations:write`
      */
@@ -3306,7 +3306,7 @@ export interface paths {
     }
     /**
      * Get Organization Order Invoice
-     * @description Get the invoice URL for a Polar order belonging to this organization.
+     * @description Get the invoice URL for a Repalis order belonging to this organization.
      *
      *     **Scopes**: `payouts:read` `payouts:write` `transactions:read` `transactions:write`
      */
@@ -3328,7 +3328,7 @@ export interface paths {
     }
     /**
      * List Organization Benefit Grants
-     * @description List Slack shared channel benefit grants attached to this org's Polar
+     * @description List Slack shared channel benefit grants attached to this org's Repalis
      *     subscription.
      *
      *     **Scopes**: `organizations:read` `organizations:write`
@@ -4509,7 +4509,7 @@ export interface paths {
      * Create Benefit Grant
      * @description Manually grant a benefit to a customer or one of their members.
      *
-     *     Use either Polar IDs for every reference or external IDs for every reference.
+     *     Use either Repalis IDs for every reference or external IDs for every reference.
      *     Fulfillment is asynchronous: the returned grant may not yet be granted.
      *     Meter-credit benefits cannot be granted manually.
      *
@@ -7235,7 +7235,7 @@ export interface paths {
     put?: never
     /**
      * Confirm
-     * @description The pending ids Polar counts, with the snapshot that counts them.
+     * @description The pending ids Repalis counts, with the snapshot that counts them.
      *
      *     **Scopes**: `events:write`
      */
@@ -7953,7 +7953,7 @@ export interface webhooks {
     put?: never
     /**
      * subscription_migrated
-     * @description Sent when Polar takes over billing of a subscription migrated from another provider.
+     * @description Sent when Repalis takes over billing of a subscription migrated from another provider.
      *
      *     This fires at cutover, once the subscription is live on Repalis. `provider`
      *     and `provider_subscription_id` identify the subscription on the billing
@@ -11873,7 +11873,7 @@ export interface components {
     }
     /**
      * BenefitGrantCreate
-     * @description Manually grant a benefit using Polar IDs.
+     * @description Manually grant a benefit using Repalis IDs.
      */
     BenefitGrantCreate: {
       /**
@@ -16132,7 +16132,7 @@ export interface components {
       return_url?: string | null
       /**
        * Embed Origin
-       * @description If you plan to embed the checkout session, set this to the Origin of the embedding page. It'll allow the Polar iframe to communicate with the parent page.
+       * @description If you plan to embed the checkout session, set this to the Origin of the embedding page. It'll allow the Repalis iframe to communicate with the parent page.
        */
       embed_origin?: string | null
       /** Locale */
@@ -16315,7 +16315,7 @@ export interface components {
       return_url?: string | null
       /**
        * Embed Origin
-       * @description If you plan to embed the checkout session, set this to the Origin of the embedding page. It'll allow the Polar iframe to communicate with the parent page.
+       * @description If you plan to embed the checkout session, set this to the Origin of the embedding page. It'll allow the Repalis iframe to communicate with the parent page.
        */
       embed_origin?: string | null
       /** Locale */
@@ -17037,7 +17037,7 @@ export interface components {
       return_url?: string | null
       /**
        * Embed Origin
-       * @description If you plan to embed the checkout session, set this to the Origin of the embedding page. It'll allow the Polar iframe to communicate with the parent page.
+       * @description If you plan to embed the checkout session, set this to the Origin of the embedding page. It'll allow the Repalis iframe to communicate with the parent page.
        */
       embed_origin?: string | null
     }
@@ -21130,7 +21130,7 @@ export interface components {
     }
     /**
      * CustomerMeterCreditsIDCreate
-     * @description Schema to manually grant credits on a customer meter using Polar IDs.
+     * @description Schema to manually grant credits on a customer meter using Repalis IDs.
      */
     CustomerMeterCreditsIDCreate: {
       /**
@@ -24007,8 +24007,8 @@ export interface components {
       name: string
       /** Position */
       position: number
-      /** Is Polar Bot */
-      is_polar_bot: boolean
+      /** Is Repalis Bot */
+      is_repalis_bot: boolean
       /**
        * Color
        * Format: color
@@ -25496,7 +25496,7 @@ export interface components {
       external_id?: string | null
       /**
        * Parent Id
-       * @description The ID of the parent event. Can be either a Polar event ID (UUID) or an external event ID.
+       * @description The ID of the parent event. Can be either a Repalis event ID (UUID) or an external event ID.
        */
       parent_id?: string | null
       /**
@@ -25551,7 +25551,7 @@ export interface components {
       external_id?: string | null
       /**
        * Parent Id
-       * @description The ID of the parent event. Can be either a Polar event ID (UUID) or an external event ID.
+       * @description The ID of the parent event. Can be either a Repalis event ID (UUID) or an external event ID.
        */
       parent_id?: string | null
       /**
@@ -28223,7 +28223,7 @@ export interface components {
       completed: boolean
       /**
        * Total
-       * @description Subscriptions whose customer and product are in Polar.
+       * @description Subscriptions whose customer and product are in Repalis.
        */
       total: number
       /**
@@ -28251,12 +28251,12 @@ export interface components {
     MerchantMigrationCutoverRequest: {
       /**
        * Record Ids
-       * @description Subscription ledger record ids to switch (from the records listing). When omitted, every subscription whose customer and product are in Polar is switched (subject to `exclude_record_ids`).
+       * @description Subscription ledger record ids to switch (from the records listing). When omitted, every subscription whose customer and product are in Repalis is switched (subject to `exclude_record_ids`).
        */
       record_ids?: string[] | null
       /**
        * Exclude Record Ids
-       * @description Switch every subscription whose customer and product are in Polar except these — the opt-out selection for large catalogs. Ignored when `record_ids` is set.
+       * @description Switch every subscription whose customer and product are in Repalis except these — the opt-out selection for large catalogs. Ignored when `record_ids` is set.
        */
       exclude_record_ids?: string[] | null
     }
@@ -28310,7 +28310,7 @@ export interface components {
      * @description Background work for the current migration step.
      */
     MerchantMigrationOperation: {
-      /** @description pending or running while Polar works; done or failed when it finishes. */
+      /** @description pending or running while Repalis works; done or failed when it finishes. */
       status: components['schemas']['MerchantMigrationOperationStatus']
       /** @description Which job this is: pre-check, catalog import, or cutover. None when the run has no recorded job type. */
       kind: components['schemas']['MerchantMigrationOperationKind'] | null
@@ -28337,7 +28337,7 @@ export interface components {
     MerchantMigrationOperationStatus: 'pending' | 'running' | 'done' | 'failed'
     /** MerchantMigrationRecordBillingAddressUpdate */
     MerchantMigrationRecordBillingAddressUpdate: {
-      /** @description Billing address Polar will store on the imported customer. */
+      /** @description Billing address Repalis will store on the imported customer. */
       billing_address: components['schemas']['AddressInput']
     }
     /** MerchantMigrationRecordItem */
@@ -28391,15 +28391,15 @@ export interface components {
       customer_source_id: string | null
       /**
        * Customer Country
-       * @description The billing country Polar will import. This is the source customer country, or a payment-method fallback. None for product and price rows, or when neither is available.
+       * @description The billing country Repalis will import. This is the source customer country, or a payment-method fallback. None for product and price rows, or when neither is available.
        */
       customer_country: string | null
       /**
        * Customer Country Hint
-       * @description The payment-method country used as the billing-country fallback. Present only to disclose fallback provenance; Polar tax still uses the imported customer billing address.
+       * @description The payment-method country used as the billing-country fallback. Present only to disclose fallback provenance; Repalis tax still uses the imported customer billing address.
        */
       customer_country_hint: string | null
-      /** @description The billing address Polar will import for the customer. None when only a payment-method country fallback or no address is available. */
+      /** @description The billing address Repalis will import for the customer. None when only a payment-method country fallback or no address is available. */
       customer_billing_address: components['schemas']['Address'] | null
       /**
        * Amount
@@ -28435,7 +28435,7 @@ export interface components {
       discount_name: string | null
       /**
        * Discount Code
-       * @description The checkout code of the coupon Repalis will keep on this subscription. None when there is no coupon, or the coupon has no Polar-valid code.
+       * @description The checkout code of the coupon Repalis will keep on this subscription. None when there is no coupon, or the coupon has no Repalis-valid code.
        */
       discount_code: string | null
       /** @description Whether this record will be imported or stays on the source. */
@@ -28461,7 +28461,7 @@ export interface components {
        * @description The Repalis customer that already exists for this email, when the skip reason is a Stripe id conflict. None otherwise.
        */
       conflicting_customer_id: string | null
-      /** @description What the switch did with this subscription: `moved` (Polar bills it now), `skipped` (left on the source, see `cutover_error`) or `failed` (retryable). Null when the switch hasn't reached it, and for every entity other than subscriptions. */
+      /** @description What the switch did with this subscription: `moved` (Repalis bills it now), `skipped` (left on the source, see `cutover_error`) or `failed` (retryable). Null when the switch hasn't reached it, and for every entity other than subscriptions. */
       cutover_status:
         | components['schemas']['MerchantMigrationCutoverStatus']
         | null
@@ -28477,7 +28477,7 @@ export interface components {
       renews_at: string | null
       /**
        * Has Payment Method
-       * @description Whether Polar already has a card to charge for this subscription's customer. Null for non-subscription rows.
+       * @description Whether Repalis already has a card to charge for this subscription's customer. Null for non-subscription rows.
        */
       has_payment_method: boolean | null
       /** @description The type of payment method the subscription renews with on the source. Null for non-subscription rows, or when the source has none. */
@@ -28486,7 +28486,7 @@ export interface components {
         | null
       /**
        * Dependencies Imported
-       * @description Whether this subscription's customer and product are already in Polar, so it can be created at cutover. Null for non-subscription rows.
+       * @description Whether this subscription's customer and product are already in Repalis, so it can be created at cutover. Null for non-subscription rows.
        */
       dependencies_imported: boolean | null
       /**
@@ -28551,7 +28551,7 @@ export interface components {
       skipped: number
       /**
        * Imported
-       * @description How many are already in Polar.
+       * @description How many are already in Repalis.
        */
       imported: number
       /**
@@ -31183,7 +31183,7 @@ export interface components {
       details_submitted_at: string | null
       /**
        * Onboarding Resubmission Requested At
-       * @description When Polar requested that the organization review and resubmit its onboarding information, if applicable.
+       * @description When Repalis requested that the organization review and resubmit its onboarding information, if applicable.
        */
       onboarding_resubmission_requested_at: string | null
       /**
@@ -31832,7 +31832,7 @@ export interface components {
        * @description Link to social profiles.
        */
       socials?: components['schemas']['OrganizationSocialLink'][] | null
-      /** @description Additional, private, business details Polar needs about active organizations for compliance (KYC). */
+      /** @description Additional, private, business details Repalis needs about active organizations for compliance (KYC). */
       details?: components['schemas']['OrganizationDetailsInput'] | null
       /** @description Two-letter country code (ISO 3166-1 alpha-2). */
       country?:
@@ -32147,7 +32147,7 @@ export interface components {
     OrganizationCustomerSession: {
       /**
        * Token
-       * @description Short-lived customer session token bound to this organization's mirrored Polar billing customer. Authenticates against `/v1/customer-portal/customers/me/*` for the duration of its TTL.
+       * @description Short-lived customer session token bound to this organization's mirrored Repalis billing customer. Authenticates against `/v1/customer-portal/customers/me/*` for the duration of its TTL.
        */
       token: string
     }
@@ -32245,7 +32245,7 @@ export interface components {
     }
     /**
      * OrganizationDisputeSettings
-     * @description `auto_accept_below_amount` is in Polar's settlement currency (USD).
+     * @description `auto_accept_below_amount` is in Repalis's settlement currency (USD).
      */
     OrganizationDisputeSettings: {
       /** Auto Accept Below Amount */
@@ -32286,7 +32286,7 @@ export interface components {
       domain: string
       /**
        * Verified At
-       * @description When Polar verified the domain. `null` while pending.
+       * @description When Repalis verified the domain. `null` while pending.
        */
       verified_at: string | null
       /**
@@ -32455,7 +32455,7 @@ export interface components {
       sso_enabled: boolean
       /**
        * Dispute Auto Accept Enabled
-       * @description If this organization can set a threshold below which Polar concedes disputes on its behalf. Requires `disputes_enabled`.
+       * @description If this organization can set a threshold below which Repalis concedes disputes on its behalf. Requires `disputes_enabled`.
        * @default false
        */
       dispute_auto_accept_enabled: boolean
@@ -32586,7 +32586,7 @@ export interface components {
       details_submitted_at: string | null
       /**
        * Onboarding Resubmission Requested At
-       * @description When Polar requested that the organization review and resubmit its onboarding information, if applicable.
+       * @description When Repalis requested that the organization review and resubmit its onboarding information, if applicable.
        */
       onboarding_resubmission_requested_at: string | null
       /**
@@ -33051,7 +33051,7 @@ export interface components {
       organization_status: components['schemas']['OrganizationStatus']
       /**
        * Onboarding Resubmission Requested At
-       * @description When Polar requested that the organization review and resubmit its onboarding information, if applicable. Null for organizations that have never been reset for review.
+       * @description When Repalis requested that the organization review and resubmit its onboarding information, if applicable. Null for organizations that have never been reset for review.
        */
       onboarding_resubmission_requested_at: string | null
     }
@@ -33659,7 +33659,7 @@ export interface components {
        * @description Links to social profiles.
        */
       socials?: components['schemas']['OrganizationSocialLink'][] | null
-      /** @description Additional, private, business details Polar needs about active organizations for compliance (KYC). */
+      /** @description Additional, private, business details Repalis needs about active organizations for compliance (KYC). */
       details?: components['schemas']['OrganizationDetailsInput'] | null
       /** @description Two-letter country code (ISO 3166-1 alpha-2). */
       country?:
@@ -34041,7 +34041,7 @@ export interface components {
       details_submitted_at: string | null
       /**
        * Onboarding Resubmission Requested At
-       * @description When Polar requested that the organization review and resubmit its onboarding information, if applicable.
+       * @description When Repalis requested that the organization review and resubmit its onboarding information, if applicable.
        */
       onboarding_resubmission_requested_at: string | null
       /**
@@ -34448,7 +34448,7 @@ export interface components {
     }
     /**
      * PanTransferMethod
-     * @description How the cards reach Polar's Stripe account.
+     * @description How the cards reach Repalis's Stripe account.
      * @enum {string}
      */
     PanTransferMethod: 'pan_copy' | 'pan_import'
@@ -35238,36 +35238,36 @@ export interface components {
       | 'disputed'
       | 'charge_disputed'
       | 'cancelled'
-    /** PolarAuthError */
-    PolarAuthError: {
+    /** RepalisAuthError */
+    RepalisAuthError: {
       /**
        * Error
-       * @example PolarAuthError
+       * @example RepalisAuthError
        * @constant
        */
-      error: 'PolarAuthError'
+      error: 'RepalisAuthError'
       /** Detail */
       detail: string
     }
-    /** PolarSelfPaidSubscriptionAlreadyExists */
-    PolarSelfPaidSubscriptionAlreadyExists: {
+    /** RepalisSelfPaidSubscriptionAlreadyExists */
+    RepalisSelfPaidSubscriptionAlreadyExists: {
       /**
        * Error
-       * @example PolarSelfPaidSubscriptionAlreadyExists
+       * @example RepalisSelfPaidSubscriptionAlreadyExists
        * @constant
        */
-      error: 'PolarSelfPaidSubscriptionAlreadyExists'
+      error: 'RepalisSelfPaidSubscriptionAlreadyExists'
       /** Detail */
       detail: string
     }
-    /** PolarSelfPaymentMethodInUse */
-    PolarSelfPaymentMethodInUse: {
+    /** RepalisSelfPaymentMethodInUse */
+    RepalisSelfPaymentMethodInUse: {
       /**
        * Error
-       * @example PolarSelfPaymentMethodInUse
+       * @example RepalisSelfPaymentMethodInUse
        * @constant
        */
-      error: 'PolarSelfPaymentMethodInUse'
+      error: 'RepalisSelfPaymentMethodInUse'
       /** Detail */
       detail: string
     }
@@ -38870,7 +38870,7 @@ export interface components {
        *
        *     **IMPORTANT:**
        *     Do not use this to store internal notes! It's intended to be input
-       *     from the customer and is therefore also available in their Polar
+       *     from the customer and is therefore also available in their Repalis
        *     purchases library.
        *
        *     Only set this in case your own service is requesting the reason from the
@@ -39206,7 +39206,7 @@ export interface components {
       currency?: components['schemas']['PresentmentCurrency'] | null
       /**
        * External Customer Id
-       * @description The ID of the customer in your system to create the subscription for. It must already exist in Polar.
+       * @description The ID of the customer in your system to create the subscription for. It must already exist in Repalis.
        */
       external_customer_id: string
     }
@@ -40319,7 +40319,7 @@ export interface components {
        *
        *     **IMPORTANT:**
        *     Do not use this to store internal notes! It's intended to be input
-       *     from the customer and is therefore also available in their Polar
+       *     from the customer and is therefore also available in their Repalis
        *     purchases library.
        *
        *     Only set this in case your own service is requesting the reason from the
@@ -41936,7 +41936,7 @@ export interface components {
       type: components['schemas']['WebhookEventType']
       /**
        * Description
-       * @description One-line description of when Polar sends this event.
+       * @description One-line description of when Repalis sends this event.
        */
       description: string
     }
@@ -43417,7 +43417,7 @@ export interface components {
       enabled: boolean
       /**
        * Uses Standard Webhook Signature
-       * @description Whether Polar signs deliveries to this endpoint with Standard Webhooks. False means Polar's original HMAC over the UTF-8 bytes of the full secret.
+       * @description Whether Repalis signs deliveries to this endpoint with Standard Webhooks. False means Repalis's original HMAC over the UTF-8 bytes of the full secret.
        */
       readonly uses_standard_webhook_signature: boolean
     }
@@ -44109,7 +44109,7 @@ export interface components {
     }
     /**
      * WebhookSubscriptionMigratedPayload
-     * @description Sent when Polar takes over billing of a subscription migrated from another provider.
+     * @description Sent when Repalis takes over billing of a subscription migrated from another provider.
      *
      *     This fires at cutover, once the subscription is live on Repalis. `provider`
      *     and `provider_subscription_id` identify the subscription on the billing
@@ -54441,7 +54441,7 @@ export interface operations {
           [name: string]: unknown
         }
         content: {
-          'application/json': components['schemas']['PolarSelfPaidSubscriptionAlreadyExists']
+          'application/json': components['schemas']['RepalisSelfPaidSubscriptionAlreadyExists']
         }
       }
       /** @description Validation Error */
@@ -54817,7 +54817,7 @@ export interface operations {
           [name: string]: unknown
         }
         content: {
-          'application/json': components['schemas']['PolarSelfPaymentMethodInUse']
+          'application/json': components['schemas']['RepalisSelfPaymentMethodInUse']
         }
       }
       /** @description Organization or payment method not found. */
@@ -60940,7 +60940,7 @@ export interface operations {
         }
         content: {
           'application/json':
-            | components['schemas']['PolarAuthError']
+            | components['schemas']['RepalisAuthError']
             | components['schemas']['UserCannotAuthenticate']
         }
       }
@@ -61068,7 +61068,7 @@ export interface operations {
         content: {
           'application/json':
             | components['schemas']['SessionNotFreshError']
-            | components['schemas']['PolarAuthError']
+            | components['schemas']['RepalisAuthError']
         }
       }
       /** @description Validation Error */

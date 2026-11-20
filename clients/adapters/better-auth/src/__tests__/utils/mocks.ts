@@ -1,19 +1,19 @@
 import {
   createRepalisCore,
   type models,
-  type Polar,
+  type Repalis,
   type RepalisCore,
 } from '@repalis/sdk/2026-10'
 import type { User } from 'better-auth'
 import { type Mock, vi } from 'vitest'
 
-type PolarClientMocks<T> = T extends (...args: infer Args) => unknown
+type RepalisClientMocks<T> = T extends (...args: infer Args) => unknown
   ? Mock<(...args: Args) => any>
   : T extends object
-    ? { [Key in keyof T]: PolarClientMocks<T[Key]> }
+    ? { [Key in keyof T]: RepalisClientMocks<T[Key]> }
     : T
 
-type MockRepalisClient = RepalisCore & Polar & PolarClientMocks<Polar>
+type MockRepalisClient = RepalisCore & Repalis & RepalisClientMocks<Repalis>
 
 export const createMockRepalisClient = (): MockRepalisClient =>
   Object.assign(createRepalisCore({ accessToken: 'test-token' }), {

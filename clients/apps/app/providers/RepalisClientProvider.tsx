@@ -18,9 +18,9 @@ export const API_VERSION = '2026-10'
 // signal for "which exact build is calling this endpoint". `updateId` is null
 // on an embedded launch (fresh install before any OTA, or in dev).
 const CLIENT_VERSION_HEADERS = {
-  'X-Polar-Client-Version': `mobile/${Constants.expoConfig?.version ?? 'unknown'}`,
-  'X-Polar-Client-Runtime': Updates.runtimeVersion ?? 'unknown',
-  'X-Polar-Client-Update': Updates.updateId ?? 'embedded',
+  'X-Repalis-Client-Version': `mobile/${Constants.expoConfig?.version ?? 'unknown'}`,
+  'X-Repalis-Client-Runtime': Updates.runtimeVersion ?? 'unknown',
+  'X-Repalis-Client-Update': Updates.updateId ?? 'embedded',
   'Repalis-Version': API_VERSION,
 }
 
@@ -51,7 +51,7 @@ export const useRepalisClient = useRepalisClient
 export function RepalisClientProvider({ children }: PropsWithChildren) {
   const { session } = useSession()
 
-  const polar = useMemo(() => {
+  const repalis = useMemo(() => {
     const client = createClient(
       process.env.EXPO_PUBLIC_REPALIS_SERVER_URL ?? 'https://api.repalis.com',
       session ?? '',
@@ -68,4 +68,4 @@ export function RepalisClientProvider({ children }: PropsWithChildren) {
   )
 }
 
-export const PolarClientProvider = RepalisClientProvider
+export const RepalisClientProvider = RepalisClientProvider

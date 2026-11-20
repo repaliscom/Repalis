@@ -249,11 +249,11 @@ describe('authorizationUrl', () => {
     })
   })
 
-  test('honors POLAR_DASHBOARD_URL', async () => {
+  test('honors REPALIS_DASHBOARD_URL', async () => {
     expect(
       await resolve({
         REPALIS_API_URL: 'http://127.0.0.1:8000',
-        POLAR_DASHBOARD_URL: 'http://127.0.0.1:3000/',
+        REPALIS_DASHBOARD_URL: 'http://127.0.0.1:3000/',
       }),
     ).toMatchObject({ success: 'http://127.0.0.1:3000/oauth2/authorize' })
   })
@@ -262,7 +262,7 @@ describe('authorizationUrl', () => {
     expect(
       await resolve({ REPALIS_API_URL: 'http://127.0.0.1:8000' }),
     ).toMatchObject({
-      failure: { message: expect.stringContaining('POLAR_DASHBOARD_URL') },
+      failure: { message: expect.stringContaining('REPALIS_DASHBOARD_URL') },
     })
   })
 })

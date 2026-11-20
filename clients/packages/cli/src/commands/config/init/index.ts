@@ -36,7 +36,7 @@ import * as ui from '@/utils/ui'
 
 const file = Argument.String('file').pipe(
   Argument.withDescription(
-    'Where to write the config. Defaults to polar.config.ts at the root of a JavaScript or TypeScript project, polar.config.json otherwise',
+    'Where to write the config. Defaults to repalis.config.ts at the root of a JavaScript or TypeScript project, repalis.config.json otherwise',
   ),
   Argument.optional,
 )
@@ -110,7 +110,7 @@ export const init = Command.make('init', {
         'Choose the external ID of an existing resource; init --json lists the IDs that need one',
     },
     {
-      command: 'polar config init billing/polar.config.ts --json',
+      command: 'polar config init billing/repalis.config.ts --json',
       description:
         'Write to a specific path and print the result as JSON, for scripts and agents',
     },

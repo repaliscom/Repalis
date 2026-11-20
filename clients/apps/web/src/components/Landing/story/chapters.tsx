@@ -38,7 +38,7 @@ export const Agents = () => (
     name="05 Agents"
     title="Run billing from your agent"
     subtitle="Polar in Claude, Cursor and ChatGPT over MCP"
-    description="Connect the Polar MCP server and ask your agent about customers, usage and revenue, or have it create products, discounts and refunds. Signed in with OAuth, no API keys to paste."
+    description="Connect the Repalis MCP server and ask your agent about customers, usage and revenue, or have it create products, discounts and refunds. Signed in with OAuth, no API keys to paste."
   >
     <AgentsFigure />
   </Chapter>

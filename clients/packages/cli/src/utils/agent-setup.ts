@@ -85,9 +85,9 @@ export const summary = ({ steps, clients }: AgentSetupResult) => {
 }
 
 const signIn: Partial<Record<SetupStep['target'], string>> = {
-  'claude-code': `Claude Code: restart it, run ${ui.command('/mcp')} and sign in to polar or polar-sandbox`,
-  codex: `Codex: run ${ui.command('codex mcp login polar')} or ${ui.command('codex mcp login polar-sandbox')}`,
-  cursor: 'Cursor: open Settings → MCP and connect polar or polar-sandbox',
+  'claude-code': `Claude Code: restart it, run ${ui.command('/mcp')} and sign in to polar or repalis-sandbox`,
+  codex: `Codex: run ${ui.command('codex mcp login polar')} or ${ui.command('codex mcp login repalis-sandbox')}`,
+  cursor: 'Cursor: open Settings → MCP and connect polar or repalis-sandbox',
 }
 
 export const nextSteps = ({ steps }: AgentSetupResult) => {

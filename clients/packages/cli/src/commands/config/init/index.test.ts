@@ -204,12 +204,12 @@ describe('polar config init', () => {
       '✔ Detecting language\n    No package.json or pyproject.toml found',
     )
     expect(output).toContain('✔ Reading your catalog\n    nothing in it yet')
-    expect(output).toContain('✔ Writing config\n    polar.config.ts')
+    expect(output).toContain('✔ Writing config\n    repalis.config.ts')
     expect(output).toMatch(/Imported {6}0 meters, 0 benefits, 0 products/)
     expect(output).toContain(
       '✔ Your billing config is ready\n    Nice work, your billing now lives in code',
     )
-    expect(output).toMatch(/Package {7}@polar-sh\/polar installed/)
+    expect(output).toMatch(/Package {7}@repalis\/polar installed/)
     expect(output).not.toContain('Install the config package')
     expect(output).toMatch(
       /2 {2}Add your meters, benefits and products +polar\.config\.ts/,
@@ -266,11 +266,11 @@ describe('polar config init', () => {
   })
 
   test('passes the file and format flags through', async () => {
-    const { calls } = await run(['billing/polar.json', '--format', 'json'])
+    const { calls } = await run(['billing/repalis.json', '--format', 'json'])
 
     expect(calls[0]!.target).toEqual({
       directory,
-      file: 'billing/polar.json',
+      file: 'billing/repalis.json',
       format: 'json',
     })
   })
@@ -320,7 +320,7 @@ describe('polar config init', () => {
       input: [keys.enter],
     })
 
-    expect(terminal).toContain('Write a JSON config (polar.config.json)?')
+    expect(terminal).toContain('Write a JSON config (repalis.config.json)?')
     expect(calls[0]!.target.format).toBe('json')
   })
 
@@ -332,7 +332,7 @@ describe('polar config init', () => {
       input: [keys.enter],
     })
 
-    expect(terminal).toContain('Write a TypeScript config (polar.config.ts)?')
+    expect(terminal).toContain('Write a TypeScript config (repalis.config.ts)?')
     expect(calls[0]!.target.format).toBe('ts')
   })
 
@@ -455,11 +455,11 @@ describe('polar config init', () => {
   })
 
   test('passes the config path to plan and apply outside the current directory', async () => {
-    const { output } = await run(['billing/polar.config.ts', '--json'])
+    const { output } = await run(['billing/repalis.config.ts', '--json'])
 
     expect(JSON.parse(output).next.slice(-2)).toEqual([
-      'polar config plan billing/polar.config.ts',
-      'polar config apply billing/polar.config.ts',
+      'polar config plan billing/repalis.config.ts',
+      'polar config apply billing/repalis.config.ts',
     ])
   })
 
@@ -475,7 +475,7 @@ describe('polar config init', () => {
 
     expect(JSON.parse(output)).toEqual({
       status: 'written',
-      file: 'polar.config.ts',
+      file: 'repalis.config.ts',
       format: 'ts',
       imported: { meters: 0, benefits: 0, products: 0 },
       keyed: [],
@@ -484,7 +484,7 @@ describe('polar config init', () => {
       install: { command: 'pnpm add @repalis/repalis', status: 'installed' },
       organization: acme,
       next: [
-        'Describe your meters, benefits and products in polar.config.ts',
+        'Describe your meters, benefits and products in repalis.config.ts',
         'polar config plan',
         'polar config apply',
       ],
@@ -539,8 +539,8 @@ describe('polar config init', () => {
     expect(result.caller).toBe('Claude Code')
     expect(result.agents).toBeUndefined()
     expect(result.next).toEqual([
-      "If you don't have the polar-config skill, run polar agent setup --skills project and read .agents/skills/polar-config/SKILL.md. It sets up Polar for this agent and adds the Polar skills to this project, so tell the user before you run it.",
-      "Write the meters, benefits and products into polar.config.ts from this app's pricing. Ask the user for any price you cannot find, never invent one.",
+      "If you don't have the repalis-config skill, run polar agent setup --skills project and read .agents/skills/repalis-config/SKILL.md. It sets up Polar for this agent and adds the Polar skills to this project, so tell the user before you run it.",
+      "Write the meters, benefits and products into repalis.config.ts from this app's pricing. Ask the user for any price you cannot find, never invent one.",
       'Run polar config plan --json and fix every error it reports in the file.',
       'Tell the user what would change and wait for their go-ahead.',
       'Run polar config apply --confirm. If it saves a draft, ask before running polar config publish --confirm.',
@@ -771,8 +771,8 @@ describe('polar config init', () => {
       )
 
       expect(JSON.parse(output).next.slice(1, 3)).toEqual([
-        'polar.config.ts matches the catalog on Repalis, so the config is set up. If the user asked for no change, run polar config plan to confirm nothing would change, tell them it is ready and stop.',
-        'Otherwise make their change in polar.config.ts. Ask the user for any price you cannot find, never invent one.',
+        'repalis.config.ts matches the catalog on Repalis, so the config is set up. If the user asked for no change, run polar config plan to confirm nothing would change, tell them it is ready and stop.',
+        'Otherwise make their change in repalis.config.ts. Ask the user for any price you cannot find, never invent one.',
       ])
     })
 

@@ -9,7 +9,7 @@ test.each([
     'token <redacted>',
   ],
   ['a bearer header', 'sent Bearer abc.def', 'sent <redacted>'],
-  ['a Polar token', 'with polar_oat_abc123', 'with <redacted>'],
+  ['a Repalis token', 'with repalis_oat_abc123', 'with <redacted>'],
   ['a Stripe key', 'using sk_live_abc', 'using <redacted>'],
   ['an AWS key', 'key AKIAABCDEFGHIJKLMNOP here', 'key <redacted> here'],
   [
