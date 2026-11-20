@@ -40,7 +40,7 @@ def invoice() -> Invoice:
             postal_code="94107",
             country=CountryAlpha2("US"),
         ),
-        seller_additional_info="[support@polar.sh](mailto:support@polar.sh)",
+        seller_additional_info="[support@repalis.com](mailto:support@repalis.com)",
         customer_name="John Doe",
         customer_address=Address(
             line1="456 Customer Ave",
@@ -85,7 +85,7 @@ def invoice() -> Invoice:
             """
 Thank you for your business!
 
-- [Legal terms](https://polar.sh) and conditions apply.
+- [Legal terms](https://repalis.com) and conditions apply.
 - Lawyers blah blah blah.
 - This is a test invoice.
         """
@@ -106,7 +106,7 @@ Thank you for your business!
         (
             {
                 "customer_address": Address(country=CountryAlpha2("FR")),
-                "seller_additional_info": "[support@polar.sh](mailto:support@polar.sh)\nExtra line 1\nExtra line 2\nExtra line 3",
+                "seller_additional_info": "[support@repalis.com](mailto:support@repalis.com)\nExtra line 1\nExtra line 2\nExtra line 3",
             },
             "long_seller_info",
         ),

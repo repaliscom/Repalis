@@ -125,7 +125,7 @@ class InvoiceService:
 
         items = [
             InvoiceItem(
-                description=f"Digital services and products resold by Polar.sh\nFrom {earliest.strftime('%Y-%m-%d')} to {latest.strftime('%Y-%m-%d')}",
+                description=f"Digital services and products resold by Repalis\nFrom {earliest.strftime('%Y-%m-%d')} to {latest.strftime('%Y-%m-%d')}",
                 quantity=1,
                 unit_amount=gross_amount,
                 amount=gross_amount,

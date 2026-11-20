@@ -71,7 +71,7 @@ RUN setcap -r /usr/bin/caddy
 # Render backend image, also used by the private backoffice.
 FROM --platform=$BUILDPLATFORM python:3.14.6-slim AS production
 
-LABEL org.opencontainers.image.source=https://github.com/polarsource/polar \
+LABEL org.opencontainers.image.source=https://github.com/repaliscom/Repalis \
   org.opencontainers.image.description="Polar" \
   org.opencontainers.image.licenses=Apache-2.0
 

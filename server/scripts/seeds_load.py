@@ -1685,14 +1685,14 @@ async def _create_simple_fixture_graph(session: AsyncSession) -> None:
         {
             "name": "Admin Org",
             "slug": "admin-org",
-            "email": "admin@polar.sh",
-            "website": "https://polar.sh",
+            "email": "admin@repalis.com",
+            "website": "https://repalis.com",
             "bio": "The admin organization of Polar",
             "status": OrganizationStatus.ACTIVE,
             "feature_settings": {
                 "sso_enabled": True,
             },
-            "verified_domain": "polar.sh",
+            "verified_domain": "repalis.com",
             "sso_connection": {
                 "name": "Local Mock SSO",
                 "issuer": "http://localhost:8080/default",
@@ -1718,8 +1718,8 @@ async def _create_simple_fixture_graph(session: AsyncSession) -> None:
         {
             "name": "Polar",
             "slug": "polar",
-            "email": "admin@polar.sh",
-            "website": "https://polar.sh",
+            "email": "admin@repalis.com",
+            "website": "https://repalis.com",
             "bio": "Open source payment infrastructure for developers",
             "status": OrganizationStatus.ACTIVE,
             "details": {
@@ -1753,7 +1753,7 @@ async def _create_simple_fixture_graph(session: AsyncSession) -> None:
         {
             "name": "SeatBased Members Corp",
             "slug": "seatbased-members-corp",
-            "email": "admin@polar.sh",
+            "email": "admin@repalis.com",
             "website": "https://seatbased-members.com",
             "bio": "Organization with seat-based pricing and members model enabled",
             "status": OrganizationStatus.ACTIVE,
@@ -1778,7 +1778,7 @@ async def _create_simple_fixture_graph(session: AsyncSession) -> None:
             ],
             "seat_based_customers": [
                 {
-                    "email": "customer-with-members@polar.sh",
+                    "email": "customer-with-members@repalis.com",
                     "name": "Customer With Members Inc",
                     "seats_purchased": 5,
                     "seats_allocated": 2,
@@ -2136,7 +2136,7 @@ async def _create_simple_fixture_graph(session: AsyncSession) -> None:
         seeded_customers = []
         for i in range(num_customers):
             # customer_email = f"customer_{org_data['slug']}_{i + 1}@example.com"
-            customer_email = f"customer_{org_data['slug']}_{i + 1}@polar.sh"
+            customer_email = f"customer_{org_data['slug']}_{i + 1}@repalis.com"
             customer = _create_seed_customer(
                 session,
                 organization,
@@ -2351,7 +2351,7 @@ async def _simple_seed_is_complete(session: AsyncSession) -> bool:
     sentinel_customer_id = await session.scalar(
         select(Customer.id).where(
             Customer.organization_id == acme.id,
-            Customer.email == "customer_acme-corp_1@polar.sh",
+            Customer.email == "customer_acme-corp_1@repalis.com",
             Customer.deleted_at.is_(None),
         )
     )
@@ -2499,7 +2499,7 @@ async def _create_simple_complement_event_history(
             await session.execute(
                 select(Customer).where(
                     Customer.organization_id.in_(organization_ids),
-                    Customer.email.like(r"customer\_%@polar.sh", escape="\\"),
+                    Customer.email.like(r"customer\_%@repalis.com", escape="\\"),
                     Customer.deleted_at.is_(None),
                 )
             )
@@ -2867,7 +2867,7 @@ async def create_single_org_seed(
 
     user, _created = await user_service.get_by_email_or_create(
         session=session,
-        email=f"{slug}@polar.sh",
+        email=f"{slug}@repalis.com",
     )
     user_repository = UserRepository.from_session(session)
     await user_repository.update(
@@ -2885,7 +2885,7 @@ async def create_single_org_seed(
         create_schema=OrganizationCreate(name=name, slug=slug),
         auth_subject=auth_subject,
     )
-    organization.email = f"{slug}@polar.sh"
+    organization.email = f"{slug}@repalis.com"
     organization.bio = f"Seeded organization: {name}"
     organization.set_status(OrganizationStatus.ACTIVE)
     organization.details_submitted_at = utc_now()
@@ -2974,7 +2974,7 @@ async def create_single_org_seed(
 
     num_customers = random.randint(5, 10)
     for i in range(num_customers):
-        customer_email = f"customer_{slug}_{i + 1}@polar.sh"
+        customer_email = f"customer_{slug}_{i + 1}@repalis.com"
         customer = await customer_service.create(
             session=session,
             customer_create=CustomerIndividualCreate(

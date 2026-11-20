@@ -33,7 +33,7 @@ class TestBeforeSend:
     def test_removes_personal_fields_and_keeps_the_rest(self) -> None:
         event = {
             "request": {
-                "url": "https://api.polar.sh/v1/checkouts/client/secret/confirm?customer_email=buyer@example.com",
+                "url": "https://api.repalis.com/v1/checkouts/client/secret/confirm?customer_email=buyer@example.com",
                 "method": "POST",
                 "query_string": "customer_email=buyer@example.com",
                 "data": {

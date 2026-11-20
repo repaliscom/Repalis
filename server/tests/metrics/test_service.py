@@ -5485,7 +5485,7 @@ class TestCheckoutMetrics:
     - Before cutoff: all checkouts counted using created_at (historical behavior)
     - After cutoff: only checkouts with opened_at are counted
 
-    See: https://github.com/polarsource/polar/pull/9071
+    See: https://github.com/repaliscom/Repalis/pull/9071
     """
 
     @pytest.mark.parametrize("auth", ["user", "org"])

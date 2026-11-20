@@ -21,7 +21,7 @@ def _build_payload(
         type=type,
         message=message,
         organization_id=organization.id,
-        client_context={"url": "https://polar.sh/dashboard"},
+        client_context={"url": "https://repalis.com/dashboard"},
     )
 
 
@@ -43,7 +43,7 @@ class TestSubmit:
         assert feedback.user_id == auth_subject.subject.id
         assert feedback.organization_id == organization.id
         assert feedback.type == FeedbackType.bug
-        assert feedback.client_context == {"url": "https://polar.sh/dashboard"}
+        assert feedback.client_context == {"url": "https://repalis.com/dashboard"}
 
     @pytest.mark.auth(AuthSubjectFixture(subject="user"))
     @pytest.mark.parametrize("type", list(FeedbackType))

@@ -74,7 +74,7 @@ async def test_MaintainerNewPaidSubscriptionNotification_every_6_months() -> Non
 @pytest.mark.anyio
 async def test_MaintainerNewProductSaleNotification() -> None:
     n = MaintainerNewProductSaleNotificationPayload(
-        customer_email="birk@polar.sh",
+        customer_email="birk@repalis.com",
         customer_name="Birk",
         billing_address_country="US",
         billing_address_city="San Francisco",

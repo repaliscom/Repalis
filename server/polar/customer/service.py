@@ -818,7 +818,7 @@ class CustomerService:
 
         In Sandbox we never want a customer-facing email to leave the platform
         unless it lands in the inbox of someone working on the organization.
-        Aliases (like `pieter+123@polar.sh`) are accepted as long as the
+        Aliases (like `pieter+123@repalis.com`) are accepted as long as the
         unaliased address matches an organization member.
         """
         user_orgs = await user_organization_service.list_by_org(

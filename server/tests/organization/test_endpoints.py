@@ -924,7 +924,7 @@ class TestInviteOrganization:
     async def test_not_existing(self, client: AsyncClient) -> None:
         response = await client.post(
             f"/v1/organizations/{uuid.uuid4()}/members/invite",
-            json={"email": "test@polar.sh"},
+            json={"email": "test@repalis.com"},
         )
 
         assert response.status_code == 404
@@ -942,7 +942,7 @@ class TestInviteOrganization:
         )
         response = await client.post(
             f"/v1/organizations/{organization.id}/members/invite",
-            json={"email": "test@polar.sh"},
+            json={"email": "test@repalis.com"},
         )
         assert response.status_code == 404
 
@@ -961,7 +961,7 @@ class TestInviteOrganization:
         organization: Organization,
         user_organization: UserOrganization,  # Makes this user part of the organization
     ) -> None:
-        email_to_invite = "test@polar.sh"
+        email_to_invite = "test@repalis.com"
 
         members_before = await user_organization_service.list_by_org(
             session, organization.id

@@ -21,7 +21,7 @@ CLAIM_GRANT_TYPE = "urn:workos:agent-auth:grant-type:claim"
 CLAIM_POLL_INTERVAL = 5
 
 ISSUER = settings.BASE_URL
-SERVICE_DOCUMENTATION = "https://polar.sh/docs"
+SERVICE_DOCUMENTATION = "https://repalis.com/docs"
 SUBJECT_TYPES_SUPPORTED = ["public"]
 ID_TOKEN_SIGNING_ALG = "RS256"
 ID_TOKEN_SIGNING_ALG_VALUES_SUPPORTED = [ID_TOKEN_SIGNING_ALG]

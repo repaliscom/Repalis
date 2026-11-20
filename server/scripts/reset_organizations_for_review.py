@@ -11,7 +11,7 @@ Usage:
         <organization-id> [<organization-id> ...]
     uv run python -m scripts.reset_organizations_for_review \
         <organization-id> [<organization-id> ...] \
-        --reset-by operator@polar.sh --execute
+        --reset-by operator@repalis.com --execute
 """
 
 from uuid import UUID

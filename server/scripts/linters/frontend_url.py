@@ -3,7 +3,7 @@
 `settings.generate_frontend_url()` concatenates its argument onto
 `FRONTEND_BASE_URL` with no validation, so a request-derived value passed to it
 is an open redirect: `?return_path=@evil.com` yields
-`https://polar.sh@evil.com`, which browsers navigate to as `evil.com` (`@` is
+`https://repalis.com@evil.com`, which browsers navigate to as `evil.com` (`@` is
 the userinfo delimiter). Request-derived paths must go through
 `get_safe_return_url` (`polar.kit.http`) instead.
 

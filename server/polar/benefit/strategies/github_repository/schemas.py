@@ -29,7 +29,7 @@ Permission = Annotated[
 ]
 RepositoryOwner = Annotated[
     str,
-    Field(description="The owner of the repository.", examples=["polarsource"]),
+    Field(description="The owner of the repository.", examples=["repaliscom"]),
 ]
 RepositoryName = Annotated[
     str,
@@ -43,7 +43,7 @@ class BenefitGitHubRepositoryCreateProperties(Schema):
     """
 
     repository_owner: str = Field(
-        description="The owner of the repository.", examples=["polarsource"]
+        description="The owner of the repository.", examples=["repaliscom"]
     )
     repository_name: str = Field(
         description="The name of the repository.", examples=["private_repo"]

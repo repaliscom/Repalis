@@ -743,7 +743,7 @@ export interface components {
       /**
        * Repository Owner
        * @description The owner of the repository.
-       * @example polarsource
+       * @example repaliscom
        */
       repository_owner: string
       /**

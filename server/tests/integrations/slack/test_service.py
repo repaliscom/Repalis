@@ -27,7 +27,7 @@ from polar.postgres import AsyncSession
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_benefit, create_benefit_grant
 
-_REDIRECT_URI = "https://api.polar.sh/v1/integrations/slack/callback"
+_REDIRECT_URI = "https://api.repalis.com/v1/integrations/slack/callback"
 _BASE_PROPERTIES = {
     "channel_name_template": "support-{customer_name}",
     "private": True,
@@ -276,7 +276,7 @@ class TestDecodeState:
             data={
                 "integration_id": str(integration_id),
                 "subject_id": str(subject_id),
-                "return_to": "https://polar.sh/dashboard",
+                "return_to": "https://repalis.com/dashboard",
             },
             type=OAUTH_STATE_JWT_TYPE,
         )
@@ -285,7 +285,7 @@ class TestDecodeState:
 
         assert decoded["integration_id"] == str(integration_id)
         assert decoded["subject_id"] == str(subject_id)
-        assert decoded["return_to"] == "https://polar.sh/dashboard"
+        assert decoded["return_to"] == "https://repalis.com/dashboard"
 
 
 @pytest.mark.anyio

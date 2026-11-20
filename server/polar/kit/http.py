@@ -219,7 +219,7 @@ def get_safe_return_url(return_to: str | None) -> str:
         # Only accept paths that start with "/" to prevent open redirect via
         # URL manipulation. A bare "@evil.com" would otherwise be naively
         # concatenated with FRONTEND_BASE_URL to produce
-        # "https://polar.sh@evil.com", which browsers interpret as navigating
+        # "https://repalis.com@evil.com", which browsers interpret as navigating
         # to evil.com ("@" is the userinfo delimiter per RFC 3986).
         if not return_to.startswith("/"):
             return settings.generate_frontend_url(settings.FRONTEND_DEFAULT_RETURN_PATH)

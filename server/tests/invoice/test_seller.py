@@ -27,7 +27,7 @@ def configured_vat_numbers(mocker: MockerFixture) -> None:
     mocker.patch("polar.invoice.seller.settings.INVOICES_VAT_NUMBERS", VAT_NUMBERS)
     mocker.patch(
         "polar.invoice.seller.settings.INVOICES_ADDITIONAL_INFO",
-        "[support@polar.sh](mailto:support@polar.sh)",
+        "[support@repalis.com](mailto:support@repalis.com)",
     )
 
 
@@ -73,29 +73,29 @@ class TestGetPolarVatLabel:
 class TestGetPolarAdditionalInfo:
     def test_mapped_country(self) -> None:
         info = get_polar_additional_info(_address("FR"))
-        assert info == "[support@polar.sh](mailto:support@polar.sh)\nVAT: EU372061545"
+        assert info == "[support@repalis.com](mailto:support@repalis.com)\nVAT: EU372061545"
 
     def test_uk(self) -> None:
         info = get_polar_additional_info(_address("GB"))
-        assert info == "[support@polar.sh](mailto:support@polar.sh)\nVAT: GB458254961"
+        assert info == "[support@repalis.com](mailto:support@repalis.com)\nVAT: GB458254961"
 
     def test_canada_uses_gst_hst_label(self) -> None:
         info = get_polar_additional_info(_address("CA"))
         assert info == (
-            "[support@polar.sh](mailto:support@polar.sh)\nGST/HST: 720474766 RT9999"
+            "[support@repalis.com](mailto:support@repalis.com)\nGST/HST: 720474766 RT9999"
         )
 
     def test_new_zealand_uses_gst_label(self) -> None:
         info = get_polar_additional_info(_address("NZ"))
-        assert info == ("[support@polar.sh](mailto:support@polar.sh)\nGST: 148-410-224")
+        assert info == ("[support@repalis.com](mailto:support@repalis.com)\nGST: 148-410-224")
 
     def test_unmapped_country(self) -> None:
         info = get_polar_additional_info(_address("US"))
-        assert info == "[support@polar.sh](mailto:support@polar.sh)"
+        assert info == "[support@repalis.com](mailto:support@repalis.com)"
 
     def test_none_address(self) -> None:
         info = get_polar_additional_info(None)
-        assert info == "[support@polar.sh](mailto:support@polar.sh)"
+        assert info == "[support@repalis.com](mailto:support@repalis.com)"
 
     def test_empty_settings_returns_none(self, mocker: MockerFixture) -> None:
         mocker.patch("polar.invoice.seller.settings.INVOICES_ADDITIONAL_INFO", None)
@@ -110,5 +110,5 @@ class TestGetPolarAdditionalInfo:
     def test_only_additional_info_when_no_vat(self, mocker: MockerFixture) -> None:
         mocker.patch("polar.invoice.seller.settings.INVOICES_VAT_NUMBERS", {})
         assert get_polar_additional_info(_address("FR")) == (
-            "[support@polar.sh](mailto:support@polar.sh)"
+            "[support@repalis.com](mailto:support@repalis.com)"
         )

@@ -22,7 +22,7 @@ async def pending_grant(
         organization=organization,
         type=BenefitType.github_repository,
         properties={
-            "repository_owner": "polarsource",
+            "repository_owner": "repaliscom",
             "repository_name": "polar",
             "permission": "pull",
         },

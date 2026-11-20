@@ -75,7 +75,7 @@ async def create_loadtest_data(
         customer = await customer_service.create(
             session=session,
             customer_create=CustomerIndividualCreate(
-                email=f"{external_id}@polar.sh",
+                email=f"{external_id}@repalis.com",
                 name=f"Load Test Customer {i + 1}",
                 external_id=external_id,
                 organization_id=organization.id,

@@ -32,7 +32,7 @@ def get_branded_slack_payload(payload: SlackPayload) -> SlackPayload:
                         "image_url": settings.FAVICON_URL,
                         "alt_text": "Polar",
                     },
-                    {"type": "mrkdwn", "text": "Powered by Polar.sh"},
+                    {"type": "mrkdwn", "text": "Powered by Repalis"},
                 ],
             },
         ],

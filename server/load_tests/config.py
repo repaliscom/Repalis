@@ -31,7 +31,7 @@ class LoadTestConfig:
     api_token: str | None = os.getenv("LOAD_TEST_API_TOKEN")
     product_id: str | None = os.getenv("LOAD_TEST_PRODUCT_ID")
     customer_email: str = os.getenv(
-        "LOAD_TEST_CUSTOMER_EMAIL", "petru+loadtest@polar.sh"
+        "LOAD_TEST_CUSTOMER_EMAIL", "petru+loadtest@repalis.com"
     )
 
     # Event Ingestion Configuration

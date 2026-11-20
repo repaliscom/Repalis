@@ -164,7 +164,7 @@ class Settings(BaseSettings):
     BACKOFFICE_AUTHENTICATION_SESSION_TTL: timedelta = timedelta(minutes=15)
     BACKOFFICE_USER_SESSION_COOKIE_KEY: str = "polar_backoffice_session"
     BACKOFFICE_USER_SESSION_TTL: timedelta = timedelta(hours=12)
-    CHECKOUT_LINK_HOST: str | None = None  # e.g., "buy.polar.sh" in production
+    CHECKOUT_LINK_HOST: str | None = None  # e.g., "buy.repalis.com" in production
 
     # URL to frontend app.
     # Update to ngrok domain or similar in case you want
@@ -366,8 +366,8 @@ class Settings(BaseSettings):
     SENTRY_DSN: str | None = None
 
     # Discord
-    FAVICON_URL: str = "https://raw.githubusercontent.com/polarsource/polar/2648cf7472b5128704a097cd1eb3ae5f1dd847e5/docs/docs/assets/favicon.png"
-    THUMBNAIL_URL: str = "https://raw.githubusercontent.com/polarsource/polar/4fd899222e200ca70982f437039f549b7a822ecc/clients/apps/web/public/email-logo-dark.png"
+    FAVICON_URL: str = "https://raw.githubusercontent.com/repaliscom/Repalis/2648cf7472b5128704a097cd1eb3ae5f1dd847e5/docs/docs/assets/favicon.png"
+    THUMBNAIL_URL: str = "https://raw.githubusercontent.com/repaliscom/Repalis/4fd899222e200ca70982f437039f549b7a822ecc/clients/apps/web/public/email-logo-dark.png"
 
     # Posthog
     POSTHOG_PROJECT_API_KEY: str = ""

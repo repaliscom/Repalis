@@ -58,7 +58,7 @@ async def index(
         and not settings.BACKOFFICE_GOOGLE_CLIENT_ID
     ):
         user = await BackofficeUserRepository.from_session(session).provision(
-            "development", "admin@polar.sh"
+            "development", "admin@repalis.com"
         )
         if user is None:
             raise HTTPException(403, "Backoffice account is disabled")

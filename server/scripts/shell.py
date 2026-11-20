@@ -22,7 +22,7 @@ Similar to how the `django shell` or `flask shell` commands work.
 I allows you to:
 
 >>> customer_repository = CustomerRepository.from_session(session)
->>> stmt = customer_repository.get_base_statement().where(Customer.email == 'test+customer045@polar.sh')
+>>> stmt = customer_repository.get_base_statement().where(Customer.email == 'test+customer045@repalis.com')
 >>> await customer_repository.get_one_or_none(stmt)
 """
 

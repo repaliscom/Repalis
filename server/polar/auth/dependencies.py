@@ -38,7 +38,7 @@ oat_scheme = HTTPBearer(
 pat_scheme = HTTPBearer(
     scheme_name="pat",
     auto_error=False,
-    description="You can generate a **Personal Access Token** from your [settings](https://polar.sh/settings).",
+    description="You can generate a **Personal Access Token** from your [settings](https://repalis.com/settings).",
 )
 customer_session_scheme = HTTPBearer(
     scheme_name="customer_session",

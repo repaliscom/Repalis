@@ -217,7 +217,7 @@ def configure_logfire(service_name: Literal["server", "worker"]) -> None:
         resource_attributes=resource_attributes or None,
         inspect_arguments=False,
         code_source=logfire.CodeSource(
-            repository="https://github.com/polarsource/polar",
+            repository="https://github.com/repaliscom/Repalis",
             revision=os.environ.get("RELEASE_VERSION", "main"),
             root_path="server",
         ),

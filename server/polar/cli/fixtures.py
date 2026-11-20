@@ -84,7 +84,7 @@ def email_for(name: str) -> str:
         for character in name.lower().translate(TRANSLITERATIONS)
         if character.isalnum() or character in ".-"
     )
-    return f"{handle}@polar.sh"
+    return f"{handle}@repalis.com"
 
 
 def with_column_defaults[ModelT](instance: ModelT) -> ModelT:

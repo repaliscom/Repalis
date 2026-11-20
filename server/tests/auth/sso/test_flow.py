@@ -239,7 +239,7 @@ class TestSSOAuthorize:
         user_organization: UserOrganization,
     ) -> None:
         connection = await create_sso_connection(
-            save_fixture, organization, authorization_parameters={"hd": "polar.sh"}
+            save_fixture, organization, authorization_parameters={"hd": "repalis.com"}
         )
 
         oauth_http_mocks["GET", f"{ISSUER}/.well-known/openid-configuration"] = Mock(
@@ -252,7 +252,7 @@ class TestSSOAuthorize:
 
         assert authorize.status_code == 303
         query = parse_qs(urlsplit(authorize.headers["location"]).query)
-        assert query["hd"] == ["polar.sh"]
+        assert query["hd"] == ["repalis.com"]
         assert query["client_id"] == [CLIENT_ID]
 
 

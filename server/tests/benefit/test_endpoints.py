@@ -591,7 +591,7 @@ class TestCreateBenefit:
                 "type": "github_repository",
                 "description": "Benefit",
                 "properties": {
-                    "repository_owner": "polarsource",
+                    "repository_owner": "repaliscom",
                     "repository_name": "polar",
                     "permission": "pull",
                 },

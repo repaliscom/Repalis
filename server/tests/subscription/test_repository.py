@@ -332,7 +332,7 @@ async def _create_sent_reminder_log(
         status=status,
         processor=EmailSender.resend,
         to_email_addr="customer@example.com",
-        from_email_addr="acme@polar.sh",
+        from_email_addr="acme@repalis.com",
         from_name="Acme",
         subject="Reminder",
         email_template=email_template,

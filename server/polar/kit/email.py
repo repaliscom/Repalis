@@ -39,7 +39,7 @@ EmailStrDNS = Annotated[EmailStr, AfterValidator(_validate_email_dns)]
 def unalias_email(email: str) -> str:
     """Strip the `+alias` suffix from the local part of an email address.
 
-    For example, `pieter+123@polar.sh` becomes `pieter@polar.sh`. The domain is
+    For example, `pieter+123@repalis.com` becomes `pieter@repalis.com`. The domain is
     preserved as-is. Used to compare email addresses while ignoring sub-addressing.
     """
     parsed = validate_email_syntax(email)
@@ -87,7 +87,7 @@ def normalize_email(email: str) -> str:
 def mask_email(email: str) -> str:
     """Hide an email address but its local part's first character and its domain.
 
-    For example, `pieter@polar.sh` becomes `p***@polar.sh`.
+    For example, `pieter@repalis.com` becomes `p***@repalis.com`.
     """
     local_part, _, domain = email.rpartition("@")
     return f"{local_part[:1]}***@{domain}"

@@ -836,7 +836,7 @@ class TestTopCustomers:
         owner = Member(
             customer_id=customer.id,
             organization_id=organization.id,
-            email="owner@polar.sh",
+            email="owner@repalis.com",
             role=MemberRole.owner,
         )
         await save_fixture(owner)
@@ -853,7 +853,7 @@ class TestTopCustomers:
         assert len(json) == 1
         assert json[0]["id"] == str(customer.id)
         assert json[0]["email"] is None
-        assert json[0]["avatar_url"] == _avatar_url_for_email("owner@polar.sh")
+        assert json[0]["avatar_url"] == _avatar_url_for_email("owner@repalis.com")
 
     @pytest.mark.auth
     async def test_start_filter(
@@ -1249,12 +1249,12 @@ class TestCreateCustomer:
         response = await client.post(
             "/v1/customers/",
             json={
-                "email": "customer@polar.sh",
+                "email": "customer@repalis.com",
                 "name": "Customer Name",
                 "external_id": "customer_ext_123",
                 "organization_id": str(organization.id),
                 "owner": {
-                    "email": "owner@polar.sh",
+                    "email": "owner@repalis.com",
                     "name": "Owner Name",
                     "external_id": "owner_ext_456",
                 },
@@ -1264,14 +1264,14 @@ class TestCreateCustomer:
         assert response.status_code == 201
 
         json = response.json()
-        assert json["email"] == "customer@polar.sh"
+        assert json["email"] == "customer@repalis.com"
         assert json["name"] == "Customer Name"
         assert json["external_id"] == "customer_ext_123"
 
         member_repository = MemberRepository.from_session(session)
         owner = await member_repository.get_owner_by_customer_id(uuid.UUID(json["id"]))
         assert owner is not None
-        assert owner.email == "owner@polar.sh"
+        assert owner.email == "owner@repalis.com"
         assert owner.name == "Owner Name"
         assert owner.external_id == "owner_ext_456"
         assert owner.role == "owner"
@@ -1293,7 +1293,7 @@ class TestCreateCustomer:
                 "type": "team",
                 "name": "Acme Inc.",
                 "organization_id": str(organization.id),
-                "owner": {"email": "owner@polar.sh", "name": "Owner Name"},
+                "owner": {"email": "owner@repalis.com", "name": "Owner Name"},
             },
         )
 
@@ -1301,7 +1301,7 @@ class TestCreateCustomer:
 
         json = response.json()
         assert json["email"] is None
-        assert json["avatar_url"] == _avatar_url_for_email("owner@polar.sh")
+        assert json["avatar_url"] == _avatar_url_for_email("owner@repalis.com")
 
 
 @pytest.mark.anyio
@@ -1494,7 +1494,7 @@ class TestDeleteCustomerWithAnonymize:
 
         # Email should be hashed
         assert deleted.email is not None
-        assert deleted.email.endswith("@anonymized.polar.sh")
+        assert deleted.email.endswith("@anonymized.repalis.com")
         assert deleted.email_verified is False
 
         # Name should be hashed (64-char hex string from SHA-256)
@@ -1533,7 +1533,7 @@ class TestDeleteCustomerWithAnonymize:
 
         # Email should be hashed
         assert deleted.email is not None
-        assert deleted.email.endswith("@anonymized.polar.sh")
+        assert deleted.email.endswith("@anonymized.repalis.com")
 
         # Name should be PRESERVED for businesses
         assert deleted.name == "Acme Corp"
@@ -1652,7 +1652,7 @@ class TestDeleteCustomerExternalWithAnonymize:
 
         # Email should be hashed
         assert deleted.email is not None
-        assert deleted.email.endswith("@anonymized.polar.sh")
+        assert deleted.email.endswith("@anonymized.repalis.com")
 
         # External ID should be cleared, but preserved in metadata
         assert deleted.external_id is None

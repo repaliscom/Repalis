@@ -116,7 +116,7 @@ class TestCreatePaymentIntentFromSharedPaymentToken:
             currency="usd",
             confirm=True,
             automatic_payment_methods={"enabled": True},
-            return_url="https://polar.sh/checkout/confirmation",
+            return_url="https://repalis.com/checkout/confirmation",
         )
 
         create.assert_awaited_once_with(

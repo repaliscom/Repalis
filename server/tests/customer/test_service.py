@@ -353,11 +353,11 @@ class TestCreate:
         await save_fixture(organization)
 
         payload: dict[str, Any] = {
-            "email": "customer@polar.sh",
+            "email": "customer@repalis.com",
             "name": "Customer Name",
             "external_id": "customer_ext_123",
             "owner": {
-                "email": "owner@polar.sh",
+                "email": "owner@repalis.com",
                 "name": "Owner Name",
                 "external_id": "owner_ext_456",
             },
@@ -370,7 +370,7 @@ class TestCreate:
         )
         await session.flush()
 
-        assert customer.email == "customer@polar.sh"
+        assert customer.email == "customer@repalis.com"
         assert customer.name == "Customer Name"
         assert customer.external_id == "customer_ext_123"
 
@@ -378,7 +378,7 @@ class TestCreate:
         member = await member_repository.get_owner_by_customer_id(customer.id)
         assert member is not None
         assert member.customer_id == customer.id
-        assert member.email == "owner@polar.sh"
+        assert member.email == "owner@repalis.com"
         assert member.name == "Owner Name"
         assert member.external_id == "owner_ext_456"
         assert member.role == MemberRole.owner
@@ -1364,7 +1364,7 @@ class TestDelete:
         deleted = await customer_service.delete(session, customer, anonymize=True)
         assert deleted.deleted_at is not None
         assert deleted.email is not None
-        assert deleted.email.endswith("@anonymized.polar.sh")
+        assert deleted.email.endswith("@anonymized.repalis.com")
         assert deleted.name is not None
         assert deleted.name != "Delete Anon User"
         assert len(deleted.name) == 64  # SHA-256 hex
@@ -1622,7 +1622,7 @@ class TestAnonymize:
 
         # Email should be hashed
         assert anonymized.email is not None
-        assert anonymized.email.endswith("@anonymized.polar.sh")
+        assert anonymized.email.endswith("@anonymized.repalis.com")
         assert anonymized.email != "individual@example.com"
         assert anonymized.email_verified is False
 
@@ -1658,7 +1658,7 @@ class TestAnonymize:
 
         # Email should be hashed
         assert anonymized.email is not None
-        assert anonymized.email.endswith("@anonymized.polar.sh")
+        assert anonymized.email.endswith("@anonymized.repalis.com")
         assert anonymized.email_verified is False
 
         # Name should be PRESERVED for businesses
@@ -1806,7 +1806,7 @@ class TestAnonymize:
         anonymized = await customer_service.anonymize(session, customer)
 
         assert anonymized.email is not None
-        assert anonymized.email.endswith("@anonymized.polar.sh")
+        assert anonymized.email.endswith("@anonymized.repalis.com")
         assert anonymized.deleted_at is not None
 
 

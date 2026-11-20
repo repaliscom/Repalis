@@ -149,7 +149,7 @@ async def _webhook_event_send(
     )
 
     headers = {
-        "user-agent": "polar.sh webhooks",
+        "user-agent": "repalis.com webhooks",
         "content-type": "application/json",
         "webhook-id": str(event.id),
         "webhook-timestamp": str(int(ts.timestamp())),

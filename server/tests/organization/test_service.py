@@ -6057,12 +6057,12 @@ class TestSetCapability:
             "payouts",
             False,
             reason="Manual ops hold",
-            admin_email="ops@polar.sh",
+            admin_email="ops@repalis.com",
         )
 
         assert organization.internal_notes is not None
         assert (
-            "Capability 'payouts' disabled by ops@polar.sh"
+            "Capability 'payouts' disabled by ops@repalis.com"
             in organization.internal_notes
         )
         assert "Reason: Manual ops hold" in organization.internal_notes

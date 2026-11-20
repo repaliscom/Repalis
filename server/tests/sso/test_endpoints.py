@@ -343,13 +343,13 @@ class TestCreateSSOConnection:
                     "client_id": "client-id",
                     "auth_method": "client_secret",
                     "client_secret": "secret",
-                    "authorization_parameters": {"hd": "polar.sh"},
+                    "authorization_parameters": {"hd": "repalis.com"},
                 }
             },
         )
         assert response.status_code == 201
         assert response.json()["configuration"]["authorization_parameters"] == {
-            "hd": "polar.sh"
+            "hd": "repalis.com"
         }
 
     @pytest.mark.auth

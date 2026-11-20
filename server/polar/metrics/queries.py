@@ -377,7 +377,7 @@ def _get_readable_subscriptions_statement(
 # Cutoff date when opened_at tracking was shipped
 # Before this date: use created_at for all checkouts (preserve historical data)
 # After this date: only count checkouts that have opened_at set
-# See: https://github.com/polarsource/polar/pull/9071
+# See: https://github.com/repaliscom/Repalis/pull/9071
 CHECKOUT_OPENED_AT_CUTOFF = datetime(2026, 1, 22, 12, 13, 0, tzinfo=UTC)
 
 
