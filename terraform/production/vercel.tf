@@ -9,7 +9,7 @@
 module "vercel" {
   source = "../modules/vercel"
 
-  name     = "polar"
+  name     = "repalis"
   git_repo = "repaliscom/Repalis"
 
   preview_deployments_disabled = true
@@ -69,11 +69,11 @@ module "vercel" {
     next_public_checkout_embed_script_src           = "https://cdn.jsdelivr.net/npm/@repalis/checkout@0.1/dist/embed.global.js"
     next_public_stripe_payment_method_configuration = var.next_public_stripe_payment_method_configuration
     s3_public_images_bucket_protocol                = "https"
-    s3_public_images_bucket_hostname                = "polar-public-files.s3.amazonaws.com"
+    s3_public_images_bucket_hostname                = "repalis-public-files.s3.amazonaws.com"
     s3_public_images_bucket_port                    = null
     s3_public_images_bucket_pathname                = "/product_media/**"
-    s3_upload_origins                               = "https://polar-production-files.s3.amazonaws.com https://polar-public-files.s3.amazonaws.com"
-    polar_checkout_embed_script_allowed_origins     = "https://repalis.com,https://sandbox.repalis.com"
+    s3_upload_origins                               = "https://repalis-production-files.s3.amazonaws.com https://repalis-public-files.s3.amazonaws.com"
+    repalis_checkout_embed_script_allowed_origins     = "https://repalis.com,https://sandbox.repalis.com"
     enable_experimental_corepack                    = "1"
   }
 
@@ -92,7 +92,7 @@ module "vercel" {
     { key = "NEXT_PUBLIC_POSTHOG_HOST", value = "https://repalis.com/ingest" },
     { key = "NEXT_PUBLIC_SENTRY_ENABLED", value = "true" },
     { key = "NEXT_PUBLIC_GOOGLE_ANALYTICS_ID", value = "G-MBYW1QZFHE", target = ["production"] },
-    { key = "NEXT_PUBLIC_GITHUB_INSTALLATION_URL", value = "https://github.com/apps/polar-sh/installations/new" },
+    { key = "NEXT_PUBLIC_GITHUB_INSTALLATION_URL", value = "https://github.com/apps/repalis/installations/new" },
     { key = "NEXT_PUBLIC_STRIPE_KEY", value = var.stripe_publishable_key },
     { key = "MCP_OAUTH2_CLIENT_ID", value = var.mcp_oauth2_client_id, target = ["production", "preview"] },
     { key = "MCP_OAUTH2_CLIENT_SECRET", value = var.mcp_oauth2_client_secret, target = ["production", "preview"] },

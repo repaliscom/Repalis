@@ -1,5 +1,5 @@
 locals {
-  function_name = "polar-${var.environment}-worker-${var.name}"
+  function_name = "repalis-${var.environment}-worker-${var.name}"
   in_vpc        = length(var.subnet_ids) > 0
 }
 
@@ -129,7 +129,7 @@ data "aws_iam_policy_document" "lambda" {
   statement {
     sid       = "ScheduleRetries"
     actions   = ["scheduler:CreateSchedule"]
-    resources = ["arn:aws:scheduler:*:${data.aws_caller_identity.current.account_id}:schedule/default/polar-retry-*"]
+    resources = ["arn:aws:scheduler:*:${data.aws_caller_identity.current.account_id}:schedule/default/repalis-retry-*"]
   }
 
   statement {

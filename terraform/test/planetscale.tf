@@ -2,9 +2,9 @@ module "planetscale" {
   source = "../modules/planetscale_postgres"
 
   organization       = var.planetscale_organization
-  database           = "polar-test"
-  app_database_name  = "polar_test"
-  app_role_name      = "polar_test"
+  database           = "repalis-test"
+  app_database_name  = "repalis_test"
+  app_role_name      = "repalis_test"
   region             = "aws-us-east-2"
   cluster_size       = "PS_640_AWS_ARM"
   deletion_protected = false
@@ -68,7 +68,7 @@ module "planetscale_private_link" {
   count  = local.test_enabled ? 1 : 0
   source = "../modules/planetscale_private_link"
 
-  name                      = "polar-test-planetscale"
+  name                      = "repalis-test-planetscale"
   vpc_id                    = module.vpc[0].vpc_id
   subnet_ids                = module.vpc[0].secondary_private_subnet_ids
   service_name              = module.planetscale.private_connection_service_name
@@ -97,7 +97,7 @@ module "planetscale_metrics" {
 
   environment              = "test"
   organization             = var.planetscale_organization
-  database                 = "polar-test"
+  database                 = "repalis-test"
   token                    = var.planetscale_metrics_token
   cluster_arn              = module.ecs_cluster[0].cluster_arn
   vpc_id                   = module.vpc[0].vpc_id

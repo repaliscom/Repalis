@@ -5,19 +5,19 @@
 module "egress_ip" {
   source = "../modules/static_egress_ip"
 
-  name = "polar-production-egress"
+  name = "repalis-production-egress"
 }
 
 module "vpc" {
   source = "../modules/vpc"
 
-  name               = "polar-production"
+  name               = "repalis-production"
   availability_zones = ["us-east-2a", "us-east-2b", "us-east-2c"]
   eip_allocation_id  = module.egress_ip.allocation_id
 }
 
 resource "aws_security_group" "lambda" {
-  name        = "polar-production-lambda"
+  name        = "repalis-production-lambda"
   description = "Shared egress security group for production Lambdas."
   vpc_id      = module.vpc.vpc_id
 

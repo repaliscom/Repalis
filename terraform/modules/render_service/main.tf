@@ -1,4 +1,4 @@
-# Polar Render service setup
+# Repalis Render service setup
 #
 # Sets up a service, and the specified workers.
 # Includes the environment groups
@@ -96,11 +96,11 @@ resource "render_env_group" "tinybird" {
   env_vars       = { for name, value in var.environment_groups.tinybird : name => { value = value } if value != null }
 }
 
-resource "render_env_group" "polar_self" {
-  count          = nonsensitive(var.environment_groups.polar_self != null) ? 1 : 0
+resource "render_env_group" "repalis_self" {
+  count          = nonsensitive(var.environment_groups.repalis_self != null) ? 1 : 0
   environment_id = var.render_environment_id
-  name           = "polar-self-${var.environment}"
-  env_vars       = { for name, value in var.environment_groups.polar_self : name => { value = value } if value != null }
+  name           = "repalis-self-${var.environment}"
+  env_vars       = { for name, value in var.environment_groups.repalis_self : name => { value = value } if value != null }
 }
 
 resource "render_env_group" "memory_profile" {
@@ -448,9 +448,9 @@ resource "render_env_group_link" "tinybird" {
   service_ids  = local.all_service_ids
 }
 
-resource "render_env_group_link" "polar_self" {
-  count        = nonsensitive(var.environment_groups.polar_self != null) ? 1 : 0
-  env_group_id = render_env_group.polar_self[0].id
+resource "render_env_group_link" "repalis_self" {
+  count        = nonsensitive(var.environment_groups.repalis_self != null) ? 1 : 0
+  env_group_id = render_env_group.repalis_self[0].id
   service_ids  = local.all_service_ids
 }
 

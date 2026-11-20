@@ -107,7 +107,7 @@ locals {
   aws_s3_environment_variables = {
     POLAR_AWS_REGION                       = var.aws_s3_config.region
     POLAR_AWS_SIGNATURE_VERSION            = var.aws_s3_config.signature_version
-    POLAR_S3_FILES_BUCKET_NAME             = "polar-${var.environment}-files"
+    POLAR_S3_FILES_BUCKET_NAME             = "repalis-${var.environment}-files"
     POLAR_S3_FILES_PRESIGN_TTL             = var.aws_s3_config.files_presign_ttl
     POLAR_S3_FILES_PUBLIC_BUCKET_NAME      = var.aws_s3_config.files_public_bucket_name
     POLAR_S3_CUSTOMER_INVOICES_BUCKET_NAME = var.aws_s3_config.customer_invoices_bucket_name
@@ -212,15 +212,15 @@ locals {
     POLAR_TINYBIRD_CLICKHOUSE_TOKEN = var.tinybird_config.clickhouse_token
   } : {}
 
-  polar_self_environment_variables = var.polar_self_config != null ? {
-    POLAR_REPALIS_ORGANIZATION_ID  = var.polar_self_config.organization_id
-    POLAR_REPALIS_API_URL          = var.polar_self_config.api_url
-    POLAR_POLAR_SCALE_PRODUCT_ID = var.polar_self_config.scale_product_id
+  repalis_self_environment_variables = var.repalis_self_config != null ? {
+    POLAR_REPALIS_ORGANIZATION_ID  = var.repalis_self_config.organization_id
+    POLAR_REPALIS_API_URL          = var.repalis_self_config.api_url
+    POLAR_POLAR_SCALE_PRODUCT_ID = var.repalis_self_config.scale_product_id
   } : {}
 
-  polar_self_secrets = var.polar_self_config != null ? {
-    POLAR_REPALIS_ACCESS_TOKEN   = var.polar_self_config.access_token
-    POLAR_REPALIS_WEBHOOK_SECRET = var.polar_self_config.webhook_secret
+  repalis_self_secrets = var.repalis_self_config != null ? {
+    POLAR_REPALIS_ACCESS_TOKEN   = var.repalis_self_config.access_token
+    POLAR_REPALIS_WEBHOOK_SECRET = var.repalis_self_config.webhook_secret
   } : {}
 
   environment_groups = {
@@ -242,7 +242,7 @@ locals {
     prometheus         = var.prometheus_config != null ? merge(local.prometheus_environment_variables, local.prometheus_secrets) : null
     slo_report         = var.slo_report_config != null ? merge(local.slo_report_environment_variables, local.slo_report_secrets) : null
     tinybird           = var.tinybird_config != null ? merge(local.tinybird_environment_variables, local.tinybird_secrets) : null
-    polar_self         = var.polar_self_config != null ? merge(local.polar_self_environment_variables, local.polar_self_secrets) : null
+    repalis_self         = var.repalis_self_config != null ? merge(local.repalis_self_environment_variables, local.repalis_self_secrets) : null
   }
 
   environment_variables = merge(
@@ -254,7 +254,7 @@ locals {
     local.prometheus_environment_variables,
     local.slo_report_environment_variables,
     local.tinybird_environment_variables,
-    local.polar_self_environment_variables,
+    local.repalis_self_environment_variables,
   )
 
   secret_environment_variables = merge(
@@ -271,6 +271,6 @@ locals {
     local.prometheus_secrets,
     local.slo_report_secrets,
     local.tinybird_secrets,
-    local.polar_self_secrets,
+    local.repalis_self_secrets,
   )
 }

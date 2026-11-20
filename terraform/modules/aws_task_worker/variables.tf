@@ -9,7 +9,7 @@ variable "environment" {
 }
 
 variable "name" {
-  description = "Short worker profile name used in the Lambda function name: polar-{environment}-worker-{name}."
+  description = "Short worker profile name used in the Lambda function name: repalis-{environment}-worker-{name}."
   type        = string
 
   validation {
@@ -18,8 +18,8 @@ variable "name" {
   }
 
   validation {
-    condition     = length("polar-production-worker-${var.name}") <= 64
-    error_message = "Name is too long. polar-production-worker-{name} must be 64 characters or fewer."
+    condition     = length("repalis-production-worker-${var.name}") <= 64
+    error_message = "Name is too long. repalis-production-worker-{name} must be 64 characters or fewer."
   }
 }
 

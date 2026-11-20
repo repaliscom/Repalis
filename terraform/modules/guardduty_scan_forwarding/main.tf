@@ -40,11 +40,11 @@ data "aws_caller_identity" "current" {}
 data "aws_region" "current" {}
 
 locals {
-  destination_bus_arn = "arn:aws:events:${data.aws_region.current.region}:${var.destination_account_id}:event-bus/polar-${var.environment}-guardduty-scan-results"
+  destination_bus_arn = "arn:aws:events:${data.aws_region.current.region}:${var.destination_account_id}:event-bus/repalis-${var.environment}-guardduty-scan-results"
 }
 
 resource "aws_iam_role" "forward" {
-  name                 = "polar-${var.environment}-guardduty-scan-forwarding"
+  name                 = "repalis-${var.environment}-guardduty-scan-forwarding"
   permissions_boundary = var.permissions_boundary_arn
 
   assume_role_policy = jsonencode({
@@ -81,7 +81,7 @@ resource "aws_iam_role_policy" "forward" {
 }
 
 resource "aws_cloudwatch_event_rule" "forward" {
-  name        = "polar-${var.environment}-guardduty-scan-forward"
+  name        = "repalis-${var.environment}-guardduty-scan-forward"
   description = "Forward GuardDuty Malware Protection THREATS_FOUND results for ${var.environment} buckets to the ${var.environment} workload account."
   event_pattern = jsonencode({
     source      = ["aws.guardduty"]

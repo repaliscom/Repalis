@@ -5,7 +5,7 @@
 module "vercel" {
   source = "../modules/vercel"
 
-  name     = "polar-test"
+  name     = "repalis-test"
   git_repo = "repaliscom/Repalis"
 
   preview_deployments_disabled = false
@@ -30,11 +30,11 @@ module "vercel" {
     next_public_checkout_embed_script_src           = "https://cdn.jsdelivr.net/npm/@repalis/checkout@0.1/dist/embed.global.js"
     next_public_stripe_payment_method_configuration = var.next_public_stripe_payment_method_configuration
     s3_public_images_bucket_protocol                = "https"
-    s3_public_images_bucket_hostname                = "polar-test-public-files.s3.amazonaws.com"
+    s3_public_images_bucket_hostname                = "repalis-test-public-files.s3.amazonaws.com"
     s3_public_images_bucket_port                    = null
     s3_public_images_bucket_pathname                = "/product_media/**"
-    s3_upload_origins                               = "https://polar-test-files.s3.amazonaws.com https://polar-test-files.s3.us-east-2.amazonaws.com https://polar-test-public-files.s3.amazonaws.com https://polar-test-public-files.s3.us-east-2.amazonaws.com"
-    polar_checkout_embed_script_allowed_origins     = "https://repalis.com,https://sandbox.repalis.com,https://test.repalis.com"
+    s3_upload_origins                               = "https://repalis-test-files.s3.amazonaws.com https://repalis-test-files.s3.us-east-2.amazonaws.com https://repalis-test-public-files.s3.amazonaws.com https://repalis-test-public-files.s3.us-east-2.amazonaws.com"
+    repalis_checkout_embed_script_allowed_origins     = "https://repalis.com,https://sandbox.repalis.com,https://test.repalis.com"
     enable_experimental_corepack                    = "1"
   }
 
@@ -49,7 +49,7 @@ module "vercel" {
   environment_variables = [
     { key = "NEXT_PUBLIC_FRONTEND_BASE_URL", value = "https://test.repalis.com" },
     { key = "NEXT_PUBLIC_ENVIRONMENT", value = "test" },
-    { key = "REPALIS_AUTH_COOKIE_KEY", value = "polar_test_session" },
+    { key = "REPALIS_AUTH_COOKIE_KEY", value = "repalis_test_session" },
     { key = "NEXT_PUBLIC_PRODUCT_LINK_BASE_URL", value = "https://test.repalis.com/api/checkout?price=" },
     { key = "NEXT_PUBLIC_STRIPE_KEY", value = var.stripe_publishable_key, target = ["production", "development"] },
     { key = "NEXT_PUBLIC_STRIPE_KEY", value = var.stripe_publishable_key_preview, target = ["preview"], sensitive = true },

@@ -38,7 +38,7 @@ resource "render_private_service" "backoffice" {
     "tailscale-serve.json" = {
       content = jsonencode({
         Services = {
-          "svc:polar-backoffice-${var.environment}" = {
+          "svc:repalis-backoffice-${var.environment}" = {
             TCP = {
               "443" = {
                 TCPForward = "127.0.0.1:8443"
@@ -96,7 +96,7 @@ resource "render_private_service" "backoffice" {
     POLAR_CORS_ORIGINS       = { value = var.api_service_config.cors_origins }
     POLAR_DATABASE_POOL_SIZE = { value = "5" }
     TS_AUTHKEY               = { value = "${var.private_backoffice.oauth_client_secret}?ephemeral=true&preauthorized=true" }
-    TS_HOSTNAME              = { value = "polar-backoffice-${var.environment}" }
+    TS_HOSTNAME              = { value = "repalis-backoffice-${var.environment}" }
     TS_STATE_DIR             = { value = "" }
     TS_USERSPACE             = { value = "true" }
     TS_ACCEPT_DNS            = { value = "false" }

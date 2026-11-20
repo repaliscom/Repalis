@@ -13,7 +13,7 @@ terraform {
 #
 # One key per generation: KMS rotates symmetric encryption keys only, so
 # rotating this one means publishing another and moving the pointer. See
-# ADR-0010 and https://linear.app/polarsh/document/rotate-the-jwks-signing-key-d6aa154dd9a3
+# ADR-0010 and https://linear.app/repalis/document/rotate-the-jwks-signing-key-d6aa154dd9a3
 
 variable "environment" {
   description = "Workload environment this runs in."
@@ -45,14 +45,14 @@ variable "current_generation" {
 resource "aws_kms_key" "signing" {
   for_each = toset(var.generations)
 
-  description              = "JWKS signing key ${each.key} for polar-${var.environment}"
+  description              = "JWKS signing key ${each.key} for repalis-${var.environment}"
   key_usage                = "SIGN_VERIFY"
   customer_master_key_spec = "RSA_2048"
   deletion_window_in_days  = 30
 }
 
 resource "aws_kms_alias" "signing" {
-  name          = "alias/polar-${var.environment}-jwks"
+  name          = "alias/repalis-${var.environment}-jwks"
   target_key_id = aws_kms_key.signing[var.current_generation].key_id
 }
 
@@ -71,7 +71,7 @@ data "aws_iam_policy_document" "signing" {
 }
 
 resource "aws_iam_role_policy" "signing" {
-  name   = "polar-${var.environment}-jwks-signing"
+  name   = "repalis-${var.environment}-jwks-signing"
   role   = var.role_name
   policy = data.aws_iam_policy_document.signing.json
 }

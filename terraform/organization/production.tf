@@ -192,7 +192,7 @@ module "production_malware_protection" {
 }
 
 resource "aws_s3_bucket" "production_lambda_artifacts" {
-  bucket = "polar-lambda-artifacts"
+  bucket = "repalis-lambda-artifacts"
 }
 
 resource "aws_s3_bucket_server_side_encryption_configuration" "production_lambda_artifacts" {
@@ -223,7 +223,7 @@ module "production_image_resizer" {
     aws = aws
   }
 
-  function_name            = "polar-image-resizer"
+  function_name            = "repalis-image-resizer"
   s3_bucket                = aws_s3_bucket.production_lambda_artifacts.id
   s3_key                   = data.aws_s3_object.production_image_resizer_package.key
   s3_object_version        = data.aws_s3_object.production_image_resizer_package.version_id
@@ -238,7 +238,7 @@ module "production_cloudfront_public_assets" {
     aws.us_east_1 = aws
   }
 
-  name                           = "polar-public-files"
+  name                           = "repalis-public-files"
   domain                         = "uploads.repalis.com"
   cloudflare_zone_id             = "22bcd1b07ec25452aab472486bc8df94"
   s3_bucket_id                   = module.production_s3_buckets.public_files_bucket_id
@@ -262,7 +262,7 @@ module "production_cloudfront_cdn" {
     aws.us_east_1 = aws
   }
 
-  name                           = "polar-cdn"
+  name                           = "repalis-cdn"
   domain                         = "cdn.repalis.com"
   cloudflare_zone_id             = "22bcd1b07ec25452aab472486bc8df94"
   s3_bucket_id                   = module.production_s3_buckets.public_assets_bucket_id
@@ -322,7 +322,7 @@ module "production_github_oidc_backup" {
 
   role_name   = "github-actions-backup"
   github_org  = "repaliscom"
-  github_repo = "polar"
+  github_repo = "repalis"
   github_subjects = [
     "ref:refs/heads/main",
     "pull_request",
@@ -411,5 +411,5 @@ module "production_athena_spans" {
   }
 
   environment      = "production"
-  logs_bucket_name = "polar-production-logs"
+  logs_bucket_name = "repalis-production-logs"
 }

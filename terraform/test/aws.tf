@@ -2,7 +2,7 @@ module "lambda_worker_ecr" {
   count  = local.test_enabled ? 1 : 0
   source = "../modules/ecr_repository"
 
-  name = "polar-test-lambda-worker"
+  name = "repalis-test-lambda-worker"
 }
 
 data "aws_iam_policy" "permission_boundary" {
@@ -41,7 +41,7 @@ module "redis" {
   count  = local.test_enabled ? 1 : 0
   source = "../modules/aws_redis"
 
-  name       = "polar-test-worker"
+  name       = "repalis-test-worker"
   vpc_id     = module.vpc[0].vpc_id
   subnet_ids = module.vpc[0].secondary_private_subnet_ids
   tags       = local.lambda_worker_tags
@@ -70,11 +70,11 @@ module "redis_private_link" {
   count  = local.test_enabled ? 1 : 0
   source = "../modules/redis_private_link"
 
-  name                     = "polar-test-worker-redis"
+  name                     = "repalis-test-worker-redis"
   vpc_id                   = module.vpc[0].vpc_id
   subnet_ids               = module.vpc[0].secondary_private_subnet_ids
-  nlb_name                 = "polar-test-worker-redis-b"
-  target_group_name        = "polar-test-worker-redis-b"
+  nlb_name                 = "repalis-test-worker-redis-b"
+  target_group_name        = "repalis-test-worker-redis-b"
   redis_host               = module.redis[0].host
   redis_port               = module.redis[0].port
   redis_arn                = module.redis[0].arn
@@ -92,11 +92,11 @@ resource "aws_vpc_security_group_ingress_rule" "redis_nlb" {
 }
 
 locals {
-  files_bucket_name        = "polar-test-files"
-  files_public_bucket_name = "polar-test-public-files"
-  diagnostics_bucket_name  = "polar-test-diagnostics"
+  files_bucket_name        = "repalis-test-files"
+  files_public_bucket_name = "repalis-test-public-files"
+  diagnostics_bucket_name  = "repalis-test-diagnostics"
 
-  worker_sqs_queue_prefix = "polar-test-tasks"
+  worker_sqs_queue_prefix = "repalis-test-tasks"
 
   lambda_worker_secrets = local.test_enabled ? merge(
     module.backend_environment[0].environment_variables,
@@ -135,7 +135,7 @@ locals {
 
 resource "aws_secretsmanager_secret" "lambda_worker" {
   count                   = local.test_enabled ? 1 : 0
-  name                    = "polar-test-worker-lambda"
+  name                    = "repalis-test-worker-lambda"
   recovery_window_in_days = 0
   tags                    = local.lambda_worker_tags
 }
@@ -204,7 +204,7 @@ module "lambda_worker_queue" {
 
 # =============================================================================
 # S3 access policy (attached to the worker Lambdas)
-# The buckets live in the management account, which grants the polar-test-*
+# The buckets live in the management account, which grants the repalis-test-*
 # roles in its bucket policies.
 # =============================================================================
 
@@ -257,7 +257,7 @@ data "aws_iam_policy_document" "s3_access" {
 
 resource "aws_iam_role_policy" "s3_access" {
   count  = local.test_enabled ? 1 : 0
-  name   = "polar-test-s3-access"
+  name   = "repalis-test-s3-access"
   role   = module.secrets_kms[0].role_name
   policy = data.aws_iam_policy_document.s3_access.json
 }
@@ -284,7 +284,7 @@ data "aws_iam_policy_document" "tasks_producer" {
 
 resource "aws_iam_role_policy" "tasks_producer" {
   count  = local.test_enabled ? 1 : 0
-  name   = "polar-test-tasks-producer"
+  name   = "repalis-test-tasks-producer"
   role   = module.secrets_kms[0].role_name
   policy = data.aws_iam_policy_document.tasks_producer[0].json
 }
@@ -351,7 +351,7 @@ module "github_oidc_lambda_worker" {
 
   role_name       = "github-actions-lambda-worker-test"
   github_org      = "repaliscom"
-  github_repo     = "polar"
+  github_repo     = "repalis"
   github_subjects = ["ref:refs/heads/main"]
   policy_arns = {
     deploy = aws_iam_policy.lambda_worker_deploy[0].arn
@@ -380,7 +380,7 @@ module "grafana_cloudwatch_role" {
   count  = local.test_enabled ? 1 : 0
   source = "../modules/grafana_cloudwatch_role"
 
-  name                     = "polar-test-grafana-cloudwatch"
+  name                     = "repalis-test-grafana-cloudwatch"
   external_id              = var.grafana_cloud_aws_external_id
   permissions_boundary_arn = data.aws_iam_policy.permission_boundary.arn
   tags                     = local.lambda_worker_tags

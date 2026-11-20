@@ -12,7 +12,7 @@ locals {
     authentication_session_cookie_domain = "repalis.com"
     oauth2_session_state_cookie_domain   = "repalis.com"
     email_sender                         = "resend"
-    email_from_name                      = "Polar"
+    email_from_name                      = "Repalis"
     email_from_domain                    = "notifications.repalis.com"
     frontend_base_url                    = "https://repalis.com"
     checkout_base_url                    = "https://buy.repalis.com/{client_secret}"
@@ -107,10 +107,10 @@ locals {
     signature_version             = "v4"
     files_presign_ttl             = "3600"
     files_public_bucket_name      = local.files_public_bucket_name
-    customer_invoices_bucket_name = "polar-customer-invoices"
-    customer_receipts_bucket_name = "polar-customer-receipts"
-    payout_invoices_bucket_name   = "polar-payout-invoices"
-    logs_bucket_name              = "polar-production-logs"
+    customer_invoices_bucket_name = "repalis-customer-invoices"
+    customer_receipts_bucket_name = "repalis-customer-receipts"
+    payout_invoices_bucket_name   = "repalis-payout-invoices"
+    logs_bucket_name              = "repalis-production-logs"
   }
 
   aws_s3_secrets = {
@@ -156,11 +156,11 @@ locals {
     slack_channel   = var.slo_report_slack_channel
   }
 
-  polar_self_config = {
-    access_token     = var.polar_access_token
-    webhook_secret   = var.polar_webhook_secret
-    organization_id  = var.polar_organization_id
-    scale_product_id = var.polar_scale_product_id
+  repalis_self_config = {
+    access_token     = var.repalis_access_token
+    webhook_secret   = var.repalis_webhook_secret
+    organization_id  = var.repalis_organization_id
+    scale_product_id = var.repalis_scale_product_id
     api_url          = "https://api.repalis.com"
   }
 
@@ -203,6 +203,6 @@ module "backend_environment" {
   apple_secrets     = local.apple_secrets
   prometheus_config = local.prometheus_config
   slo_report_config = local.slo_report_config
-  polar_self_config = local.polar_self_config
+  repalis_self_config = local.repalis_self_config
   tinybird_config   = local.tinybird_config
 }

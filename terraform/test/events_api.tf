@@ -49,7 +49,7 @@ locals {
 
 resource "aws_secretsmanager_secret" "events_api" {
   count                   = local.test_enabled ? 1 : 0
-  name                    = "polar-test-${local.events_api_name}"
+  name                    = "repalis-test-${local.events_api_name}"
   recovery_window_in_days = 7
   tags                    = local.events_api_tags
 }
@@ -62,7 +62,7 @@ resource "aws_secretsmanager_secret_version" "events_api" {
 
 resource "aws_secretsmanager_secret" "ghcr" {
   count                   = local.test_enabled ? 1 : 0
-  name                    = "polar-test-ghcr-credentials"
+  name                    = "repalis-test-ghcr-credentials"
   recovery_window_in_days = 7
   tags                    = local.events_api_tags
 }
@@ -97,7 +97,7 @@ data "aws_iam_policy_document" "events_api_assume" {
 
 resource "aws_iam_role" "events_api_task" {
   count                = local.test_enabled ? 1 : 0
-  name                 = "polar-test-${local.events_api_name}-task"
+  name                 = "repalis-test-${local.events_api_name}-task"
   assume_role_policy   = data.aws_iam_policy_document.events_api_assume.json
   permissions_boundary = data.aws_iam_policy.permission_boundary.arn
   tags                 = local.events_api_tags
@@ -114,7 +114,7 @@ data "aws_iam_policy_document" "events_api_task" {
 
 resource "aws_iam_role_policy" "events_api_task" {
   count  = local.test_enabled ? 1 : 0
-  name   = "polar-test-${local.events_api_name}-task"
+  name   = "repalis-test-${local.events_api_name}-task"
   role   = aws_iam_role.events_api_task[0].id
   policy = data.aws_iam_policy_document.events_api_task[0].json
 }
@@ -123,7 +123,7 @@ resource "aws_iam_role_policy" "events_api_task" {
 
 resource "aws_security_group" "events_api_alb" {
   count       = local.test_enabled ? 1 : 0
-  name        = "polar-test-${local.events_api_name}-alb"
+  name        = "repalis-test-${local.events_api_name}-alb"
   description = "HTTPS from Cloudflare to the event ingestion API load balancer."
   vpc_id      = module.vpc[0].vpc_id
   tags        = local.events_api_tags
@@ -164,7 +164,7 @@ resource "aws_vpc_security_group_egress_rule" "events_api_alb_tasks" {
 
 resource "aws_security_group" "events_api" {
   count       = local.test_enabled ? 1 : 0
-  name        = "polar-test-${local.events_api_name}"
+  name        = "repalis-test-${local.events_api_name}"
   description = "Event ingestion API tasks."
   vpc_id      = module.vpc[0].vpc_id
   tags        = local.events_api_tags
@@ -229,7 +229,7 @@ resource "aws_acm_certificate_validation" "events_api" {
 
 resource "aws_lb" "events_api" {
   count              = local.test_enabled ? 1 : 0
-  name               = "polar-test-${local.events_api_name}"
+  name               = "repalis-test-${local.events_api_name}"
   load_balancer_type = "application"
   subnets            = module.vpc[0].public_subnet_ids
   security_groups    = [aws_security_group.events_api_alb[0].id]
@@ -238,7 +238,7 @@ resource "aws_lb" "events_api" {
 
 resource "aws_lb_target_group" "events_api" {
   count                = local.test_enabled ? 1 : 0
-  name                 = "polar-test-${local.events_api_name}"
+  name                 = "repalis-test-${local.events_api_name}"
   port                 = local.events_api_port
   protocol             = "HTTP"
   target_type          = "ip"

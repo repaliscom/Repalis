@@ -1,7 +1,7 @@
 resource "tfe_variable_set" "credentials" {
   name         = "Shared Credentials"
   description  = "Provider credentials shared by every workspace"
-  organization = "polar-sh"
+  organization = "repalis"
   global       = true
 }
 

@@ -5,7 +5,7 @@ data "tfe_workspace_ids" "checked" {
     [for workspace in local.terraform_cloud_aws_workspaces : workspace.workspace],
     ["global"],
   )
-  organization = "polar-sh"
+  organization = "repalis"
 }
 
 # Terraform records a data source in state whole, so the non-sensitive values
@@ -29,7 +29,7 @@ locals {
   # Variables set straight on a workspace, outside any variable set. Everything
   # else reaches a workspace through a set, which `tfe_variable_set` covers.
   declared_workspace_variables = {
-    polar = [
+    repalis = [
       tfe_variable.backend_chargebackstop_webhook_secret_production.key,
       tfe_variable.redis_private_link_host_production.key,
     ]

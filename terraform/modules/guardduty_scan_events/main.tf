@@ -50,7 +50,7 @@ variable "source_account_id" {
 }
 
 resource "aws_cloudwatch_event_bus" "guardduty" {
-  name = "polar-${var.environment}-guardduty-scan-results"
+  name = "repalis-${var.environment}-guardduty-scan-results"
 }
 
 resource "aws_cloudwatch_event_bus_policy" "guardduty" {
@@ -75,7 +75,7 @@ resource "aws_cloudwatch_event_bus_policy" "guardduty" {
 }
 
 resource "aws_cloudwatch_event_rule" "threats_found" {
-  name           = "polar-${var.environment}-guardduty-scan-threats-found"
+  name           = "repalis-${var.environment}-guardduty-scan-threats-found"
   event_bus_name = aws_cloudwatch_event_bus.guardduty.name
   description    = "GuardDuty Malware Protection THREATS_FOUND results for ${var.environment} buckets, delivered to the task worker."
   event_pattern = jsonencode({

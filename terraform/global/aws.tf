@@ -8,7 +8,7 @@ locals {
     }
     production = {
       account_id = "538043300756"
-      workspace  = "polar"
+      workspace  = "repalis"
     }
     sandbox = {
       account_id = "427025827993"
@@ -30,7 +30,7 @@ locals {
 }
 
 data "tfe_workspace_ids" "aws" {
-  organization = "polar-sh"
+  organization = "repalis"
   names = [
     for workspace in local.terraform_cloud_aws_workspaces :
     workspace.workspace

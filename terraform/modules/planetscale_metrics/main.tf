@@ -1,5 +1,5 @@
 locals {
-  name = "polar-${var.environment}-planetscale-metrics"
+  name = "repalis-${var.environment}-planetscale-metrics"
 
   alloy_config = <<-EOT
     discovery.http "planetscale" {

@@ -9,7 +9,7 @@ provider "cloudflare" {
 }
 
 provider "vercel" {
-  team = "polar-sh"
+  team = "repalis"
 }
 
 provider "planetscale" {

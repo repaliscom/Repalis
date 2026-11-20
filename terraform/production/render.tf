@@ -30,8 +30,8 @@ locals {
 # Project and Environments
 # ============================================================================
 
-resource "render_project" "polar" {
-  name = "Polar"
+resource "render_project" "repalis" {
+  name = "Repalis"
   environments = {
     "Production" : {
       id               = "evm-cj3pgodiuie55pmjh2l0"
@@ -73,7 +73,7 @@ module "production" {
     oauth_client_secret  = var.private_backoffice_tailscale_oauth_client_secret
     cloudflare_api_token = var.private_backoffice_cloudflare_api_token
   } : null
-  render_environment_id  = render_project.polar.environments["Production"].id
+  render_environment_id  = render_project.repalis.environments["Production"].id
   registry_credential_id = render_registry_credential.ghcr.id
 
   api_service_config = {
@@ -150,7 +150,7 @@ module "production" {
     s3_bucket_name = local.diagnostics_bucket_name
   }
 
-  depends_on = [render_registry_credential.ghcr, render_project.polar]
+  depends_on = [render_registry_credential.ghcr, render_project.repalis]
 }
 
 # =============================================================================
@@ -161,13 +161,13 @@ module "tailscale_router" {
   source = "../modules/tailscale_router"
 
   environment            = "production"
-  render_environment_id  = render_project.polar.environments["Production"].id
+  render_environment_id  = render_project.repalis.environments["Production"].id
   registry_credential_id = render_registry_credential.ghcr.id
   tailscale_authkey      = var.tailscale_authkey
   advertise_routes       = var.tailscale_advertise_routes
   advertise_exit_node    = true
 
-  depends_on = [render_registry_credential.ghcr, render_project.polar]
+  depends_on = [render_registry_credential.ghcr, render_project.repalis]
 }
 
 # =============================================================================

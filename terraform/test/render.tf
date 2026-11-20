@@ -15,8 +15,8 @@ resource "render_registry_credential" "ghcr" {
 # =============================================================================
 
 data "tfe_outputs" "production" {
-  organization = "polar-sh"
-  workspace    = "polar"
+  organization = "repalis"
+  workspace    = "repalis"
 }
 
 locals {

@@ -7,7 +7,7 @@ locals {
   # and POLAR_REDIS_URL. They are intentionally not duplicated here.
   vercel_services_environment_variables = {
     SENTRY_ORG = {
-      value     = "polar-sh"
+      value     = "repalis"
       sensitive = false
     }
     SENTRY_PROJECT = {
@@ -67,7 +67,7 @@ locals {
       sensitive = false
     }
     S3_PUBLIC_IMAGES_BUCKET_HOSTNAME = {
-      value     = "polar-test-public-files.s3.amazonaws.com"
+      value     = "repalis-test-public-files.s3.amazonaws.com"
       sensitive = false
     }
     S3_PUBLIC_IMAGES_BUCKET_PATHNAME = {
@@ -75,7 +75,7 @@ locals {
       sensitive = false
     }
     S3_UPLOAD_ORIGINS = {
-      value     = "https://polar-test-files.s3.amazonaws.com https://polar-test-files.s3.us-east-2.amazonaws.com https://polar-test-public-files.s3.amazonaws.com https://polar-test-public-files.s3.us-east-2.amazonaws.com"
+      value     = "https://repalis-test-files.s3.amazonaws.com https://repalis-test-files.s3.us-east-2.amazonaws.com https://repalis-test-public-files.s3.amazonaws.com https://repalis-test-public-files.s3.us-east-2.amazonaws.com"
       sensitive = false
     }
     REPALIS_CHECKOUT_EMBED_SCRIPT_ALLOWED_ORIGINS = {
@@ -125,11 +125,11 @@ locals {
       sensitive = false
     }
     POLAR_USER_SESSION_COOKIE_KEY = {
-      value     = "polar_test_session"
+      value     = "repalis_test_session"
       sensitive = false
     }
     REPALIS_AUTH_COOKIE_KEY = {
-      value     = "polar_test_session"
+      value     = "repalis_test_session"
       sensitive = false
     }
     POLAR_EMAIL_SENDER = {
@@ -137,7 +137,7 @@ locals {
       sensitive = false
     }
     POLAR_EMAIL_FROM_NAME = {
-      value     = "[TEST] Polar"
+      value     = "[TEST] Repalis"
       sensitive = false
     }
     POLAR_EMAIL_FROM_DOMAIN = {
@@ -297,19 +297,19 @@ locals {
       sensitive = false
     }
     POLAR_S3_CUSTOMER_INVOICES_BUCKET_NAME = {
-      value     = "polar-test-customer-invoices"
+      value     = "repalis-test-customer-invoices"
       sensitive = false
     }
     POLAR_S3_CUSTOMER_RECEIPTS_BUCKET_NAME = {
-      value     = "polar-test-customer-receipts"
+      value     = "repalis-test-customer-receipts"
       sensitive = false
     }
     POLAR_S3_PAYOUT_INVOICES_BUCKET_NAME = {
-      value     = "polar-test-payout-invoices"
+      value     = "repalis-test-payout-invoices"
       sensitive = false
     }
     POLAR_S3_LOGS_BUCKET_NAME = {
-      value     = "polar-test-logs"
+      value     = "repalis-test-logs"
       sensitive = false
     }
     POLAR_S3_FILES_DOWNLOAD_SALT = {
@@ -336,17 +336,17 @@ locals {
       sensitive = false
     }
     POLAR_REPALIS_ACCESS_TOKEN = {
-      value = var.polar_access_token
+      value = var.repalis_access_token
     }
     POLAR_REPALIS_WEBHOOK_SECRET = {
-      value = var.polar_webhook_secret
+      value = var.repalis_webhook_secret
     }
     POLAR_REPALIS_ORGANIZATION_ID = {
-      value     = var.polar_organization_id
+      value     = var.repalis_organization_id
       sensitive = false
     }
     POLAR_POLAR_SCALE_PRODUCT_ID = {
-      value     = var.polar_scale_product_id
+      value     = var.repalis_scale_product_id
       sensitive = false
     }
     POLAR_REPALIS_API_URL = {
@@ -382,7 +382,7 @@ locals {
 module "vercel_services" {
   source = "../modules/vercel_services"
 
-  name     = "polar-test-services"
+  name     = "repalis-test-services"
   git_repo = "repaliscom/Repalis"
 
   preview_deployments_disabled = true

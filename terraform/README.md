@@ -1,8 +1,8 @@
-# Polar Infrastructure as Code (IaC)
+# Repalis Infrastructure as Code (IaC)
 
 We use Terraform to manage and provision our cloud infrastructure. This repository contains the necessary configuration files to set up and maintain our infrastructure in a consistent and repeatable manner.
 
-State, Secrets and Runs are directly managed on [HCP Terraform Cloud](https://app.terraform.io/app/polar-sh/workspaces/polar).
+State, Secrets and Runs are directly managed on [HCP Terraform Cloud](https://app.terraform.io/app/repalis/workspaces/repalis).
 
 ## Infrastructure overview
 

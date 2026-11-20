@@ -2,9 +2,9 @@ module "planetscale" {
   source = "../modules/planetscale_postgres"
 
   organization      = var.planetscale_organization
-  database          = "polar-sandbox"
-  app_database_name = "polar_sandbox"
-  app_role_name     = "polar_sandbox"
+  database          = "repalis-sandbox"
+  app_database_name = "repalis_sandbox"
+  app_role_name     = "repalis_sandbox"
   region            = "aws-us-east-2"
   cluster_size      = "PS_80_AWS_ARM"
 
@@ -62,7 +62,7 @@ locals {
 module "planetscale_private_link" {
   source = "../modules/planetscale_private_link"
 
-  name                      = "polar-sandbox-planetscale"
+  name                      = "repalis-sandbox-planetscale"
   vpc_id                    = module.vpc.vpc_id
   subnet_ids                = module.vpc.secondary_private_subnet_ids
   service_name              = module.planetscale.private_connection_service_name
@@ -90,7 +90,7 @@ module "planetscale_metrics" {
 
   environment              = "sandbox"
   organization             = var.planetscale_organization
-  database                 = "polar-sandbox"
+  database                 = "repalis-sandbox"
   token                    = var.planetscale_metrics_token
   cluster_arn              = module.ecs_cluster.cluster_arn
   vpc_id                   = module.vpc.vpc_id

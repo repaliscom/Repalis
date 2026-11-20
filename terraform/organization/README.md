@@ -1,12 +1,12 @@
 # AWS Organizations
 
-This Terraform root manages Polar's AWS Organizations structure.
+This Terraform root manages Repalis's AWS Organizations structure.
 
 ## Layout
 
 ```text
 AWS Organization
-├── Management account: polar
+├── Management account: repalis
 ├── Workloads
 │   ├── Production
 │   │   └── production
@@ -56,7 +56,7 @@ Those roles trust HCP Terraform's AWS dynamic credentials issuer and are scoped 
 workspace:
 
 ```text
-production account -> polar workspace
+production account -> repalis workspace
 sandbox account    -> sandbox workspace
 test account       -> test workspace
 ```
@@ -78,7 +78,7 @@ by centralized root access and must retain its separately secured root credentia
 ## Staff access (IAM Identity Center)
 
 `identity_center.tf` defines four access tiers, each with a per-account permission set named
-`Polar<Tier><Account>` (e.g. `RepalisReadOnlySandbox`). Sets are assigned to Google Workspace groups
+`Repalis<Tier><Account>` (e.g. `RepalisReadOnlySandbox`). Sets are assigned to Google Workspace groups
 for the accounts configured in each tier:
 
 | Group                                            | Permission set              | Access                                              |

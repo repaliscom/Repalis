@@ -24,7 +24,7 @@ locals {
 
   access_tiers = {
     finance = {
-      base_name          = "PolarFinance"
+      base_name          = "RepalisFinance"
       description        = "Read-only billing and cost information."
       managed_policy_arn = "arn:aws:iam::aws:policy/AWSBillingReadOnlyAccess"
       extra_policy_arns  = []
@@ -43,7 +43,7 @@ locals {
     }
     engineering = {
       base_name          = "RepalisEngineering"
-      description        = "Power-user access (no IAM/Organizations management) confined by the Polar permission boundary."
+      description        = "Power-user access (no IAM/Organizations management) confined by the Repalis permission boundary."
       managed_policy_arn = "arn:aws:iam::aws:policy/PowerUserAccess"
       extra_policy_arns  = ["arn:aws:iam::aws:policy/IAMReadOnlyAccess"]
       boundary           = true

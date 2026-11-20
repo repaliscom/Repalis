@@ -8,17 +8,17 @@ locals {
     base_url                                         = "https://sandbox-api.repalis.com"
     backoffice_host                                  = local.private_backoffice_hostname
     user_session_cookie_domain                       = "repalis.com"
-    user_session_cookie_key                          = "polar_sandbox_session"
+    user_session_cookie_key                          = "repalis_sandbox_session"
     authentication_session_cookie_domain             = "repalis.com"
     oauth2_session_state_cookie_domain               = "repalis.com"
     email_sender                                     = "resend"
-    email_from_name                                  = "[SANDBOX] Polar"
+    email_from_name                                  = "[SANDBOX] Repalis"
     email_from_domain                                = "notifications.sandbox.repalis.com"
     frontend_base_url                                = "https://sandbox.repalis.com"
     checkout_base_url                                = "https://sandbox-api.repalis.com/v1/checkout-links/{client_secret}/redirect"
     log_level                                        = "INFO"
     testing                                          = "0"
-    auth_cookie_key                                  = "polar_sandbox_session"
+    auth_cookie_key                                  = "repalis_sandbox_session"
     tax_processors                                   = "[\"numeral\",\"stripe\"]"
     tax_record_processor                             = "numeral"
     customer_portal_url_overrides                    = var.customer_portal_url_overrides
@@ -60,10 +60,10 @@ locals {
     signature_version             = "v4"
     files_presign_ttl             = "3600"
     files_public_bucket_name      = local.files_public_bucket_name
-    customer_invoices_bucket_name = "polar-sandbox-customer-invoices"
-    customer_receipts_bucket_name = "polar-sandbox-customer-receipts"
-    payout_invoices_bucket_name   = "polar-sandbox-payout-invoices"
-    logs_bucket_name              = "polar-sandbox-logs"
+    customer_invoices_bucket_name = "repalis-sandbox-customer-invoices"
+    customer_receipts_bucket_name = "repalis-sandbox-customer-receipts"
+    payout_invoices_bucket_name   = "repalis-sandbox-payout-invoices"
+    logs_bucket_name              = "repalis-sandbox-logs"
   }
 
   aws_s3_secrets = {
@@ -103,11 +103,11 @@ locals {
     password = var.grafana_cloud_prometheus_password
   }
 
-  polar_self_config = {
-    access_token     = var.polar_access_token
-    webhook_secret   = var.polar_webhook_secret
-    organization_id  = var.polar_organization_id
-    scale_product_id = var.polar_scale_product_id
+  repalis_self_config = {
+    access_token     = var.repalis_access_token
+    webhook_secret   = var.repalis_webhook_secret
+    organization_id  = var.repalis_organization_id
+    scale_product_id = var.repalis_scale_product_id
     api_url          = "https://sandbox-api.repalis.com"
   }
 
@@ -149,7 +149,7 @@ module "backend_environment" {
   logfire_config    = local.logfire_config
   apple_secrets     = local.apple_secrets
   prometheus_config = local.prometheus_config
-  polar_self_config = local.polar_self_config
+  repalis_self_config = local.repalis_self_config
   tinybird_config   = local.tinybird_config
 
   # Token only: without POLAR_SLACK_CHANNEL, invariant failures don't post to Slack.

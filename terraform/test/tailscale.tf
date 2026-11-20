@@ -6,7 +6,7 @@ variable "tailscale_version" {
 resource "aws_secretsmanager_secret" "ec2_tailscale" {
   count = local.test_enabled ? 1 : 0
 
-  name = "polar-test-ec2-tailscale"
+  name = "repalis-test-ec2-tailscale"
 
   tags = {
     Environment = "test"
@@ -27,7 +27,7 @@ module "ec2_tailscale" {
   count  = local.test_enabled ? 1 : 0
   source = "../modules/ec2_tailscale"
 
-  name                       = "polar-test-aws-router"
+  name                       = "repalis-test-aws-router"
   subnet_id                  = module.vpc[0].secondary_private_subnet_ids[0]
   advertise_routes           = module.vpc[0].secondary_private_subnet_cidr_blocks
   advertise_tags             = ["tag:router", "tag:test"]

@@ -185,7 +185,7 @@ locals {
 
     require_permissions_boundary = {
       name        = "RequirePermissionsBoundary"
-      description = "Require the Polar permission boundary on IAM roles and users created in workload accounts, and protect it from removal."
+      description = "Require the Repalis permission boundary on IAM roles and users created in workload accounts, and protect it from removal."
       target_ids  = [aws_organizations_organizational_unit.workloads.id]
       content = {
         Version = "2012-10-17"

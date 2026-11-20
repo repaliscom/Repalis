@@ -1,7 +1,7 @@
 data "aws_region" "current" {}
 
 locals {
-  full_name = "polar-${var.environment}-${var.name}"
+  full_name = "repalis-${var.environment}-${var.name}"
 
   aws_names = {
     log_group      = { value = "/ecs/${local.full_name}", max = 512 }

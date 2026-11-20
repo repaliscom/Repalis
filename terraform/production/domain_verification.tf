@@ -1,4 +1,4 @@
-resource "cloudflare_dns_record" "polar_domain_verification" {
+resource "cloudflare_dns_record" "repalis_domain_verification" {
   zone_id = "22bcd1b07ec25452aab472486bc8df94"
   name    = "_repalis-challenge.repalis.com"
   type    = "TXT"

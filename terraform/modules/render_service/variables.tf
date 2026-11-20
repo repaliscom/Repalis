@@ -31,8 +31,8 @@ variable "api_service_config" {
     web_concurrency        = optional(string, "2")
     forwarded_allow_ips    = optional(string, "*")
     database_pool_size     = optional(string, "10")
-    postgres_database      = optional(string, "polar_cpit")
-    postgres_read_database = optional(string, "polar_cpit")
+    postgres_database      = optional(string, "repalis_cpit")
+    postgres_read_database = optional(string, "repalis_cpit")
     pre_deploy_command     = optional(string, "uv run task pre_deploy")
     redis_db               = optional(string, "0")
     plan                   = optional(string, "standard")
@@ -252,7 +252,7 @@ variable "environment_groups" {
       POLAR_TINYBIRD_CLICKHOUSE_TOKEN    = string
       POLAR_TINYBIRD_WORKSPACE           = string
     })
-    polar_self = object({
+    repalis_self = object({
       POLAR_REPALIS_ACCESS_TOKEN     = string
       POLAR_REPALIS_WEBHOOK_SECRET   = string
       POLAR_REPALIS_ORGANIZATION_ID  = string

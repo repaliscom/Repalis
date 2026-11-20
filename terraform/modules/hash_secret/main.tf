@@ -13,7 +13,7 @@ terraform {
 #
 # One version per secret, AWSCURRENT on the one new hashes use, and a custom
 # staging label per version carrying the id that prefixes them. See
-# https://linear.app/polarsh/document/rotate-the-token-hashing-secret-d3411952efbf
+# https://linear.app/repalis/document/rotate-the-token-hashing-secret-d3411952efbf
 #
 # Never an aws_secretsmanager_secret_version here: it would put the value in
 # Terraform Cloud state in plaintext, which is what this replaces.
@@ -36,8 +36,8 @@ variable "role_name" {
 # No rotation_rules: built-in rotation retires versions on a timer, and AWS
 # cannot see the tail query that says when that is safe.
 resource "aws_secretsmanager_secret" "hash" {
-  name        = "polar-${var.environment}-hash-secret"
-  description = "Token hashing secrets for polar-${var.environment}, one per version"
+  name        = "repalis-${var.environment}-hash-secret"
+  description = "Token hashing secrets for repalis-${var.environment}, one per version"
 }
 
 data "aws_iam_policy_document" "hash" {
@@ -52,7 +52,7 @@ data "aws_iam_policy_document" "hash" {
 }
 
 resource "aws_iam_role_policy" "hash" {
-  name   = "polar-${var.environment}-hash-secret"
+  name   = "repalis-${var.environment}-hash-secret"
   role   = var.role_name
   policy = data.aws_iam_policy_document.hash.json
 }

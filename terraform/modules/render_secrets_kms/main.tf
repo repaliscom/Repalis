@@ -11,7 +11,7 @@ terraform {
 
 # KMS key that envelope-encrypts the app's secrets at rest, plus the IAM role
 # the Render backend assumes via OIDC to use it (no long-lived AWS keys).
-# Design: https://linear.app/polarsh/document/secrets-encryption-e53b64456f92
+# Design: https://linear.app/repalis/document/secrets-encryption-e53b64456f92
 
 variable "environment" {
   description = "Workload environment this runs in."
@@ -43,7 +43,7 @@ locals {
 }
 
 resource "aws_kms_key" "secrets" {
-  description             = "Envelope encryption master key for polar-${var.environment} secrets at rest"
+  description             = "Envelope encryption master key for repalis-${var.environment} secrets at rest"
   enable_key_rotation     = true
   deletion_window_in_days = 30
 
@@ -53,7 +53,7 @@ resource "aws_kms_key" "secrets" {
 }
 
 resource "aws_kms_alias" "secrets" {
-  name          = "alias/polar-${var.environment}-secrets"
+  name          = "alias/repalis-${var.environment}-secrets"
   target_key_id = aws_kms_key.secrets.key_id
 }
 
@@ -91,7 +91,7 @@ data "aws_iam_policy_document" "assume" {
 }
 
 resource "aws_iam_role" "secrets" {
-  name                 = "polar-${var.environment}-secrets"
+  name                 = "repalis-${var.environment}-secrets"
   assume_role_policy   = data.aws_iam_policy_document.assume.json
   permissions_boundary = var.permissions_boundary_arn
 }
@@ -108,7 +108,7 @@ data "aws_iam_policy_document" "secrets" {
 }
 
 resource "aws_iam_role_policy" "secrets" {
-  name   = "polar-${var.environment}-secrets"
+  name   = "repalis-${var.environment}-secrets"
   role   = aws_iam_role.secrets.id
   policy = data.aws_iam_policy_document.secrets.json
 }

@@ -69,13 +69,13 @@ data "aws_iam_policy_document" "boundary" {
   }
 
   statement {
-    sid    = "DenyAssumingOrPassingNonPolarRoles"
+    sid    = "DenyAssumingOrPassingNonRepalisRoles"
     effect = "Deny"
     actions = [
       "sts:AssumeRole",
       "iam:PassRole",
     ]
-    not_resources = ["arn:${data.aws_partition.current.partition}:iam::*:role/polar-*"]
+    not_resources = ["arn:${data.aws_partition.current.partition}:iam::*:role/repalis-*"]
   }
 
   statement {

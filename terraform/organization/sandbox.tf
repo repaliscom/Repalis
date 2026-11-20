@@ -6,7 +6,7 @@ module "sandbox_s3_buckets" {
 
   environment                 = "sandbox"
   allowed_origins             = ["https://sandbox.repalis.com"]
-  public_files_bucket_name    = "polar-public-sandbox-files"
+  public_files_bucket_name    = "repalis-public-sandbox-files"
   malware_protection_enabled  = true
   malware_protection_role_arn = module.sandbox_malware_protection.role_arn
   app_access_account_id       = local.workload_accounts.sandbox.id
@@ -33,7 +33,7 @@ module "sandbox_athena_spans" {
   }
 
   environment      = "sandbox"
-  logs_bucket_name = "polar-sandbox-logs"
+  logs_bucket_name = "repalis-sandbox-logs"
 }
 
 data "aws_s3_object" "sandbox_image_resizer_package" {
@@ -47,7 +47,7 @@ module "sandbox_image_resizer" {
     aws = aws
   }
 
-  function_name            = "polar-sandbox-image-resizer"
+  function_name            = "repalis-sandbox-image-resizer"
   s3_bucket                = aws_s3_bucket.production_lambda_artifacts.id
   s3_key                   = data.aws_s3_object.sandbox_image_resizer_package.key
   s3_object_version        = data.aws_s3_object.sandbox_image_resizer_package.version_id
@@ -62,7 +62,7 @@ module "sandbox_cloudfront_assets" {
     aws.us_east_1 = aws
   }
 
-  name                           = "polar-sandbox-public-files"
+  name                           = "repalis-sandbox-public-files"
   domain                         = "sandbox-uploads.repalis.com"
   cloudflare_zone_id             = "22bcd1b07ec25452aab472486bc8df94"
   s3_bucket_id                   = module.sandbox_s3_buckets.public_files_bucket_id
@@ -86,7 +86,7 @@ module "sandbox_cloudfront_cdn" {
     aws.us_east_1 = aws
   }
 
-  name                           = "polar-sandbox-cdn"
+  name                           = "repalis-sandbox-cdn"
   domain                         = "sandbox-cdn.repalis.com"
   cloudflare_zone_id             = "22bcd1b07ec25452aab472486bc8df94"
   s3_bucket_id                   = module.sandbox_s3_buckets.public_assets_bucket_id

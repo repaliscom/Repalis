@@ -1,4 +1,4 @@
-# Polar Vercel project setup
+# Repalis Vercel project setup
 #
 # One Vercel project per environment (production, sandbox), its custom domains
 # and its environment variables. Env vars are managed via the dedicated
@@ -38,7 +38,7 @@ resource "vercel_project" "this" {
 locals {
   # Identical across all environments (same key, value and target everywhere).
   shared_environment_variables = [
-    { key = "SENTRY_ORG", value = "polar-sh", target = ["production", "preview"] },
+    { key = "SENTRY_ORG", value = "repalis", target = ["production", "preview"] },
     { key = "SENTRY_PROJECT", value = "dashboard", target = ["production", "preview"] },
   ]
 
@@ -56,7 +56,7 @@ locals {
     { key = "S3_PUBLIC_IMAGES_BUCKET_PORT", value = var.config.s3_public_images_bucket_port },
     { key = "S3_PUBLIC_IMAGES_BUCKET_PATHNAME", value = var.config.s3_public_images_bucket_pathname },
     { key = "S3_UPLOAD_ORIGINS", value = var.config.s3_upload_origins },
-    { key = "REPALIS_CHECKOUT_EMBED_SCRIPT_ALLOWED_ORIGINS", value = var.config.polar_checkout_embed_script_allowed_origins },
+    { key = "REPALIS_CHECKOUT_EMBED_SCRIPT_ALLOWED_ORIGINS", value = var.config.repalis_checkout_embed_script_allowed_origins },
     { key = "ENABLE_EXPERIMENTAL_COREPACK", value = var.config.enable_experimental_corepack },
   ]
 
