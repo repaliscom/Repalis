@@ -169,7 +169,7 @@ importers:
 
   .:
     dependencies:
-      '@polar-sh/sdk':
+      '@repalis/sdk':
         specifier: link:../typescript
         version: link:../typescript
       ioredis:
