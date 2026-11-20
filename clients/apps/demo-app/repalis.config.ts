@@ -1,4 +1,4 @@
-import { defineConfig, eur, perThousand, usd } from '@polar-sh/polar'
+import { defineConfig, eur, perThousand, usd } from '@repalis/repalis'
 import { z } from 'zod'
 
 export default defineConfig({

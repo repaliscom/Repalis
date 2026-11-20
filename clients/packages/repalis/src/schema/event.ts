@@ -52,10 +52,10 @@ export type SharedEventOutput<
 > = Shared<EventOutput<Events[Name]>>
 
 export const eventKey: unique symbol = Symbol.for(
-  '~@polar-sh/polar/EventReference',
+  '~@repalis/repalis/EventReference',
 )
 export const propertyKey: unique symbol = Symbol.for(
-  '~@polar-sh/polar/PropertyReference',
+  '~@repalis/repalis/PropertyReference',
 )
 declare const valueType: unique symbol
 

@@ -1,4 +1,4 @@
-import { errors, RuntimeSDK } from '@polar-sh/polar'
+import { errors, RuntimeSDK } from '@repalis/repalis'
 import { log } from './log'
 import config from './repalis.config'
 

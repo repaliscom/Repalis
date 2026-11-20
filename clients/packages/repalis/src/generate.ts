@@ -122,7 +122,7 @@ const scaleHelpers: Partial<Record<Scale, string>> = {
   1_000_000: 'perMillion',
 }
 
-// The currencies `@polar-sh/polar` exports a helper for.
+// The currencies `@repalis/repalis` exports a helper for.
 const shorthands: Partial<Record<Currency, string>> = {
   usd: 'usd',
   eur: 'eur',
@@ -468,7 +468,7 @@ export const generateConfig = Effect.fnUntraced(function* (input: unknown) {
       : [`  settings: ${JSON.stringify(config.settings)},`]
 
   return [
-    `import { ${[...imports].join(', ')} } from '@polar-sh/polar'`,
+    `import { ${[...imports].join(', ')} } from '@repalis/repalis'`,
     '',
     'export default defineConfig({',
     ...settings,

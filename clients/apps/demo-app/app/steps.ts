@@ -63,7 +63,7 @@ export const STEPS: StepDefinition[] = [
       },
       {
         name: 'repalis.ts',
-        code: `import { RuntimeSDK } from '@polar-sh/polar'
+        code: `import { RuntimeSDK } from '@repalis/repalis'
 import config from './repalis.config'
 
 export const polar = RuntimeSDK(config, {

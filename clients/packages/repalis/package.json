@@ -1,7 +1,7 @@
 {
-  "name": "@polar-sh/polar",
-  "description": "We really need to remember to change this package name.",
-  "author": "Polar",
+  "name": "@repalis/repalis",
+  "description": "Repalis configuration and runtime SDK.",
+  "author": "Repalis",
   "license": "Apache-2.0",
   "type": "module",
   "private": true,
@@ -9,7 +9,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/repaliscom/Repalis.git",
-    "directory": "clients/packages/polar"
+    "directory": "clients/packages/repalis"
   },
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",

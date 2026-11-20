@@ -1,4 +1,4 @@
-import { defineWebhookHandler } from '@polar-sh/polar'
+import { defineWebhookHandler } from '@repalis/repalis'
 import type config from './repalis.config'
 import { polar } from './repalis'
 

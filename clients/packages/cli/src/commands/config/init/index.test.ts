@@ -38,7 +38,7 @@ const live: ActiveOrganization = {
   environment: 'production',
 }
 
-const INSTALL = ['pnpm', 'add', '@polar-sh/polar']
+const INSTALL = ['pnpm', 'add', '@repalis/repalis']
 
 const claude: ClientStatus = {
   client: 'claude-code',
@@ -237,17 +237,17 @@ describe('polar config init', () => {
   test('keeps the install command in the next steps when it fails or is skipped', async () => {
     const failed = await run([], {}, { install: INSTALL, installs: false })
     expect(failed.output).toContain(
-      '✖ Installing @polar-sh/polar\n    pnpm add @polar-sh/polar',
+      '✖ Installing @repalis/repalis\n    pnpm add @repalis/repalis',
     )
     expect(failed.output).toContain('ERR_PNPM_FETCH_404')
     expect(failed.output).toContain(
-      'Install the config package: pnpm add @polar-sh/polar',
+      'Install the config package: pnpm add @repalis/repalis',
     )
 
     const skipped = await run(['--skip-install'], {}, { install: INSTALL })
     expect(skipped.installed).toEqual([])
     expect(skipped.output).toContain(
-      'Install the config package: pnpm add @polar-sh/polar',
+      'Install the config package: pnpm add @repalis/repalis',
     )
   })
 
@@ -381,7 +381,7 @@ describe('polar config init', () => {
 
     expect(terminal).not.toContain('Which format should the config be in?')
     expect(terminal).not.toContain('Where do you want to start?')
-    expect(terminal).toContain('Install @polar-sh/polar with')
+    expect(terminal).toContain('Install @repalis/repalis with')
     expect(output.replace(/\r/g, '')).toContain('now?\n    Yes\n')
     expect(installed).toHaveLength(1)
   })
@@ -481,7 +481,7 @@ describe('polar config init', () => {
       keyed: [],
       skipped: [],
       already_enabled: false,
-      install: { command: 'pnpm add @polar-sh/polar', status: 'installed' },
+      install: { command: 'pnpm add @repalis/repalis', status: 'installed' },
       organization: acme,
       next: [
         'Describe your meters, benefits and products in polar.config.ts',

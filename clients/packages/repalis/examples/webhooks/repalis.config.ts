@@ -1,4 +1,4 @@
-import { defineConfig } from '@polar-sh/polar'
+import { defineConfig } from '@repalis/repalis'
 import { z } from 'zod'
 
 export default defineConfig({

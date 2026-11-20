@@ -749,7 +749,7 @@ importers:
 
   apps/demo-app:
     dependencies:
-      '@polar-sh/polar':
+      '@repalis/repalis':
         specifier: workspace:*
         version: link:../../packages/polar
       next:
@@ -1267,7 +1267,7 @@ importers:
       '@polar-sh/cli-commands':
         specifier: file:../../../sdk/cli-commands
         version: file:../sdk/cli-commands(@polar-sh/sdk@1.0.3-alpha.4(ioredis@5.11.1(supports-color@10.2.2))(ws@8.22.0))(effect@4.0.1)
-      '@polar-sh/polar':
+      '@repalis/repalis':
         specifier: workspace:*
         version: link:../polar
       '@polar-sh/sdk':

@@ -126,12 +126,12 @@ describe('init', () => {
       imported: { meters: 0, benefits: 0, products: 0 },
       keyed: [],
       skipped: [],
-      install: ['npm', 'install', '@polar-sh/polar'],
+      install: ['npm', 'install', '@repalis/repalis'],
       installDirectory: directory,
       already_enabled: false,
     })
     expect(await read('polar.config.ts')).toContain(
-      "import { defineConfig } from '@polar-sh/polar'",
+      "import { defineConfig } from '@repalis/repalis'",
     )
     expect(api.requests[0]!.headers.get('Polar-Organization')).toBe('org-1')
   })
@@ -219,35 +219,35 @@ describe('init', () => {
     expect((await run({ file: 'a.ts' })).install).toEqual([
       'yarn',
       'add',
-      '@polar-sh/polar',
+      '@repalis/repalis',
     ])
 
     await writeFile(join(directory, 'pnpm-lock.yaml'), '')
     expect((await run({ file: 'b.ts' })).install).toEqual([
       'pnpm',
       'add',
-      '@polar-sh/polar',
+      '@repalis/repalis',
     ])
   })
 
   test('has nothing to install once package.json declares the package, or without a package.json', async () => {
     expect((await run({ file: 'a.ts' })).install).toBeUndefined()
 
-    await project('{"devDependencies":{"@polar-sh/polar":"^1.0.0"}}')
+    await project('{"devDependencies":{"@repalis/repalis":"^1.0.0"}}')
     expect((await run({ file: 'b.ts' })).install).toBeUndefined()
   })
 
   test('installs when the package is only left over in node_modules', async () => {
     await project()
-    await mkdir(join(directory, 'node_modules/@polar-sh/polar'), {
+    await mkdir(join(directory, 'node_modules/@repalis/repalis'), {
       recursive: true,
     })
     await writeFile(
-      join(directory, 'node_modules/@polar-sh/polar/package.json'),
+      join(directory, 'node_modules/@repalis/repalis/package.json'),
       '{}',
     )
 
-    expect((await run()).install).toEqual(['npm', 'install', '@polar-sh/polar'])
+    expect((await run()).install).toEqual(['npm', 'install', '@repalis/repalis'])
   })
 
   test('installs into the project root for a path given from a subdirectory', async () => {
@@ -257,7 +257,7 @@ describe('init', () => {
 
     const result = await run({ directory: process.cwd(), file: 'a.ts' })
 
-    expect(result.install).toEqual(['npm', 'install', '@polar-sh/polar'])
+    expect(result.install).toEqual(['npm', 'install', '@repalis/repalis'])
     expect(result.installDirectory).toBe(directory)
   })
 
@@ -269,7 +269,7 @@ describe('init', () => {
 
     const result = await run({ directory: workspacePackage })
 
-    expect(result.install).toEqual(['pnpm', 'add', '@polar-sh/polar'])
+    expect(result.install).toEqual(['pnpm', 'add', '@repalis/repalis'])
     expect(result.installDirectory).toBe(workspacePackage)
   })
 
