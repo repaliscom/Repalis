@@ -61,7 +61,7 @@ export function downloadCsvExport<T extends string>(
   for (const column of selection.columns) {
     url.searchParams.append('columns', column)
   }
-  return downloadExport(url, `polar-${endpoint.split('/')[2]}.csv`)
+  return downloadExport(url, `repalis-${endpoint.split('/')[2]}.csv`)
 }
 
 // fetch instead of window.open: versioned query params need the Repalis-Version header

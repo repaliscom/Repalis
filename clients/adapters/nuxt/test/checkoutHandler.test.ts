@@ -83,7 +83,7 @@ describe('Checkout', () => {
   })
 
   describe('seats', () => {
-    it('forwards seats to polar.checkouts.create when ?seats=5 is provided', async () => {
+    it('forwards seats to repalis.checkouts.create when ?seats=5 is provided', async () => {
       const checkout = Checkout({ accessToken: 'test-token' })
       const event = makeEvent('/api/checkout?products=prod_123&seats=5')
       await checkout(event)
@@ -239,7 +239,7 @@ describe('Checkout', () => {
       consoleSpy.mockRestore()
     })
 
-    it('redirects to the URL returned by polar.checkouts.create', async () => {
+    it('redirects to the URL returned by repalis.checkouts.create', async () => {
       const checkout = Checkout({ accessToken: 'test-token' })
       const event = makeEvent('/api/checkout?products=prod_123&seats=5')
       await checkout(event)

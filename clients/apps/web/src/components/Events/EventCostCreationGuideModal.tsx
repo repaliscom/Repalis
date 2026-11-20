@@ -21,9 +21,9 @@ export const EventCostCreationGuideModal = () => {
         <Well className="dark:bg-repalis-800 rounded-lg bg-gray-100 p-4 text-sm">
           <SyntaxHighlighterClient
             lang="typescript"
-            code={`import { Polar } from "@repalis/sdk";
+            code={`import { Repalis } from "@repalis/sdk";
 
-const polar = new Polar({
+const repalis = new Repalis({
   accessToken: process.env["REPALIS_ACCESS_TOKEN"] ?? "",
 });
 

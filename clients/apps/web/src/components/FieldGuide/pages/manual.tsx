@@ -358,11 +358,11 @@ export const manual: Piece[] = [
     },
   ),
 
-  // 0b The CLI: a `polar apply` session, set as typography. Gutter markers, bars beside blocks, inverted lines for changes.
+  // 0b The CLI: a `repalis apply` session, set as typography. Gutter markers, bars beside blocks, inverted lines for changes.
   page(
     'm-cli',
     'Review and apply',
-    'A transcript of `polar apply`: the plan, the diff, the confirmation, and the changes it made. The CLI takes a billing definition from a file to production. Chapter 1.',
+    'A transcript of `repalis apply`: the plan, the diff, the confirmation, and the changes it made. The CLI takes a billing definition from a file to production. Chapter 1.',
     960,
     540,
     2,
@@ -370,7 +370,7 @@ export const manual: Piece[] = [
       const { line } = term(70, 150, 8, 11.6)
       const D = (t: string): TermTok => ({ t, tone: 'dim' })
       const rows: TermTok[][] = [
-        [{ t: '$ ' }, { t: 'polar apply' }, D(' --env prod')],
+        [{ t: '$ ' }, { t: 'repalis apply' }, D(' --env prod')],
         [],
         [D('Reading   '), { t: 'repalis.config.ts' }],
         [D('Found     '), { t: '1 event, 1 meter, 2 products' }],

@@ -265,9 +265,9 @@ export const upgradeWithPackageManager = (
       return yield* new UpdaterError({
         message: `${command.join(' ')} exited with code ${result.code}`,
         hint: inherit
-          ? 'Fix the issue above, then run polar update again.'
+          ? 'Fix the issue above, then run repalis update again.'
           : result.stderr.trim() ||
-            'Run polar update again without --json to see the output.',
+            'Run repalis update again without --json to see the output.',
       })
     }
   })

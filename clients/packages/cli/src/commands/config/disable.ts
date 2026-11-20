@@ -56,7 +56,7 @@ const render = (organization: ActiveOrganization) => [
     [
       `${ui.INDENT}Edit products, benefits and meters in the dashboard.`,
       `${ui.INDENT}Your config file was left untouched. Remove it if you no longer use config,`,
-      `${ui.INDENT}or before running ${ui.command('polar config init')} to start again.`,
+      `${ui.INDENT}or before running ${ui.command('repalis config init')} to start again.`,
     ].join('\n'),
   ),
   ui.blank,
@@ -68,11 +68,11 @@ export const disable = Command.make('disable', { org, confirmed }).pipe(
   ),
   Command.withExamples([
     {
-      command: 'polar config disable',
+      command: 'repalis config disable',
       description: 'Disable config after confirmation',
     },
     {
-      command: 'polar config disable --org acme --confirm',
+      command: 'repalis config disable --org acme --confirm',
       description: 'Disable config for another organization without asking',
     },
   ]),

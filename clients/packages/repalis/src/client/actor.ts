@@ -15,7 +15,7 @@ import type {
 import type { EventInput, EventMetadata, EventSchema } from '../schema/event'
 import type { Metadata } from '../schema/metadata'
 import type { EventConfig, RuntimeSDKConfig } from '../schema/runtime'
-import type { models, Polar } from '../sdk'
+import type { models, Repalis } from '../sdk'
 
 export type MeterBalance = {
   balance: number

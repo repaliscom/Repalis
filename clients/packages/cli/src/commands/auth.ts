@@ -422,11 +422,11 @@ const logout = Command.make('logout', {
   Command.withDescription('Sign out and remove saved sessions'),
   Command.withExamples([
     {
-      command: 'polar auth logout',
+      command: 'repalis auth logout',
       description: 'Sign out, asking which session only if you have both',
     },
     {
-      command: 'polar auth logout --all',
+      command: 'repalis auth logout --all',
       description: 'Remove every saved session',
     },
   ]),

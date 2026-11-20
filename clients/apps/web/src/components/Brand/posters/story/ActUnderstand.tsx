@@ -62,7 +62,7 @@ export const AgentPoster = () => (
           </Text>
         </Box>
         <Box flexDirection="column" rowGap="xs">
-          <PosterMono dim>POLAR</PosterMono>
+          <PosterMono dim>REPALIS</PosterMono>
           <Text
             variant="heading-xxs"
             as="p"

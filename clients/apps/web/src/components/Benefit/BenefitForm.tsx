@@ -227,7 +227,7 @@ const DiscordBenefitForm = ({
     if (!discordGuild) {
       return undefined
     }
-    return discordGuild.roles.find(({ is_polar_bot }) => is_polar_bot)?.position
+    return discordGuild.roles.find(({ is_repalis_bot }) => is_repalis_bot)?.position
   }, [discordGuild])
 
   return (
@@ -277,7 +277,7 @@ const DiscordBenefitForm = ({
                         <SelectGroup>
                           {repalisBotRolePosition &&
                             discordGuild.roles.map((role, index) =>
-                              role.is_polar_bot ? (
+                              role.is_repalis_bot ? (
                                 <React.Fragment key={role.id}>
                                   {index > 0 && ( // Don't show it if it's already first
                                     <>

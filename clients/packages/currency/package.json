@@ -1,7 +1,7 @@
 {
   "name": "@repalis/currency",
-  "description": "Polar Currency Utilities",
-  "author": "Polar",
+  "description": "Repalis Currency Utilities",
+  "author": "Repalis",
   "license": "Apache-2.0",
   "type": "module",
   "private": true,

@@ -1,8 +1,8 @@
 {
   "name": "@repalis/i18n",
   "version": "0.1.0",
-  "description": "Polar i18n - Locale files and translation utilities",
-  "author": "Polar",
+  "description": "Repalis i18n - Locale files and translation utilities",
+  "author": "Repalis",
   "license": "Apache-2.0",
   "type": "module",
   "private": true,

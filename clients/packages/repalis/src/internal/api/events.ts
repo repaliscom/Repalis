@@ -1,4 +1,4 @@
-import type { models, Polar } from '../../sdk'
+import type { models, Repalis } from '../../sdk'
 import type { MemberIdentifier } from './utils'
 
 export type IngestedEvent = {

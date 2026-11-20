@@ -76,7 +76,7 @@ describe('apiUrl', () => {
 
 describe('describeApiFailure', () => {
   test.each([
-    [401, 'Authentication rejected for sandbox', 'polar auth login --sandbox'],
+    [401, 'Authentication rejected for sandbox', 'repalis auth login --sandbox'],
     [403, 'You do not have access to this organization', 'webhooks:write'],
     [404, 'could not be found in sandbox', 'polar auth org'],
     [503, 'returned an error (503)', 'try again shortly'],

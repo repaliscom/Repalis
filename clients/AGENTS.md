@@ -60,7 +60,7 @@ are not.
   in state or an effect.
 - react-hook-form: read values with `useWatch({ control, name })` and state with
   `useFormState({ control })`. Never call `watch()` or read `formState` in render; the
-  `react/incompatible-library` and `polar/no-form-state-read` lint rules reject it. This applies in
+  `react/incompatible-library` and `repalis/no-form-state-read` lint rules reject it. This applies in
   `packages/checkout` and `packages/ui` too, since the web app compiles their source.
 - An `oxlint-disable` of any `react/*` rule turns the compiler off for that whole component. Fix
   the code instead.
@@ -89,7 +89,7 @@ clients/
 │   │       └── ui/             # shadcn/ui base components
 │   ├── client/                 # Generated API client
 │   ├── checkout/               # Checkout package
-│   └── orbit/                  # Polar's design system containing components, design tokens, etc.
+│   └── orbit/                  # Repalis's design system containing components, design tokens, etc.
 ```
 
 ## UI Authoring Rule (READ FIRST)

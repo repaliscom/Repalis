@@ -263,7 +263,7 @@ export const fakeOAuth = (
   return { oauth, state }
 }
 
-interface PolarState {
+interface RepalisState {
   requests: Array<{
     environment: RepalisEnvironment
     organizationId: string | undefined
@@ -271,7 +271,7 @@ interface PolarState {
 }
 
 export const fakeRepalis = (client: unknown) => {
-  const state: PolarState = { requests: [] }
+  const state: RepalisState = { requests: [] }
   const sdk = client as RepalisSDK
   const repalis = Repalis.of({
     getClient: () => Effect.succeed(sdk),
@@ -296,7 +296,7 @@ export const fakeRepalis = (client: unknown) => {
           }),
       }),
   })
-  return { polar, state }
+  return { repalis, state }
 }
 
 interface TriggerState {

@@ -52,12 +52,12 @@ describe('describeError', () => {
       describeError(
         new ApiCommandError({
           message: 'Missing required flag --prices',
-          hint: 'Example: polar products create',
+          hint: 'Example: repalis products create',
         }),
       ),
     ).toEqual({
       title: 'Missing required flag --prices',
-      hint: 'Example: polar products create',
+      hint: 'Example: repalis products create',
     })
     expect(describeError(new ApiCommandError({ message: 'Nope' }))).toEqual({
       title: 'Nope',
@@ -73,7 +73,7 @@ describe('describeError', () => {
   test.each([
     [403, 'You do not have access to this organization.'],
     [404, 'The organization could not be found.'],
-    [503, 'The Polar API may be having issues, try again shortly.'],
+    [503, 'The Repalis API may be having issues, try again shortly.'],
   ])('hints listen errors with status %d', (code, hint) => {
     expect(
       describeError(new ListenError({ message: 'Listen failed', code })),

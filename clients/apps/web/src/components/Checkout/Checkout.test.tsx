@@ -132,7 +132,7 @@ describe('Checkout page', () => {
     })
 
     expect(
-      (await screen.findAllByText('Polar Penguin is in test mode')).length,
+      (await screen.findAllByText('Repalis Penguin is in test mode')).length,
     ).toBeGreaterThan(0)
     expect(screen.getByRole('button', { name: 'Get for free' })).toBeEnabled()
     expect(
@@ -158,7 +158,7 @@ describe('Checkout page', () => {
     })
     expect(accountReviewLink).toHaveAttribute(
       'href',
-      '/dashboard/polar-penguin/finance/account',
+      '/dashboard/repalis-penguin/finance/account',
     )
   })
 
@@ -174,7 +174,7 @@ describe('Checkout page', () => {
 
     await waitFor(() =>
       expect(router.push).toHaveBeenCalledWith(
-        '/polar-penguin/portal/request?email=jane%40example.com',
+        '/repalis-penguin/portal/request?email=jane%40example.com',
       ),
     )
   })

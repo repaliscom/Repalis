@@ -393,7 +393,7 @@ describe('redact', () => {
     ],
     [
       'Polar tokens of every kind',
-      'repalis_oat_AbC123 repalis_pat_x-y.z polar_at_q polar_ci_gBnJ',
+      'repalis_oat_AbC123 repalis_pat_x-y.z repalis_at_q repalis_ci_gBnJ',
       '<redacted> <redacted> <redacted> <redacted>',
     ],
     [
@@ -491,7 +491,7 @@ describe('redact', () => {
     const long = `${'try again '.repeat(30)}repalis_oat_secret ${'x '.repeat(50)}`
     const result = redact(long)
     expect(result).toHaveLength(200)
-    expect(result).not.toContain('polar_oat')
+    expect(result).not.toContain('repalis_oat')
   })
 
   test('stays fast on very long messages', () => {

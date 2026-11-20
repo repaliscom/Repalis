@@ -23,9 +23,9 @@ export const sdkHint = (environment: RepalisEnvironment) =>
       case 'production':
         return undefined
       case 'sandbox':
-        return "This is a sandbox token. Pass server: 'sandbox' to your Polar SDK."
+        return "This is a sandbox token. Pass server: 'sandbox' to your Repalis SDK."
       case 'local':
-        return `This is a local token. Pass serverURL: '${yield* apiOrigin('local')}' to your Polar SDK.`
+        return `This is a local token. Pass serverURL: '${yield* apiOrigin('local')}' to your Repalis SDK.`
     }
   })
 

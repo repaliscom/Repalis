@@ -44,7 +44,7 @@ export const parseExternalIds = (values: ReadonlyArray<string>) =>
       if (separator === -1 || id === '' || key === '') {
         return yield* new BillingConfigError({
           message: `--external-id ${value} is not <id>=<external ID>`,
-          hint: 'Run polar config init --json to list the IDs that need one.',
+          hint: 'Run repalis config init --json to list the IDs that need one.',
         })
       }
       if (!isExternalId(key)) {
@@ -182,7 +182,7 @@ const review = (
       if (choice === 'cancel') {
         return yield* new BillingConfigError({
           message: 'Cancelled: nothing was written',
-          hint: 'Run polar config init again when you are ready.',
+          hint: 'Run repalis config init again when you are ready.',
         })
       }
       chosen = yield* edit(editable, chosen, catalog)
@@ -207,7 +207,7 @@ const checkGiven = (
     : Effect.fail(
         new BillingConfigError({
           message: `No meter, benefit or product without an external ID has the ID ${unknown.join(', ')}`,
-          hint: 'Run polar config init --json to list the IDs that need one.',
+          hint: 'Run repalis config init --json to list the IDs that need one.',
         }),
       )
 }

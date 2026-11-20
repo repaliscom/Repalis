@@ -91,7 +91,7 @@ export const CustomerPortalSettings = ({
         const url = URL.createObjectURL(blob)
         const a = document.createElement('a')
         a.href = url
-        a.download = `polar-customer-export-${customer?.id ?? 'data'}.json`
+        a.download = `repalis-customer-export-${customer?.id ?? 'data'}.json`
         document.body.appendChild(a)
         a.click()
         document.body.removeChild(a)

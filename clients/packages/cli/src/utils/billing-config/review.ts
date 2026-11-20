@@ -35,9 +35,9 @@ export const catalogChange = (
   `${before === null ? dim('none') : (before.name ?? dim('unnamed'))} ${dim('→')} ${name} ${dim('(draft)')}`
 
 export const fixErrors = (issues: ReadonlyArray<ConfigIssue>) =>
-  `${ui.INDENT}Fix the ${errors(issues) === 1 ? 'error' : `${errors(issues)} errors`} above, then run ${ui.command('polar config plan')} again.`
+  `${ui.INDENT}Fix the ${errors(issues) === 1 ? 'error' : `${errors(issues)} errors`} above, then run ${ui.command('repalis config plan')} again.`
 
-export const runApply = `${ui.INDENT}Run ${ui.command('polar config apply')} to apply it.`
+export const runApply = `${ui.INDENT}Run ${ui.command('repalis config apply')} to apply it.`
 
 export const unchanged = (entries: ReadonlyArray<AppliedEntry>) =>
   entries.every((entry) => entry.action === 'unchanged')

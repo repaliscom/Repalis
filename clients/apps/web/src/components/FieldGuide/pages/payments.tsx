@@ -88,7 +88,7 @@ const ARROW_Y = Y + SH_H / 2
 
 const figure = (
   <>
-    {text(INV_X, Y - 12, 'POLAR · THE AMOUNT', DIM, 'start')}
+    {text(INV_X, Y - 12, 'REPALIS · THE AMOUNT', DIM, 'start')}
     {box(INV_X)}
     {text(INV_X + 12, Y + 16, 'INVOICE · acme', LINE, 'start')}
     {rule(INV_X, Y + 24)}

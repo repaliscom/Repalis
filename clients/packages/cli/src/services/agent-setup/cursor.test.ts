@@ -20,7 +20,7 @@ test('adds the Polar servers to mcp.json without touching what is there', async 
   // my servers
   "mcpServers": {
     "linear": { "url": "https://mcp.linear.app/mcp" },
-    "polar": { "url": "http://127.0.0.1:9000/mcp" }
+    "repalis": { "url": "http://127.0.0.1:9000/mcp" }
   }
 }
 `,
@@ -45,7 +45,7 @@ test('refuses to edit an mcp.json that is not valid JSON', async () => {
   const home = await mkdtemp(join(tmpdir(), 'repalis-cursor-'))
   const file = join(home, '.cursor', 'mcp.json')
   await mkdir(join(home, '.cursor'))
-  await writeFile(file, '{ "mcpServers": { "polar": {')
+  await writeFile(file, '{ "mcpServers": { "repalis": {')
   const error = await Effect.runPromise(
     configureCursorMcp(home).pipe(
       Effect.flip,
@@ -56,5 +56,5 @@ test('refuses to edit an mcp.json that is not valid JSON', async () => {
   await rm(home, { recursive: true, force: true })
 
   expect(error.message).toBe(`${file} is not valid JSON`)
-  expect(source).toBe('{ "mcpServers": { "polar": {')
+  expect(source).toBe('{ "mcpServers": { "repalis": {')
 })

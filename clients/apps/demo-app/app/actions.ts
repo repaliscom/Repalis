@@ -9,7 +9,7 @@ import {
   ensureFreePlan,
   grantSurveyCredits,
   isPro,
-  polar,
+  repalis,
   purchaseTopUp,
   type TopUp,
 } from '../repalis'
@@ -49,7 +49,7 @@ export async function getBalance() {
   const externalId = await getExternalCustomerId()
   if (!externalId) redirect('/')
 
-  return polar.actor({ externalCustomerId: externalId }).balance('tool_call')
+  return repalis.actor({ externalCustomerId: externalId }).balance('tool_call')
 }
 
 export async function upgrade() {

@@ -14,10 +14,10 @@ const releasesUrl =
 let home: string
 let http: ReturnType<typeof fakeHttp>
 
-const stateFile = () => join(home, '.polar', 'update-check.json')
+const stateFile = () => join(home, '.repalis', 'update-check.json')
 
 const writeState = async (state: unknown) => {
-  await mkdir(join(home, '.polar'), { recursive: true })
+  await mkdir(join(home, '.repalis'), { recursive: true })
   await writeFile(
     stateFile(),
     typeof state === 'string' ? state : JSON.stringify(state),
@@ -38,7 +38,7 @@ const check = () =>
   Effect.runPromise(checkForUpdate({ home }).pipe(Effect.provide(http.layer)))
 
 beforeEach(async () => {
-  home = await mkdtemp(join(tmpdir(), 'polar-home-'))
+  home = await mkdtemp(join(tmpdir(), 'repalis-home-'))
   http = fakeHttp()
 })
 

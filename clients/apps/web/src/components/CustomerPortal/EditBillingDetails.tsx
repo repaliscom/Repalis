@@ -22,7 +22,7 @@ import { useForm, useWatch, useFormState } from 'react-hook-form'
 
 type CustomerPortalCustomerUpdate = schemas['CustomerPortalCustomerUpdate']
 
-// Mirrors the checkout requirements in server/polar/models/checkout.py
+// Mirrors the checkout requirements in server/repalis/models/checkout.py
 const LINE1_REQUIRED_COUNTRIES = ['US']
 const CITY_REQUIRED_COUNTRIES = ['US', 'BR']
 const POSTAL_CODE_REQUIRED_COUNTRIES = ['US', 'ES', 'PT']

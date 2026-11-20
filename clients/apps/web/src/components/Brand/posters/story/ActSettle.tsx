@@ -42,7 +42,7 @@ export const PayoutPoster = () => (
 const SETTLEMENT: { label: string; amount: string; endpoint?: boolean }[] = [
   { label: 'CUSTOMER PAYS', amount: '$35.51', endpoint: true },
   { label: 'VAT REMITTED', amount: '-$7.10' },
-  { label: 'POLAR FEE 3.40% + 30¢', amount: '-$1.51' },
+  { label: 'REPALIS FEE 3.40% + 30¢', amount: '-$1.51' },
   { label: 'YOU RECEIVE', amount: '$26.90', endpoint: true },
 ]
 

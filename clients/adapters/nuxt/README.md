@@ -102,7 +102,7 @@ export default defineEventHandler((event) => {
 A simple utility which resolves incoming webhook payloads by verifying their signature with your webhook secret.
 
 ```typescript
-// server/routes/webhook/polar.post.ts
+// server/routes/webhook/repalis.post.ts
 export default defineEventHandler((event) => {
   const {
     private: { repalisWebhookSecret },

@@ -69,7 +69,7 @@ const figure = (
 
     {arrow(GATE_C, ROW + BH, GATE_C, DOWN)}
     <Anchor at={[GATE_C, ROW + BH]} />
-    {box(GATE_X, DOWN, 'POLAR', 'event log')}
+    {box(GATE_X, DOWN, 'REPALIS', 'event log')}
     <Callout
       at={[GATE_C, (ROW + BH + DOWN) / 2]}
       to={[GATE_C + 40, (ROW + BH + DOWN) / 2]}
