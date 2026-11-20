@@ -1,6 +1,6 @@
 # Polar TypeScript SDK
 
-The official TypeScript client for the [Polar API](https://polar.sh/docs/api-reference).
+The official TypeScript client for the [Repalis API](https://repalis.com/docs/api-reference).
 
 ## Installation
 
@@ -16,7 +16,7 @@ npm install @polar-sh/sdk
 
 ## Quick Start
 
-Create an [organization access token](https://polar.sh/docs/integrate/oat) and use the client for
+Create an [organization access token](https://repalis.com/docs/integrate/oat) and use the client for
 the current API version:
 
 ```typescript
@@ -199,7 +199,7 @@ reject; callbacks are still called and never turn a drop into a successful flush
 
 The buffer retries network and server errors with exponential backoff and jitter. Rate limits
 honor `Retry-After`, up to five minutes per batch; caller deadlines can expire sooner. Other
-Polar API errors drop the batch without retrying. Successful delivery means API acceptance,
+Repalis API errors drop the batch without retrying. Successful delivery means API acceptance,
 not immediate visibility in meter reads. Buffers and failure records are in memory: forced
 termination still requires external durable storage and replay for strict no-loss delivery.
 

@@ -30,8 +30,8 @@ import { createWebhooksService } from "./services/webhooks";
 export type Environment = "production" | "sandbox";
 
 const SERVERS: Record<Environment, string> = {
-  production: "https://api.polar.sh",
-  sandbox: "https://sandbox-api.polar.sh",
+  production: "https://api.repalis.com",
+  sandbox: "https://sandbox-api.repalis.com",
 };
 
 export interface PolarOptions extends Omit<ClientOptions, "baseUrl" | "version"> {

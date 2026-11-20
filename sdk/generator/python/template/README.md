@@ -1,6 +1,6 @@
 # Polar Python SDK
 
-The official Python client for the [Polar API](https://polar.sh/docs/api-reference).
+The official Python client for the [Repalis API](https://repalis.com/docs/api-reference).
 
 ## Installation
 
@@ -20,7 +20,7 @@ pip install polar-sdk
 
 ## Quick Start
 
-Create an [organization access token](https://polar.sh/docs/integrate/oat) and use the client for
+Create an [organization access token](https://repalis.com/docs/integrate/oat) and use the client for
 the current API version:
 
 ```python
@@ -274,7 +274,7 @@ termination. A timeout means delivery is unconfirmed, so blindly retrying may du
 
 #### Buffered
 
-The metering helper buffers events in memory and sends them in batches to Polar. It retries network errors and server errors with exponential backoff and jitter. On a rate limit it waits out `Retry-After`, for up to five minutes per batch. Other Polar API errors drop the batch without retrying.
+The metering helper buffers events in memory and sends them in batches to Polar. It retries network errors and server errors with exponential backoff and jitter. On a rate limit it waits out `Retry-After`, for up to five minutes per batch. Other Repalis API errors drop the batch without retrying.
 
 | Option             | Default | Meaning                                                    |
 | ------------------ | ------- | ---------------------------------------------------------- |

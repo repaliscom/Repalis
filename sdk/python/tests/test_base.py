@@ -23,8 +23,8 @@ from polar.base import (
 from polar.v2026_04 import Polar, PolarAsync
 
 SERVERS = {
-    "production": "https://api.polar.sh",
-    "sandbox": "https://sandbox-api.polar.sh",
+    "production": "https://api.repalis.com",
+    "sandbox": "https://sandbox-api.repalis.com",
 }
 
 
@@ -253,8 +253,8 @@ def test_deserialize_float_still_coerces_int() -> None:
 @pytest.mark.parametrize(
     ("environment", "base_url", "expected"),
     [
-        ("production", None, "https://api.polar.sh"),
-        ("sandbox", None, "https://sandbox-api.polar.sh"),
+        ("production", None, "https://api.repalis.com"),
+        ("sandbox", None, "https://sandbox-api.repalis.com"),
         ("invalid", "http://localhost:8000", "http://localhost:8000"),
     ],
 )
@@ -273,7 +273,7 @@ def test_resolve_base_url_invalid_environment() -> None:
 def client(request) -> SyncClientBase | AsyncClientBase:
     cls = request.param
     return cls(
-        base_url="https://api.polar.sh",
+        base_url="https://api.repalis.com",
         version="2026-04",
         access_token="polar_at_u_xxx",
     )
@@ -323,7 +323,7 @@ class TestBuildRequest:
         timeout_class: type[httpx.Timeout | httpx2.Timeout],
     ) -> None:
         client = client_class(
-            base_url="https://api.polar.sh",
+            base_url="https://api.repalis.com",
             version="2026-04",
             access_token="polar_at_u_xxx",
             timeout=timeout_class(30.0, connect=10.0),
@@ -354,11 +354,11 @@ class TestBuildRequest:
     @pytest.mark.parametrize(
         ("value", "expected"),
         [
-            ({"id": "value"}, "https://api.polar.sh/v1/items/value"),
-            ({"id": 123}, "https://api.polar.sh/v1/items/123"),
+            ({"id": "value"}, "https://api.repalis.com/v1/items/value"),
+            ({"id": 123}, "https://api.repalis.com/v1/items/123"),
             (
                 {"id": "value with spaces"},
-                "https://api.polar.sh/v1/items/value%20with%20spaces",
+                "https://api.repalis.com/v1/items/value%20with%20spaces",
             ),
         ],
     )
@@ -391,7 +391,7 @@ class TestBuildRequest:
         assert request.method == "GET"
         assert (
             str(request.url)
-            == "https://api.polar.sh/v1/items/?string_param=value&bool_param=true&int_param=42&list_param=a&list_param=b&list_param=c&dict_param%5Bkey%5D=value"
+            == "https://api.repalis.com/v1/items/?string_param=value&bool_param=true&int_param=42&list_param=a&list_param=b&list_param=c&dict_param%5Bkey%5D=value"
         )
 
     def test_query_params_inner_none_in_dict_dropped(
@@ -403,7 +403,7 @@ class TestBuildRequest:
             query_params={"metadata": {"key": None}},
         )
         assert request.method == "GET"
-        assert str(request.url) == "https://api.polar.sh/v1/items/"
+        assert str(request.url) == "https://api.repalis.com/v1/items/"
 
     def test_query_params_mixed_inner_none_in_dict(
         self, client: SyncClientBase | AsyncClientBase
@@ -416,7 +416,7 @@ class TestBuildRequest:
         assert request.method == "GET"
         assert (
             str(request.url)
-            == "https://api.polar.sh/v1/items/?metadata%5Bkept%5D=value"
+            == "https://api.repalis.com/v1/items/?metadata%5Bkept%5D=value"
         )
 
 
@@ -431,7 +431,7 @@ class TestOrganization:
         self, client_class: type[SyncClientBase | AsyncClientBase]
     ) -> None:
         client = client_class(
-            base_url="https://api.polar.sh",
+            base_url="https://api.repalis.com",
             version="2026-04",
             access_token="polar_at_u_xxx",
             organization_id="org_1",

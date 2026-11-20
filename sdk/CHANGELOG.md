@@ -73,12 +73,12 @@ History up to [1.0.0-alpha.22] is available in the existing GitHub releases.
 
 - Generate next 2027-01 version.
 
-[Unreleased]: https://github.com/polarsource/polar/compare/sdk%2F1.3.1...HEAD
-[1.3.1]: https://github.com/polarsource/polar/compare/sdk%2F1.3.0...sdk%2F1.3.1
-[1.3.0]: https://github.com/polarsource/polar/compare/sdk%2F1.2.0...sdk%2F1.3.0
-[1.2.0]: https://github.com/polarsource/polar/compare/sdk%2F1.1.0...sdk%2F1.2.0
-[1.1.0]: https://github.com/polarsource/polar/compare/sdk%2F1.0.2...sdk%2F1.1.0
-[1.0.2]: https://github.com/polarsource/polar/compare/sdk%2F1.0.1...sdk%2F1.0.2
-[1.0.1]: https://github.com/polarsource/polar/compare/sdk%2F1.0.0...sdk%2F1.0.1
-[1.0.0]: https://github.com/polarsource/polar/compare/sdk%2F1.0.0-alpha.22...sdk%2F1.0.0
-[1.0.0-alpha.22]: https://github.com/polarsource/polar/releases/tag/sdk%2F1.0.0-alpha.22
+[Unreleased]: https://github.com/repaliscom/Repalis/compare/sdk%2F1.3.1...HEAD
+[1.3.1]: https://github.com/repaliscom/Repalis/compare/sdk%2F1.3.0...sdk%2F1.3.1
+[1.3.0]: https://github.com/repaliscom/Repalis/compare/sdk%2F1.2.0...sdk%2F1.3.0
+[1.2.0]: https://github.com/repaliscom/Repalis/compare/sdk%2F1.1.0...sdk%2F1.2.0
+[1.1.0]: https://github.com/repaliscom/Repalis/compare/sdk%2F1.0.2...sdk%2F1.1.0
+[1.0.2]: https://github.com/repaliscom/Repalis/compare/sdk%2F1.0.1...sdk%2F1.0.2
+[1.0.1]: https://github.com/repaliscom/Repalis/compare/sdk%2F1.0.0...sdk%2F1.0.1
+[1.0.0]: https://github.com/repaliscom/Repalis/compare/sdk%2F1.0.0-alpha.22...sdk%2F1.0.0
+[1.0.0-alpha.22]: https://github.com/repaliscom/Repalis/releases/tag/sdk%2F1.0.0-alpha.22

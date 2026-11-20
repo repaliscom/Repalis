@@ -12,7 +12,7 @@
   "author": "Polar",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/polarsource/polar.git",
+    "url": "git+https://github.com/repaliscom/Repalis.git",
     "directory": "sdk/typescript"
   },
   "files": [

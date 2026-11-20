@@ -21,7 +21,7 @@ import {
 
 const client = new ClientBase({
   accessToken: "token",
-  baseUrl: "https://api.polar.sh",
+  baseUrl: "https://api.repalis.com",
   version: "2026-10",
 });
 

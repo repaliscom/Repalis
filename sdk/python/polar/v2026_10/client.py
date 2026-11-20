@@ -46,8 +46,8 @@ from polar.v2026_10.services.webhooks import WebhooksAsync, WebhooksSync
 
 Environment = typing.Literal["production", "sandbox"]
 SERVERS: typing.Final[dict[Environment, str]] = {
-    "production": "https://api.polar.sh",
-    "sandbox": "https://sandbox-api.polar.sh",
+    "production": "https://api.repalis.com",
+    "sandbox": "https://sandbox-api.repalis.com",
 }
 
 
