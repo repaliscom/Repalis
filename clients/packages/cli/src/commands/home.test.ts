@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest'
 import { Effect } from 'effect'
-import { polar } from '@/commands/home'
+import { repalis } from '@/commands/home'
 import { AuthError, type ActiveOrganization } from '@/schemas/Auth'
 import { Auth } from '@/services/auth'
 import { Organizations } from '@/services/organizations'
@@ -23,7 +23,7 @@ const render = (
   auth: ReturnType<typeof fakeAuth>,
   organizations: ReturnType<typeof fakeOrganizations>,
 ) => {
-  const cli = runCli(polar, [])
+  const cli = runCli(repalis, [])
   return Effect.runPromise(
     cli.effect.pipe(
       Effect.provideService(Auth, auth.auth),

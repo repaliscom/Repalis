@@ -9,7 +9,7 @@
       "ignore": ["src/v1.ts"]
     },
     "packages/cli": {
-      "entry": ["lint/polar.js", "scripts/npm-postinstall.mjs"],
+      "entry": ["lint/repalis.js", "scripts/npm-postinstall.mjs"],
       "ignoreDependencies": ["@effect/tsgo"]
     },
     "apps/mcp": {

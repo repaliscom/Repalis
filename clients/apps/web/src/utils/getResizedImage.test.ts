@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { getResizedImage } from './getResizedImage'
 
 const S3_URL =
-  'https://polar-public-files.s3.amazonaws.com/product_media/abc/image.png'
+  'https://repalis-public-files.s3.amazonaws.com/product_media/abc/image.png'
 
 describe('getResizedImage', () => {
   it('should return CDN URL with correct width for small thumbnail', () => {
@@ -39,7 +39,7 @@ describe('getResizedImage', () => {
   })
 
   it('should not resize local Minio URLs', () => {
-    const localUrl = 'http://127.0.0.1:9000/polar-s3-public/media/image.png'
+    const localUrl = 'http://127.0.0.1:9000/repalis-s3-public/media/image.png'
     expect(getResizedImage(localUrl, 40)).toBe(localUrl)
   })
 

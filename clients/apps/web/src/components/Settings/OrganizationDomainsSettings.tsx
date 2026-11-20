@@ -165,7 +165,7 @@ const OrganizationDomainsSettings = ({ organization }: Props) => {
           </Box>
 
           <Text variant="caption" color="muted">
-            Keep the TXT record in place once verified: Polar checks it again
+            Keep the TXT record in place once verified: Repalis checks it again
             during reviews.
           </Text>
         </Box>

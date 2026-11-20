@@ -133,7 +133,7 @@ describe('saved sessions', () => {
     delete credentials.state.sessions.production
     const auth = await Effect.runPromise(authEffect())
     await expect(Effect.runPromise(auth.resolve('production'))).rejects.toThrow(
-      'polar auth login --production',
+      'repalis auth login --production',
     )
     expect(oauth.state.logins).toBe(0)
   })

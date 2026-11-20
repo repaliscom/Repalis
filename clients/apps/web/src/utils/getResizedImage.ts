@@ -1,4 +1,4 @@
-const S3_HOST = 'polar-public-files.s3.amazonaws.com'
+const S3_HOST = 'repalis-public-files.s3.amazonaws.com'
 const CDN_HOST = 'uploads.repalis.com'
 
 // Must match the backend defined list in lambda/image-resizer/handler.py

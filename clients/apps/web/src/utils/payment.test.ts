@@ -46,7 +46,7 @@ describe('getPaymentDeclineMessage', () => {
           decline_message: 'One of your rules blocked this payment.',
         }),
       ),
-    ).toBe('Polar blocked this payment because of suspicious activity.')
+    ).toBe('Repalis blocked this payment because of suspicious activity.')
   })
 
   it('falls back to the decline reason without a message', () => {

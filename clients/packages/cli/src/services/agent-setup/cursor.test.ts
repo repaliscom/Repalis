@@ -10,7 +10,7 @@ import {
   detectCursor,
 } from '@/services/agent-setup/cursor'
 
-test('adds the Polar servers to mcp.json without touching what is there', async () => {
+test('adds the Repalis servers to mcp.json without touching what is there', async () => {
   const home = await mkdtemp(join(tmpdir(), 'repalis-cursor-'))
   const file = join(home, '.cursor', 'mcp.json')
   await mkdir(join(home, '.cursor'))

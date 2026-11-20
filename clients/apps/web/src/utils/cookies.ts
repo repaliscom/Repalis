@@ -25,7 +25,7 @@ export const getLastVisitedOrg = (
 }
 
 export const setLastVisitedEnv = (
-  env: PolarEnv,
+  env: RepalisEnv,
   maxAge: number = 30 * 60, // Expires in 30 minutes
 ) => {
   const hostname = window.location.hostname

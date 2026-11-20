@@ -10,7 +10,7 @@ export default {
         'API hosts live in services/api.ts so REPALIS_API_URL and environment selection apply everywhere.',
     },
     messages: {
-      host: 'Do not hard-code the Polar API host. Build the URL with apiUrl from services/api.ts.',
+      host: 'Do not hard-code the Repalis API host. Build the URL with apiUrl from services/api.ts.',
     },
   },
   create(context) {

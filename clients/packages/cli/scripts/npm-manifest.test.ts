@@ -19,7 +19,7 @@ describe('npm platform packages', () => {
 
     const linux = findTarget('bun-linux-arm64')
     expect(platformPackageName(linux)).toBe('@repalis/cli-linux-arm64')
-    expect(binaryName(linux.os)).toBe('polar')
+    expect(binaryName(linux.os)).toBe('repalis')
   })
 
   test('rejects unknown Bun targets', () => {
@@ -51,7 +51,7 @@ describe('npm main package', () => {
     const manifest = mainManifest('1.4.0', binaries)
 
     expect(manifest.name).toBe('@repalis/cli')
-    expect(manifest.bin).toEqual({ polar: 'bin/repalis.exe' })
+    expect(manifest.bin).toEqual({ repalis: 'bin/repalis.exe' })
     expect(manifest.scripts).toEqual({ postinstall: 'node ./postinstall.mjs' })
     expect(Object.keys(manifest.optionalDependencies)).toEqual([
       '@repalis/cli-darwin-arm64',

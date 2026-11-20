@@ -3,7 +3,7 @@ import { z } from 'zod'
 import { createPendingActionStore } from './pendingAction'
 
 const store = createPendingActionStore({
-  keyPrefix: 'polar:test:v1:',
+  keyPrefix: 'repalis:test:v1:',
   resumeParam: 'resume_test',
   payloadSchema: z.object({ code: z.string() }),
 })
@@ -55,7 +55,7 @@ describe('createPendingActionStore', () => {
   })
 
   it('refuses a malformed entry', () => {
-    sessionStorage.setItem('polar:test:v1:broken', '{not json')
+    sessionStorage.setItem('repalis:test:v1:broken', '{not json')
 
     expect(store.take('broken', 'resource_1', 'user_1')).toBeNull()
     expect(sessionStorage).toHaveLength(0)

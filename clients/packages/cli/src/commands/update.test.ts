@@ -141,10 +141,10 @@ describe('downloadAndUpdate', () => {
 
   beforeEach(async () => {
     dir = await mkdtemp(join(tmpdir(), 'repalis-test-'))
-    binaryPath = join(dir, 'polar')
+    binaryPath = join(dir, 'repalis')
     await writeFile(binaryPath, 'old binary')
     vi.spyOn(Bun, 'spawn').mockImplementation(((command: string[]) => {
-      writeFileSync(join(command.at(-1)!, 'polar'), 'new binary')
+      writeFileSync(join(command.at(-1)!, 'repalis'), 'new binary')
       return { exited: Promise.resolve(0), stderr: '' }
     }) as unknown as typeof Bun.spawn)
   })

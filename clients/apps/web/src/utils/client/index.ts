@@ -33,7 +33,7 @@ const sessionFreshnessMiddleware: Middleware = {
 }
 
 const CLIENT_VERSION_HEADERS = {
-  'X-Polar-Client-Version': `web/${
+  'X-Repalis-Client-Version': `web/${
     process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA?.slice(0, 8) ?? 'dev'
   }`,
   'Repalis-Version': API_VERSION,

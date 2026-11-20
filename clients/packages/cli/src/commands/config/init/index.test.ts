@@ -299,9 +299,9 @@ describe('repalis config init', () => {
 
   test('goes by the nearest project file, not one further up', async () => {
     await writeFile(join(directory, 'package.json'), '{}')
-    await mkdir(join(directory, 'server/polar'), { recursive: true })
+    await mkdir(join(directory, 'server/repalis'), { recursive: true })
     await writeFile(join(directory, 'server/pyproject.toml'), '')
-    process.chdir(join(directory, 'server/polar'))
+    process.chdir(join(directory, 'server/repalis'))
 
     const { calls, output } = await run([])
 
@@ -510,7 +510,7 @@ describe('repalis config init', () => {
     expect(output).toContain('Option 2  Do it yourself')
   })
 
-  test('starts with agent setup when no agent is set up for Polar', async () => {
+  test('starts with agent setup when no agent is set up for Repalis', async () => {
     const { output } = await run(
       [],
       {},
@@ -539,7 +539,7 @@ describe('repalis config init', () => {
     expect(result.caller).toBe('Claude Code')
     expect(result.agents).toBeUndefined()
     expect(result.next).toEqual([
-      "If you don't have the repalis-config skill, run repalis agent setup --skills project and read .agents/skills/repalis-config/SKILL.md. It sets up Polar for this agent and adds the Repalis skills to this project, so tell the user before you run it.",
+      "If you don't have the repalis-config skill, run repalis agent setup --skills project and read .agents/skills/repalis-config/SKILL.md. It sets up Repalis for this agent and adds the Repalis skills to this project, so tell the user before you run it.",
       "Write the meters, benefits and products into repalis.config.ts from this app's pricing. Ask the user for any price you cannot find, never invent one.",
       'Run repalis config plan --json and fix every error it reports in the file.',
       'Tell the user what would change and wait for their go-ahead.',
@@ -746,7 +746,7 @@ describe('repalis config init', () => {
       })
     })
 
-    test('says an imported config matches Polar and how to change it', async () => {
+    test('says an imported config matches Repalis and how to change it', async () => {
       const { output } = await run(
         ['--confirm'],
         {},

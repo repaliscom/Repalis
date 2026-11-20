@@ -96,7 +96,7 @@ export const configureCursorMcp = (home: string) =>
     Effect.catchTag('PlatformError', (cause) =>
       Effect.fail(
         new AgentSetupError({
-          message: `Could not add the Polar MCP servers to ${mcpFile(home)}`,
+          message: `Could not add the Repalis MCP servers to ${mcpFile(home)}`,
           hint: cause.message,
         }),
       ),

@@ -28,7 +28,7 @@ import { fakeHttp } from '@/utils/test-utils/http'
 const sha = (text: string) => gitBlobSha(new TextEncoder().encode(text))
 
 const files = {
-  'skills/setup-repalis/SKILL.md': '# Set up Polar\n',
+  'skills/setup-repalis/SKILL.md': '# Set up Repalis\n',
   'skills/setup-repalis/references/checkout.md': 'Checkout\n',
 }
 
@@ -138,7 +138,7 @@ test('installs the skills, then reports them current until a file changes', asyn
 
 test('replaces a symlinked skill directory instead of writing through it', async () => {
   const directory = await mkdtemp(join(tmpdir(), 'repalis-skills-'))
-  const outside = await mkdtemp(join(tmpdir(), 'polar-outside-'))
+  const outside = await mkdtemp(join(tmpdir(), 'repalis-outside-'))
   await writeFile(join(outside, 'SKILL.md'), 'keep me\n')
   await mkdir(directory, { recursive: true })
   await symlink(outside, join(directory, 'setup-repalis'))

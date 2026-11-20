@@ -36,7 +36,7 @@ const pickOrganization = (environment: RepalisEnvironment, prompt: boolean) =>
     if (items.length === 1) return items[0]!
     if (items.length === 0) {
       return yield* new AuthError({
-        message: `No organizations in ${environment} yet. Create one in the dashboard, then run polar config init again.`,
+        message: `No organizations in ${environment} yet. Create one in the dashboard, then run repalis config init again.`,
       })
     }
     if (!prompt) {

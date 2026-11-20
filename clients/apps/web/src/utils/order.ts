@@ -72,7 +72,7 @@ export function isOrderDunningFailed(
   )
 }
 
-// Mirror of UNRECOVERABLE_DECLINE_CODES in server/polar/models/payment.py.
+// Mirror of UNRECOVERABLE_DECLINE_CODES in server/repalis/models/payment.py.
 // Keep in sync — Stripe decline codes that will never succeed on retry.
 const UNRECOVERABLE_DECLINE_CODES = new Set([
   'card_not_supported',

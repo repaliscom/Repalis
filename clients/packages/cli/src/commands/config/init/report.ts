@@ -37,7 +37,7 @@ const PLAIN: Style = { command: (text) => text, file: (text) => text }
 const HIGHLIGHTED: Style = { command: ui.command, file: ui.bold }
 
 const agentSteps = (result: Outcome, { command, file }: Style) => [
-  `If you don't have the repalis-config skill, run ${command('repalis agent setup --skills project')} and read ${file('.agents/skills/repalis-config/SKILL.md')}. It sets up Polar for this agent and adds the Repalis skills to this project, so tell the user before you run it.`,
+  `If you don't have the repalis-config skill, run ${command('repalis agent setup --skills project')} and read ${file('.agents/skills/repalis-config/SKILL.md')}. It sets up Repalis for this agent and adds the Repalis skills to this project, so tell the user before you run it.`,
   ...(imported(result) > 0
     ? [
         `${file(result.file)} matches the catalog on Repalis, so the config is set up. If the user asked for no change, run ${command(configCommand('plan', result))} to confirm nothing would change, tell them it is ready and stop.`,

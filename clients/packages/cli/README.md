@@ -22,7 +22,7 @@ Windows, from PowerShell. Only x64 is supported:
 irm https://repalis.com/install.ps1 | iex
 ```
 
-The installer puts `repalis.exe` in `%USERPROFILE%\.polar\bin` and adds that
+The installer puts `repalis.exe` in `%USERPROFILE%\.repalis\bin` and adds that
 folder to your user `PATH`. Restart any other open terminals so they pick it up.
 
 Or with a package manager, on any platform. pnpm and bun block install scripts
@@ -135,7 +135,7 @@ published to npm as `@repalis/cli`, installed with `npm install -g
 `bun install -g --trust @repalis/cli` (pnpm and bun block install scripts
 unless told otherwise). The layout follows opencode's: one
 `@repalis/cli-<platform>-<arch>` package per target that ships only
-`bin/polar`, restricted with `os`/`cpu` so package managers download a single
+`bin/repalis`, restricted with `os`/`cpu` so package managers download a single
 one, and a main `@repalis/cli` package that lists them as
 `optionalDependencies`. Its `bin` points at `bin/repalis.exe`, a placeholder that
 `postinstall.mjs` replaces with a hard link (or copy) of the platform binary, so

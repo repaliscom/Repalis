@@ -9,7 +9,7 @@ const defaults = {
   BASE_URL: process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000',
   AUTH_COOKIE_KEY: process.env.REPALIS_AUTH_COOKIE_KEY || 'repalis_session',
   AUTH_MCP_COOKIE_KEY:
-    process.env.REPALIS_AUTH_MCP_COOKIE_KEY || 'polar_mcp_session',
+    process.env.REPALIS_AUTH_MCP_COOKIE_KEY || 'repalis_mcp_session',
   GOOGLE_ANALYTICS_ID: process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID || undefined,
   SENTRY_DSN: process.env.NEXT_PUBLIC_SENTRY_DSN || undefined,
   POSTHOG_TOKEN: process.env.NEXT_PUBLIC_POSTHOG_TOKEN || '',

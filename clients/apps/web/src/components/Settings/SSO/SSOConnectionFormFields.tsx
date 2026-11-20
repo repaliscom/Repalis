@@ -171,7 +171,7 @@ const SSOConnectionFormFields = ({
       <CopyField
         label="JWKS URL"
         value={getSSOJwksURL()}
-        hint="Configure your identity provider to fetch Polar's public keys from this URL."
+        hint="Configure your identity provider to fetch Repalis's public keys from this URL."
       />
     ) : (
       <FormField

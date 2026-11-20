@@ -81,11 +81,11 @@ export const update = Command.make('update', {
   Command.withDescription('Update the CLI to the latest release'),
   Command.withExamples([
     {
-      command: 'polar update',
+      command: 'repalis update',
       description: 'Update to the latest version of the CLI',
     },
     {
-      command: 'polar update --method npm',
+      command: 'repalis update --method npm',
       description: 'Update through npm instead of the detected install method',
     },
   ]),

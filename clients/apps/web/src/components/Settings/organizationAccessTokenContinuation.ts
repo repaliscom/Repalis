@@ -17,7 +17,7 @@ const organizationAccessTokenCreateBodySchema = z.object({
 })
 
 const pendingOrganizationAccessTokenCreations = createPendingActionStore({
-  keyPrefix: 'polar:organization-access-token:create:v2:',
+  keyPrefix: 'repalis:organization-access-token:create:v2:',
   resumeParam: ORGANIZATION_ACCESS_TOKEN_RESUME_PARAM,
   payloadSchema: organizationAccessTokenCreateBodySchema,
 })
