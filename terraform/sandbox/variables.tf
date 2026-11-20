@@ -255,7 +255,7 @@ variable "apple_key_value" {
 
 # Polar
 variable "polar_access_token" {
-  description = "Polar API access token"
+  description = "Repalis API access token"
   type        = string
   sensitive   = true
 }

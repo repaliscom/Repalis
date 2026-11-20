@@ -84,7 +84,7 @@ resource "cloudflare_dns_record" "planetscale_private_link" {
   count = local.test_enabled ? length(module.vpc[0].secondary_private_subnet_ids) : 0
 
   zone_id = "22bcd1b07ec25452aab472486bc8df94"
-  name    = "db.internal.test.polar.sh"
+  name    = "db.internal.test.repalis.com"
   type    = "A"
   content = module.planetscale_private_link[0].ip_addresses[count.index]
   proxied = false

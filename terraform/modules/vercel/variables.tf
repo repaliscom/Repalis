@@ -5,7 +5,7 @@ variable "name" {
 
 # Git / build configuration
 variable "git_repo" {
-  description = "Connected Git repository, e.g. \"polarsource/polar\""
+  description = "Connected Git repository, e.g. \"repaliscom/Repalis\""
   type        = string
 }
 

@@ -5,20 +5,20 @@ locals {
     linear_team_id                            = var.linear_team_id
     linear_payout_amount_mismatch_template_id = var.linear_payout_amount_mismatch_template_id
 
-    base_url                             = "https://api.polar.sh"
+    base_url                             = "https://api.repalis.com"
     backoffice_host                      = local.private_backoffice_hostname
-    checkout_link_host                   = "buy.polar.sh"
-    user_session_cookie_domain           = "polar.sh"
-    authentication_session_cookie_domain = "polar.sh"
-    oauth2_session_state_cookie_domain   = "polar.sh"
+    checkout_link_host                   = "buy.repalis.com"
+    user_session_cookie_domain           = "repalis.com"
+    authentication_session_cookie_domain = "repalis.com"
+    oauth2_session_state_cookie_domain   = "repalis.com"
     email_sender                         = "resend"
     email_from_name                      = "Polar"
-    email_from_domain                    = "notifications.polar.sh"
-    frontend_base_url                    = "https://polar.sh"
-    checkout_base_url                    = "https://buy.polar.sh/{client_secret}"
+    email_from_domain                    = "notifications.repalis.com"
+    frontend_base_url                    = "https://repalis.com"
+    checkout_base_url                    = "https://buy.repalis.com/{client_secret}"
     log_level                            = "INFO"
     testing                              = "0"
-    invoices_additional_info             = "[support@polar.sh](mailto:support@polar.sh)"
+    invoices_additional_info             = "[support@repalis.com](mailto:support@repalis.com)"
     invoices_vat_numbers = jsonencode({
       AT = "EU372061545"
       BE = "EU372061545"
@@ -161,7 +161,7 @@ locals {
     webhook_secret   = var.polar_webhook_secret
     organization_id  = var.polar_organization_id
     scale_product_id = var.polar_scale_product_id
-    api_url          = "https://api.polar.sh"
+    api_url          = "https://api.repalis.com"
   }
 
   tinybird_config = {

@@ -368,7 +368,7 @@ resource "tfe_variable" "numeral_api_key_sandbox" {
 resource "tfe_variable" "polar_access_token_sandbox" {
   key             = "polar_access_token"
   category        = "terraform"
-  description     = "Polar API access token"
+  description     = "Repalis API access token"
   sensitive       = true
   variable_set_id = tfe_variable_set.sandbox.id
 

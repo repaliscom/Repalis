@@ -2,12 +2,12 @@ locals {
   ssosync_application_id = "arn:aws:serverlessrepo:us-east-2:004480582608:applications/SSOSync"
 
   staff_group_emails = [
-    "awsadmins@polar.sh",
-    "awsengineers@polar.sh",
-    "engineering@polar.sh",
-    "awsaccess@polar.sh",
-    "finance@polar.sh",
-    "executive@polar.sh",
+    "awsadmins@repalis.com",
+    "awsengineers@repalis.com",
+    "engineering@repalis.com",
+    "awsaccess@repalis.com",
+    "finance@repalis.com",
+    "executive@repalis.com",
   ]
 }
 

@@ -1,5 +1,5 @@
 data "aws_iam_policy" "permission_boundary" {
-  name = "PolarPermissionBoundary"
+  name = "RepalisPermissionBoundary"
 }
 
 module "secrets_kms" {
@@ -320,7 +320,7 @@ module "github_oidc_lambda_worker" {
   source = "../modules/github_oidc"
 
   role_name       = "github-actions-lambda-worker-production"
-  github_org      = "polarsource"
+  github_org      = "repaliscom"
   github_repo     = "polar"
   github_subjects = ["ref:refs/heads/main"]
   policy_arns = {

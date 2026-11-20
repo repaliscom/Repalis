@@ -12,7 +12,7 @@ terraform {
 variable "policy_name" {
   description = "Name of the permission boundary managed policy."
   type        = string
-  default     = "PolarPermissionBoundary"
+  default     = "RepalisPermissionBoundary"
 }
 
 data "aws_caller_identity" "current" {}

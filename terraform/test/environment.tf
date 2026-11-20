@@ -7,17 +7,17 @@ locals {
     linear_payout_amount_mismatch_template_id   = var.linear_payout_amount_mismatch_template_id
 
     environment                          = "test"
-    base_url                             = "https://test-api.polar.sh"
+    base_url                             = "https://test-api.repalis.com"
     backoffice_host                      = local.private_backoffice_hostname
-    user_session_cookie_domain           = "polar.sh"
+    user_session_cookie_domain           = "repalis.com"
     user_session_cookie_key              = "polar_test_session"
-    authentication_session_cookie_domain = "polar.sh"
-    oauth2_session_state_cookie_domain   = "polar.sh"
+    authentication_session_cookie_domain = "repalis.com"
+    oauth2_session_state_cookie_domain   = "repalis.com"
     email_sender                         = "resend"
     email_from_name                      = "[TEST] Polar"
-    email_from_domain                    = "notifications.test.polar.sh"
-    frontend_base_url                    = "https://test.polar.sh"
-    checkout_base_url                    = "https://test-api.polar.sh/v1/checkout-links/{client_secret}/redirect"
+    email_from_domain                    = "notifications.test.repalis.com"
+    frontend_base_url                    = "https://test.repalis.com"
+    checkout_base_url                    = "https://test-api.repalis.com/v1/checkout-links/{client_secret}/redirect"
     log_level                            = "INFO"
     testing                              = "0"
     tax_processors                       = "[\"numeral\",\"stripe\"]"
@@ -111,7 +111,7 @@ locals {
     webhook_secret   = var.polar_webhook_secret
     organization_id  = var.polar_organization_id
     scale_product_id = var.polar_scale_product_id
-    api_url          = "https://test-api.polar.sh"
+    api_url          = "https://test-api.repalis.com"
   }
 
   tinybird_config = {

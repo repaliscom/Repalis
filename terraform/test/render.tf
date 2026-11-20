@@ -20,7 +20,7 @@ data "tfe_outputs" "production" {
 }
 
 locals {
-  private_backoffice_hostname = "backoffice.test.polar.sh"
+  private_backoffice_hostname = "backoffice.test.repalis.com"
   environment_id              = data.tfe_outputs.production.values.test_environment_id
   test_enabled                = true
 }
@@ -45,8 +45,8 @@ locals {
   render_proxy_cidr   = "10.0.0.0/8"
   forwarded_allow_ips = "${module.cloudflare_ips.all_ranges},${local.render_proxy_cidr}"
 
-  api_allowed_hosts = jsonencode(["test.polar.sh", local.private_backoffice_hostname])
-  api_cors_origins  = "[\"https://test.polar.sh\", \"https://github.com\", \"https://docs.polar.sh\"]"
+  api_allowed_hosts = jsonencode(["test.repalis.com", local.private_backoffice_hostname])
+  api_cors_origins  = "[\"https://test.repalis.com\", \"https://github.com\", \"https://repalis.com/docs\"]"
 }
 
 module "test" {
@@ -78,7 +78,7 @@ module "test" {
   api_service_config = {
     allowed_hosts          = local.api_allowed_hosts
     cors_origins           = local.api_cors_origins
-    custom_domains         = [{ name = "test-api.polar.sh" }]
+    custom_domains         = [{ name = "test-api.repalis.com" }]
     web_concurrency        = "6"
     forwarded_allow_ips    = local.forwarded_allow_ips
     database_pool_size     = "20"
@@ -91,9 +91,9 @@ module "test" {
 
   additional_api_services = {
     events-test = {
-      image_url      = "ghcr.io/polarsource/polar-events"
+      image_url      = "ghcr.io/repaliscom/repalis-events"
       plan           = "standard"
-      custom_domains = [{ name = "events.test.polar.sh" }]
+      custom_domains = [{ name = "events.test.repalis.com" }]
       autoscaling    = { min = 1, max = 3 }
     }
   }
@@ -101,7 +101,7 @@ module "test" {
   workers = {
     worker-test = {
       start_command      = "uv run dramatiq -p 2 -t 4 -f polar.worker.scheduler:start polar.worker.run"
-      custom_domains     = [{ name = "worker-test.polar.sh" }]
+      custom_domains     = [{ name = "worker-test.repalis.com" }]
       dramatiq_prom_port = "10000"
     }
     worker-test-event-mover = {
@@ -123,7 +123,7 @@ module "test" {
 resource "cloudflare_dns_record" "test_api" {
   count   = local.test_enabled ? 1 : 0
   zone_id = "22bcd1b07ec25452aab472486bc8df94"
-  name    = "test-api.polar.sh"
+  name    = "test-api.repalis.com"
   type    = "CNAME"
   content = replace(module.test[0].api_service_url, "https://", "")
   proxied = true
@@ -143,7 +143,7 @@ resource "cloudflare_dns_record" "test_api_events" {
 resource "cloudflare_dns_record" "test_events" {
   count   = local.test_enabled ? 1 : 0
   zone_id = "22bcd1b07ec25452aab472486bc8df94"
-  name    = "events.test.polar.sh"
+  name    = "events.test.repalis.com"
   type    = "CNAME"
   content = replace(module.test[0].additional_api_service_urls["events-test"], "https://", "")
   proxied = true
@@ -154,7 +154,7 @@ resource "cloudflare_dns_record" "worker" {
   for_each = merge(module.test[*].worker_urls...)
 
   zone_id = "22bcd1b07ec25452aab472486bc8df94"
-  name    = "${each.key}.polar.sh"
+  name    = "${each.key}.repalis.com"
   type    = "CNAME"
   content = replace(each.value, "https://", "")
   proxied = true

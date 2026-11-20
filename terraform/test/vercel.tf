@@ -1,18 +1,18 @@
 # =============================================================================
-# Vercel — Test frontend (test.polar.sh)
+# Vercel — Test frontend (test.repalis.com)
 # =============================================================================
 
 module "vercel" {
   source = "../modules/vercel"
 
   name     = "polar-test"
-  git_repo = "polarsource/polar"
+  git_repo = "repaliscom/Repalis"
 
   preview_deployments_disabled = false
 
   domains = [
     {
-      name = "test.polar.sh"
+      name = "test.repalis.com"
       dns = {
         zone_id = "22bcd1b07ec25452aab472486bc8df94"
         content = "9b3437429d7388f1.vercel-dns-016.com"
@@ -22,7 +22,7 @@ module "vercel" {
   ]
 
   config = {
-    next_public_api_url                             = "https://test-api.polar.sh"
+    next_public_api_url                             = "https://test-api.repalis.com"
     next_public_backoffice_url                      = "https://${local.private_backoffice_hostname}"
     next_public_sentry_dsn                          = var.next_public_sentry_dsn
     next_public_posthog_token                       = var.next_public_posthog_token
@@ -34,7 +34,7 @@ module "vercel" {
     s3_public_images_bucket_port                    = null
     s3_public_images_bucket_pathname                = "/product_media/**"
     s3_upload_origins                               = "https://polar-test-files.s3.amazonaws.com https://polar-test-files.s3.us-east-2.amazonaws.com https://polar-test-public-files.s3.amazonaws.com https://polar-test-public-files.s3.us-east-2.amazonaws.com"
-    polar_checkout_embed_script_allowed_origins     = "https://polar.sh,https://sandbox.polar.sh,https://test.polar.sh"
+    polar_checkout_embed_script_allowed_origins     = "https://repalis.com,https://sandbox.repalis.com,https://test.repalis.com"
     enable_experimental_corepack                    = "1"
   }
 
@@ -47,10 +47,10 @@ module "vercel" {
 
   # Environment-specific or target-varies-by-env.
   environment_variables = [
-    { key = "NEXT_PUBLIC_FRONTEND_BASE_URL", value = "https://test.polar.sh" },
+    { key = "NEXT_PUBLIC_FRONTEND_BASE_URL", value = "https://test.repalis.com" },
     { key = "NEXT_PUBLIC_ENVIRONMENT", value = "test" },
     { key = "POLAR_AUTH_COOKIE_KEY", value = "polar_test_session" },
-    { key = "NEXT_PUBLIC_PRODUCT_LINK_BASE_URL", value = "https://test.polar.sh/api/checkout?price=" },
+    { key = "NEXT_PUBLIC_PRODUCT_LINK_BASE_URL", value = "https://test.repalis.com/api/checkout?price=" },
     { key = "NEXT_PUBLIC_STRIPE_KEY", value = var.stripe_publishable_key, target = ["production", "development"] },
     { key = "NEXT_PUBLIC_STRIPE_KEY", value = var.stripe_publishable_key_preview, target = ["preview"], sensitive = true },
     { key = "MCP_OAUTH2_CLIENT_ID", value = var.mcp_oauth2_client_id, target = ["production", "preview", "development"] },

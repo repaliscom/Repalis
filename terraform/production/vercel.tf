@@ -1,5 +1,5 @@
 # =============================================================================
-# Vercel — Production frontend (polar.sh)
+# Vercel — Production frontend (repalis.com)
 # =============================================================================
 #
 # Terraform manages only the env vars declared below;
@@ -10,7 +10,7 @@ module "vercel" {
   source = "../modules/vercel"
 
   name     = "polar"
-  git_repo = "polarsource/polar"
+  git_repo = "repaliscom/Repalis"
 
   preview_deployments_disabled = true
 
@@ -21,7 +21,7 @@ module "vercel" {
 
   domains = [
     {
-      name = "polar.sh"
+      name = "repalis.com"
       dns = {
         zone_id = "22bcd1b07ec25452aab472486bc8df94"
         type    = "A"
@@ -30,8 +30,8 @@ module "vercel" {
       }
     },
     {
-      name                 = "www.polar.sh"
-      redirect             = "polar.sh"
+      name                 = "www.repalis.com"
+      redirect             = "repalis.com"
       redirect_status_code = 308
       dns = {
         zone_id = "22bcd1b07ec25452aab472486bc8df94"
@@ -40,7 +40,7 @@ module "vercel" {
       }
     },
     {
-      name = "dashboard.polar.sh"
+      name = "dashboard.repalis.com"
       dns = {
         zone_id = "22bcd1b07ec25452aab472486bc8df94"
         content = "582a8a8790ca4ebf.vercel-dns-016.com"
@@ -48,7 +48,7 @@ module "vercel" {
       }
     },
     {
-      name = "blog.polar.sh"
+      name = "blog.repalis.com"
       dns = {
         zone_id = "22bcd1b07ec25452aab472486bc8df94"
         content = "582a8a8790ca4ebf.vercel-dns-016.com"
@@ -61,7 +61,7 @@ module "vercel" {
   ]
 
   config = {
-    next_public_api_url                             = "https://api.polar.sh"
+    next_public_api_url                             = "https://api.repalis.com"
     next_public_backoffice_url                      = "https://${local.private_backoffice_hostname}"
     next_public_sentry_dsn                          = var.next_public_sentry_dsn
     next_public_posthog_token                       = var.next_public_posthog_token
@@ -73,7 +73,7 @@ module "vercel" {
     s3_public_images_bucket_port                    = null
     s3_public_images_bucket_pathname                = "/product_media/**"
     s3_upload_origins                               = "https://polar-production-files.s3.amazonaws.com https://polar-public-files.s3.amazonaws.com"
-    polar_checkout_embed_script_allowed_origins     = "https://polar.sh,https://sandbox.polar.sh"
+    polar_checkout_embed_script_allowed_origins     = "https://repalis.com,https://sandbox.repalis.com"
     enable_experimental_corepack                    = "1"
   }
 
@@ -86,10 +86,10 @@ module "vercel" {
 
   # Environment-specific or target-varies-by-env.
   environment_variables = [
-    { key = "NEXT_PUBLIC_FRONTEND_BASE_URL", value = "https://polar.sh", target = ["production"] },
-    { key = "NEXT_PUBLIC_SANDBOX_FRONTEND_BASE_URL", value = "https://sandbox.polar.sh" },
-    { key = "NEXT_PUBLIC_PRODUCT_LINK_BASE_URL", value = "https://buy.polar.sh/", target = ["production"] },
-    { key = "NEXT_PUBLIC_POSTHOG_HOST", value = "https://polar.sh/ingest" },
+    { key = "NEXT_PUBLIC_FRONTEND_BASE_URL", value = "https://repalis.com", target = ["production"] },
+    { key = "NEXT_PUBLIC_SANDBOX_FRONTEND_BASE_URL", value = "https://sandbox.repalis.com" },
+    { key = "NEXT_PUBLIC_PRODUCT_LINK_BASE_URL", value = "https://buy.repalis.com/", target = ["production"] },
+    { key = "NEXT_PUBLIC_POSTHOG_HOST", value = "https://repalis.com/ingest" },
     { key = "NEXT_PUBLIC_SENTRY_ENABLED", value = "true" },
     { key = "NEXT_PUBLIC_GOOGLE_ANALYTICS_ID", value = "G-MBYW1QZFHE", target = ["production"] },
     { key = "NEXT_PUBLIC_GITHUB_INSTALLATION_URL", value = "https://github.com/apps/polar-sh/installations/new" },

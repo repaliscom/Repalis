@@ -1,5 +1,5 @@
 locals {
-  handbook_hostname = "handbook.polar.sh"
+  handbook_hostname = "handbook.repalis.com"
   handbook_zone_id  = "22bcd1b07ec25452aab472486bc8df94"
 
   handbook_redirects = {

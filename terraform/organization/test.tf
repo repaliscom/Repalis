@@ -5,7 +5,7 @@ module "test_s3_buckets" {
   }
 
   environment                 = "test"
-  allowed_origins             = ["https://test.polar.sh"]
+  allowed_origins             = ["https://test.repalis.com"]
   malware_protection_enabled  = true
   malware_protection_role_arn = module.test_malware_protection.role_arn
   app_access_account_id       = local.workload_accounts.test.id

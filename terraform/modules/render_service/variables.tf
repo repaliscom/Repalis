@@ -24,10 +24,10 @@ variable "registry_credential_id" {
 variable "api_service_config" {
   description = "API service configuration"
   type = object({
-    allowed_hosts          = string # "[\"polar.sh\", \"backoffice.polar.sh\"]"
-    cors_origins           = string # "[\"https://polar.sh\", \"https://github.com\", \"https://docs.polar.sh\"]"
+    allowed_hosts          = string # "[\"repalis.com\", \"backoffice.repalis.com\"]"
+    cors_origins           = string # "[\"https://repalis.com\", \"https://github.com\", \"https://repalis.com/docs\"]"
     custom_domains         = list(object({ name = string }))
-    image_url              = optional(string, "ghcr.io/polarsource/polar")
+    image_url              = optional(string, "ghcr.io/repaliscom/repalis")
     web_concurrency        = optional(string, "2")
     forwarded_allow_ips    = optional(string, "*")
     database_pool_size     = optional(string, "10")
@@ -61,7 +61,7 @@ variable "workers" {
   description = "Map of worker configurations"
   type = map(object({
     start_command      = string
-    image_url          = optional(string, "ghcr.io/polarsource/polar")
+    image_url          = optional(string, "ghcr.io/repaliscom/repalis")
     custom_domains     = optional(list(object({ name = string })), [])
     dramatiq_prom_port = optional(string, "10000")
     plan               = optional(string, "pro")

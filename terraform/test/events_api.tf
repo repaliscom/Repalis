@@ -4,7 +4,7 @@
 
 locals {
   events_api_name     = "api-events-test"
-  events_api_hostname = "test-api-events.polar.sh"
+  events_api_hostname = "test-api-events.repalis.com"
   events_api_port     = 10000
 
   events_api_tags = {
@@ -302,7 +302,7 @@ module "events_api" {
   name        = local.events_api_name
   cluster_arn = module.ecs_cluster[0].cluster_arn
   # Tracks :latest; the deploy-ecs-test job in deploy.yml rolls it after each build.
-  image = "ghcr.io/polarsource/polar:latest"
+  image = "ghcr.io/repaliscom/repalis:latest"
   command = [
     "uv", "run", "uvicorn", "polar.event_ingestion_api_app:app",
     "--host", "0.0.0.0", "--port", tostring(local.events_api_port),

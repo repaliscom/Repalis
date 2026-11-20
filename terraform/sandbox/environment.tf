@@ -5,17 +5,17 @@ locals {
     linear_team_id                            = var.linear_team_id
     linear_payout_amount_mismatch_template_id = var.linear_payout_amount_mismatch_template_id
 
-    base_url                                         = "https://sandbox-api.polar.sh"
+    base_url                                         = "https://sandbox-api.repalis.com"
     backoffice_host                                  = local.private_backoffice_hostname
-    user_session_cookie_domain                       = "polar.sh"
+    user_session_cookie_domain                       = "repalis.com"
     user_session_cookie_key                          = "polar_sandbox_session"
-    authentication_session_cookie_domain             = "polar.sh"
-    oauth2_session_state_cookie_domain               = "polar.sh"
+    authentication_session_cookie_domain             = "repalis.com"
+    oauth2_session_state_cookie_domain               = "repalis.com"
     email_sender                                     = "resend"
     email_from_name                                  = "[SANDBOX] Polar"
-    email_from_domain                                = "notifications.sandbox.polar.sh"
-    frontend_base_url                                = "https://sandbox.polar.sh"
-    checkout_base_url                                = "https://sandbox-api.polar.sh/v1/checkout-links/{client_secret}/redirect"
+    email_from_domain                                = "notifications.sandbox.repalis.com"
+    frontend_base_url                                = "https://sandbox.repalis.com"
+    checkout_base_url                                = "https://sandbox-api.repalis.com/v1/checkout-links/{client_secret}/redirect"
     log_level                                        = "INFO"
     testing                                          = "0"
     auth_cookie_key                                  = "polar_sandbox_session"
@@ -108,7 +108,7 @@ locals {
     webhook_secret   = var.polar_webhook_secret
     organization_id  = var.polar_organization_id
     scale_product_id = var.polar_scale_product_id
-    api_url          = "https://sandbox-api.polar.sh"
+    api_url          = "https://sandbox-api.repalis.com"
   }
 
   tinybird_config = {

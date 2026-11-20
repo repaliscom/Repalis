@@ -351,7 +351,7 @@ variable "customer_portal_url_overrides" {
 }
 
 variable "polar_access_token" {
-  description = "Polar API access token"
+  description = "Repalis API access token"
   type        = string
   sensitive   = true
 }

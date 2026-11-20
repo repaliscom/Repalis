@@ -33,7 +33,7 @@ locals {
       accounts           = ["management"]
     }
     admin = {
-      base_name          = "PolarAdmin"
+      base_name          = "RepalisAdmin"
       description        = "Unrestricted administrator access."
       managed_policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
       extra_policy_arns  = []
@@ -42,7 +42,7 @@ locals {
       accounts           = keys(local.staff_target_accounts)
     }
     engineering = {
-      base_name          = "PolarEngineering"
+      base_name          = "RepalisEngineering"
       description        = "Power-user access (no IAM/Organizations management) confined by the Polar permission boundary."
       managed_policy_arn = "arn:aws:iam::aws:policy/PowerUserAccess"
       extra_policy_arns  = ["arn:aws:iam::aws:policy/IAMReadOnlyAccess"]
@@ -51,7 +51,7 @@ locals {
       accounts           = local.staff_default_accounts
     }
     read_only = {
-      base_name          = "PolarReadOnly"
+      base_name          = "RepalisReadOnly"
       description        = "Read-only access across the account."
       managed_policy_arn = "arn:aws:iam::aws:policy/ReadOnlyAccess"
       extra_policy_arns  = []

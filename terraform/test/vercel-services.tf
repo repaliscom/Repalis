@@ -23,7 +23,7 @@ locals {
       sensitive = false
     }
     NEXT_PUBLIC_SANDBOX_FRONTEND_BASE_URL = {
-      value     = "https://sandbox.polar.sh"
+      value     = "https://sandbox.repalis.com"
       sensitive = false
     }
     NEXT_PUBLIC_SENTRY_DSN = {
@@ -79,7 +79,7 @@ locals {
       sensitive = false
     }
     POLAR_CHECKOUT_EMBED_SCRIPT_ALLOWED_ORIGINS = {
-      value     = "https://polar.sh,https://sandbox.polar.sh,https://test.polar.sh"
+      value     = "https://repalis.com,https://sandbox.repalis.com,https://test.repalis.com"
       sensitive = false
     }
     ENABLE_EXPERIMENTAL_COREPACK = {
@@ -117,7 +117,7 @@ locals {
       sensitive = false
     }
     POLAR_CORS_ORIGINS = {
-      value     = "[\"https://github.com\", \"https://docs.polar.sh\"]"
+      value     = "[\"https://github.com\", \"https://repalis.com/docs\"]"
       sensitive = false
     }
     POLAR_DATABASE_POOL_SIZE = {
@@ -141,7 +141,7 @@ locals {
       sensitive = false
     }
     POLAR_EMAIL_FROM_DOMAIN = {
-      value     = "notifications.test.polar.sh"
+      value     = "notifications.test.repalis.com"
       sensitive = false
     }
     # This service reaches AWS with static keys, not the assumed role the
@@ -350,7 +350,7 @@ locals {
       sensitive = false
     }
     POLAR_POLAR_API_URL = {
-      value     = "https://test-api.polar.sh"
+      value     = "https://test-api.repalis.com"
       sensitive = false
     }
     POLAR_TINYBIRD_API_URL = {
@@ -383,7 +383,7 @@ module "vercel_services" {
   source = "../modules/vercel_services"
 
   name     = "polar-test-services"
-  git_repo = "polarsource/polar"
+  git_repo = "repaliscom/Repalis"
 
   preview_deployments_disabled = true
 

@@ -503,7 +503,7 @@ resource "tfe_variable" "tinybird_read_token_production" {
 resource "tfe_variable" "polar_access_token_production" {
   key             = "polar_access_token"
   category        = "terraform"
-  description     = "Polar API access token"
+  description     = "Repalis API access token"
   sensitive       = true
   variable_set_id = tfe_variable_set.production.id
 

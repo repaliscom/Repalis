@@ -518,7 +518,7 @@ resource "tfe_variable" "customer_portal_url_overrides_test" {
 resource "tfe_variable" "polar_access_token_test" {
   key             = "polar_access_token"
   category        = "terraform"
-  description     = "Polar API access token"
+  description     = "Repalis API access token"
   sensitive       = true
   variable_set_id = tfe_variable_set.test.id
 

@@ -78,15 +78,15 @@ by centralized root access and must retain its separately secured root credentia
 ## Staff access (IAM Identity Center)
 
 `identity_center.tf` defines four access tiers, each with a per-account permission set named
-`Polar<Tier><Account>` (e.g. `PolarReadOnlySandbox`). Sets are assigned to Google Workspace groups
+`Polar<Tier><Account>` (e.g. `RepalisReadOnlySandbox`). Sets are assigned to Google Workspace groups
 for the accounts configured in each tier:
 
 | Group                                            | Permission set              | Access                                              |
 | ------------------------------------------------ | --------------------------- | --------------------------------------------------- |
-| `awsadmins@polar.sh`                             | `PolarAdmin<Account>`       | Unrestricted administrator                          |
-| `awsengineers@polar.sh`, `engineering@polar.sh`  | `PolarEngineering<Account>` | Power-user (no IAM/Organizations), bounded by `PolarPermissionBoundary` |
-| `awsaccess@polar.sh`                             | `PolarReadOnly<Account>`    | Read-only                                           |
-| `finance@polar.sh`, `executive@polar.sh`          | `PolarFinanceManagement`    | Read-only billing and costs in the management account |
+| `awsadmins@repalis.com`                             | `RepalisAdmin<Account>`       | Unrestricted administrator                          |
+| `awsengineers@repalis.com`, `engineering@repalis.com`  | `RepalisEngineering<Account>` | Power-user (no IAM/Organizations), bounded by `RepalisPermissionBoundary` |
+| `awsaccess@repalis.com`                             | `RepalisReadOnly<Account>`    | Read-only                                           |
+| `finance@repalis.com`, `executive@repalis.com`          | `RepalisFinanceManagement`    | Read-only billing and costs in the management account |
 
 Group membership comes from Google Workspace via ssosync (`terraform/identity`), not from here.
 
@@ -97,14 +97,14 @@ ssosync schedule; its Terraform default is empty (disabled).
 
 The management account must also have **Activate IAM Access** enabled under its billing settings.
 If disabled, the root user must enable it once. After deployment, verify that members of both
-groups can select `PolarFinanceManagement`, view bills and Cost Explorer, and download invoices.
+groups can select `RepalisFinanceManagement`, view bills and Cost Explorer, and download invoices.
 
 ## Permission boundary
 
-`PolarPermissionBoundary` (the `permission_boundary` module) is deployed to every account and caps
+`RepalisPermissionBoundary` (the `permission_boundary` module) is deployed to every account and caps
 the privileges of internal roles and users. It is enforced in three ways:
 
-- The `PolarEngineering*` permission sets attach it to engineer sessions.
+- The `RepalisEngineering*` permission sets attach it to engineer sessions.
 - Role-creating modules take a `permissions_boundary_arn` so application and CI roles carry it; the
   `terraform-cloud` automation roles are exempt.
 - The `RequirePermissionsBoundary` SCP on the `Workloads` OU requires the boundary on new
