@@ -98,7 +98,7 @@ export function SandboxStep() {
     <Form {...form}>
       <OnboardingShell
         title="Create a sandbox organization"
-        subtitle="Set up a test organization to explore Polar with mock payments."
+        subtitle="Set up a test organization to explore Repalis with mock payments."
         actions={<SubmitButton loading={submitting} />}
       >
         <Box

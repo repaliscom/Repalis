@@ -72,7 +72,7 @@ export function ImportTaxPicker({
           </Select>
           <Text variant="caption" color="muted">
             {value !== 'exclusive' ? (
-              'Customer pays the listed price. Polar takes tax out of it.'
+              'Customer pays the listed price. Repalis takes tax out of it.'
             ) : listed ? (
               <>
                 The customer will pay <strong>the listed price plus tax</strong>{' '}

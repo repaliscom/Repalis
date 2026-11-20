@@ -157,7 +157,7 @@ const ingestion = (() => {
       [
         'Arrival',
         [
-          'Events can arrive late: a retry, a queue that backed up, a batch sent at the end of a job. Each carries the time it happened, and Polar uses that time.',
+          'Events can arrive late: a retry, a queue that backed up, a batch sent at the end of a job. Each carries the time it happened, and Repalis uses that time.',
         ],
       ],
       [
@@ -325,7 +325,7 @@ const reconciliation = (() => {
   const POLAR = 150,
     BASE = 290,
     BAND = 312
-  // Events step Outpost's balance up as they land; Polar's snapshots settle it at three points along the way.
+  // Events step Outpost's balance up as they land; Repalis's snapshots settle it at three points along the way.
   const steps = [
     90, 108, 130, 158, 178, 196, 222, 246, 262, 288, 310, 336, 358, 378,
   ]
@@ -404,27 +404,27 @@ const reconciliation = (() => {
         stroke={LINE}
         strokeWidth={HAIR}
       />
-      {label((x0 + last) / 2, BAND + 22, 'SETTLED · FROM POLAR', 'middle')}
+      {label((x0 + last) / 2, BAND + 22, 'SETTLED · FROM repalis', 'middle')}
       {label((last + x1) / 2, BAND + 22, 'LOCAL · OPEN BUCKETS', 'middle')}
     </>
   )
   return landscape(
     'm-reconcile',
     'Reconciliation',
-    'Outpost answers now. Polar\u2019s snapshots correct it as buckets close.',
-    'Outpost\u2019s balance as one step line, rising as events land, with Polar\u2019s snapshots settling it at points along the way: settled usage from Polar up to the latest snapshot, open local buckets after it.',
+    'Outpost answers now. Repalis\u2019s snapshots correct it as buckets close.',
+    'Outpost\u2019s balance as one step line, rising as events land, with Repalis\u2019s snapshots settling it at points along the way: settled usage from Repalis up to the latest snapshot, open local buckets after it.',
     fig,
     [
       [
         'Two folds',
         [
-          'Outpost folds what your process has seen. Polar folds everything, including events from your other processes and events that arrived late.',
+          'Outpost folds what your process has seen. Repalis folds everything, including events from your other processes and events that arrived late.',
         ],
       ],
       [
         'Snapshots',
         [
-          'When a bucket closes, a late event lands or credits change, Polar pushes a snapshot: the customer\u2019s settled usage up to a point in time. It replaces Outpost\u2019s totals before that point, and the local buckets behind it are dropped.',
+          'When a bucket closes, a late event lands or credits change, Repalis pushes a snapshot: the customer\u2019s settled usage up to a point in time. It replaces Outpost\u2019s totals before that point, and the local buckets behind it are dropped.',
         ],
       ],
       [
@@ -568,7 +568,7 @@ const zero = (() => {
   return landscape(
     'm-zero',
     'Running out',
-    'Polar keeps counting. What happens next is up to you.',
+    'Repalis keeps counting. What happens next is up to you.',
     'A customer’s credits running out: the request that takes the balance to -142, a signal to the app, then a top-up of 5,000 that settles the 142 owed.',
     <>
       {rows.map((toks, i) => (toks.length ? line(i, 0, toks, `r${i}`) : null))}
@@ -577,13 +577,13 @@ const zero = (() => {
       [
         'Never refused',
         [
-          'Polar records every event, even the one that takes the balance under zero. The balance goes negative, here to -142.',
+          'Repalis records every event, even the one that takes the balance under zero. The balance goes negative, here to -142.',
         ],
       ],
       [
         'Your call',
         [
-          'Polar does not cut anyone off. What happens at zero is up to your app: block the request, move the customer to a cheaper model, or let them run a tab. A guardrail at zero tells you when it happens.',
+          'Repalis does not cut anyone off. What happens at zero is up to your app: block the request, move the customer to a cheaper model, or let them run a tab. A guardrail at zero tells you when it happens.',
         ],
       ],
       [

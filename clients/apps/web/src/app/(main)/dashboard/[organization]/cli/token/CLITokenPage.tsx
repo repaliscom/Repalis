@@ -147,11 +147,11 @@ export default function CLITokenPage() {
       }
       subtitle={
         step.name === 'sending'
-          ? 'Sending the token to the Polar CLI…'
+          ? 'Sending the token to the Repalis CLI…'
           : step.name === 'created'
             ? 'Store it somewhere safe, like your .env file. You won’t be able to see it again.'
             : handoff
-              ? 'Pick the permissions your app needs. The token is encrypted and sent straight to the Polar CLI on this computer.'
+              ? 'Pick the permissions your app needs. The token is encrypted and sent straight to the Repalis CLI on this computer.'
               : 'Pick the permissions your app needs.'
       }
       actions={actions}

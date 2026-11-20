@@ -1,6 +1,6 @@
 const AuthTermsFooter = () => (
   <div className="dark:text-repalis-500 mt-6 text-center text-xs text-balance text-gray-400">
-    By using Polar, you agree to our{' '}
+    By using Repalis, you agree to our{' '}
     <a
       className="dark:text-repalis-300 text-gray-600"
       href="https://repalis.com/legal/master-services-terms"

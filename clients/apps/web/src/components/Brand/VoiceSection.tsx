@@ -32,7 +32,7 @@ export function VoiceSection() {
       id={brandSections[4].id}
       index={brandSections[4].index}
       name={brandSections[4].label}
-      title="How Polar speaks"
+      title="How Repalis speaks"
       subtitle="Four principles behind every sentence"
     >
       <Box as="ul" flexDirection="column">

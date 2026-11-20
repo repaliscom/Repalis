@@ -172,7 +172,7 @@ export function SandboxFormFields({
               />
               <Box as="label" htmlFor="terms">
                 <p className="cursor-pointer text-sm leading-snug font-medium">
-                  I agree to Polar&apos;s{' '}
+                  I agree to Repalis&apos;s{' '}
                   <a
                     href="https://repalis.com/legal/terms"
                     className="text-gray-900 underline dark:text-white"

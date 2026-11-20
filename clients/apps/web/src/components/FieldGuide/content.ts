@@ -23,7 +23,7 @@ export const CHAPTERS: Chapter[] = [
     name: 'Principles',
     title: 'Core principles',
     intro:
-      'Three ideas run through everything that follows. Every number comes from events, agents are customers like any other, and billing answers next to your code without waiting on Polar.',
+      'Three ideas run through everything that follows. Every number comes from events, agents are customers like any other, and billing answers next to your code without waiting on Repalis.',
     ids: ['m-principle', 'm-agents', 'm-tolerant'],
   },
   {
@@ -47,7 +47,7 @@ export const CHAPTERS: Chapter[] = [
     name: 'Meters',
     title: 'Meters',
     intro:
-      'A meter turns events into a number: which events count, and how to add them up. Polar keeps that number current as events arrive, and can always rebuild it from the events behind it.',
+      'A meter turns events into a number: which events count, and how to add them up. Repalis keeps that number current as events arrive, and can always rebuild it from the events behind it.',
     ids: ['m-meter', 'm-fold', 'm-tiers'],
   },
   {
@@ -55,7 +55,7 @@ export const CHAPTERS: Chapter[] = [
     name: 'Local-first',
     title: 'Local-first',
     intro:
-      'Outpost runs inside your own process. It folds every event with the reducers Polar runs, in your own Redis, so a check is answered where your code is. Polar settles the usage behind it and sends that back.',
+      'Outpost runs inside your own process. It folds every event with the reducers Repalis runs, in your own Redis, so a check is answered where your code is. Repalis settles the usage behind it and sends that back.',
     ids: ['m-igloo', 'm-latency', 'm-reconcile'],
   },
   {
@@ -63,7 +63,7 @@ export const CHAPTERS: Chapter[] = [
     name: 'Identities',
     title: 'Identities',
     intro:
-      'You might sell to agents, spawn them on a customer’s behalf, or both. Polar calls every customer an identity, human or machine, and gives every one the same meters, credits and entitlements.',
+      'You might sell to agents, spawn them on a customer’s behalf, or both. Repalis calls every customer an identity, human or machine, and gives every one the same meters, credits and entitlements.',
     ids: ['m-nesting', 'm-rollup', 'm-economics', 'm-delegate'],
   },
   {
@@ -71,7 +71,7 @@ export const CHAPTERS: Chapter[] = [
     name: 'Guardrails',
     title: 'Guardrails',
     intro:
-      'A guardrail is a condition on a number Polar already keeps: a meter, a credit balance, a margin. When the number crosses it, a signal fires and runs your side effect, so you can move a customer to a cheaper model before the credits run out.',
+      'A guardrail is a condition on a number Repalis already keeps: a meter, a credit balance, a margin. When the number crosses it, a signal fires and runs your side effect, so you can move a customer to a cheaper model before the credits run out.',
     ids: ['m-signals', 'm-margin'],
   },
   {
@@ -87,7 +87,7 @@ export const CHAPTERS: Chapter[] = [
     name: 'Credits',
     title: 'Credits',
     intro:
-      'Credits are a balance derived from two kinds of event: grants, which add, and usage, which takes away at the meter’s rate. When they run out, Polar keeps counting, and your app decides what happens at zero.',
+      'Credits are a balance derived from two kinds of event: grants, which add, and usage, which takes away at the meter’s rate. When they run out, Repalis keeps counting, and your app decides what happens at zero.',
     ids: ['m-credits', 'm-grants', 'm-zero'],
   },
   {
@@ -103,7 +103,7 @@ export const CHAPTERS: Chapter[] = [
     name: 'Bring your own PSP',
     title: 'Bring your own PSP',
     intro:
-      'Polar works out what to charge. Who takes the payment is up to you: the processor you already use, like Stripe or Adyen, or Polar as your merchant of record.',
+      'Repalis works out what to charge. Who takes the payment is up to you: the processor you already use, like Stripe or Adyen, or Repalis as your merchant of record.',
     ids: ['m-psp', 'm-mor'],
   },
 ]

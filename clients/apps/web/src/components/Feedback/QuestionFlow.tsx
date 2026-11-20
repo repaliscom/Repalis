@@ -178,7 +178,7 @@ export const QuestionFlow = ({
           <div className="prose prose-sm dark:prose-invert">
             <p>
               Looks like a human teammate can take this further. If you want,
-              you can hand this off to the Polar team. Add anything else
+              you can hand this off to the Repalis team. Add anything else
               you&rsquo;d like to share below and click Send.
             </p>
           </div>

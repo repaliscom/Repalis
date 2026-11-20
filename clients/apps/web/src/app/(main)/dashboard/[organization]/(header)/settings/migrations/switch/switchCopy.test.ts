@@ -41,7 +41,7 @@ describe('periodEndMoveNotice', () => {
       }),
     )
 
-    expect(notice).toContain('You can move it to Polar')
+    expect(notice).toContain('You can move it to Repalis')
     expect(notice).toContain('will still end on')
     expect(notice).not.toContain('that date')
     expect(notice).not.toContain('stays there')
@@ -58,12 +58,12 @@ describe('periodEndMoveNotice', () => {
       row({
         cutover_status: 'skipped',
         cutover_error:
-          "It's set to cancel at the end of the period on the source, so there is no renewal for Polar to take over. It stays there until it ends.",
+          "It's set to cancel at the end of the period on the source, so there is no renewal for Repalis to take over. It stays there until it ends.",
         renews_at: '2027-01-02T00:00:00.000Z',
       }),
     )
 
-    expect(notice).toContain('You can move it to Polar')
+    expect(notice).toContain('You can move it to Repalis')
     expect(notice).not.toContain('stays there')
   })
 
@@ -72,7 +72,7 @@ describe('periodEndMoveNotice', () => {
       periodEndMoveNotice(
         row({
           cancels_at_period_end: true,
-          cutover_error: 'No copied card landed on Polar.',
+          cutover_error: 'No copied card landed on Repalis.',
         }),
       ),
     ).toBeNull()

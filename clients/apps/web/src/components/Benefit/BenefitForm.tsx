@@ -316,7 +316,7 @@ const DiscordBenefitForm = ({
                     </Select>
                   </FormControl>
                   <FormDescription>
-                    To grant a specific role, our Polar bot role should be above
+                    To grant a specific role, our Repalis bot role should be above
                     it in the hierarchy list. You can do so from{' '}
                     <span className="font-medium">Server Settings</span> →{' '}
                     <span className="font-medium">Roles</span> in Discord.

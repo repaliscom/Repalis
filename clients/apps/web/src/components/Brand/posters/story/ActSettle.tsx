@@ -87,12 +87,12 @@ export const SettlementPoster = () => (
           </Box>
         ))}
       </Box>
-      <PosterHeadline primary="They pay Polar," secondary="Polar pays you" />
+      <PosterHeadline primary="They pay Repalis," secondary="Repalis pays you" />
     </PosterBody>
   </PosterFrame>
 )
 
-/** 27. Thousands of transactions, booked as one invoice from Polar. */
+/** 27. Thousands of transactions, booked as one invoice from Repalis. */
 export const BalancePoster = () => (
   <PosterFrame surface="ether" signed>
     <PosterBody>
@@ -111,7 +111,7 @@ export const BalancePoster = () => (
           <Text variant="heading-m" as="p" color="inherit" tabularNums>
             1
           </Text>
-          <PosterMono dim>INVOICE, FROM POLAR</PosterMono>
+          <PosterMono dim>INVOICE, FROM repalis</PosterMono>
         </Box>
       </Box>
       <PosterHeadline

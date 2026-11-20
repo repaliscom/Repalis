@@ -86,13 +86,13 @@ describe('StartCopyStep', () => {
     )
 
     expect(recipient).toHaveTextContent(
-      'Paste the Polar account ID as the recipient',
+      'Paste the Repalis account ID as the recipient',
     )
     expect(recipient).toHaveTextContent(
       'On that same page, then start the copy. Only the Stripe account owner can start a copy.',
     )
     expect(recipient).not.toHaveTextContent('Copy customers')
-    expect(screen.getByLabelText('Polar account ID')).toHaveValue('acct_polar')
+    expect(screen.getByLabelText('Repalis account ID')).toHaveValue('acct_polar')
 
     expect(returned).toHaveTextContent('Come back and paste the migreq id')
     expect(returned).toHaveTextContent('Find it on Stripe copy status.')

@@ -93,7 +93,7 @@ export const FeedbackModal = ({
       modalContent={
         <>
           <InlineModalHeader hide={handleHide}>
-            <h2 className="text-xl">Reach out to Polar</h2>
+            <h2 className="text-xl">Reach out to Repalis</h2>
           </InlineModalHeader>
           <div className="flex min-h-0 flex-1 flex-col px-8">
             {renderContent()}

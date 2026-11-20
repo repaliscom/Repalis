@@ -162,7 +162,7 @@ function StepContent({
       return (
         <Box flexDirection="column" rowGap="l">
           <Text variant="caption" color="muted">
-            This migration is complete, and Polar deleted your Stripe key.
+            This migration is complete, and Repalis deleted your Stripe key.
             Subscriptions that didn&apos;t switch stay on Stripe. To move them,
             start a new migration.
           </Text>

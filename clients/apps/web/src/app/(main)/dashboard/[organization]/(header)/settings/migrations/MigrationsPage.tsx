@@ -80,7 +80,7 @@ export default function MigrationsPage({ organization }: Props) {
           <EmptyState
             icon={<Download />}
             title="No migrations"
-            description="Start a migration to move your Stripe billing to Polar."
+            description="Start a migration to move your Stripe billing to Repalis."
           />
         ) : (
           <SettingsGroup>

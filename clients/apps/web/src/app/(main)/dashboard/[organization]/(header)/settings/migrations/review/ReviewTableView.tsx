@@ -151,8 +151,8 @@ export function ReviewTableView({
       <Box flexDirection="column" rowGap="m">
         <Text color="muted">
           {primaryAction === 'continue'
-            ? 'Every subscription that can move is already prepared. Continue to switch them to Polar.'
-            : 'Preparing a subscription brings its customer and product to Polar. Polar starts billing only when you switch.'}
+            ? 'Every subscription that can move is already prepared. Continue to switch them to Repalis.'
+            : 'Preparing a subscription brings its customer and product to Repalis. Repalis starts billing only when you switch.'}
         </Text>
         <Box
           alignItems="center"

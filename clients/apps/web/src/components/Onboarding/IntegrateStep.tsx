@@ -61,9 +61,9 @@ export const GET = Checkout({
       packages: 'better-auth @polar-sh/better-auth @polar-sh/sdk',
       code: `import { betterAuth } from "better-auth";
 import { polar, checkout, portal, usage, webhooks } from "@polar-sh/better-auth";
-import { Polar } from "@polar-sh/sdk";
+import { Repalis } from "@polar-sh/sdk";
 
-const polarClient = new Polar({
+const polarClient = new Repalis({
     accessToken: process.env.POLAR_ACCESS_TOKEN
 });
 
@@ -99,9 +99,9 @@ ${products
       link: 'https://repalis.com/docs/integrate/sdk/typescript',
       icon: <NodeJsIcon size={24} />,
       packages: '@polar-sh/sdk',
-      code: `import { Polar } from "@polar-sh/sdk";
+      code: `import { Repalis } from "@polar-sh/sdk";
 
-const polar = new Polar({
+const polar = new Repalis({
   accessToken: process.env.POLAR_ACCESS_TOKEN,
 });
 
@@ -121,9 +121,9 @@ redirect(checkout.url)`,
       icon: <PythonIcon size={24} />,
       pythonInstall: 'pip install polar-sdk',
       code: `import os
-from polar_sdk import Polar
+from polar_sdk import Repalis
 
-with Polar(
+with Repalis(
     access_token=os.environ.get("POLAR_ACCESS_TOKEN"),
 ) as polar:
 

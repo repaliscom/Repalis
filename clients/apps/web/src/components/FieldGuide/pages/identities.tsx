@@ -229,7 +229,7 @@ export const rollup = landscape(
     [
       'Counted per identity',
       [
-        'Each event names the identity that acted, so Polar counts usage for every person, agent and service under a customer.',
+        'Each event names the identity that acted, so Repalis counts usage for every person, agent and service under a customer.',
       ],
     ],
     [

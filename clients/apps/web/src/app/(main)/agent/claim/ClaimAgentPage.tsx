@@ -187,7 +187,7 @@ export default function ClaimAgentPage({
           >
             <Text variant="caption" color="muted">
               Completing setup lets {claim.agent_name || 'the agent'} act on
-              your behalf on Polar, in all your organizations.
+              your behalf on Repalis, in all your organizations.
             </Text>
             <Button
               form={FORM_ID}

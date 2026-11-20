@@ -58,7 +58,7 @@ export function MarketingSection() {
       index={brandSections[5].index}
       name={brandSections[5].label}
       title="The product, said out loud"
-      subtitle="Marketing is how Polar explains itself"
+      subtitle="Marketing is how Repalis explains itself"
       description="Every sheet, post and billboard is built from the same grid, type and figures as the product. We show the thing itself, an event, a meter, an invoice, in the words engineers use."
     >
       <Box flexDirection="column" rowGap={{ base: '3xl', md: '5xl' }}>

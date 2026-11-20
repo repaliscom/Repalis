@@ -26,7 +26,7 @@ export const OffboardingBanner = ({ organization }: OffboardingBannerProps) => {
         </Box>
         <Box maxWidth="45rem">
           <Text color="muted">
-            Your organization is in the process of being offboarded from Polar.
+            Your organization is in the process of being offboarded from Repalis.
             Some features may be limited. Reach out if you have any questions.
           </Text>
         </Box>

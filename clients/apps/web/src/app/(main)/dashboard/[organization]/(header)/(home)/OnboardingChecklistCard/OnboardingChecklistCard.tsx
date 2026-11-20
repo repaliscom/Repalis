@@ -107,7 +107,7 @@ export const OnboardingChecklistCard = ({ organization }: Props) => {
             >
               <SparklesIcon size={14} />
               <Text variant="caption" color="inherit">
-                Set up Polar with your coding agent
+                Set up Repalis with your coding agent
               </Text>
               <ChevronRight size={14} />
             </Box>

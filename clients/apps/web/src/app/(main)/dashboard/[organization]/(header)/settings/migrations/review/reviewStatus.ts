@@ -50,7 +50,7 @@ function reviewStage(row: ReviewRow): Stage {
 
 // One question, asked the same way for every entity: what happens to this
 // record when it moves. For a subscription that will move, the answer names
-// its payment method, since that decides whether its first Polar renewal can
+// its payment method, since that decides whether its first Repalis renewal can
 // be charged. The source lifecycle (Active, Trialing, Past due) is a property
 // of the Stripe record, so it lives in the row's detail modal.
 export function reviewStatus(row: ReviewRow): ReviewStatus {

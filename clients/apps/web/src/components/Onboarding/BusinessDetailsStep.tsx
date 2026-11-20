@@ -298,7 +298,7 @@ export function BusinessDetailsStep() {
             name="organizationType"
             render={({ field }) => (
               <FormItem className="w-full">
-                <FormLabel>Using Polar as</FormLabel>
+                <FormLabel>Using Repalis as</FormLabel>
                 <FormControl>
                   <Tabs
                     value={field.value}

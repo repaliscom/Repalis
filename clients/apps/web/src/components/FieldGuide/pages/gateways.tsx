@@ -4,7 +4,7 @@ import { landscape } from './more'
 
 /**
  * Events without code: model calls already pass through an AI gateway on their way to the model, and the gateway
- * hands each one to Polar as an `llm.completion` event.
+ * hands each one to Repalis as an `llm.completion` event.
  */
 
 const BW = 104,
@@ -92,13 +92,13 @@ export const gateways = landscape(
   'm-gateways',
   'AI gateways',
   'Model calls through an AI gateway are metered with no extra code.',
-  'Your app calls a model through an AI gateway. The gateway passes the call on to the model and sends Polar one llm.completion event for it, with the model, the input and output tokens, and the cost.',
+  'Your app calls a model through an AI gateway. The gateway passes the call on to the model and sends Repalis one llm.completion event for it, with the model, the input and output tokens, and the cost.',
   figure,
   [
     [
       'Through your gateway',
       [
-        'If your model calls already go through an AI gateway, Polar connects to it and records every call as an event.',
+        'If your model calls already go through an AI gateway, Repalis connects to it and records every call as an event.',
       ],
     ],
     [
@@ -110,7 +110,7 @@ export const gateways = landscape(
     [
       'Cost included',
       [
-        'The gateway knows what each call cost, so the event carries it, and Polar knows your margin on every customer as the usage happens.',
+        'The gateway knows what each call cost, so the event carries it, and Repalis knows your margin on every customer as the usage happens.',
       ],
     ],
   ],

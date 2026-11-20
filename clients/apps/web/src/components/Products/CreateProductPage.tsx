@@ -303,7 +303,7 @@ export const CreateProductPage = ({
         {flaggedPhrase && (
           <Alert
             variant="warning"
-            title="This product may not be allowed on Polar"
+            title="This product may not be allowed on Repalis"
             description={
               <>
                 {flaggedPhrase.phrase
@@ -318,7 +318,7 @@ export const CreateProductPage = ({
                 >
                   Acceptable Use Policy
                 </a>
-                . Polar is a Merchant of Record for digital products only.
+                . Repalis is a Merchant of Record for digital products only.
               </>
             }
           />

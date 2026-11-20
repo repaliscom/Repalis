@@ -121,7 +121,7 @@ describe('parseMissingStripeScopes', () => {
       parseMissingStripeScopes({
         error: 'SourceKeyModeMismatch',
         detail:
-          'This Polar environment needs a test-mode Stripe key (e.g. `rk_test_…`), so the migration runs against test data.',
+          'This Repalis environment needs a test-mode Stripe key (e.g. `rk_test_…`), so the migration runs against test data.',
       }),
     ).toEqual([])
     expect(parseMissingStripeScopes({ detail: 'Not permitted' })).toEqual([])

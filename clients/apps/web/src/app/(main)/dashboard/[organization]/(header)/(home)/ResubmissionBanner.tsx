@@ -35,8 +35,8 @@ export const ResubmissionBanner = ({
           <Text color="muted">
             Since your last visit, our onboarding requirements have changed.
             {canManageOrganization
-              ? ' Please review and resubmit your organization information to continue using Polar.'
-              : ' An admin needs to review and resubmit the organization information to continue using Polar.'}
+              ? ' Please review and resubmit your organization information to continue using Repalis.'
+              : ' An admin needs to review and resubmit the organization information to continue using Repalis.'}
           </Text>
           <Text color="muted">
             Payments are unavailable until your organization is approved again.

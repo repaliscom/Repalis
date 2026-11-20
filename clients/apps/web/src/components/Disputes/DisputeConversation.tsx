@@ -18,7 +18,7 @@ const EVENT_LABELS: Record<string, string> = {
   merchant_accepted: 'You accepted the dispute',
   dispute_auto_accept_scheduled: 'Auto-accept scheduled',
   dispute_auto_accept_canceled: 'Auto-accept canceled',
-  dispute_auto_accepted: 'Polar accepted the dispute',
+  dispute_auto_accepted: 'Repalis accepted the dispute',
 }
 
 const MerchantAvatar = ({
@@ -75,7 +75,7 @@ export const DisputeConversation = ({
 
   return (
     <Chat
-      title="Polar support chat"
+      title="Repalis support chat"
       fillHeight={fillHeight}
       messages={chatMessages}
       attachments={chatAttachments}

@@ -85,7 +85,7 @@ export function CreateMigrationModal({
         </Box>
 
         <Text color="muted">
-          Connect Stripe with a restricted API key so Polar can read your
+          Connect Stripe with a restricted API key so Repalis can read your
           billing. Nothing in Stripe changes until you approve each step.
         </Text>
 

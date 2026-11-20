@@ -163,7 +163,7 @@ export default function BillingPage({
         <Section id="orders">
           <SectionDescription
             title="Order history"
-            description="Past invoices for your Polar subscription"
+            description="Past invoices for your Repalis subscription"
           />
           {ordersQuery.isLoading ? (
             <LoadingBox height={240} borderRadius="l" />

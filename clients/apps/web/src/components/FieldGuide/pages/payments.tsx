@@ -14,7 +14,7 @@ import {
 import { landscape } from './more'
 
 /**
- * Bring your own payment processor, as one charge: Polar works out the amount on the invoice, and the processor you
+ * Bring your own payment processor, as one charge: Repalis works out the amount on the invoice, and the processor you
  * already use takes the payment. Other processors stand stacked behind it, since any of them can take its place.
  */
 const Y = 150,
@@ -136,8 +136,8 @@ const figure = (
 )
 
 /**
- * Polar Billing, as one payment: a customer in Berlin pays €23.80, Polar splits it into the price and the VAT on it,
- * files the VAT in Germany and pays the price out to you. Polar's fee comes off the payout and is left out of the
+ * Repalis Billing, as one payment: a customer in Berlin pays €23.80, Repalis splits it into the price and the VAT on it,
+ * files the VAT in Germany and pays the price out to you. Repalis's fee comes off the payout and is left out of the
  * figures, since it depends on the plan.
  */
 const PAY_X0 = 80,
@@ -188,9 +188,9 @@ const morFigure = (
 
 export const polarBilling = landscape(
   'm-mor',
-  'Polar Billing',
-  'Billing, payments and tax in one, with Polar as your merchant of record.',
-  'One payment through Polar as merchant of record: a customer in Berlin pays €23.80, Polar files the €3.80 of VAT in Germany and pays the €20.00 price out to you, less its fee, and handles the invoice, receipt, disputes and fraud screening.',
+  'Repalis Billing',
+  'Billing, payments and tax in one, with Repalis as your merchant of record.',
+  'One payment through Repalis as merchant of record: a customer in Berlin pays €23.80, Repalis files the €3.80 of VAT in Germany and pays the €20.00 price out to you, less its fee, and handles the invoice, receipt, disputes and fraud screening.',
   morFigure,
   [
     [
@@ -202,7 +202,7 @@ export const polarBilling = landscape(
     [
       'Merchant of record',
       [
-        'Polar is the seller on every transaction, so sales tax and VAT are calculated, collected and filed for you, wherever your customers are.',
+        'Repalis is the seller on every transaction, so sales tax and VAT are calculated, collected and filed for you, wherever your customers are.',
       ],
     ],
     [
@@ -217,14 +217,14 @@ export const polarBilling = landscape(
 export const psp = landscape(
   'm-psp',
   'Bring your own PSP',
-  'Polar runs the billing. Payments go through the processor you choose.',
-  'One charge: Polar’s invoice for acme, a $20 plan and $6.50 of tokens, totals $26.50, and that amount is charged through Stripe, with Adyen or your own processor stacked behind it as the alternatives.',
+  'Repalis runs the billing. Payments go through the processor you choose.',
+  'One charge: Repalis’s invoice for acme, a $20 plan and $6.50 of tokens, totals $26.50, and that amount is charged through Stripe, with Adyen or your own processor stacked behind it as the alternatives.',
   figure,
   [
     [
       'Your processor',
       [
-        'Keep the payment processor you already have, Stripe, Adyen and others, along with the contracts and rates that come with it. Polar charges through it.',
+        'Keep the payment processor you already have, Stripe, Adyen and others, along with the contracts and rates that come with it. Repalis charges through it.',
       ],
     ],
     [

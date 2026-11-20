@@ -17,17 +17,17 @@ export const SWITCH_EMPTY_MESSAGES: Record<SwitchFilter, string> = {
   all: 'No imported subscriptions to switch.',
   skipped: 'None were left on Stripe.',
   failed: 'None failed to switch.',
-  moved: 'Nothing has switched to Polar yet.',
+  moved: 'Nothing has switched to Repalis yet.',
 }
 
 export const SWITCH_INTRO =
-  'Polar starts billing the subscriptions you pick, and stops them on Stripe first. It reads Stripe again for each one, so anything that renews too soon or has no card stays put with a reason.'
+  'Repalis starts billing the subscriptions you pick, and stops them on Stripe first. It reads Stripe again for each one, so anything that renews too soon or has no card stays put with a reason.'
 
 export const SWITCH_UNDONE_WARNING =
-  "Polar stops these subscriptions on Stripe and starts billing them. This cannot be undone. Before switching, turn off Stripe's cancellation emails and automations, and make sure your customer.subscription.deleted handling ignores these cancellations."
+  "Repalis stops these subscriptions on Stripe and starts billing them. This cannot be undone. Before switching, turn off Stripe's cancellation emails and automations, and make sure your customer.subscription.deleted handling ignores these cancellations."
 
 // Always scoped to prepared subscriptions (customer + product already in
-// Polar). The cutover report uses the same set; listing every staged row
+// Repalis). The cutover report uses the same set; listing every staged row
 // would fill the All tab with subscriptions that cannot be switched.
 export function switchRecordsParams(
   filter: SwitchFilter,
@@ -56,5 +56,5 @@ export function periodEndMoveNotice(row: SwitchRow): string | null {
     return null
   }
   const when = renewalDate(row) ?? 'that date'
-  return `It's set to cancel at the end of the period on Stripe. You can move it to Polar, and it will still end on ${when}.`
+  return `It's set to cancel at the end of the period on Stripe. You can move it to Repalis, and it will still end on ${when}.`
 }

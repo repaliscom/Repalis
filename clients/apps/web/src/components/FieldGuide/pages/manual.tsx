@@ -25,7 +25,7 @@ import { LiveLedger } from '../live/ledger'
 import { LiveBalance } from '../live/money'
 
 /**
- * The Polar manual: pages that explain the system the way a reference manual explains a screen or a hard drive.
+ * The Repalis manual: pages that explain the system the way a reference manual explains a screen or a hard drive.
  * The pages of makingsoftware.com, drawn in the hand of the rebrand film. Each is a head, one figure with callouts, a paragraph and a foot.
  */
 
@@ -497,7 +497,7 @@ export const manual: Piece[] = [
       )
     },
     {
-      sub: 'Every number Polar shows is computed from the events you send.',
+      sub: 'Every number Repalis shows is computed from the events you send.',
       notes: [
         [
           'One record',
@@ -984,24 +984,24 @@ export const manual: Piece[] = [
       )
     },
     {
-      sub: 'Answered from the state in your own Redis. Polar catches up behind it.',
+      sub: 'Answered from the state in your own Redis. Repalis catches up behind it.',
       notes: [
         [
           'No round trip',
           [
-            'A check, "may this customer call the API?", is answered by Outpost from the state it holds: the fold of every event seen so far. It does not wait on Polar.',
+            'A check, "may this customer call the API?", is answered by Outpost from the state it holds: the fold of every event seen so far. It does not wait on Repalis.',
           ],
         ],
         [
           'Same reducers',
           [
-            'When Outpost connects, Polar sends it the organization\u2019s reducers, so an event is folded locally exactly as Polar folds it, into the same five-minute buckets.',
+            'When Outpost connects, Repalis sends it the organization\u2019s reducers, so an event is folded locally exactly as Repalis folds it, into the same five-minute buckets.',
           ],
         ],
         [
           'First sight',
           [
-            'The only round trip is the first check for a customer Outpost has not seen yet: it fetches their usage from Polar once, and every check after that is answered locally.',
+            'The only round trip is the first check for a customer Outpost has not seen yet: it fetches their usage from Repalis once, and every check after that is answered locally.',
           ],
         ],
       ],

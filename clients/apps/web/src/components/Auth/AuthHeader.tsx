@@ -8,8 +8,8 @@ const AuthHeader = ({ error }: { error?: string }) => {
       <div className="flex flex-col gap-4">
         <h2 className="text-2xl text-black dark:text-white">
           {CONFIG.IS_SANDBOX
-            ? 'Welcome to the Polar Sandbox'
-            : 'Welcome to Polar'}
+            ? 'Welcome to the Repalis Sandbox'
+            : 'Welcome to Repalis'}
         </h2>
         <span className="dark:text-repalis-400 text-lg text-balance text-gray-500">
           {CONFIG.IS_SANDBOX ? (

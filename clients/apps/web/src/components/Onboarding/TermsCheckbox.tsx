@@ -44,7 +44,7 @@ export function TermsCheckbox<T extends FieldValues>({
               <Box flexDirection="column" rowGap="xs">
                 <Box as="label" htmlFor="terms">
                   <p className="cursor-pointer text-sm leading-snug font-medium">
-                    I agree to Polar&apos;s{' '}
+                    I agree to Repalis&apos;s{' '}
                     <a
                       href="https://repalis.com/legal/master-services-terms"
                       className="text-gray-900 underline dark:text-white"

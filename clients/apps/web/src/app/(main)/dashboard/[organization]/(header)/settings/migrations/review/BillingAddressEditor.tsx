@@ -131,7 +131,7 @@ export function BillingAddressEditor({
         />
       ) : null}
       <Text variant="caption" color="muted">
-        Used for Polar tax. Changes save automatically and do not block the
+        Used for Repalis tax. Changes save automatically and do not block the
         migration.
       </Text>
       {updateRecord.isError ? (

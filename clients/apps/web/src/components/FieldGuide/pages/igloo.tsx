@@ -4,8 +4,8 @@ import { LINE, MID, DIM, BG, HAIR, DOTTED, FAINT } from '../kit'
 import { landscape } from './more'
 
 /**
- * Where Outpost sits: between your app and Polar, as a proxy. Your code calls it in-process; it keeps its state in a
- * Redis you run; events go up to Polar batched, and reducers and snapshots come back down.
+ * Where Outpost sits: between your app and Repalis, as a proxy. Your code calls it in-process; it keeps its state in a
+ * Redis you run; events go up to Repalis batched, and reducers and snapshots come back down.
  */
 
 const text = (
@@ -90,7 +90,7 @@ const cells = (
   })
 
 /**
- * A part drawn as a panel: its name and rows of what it keeps, each a label and a reading. Polar and
+ * A part drawn as a panel: its name and rows of what it keeps, each a label and a reading. Repalis and
  * Outpost are drawn the same way, so the two read as one system.
  */
 function Panel({
@@ -138,7 +138,7 @@ function figure() {
   const top = 152,
     h = 104,
     mid = top + h / 2
-  // One rhythm: the process pads its contents by PAD, parts inside it stand GAP apart, and Polar and Redis stand
+  // One rhythm: the process pads its contents by PAD, parts inside it stand GAP apart, and Repalis and Redis stand
   // further off, where the lines between them carry a label.
   const PAD = 24,
     GAP = 64,
@@ -160,7 +160,7 @@ function figure() {
     h: 44,
   }
   const ix = igloo.x + igloo.w / 2
-  // The labels sit in the open ground between the process and Polar.
+  // The labels sit in the open ground between the process and Repalis.
   const gap = (proc.x + proc.w + polar.x) / 2
   return (
     <>
@@ -246,26 +246,26 @@ function figure() {
 export const igloo = landscape(
   'm-igloo',
   'Where Outpost sits',
-  'Between your app and Polar, with its state in your Redis.',
-  'Outpost between your app and Polar: your code calls it in-process, its state is in your Redis, events go up to Polar batched, and reducers and snapshots come back down.',
+  'Between your app and Repalis, with its state in your Redis.',
+  'Outpost between your app and Repalis: your code calls it in-process, its state is in your Redis, events go up to Repalis batched, and reducers and snapshots come back down.',
   figure(),
   [
     [
       'In your process',
       [
-        'Outpost is part of the Polar SDK and runs in your app. Your code hands it events and asks it to check a customer’s meter, and neither call goes to Polar.',
+        'Outpost is part of the Repalis SDK and runs in your app. Your code hands it events and asks it to check a customer’s meter, and neither call goes to Repalis.',
       ],
     ],
     [
       'Your Redis',
       [
-        'Its state lives in a Redis you run: the five-minute buckets, and the snapshots Polar sent. Every process of your app reads the same state, so they agree on a balance.',
+        'Its state lives in a Redis you run: the five-minute buckets, and the snapshots Repalis sent. Every process of your app reads the same state, so they agree on a balance.',
       ],
     ],
     [
-      'Between you and Polar',
+      'Between you and Repalis',
       [
-        'Events go on to Polar batched over HTTP, and Polar’s event log stays the source of truth. Back over one WebSocket come the reducers, and a snapshot whenever usage settles.',
+        'Events go on to Repalis batched over HTTP, and Repalis’s event log stays the source of truth. Back over one WebSocket come the reducers, and a snapshot whenever usage settles.',
       ],
     ],
   ],

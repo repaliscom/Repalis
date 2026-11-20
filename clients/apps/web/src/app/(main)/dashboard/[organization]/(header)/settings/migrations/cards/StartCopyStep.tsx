@@ -56,7 +56,7 @@ export function StartCopyStep({
         </TaskRow>
 
         <TaskRow
-          title="Paste the Polar account ID as the recipient"
+          title="Paste the Repalis account ID as the recipient"
           description={
             copy.warning
               ? `On that same page, then start the copy. ${copy.warning}`
@@ -68,13 +68,13 @@ export function StartCopyStep({
               <CopyToClipboardInput
                 value={destinationAccountId}
                 variant="mono"
-                ariaLabel="Polar account ID"
+                ariaLabel="Repalis account ID"
               />
             </Box>
           ) : (
             <Alert
               variant="danger"
-              title="We can't show the Polar account ID right now"
+              title="We can't show the Repalis account ID right now"
               description="Please contact support before you start the copy in Stripe."
             />
           )}

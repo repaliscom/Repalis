@@ -352,7 +352,7 @@ export default function ChangePlanPage({
                 <Text color="muted">
                   {isCurrentPlanCustom
                     ? 'You are on a custom plan. Send an email to support to change plan or discuss terms.'
-                    : 'Pick a new plan for your Polar subscription. You can change again at any time.'}
+                    : 'Pick a new plan for your Repalis subscription. You can change again at any time.'}
                 </Text>
               </Box>
 

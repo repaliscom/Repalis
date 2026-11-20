@@ -187,7 +187,7 @@ export default function TaxesPage({
                 Merchant of Record
               </Text>
               <Text variant="body" color="muted">
-                Polar collects and remits sales taxes for you automatically. No
+                Repalis collects and remits sales taxes for you automatically. No
                 need for you to register or file in any jurisdictions.
               </Text>
             </Box>
@@ -218,7 +218,7 @@ export default function TaxesPage({
           flexWrap="wrap"
         >
           <SummaryCard
-            label="Tax remitted by Polar"
+            label="Tax remitted by Repalis"
             value={formatCurrency('accounting')(
               summary?.tax_amount ?? 0,
               summary?.currency ?? 'usd',

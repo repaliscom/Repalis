@@ -49,7 +49,7 @@ export const CATALOG_EMPTY_COPY: Record<
   all_switched: {
     title: 'All subscriptions already switched',
     description:
-      'Every Stripe subscription in this migration is already on Polar. Refresh if you have added more since.',
+      'Every Stripe subscription in this migration is already on Repalis. Refresh if you have added more since.',
   },
   no_stripe_subscriptions: {
     title: 'Nothing to import',

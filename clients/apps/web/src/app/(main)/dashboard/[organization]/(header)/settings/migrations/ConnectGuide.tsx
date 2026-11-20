@@ -115,7 +115,7 @@ export function ConnectGuide({
       <Box flexDirection="column" rowGap="m">
         <Text variant="title">1. Create a restricted key in Stripe</Text>
         <Text color="muted">
-          Name it something like &ldquo;Polar migration&rdquo;. This environment
+          Name it something like &ldquo;Repalis migration&rdquo;. This environment
           needs a {mode}-mode key ({stripeKeyPlaceholder(mode)}).
         </Text>
         <Button variant="secondary" fullWidth asChild>
@@ -158,7 +158,7 @@ export function ConnectGuide({
           ))}
         </Box>
         <Text color="muted">
-          Polar only writes to Stripe to cancel each subscription when you
+          Repalis only writes to Stripe to cancel each subscription when you
           switch it over, so no customer is billed twice. Everything else is
           read-only.
         </Text>

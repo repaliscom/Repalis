@@ -27,7 +27,7 @@ export const MIGRATION_STEPS: MigrationStepDef[] = [
     owner: 'you',
     title: 'Connect your Stripe account',
     description:
-      'Paste a Stripe restricted API key so Polar can read your products, discounts, customers and subscriptions.',
+      'Paste a Stripe restricted API key so Repalis can read your products, discounts, customers and subscriptions.',
     steps: ['source_setup'],
   },
   {
@@ -36,7 +36,7 @@ export const MIGRATION_STEPS: MigrationStepDef[] = [
     owner: 'polar',
     title: 'Assess & import your catalog',
     description:
-      'Polar checks what can move, then imports the products, discounts and customers your subscriptions need.',
+      'Repalis checks what can move, then imports the products, discounts and customers your subscriptions need.',
     steps: ['pre_check'],
   },
   {
@@ -46,8 +46,8 @@ export const MIGRATION_STEPS: MigrationStepDef[] = [
     owner: 'varies',
     title: 'Move saved cards',
     description:
-      "Follow the checklist to move your customers' saved cards onto Polar.",
-    // `create_catalog` means the catalog is already in Polar, so card movement
+      "Follow the checklist to move your customers' saved cards onto Repalis.",
+    // `create_catalog` means the catalog is already in Repalis, so card movement
     // is the next real action even before the checklist starts.
     steps: ['create_catalog', 'copy_cards'],
   },
@@ -65,7 +65,7 @@ export const MIGRATION_STEPS: MigrationStepDef[] = [
 export const OWNER_LABELS: Record<StepOwner, string | null> = {
   you: null,
   varies: null,
-  polar: 'Polar',
+  polar: 'Repalis',
   stripe: 'Stripe',
 }
 

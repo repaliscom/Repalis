@@ -398,7 +398,7 @@ const SlackConnectedBanner = ({
         isShown={showConfirm}
         hide={() => setShowConfirm(false)}
         title="Disconnect Slack workspace"
-        description="This removes the Slack integration from Polar. Existing channels stay in Slack but Polar can no longer manage them."
+        description="This removes the Slack integration from Repalis. Existing channels stay in Slack but Repalis can no longer manage them."
         onConfirm={onDisconnect}
         destructive
         destructiveText="Disconnect"

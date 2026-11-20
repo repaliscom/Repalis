@@ -20,13 +20,13 @@ interface Props {
   onReviewRecords: () => void
 }
 
-const UNCOUNTED = 'Your catalog is now in Polar.'
+const UNCOUNTED = 'Your catalog is now in Repalis.'
 const CARDS_AT_STRIPE =
-  "Your customers' cards are still at Stripe. Moving them lets Polar charge " +
+  "Your customers' cards are still at Stripe. Moving them lets Repalis charge " +
   'them. This is a checklist. You can leave and come back.'
 const MAYBE_ON_POLAR =
   'These subscriptions were prepared in an earlier migration. If their ' +
-  "cards are already on Polar, you'll go straight to the switch. Otherwise " +
+  "cards are already on Repalis, you'll go straight to the switch. Otherwise " +
   "you'll get a checklist to move them."
 const NOTHING_TO_MOVE =
   'There is nothing to move yet. Prepare your subscriptions first, then come ' +
@@ -44,7 +44,7 @@ function receipt(outcome: ImportOutcome, nothingLanded: boolean): string {
       : UNCOUNTED
   }
   const verb = total === 1 ? 'is' : 'are'
-  return `${importedCountsText(outcome.imported)} ${verb} now in Polar.`
+  return `${importedCountsText(outcome.imported)} ${verb} now in Repalis.`
 }
 
 // The import receipt and the handoff to card movement in one panel, so the

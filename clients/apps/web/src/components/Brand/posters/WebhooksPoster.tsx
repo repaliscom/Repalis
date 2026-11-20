@@ -18,7 +18,7 @@ const EVENTS: [string, string][] = [
   ['09:58:52', 'benefit_grant.revoked'],
 ]
 
-/** A minute of webhooks: every change in Polar, delivered to you. */
+/** A minute of webhooks: every change in Repalis, delivered to you. */
 export const WebhooksPoster = () => (
   <PosterFrame surface="snow" signed>
     <PosterBody>

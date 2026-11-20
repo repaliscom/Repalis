@@ -9,7 +9,7 @@ export function AUPBlocker({ categories }: { categories: string[] }) {
       title={`Not supported: ${categories.join(', ')}`}
       description={
         <>
-          Polar is a Merchant of Record for digital products only. Physical
+          Repalis is a Merchant of Record for digital products only. Physical
           goods, human services, and marketplaces are not permitted under our{' '}
           <a
             href="https://repalis.com/legal/acceptable-use-policy"

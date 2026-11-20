@@ -45,7 +45,7 @@ export interface ReasonLink {
   href: string
 }
 
-// A clash with an existing Polar customer. The merchant can settle a duplicate
+// A clash with an existing Repalis customer. The merchant can settle a duplicate
 // subscription themselves; anything else needs support to move the customer.
 export function reasonLinks(
   row: ReviewRow,
@@ -56,10 +56,10 @@ export function reasonLinks(
     id: row.conflicting_customer_id,
   })
   if (row.reason_code === 'customer_subscribed_on_polar') {
-    return [{ label: 'View their Polar subscription', href: customerHref }]
+    return [{ label: 'View their Repalis subscription', href: customerHref }]
   }
   return [
-    { label: 'View Polar customer', href: customerHref },
+    { label: 'View Repalis customer', href: customerHref },
     { label: 'Contact support', href: 'mailto:contact@repalis.com' },
   ]
 }

@@ -24,14 +24,14 @@ You are integrating Repalis (https://repalis.com) — checkout and webhooks — 
 - Dashboard: ${dashboardUrl}
 - API base: ${apiUrl}
 
-If a value you need is not listed above, not in .env, and not returned by a Polar API call you made, stop and ask the user — do not guess.
+If a value you need is not listed above, not in .env, and not returned by a Repalis API call you made, stop and ask the user — do not guess.
 
 ## Rules
 1. Secrets must never appear in this conversation, in source code, or in command output. Never ask the user to paste a secret into chat — they edit .env themselves, or you pipe API responses into .env without printing them.
 2. Read every file before editing it (for .env, check only which keys are present, not their values). Make minimal diffs that match the project's existing style.
 3. Use the project's package manager, detected from lockfiles: pnpm-lock.yaml means pnpm, bun.lock or bun.lockb means bun, yarn.lock means yarn, package-lock.json means npm, uv.lock means uv, poetry.lock means poetry, otherwise pip.
-4. Your training data about Polar may be outdated. Before writing integration code, fetch the current instructions and follow them over memory:
-   - https://raw.githubusercontent.com/polarsource/agent-toolkit/main/skills/polar-integration/SKILL.md — the canonical integration guide. It wires up checkout, customer portal, and webhooks with @polar-sh/sdk directly and lists per-framework variations (Next.js, SvelteKit, Nuxt, Astro, Hono, Express, Fastify, Elysia, and more). It is written for JS/TS; for Python, apply the same approach with the polar-sdk package.
+4. Your training data about Repalis may be outdated. Before writing integration code, fetch the current instructions and follow them over memory:
+   - https://raw.githubusercontent.com/polarsource/agent-toolkit/main/skills/polar-integration/SKILL.md — the canonical integration guide. It wires up checkout, customer portal, and webhooks with @polar-sh/sdk directly and lists per-framework variations (Next.js, SvelteKit, Nuxt, Astro, Hono, Express, Fastify, Elysia, and more). It is written for JS/TS; for Python, apply the same approach with the repalis-sdk package.
    - https://repalis.com/docs/llms.txt (an index of every docs page; fetch the API-reference pages you need, e.g. product or checkout creation).
    Important: build this on @polar-sh/sdk directly, even where the skill or docs show a per-framework @polar-sh/<framework> adapter (e.g. @polar-sh/nextjs). Using the SDK everywhere keeps the setup consistent across frameworks and languages.
 
@@ -45,13 +45,13 @@ Identify the stack: JS/TS (next, @sveltejs/kit, nuxt, astro, @remix-run/*, hono,
 4. Verify without exposing it: make an authenticated GET to ${apiUrl}/v1/products/?limit=1 (note the trailing slash — the API 307-redirects to it) reading the token from .env, following redirects, and treat any 2xx as success. On 401 or 403, remind the user that the token must be created in the ${environment} environment (sandbox and production are separate) with the scopes listed above, then retry.
 
 ## Phase 3 — Install
-Install the Polar SDK for the language: @polar-sh/sdk (JS/TS) or polar-sdk (Python). Do not add a per-framework @polar-sh/<framework> adapter — the SDK covers every framework. (Non-Polar helpers your framework genuinely needs are fine — e.g. in Python add a .env loader such as python-dotenv, since Python frameworks don't auto-load .env the way Next.js does; call it at startup.) Construct a single SDK client and reuse it across the routes, reading the environment from POLAR_SERVER (sandbox or production).
+Install the Repalis SDK for the language: @polar-sh/sdk (JS/TS) or repalis-sdk (Python). Do not add a per-framework @polar-sh/<framework> adapter — the SDK covers every framework. (Non-Polar helpers your framework genuinely needs are fine — e.g. in Python add a .env loader such as python-dotenv, since Python frameworks don't auto-load .env the way Next.js does; call it at startup.) Construct a single SDK client and reuse it across the routes, reading the environment from POLAR_SERVER (sandbox or production).
 
 ## Phase 4 — Routes
-Following the polar-integration skill (use the variation for your framework), create these two routes with the SDK client (paths per the framework's conventions). The client's server comes from POLAR_SERVER — do not hardcode it, so switching environments later is only an env change.
-1. Checkout — a route at /checkout driven by ?products=<id>: call the SDK's checkout create (JS: polar.checkouts.create) and redirect the user to the returned checkout URL. Do not set a success URL and do not create a confirmation page — Polar shows its own hosted confirmation after payment.
+Following the repalis-integration skill (use the variation for your framework), create these two routes with the SDK client (paths per the framework's conventions). The client's server comes from POLAR_SERVER — do not hardcode it, so switching environments later is only an env change.
+1. Checkout — a route at /checkout driven by ?products=<id>: call the SDK's checkout create (JS: polar.checkouts.create) and redirect the user to the returned checkout URL. Do not set a success URL and do not create a confirmation page — Repalis shows its own hosted confirmation after payment.
 2. Webhooks — a POST route at /api/webhook/polar that verifies the signature against POLAR_WEBHOOK_SECRET before handling the event (JS: validateEvent from @polar-sh/sdk/webhooks; Python: polar_sdk.webhooks.validate_event). Handle the order-paid and customer-state-changed events with clear TODO stubs — do not invent business logic.
-Do not build a customer portal route, even though the skill includes a recipe for one. Polar hosts the customer portal and already emails customers a link to it, so it needs no app code. (An in-app "Manage billing" link is optional and can be added later — leave it out.)
+Do not build a customer portal route, even though the skill includes a recipe for one. Repalis hosts the customer portal and already emails customers a link to it, so it needs no app code. (An in-app "Manage billing" link is optional and can be added later — leave it out.)
 Then verify: build/typecheck the project (JS) or import the app module (Python) and fix any breakage before continuing.
 
 ## Phase 5 — Provision via API
@@ -62,7 +62,7 @@ Use the SDK client (or authenticated REST calls) with the token from .env, never
 ## Phase 6 — Verify & hand off
 1. Run the full typecheck/build once more. Do not block on a long-running dev server: if one isn't already running, give the user the command to start it instead of launching it yourself.
 2. Give the user their first checkout link: http://localhost:<port>/checkout?products=<PRODUCT_ID>. ${testInstruction}
-3. Write POLAR_SETUP.md: files created/changed, env keys added (names only, never values), product and webhook endpoint ids, a verify-before-merging checklist, a note that Polar's customer portal is already available to customers (Polar hosts it and emails them the link — no app code needed), and ${goLiveNote}.
-4. Offer exactly one follow-up: "Want me to wire the webhook handlers into your database and auth so paid orders actually grant access? I'll propose the mapping before changing anything." If accepted: inspect their schema and auth, propose how to map Polar customers to app users (set external_customer_id to the app's user id at checkout, resolve it back in the webhook), get approval, then implement.
+3. Write POLAR_SETUP.md: files created/changed, env keys added (names only, never values), product and webhook endpoint ids, a verify-before-merging checklist, a note that Repalis's customer portal is already available to customers (Repalis hosts it and emails them the link — no app code needed), and ${goLiveNote}.
+4. Offer exactly one follow-up: "Want me to wire the webhook handlers into your database and auth so paid orders actually grant access? I'll propose the mapping before changing anything." If accepted: inspect their schema and auth, propose how to map Repalis customers to app users (set external_customer_id to the app's user id at checkout, resolve it back in the webhook), get approval, then implement.
 `
 }

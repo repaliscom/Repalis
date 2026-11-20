@@ -94,7 +94,7 @@ export function stripeKeyError(
   }
   if (isLiveStripeKey(trimmed) !== (mode === 'live')) {
     return (
-      `This Polar environment needs a ${mode}-mode Stripe key ` +
+      `This Repalis environment needs a ${mode}-mode Stripe key ` +
       `(e.g. \`rk_${mode}_…\`), so the migration runs against ${mode} data.`
     )
   }
