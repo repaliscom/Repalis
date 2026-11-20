@@ -56,11 +56,11 @@ const ADAPTERS: Snippet[] = [
     caption: 'auth.ts',
     href: `${ADAPTER_DOCS}/better-auth`,
     lines: [
-      "import { polar, checkout, portal } from '@repalis/better-auth'",
+      "import { repalis, checkout, portal } from '@repalis/better-auth'",
       '',
       'export const auth = betterAuth({',
       '  plugins: [',
-      '    polar({',
+      '    repalis({',
       '      client: repalisClient,',
       '      createCustomerOnSignUp: true,',
       '      use: [',

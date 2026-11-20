@@ -38,11 +38,11 @@ export const createWebCheckout = (
     url: CHECKOUT_URL,
     success_url: `${CHECKOUT_URL}/confirmation`,
     payment_processor: 'stripe',
-    payment_processor_metadata: { publishable_key: 'pk_test_polar' },
+    payment_processor_metadata: { publishable_key: 'pk_test_repalis' },
     organization: {
       ...base.organization,
-      name: 'Polar Penguin',
-      slug: 'polar-penguin',
+      name: 'Repalis Penguin',
+      slug: 'repalis-penguin',
     },
     ...overrides,
   })

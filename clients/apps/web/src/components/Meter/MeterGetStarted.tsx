@@ -43,16 +43,16 @@ export const MeterGetStarted = ({ meter }: MeterGetStartedProps) => {
         <h2 className="text-xl">Get started with metering</h2>
         <p className="dark:text-repalis-500 text-gray-500">
           Meter usage by sending events which match the Meter Filter, to the
-          Polar Ingestion API.
+          Repalis Ingestion API.
         </p>
       </div>
       <pre className="dark:bg-repalis-900 rounded-lg bg-white p-4 font-mono text-sm">
         <SyntaxHighlighterProvider>
           <SyntaxHighlighterClient
             lang="typescript"
-            code={`import { Polar } from "@repalis/sdk";
+            code={`import { Repalis } from "@repalis/sdk";
 
-const polar = new Polar({
+const repalis = new Repalis({
   accessToken: process.env["REPALIS_ACCESS_TOKEN"] ?? "",${
     CONFIG.IS_SANDBOX
       ? `

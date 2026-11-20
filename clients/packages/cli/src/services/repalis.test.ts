@@ -1,6 +1,6 @@
 import { afterEach, expect, test, vi } from 'vitest'
 import { Effect, Redacted } from 'effect'
-import type { Polar as RepalisSDK } from '@repalis/sdk/2026-10'
+import type { Repalis as RepalisSDK } from '@repalis/sdk/2026-10'
 import { AuthError, type RepalisEnvironment } from '@/schemas/Auth'
 import { UsedEnvironments } from '@/services/api'
 import { Auth, type Credential } from '@/services/auth'
@@ -243,19 +243,19 @@ test.each([
   {
     name: 'a body without detail',
     rejection: { statusCode: 422, error: 'Unprocessable Entity' },
-    message: 'The Polar API rejected the request (422).',
+    message: 'The Repalis API rejected the request (422).',
   },
   {
     name: 'a server error',
     rejection: { statusCode: 503 },
     message:
-      'The Polar API returned an error (503). It may be having issues, try again shortly.',
+      'The Repalis API returned an error (503). It may be having issues, try again shortly.',
   },
   {
     name: 'a network failure',
     rejection: new TypeError('fetch failed'),
     message:
-      'Polar API request failed (TypeError). Check your connection and try again.',
+      'Repalis API request failed (TypeError). Check your connection and try again.',
   },
 ])('surfaces the API message for $name', async ({ rejection, message }) => {
   const repalis = await repalisWith(() => Effect.succeed(overrideCredential()))

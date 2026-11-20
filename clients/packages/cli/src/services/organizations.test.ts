@@ -76,7 +76,7 @@ const service = () =>
           Layer.provide(
             Layer.mergeAll(
               Layer.succeed(Auth, auth.auth),
-              Layer.succeed(Repalis, polar.polar),
+              Layer.succeed(Repalis, repalis.repalis),
               Layer.succeed(CLIConfig, config.config),
             ),
           ),
@@ -91,7 +91,7 @@ beforeEach(() => {
   pages = { sandbox: [[first]], production: [[second]] }
   requests = []
   denied = false
-  polar.state.requests.length = 0
+  repalis.state.requests.length = 0
 })
 
 test('selection stores the organization with its environment', async () => {
@@ -180,7 +180,7 @@ test('an explicit slug is looked up by listing instead of fetching by id', async
     { page: 1, slug: 'second', environment: 'production' },
   ])
   expect(
-    polar.state.requests.every(
+    repalis.state.requests.every(
       (request) => request.organizationId === undefined,
     ),
   ).toBe(true)
@@ -218,7 +218,7 @@ test('lookups are scoped to the organization while listing is not', async () => 
   await Effect.runPromise(organizations.resolve())
   await Effect.runPromise(organizations.resolve(second.id))
   await Effect.runPromise(organizations.listAll)
-  expect(polar.state.requests).toEqual([
+  expect(repalis.state.requests).toEqual([
     { environment: 'sandbox', organizationId: first.id },
     { environment: 'sandbox', organizationId: second.id },
     { environment: 'production', organizationId: second.id },

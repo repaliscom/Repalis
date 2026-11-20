@@ -49,9 +49,9 @@ export const MeterIngestionGuide = () => {
           <Well className="dark:bg-repalis-900 flex-1 shrink overflow-auto bg-white p-6 text-sm">
             <SyntaxHighlighterClient
               lang="typescript"
-              code={`import { Polar } from "@repalis/sdk";
+              code={`import { Repalis } from "@repalis/sdk";
 
-const polar = new Polar({
+const repalis = new Repalis({
   accessToken: process.env["REPALIS_ACCESS_TOKEN"] ?? "",
 });
 

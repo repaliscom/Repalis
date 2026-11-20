@@ -26,7 +26,7 @@ const TEAM_SIZE_OPTIONS = ['1', '2 to 5', '6 to 15', '16 to 50', '50+']
 
 const BILLING_PLATFORM_OPTIONS = [
   'None',
-  'Polar',
+  'Repalis',
   'Stripe',
   'Paddle',
   'Lemon Squeezy',
@@ -103,7 +103,7 @@ const INITIAL: FormState = {
   partner: '',
   partnerOther: '',
   paymentVolume: '',
-  currentBillingPlatform: 'Polar',
+  currentBillingPlatform: 'Repalis',
   currentBillingPlatformOther: '',
   repalisOrgSlug: '',
   teamSize: '',
@@ -298,7 +298,7 @@ export const DesignPartnerForm = ({
             )}
           </Field>
 
-          {form.currentBillingPlatform === 'Polar' && (
+          {form.currentBillingPlatform === 'Repalis' && (
             <Field label="Repalis Organization Slug" htmlFor="repalisOrgSlug">
               <Input
                 id="repalisOrgSlug"

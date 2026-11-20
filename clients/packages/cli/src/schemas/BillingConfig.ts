@@ -11,11 +11,11 @@ export type Format = typeof Format.Type
 export const CONFIG_FILES: Record<Format, ReadonlyArray<string>> = {
   ts: [
     'repalis.config.ts',
-    'polar.config.mts',
-    'polar.config.cts',
+    'repalis.config.mts',
+    'repalis.config.cts',
     'repalis.config.js',
     'repalis.config.mjs',
-    'polar.config.cjs',
+    'repalis.config.cjs',
   ],
   json: ['repalis.config.json', 'repalis.json'],
 }

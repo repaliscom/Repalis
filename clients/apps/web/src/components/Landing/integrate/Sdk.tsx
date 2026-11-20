@@ -10,7 +10,7 @@ const SDK_DOCS = '/docs/integrate/sdk/introduction'
 const TYPESCRIPT = [
   "import { createRepalis } from '@repalis/sdk/2026-10'",
   '',
-  'const polar = createRepalis({',
+  'const repalis = createRepalis({',
   '  accessToken: process.env.REPALIS_ACCESS_TOKEN,',
   '})',
   '',
@@ -21,7 +21,7 @@ const TYPESCRIPT = [
 const PYTHON = [
   'from repalis.v2026_10 import Repalis',
   '',
-  'polar = Polar(os.environ["REPALIS_ACCESS_TOKEN"])',
+  'repalis = Repalis(os.environ["REPALIS_ACCESS_TOKEN"])',
   '',
   '# every entitlement and balance, one call',
   'state = repalis.customers.get_state_external("acme")',

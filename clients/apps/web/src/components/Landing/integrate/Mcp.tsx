@@ -39,7 +39,7 @@ const TOOLSET: Tool[] = [
 /** The landing's agent session, opening with the integration itself. */
 const TURNS: Turn[] = [
   {
-    prompt: 'Integrate Polar for billing in my stack',
+    prompt: 'Integrate Repalis for billing in my stack',
     tool: 'Create product',
     answer:
       'Added the Next.js adapter with checkout, the customer portal and verified webhooks, and created a Pro product in your sandbox.',
@@ -57,7 +57,7 @@ export const Mcp = () => (
     id="mcp"
     name="01 MCP"
     title="Agents included"
-    subtitle="Polar as a tool your agent can call"
+    subtitle="Repalis as a tool your agent can call"
     description="A remote MCP server with OAuth, so there are no keys to paste. Three meta-tools keep the context small, so the agent only loads the operations it needs."
     cta={<DocsLink href={MCP_DOCS} label="MCP documentation" />}
   >

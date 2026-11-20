@@ -8,7 +8,7 @@ import { Shimmer } from '../Shimmer'
 /** The prompts the session rotates through: what a coding agent does with Repalis's MCP server and skills. */
 const TURNS = [
   {
-    prompt: 'Implement Polar for billing in my app',
+    prompt: 'Implement Repalis for billing in my app',
     running: 'Adding checkout, customer portal and webhooks',
     done: 'Edited 3 files',
     result: 'Checkout, the customer portal and verified webhooks are wired in.',
@@ -21,7 +21,7 @@ const TURNS = [
   },
   {
     prompt: 'Add a Pro plan with 10,000 credits a month',
-    running: 'Creating the product in Polar',
+    running: 'Creating the product in Repalis',
     done: 'Created Pro',
     result: 'Pro is live at $49 a month and grants 10,000 credits each cycle.',
   },

@@ -10,7 +10,7 @@ import { useInView } from '@/hooks/useInView'
  * the innermost ring outward with a cubic-bezier ease.
  */
 
-const WORD = 'POLAR'
+const WORD = 'REPALIS'
 
 // Cubic ease-in-out
 const ease = (t: number) =>
@@ -101,7 +101,7 @@ export const TextRings = ({ timeOffset = 10 }: TextRingsProps) => {
         const arcSpan =
           (ring.charCount / (ring.charCount + 1)) * Math.PI * progress
 
-        // Draw two arcs per ring — top and bottom — so "POLAR" always
+        // Draw two arcs per ring — top and bottom — so "REPALIS" always
         // reads left-to-right regardless of orientation.
 
         // TOP ARC: characters upright, reading L→R = CW across top

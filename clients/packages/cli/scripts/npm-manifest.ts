@@ -104,7 +104,7 @@ export const readme = (version: string) =>
 [![npm](https://img.shields.io/npm/v/${MAIN_PACKAGE}?label=npm)](https://www.npmjs.com/package/${MAIN_PACKAGE})
 [![Release CLI](https://github.com/repaliscom/Repalis/actions/workflows/release_cli.yml/badge.svg)](https://github.com/repaliscom/Repalis/actions/workflows/release_cli.yml)
 
-The Repalis CLI helps you build, test and manage your Polar integration from the terminal. It is built for people and for AI agents alike.
+The Repalis CLI helps you build, test and manage your Repalis integration from the terminal. It is built for people and for AI agents alike.
 
 **With the CLI, you can:**
 
@@ -158,7 +158,7 @@ Check that it works with \`repalis --version\`.
 
 ## Built for agents
 
-Point Claude Code, Cursor, Codex or any other agent at \`polar\` and it can run your whole Polar setup from the terminal:
+Point Claude Code, Cursor, Codex or any other agent at \`polar\` and it can run your whole Repalis setup from the terminal:
 
 - API commands print JSON, and \`--json\` turns every other command's output and every error into JSON too. Errors carry a \`hint\` with the fix.
 - \`--fields\` keeps only the fields the agent needs, so responses stay small.

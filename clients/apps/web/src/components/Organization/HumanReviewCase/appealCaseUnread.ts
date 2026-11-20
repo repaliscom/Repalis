@@ -9,9 +9,9 @@ export const isNotifiable = (m: schemas['SupportCaseMessage']) =>
   m.author_kind !== 'merchant' && m.type !== 'opened' && m.type !== 'closed'
 
 const storageKey = (organizationId: string) =>
-  `polar:appeal-case-seen:${organizationId}`
+  `repalis:appeal-case-seen:${organizationId}`
 
-const SEEN_EVENT = 'polar:appeal-case-seen'
+const SEEN_EVENT = 'repalis:appeal-case-seen'
 
 export const getSeenCount = (organizationId: string): number => {
   if (typeof window === 'undefined') return 0
