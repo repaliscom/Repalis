@@ -16,7 +16,7 @@ def register(app: typer.Typer, prompt_setup: callable) -> None:
         context_settings={"allow_extra_args": True, "ignore_unknown_options": True},
     )
     @app.command(
-        name="polar",
+        name="repalis",
         add_help_option=False,
         context_settings={"allow_extra_args": True, "ignore_unknown_options": True},
     )

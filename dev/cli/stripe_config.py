@@ -23,7 +23,7 @@ from shared import (
     update_secrets,
 )
 
-STRIPE_CLI_PROFILE = "polar-sandbox"
+STRIPE_CLI_PROFILE = "repalis-sandbox"
 SANDBOX_DASHBOARD_URL = "https://dashboard.stripe.com/sandboxes"
 TAX_SETTINGS_URL = "https://dashboard.stripe.com/test/tax/settings"
 TAX_REGISTRATIONS_URL = "https://dashboard.stripe.com/test/tax/registrations"

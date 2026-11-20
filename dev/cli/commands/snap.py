@@ -266,15 +266,15 @@ def _ask_autodetect() -> bool:
 
 def _resolve_import(spec: str, from_file: Path) -> Path | None:
     """Resolve a JS/TS import specifier to a source file under web/src or a shared
-    package's src. Handles relative, `@/…` (→ web/src), and `@polar-sh/<pkg>/…`
+    package's src. Handles relative, `@/…` (→ web/src), and `@repalis/<pkg>/…`
     (→ packages/<pkg>/src) — plus extension and `/index` resolution. Returns None
     for node_modules / asset / unresolved specifiers."""
     if spec.startswith("."):
         base = from_file.parent / spec
     elif spec.startswith("@/"):
         base = WEB_SRC_DIR / spec[2:]
-    elif spec.startswith("@polar-sh/"):
-        pkg, _, sub = spec[len("@polar-sh/") :].partition("/")
+    elif spec.startswith("@repalis/"):
+        pkg, _, sub = spec[len("@repalis/") :].partition("/")
         base = PACKAGES_DIR / pkg / "src" / sub
     else:
         return None  # bare module (react, etc.) — not ours
@@ -478,7 +478,7 @@ def _tick_progress(progress: Progress, task, t0: float, total: float, stop) -> N
 def _dev_up(run_dir: Path, set_status, label: str, wipe_next: bool = False) -> None:
     """Rebuild for the branch currently checked out (on BOTH branches): run
     `dev up` to install deps, run migrations, and rebuild the workspace packages
-    (`@polar-sh/ui` ships as prebuilt `dist/`, so a branch's UI changes only land
+    (`@repalis/ui` ships as prebuilt `dist/`, so a branch's UI changes only land
     once its packages are rebuilt). Since the web server is restarted fresh per
     branch, turbopack picks up the rebuilt `dist` on startup.
 

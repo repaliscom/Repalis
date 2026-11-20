@@ -13,12 +13,12 @@ for an agent — swallows a failed email-renderer build, the artifact that block
 
 It is idempotent, skips work already done, and reports failed steps in its output rather than
 aborting. It fires on session start and resume, not on every compaction. Read the script for
-what it does; its log is `polar-session-start.log` in `$TMPDIR` (`/tmp` unless overridden), and
-the Docker daemon's is `polar-dockerd.log` next to it.
+what it does; its log is `repalis-session-start.log` in `$TMPDIR` (`/tmp` unless overridden), and
+the Docker daemon's is `repalis-dockerd.log` next to it.
 
 The image's pnpm switches to the `packageManager` version without running its postinstall,
 which leaves a shim turbo can't exec ("Exec format error" on a cache miss). The hook installs
-that version's native binary under `~/.local/share/polar-pnpm/` and links it into
+that version's native binary under `~/.local/share/repalis-pnpm/` and links it into
 `~/.local/bin`, ahead of the image's pnpm on `PATH`.
 
 Deliberately excluded, none of it needed for tests or linters: `dev seed`, `dev start`/tmux,
@@ -48,7 +48,7 @@ sudo dockerd > /tmp/dockerd.log 2>&1 &
 
 dev up --skip-integrations   # deps, infra (incl. Tinybird), migrations, builds
 dev seed                     # sample orgs/products + admin@repalis.com (NOT part of `dev up`)
-dev start                    # api + worker + web (+ stripe) in tmux session `polar`
+dev start                    # api + worker + web (+ stripe) in tmux session `repalis`
 # Stop with:  dev stop
 # Status:     dev status
 ```
@@ -60,8 +60,8 @@ sample data; run `dev seed` afterward. That creates
 seeded" (exit 2), the DB already has `acme-corp` — use `dev seed --reset` only when you
 intentionally want a wipe.
 
-`dev start` ends by *attaching* to the `polar` tmux session; in a non-interactive agent shell,
-create/attach then immediately `tmux detach-client -s polar`, or run `dev api` / `dev worker` /
+`dev start` ends by *attaching* to the `repalis` tmux session; in a non-interactive agent shell,
+create/attach then immediately `tmux detach-client -s repalis`, or run `dev api` / `dev worker` /
 `dev web` as individual detached processes. The stripe pane of `dev start` will prompt to
 install the Stripe CLI via Homebrew — decline on Linux (no Homebrew); checkout/payment testing
 needs a real Stripe sandbox later (`dev stripe`, see the `local-environment` skill's
@@ -81,12 +81,12 @@ exist and the daemon may run as root on `overlayfs`; check `docker info` rather 
 **Backend config artifacts.** Config import fails without the email renderer binary
 (`server/emails/bin/react-email-pkg`, built by `dev up` / `uv run task emails`) → pydantic
 `EMAIL_RENDERER_BINARY_PATH` error. `server/.env` is **not** among them for tests:
-under `POLAR_ENV=testing` (which `tests/conftest.py` forces) `polar/config.py` loads the
+under `POLAR_ENV=testing` (which `tests/conftest.py` forces) `repalis/config.py` loads the
 committed `server/.env.testing`. `server/.env` is still required before `docker compose up -d`,
 which interpolates it. `dev status` reports "Worker unknown (check manually)" by design —
-confirm with `pgrep -af dramatiq` or the `polar` tmux pane.
+confirm with `pgrep -af dramatiq` or the `repalis` tmux pane.
 
 **Tests need no manual DB setup** — an autouse `sqlalchemy_utils` fixture creates and drops
-`polar_test_<worker_id>` (`polar_test_master` without xdist), not `polar_test` itself. Run
+`repalis_test_<worker_id>` (`repalis_test_master` without xdist), not `repalis_test` itself. Run
 `uv run task test_fast` or a subset with `POLAR_ENV=testing uv run python -m pytest <path>`.
-`dev/create-test-db` creates a plain, unmigrated `polar_test` and is not part of this path.
+`dev/create-test-db` creates a plain, unmigrated `repalis_test` and is not part of this path.

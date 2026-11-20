@@ -16,10 +16,10 @@ from shared import (
 )
 
 
-def _configure_polar_self_integration() -> None:
+def _configure_repalis_self_integration() -> None:
     """Query the seeded admin org and configure Polar self-integration env vars."""
     result = run_command(
-        ["uv", "run", "python", "-m", "scripts.seeds_load", "polar-self-env"],
+        ["uv", "run", "python", "-m", "scripts.seeds_load", "repalis-self-env"],
         cwd=SERVER_DIR,
         capture=True,
     )
@@ -143,7 +143,7 @@ def register(app: typer.Typer, prompt_setup: callable) -> None:
                 raise typer.Exit(1)
             step_status(True, "Seed data loaded")
 
-            _configure_polar_self_integration()
+            _configure_repalis_self_integration()
             _print_seeded_login_info()
             return
 
@@ -184,7 +184,7 @@ def register(app: typer.Typer, prompt_setup: callable) -> None:
         if result and result.returncode == 0:
             step_status(True, "Seed data loaded")
             if not new_org:
-                _configure_polar_self_integration()
+                _configure_repalis_self_integration()
 
             _print_seeded_login_info(new_org)
         else:

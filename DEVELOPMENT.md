@@ -89,14 +89,14 @@ Your browser will open a new page and you'll be prompted to **create a GitHub Ap
 
 **Shared secrets (multi-worktree development)**
 
-If you work with multiple Git worktrees, secrets (GitHub, Stripe) are automatically shared via `~/.config/polar/secrets.env`:
+If you work with multiple Git worktrees, secrets (GitHub, Stripe) are automatically shared via `~/.config/repalis/secrets.env`:
 
 1. Run `./dev/setup-environment` in your first worktree
 2. If you set up a GitHub App with `--setup-github-app`, credentials are saved automatically to the central file
-3. For Stripe, edit `~/.config/polar/secrets.env` and add your keys (see template at `dev/secrets.env.template`)
+3. For Stripe, edit `~/.config/repalis/secrets.env` and add your keys (see template at `dev/secrets.env.template`)
 4. Run `./dev/setup-environment` in each additional worktree - secrets are merged automatically
 
-You can override the secrets file location with `POLAR_SECRETS_FILE` environment variable.
+You can override the secrets file location with `REPALIS_SECRETS_FILE` environment variable.
 
 **Optional: setup Stripe**
 
@@ -118,7 +118,7 @@ dev stripe
 ```
 
 It installs the Stripe CLI if it's missing, opens the sandbox dashboard, links the CLI to the
-sandbox you pick (under the `polar-sandbox` profile), writes the keys into the central secrets
+sandbox you pick (under the `repalis-sandbox` profile), writes the keys into the central secrets
 file, regenerates the env files, and starts webhook forwarding. `dev up` runs the same flow.
 
 Later runs just start the listener:
@@ -133,7 +133,7 @@ Stripe CLI keys expire after 90 days. When that happens `dev stripe` notices and
 through linking again.
 
 > [!IMPORTANT]
-> Put all Stripe values in the central secrets file `~/.config/polar/secrets.env`, **not** in `server/.env`.
+> Put all Stripe values in the central secrets file `~/.config/repalis/secrets.env`, **not** in `server/.env`.
 > Whenever `setup-environment` regenerates `server/.env` (a fresh clone or worktree, `dev up --clean`,
 > `dev stripe`, or a manual run), it rebuilds the file from the central secrets and those values win — so
 > edits made directly to `server/.env` are overwritten.
@@ -141,7 +141,7 @@ through linking again.
 **Stripe Tax** must be active in the sandbox, or checkout fails when it tries to price an order.
 `dev stripe` checks this and tells you if it isn't. Once active, orders are taxed at 0 until you
 add a tax registration — see
-[Testing taxes locally](https://linear.app/polarsh/document/developer-faq-7f841e231b03) in the handbook.
+[Testing taxes locally](https://linear.app/repalis/document/developer-faq-7f841e231b03) in the handbook.
 
 <details>
 <summary>Manual setup, and receiving webhooks on a public URL</summary>
@@ -152,7 +152,7 @@ everything. Use dashboard endpoints instead only when you need Stripe to reach a
 
 1. **Create a sandbox** at [https://dashboard.stripe.com/sandboxes](https://dashboard.stripe.com/sandboxes)
 
-2. **Copy the sandbox API keys** from its API keys page and add them to `~/.config/polar/secrets.env`:
+2. **Copy the sandbox API keys** from its API keys page and add them to `~/.config/repalis/secrets.env`:
 
     ```
     POLAR_STRIPE_SECRET_KEY=sk_test_...
@@ -164,17 +164,17 @@ everything. Use dashboard endpoints instead only when you need Stripe to reach a
     - Click "Add destination"
     - Select "Your account"
     - Set API version to the latest (not the preview)
-    - Set enabled events to only the events listed in `DIRECT_IMPLEMENTED_WEBHOOKS` (see `polar/integrations/stripe/endpoints.py`)
+    - Set enabled events to only the events listed in `DIRECT_IMPLEMENTED_WEBHOOKS` (see `repalis/integrations/stripe/endpoints.py`)
     - Click continue, Select Webhook endpoint
     - Set the endpoint URL to: `https://your-domain.ngrok-free.app/v1/integrations/stripe/webhook`
-    - Copy the webhook signing secret and add it to your `~/.config/polar/secrets.env` file:
+    - Copy the webhook signing secret and add it to your `~/.config/repalis/secrets.env` file:
         ```
         POLAR_STRIPE_WEBHOOK_SECRET=whsec_...
         ```
     - Restart the same operation with:
-        - events listed in `CONNECT_IMPLEMENTED_WEBHOOKS` (see `polar/integrations/stripe/endpoints.py`)
+        - events listed in `CONNECT_IMPLEMENTED_WEBHOOKS` (see `repalis/integrations/stripe/endpoints.py`)
         - Set the endpoint URL to: `https://your-domain.ngrok-free.app/v1/integrations/stripe/webhook-connect`
-        - Copy the webhook signing secret and add it to your `~/.config/polar/secrets.env` file:
+        - Copy the webhook signing secret and add it to your `~/.config/repalis/secrets.env` file:
             ```
             POLAR_STRIPE_CONNECT_WEBHOOK_SECRET=whsec_...
             ```
@@ -328,8 +328,8 @@ Or a single path: `POLAR_ENV=testing uv run python -m pytest tests/<module>`.
 `uv run task test` adds coverage and runs serially, so prefer `test_fast` locally. CI does
 neither — it shards `pytest ... -n auto --no-cov` across four jobs. Tests read the committed
 `server/.env.testing` (forced by `tests/conftest.py`), not `server/.env`, and each xdist worker
-gets its own `polar_test_<worker_id>` database. Export `POLAR_TEST_DATABASE_TEMPLATE=polar_test` — with
-`polar_test` created and migrated — to have workers clone that database instead of replaying
+gets its own `repalis_test_<worker_id>` database. Export `POLAR_TEST_DATABASE_TEMPLATE=repalis_test` — with
+`repalis_test` created and migrated — to have workers clone that database instead of replaying
 every migration; refresh it with `POLAR_ENV=testing uv run task db_migrate` whenever you add a
 migration.
 
@@ -424,9 +424,9 @@ dev docker up -i 2 -d
 Each instance has its own:
 
 - Docker containers and networks
-- PostgreSQL database (`polar_dev_<N>`)
+- PostgreSQL database (`repalis_dev_<N>`)
 - Redis database index (`<N>`)
-- MinIO buckets (`polar-s3-<N>`)
+- MinIO buckets (`repalis-s3-<N>`)
 
 ### Port Mapping
 

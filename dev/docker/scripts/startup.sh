@@ -72,7 +72,7 @@ if [[ ! -f ".jwks.json" ]]; then
     echo "Generating development JWKS..."
     uv run python -c "
 from authlib.jose import JsonWebKey, KeySet
-options = {'kid': 'polar_dev', 'use': 'sig'}
+options = {'kid': 'repalis_dev', 'use': 'sig'}
 key = JsonWebKey.generate_key('RSA', 2048, options, is_private=True)
 keyset = KeySet(keys=[key])
 with open('.jwks.json', 'w') as f:
@@ -104,7 +104,7 @@ echo "Database is ready"
 # cleanup` (which removes that volume) forces a re-bootstrap.
 BOOTSTRAP_MARKER="/app/server/.venv/.bootstrap-${POLAR_POSTGRES_DATABASE}.done"
 if [[ "${1:-api}" == "api" && ! -f "$BOOTSTRAP_MARKER" ]]; then
-    READ_USER="${POLAR_POSTGRES_READ_USER:-polar_read}"
+    READ_USER="${POLAR_POSTGRES_READ_USER:-repalis_read}"
     echo "Bootstrapping per-instance DB '$POLAR_POSTGRES_DATABASE' and MinIO buckets..."
     # createdb ignores existing DBs (returns nonzero, suppressed); GRANTs are
     # idempotent. Read-only USER itself is created once by
@@ -234,7 +234,7 @@ case "${1:-api}" in
         echo "API will be available at http://localhost:8000"
         exec uv run uvicorn repalis.app:app \
             --reload \
-            --reload-dir polar \
+            --reload-dir repalis \
             --host 0.0.0.0 \
             --port 8000 \
             --workers 1
@@ -245,7 +245,7 @@ case "${1:-api}" in
             -p 1 \
             -t 1 \
             --queues high_priority medium_priority low_priority \
-            --watch polar \
+            --watch repalis \
             -f repalis.worker.scheduler:start \
             repalis.worker.run
         ;;

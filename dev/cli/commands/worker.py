@@ -21,7 +21,7 @@ def register(app: typer.Typer, prompt_setup: callable) -> None:
             "uv", "run", "dramatiq",
             "-p", "1", "-t", "1",
             "--queues", "high_priority", "medium_priority", "low_priority", "tinybird", "invoices_and_receipts",
-            "--watch", "polar",
+            "--watch", "repalis",
             "-f", "repalis.worker.scheduler:start",
             "repalis.worker.run",
         ]

@@ -45,12 +45,12 @@ ENV_FILE = DOCKER_DIR / ".env.docker"
 SERVER_ENV_FILE = SERVER_DIR / ".env"
 SERVER_ENV_TEMPLATE = SERVER_DIR / ".env.template"
 
-SHARED_PROJECT_NAME = "polar-shared"
-SHARED_NETWORK_NAME = "polar-shared"
+SHARED_PROJECT_NAME = "repalis-shared"
+SHARED_NETWORK_NAME = "repalis-shared"
 
 # Cross-worktree registry of allocated instances. Lives outside the repo so all
 # worktrees see the same list and can allocate without colliding.
-REGISTRY_FILE = Path.home() / ".config" / "polar" / "docker-instances.json"
+REGISTRY_FILE = Path.home() / ".config" / "repalis" / "docker-instances.json"
 REGISTRY_VERSION = 1
 MIN_INSTANCE = 1
 MAX_INSTANCE = 99
@@ -63,11 +63,11 @@ MAX_INSTANCE = 99
 
 
 def app_project(instance: int) -> str:
-    return f"polar-app-{instance}"
+    return f"repalis-app-{instance}"
 
 
 def db_name(instance: int) -> str:
-    return f"polar_dev_{instance}"
+    return f"repalis_dev_{instance}"
 
 
 def redis_db(instance: int) -> int:
@@ -75,11 +75,11 @@ def redis_db(instance: int) -> int:
 
 
 def s3_bucket(instance: int) -> str:
-    return f"polar-s3-{instance}"
+    return f"repalis-s3-{instance}"
 
 
 def s3_public_bucket(instance: int) -> str:
-    return f"polar-s3-public-{instance}"
+    return f"repalis-s3-public-{instance}"
 
 
 # Host ports for the per-instance app stack. Only api and web publish host
@@ -341,7 +341,7 @@ def _load_central_secrets() -> dict[str, str]:
 def _ensure_server_env() -> None:
     """Create server/.env from template if it doesn't exist.
 
-    Applies central secrets from ~/.config/polar/secrets.env when available,
+    Applies central secrets from ~/.config/repalis/secrets.env when available,
     mirroring what `dev/setup-environment` does.
     """
     if SERVER_ENV_FILE.exists():
@@ -383,7 +383,7 @@ def _ensure_server_env() -> None:
 
 
 def _ensure_network() -> None:
-    """Idempotently create the polar-shared docker network."""
+    """Idempotently create the repalis-shared docker network."""
     result = subprocess.run(
         ["docker", "network", "inspect", SHARED_NETWORK_NAME],
         capture_output=True,
@@ -481,7 +481,7 @@ def _drop_instance_data(instance: int) -> bool:
                 "db",
                 "psql",
                 "-U",
-                "polar",
+                "repalis",
                 "-d",
                 "postgres",
                 "-c",
@@ -557,7 +557,7 @@ def _build_compose_env(instance: int) -> dict[str, str]:
 
     Only API and WEB host ports are offset (those need to be reachable from
     the host browser). Infra services live in the shared stack and are
-    reached by container name on the polar-shared network — no host ports.
+    reached by container name on the repalis-shared network — no host ports.
     """
     _assert_ports_free(instance)
     return {
@@ -621,7 +621,7 @@ def _print_access_info(ctx: typer.Context, instance: int) -> None:
         "[bold]Shared infra:[/bold] (no host ports — reach via `dev docker exec <service>`)"
     )
     console.print(f"  Project: {SHARED_PROJECT_NAME}  Network: {SHARED_NETWORK_NAME}")
-    console.print(f"  psql:    dev docker exec db psql -U polar -d {db_name(instance)}")
+    console.print(f"  psql:    dev docker exec db psql -U repalis -d {db_name(instance)}")
     console.print(f"  redis:   dev docker exec redis redis-cli -n {redis_db(instance)}")
     console.print()
     console.print("[bold]Commands:[/bold]")
@@ -683,7 +683,7 @@ def register(app: typer.Typer, prompt_setup: callable) -> None:
         """Pick the right (compose_cmd, env) for a service.
 
         - shared services (db, redis, minio, tinybird, prometheus, grafana) →
-          the machine-wide `polar-shared` project
+          the machine-wide `repalis-shared` project
         - app services (api, worker, web) or no service → this instance's
           `polar-app-N` project
         """
@@ -956,7 +956,7 @@ def register(app: typer.Typer, prompt_setup: callable) -> None:
         """Run a command in any service's container.
 
         Examples:
-          dev docker exec db psql -U polar -l
+          dev docker exec db psql -U repalis -l
           dev docker exec redis redis-cli -n 1 dbsize
           dev docker exec api uv run alembic current
         """
@@ -1114,14 +1114,14 @@ def register(app: typer.Typer, prompt_setup: callable) -> None:
   "autoVerify": false,
   "configurations": [
     {{
-      "name": "polar-app",
+      "name": "repalis-app",
       "runtimeExecutable": "bash",
       "runtimeArgs": ["-lc", "./dev/cli/dev docker up -d && ./dev/cli/dev docker logs -f"],
       "port": {web},
       "autoPort": false
     }},
     {{
-      "name": "polar-api",
+      "name": "repalis-api",
       "runtimeExecutable": "bash",
       "runtimeArgs": ["-lc", "./dev/cli/dev docker up -d api worker && ./dev/cli/dev docker logs -f api"],
       "port": {api},

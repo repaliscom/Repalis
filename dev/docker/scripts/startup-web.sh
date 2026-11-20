@@ -17,31 +17,31 @@ pnpm install --frozen-lockfile
 # This avoids OOM issues from DTS generation in container
 echo "Checking workspace packages..."
 if [[ ! -d "packages/client/dist" ]]; then
-    echo "Building @polar-sh/client..."
-    pnpm --filter @polar-sh/client build
+    echo "Building @repalis/client..."
+    pnpm --filter @repalis/client build
 else
-    echo "@polar-sh/client already built"
+    echo "@repalis/client already built"
 fi
 
 if [[ ! -d "packages/ui/dist" ]]; then
-    echo "Building @polar-sh/ui..."
-    pnpm --filter @polar-sh/ui build
+    echo "Building @repalis/ui..."
+    pnpm --filter @repalis/ui build
 else
-    echo "@polar-sh/ui already built"
+    echo "@repalis/ui already built"
 fi
 
 if [[ ! -d "packages/orbit/dist" ]]; then
-    echo "Building @polar-sh/orbit..."
-    pnpm --filter @polar-sh/orbit build
+    echo "Building @repalis/orbit..."
+    pnpm --filter @repalis/orbit build
 else
-    echo "@polar-sh/ui already built"
+    echo "@repalis/ui already built"
 fi
 
 if [[ ! -d "packages/checkout/dist" ]]; then
-    echo "Building @polar-sh/checkout..."
-    pnpm --filter @polar-sh/checkout build
+    echo "Building @repalis/checkout..."
+    pnpm --filter @repalis/checkout build
 else
-    echo "@polar-sh/checkout already built"
+    echo "@repalis/checkout already built"
 fi
 
 # Start the requested mode

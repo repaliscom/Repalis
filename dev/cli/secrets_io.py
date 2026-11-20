@@ -18,7 +18,7 @@ from dotenv import dotenv_values
 
 SECRETS_FILE = Path(
     os.environ.get(
-        "POLAR_SECRETS_FILE", Path.home() / ".config" / "polar" / "secrets.env"
+        "REPALIS_SECRETS_FILE", Path.home() / ".config" / "repalis" / "secrets.env"
     )
 )
 TEMPLATE_FILE = Path(__file__).parent.parent / "secrets.env.template"
