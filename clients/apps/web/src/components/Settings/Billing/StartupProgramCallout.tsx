@@ -106,7 +106,7 @@ export const StartupProgramCallout = ({
     >
       <Box flexDirection="column" rowGap="xs">
         <Text variant="body" as="h3">
-          You&apos;re in the Polar Startup Program
+          You&apos;re in the Repalis Startup Program
         </Text>
         <Text color="muted">
           Switch to the Scale plan to claim your 100% discount for the next 12

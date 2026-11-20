@@ -12,7 +12,7 @@ import { useEffect, useState } from 'react'
 
 const SETUP_COMMANDS = [
   'curl -fsSL https://repalis.com/install.sh | bash',
-  'polar agent setup',
+  'repalis agent setup',
 ]
 
 const CommandBlock = () => {

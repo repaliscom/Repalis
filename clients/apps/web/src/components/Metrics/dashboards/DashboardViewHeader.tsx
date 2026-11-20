@@ -59,7 +59,7 @@ function useMetricsExport(
         url.searchParams.append('external_product_id', id),
       )
       metrics.forEach((m) => url.searchParams.append('metrics', m))
-      return downloadExport(url, 'polar-metrics.csv')
+      return downloadExport(url, 'repalis-metrics.csv')
     },
     [
       organization.id,

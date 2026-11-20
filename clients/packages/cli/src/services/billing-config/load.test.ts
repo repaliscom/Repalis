@@ -28,7 +28,7 @@ const load = (file?: string) =>
 let directory: string
 
 beforeEach(async () => {
-  directory = await mkdtemp(join(tmpdir(), 'polar-sdk-'))
+  directory = await mkdtemp(join(tmpdir(), 'repalis-sdk-'))
 })
 
 afterEach(async () => {
@@ -115,7 +115,7 @@ describe('load', () => {
   })
 
   test('rejects unsupported file types', async () => {
-    const error = await failure(load(await write('meters: []', 'polar.yaml')))
+    const error = await failure(load(await write('meters: []', 'repalis.yaml')))
     expect(error.message).toContain('is not a supported config file')
     expect(error.hint).toBe('Use a .ts, .json or .js file.')
   })

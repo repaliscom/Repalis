@@ -392,7 +392,7 @@ describe('redact', () => {
       'id <redacted>',
     ],
     [
-      'Polar tokens of every kind',
+      'Repalis tokens of every kind',
       'repalis_oat_AbC123 repalis_pat_x-y.z repalis_at_q repalis_ci_gBnJ',
       '<redacted> <redacted> <redacted> <redacted>',
     ],

@@ -82,7 +82,7 @@ export const ShareChartModal = ({
       const objectUrl = URL.createObjectURL(blob)
       const link = document.createElement('a')
       link.href = objectUrl
-      link.download = 'polar-chart.png'
+      link.download = 'repalis-chart.png'
       link.click()
       setTimeout(() => URL.revokeObjectURL(objectUrl), 0)
 

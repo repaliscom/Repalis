@@ -179,7 +179,7 @@ export const Pipeline = () => {
           </Box>
         </Sheet>
         <Sheet
-          title="Polar"
+          title="Repalis"
           aside={
             <Text variant="caption" color="muted">
               100+ markets

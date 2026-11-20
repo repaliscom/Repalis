@@ -268,7 +268,7 @@ export const requiredScopes = (
 }
 
 export const importCatalogHint = (organization: ActiveOrganization) =>
-  `Move your config file aside and run polar config init to import ${organization.name}'s catalog into a new file, then bring your changes over.`
+  `Move your config file aside and run repalis config init to import ${organization.name}'s catalog into a new file, then bring your changes over.`
 
 export const unexpected = (
   response: HttpClientResponse.HttpClientResponse,
@@ -311,7 +311,7 @@ export const unexpected = (
 export const transportErrors = {
   HttpClientError: (error: HttpClientError.HttpClientError) =>
     new BillingConfigError({
-      message: 'Could not reach the Polar API',
+      message: 'Could not reach the Repalis API',
       hint: error.message,
     }),
   HttpBodyError: () =>

@@ -49,7 +49,7 @@ describe('apiUrl', () => {
   test.each([
     'http://localhost:8000',
     'http://127.0.0.1:8000',
-    'http://api.polar.localhost',
+    'http://api.repalis.localhost',
     'https://api.staging.example',
   ])('accepts %s', (value) => {
     expect(withEnv(apiOrigin('sandbox'), { REPALIS_API_URL: value })).toBe(value)
@@ -78,7 +78,7 @@ describe('describeApiFailure', () => {
   test.each([
     [401, 'Authentication rejected for sandbox', 'repalis auth login --sandbox'],
     [403, 'You do not have access to this organization', 'webhooks:write'],
-    [404, 'could not be found in sandbox', 'polar auth org'],
+    [404, 'could not be found in sandbox', 'repalis auth org'],
     [503, 'returned an error (503)', 'try again shortly'],
   ])('describes %d', (status, message, hint) => {
     const failure = describeApiFailure(status, 'sandbox')

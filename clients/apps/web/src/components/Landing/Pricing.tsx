@@ -92,7 +92,7 @@ export const Pricing = () => (
   </>
 )
 
-/** A tier as a sheet in the Polar window: price and fee as lines, its features anchored at the bottom. */
+/** A tier as a sheet in the Repalis window: price and fee as lines, its features anchored at the bottom. */
 export const TierSheet = ({ tier }: { tier: Tier }) => (
   <Sheet
     large

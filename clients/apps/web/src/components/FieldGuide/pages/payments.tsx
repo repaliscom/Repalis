@@ -180,7 +180,7 @@ const morFigure = (
     <Dimension
       a={[PAY_X0, BAR_Y - 10]}
       b={[PAY_X1, BAR_Y - 10]}
-      text="POLAR · MERCHANT OF RECORD"
+      text="REPALIS · MERCHANT OF RECORD"
       side={-8}
     />
   </>

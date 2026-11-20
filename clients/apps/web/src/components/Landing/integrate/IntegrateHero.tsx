@@ -28,7 +28,7 @@ export const IntegrateHero = () => (
       >
         <Box flexDirection="column" rowGap="s">
           <Text variant="heading-m" as="h1" wrap="balance">
-            Integrate Polar
+            Integrate Repalis
           </Text>
           <Text variant="heading-m" as="p" color="muted" wrap="balance">
             From one prompt to production billing

@@ -135,7 +135,7 @@ const MetricChartBox = ({
     const url = URL.createObjectURL(blob)
     const a = document.createElement('a')
     a.href = url
-    a.download = `polar-${metric}.csv`
+    a.download = `repalis-${metric}.csv`
     a.click()
     URL.revokeObjectURL(url)
   }, [data, metric, selectedMetric])

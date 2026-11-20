@@ -353,7 +353,7 @@ describe('install', () => {
     })
     extraction = { exitCode: 0, stderr: '' }
     vi.spyOn(Bun, 'spawn').mockImplementation(((command: string[]) => {
-      writeFileSync(join(command.at(-1)!, 'polar'), 'new binary')
+      writeFileSync(join(command.at(-1)!, 'repalis'), 'new binary')
       return {
         exited: Promise.resolve(extraction.exitCode),
         stderr: extraction.stderr,

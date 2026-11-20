@@ -63,7 +63,7 @@ beforeEach(async () => {
       return new Response(null, { status: 204 })
     },
   })
-  directory = await realpath(await mkdtemp(join(tmpdir(), 'polar-init-')))
+  directory = await realpath(await mkdtemp(join(tmpdir(), 'repalis-init-')))
   cwd = process.cwd()
   process.chdir(directory)
 })
@@ -284,7 +284,7 @@ describe('init', () => {
 
     expect(error.message).toBe('repalis.json already exists')
     expect(error.hint).toBe(
-      "Move your config file aside and run polar config init to import Acme's catalog into a new file, then bring your changes over.",
+      "Move your config file aside and run repalis config init to import Acme's catalog into a new file, then bring your changes over.",
     )
     expect(api.requests).toHaveLength(0)
   })

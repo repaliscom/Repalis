@@ -280,7 +280,7 @@ export const OrderCalloutBanner = ({
           datetime={order.next_payment_attempt_at ?? null}
         />
         <Text>
-          Polar always tries to recover failed subscription payments for you.
+          Repalis always tries to recover failed subscription payments for you.
         </Text>
         <LearnMoreLink />
       </BannerColumn>

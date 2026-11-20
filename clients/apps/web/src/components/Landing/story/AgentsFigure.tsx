@@ -111,7 +111,7 @@ export const AgentsFigure = ({ turns = TURNS }: { turns?: Turn[] }) => {
           }
         >
           <pre className="m-0 font-mono text-[13px] leading-6 whitespace-pre-wrap text-white">
-            claude mcp add --transport http polar
+            claude mcp add --transport http repalis
             https://mcp.repalis.com/mcp/repalis-mcp
           </pre>
           <Box flexDirection="column" rowGap="s">

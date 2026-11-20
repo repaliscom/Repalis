@@ -105,8 +105,8 @@ describe('Credentials', () => {
       credentials.write('sandbox', {
         ...session,
         scopes: [],
-        accessToken: Redacted.make(`polar_at_u_${'x'.repeat(64)}`),
-        refreshToken: Redacted.make(`polar_rt_u_${'x'.repeat(64)}`),
+        accessToken: Redacted.make(`repalis_at_u_${'x'.repeat(64)}`),
+        refreshToken: Redacted.make(`repalis_rt_u_${'x'.repeat(64)}`),
       }),
     )
 

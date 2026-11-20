@@ -134,7 +134,7 @@ export const DeliveryRadioGroup = ({
         <DeliveryRadio
           id="delivery-benefit"
           value="benefit"
-          label="Polar delivers it"
+          label="Repalis delivers it"
           description="License keys, files, GitHub and more."
         >
           {method === 'benefit' &&

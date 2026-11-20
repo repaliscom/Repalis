@@ -51,7 +51,7 @@ export const Platform = () => (
     name="Platform"
     title="The brains of a finance team"
     subtitle="in the body of an API"
-    description="Polar meters your usage, runs your subscriptions & invoicing, and sells to your customers as merchant of record. One integration, from first event to payout."
+    description="Repalis meters your usage, runs your subscriptions & invoicing, and sells to your customers as merchant of record. One integration, from first event to payout."
   >
     <Grid
       templateColumns={{

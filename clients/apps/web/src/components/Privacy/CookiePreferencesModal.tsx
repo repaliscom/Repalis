@@ -48,7 +48,7 @@ export const CookiePreferencesModal = ({
           />
           <CookieCategory
             title="Analytics"
-            description="Help us understand how you use Polar so we can improve it."
+            description="Help us understand how you use Repalis so we can improve it."
             enabled={analyticsEnabled}
             onToggle={() => setAnalyticsEnabled((v) => !v)}
           />

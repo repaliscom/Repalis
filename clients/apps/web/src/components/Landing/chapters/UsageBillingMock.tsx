@@ -50,7 +50,7 @@ const Inner = ({ children }: { children: ReactNode }) => (
   </div>
 )
 
-/** One Polar window: the events streaming in on the left, and the unit economics they add up to on the right. */
+/** One Repalis window: the events streaming in on the left, and the unit economics they add up to on the right. */
 export const UsageBillingMock = () => {
   const { ref, events, totals, series, margin } = useUsageStream()
   const [tokens, revenue, cost, marginShown] = useTweenedValues(

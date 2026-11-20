@@ -19,7 +19,7 @@ export const Hero = () => {
         <Box flexDirection="column" alignItems="start" rowGap="3xl">
           <Box flexDirection="column">
             <Text variant="heading-m" as="h1" wrap="balance">
-              Meet Polar
+              Meet Repalis
             </Text>
             <Text variant="heading-m" as="p" color="muted" wrap="balance">
               Modern billing for AI companies

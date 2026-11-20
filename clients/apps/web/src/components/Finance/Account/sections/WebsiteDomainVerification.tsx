@@ -68,7 +68,7 @@ export const WebsiteDomainVerification = ({ organization }: Props) => {
       </Box>
       {domain?.verified_at ? (
         <Text color="muted">
-          {domain.domain} is verified. Keep the TXT record in place: Polar
+          {domain.domain} is verified. Keep the TXT record in place: Repalis
           checks it again during reviews.
         </Text>
       ) : domain ? (

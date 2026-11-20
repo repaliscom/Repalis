@@ -9,12 +9,12 @@ import {
 
 type Env = Record<string, string | undefined>
 
-export const Environment = Context.Reference<Env>('polar/Api/Environment', {
+export const Environment = Context.Reference<Env>('repalis/Api/Environment', {
   defaultValue: () => process.env,
 })
 
 export const UsedEnvironments = Context.Reference<Set<RepalisEnvironment>>(
-  'polar/Api/UsedEnvironments',
+  'repalis/Api/UsedEnvironments',
   { defaultValue: () => new Set() },
 )
 

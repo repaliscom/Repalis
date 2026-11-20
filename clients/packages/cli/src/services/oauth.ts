@@ -17,9 +17,9 @@ import {
 } from '@/utils/loopback'
 
 const CLIENT_IDS = {
-  production: 'polar_ci_gBnJ_Yv_uSGm5mtoPa2cCA',
-  sandbox: 'polar_ci_AHVAKf9SDOaffma2auRGMXR3H8jg9QBgOfW7s1hYgW9',
-  local: 'polar_ci_local_cli',
+  production: 'repalis_ci_gBnJ_Yv_uSGm5mtoPa2cCA',
+  sandbox: 'repalis_ci_AHVAKf9SDOaffma2auRGMXR3H8jg9QBgOfW7s1hYgW9',
+  local: 'repalis_ci_local_cli',
 } as const
 
 export const authorizationUrl = (environment: RepalisEnvironment) =>

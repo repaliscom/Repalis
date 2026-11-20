@@ -118,7 +118,7 @@ describe('publish', () => {
     const error = await failure(run((clients) => publish(clients)(acme, draft)))
 
     expect(error.message).toBe(detail)
-    expect(error.hint).toContain('polar config apply')
+    expect(error.hint).toContain('repalis config apply')
   })
 
   test('asks to retry when the draft was discarded', async () => {
@@ -168,7 +168,7 @@ describe('publish', () => {
         status: 403,
         headers: {
           'WWW-Authenticate':
-            'Bearer realm="polar", scope="organizations:write", error="insufficient_scope"',
+            'Bearer realm="repalis", scope="organizations:write", error="insufficient_scope"',
         },
       },
     )

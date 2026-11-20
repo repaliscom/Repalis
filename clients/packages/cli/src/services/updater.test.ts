@@ -155,7 +155,7 @@ describe('detectMethod', () => {
     const exec = fakeExec(
       {
         npm: new Error('npm: command not found'),
-        vp: `Package               Node version   Binaries\n---                   ---            ---\n${PACKAGE_NAME}@2.0.0   24.21.0        polar\n`,
+        vp: `Package               Node version   Binaries\n---                   ---            ---\n${PACKAGE_NAME}@2.0.0   24.21.0        repalis\n`,
       },
       calls,
     )
@@ -343,7 +343,7 @@ describe('exec', () => {
   })
 
   test('kills a command that outlives its timeout', async () => {
-    const dir = await mkdtemp(join(tmpdir(), 'polar-exec-'))
+    const dir = await mkdtemp(join(tmpdir(), 'repalis-exec-'))
     const pidFile = join(dir, 'pid')
     const script = `await Bun.write(${JSON.stringify(pidFile)}, String(process.pid)); await Bun.sleep(10_000)`
 

@@ -81,7 +81,7 @@ export const publish =
           yield* HttpClientResponse.schemaBodyJson(Refusal)(response)
         return yield* new BillingConfigError({
           message: detail,
-          hint: 'Add the missing prices to your config file, or set payments.currency to a currency they all have, then run polar config apply.',
+          hint: 'Add the missing prices to your config file, or set payments.currency to a currency they all have, then run repalis config apply.',
         })
       }
       // The API answers 404 both for a discarded draft and for a caller without products:manage
@@ -92,7 +92,7 @@ export const publish =
       if (gone) {
         return yield* new BillingConfigError({
           message: 'The draft was published or discarded in the meantime',
-          hint: 'Run polar config publish again.',
+          hint: 'Run repalis config publish again.',
         })
       }
       if (response.status === 404) {

@@ -89,7 +89,7 @@ const OrganizationDisputeSettings: React.FC<
         <SettingsGroup>
           <SettingsGroupItem
             title="Accept small disputes"
-            description="Polar concedes them for you, a day after they open, unless you reply first. The disputed amount and the processor's dispute fee are still deducted."
+            description="Repalis concedes them for you, a day after they open, unless you reply first. The disputed amount and the processor's dispute fee are still deducted."
           >
             <Switch
               checked={enabled}
