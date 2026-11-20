@@ -49,14 +49,14 @@ Ad-hoc prices are marked with `source: "ad_hoc"` in the API response, while cata
 
 <CodeGroup>
 ```ts TypeScript
-import { createPolar } from "@polar-sh/sdk/2026-10";
+import { createRepalis } from "@repalis/sdk/2026-10";
 
-const polar = createPolar({
-  accessToken: process.env.POLAR_ACCESS_TOKEN!,
+const repalis = createRepalis({
+  accessToken: process.env.REPALIS_ACCESS_TOKEN!,
 });
 
 async function run() {
-  const checkout = await polar.checkouts.create({
+  const checkout = await repalis.checkouts.create({
     products: ["productId"],
     prices: {
       "productId": [
@@ -78,8 +78,8 @@ run();
 ```py Python
 from repalis.v2026_10 import Repalis
 
-with Repalis("<YOUR_BEARER_TOKEN_HERE>") as polar:
-    checkout = polar.checkouts.create(
+with Repalis("<YOUR_BEARER_TOKEN_HERE>") as repalis:
+    checkout = repalis.checkouts.create(
         products=["<product_id>"],
         prices={
             "<product_id>": [
@@ -131,13 +131,13 @@ In that case, forward the customer's IP address as `customer_ip_address` in the 
 
 <CodeGroup>
 ```ts TypeScript
-import { createPolar } from "@polar-sh/sdk/2026-10";
+import { createRepalis } from "@repalis/sdk/2026-10";
 
-const polar = createPolar({
-  accessToken: process.env.POLAR_ACCESS_TOKEN!,
+const repalis = createRepalis({
+  accessToken: process.env.REPALIS_ACCESS_TOKEN!,
 });
 
-const checkout = await polar.checkouts.create({
+const checkout = await repalis.checkouts.create({
   products: ["productId"],
   customer_ip_address: request.headers.get("CF-Connecting-IP") ?? undefined,
 });
@@ -146,8 +146,8 @@ const checkout = await polar.checkouts.create({
 ```py Python
 from repalis.v2026_10 import Repalis
 
-with Repalis("<YOUR_BEARER_TOKEN_HERE>") as polar:
-    checkout = polar.checkouts.create(
+with Repalis("<YOUR_BEARER_TOKEN_HERE>") as repalis:
+    checkout = repalis.checkouts.create(
         products=["<product_id>"],
         customer_ip_address=request.headers.get("True-Client-IP") or request.client.host,
     )
@@ -166,14 +166,14 @@ Using our SDK, creating a checkout session is quite straightforward.
 
 <CodeGroup>
     ```ts TypeScript
-    import { createPolar } from "@polar-sh/sdk/2026-10";
+    import { createRepalis } from "@repalis/sdk/2026-10";
 
-    const polar = createPolar({
-      accessToken: process.env.POLAR_ACCESS_TOKEN!,
+    const repalis = createRepalis({
+      accessToken: process.env.REPALIS_ACCESS_TOKEN!,
     });
 
     async function run() {
-      const checkout = await polar.checkouts.create({
+      const checkout = await repalis.checkouts.create({
         products: ["productId"]
       });
 
@@ -186,8 +186,8 @@ Using our SDK, creating a checkout session is quite straightforward.
     ```py Python
     from repalis.v2026_10 import Repalis
 
-    with Repalis("<YOUR_BEARER_TOKEN_HERE>") as polar:
-        checkout = polar.checkouts.create(
+    with Repalis("<YOUR_BEARER_TOKEN_HERE>") as repalis:
+        checkout = repalis.checkouts.create(
             allow_discount_codes=True,
             products=["<product_id>"],
         )

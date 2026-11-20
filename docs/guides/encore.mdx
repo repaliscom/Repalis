@@ -19,7 +19,7 @@ Consider following this guide while using the Repalis Sandbox Environment. This 
 To get started, install the Repalis JavaScript SDK and the webhook verification library:
 
 ```bash Terminal
-npm install @polar-sh/sdk standardwebhooks
+npm install @repalis/sdk standardwebhooks
 ```
 
 ## Setting up Secrets
@@ -33,8 +33,8 @@ To authenticate with Repalis, you need to create an access token and specify if 
 Add it to Encore using the secrets manager:
 
 ```bash Terminal
-encore secret set --type local POLAR_ACCESS_TOKEN
-encore secret set --type local POLAR_MODE
+encore secret set --type local REPALIS_ACCESS_TOKEN
+encore secret set --type local REPALIS_MODE
 ```
 
 ### Repalis Webhook Secret
@@ -42,29 +42,29 @@ encore secret set --type local POLAR_MODE
 You'll need a webhook secret to verify incoming webhook events. We'll set this up in the webhook section below.
 
 ```bash Terminal
-encore secret set --type local POLAR_WEBHOOK_SECRET
+encore secret set --type local REPALIS_WEBHOOK_SECRET
 ```
 
 When deploying to Encore Cloud, you'll set production secrets through the dashboard or CI/CD pipeline.
 
 ## Configuring a Repalis API Client
 
-To interact with the Repalis API, create a client with `createPolar` using Encore's secret management.
+To interact with the Repalis API, create a client with `createRepalis` using Encore's secret management.
 
-```tsx title="payments/polar.ts"
-import { createPolar } from "@polar-sh/sdk/2026-10";
+```tsx title="payments/repalis.ts"
+import { createRepalis } from "@repalis/sdk/2026-10";
 import { secret } from "encore.dev/config";
 
-const POLAR_MODE = secret("POLAR_MODE");
-const POLAR_ACCESS_TOKEN = secret("POLAR_ACCESS_TOKEN");
+const REPALIS_MODE = secret("REPALIS_MODE");
+const REPALIS_ACCESS_TOKEN = secret("REPALIS_ACCESS_TOKEN");
 
-export const polar = createPolar({
-  accessToken: POLAR_ACCESS_TOKEN(),
-  environment: POLAR_MODE() as "sandbox" | "production",
+export const repalis = createRepalis({
+  accessToken: REPALIS_ACCESS_TOKEN(),
+  environment: REPALIS_MODE() as "sandbox" | "production",
 });
 ```
 
-Remember to set `POLAR_MODE` as `production` when you're ready to switch to the production environment.
+Remember to set `REPALIS_MODE` as `production` when you're ready to switch to the production environment.
 
 ## Generating Repalis Checkout Sessions
 
@@ -72,7 +72,7 @@ Create a checkout endpoint that creates a Repalis checkout session and redirects
 
 ```tsx title="payments/payments.ts"
 import { api, APIError } from "encore.dev/api";
-import { polar } from "./polar";
+import { repalis } from "./repalis";
 
 export const checkout = api.raw(
   { expose: true, path: "/checkout", method: "GET" },
@@ -87,7 +87,7 @@ export const checkout = api.raw(
     }
 
     try {
-      const result = await polar.checkouts.create({
+      const result = await repalis.checkouts.create({
         products: [productId],
         success_url: "https://your-app.com/confirmation?checkout_id={CHECKOUT_ID}",
       });
@@ -116,24 +116,24 @@ Configuring a webhook is simple. Head over to [**Settings → Webhooks**](https:
 Encore runs your app locally with full infrastructure support. To receive webhooks during local development, you can use the [Repalis CLI](/integrate/cli/webhooks) to tunnel webhook events to your local environment.
 
 ```bash Terminal
-repalis webhook listen http://localhost:4000/webhooks/polar
+repalis webhook listen http://localhost:4000/webhooks/repalis
 ```
 
 Make sure to copy the webhook secret and set it using:
 
 ```bash Terminal
-encore secret set --type local POLAR_WEBHOOK_SECRET
+encore secret set --type local REPALIS_WEBHOOK_SECRET
 ```
 
 ### Add Webhook Endpoint
 
-1. Point the Webhook to `your-app.com/webhooks/polar`. This must be an absolute URL which Repalis can reach. If you use the Repalis CLI tunnel, it will handle this for you.
+1. Point the Webhook to `your-app.com/webhooks/repalis`. This must be an absolute URL which Repalis can reach. If you use the Repalis CLI tunnel, it will handle this for you.
 2. Select which events you want to be notified about. You can read more about the available events in the [Events section](/api-reference#webhooks).
 3. Generate a secret key to sign the requests. This will allow you to verify that the requests are truly coming from Repalis.
 4. Add the secret key to Encore:
 
 ```bash Terminal
-encore secret set --type local POLAR_WEBHOOK_SECRET
+encore secret set --type local REPALIS_WEBHOOK_SECRET
 ```
 
 ### Setting up the Webhook handler
@@ -145,10 +145,10 @@ import { api } from "encore.dev/api";
 import { secret } from "encore.dev/config";
 import { Webhook } from "standardwebhooks";
 
-const POLAR_WEBHOOK_SECRET = secret("POLAR_WEBHOOK_SECRET");
+const REPALIS_WEBHOOK_SECRET = secret("REPALIS_WEBHOOK_SECRET");
 
 export const webhooks = api.raw(
-  { expose: true, path: "/webhooks/polar", method: "POST" },
+  { expose: true, path: "/webhooks/repalis", method: "POST" },
   async (req, resp) => {
     // Read the raw request body
     const chunks: Buffer[] = [];
@@ -165,7 +165,7 @@ export const webhooks = api.raw(
 
     // Verify the webhook signature. Try Standard Webhooks first (secret as-is),
     // then Repalis's legacy HMAC (UTF-8 bytes of the full secret, including `whsec_`).
-    const secret = POLAR_WEBHOOK_SECRET().trim();
+    const secret = REPALIS_WEBHOOK_SECRET().trim();
     let payload: any;
     try {
       payload = new Webhook(secret).verify(body, headers);
@@ -242,6 +242,6 @@ git push encore
 Encore automatically provisions all the infrastructure your app needs. Remember to:
 
 1. Set production secrets in the Encore Cloud dashboard
-2. Set the `POLAR_MODE` secret to `"production"`
+2. Set the `REPALIS_MODE` secret to `"production"`
 3. Update your webhook URL in Repalis to point to your production domain
 4. Update `success_url` to your production URL

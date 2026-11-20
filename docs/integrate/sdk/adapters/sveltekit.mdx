@@ -4,13 +4,13 @@ description: "Payments and Checkouts made dead simple with Sveltekit"
 ---
 
 <Warning>
-  **`@polar-sh/sveltekit` is deprecated** and no longer maintained. Integrate with
+  **`@repalis/sveltekit` is deprecated** and no longer maintained. Integrate with
   the [TypeScript SDK](/integrate/sdk/typescript) directly instead. The
   [`repalis-integration` skill](https://github.com/repaliscom/agent-toolkit/tree/main/skills/repalis-integration)
   can help you migrate:
 
   ```bash
-  npx skills add https://github.com/repaliscom/agent-toolkit --skill polar-integration
+  npx skills add https://github.com/repaliscom/agent-toolkit --skill repalis-integration
   ```
 </Warning>
 
@@ -25,22 +25,22 @@ Install the required Repalis packages using the following command:
 <Tabs>
   <Tab title="npm">
     ```bash Terminal
-    npm install zod @polar-sh/sveltekit
+    npm install zod @repalis/sveltekit
     ```
   </Tab>
   <Tab title="yarn">
     ```bash Terminal
-    yarn add zod @polar-sh/sveltekit
+    yarn add zod @repalis/sveltekit
     ```
   </Tab>
   <Tab title="pnpm">
     ```bash Terminal
-    pnpm add zod @polar-sh/sveltekit
+    pnpm add zod @repalis/sveltekit
     ```
   </Tab>
   <Tab title="bun">
     ```bash Terminal
-    bun add zod @polar-sh/sveltekit
+    bun add zod @repalis/sveltekit
     ```
   </Tab>
 </Tabs>
@@ -50,10 +50,10 @@ Install the required Repalis packages using the following command:
 Create a Checkout handler which takes care of redirections.
 
 ```typescript icon="square-js" src/routes/checkout/+server.ts
-import { Checkout } from "@polar-sh/sveltekit";
+import { Checkout } from "@repalis/sveltekit";
 
 export const GET = Checkout({
-  accessToken: process.env.POLAR_ACCESS_TOKEN,
+  accessToken: process.env.REPALIS_ACCESS_TOKEN,
   successUrl: process.env.SUCCESS_URL,
   returnUrl: "https://myapp.com", // An optional URL which renders a back-button in the Checkout
   server: "sandbox", // Use sandbox if you're testing Repalis - omit the parameter or pass 'production' otherwise
@@ -77,11 +77,11 @@ Pass query params to this route.
 Create a customer portal where your customer can view orders and subscriptions.
 
 ```typescript icon="square-js" src/routes/portal/+server.ts
-import { CustomerPortal } from "@polar-sh/sveltekit";
+import { CustomerPortal } from "@repalis/sveltekit";
 
 export const GET = CustomerPortal({
-  server: process.env.POLAR_MODE, // Use sandbox if you're testing Repalis - omit the parameter or pass 'production' otherwise
-  accessToken: process.env.POLAR_ACCESS_TOKEN,
+  server: process.env.REPALIS_MODE, // Use sandbox if you're testing Repalis - omit the parameter or pass 'production' otherwise
+  accessToken: process.env.REPALIS_ACCESS_TOKEN,
   returnUrl: "https://myapp.com", // An optional URL which renders a back-button in the Customer Portal
   getCustomerId: (event) => "", // Function to resolve a Repalis Customer ID
 });
@@ -91,11 +91,11 @@ export const GET = CustomerPortal({
 
 A simple utility which resolves incoming webhook payloads by signing the webhook secret properly.
 
-```typescript icon="square-js" src/routes/api/webhooks/polar/+server.ts
-import { Webhooks } from "@polar-sh/sveltekit";
+```typescript icon="square-js" src/routes/api/webhooks/repalis/+server.ts
+import { Webhooks } from "@repalis/sveltekit";
 
 export const POST = Webhooks({
-  webhookSecret: process.env.POLAR_WEBHOOK_SECRET,
+  webhookSecret: process.env.REPALIS_WEBHOOK_SECRET,
   onPayload: async (payload) => {
     // Handle the payload
     console.log(payload)

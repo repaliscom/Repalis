@@ -43,7 +43,7 @@
   border-top: 2px solid #635bff;
 }
 
-.migration-coexistence__node--polar {
+.migration-coexistence__node--repalis {
   border-top: 2px solid #18181b;
 }
 
@@ -154,7 +154,7 @@
   border-radius: 999px;
 }
 
-.migration-switch__state--polar {
+.migration-switch__state--repalis {
   color: #18181b;
   font-weight: 600;
   text-align: right;
@@ -177,7 +177,7 @@
   border-top-color: #635bff;
 }
 
-.dark .migration-coexistence__node--polar {
+.dark .migration-coexistence__node--repalis {
   border-top-color: #fafafa;
 }
 
@@ -215,7 +215,7 @@
   background: #27272a;
 }
 
-.dark .migration-switch__state--polar {
+.dark .migration-switch__state--repalis {
   color: #fafafa;
 }
 

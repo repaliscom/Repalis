@@ -27,17 +27,17 @@ Create an [organization access token](/integrate/oat), then install the SDK and 
 <Tabs>
   <Tab title="TypeScript">
     ```bash npm
-    npm install @polar-sh/sdk
+    npm install @repalis/sdk
     ```
 
     ```typescript app.ts
-    import { createPolar } from "@polar-sh/sdk/{version}";
+    import { createRepalis } from "@repalis/sdk/{version}";
 
-    const polar = createPolar({
-      accessToken: process.env.POLAR_ACCESS_TOKEN!,
+    const repalis = createRepalis({
+      accessToken: process.env.REPALIS_ACCESS_TOKEN!,
     });
 
-    const customerState = await polar.customers.getStateExternal("customer_external_id");
+    const customerState = await repalis.customers.getStateExternal("customer_external_id");
     console.log(customerState);
     ```
   </Tab>
@@ -57,9 +57,9 @@ Create an [organization access token](/integrate/oat), then install the SDK and 
 
     from repalis.v{pythonVersion} import Repalis
 
-    polar = Repalis(os.environ["POLAR_ACCESS_TOKEN"])
+    repalis = Repalis(os.environ["REPALIS_ACCESS_TOKEN"])
 
-    customer_state = polar.customers.get_state_external("customer_external_id")
+    customer_state = repalis.customers.get_state_external("customer_external_id")
     print(customer_state)
     ```
   </Tab>
@@ -89,7 +89,7 @@ Read more: [Sandbox Environment](/integrate/sandbox)
 Use an **OAT** to act on behalf of your organization (manage products, prices, checkouts, orders, subscriptions, benefits, etc.).
 
 ```http
-Authorization: Bearer polar_oat_xxxxxxxxxxxxxxxxx
+Authorization: Bearer repalis_oat_xxxxxxxxxxxxxxxxx
 ```
 
 <Tip>
@@ -128,19 +128,19 @@ Do **not** use OATs in the browser. For customer-facing flows, {<a href={`/api-r
 <CodeGroup>
 ```bash curl (Production - Core API)
 curl https://api.repalis.com/v1/products/ \
-  -H "Authorization: Bearer $POLAR_OAT" \
+  -H "Authorization: Bearer $REPALIS_OAT" \
   -H "Accept: application/json"
 ```
 
 ```bash curl (Sandbox - Core API)
 curl https://sandbox-api.repalis.com/v1/products/ \
-  -H "Authorization: Bearer $POLAR_OAT_SANDBOX" \
+  -H "Authorization: Bearer $REPALIS_OAT_SANDBOX" \
   -H "Accept: application/json"
 ```
 
 ```bash curl (Customer Portal API)
 curl https://api.repalis.com/v1/customer-portal/orders/ \
-  -H "Authorization: Bearer $POLAR_CUSTOMER_TOKEN" \
+  -H "Authorization: Bearer $REPALIS_CUSTOMER_TOKEN" \
   -H "Accept: application/json"
 ```
 
@@ -178,7 +178,7 @@ Let's say you want to fetch products with a limit of 100 items per page:
 <CodeGroup>
 ```bash Request
 curl https://api.repalis.com/v1/products/?page=1&limit=100 \
-  -H "Authorization: Bearer $POLAR_OAT" \
+  -H "Authorization: Bearer $REPALIS_OAT" \
   -H "Accept: application/json"
 ```
 

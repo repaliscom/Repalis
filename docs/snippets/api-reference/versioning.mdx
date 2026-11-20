@@ -52,20 +52,20 @@ status and error responses, and authentication requirements.
 
 ## Pinning API requests
 
-Set the version with the `Polar-Version` request header. The base URL and endpoint
+Set the version with the `Repalis-Version` request header. The base URL and endpoint
 paths remain the same:
 
 ```bash
 curl -i https://api.repalis.com/v1/products/ \
-  -H "Authorization: Bearer $POLAR_ACCESS_TOKEN" \
-  -H "Polar-Version: {version}" \
+  -H "Authorization: Bearer $REPALIS_ACCESS_TOKEN" \
+  -H "Repalis-Version: {version}" \
   -H "Accept: application/json"
 ```
 
 Responses include the version used to process the request:
 
 ```http
-Polar-Version: {version}
+Repalis-Version: {version}
 ```
 
 If the header is omitted, Repalis uses Current. A malformed, unknown, or removed
@@ -105,7 +105,7 @@ existing webhook endpoints; upgrade them separately.
 The [Python SDK](/integrate/sdk/python) and
 [TypeScript SDK](/integrate/sdk/typescript) include typed clients and models for
 each supported API version. Importing a versioned client automatically sets the
-matching `Polar-Version` header:
+matching `Repalis-Version` header:
 
 <Tabs>
   <Tab title="Python">
@@ -118,7 +118,7 @@ matching `Polar-Version` header:
   <Tab title="JavaScript">
 
     ```ts
-    import { createPolar } from "@polar-sh/sdk/{version}";
+    import { createRepalis } from "@repalis/sdk/{version}";
     ```
 
   </Tab>
@@ -133,9 +133,9 @@ import path upgrades the API contract.
 Upgrade before your pinned version is removed:
 
 1. Review the new version's API reference and release notes.
-2. Change the `Polar-Version` header or versioned SDK import in your sandbox
+2. Change the `Repalis-Version` header or versioned SDK import in your sandbox
    environment.
 3. Run your integration tests and update code for changed endpoints, fields, or
    webhook payloads.
 4. Upgrade webhook endpoints that should use the new contract.
-5. Deploy the API client change and confirm the `Polar-Version` response header.
+5. Deploy the API client change and confirm the `Repalis-Version` response header.

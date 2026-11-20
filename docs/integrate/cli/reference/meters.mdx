@@ -1,29 +1,29 @@
 ---
-title: "polar meters"
+title: "repalis meters"
 sidebarTitle: "meters"
 ---
 
-{/* Generated from the CLI by `pnpm --filter @polar-sh/cli docs:generate`. Do not edit by hand. */}
+{/* Generated from the CLI by `pnpm --filter @repalis/cli docs:generate`. Do not edit by hand. */}
 
 ```bash
-polar meters <subcommand> [flags]
+repalis meters <subcommand> [flags]
 ```
 
 **Subcommands**
 
-- [`polar meters create`](#polar-meters-create) Create a meter.
-- [`polar meters get`](#polar-meters-get) Get a meter by ID.
-- [`polar meters get_external`](#polar-meters-get_external) Get a meter by external ID. (preview, API 2027-01)
-- [`polar meters list`](#polar-meters-list) List meters.
-- [`polar meters quantities`](#polar-meters-quantities) Get quantities of a meter over a time period.
-- [`polar meters update`](#polar-meters-update) Update a meter.
+- [`repalis meters create`](#repalis-meters-create) Create a meter.
+- [`repalis meters get`](#repalis-meters-get) Get a meter by ID.
+- [`repalis meters get_external`](#repalis-meters-get_external) Get a meter by external ID. (preview, API 2027-01)
+- [`repalis meters list`](#repalis-meters-list) List meters.
+- [`repalis meters quantities`](#repalis-meters-quantities) Get quantities of a meter over a time period.
+- [`repalis meters update`](#repalis-meters-update) Update a meter.
 
-## polar meters create
+## repalis meters create
 
 Create a meter.
 
 ```bash
-polar meters create [flags]
+repalis meters create [flags]
 ```
 
 **Flags**
@@ -41,12 +41,12 @@ polar meters create [flags]
 | `--aggregation` | `string` | Required. The aggregation to apply on the filtered events to calculate the meter. JSON: &#123;"func": "count"&#125; \| &#123;"func": "sum" \| "max" \| "min" \| "avg", "property": string&#125; \| &#123;"func": "unique", "property": string&#125; |
 | `--organization-id`, `--org` | `string` | The ID of the organization owning the meter. Defaults to the active organization. |
 
-## polar meters get
+## repalis meters get
 
 Get a meter by ID.
 
 ```bash
-polar meters get [flags] <id>
+repalis meters get [flags] <id>
 ```
 
 **Arguments**
@@ -61,12 +61,12 @@ polar meters get [flags] <id>
 | --- | --- | --- |
 | `--fields` | `string` | Only print these fields, comma-separated; use dots for nested ones, e.g. id,name,prices.price_amount |
 
-## polar meters get_external
+## repalis meters get_external
 
 Get a meter by external ID. (preview, API 2027-01)
 
 ```bash
-polar meters get_external [flags] <external_id>
+repalis meters get_external [flags] <external_id>
 ```
 
 **Arguments**
@@ -81,12 +81,12 @@ polar meters get_external [flags] <external_id>
 | --- | --- | --- |
 | `--fields` | `string` | Only print these fields, comma-separated; use dots for nested ones, e.g. id,name,prices.price_amount |
 
-## polar meters list
+## repalis meters list
 
 List meters.
 
 ```bash
-polar meters list [flags]
+repalis meters list [flags]
 ```
 
 **Flags**
@@ -103,12 +103,12 @@ polar meters list [flags]
 | `--sorting` | `choice` | Sorting criterion. Several criteria can be used simultaneously and will be applied in order. Add a minus sign `-` before the criteria name to sort by descending order. (choices: created_at, -created_at, name, -name) |
 | `--metadata` | `string` | Filter by metadata key-value pairs. JSON: &#123;"&lt;key&gt;": string \| integer \| boolean \| array of string \| array of integer \| array of boolean&#125; |
 
-## polar meters quantities
+## repalis meters quantities
 
 Get quantities of a meter over a time period.
 
 ```bash
-polar meters quantities [flags] <id>
+repalis meters quantities [flags] <id>
 ```
 
 **Arguments**
@@ -132,12 +132,12 @@ polar meters quantities [flags] <id>
 | `--customer-aggregation-function` | `choice` | If set, will first compute the quantities per customer before aggregating them using the given function. If not set, the quantities will be aggregated across all events. (choices: count, sum, max, min, avg, unique) |
 | `--metadata` | `string` | Filter by metadata key-value pairs. JSON: &#123;"&lt;key&gt;": string \| integer \| boolean \| array of string \| array of integer \| array of boolean&#125; |
 
-## polar meters update
+## repalis meters update
 
 Update a meter.
 
 ```bash
-polar meters update [flags] <id>
+repalis meters update [flags] <id>
 ```
 
 **Arguments**

@@ -7,14 +7,14 @@ export const MigrationCoexistence = () => {
   // rail. x=50 is the merchant app's centre; x=21 and x=79 match the centres of
   // the 42%/16%/42% columns the child cards sit in.
   const toStripe = "M50 0 V3 H24 A3 3 0 0 0 21 6 V12";
-  const toPolar = "M50 0 V3 H76 A3 3 0 0 1 79 6 V12";
+  const toRepalis = "M50 0 V3 H76 A3 3 0 0 1 79 6 V12";
   const cycle = "3.6s";
   const fade = { values: "0;1;1;0", keyTimes: "0;0.12;0.82;1" };
 
   return (
     <section
       className="migration-coexistence"
-      aria-label="Merchant app sits above Stripe and Polar during migration"
+      aria-label="Merchant app sits above Stripe and Repalis during migration"
     >
       <div className="migration-coexistence__tree">
         <div className="migration-coexistence__node migration-coexistence__node--app">
@@ -36,7 +36,7 @@ export const MigrationCoexistence = () => {
           />
           <path
             className="migration-coexistence__rail"
-            d={toPolar}
+            d={toRepalis}
             vectorEffect="non-scaling-stroke"
           />
 
@@ -52,7 +52,7 @@ export const MigrationCoexistence = () => {
           </circle>
 
           <circle className="migration-coexistence__dot" cx="0" cy="0" r="0.75" opacity="0">
-            <animateMotion dur={cycle} begin="1.8s" repeatCount="indefinite" path={toPolar} />
+            <animateMotion dur={cycle} begin="1.8s" repeatCount="indefinite" path={toRepalis} />
             <animate
               attributeName="opacity"
               dur={cycle}
@@ -70,8 +70,8 @@ export const MigrationCoexistence = () => {
             <span className="migration-coexistence__note">Existing renewals</span>
           </div>
           <div className="migration-coexistence__spacer" aria-hidden="true" />
-          <div className="migration-coexistence__node migration-coexistence__node--polar">
-            <span className="migration-coexistence__name">Polar</span>
+          <div className="migration-coexistence__node migration-coexistence__node--repalis">
+            <span className="migration-coexistence__name">Repalis</span>
             <span className="migration-coexistence__note">New sales</span>
           </div>
         </div>
@@ -79,7 +79,7 @@ export const MigrationCoexistence = () => {
 
       <p className="migration-coexistence__caption">
         Each subscription has one system responsible for its next renewal. New checkouts go to
-        Polar; Stripe keeps renewing what it already owns until you switch them.
+        Repalis; Stripe keeps renewing what it already owns until you switch them.
       </p>
     </section>
   );
@@ -87,9 +87,9 @@ export const MigrationCoexistence = () => {
 
 export const MigrationSwitch = () => {
   const changes = [
-    ["Renews on Stripe", "Renews on Polar"],
+    ["Renews on Stripe", "Renews on Repalis"],
     ["Paid period already paid", "Same period kept"],
-    ["Cards verified on Polar", "Those cards used on next renewal"],
+    ["Cards verified on Repalis", "Those cards used on next renewal"],
   ];
 
   return (
@@ -97,7 +97,7 @@ export const MigrationSwitch = () => {
       <div className="migration-switch__header" aria-hidden="true">
         <span>Stripe</span>
         <span>Switch</span>
-        <span>Polar</span>
+        <span>Repalis</span>
       </div>
       <div className="migration-switch__rows">
         {changes.map(([before, after]) => (
@@ -106,7 +106,7 @@ export const MigrationSwitch = () => {
             <span className="migration-switch__arrow" aria-hidden="true">
               →
             </span>
-            <span className="migration-switch__state migration-switch__state--polar">{after}</span>
+            <span className="migration-switch__state migration-switch__state--repalis">{after}</span>
           </div>
         ))}
       </div>

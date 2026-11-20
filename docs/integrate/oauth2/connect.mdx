@@ -61,9 +61,9 @@ You should get the following response:
 ```json
 {
   "token_type": "Bearer",
-  "access_token": "polar_at_XXX",
+  "access_token": "repalis_at_XXX",
   "expires_in": 864000,
-  "refresh_token": "polar_rt_XXX",
+  "refresh_token": "repalis_rt_XXX",
   "scope": "openid email",
   "id_token": "ID_TOKEN"
 }
@@ -83,5 +83,5 @@ Once you have an access token, either from a Personal Access Token or from the O
 
 ```bash Terminal
 curl -X GET https://api.repalis.com/v1/oauth2/userinfo \
-  -H 'Authorization: Bearer polar_at_XXX'
+  -H 'Authorization: Bearer repalis_at_XXX'
 ```

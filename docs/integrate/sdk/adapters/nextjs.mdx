@@ -18,22 +18,22 @@ Install the required Repalis packages using the following command:
 <Tabs>
   <Tab title="npm">
     ```bash Terminal
-    npm install @polar-sh/nextjs
+    npm install @repalis/nextjs
     ```
   </Tab>
   <Tab title="yarn">
     ```bash Terminal
-    yarn add @polar-sh/nextjs
+    yarn add @repalis/nextjs
     ```
   </Tab>
   <Tab title="pnpm">
     ```bash Terminal
-    pnpm add @polar-sh/nextjs
+    pnpm add @repalis/nextjs
     ```
   </Tab>
   <Tab title="bun">
     ```bash Terminal
-    bun add @polar-sh/nextjs
+    bun add @repalis/nextjs
     ```
   </Tab>
 </Tabs>
@@ -45,10 +45,10 @@ The adapter works with App Router route handlers on Next.js 15 and 16.
 Create a Checkout handler which takes care of redirections.
 
 ```typescript icon="square-js" checkout/route.ts
-import { Checkout } from "@polar-sh/nextjs";
+import { Checkout } from "@repalis/nextjs";
 
 export const GET = Checkout({
-  accessToken: process.env.POLAR_ACCESS_TOKEN!,
+  accessToken: process.env.REPALIS_ACCESS_TOKEN!,
   successUrl: process.env.SUCCESS_URL,
   returnUrl: "https://myapp.com", // An optional URL which renders a back-button in the Checkout
   environment: "sandbox", // Use sandbox if you're testing Repalis - omit the parameter or pass 'production' otherwise
@@ -84,11 +84,11 @@ The handler returns `400` when `products` is missing.
 Create a customer portal where your customer can view orders and subscriptions.
 
 ```typescript icon="square-js" portal/route.ts
-import { CustomerPortal } from "@polar-sh/nextjs";
+import { CustomerPortal } from "@repalis/nextjs";
 import type { NextRequest } from "next/server";
 
 export const GET = CustomerPortal({
-  accessToken: process.env.POLAR_ACCESS_TOKEN!,
+  accessToken: process.env.REPALIS_ACCESS_TOKEN!,
   getCustomerId: async (req: NextRequest) => "", // Function to resolve a Repalis Customer ID
   returnUrl: "https://myapp.com", // An optional URL which renders a back-button in the Customer Portal
   environment: "sandbox", // Use sandbox if you're testing Repalis - omit the parameter or pass 'production' otherwise
@@ -101,11 +101,11 @@ If you identify customers by your own user ID, pass `getExternalCustomerId` inst
 
 A simple utility which verifies the signature of incoming webhook payloads with your webhook secret.
 
-```typescript icon="square-js" api/webhook/polar/route.ts
-import { Webhooks } from "@polar-sh/nextjs";
+```typescript icon="square-js" api/webhook/repalis/route.ts
+import { Webhooks } from "@repalis/nextjs";
 
 export const POST = Webhooks({
-  webhookSecret: process.env.POLAR_WEBHOOK_SECRET!,
+  webhookSecret: process.env.REPALIS_WEBHOOK_SECRET!,
   onPayload: async (payload) => {
     // Handle the payload
     // No need to return an acknowledge response

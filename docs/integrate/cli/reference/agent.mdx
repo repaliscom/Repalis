@@ -1,25 +1,25 @@
 ---
-title: "polar agent"
+title: "repalis agent"
 sidebarTitle: "agent"
 description: "Set up coding agents to build with Repalis"
 ---
 
-{/* Generated from the CLI by `pnpm --filter @polar-sh/cli docs:generate`. Do not edit by hand. */}
+{/* Generated from the CLI by `pnpm --filter @repalis/cli docs:generate`. Do not edit by hand. */}
 
 ```bash
-polar agent <subcommand> [flags]
+repalis agent <subcommand> [flags]
 ```
 
 **Subcommands**
 
-- [`polar agent setup`](#polar-agent-setup) Install the Repalis plugin, MCP server and skills for your coding agents
+- [`repalis agent setup`](#repalis-agent-setup) Install the Repalis plugin, MCP server and skills for your coding agents
 
-## polar agent setup
+## repalis agent setup
 
 Install the Repalis plugin, MCP server and skills for your coding agents
 
 ```bash
-polar agent setup [flags]
+repalis agent setup [flags]
 ```
 
 **Flags**
@@ -36,25 +36,25 @@ polar agent setup [flags]
 
 Detect Claude Code, Codex and Cursor, then choose what to set up
 ```bash
-polar agent setup
+repalis agent setup
 ```
 
 Show what is already set up
 ```bash
-polar agent setup --status
+repalis agent setup --status
 ```
 
 Only install the Repalis plugin for Claude Code
 ```bash
-polar agent setup --client claude-code
+repalis agent setup --client claude-code
 ```
 
 Install the Repalis skills into .agents/skills for any other agent
 ```bash
-polar agent setup --skills project
+repalis agent setup --skills project
 ```
 
 Set up every detected agent without asking, for scripts
 ```bash
-polar agent setup --confirm --json
+repalis agent setup --confirm --json
 ```

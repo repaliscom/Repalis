@@ -1,28 +1,28 @@
 ---
-title: "polar license_keys"
+title: "repalis license_keys"
 sidebarTitle: "license_keys"
 ---
 
-{/* Generated from the CLI by `pnpm --filter @polar-sh/cli docs:generate`. Do not edit by hand. */}
+{/* Generated from the CLI by `pnpm --filter @repalis/cli docs:generate`. Do not edit by hand. */}
 
 ```bash
-polar license_keys <subcommand> [flags]
+repalis license_keys <subcommand> [flags]
 ```
 
 **Subcommands**
 
-- [`polar license_keys get`](#polar-license_keys-get) Get a license key.
-- [`polar license_keys get_activation`](#polar-license_keys-get_activation) Get a license key activation.
-- [`polar license_keys list`](#polar-license_keys-list) Get license keys connected to the given organization &amp; filters.
-- [`polar license_keys rotate`](#polar-license_keys-rotate) Rotate a license key.
-- [`polar license_keys update`](#polar-license_keys-update) Update a license key.
+- [`repalis license_keys get`](#repalis-license_keys-get) Get a license key.
+- [`repalis license_keys get_activation`](#repalis-license_keys-get_activation) Get a license key activation.
+- [`repalis license_keys list`](#repalis-license_keys-list) Get license keys connected to the given organization &amp; filters.
+- [`repalis license_keys rotate`](#repalis-license_keys-rotate) Rotate a license key.
+- [`repalis license_keys update`](#repalis-license_keys-update) Update a license key.
 
-## polar license_keys get
+## repalis license_keys get
 
 Get a license key.
 
 ```bash
-polar license_keys get [flags] <id>
+repalis license_keys get [flags] <id>
 ```
 
 **Arguments**
@@ -37,12 +37,12 @@ polar license_keys get [flags] <id>
 | --- | --- | --- |
 | `--fields` | `string` | Only print these fields, comma-separated; use dots for nested ones, e.g. id,name,prices.price_amount |
 
-## polar license_keys get_activation
+## repalis license_keys get_activation
 
 Get a license key activation.
 
 ```bash
-polar license_keys get_activation [flags] <id> <activation_id>
+repalis license_keys get_activation [flags] <id> <activation_id>
 ```
 
 **Arguments**
@@ -58,12 +58,12 @@ polar license_keys get_activation [flags] <id> <activation_id>
 | --- | --- | --- |
 | `--fields` | `string` | Only print these fields, comma-separated; use dots for nested ones, e.g. id,name,prices.price_amount |
 
-## polar license_keys list
+## repalis license_keys list
 
 Get license keys connected to the given organization &amp; filters.
 
 ```bash
-polar license_keys list [flags]
+repalis license_keys list [flags]
 ```
 
 **Flags**
@@ -78,12 +78,12 @@ polar license_keys list [flags]
 | `--page` | `integer` | Page number, defaults to 1. |
 | `--limit` | `integer` | Size of a page, defaults to 10. Maximum is 100. |
 
-## polar license_keys rotate
+## repalis license_keys rotate
 
 Rotate a license key.
 
 ```bash
-polar license_keys rotate [flags] <id>
+repalis license_keys rotate [flags] <id>
 ```
 
 **Arguments**
@@ -99,12 +99,12 @@ polar license_keys rotate [flags] <id>
 | `--confirm`, `-c` | `boolean` | Skip the confirmation prompt for destructive requests |
 | `--fields` | `string` | Only print these fields, comma-separated; use dots for nested ones, e.g. id,name,prices.price_amount |
 
-## polar license_keys update
+## repalis license_keys update
 
 Update a license key.
 
 ```bash
-polar license_keys update [flags] <id>
+repalis license_keys update [flags] <id>
 ```
 
 **Arguments**

@@ -12,13 +12,13 @@ Cost Insights works by allowing you to add a special `_cost` property to any eve
 To track costs, add a `_cost` property to your event's metadata when ingesting events.
 
 ```typescript icon="square-js" TypeScript (SDK)
-import { createPolar } from "@polar-sh/sdk/2026-10";
+import { createRepalis } from "@repalis/sdk/2026-10";
 
-const polar = createPolar({
-  accessToken: process.env.POLAR_ACCESS_TOKEN!,
+const repalis = createRepalis({
+  accessToken: process.env.REPALIS_ACCESS_TOKEN!,
 });
 
-await polar.events.ingest({
+await repalis.events.ingest({
   events: [
     {
       name: "llm.inference",
@@ -81,11 +81,11 @@ The `_cost` property has the following structure:
 Track the cost of LLM API calls per customer:
 
 ```typescript icon="square-js" TypeScript
-import { createPolar } from "@polar-sh/sdk/2026-10";
+import { createRepalis } from "@repalis/sdk/2026-10";
 import OpenAI from "openai";
 
-const polar = createPolar({
-  accessToken: process.env.POLAR_ACCESS_TOKEN!,
+const repalis = createRepalis({
+  accessToken: process.env.REPALIS_ACCESS_TOKEN!,
 });
 
 const openai = new OpenAI({
@@ -108,7 +108,7 @@ const outputCost = (completion.usage.completion_tokens / 1000) * 6; // in cents
 const totalCost = inputCost + outputCost;
 
 // Track the cost in Repalis
-await polar.events.ingest({
+await repalis.events.ingest({
   events: [
     {
       name: "gpt4.completion",
@@ -184,10 +184,10 @@ Track costs from external services:
 Ingest cost events as they occur to maintain accurate, up-to-date metrics:
 
 ```typescript icon="square-js" TypeScript
-import { createPolar } from "@polar-sh/sdk/2026-10";
+import { createRepalis } from "@repalis/sdk/2026-10";
 
-const polar = createPolar({
-  accessToken: process.env.POLAR_ACCESS_TOKEN!,
+const repalis = createRepalis({
+  accessToken: process.env.REPALIS_ACCESS_TOKEN!,
 });
 
 // When making an LLM API call
@@ -198,7 +198,7 @@ const completion = await openai.chat.completions.create({
 
 const cost = calculateCost(completion.usage); // Cost should be in cents
 
-await polar.events.ingest({
+await repalis.events.ingest({
   events: [
     {
       name: "llm.completion",

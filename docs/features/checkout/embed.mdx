@@ -28,7 +28,7 @@ The snippet looks like this:
 <script
   defer
   data-auto-init
-  src="https://cdn.jsdelivr.net/npm/@polar-sh/checkout@latest/dist/embed.global.js"
+  src="https://cdn.jsdelivr.net/npm/@repalis/checkout@latest/dist/embed.global.js"
 ></script>
 ```
 
@@ -42,13 +42,13 @@ If you have a more advanced project in JavaScript, like a React app, adding the 
 
 <CodeGroup>
   ```bash npm
-  npm install @polar-sh/checkout
+  npm install @repalis/checkout
   ```
   ```bash pnpm
-  pnpm add @polar-sh/checkout
+  pnpm add @repalis/checkout
   ```
   ```bash yarn
-  yarn add @polar-sh/checkout
+  yarn add @repalis/checkout
   ```
 </CodeGroup>
 
@@ -57,7 +57,7 @@ Then, you should import the `RepalisEmbedCheckout` helper class and manually cal
 Here is an example in React:
 
 ```ts
-import { RepalisEmbedCheckout } from '@polar-sh/checkout/embed'
+import { RepalisEmbedCheckout } from '@repalis/checkout/embed'
 import { useEffect } from 'react'
 
 const PurchaseLink = () => {
@@ -136,7 +136,7 @@ For users who need more control over the embedded checkout flow, the `RepalisEmb
 Instead of using declarative triggers with `data-repalis-checkout` attributes, you can programmatically create and control checkout instances:
 
 ```ts
-import { RepalisEmbedCheckout } from "@polar-sh/checkout/embed";
+import { RepalisEmbedCheckout } from "@repalis/checkout/embed";
 
 // Open checkout programmatically when needed
 const openCheckout = async () => {
@@ -168,7 +168,7 @@ document.getElementById("buy-button").addEventListener("click", () => {
 You can listen for checkout events to respond to user interactions. For the `loaded` event, we recommend using the `onLoaded` callback in the `create` method to ensure it's always executed, even if the checkout loads very quickly.
 
 ```ts
-import { RepalisEmbedCheckout } from "@polar-sh/checkout/embed";
+import { RepalisEmbedCheckout } from "@repalis/checkout/embed";
 
 const openCheckoutWithEvents = async () => {
   const checkout = await RepalisEmbedCheckout.create("__CHECKOUT_LINK__", {
@@ -216,7 +216,7 @@ const openCheckoutWithEvents = async () => {
 Here's a more complete React example that handles checkout events:
 
 ```ts
-import { RepalisEmbedCheckout } from '@polar-sh/checkout/embed'
+import { RepalisEmbedCheckout } from '@repalis/checkout/embed'
 import { useState, useEffect } from 'react'
 
 const CheckoutButton = () => {
@@ -283,7 +283,7 @@ export default CheckoutButton
 In some cases, you might need to programmatically close the checkout - for instance, if you detect that a user needs to take an action elsewhere in your application first:
 
 ```ts
-import { RepalisEmbedCheckout } from "@polar-sh/checkout/embed";
+import { RepalisEmbedCheckout } from "@repalis/checkout/embed";
 
 // Example: open checkout and store the instance
 let activeCheckout = null;

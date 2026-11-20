@@ -44,7 +44,7 @@ First, you'll need to create an API token in Repalis that Affonso can use to com
 
 <video controls width="600">
   <source
-  src="https://affonso-videos.s3.eu-central-1.amazonaws.com/Connect_Polar_Affonso_1.mp4"
+  src="https://affonso-videos.s3.eu-central-1.amazonaws.com/Connect_Repalis_Affonso_1.mp4"
   type="video/mp4" />
 </video>
 
@@ -67,7 +67,7 @@ After connecting your Repalis account with Affonso, you'll [receive a webhook UR
 
 <video controls width="600">
   <source
-  src="https://affonso-videos.s3.eu-central-1.amazonaws.com/Connect_Polar_Affonso_2.mp4"
+  src="https://affonso-videos.s3.eu-central-1.amazonaws.com/Connect_Repalis_Affonso_2.mp4"
   type="video/mp4" />
 </video>
 
@@ -111,7 +111,7 @@ To ensure proper commission attribution, pass the referral data when creating ch
 const referralId = window.affonso_referral;
 
 // Create checkout session with Repalis
-const checkout = await polar.checkouts.create({
+const checkout = await repalis.checkouts.create({
   products: ["your_product_id"],
   success_url: "https://your-app.com/success",
   metadata: {
@@ -140,7 +140,7 @@ window.location.href = checkout.url;
 
 ## Getting Help
 
-More details about the integration: [Repalis Affiliate Program](https://affonso.io/polar-affiliate-program)
+More details about the integration: [Repalis Affiliate Program](https://affonso.io/repalis-affiliate-program)
 
 If you need assistance with your Affonso integration, contact Affonso's support team:
 - Email: hello@affonso.io

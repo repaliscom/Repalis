@@ -1,30 +1,30 @@
 ---
-title: "polar auth"
+title: "repalis auth"
 sidebarTitle: "auth"
 description: "Manage your Repalis sessions and active organization"
 ---
 
-{/* Generated from the CLI by `pnpm --filter @polar-sh/cli docs:generate`. Do not edit by hand. */}
+{/* Generated from the CLI by `pnpm --filter @repalis/cli docs:generate`. Do not edit by hand. */}
 
 ```bash
-polar auth <subcommand> [flags]
+repalis auth <subcommand> [flags]
 ```
 
 **Subcommands**
 
-- [`polar auth login`](#polar-auth-login) Sign in to Repalis through your browser
-- [`polar auth whoami`](#polar-auth-whoami) Show the active organization
-- [`polar auth list`](#polar-auth-list) List the organizations you have access to
-- [`polar auth org`](#polar-auth-org) Choose the active organization
-- [`polar auth token`](#polar-auth-token) Create an organization access token for your app and print it
-- [`polar auth logout`](#polar-auth-logout) Sign out and remove saved sessions
+- [`repalis auth login`](#repalis-auth-login) Sign in to Repalis through your browser
+- [`repalis auth whoami`](#repalis-auth-whoami) Show the active organization
+- [`repalis auth list`](#repalis-auth-list) List the organizations you have access to
+- [`repalis auth org`](#repalis-auth-org) Choose the active organization
+- [`repalis auth token`](#repalis-auth-token) Create an organization access token for your app and print it
+- [`repalis auth logout`](#repalis-auth-logout) Sign out and remove saved sessions
 
-## polar auth login
+## repalis auth login
 
 Sign in to Repalis through your browser
 
 ```bash
-polar auth login [flags]
+repalis auth login [flags]
 ```
 
 **Flags**
@@ -39,49 +39,49 @@ polar auth login [flags]
 
 Choose sandbox or production, then sign in
 ```bash
-polar auth login
+repalis auth login
 ```
 
 Sign in to sandbox
 ```bash
-polar auth login --sandbox
+repalis auth login --sandbox
 ```
 
 Sign in to production again, replacing the saved session
 ```bash
-polar auth login --production --new-session
+repalis auth login --production --new-session
 ```
 
-## polar auth whoami
+## repalis auth whoami
 
 Show the active organization
 
 ```bash
-polar auth whoami [flags]
+repalis auth whoami [flags]
 ```
 
-## polar auth list
+## repalis auth list
 
 List the organizations you have access to
 
 ```bash
-polar auth list [flags]
+repalis auth list [flags]
 ```
 
-## polar auth org
+## repalis auth org
 
 Choose the active organization
 
 ```bash
-polar auth org [flags]
+repalis auth org [flags]
 ```
 
-## polar auth token
+## repalis auth token
 
 Create an organization access token for your app and print it
 
 ```bash
-polar auth token [flags]
+repalis auth token [flags]
 ```
 
 **Flags**
@@ -94,20 +94,20 @@ polar auth token [flags]
 
 Add a token for the active organization to .env.local
 ```bash
-echo "POLAR_ACCESS_TOKEN=$(polar auth token)" >> .env.local
+echo "REPALIS_ACCESS_TOKEN=$(repalis auth token)" >> .env.local
 ```
 
 Preselect scopes and store the token as a GitHub Actions secret without writing it to disk
 ```bash
-polar auth token --scope products:read --scope checkouts:write | gh secret set POLAR_ACCESS_TOKEN
+repalis auth token --scope products:read --scope checkouts:write | gh secret set REPALIS_ACCESS_TOKEN
 ```
 
-## polar auth logout
+## repalis auth logout
 
 Sign out and remove saved sessions
 
 ```bash
-polar auth logout [flags]
+repalis auth logout [flags]
 ```
 
 **Flags**
@@ -122,10 +122,10 @@ polar auth logout [flags]
 
 Sign out, asking which session only if you have both
 ```bash
-polar auth logout
+repalis auth logout
 ```
 
 Remove every saved session
 ```bash
-polar auth logout --all
+repalis auth logout --all
 ```

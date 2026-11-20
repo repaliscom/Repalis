@@ -37,7 +37,7 @@ validate and parse the webhook event - see full examples below.
 <CodeGroup>
 ```typescript icon="square-js" JS (Express)
 import express, { NextFunction, Request, Response } from 'express'
-import { webhooks } from '@polar-sh/sdk/2026-10'
+import { webhooks } from '@repalis/sdk/2026-10'
 
 const app = express()
 
@@ -53,18 +53,18 @@ app.post(
           'webhook-timestamp': req.header('webhook-timestamp') ?? '',
           'webhook-signature': req.header('webhook-signature') ?? '',
         },
-        process.env['POLAR_WEBHOOK_SECRET'] ?? '',
+        process.env['REPALIS_WEBHOOK_SECRET'] ?? '',
       )
 
       // Process the event
 
       res.status(202).send('')
     } catch (error) {
-      if (error instanceof webhooks.PolarWebhookVerificationError) {
+      if (error instanceof webhooks.RepalisWebhookVerificationError) {
         res.status(403).send('')
         return
       }
-      if (error instanceof webhooks.PolarWebhookUnknownTypeError) {
+      if (error instanceof webhooks.RepalisWebhookUnknownTypeError) {
         // Event type added after this SDK version: acknowledge it so Repalis doesn't retry
         res.status(202).send('')
         return
@@ -79,8 +79,8 @@ app.post(
 import os
 from flask import Flask, request
 from repalis.v2026_10.webhooks import (
-    PolarWebhookUnknownTypeError,
-    PolarWebhookVerificationError,
+    RepalisWebhookUnknownTypeError,
+    RepalisWebhookVerificationError,
     validate_event,
 )
 
@@ -92,22 +92,22 @@ def webhook():
         event = validate_event(
             request.get_data(),
             dict(request.headers),
-            os.getenv('POLAR_WEBHOOK_SECRET', ''),
+            os.getenv('REPALIS_WEBHOOK_SECRET', ''),
         )
 
         # Process the event
 
         return "", 202
-    except PolarWebhookVerificationError:
+    except RepalisWebhookVerificationError:
         return "", 403
-    except PolarWebhookUnknownTypeError:
+    except RepalisWebhookUnknownTypeError:
         # Event type added after this SDK version: acknowledge it so Repalis doesn't retry
         return "", 202
 ```
 
 </CodeGroup>
 
-Both examples above expect an environment variable named `POLAR_WEBHOOK_SECRET`
+Both examples above expect an environment variable named `REPALIS_WEBHOOK_SECRET`
 to be set to the secret you configured during the endpoint setup.
 
 ### Custom validation

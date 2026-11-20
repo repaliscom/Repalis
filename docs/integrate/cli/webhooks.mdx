@@ -14,7 +14,7 @@ whenever you need one, without waiting for a real checkout or subscription.
 <Steps>
   <Step title="Sign in and choose an organization">
     ```bash Terminal
-    polar auth login --sandbox
+    repalis auth login --sandbox
     ```
 
     Pick the organization you want to receive events for. See
@@ -41,7 +41,7 @@ whenever you need one, without waiting for a real checkout or subscription.
     verification passes:
 
     ```bash .env
-    POLAR_WEBHOOK_SECRET=6t3c8ce2247c493a3ade20uea4484d64
+    REPALIS_WEBHOOK_SECRET=6t3c8ce2247c493a3ade20uea4484d64
     ```
   </Step>
 </Steps>
@@ -53,7 +53,7 @@ if it drops. Press `Ctrl+C` to stop.
 
 <Note>
   Events follow the active organization's environment. Listen with a sandbox
-  organization while developing, and switch with `polar auth org` when you need
+  organization while developing, and switch with `repalis auth org` when you need
   production events.
 </Note>
 

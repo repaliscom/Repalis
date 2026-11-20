@@ -94,8 +94,8 @@ curl --request PATCH \
 ```py Python
 from repalis.v2026_10 import Repalis
 
-with Repalis("<YOUR_BEARER_TOKEN_HERE>") as polar:
-    res = polar.subscriptions.update(
+with Repalis("<YOUR_BEARER_TOKEN_HERE>") as repalis:
+    res = repalis.subscriptions.update(
         "<subscription_id>",
         product_id="<product_id>",
         proration_behavior="invoice",  # or "prorate" or "next_period"

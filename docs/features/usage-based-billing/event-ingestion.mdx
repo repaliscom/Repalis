@@ -14,13 +14,13 @@ To ingest events, you can use the Repalis SDKs.
 ### TypeScript Example
 
 ```typescript
-import { createPolar } from "@polar-sh/sdk/2026-10";
+import { createRepalis } from "@repalis/sdk/2026-10";
 
-const polar = createPolar({
-  accessToken: process.env.POLAR_ACCESS_TOKEN!,
+const repalis = createRepalis({
+  accessToken: process.env.REPALIS_ACCESS_TOKEN!,
 });
 
-await polar.events.ingest({
+await repalis.events.ingest({
   events: [
     {
       name: "<value>",

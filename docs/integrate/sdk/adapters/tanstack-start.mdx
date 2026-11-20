@@ -16,22 +16,22 @@ Install the required Repalis packages using the following command:
 <Tabs>
   <Tab title="npm">
     ```bash Terminal
-    npm install @polar-sh/tanstack-start
+    npm install @repalis/tanstack-start
     ```
   </Tab>
   <Tab title="yarn">
     ```bash Terminal
-    yarn add @polar-sh/tanstack-start
+    yarn add @repalis/tanstack-start
     ```
   </Tab>
   <Tab title="pnpm">
     ```bash Terminal
-    pnpm add @polar-sh/tanstack-start
+    pnpm add @repalis/tanstack-start
     ```
   </Tab>
   <Tab title="bun">
     ```bash Terminal
-    bun add @polar-sh/tanstack-start
+    bun add @repalis/tanstack-start
     ```
   </Tab>
 </Tabs>
@@ -41,14 +41,14 @@ Install the required Repalis packages using the following command:
 Create a Checkout handler which takes care of redirections.
 
 ```typescript icon="square-js" routes/api/checkout.ts
-import { Checkout } from "@polar-sh/tanstack-start";
+import { Checkout } from "@repalis/tanstack-start";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/api/checkout")({
   server: {
     handlers: {
       GET: Checkout({
-        accessToken: process.env.POLAR_ACCESS_TOKEN!,
+        accessToken: process.env.REPALIS_ACCESS_TOKEN!,
         successUrl: process.env.SUCCESS_URL,
         returnUrl: "https://myapp.com", // An optional URL which renders a back-button in the Checkout
         environment: "sandbox", // Use sandbox if you're testing Repalis - omit the parameter or pass 'production' otherwise
@@ -87,14 +87,14 @@ The handler returns `400` when `products` is missing and `500` when the checkout
 Create a customer portal where your customer can view orders and subscriptions.
 
 ```typescript icon="square-js" routes/api/portal.ts
-import { CustomerPortal } from "@polar-sh/tanstack-start";
+import { CustomerPortal } from "@repalis/tanstack-start";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/api/portal")({
   server: {
     handlers: {
       GET: CustomerPortal({
-        accessToken: process.env.POLAR_ACCESS_TOKEN!,
+        accessToken: process.env.REPALIS_ACCESS_TOKEN!,
         getCustomerId: async (request: Request) => "", // Function to resolve a Repalis Customer ID
         returnUrl: "https://myapp.com", // An optional URL which renders a back-button in the Customer Portal
         environment: "sandbox", // Use sandbox if you're testing Repalis - omit the parameter or pass 'production' otherwise
@@ -110,15 +110,15 @@ export const Route = createFileRoute("/api/portal")({
 
 A simple utility which verifies the signature of incoming webhook payloads with your webhook secret.
 
-```typescript icon="square-js" routes/api/webhook/polar.ts
-import { Webhooks } from "@polar-sh/tanstack-start";
+```typescript icon="square-js" routes/api/webhook/repalis.ts
+import { Webhooks } from "@repalis/tanstack-start";
 import { createFileRoute } from "@tanstack/react-router";
 
-export const Route = createFileRoute("/api/webhook/polar")({
+export const Route = createFileRoute("/api/webhook/repalis")({
   server: {
     handlers: {
       POST: Webhooks({
-        webhookSecret: process.env.POLAR_WEBHOOK_SECRET!,
+        webhookSecret: process.env.REPALIS_WEBHOOK_SECRET!,
         onPayload: async (payload) => {
           // Handle the payload
           // No need to return an acknowledge response

@@ -33,15 +33,15 @@ Or with your package manager, on any platform. pnpm and bun block install
 scripts by default, and the flags below allow the one that unpacks the binary:
 
 ```bash Terminal
-npm install -g @polar-sh/cli
-pnpm add -g --allow-build=@polar-sh/cli @polar-sh/cli
-bun install -g --trust @polar-sh/cli
+npm install -g @repalis/cli
+pnpm add -g --allow-build=@repalis/cli @repalis/cli
+bun install -g --trust @repalis/cli
 ```
 
 Check that it works:
 
 ```bash Terminal
-polar --version
+repalis --version
 ```
 
 ## Updating
@@ -50,7 +50,7 @@ The CLI checks for new releases in the background and tells you when one is
 available. Install it with:
 
 ```bash Terminal
-polar update
+repalis update
 ```
 
 ## Shell completions
@@ -58,11 +58,11 @@ polar update
 Print a completion script for your shell and add it to your profile:
 
 ```bash Terminal
-polar --completions zsh
+repalis --completions zsh
 ```
 
-Bash, fish and sh are supported too. Run `polar --help` to list every command,
-or add `--help` to a command, like `polar products --help`, to see the flags of
+Bash, fish and sh are supported too. Run `repalis --help` to list every command,
+or add `--help` to a command, like `repalis products --help`, to see the flags of
 every command under it at once.
 
 ## Telemetry
@@ -76,7 +76,7 @@ Access tokens, organization IDs, URLs and webhook payloads are never sent.
 To opt out, set either variable in your environment:
 
 ```bash Terminal
-export POLAR_CLI_TELEMETRY_OPTOUT=1
+export REPALIS_CLI_TELEMETRY_OPTOUT=1
 ```
 
 The standard `DO_NOT_TRACK=1` is honoured as well.

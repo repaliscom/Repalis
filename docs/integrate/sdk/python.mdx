@@ -26,33 +26,33 @@ The SDK requires Python 3.11 or later.
 
 ## Quickstart
 
-Create an [organization access token](/integrate/oat), store it in `POLAR_ACCESS_TOKEN`, and make your first request:
+Create an [organization access token](/integrate/oat), store it in `REPALIS_ACCESS_TOKEN`, and make your first request:
 
 ```python main.py
 import os
 
 from repalis.v2026_10 import Repalis
 
-polar = Repalis(os.environ["POLAR_ACCESS_TOKEN"])
+repalis = Repalis(os.environ["REPALIS_ACCESS_TOKEN"])
 
-customer_state = polar.customers.get_state_external("customer_external_id")
+customer_state = repalis.customers.get_state_external("customer_external_id")
 print(customer_state)
 ```
 
 ### Async client
 
-Use `PolarAsync` in asynchronous applications:
+Use `RepalisAsync` in asynchronous applications:
 
 ```python async_main.py
 import asyncio
 import os
 
-from repalis.v2026_10 import PolarAsync
+from repalis.v2026_10 import RepalisAsync
 
 
 async def main() -> None:
-    polar = PolarAsync(os.environ["POLAR_ACCESS_TOKEN"])
-    customer_state = await polar.customers.get_state_external(
+    repalis = RepalisAsync(os.environ["REPALIS_ACCESS_TOKEN"])
+    customer_state = await repalis.customers.get_state_external(
         "customer_external_id"
     )
     print(customer_state)
@@ -74,23 +74,23 @@ import os
 
 from repalis.v2026_10 import Repalis
 
-with Repalis(os.environ["POLAR_ACCESS_TOKEN"]) as polar:
-    customer_state = polar.customers.get_state_external("customer_external_id")
+with Repalis(os.environ["REPALIS_ACCESS_TOKEN"]) as repalis:
+    customer_state = repalis.customers.get_state_external("customer_external_id")
     print(customer_state)
 ```
 
-For asynchronous applications, use `PolarAsync` with `async with`:
+For asynchronous applications, use `RepalisAsync` with `async with`:
 
 ```python
 import asyncio
 import os
 
-from repalis.v2026_10 import PolarAsync
+from repalis.v2026_10 import RepalisAsync
 
 
 async def main() -> None:
-    async with PolarAsync(os.environ["POLAR_ACCESS_TOKEN"]) as polar:
-        customer_state = await polar.customers.get_state_external(
+    async with RepalisAsync(os.environ["REPALIS_ACCESS_TOKEN"]) as repalis:
+        customer_state = await repalis.customers.get_state_external(
             "customer_external_id"
         )
         print(customer_state)
@@ -104,8 +104,8 @@ asyncio.run(main())
 The client uses production by default. Pass `environment="sandbox"` to use the isolated [sandbox environment](/integrate/sandbox):
 
 ```python
-polar = Repalis(
-    os.environ["POLAR_ACCESS_TOKEN"],
+repalis = Repalis(
+    os.environ["REPALIS_ACCESS_TOKEN"],
     environment="sandbox",
 )
 ```

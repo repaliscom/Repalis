@@ -1,27 +1,27 @@
 ---
-title: "polar subscriptions"
+title: "repalis subscriptions"
 sidebarTitle: "subscriptions"
 ---
 
-{/* Generated from the CLI by `pnpm --filter @polar-sh/cli docs:generate`. Do not edit by hand. */}
+{/* Generated from the CLI by `pnpm --filter @repalis/cli docs:generate`. Do not edit by hand. */}
 
 ```bash
-polar subscriptions <subcommand> [flags]
+repalis subscriptions <subcommand> [flags]
 ```
 
 **Subcommands**
 
-- [`polar subscriptions get`](#polar-subscriptions-get) Get a subscription by ID.
-- [`polar subscriptions list`](#polar-subscriptions-list) List subscriptions.
-- [`polar subscriptions revoke`](#polar-subscriptions-revoke) Revoke a subscription, i.e cancel immediately.
-- [`polar subscriptions update`](#polar-subscriptions-update) Update a subscription.
+- [`repalis subscriptions get`](#repalis-subscriptions-get) Get a subscription by ID.
+- [`repalis subscriptions list`](#repalis-subscriptions-list) List subscriptions.
+- [`repalis subscriptions revoke`](#repalis-subscriptions-revoke) Revoke a subscription, i.e cancel immediately.
+- [`repalis subscriptions update`](#repalis-subscriptions-update) Update a subscription.
 
-## polar subscriptions get
+## repalis subscriptions get
 
 Get a subscription by ID.
 
 ```bash
-polar subscriptions get [flags] <id>
+repalis subscriptions get [flags] <id>
 ```
 
 **Arguments**
@@ -36,12 +36,12 @@ polar subscriptions get [flags] <id>
 | --- | --- | --- |
 | `--fields` | `string` | Only print these fields, comma-separated; use dots for nested ones, e.g. id,name,prices.price_amount |
 
-## polar subscriptions list
+## repalis subscriptions list
 
 List subscriptions.
 
 ```bash
-polar subscriptions list [flags]
+repalis subscriptions list [flags]
 ```
 
 **Flags**
@@ -68,12 +68,12 @@ polar subscriptions list [flags]
 | `--sorting` | `choice` | Sorting criterion. Several criteria can be used simultaneously and will be applied in order. Add a minus sign `-` before the criteria name to sort by descending order. (choices: customer, -customer, status, -status, started_at, -started_at, current_period_end, -current_period_end, ended_at, -ended_at, ends_at, -ends_at, amount, -amount, product, -product, discount, -discount) |
 | `--metadata` | `string` | Filter by metadata key-value pairs. JSON: &#123;"&lt;key&gt;": string \| integer \| boolean \| array of string \| array of integer \| array of boolean&#125; |
 
-## polar subscriptions revoke
+## repalis subscriptions revoke
 
 Revoke a subscription, i.e cancel immediately.
 
 ```bash
-polar subscriptions revoke [flags] <id>
+repalis subscriptions revoke [flags] <id>
 ```
 
 **Arguments**
@@ -89,12 +89,12 @@ polar subscriptions revoke [flags] <id>
 | `--confirm`, `-c` | `boolean` | Skip the confirmation prompt for destructive requests |
 | `--fields` | `string` | Only print these fields, comma-separated; use dots for nested ones, e.g. id,name,prices.price_amount |
 
-## polar subscriptions update
+## repalis subscriptions update
 
 Update a subscription.
 
 ```bash
-polar subscriptions update [flags] <id>
+repalis subscriptions update [flags] <id>
 ```
 
 **Arguments**

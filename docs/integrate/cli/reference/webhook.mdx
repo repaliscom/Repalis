@@ -4,7 +4,7 @@ sidebarTitle: "webhook"
 description: "Test webhooks against your local server"
 ---
 
-{/* Generated from the CLI by `pnpm --filter @polar-sh/cli docs:generate`. Do not edit by hand. */}
+{/* Generated from the CLI by `pnpm --filter @repalis/cli docs:generate`. Do not edit by hand. */}
 
 ```bash
 repalis webhook <subcommand> [flags]
@@ -12,8 +12,8 @@ repalis webhook <subcommand> [flags]
 
 **Subcommands**
 
-- [`repalis webhook listen`](#polar-webhook-listen) Forward webhook events for an organization to a local URL
-- [`repalis webhook trigger`](#polar-webhook-trigger) Send a sample webhook event to your local server
+- [`repalis webhook listen`](#repalis-webhook-listen) Forward webhook events for an organization to a local URL
+- [`repalis webhook trigger`](#repalis-webhook-trigger) Send a sample webhook event to your local server
 
 ## repalis webhook listen
 
@@ -53,7 +53,7 @@ Forward events for a specific organization
 repalis webhook listen http://localhost:3000/api/webhooks --org <id>
 ```
 
-Print the signing secret, e.g. for POLAR_WEBHOOK_SECRET in .env
+Print the signing secret, e.g. for REPALIS_WEBHOOK_SECRET in .env
 ```bash
 repalis webhook listen --print-secret
 ```

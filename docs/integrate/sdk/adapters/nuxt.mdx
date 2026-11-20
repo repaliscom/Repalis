@@ -16,22 +16,22 @@ Install the required Repalis packages using the following command:
 <Tabs>
   <Tab title="npm">
     ```bash Terminal
-    npm install zod @polar-sh/nuxt
+    npm install zod @repalis/nuxt
     ```
   </Tab>
   <Tab title="yarn">
     ```bash Terminal
-    yarn add zod @polar-sh/nuxt
+    yarn add zod @repalis/nuxt
     ```
   </Tab>
   <Tab title="pnpm">
     ```bash Terminal
-    pnpm add zod @polar-sh/nuxt
+    pnpm add zod @repalis/nuxt
     ```
   </Tab>
   <Tab title="bun">
     ```bash Terminal
-    bun add zod @polar-sh/nuxt
+    bun add zod @repalis/nuxt
     ```
   </Tab>
 </Tabs>
@@ -44,13 +44,13 @@ Add the module to your `nuxt.config.ts`, along with the runtime config the handl
 
 ```typescript
 export default defineNuxtConfig({
-  modules: ["@polar-sh/nuxt"],
+  modules: ["@repalis/nuxt"],
   runtimeConfig: {
     private: {
-      polarAccessToken: "", // NUXT_PRIVATE_POLAR_ACCESS_TOKEN
-      polarServer: "", // NUXT_PRIVATE_POLAR_SERVER - "sandbox" or "production"
-      polarCheckoutSuccessUrl: "", // NUXT_PRIVATE_POLAR_CHECKOUT_SUCCESS_URL
-      polarWebhookSecret: "", // NUXT_PRIVATE_POLAR_WEBHOOK_SECRET
+      repalisAccessToken: "", // NUXT_PRIVATE_REPALIS_ACCESS_TOKEN
+      repalisServer: "", // NUXT_PRIVATE_REPALIS_SERVER - "sandbox" or "production"
+      repalisCheckoutSuccessUrl: "", // NUXT_PRIVATE_REPALIS_CHECKOUT_SUCCESS_URL
+      repalisWebhookSecret: "", // NUXT_PRIVATE_REPALIS_WEBHOOK_SECRET
     },
   },
 });
@@ -65,14 +65,14 @@ Create a Checkout handler which takes care of redirections.
 ```typescript icon="square-js" server/routes/api/checkout.get.ts
 export default defineEventHandler((event) => {
   const {
-    private: { polarAccessToken, polarCheckoutSuccessUrl, polarServer },
+    private: { repalisAccessToken, repalisCheckoutSuccessUrl, repalisServer },
   } = useRuntimeConfig();
 
   const checkoutHandler = Checkout({
-    accessToken: polarAccessToken,
-    successUrl: polarCheckoutSuccessUrl,
+    accessToken: repalisAccessToken,
+    successUrl: repalisCheckoutSuccessUrl,
     returnUrl: "https://myapp.com", // An optional URL which renders a back-button in the Checkout
-    environment: polarServer as "sandbox" | "production",
+    environment: repalisServer as "sandbox" | "production",
     theme: "dark", // Enforces the theme - System-preferred theme will be set if left omitted
   });
 
@@ -110,13 +110,13 @@ Create a customer portal where your customer can view orders and subscriptions.
 ```typescript icon="square-js" server/routes/api/portal.get.ts
 export default defineEventHandler((event) => {
   const {
-    private: { polarAccessToken, polarServer },
+    private: { repalisAccessToken, repalisServer },
   } = useRuntimeConfig();
 
   const customerPortalHandler = CustomerPortal({
-    accessToken: polarAccessToken,
+    accessToken: repalisAccessToken,
     returnUrl: "https://myapp.com", // An optional URL which renders a back-button in the Customer Portal
-    environment: polarServer as "sandbox" | "production",
+    environment: repalisServer as "sandbox" | "production",
     getCustomerId: (event) => {
       // Use your own logic to get the Repalis customer ID - from a database, session, etc.
       return Promise.resolve("9d89909b-216d-475e-8005-053dba7cff07");
@@ -133,14 +133,14 @@ export default defineEventHandler((event) => {
 
 A simple utility which verifies the signature of incoming webhook payloads with your webhook secret.
 
-```typescript icon="square-js" server/routes/webhook/polar.post.ts
+```typescript icon="square-js" server/routes/webhook/repalis.post.ts
 export default defineEventHandler((event) => {
   const {
-    private: { polarWebhookSecret },
+    private: { repalisWebhookSecret },
   } = useRuntimeConfig();
 
   const webhooksHandler = Webhooks({
-    webhookSecret: polarWebhookSecret,
+    webhookSecret: repalisWebhookSecret,
     onPayload: async (payload) => {
       // Handle the payload
       // No need to return an acknowledge response

@@ -13,11 +13,11 @@ Let your customers securely add a payment method without leaving your site.
 Every embed is authenticated with a short-lived **customer session token**. Create it **on your server** to keep the Repalis access token secret, then hand the token to the client.
 
 ```ts
-import { createPolar } from "@polar-sh/sdk/2026-10";
+import { createRepalis } from "@repalis/sdk/2026-10";
 
-const polar = createPolar({ accessToken: process.env.POLAR_ACCESS_TOKEN! });
+const repalis = createRepalis({ accessToken: process.env.REPALIS_ACCESS_TOKEN! });
 
-const session = await polar.customerSessions.create({
+const session = await repalis.customerSessions.create({
   customer_id: "the-customer-id",
 });
 ```
@@ -38,16 +38,16 @@ Start by installing the SDK.
 
 <CodeGroup>
   ```bash npm
-  npm install @polar-sh/checkout
+  npm install @repalis/checkout
   ```
   ```bash pnpm
-  pnpm add @polar-sh/checkout
+  pnpm add @repalis/checkout
   ```
   ```bash yarn
-  yarn add @polar-sh/checkout
+  yarn add @repalis/checkout
   ```
   ```bash bun
-  bun add @polar-sh/checkout
+  bun add @repalis/checkout
   ```
 </CodeGroup>
 
@@ -56,7 +56,7 @@ Start by installing the SDK.
 `RepalisEmbedPaymentMethod.create()` opens the embed as a full-screen modal overlay.
 
 ```ts
-import { RepalisEmbedPaymentMethod } from "@polar-sh/checkout/payment-method";
+import { RepalisEmbedPaymentMethod } from "@repalis/checkout/payment-method";
 
 const embed = await RepalisEmbedPaymentMethod.create({
   sessionToken: session.token,
@@ -84,7 +84,7 @@ Open the modal from a Client Component event handler:
 
 ```tsx
 "use client";
-import { RepalisEmbedPaymentMethod } from "@polar-sh/checkout/payment-method";
+import { RepalisEmbedPaymentMethod } from "@repalis/checkout/payment-method";
 
 interface Props {
   sessionToken: string;
@@ -107,7 +107,7 @@ export function AddPaymentMethodButton({sessionToken}: Props) {
 Mount a chrome-less, auto-resizing iframe into an element you control:
 
 ```ts
-import { RepalisEmbedPaymentMethod } from "@polar-sh/checkout/payment-method";
+import { RepalisEmbedPaymentMethod } from "@repalis/checkout/payment-method";
 
 const embed = RepalisEmbedPaymentMethod.createInline({
   sessionToken: session.token,
@@ -126,7 +126,7 @@ embed.addEventListener("success", (event) => {
 Use the `<RepalisPaymentMethod />` component:
 
 ```tsx
-import { RepalisPaymentMethod } from "@polar-sh/checkout/react/payment-method";
+import { RepalisPaymentMethod } from "@repalis/checkout/react/payment-method";
 
 return (
   <RepalisPaymentMethod
@@ -141,12 +141,12 @@ return (
 The simplest integration: add the script and a trigger element with `data-repalis-payment-method`. Clicking the element opens the modal.
 
 ```html
-<button data-repalis-payment-method="polar_cst_xxx">Add payment method</button>
+<button data-repalis-payment-method="repalis_cst_xxx">Add payment method</button>
 
 <script
   defer
   data-auto-init
-  src="https://cdn.jsdelivr.net/npm/@polar-sh/checkout@latest/dist/embed.global.js"
+  src="https://cdn.jsdelivr.net/npm/@repalis/checkout@latest/dist/embed.global.js"
 ></script>
 ```
 
@@ -192,7 +192,7 @@ Some payment methods authorise on the provider's own site. The browser navigates
 Read the outcome on the returned page with the static `getRedirectResult()`:
 
 ```ts
-import { RepalisEmbedPaymentMethod } from "@polar-sh/checkout/payment-method";
+import { RepalisEmbedPaymentMethod } from "@repalis/checkout/payment-method";
 
 const result = RepalisEmbedPaymentMethod.getRedirectResult();
 // result: { status: 'succeeded' | 'failed' } | null
@@ -205,7 +205,7 @@ if (result?.status === "succeeded") {
 In React, use the `usePaymentMethodRedirectResult` hook to avoid writing your own effect:
 
 ```tsx
-import { usePaymentMethodRedirectResult } from "@polar-sh/checkout/react/payment-method";
+import { usePaymentMethodRedirectResult } from "@repalis/checkout/react/payment-method";
 
 usePaymentMethodRedirectResult({
   onSuccess: () => console.log("Payment method added"),

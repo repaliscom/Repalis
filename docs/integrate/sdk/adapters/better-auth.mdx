@@ -5,7 +5,7 @@ description: "Payments and Checkouts made dead simple with BetterAuth"
 
 import WebhookHandlers from "/snippets/adapters/webhook-handlers.mdx";
 
-## @polar-sh/better-auth
+## @repalis/better-auth
 
 A [Better Auth](https://github.com/better-auth/better-auth) plugin for integrating [Repalis](https://repalis.com) payments and subscriptions into your authentication flow.
 
@@ -30,22 +30,22 @@ Install the required Better Auth and Repalis packages using the following comman
 <Tabs>
   <Tab title="npm">
     ```bash Terminal
-    npm install better-auth zod @polar-sh/better-auth @polar-sh/sdk@1.0.0
+    npm install better-auth zod @repalis/better-auth @repalis/sdk@1.0.0
     ```
   </Tab>
   <Tab title="yarn">
     ```bash Terminal
-    yarn add better-auth zod @polar-sh/better-auth @polar-sh/sdk@1.0.0
+    yarn add better-auth zod @repalis/better-auth @repalis/sdk@1.0.0
     ```
   </Tab>
   <Tab title="pnpm">
     ```bash Terminal
-    pnpm add better-auth zod @polar-sh/better-auth @polar-sh/sdk@1.0.0
+    pnpm add better-auth zod @repalis/better-auth @repalis/sdk@1.0.0
     ```
   </Tab>
   <Tab title="bun">
     ```bash Terminal
-    bun add better-auth zod @polar-sh/better-auth @polar-sh/sdk@1.0.0
+    bun add better-auth zod @repalis/better-auth @repalis/sdk@1.0.0
     ```
   </Tab>
 </Tabs>
@@ -59,7 +59,7 @@ The plugin requires Better Auth 1.7 or later and Node.js 22 or later.
     Go to your Repalis Organization Settings, create an Organization Access Token, and add it to the environment variables of your application.
 
     ```bash .env
-    POLAR_ACCESS_TOKEN=...
+    REPALIS_ACCESS_TOKEN=...
     ```
 
   </Step>
@@ -73,11 +73,11 @@ The plugin requires Better Auth 1.7 or later and Node.js 22 or later.
 
     ```typescript icon="square-js" auth.ts
     import { betterAuth } from "better-auth";
-    import { polar, checkout, portal, usage, webhooks } from "@polar-sh/better-auth"; // [!code ++]
-    import { createPolarCore } from "@polar-sh/sdk/2026-10"; // [!code ++]
+    import { repalis, checkout, portal, usage, webhooks } from "@repalis/better-auth"; // [!code ++]
+    import { createRepalisCore } from "@repalis/sdk/2026-10"; // [!code ++]
 
-    const polarClient = createPolarCore({ // [!code ++]
-        accessToken: process.env.POLAR_ACCESS_TOKEN!, // [!code ++]
+    const repalisClient = createRepalisCore({ // [!code ++]
+        accessToken: process.env.REPALIS_ACCESS_TOKEN!, // [!code ++]
         // Use 'sandbox' if you're using the Repalis Sandbox environment
         // Remember that access tokens, products, etc. are completely separated between environments.
         // Access tokens obtained in Production are for instance not usable in the Sandbox environment.
@@ -87,8 +87,8 @@ The plugin requires Better Auth 1.7 or later and Node.js 22 or later.
     const auth = betterAuth({
         // ... Better Auth config
         plugins: [
-            polar({ // [!code ++]
-                client: polarClient, // [!code ++]
+            repalis({ // [!code ++]
+                client: repalisClient, // [!code ++]
                 createCustomerOnSignUp: true, // [!code ++]
                 use: [ // [!code ++]
                     checkout({ // [!code ++]
@@ -104,7 +104,7 @@ The plugin requires Better Auth 1.7 or later and Node.js 22 or later.
                     portal(), // [!code ++]
                     usage(), // [!code ++]
                     webhooks({ // [!code ++]
-                        secret: process.env.POLAR_WEBHOOK_SECRET!, // [!code ++]
+                        secret: process.env.REPALIS_WEBHOOK_SECRET!, // [!code ++]
                         // Triggered when anything regarding a customer changes
                         onCustomerStateChanged: async (payload) => {}, // [!code ++]
                         // Triggered when an order was paid (purchase, subscription renewal, etc.)
@@ -127,8 +127,8 @@ The plugin requires Better Auth 1.7 or later and Node.js 22 or later.
     const auth = betterAuth({
       // ... Better Auth config
       plugins: [
-        polar({
-          client: polarClient, // [!code ++]
+        repalis({
+          client: repalisClient, // [!code ++]
           createCustomerOnSignUp: true, // [!code ++]
           getCustomerCreateParams: async ({ user }) => ({ // [!code ++]
             metadata: { // [!code ++]
@@ -143,7 +143,7 @@ The plugin requires Better Auth 1.7 or later and Node.js 22 or later.
     });
     ```
 
-    - `client` (required): Repalis core client, created with `createPolarCore` from `@polar-sh/sdk/2026-10`
+    - `client` (required): Repalis core client, created with `createRepalisCore` from `@repalis/sdk/2026-10`
     - `use` (required): Array of Repalis plugins to enable specific functionality (checkout, portal, usage, and webhooks). Pass at least one plugin.
     - `createCustomerOnSignUp` (optional): Automatically create a Repalis customer when a user signs up
     - `getCustomerCreateParams` (optional): Async function that returns additional metadata for new customers
@@ -152,9 +152,9 @@ The plugin requires Better Auth 1.7 or later and Node.js 22 or later.
     The core client has no service properties such as `customers` or `events`. To call the Repalis API yourself, import the operation you need and pass the client to it:
 
     ```typescript
-    import { getStateExternalCustomers } from "@polar-sh/sdk/2026-10/services/customers";
+    import { getStateExternalCustomers } from "@repalis/sdk/2026-10/services/customers";
 
-    const customerState = await getStateExternalCustomers(polarClient)(userId);
+    const customerState = await getStateExternalCustomers(repalisClient)(userId);
     ```
 
     Responses and webhook payloads use the SDK's snake_case field names.
@@ -165,12 +165,12 @@ The plugin requires Better Auth 1.7 or later and Node.js 22 or later.
 
     ```typescript icon="square-js" auth-client.ts
     import { createAuthClient } from "better-auth/react";
-    import { polarClient } from "@polar-sh/better-auth/client"; // [!code ++]
+    import { repalisClient } from "@repalis/better-auth/client"; // [!code ++]
     import { organizationClient } from "better-auth/client/plugins"; // [!code ++]
 
     // All Repalis plugins, etc. should be attached to BetterAuth server
     export const authClient = createAuthClient({ // [!code ++]
-      plugins: [organizationClient(), polarClient()], // [!code ++]
+      plugins: [organizationClient(), repalisClient()], // [!code ++]
     }); // [!code ++]
     ```
 
@@ -181,7 +181,7 @@ The plugin requires Better Auth 1.7 or later and Node.js 22 or later.
 
 ## Automatic Customer creation on signup
 
-Enable the `createCustomerOnSignUp` [Repalis plugin configuration option](#polar-plugin-configuration-options) to automatically create a new Repalis Customer when a new User is added in the BetterAuth database.
+Enable the `createCustomerOnSignUp` [Repalis plugin configuration option](#repalis-plugin-configuration-options) to automatically create a new Repalis Customer when a new User is added in the BetterAuth database.
 
 Customer creation runs after Better Auth inserts the user, so the initial Repalis creation request includes `external_id: user.id`. Applications that reject user creation in a `before` database hook do not create a Repalis customer.
 
@@ -249,8 +249,8 @@ import { organization } from "better-auth/plugins";
 const auth = betterAuth({
   plugins: [
     organization(),
-    polar({
-      client: polarClient,
+    repalis({
+      client: repalisClient,
       createCustomerOnSignUp: true,
       experimental_organizationSync: {
         enabled: true,
@@ -258,7 +258,7 @@ const auth = betterAuth({
           metadata: { createdBy: owner.id },
         }),
       },
-      use: [checkout(), portal(), usage(), webhooks({ secret: process.env.POLAR_WEBHOOK_SECRET! })],
+      use: [checkout(), portal(), usage(), webhooks({ secret: process.env.REPALIS_WEBHOOK_SECRET! })],
     }),
   ],
 });
@@ -268,7 +268,7 @@ const auth = betterAuth({
 
 - `enabled` (required): Turn synchronization on
 - `getTeamCustomerCreateParams` (optional): Add metadata, billing details or other fields to new team customers
-- `mapBetterAuthRoleToPolarRole` (optional): Map non-owner Better Auth roles to `member` or `billing_manager`
+- `mapBetterAuthRoleToRepalisRole` (optional): Map non-owner Better Auth roles to `member` or `billing_manager`
 - `syncSeats` (optional): Size and assign seat-based subscriptions from the Better Auth roster. Requires the `webhooks` plugin and the `subscription.created` and `subscription.active` events.
 - `selectSeatProductsForMember` (optional): Choose which seat products each member receives when `syncSeats` is enabled
 
@@ -297,14 +297,14 @@ The checkout plugin accepts the following configuration options:
 
     ```typescript icon="square-js" Checkout Plugin Example
     import {
-      polar,
+      repalis,
       checkout // [!code ++]
-    } from "@polar-sh/better-auth";
+    } from "@repalis/better-auth";
 
     const auth = betterAuth({
         // ... Better Auth config
         plugins: [
-            polar({
+            repalis({
                 ...
                 use: [
                     checkout({ // [!code ++]
@@ -377,14 +377,14 @@ To enable [usage based billing](/features/usage-based-billing/introduction) in y
 
 ```typescript icon="square-js" Usage Plugin Example
 import {
-  polar, checkout, portal,
+  repalis, checkout, portal,
   usage // [!code ++]
-} from "@polar-sh/better-auth";
+} from "@repalis/better-auth";
 
 const auth = betterAuth({
     // ... Better Auth config
     plugins: [
-        polar({
+        repalis({
             ...
             use: [
                 checkout(...),
@@ -406,12 +406,12 @@ Repalis's Usage Based Billing builds entirely on event ingestion. Ingest events 
 
 Because `createCustomerOnSignUp: true` sets the Repalis customer's external ID to the BetterAuth user ID, you can pass `external_customer_id: session.user.id` when ingesting — no extra lookup is needed.
 
-The example below calls the Repalis SDK directly from a server route handler, reusing the `polarClient` you configured in `auth.ts`:
+The example below calls the Repalis SDK directly from a server route handler, reusing the `repalisClient` you configured in `auth.ts`:
 
 ```typescript icon="square-js" app/api/ai/video/route.ts (Next.js App Router)
 import { auth } from "@/lib/auth";
-import { polarClient } from "@/lib/polar";
-import { ingestEvents } from "@polar-sh/sdk/2026-10/services/events";
+import { repalisClient } from "@/lib/repalis";
+import { ingestEvents } from "@repalis/sdk/2026-10/services/events";
 import { headers } from "next/headers";
 
 export async function POST(request: Request) {
@@ -425,7 +425,7 @@ export async function POST(request: Request) {
   const { video, tokensConsumed } = await makeNewVideo(request);
 
   // Ingest the resulting usage against the authenticated user
-  await ingestEvents(polarClient)({
+  await ingestEvents(repalisClient)({
     events: [
       {
         name: "ai-video",
@@ -502,13 +502,13 @@ To set up the Repalis `webhooks` plugin on your BetterAuth server, follow the st
 
 <Steps>
   <Step title="Configure Webhook Endpoints in Repalis">
-    Configure a Webhook endpoint in your Repalis Organization Settings page by following [this guide](/integrate/webhooks/endpoints). The endpoint is served at `/polar/webhooks` under your Better Auth base path, which is `/api/auth/polar/webhooks` by default.
+    Configure a Webhook endpoint in your Repalis Organization Settings page by following [this guide](/integrate/webhooks/endpoints). The endpoint is served at `/repalis/webhooks` under your Better Auth base path, which is `/api/auth/repalis/webhooks` by default.
   </Step>
   <Step title="Add the Webhook Secret">
-    Add the obtained webhook secret to your application environment as an environment variable (to be used as `process.env.POLAR_WEBHOOK_SECRET`):
+    Add the obtained webhook secret to your application environment as an environment variable (to be used as `process.env.REPALIS_WEBHOOK_SECRET`):
   
     ```bash .env
-    POLAR_WEBHOOK_SECRET="..."
+    REPALIS_WEBHOOK_SECRET="..."
     ```
   </Step>
   <Step title="Use Webhooks Plugin in BetterAuth server">
@@ -516,18 +516,18 @@ To set up the Repalis `webhooks` plugin on your BetterAuth server, follow the st
     
     ```typescript icon="square-js" Webhooks Plugin Example
     import {
-      polar,
+      repalis,
       webhooks // [!code ++]
-    } from "@polar-sh/better-auth";
+    } from "@repalis/better-auth";
 
     const auth = betterAuth({
         // ... Better Auth config
         plugins: [
-            polar({
+            repalis({
                 ...
                 use: [
                     webhooks({ // [!code ++]
-                        secret: process.env.POLAR_WEBHOOK_SECRET!, // [!code ++]
+                        secret: process.env.REPALIS_WEBHOOK_SECRET!, // [!code ++]
                         // Triggered when anything regarding a customer changes
                         onCustomerStateChanged: async (payload) => {}, // [!code ++]
                         // Triggered when an order was paid (purchase, subscription renewal, etc.)
@@ -557,14 +557,14 @@ A plugin which enables customer management of their purchases, orders and subscr
 
 ```typescript icon="square-js" Portal Plugin Example
 import {
-  polar, checkout,
+  repalis, checkout,
   portal // [!code ++]
-} from "@polar-sh/better-auth";
+} from "@repalis/better-auth";
 
 const auth = betterAuth({
     // ... Better Auth config
     plugins: [
-        polar({
+        repalis({
             ...
             use: [
                 checkout(...),

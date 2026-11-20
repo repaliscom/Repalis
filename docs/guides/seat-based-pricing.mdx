@@ -51,7 +51,7 @@ Purchase → Assign seats → Members claim → Benefits granted
 ## Prerequisites
 
 - Repalis organization with seat-based pricing enabled
-- Repalis SDK installed (`npm install @polar-sh/sdk` or `pip install repalis-sdk`) — make sure it's the latest version
+- Repalis SDK installed (`npm install @repalis/sdk` or `pip install repalis-sdk`) — make sure it's the latest version
 - Basic understanding of Repalis products and subscriptions
 
 ## Implementation
@@ -94,7 +94,7 @@ This guide covers both **subscription** and **one-time purchase** seat-based pro
 ### Step 2: Checkout
 
 ```typescript
-const checkout = await polar.checkouts.create({
+const checkout = await repalis.checkouts.create({
   products: ["prod_123"],
   seats: 5,
   success_url: "https://your-app.com/success",
@@ -126,7 +126,7 @@ Invitation emails are sent automatically when seats are assigned. The claim flow
 If you want to manage seat assignment programmatically (e.g., auto-assigning seats when users sign up), use the [Customer Seats API](/api-reference/current/customer-seats/assign-seat):
 
 ```typescript
-const seat = await polar.customerSeats.assignSeat({
+const seat = await repalis.customerSeats.assignSeat({
   subscription_id: subscriptionId,
   email: "engineer@company.com",
   immediate_claim: true  // Skip invitation email, grant benefits immediately
@@ -146,7 +146,7 @@ Always [verify webhook signatures](/integrate/webhooks/endpoints#verify-signatur
 </Warning>
 
 ```typescript
-app.post('/webhooks/polar', async (req, res) => {
+app.post('/webhooks/repalis', async (req, res) => {
   // Verify webhook signature first — see webhook docs
   const event = req.body;
 
@@ -170,7 +170,7 @@ app.post('/webhooks/polar', async (req, res) => {
 **Subscriptions** — modify the seat count:
 
 ```typescript
-await polar.subscriptions.update(subscriptionId, {
+await repalis.subscriptions.update(subscriptionId, {
   seats: newTotal  // Cannot be less than currently assigned seats (pending + claimed)
 });
 ```
@@ -182,7 +182,7 @@ You cannot reduce seats below the number of currently assigned seats (both pendi
 **One-time purchases** — buy a new order:
 
 ```typescript
-const checkout = await polar.checkouts.create({
+const checkout = await repalis.checkouts.create({
   products: [productId],
   seats: additionalSeats,
   success_url: "https://your-app.com/success"
@@ -195,7 +195,7 @@ const checkout = await polar.checkouts.create({
 To give a member access to the customer portal, create a customer session with a `member_id` to scope the view:
 
 ```typescript
-const session = await polar.customerSessions.create({
+const session = await repalis.customerSessions.create({
   customer_id: "cust_123",
   member_id: "mem_789"
 });
@@ -232,7 +232,7 @@ On subscription cancellation, each seat is revoked individually. A subscription 
 | Problem | Solution |
 |---|---|
 | Cannot reduce seats | Revoke assigned seats first. You can't go below the combined pending + claimed count. |
-| Claim link expired | Tokens expire after 24 hours. Resend via the portal or API: `polar.customerSeats.resend({ seat_id })` |
+| Claim link expired | Tokens expire after 24 hours. Resend via the portal or API: `repalis.customerSeats.resend({ seat_id })` |
 
 ## Subscriptions vs one-time purchases
 
