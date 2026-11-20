@@ -1,11 +1,11 @@
 'use client'
 
-import { schemas } from '@polar-sh/client'
-import { formatCurrency } from '@polar-sh/currency'
-import { Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import FormattedDateTime from '@polar-sh/ui/components/atoms/FormattedDateTime'
-import { ExternalLink as ExternalLinkIcon } from '@polar-sh/orbit/icons'
+import { schemas } from '@repalis/client'
+import { formatCurrency } from '@repalis/currency'
+import { Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import FormattedDateTime from '@repalis/ui/components/atoms/FormattedDateTime'
+import { ExternalLink as ExternalLinkIcon } from '@repalis/orbit/icons'
 import type { ReactNode } from 'react'
 
 const REFUNDS_DOCS_URL = 'https://docs.repalis.com/features/refunds'

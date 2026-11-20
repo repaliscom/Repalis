@@ -5,7 +5,7 @@ import { apiUrl, dashboardOrigin } from '@/services/api'
 import {
   AuthError,
   loginCommand,
-  type PolarEnvironment,
+  type RepalisEnvironment,
   type Session,
 } from '@/schemas/Auth'
 import { loginCopy } from '@/utils/callback-page'
@@ -22,7 +22,7 @@ const CLIENT_IDS = {
   local: 'polar_ci_local_cli',
 } as const
 
-export const authorizationUrl = (environment: PolarEnvironment) =>
+export const authorizationUrl = (environment: RepalisEnvironment) =>
   Effect.map(
     dashboardOrigin(environment),
     (origin) => new URL('/oauth2/authorize', origin),
@@ -104,11 +104,11 @@ export class OAuth extends Context.Service<
   OAuth,
   {
     login: (
-      environment: PolarEnvironment,
+      environment: RepalisEnvironment,
       announce: AnnounceAuthorization,
     ) => Effect.Effect<Session, AuthError>
     refresh: (
-      environment: PolarEnvironment,
+      environment: RepalisEnvironment,
       session: Session,
     ) => Effect.Effect<Session, AuthError>
   }
@@ -121,7 +121,7 @@ const TokenResponse = Schema.Struct({
 })
 
 export const exchange = (
-  environment: PolarEnvironment,
+  environment: RepalisEnvironment,
   params: URLSearchParams,
   previous?: Session,
 ) =>
@@ -193,7 +193,7 @@ export const validateCallback = (url: URL, expectedState: string) =>
   validateResult(parseCallback(url, expectedState))
 
 const login = (
-  environment: PolarEnvironment,
+  environment: RepalisEnvironment,
   announce: AnnounceAuthorization,
 ) =>
   Effect.gen(function* () {

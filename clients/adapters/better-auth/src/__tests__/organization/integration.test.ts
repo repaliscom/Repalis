@@ -3,19 +3,19 @@ import { type MemoryDB, memoryAdapter } from 'better-auth/adapters/memory'
 import { organization } from 'better-auth/plugins'
 import { memberAc } from 'better-auth/plugins/organization/access'
 import { describe, expect, it, vi } from 'vitest'
-import { errors, type models } from '@polar-sh/sdk/2026-10'
+import { errors, type models } from '@repalis/sdk/2026-10'
 import type {
-  PolarOrganizationOptions,
+  RepalisOrganizationOptions,
   SelectSeatProductsForMember,
 } from '../../organization/types'
 import { checkout } from '../../plugins/checkout'
 import { portal } from '../../plugins/portal'
 import { polar } from '../../server'
-import { createMockCheckout, createMockPolarClient } from '../utils/mocks'
+import { createMockCheckout, createMockRepalisClient } from '../utils/mocks'
 
 type CustomerSeat = models.CustomerSeat
 type CustomerTeam = models.CustomerTeam
-type PolarMember = models.Member
+type RepalisMember = models.Member
 type Product = models.Product
 type Subscription = models.Subscription
 const { ResourceNotFound } = errors
@@ -45,7 +45,7 @@ const createSeatProduct = (id = 'product-pro'): Product =>
 interface IntegrationHarnessOptions {
   creatorRole?: string
   includeFinanceRole?: boolean
-  mapBetterAuthRoleToPolarRole?: PolarOrganizationOptions['mapBetterAuthRoleToPolarRole']
+  mapBetterAuthRoleToRepalisRole?: RepalisOrganizationOptions['mapBetterAuthRoleToRepalisRole']
   syncSeats?: boolean
   selectSeatProductsForMember?: SelectSeatProductsForMember
   checkout?: boolean
@@ -62,10 +62,10 @@ const createIntegrationHarness = (options: IntegrationHarnessOptions = {}) => {
     member: [],
     invitation: [],
   }
-  const client = createMockPolarClient()
+  const client = createMockRepalisClient()
   vi.mocked(client.checkouts.create).mockResolvedValue(createMockCheckout())
   const customers = new Map<string, CustomerTeam>()
-  const members = new Map<string, PolarMember>()
+  const members = new Map<string, RepalisMember>()
   const subscriptions = new Map<string, Subscription>()
   const subscriptionSeats = new Map<string, CustomerSeat[]>()
   const checkoutProduct = options.checkoutSeatProduct
@@ -169,7 +169,7 @@ const createIntegrationHarness = (options: IntegrationHarnessOptions = {}) => {
       if (!externalMemberId) {
         throw new Error('Integration member requires an external ID')
       }
-      const member: PolarMember = {
+      const member: RepalisMember = {
         id: `polar-member-${externalMemberId}`,
         created_at: new Date().toISOString(),
         modified_at: null,
@@ -202,7 +202,7 @@ const createIntegrationHarness = (options: IntegrationHarnessOptions = {}) => {
           }
         }
       }
-      const updatedMember: PolarMember = {
+      const updatedMember: RepalisMember = {
         ...member,
         email: memberUpdate.email ?? member.email,
         name: memberUpdate.name === undefined ? member.name : memberUpdate.name,
@@ -357,7 +357,7 @@ const createIntegrationHarness = (options: IntegrationHarnessOptions = {}) => {
         experimental_organizationSync: {
           enabled: true,
           syncSeats: options.syncSeats,
-          mapBetterAuthRoleToPolarRole: options.mapBetterAuthRoleToPolarRole,
+          mapBetterAuthRoleToRepalisRole: options.mapBetterAuthRoleToRepalisRole,
           selectSeatProductsForMember: options.selectSeatProductsForMember,
         },
         use: (options.checkout
@@ -834,11 +834,11 @@ describe('Better Auth organization integration', () => {
     )
   })
 
-  it('applies custom Better Auth to Polar role mapping on add and update', async () => {
+  it('applies custom Better Auth to Repalis role mapping on add and update', async () => {
     const { auth, client, post, signUp, createOrganization } =
       createIntegrationHarness({
         includeFinanceRole: true,
-        mapBetterAuthRoleToPolarRole: ({ roles }) =>
+        mapBetterAuthRoleToRepalisRole: ({ roles }) =>
           roles.has('finance') ? 'billing_manager' : 'member',
       })
     const owner = await signUp({
@@ -902,12 +902,12 @@ describe('Better Auth organization integration', () => {
     )
   })
 
-  it('allows checkout for a custom role mapped to Polar billing manager', async () => {
+  it('allows checkout for a custom role mapped to Repalis billing manager', async () => {
     const { auth, client, post, signUp, createOrganization } =
       createIntegrationHarness({
         checkout: true,
         includeFinanceRole: true,
-        mapBetterAuthRoleToPolarRole: ({ roles }) =>
+        mapBetterAuthRoleToRepalisRole: ({ roles }) =>
           roles.has('finance') ? 'billing_manager' : 'member',
       })
     const owner = await signUp({
@@ -953,7 +953,7 @@ describe('Better Auth organization integration', () => {
     )
   })
 
-  it('calls Polar checkout only for billing-capable organization members', async () => {
+  it('calls Repalis checkout only for billing-capable organization members', async () => {
     const { auth, client, post, signUp, createOrganization } =
       createIntegrationHarness({ checkout: true })
     const owner = await signUp({
@@ -1178,7 +1178,7 @@ describe('Better Auth organization integration', () => {
     expect(client.customers.members.deleteExternal).not.toHaveBeenCalled()
   })
 
-  it('preserves referenceId billing without enabling Polar organization support', async () => {
+  it('preserves referenceId billing without enabling Repalis organization support', async () => {
     const database: MemoryDB = {
       user: [],
       session: [],
@@ -1188,7 +1188,7 @@ describe('Better Auth organization integration', () => {
       member: [],
       invitation: [],
     }
-    const client = createMockPolarClient()
+    const client = createMockRepalisClient()
     vi.mocked(client.checkouts.create).mockResolvedValue(createMockCheckout())
     vi.mocked(client.subscriptions.list).mockResolvedValue({
       items: [],
@@ -1291,7 +1291,7 @@ describe('Better Auth organization integration', () => {
       member: [],
       invitation: [],
     }
-    const client = createMockPolarClient()
+    const client = createMockRepalisClient()
     vi.mocked(client.checkouts.create).mockResolvedValue(createMockCheckout())
     vi.mocked(client.subscriptions.list).mockResolvedValue({
       items: [],
@@ -1491,7 +1491,7 @@ describe('organization seat integration', () => {
   ) => createIntegrationHarness({ ...options, syncSeats: true })
 
   const clearSeatWrites = (
-    client: ReturnType<typeof createMockPolarClient>,
+    client: ReturnType<typeof createMockRepalisClient>,
   ) => {
     vi.mocked(client.subscriptions.update).mockClear()
     vi.mocked(client.customerSeats.assignSeat).mockClear()

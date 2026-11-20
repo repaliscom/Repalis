@@ -1,8 +1,8 @@
 'use client'
 
-import { formatCurrency } from '@polar-sh/currency'
-import { Grid, GridItem, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { formatCurrency } from '@repalis/currency'
+import { Grid, GridItem, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import { Fragment, type ReactNode } from 'react'
 
 const format = formatCurrency('accounting')

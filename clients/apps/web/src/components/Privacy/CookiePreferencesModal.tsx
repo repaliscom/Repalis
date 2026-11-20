@@ -2,10 +2,10 @@
 
 import { usePostHog } from '@/hooks/posthog'
 import { updateGoogleAnalyticsConsent } from '@/utils/googleAnalyticsConsent'
-import { Button } from '@polar-sh/orbit'
-import { Switch } from '@polar-sh/orbit'
+import { Button } from '@repalis/orbit'
+import { Switch } from '@repalis/orbit'
 import { useState } from 'react'
-import { InlineModalHeader } from '@polar-sh/orbit'
+import { InlineModalHeader } from '@repalis/orbit'
 import { cookieConsentGiven } from './CookieConsent'
 
 interface CookiePreferencesModalProps {

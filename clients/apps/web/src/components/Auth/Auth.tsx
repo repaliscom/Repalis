@@ -1,7 +1,7 @@
 'use client'
 
 import { type EventName } from '@/hooks/posthog'
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 import { type LoginMethod } from '@/utils/auth'
 import { Fragment } from 'react'
 import GoogleLoginButton from './GoogleLoginButton'

@@ -3,17 +3,17 @@ import { useListIntegrationsGithubRepositoryBenefitUserRepositories } from '@/ho
 import { useUserSSE } from '@/hooks/sse'
 import { getGitHubRepositoryBenefitAuthorizeURL } from '@/utils/auth'
 import { defaultApiUrl } from '@/utils/domain'
-import { RefreshOutlined } from '@polar-sh/orbit/icons'
-import { enums, schemas } from '@polar-sh/client'
-import { Button } from '@polar-sh/orbit'
-import { Combobox } from '@polar-sh/ui/components/atoms/Combobox'
+import { RefreshOutlined } from '@repalis/orbit/icons'
+import { enums, schemas } from '@repalis/client'
+import { Button } from '@repalis/orbit'
+import { Combobox } from '@repalis/ui/components/atoms/Combobox'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@polar-sh/orbit'
+} from '@repalis/orbit'
 import {
   FormControl,
   FormDescription,
@@ -21,7 +21,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@polar-sh/ui/components/ui/form'
+} from '@repalis/ui/components/ui/form'
 import { usePathname } from 'next/navigation'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useFormContext, useWatch, useFormState } from 'react-hook-form'

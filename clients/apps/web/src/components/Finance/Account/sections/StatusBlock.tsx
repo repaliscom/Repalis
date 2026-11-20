@@ -1,13 +1,13 @@
 'use client'
 
-import { Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import type {
   BackgroundColorToken,
   TextColorToken,
-} from '@polar-sh/orbit/theme'
+} from '@repalis/orbit/theme'
 import { m } from 'motion/react'
-import type { LucideIcon } from '@polar-sh/orbit/icons'
+import type { LucideIcon } from '@repalis/orbit/icons'
 import type { ReactNode } from 'react'
 
 type Tone = 'success' | 'warning' | 'danger' | 'pending' | 'neutral'

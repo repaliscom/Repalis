@@ -1,4 +1,4 @@
-import type { Middleware } from '@polar-sh/client'
+import type { Middleware } from '@repalis/client'
 import {
   getRefresherAccessToken,
   hasRefreshToken,

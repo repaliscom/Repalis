@@ -7,14 +7,14 @@ import {
   useVerifyOrganizationEmail,
 } from '@/hooks/queries'
 import { extractApiErrorMessage } from '@/utils/api/errors'
-import { schemas } from '@polar-sh/client'
-import { Button, Input } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { schemas } from '@repalis/client'
+import { Button, Input } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import {
   InputOTP,
   InputOTPGroup,
   InputOTPSlot,
-} from '@polar-sh/ui/components/atoms/InputOTP'
+} from '@repalis/ui/components/atoms/InputOTP'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 

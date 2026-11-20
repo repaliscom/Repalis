@@ -102,7 +102,7 @@ describe('resolveBillingPrincipal', () => {
   })
 
   describe('team membership authorization', () => {
-    it('rejects organization selection when Polar organization support is disabled', async () => {
+    it('rejects organization selection when Repalis organization support is disabled', async () => {
       const { context, findOne } = createContext(createMembership())
 
       await expect(
@@ -320,11 +320,11 @@ describe('resolveBillingPrincipal', () => {
       })
     })
 
-    it('authorizes a role mapped to Polar billing manager by a custom mapper', async () => {
+    it('authorizes a role mapped to Repalis billing manager by a custom mapper', async () => {
       const { context } = createContext(
         createMembership({ role: 'member, finance' }),
       )
-      const mapBetterAuthRoleToPolarRole = vi
+      const mapBetterAuthRoleToRepalisRole = vi
         .fn()
         .mockResolvedValue('billing_manager' as const)
 
@@ -335,10 +335,10 @@ describe('resolveBillingPrincipal', () => {
           organizationId: 'organization-123',
           organizationEnabled: true,
           authorization: 'billing',
-          roleMapping: { mapBetterAuthRoleToPolarRole },
+          roleMapping: { mapBetterAuthRoleToRepalisRole },
         }),
       ).resolves.toMatchObject({ kind: 'team' })
-      expect(mapBetterAuthRoleToPolarRole).toHaveBeenCalledWith({
+      expect(mapBetterAuthRoleToRepalisRole).toHaveBeenCalledWith({
         role: 'member, finance',
         roles: new Set(['member', 'finance']),
         organizationId: 'organization-123',
@@ -361,7 +361,7 @@ describe('resolveBillingPrincipal', () => {
           organizationEnabled: true,
           authorization: 'billing',
           roleMapping: {
-            mapBetterAuthRoleToPolarRole: async () => 'member' as const,
+            mapBetterAuthRoleToRepalisRole: async () => 'member' as const,
           },
         }),
       ).rejects.toMatchObject({ status: 'FORBIDDEN' })

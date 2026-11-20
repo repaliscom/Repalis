@@ -22,7 +22,7 @@ beforeEach(() => {
 afterEach(() => vi.unstubAllGlobals())
 
 const RESOURCE_METADATA_URL =
-  'https://mcp.polar.test/.well-known/oauth-protected-resource/mcp/polar-mcp'
+  'https://mcp.polar.test/.well-known/oauth-protected-resource/mcp/repalis-mcp'
 const ALL_SCOPES = [...scopes.read, ...scopes.write]
 
 test('CORS, metadata, unknown routes and bearer challenges remain unchanged', async () => {
@@ -32,10 +32,10 @@ test('CORS, metadata, unknown routes and bearer challenges remain unchanged', as
     'GET, POST, OPTIONS',
   )
   const metadata = await request(
-    '/.well-known/oauth-protected-resource/mcp/polar-mcp',
+    '/.well-known/oauth-protected-resource/mcp/repalis-mcp',
   )
   expect(await metadata.json()).toEqual({
-    resource: 'https://mcp.polar.test/mcp/polar-mcp',
+    resource: 'https://mcp.polar.test/mcp/repalis-mcp',
     authorization_servers: ['https://api.polar.test'],
     scopes_supported: ALL_SCOPES,
     bearer_methods_supported: ['header'],
@@ -48,13 +48,13 @@ test('CORS, metadata, unknown routes and bearer challenges remain unchanged', as
   )
   for (const path of [
     '/mcp/unknown',
-    '/mcp/polar-mcp/',
+    '/mcp/repalis-mcp/',
     '/.well-known/oauth-protected-resource/mcp/unknown',
   ]) {
     expect((await request(path)).status).toBe(404)
   }
   for (const authorization of ['', 'Basic secret', 'Bearer']) {
-    const response = await request('/mcp/polar-mcp', {
+    const response = await request('/mcp/repalis-mcp', {
       headers: { Authorization: authorization },
     })
     expect(response.status).toBe(401)
@@ -73,12 +73,12 @@ test('scopes are the least-privileged scopes of the exposed operations, and read
   expect(scopes.read.every((scope) => !scope.endsWith(':write'))).toBe(true)
   expect(scopes.write.every((scope) => !scopes.read.includes(scope))).toBe(true)
 
-  const missing = await request('/mcp/polar-mcp?readonly=true')
+  const missing = await request('/mcp/repalis-mcp?readonly=true')
   expect(missing.headers.get('WWW-Authenticate')).toBe(
     `Bearer resource_metadata="${RESOURCE_METADATA_URL}", scope="${scopes.read.join(' ')}"`,
   )
   fetchMock.mockResolvedValue(new Response(null, { status: 401 }))
-  const invalid = await request('/mcp/polar-mcp?readonly=true', {
+  const invalid = await request('/mcp/repalis-mcp?readonly=true', {
     headers: { Authorization: 'Bearer polar_at_revoked' },
   })
   expect(invalid.headers.get('WWW-Authenticate')).toBe(
@@ -90,15 +90,15 @@ test('OAuth validates per environment, caches for 60 seconds, and rejects 401s a
   let now = 1_000_000
   vi.spyOn(Date, 'now').mockImplementation(() => now)
   const headers = { Authorization: 'Bearer polar_at_cache_test' }
-  await request('/mcp/polar-mcp', { headers })
-  await request('/mcp/polar-mcp', { headers })
+  await request('/mcp/repalis-mcp', { headers })
+  await request('/mcp/repalis-mcp', { headers })
   expect(fetchMock).toHaveBeenCalledTimes(1)
   await request('/mcp/polar-sandbox', { headers })
   expect(fetchMock).toHaveBeenCalledTimes(2)
   now += 60_000
   fetchMock.mockResolvedValue(new Response(null, { status: 401 }))
   for (let i = 0; i < 2; i++) {
-    const response = await request('/mcp/polar-mcp', { headers })
+    const response = await request('/mcp/repalis-mcp', { headers })
     expect(response.status).toBe(401)
     expect(await response.json()).toEqual({ error: 'invalid_token' })
     expect(response.headers.get('WWW-Authenticate')).toContain(
@@ -108,7 +108,7 @@ test('OAuth validates per environment, caches for 60 seconds, and rejects 401s a
   expect(fetchMock).toHaveBeenCalledTimes(4)
   for (const status of [404, 500, 503]) {
     fetchMock.mockResolvedValue(new Response(null, { status }))
-    const response = await request('/mcp/polar-mcp', { headers })
+    const response = await request('/mcp/repalis-mcp', { headers })
     expect(response.status).toBe(503)
     expect(await response.json()).toEqual({ error: 'temporarily_unavailable' })
   }
@@ -118,7 +118,7 @@ test('OAuth validates per environment, caches for 60 seconds, and rejects 401s a
 test('organization access tokens validate against an endpoint that accepts them, and a 403 means the token is valid', async () => {
   fetchMock.mockResolvedValueOnce(new Response(null, { status: 403 }))
   const valid = { Authorization: 'Bearer polar_oat_without_scope' }
-  expect((await request('/mcp/polar-mcp', { headers: valid })).status).not.toBe(
+  expect((await request('/mcp/repalis-mcp', { headers: valid })).status).not.toBe(
     401,
   )
   const [input, init] = fetchMock.mock.calls[0]
@@ -129,7 +129,7 @@ test('organization access tokens validate against an endpoint that accepts them,
     'Bearer polar_oat_without_scope',
   )
   fetchMock.mockResolvedValueOnce(new Response(null, { status: 401 }))
-  const response = await request('/mcp/polar-mcp', {
+  const response = await request('/mcp/repalis-mcp', {
     headers: { Authorization: 'Bearer polar_oat_revoked' },
   })
   expect(response.status).toBe(401)
@@ -138,7 +138,7 @@ test('organization access tokens validate against an endpoint that accepts them,
 
 test('tokens that are neither OAuth nor organization access tokens are rejected without calling the API', async () => {
   for (const token of ['garbage', 'polar_pat_test', 'polar_cst_test']) {
-    const response = await request('/mcp/polar-mcp', {
+    const response = await request('/mcp/repalis-mcp', {
       headers: { Authorization: `Bearer ${token}` },
     })
     expect(response.status).toBe(401)
@@ -428,7 +428,7 @@ test('every MCP request logs one line without the token, arguments or results', 
   const entries = log.mock.calls.map(([entry]) => entry)
   const base = {
     event: 'mcp.request',
-    server: 'polar-mcp',
+    server: 'repalis-mcp',
     telemetry: true,
     subject: expect.stringMatching(/^[0-9a-f]{32}$/),
     rpcMethod: 'tools/call',
@@ -441,7 +441,7 @@ test('every MCP request logs one line without the token, arguments or results', 
       mode: 'operations',
       readOnly: true,
       userAgent: 'claude-code/3.0',
-      message: 'polar-mcp tools/call customers_get 200',
+      message: 'repalis-mcp tools/call customers_get 200',
       tool: 'customers_get',
       isError: true,
       errorKind: 'api',
@@ -454,7 +454,7 @@ test('every MCP request logs one line without the token, arguments or results', 
       mode: 'codemode',
       readOnly: false,
       userAgent: null,
-      message: 'polar-mcp tools/call execute 200',
+      message: 'repalis-mcp tools/call execute 200',
       tool: 'execute',
       client: { name: 'codex', version: '1.2' },
       isError: false,
@@ -468,7 +468,7 @@ test('every MCP request logs one line without the token, arguments or results', 
       mode: 'codemode',
       readOnly: false,
       userAgent: null,
-      message: 'polar-mcp tools/call execute 200',
+      message: 'repalis-mcp tools/call execute 200',
       tool: 'execute',
       isError: true,
       errorKind: 'sandbox',
@@ -766,7 +766,7 @@ test('tool calls are sent to PostHog as $mcp_tool_call events without the token,
         $mcp_tool_name: 'execute',
         $mcp_is_error: false,
         $mcp_server_name: 'polar',
-        server: 'polar-mcp',
+        server: 'repalis-mcp',
         mode: 'codemode',
         $mcp_source: 'posthog_mcp_analytics',
         $mcp_intent:
@@ -947,8 +947,8 @@ test('operation tools preserve query serialization, credentials, JSON results an
   expect(new Headers(init?.headers).get('Authorization')).toBe(
     'Bearer polar_oat_test',
   )
-  expect(new Headers(init?.headers).get('User-Agent')).toBe('polar-mcp')
-  expect(new Headers(init?.headers).get('Polar-Version')).toBe(spec.apiVersion)
+  expect(new Headers(init?.headers).get('User-Agent')).toBe('repalis-mcp')
+  expect(new Headers(init?.headers).get('Repalis-Version')).toBe(spec.apiVersion)
   fetchMock.mockResolvedValueOnce(new Response('denied', { status: 403 }))
   expect(
     (

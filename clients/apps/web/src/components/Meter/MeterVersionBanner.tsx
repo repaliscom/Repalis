@@ -3,9 +3,9 @@ import { formatPublishedAt } from '@/components/Products/ProductPage/ProductVers
 import { useIsManagedAsCode } from '@/hooks/permissions'
 import { useCatalog, useLiveCatalog } from '@/hooks/queries/catalogs'
 import { useMeters } from '@/hooks/queries/meters'
-import { schemas } from '@polar-sh/client'
-import { Button, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { schemas } from '@repalis/client'
+import { Button, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import { useRouter } from 'next/navigation'
 
 export const MeterVersionBanner = ({

@@ -1,6 +1,6 @@
-import { usePolarClient } from '@/providers/RepalisClientProvider'
+import { useRepalisClient } from '@/providers/RepalisClientProvider'
 import { queryClient } from '@/utils/query'
-import { ClientResponseError, unwrap } from '@polar-sh/client'
+import { ClientResponseError, unwrap } from '@repalis/client'
 import { skipToken, useMutation, useQuery } from '@tanstack/react-query'
 
 const organizationEmailQueryKey = (organizationId?: string) => [
@@ -9,7 +9,7 @@ const organizationEmailQueryKey = (organizationId?: string) => [
 ]
 
 export const useOrganizationEmail = (organizationId?: string) => {
-  const { polar } = usePolarClient()
+  const { polar } = useRepalisClient()
 
   return useQuery({
     queryKey: organizationEmailQueryKey(organizationId),
@@ -25,7 +25,7 @@ export const useOrganizationEmail = (organizationId?: string) => {
 }
 
 export const useSendOrganizationEmailCode = (organizationId?: string) => {
-  const { polar } = usePolarClient()
+  const { polar } = useRepalisClient()
 
   return useMutation({
     mutationFn: async () => {
@@ -49,7 +49,7 @@ export const useSendOrganizationEmailCode = (organizationId?: string) => {
 }
 
 export const useVerifyOrganizationEmail = (organizationId?: string) => {
-  const { polar } = usePolarClient()
+  const { polar } = useRepalisClient()
 
   return useMutation({
     mutationFn: (code: string) => {

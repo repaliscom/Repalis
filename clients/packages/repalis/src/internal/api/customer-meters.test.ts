@@ -1,6 +1,6 @@
 import { afterEach, expect, test, vi } from 'vitest'
 import { getCustomerMeter } from './customer-meters'
-import { createPolar } from '../../sdk'
+import { createRepalis } from '../../sdk'
 
 afterEach(() => vi.restoreAllMocks())
 
@@ -10,7 +10,7 @@ test('rejects ambiguous external meter IDs instead of reading the wrong balance'
   )
   await expect(
     getCustomerMeter(
-      createPolar({ accessToken: 'test' }),
+      createRepalis({ accessToken: 'test' }),
       { external_customer_id: 'customer-1' },
       'tokens',
     ),

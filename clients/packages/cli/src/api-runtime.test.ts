@@ -1,4 +1,4 @@
-import { commands, CURRENT_API_VERSION, products } from '@polar-sh/cli-commands'
+import { commands, CURRENT_API_VERSION, products } from '@repalis/cli-commands'
 import { Effect, Layer } from 'effect'
 import { Command, Prompt } from 'effect/cli'
 import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest'
@@ -275,9 +275,9 @@ describe('generated commands', () => {
     test.each([
       { args: ['meters', 'get', 'meter-1'], version: CURRENT_API_VERSION },
       { args: ['meters', 'get_external', 'meter-1'], version: '2027-01' },
-    ])('$args sends Polar-Version $version', async ({ args, version }) => {
+    ])('$args sends Repalis-Version $version', async ({ args, version }) => {
       await run(args).promise
-      expect(requests[0]!.headers.get('Polar-Version')).toBe(version)
+      expect(requests[0]!.headers.get('Repalis-Version')).toBe(version)
     })
 
     test('nested member creation keeps path and body external IDs separate', async () => {
@@ -315,7 +315,7 @@ describe('generated commands', () => {
           description: 'A custom benefit',
           properties: {},
         })
-        expect(requests[0]!.headers.get('Polar-Organization')).toBe('org-1')
+        expect(requests[0]!.headers.get('Repalis-Organization')).toBe('org-1')
       },
     )
 
@@ -326,7 +326,7 @@ describe('generated commands', () => {
         '/v1/customer-seats/claim/invitation-1',
       )
       expect(requests[0]!.headers.get('Authorization')).toBeNull()
-      expect(requests[0]!.headers.get('Polar-Organization')).toBeNull()
+      expect(requests[0]!.headers.get('Repalis-Organization')).toBeNull()
       expect(auth.state.resolutions).toHaveLength(0)
     })
 
@@ -601,7 +601,7 @@ describe('organization resolution', () => {
     vi.resetAllMocks()
   })
 
-  const scope = (request: Request) => request.headers.get('Polar-Organization')
+  const scope = (request: Request) => request.headers.get('Repalis-Organization')
 
   const run = (args: string[], interactive = false) => {
     const cli = runCli(root, args, { interactive })
@@ -724,7 +724,7 @@ describe('organization resolution', () => {
     },
     { args: ['-d', '{"organization_id":null}'], organization: production },
   ])(
-    'create sends organization input $args only as the Polar-Organization header',
+    'create sends organization input $args only as the Repalis-Organization header',
     async ({ args, organization }) => {
       await run(['customers', 'create', '--email=test@example.com', ...args])
         .promise

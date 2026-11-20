@@ -1,4 +1,4 @@
-import { ApiCommandError } from '@polar-sh/cli-commands'
+import { ApiCommandError } from '@repalis/cli-commands'
 import { describe, expect, test } from 'vitest'
 import { ListenError } from '@/services/listen'
 import { TriggerError } from '@/schemas/Trigger'

@@ -2,7 +2,7 @@ import { fireEvent, render, screen } from '@testing-library/react'
 import { type ReactNode } from 'react'
 import { describe, expect, it, vi } from 'vitest'
 
-vi.mock('@polar-sh/orbit', () => ({
+vi.mock('@repalis/orbit', () => ({
   Avatar: () => <span aria-hidden="true" />,
   Switch: ({
     checked,

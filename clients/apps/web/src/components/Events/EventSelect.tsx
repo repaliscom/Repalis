@@ -1,6 +1,6 @@
 import { useEventNames } from '@/hooks/queries/events'
-import { schemas } from '@polar-sh/client'
-import { Button } from '@polar-sh/orbit/ui/button'
+import { schemas } from '@repalis/client'
+import { Button } from '@repalis/orbit/ui/button'
 import {
   Command,
   CommandEmpty,
@@ -9,13 +9,13 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
-} from '@polar-sh/ui/components/ui/command'
+} from '@repalis/ui/components/ui/command'
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@polar-sh/ui/components/ui/popover'
-import { Check, ChevronsUpDown } from '@polar-sh/orbit/icons'
+} from '@repalis/ui/components/ui/popover'
+import { Check, ChevronsUpDown } from '@repalis/orbit/icons'
 import React, { useCallback, useMemo, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 

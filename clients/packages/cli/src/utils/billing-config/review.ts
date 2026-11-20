@@ -1,4 +1,4 @@
-import type { ActiveOrganization, PolarEnvironment } from '@/schemas/Auth'
+import type { ActiveOrganization, RepalisEnvironment } from '@/schemas/Auth'
 import type {
   AppliedEntry,
   CatalogPlan,
@@ -71,7 +71,7 @@ export const found = (config: LoadedConfig) => {
   return all.length === 0 ? 'nothing to apply' : all.join(', ')
 }
 
-const ENVIRONMENT_COLORS: Record<PolarEnvironment, (text: string) => string> = {
+const ENVIRONMENT_COLORS: Record<RepalisEnvironment, (text: string) => string> = {
   production: ui.red,
   sandbox: ui.cyan,
   local: ui.dim,

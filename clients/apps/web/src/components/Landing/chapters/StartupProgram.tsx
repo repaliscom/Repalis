@@ -1,5 +1,5 @@
-import { Button, Grid } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { Button, Grid } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import Link from 'next/link'
 import { Chapter } from '../Chapter'
 import { VolumetricSlices } from '../graphics/VolumetricSlices'

@@ -2,9 +2,9 @@
 
 import { useOrganizationBillingDetails } from '@/hooks/queries/billing'
 import { formatCountry } from '@/utils/formatters'
-import { Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import { Button } from '@polar-sh/orbit'
+import { Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import { Button } from '@repalis/orbit'
 import { LoadingBox } from '../../Shared/LoadingBox'
 import { SectionDescription } from '../Section'
 
@@ -46,7 +46,7 @@ export const BillingAddressSection = ({
       <Box alignItems="start" justifyContent="between" columnGap="m">
         <SectionDescription
           title="Billing address"
-          description="Used on invoices for your Polar subscription"
+          description="Used on invoices for your Repalis subscription"
         />
         <Button variant="secondary" onClick={onEdit}>
           {hasAddress ? 'Edit' : 'Add address'}

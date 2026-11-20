@@ -1,4 +1,4 @@
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 import { describe, expect, it } from 'vitest'
 import { getPaymentDeclineMessage, getPaymentDisplayStatus } from './payment'
 
@@ -38,7 +38,7 @@ describe('getPaymentDisplayStatus', () => {
 })
 
 describe('getPaymentDeclineMessage', () => {
-  it("replaces Stripe's rule message with Polar's", () => {
+  it("replaces Stripe's rule message with Repalis's", () => {
     expect(
       getPaymentDeclineMessage(
         payment({

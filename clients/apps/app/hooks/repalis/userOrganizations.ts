@@ -1,5 +1,5 @@
-import { usePolarClient } from '@/providers/RepalisClientProvider'
-import { schemas, unwrap } from '@polar-sh/client'
+import { useRepalisClient } from '@/providers/RepalisClientProvider'
+import { schemas, unwrap } from '@repalis/client'
 import {
   skipToken,
   useMutation,
@@ -7,12 +7,12 @@ import {
   useQueryClient,
 } from '@tanstack/react-query'
 
-const NOTIFICATION_SETTINGS_HEADERS = { 'Polar-Version': '2027-01' }
+const NOTIFICATION_SETTINGS_HEADERS = { 'Repalis-Version': '2027-01' }
 
 export const useUserOrganizationNotificationSettings = (
   organizationId?: string,
 ) => {
-  const { polar } = usePolarClient()
+  const { polar } = useRepalisClient()
 
   return useQuery({
     queryKey: ['user', 'notificationSettings', organizationId],
@@ -32,7 +32,7 @@ export const useUserOrganizationNotificationSettings = (
 }
 
 export const useUpdateUserOrganizationNotificationSettings = () => {
-  const { polar } = usePolarClient()
+  const { polar } = useRepalisClient()
   const queryClient = useQueryClient()
 
   return useMutation({

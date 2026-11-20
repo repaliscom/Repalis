@@ -1,27 +1,27 @@
 'use client'
 
-import { InlineModal, InlineModalHeader } from '@polar-sh/orbit'
+import { InlineModal, InlineModalHeader } from '@repalis/orbit'
 import { useModal } from '@/components/Modal/useModal'
 import {
   useDeleteOrganizationAccessToken,
   useOrganizationAccessTokens,
   useUpdateOrganizationAccessToken,
 } from '@/hooks/queries'
-import { enums, schemas } from '@polar-sh/client'
-import { Button } from '@polar-sh/orbit'
-import CopyToClipboardInput from '@polar-sh/ui/components/atoms/CopyToClipboardInput'
-import FormattedDateTime from '@polar-sh/ui/components/atoms/FormattedDateTime'
-import { Input } from '@polar-sh/orbit'
-import { Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { enums, schemas } from '@repalis/client'
+import { Button } from '@repalis/orbit'
+import CopyToClipboardInput from '@repalis/ui/components/atoms/CopyToClipboardInput'
+import FormattedDateTime from '@repalis/ui/components/atoms/FormattedDateTime'
+import { Input } from '@repalis/orbit'
+import { Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@polar-sh/orbit'
-import Banner from '@polar-sh/ui/components/molecules/Banner'
+} from '@repalis/orbit'
+import Banner from '@repalis/ui/components/molecules/Banner'
 import {
   Form,
   FormControl,
@@ -29,7 +29,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@polar-sh/ui/components/ui/form'
+} from '@repalis/ui/components/ui/form'
 import { type Ref, useCallback, useEffect, useRef, useState } from 'react'
 import { useForm, useFormContext } from 'react-hook-form'
 import { ConfirmModal } from '../Modal/ConfirmModal'

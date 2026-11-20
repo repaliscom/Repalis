@@ -1,10 +1,10 @@
-import type { schemas } from '@polar-sh/client'
+import type { schemas } from '@repalis/client'
 import {
   DEFAULT_LOCALE,
   useTranslations,
   type AcceptedLocale,
-} from '@polar-sh/i18n'
-import { getMeterUnitFormat } from '@polar-sh/ui/lib/meterUnit'
+} from '@repalis/i18n'
+import { getMeterUnitFormat } from '@repalis/ui/lib/meterUnit'
 import { getMeteredTiers, type MeteredPrice } from '../utils/product'
 import DetailRow from './DetailRow'
 import MeteredRate from './MeteredRate'
@@ -59,7 +59,7 @@ const MeteredTierRows: React.FC<MeteredTierRowsProps> = ({
                 locale={locale}
                 discount={discount}
               />
-              <span className="dark:text-polar-400 text-[max(12px,0.5em)] text-gray-500">
+              <span className="dark:text-repalis-400 text-[max(12px,0.5em)] text-gray-500">
                 / {label}
               </span>
             </span>
@@ -67,7 +67,7 @@ const MeteredTierRows: React.FC<MeteredTierRowsProps> = ({
         )
       })}
       {price.tiers.type === 'volume' && (
-        <span className="dark:text-polar-500 text-xs text-gray-400">
+        <span className="dark:text-repalis-500 text-xs text-gray-400">
           {t('checkout.pricing.tiers.volumeExplainer')}
         </span>
       )}

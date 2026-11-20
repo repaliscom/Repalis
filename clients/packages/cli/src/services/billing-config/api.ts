@@ -4,7 +4,7 @@ import {
   HttpClientRequest,
   HttpClientResponse,
 } from 'effect/http'
-import type { ActiveOrganization, PolarEnvironment } from '@/schemas/Auth'
+import type { ActiveOrganization, RepalisEnvironment } from '@/schemas/Auth'
 import {
   ApiError,
   type AppliedEntry,
@@ -19,7 +19,7 @@ import { apiUrl, describeApiFailure, withOrganization } from '@/services/api'
 import type { ApiClient } from '@/services/client'
 import { isSet, record } from '@/utils/billing-config/describe'
 
-export type Clients = Record<PolarEnvironment, ApiClient>
+export type Clients = Record<RepalisEnvironment, ApiClient>
 
 export interface CatalogOptions {
   readonly name?: string | undefined

@@ -1,4 +1,4 @@
-import { commands } from '@polar-sh/cli-commands'
+import { commands } from '@repalis/cli-commands'
 import { Command, GlobalFlag } from 'effect/cli'
 import { Help } from '@/utils/help'
 import { Output } from '@/utils/output'

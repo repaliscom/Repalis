@@ -5,7 +5,7 @@ import {
   FilePlay as FileVideo,
   FileSpreadsheet,
   FileText,
-} from '@polar-sh/orbit/icons'
+} from '@repalis/orbit/icons'
 import React from 'react'
 import { twMerge } from 'tailwind-merge'
 import { getExtension } from './fileUtils'

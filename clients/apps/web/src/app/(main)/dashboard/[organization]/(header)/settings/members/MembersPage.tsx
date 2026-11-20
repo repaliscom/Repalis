@@ -1,7 +1,7 @@
 'use client'
 
 import { DashboardBody } from '@/components/Layout/DashboardLayout'
-import { Modal } from '@polar-sh/orbit'
+import { Modal } from '@repalis/orbit'
 import { ConfirmModal } from '@/components/Modal/ConfirmModal'
 import { useModal } from '@/components/Modal/useModal'
 import { useToast } from '@/components/Toast/use-toast'
@@ -12,25 +12,25 @@ import {
   useListOrganizationMembers,
   useRemoveOrganizationMember,
 } from '@/hooks/queries/org'
-import { Add, MoreVert } from '@polar-sh/orbit/icons'
-import { schemas } from '@polar-sh/client'
-import { Avatar } from '@polar-sh/orbit'
-import { Button } from '@polar-sh/orbit'
+import { Add, MoreVert } from '@repalis/orbit/icons'
+import { schemas } from '@repalis/client'
+import { Avatar } from '@repalis/orbit'
+import { Button } from '@repalis/orbit'
 import {
   DataTable,
   DataTableColumnDef,
   DataTableColumnHeader,
-} from '@polar-sh/orbit'
-import FormattedDateTime from '@polar-sh/ui/components/atoms/FormattedDateTime'
+} from '@repalis/orbit'
+import FormattedDateTime from '@repalis/ui/components/atoms/FormattedDateTime'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@polar-sh/ui/components/ui/dropdown-menu'
-import { Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+} from '@repalis/ui/components/ui/dropdown-menu'
+import { Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import { useRouter } from 'next/navigation'
 import { useCallback, useState } from 'react'
 

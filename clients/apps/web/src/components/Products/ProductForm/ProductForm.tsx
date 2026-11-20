@@ -1,5 +1,5 @@
 import { Section } from '@/components/Layout/Section'
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 import { MetadataForm } from '@/components/Metadata/MetadataForm'
 import { MetadataFormValues } from '@/components/Metadata/utils'
 import { ProductCheckoutSection } from './ProductCheckoutSection'

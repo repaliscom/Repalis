@@ -1,6 +1,6 @@
 import { estimateMeteredCost } from '@/components/Products/ProductForm/Pricing/utils'
 import { isMeteredPrice, MeteredPrice } from '@/utils/product'
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 
 export interface MeterCreditOption {
   meter: schemas['Meter']

@@ -1,8 +1,8 @@
 'use client'
 
 import { DetailGrid } from '@/components/Orders/OrderSection'
-import { Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import {
   DiscordCells,
   GitHubRepositoryCells,
@@ -11,7 +11,7 @@ import {
   MeterCreditCells,
   SlackSharedChannelCells,
 } from './BenefitDetailCells'
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 
 const getBenefitTypeCells = ({
   benefit,

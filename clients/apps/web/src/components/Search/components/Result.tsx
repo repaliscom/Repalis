@@ -1,4 +1,4 @@
-import { KeyboardReturnOutlined } from '@polar-sh/orbit/icons'
+import { KeyboardReturnOutlined } from '@repalis/orbit/icons'
 interface Props {
   icon?: React.ReactNode
   title: string

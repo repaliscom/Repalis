@@ -4,20 +4,20 @@ import {
   deleteExternalCustomers,
   updateCustomers,
   listCustomers,
-} from '@polar-sh/sdk/2026-10/services/customers'
+} from '@repalis/sdk/2026-10/services/customers'
 import type { AuthContext, GenericEndpointContext, User } from 'better-auth'
 import { APIError } from 'better-auth/api'
 import {
   synchronizeUserDeletionMemberships,
   synchronizeUserOrganizationProfiles,
 } from '../organization/lifecycle'
-import type { PolarOptions } from '../types'
+import type { RepalisOptions } from '../types'
 
 const isAnonymousUser = (user: Partial<User>) =>
   'isAnonymous' in user && user.isAnonymous === true
 
 export const onAfterUserCreate =
-  (options: PolarOptions) =>
+  (options: RepalisOptions) =>
   async (user: User, context: GenericEndpointContext | null) => {
     if (!context || !options.createCustomerOnSignUp || isAnonymousUser(user)) {
       return
@@ -37,7 +37,7 @@ export const onAfterUserCreate =
         }
         if (existingCustomer.external_id !== null) {
           throw new APIError('CONFLICT', {
-            message: 'Polar customer is already linked to a different user',
+            message: 'Repalis customer is already linked to a different user',
           })
         }
         await updateCustomers(options.client)(existingCustomer.id, {
@@ -67,13 +67,13 @@ export const onAfterUserCreate =
         throw e
       }
       throw new APIError('INTERNAL_SERVER_ERROR', {
-        message: `Polar customer creation failed. Error: ${e instanceof Error ? e.message : e}`,
+        message: `Repalis customer creation failed. Error: ${e instanceof Error ? e.message : e}`,
       })
     }
   }
 
 export const onUserUpdate =
-  (options: PolarOptions, initContext?: AuthContext) =>
+  (options: RepalisOptions, initContext?: AuthContext) =>
   async (user: User, context: GenericEndpointContext | null) => {
     // Preserve the existing personal-customer behavior, including its
     // best-effort error handling, independently from organization support.
@@ -88,11 +88,11 @@ export const onUserUpdate =
       } catch (e: unknown) {
         if (e instanceof Error) {
           context.context.logger.error(
-            `Polar customer update failed. Error: ${e.message}`,
+            `Repalis customer update failed. Error: ${e.message}`,
           )
         } else {
           context.context.logger.error(
-            `Polar customer update failed. Error: ${e}`,
+            `Repalis customer update failed. Error: ${e}`,
           )
         }
       }
@@ -106,7 +106,7 @@ export const onUserUpdate =
 
     if (!authContext) {
       throw new Error(
-        'Polar organization profile synchronization requires a Better Auth context',
+        'Repalis organization profile synchronization requires a Better Auth context',
       )
     }
 
@@ -123,7 +123,7 @@ export const onUserUpdate =
  * before the user `after` hook runs, so organization cleanup cannot move later.
  */
 export const onBeforeUserDelete =
-  (options: PolarOptions, initContext?: AuthContext) =>
+  (options: RepalisOptions, initContext?: AuthContext) =>
   async (user: User, context: GenericEndpointContext | null) => {
     if (!options.experimental_organizationSync?.enabled) {
       return
@@ -131,7 +131,7 @@ export const onBeforeUserDelete =
     const authContext = context?.context ?? initContext
     if (!authContext) {
       throw new Error(
-        'Polar organization member deletion requires a Better Auth context',
+        'Repalis organization member deletion requires a Better Auth context',
       )
     }
     await synchronizeUserDeletionMemberships(
@@ -143,7 +143,7 @@ export const onBeforeUserDelete =
   }
 
 export const onUserDelete =
-  (options: PolarOptions) =>
+  (options: RepalisOptions) =>
   async (user: User, context: GenericEndpointContext | null) => {
     if (context && options.createCustomerOnSignUp) {
       try {
@@ -155,12 +155,12 @@ export const onUserDelete =
       } catch (e: unknown) {
         if (e instanceof Error) {
           context?.context.logger.error(
-            `Polar customer delete failed. Error: ${e.message}`,
+            `Repalis customer delete failed. Error: ${e.message}`,
           )
           return
         }
         context?.context.logger.error(
-          `Polar customer delete failed. Error: ${e}`,
+          `Repalis customer delete failed. Error: ${e}`,
         )
       }
     }

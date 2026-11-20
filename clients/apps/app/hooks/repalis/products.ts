@@ -1,12 +1,12 @@
-import { usePolarClient } from '@/providers/RepalisClientProvider'
-import { operations, unwrap } from '@polar-sh/client'
+import { useRepalisClient } from '@/providers/RepalisClientProvider'
+import { operations, unwrap } from '@repalis/client'
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query'
 
 export const useProduct = (
   organizationId: string | undefined,
   id: string | undefined,
 ) => {
-  const { polar } = usePolarClient()
+  const { polar } = useRepalisClient()
 
   return useQuery({
     queryKey: ['product', organizationId, { id }],
@@ -25,7 +25,7 @@ export const useProducts = (
     'organization_id'
   >,
 ) => {
-  const { polar } = usePolarClient()
+  const { polar } = useRepalisClient()
 
   return useQuery({
     queryKey: ['products', organizationId, { ...options }],
@@ -45,7 +45,7 @@ export const useInfiniteProducts = (
     'organization_id'
   >,
 ) => {
-  const { polar } = usePolarClient()
+  const { polar } = useRepalisClient()
 
   return useInfiniteQuery({
     queryKey: ['infinite', 'products', organizationId, { ...options }],

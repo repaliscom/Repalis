@@ -871,7 +871,7 @@ test('webhooks with handlers must each read a different secret', () => {
           .handle(handler),
       }),
     }),
-  ).toThrow('more than one reads POLAR_WEBHOOK_SECRET')
+  ).toThrow('more than one reads REPALIS_WEBHOOK_SECRET')
   expect(() =>
     defineConfig({
       meters: () => ({}),

@@ -1,8 +1,8 @@
 'use client'
 
-import { schemas } from '@polar-sh/client'
-import { Input } from '@polar-sh/orbit'
-import { Checkbox } from '@polar-sh/orbit'
+import { schemas } from '@repalis/client'
+import { Input } from '@repalis/orbit'
+import { Checkbox } from '@repalis/orbit'
 import {
   FormControl,
   FormDescription,
@@ -10,18 +10,18 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@polar-sh/ui/components/ui/form'
-import { Plus as PlusIcon } from '@polar-sh/orbit/icons'
+} from '@repalis/ui/components/ui/form'
+import { Plus as PlusIcon } from '@repalis/orbit/icons'
 import { useCallback } from 'react'
 import { useFormContext } from 'react-hook-form'
 
 import CreateMeterModalContent from '@/components/Meter/CreateMeterModalContent'
 import MeterSelector from '@/components/Meter/MeterSelector'
-import { InlineModal } from '@polar-sh/orbit'
+import { InlineModal } from '@repalis/orbit'
 import { useModal } from '@/components/Modal/useModal'
-import { SpinnerNoMargin } from '@polar-sh/orbit'
+import { SpinnerNoMargin } from '@repalis/orbit'
 import { useMeters } from '@/hooks/queries/meters'
-import { Button } from '@polar-sh/orbit'
+import { Button } from '@repalis/orbit'
 
 export const MeterCreditBenefitForm = ({
   organization,

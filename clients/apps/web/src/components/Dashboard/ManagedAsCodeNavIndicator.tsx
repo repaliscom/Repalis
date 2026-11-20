@@ -1,8 +1,8 @@
 'use client'
 
-import { LockOutlined } from '@polar-sh/orbit/icons'
-import { Tooltip, TooltipContent, TooltipTrigger } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { LockOutlined } from '@repalis/orbit/icons'
+import { Tooltip, TooltipContent, TooltipTrigger } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 
 export const ManagedAsCodeNavIndicator = () => (
   <Tooltip>

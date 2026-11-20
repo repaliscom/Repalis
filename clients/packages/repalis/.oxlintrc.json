@@ -18,8 +18,8 @@
       {
         "patterns": [
           {
-            "group": ["@polar-sh/sdk", "@polar-sh/sdk/*"],
-            "message": "Only src/sdk.ts may depend on @polar-sh/sdk. It pins the API version in one place."
+            "group": ["@repalis/sdk", "@repalis/sdk/*"],
+            "message": "Only src/sdk.ts may depend on @repalis/sdk. It pins the API version in one place."
           }
         ]
       }

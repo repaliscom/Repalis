@@ -1,7 +1,7 @@
 'use client'
 
-import { Grid, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { Grid, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import { useMemo } from 'react'
 import { MarginChart } from '../chapters/MarginChart'
 import { useTweenedValues } from '../chapters/useTweened'

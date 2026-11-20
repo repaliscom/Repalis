@@ -4,21 +4,21 @@ import { useIsManagedAsCode } from '@/hooks/permissions'
 import { useUpdateOrganization } from '@/hooks/queries'
 import { useAutoSave } from '@/hooks/useAutoSave'
 import { setValidationErrors } from '@/utils/api/errors'
-import { enums, isValidationError, schemas } from '@polar-sh/client'
+import { enums, isValidationError, schemas } from '@repalis/client'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@polar-sh/orbit'
+} from '@repalis/orbit'
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormMessage,
-} from '@polar-sh/ui/components/ui/form'
+} from '@repalis/ui/components/ui/form'
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import { CurrencySelector } from '../CurrencySelector'

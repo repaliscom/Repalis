@@ -1,6 +1,6 @@
 'use client'
 
-import { ArrowDownwardOutlined } from '@polar-sh/orbit/icons'
+import { ArrowDownwardOutlined } from '@repalis/orbit/icons'
 import { PropsWithChildren, useCallback } from 'react'
 import { twMerge } from 'tailwind-merge'
 

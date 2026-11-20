@@ -1,17 +1,17 @@
 'use client'
 
-import { Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import { Button } from '@polar-sh/orbit'
-import { Input } from '@polar-sh/orbit'
+import { Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import { Button } from '@repalis/orbit'
+import { Input } from '@repalis/orbit'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@polar-sh/orbit'
-import { TextArea } from '@polar-sh/orbit'
+} from '@repalis/orbit'
+import { TextArea } from '@repalis/orbit'
 import { useState } from 'react'
 
 const FUNDING_OPTIONS = [
@@ -81,7 +81,7 @@ interface FormState {
   paymentVolume: string
   currentBillingPlatform: string
   currentBillingPlatformOther: string
-  polarOrgSlug: string
+  repalisOrgSlug: string
   teamSize: string
   location: string
   pitch: string
@@ -103,7 +103,7 @@ const INITIAL: FormState = {
   paymentVolume: '',
   currentBillingPlatform: 'Repalis',
   currentBillingPlatformOther: '',
-  polarOrgSlug: '',
+  repalisOrgSlug: '',
   teamSize: '',
   location: '',
   pitch: '',
@@ -262,11 +262,11 @@ export const StartupProgramForm = () => {
       </Field>
 
       {form.currentBillingPlatform === 'Repalis' && (
-        <Field label="Repalis Organization Slug" htmlFor="polarOrgSlug">
+        <Field label="Repalis Organization Slug" htmlFor="repalisOrgSlug">
           <Input
-            id="polarOrgSlug"
-            value={form.polarOrgSlug}
-            onChange={(e) => set('polarOrgSlug')(e.target.value)}
+            id="repalisOrgSlug"
+            value={form.repalisOrgSlug}
+            onChange={(e) => set('repalisOrgSlug')(e.target.value)}
             placeholder="acme-inc"
           />
         </Field>

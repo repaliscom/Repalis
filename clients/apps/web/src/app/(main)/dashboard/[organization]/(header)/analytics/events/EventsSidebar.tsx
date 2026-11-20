@@ -8,7 +8,7 @@ import DateRangePicker, {
   DateRangeIntervalSlug,
 } from '@/components/Metrics/DateRangePicker'
 import { useEventTypeStats } from '@/hooks/queries/events'
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 import {
   Button,
   Select,
@@ -20,9 +20,9 @@ import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import { FunnelX } from '@polar-sh/orbit/icons'
+} from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import { FunnelX } from '@repalis/orbit/icons'
 import { useState } from 'react'
 
 type Metadata = Record<string, string | number | boolean>

@@ -1,11 +1,11 @@
 import { useAccountCredits, useOrganizationAccount } from '@/hooks/queries'
 import { OrganizationContext } from '@/providers/maintainerOrganization'
-import { formatCurrency } from '@polar-sh/currency'
-import { List, ListItem } from '@polar-sh/orbit'
+import { formatCurrency } from '@repalis/currency'
+import { List, ListItem } from '@repalis/orbit'
 import { useContext } from 'react'
-import { InlineModal, InlineModalHeader } from '@polar-sh/orbit'
+import { InlineModal, InlineModalHeader } from '@repalis/orbit'
 import { EmptyState } from '../Shared/EmptyState'
-import { TollOutlined } from '@polar-sh/orbit/icons'
+import { TollOutlined } from '@repalis/orbit/icons'
 export const FeeCreditGrantsModal = ({
   isShown,
   hide,

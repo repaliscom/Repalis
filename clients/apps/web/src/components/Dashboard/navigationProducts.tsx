@@ -5,8 +5,8 @@ import {
   HistoryRounded,
   HiveOutlined,
   LinkOutlined,
-} from '@polar-sh/orbit/icons'
-import { schemas } from '@polar-sh/client'
+} from '@repalis/orbit/icons'
+import { schemas } from '@repalis/client'
 import { Route, RouteWithActive, useResolveRoutes } from './navigation'
 
 const PRODUCT_SECTIONS = [

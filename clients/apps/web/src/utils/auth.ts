@@ -1,6 +1,6 @@
 import { getPublicServerURL } from '@/utils/api'
 import { CONFIG } from '@/utils/config'
-import { Client, operations, schemas } from '@polar-sh/client'
+import { Client, operations, schemas } from '@repalis/client'
 import { redirect } from 'next/navigation'
 
 export type LoginMethod =

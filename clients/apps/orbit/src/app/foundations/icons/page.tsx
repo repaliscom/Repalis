@@ -1,8 +1,8 @@
 import { PageHeader, Prose, Section } from '@/components/docs'
 import usage from '@/generated/icon-usage.json'
-import { Text, Truncated } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import * as Icons from '@polar-sh/orbit/icons'
+import { Text, Truncated } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import * as Icons from '@repalis/orbit/icons'
 import type { ComponentType } from 'react'
 
 type IconSource = 'lucide' | 'material'
@@ -37,7 +37,7 @@ const SOURCES: { source: IconSource; title: string; description: string }[] = [
   },
 ]
 
-const IMPORT_CODE = `import { Check, MoreVertOutlined } from '@polar-sh/orbit/icons'`
+const IMPORT_CODE = `import { Check, MoreVertOutlined } from '@repalis/orbit/icons'`
 
 function IconTile({ name, original, files, Icon }: (typeof ICONS)[number]) {
   return (
@@ -80,13 +80,13 @@ export default function IconsPage() {
     <>
       <PageHeader
         title="Icons"
-        description="Every icon the Polar dashboard uses, served from one entry point."
+        description="Every icon the Repalis dashboard uses, served from one entry point."
       />
 
       <Section>
         <Prose>
           <Text variant="body" color="default">
-            Import icons from @polar-sh/orbit/icons, never from lucide-react or
+            Import icons from @repalis/orbit/icons, never from lucide-react or
             @mui/icons-material directly. {ICONS.length} icons are in use across{' '}
             {totalImports} imports. Hover an icon to see the files that import
             it, and run pnpm gen:icons to refresh the counts.

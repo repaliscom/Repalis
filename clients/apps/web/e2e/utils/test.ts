@@ -1,4 +1,4 @@
-import type { schemas } from '@polar-sh/client'
+import type { schemas } from '@repalis/client'
 import { test as base } from 'vitest'
 import { App } from './app'
 import { type CheckoutPage, openCheckout } from './checkout'

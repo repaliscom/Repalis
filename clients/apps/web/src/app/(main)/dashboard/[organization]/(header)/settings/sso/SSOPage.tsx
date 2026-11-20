@@ -6,8 +6,8 @@ import NewSSOConnectionModal from '@/components/Settings/SSO/NewSSOConnectionMod
 import { isVerifiedDomain } from '@/components/Settings/SSO/SSODomains'
 import SSOSettings from '@/components/Settings/SSO/SSOSettings'
 import { useOrganizationDomains } from '@/hooks/queries'
-import { schemas } from '@polar-sh/client'
-import { Button, InlineModal } from '@polar-sh/orbit'
+import { schemas } from '@repalis/client'
+import { Button, InlineModal } from '@repalis/orbit'
 
 export default function ClientPage({
   organization: org,

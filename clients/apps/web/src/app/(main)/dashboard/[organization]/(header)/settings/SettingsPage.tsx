@@ -9,8 +9,8 @@ import {
   LEGACY_SETTINGS_HASHES,
 } from '@/components/Settings/settingsSections'
 import { useHasPermission } from '@/hooks/permissions'
-import { schemas } from '@polar-sh/client'
-import { Box } from '@polar-sh/orbit/Box'
+import { schemas } from '@repalis/client'
+import { Box } from '@repalis/orbit/Box'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 

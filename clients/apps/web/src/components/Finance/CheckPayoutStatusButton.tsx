@@ -2,9 +2,9 @@
 
 import { toast } from '@/components/Toast/use-toast'
 import { useSyncPayoutAccount } from '@/hooks/queries/payout_accounts'
-import { schemas } from '@polar-sh/client'
-import { Button } from '@polar-sh/orbit'
-import { RefreshCw as RefreshCwIcon } from '@polar-sh/orbit/icons'
+import { schemas } from '@repalis/client'
+import { Button } from '@repalis/orbit'
+import { RefreshCw as RefreshCwIcon } from '@repalis/orbit/icons'
 import { useCallback } from 'react'
 
 interface Props {

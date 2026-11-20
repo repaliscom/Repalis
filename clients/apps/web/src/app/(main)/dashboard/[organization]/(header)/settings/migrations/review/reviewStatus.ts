@@ -1,4 +1,4 @@
-import { StatusColor } from '@polar-sh/orbit'
+import { StatusColor } from '@repalis/orbit'
 import { RowPaymentMethod, rowPaymentMethod } from './paymentMethod'
 import { isImported, needsAttention, ReviewRow } from './reviewRows'
 

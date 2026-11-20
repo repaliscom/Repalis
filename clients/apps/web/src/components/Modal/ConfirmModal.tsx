@@ -1,15 +1,15 @@
-import { Button } from '@polar-sh/orbit'
-import { Input } from '@polar-sh/orbit'
+import { Button } from '@repalis/orbit'
+import { Input } from '@repalis/orbit'
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormMessage,
-} from '@polar-sh/ui/components/ui/form'
+} from '@repalis/ui/components/ui/form'
 import { MouseEvent, useCallback, useRef, useState } from 'react'
 import { useForm, useWatch } from 'react-hook-form'
-import { Modal, type ModalProps } from '@polar-sh/orbit'
+import { Modal, type ModalProps } from '@repalis/orbit'
 
 // Collapses runs of any Unicode whitespace (including non-breaking spaces,
 // common in labels pasted from design tools) into a single regular space, so

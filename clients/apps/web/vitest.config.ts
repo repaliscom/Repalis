@@ -23,7 +23,7 @@ const CHECKOUT_FILES = [
 const SERVER_TESTS = ['src/proxy.test.ts']
 
 const env = {
-  NEXT_PUBLIC_API_URL: 'http://api.polar.test',
+  NEXT_PUBLIC_API_URL: 'http://api.repalis.test',
   NEXT_PUBLIC_FRONTEND_BASE_URL: 'https://repalis.com',
   NEXT_PUBLIC_SANDBOX_FRONTEND_BASE_URL: 'https://sandbox.repalis.com',
 }

@@ -2,9 +2,9 @@ import { useToast } from '@/components/Toast/use-toast'
 import { useOrgAuthSessionStart } from '@/hooks'
 import { usePostHog } from '@/hooks/posthog'
 import { getSSOAuthorizeLoginURL } from '@/utils/auth'
-import { KeyFilled as Key } from '@polar-sh/orbit/icons'
-import { schemas } from '@polar-sh/client'
-import { Button, type ButtonProps } from '@polar-sh/orbit'
+import { KeyFilled as Key } from '@repalis/orbit/icons'
+import { schemas } from '@repalis/client'
+import { Button, type ButtonProps } from '@repalis/orbit'
 
 interface SSOLoginButtonProps {
   organizationSlug: string

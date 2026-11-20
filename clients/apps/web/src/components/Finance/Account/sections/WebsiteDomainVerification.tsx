@@ -8,9 +8,9 @@ import {
   useVerifyOrganizationDomain,
 } from '@/hooks/queries'
 import { extractApiErrorMessage } from '@/utils/api/errors'
-import { schemas } from '@polar-sh/client'
-import { Button, Pill, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { schemas } from '@repalis/client'
+import { Button, Pill, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import { findWebsiteDomain, websiteHost } from './websiteDomain'
 
 interface Props {

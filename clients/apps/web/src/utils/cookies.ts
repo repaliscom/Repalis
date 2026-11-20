@@ -1,8 +1,8 @@
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 import { ReadonlyRequestCookies } from 'next/dist/server/web/spec-extension/adapters/request-cookies'
 
 const lastVisitedOrg = 'last_visited_org'
-export const POLAR_ENV_COOKIE = 'polar_env'
+export const REPALIS_ENV_COOKIE = 'polar_env'
 
 export type PolarEnv = 'production' | 'sandbox'
 
@@ -31,5 +31,5 @@ export const setLastVisitedEnv = (
   const hostname = window.location.hostname
   const domainAttr = hostname.endsWith('.repalis.com') ? '; domain=.repalis.com' : ''
   const secureAttr = window.location.protocol === 'https:' ? '; secure' : ''
-  document.cookie = `${POLAR_ENV_COOKIE}=${env}; max-age=${maxAge}; path=/; samesite=lax${domainAttr}${secureAttr}`
+  document.cookie = `${REPALIS_ENV_COOKIE}=${env}; max-age=${maxAge}; path=/; samesite=lax${domainAttr}${secureAttr}`
 }

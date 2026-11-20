@@ -26,7 +26,7 @@ Run the local CLI from source as `dev repalis <command>` (the `dev` CLI runs
 compiled `polar` binary with saved sessions: macOS treats the fresh binary as
 untrusted and prompts for the keychain password on every read. When a compiled
 artifact must be tested, limit it to `--version` and `--help`, or set
-`POLAR_ACCESS_TOKEN` to bypass the keyring.
+`REPALIS_ACCESS_TOKEN` to bypass the keyring.
 
 ## Adding a command
 

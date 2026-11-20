@@ -1,6 +1,6 @@
-import { Grid, GridItem, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import { ArrowRight } from '@polar-sh/orbit/icons'
+import { Grid, GridItem, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import { ArrowRight } from '@repalis/orbit/icons'
 import Link from 'next/link'
 import { ChapterHeadline } from './Chapter'
 import { StillaAI } from './Logos'
@@ -39,7 +39,7 @@ export const CustomerStory = () => (
       <GridItem area="head">
         <ChapterHeadline
           title="Trusted by leading AI companies"
-          subtitle="See how they run billing on Polar"
+          subtitle="See how they run billing on Repalis"
         />
       </GridItem>
       <GridItem area="link">

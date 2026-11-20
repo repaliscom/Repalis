@@ -1,7 +1,7 @@
 import { StaticImage } from '@/components/Image/StaticImage'
 import { ContentPost, getAllContent } from '@/utils/blog'
-import { Grid, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { Grid, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import Link from 'next/link'
 
 function formatDate(dateStr: string) {

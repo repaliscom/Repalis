@@ -1,9 +1,9 @@
-import { usePolarClient } from '@/providers/RepalisClientProvider'
-import { operations, unwrap } from '@polar-sh/client'
+import { useRepalisClient } from '@/providers/RepalisClientProvider'
+import { operations, unwrap } from '@repalis/client'
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query'
 
 export const useCustomer = (organizationId: string | undefined, id: string) => {
-  const { polar } = usePolarClient()
+  const { polar } = useRepalisClient()
 
   return useQuery({
     queryKey: ['customers', organizationId, { id }],
@@ -26,7 +26,7 @@ export const useCustomers = (
     'organization_id'
   >,
 ) => {
-  const { polar } = usePolarClient()
+  const { polar } = useRepalisClient()
 
   return useInfiniteQuery({
     queryKey: ['customers', { organizationId, ...(parameters || {}) }],

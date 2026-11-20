@@ -17,5 +17,5 @@ resource "cloudflare_dns_record" "mcp" {
 resource "cloudflare_workers_route" "mcp" {
   zone_id = "22bcd1b07ec25452aab472486bc8df94"
   pattern = "mcp.repalis.com/*"
-  script  = "polar-mcp"
+  script  = "repalis-mcp"
 }

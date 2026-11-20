@@ -1,5 +1,5 @@
-import { Text } from '@polar-sh/orbit'
-import { X } from '@polar-sh/orbit/icons'
+import { Text } from '@repalis/orbit'
+import { X } from '@repalis/orbit/icons'
 import { domMax, LazyMotion, m } from 'motion/react'
 import React from 'react'
 import { twMerge } from 'tailwind-merge'

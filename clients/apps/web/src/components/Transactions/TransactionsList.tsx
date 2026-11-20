@@ -5,17 +5,17 @@ import {
 } from '@/utils/datatable'
 import { isTransaction, platformFeesDisplayNames } from '@/utils/transaction'
 import { ISODuration } from '@/utils/duration'
-import { schemas } from '@polar-sh/client'
-import { formatCurrency } from '@polar-sh/currency'
+import { schemas } from '@repalis/client'
+import { formatCurrency } from '@repalis/currency'
 import {
   Text,
   DataTable,
   DataTableColumnDef,
   DataTableColumnHeader,
   ReactQueryLoading,
-} from '@polar-sh/orbit'
-import FormattedDateTime from '@polar-sh/ui/components/atoms/FormattedDateTime'
-import { Tooltip, TooltipContent, TooltipTrigger } from '@polar-sh/orbit'
+} from '@repalis/orbit'
+import FormattedDateTime from '@repalis/ui/components/atoms/FormattedDateTime'
+import { Tooltip, TooltipContent, TooltipTrigger } from '@repalis/orbit'
 import TransactionMeta from './TransactionMeta'
 import { TransactionAvailabilityStatus } from './TransactionAvailabilityStatus'
 

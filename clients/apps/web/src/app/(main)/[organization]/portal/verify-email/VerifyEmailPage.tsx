@@ -1,9 +1,9 @@
 'use client'
 
 import { useCustomerEmailUpdateVerify } from '@/hooks/queries/customerPortal'
-import { schemas } from '@polar-sh/client'
-import { Button } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { schemas } from '@repalis/client'
+import { Button } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import { PortalText } from '@/components/CustomerPortal/PortalPrimitives'
 import { useRouter } from 'next/navigation'
 import { useCallback } from 'react'

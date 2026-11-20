@@ -3,9 +3,9 @@
 import { RepalisLogotype } from '@/components/Layout/Public/RepalisLogotype'
 import Footer from '@/components/Organization/Footer'
 import { usePostHog } from '@/hooks/posthog'
-import { ArrowForward } from '@polar-sh/orbit/icons'
-import { Modal, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { ArrowForward } from '@repalis/orbit/icons'
+import { Modal, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import {
   Sidebar,
   SidebarContent,
@@ -13,7 +13,7 @@ import {
   SidebarProvider,
   SidebarTrigger,
   useSidebar,
-} from '@polar-sh/ui/components/atoms/Sidebar'
+} from '@repalis/ui/components/atoms/Sidebar'
 import Link from 'next/link'
 import { PropsWithChildren } from 'react'
 import { AuthModal } from '../Auth/AuthModal'

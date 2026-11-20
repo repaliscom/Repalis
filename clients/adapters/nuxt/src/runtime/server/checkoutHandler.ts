@@ -1,13 +1,13 @@
 import {
   clientUpdateCheckouts,
   createCheckouts,
-} from '@polar-sh/sdk/2026-10/services/checkouts'
-import { createPolarCore, type Environment } from '@polar-sh/sdk/2026-10'
+} from '@repalis/sdk/2026-10/services/checkouts'
+import { createRepalisCore, type Environment } from '@repalis/sdk/2026-10'
 import {
   type CustomerIpAddressOption,
   getCustomerIpAddress,
   resolveCustomerIpAddress,
-} from '@polar-sh/adapter-utils'
+} from '@repalis/adapter-utils'
 import { createError, getValidatedQuery, sendRedirect } from 'h3'
 import type { H3Event } from 'h3'
 import { z } from 'zod'
@@ -20,7 +20,7 @@ export interface CheckoutConfig {
   environment?: Environment
   theme?: 'light' | 'dark'
   /**
-   * Customer IP address sent to Polar to pick the presentment currency.
+   * Customer IP address sent to Repalis to pick the presentment currency.
    * Pass a function to resolve it yourself, or `false` to not send it.
    */
   customerIpAddress?: CustomerIpAddressOption<H3Event>
@@ -63,7 +63,7 @@ export const Checkout = ({
   includeCheckoutId = true,
   customerIpAddress: customerIpAddressOption,
 }: CheckoutConfig) => {
-  const polar = createPolarCore({ accessToken, environment })
+  const polar = createRepalisCore({ accessToken, environment })
 
   return async (event: H3Event) => {
     const {

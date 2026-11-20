@@ -4,7 +4,7 @@ import { toast } from '@/components/Toast/use-toast'
 import { useHasPermission } from '@/hooks/permissions'
 import { usePublishCatalog } from '@/hooks/queries/catalogs'
 import { extractApiErrorMessage } from '@/utils/api/errors'
-import { Button } from '@polar-sh/orbit'
+import { Button } from '@repalis/orbit'
 
 export const PublishDraftButton = ({
   organizationId,

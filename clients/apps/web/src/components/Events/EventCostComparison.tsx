@@ -1,8 +1,8 @@
 import { useEvents } from '@/hooks/queries/events'
-import { schemas } from '@polar-sh/client'
-import { Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import { ArrowDownRight, ArrowUpRight } from '@polar-sh/orbit/icons'
+import { schemas } from '@repalis/client'
+import { Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import { ArrowDownRight, ArrowUpRight } from '@repalis/orbit/icons'
 import { subDays } from 'date-fns'
 import { twMerge } from 'tailwind-merge'
 

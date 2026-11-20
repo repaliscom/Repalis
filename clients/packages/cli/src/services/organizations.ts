@@ -4,7 +4,7 @@ import {
   orgCommand,
   type ActiveOrganization,
   type OrganizationSelection,
-  type PolarEnvironment,
+  type RepalisEnvironment,
 } from '@/schemas/Auth'
 import { Auth } from '@/services/auth'
 import { CLIConfig } from '@/services/config'
@@ -14,14 +14,14 @@ export class Organizations extends Context.Service<
   Organizations,
   {
     list: (
-      environment: PolarEnvironment,
+      environment: RepalisEnvironment,
     ) => Effect.Effect<ActiveOrganization[], AuthError>
     listAll: Effect.Effect<ActiveOrganization[], AuthError>
     selected: Effect.Effect<OrganizationSelection | undefined, AuthError>
     select: (selection: OrganizationSelection) => Effect.Effect<void, AuthError>
     resolve: (
       id?: string,
-      environment?: PolarEnvironment,
+      environment?: RepalisEnvironment,
     ) => Effect.Effect<ActiveOrganization, AuthError>
   }
 >()('Organizations') {}
@@ -35,7 +35,7 @@ export const layer = Layer.effect(
     const polar = yield* Polar
     const auth = yield* Auth
     const config = yield* CLIConfig
-    const list = (environment: PolarEnvironment) =>
+    const list = (environment: RepalisEnvironment) =>
       Effect.gen(function* () {
         const organizations: ActiveOrganization[] = []
         let page = 1
@@ -64,7 +64,7 @@ export const layer = Layer.effect(
       }
       return organizations
     })
-    const get = (id: string, environment: PolarEnvironment) =>
+    const get = (id: string, environment: RepalisEnvironment) =>
       Effect.map(
         polar.use((client) => client.organizations.get(id), environment, {
           organizationId: id,
@@ -76,7 +76,7 @@ export const layer = Layer.effect(
           environment,
         }),
       )
-    const getBySlug = (slug: string, environment: PolarEnvironment) =>
+    const getBySlug = (slug: string, environment: RepalisEnvironment) =>
       Effect.gen(function* () {
         const response = yield* polar.use(
           (client) => client.organizations.list({ slug, limit: 1 }),
@@ -95,7 +95,7 @@ export const layer = Layer.effect(
           environment,
         }
       })
-    const find = (reference: string, environment?: PolarEnvironment) =>
+    const find = (reference: string, environment?: RepalisEnvironment) =>
       Effect.gen(function* () {
         const lookup = isUuid(reference) ? get : getBySlug
         if (environment !== undefined)
@@ -129,7 +129,7 @@ export const layer = Layer.effect(
         Effect.gen(function* () {
           if (yield* auth.override)
             return yield* new AuthError({
-              message: 'Unset POLAR_ACCESS_TOKEN to manage saved sessions.',
+              message: 'Unset REPALIS_ACCESS_TOKEN to manage saved sessions.',
             })
           yield* auth.resolve(selection.environment)
           yield* config.setActiveOrganization(selection)
@@ -142,7 +142,7 @@ export const layer = Layer.effect(
             if (organizations.length === 1) return organizations[0]!
             return yield* new AuthError({
               message:
-                'POLAR_ACCESS_TOKEN has no unique active organization. Supply --org <id> for an accessible organization.',
+                'REPALIS_ACCESS_TOKEN has no unique active organization. Supply --org <id> for an accessible organization.',
             })
           }
           const selection = yield* config.getActiveOrganization

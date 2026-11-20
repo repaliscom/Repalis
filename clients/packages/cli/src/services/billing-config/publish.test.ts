@@ -65,7 +65,7 @@ describe('catalogs', () => {
 
     const result = await run((clients) => catalogs(clients)(acme))
 
-    expect(api.requests[0]?.headers.get('Polar-Organization')).toBe('org-1')
+    expect(api.requests[0]?.headers.get('Repalis-Organization')).toBe('org-1')
     expect(result).toEqual({
       live: { id: 'cat-live', name: 'v3' },
       draft: { id: 'cat-draft', name: null },

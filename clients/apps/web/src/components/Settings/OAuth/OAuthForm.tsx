@@ -1,12 +1,12 @@
-import { Button } from '@polar-sh/orbit'
-import { Input } from '@polar-sh/orbit'
+import { Button } from '@repalis/orbit'
+import { Input } from '@repalis/orbit'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@polar-sh/orbit'
+} from '@repalis/orbit'
 import {
   FormControl,
   FormDescription,
@@ -14,11 +14,11 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@polar-sh/ui/components/ui/form'
-import CopyToClipboardInput from '@polar-sh/ui/components/atoms/CopyToClipboardInput'
+} from '@repalis/ui/components/ui/form'
+import CopyToClipboardInput from '@repalis/ui/components/atoms/CopyToClipboardInput'
 
-import { AddOutlined, ClearOutlined } from '@polar-sh/orbit/icons'
-import { enums } from '@polar-sh/client'
+import { AddOutlined, ClearOutlined } from '@repalis/orbit/icons'
+import { enums } from '@repalis/client'
 import { useFieldArray, useFormContext } from 'react-hook-form'
 import { TreeMultiSelect } from '../TreeMultiSelect'
 import { EnhancedOAuth2ClientConfiguration } from './NewOAuthClientModal'

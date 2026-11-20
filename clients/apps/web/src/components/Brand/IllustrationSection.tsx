@@ -1,5 +1,5 @@
-import { Grid } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { Grid } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import type { ComponentType } from 'react'
 import { Chapter } from '../Landing/Chapter'
 import { Compass } from '../Landing/graphics/Compass'

@@ -1,7 +1,7 @@
 import { useListKeys } from '@/hooks/useListKeys'
-import { Button, Input } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import { Plus, X } from '@polar-sh/orbit/icons'
+import { Button, Input } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import { Plus, X } from '@repalis/orbit/icons'
 
 type Entry = { key: string; value: string | number | boolean }
 

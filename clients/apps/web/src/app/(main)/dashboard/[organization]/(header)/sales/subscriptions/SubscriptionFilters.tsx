@@ -30,10 +30,10 @@ import {
   DonutLargeOutlined,
   FileDownloadOutlined,
   HiveOutlined,
-} from '@polar-sh/orbit/icons'
-import { schemas } from '@polar-sh/client'
-import { Button, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+} from '@repalis/orbit/icons'
+import { schemas } from '@repalis/client'
+import { Button, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import { startOfDay } from 'date-fns'
 import React, { useCallback, useMemo, useState } from 'react'
 

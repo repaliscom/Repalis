@@ -5,7 +5,7 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-02-25',
   runtimeConfig: {
     private: {
-      polarAccessToken: '',
+      repalisAccessToken: '',
       polarServer: '',
       polarCheckoutSuccessUrl: '',
       polarWebhookSecret: '',

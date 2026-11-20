@@ -1,10 +1,10 @@
 import { afterEach, expect, test, vi } from 'vitest'
 import { findBenefitGrant } from './benefits'
-import { createPolar } from '../../sdk'
+import { createRepalis } from '../../sdk'
 
 afterEach(() => vi.restoreAllMocks())
 
-const sdk = createPolar({ accessToken: 'test' })
+const sdk = createRepalis({ accessToken: 'test' })
 
 test('looks up the grant by benefit external ID in one request', async () => {
   const fetch = vi

@@ -3,7 +3,7 @@
   "extends": ["../../packages/oxlint-config/oxlint-next.json"],
   "jsPlugins": [
     {
-      "name": "polar",
+      "name": "repalis",
       "specifier": "./oxlint-plugins/index.mjs"
     }
   ],

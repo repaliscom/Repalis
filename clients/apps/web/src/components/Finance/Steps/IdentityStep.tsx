@@ -1,7 +1,7 @@
 'use client'
 
-import { Button } from '@polar-sh/orbit'
-import { ArrowRight, Check as CheckIcon } from '@polar-sh/orbit/icons'
+import { Button } from '@repalis/orbit'
+import { ArrowRight, Check as CheckIcon } from '@repalis/orbit/icons'
 interface IdentityStepProps {
   identityVerificationStatus?: string
   onStartIdentityVerification: () => void

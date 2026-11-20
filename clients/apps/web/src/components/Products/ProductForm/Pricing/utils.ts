@@ -1,5 +1,5 @@
 import Big from 'big.js'
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 import { FreeProductPriceCreate, ProductFormType } from '../ProductForm'
 
 export type ProductPrice = schemas['ProductPrice']

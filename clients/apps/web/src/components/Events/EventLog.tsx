@@ -1,5 +1,5 @@
-import { schemas } from '@polar-sh/client'
-import { Box } from '@polar-sh/orbit/Box'
+import { schemas } from '@repalis/client'
+import { Box } from '@repalis/orbit/Box'
 import { useEffect } from 'react'
 import { EventLogRow } from './EventLogRow'
 

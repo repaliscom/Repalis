@@ -1,5 +1,5 @@
-import type { ProductCheckoutPublic } from '@polar-sh/checkout/guards'
-import type { schemas } from '@polar-sh/client'
+import type { ProductCheckoutPublic } from '@repalis/checkout/guards'
+import type { schemas } from '@repalis/client'
 import { cleanup, fireEvent, render, screen } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { CheckoutCollapsibleOrderSummary } from './CheckoutCollapsibleOrderSummary'
@@ -10,7 +10,7 @@ vi.mock('./CheckoutOrderSummary', () => ({
   CheckoutOrderSummary: () => <div data-testid="order-summary" />,
 }))
 
-vi.mock('@polar-sh/checkout/components', () => ({
+vi.mock('@repalis/checkout/components', () => ({
   CheckoutHeroPrice: ({ compact }: { compact?: boolean }) => (
     <span>{compact ? 'compact price' : 'hero price'}</span>
   ),

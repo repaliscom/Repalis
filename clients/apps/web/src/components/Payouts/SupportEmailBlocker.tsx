@@ -1,7 +1,7 @@
 import { SupportEmailVerifyFlow } from '@/components/Finance/Account/sections/SupportEmailVerifyFlow'
-import { schemas } from '@polar-sh/client'
-import { Button } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { schemas } from '@repalis/client'
+import { Button } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import Link from 'next/link'
 
 interface Props {

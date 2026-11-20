@@ -2,9 +2,9 @@
 
 import { useAssignOrganizationSeat } from '@/hooks/queries/seats'
 import { validateEmail } from '@/utils/validation'
-import { schemas } from '@polar-sh/client'
-import { Button, InlineModalHeader, Input, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { schemas } from '@repalis/client'
+import { Button, InlineModalHeader, Input, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import {
   Form,
   FormControl,
@@ -12,7 +12,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@polar-sh/ui/components/ui/form'
+} from '@repalis/ui/components/ui/form'
 import { useForm } from 'react-hook-form'
 import { toast } from '../Toast/use-toast'
 

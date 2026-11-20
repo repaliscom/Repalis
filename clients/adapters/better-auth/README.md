@@ -1,4 +1,4 @@
-# @polar-sh/better-auth
+# @repalis/better-auth
 
 A [Better Auth](https://github.com/better-auth/better-auth) plugin for integrating [Repalis](https://repalis.com) payments and subscriptions into your authentication flow.
 
@@ -15,7 +15,7 @@ A [Better Auth](https://github.com/better-auth/better-auth) plugin for integrati
 ## Installation
 
 ```bash
-pnpm add better-auth @polar-sh/better-auth @polar-sh/sdk@1.0.0
+pnpm add better-auth @repalis/better-auth @repalis/sdk@1.0.0
 ```
 
 ## Preparation
@@ -24,7 +24,7 @@ Go to your Repalis Organization Settings, and create an Organization Access Toke
 
 ```bash
 # .env
-POLAR_ACCESS_TOKEN=...
+REPALIS_ACCESS_TOKEN=...
 ```
 
 ### Configuring BetterAuth Server
@@ -43,11 +43,11 @@ The Repalis plugin comes with a handful additional plugins which adds functional
 ```typescript
 import { betterAuth } from 'better-auth'
 import { organization } from 'better-auth/plugins'
-import { polar, checkout, portal, usage, webhooks } from '@polar-sh/better-auth'
-import { createRepalisCore } from '@polar-sh/sdk/2026-10'
+import { polar, checkout, portal, usage, webhooks } from '@repalis/better-auth'
+import { createRepalisCore } from '@repalis/sdk/2026-10'
 
-const polarClient = createRepalisCore({
-  accessToken: process.env.POLAR_ACCESS_TOKEN,
+const repalisClient = createRepalisCore({
+  accessToken: process.env.REPALIS_ACCESS_TOKEN,
   // Use 'sandbox' if you're using the Repalis Sandbox environment
   // Remember that access tokens, products, etc. are completely separated between environments.
   // Access tokens obtained in Production are for instance not usable in the Sandbox environment.
@@ -59,7 +59,7 @@ const auth = betterAuth({
   plugins: [
     organization(),
     polar({
-      client: polarClient,
+      client: repalisClient,
       createCustomerOnSignUp: true,
       // Experimental: do not enable this if your application already
       // handles organization billing. Existing billing is not migrated.
@@ -89,7 +89,7 @@ const auth = betterAuth({
         }),
         usage(),
         webhooks({
-          secret: process.env.POLAR_WEBHOOK_SECRET!,
+          secret: process.env.REPALIS_WEBHOOK_SECRET!,
           // Triggered when anything regarding a customer changes
           onCustomerStateChanged: async (payload) => {},
           // Triggered when an order was paid (purchase, subscription renewal, etc.)
@@ -110,13 +110,13 @@ You will be using the BetterAuth Client to interact with the Repalis functionali
 
 ```typescript
 import { createAuthClient } from 'better-auth/react'
-import { polarClient } from '@polar-sh/better-auth/client'
+import { repalisClient } from '@repalis/better-auth/client'
 import { organizationClient } from 'better-auth/client/plugins'
 
 // This is all that is needed
 // All Repalis plugins, etc. should be attached to the server-side BetterAuth config
 export const authClient = createAuthClient({
-  plugins: [organizationClient(), polarClient()],
+  plugins: [organizationClient(), repalisClient()],
 })
 ```
 
@@ -124,12 +124,12 @@ export const authClient = createAuthClient({
 
 ```typescript
 import { betterAuth } from 'better-auth'
-import { polar, checkout, portal, usage, webhooks } from '@polar-sh/better-auth'
-import { createRepalisCore } from '@polar-sh/sdk/2026-10'
+import { polar, checkout, portal, usage, webhooks } from '@repalis/better-auth'
+import { createRepalisCore } from '@repalis/sdk/2026-10'
 import { organization } from 'better-auth/plugins'
 
-const polarClient = createRepalisCore({
-  accessToken: process.env.POLAR_ACCESS_TOKEN,
+const repalisClient = createRepalisCore({
+  accessToken: process.env.REPALIS_ACCESS_TOKEN,
   // Use 'sandbox' if you're using the Repalis Sandbox environment
   // Remember that access tokens, products, etc. are completely separated between environments.
   // Access tokens obtained in Production are for instance not usable in the Sandbox environment.
@@ -141,7 +141,7 @@ const auth = betterAuth({
   plugins: [
     organization(),
     polar({
-      client: polarClient,
+      client: repalisClient,
       createCustomerOnSignUp: true,
       getCustomerCreateParams: async ({ user }) => ({
         metadata: {
@@ -185,9 +185,9 @@ The SDK v1 models returned by the state, benefits, subscriptions, orders, and me
 The core client has no service properties such as `customers` or `checkouts`. Import the operation you need and pass the core client to it:
 
 ```typescript
-import { getStateExternalCustomers } from '@polar-sh/sdk/2026-10/services/customers'
+import { getStateExternalCustomers } from '@repalis/sdk/2026-10/services/customers'
 
-const customerState = await getStateExternalCustomers(polarClient)(userId)
+const customerState = await getStateExternalCustomers(repalisClient)(userId)
 ```
 
 Custom plugins passed through `use` also receive a `RepalisCore` and call SDK operations this way.
@@ -249,7 +249,7 @@ polar({
         .map((product) => product.id)
     },
   },
-  use: [checkout(), webhooks({ secret: process.env.POLAR_WEBHOOK_SECRET! })],
+  use: [checkout(), webhooks({ secret: process.env.REPALIS_WEBHOOK_SECRET! })],
 })
 ```
 
@@ -275,7 +275,7 @@ The adapter verifies the authenticated user's Better Auth membership before call
 To support checkouts in your app, simply pass the Checkout plugin to the use-property.
 
 ```typescript
-import { polar, checkout } from "@polar-sh/better-auth";
+import { polar, checkout } from "@repalis/better-auth";
 
 const auth = betterAuth({
     // ... Better Auth config
@@ -369,7 +369,7 @@ const auth = betterAuth({
   plugins: [
     organization(),
     polar({
-      client: polarClient,
+      client: repalisClient,
       createCustomerOnSignUp: true,
       use: [
         checkout({
@@ -422,7 +422,7 @@ Do not send both `organizationId` and `reference_id` when listing subscriptions;
 A plugin which enables customer management of their purchases, orders and subscriptions.
 
 ```typescript
-import { polar, checkout, portal } from "@polar-sh/better-auth";
+import { polar, checkout, portal } from "@repalis/better-auth";
 
 const auth = betterAuth({
     // ... Better Auth config
@@ -564,7 +564,7 @@ const { data: subscriptions } = await authClient.customer.subscriptions.list({
 A simple plugin for Usage Based Billing.
 
 ```typescript
-import { polar, checkout, portal, usage } from "@polar-sh/better-auth";
+import { polar, checkout, portal, usage } from "@repalis/better-auth";
 
 const auth = betterAuth({
     // ... Better Auth config
@@ -629,7 +629,7 @@ const { data: customerMeters } = await authClient.usage.meters.list({
 The Webhooks plugin can be used to capture incoming events from your Repalis organization.
 
 ```typescript
-import { polar, webhooks } from "@polar-sh/better-auth";
+import { polar, webhooks } from "@repalis/better-auth";
 
 const auth = betterAuth({
     // ... Better Auth config
@@ -638,7 +638,7 @@ const auth = betterAuth({
             ...
             use: [
                 webhooks({
-                    secret: process.env.POLAR_WEBHOOK_SECRET!,
+                    secret: process.env.REPALIS_WEBHOOK_SECRET!,
                     // Triggered when anything regarding a customer changes
                     onCustomerStateChanged: async (payload) => {},
                     // Triggered when an order was paid (purchase, subscription renewal, etc.)
@@ -659,7 +659,7 @@ Add the secret to your environment.
 
 ```bash
 # .env
-POLAR_WEBHOOK_SECRET=...
+REPALIS_WEBHOOK_SECRET=...
 ```
 
 The plugin supports handlers for all Repalis webhook events:

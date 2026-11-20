@@ -1,6 +1,6 @@
 'use client'
 
-import { type Client, schemas, unwrap } from '@polar-sh/client'
+import { type Client, schemas, unwrap } from '@repalis/client'
 import {
   DEFAULT_LOCALE,
   getTranslationLocale,
@@ -8,9 +8,9 @@ import {
   useTranslations,
   type AcceptedLocale,
   type SupportedLocale,
-} from '@polar-sh/i18n'
-import { Button } from '@polar-sh/orbit'
-import { ThemingPresetProps } from '@polar-sh/ui/hooks/theming'
+} from '@repalis/i18n'
+import { Button } from '@repalis/orbit'
+import { ThemingPresetProps } from '@repalis/ui/hooks/theming'
 import {
   Elements,
   ElementsConsumer,

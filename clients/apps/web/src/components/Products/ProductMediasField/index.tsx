@@ -1,5 +1,5 @@
-import { AddPhotoAlternateOutlined } from '@polar-sh/orbit/icons'
-import { schemas } from '@polar-sh/client'
+import { AddPhotoAlternateOutlined } from '@repalis/orbit/icons'
+import { schemas } from '@repalis/client'
 import { ReactNode, useCallback, useState } from 'react'
 import { FileRejection } from 'react-dropzone'
 import { twMerge } from 'tailwind-merge'

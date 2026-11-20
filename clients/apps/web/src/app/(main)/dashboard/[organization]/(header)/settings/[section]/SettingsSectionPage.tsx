@@ -18,9 +18,9 @@ import {
 } from '@/components/Settings/settingsSections'
 import { useHasPermission, useIsManagedAsCode } from '@/hooks/permissions'
 import { CONFIG } from '@/utils/config'
-import { schemas } from '@polar-sh/client'
-import { Alert } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { schemas } from '@repalis/client'
+import { Alert } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import Link from 'next/link'
 import {
   DeveloperSettings,

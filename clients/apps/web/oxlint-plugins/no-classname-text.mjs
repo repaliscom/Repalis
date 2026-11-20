@@ -1,11 +1,11 @@
-const ORBIT_TEXT_SOURCES = new Set(['@polar-sh/orbit'])
+const ORBIT_TEXT_SOURCES = new Set(['@repalis/orbit'])
 
 const noClassnameText = {
   meta: {
     type: 'problem',
     docs: {
       description:
-        'Disallow the `className` prop on `<Text />` from `@polar-sh/orbit`',
+        'Disallow the `className` prop on `<Text />` from `@repalis/orbit`',
     },
     schema: [],
     messages: {

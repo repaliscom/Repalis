@@ -1,7 +1,7 @@
 import { DateRange } from '@/components/Metrics/DateRangePicker'
 import { toast } from '@/components/Toast/use-toast'
 import { getServerURL } from '@/utils/api'
-import { API_VERSION } from '@polar-sh/client'
+import { API_VERSION } from '@repalis/client'
 import { ExportColumnConfig, ExportColumnGroup } from './ExportColumns'
 
 export interface ExportSelection<T extends string> {
@@ -64,11 +64,11 @@ export function downloadCsvExport<T extends string>(
   return downloadExport(url, `polar-${endpoint.split('/')[2]}.csv`)
 }
 
-// fetch instead of window.open: versioned query params need the Polar-Version header
+// fetch instead of window.open: versioned query params need the Repalis-Version header
 export async function downloadExport(url: URL, filename: string) {
   const response = await fetch(url, {
     credentials: 'include',
-    headers: { 'Polar-Version': API_VERSION },
+    headers: { 'Repalis-Version': API_VERSION },
   }).catch(() => null)
   const blob = response?.ok ? await response.blob().catch(() => null) : null
   if (!response || !blob) {

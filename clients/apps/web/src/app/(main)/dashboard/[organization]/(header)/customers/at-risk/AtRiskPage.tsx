@@ -9,10 +9,10 @@ import {
 } from '@/components/Customer/useAtRisk'
 import { EmptyState } from '@/components/Shared/EmptyState'
 import { useClientSidePagination } from '@/hooks/useClientSidePagination'
-import { schemas } from '@polar-sh/client'
-import { formatCurrency } from '@polar-sh/currency'
-import { Alert, DataTable, DataTableColumnDef, Text } from '@polar-sh/orbit'
-import { ShieldCheck } from '@polar-sh/orbit/icons'
+import { schemas } from '@repalis/client'
+import { formatCurrency } from '@repalis/currency'
+import { Alert, DataTable, DataTableColumnDef, Text } from '@repalis/orbit'
+import { ShieldCheck } from '@repalis/orbit/icons'
 import { useRouter } from 'next/navigation'
 
 // Maximum accepted per status query (API_PAGINATION_MAX_LIMIT).

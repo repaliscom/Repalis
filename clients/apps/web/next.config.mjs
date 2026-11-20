@@ -9,7 +9,7 @@ const TYPE_CHECKED_IN_CI = process.env.VERCEL === '1' || Boolean(process.env.CI)
 // Vercel services deployments: deployment URLs change with
 // every deployment, so derive base from the deployment's own URL
 const VERCEL_SERVICES =
-  process.env.NEXT_PUBLIC_POLAR_VERCEL_SERVICES_ENABLED === '1'
+  process.env.NEXT_PUBLIC_REPALIS_VERCEL_SERVICES_ENABLED === '1'
 if (
   VERCEL_SERVICES &&
   !process.env.NEXT_PUBLIC_FRONTEND_BASE_URL &&
@@ -18,8 +18,8 @@ if (
   process.env.NEXT_PUBLIC_FRONTEND_BASE_URL = `https://${process.env.VERCEL_URL}`
 }
 
-const POLAR_AUTH_COOKIE_KEY =
-  process.env.POLAR_AUTH_COOKIE_KEY || 'polar_session'
+const REPALIS_AUTH_COOKIE_KEY =
+  process.env.REPALIS_AUTH_COOKIE_KEY || 'repalis_session'
 const defaultFrontendHostname = process.env.NEXT_PUBLIC_FRONTEND_BASE_URL
   ? new URL(process.env.NEXT_PUBLIC_FRONTEND_BASE_URL).hostname
   : 'repalis.com'
@@ -31,9 +31,9 @@ const nextConfig = {
   reactCompiler: true,
   experimental: {
     useTypeScriptCli: false,
-    optimizePackageImports: ['@polar-sh/orbit/icons'],
+    optimizePackageImports: ['@repalis/orbit/icons'],
   },
-  transpilePackages: ['shiki', '@polar-sh/checkout', '@polar-sh/orbit'],
+  transpilePackages: ['shiki', '@repalis/checkout', '@repalis/orbit'],
   pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
 
   ...(TYPE_CHECKED_IN_CI && {
@@ -240,7 +240,7 @@ const nextConfig = {
         has: [
           {
             type: 'cookie',
-            key: POLAR_AUTH_COOKIE_KEY,
+            key: REPALIS_AUTH_COOKIE_KEY,
           },
           {
             type: 'host',
@@ -552,7 +552,7 @@ const createConfig = async () => {
     // For all available options, see:
     // https://github.com/getsentry/sentry-webpack-plugin#options
 
-    org: 'polar-sh',
+    org: 'repalis',
     project: 'dashboard',
 
     // Pass the auth token

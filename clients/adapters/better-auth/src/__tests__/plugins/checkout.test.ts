@@ -6,7 +6,7 @@ import {
   createMockBetterAuthContext,
   createMockCheckout,
   createMockCustomer,
-  createMockPolarClient,
+  createMockRepalisClient,
 } from '../utils/mocks'
 
 vi.mock('../../principal', () => ({
@@ -37,11 +37,11 @@ const { getIP: actualGetIP } =
   await vi.importActual<typeof import('better-auth/api')>('better-auth/api')
 
 describe('checkout plugin', () => {
-  let mockClient: ReturnType<typeof createMockPolarClient>
+  let mockClient: ReturnType<typeof createMockRepalisClient>
   let mockContext: ReturnType<typeof createMockBetterAuthContext>
 
   beforeEach(() => {
-    mockClient = createMockPolarClient()
+    mockClient = createMockRepalisClient()
     mockContext = createMockBetterAuthContext()
     vi.clearAllMocks()
   })
@@ -243,7 +243,7 @@ describe('checkout plugin', () => {
     })
 
     it('forwards the custom role mapper for organization checkout authorization', async () => {
-      const mapBetterAuthRoleToPolarRole = vi
+      const mapBetterAuthRoleToRepalisRole = vi
         .fn()
         .mockReturnValue('billing_manager' as const)
       const endpoints = checkout({
@@ -251,7 +251,7 @@ describe('checkout plugin', () => {
       })(mockClient, {
         experimental_organizationSync: {
           enabled: true,
-          mapBetterAuthRoleToPolarRole,
+          mapBetterAuthRoleToRepalisRole,
         },
       }) as any
       const customHandler = endpoints.checkout.handler
@@ -293,7 +293,7 @@ describe('checkout plugin', () => {
           organizationEnabled: true,
           roleMapping: {
             creatorRole: 'owner',
-            mapBetterAuthRoleToPolarRole,
+            mapBetterAuthRoleToRepalisRole,
           },
         }),
       )
@@ -621,7 +621,7 @@ describe('checkout plugin', () => {
       )
     })
 
-    it('should handle API errors from Polar', async () => {
+    it('should handle API errors from Repalis', async () => {
       vi.mocked(getSessionFromCtx).mockResolvedValue({
         user: { id: 'user-123' },
       })
@@ -637,7 +637,7 @@ describe('checkout plugin', () => {
 
       await expect(handler(ctx)).rejects.toThrow('Checkout creation failed')
       expect(ctx.context.logger.error).toHaveBeenCalledWith(
-        expect.stringContaining('Polar checkout creation failed'),
+        expect.stringContaining('Repalis checkout creation failed'),
       )
     })
 

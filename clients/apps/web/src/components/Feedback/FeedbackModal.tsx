@@ -1,5 +1,5 @@
-import { InlineModal, InlineModalHeader } from '@polar-sh/orbit'
-import { schemas } from '@polar-sh/client'
+import { InlineModal, InlineModalHeader } from '@repalis/orbit'
+import { schemas } from '@repalis/client'
 import { useState } from 'react'
 import { collectClientContext } from './clientContext'
 import { FeedbackForm } from './FeedbackForm'

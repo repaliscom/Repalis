@@ -1,9 +1,9 @@
 'use client'
 
 import { useEvents } from '@/hooks/queries/events'
-import { schemas } from '@polar-sh/client'
-import { Button, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { schemas } from '@repalis/client'
+import { Button, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import Link from 'next/link'
 import { Fragment, useMemo, useState } from 'react'
 import { resolveTimelineEntry, type TimelineEntry } from './renderers'

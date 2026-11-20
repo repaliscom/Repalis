@@ -51,7 +51,7 @@ describe('disable', () => {
 
     await run()
 
-    expect(api.requests[0]?.headers.get('Polar-Organization')).toBe('org-1')
+    expect(api.requests[0]?.headers.get('Repalis-Organization')).toBe('org-1')
   })
 
   test('explains why config cannot be disabled after a second publish', async () => {

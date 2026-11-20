@@ -2,7 +2,7 @@ import {
   useOrganizationReviewStatus,
   useSupportCase,
 } from '@/hooks/queries/org'
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 import { useSyncExternalStore } from 'react'
 
 export const isNotifiable = (m: schemas['SupportCaseMessage']) =>

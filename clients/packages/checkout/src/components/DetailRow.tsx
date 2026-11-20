@@ -1,4 +1,4 @@
-import { cn } from '@polar-sh/ui/lib/utils'
+import { cn } from '@repalis/ui/lib/utils'
 import { PropsWithChildren } from 'react'
 import Truncated from './Truncated'
 
@@ -19,7 +19,7 @@ const DetailRow = ({
       data-testid={`detail-row-${title}`}
       className={cn(
         'flex flex-row items-start justify-between gap-x-8',
-        emphasis ? 'font-medium' : 'dark:text-polar-500 text-gray-500',
+        emphasis ? 'font-medium' : 'dark:text-repalis-500 text-gray-500',
         className,
       )}
     >
@@ -28,7 +28,7 @@ const DetailRow = ({
         {subtitle && (
           <span
             dir="auto"
-            className="dark:text-polar-500 shrink-0 font-normal text-gray-400"
+            className="dark:text-repalis-500 shrink-0 font-normal text-gray-400"
           >
             {subtitle}
           </span>

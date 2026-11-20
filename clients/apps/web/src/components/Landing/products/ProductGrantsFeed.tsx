@@ -1,6 +1,6 @@
 'use client'
 
-import { Switch } from '@polar-sh/orbit'
+import { Switch } from '@repalis/orbit'
 import { AnimatePresence, m } from 'motion/react'
 import { memo, useEffect, useState } from 'react'
 

@@ -1,7 +1,7 @@
 'use client'
 
-import { DataTable, InlineModal, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { DataTable, InlineModal, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import { OnChangeFn, PaginationState } from '@tanstack/react-table'
 import { useMemo, useState } from 'react'
 import { CatalogEmptyPanel } from './CatalogEmptyPanel'

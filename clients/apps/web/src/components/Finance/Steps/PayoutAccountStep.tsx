@@ -4,14 +4,14 @@ import { toast } from '@/components/Toast/use-toast'
 import { usePayoutAccountSetup } from '@/hooks/usePayoutAccountSetup'
 import { extractApiErrorMessage } from '@/utils/api/errors'
 import { api } from '@/utils/client'
-import { schemas, unwrap } from '@polar-sh/client'
-import { Button } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { schemas, unwrap } from '@repalis/client'
+import { Button } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import {
   ArrowRight,
   Check as CheckIcon,
   ExternalLink,
-} from '@polar-sh/orbit/icons'
+} from '@repalis/orbit/icons'
 import { useCallback, useState } from 'react'
 import { StatusBlock } from '../Account/sections/StatusBlock'
 import { CheckPayoutStatusButton } from '../CheckPayoutStatusButton'

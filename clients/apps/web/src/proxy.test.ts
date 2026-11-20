@@ -232,17 +232,17 @@ describe('middleware function', () => {
 
     const request = new NextRequest('https://example.com/dashboard', {
       headers: {
-        'x-polar-user': Buffer.from(JSON.stringify(spoofedUser)).toString(
+        'x-repalis-user': Buffer.from(JSON.stringify(spoofedUser)).toString(
           'base64',
         ),
       },
     })
-    request.cookies.set('polar_session', 'valid-session-token')
+    request.cookies.set('repalis_session', 'valid-session-token')
 
     const response = await proxy(request)
 
     expect(response.status).toBe(200)
-    expect(getForwardedRequestHeader(response, 'x-polar-user')).toBe(
+    expect(getForwardedRequestHeader(response, 'x-repalis-user')).toBe(
       Buffer.from(JSON.stringify(mockUser)).toString('base64'),
     )
   })
@@ -253,16 +253,16 @@ describe('middleware function', () => {
     const response = await proxy(request)
 
     expect(response.status).toBe(200)
-    expect(getForwardedRequestHeader(response, 'x-polar-user')).toBeNull()
+    expect(getForwardedRequestHeader(response, 'x-repalis-user')).toBeNull()
     expect(getForwardedRequestHeaderNames(response)).not.toContain(
-      'x-polar-user',
+      'x-repalis-user',
     )
   })
 
   it('should strip spoofed user headers from forwarded routes', async () => {
     const request = new NextRequest('https://example.com/docs/overview', {
       headers: {
-        'x-polar-user': Buffer.from(
+        'x-repalis-user': Buffer.from(
           JSON.stringify({ id: 'spoofed', email: 'attacker@example.com' }),
         ).toString('base64'),
       },
@@ -271,9 +271,9 @@ describe('middleware function', () => {
     const response = await proxy(request)
 
     expect(response.status).toBe(200)
-    expect(getForwardedRequestHeader(response, 'x-polar-user')).toBeNull()
+    expect(getForwardedRequestHeader(response, 'x-repalis-user')).toBeNull()
     expect(getForwardedRequestHeaderNames(response)).not.toContain(
-      'x-polar-user',
+      'x-repalis-user',
     )
     expect(createServerSideAPI).not.toHaveBeenCalled()
   })
@@ -304,7 +304,7 @@ describe('middleware function', () => {
     })
 
     const request = new NextRequest('https://example.com/dashboard')
-    request.cookies.set('polar_session', 'valid-session-token')
+    request.cookies.set('repalis_session', 'valid-session-token')
 
     await expect(proxy(request)).rejects.toThrow(
       'Unexpected response status while fetching authenticated user',
@@ -321,7 +321,7 @@ describe('middleware function', () => {
     })
 
     const request = new NextRequest('https://example.com/dashboard')
-    request.cookies.set('polar_session', 'invalid-session-token')
+    request.cookies.set('repalis_session', 'invalid-session-token')
 
     const response = await proxy(request)
 
@@ -342,7 +342,7 @@ describe('middleware function', () => {
     })
 
     const request = new NextRequest('https://example.com/dashboard')
-    request.cookies.set('polar_session', 'rate-limited-session-token')
+    request.cookies.set('repalis_session', 'rate-limited-session-token')
 
     // Must not throw: a 429 should be treated as "couldn't determine the user"
     // and proceed as anonymous (protected route -> redirect to login).

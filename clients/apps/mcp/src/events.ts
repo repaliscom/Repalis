@@ -7,7 +7,7 @@ import {
 import { Effect, Schema } from 'effect'
 import { HttpClientRequest, HttpClientResponse } from 'effect/http'
 import { isRecord } from './json'
-import { polarApiClient, type PolarApiOutboundProps } from './outbound'
+import { polarApiClient, type RepalisApiOutboundProps } from './outbound'
 
 // ChatGPT's MCP events docs use -32015; the protocol draft uses -32027.
 const CALLBACK_ENDPOINT_ERROR = -32015
@@ -88,7 +88,7 @@ const webhookDelivery = <D extends typeof Delivery.Type>(
 
 export const registerEvents = Effect.fn('registerEvents')(function* (
   server: McpServer,
-  { apiUrl, token }: PolarApiOutboundProps,
+  { apiUrl, token }: RepalisApiOutboundProps,
 ) {
   const client = yield* polarApiClient(token)
 

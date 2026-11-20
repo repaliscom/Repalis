@@ -2,10 +2,10 @@ import { errors, RuntimeSDK } from '@repalis/repalis'
 import { log } from './log'
 import config from './repalis.config'
 
-const accessToken = process.env.POLAR_ACCESS_TOKEN
+const accessToken = process.env.REPALIS_ACCESS_TOKEN
 
 if (!accessToken) {
-  throw new Error('POLAR_ACCESS_TOKEN is required in .env.local')
+  throw new Error('REPALIS_ACCESS_TOKEN is required in .env.local')
 }
 
 export const polar = RuntimeSDK(config, {

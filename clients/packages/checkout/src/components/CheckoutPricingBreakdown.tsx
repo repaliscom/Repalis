@@ -1,13 +1,13 @@
 'use client'
 
-import { schemas } from '@polar-sh/client'
-import { formatCurrency } from '@polar-sh/currency'
+import { schemas } from '@repalis/client'
+import { formatCurrency } from '@repalis/currency'
 import {
   DEFAULT_LOCALE,
   useTranslations,
   type AcceptedLocale,
-} from '@polar-sh/i18n'
-import { formatDate } from '@polar-sh/i18n/formatters/date'
+} from '@repalis/i18n'
+import { formatDate } from '@repalis/i18n/formatters/date'
 import { addMonths } from 'date-fns'
 import { useMemo } from 'react'
 import {

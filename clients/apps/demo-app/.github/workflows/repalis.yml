@@ -25,7 +25,7 @@ jobs:
       - run: curl -fsSL https://repalis.com/install.sh | bash
       - name: Plan and comment on the pull request
         env:
-          POLAR_ACCESS_TOKEN: ${{ secrets.POLAR_READ_TOKEN }}
+          REPALIS_ACCESS_TOKEN: ${{ secrets.POLAR_READ_TOKEN }}
           GITHUB_TOKEN: ${{ github.token }}
         run: polar config plan --pr-comment
 
@@ -43,5 +43,5 @@ jobs:
       - run: curl -fsSL https://repalis.com/install.sh | bash
       - name: Apply
         env:
-          POLAR_ACCESS_TOKEN: ${{ secrets.POLAR_WRITE_TOKEN }}
+          REPALIS_ACCESS_TOKEN: ${{ secrets.POLAR_WRITE_TOKEN }}
         run: polar config apply --confirm

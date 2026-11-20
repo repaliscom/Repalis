@@ -15,15 +15,15 @@ To get the CLIENT_ID:
 2. Select "Public Client" and give it all the scopes
 3. Set "Redirect URIs" to "polar://oauth/callback"
 
-And make sure to set the EXPO_PUBLIC_POLAR_SERVER_URL is set to "http://127.0.0.1:8000".
+And make sure to set the EXPO_PUBLIC_REPALIS_SERVER_URL is set to "http://127.0.0.1:8000".
 
 export const CLIENT_ID = 'polar_ci_hbFdMZZRghgdm2F4LMceQSrcQNunmjlh6ukGJ1dG0Vg'
 
 export const discovery = {
   authorizationEndpoint: 'http://127.0.0.1:3000/oauth2/authorize',
-  tokenEndpoint: `${process.env.EXPO_PUBLIC_POLAR_SERVER_URL}/v1/oauth2/token`,
-  registrationEndpoint: `${process.env.EXPO_PUBLIC_POLAR_SERVER_URL}/v1/oauth2/register`,
-  revocationEndpoint: `${process.env.EXPO_PUBLIC_POLAR_SERVER_URL}/v1/oauth2/revoke`,
+  tokenEndpoint: `${process.env.EXPO_PUBLIC_REPALIS_SERVER_URL}/v1/oauth2/token`,
+  registrationEndpoint: `${process.env.EXPO_PUBLIC_REPALIS_SERVER_URL}/v1/oauth2/register`,
+  revocationEndpoint: `${process.env.EXPO_PUBLIC_REPALIS_SERVER_URL}/v1/oauth2/revoke`,
 */
 
 export const scopes = [

@@ -1,9 +1,9 @@
 'use client'
 
-import { ChevronLeft, ChevronRight } from '@polar-sh/orbit/icons'
+import { ChevronLeft, ChevronRight } from '@repalis/orbit/icons'
 import { useMemo } from 'react'
 import { twMerge } from 'tailwind-merge'
-import { Button } from '@polar-sh/orbit'
+import { Button } from '@repalis/orbit'
 
 interface PaginatorProps {
   totalCount: number
@@ -80,7 +80,7 @@ const Paginator = ({
         // If the pageItem is a DOT, render the DOTS unicode character
         if (typeof pageNumber !== 'number') {
           return (
-            <div className="dark:text-polar-400 text-gray-400" key={idx}>
+            <div className="dark:text-repalis-400 text-gray-400" key={idx}>
               &#8230;
             </div>
           )

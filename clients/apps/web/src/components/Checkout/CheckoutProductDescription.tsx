@@ -1,8 +1,8 @@
 'use client'
 
-import { Modal } from '@polar-sh/orbit'
+import { Modal } from '@repalis/orbit'
 import { markdownOptions } from '@/utils/markdown'
-import { AcceptedLocale, useTranslations } from '@polar-sh/i18n'
+import { AcceptedLocale, useTranslations } from '@repalis/i18n'
 import Markdown from 'markdown-to-jsx'
 import { useEffect, useRef, useState } from 'react'
 

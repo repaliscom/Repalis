@@ -1,11 +1,11 @@
 import { render, screen } from '@testing-library/react'
 import type { ReactNode } from 'react'
 import { describe, expect, it, vi } from 'vitest'
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 import { StartCopyStep } from './StartCopyStep'
 import { STEP_COPY } from './panTransferCopy'
 
-vi.mock('@polar-sh/orbit', () => ({
+vi.mock('@repalis/orbit', () => ({
   Alert: ({
     title,
     description,
@@ -23,7 +23,7 @@ vi.mock('@polar-sh/orbit', () => ({
   Text: ({ children }: { children: ReactNode }) => <span>{children}</span>,
 }))
 
-vi.mock('@polar-sh/orbit/Box', () => ({
+vi.mock('@repalis/orbit/Box', () => ({
   Box: ({
     as,
     children,
@@ -36,7 +36,7 @@ vi.mock('@polar-sh/orbit/Box', () => ({
   },
 }))
 
-vi.mock('@polar-sh/ui/components/atoms/CopyToClipboardInput', () => ({
+vi.mock('@repalis/ui/components/atoms/CopyToClipboardInput', () => ({
   default: ({ value, ariaLabel }: { value: string; ariaLabel?: string }) => (
     <input aria-label={ariaLabel} readOnly value={value} />
   ),
@@ -82,7 +82,7 @@ describe('StartCopyStep', () => {
     expect(upload).toHaveTextContent('Download CSV')
     expect(upload.querySelector('a')).toHaveAttribute(
       'href',
-      'http://api.polar.test/v1/merchant-migrations/mig_1/customer-ids.csv',
+      'http://api.repalis.test/v1/merchant-migrations/mig_1/customer-ids.csv',
     )
 
     expect(recipient).toHaveTextContent(

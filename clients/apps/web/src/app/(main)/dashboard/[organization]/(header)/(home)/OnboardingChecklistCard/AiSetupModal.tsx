@@ -3,9 +3,9 @@
 import { toast } from '@/components/Toast/use-toast'
 import { useSafeCopy } from '@/hooks/clipboard'
 import { usePostHog } from '@/hooks/posthog'
-import { schemas } from '@polar-sh/client'
-import { Alert, Button, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { schemas } from '@repalis/client'
+import { Alert, Button, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import { buildAiSetupPrompt } from './aiSetupPrompt'
 
 interface Props {

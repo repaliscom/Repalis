@@ -2,11 +2,11 @@
 
 import { usePostHog } from '@/hooks/posthog'
 import { CONFIG } from '@/utils/config'
-import { KeyboardArrowRight } from '@polar-sh/orbit/icons'
-import { Button } from '@polar-sh/orbit'
+import { KeyboardArrowRight } from '@repalis/orbit/icons'
+import { Button } from '@repalis/orbit'
 import { ComponentProps, FormEvent, useCallback, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
-import { Modal } from '@polar-sh/orbit'
+import { Modal } from '@repalis/orbit'
 import { useModal } from '../Modal/useModal'
 import { AuthModal } from './AuthModal'
 

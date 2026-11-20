@@ -1,6 +1,6 @@
 import GetStartedButton from '@/components/Auth/GetStartedButton'
-import { Button, Grid, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { Button, Grid, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import { ComponentType, PropsWithChildren } from 'react'
 import { FeatureChapter, HairlineRow, SectionTitle } from './FeatureChapter'
 

@@ -1,8 +1,8 @@
-import { schemas } from '@polar-sh/client'
-import { Status, type StatusColor } from '@polar-sh/orbit'
-import { Tooltip, TooltipContent, TooltipTrigger } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import { Check, Clock, X } from '@polar-sh/orbit/icons'
+import { schemas } from '@repalis/client'
+import { Status, type StatusColor } from '@repalis/orbit'
+import { Tooltip, TooltipContent, TooltipTrigger } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import { Check, Clock, X } from '@repalis/orbit/icons'
 
 const PayoutStatusDisplayTitle: Record<schemas['PayoutStatus'], string> = {
   succeeded: 'Succeeded',

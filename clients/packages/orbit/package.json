@@ -1,5 +1,5 @@
 {
-  "name": "@polar-sh/orbit",
+  "name": "@repalis/orbit",
   "version": "0.1.0",
   "description": "Orbit — Design system for Polar",
   "author": "Polar",
@@ -61,7 +61,7 @@
     "tailwind-merge": "catalog:"
   },
   "devDependencies": {
-    "@polar-sh/typescript-config": "workspace:*",
+    "@repalis/typescript-config": "workspace:*",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
     "@typescript/native": "catalog:",

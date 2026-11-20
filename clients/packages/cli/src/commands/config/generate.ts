@@ -94,7 +94,7 @@ export const generate = Command.make('generate', {
         'Write the names next to the config, in the language of the project',
     },
     {
-      command: 'polar config generate --out app/polar_types.py',
+      command: 'polar config generate --out app/repalis_types.py',
       description: 'Choose where the file goes',
     },
     {

@@ -6,7 +6,7 @@ import {
   ArrowOutwardOutlined,
   CheckOutlined,
   RemoveOutlined,
-} from '@polar-sh/orbit/icons'
+} from '@repalis/orbit/icons'
 import Link from 'next/link'
 import { useState } from 'react'
 import { Midday, StillaAI, Tailwind } from '../Logos'

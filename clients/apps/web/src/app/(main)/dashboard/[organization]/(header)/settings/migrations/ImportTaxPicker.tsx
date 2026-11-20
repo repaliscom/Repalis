@@ -3,8 +3,8 @@
 import { DetailCell } from '@/components/Orders/OrderSection'
 import { useUpdateMigrationRecord } from '@/hooks/queries/merchantMigrations'
 import { useOptimisticSave } from '@/hooks/useOptimisticSave'
-import { schemas } from '@polar-sh/client'
-import { formatCurrency } from '@polar-sh/currency'
+import { schemas } from '@repalis/client'
+import { formatCurrency } from '@repalis/currency'
 import {
   Select,
   SelectContent,
@@ -12,8 +12,8 @@ import {
   SelectTrigger,
   SelectValue,
   Text,
-} from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+} from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 
 type TaxBehavior = schemas['TaxBehavior']
 

@@ -1,13 +1,13 @@
 import { OmniSearch } from '@/components/Search/OmniSearch'
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 import {
   Button,
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import { ChartNoAxesColumn, Search, Wallet } from '@polar-sh/orbit/icons'
+} from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import { ChartNoAxesColumn, Search, Wallet } from '@repalis/orbit/icons'
 import Link from 'next/link'
 import { ReactNode, useState } from 'react'
 

@@ -13,7 +13,7 @@ import {
 } from '@/hooks/repalis/subscriptions'
 import { OrganizationContext } from '@/providers/OrganizationProvider'
 import MaterialIcons from '@expo/vector-icons/MaterialIcons'
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router'
 import React, { useCallback, useContext, useEffect, useMemo } from 'react'
 import { useForm, UseFormReturn } from 'react-hook-form'

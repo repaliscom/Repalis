@@ -7,7 +7,7 @@ import {
   SidebarMenuSub,
   SidebarMenuSubItem,
   useSidebar,
-} from '@polar-sh/ui/components/atoms/Sidebar'
+} from '@repalis/ui/components/atoms/Sidebar'
 import Link from 'next/link'
 import { ReactNode, useState } from 'react'
 import { twMerge } from 'tailwind-merge'

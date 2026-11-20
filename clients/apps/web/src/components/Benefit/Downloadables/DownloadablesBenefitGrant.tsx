@@ -1,14 +1,14 @@
 import { useCustomerDownloadables } from '@/hooks/queries/customerPortal'
-import { ArrowDownward, MoreVertOutlined } from '@polar-sh/orbit/icons'
-import { Client, schemas } from '@polar-sh/client'
-import { Button } from '@polar-sh/orbit'
-import { Pill } from '@polar-sh/orbit'
+import { ArrowDownward, MoreVertOutlined } from '@repalis/orbit/icons'
+import { Client, schemas } from '@repalis/client'
+import { Button } from '@repalis/orbit'
+import { Pill } from '@repalis/orbit'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@polar-sh/ui/components/ui/dropdown-menu'
+} from '@repalis/ui/components/ui/dropdown-menu'
 import { useCallback, useMemo } from 'react'
 import { twMerge } from 'tailwind-merge'
 import { FilePreview } from './FileList/FileListItem'

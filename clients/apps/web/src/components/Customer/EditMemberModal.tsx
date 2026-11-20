@@ -3,9 +3,9 @@ import { useHasPermission } from '@/hooks/permissions'
 import { useUpdateMember } from '@/hooks/queries/members'
 import { permissionDeniedMessage } from '@/utils/permissions'
 import { extractApiErrorMessage, setValidationErrors } from '@/utils/api/errors'
-import { isValidationError, schemas } from '@polar-sh/client'
-import { Button, InlineModalHeader, Input, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { isValidationError, schemas } from '@repalis/client'
+import { Button, InlineModalHeader, Input, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import {
   Form,
   FormControl,
@@ -14,7 +14,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@polar-sh/ui/components/ui/form'
+} from '@repalis/ui/components/ui/form'
 import { useForm } from 'react-hook-form'
 import { MemberSeats } from './MemberSeats'
 import { toast } from '../Toast/use-toast'

@@ -1,4 +1,4 @@
-export const POLAR_DESCRIPTION =
+export const REPALIS_DESCRIPTION =
   "Repalis is an open-source payment infrastructure platform for developers and digital-product creators. It operates as a Merchant of Record, taking on the checkout, billing, international tax, compliance, and payout work that sits between sellers and their customers, so creators can focus on building their products. Repalis supports configuring what's being sold, pricing it, granting access or entitlements after purchase, and integrating with the seller's existing developer tooling."
 
 export const REJECTION_OFF_TOPIC_TEXT =

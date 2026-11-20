@@ -1,6 +1,6 @@
 'use client'
 
-import { Alert } from '@polar-sh/orbit'
+import { Alert } from '@repalis/orbit'
 
 export function AUPBlocker({ categories }: { categories: string[] }) {
   return (

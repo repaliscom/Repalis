@@ -133,7 +133,7 @@ describe('init', () => {
     expect(await read('polar.config.ts')).toContain(
       "import { defineConfig } from '@repalis/repalis'",
     )
-    expect(api.requests[0]!.headers.get('Polar-Organization')).toBe('org-1')
+    expect(api.requests[0]!.headers.get('Repalis-Organization')).toBe('org-1')
   })
 
   test('enables config for the organization before writing the file', async () => {
@@ -141,7 +141,7 @@ describe('init', () => {
 
     const enable = api.requests.find((request) => request.url === initUrl)!
     expect(enable.method).toBe('POST')
-    expect(enable.headers.get('Polar-Organization')).toBe('org-1')
+    expect(enable.headers.get('Repalis-Organization')).toBe('org-1')
   })
 
   test('does not enable an organization that already manages its catalog as code', async () => {

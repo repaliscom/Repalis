@@ -1,7 +1,7 @@
-import { Box } from '@polar-sh/orbit/Box'
+import { Box } from '@repalis/orbit/Box'
 import { PageHeader, Section, Prose, Example } from '@/components/docs'
-import { Text } from '@polar-sh/orbit'
-import type { BorderRadiusToken } from '@polar-sh/orbit/theme'
+import { Text } from '@repalis/orbit'
+import type { BorderRadiusToken } from '@repalis/orbit/theme'
 
 const RADII: { token: BorderRadiusToken; px: string; note: string }[] = [
   { token: 'none', px: '0', note: 'Square edges' },

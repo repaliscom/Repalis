@@ -1,4 +1,4 @@
-import { formatCurrency } from '@polar-sh/currency'
+import { formatCurrency } from '@repalis/currency'
 const stripTrailingZeros = (value: string): string => {
   return value.replace(/\.0+([^0-9]*)$/g, '$1')
 }

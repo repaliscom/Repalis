@@ -7,7 +7,7 @@ import {
   SyntaxHighlighterProvider,
 } from '@/components/SyntaxHighlighterShiki/SyntaxHighlighterClient'
 import { OrganizationContext } from '@/providers/maintainerOrganization'
-import { Button } from '@polar-sh/orbit'
+import { Button } from '@repalis/orbit'
 import Link from 'next/link'
 import { useContext } from 'react'
 
@@ -49,10 +49,10 @@ export const MeterIngestionGuide = () => {
           <Well className="dark:bg-repalis-900 flex-1 shrink overflow-auto bg-white p-6 text-sm">
             <SyntaxHighlighterClient
               lang="typescript"
-              code={`import { Polar } from "@polar-sh/sdk";
+              code={`import { Polar } from "@repalis/sdk";
 
 const polar = new Polar({
-  accessToken: process.env["POLAR_ACCESS_TOKEN"] ?? "",
+  accessToken: process.env["REPALIS_ACCESS_TOKEN"] ?? "",
 });
 
 export const GET = async (req: Request, res: Response) => {

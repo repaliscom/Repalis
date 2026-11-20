@@ -1,5 +1,5 @@
 import { refreshMiddleware } from '@/auth/refreshMiddleware'
-import { Client, createClient } from '@polar-sh/client'
+import { Client, createClient } from '@repalis/client'
 import Constants from 'expo-constants'
 import * as Updates from 'expo-updates'
 import {
@@ -21,14 +21,14 @@ const CLIENT_VERSION_HEADERS = {
   'X-Polar-Client-Version': `mobile/${Constants.expoConfig?.version ?? 'unknown'}`,
   'X-Polar-Client-Runtime': Updates.runtimeVersion ?? 'unknown',
   'X-Polar-Client-Update': Updates.updateId ?? 'embedded',
-  'Polar-Version': API_VERSION,
+  'Repalis-Version': API_VERSION,
 }
 
 const RepalisClientContext = createContext<{
   polar: Client
 }>({
   polar: createClient(
-    process.env.EXPO_PUBLIC_POLAR_SERVER_URL ?? 'https://api.repalis.com',
+    process.env.EXPO_PUBLIC_REPALIS_SERVER_URL ?? 'https://api.repalis.com',
     undefined,
     CLIENT_VERSION_HEADERS,
   ),
@@ -46,14 +46,14 @@ export function useRepalisClient() {
   return value
 }
 
-export const usePolarClient = useRepalisClient
+export const useRepalisClient = useRepalisClient
 
 export function RepalisClientProvider({ children }: PropsWithChildren) {
   const { session } = useSession()
 
   const polar = useMemo(() => {
     const client = createClient(
-      process.env.EXPO_PUBLIC_POLAR_SERVER_URL ?? 'https://api.repalis.com',
+      process.env.EXPO_PUBLIC_REPALIS_SERVER_URL ?? 'https://api.repalis.com',
       session ?? '',
       CLIENT_VERSION_HEADERS,
     )

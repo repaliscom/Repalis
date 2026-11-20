@@ -1,4 +1,4 @@
-import type { schemas } from '@polar-sh/client'
+import type { schemas } from '@repalis/client'
 import { getSeatPrice } from '../guards'
 import { sortTiers } from './units'
 

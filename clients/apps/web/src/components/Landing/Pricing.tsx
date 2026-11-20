@@ -1,8 +1,8 @@
 'use client'
 
-import { CheckOutlined } from '@polar-sh/orbit/icons'
-import { Button, Grid, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { CheckOutlined } from '@repalis/orbit/icons'
+import { Button, Grid, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import Link from 'next/link'
 import GetStartedButton from '../Auth/GetStartedButton'
 import { Chapter } from './Chapter'

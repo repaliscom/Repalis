@@ -80,11 +80,11 @@ describe('polar config generate', () => {
     const { output, exit } = await run()
 
     expect(Exit.isSuccess(exit)).toBe(true)
-    expect(await read('polar_types.py')).toContain(
+    expect(await read('repalis_types.py')).toContain(
       'tool_call: typing.Literal["tool_call"] = "tool_call"',
     )
     expect(output).toContain(
-      `polar_types.py written from ${at('polar.config.json')}: 1 meter, 0 benefits, 0 products, 0 events`,
+      `repalis_types.py written from ${at('polar.config.json')}: 1 meter, 0 benefits, 0 products, 0 events`,
     )
     expect(output).toContain('polar config generate --check')
   })
@@ -98,7 +98,7 @@ describe('polar config generate', () => {
       message: 'Could not tell which language to generate',
       hint: expect.stringContaining('Pass --language with one of: py'),
     })
-    await expect(read('polar_types.py')).rejects.toThrow()
+    await expect(read('repalis_types.py')).rejects.toThrow()
   })
 
   test('takes the language from --out when no project says which', async () => {
@@ -117,7 +117,7 @@ describe('polar config generate', () => {
     const { exit } = await run()
 
     expect(Exit.isSuccess(exit)).toBe(true)
-    expect(await read('billing', 'polar_types.py')).toContain('class Meters:')
+    expect(await read('billing', 'repalis_types.py')).toContain('class Meters:')
   })
 
   test('takes the language from --language when no project says which', async () => {
@@ -160,8 +160,8 @@ describe('polar config generate', () => {
       meters: [{ external_id: 'api_call' }],
     })
 
-    expect(output).toContain('polar_types.py written')
-    expect(await read('polar_types.py')).toContain('api_call')
+    expect(output).toContain('repalis_types.py written')
+    expect(await read('repalis_types.py')).toContain('api_call')
   })
 
   test('says so when the file is already up to date', async () => {
@@ -169,7 +169,7 @@ describe('polar config generate', () => {
 
     const { output } = await run()
 
-    expect(output).toContain('polar_types.py is up to date')
+    expect(output).toContain('repalis_types.py is up to date')
   })
 
   test('refuses a config it cannot read names from', async () => {
@@ -178,7 +178,7 @@ describe('polar config generate', () => {
     expect(failure(exit)?.hint).toBe(
       'meters[0] has no external_id. Run polar config plan to see what to fix.',
     )
-    await expect(read('polar_types.py')).rejects.toThrow()
+    await expect(read('repalis_types.py')).rejects.toThrow()
   })
 
   test('prints what it did as JSON', async () => {
@@ -186,7 +186,7 @@ describe('polar config generate', () => {
 
     expect(JSON.parse(output)).toEqual({
       config: at('polar.config.json'),
-      file: at('polar_types.py'),
+      file: at('repalis_types.py'),
       language: 'py',
       status: 'written',
       command: 'polar config generate',
@@ -211,16 +211,16 @@ describe('polar config generate', () => {
 
   test('with --check, fails on a stale file and leaves it alone', async () => {
     await run([], { meters: [{ external_id: 'api_call' }] })
-    const stale = await read('polar_types.py')
+    const stale = await read('repalis_types.py')
 
     const { exit } = await run(['--check'])
 
     expect(failure(exit)?.message).toContain('is out of date')
-    expect(await read('polar_types.py')).toBe(stale)
+    expect(await read('repalis_types.py')).toBe(stale)
   })
 
   test('with --check, says so when the file is not one it wrote', async () => {
-    await writeFile(at('polar_types.py'), 'print("mine")\n')
+    await writeFile(at('repalis_types.py'), 'print("mine")\n')
 
     const { exit } = await run(['--check'])
 
@@ -231,8 +231,8 @@ describe('polar config generate', () => {
 
   test('with --check, passes on a checkout with Windows line endings', async () => {
     await run()
-    const written = await read('polar_types.py')
-    await writeFile(at('polar_types.py'), written.replaceAll('\n', '\r\n'))
+    const written = await read('repalis_types.py')
+    await writeFile(at('repalis_types.py'), written.replaceAll('\n', '\r\n'))
 
     const { exit } = await run(['--check'])
 

@@ -102,8 +102,8 @@ test('events/list returns the backend catalog as webhook events', async () => {
   expect(url).toBe(EVENTS_URL)
   const headers = new Headers(init?.headers)
   expect(headers.get('Authorization')).toBe('Bearer polar_oat_test')
-  expect(headers.get('User-Agent')).toBe('polar-mcp')
-  expect(headers.get('Polar-Version')).toBe(spec.apiVersion)
+  expect(headers.get('User-Agent')).toBe('repalis-mcp')
+  expect(headers.get('Repalis-Version')).toBe(spec.apiVersion)
 })
 
 test('events/subscribe creates the subscription and returns when to refresh it', async () => {

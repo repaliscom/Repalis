@@ -1,17 +1,17 @@
 import { useUpdateOrganization } from '@/hooks/queries'
 import { useAutoSave } from '@/hooks/useAutoSave'
 import { extractApiErrorMessage, setValidationErrors } from '@/utils/api/errors'
-import { isValidationError, schemas } from '@polar-sh/client'
-import { formatCurrency } from '@polar-sh/currency'
-import { Switch } from '@polar-sh/orbit'
-import MoneyInput from '@polar-sh/ui/components/atoms/MoneyInput'
+import { isValidationError, schemas } from '@repalis/client'
+import { formatCurrency } from '@repalis/currency'
+import { Switch } from '@repalis/orbit'
+import MoneyInput from '@repalis/ui/components/atoms/MoneyInput'
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormMessage,
-} from '@polar-sh/ui/components/ui/form'
+} from '@repalis/ui/components/ui/form'
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from '../Toast/use-toast'

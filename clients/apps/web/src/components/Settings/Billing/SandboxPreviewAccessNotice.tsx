@@ -3,10 +3,10 @@
 import { toast } from '@/components/Toast/use-toast'
 import { useEnableOrganizationPreviewAccess } from '@/hooks/queries'
 import { extractApiErrorMessage } from '@/utils/api/errors'
-import { schemas } from '@polar-sh/client'
-import { Button, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import { CheckOutlined } from '@polar-sh/orbit/icons'
+import { schemas } from '@repalis/client'
+import { Button, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import { CheckOutlined } from '@repalis/orbit/icons'
 import { useRouter } from 'next/navigation'
 
 /**

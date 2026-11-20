@@ -1,4 +1,4 @@
-import { checkout, polar, portal, usage, webhooks } from '@polar-sh/better-auth'
+import { checkout, polar, portal, usage, webhooks } from '@repalis/better-auth'
 import { betterAuth } from 'better-auth'
 import { organization } from 'better-auth/plugins'
 import Database from 'better-sqlite3'
@@ -48,7 +48,7 @@ export const auth = betterAuth({
           returnUrl: 'https://myapp.com',
         }),
         webhooks({
-          secret: process.env['POLAR_WEBHOOK_SECRET'] as string,
+          secret: process.env['REPALIS_WEBHOOK_SECRET'] as string,
           onCustomerSeatAssigned: async (payload) => {
             void payload
           },

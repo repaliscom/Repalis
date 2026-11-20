@@ -1,4 +1,4 @@
-import { Status } from '@polar-sh/orbit'
+import { Status } from '@repalis/orbit'
 import { SwitchRow } from './switchRows'
 import { switchStatus } from './switchStatus'
 

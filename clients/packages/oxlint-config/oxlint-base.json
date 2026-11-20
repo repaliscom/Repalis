@@ -102,17 +102,17 @@
         "paths": [
           {
             "name": "lucide-react",
-            "message": "Import icons from @polar-sh/orbit/icons."
+            "message": "Import icons from @repalis/orbit/icons."
           },
           {
             "name": "@mui/icons-material",
-            "message": "Import icons from @polar-sh/orbit/icons."
+            "message": "Import icons from @repalis/orbit/icons."
           }
         ],
         "patterns": [
           {
             "group": ["@mui/icons-material/*", "lucide-react/*"],
-            "message": "Import icons from @polar-sh/orbit/icons."
+            "message": "Import icons from @repalis/orbit/icons."
           }
         ]
       }

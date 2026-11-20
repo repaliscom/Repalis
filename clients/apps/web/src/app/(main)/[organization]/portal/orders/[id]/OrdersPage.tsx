@@ -3,9 +3,9 @@
 import CustomerPortalOrder from '@/components/CustomerPortal/CustomerPortalOrder'
 import { PortalBackLink } from '@/components/CustomerPortal/PortalPrimitives'
 import { createClientSideAPI } from '@/utils/client'
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 import { useParams } from 'next/navigation'
-import { getThemePreset } from '@polar-sh/ui/hooks/theming'
+import { getThemePreset } from '@repalis/ui/hooks/theming'
 import { useTheme } from 'next-themes'
 
 const ClientPage = ({

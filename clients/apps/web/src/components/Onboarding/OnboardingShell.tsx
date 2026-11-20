@@ -1,9 +1,9 @@
 'use client'
 
 import { useAuth, useLogout } from '@/hooks'
-import { Button } from '@polar-sh/orbit'
+import { Button } from '@repalis/orbit'
 import { OnboardingLayout } from '../Layout/OnboardingLayout'
-import { Box } from '@polar-sh/orbit/Box'
+import { Box } from '@repalis/orbit/Box'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useState, type ReactNode } from 'react'

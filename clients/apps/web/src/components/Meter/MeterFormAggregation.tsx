@@ -1,14 +1,14 @@
 'use client'
 
-import { enums, schemas } from '@polar-sh/client'
+import { enums, schemas } from '@repalis/client'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@polar-sh/orbit'
-import { Input } from '@polar-sh/orbit'
+} from '@repalis/orbit'
+import { Input } from '@repalis/orbit'
 import {
   FormControl,
   FormDescription,
@@ -16,7 +16,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@polar-sh/ui/components/ui/form'
+} from '@repalis/ui/components/ui/form'
 import { useFormContext, useWatch } from 'react-hook-form'
 
 type AggregationFunction =

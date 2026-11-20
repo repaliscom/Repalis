@@ -1,5 +1,5 @@
-import { getMetricsRangeDates, schemas } from '@polar-sh/client'
-import { formatCurrency } from '@polar-sh/currency'
+import { getMetricsRangeDates, schemas } from '@repalis/client'
+import { formatCurrency } from '@repalis/currency'
 import {
   differenceInDays,
   differenceInMonths,

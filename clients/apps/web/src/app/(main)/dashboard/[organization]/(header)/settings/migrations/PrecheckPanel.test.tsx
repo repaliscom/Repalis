@@ -1,4 +1,4 @@
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 import { fireEvent, render, screen } from '@testing-library/react'
 import { ReactNode } from 'react'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
@@ -11,7 +11,7 @@ vi.mock('@/hooks/queries/merchantMigrations', async (importOriginal) => ({
   useRunMerchantMigrationPrecheck: () => precheck,
 }))
 
-vi.mock('@polar-sh/orbit', () => ({
+vi.mock('@repalis/orbit', () => ({
   Text: ({ children }: { children: ReactNode }) => <span>{children}</span>,
   Spinner: () => <span />,
   Button: ({
@@ -29,7 +29,7 @@ vi.mock('@polar-sh/orbit', () => ({
   ),
 }))
 
-vi.mock('@polar-sh/orbit/Box', () => ({
+vi.mock('@repalis/orbit/Box', () => ({
   Box: ({ children }: { children: ReactNode }) => <div>{children}</div>,
 }))
 

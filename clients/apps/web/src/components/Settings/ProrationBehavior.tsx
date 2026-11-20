@@ -1,13 +1,13 @@
 'use client'
 
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
-} from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+} from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 
 type ProrationBehaviorSetting = schemas['Organization']['proration_behavior']
 

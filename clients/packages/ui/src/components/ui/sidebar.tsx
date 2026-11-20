@@ -2,11 +2,11 @@
 
 import { Slot } from '@radix-ui/react-slot'
 import { cva } from 'class-variance-authority'
-import { PanelLeft } from '@polar-sh/orbit/icons'
+import { PanelLeft } from '@repalis/orbit/icons'
 import * as React from 'react'
 
-import { Button } from '@polar-sh/orbit/ui/button'
-import { Input } from '@polar-sh/orbit/ui/input'
+import { Button } from '@repalis/orbit/ui/button'
+import { Input } from '@repalis/orbit/ui/input'
 import { Separator } from '@/components/ui/separator'
 import { Sheet, SheetContent } from '@/components/ui/sheet'
 import {

@@ -2,9 +2,9 @@
 
 import LogoType from '@/components/Brand/logos/LogoType'
 import { useInView } from '@/hooks/useInView'
-import { Grid, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import { Check, CreditCard, LoaderCircle } from '@polar-sh/orbit/icons'
+import { Grid, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import { Check, CreditCard, LoaderCircle } from '@repalis/orbit/icons'
 import { useEffect, useState, type ReactNode } from 'react'
 import { Shimmer } from '../Shimmer'
 import { FLOW, Sheet } from './Frame'

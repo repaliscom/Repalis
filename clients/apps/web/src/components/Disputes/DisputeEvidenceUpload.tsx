@@ -3,8 +3,8 @@
 import { FileAttachmentPill } from '@/components/Chat/FileAttachmentPill'
 import { useFileUpload } from '@/components/FileUpload'
 import { toast } from '@/components/Toast/use-toast'
-import { schemas } from '@polar-sh/client'
-import { Box } from '@polar-sh/orbit/Box'
+import { schemas } from '@repalis/client'
+import { Box } from '@repalis/orbit/Box'
 import { AnimatePresence } from 'motion/react'
 import { twMerge } from 'tailwind-merge'
 

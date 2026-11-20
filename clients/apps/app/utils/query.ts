@@ -1,6 +1,6 @@
 /* oxlint-disable import/first */
 export { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { ClientResponseError, isValidationError } from '@polar-sh/client'
+import { ClientResponseError, isValidationError } from '@repalis/client'
 import { QueryClient } from '@tanstack/react-query'
 
 export const queryClient = new QueryClient({

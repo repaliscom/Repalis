@@ -2,26 +2,26 @@
 
 import { Events } from '@/components/Events/Events'
 import MeterEventsTab from '@/components/Meter/MeterEventsTab'
-import { Grid, Spinner } from '@polar-sh/orbit'
+import { Grid, Spinner } from '@repalis/orbit'
 import { useEvents } from '@/hooks/queries/events'
 import { useMeterQuantities } from '@/hooks/queries/meters'
 import { ParsedMetricPeriod } from '@/hooks/queries/metrics'
 import { OrganizationContext } from '@/providers/maintainerOrganization'
 import { dateRangeToInterval } from '@/utils/metrics'
 import { UTCDate } from '@date-fns/utc'
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 import {
   Card,
   CardContent,
   CardHeader,
-} from '@polar-sh/ui/components/atoms/Card'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@polar-sh/orbit'
+} from '@repalis/ui/components/atoms/Card'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@repalis/orbit'
 import { endOfMonth, startOfMonth, subMonths } from 'date-fns'
 import { useCallback, useContext, useMemo, useState } from 'react'
 import DateRangePicker from '../Metrics/DateRangePicker'
 import IntervalPicker, { getNextValidInterval } from '../Metrics/IntervalPicker'
 import MetricChart from '../Metrics/MetricChart'
-import { InlineModal } from '@polar-sh/orbit'
+import { InlineModal } from '@repalis/orbit'
 import { Well, WellContent, WellHeader } from '../Shared/Well'
 import FormattedUnits from './FormattedUnits'
 import MeterCustomersTab from './MeterCustomersTab'

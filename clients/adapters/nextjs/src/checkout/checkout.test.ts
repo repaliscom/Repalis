@@ -4,16 +4,16 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 const mockCheckoutCreate = vi.fn()
 const mockCheckoutUpdate = vi.fn()
 
-vi.mock('@polar-sh/sdk/2026-10', () => ({
-  createPolarCore: vi.fn(() => ({})),
+vi.mock('@repalis/sdk/2026-10', () => ({
+  createRepalisCore: vi.fn(() => ({})),
 }))
 
-vi.mock('@polar-sh/sdk/2026-10/services/checkouts', () => ({
+vi.mock('@repalis/sdk/2026-10/services/checkouts', () => ({
   createCheckouts: vi.fn(() => mockCheckoutCreate),
   clientUpdateCheckouts: () => mockCheckoutUpdate,
 }))
 
-import { createPolarCore } from '@polar-sh/sdk/2026-10'
+import { createRepalisCore } from '@repalis/sdk/2026-10'
 import { Checkout } from './checkout'
 
 describe('Checkout', () => {
@@ -30,7 +30,7 @@ describe('Checkout', () => {
 
       expect(checkout).toBeDefined()
       expect(typeof checkout).toBe('function')
-      expect(createPolarCore).toHaveBeenCalledWith({
+      expect(createRepalisCore).toHaveBeenCalledWith({
         accessToken: 'test-token',
         environment: 'sandbox',
       })

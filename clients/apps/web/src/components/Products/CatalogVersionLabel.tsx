@@ -1,7 +1,7 @@
 import { useCatalogVersionLabels } from '@/hooks/queries/catalogs'
-import { schemas } from '@polar-sh/client'
-import { Pill } from '@polar-sh/orbit'
-import { History } from '@polar-sh/orbit/icons'
+import { schemas } from '@repalis/client'
+import { Pill } from '@repalis/orbit'
+import { History } from '@repalis/orbit/icons'
 import { CatalogVersion } from './CatalogVersionSelect'
 
 export const CatalogVersionLabel = ({

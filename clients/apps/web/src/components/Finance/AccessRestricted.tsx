@@ -1,5 +1,5 @@
-import { Box } from '@polar-sh/orbit/Box'
-import { BrickWallShield as BrickWallShieldIcon } from '@polar-sh/orbit/icons'
+import { Box } from '@repalis/orbit/Box'
+import { BrickWallShield as BrickWallShieldIcon } from '@repalis/orbit/icons'
 export interface AccessRestrictedProps {
   message: string
 }

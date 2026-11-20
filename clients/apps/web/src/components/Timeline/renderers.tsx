@@ -7,10 +7,10 @@ import {
   PersonOutlineOutlined,
   ShoppingBagOutlined,
   ShoppingCartOutlined,
-} from '@polar-sh/orbit/icons'
+} from '@repalis/orbit/icons'
 import { benefitsDisplayNames } from '@/components/Benefit/utils'
-import { schemas } from '@polar-sh/client'
-import { formatCurrency } from '@polar-sh/currency'
+import { schemas } from '@repalis/client'
+import { formatCurrency } from '@repalis/currency'
 import type { ReactNode } from 'react'
 
 export type TimelineImportance = 'high' | 'medium' | 'low'

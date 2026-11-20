@@ -2,8 +2,8 @@
 
 import LogoType from '@/components/Brand/logos/LogoType'
 import { StaticImage } from '@/components/Image/StaticImage'
-import { Grid, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { Grid, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import { useMemo, type ReactNode } from 'react'
 import { EventLog } from './EventLog'
 import { MarginChart } from './MarginChart'

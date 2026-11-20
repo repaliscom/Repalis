@@ -1,22 +1,22 @@
-import { PolarEmbedCheckout } from '@polar-sh/checkout/embed'
-import type { PolarEmbedCheckout as PolarEmbedCheckoutType } from '@polar-sh/checkout/embed'
+import { RepalisEmbedCheckout } from '@repalis/checkout/embed'
+import type { RepalisEmbedCheckout as RepalisEmbedCheckoutType } from '@repalis/checkout/embed'
 import type { BetterAuthClientPlugin } from 'better-auth'
 import type { BetterFetch, BetterFetchOption } from 'better-auth/client'
 import type { CheckoutParams } from './plugins/checkout'
 import type { polar } from './server'
 
-export type { PolarEmbedCheckoutType as PolarEmbedCheckout }
+export type { RepalisEmbedCheckoutType as RepalisEmbedCheckout }
 
-export const polarClient = () => {
+export const repalisClient = () => {
   return {
-    id: 'polar-client',
+    id: 'repalis-client',
     $InferServerPlugin: {} as ReturnType<typeof polar>,
     getActions: ($fetch: BetterFetch) => {
       return {
         checkoutEmbed: async (
           data: Omit<CheckoutParams, 'redirect' | 'embed_origin'>,
           fetchOptions?: BetterFetchOption,
-        ): Promise<PolarEmbedCheckoutType> => {
+        ): Promise<RepalisEmbedCheckoutType> => {
           const res = await $fetch('/checkout', {
             method: 'POST',
             body: {
@@ -39,7 +39,7 @@ export const polarClient = () => {
               | 'dark'
               | undefined) ?? 'light'
 
-          return await PolarEmbedCheckout.create(checkout.url, { theme })
+          return await RepalisEmbedCheckout.create(checkout.url, { theme })
         },
       }
     },

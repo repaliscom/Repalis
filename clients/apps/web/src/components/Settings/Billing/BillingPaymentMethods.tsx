@@ -8,11 +8,11 @@ import {
   type OrganizationPaymentMethod,
 } from '@/hooks/queries/billing'
 import { extractApiErrorMessage } from '@/utils/api/errors'
-import { Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import { Button } from '@polar-sh/orbit'
-import { Status } from '@polar-sh/orbit'
-import { X } from '@polar-sh/orbit/icons'
+import { Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import { Button } from '@repalis/orbit'
+import { Status } from '@repalis/orbit'
+import { X } from '@repalis/orbit/icons'
 import {
   PaymentMethodDisplay,
   getPaymentMethodCardInfo,
@@ -129,7 +129,7 @@ export const BillingPaymentMethods = ({
       <Box alignItems="start" justifyContent="between" columnGap="m">
         <SectionDescription
           title="Payment methods"
-          description="Cards used to pay for your Polar subscription"
+          description="Cards used to pay for your Repalis subscription"
         />
         <Button onClick={onAddPaymentMethod} variant="secondary">
           Add payment method

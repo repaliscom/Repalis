@@ -2,7 +2,7 @@
 
 import { api } from '@/utils/client'
 import useDebounce from '@/utils/useDebounce'
-import { unwrap } from '@polar-sh/client'
+import { unwrap } from '@repalis/client'
 import { useQuery } from '@tanstack/react-query'
 import { usePostHog } from './posthog'
 

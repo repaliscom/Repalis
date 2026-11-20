@@ -1,8 +1,8 @@
 import { useCustomerSubscriptionMeterChargePreview } from '@/hooks/queries/customerPortal'
 import { billsUsageOnMeterCycle } from '@/utils/subscription'
-import { Client, schemas } from '@polar-sh/client'
-import { formatCurrency } from '@polar-sh/currency'
-import { Box } from '@polar-sh/orbit/Box'
+import { Client, schemas } from '@repalis/client'
+import { formatCurrency } from '@repalis/currency'
+import { Box } from '@repalis/orbit/Box'
 import {
   PortalDivider,
   PortalRow,

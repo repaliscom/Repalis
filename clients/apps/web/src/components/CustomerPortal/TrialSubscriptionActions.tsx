@@ -4,9 +4,9 @@ import {
   useCustomerCancelSubscription,
   useCustomerPortalCustomer,
 } from '@/hooks/queries/customerPortal'
-import { Client, schemas } from '@polar-sh/client'
-import { Alert, Button } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { Client, schemas } from '@repalis/client'
+import { Alert, Button } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import { useState } from 'react'

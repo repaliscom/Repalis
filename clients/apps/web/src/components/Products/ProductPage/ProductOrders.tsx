@@ -1,11 +1,11 @@
 import { OrderStatus } from '@/components/Orders/OrderStatus'
 import { useOrders } from '@/hooks/queries/orders'
-import { schemas } from '@polar-sh/client'
-import { formatCurrency } from '@polar-sh/currency'
-import { Avatar } from '@polar-sh/orbit'
-import { Button, Text } from '@polar-sh/orbit'
-import { DataTable, DataTableColumnHeader } from '@polar-sh/orbit'
-import FormattedDateTime from '@polar-sh/ui/components/atoms/FormattedDateTime'
+import { schemas } from '@repalis/client'
+import { formatCurrency } from '@repalis/currency'
+import { Avatar } from '@repalis/orbit'
+import { Button, Text } from '@repalis/orbit'
+import { DataTable, DataTableColumnHeader } from '@repalis/orbit'
+import FormattedDateTime from '@repalis/ui/components/atoms/FormattedDateTime'
 import Link from 'next/link'
 
 export interface ProductOrdersProps {

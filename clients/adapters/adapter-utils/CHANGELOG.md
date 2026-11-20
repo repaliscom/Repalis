@@ -1,11 +1,11 @@
-# @polar-sh/adapter-utils
+# @repalis/adapter-utils
 
 ## 1.1.1
 
 ### Patch Changes
 
-- b5ead87: Update `@polar-sh/sdk` to version 1.1.0.
-- 2f927d4: Update `@polar-sh/sdk` to version 1.3.1.
+- b5ead87: Update `@repalis/sdk` to version 1.1.0.
+- 2f927d4: Update `@repalis/sdk` to version 1.3.1.
 
 ## 1.1.0
 
@@ -17,13 +17,13 @@
 
 ### Patch Changes
 
-- 4e582f4: Update `@polar-sh/sdk` to version 1.0.2.
+- 4e582f4: Update `@repalis/sdk` to version 1.0.2.
 
 ## 1.0.0
 
 ### Major Changes
 
-- 193578b: Migrate webhook and entitlement types to the new Polar SDK (`@polar-sh/sdk/2026-10`).
+- 193578b: Migrate webhook and entitlement types to the new Polar SDK (`@repalis/sdk/2026-10`).
 
 ## 0.4.7
 
@@ -35,34 +35,34 @@
 
 ### Patch Changes
 
-- 9b0cf46: Update @polar-sh/sdk to 0.46.5
-- fbb9c4c: Update @polar-sh/sdk to 0.46.7
-- a89b1ee: Update @polar-sh/sdk to 0.47.0
-- 19b0f48: Update @polar-sh/sdk to 0.46.6
+- 9b0cf46: Update @repalis/sdk to 0.46.5
+- fbb9c4c: Update @repalis/sdk to 0.46.7
+- a89b1ee: Update @repalis/sdk to 0.47.0
+- 19b0f48: Update @repalis/sdk to 0.46.6
 
 ## 0.4.5
 
 ### Patch Changes
 
-- 0e8d982: Update @polar-sh/sdk to 0.46.2
+- 0e8d982: Update @repalis/sdk to 0.46.2
 
 ## 0.4.4
 
 ### Patch Changes
 
-- 43ff4ac: Update @polar-sh/sdk to 0.46.0
+- 43ff4ac: Update @repalis/sdk to 0.46.0
 
 ## 0.4.3
 
 ### Patch Changes
 
-- 3906ed9: Bump @polar-sh/sdk
+- 3906ed9: Bump @repalis/sdk
 
 ## 0.4.2
 
 ### Patch Changes
 
-- c591126: Bump @polar-sh/sdk
+- c591126: Bump @repalis/sdk
 
 ## 0.4.1
 

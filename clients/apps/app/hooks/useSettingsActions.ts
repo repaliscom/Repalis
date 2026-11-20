@@ -1,7 +1,7 @@
 import { useLogout } from '@/hooks/auth'
 import { useDeleteOrganization } from '@/hooks/repalis/organizations'
 import { useDeleteUser } from '@/hooks/repalis/users'
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 import { useCallback, useState } from 'react'
 import { Alert, Linking } from 'react-native'
 

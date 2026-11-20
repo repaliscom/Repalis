@@ -1,14 +1,14 @@
 import { OrganizationContext } from '@/providers/maintainerOrganization'
 import { getAnonymousCustomerName } from '@/utils/anonymous-customer'
 import { buildCustomerDashboardPath } from '@/utils/customer'
-import { schemas } from '@polar-sh/client'
-import { Avatar } from '@polar-sh/orbit'
-import { Button } from '@polar-sh/orbit'
+import { schemas } from '@repalis/client'
+import { Avatar } from '@repalis/orbit'
+import { Button } from '@repalis/orbit'
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@polar-sh/ui/components/ui/popover'
+} from '@repalis/ui/components/ui/popover'
 import Link from 'next/link'
 import { useContext } from 'react'
 

@@ -1,9 +1,9 @@
-import { CheckOutlined } from '@polar-sh/orbit/icons'
-import { schemas } from '@polar-sh/client'
-import { formatCurrency } from '@polar-sh/currency'
-import { Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import { Pill } from '@polar-sh/orbit'
+import { CheckOutlined } from '@repalis/orbit/icons'
+import { schemas } from '@repalis/client'
+import { formatCurrency } from '@repalis/currency'
+import { Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import { Pill } from '@repalis/orbit'
 import { twMerge } from 'tailwind-merge'
 
 const formatPrice = formatCurrency('standard', 'en-US')

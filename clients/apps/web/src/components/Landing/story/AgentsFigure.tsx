@@ -1,9 +1,9 @@
 'use client'
 
 import { useInView } from '@/hooks/useInView'
-import { Grid, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import { Check, LoaderCircle } from '@polar-sh/orbit/icons'
+import { Grid, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import { Check, LoaderCircle } from '@repalis/orbit/icons'
 import { useEffect, useState } from 'react'
 import { Shimmer } from '../Shimmer'
 import { Sheet, Window } from './Frame'
@@ -112,7 +112,7 @@ export const AgentsFigure = ({ turns = TURNS }: { turns?: Turn[] }) => {
         >
           <pre className="m-0 font-mono text-[13px] leading-6 whitespace-pre-wrap text-white">
             claude mcp add --transport http polar
-            https://mcp.repalis.com/mcp/polar-mcp
+            https://mcp.repalis.com/mcp/repalis-mcp
           </pre>
           <Box flexDirection="column" rowGap="s">
             {['Claude Code', 'Cursor', 'ChatGPT', 'Claude Desktop'].map(

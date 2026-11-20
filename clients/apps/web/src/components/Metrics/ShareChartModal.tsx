@@ -1,6 +1,6 @@
 import { ParsedMetricsResponse } from '@/hooks/queries/metrics'
-import { schemas } from '@polar-sh/client'
-import { Button } from '@polar-sh/orbit'
+import { schemas } from '@repalis/client'
+import { Button } from '@repalis/orbit'
 import domtoimage from 'dom-to-image'
 import { useEffect, useRef, useState } from 'react'
 import LogoType from '../Brand/logos/LogoType'

@@ -1,9 +1,9 @@
 import {
   createCheckout,
   createCustomPrice,
-} from '@polar-sh/checkout/test-utils'
-import type { schemas } from '@polar-sh/client'
-import { type AcceptedLocale, SUPPORTED_LOCALES } from '@polar-sh/i18n'
+} from '@repalis/checkout/test-utils'
+import type { schemas } from '@repalis/client'
+import { type AcceptedLocale, SUPPORTED_LOCALES } from '@repalis/i18n'
 import { fireEvent, screen, waitFor } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
 import {

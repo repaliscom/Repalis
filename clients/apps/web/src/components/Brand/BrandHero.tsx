@@ -1,5 +1,5 @@
-import { Button, Grid, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { Button, Grid, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import LogoReveal from './logos/LogoReveal'
 
 export const BrandHero = () => (

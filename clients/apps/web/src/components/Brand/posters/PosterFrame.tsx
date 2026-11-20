@@ -1,6 +1,6 @@
-import { Text } from '@polar-sh/orbit'
+import { Text } from '@repalis/orbit'
 import { StaticImage } from '@/components/Image/StaticImage'
-import { Box } from '@polar-sh/orbit/Box'
+import { Box } from '@repalis/orbit/Box'
 import type { CSSProperties, PropsWithChildren } from 'react'
 import LogoType from '../logos/LogoType'
 

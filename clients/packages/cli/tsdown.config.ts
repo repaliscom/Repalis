@@ -9,6 +9,6 @@ export default defineConfig({
   target: false,
   fixedExtension: false,
   deps: {
-    alwaysBundle: ['@polar-sh/cli-commands'],
+    alwaysBundle: ['@repalis/cli-commands'],
   },
 })

@@ -1,4 +1,4 @@
-import type { ApiCommandError } from '@polar-sh/cli-commands'
+import type { ApiCommandError } from '@repalis/cli-commands'
 import type { ListenError } from '@/services/listen'
 import type { TriggerError } from '@/schemas/Trigger'
 import type { UpdateError } from '@/services/update'

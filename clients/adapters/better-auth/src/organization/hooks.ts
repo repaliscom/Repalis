@@ -1,6 +1,6 @@
 import type { AuthContext } from 'better-auth'
 import type { OrganizationOptions } from 'better-auth/plugins/organization'
-import type { PolarOptions } from '../types'
+import type { RepalisOptions } from '../types'
 import {
   BetterAuthOrganizationStateError,
   removeOrganizationMemberMirror,
@@ -17,7 +17,7 @@ import {
   updateMemberRoleMirror,
   updateTeamCustomer,
 } from './sync'
-import type { PolarOrganizationRoleSyncOptions } from './types'
+import type { RepalisOrganizationRoleSyncOptions } from './types'
 
 type OrganizationHooks = NonNullable<OrganizationOptions['organizationHooks']>
 type AfterCreateOrganizationData = Parameters<
@@ -46,7 +46,7 @@ type AfterRemoveMemberData = Parameters<
  */
 export const installOrganizationHooks = (
   ctx: AuthContext,
-  options: PolarOptions,
+  options: RepalisOptions,
 ) => {
   const organizationOptions = options.experimental_organizationSync
   if (!organizationOptions?.enabled) {
@@ -57,7 +57,7 @@ export const installOrganizationHooks = (
 
   if (!organizationPlugin) {
     throw new Error(
-      "Polar organization support requires Better Auth's organization plugin",
+      "Repalis organization support requires Better Auth's organization plugin",
     )
   }
 
@@ -66,12 +66,12 @@ export const installOrganizationHooks = (
 
   const existingHooks = betterAuthOrganizationOptions.organizationHooks ?? {}
 
-  const roleSyncOptions: PolarOrganizationRoleSyncOptions = {
+  const roleSyncOptions: RepalisOrganizationRoleSyncOptions = {
     creatorRole:
       betterAuthOrganizationOptions.creatorRole ??
       DEFAULT_BETTER_AUTH_CREATOR_ROLE,
-    mapBetterAuthRoleToPolarRole:
-      organizationOptions.mapBetterAuthRoleToPolarRole,
+    mapBetterAuthRoleToRepalisRole:
+      organizationOptions.mapBetterAuthRoleToRepalisRole,
   }
 
   const syncCreatedOrganization = async (data: AfterCreateOrganizationData) => {

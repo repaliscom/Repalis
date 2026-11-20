@@ -1,10 +1,10 @@
-import type { schemas } from '@polar-sh/client'
-import { formatCurrency } from '@polar-sh/currency'
+import type { schemas } from '@repalis/client'
+import { formatCurrency } from '@repalis/currency'
 import {
   DEFAULT_LOCALE,
   useTranslations,
   type AcceptedLocale,
-} from '@polar-sh/i18n'
+} from '@repalis/i18n'
 import MoneyInput from './ui/MoneyInput'
 import {
   Form,
@@ -12,7 +12,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@polar-sh/ui/components/ui/form'
+} from '@repalis/ui/components/ui/form'
 import { useCallback, useEffect, useRef } from 'react'
 import { useForm, useWatch } from 'react-hook-form'
 import useDebouncedCallback from '../hooks/debounce'

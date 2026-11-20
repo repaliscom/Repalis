@@ -1,9 +1,9 @@
-import type { models } from '@polar-sh/sdk/2026-10'
+import type { models } from '@repalis/sdk/2026-10'
 import type { User } from 'better-auth'
 import type { Member, Organization } from 'better-auth/plugins/organization'
 
-export type PolarMemberRole = models.MemberRole
-export type PolarNonOwnerMemberRole = Exclude<PolarMemberRole, 'owner'>
+export type RepalisMemberRole = models.MemberRole
+export type PolarNonOwnerMemberRole = Exclude<RepalisMemberRole, 'owner'>
 
 export type BetterAuthOrganizationUser = User & Record<string, unknown>
 
@@ -49,13 +49,13 @@ export type BetterAuthOrganizationMemberMirror = Pick<
   user: BetterAuthOrganizationUser
 }
 
-export interface PolarOrganizationRoleSyncOptions extends BetterAuthRoleMappingOptions {
-  mapBetterAuthRoleToPolarRole?: (
+export interface RepalisOrganizationRoleSyncOptions extends BetterAuthRoleMappingOptions {
+  mapBetterAuthRoleToRepalisRole?: (
     data: PolarOrganizationMemberRoleInput,
   ) => PolarNonOwnerMemberRole | Promise<PolarNonOwnerMemberRole>
 }
 
-export type PolarOrganizationCustomerCreateParams = Omit<
+export type RepalisOrganizationCustomerCreateParams = Omit<
   models.CustomerTeamCreate,
   'external_id' | 'name' | 'owner' | 'type'
 >
@@ -79,27 +79,27 @@ export type SelectSeatProductsForMember = (
  *
  * @experimental
  */
-export interface PolarOrganizationOptions {
+export interface RepalisOrganizationOptions {
   /**
-   * Enable Better Auth organization to Polar team-customer synchronization.
+   * Enable Better Auth organization to Repalis team-customer synchronization.
    */
   enabled: boolean
   /**
-   * Add optional Polar customer fields such as metadata or billing details.
+   * Add optional Repalis customer fields such as metadata or billing details.
    * Identity fields are always supplied by the integration and cannot be
    * overridden by this callback.
    */
   getTeamCustomerCreateParams?: (data: {
     organization: Organization & Record<string, unknown>
     owner: User & Record<string, unknown>
-  }) => Promise<PolarOrganizationCustomerCreateParams>
+  }) => Promise<RepalisOrganizationCustomerCreateParams>
   /**
    * Map non-canonical Better Auth members to a Polar billing role.
    *
    * Ownership is intentionally not exposed: the adapter alone selects Polar's
    * single canonical owner. Return `member` or `billing_manager` only.
    */
-  mapBetterAuthRoleToPolarRole?: (
+  mapBetterAuthRoleToRepalisRole?: (
     data: PolarOrganizationMemberRoleInput,
   ) => PolarNonOwnerMemberRole | Promise<PolarNonOwnerMemberRole>
   /**

@@ -1,31 +1,31 @@
 'use client'
 
-import { InlineModal, InlineModalHeader } from '@polar-sh/orbit'
+import { InlineModal, InlineModalHeader } from '@repalis/orbit'
 import { useModal } from '@/components/Modal/useModal'
 import { useOrganizationSSE } from '@/hooks/sse'
 import { setValidationErrors } from '@/utils/api/errors'
 import { api } from '@/utils/client'
-import { MoreVertOutlined } from '@polar-sh/orbit/icons'
+import { MoreVertOutlined } from '@repalis/orbit/icons'
 import {
   enums,
   isValidationError,
   type Client,
   type schemas,
-} from '@polar-sh/client'
-import { Button } from '@polar-sh/orbit'
-import CountryPicker from '@polar-sh/ui/components/atoms/CountryPicker'
+} from '@repalis/client'
+import { Button } from '@repalis/orbit'
+import CountryPicker from '@repalis/ui/components/atoms/CountryPicker'
 import CountryStatePicker, {
   getStateLabel,
   hasFixedStateOptions,
-} from '@polar-sh/ui/components/atoms/CountryStatePicker'
+} from '@repalis/ui/components/atoms/CountryStatePicker'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@polar-sh/ui/components/atoms/DropdownMenu'
-import { Input } from '@polar-sh/orbit'
-import { buttonVariants } from '@polar-sh/orbit/ui/button'
+} from '@repalis/ui/components/atoms/DropdownMenu'
+import { Input } from '@repalis/orbit'
+import { buttonVariants } from '@repalis/orbit/ui/button'
 import {
   Form,
   FormControl,
@@ -33,7 +33,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@polar-sh/ui/components/ui/form'
+} from '@repalis/ui/components/ui/form'
 import type EventEmitter from 'eventemitter3'
 import {
   type RefObject,

@@ -1,13 +1,13 @@
-export { polarClient } from './client'
-export { polar } from './server'
-export type { PolarBetterAuthPlugin } from './server'
+export { repalisClient } from './client'
+export { repalis } from './server'
+export type { RepalisBetterAuthPlugin } from './server'
 export type {
-  PolarOrganizationCustomerCreateParams,
-  PolarOrganizationOptions,
+  RepalisOrganizationCustomerCreateParams,
+  RepalisOrganizationOptions,
   SelectSeatProductsForMember,
   SelectSeatProductsForMemberInput,
 } from './organization/types'
-export type { PolarOptions } from './types'
+export type { RepalisOptions } from './types'
 
 export * from './plugins/portal'
 export * from './plugins/checkout'

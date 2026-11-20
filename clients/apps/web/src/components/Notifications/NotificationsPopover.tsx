@@ -1,12 +1,12 @@
 import { useNotifications, useNotificationsMarkRead } from '@/hooks/queries'
-import { Bell } from '@polar-sh/orbit/icons'
-import { Button, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { Bell } from '@repalis/orbit/icons'
+import { Button, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@polar-sh/ui/components/ui/popover'
+} from '@repalis/ui/components/ui/popover'
 import { useState } from 'react'
 import { NotificationRow } from './NotificationRow'
 

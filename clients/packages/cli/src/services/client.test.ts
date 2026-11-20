@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, test } from 'vitest'
 import { Effect, Redacted } from 'effect'
 import { FetchHttpClient } from 'effect/http'
-import { AuthError, type PolarEnvironment } from '@/schemas/Auth'
+import { AuthError, type RepalisEnvironment } from '@/schemas/Auth'
 import { Auth } from '@/services/auth'
 import { authenticatedClient } from '@/services/client'
 import { fakeAuth } from '@/utils/test-utils/services'
@@ -10,7 +10,7 @@ describe('authenticatedClient', () => {
   let token: string
   let source: 'keyring' | 'override'
   let requests: string[]
-  let resolutions: PolarEnvironment[]
+  let resolutions: RepalisEnvironment[]
   let refreshes: number
   let failure: boolean
   let status: number
@@ -35,7 +35,7 @@ describe('authenticatedClient', () => {
     return new Response(null, { status })
   }
 
-  const makeClient = (environment: PolarEnvironment) =>
+  const makeClient = (environment: RepalisEnvironment) =>
     authenticatedClient(environment).pipe(
       Effect.provide(FetchHttpClient.layer),
       Effect.provideService(FetchHttpClient.Fetch, forward as typeof fetch),

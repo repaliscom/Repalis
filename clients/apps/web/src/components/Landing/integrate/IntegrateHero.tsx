@@ -1,6 +1,6 @@
 import GetStartedButton from '@/components/Auth/GetStartedButton'
-import { Button, Grid, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { Button, Grid, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import { BackdropPanel } from './Backdrop'
 import { SurfaceCards } from './SurfaceCards'
 import { McpSession } from './McpSession'

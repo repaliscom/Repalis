@@ -1,8 +1,8 @@
 'use client'
 
-import type { schemas } from '@polar-sh/client'
-import { Button } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import type { schemas } from '@repalis/client'
+import { Button } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import { useState } from 'react'
 import CreditCardBrandIcon from '../CreditCardBrandIcon'
 import {

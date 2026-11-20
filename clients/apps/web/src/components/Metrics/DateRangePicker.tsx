@@ -20,16 +20,16 @@ import {
 import * as React from 'react'
 
 import { OrganizationContext } from '@/providers/maintainerOrganization'
-import { CalendarMonthOutlined } from '@polar-sh/orbit/icons'
-import { schemas } from '@polar-sh/client'
-import FormattedInterval from '@polar-sh/ui/components/atoms/FormattedInterval'
-import { Calendar } from '@polar-sh/ui/components/ui/calendar'
+import { CalendarMonthOutlined } from '@repalis/orbit/icons'
+import { schemas } from '@repalis/client'
+import FormattedInterval from '@repalis/ui/components/atoms/FormattedInterval'
+import { Calendar } from '@repalis/ui/components/ui/calendar'
 import {
   Popover,
   PopoverClose,
   PopoverContent,
   PopoverTrigger,
-} from '@polar-sh/ui/components/ui/popover'
+} from '@repalis/ui/components/ui/popover'
 import { useContext } from 'react'
 import { twMerge } from 'tailwind-merge'
 

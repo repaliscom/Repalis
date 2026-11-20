@@ -1,15 +1,15 @@
 'use client'
 
-import { enums, schemas } from '@polar-sh/client'
-import { METER_UNIT_DISPLAY_NAMES } from '@polar-sh/ui/lib/meterUnit'
+import { enums, schemas } from '@repalis/client'
+import { METER_UNIT_DISPLAY_NAMES } from '@repalis/ui/lib/meterUnit'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@polar-sh/orbit'
-import { Input } from '@polar-sh/orbit'
+} from '@repalis/orbit'
+import { Input } from '@repalis/orbit'
 import {
   FormControl,
   FormDescription,
@@ -17,9 +17,9 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@polar-sh/ui/components/ui/form'
-import { Tooltip, TooltipContent, TooltipTrigger } from '@polar-sh/orbit'
-import { Info as InfoIcon } from '@polar-sh/orbit/icons'
+} from '@repalis/ui/components/ui/form'
+import { Tooltip, TooltipContent, TooltipTrigger } from '@repalis/orbit'
+import { Info as InfoIcon } from '@repalis/orbit/icons'
 import { useFormContext, useWatch } from 'react-hook-form'
 
 const MeterFormUnit = () => {

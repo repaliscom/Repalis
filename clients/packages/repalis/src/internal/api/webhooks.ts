@@ -16,14 +16,14 @@ export const verifyWebhook = async (
     )
     return { status: 'verified', event }
   } catch (error) {
-    if (error instanceof webhooks.PolarWebhookVerificationError) {
+    if (error instanceof webhooks.RepalisWebhookVerificationError) {
       return { status: 'invalid_signature' }
     }
     // A null event type means the body had no `type` at all
-    if (error instanceof webhooks.PolarWebhookUnknownTypeError) {
+    if (error instanceof webhooks.RepalisWebhookUnknownTypeError) {
       return { status: error.eventType === null ? 'malformed' : 'unknown_type' }
     }
-    if (error instanceof webhooks.PolarWebhookError) {
+    if (error instanceof webhooks.RepalisWebhookError) {
       return { status: 'malformed' }
     }
     throw error

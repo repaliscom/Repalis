@@ -13,17 +13,17 @@ import { api } from '@/utils/client'
 import { CONFIG } from '@/utils/config'
 import { permissionDeniedMessage } from '@/utils/permissions'
 import { usePushRouteWithoutCache } from '@/utils/router'
-import { MoreVert } from '@polar-sh/orbit/icons'
-import { schemas } from '@polar-sh/client'
-import { Button, InlineModal } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { MoreVert } from '@repalis/orbit/icons'
+import { schemas } from '@repalis/client'
+import { Button, InlineModal } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@polar-sh/ui/components/ui/dropdown-menu'
+} from '@repalis/ui/components/ui/dropdown-menu'
 import { useCallback } from 'react'
 
 interface CustomerHeaderProps {

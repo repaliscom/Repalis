@@ -2,7 +2,7 @@ import type { AuthContext } from 'better-auth'
 import type {
   BetterAuthRoleMappingInput,
   BetterAuthRoleMappingOptions,
-  PolarMemberRole,
+  RepalisMemberRole,
 } from './types'
 
 export const DEFAULT_BETTER_AUTH_CREATOR_ROLE = 'owner'
@@ -38,16 +38,16 @@ export const hasBetterAuthCreatorRole = (
 ): boolean => parseBetterAuthRoles(role).has(creatorRole)
 
 /**
- * Map Better Auth organization roles to Polar's fixed member roles.
+ * Map Better Auth organization roles to Repalis's fixed member roles.
  *
  * Only the member selected as Polar's canonical owner can become `owner`.
  * Additional Better Auth owners intentionally become billing managers because
  * Polar allows exactly one owner per customer.
  */
-export const mapBetterAuthRoleToPolar = (
+export const mapBetterAuthRoleToRepalis = (
   input: BetterAuthRoleMappingInput,
   options: BetterAuthRoleMappingOptions = {},
-): PolarMemberRole => {
+): RepalisMemberRole => {
   if (input.isCanonicalOwner) {
     return 'owner'
   }

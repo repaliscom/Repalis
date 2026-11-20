@@ -28,7 +28,7 @@ locals {
       POLAR_EMAIL_FROM_DOMAIN                    = var.backend_config.email_from_domain
       POLAR_ENV                                  = local.environment
       POLAR_FRONTEND_BASE_URL                    = var.backend_config.frontend_base_url
-      POLAR_CHECKOUT_BASE_URL                    = var.backend_config.checkout_base_url
+      REPALIS_CHECKOUT_BASE_URL                    = var.backend_config.checkout_base_url
       POLAR_LOG_LEVEL                            = var.backend_config.log_level
       POLAR_TESTING                              = var.backend_config.testing
       POLAR_INVOICES_ADDITIONAL_INFO             = var.backend_config.invoices_additional_info
@@ -86,12 +86,12 @@ locals {
       POLAR_USER_SESSION_COOKIE_KEY = var.backend_config.user_session_cookie_key
     } : {},
     var.backend_config.auth_cookie_key != "" ? {
-      POLAR_AUTH_COOKIE_KEY = var.backend_config.auth_cookie_key
+      REPALIS_AUTH_COOKIE_KEY = var.backend_config.auth_cookie_key
     } : {},
   )
 
   backend_production_environment_variables = var.environment == "production" ? {
-    POLAR_CHECKOUT_LINK_HOST = var.backend_config.checkout_link_host
+    REPALIS_CHECKOUT_LINK_HOST = var.backend_config.checkout_link_host
   } : {}
 
   backend_production_secrets = var.environment == "production" ? {
@@ -213,14 +213,14 @@ locals {
   } : {}
 
   polar_self_environment_variables = var.polar_self_config != null ? {
-    POLAR_POLAR_ORGANIZATION_ID  = var.polar_self_config.organization_id
-    POLAR_POLAR_API_URL          = var.polar_self_config.api_url
+    POLAR_REPALIS_ORGANIZATION_ID  = var.polar_self_config.organization_id
+    POLAR_REPALIS_API_URL          = var.polar_self_config.api_url
     POLAR_POLAR_SCALE_PRODUCT_ID = var.polar_self_config.scale_product_id
   } : {}
 
   polar_self_secrets = var.polar_self_config != null ? {
-    POLAR_POLAR_ACCESS_TOKEN   = var.polar_self_config.access_token
-    POLAR_POLAR_WEBHOOK_SECRET = var.polar_self_config.webhook_secret
+    POLAR_REPALIS_ACCESS_TOKEN   = var.polar_self_config.access_token
+    POLAR_REPALIS_WEBHOOK_SECRET = var.polar_self_config.webhook_secret
   } : {}
 
   environment_groups = {

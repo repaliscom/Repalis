@@ -3,10 +3,10 @@ import {
   useProducts,
   useSelectedProducts,
 } from '@/hooks/queries'
-import { Check as CheckIcon, ExpandMoreOutlined } from '@polar-sh/orbit/icons'
-import { operations, schemas } from '@polar-sh/client'
-import { Button } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { Check as CheckIcon, ExpandMoreOutlined } from '@repalis/orbit/icons'
+import { operations, schemas } from '@repalis/client'
+import { Button } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import {
   Command,
   CommandEmpty,
@@ -15,12 +15,12 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
-} from '@polar-sh/ui/components/ui/command'
+} from '@repalis/ui/components/ui/command'
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@polar-sh/ui/components/ui/popover'
+} from '@repalis/ui/components/ui/popover'
 import React, { useCallback, useMemo, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 import ProductPriceTypeLabel, {

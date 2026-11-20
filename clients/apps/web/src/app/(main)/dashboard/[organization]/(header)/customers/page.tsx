@@ -2,7 +2,7 @@ import { CustomersOverview } from '@/components/Customer/CustomersOverview'
 import { EmptyState } from '@/components/Shared/EmptyState'
 import { getServerSideAPI } from '@/utils/client/serverside'
 import { getOrganizationBySlugOrNotFound } from '@/utils/organization'
-import { Users } from '@polar-sh/orbit/icons'
+import { Users } from '@repalis/orbit/icons'
 import { Metadata } from 'next'
 
 export async function generateMetadata(): Promise<Metadata> {

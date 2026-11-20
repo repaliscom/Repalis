@@ -133,7 +133,7 @@ variable "environment_groups" {
       POLAR_EMAIL_FROM_DOMAIN                    = string
       POLAR_ENV                                  = string
       POLAR_FRONTEND_BASE_URL                    = string
-      POLAR_CHECKOUT_BASE_URL                    = string
+      REPALIS_CHECKOUT_BASE_URL                    = string
       POLAR_LOG_LEVEL                            = string
       POLAR_TESTING                              = string
       POLAR_INVOICES_ADDITIONAL_INFO             = string
@@ -156,7 +156,7 @@ variable "environment_groups" {
       POLAR_CUSTOMER_PORTAL_URL_OVERRIDES        = string
       POLAR_PLAIN_DEFAULT_TIER_EXTERNAL_ID       = optional(string)
       POLAR_USER_SESSION_COOKIE_KEY              = optional(string)
-      POLAR_AUTH_COOKIE_KEY                      = optional(string)
+      REPALIS_AUTH_COOKIE_KEY                      = optional(string)
 
       POLAR_DATABASE_STATEMENT_CACHE_SIZE               = optional(string)
       POLAR_DATABASE_PREPARED_STATEMENT_CACHE_SIZE      = optional(string)
@@ -170,7 +170,7 @@ variable "environment_groups" {
       POLAR_CUSTOMER_METER_UNITS_FROM_REDUCER                = optional(string)
     })
     backend_production = object({
-      POLAR_CHECKOUT_LINK_HOST             = string
+      REPALIS_CHECKOUT_LINK_HOST             = string
       POLAR_POSTHOG_PROJECT_API_KEY        = string
       POLAR_PLAIN_REQUEST_SIGNING_SECRET   = string
       POLAR_PLAIN_TOKEN                    = string
@@ -253,10 +253,10 @@ variable "environment_groups" {
       POLAR_TINYBIRD_WORKSPACE           = string
     })
     polar_self = object({
-      POLAR_POLAR_ACCESS_TOKEN     = string
-      POLAR_POLAR_WEBHOOK_SECRET   = string
-      POLAR_POLAR_ORGANIZATION_ID  = string
-      POLAR_POLAR_API_URL          = string
+      POLAR_REPALIS_ACCESS_TOKEN     = string
+      POLAR_REPALIS_WEBHOOK_SECRET   = string
+      POLAR_REPALIS_ORGANIZATION_ID  = string
+      POLAR_REPALIS_API_URL          = string
       POLAR_POLAR_SCALE_PRODUCT_ID = string
     })
   })

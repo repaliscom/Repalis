@@ -1,27 +1,27 @@
 import { Context, Effect, Layer, Schema } from 'effect'
-import { AuthError, Session, type PolarEnvironment } from '@/schemas/Auth'
+import { AuthError, Session, type RepalisEnvironment } from '@/schemas/Auth'
 
 export class Credentials extends Context.Service<
   Credentials,
   {
     read: (
-      environment: PolarEnvironment,
+      environment: RepalisEnvironment,
     ) => Effect.Effect<Session | undefined, AuthError>
     write: (
-      environment: PolarEnvironment,
+      environment: RepalisEnvironment,
       session: Session,
     ) => Effect.Effect<void, AuthError>
-    delete: (environment: PolarEnvironment) => Effect.Effect<boolean, AuthError>
+    delete: (environment: RepalisEnvironment) => Effect.Effect<boolean, AuthError>
   }
 >()('Credentials') {}
 
 export const layer = Layer.sync(Credentials, () => {
-  const entry = (environment: PolarEnvironment) =>
+  const entry = (environment: RepalisEnvironment) =>
     Effect.tryPromise({
       try: async () => {
         // Load lazily so a missing native keyring doesn't break commands that don't need it.
         const { AsyncEntry } = await import('@napi-rs/keyring')
-        return new AsyncEntry('@polar-sh/cli', environment)
+        return new AsyncEntry('@repalis/cli', environment)
       },
       catch: () => unavailable(),
     })
@@ -75,5 +75,5 @@ export const layer = Layer.sync(Credentials, () => {
 const unavailable = () =>
   new AuthError({
     message:
-      'OS keyring unavailable or access denied. Unlock your keychain or configure Linux Secret Service. For headless use, supply POLAR_ACCESS_TOKEN. No credentials were written to a file.',
+      'OS keyring unavailable or access denied. Unlock your keychain or configure Linux Secret Service. For headless use, supply REPALIS_ACCESS_TOKEN. No credentials were written to a file.',
   })

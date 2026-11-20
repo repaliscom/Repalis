@@ -1,5 +1,5 @@
 import { Contents } from '@/components/FieldGuide/Contents'
-import { Button } from '@polar-sh/orbit'
+import { Button } from '@repalis/orbit'
 import Link from 'next/link'
 import { Chapter } from '../Chapter'
 

@@ -1,6 +1,6 @@
-import { getCurrencyDecimalFactor, isDecimalCurrency } from '@polar-sh/currency'
+import { getCurrencyDecimalFactor, isDecimalCurrency } from '@repalis/currency'
 import { ChangeEvent, FocusEvent, useCallback, useMemo, useState } from 'react'
-import { cn } from '@polar-sh/ui/lib/utils'
+import { cn } from '@repalis/ui/lib/utils'
 import { Input } from './Input'
 
 interface Props {
@@ -258,7 +258,7 @@ const MoneyInput = (props: Props) => {
   )
 
   const currencyLabel = (
-    <span className="dark:text-polar-500 text-sm font-medium text-gray-500">
+    <span className="dark:text-repalis-500 text-sm font-medium text-gray-500">
       {currency.toUpperCase()}
     </span>
   )
@@ -278,7 +278,7 @@ const MoneyInput = (props: Props) => {
       id={id}
       name={name}
       className={cn(
-        'dark:placeholder:text-polar-500 block w-full px-4 ps-14 text-base placeholder:text-gray-400',
+        'dark:placeholder:text-repalis-500 block w-full px-4 ps-14 text-base placeholder:text-gray-400',
         props.className ?? '',
       )}
       value={internalValue}

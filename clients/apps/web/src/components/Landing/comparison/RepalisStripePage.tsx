@@ -1,7 +1,7 @@
 'use client'
 
 import GetStartedButton from '@/components/Auth/GetStartedButton'
-import { CheckOutlined, CloseOutlined } from '@polar-sh/orbit/icons'
+import { CheckOutlined, CloseOutlined } from '@repalis/orbit/icons'
 import { ResourceLayout, ResourceSection } from '../resources/ResourceLayout'
 
 export const RepalisVsStripePage = () => {

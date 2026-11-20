@@ -1,13 +1,13 @@
 'use client'
 
-import { Box } from '@polar-sh/orbit/Box'
-import { Checkbox } from '@polar-sh/orbit'
+import { Box } from '@repalis/orbit/Box'
+import { Checkbox } from '@repalis/orbit'
 import {
   FormControl,
   FormField,
   FormItem,
   FormMessage,
-} from '@polar-sh/ui/components/ui/form'
+} from '@repalis/ui/components/ui/form'
 import { Control, FieldValues, Path, PathValue } from 'react-hook-form'
 
 interface TermsCheckboxProps<T extends FieldValues> {

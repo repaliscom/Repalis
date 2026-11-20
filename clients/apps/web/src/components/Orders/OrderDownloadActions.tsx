@@ -1,8 +1,8 @@
 'use client'
 
-import type { schemas } from '@polar-sh/client'
-import { Box } from '@polar-sh/orbit/Box'
-import { useIsMobile } from '@polar-sh/ui/hooks/use-mobile'
+import type { schemas } from '@repalis/client'
+import { Box } from '@repalis/orbit/Box'
+import { useIsMobile } from '@repalis/ui/hooks/use-mobile'
 import { DownloadInvoicePortal } from './DownloadInvoice'
 import { DownloadReceiptPortal } from './DownloadReceipt'
 

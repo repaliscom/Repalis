@@ -1,4 +1,4 @@
-import { Box, type BoxProps } from '@polar-sh/orbit/Box'
+import { Box, type BoxProps } from '@repalis/orbit/Box'
 
 export const LoadingBox = (props: BoxProps) => (
   <Box

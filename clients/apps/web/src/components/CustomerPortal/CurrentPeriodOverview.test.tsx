@@ -1,6 +1,6 @@
 import { useCustomerSubscriptionChargePreview } from '@/hooks/queries/customerPortal'
-import { Client, schemas } from '@polar-sh/client'
-import { formatCurrency } from '@polar-sh/currency'
+import { Client, schemas } from '@repalis/client'
+import { formatCurrency } from '@repalis/currency'
 import { render } from '@testing-library/react'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { CurrentPeriodOverview } from './CurrentPeriodOverview'

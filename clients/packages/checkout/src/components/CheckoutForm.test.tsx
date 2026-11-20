@@ -1,5 +1,5 @@
-import type { Client, schemas } from '@polar-sh/client'
-import type { ThemingPresetProps } from '@polar-sh/ui/hooks/theming'
+import type { Client, schemas } from '@repalis/client'
+import type { ThemingPresetProps } from '@repalis/ui/hooks/theming'
 import { act, fireEvent, render, screen } from '@testing-library/react'
 import { useEffect } from 'react'
 import type { UseFormReturn } from 'react-hook-form'

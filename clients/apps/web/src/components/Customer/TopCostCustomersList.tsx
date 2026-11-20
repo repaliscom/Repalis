@@ -10,10 +10,10 @@ import {
 } from '@/components/Shared/Toplist'
 import { CustomerStatItem, useEventCustomerStats } from '@/hooks/queries/events'
 import { toISODate } from '@/utils/metrics'
-import { schemas } from '@polar-sh/client'
-import { formatCurrency } from '@polar-sh/currency'
-import { Alert, Avatar } from '@polar-sh/orbit'
-import { Coins } from '@polar-sh/orbit/icons'
+import { schemas } from '@repalis/client'
+import { formatCurrency } from '@repalis/currency'
+import { Alert, Avatar } from '@repalis/orbit'
+import { Coins } from '@repalis/orbit/icons'
 import { useMemo } from 'react'
 
 const cost = (stat: CustomerStatItem) =>

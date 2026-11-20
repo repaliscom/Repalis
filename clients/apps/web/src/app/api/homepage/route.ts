@@ -29,8 +29,8 @@ Polar supports the [auth.md](https://workos.com/auth-md) specification from Work
 - **API**: REST API at \`https://api.repalis.com\`, authenticated with an organization access token. A sandbox for testing is at \`https://sandbox-api.repalis.com\`. See the [API reference](https://repalis.com/docs/api-reference/introduction) and the [OpenAPI specification](https://repalis.com/openapi.json).
 - **SDKs**: [TypeScript](https://repalis.com/docs/integrate/sdk/typescript) and [Python](https://repalis.com/docs/integrate/sdk/python), plus [framework adapters](https://repalis.com/docs/integrate/sdk/adapters/introduction) for Next.js, BetterAuth, Laravel, Nuxt, TanStack Start and more.
 - **Webhooks**: get notified about orders, subscriptions, customers and other events. See [webhook events](https://repalis.com/docs/integrate/webhooks/events).
-- **MCP server**: connect Claude, Cursor, ChatGPT or another agent to Polar over OAuth to manage products, customers, subscriptions and orders. See [MCP](https://repalis.com/docs/integrate/mcp).
-- **CLI**: forward webhooks to your machine, trigger sample events, and set up coding agents to build with Polar. See the [Polar CLI](https://repalis.com/docs/integrate/cli/introduction).
+- **MCP server**: connect Claude, Cursor, ChatGPT or another agent to Repalis over OAuth to manage products, customers, subscriptions and orders. See [MCP](https://repalis.com/docs/integrate/mcp).
+- **CLI**: forward webhooks to your machine, trigger sample events, and set up coding agents to build with Repalis. See the [Polar CLI](https://repalis.com/docs/integrate/cli/introduction).
 
 ## Pricing
 

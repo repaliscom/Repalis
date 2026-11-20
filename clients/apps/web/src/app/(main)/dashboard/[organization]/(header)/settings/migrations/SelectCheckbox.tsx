@@ -1,7 +1,7 @@
 'use client'
 
-import { Checkbox } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { Checkbox } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 
 // The table zeroes padding on any cell holding a checkbox, so the inset has to
 // come from here. Orbit's `createSelectionColumn` does the same, but its header

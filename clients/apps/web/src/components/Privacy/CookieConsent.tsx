@@ -6,7 +6,7 @@ import { CONFIG } from '@/utils/config'
 import { updateGoogleAnalyticsConsent } from '@/utils/googleAnalyticsConsent'
 import { useSearchParams } from 'next/navigation'
 import { useCallback, useEffect, useState } from 'react'
-import { InlineModal } from '@polar-sh/orbit'
+import { InlineModal } from '@repalis/orbit'
 import { useModal } from '../Modal/useModal'
 import { CookiePreferencesModal } from './CookiePreferencesModal'
 

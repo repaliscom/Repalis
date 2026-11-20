@@ -5,10 +5,10 @@ import {
   DisputeStatusDisplayColor,
   DisputeStatusDisplayTitle,
 } from '@/utils/dispute'
-import { schemas } from '@polar-sh/client'
-import { formatCurrency } from '@polar-sh/currency'
-import { DataTable, type DataTableColumnDef, Status } from '@polar-sh/orbit'
-import FormattedDateTime from '@polar-sh/ui/components/atoms/FormattedDateTime'
+import { schemas } from '@repalis/client'
+import { formatCurrency } from '@repalis/currency'
+import { DataTable, type DataTableColumnDef, Status } from '@repalis/orbit'
+import FormattedDateTime from '@repalis/ui/components/atoms/FormattedDateTime'
 import { OrderSection } from './OrderSection'
 
 export const OrderDisputesTable = ({

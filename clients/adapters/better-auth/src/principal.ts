@@ -4,10 +4,10 @@ import type { AnonymousSession } from 'better-auth/plugins/anonymous'
 import type { Member } from 'better-auth/plugins/organization'
 import {
   hasBetterAuthCreatorRole,
-  mapBetterAuthRoleToPolar,
+  mapBetterAuthRoleToRepalis,
   parseBetterAuthRoles,
 } from './organization/roles'
-import type { PolarOrganizationRoleSyncOptions } from './organization/types'
+import type { RepalisOrganizationRoleSyncOptions } from './organization/types'
 
 export type BillingAuthorization = 'member' | 'billing'
 
@@ -41,14 +41,14 @@ export interface ResolveBillingPrincipalInput {
   /** Organization permission required by the endpoint. @default "member" */
   authorization?: BillingAuthorization | undefined
   /** Better Auth-to-Polar role mapping used by billing authorization. */
-  roleMapping?: PolarOrganizationRoleSyncOptions | undefined
+  roleMapping?: RepalisOrganizationRoleSyncOptions | undefined
 }
 
 const isBillingRole = async (
   role: string,
   organizationId: string,
   user: BillingPrincipalSession['user'],
-  roleMapping: PolarOrganizationRoleSyncOptions | undefined,
+  roleMapping: RepalisOrganizationRoleSyncOptions | undefined,
 ): Promise<boolean> => {
   const creatorRole = roleMapping?.creatorRole
 
@@ -58,8 +58,8 @@ const isBillingRole = async (
     return true
   }
 
-  if (roleMapping?.mapBetterAuthRoleToPolarRole) {
-    const polarRole = await roleMapping.mapBetterAuthRoleToPolarRole({
+  if (roleMapping?.mapBetterAuthRoleToRepalisRole) {
+    const polarRole = await roleMapping.mapBetterAuthRoleToRepalisRole({
       role,
       roles: parseBetterAuthRoles(role),
       organizationId,
@@ -69,7 +69,7 @@ const isBillingRole = async (
   }
 
   return (
-    mapBetterAuthRoleToPolar(
+    mapBetterAuthRoleToRepalis(
       {
         role,
         isCanonicalOwner: false,
@@ -102,7 +102,7 @@ export const resolveBillingPrincipal = async ({
 
   if (organizationEnabled !== true) {
     throw new APIError('BAD_REQUEST', {
-      message: 'Polar organization support is not enabled',
+      message: 'Repalis organization support is not enabled',
     })
   }
 

@@ -1,8 +1,8 @@
 'use client'
 
-import { Box } from '@polar-sh/orbit/Box'
-import { Text } from '@polar-sh/orbit'
-import { Check, Copy } from '@polar-sh/orbit/icons'
+import { Box } from '@repalis/orbit/Box'
+import { Text } from '@repalis/orbit'
+import { Check, Copy } from '@repalis/orbit/icons'
 import { useState } from 'react'
 import { type CodeLang, useHighlightedCode } from '@/lib/shiki'
 

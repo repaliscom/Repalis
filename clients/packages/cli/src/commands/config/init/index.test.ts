@@ -754,7 +754,7 @@ describe('polar config init', () => {
       )
 
       expect(output).toContain(
-        'Your config matches what is on Polar. Pick one way to continue.',
+        'Your config matches what is on Repalis. Pick one way to continue.',
       )
       expect(output).toMatch(
         /1 {2}Ask it +"Help me set up billing with my Polar config"/,
@@ -771,7 +771,7 @@ describe('polar config init', () => {
       )
 
       expect(JSON.parse(output).next.slice(1, 3)).toEqual([
-        'polar.config.ts matches the catalog on Polar, so the config is set up. If the user asked for no change, run polar config plan to confirm nothing would change, tell them it is ready and stop.',
+        'polar.config.ts matches the catalog on Repalis, so the config is set up. If the user asked for no change, run polar config plan to confirm nothing would change, tell them it is ready and stop.',
         'Otherwise make their change in polar.config.ts. Ask the user for any price you cannot find, never invent one.',
       ])
     })

@@ -1,14 +1,14 @@
 'use client'
 
 import { Section } from '@/components/Layout/Section'
-import { Input, Text } from '@polar-sh/orbit'
+import { Input, Text } from '@repalis/orbit'
 import {
   FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-} from '@polar-sh/ui/components/ui/form'
+} from '@repalis/ui/components/ui/form'
 import { useFormContext } from 'react-hook-form'
 import { ProductFormType } from './ProductForm'
 

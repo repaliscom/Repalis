@@ -1,14 +1,14 @@
 'use client'
 
 import {
-  PolarEmbedPaymentMethod,
+  RepalisEmbedPaymentMethod,
   type EmbedPaymentMethodErrorCode,
-} from '@polar-sh/checkout/payment-method'
+} from '@repalis/checkout/payment-method'
 import {
   DEFAULT_LOCALE,
   useTranslations,
   type AcceptedLocale,
-} from '@polar-sh/i18n'
+} from '@repalis/i18n'
 import { useEffect } from 'react'
 
 const ERROR_TRANSLATION_KEYS = {
@@ -35,8 +35,8 @@ export const EmbedError = ({
 
   useEffect(() => {
     if (!embedOrigin) return
-    PolarEmbedPaymentMethod.postMessage({ event: 'error', code }, embedOrigin)
-    PolarEmbedPaymentMethod.postMessage({ event: 'loaded' }, embedOrigin)
+    RepalisEmbedPaymentMethod.postMessage({ event: 'error', code }, embedOrigin)
+    RepalisEmbedPaymentMethod.postMessage({ event: 'loaded' }, embedOrigin)
   }, [code, embedOrigin])
 
   return (

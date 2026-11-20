@@ -2,13 +2,13 @@ import type { McpServer } from '@modelcontextprotocol/server'
 import { exports } from 'cloudflare:workers'
 import { Effect, Schema } from 'effect'
 import { intentField } from '../intent'
-import type { PolarApiOutboundProps } from '../outbound'
+import type { RepalisApiOutboundProps } from '../outbound'
 import { makeToolRunner, ToolError } from '../results'
 import { Sandbox } from '../sandbox'
 
 const EXECUTE_LIMITS = { cpuMs: 10_000, subRequests: 50 }
 
-const polarClient = (apiUrl: string) => `
+const repalisClient = (apiUrl: string) => `
 const polar = {
   async request({ method = 'GET', path, query, body }) {
     const url = new URL(path, ${JSON.stringify(apiUrl)})
@@ -81,7 +81,7 @@ async () => {
 
 export const registerExecuteTool = Effect.fn('registerExecuteTool')(function* (
   server: McpServer,
-  props: PolarApiOutboundProps,
+  props: RepalisApiOutboundProps,
 ) {
   const runTool = yield* makeToolRunner
   const sandbox = yield* Sandbox
@@ -113,7 +113,7 @@ export const registerExecuteTool = Effect.fn('registerExecuteTool')(function* (
           })
           return yield* sandbox.run({
             code,
-            prelude: polarClient(props.apiUrl),
+            prelude: repalisClient(props.apiUrl),
             globalOutbound,
             limits: EXECUTE_LIMITS,
           })

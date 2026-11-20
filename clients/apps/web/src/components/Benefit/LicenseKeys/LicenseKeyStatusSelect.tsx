@@ -1,4 +1,4 @@
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 import {
   Select,
   SelectContent,
@@ -7,7 +7,7 @@ import {
   SelectSeparator,
   SelectTrigger,
   SelectValue,
-} from '@polar-sh/orbit'
+} from '@repalis/orbit'
 import React from 'react'
 
 export type LicenseKeyStatusFilter = schemas['LicenseKeyStatus'] | 'any'

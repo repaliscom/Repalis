@@ -7,7 +7,7 @@ import {
   useTOTPDelete,
 } from '@/hooks'
 import { extractApiErrorMessage } from '@/utils/api/errors'
-import { Button, Text } from '@polar-sh/orbit'
+import { Button, Text } from '@repalis/orbit'
 import { ConfirmModal } from '@/components/Modal/ConfirmModal'
 import { useModal } from '@/components/Modal/useModal'
 import { useState } from 'react'
@@ -18,7 +18,7 @@ import { toast } from '../Toast/use-toast'
 import {
   KeyRound as KeyRoundIcon,
   ShieldCheck as ShieldCheckIcon,
-} from '@polar-sh/orbit/icons'
+} from '@repalis/orbit/icons'
 import { SettingsGroup, SettingsGroupRow } from './SettingsGroup'
 const AuthenticationMethod = ({
   icon,

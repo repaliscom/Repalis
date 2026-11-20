@@ -1,8 +1,8 @@
 'use client'
 
 import { usePanTransfer } from '@/hooks/queries/merchantMigrations'
-import { Alert, Spinner, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { Alert, Spinner, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import { cardMovementSteps } from './panTransferCopy'
 import { PanTransferStepItem } from './PanTransferStepItem'
 

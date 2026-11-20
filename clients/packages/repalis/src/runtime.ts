@@ -6,7 +6,7 @@ import {
   type RuntimeSDKConfig,
 } from './schema/runtime'
 import { HandledWebhookEndpoint } from './schema/webhook'
-import { createPolar, type Polar, type PolarOptions } from './sdk'
+import { createRepalis, type Polar, type RepalisOptions } from './sdk'
 
 export type WebhookRoutes<Config extends RuntimeSDKConfig> = Config extends {
   readonly webhooks: infer Webhooks
@@ -29,10 +29,10 @@ export type RuntimeConnection<Config extends RuntimeSDKConfig> = {
 
 export function RuntimeSDK<Config extends RuntimeSDKConfig>(
   config: DefinedConfig<Config>,
-  sdkOptions: PolarOptions,
+  sdkOptions: RepalisOptions,
 ): RuntimeConnection<Config> {
   const connected = config[runtimeConfig]()
-  const sdk = createPolar(sdkOptions)
+  const sdk = createRepalis(sdkOptions)
   const benefits = connected.benefits ?? {}
   return {
     sdk,

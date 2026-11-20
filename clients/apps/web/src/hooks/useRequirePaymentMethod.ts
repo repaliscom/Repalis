@@ -1,7 +1,7 @@
 import { useCustomerPaymentMethods } from '@/hooks/queries/customerPortal'
 import { isFreePrice } from '@/utils/product'
 import { usePaymentMethodEmbed } from '@/hooks/usePaymentMethodEmbed'
-import type { Client, schemas } from '@polar-sh/client'
+import type { Client, schemas } from '@repalis/client'
 import { useQueryClient } from '@tanstack/react-query'
 import { useCallback } from 'react'
 

@@ -3,7 +3,7 @@ import { ChildProcess } from 'node:child_process'
 import * as http from 'node:http'
 import { Console, Effect, Layer, Redacted } from 'effect'
 import * as browser from 'open'
-import type { PolarEnvironment } from '@/schemas/Auth'
+import type { RepalisEnvironment } from '@/schemas/Auth'
 import { Environment } from '@/services/api'
 import {
   authorizationUrl,
@@ -227,7 +227,7 @@ test('callback verifies state before accepting codes or OAuth denial', async () 
 describe('authorizationUrl', () => {
   const resolve = (
     env: Record<string, string>,
-    environment: PolarEnvironment = 'sandbox',
+    environment: RepalisEnvironment = 'sandbox',
   ) =>
     Effect.runPromise(
       authorizationUrl(environment).pipe(
@@ -252,7 +252,7 @@ describe('authorizationUrl', () => {
   test('honors POLAR_DASHBOARD_URL', async () => {
     expect(
       await resolve({
-        POLAR_API_URL: 'http://127.0.0.1:8000',
+        REPALIS_API_URL: 'http://127.0.0.1:8000',
         POLAR_DASHBOARD_URL: 'http://127.0.0.1:3000/',
       }),
     ).toMatchObject({ success: 'http://127.0.0.1:3000/oauth2/authorize' })
@@ -260,7 +260,7 @@ describe('authorizationUrl', () => {
 
   test('refuses to pair a custom API with the hosted dashboard', async () => {
     expect(
-      await resolve({ POLAR_API_URL: 'http://127.0.0.1:8000' }),
+      await resolve({ REPALIS_API_URL: 'http://127.0.0.1:8000' }),
     ).toMatchObject({
       failure: { message: expect.stringContaining('POLAR_DASHBOARD_URL') },
     })

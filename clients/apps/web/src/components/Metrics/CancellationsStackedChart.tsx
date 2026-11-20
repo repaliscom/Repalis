@@ -3,7 +3,7 @@
 import type { MetricsProductFilter } from '@/hooks/queries/metrics'
 import { ParsedMetricsResponse } from '@/hooks/queries'
 import { getTimestampFormatter } from '@/utils/metrics'
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 import {
   Bar,
   BarChart,
@@ -15,7 +15,7 @@ import {
   TooltipContentProps,
   XAxis,
   YAxis,
-} from '@polar-sh/ui/components/ui/chart'
+} from '@repalis/ui/components/ui/chart'
 import { addDays, addHours, addMonths, addWeeks, addYears } from 'date-fns'
 import { useTheme } from 'next-themes'
 import { useCallback, useMemo, useState } from 'react'

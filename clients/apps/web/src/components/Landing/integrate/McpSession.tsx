@@ -1,11 +1,11 @@
 'use client'
 
 import { useInView } from '@/hooks/useInView'
-import { Check, LoaderCircle } from '@polar-sh/orbit/icons'
+import { Check, LoaderCircle } from '@repalis/orbit/icons'
 import { useEffect, useState } from 'react'
 import { Shimmer } from '../Shimmer'
 
-/** The prompts the session rotates through: what a coding agent does with Polar's MCP server and skills. */
+/** The prompts the session rotates through: what a coding agent does with Repalis's MCP server and skills. */
 const TURNS = [
   {
     prompt: 'Implement Polar for billing in my app',
@@ -14,10 +14,10 @@ const TURNS = [
     result: 'Checkout, the customer portal and verified webhooks are wired in.',
   },
   {
-    prompt: 'Meter every model call with Polar',
-    running: 'Wrapping the model with Polar ingestion',
+    prompt: 'Meter every model call with Repalis',
+    running: 'Wrapping the model with Repalis ingestion',
     done: 'Edited 2 files',
-    result: 'Every model call now sends its token usage to Polar.',
+    result: 'Every model call now sends its token usage to Repalis.',
   },
   {
     prompt: 'Add a Pro plan with 10,000 credits a month',
@@ -43,7 +43,7 @@ const DURATIONS = {
   exit: 500,
 }
 
-/** A coding agent working with Polar, in the terminal style of the landing's Agents figure. Loops. */
+/** A coding agent working with Repalis, in the terminal style of the landing's Agents figure. Loops. */
 export const McpSession = () => {
   const { ref, inView } = useInView()
   const [turn, setTurn] = useState(0)

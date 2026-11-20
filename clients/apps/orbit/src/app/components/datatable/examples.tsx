@@ -9,7 +9,7 @@ import {
   type DataTablePaginationState,
   type DataTableSortingState,
   type StatusColor,
-} from '@polar-sh/orbit'
+} from '@repalis/orbit'
 import { useMemo, useState } from 'react'
 
 interface Order {

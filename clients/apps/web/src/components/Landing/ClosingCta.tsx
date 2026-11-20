@@ -1,8 +1,8 @@
 'use client'
 
 import GetStartedButton from '@/components/Auth/GetStartedButton'
-import { Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import { TextRings } from './graphics/TextRings'
 
 export const ClosingCta = () => (

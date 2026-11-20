@@ -4,9 +4,9 @@ import { useProduct } from '@/hooks/queries'
 import { useUpdateSubscription } from '@/hooks/queries/subscriptions'
 import { extractApiErrorMessage, setValidationErrors } from '@/utils/api/errors'
 import { useTrialChangeOutcome } from '@/utils/trial-change'
-import { isValidationError, schemas } from '@polar-sh/client'
-import { Box } from '@polar-sh/orbit/Box'
-import { Button, Text } from '@polar-sh/orbit'
+import { isValidationError, schemas } from '@repalis/client'
+import { Box } from '@repalis/orbit/Box'
+import { Button, Text } from '@repalis/orbit'
 import {
   Form,
   FormControl,
@@ -14,7 +14,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@polar-sh/ui/components/ui/form'
+} from '@repalis/ui/components/ui/form'
 import { useCallback, useMemo } from 'react'
 import { useForm, useWatch } from 'react-hook-form'
 import { ProrationBehavior } from '../Settings/ProrationBehavior'

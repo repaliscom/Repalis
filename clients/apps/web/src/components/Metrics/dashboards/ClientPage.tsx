@@ -2,9 +2,9 @@
 
 import { useMetricDashboards, useMetrics } from '@/hooks/queries/metrics'
 import { METRIC_GROUPS, metricGroupSlug } from '@/utils/metrics'
-import { type schemas } from '@polar-sh/client'
-import { Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { type schemas } from '@repalis/client'
+import { Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import { ReactNode, Ref, useMemo } from 'react'
 import { CancellationsContent } from './CancellationsContent'
 import { CustomDashboardActions } from './DashboardViewHeader'

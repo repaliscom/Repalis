@@ -1,4 +1,4 @@
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 
 export const platformFeesDisplayNames: {
   [key in schemas['PlatformFeeType']]: string

@@ -11,9 +11,9 @@ import {
   getGitHubAuthorizeLinkURL,
   getGoogleAuthorizeLinkURL,
 } from '@/utils/auth'
-import { AlternateEmailOutlined, GitHub, Google } from '@polar-sh/orbit/icons'
-import { schemas } from '@polar-sh/client'
-import { Button, Text } from '@polar-sh/orbit'
+import { AlternateEmailOutlined, GitHub, Google } from '@repalis/orbit/icons'
+import { schemas } from '@repalis/client'
+import { Button, Text } from '@repalis/orbit'
 import { usePathname, useSearchParams } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
 import EmailUpdateForm from '../Form/EmailUpdateForm'

@@ -1,8 +1,8 @@
 'use client'
 
-import { CircleFilled as Circle } from '@polar-sh/orbit/icons'
-import { formatCurrency } from '@polar-sh/currency'
-import { Tooltip, TooltipContent, TooltipTrigger } from '@polar-sh/orbit'
+import { CircleFilled as Circle } from '@repalis/orbit/icons'
+import { formatCurrency } from '@repalis/currency'
+import { Tooltip, TooltipContent, TooltipTrigger } from '@repalis/orbit'
 import { twMerge } from 'tailwind-merge'
 
 const indicatorColor = {

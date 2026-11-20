@@ -2,7 +2,7 @@ import {
   DisputeStatusDisplayTitle,
   type DisputeStatusFilter,
 } from '@/utils/dispute'
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 import {
   Select,
   SelectContent,
@@ -10,7 +10,7 @@ import {
   SelectSeparator,
   SelectTrigger,
   SelectValue,
-} from '@polar-sh/orbit'
+} from '@repalis/orbit'
 import React from 'react'
 
 const STATUSES: schemas['DisputeStatus'][] = [

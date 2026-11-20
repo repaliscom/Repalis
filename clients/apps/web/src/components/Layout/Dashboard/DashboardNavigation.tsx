@@ -1,13 +1,13 @@
 'use client'
 
-import { ArrowBack } from '@polar-sh/orbit/icons'
-import { schemas } from '@polar-sh/client'
+import { ArrowBack } from '@repalis/orbit/icons'
+import { schemas } from '@repalis/client'
 import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
   useSidebar,
-} from '@polar-sh/ui/components/atoms/Sidebar'
+} from '@repalis/ui/components/atoms/Sidebar'
 import Link from 'next/link'
 import { twMerge } from 'tailwind-merge'
 import { usePathname } from 'next/navigation'

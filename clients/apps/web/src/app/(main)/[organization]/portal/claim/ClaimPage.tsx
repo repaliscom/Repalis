@@ -6,10 +6,10 @@ import {
   CheckOutlined,
   ErrorOutlined,
   LoaderCircle as Loader2,
-} from '@polar-sh/orbit/icons'
-import { schemas } from '@polar-sh/client'
-import { Alert, Button } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+} from '@repalis/orbit/icons'
+import { schemas } from '@repalis/client'
+import { Alert, Button } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import { PortalText } from '@/components/CustomerPortal/PortalPrimitives'
 import { PortalAuthHeader, PortalAuthShell } from '../PortalShell'
 import { useMutation, useQuery } from '@tanstack/react-query'

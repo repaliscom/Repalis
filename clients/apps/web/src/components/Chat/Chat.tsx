@@ -1,9 +1,9 @@
 'use client'
 
 import { type ScrollFadeHandle } from '@/components/Shared/ScrollFade'
-import { Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import { Paperclip } from '@polar-sh/orbit/icons'
+import { Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import { Paperclip } from '@repalis/orbit/icons'
 import React, { useEffect, useRef, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 import { Composer, type ComposerHandle } from './Composer'

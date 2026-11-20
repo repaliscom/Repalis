@@ -1,4 +1,4 @@
-import type { schemas } from '@polar-sh/client'
+import type { schemas } from '@repalis/client'
 import { createHash } from 'node:crypto'
 import { orgApi } from './api'
 import type { ProductSpec } from './products'

@@ -1,9 +1,9 @@
 import { OnboardingLayout } from '@/components/Layout/OnboardingLayout'
 import { UploadImage } from '@/components/Image/Image'
 import { RepalisLogotype } from '@/components/Layout/Public/RepalisLogotype'
-import { schemas } from '@polar-sh/client'
-import { Box } from '@polar-sh/orbit/Box'
-import { Plus } from '@polar-sh/orbit/icons'
+import { schemas } from '@repalis/client'
+import { Box } from '@repalis/orbit/Box'
+import { Plus } from '@repalis/orbit/icons'
 import type { ReactNode, Ref } from 'react'
 
 type AuthorizationStep = 'create' | 'organizations' | 'scopes'

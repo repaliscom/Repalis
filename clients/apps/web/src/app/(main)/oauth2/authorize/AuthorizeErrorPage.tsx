@@ -1,6 +1,6 @@
 'use client'
 
-import { Alert } from '@polar-sh/orbit'
+import { Alert } from '@repalis/orbit'
 import { useRouter } from 'next/navigation'
 import SharedLayout from './components/SharedLayout'
 

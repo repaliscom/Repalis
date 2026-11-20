@@ -1,5 +1,5 @@
 {
-  "name": "@polar-sh/cli",
+  "name": "@repalis/cli",
   "private": true,
   "version": "3.2.0",
   "description": "",
@@ -9,7 +9,7 @@
     "bun": "1.4.2"
   },
   "scripts": {
-    "generate": "pnpm --dir ../../../sdk/cli-commands generate && pnpm --dir ../.. install --filter @polar-sh/cli --ignore-scripts --frozen-lockfile",
+    "generate": "pnpm --dir ../../../sdk/cli-commands generate && pnpm --dir ../.. install --filter @repalis/cli --ignore-scripts --frozen-lockfile",
     "build": "tsdown",
     "docs:generate": "bun scripts/docs.ts",
     "docs:check": "bun scripts/docs.ts --check",
@@ -39,9 +39,9 @@
   "dependencies": {
     "@effect/platform-bun": "4.0.1",
     "@napi-rs/keyring": "2.1.0",
-    "@polar-sh/cli-commands": "file:../../../sdk/cli-commands",
+    "@repalis/cli-commands": "file:../../../sdk/cli-commands",
     "@repalis/repalis": "workspace:*",
-    "@polar-sh/sdk": "1.0.3-alpha.4",
+    "@repalis/sdk": "1.0.3-alpha.4",
     "effect": "catalog:",
     "jsonc-parser": "^3.3.1",
     "open": "^10.2.0",

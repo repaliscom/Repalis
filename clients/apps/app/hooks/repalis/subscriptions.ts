@@ -1,10 +1,10 @@
-import { usePolarClient } from '@/providers/RepalisClientProvider'
+import { useRepalisClient } from '@/providers/RepalisClientProvider'
 import { queryClient } from '@/utils/query'
-import { operations, schemas, unwrap } from '@polar-sh/client'
+import { operations, schemas, unwrap } from '@repalis/client'
 import { useInfiniteQuery, useMutation, useQuery } from '@tanstack/react-query'
 
 export const useSubscription = (id: string) => {
-  const { polar } = usePolarClient()
+  const { polar } = useRepalisClient()
 
   return useQuery({
     queryKey: ['subscription', id],
@@ -20,7 +20,7 @@ export const useSubscriptions = (
     'organization_id'
   >,
 ) => {
-  const { polar } = usePolarClient()
+  const { polar } = useRepalisClient()
 
   return useInfiniteQuery({
     queryKey: ['subscriptions', { organizationId, ...(parameters || {}) }],
@@ -45,10 +45,10 @@ export const useSubscriptions = (
   })
 }
 
-const SUBSCRIPTION_UPDATE_HEADERS = { 'Polar-Version': '2027-01' }
+const SUBSCRIPTION_UPDATE_HEADERS = { 'Repalis-Version': '2027-01' }
 
 export const useUpdateSubscription = (id: string) => {
-  const { polar } = usePolarClient()
+  const { polar } = useRepalisClient()
 
   return useMutation({
     mutationFn: (body: schemas['SubscriptionUpdate']) =>

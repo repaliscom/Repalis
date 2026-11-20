@@ -1,5 +1,5 @@
-import { PolarEmbedCheckout } from '@polar-sh/checkout/embed'
-import type { schemas } from '@polar-sh/client'
+import { RepalisEmbedCheckout } from '@repalis/checkout/embed'
+import type { schemas } from '@repalis/client'
 import { useRouter } from 'next/navigation'
 import { useCallback } from 'react'
 
@@ -15,7 +15,7 @@ export const useCheckoutConfirmedRedirect = (
       customerSessionToken: string | null | undefined,
     ) => {
       if (checkout.embed_origin) {
-        PolarEmbedCheckout.postMessage(
+        RepalisEmbedCheckout.postMessage(
           {
             event: 'confirmed',
           },
@@ -67,7 +67,7 @@ export const useCheckoutConfirmedRedirect = (
       }
 
       if (checkout.embed_origin) {
-        PolarEmbedCheckout.postMessage(
+        RepalisEmbedCheckout.postMessage(
           {
             event: 'success',
             successURL: parsedURL.toString(),

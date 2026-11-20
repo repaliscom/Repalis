@@ -1,5 +1,5 @@
-import { schemas } from '@polar-sh/client'
-import { Box } from '@polar-sh/orbit/Box'
+import { schemas } from '@repalis/client'
+import { Box } from '@repalis/orbit/Box'
 import { DisputeCustomerContextCard } from './DisputeCustomerContextCard'
 import { DisputeOrderContextCard } from './DisputeOrderContextCard'
 

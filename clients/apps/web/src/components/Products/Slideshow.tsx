@@ -1,7 +1,7 @@
 'use client'
 
-import { ChevronLeftRounded, ChevronRightRounded } from '@polar-sh/orbit/icons'
-import { Button } from '@polar-sh/orbit'
+import { ChevronLeftRounded, ChevronRightRounded } from '@repalis/orbit/icons'
+import { Button } from '@repalis/orbit'
 import { AnimatePresence, domMax, LazyMotion, m } from 'motion/react'
 import { useCallback, useState } from 'react'
 

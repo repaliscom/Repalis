@@ -1,7 +1,7 @@
 'use client'
 
-import { Grid, Text, Truncated } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { Grid, Text, Truncated } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import type { ReactNode } from 'react'
 
 export const OrderSection = ({

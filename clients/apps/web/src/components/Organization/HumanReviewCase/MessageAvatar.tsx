@@ -1,6 +1,6 @@
 import LogoIcon from '@/components/Brand/logos/LogoIcon'
-import { schemas } from '@polar-sh/client'
-import { Avatar } from '@polar-sh/orbit'
+import { schemas } from '@repalis/client'
+import { Avatar } from '@repalis/orbit'
 import React from 'react'
 
 interface Props {

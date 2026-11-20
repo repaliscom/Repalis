@@ -1,7 +1,7 @@
 import { afterEach, expect, test, vi } from 'vitest'
 import { Effect, Redacted } from 'effect'
-import type { Polar as PolarSDK } from '@polar-sh/sdk/2026-10'
-import { AuthError, type PolarEnvironment } from '@/schemas/Auth'
+import type { Polar as PolarSDK } from '@repalis/sdk/2026-10'
+import { AuthError, type RepalisEnvironment } from '@/schemas/Auth'
 import { UsedEnvironments } from '@/services/api'
 import { Auth, type Credential } from '@/services/auth'
 import { make } from '@/services/repalis'
@@ -12,7 +12,7 @@ import {
 } from '@/utils/test-utils/services'
 
 type Resolve = (
-  environment: PolarEnvironment,
+  environment: RepalisEnvironment,
   rejected?: Redacted.Redacted<string>,
 ) => Effect.Effect<Credential, AuthError>
 
@@ -29,7 +29,7 @@ afterEach(() => {
 })
 
 test('notes the environment even when there is no saved session', async () => {
-  const used = new Set<PolarEnvironment>()
+  const used = new Set<RepalisEnvironment>()
   const polar = await polarWith(() =>
     Effect.fail(new AuthError({ message: 'Not logged in to production.' })),
   )
@@ -155,7 +155,7 @@ test.each([
   { organizationId: 'org-1', header: 'org-1' },
   { organizationId: undefined, header: null },
 ])(
-  'sends Polar-Organization only for a scoped request ($organizationId)',
+  'sends Repalis-Organization only for a scoped request ($organizationId)',
   async ({ organizationId, header }) => {
     const fetch = vi
       .fn<typeof globalThis.fetch>()
@@ -168,7 +168,7 @@ test.each([
       }),
     )
     expect(
-      new Headers(fetch.mock.calls[0]![1]?.headers).get('Polar-Organization'),
+      new Headers(fetch.mock.calls[0]![1]?.headers).get('Repalis-Organization'),
     ).toBe(header)
   },
 )

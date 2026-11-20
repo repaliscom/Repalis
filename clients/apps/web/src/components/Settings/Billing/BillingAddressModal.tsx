@@ -6,14 +6,14 @@ import {
   useUpdateOrganizationBillingDetails,
   type OrganizationBillingDetailsUpdate,
 } from '@/hooks/queries/billing'
-import { enums } from '@polar-sh/client'
-import { Button } from '@polar-sh/orbit'
-import CountryPicker from '@polar-sh/ui/components/atoms/CountryPicker'
+import { enums } from '@repalis/client'
+import { Button } from '@repalis/orbit'
+import CountryPicker from '@repalis/ui/components/atoms/CountryPicker'
 import CountryStatePicker, {
   getStateLabel,
   hasFixedStateOptions,
-} from '@polar-sh/ui/components/atoms/CountryStatePicker'
-import { Input } from '@polar-sh/orbit'
+} from '@repalis/ui/components/atoms/CountryStatePicker'
+import { Input } from '@repalis/orbit'
 import {
   Form,
   FormControl,
@@ -21,7 +21,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@polar-sh/ui/components/ui/form'
+} from '@repalis/ui/components/ui/form'
 import { useEffect } from 'react'
 import { useForm, useWatch } from 'react-hook-form'
 
@@ -89,7 +89,7 @@ export const BillingAddressModal = ({
       <div className="flex flex-col gap-y-1">
         <h3 className="text-xl">Billing address</h3>
         <p className="dark:text-repalis-500 text-gray-500">
-          The address used on invoices for your Polar subscription
+          The address used on invoices for your Repalis subscription
         </p>
       </div>
       <Form {...form}>

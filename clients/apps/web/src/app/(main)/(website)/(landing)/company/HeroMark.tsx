@@ -1,5 +1,5 @@
 import { LOGO_MARK_PATH } from '@/components/Brand/logos/paths'
-import { Box } from '@polar-sh/orbit/Box'
+import { Box } from '@repalis/orbit/Box'
 
 const SIZE = 96
 

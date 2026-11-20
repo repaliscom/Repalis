@@ -6,7 +6,7 @@ import {
   createClient as baseCreateClient,
   Client,
   Middleware,
-} from '@polar-sh/client'
+} from '@repalis/client'
 import { ReadonlyRequestCookies } from 'next/dist/server/web/spec-extension/adapters/request-cookies'
 import { NextRequest } from 'next/server'
 
@@ -36,7 +36,7 @@ const CLIENT_VERSION_HEADERS = {
   'X-Polar-Client-Version': `web/${
     process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA?.slice(0, 8) ?? 'dev'
   }`,
-  'Polar-Version': API_VERSION,
+  'Repalis-Version': API_VERSION,
 }
 
 export const createClientSideAPI = (token?: string): Client => {
@@ -77,10 +77,10 @@ export const createServerSideAPI = async (
     Cookie: cookies.toString(),
   }
 
-  // Use POLAR_API_URL for server-side requests (e.g., in Docker containers)
+  // Use REPALIS_API_URL for server-side requests (e.g., in Docker containers)
   // Fall back to NEXT_PUBLIC_API_URL for local development
   let apiUrl =
-    process.env.POLAR_API_URL || (process.env.NEXT_PUBLIC_API_URL as string)
+    process.env.REPALIS_API_URL || (process.env.NEXT_PUBLIC_API_URL as string)
 
   // A relative base (same-origin deployments) must be absolute for
   // server-side fetch. Middleware has no service binding URL, so derive

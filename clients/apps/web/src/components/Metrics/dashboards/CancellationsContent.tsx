@@ -5,7 +5,7 @@ import CancellationsDistributionChart from '@/components/Metrics/CancellationsDi
 import CancellationsStackedChart from '@/components/Metrics/CancellationsStackedChart'
 import MetricChartBox from '@/components/Metrics/MetricChartBox'
 import { ParsedMetricsResponse } from '@/hooks/queries'
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 import { CANCELLATION_CHART_METRICS } from './metrics-config'
 
 interface CancellationsContentProps {

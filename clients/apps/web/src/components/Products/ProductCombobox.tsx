@@ -1,10 +1,10 @@
 'use client'
 
 import { useProduct, useProducts } from '@/hooks/queries'
-import { schemas } from '@polar-sh/client'
-import { Box } from '@polar-sh/orbit/Box'
-import { Text } from '@polar-sh/orbit'
-import { Button } from '@polar-sh/orbit/ui/button'
+import { schemas } from '@repalis/client'
+import { Box } from '@repalis/orbit/Box'
+import { Text } from '@repalis/orbit'
+import { Button } from '@repalis/orbit/ui/button'
 import {
   Command,
   CommandEmpty,
@@ -12,17 +12,17 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from '@polar-sh/ui/components/ui/command'
+} from '@repalis/ui/components/ui/command'
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@polar-sh/ui/components/ui/popover'
+} from '@repalis/ui/components/ui/popover'
 import {
   Check,
   ChevronsUpDown,
   LoaderCircle as Loader2,
-} from '@polar-sh/orbit/icons'
+} from '@repalis/orbit/icons'
 import { useMemo, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 import ProductPriceLabel from './ProductPriceLabel'

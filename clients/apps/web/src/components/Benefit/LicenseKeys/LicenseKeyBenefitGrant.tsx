@@ -7,14 +7,14 @@ import {
   useCustomerLicenseKeyRotate,
 } from '@/hooks/queries/customerPortal'
 import { extractApiErrorMessage } from '@/utils/api/errors'
-import { Client, schemas } from '@polar-sh/client'
+import { Client, schemas } from '@repalis/client'
 import {
   DEFAULT_LOCALE,
   useTranslations,
   type AcceptedLocale,
-} from '@polar-sh/i18n'
-import { Button } from '@polar-sh/orbit'
-import CopyToClipboardInput from '@polar-sh/ui/components/atoms/CopyToClipboardInput'
+} from '@repalis/i18n'
+import { Button } from '@repalis/orbit'
+import CopyToClipboardInput from '@repalis/ui/components/atoms/CopyToClipboardInput'
 import { useCallback, useState } from 'react'
 import { LicenseKeyActivations } from './LicenseKeyActivations'
 import { LicenseKeyDetails } from './LicenseKeyDetails'

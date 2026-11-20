@@ -5,21 +5,21 @@ import {
   useResendOrganizationSeatInvitation,
   useRevokeOrganizationSeat,
 } from '@/hooks/queries/seats'
-import { MoreVertOutlined } from '@polar-sh/orbit/icons'
-import { schemas } from '@polar-sh/client'
+import { MoreVertOutlined } from '@repalis/orbit/icons'
+import { schemas } from '@repalis/client'
 import {
   Button,
   DataTable,
   type DataTableColumnDef,
   Status,
-} from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+} from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@polar-sh/ui/components/atoms/DropdownMenu'
+} from '@repalis/ui/components/atoms/DropdownMenu'
 import { useState } from 'react'
 import { toast } from '../Toast/use-toast'
 import { seatStatusDisplayConfig } from './seatStatus'

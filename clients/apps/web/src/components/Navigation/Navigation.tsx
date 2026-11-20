@@ -1,4 +1,4 @@
-import { Avatar } from '@polar-sh/orbit'
+import { Avatar } from '@repalis/orbit'
 import { twMerge } from 'tailwind-merge'
 
 export const ListItem = (props: {

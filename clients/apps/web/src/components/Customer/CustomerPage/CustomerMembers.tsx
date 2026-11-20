@@ -3,7 +3,7 @@
 import { MembersSection } from '@/components/Customer/CustomerPage/MembersSection'
 import { useSubscriptions } from '@/hooks/queries'
 import { useOrders } from '@/hooks/queries/orders'
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 
 interface CustomerMembersProps {
   organization: schemas['Organization']

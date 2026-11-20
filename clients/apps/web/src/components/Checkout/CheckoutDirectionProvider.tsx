@@ -1,6 +1,6 @@
 'use client'
 
-import type { TextDirection } from '@polar-sh/i18n'
+import type { TextDirection } from '@repalis/i18n'
 import { DirectionProvider } from '@radix-ui/react-direction'
 import { useEffect } from 'react'
 

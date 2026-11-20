@@ -1,16 +1,16 @@
 'use client'
 
-import { schemas } from '@polar-sh/client'
-import { Box } from '@polar-sh/orbit/Box'
-import { Input } from '@polar-sh/orbit'
-import { Checkbox } from '@polar-sh/orbit'
+import { schemas } from '@repalis/client'
+import { Box } from '@repalis/orbit/Box'
+import { Input } from '@repalis/orbit'
+import { Checkbox } from '@repalis/orbit'
 import {
   FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-} from '@polar-sh/ui/components/ui/form'
+} from '@repalis/ui/components/ui/form'
 import { useEffect } from 'react'
 import { type UseFormReturn, useFormContext, useWatch } from 'react-hook-form'
 import slugify from 'slugify'

@@ -1,8 +1,8 @@
 'use client'
 
-import { PolarEmbedCheckout } from '@polar-sh/checkout/embed'
-import type { schemas } from '@polar-sh/client'
-import { X } from '@polar-sh/orbit/icons'
+import { RepalisEmbedCheckout } from '@repalis/checkout/embed'
+import type { schemas } from '@repalis/client'
+import { X } from '@repalis/orbit/icons'
 import { useCallback, useEffect, useRef } from 'react'
 
 interface CheckoutEmbedCloseProps {
@@ -18,7 +18,7 @@ const CheckoutEmbedClose: React.FC<
     if (!checkout.embed_origin) {
       return
     }
-    PolarEmbedCheckout.postMessage({ event: 'close' }, checkout.embed_origin)
+    RepalisEmbedCheckout.postMessage({ event: 'close' }, checkout.embed_origin)
   }, [checkout])
 
   useEffect(() => {

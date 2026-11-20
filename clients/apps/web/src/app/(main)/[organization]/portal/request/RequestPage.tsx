@@ -3,25 +3,25 @@
 import { useCustomerPortalSessionRequest } from '@/hooks/queries/customerPortal'
 import { TURNSTILE_SCRIPT_URL, useTurnstile } from '@/hooks/useTurnstile'
 import { setValidationErrors } from '@/utils/api/errors'
-import { Button } from '@polar-sh/orbit'
-import { Input } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { Button } from '@repalis/orbit'
+import { Input } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import { useRouter } from 'next/navigation'
 import Script from 'next/script'
 
 import { api } from '@/utils/client'
-import { isValidationError, schemas } from '@polar-sh/client'
+import { isValidationError, schemas } from '@repalis/client'
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormMessage,
-} from '@polar-sh/ui/components/ui/form'
+} from '@repalis/ui/components/ui/form'
 import {
   RadioGroup,
   RadioGroupItem,
-} from '@polar-sh/ui/components/ui/radio-group'
+} from '@repalis/ui/components/ui/radio-group'
 import { useCallback, useState } from 'react'
 import { PortalAuthHeader, PortalAuthShell } from '../PortalShell'
 import { useForm } from 'react-hook-form'

@@ -1,13 +1,13 @@
 'use client'
 
-import { ExpandMoreOutlined } from '@polar-sh/orbit/icons'
-import { Button } from '@polar-sh/orbit'
+import { ExpandMoreOutlined } from '@repalis/orbit/icons'
+import { Button } from '@repalis/orbit'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@polar-sh/ui/components/ui/dropdown-menu'
+} from '@repalis/ui/components/ui/dropdown-menu'
 import { useCallback, useState } from 'react'
 import { SettingsGroup, SettingsGroupRow } from './SettingsGroup'
 

@@ -5,17 +5,17 @@ import {
   useUpdateSubscription,
 } from '@/hooks/queries'
 import { extractApiErrorMessage, setValidationErrors } from '@/utils/api/errors'
-import { isValidationError, schemas } from '@polar-sh/client'
-import { formatCurrency } from '@polar-sh/currency'
-import { Alert, Button, InlineModalHeader } from '@polar-sh/orbit'
+import { isValidationError, schemas } from '@repalis/client'
+import { formatCurrency } from '@repalis/currency'
+import { Alert, Button, InlineModalHeader } from '@repalis/orbit'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@polar-sh/orbit'
-import { TextArea } from '@polar-sh/orbit'
+} from '@repalis/orbit'
+import { TextArea } from '@repalis/orbit'
 import {
   Form,
   FormControl,
@@ -24,7 +24,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@polar-sh/ui/components/ui/form'
+} from '@repalis/ui/components/ui/form'
 import { useCallback } from 'react'
 import { useForm, useWatch } from 'react-hook-form'
 import { toast } from '../Toast/use-toast'

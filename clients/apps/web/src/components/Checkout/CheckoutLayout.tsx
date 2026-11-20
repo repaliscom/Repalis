@@ -1,6 +1,6 @@
 import { RepalisThemeProvider } from '@/app/providers'
-import type { schemas } from '@polar-sh/client'
-import type { TextDirection } from '@polar-sh/i18n'
+import type { schemas } from '@repalis/client'
+import type { TextDirection } from '@repalis/i18n'
 import CheckoutDirectionProvider from './CheckoutDirectionProvider'
 import CheckoutEmbedLayout from './Embed/CheckoutEmbedLayout'
 

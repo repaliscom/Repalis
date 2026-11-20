@@ -9,15 +9,15 @@ import { useCheckouts } from '@/hooks/queries/checkouts'
 import { useDataTableQueryState } from '@/hooks/useDataTableQueryState'
 import { useDebouncedCallback } from '@/hooks/utils'
 import { getAPIParams } from '@/utils/datatable'
-import { enums, schemas } from '@polar-sh/client'
+import { enums, schemas } from '@repalis/client'
 import {
   DataTable,
   DataTableColumnDef,
   DataTableColumnHeader,
-} from '@polar-sh/orbit'
-import FormattedDateTime from '@polar-sh/ui/components/atoms/FormattedDateTime'
-import { Input, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+} from '@repalis/orbit'
+import FormattedDateTime from '@repalis/ui/components/atoms/FormattedDateTime'
+import { Input, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import { useRouter } from 'next/navigation'
 import {
   parseAsArrayOf,

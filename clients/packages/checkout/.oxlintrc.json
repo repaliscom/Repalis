@@ -8,17 +8,17 @@
       {
         "patterns": [
           {
-            "group": ["@polar-sh/orbit", "@polar-sh/orbit/*"],
+            "group": ["@repalis/orbit", "@repalis/orbit/*"],
             "message": "The checkout package must not depend on the Orbit design system — checkout styling is tuned independently for conversion. Use the local components in src/components/ui instead."
           },
           {
             "group": [
-              "@polar-sh/ui/components/atoms/CountryPicker",
-              "@polar-sh/ui/components/atoms/CountryStatePicker",
-              "@polar-sh/ui/components/atoms/MoneyInput",
-              "@polar-sh/ui/components/ui/checkbox"
+              "@repalis/ui/components/atoms/CountryPicker",
+              "@repalis/ui/components/atoms/CountryStatePicker",
+              "@repalis/ui/components/atoms/MoneyInput",
+              "@repalis/ui/components/ui/checkbox"
             ],
-            "message": "This @polar-sh/ui component wraps Orbit components, which are not allowed in the checkout package. Use the local components in src/components/ui instead."
+            "message": "This @repalis/ui component wraps Orbit components, which are not allowed in the checkout package. Use the local components in src/components/ui instead."
           }
         ]
       }

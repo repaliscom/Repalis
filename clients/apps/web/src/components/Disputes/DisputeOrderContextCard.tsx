@@ -1,11 +1,11 @@
 import { OrderStatus } from '@/components/Orders/OrderStatus'
 import { ContextCard } from '@/components/Shared/ContextCard'
 import { DetailRow } from '@/components/Shared/DetailRow'
-import { schemas } from '@polar-sh/client'
-import { formatCurrency } from '@polar-sh/currency'
-import { Button, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import FormattedDateTime from '@polar-sh/ui/components/atoms/FormattedDateTime'
+import { schemas } from '@repalis/client'
+import { formatCurrency } from '@repalis/currency'
+import { Button, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import FormattedDateTime from '@repalis/ui/components/atoms/FormattedDateTime'
 import Link from 'next/link'
 
 const format = formatCurrency('accounting')

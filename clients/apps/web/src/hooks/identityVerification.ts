@@ -1,7 +1,7 @@
 import { useAuth } from '@/hooks'
 import { useCreateIdentityVerification } from '@/hooks/queries'
 import { toast } from '@/components/Toast/use-toast'
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 import { loadPolarStripe } from '@/utils/stripe'
 import { useCallback, useEffect, useRef } from 'react'
 

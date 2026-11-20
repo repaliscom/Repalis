@@ -1,18 +1,18 @@
 'use client'
 
-import { Modal, Text } from '@polar-sh/orbit'
+import { Modal, Text } from '@repalis/orbit'
 import { useTOTPEnroll, useTOTPEnable } from '@/hooks/auth'
 import { isSessionNotFreshError } from '@/utils/api/errors'
-import { schemas } from '@polar-sh/client'
-import { Button } from '@polar-sh/orbit'
+import { schemas } from '@repalis/client'
+import { Button } from '@repalis/orbit'
 import {
   InputOTP,
   InputOTPGroup,
   InputOTPSlot,
-} from '@polar-sh/ui/components/atoms/InputOTP'
+} from '@repalis/ui/components/atoms/InputOTP'
 import QRCode from 'react-qr-code'
 import { useId, useState } from 'react'
-import CopyToClipboardInput from '@polar-sh/ui/components/atoms/CopyToClipboardInput'
+import CopyToClipboardInput from '@repalis/ui/components/atoms/CopyToClipboardInput'
 import { toast } from '../Toast/use-toast'
 
 export interface TOTPSetupModalProps {

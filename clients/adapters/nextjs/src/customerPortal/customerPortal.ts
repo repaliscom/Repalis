@@ -1,5 +1,5 @@
-import { createCustomerSessions } from '@polar-sh/sdk/2026-10/services/customer_sessions'
-import { createPolarCore, type Environment } from '@polar-sh/sdk/2026-10'
+import { createCustomerSessions } from '@repalis/sdk/2026-10/services/customer_sessions'
+import { createRepalisCore, type Environment } from '@repalis/sdk/2026-10'
 import { type NextRequest, NextResponse } from 'next/server'
 
 interface CustomerPortalBaseConfig {
@@ -31,7 +31,7 @@ export type CustomerPortalConfig =
 export const CustomerPortal = (config: CustomerPortalConfig) => {
   const { accessToken, environment, returnUrl } = config
 
-  const polar = createPolarCore({
+  const polar = createRepalisCore({
     accessToken,
     environment,
   })

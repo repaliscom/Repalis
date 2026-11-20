@@ -1,9 +1,9 @@
 'use client'
 
-import { CheckoutHeroPrice } from '@polar-sh/checkout/components'
-import { useTranslations } from '@polar-sh/i18n'
-import { cn } from '@polar-sh/ui/lib/utils'
-import { ChevronDown } from '@polar-sh/orbit/icons'
+import { CheckoutHeroPrice } from '@repalis/checkout/components'
+import { useTranslations } from '@repalis/i18n'
+import { cn } from '@repalis/ui/lib/utils'
+import { ChevronDown } from '@repalis/orbit/icons'
 import { useId, useState } from 'react'
 import {
   CheckoutOrderSummary,

@@ -4,8 +4,8 @@ import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+} from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 
 const FLAGGED_FILES_DOCS_URL =
   'https://repalis.com/docs/features/benefits/file-downloads#flagged-files'

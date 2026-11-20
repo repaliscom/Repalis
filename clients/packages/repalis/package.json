@@ -40,12 +40,12 @@
     "typecheck": "tsc --noEmit && tsc --noEmit -p tsconfig.lint.json"
   },
   "dependencies": {
-    "@polar-sh/sdk": "1.0.3-alpha.5",
+    "@repalis/sdk": "1.0.3-alpha.5",
     "@standard-schema/spec": "^1.1.0",
     "effect": "^4.0.1"
   },
   "devDependencies": {
-    "@polar-sh/typescript-config": "workspace:*",
+    "@repalis/typescript-config": "workspace:*",
     "@types/node": "catalog:",
     "@typescript/native": "catalog:",
     "tsdown": "catalog:",

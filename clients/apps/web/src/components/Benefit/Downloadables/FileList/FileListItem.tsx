@@ -9,8 +9,8 @@ import {
   InsertDriveFileOutlined,
   MoreVertOutlined,
   VideoFileOutlined,
-} from '@polar-sh/orbit/icons'
-import { Switch } from '@polar-sh/orbit'
+} from '@repalis/orbit/icons'
+import { Switch } from '@repalis/orbit'
 import {
   FocusEvent,
   FormEventHandler,
@@ -27,13 +27,13 @@ import { FileObject } from '@/components/FileUpload'
 import { ConfirmModal } from '@/components/Modal/ConfirmModal'
 import { useModal } from '@/components/Modal/useModal'
 import { toast } from '@/components/Toast/use-toast'
-import { Button } from '@polar-sh/orbit'
+import { Button } from '@repalis/orbit'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@polar-sh/ui/components/ui/dropdown-menu'
+} from '@repalis/ui/components/ui/dropdown-menu'
 import { useMemo } from 'react'
 import { FlaggedMaliciousStatus } from '../FlaggedMaliciousStatus'
 

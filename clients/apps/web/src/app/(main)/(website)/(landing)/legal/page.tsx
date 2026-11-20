@@ -2,9 +2,9 @@ import {
   FeatureChapter,
   SectionTitle,
 } from '@/components/Landing/features/FeatureChapter'
-import { Grid, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import { ArrowRight } from '@polar-sh/orbit/icons'
+import { Grid, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import { ArrowRight } from '@repalis/orbit/icons'
 import { Metadata } from 'next'
 import Link from 'next/link'
 

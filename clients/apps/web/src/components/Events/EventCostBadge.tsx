@@ -1,5 +1,5 @@
-import { KeyboardArrowDown, KeyboardArrowUp } from '@polar-sh/orbit/icons'
-import { formatCurrency } from '@polar-sh/currency'
+import { KeyboardArrowDown, KeyboardArrowUp } from '@repalis/orbit/icons'
+import { formatCurrency } from '@repalis/currency'
 import { useMemo } from 'react'
 import { twMerge } from 'tailwind-merge'
 

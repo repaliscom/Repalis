@@ -1,12 +1,12 @@
 import { getPublicServerURL } from '@/utils/api'
 import { getServerSideAPI } from '@/utils/client/serverside'
-import { POLAR_EMBED_ORIGIN_HEADER } from '@/utils/embed'
+import { REPALIS_EMBED_ORIGIN_HEADER } from '@/utils/embed'
 import {
   DEFAULT_LOCALE,
   isAcceptedLocale,
   type AcceptedLocale,
-} from '@polar-sh/i18n'
-import { unwrap, UnauthorizedResponseError } from '@polar-sh/client'
+} from '@repalis/i18n'
+import { unwrap, UnauthorizedResponseError } from '@repalis/client'
 import type { Metadata } from 'next'
 import { headers } from 'next/headers'
 import { EmbedError } from './EmbedError'
@@ -67,7 +67,7 @@ export default async function Page(props: {
     return <EmbedError code="invalid_request" locale={locale} theme={theme} />
   }
 
-  const embedOrigin = (await headers()).get(POLAR_EMBED_ORIGIN_HEADER)
+  const embedOrigin = (await headers()).get(REPALIS_EMBED_ORIGIN_HEADER)
 
   const api = await getServerSideAPI(sessionToken)
   let customer

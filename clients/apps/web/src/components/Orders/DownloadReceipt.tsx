@@ -2,14 +2,14 @@
 
 import { useOrganizationSSE } from '@/hooks/sse'
 import { api } from '@/utils/client'
-import type { Client, schemas } from '@polar-sh/client'
-import { Button } from '@polar-sh/orbit'
+import type { Client, schemas } from '@repalis/client'
+import { Button } from '@repalis/orbit'
 import type EventEmitter from 'eventemitter3'
 import { type RefObject, useCallback, useEffect, useRef, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 import { toast } from '@/components/Toast/use-toast'
 import { useCustomerPortalContext } from '../CustomerPortal/CustomerPortalProvider'
-import { buttonVariants } from '@polar-sh/orbit/ui/button'
+import { buttonVariants } from '@repalis/orbit/ui/button'
 
 type Variant = NonNullable<Parameters<typeof buttonVariants>[0]>['variant']
 

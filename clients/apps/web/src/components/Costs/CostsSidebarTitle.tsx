@@ -1,9 +1,9 @@
 'use client'
 
 import { EventCostCreationGuideModal } from '@/components/Events/EventCostCreationGuideModal'
-import { Modal } from '@polar-sh/orbit'
+import { Modal } from '@repalis/orbit'
 import { useModal } from '@/components/Modal/useModal'
-import { CircleQuestionMark as CircleQuestionMarkIcon } from '@polar-sh/orbit/icons'
+import { CircleQuestionMark as CircleQuestionMarkIcon } from '@repalis/orbit/icons'
 import Link from 'next/link'
 
 export function CostsSidebarTitle({

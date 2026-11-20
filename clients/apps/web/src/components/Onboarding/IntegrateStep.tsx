@@ -1,10 +1,10 @@
 import { useOnboardingTracking } from '@/hooks'
 import { OrganizationContext } from '@/providers/maintainerOrganization'
-import { ArrowOutwardOutlined } from '@polar-sh/orbit/icons'
-import { schemas } from '@polar-sh/client'
-import { Box } from '@polar-sh/orbit/Box'
-import { Button } from '@polar-sh/orbit'
-import { Tabs, TabsList, TabsTrigger } from '@polar-sh/orbit'
+import { ArrowOutwardOutlined } from '@repalis/orbit/icons'
+import { schemas } from '@repalis/client'
+import { Box } from '@repalis/orbit/Box'
+import { Button } from '@repalis/orbit'
+import { Tabs, TabsList, TabsTrigger } from '@repalis/orbit'
 import { useRouter } from 'next/navigation'
 import { useContext, useEffect, useMemo, useState } from 'react'
 import slugify from 'slugify'
@@ -45,12 +45,12 @@ const frameworks = (products: schemas['Product'][]) =>
       name: 'Next.js',
       link: 'https://repalis.com/docs/integrate/sdk/adapters/nextjs',
       icon: <NextJsIcon size={24} />,
-      packages: '@polar-sh/nextjs',
-      code: `import { Checkout } from "@polar-sh/nextjs";
+      packages: '@repalis/nextjs',
+      code: `import { Checkout } from "@repalis/nextjs";
 
 export const GET = Checkout({
-  accessToken: process.env.POLAR_ACCESS_TOKEN,
-  successUrl: process.env.POLAR_SUCCESS_URL
+  accessToken: process.env.REPALIS_ACCESS_TOKEN,
+  successUrl: process.env.REPALIS_SUCCESS_URL
 });`,
     },
     {
@@ -58,20 +58,20 @@ export const GET = Checkout({
       name: 'BetterAuth',
       link: 'https://repalis.com/docs/integrate/sdk/adapters/better-auth',
       icon: <BetterAuthIcon size={24} />,
-      packages: 'better-auth @polar-sh/better-auth @polar-sh/sdk',
+      packages: 'better-auth @repalis/better-auth @repalis/sdk',
       code: `import { betterAuth } from "better-auth";
-import { polar, checkout, portal, usage, webhooks } from "@polar-sh/better-auth";
-import { Repalis } from "@polar-sh/sdk";
+import { polar, checkout, portal, usage, webhooks } from "@repalis/better-auth";
+import { Repalis } from "@repalis/sdk";
 
-const polarClient = new Repalis({
-    accessToken: process.env.POLAR_ACCESS_TOKEN
+const repalisClient = new Repalis({
+    accessToken: process.env.REPALIS_ACCESS_TOKEN
 });
 
 const auth = betterAuth({
     // ... Better Auth config
     plugins: [
         polar({
-            client: polarClient,
+            client: repalisClient,
             createCustomerOnSignUp: true,
             use: [
                 checkout({
@@ -85,7 +85,7 @@ ${products
   )
   .join(',\n')}
                     ],
-                    successUrl: process.env.POLAR_SUCCESS_URL,
+                    successUrl: process.env.REPALIS_SUCCESS_URL,
                     authenticatedUsersOnly: true
                 })
             ],
@@ -98,18 +98,18 @@ ${products
       name: 'Node.js',
       link: 'https://repalis.com/docs/integrate/sdk/typescript',
       icon: <NodeJsIcon size={24} />,
-      packages: '@polar-sh/sdk',
-      code: `import { Repalis } from "@polar-sh/sdk";
+      packages: '@repalis/sdk',
+      code: `import { Repalis } from "@repalis/sdk";
 
 const polar = new Repalis({
-  accessToken: process.env.POLAR_ACCESS_TOKEN,
+  accessToken: process.env.REPALIS_ACCESS_TOKEN,
 });
 
 const checkout = await polar.checkouts.create({
   products: [
 ${products.map((p) => `    "${p.id}"`).join(',\n')}
   ],
-  successUrl: process.env.POLAR_SUCCESS_URL
+  successUrl: process.env.REPALIS_SUCCESS_URL
 });
 
 redirect(checkout.url)`,
@@ -124,14 +124,14 @@ redirect(checkout.url)`,
 from repalis_sdk import Repalis
 
 with Repalis(
-    access_token=os.environ.get("POLAR_ACCESS_TOKEN"),
+    access_token=os.environ.get("REPALIS_ACCESS_TOKEN"),
 ) as polar:
 
     res = polar.checkouts.create(request={
         "products": [
 ${products.map((p) => `            "${p.id}"`).join(',\n')}
         ],
-        "success_url": os.environ.get("POLAR_SUCCESS_URL")
+        "success_url": os.environ.get("REPALIS_SUCCESS_URL")
     })
 
     # Handle response
@@ -319,8 +319,8 @@ export const IntegrateStep = ({ products }: IntegrateStepProps) => {
               <CodeWrapper>
                 <SyntaxHighlighterClient
                   lang="bash"
-                  code={`POLAR_ACCESS_TOKEN=${createdToken ?? 'XXX'}
-POLAR_SUCCESS_URL=https://example.com/success?checkout_id={CHECKOUT_ID}`}
+                  code={`REPALIS_ACCESS_TOKEN=${createdToken ?? 'XXX'}
+REPALIS_SUCCESS_URL=https://example.com/success?checkout_id={CHECKOUT_ID}`}
                 />
               </CodeWrapper>
             </Box>

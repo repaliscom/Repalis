@@ -1,13 +1,13 @@
 'use client'
 
-import { enums } from '@polar-sh/client'
-import { Checkbox } from '@polar-sh/orbit'
+import { enums } from '@repalis/client'
+import { Checkbox } from '@repalis/orbit'
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@polar-sh/ui/components/ui/popover'
-import { ChevronDown } from '@polar-sh/orbit/icons'
+} from '@repalis/ui/components/ui/popover'
+import { ChevronDown } from '@repalis/orbit/icons'
 import { useCallback, useMemo, useState } from 'react'
 
 interface WebhookEventTypeSelectProps {

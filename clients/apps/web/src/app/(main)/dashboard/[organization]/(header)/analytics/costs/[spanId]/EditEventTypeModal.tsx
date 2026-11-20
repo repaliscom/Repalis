@@ -8,7 +8,7 @@ import {
 import { useToast } from '@/components/Toast/use-toast'
 import { useUpdateEventType } from '@/hooks/queries/event_types'
 import { apiErrorToast, setValidationErrors } from '@/utils/api/errors'
-import { Button, InlineModalHeader, Input, Text } from '@polar-sh/orbit'
+import { Button, InlineModalHeader, Input, Text } from '@repalis/orbit'
 import {
   Form,
   FormControl,
@@ -17,7 +17,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@polar-sh/ui/components/ui/form'
+} from '@repalis/ui/components/ui/form'
 import { useCallback } from 'react'
 import { useForm, useWatch, useFormState } from 'react-hook-form'
 

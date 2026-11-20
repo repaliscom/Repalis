@@ -5,9 +5,9 @@ import {
 } from '@/components/Meter/MeterFilterReadOnlyConfiguration'
 import { taxBehaviorOptionDisplayNames } from '@/components/Settings/OrganizationPaymentSettings'
 import { getUnitLabels } from '@/utils/product'
-import { schemas } from '@polar-sh/client'
-import { formatCurrency } from '@polar-sh/currency'
-import { getMeterUnitFormat } from '@polar-sh/ui/lib/meterUnit'
+import { schemas } from '@repalis/client'
+import { formatCurrency } from '@repalis/currency'
+import { getMeterUnitFormat } from '@repalis/ui/lib/meterUnit'
 
 type Config = schemas['ConfigExportDocument']
 type Product = schemas['ConfigProductRead']

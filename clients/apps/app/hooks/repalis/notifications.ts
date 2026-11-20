@@ -1,12 +1,12 @@
-import { usePolarClient } from '@/providers/RepalisClientProvider'
+import { useRepalisClient } from '@/providers/RepalisClientProvider'
 import { useSession } from '@/providers/SessionProvider'
 import { queryClient } from '@/utils/query'
-import { schemas, unwrap } from '@polar-sh/client'
+import { schemas, unwrap } from '@repalis/client'
 import { useMutation, useQuery, UseQueryResult } from '@tanstack/react-query'
 import { Platform } from 'react-native'
 
 export const useCreateNotificationRecipient = () => {
-  const { polar } = usePolarClient()
+  const { polar } = useRepalisClient()
 
   return useMutation({
     mutationFn: async (expoPushToken: string) => {
@@ -30,7 +30,7 @@ export const useGetNotificationRecipient = (
   expoPushToken: string | undefined,
 ) => {
   const { session } = useSession()
-  const { polar } = usePolarClient()
+  const { polar } = useRepalisClient()
 
   return useQuery({
     queryKey: ['notification_recipient', expoPushToken],
@@ -53,7 +53,7 @@ export const useGetNotificationRecipient = (
 }
 
 export const useDeleteNotificationRecipient = () => {
-  const { polar } = usePolarClient()
+  const { polar } = useRepalisClient()
 
   return useMutation({
     mutationFn: async (id: string) => {
@@ -98,7 +98,7 @@ export const useListNotifications = (): UseQueryResult<
   schemas['NotificationsList'],
   Error
 > => {
-  const { polar } = usePolarClient()
+  const { polar } = useRepalisClient()
   const { session } = useSession()
 
   return useQuery({
@@ -109,7 +109,7 @@ export const useListNotifications = (): UseQueryResult<
 }
 
 export const useNotificationsMarkRead = () => {
-  const { polar } = usePolarClient()
+  const { polar } = useRepalisClient()
 
   return useMutation({
     mutationFn: (variables: { notificationId: string }) =>

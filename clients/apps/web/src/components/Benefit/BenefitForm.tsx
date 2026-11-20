@@ -1,7 +1,7 @@
 import { MetadataForm } from '@/components/Metadata/MetadataForm'
 import { useDiscordGuild } from '@/hooks/queries'
 import { getBotDiscordAuthorizeURL } from '@/utils/auth'
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 import {
   Button,
   Checkbox,
@@ -15,7 +15,7 @@ import {
   SelectTrigger,
   SelectValue,
   TextArea,
-} from '@polar-sh/orbit'
+} from '@repalis/orbit'
 import {
   FormControl,
   FormDescription,
@@ -23,7 +23,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@polar-sh/ui/components/ui/form'
+} from '@repalis/ui/components/ui/form'
 import { usePathname } from 'next/navigation'
 import React, { useMemo } from 'react'
 import { useFormContext, useWatch } from 'react-hook-form'

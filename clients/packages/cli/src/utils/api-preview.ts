@@ -1,4 +1,4 @@
-import type { PreviewField } from '@polar-sh/cli-commands'
+import type { PreviewField } from '@repalis/cli-commands'
 import * as ui from '@/utils/ui'
 
 const clean = (text: string) =>

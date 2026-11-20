@@ -1,4 +1,4 @@
-import { Text } from '@polar-sh/orbit'
+import { Text } from '@repalis/orbit'
 import {
   Example,
   PageHeader,

@@ -3,7 +3,7 @@ import {
   useCustomerSubscriptionChangePreview,
   useCustomerUpdateSubscription,
 } from '@/hooks/queries/customerPortal'
-import { Client, schemas } from '@polar-sh/client'
+import { Client, schemas } from '@repalis/client'
 import { fireEvent, render, screen } from '@testing-library/react'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import CustomerChangePlanModal from './CustomerChangePlanModal'

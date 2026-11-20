@@ -1,6 +1,6 @@
 'use client'
 
-import { Spinner } from '@polar-sh/orbit'
+import { Spinner } from '@repalis/orbit'
 import {
   Area,
   CartesianGrid,
@@ -11,7 +11,7 @@ import {
   Line,
   XAxis,
   YAxis,
-} from '@polar-sh/ui/components/ui/chart'
+} from '@repalis/ui/components/ui/chart'
 import { useTheme } from 'next-themes'
 import { useMemo } from 'react'
 

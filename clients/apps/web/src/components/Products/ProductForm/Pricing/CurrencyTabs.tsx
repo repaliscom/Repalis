@@ -1,7 +1,7 @@
 'use client'
 
-import { CloseOutlined } from '@polar-sh/orbit/icons'
-import { Tabs, TabsList, TabsTrigger } from '@polar-sh/orbit'
+import { CloseOutlined } from '@repalis/orbit/icons'
+import { Tabs, TabsList, TabsTrigger } from '@repalis/orbit'
 import React from 'react'
 import { CurrencySelector } from '../../../CurrencySelector'
 

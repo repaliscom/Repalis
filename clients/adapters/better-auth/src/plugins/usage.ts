@@ -1,7 +1,7 @@
-import { listCustomerMeters as listCustomerMetersCustomerPortal } from '@polar-sh/sdk/2026-10/services/customer_portal/customer_meters'
-import { createCustomerSessions } from '@polar-sh/sdk/2026-10/services/customer_sessions'
-import { ingestEvents } from '@polar-sh/sdk/2026-10/services/events'
-import type { models, PolarCore } from '@polar-sh/sdk/2026-10'
+import { listCustomerMeters as listCustomerMetersCustomerPortal } from '@repalis/sdk/2026-10/services/customer_portal/customer_meters'
+import { createCustomerSessions } from '@repalis/sdk/2026-10/services/customer_sessions'
+import { ingestEvents } from '@repalis/sdk/2026-10/services/events'
+import type { models, RepalisCore } from '@repalis/sdk/2026-10'
 import {
   APIError,
   createAuthEndpoint,
@@ -9,7 +9,7 @@ import {
 } from 'better-auth/api'
 import * as z from 'zod/v4'
 import { resolveBillingPrincipal } from '../principal'
-import type { PolarOptions, Product } from '../types'
+import type { RepalisOptions, Product } from '../types'
 
 export interface UsageOptions {
   /**
@@ -21,8 +21,8 @@ export interface UsageOptions {
 export const usage =
   (_usageOptions?: UsageOptions) =>
   (
-    polar: PolarCore,
-    rootOptions?: Pick<PolarOptions, 'experimental_organizationSync'>,
+    polar: RepalisCore,
+    rootOptions?: Pick<RepalisOptions, 'experimental_organizationSync'>,
   ) => {
     return {
       meters: createAuthEndpoint(

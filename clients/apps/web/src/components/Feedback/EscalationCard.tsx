@@ -1,17 +1,17 @@
 'use client'
 
 import { useAuth } from '@/hooks/auth'
-import { schemas } from '@polar-sh/client'
-import { Box } from '@polar-sh/orbit/Box'
-import { Button } from '@polar-sh/orbit'
+import { schemas } from '@repalis/client'
+import { Box } from '@repalis/orbit/Box'
+import { Button } from '@repalis/orbit'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@polar-sh/orbit'
-import { TextArea } from '@polar-sh/orbit'
+} from '@repalis/orbit'
+import { TextArea } from '@repalis/orbit'
 import { useState } from 'react'
 
 interface EscalationCardProps {

@@ -1,8 +1,8 @@
 'use client'
 
 import { useStartPanTransfer } from '@/hooks/queries/merchantMigrations'
-import { ButtonGroup, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { ButtonGroup, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import {
   importedCountsText,
   importedTotal,

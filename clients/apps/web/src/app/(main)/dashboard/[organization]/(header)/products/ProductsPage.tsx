@@ -18,20 +18,20 @@ import {
   AddOutlined,
   HiveOutlined,
   SearchFilled as Search,
-} from '@polar-sh/orbit/icons'
-import { schemas } from '@polar-sh/client'
-import { Button } from '@polar-sh/orbit'
-import { Input } from '@polar-sh/orbit'
-import { List } from '@polar-sh/orbit'
+} from '@repalis/orbit/icons'
+import { schemas } from '@repalis/client'
+import { Button } from '@repalis/orbit'
+import { Input } from '@repalis/orbit'
+import { List } from '@repalis/orbit'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import { ShadowBoxOnMd } from '@polar-sh/ui/components/atoms/ShadowBox'
+} from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import { ShadowBoxOnMd } from '@repalis/ui/components/atoms/ShadowBox'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import { parseAsString, parseAsStringLiteral, useQueryStates } from 'nuqs'

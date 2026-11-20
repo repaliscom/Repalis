@@ -11,7 +11,7 @@ import {
   isOrderSummaryCollapsible,
 } from '@/utils/checkout'
 import { getResizedImage } from '@/utils/getResizedImage'
-import { ArrowLeft } from '@polar-sh/orbit/icons'
+import { ArrowLeft } from '@repalis/orbit/icons'
 import {
   CheckoutForm,
   CheckoutHeroPrice,
@@ -20,20 +20,20 @@ import {
   CheckoutPWYWForm,
   CheckoutSeatSelector,
   CheckoutUnitSelector,
-} from '@polar-sh/checkout/components'
+} from '@repalis/checkout/components'
 import {
   getSeatPrice,
   getUnitPrice,
   hasProductCheckout,
   type ProductCheckoutPublic,
-} from '@polar-sh/checkout/guards'
-import { useCheckoutFulfillmentListener } from '@polar-sh/checkout/hooks'
-import { useCheckout, useCheckoutForm } from '@polar-sh/checkout/providers'
-import type { schemas } from '@polar-sh/client'
-import { AcceptedLocale } from '@polar-sh/i18n'
-import { Alert, Avatar } from '@polar-sh/orbit'
-import ShadowBox from '@polar-sh/ui/components/atoms/ShadowBox'
-import { getThemePreset } from '@polar-sh/ui/hooks/theming'
+} from '@repalis/checkout/guards'
+import { useCheckoutFulfillmentListener } from '@repalis/checkout/hooks'
+import { useCheckout, useCheckoutForm } from '@repalis/checkout/providers'
+import type { schemas } from '@repalis/client'
+import { AcceptedLocale } from '@repalis/i18n'
+import { Alert, Avatar } from '@repalis/orbit'
+import ShadowBox from '@repalis/ui/components/atoms/ShadowBox'
+import { getThemePreset } from '@repalis/ui/hooks/theming'
 import type { Stripe, StripeElements } from '@stripe/stripe-js'
 import { useTheme } from 'next-themes'
 import Link from 'next/link'

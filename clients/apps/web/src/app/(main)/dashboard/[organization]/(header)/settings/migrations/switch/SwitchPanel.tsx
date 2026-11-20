@@ -6,8 +6,8 @@ import {
   useStartMigrationSwitch,
 } from '@/hooks/queries/merchantMigrations'
 import { getQueryClient } from '@/utils/api/query'
-import { Alert, Spinner } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { Alert, Spinner } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import {
   SelectionState,

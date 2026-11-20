@@ -1,5 +1,5 @@
-import { schemas } from '@polar-sh/client'
-import { Tooltip, TooltipContent, TooltipTrigger } from '@polar-sh/orbit'
+import { schemas } from '@repalis/client'
+import { Tooltip, TooltipContent, TooltipTrigger } from '@repalis/orbit'
 import { useMemo } from 'react'
 
 const getTransactionMeta = (transaction: schemas['Transaction']) => {

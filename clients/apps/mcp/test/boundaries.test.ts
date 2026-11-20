@@ -3,7 +3,7 @@ import { Effect } from 'effect'
 import { FetchHttpClient } from 'effect/http'
 import { Docs } from '../src/docs'
 import { RequestLog, type RequestLogEntry } from '../src/log'
-import { PolarApiOutbound, type PolarApiOutboundProps } from '../src/outbound'
+import { PolarApiOutbound, type RepalisApiOutboundProps } from '../src/outbound'
 import { makeToolRunner } from '../src/results'
 import { isAllowedOperation, redactPath, spec } from '../src/spec'
 import { request, rpc } from './client'
@@ -23,7 +23,7 @@ test('outbound rejects other origins, writes in read-only mode, and unexposed op
     readOnly: true,
   }
   const outbound = new PolarApiOutbound(
-    { props } as ExecutionContext<PolarApiOutboundProps>,
+    { props } as ExecutionContext<RepalisApiOutboundProps>,
     {} as Env,
   )
   for (const [url, method, status, error, detail] of [
@@ -62,7 +62,7 @@ test('outbound rejects other origins, writes in read-only mode, and unexposed op
       headers: {
         Authorization: 'Bearer attacker',
         'User-Agent': 'attacker',
-        'Polar-Version': '1999-01',
+        'Repalis-Version': '1999-01',
         'Content-Type': 'application/json',
       },
       body: '{"name":"Product"}',
@@ -72,8 +72,8 @@ test('outbound rejects other origins, writes in read-only mode, and unexposed op
   expect(await response.text()).toBe('stream')
   const forwarded = fetchMock.mock.calls[0][0] as Request
   expect(forwarded.headers.get('Authorization')).toBe('Bearer secret')
-  expect(forwarded.headers.get('User-Agent')).toBe('polar-mcp')
-  expect(forwarded.headers.get('Polar-Version')).toBe(spec.apiVersion)
+  expect(forwarded.headers.get('User-Agent')).toBe('repalis-mcp')
+  expect(forwarded.headers.get('Repalis-Version')).toBe(spec.apiVersion)
   expect(await forwarded.text()).toBe('{"name":"Product"}')
 })
 
@@ -148,7 +148,7 @@ test('upstream failures remain tool errors and OAuth network failures return 503
   })
   expect(
     (
-      await request('/mcp/polar-mcp', {
+      await request('/mcp/repalis-mcp', {
         headers: { Authorization: 'Bearer polar_at_network_failure' },
       })
     ).status,
@@ -200,7 +200,7 @@ test('cancelling an MCP tool interrupts its effect and runs finalizers, and canc
   )
   const log: RequestLogEntry = {
     event: 'mcp.request',
-    server: 'polar-mcp',
+    server: 'repalis-mcp',
     mode: 'codemode',
     readOnly: false,
     telemetry: true,

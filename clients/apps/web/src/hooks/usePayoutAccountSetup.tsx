@@ -1,9 +1,9 @@
 import AccountCreateModal from '@/components/Accounts/AccountCreateModal'
-import { Modal } from '@polar-sh/orbit'
+import { Modal } from '@repalis/orbit'
 import { useModal } from '@/components/Modal/useModal'
 import ManagePayoutAccountModal from '@/components/Payouts/ManagePayoutAccountModal'
 import { usePayoutAccount } from '@/hooks/queries/payout_accounts'
-import { NotFoundResponseError, schemas } from '@polar-sh/client'
+import { NotFoundResponseError, schemas } from '@repalis/client'
 import { ReactNode, useCallback } from 'react'
 
 interface UsePayoutAccountSetupResult {

@@ -1,7 +1,7 @@
 'use client'
 
 import { useListNotificationRecipients } from '@/hooks/queries/notifications'
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 import { SettingsGroup, SettingsGroupRow } from './SettingsGroup'
 
 const NotificationRecipientItem = ({

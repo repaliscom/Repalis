@@ -1,4 +1,4 @@
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 import { nanoid } from 'nanoid'
 import { RequestCookiesAdapter } from 'next/dist/server/web/spec-extension/adapters/request-cookies'
 import type { NextRequest } from 'next/server'
@@ -12,12 +12,12 @@ import { frameAncestorsCSP } from './csp.mjs'
 import { getServerURL } from './utils/api'
 import { createServerSideAPI } from './utils/client'
 import { CONFIG } from './utils/config'
-import { POLAR_ENV_COOKIE } from './utils/cookies'
-import { POLAR_EMBED_ORIGIN_HEADER } from './utils/embed'
+import { REPALIS_ENV_COOKIE } from './utils/cookies'
+import { REPALIS_EMBED_ORIGIN_HEADER } from './utils/embed'
 
-const POLAR_AUTH_COOKIE_KEY =
-  process.env.POLAR_AUTH_COOKIE_KEY || 'polar_session'
-const POLAR_USER_HEADER = 'x-polar-user'
+const REPALIS_AUTH_COOKIE_KEY =
+  process.env.REPALIS_AUTH_COOKIE_KEY || 'repalis_session'
+const REPALIS_USER_HEADER = 'x-repalis-user'
 
 const IS_SANDBOX =
   (process.env.NEXT_PUBLIC_ENVIRONMENT ||
@@ -225,8 +225,8 @@ const getLoginResponse = (request: NextRequest): NextResponse => {
 
 export async function proxy(request: NextRequest) {
   const requestHeaders = new Headers(request.headers)
-  requestHeaders.delete(POLAR_USER_HEADER)
-  requestHeaders.delete(POLAR_EMBED_ORIGIN_HEADER)
+  requestHeaders.delete(REPALIS_USER_HEADER)
+  requestHeaders.delete(REPALIS_EMBED_ORIGIN_HEADER)
 
   // Do not run middleware for forwarded routes
   // @pieterbeulque added this because the `config.matcher` behavior below
@@ -240,7 +240,7 @@ export async function proxy(request: NextRequest) {
   }
 
   if (request.nextUrl.pathname.startsWith('/to/')) {
-    const lastEnv = request.cookies.get(POLAR_ENV_COOKIE)?.value
+    const lastEnv = request.cookies.get(REPALIS_ENV_COOKIE)?.value
     const currentEnv = IS_SANDBOX ? 'sandbox' : 'production'
     if (
       (lastEnv === 'sandbox' || lastEnv === 'production') &&
@@ -376,7 +376,7 @@ export async function proxy(request: NextRequest) {
 
   let user: schemas['UserRead'] | undefined = undefined
 
-  if (request.cookies.has(POLAR_AUTH_COOKIE_KEY)) {
+  if (request.cookies.has(REPALIS_AUTH_COOKIE_KEY)) {
     const api = await createServerSideAPI(
       request.headers,
       RequestCookiesAdapter.seal(request.cookies),
@@ -416,14 +416,14 @@ export async function proxy(request: NextRequest) {
   requestHeaders.set(DISTINCT_ID_HEADER, distinctId)
   if (user) {
     requestHeaders.set(
-      POLAR_USER_HEADER,
+      REPALIS_USER_HEADER,
       Buffer.from(JSON.stringify(user)).toString('base64'),
     )
   }
 
   const embedPolicy = await getEmbedPolicy(request)
   if (embedPolicy?.embed_origin) {
-    requestHeaders.set(POLAR_EMBED_ORIGIN_HEADER, embedPolicy.embed_origin)
+    requestHeaders.set(REPALIS_EMBED_ORIGIN_HEADER, embedPolicy.embed_origin)
   }
 
   const response = NextResponse.next({

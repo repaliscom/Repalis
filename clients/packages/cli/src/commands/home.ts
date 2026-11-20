@@ -4,7 +4,7 @@ import {
   ActiveOrganization,
   loginCommand,
   orgCommand,
-  PolarEnvironment,
+  RepalisEnvironment,
 } from '@/schemas/Auth'
 import { Auth } from '@/services/auth'
 import { Organizations } from '@/services/organizations'
@@ -19,7 +19,7 @@ const Session = Schema.Union([
   Schema.Struct({
     status: Schema.Literal('active'),
     override: Schema.Boolean,
-    environments: Schema.Array(PolarEnvironment),
+    environments: Schema.Array(RepalisEnvironment),
     organization: Schema.Union([
       ActiveOrganization,
       Schema.Literals(['none', 'unavailable']),
@@ -96,7 +96,7 @@ const sessionLines = (session: Session) => {
   const { override, environments, organization } = session
   const rows: Array<readonly [string, string]> = override
     ? [
-        ['Token', 'POLAR_ACCESS_TOKEN'],
+        ['Token', 'REPALIS_ACCESS_TOKEN'],
         ['Environment', environments[0]!],
       ]
     : [['Logged in', environments.join(', ')]]

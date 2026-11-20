@@ -1,9 +1,9 @@
 'use client'
 
 import { MasterDetailLayoutContent } from '@/components/Layout/MasterDetailLayout'
-import { schemas } from '@polar-sh/client'
-import { Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { schemas } from '@repalis/client'
+import { Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import { PropsWithChildren } from 'react'
 import { CustomerHeader } from './CustomerHeader'
 import { CustomerSubnav } from './CustomerSubnav'

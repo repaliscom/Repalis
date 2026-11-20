@@ -12,14 +12,14 @@ import { useHasPermission } from '@/hooks/permissions'
 import { useOrganizationReviewState } from '@/hooks/queries/org'
 import { usePostHog } from '@/hooks/posthog'
 import { useAccountSetup } from '@/providers/accountSetup'
-import { schemas } from '@polar-sh/client'
-import { Button, InlineModal, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { schemas } from '@repalis/client'
+import { Button, InlineModal, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import {
   ChevronRight,
   Rocket as RocketIcon,
   Sparkles as SparklesIcon,
-} from '@polar-sh/orbit/icons'
+} from '@repalis/orbit/icons'
 import Link from 'next/link'
 
 interface Props {

@@ -17,9 +17,9 @@ import {
   ArrowDownward,
   ArrowUpward,
   SearchFilled as Search,
-} from '@polar-sh/orbit/icons'
-import { enums, schemas } from '@polar-sh/client'
-import { Input, Button, Spinner, InlineModal } from '@polar-sh/orbit'
+} from '@repalis/orbit/icons'
+import { enums, schemas } from '@repalis/client'
+import { Input, Button, Spinner, InlineModal } from '@repalis/orbit'
 import Link from 'next/link'
 import { usePathname, useSearchParams } from 'next/navigation'
 import {

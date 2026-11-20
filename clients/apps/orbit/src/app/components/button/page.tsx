@@ -1,6 +1,6 @@
-import { Button } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import { ArrowRight, Plus, Trash } from '@polar-sh/orbit/icons'
+import { Button } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import { ArrowRight, Plus, Trash } from '@repalis/orbit/icons'
 import type { PropRow } from '@/components/docs'
 import { Example, PageHeader, PropsTable, Section } from '@/components/docs'
 
@@ -133,7 +133,7 @@ export default function ButtonPage() {
 
       <Section
         title="With icons"
-        description="Place icons from @polar-sh/orbit/icons before or after the label inside children."
+        description="Place icons from @repalis/orbit/icons before or after the label inside children."
       >
         <Example code={iconCode}>
           <Box alignItems="center" columnGap="m" rowGap="m" flexWrap="wrap">

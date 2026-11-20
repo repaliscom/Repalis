@@ -1,8 +1,8 @@
 'use client'
 
-import { VolumeOff, VolumeUp } from '@polar-sh/orbit/icons'
+import { VolumeOff, VolumeUp } from '@repalis/orbit/icons'
 import { Stream, StreamPlayerApi } from '@cloudflare/stream-react'
-import { Box } from '@polar-sh/orbit/Box'
+import { Box } from '@repalis/orbit/Box'
 import { useCallback, useEffect, useRef, useState } from 'react'
 
 const IN_VIEW_THRESHOLD = 0.5

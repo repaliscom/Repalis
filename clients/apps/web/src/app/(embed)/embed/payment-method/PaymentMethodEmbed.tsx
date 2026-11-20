@@ -2,16 +2,16 @@
 
 import {
   EMBED_PAYMENT_METHOD_REDIRECT_STATUS_PARAM,
-  PolarEmbedPaymentMethod,
-} from '@polar-sh/checkout/payment-method'
-import { createClient, schemas } from '@polar-sh/client'
+  RepalisEmbedPaymentMethod,
+} from '@repalis/checkout/payment-method'
+import { createClient, schemas } from '@repalis/client'
 import {
   DEFAULT_LOCALE,
   useTranslations,
   type AcceptedLocale,
-} from '@polar-sh/i18n'
-import { getThemePreset } from '@polar-sh/ui/hooks/theming'
-import { X } from '@polar-sh/orbit/icons'
+} from '@repalis/i18n'
+import { getThemePreset } from '@repalis/ui/hooks/theming'
+import { X } from '@repalis/orbit/icons'
 import { useCallback, useEffect, useEffectEvent, useMemo } from 'react'
 import {
   PaymentMethodForm,
@@ -56,7 +56,7 @@ export const PaymentMethodEmbed = ({
   )
 
   useEffect(() => {
-    PolarEmbedPaymentMethod.postMessage({ event: 'loaded' }, embedOrigin)
+    RepalisEmbedPaymentMethod.postMessage({ event: 'loaded' }, embedOrigin)
   }, [embedOrigin])
 
   useEffect(() => {
@@ -64,7 +64,7 @@ export const PaymentMethodEmbed = ({
 
     const observer = new ResizeObserver((entries) => {
       const height = entries[0]?.contentRect.height ?? 0
-      PolarEmbedPaymentMethod.postMessage(
+      RepalisEmbedPaymentMethod.postMessage(
         { event: 'resize', height },
         embedOrigin,
       )
@@ -74,11 +74,11 @@ export const PaymentMethodEmbed = ({
   }, [mode, embedOrigin])
 
   const handleClose = useCallback(() => {
-    PolarEmbedPaymentMethod.postMessage({ event: 'close' }, embedOrigin)
+    RepalisEmbedPaymentMethod.postMessage({ event: 'close' }, embedOrigin)
   }, [embedOrigin])
 
   const handleProcessingStart = useCallback(() => {
-    PolarEmbedPaymentMethod.postMessage({ event: 'confirmed' }, embedOrigin)
+    RepalisEmbedPaymentMethod.postMessage({ event: 'confirmed' }, embedOrigin)
   }, [embedOrigin])
 
   const navigateBackIfStandalone = useCallback(
@@ -93,7 +93,7 @@ export const PaymentMethodEmbed = ({
 
   const handleSuccess = useCallback(
     (paymentMethod: schemas['CustomerPaymentMethod']) => {
-      PolarEmbedPaymentMethod.postMessage(
+      RepalisEmbedPaymentMethod.postMessage(
         { event: 'success', paymentMethodId: paymentMethod.id },
         embedOrigin,
       )
@@ -103,7 +103,7 @@ export const PaymentMethodEmbed = ({
   )
 
   const handleProcessingError = useCallback(() => {
-    PolarEmbedPaymentMethod.postMessage(
+    RepalisEmbedPaymentMethod.postMessage(
       { event: 'error', code: 'processing_failed' },
       embedOrigin,
     )

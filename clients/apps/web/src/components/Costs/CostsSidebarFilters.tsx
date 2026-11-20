@@ -7,7 +7,7 @@ import {
   getDefaultStartDate,
 } from '@/app/(main)/dashboard/[organization]/(header)/analytics/costs/utils'
 import { fromISODate, toISODate, parseAsISODateString } from '@/utils/metrics'
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 import { endOfDay, subMonths } from 'date-fns'
 import {
   parseAsArrayOf,
@@ -22,7 +22,7 @@ import DateRangePicker from '@/components/Metrics/DateRangePicker'
 import IntervalPicker from '@/components/Metrics/IntervalPicker'
 import { useEventHierarchyStats } from '@/hooks/queries/events'
 
-import { List, ListItem } from '@polar-sh/orbit'
+import { List, ListItem } from '@repalis/orbit'
 import { useParams, useRouter } from 'next/navigation'
 import { twMerge } from 'tailwind-merge'
 

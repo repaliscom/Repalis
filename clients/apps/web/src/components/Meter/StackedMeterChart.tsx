@@ -1,7 +1,7 @@
 'use client'
 
 import { getTimestampFormatter } from '@/utils/metrics'
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 import {
   Bar,
   BarChart,
@@ -10,7 +10,7 @@ import {
   Tooltip,
   XAxis,
   YAxis,
-} from '@polar-sh/ui/components/ui/chart'
+} from '@repalis/ui/components/ui/chart'
 import { useTheme } from 'next-themes'
 import { useMemo } from 'react'
 import type { GenericChartSeries } from '../Charts/GenericChart'

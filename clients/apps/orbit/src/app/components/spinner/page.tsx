@@ -1,6 +1,6 @@
-import { Spinner, SpinnerNoMargin } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import { Text } from '@polar-sh/orbit'
+import { Spinner, SpinnerNoMargin } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import { Text } from '@repalis/orbit'
 import type { PropRow } from '@/components/docs'
 import { Example, PageHeader, PropsTable, Section } from '@/components/docs'
 

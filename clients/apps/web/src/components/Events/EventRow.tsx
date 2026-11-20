@@ -4,11 +4,11 @@ import { buildEventDashboardPath } from '@/utils/event'
 import {
   KeyboardArrowDownOutlined,
   KeyboardArrowRightOutlined,
-} from '@polar-sh/orbit/icons'
-import { schemas } from '@polar-sh/client'
-import { Avatar } from '@polar-sh/orbit'
-import { Button } from '@polar-sh/orbit'
-import { Tooltip, TooltipContent, TooltipTrigger } from '@polar-sh/orbit'
+} from '@repalis/orbit/icons'
+import { schemas } from '@repalis/client'
+import { Avatar } from '@repalis/orbit'
+import { Button } from '@repalis/orbit'
+import { Tooltip, TooltipContent, TooltipTrigger } from '@repalis/orbit'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import type { ReactNode } from 'react'

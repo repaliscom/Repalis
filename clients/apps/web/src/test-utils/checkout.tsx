@@ -1,18 +1,18 @@
 import CheckoutPage from '@/app/(checkout)/checkout/[clientSecret]/CheckoutPage'
 import { CheckoutConfirmation } from '@/components/Checkout/CheckoutConfirmation'
 import { UserContextProvider } from '@/providers/auth'
-import type { ProductCheckoutPublic } from '@polar-sh/checkout/guards'
+import type { ProductCheckoutPublic } from '@repalis/checkout/guards'
 import {
   CheckoutFormProvider,
   CheckoutProvider,
-} from '@polar-sh/checkout/providers'
+} from '@repalis/checkout/providers'
 import {
   createCheckout,
   createFreePrice,
   createSeatBasedPrice,
-} from '@polar-sh/checkout/test-utils'
-import type { schemas } from '@polar-sh/client'
-import type { AcceptedLocale } from '@polar-sh/i18n'
+} from '@repalis/checkout/test-utils'
+import type { schemas } from '@repalis/client'
+import type { AcceptedLocale } from '@repalis/i18n'
 import { fireEvent, screen } from '@testing-library/react'
 import { http, HttpResponse } from 'msw'
 import {
@@ -158,7 +158,7 @@ export interface ServeCheckoutOptions {
 const validationError = (field: string, message: string) =>
   HttpResponse.json(
     {
-      error: 'PolarRequestValidationError',
+      error: 'RepalisRequestValidationError',
       detail: [
         {
           loc: ['body', field],

@@ -4,8 +4,8 @@ import { checkout } from '../plugins/checkout'
 import { portal } from '../plugins/portal'
 import { usage } from '../plugins/usage'
 import { webhooks } from '../plugins/webhooks'
-import { createTestPolarOptions } from './utils/helpers'
-import { createMockPolarClient } from './utils/mocks'
+import { createTestRepalisOptions } from './utils/helpers'
+import { createMockRepalisClient } from './utils/mocks'
 
 vi.mock('../plugins/checkout')
 vi.mock('../plugins/portal')
@@ -13,10 +13,10 @@ vi.mock('../plugins/usage')
 vi.mock('../plugins/webhooks')
 
 describe('polar plugin', () => {
-  let mockClient: ReturnType<typeof createMockPolarClient>
+  let mockClient: ReturnType<typeof createMockRepalisClient>
 
   beforeEach(() => {
-    mockClient = createMockPolarClient()
+    mockClient = createMockRepalisClient()
     vi.clearAllMocks()
 
     vi.mocked(checkout).mockReturnValue(
@@ -46,7 +46,7 @@ describe('polar plugin', () => {
   })
 
   it('should create a plugin with correct id', () => {
-    const options = createTestPolarOptions({
+    const options = createTestRepalisOptions({
       client: mockClient,
       use: [checkout()],
     })
@@ -65,7 +65,7 @@ describe('polar plugin', () => {
     vi.mocked(checkout).mockReturnValue(mockCheckoutPlugin)
     vi.mocked(portal).mockReturnValue(mockPortalPlugin)
 
-    const options = createTestPolarOptions({
+    const options = createTestRepalisOptions({
       client: mockClient,
       use: [checkout(), portal()],
     })
@@ -79,7 +79,7 @@ describe('polar plugin', () => {
   })
 
   it('should initialize with database hooks', () => {
-    const options = createTestPolarOptions({
+    const options = createTestRepalisOptions({
       client: mockClient,
       use: [checkout()],
     })
@@ -96,7 +96,7 @@ describe('polar plugin', () => {
   })
 
   it('should validate the Better Auth organization plugin during init', () => {
-    const options = createTestPolarOptions({
+    const options = createTestRepalisOptions({
       client: mockClient,
       experimental_organizationSync: { enabled: true },
       use: [checkout()],
@@ -108,12 +108,12 @@ describe('polar plugin', () => {
     }
 
     expect(() => plugin.init(context as never)).toThrow(
-      "Polar organization support requires Better Auth's organization plugin",
+      "Repalis organization support requires Better Auth's organization plugin",
     )
   })
 
   it('should handle empty plugin array', () => {
-    const options = createTestPolarOptions({
+    const options = createTestRepalisOptions({
       client: mockClient,
       use: [] as any,
     })
@@ -130,7 +130,7 @@ describe('polar plugin', () => {
     vi.mocked(checkout).mockReturnValueOnce(mockPlugin1)
     vi.mocked(portal).mockReturnValueOnce(mockPlugin2)
 
-    const options = createTestPolarOptions({
+    const options = createTestRepalisOptions({
       client: mockClient,
       use: [checkout(), portal()],
     })
@@ -143,7 +143,7 @@ describe('polar plugin', () => {
 
   it('should preserve plugin configuration', () => {
     const customGetCustomerCreateParams = vi.fn()
-    const options = createTestPolarOptions({
+    const options = createTestRepalisOptions({
       client: mockClient,
       createCustomerOnSignUp: false,
       getCustomerCreateParams: customGetCustomerCreateParams,

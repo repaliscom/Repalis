@@ -15,7 +15,7 @@ import {
   RequestLog,
   type RequestLogEntry,
 } from './log'
-import type { PolarApiOutboundProps } from './outbound'
+import type { RepalisApiOutboundProps } from './outbound'
 import { createServer } from './server'
 import { Sandbox } from './sandbox'
 import { allScopes, readScopes } from './spec'
@@ -40,7 +40,7 @@ const CORS_HEADERS = {
   'Access-Control-Max-Age': '86400',
 }
 
-const servers: Record<string, string | undefined> = env.POLAR_SERVERS
+const servers: Record<string, string | undefined> = env.REPALIS_SERVERS
 const runtime = ManagedRuntime.make(
   Layer.mergeAll(
     Auth.layer,
@@ -119,7 +119,7 @@ const handle = Effect.fn('handle')(function* (request: Request) {
 const handleMcp = Effect.fn('handleMcp')(function* (
   request: Request,
   url: URL,
-  { apiUrl, readOnly }: Omit<PolarApiOutboundProps, 'token'>,
+  { apiUrl, readOnly }: Omit<RepalisApiOutboundProps, 'token'>,
   mode: ToolMode,
 ) {
   const resourceMetadataUrl = getOAuthProtectedResourceMetadataUrl(

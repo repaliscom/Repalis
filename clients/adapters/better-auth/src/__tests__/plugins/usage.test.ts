@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { usage } from '../../plugins/usage'
 import { resolveBillingPrincipal } from '../../principal'
 import { mockApiError } from '../utils/helpers'
-import { createMockPolarClient } from '../utils/mocks'
+import { createMockRepalisClient } from '../utils/mocks'
 
 vi.mock('../../principal', () => ({
   resolveBillingPrincipal: vi.fn(),
@@ -29,10 +29,10 @@ const { APIError, createAuthEndpoint, sessionMiddleware } =
   (await vi.importMock('better-auth/api')) as any
 
 describe('usage plugin', () => {
-  let mockClient: ReturnType<typeof createMockPolarClient>
+  let mockClient: ReturnType<typeof createMockRepalisClient>
 
   beforeEach(() => {
-    mockClient = createMockPolarClient()
+    mockClient = createMockRepalisClient()
     vi.clearAllMocks()
   })
 

@@ -28,8 +28,8 @@ import { fakeHttp } from '@/utils/test-utils/http'
 const sha = (text: string) => gitBlobSha(new TextEncoder().encode(text))
 
 const files = {
-  'skills/setup-polar/SKILL.md': '# Set up Polar\n',
-  'skills/setup-polar/references/checkout.md': 'Checkout\n',
+  'skills/setup-repalis/SKILL.md': '# Set up Polar\n',
+  'skills/setup-repalis/references/checkout.md': 'Checkout\n',
 }
 
 const tree = {
@@ -49,17 +49,17 @@ describe('skillsFromTree', () => {
   test('keeps only skill directories with a SKILL.md', () => {
     expect(skillsFromTree(tree)).toEqual([
       {
-        name: 'setup-polar',
+        name: 'setup-repalis',
         files: [
           {
-            source: 'skills/setup-polar/SKILL.md',
+            source: 'skills/setup-repalis/SKILL.md',
             relative: 'SKILL.md',
-            sha: sha(files['skills/setup-polar/SKILL.md']),
+            sha: sha(files['skills/setup-repalis/SKILL.md']),
           },
           {
-            source: 'skills/setup-polar/references/checkout.md',
+            source: 'skills/setup-repalis/references/checkout.md',
             relative: 'references/checkout.md',
-            sha: sha(files['skills/setup-polar/references/checkout.md']),
+            sha: sha(files['skills/setup-repalis/references/checkout.md']),
           },
         ],
       },
@@ -121,13 +121,13 @@ test('installs the skills, then reports them current until a file changes', asyn
       yield* writeSkills(directory, skills)
       const current = yield* checkSkills(directory, skills)
       yield* Effect.promise(() =>
-        writeFile(join(directory, 'setup-polar/SKILL.md'), 'edited\n'),
+        writeFile(join(directory, 'setup-repalis/SKILL.md'), 'edited\n'),
       )
       return [missing, current, yield* checkSkills(directory, skills)]
     }).pipe(Effect.provide(Layer.merge(BunFileSystem.layer, http.layer))),
   )
   const checkout = await readFile(
-    join(directory, 'setup-polar/references/checkout.md'),
+    join(directory, 'setup-repalis/references/checkout.md'),
     'utf8',
   )
   await rm(directory, { recursive: true, force: true })
@@ -141,7 +141,7 @@ test('replaces a symlinked skill directory instead of writing through it', async
   const outside = await mkdtemp(join(tmpdir(), 'polar-outside-'))
   await writeFile(join(outside, 'SKILL.md'), 'keep me\n')
   await mkdir(directory, { recursive: true })
-  await symlink(outside, join(directory, 'setup-polar'))
+  await symlink(outside, join(directory, 'setup-repalis'))
   const http = toolkit()
   await Effect.runPromise(
     fetchSkills.pipe(
@@ -151,11 +151,11 @@ test('replaces a symlinked skill directory instead of writing through it', async
   )
   const entries = await readdir(directory)
   const kept = await readFile(join(outside, 'SKILL.md'), 'utf8')
-  const installed = await lstat(join(directory, 'setup-polar'))
+  const installed = await lstat(join(directory, 'setup-repalis'))
   await rm(directory, { recursive: true, force: true })
   await rm(outside, { recursive: true, force: true })
 
-  expect(entries).toEqual(['setup-polar'])
+  expect(entries).toEqual(['setup-repalis'])
   expect(kept).toBe('keep me\n')
   expect(installed.isSymbolicLink()).toBe(false)
 })

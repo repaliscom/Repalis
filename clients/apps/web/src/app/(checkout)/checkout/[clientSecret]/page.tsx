@@ -4,13 +4,13 @@ import { resolveLocale } from '@/utils/i18n'
 import {
   CheckoutFormProvider,
   CheckoutProvider,
-} from '@polar-sh/checkout/providers'
+} from '@repalis/checkout/providers'
 import {
   ClientResponseError,
   NotFoundResponseError,
   createClient,
   unwrap,
-} from '@polar-sh/client'
+} from '@repalis/client'
 import type { Metadata } from 'next'
 import { notFound, redirect } from 'next/navigation'
 import CheckoutPage from './CheckoutPage'

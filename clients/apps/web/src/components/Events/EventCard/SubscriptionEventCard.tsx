@@ -4,9 +4,9 @@ import { OrganizationContext } from '@/providers/maintainerOrganization'
 import {
   AllInclusiveOutlined,
   ArrowForwardOutlined,
-} from '@polar-sh/orbit/icons'
-import { schemas } from '@polar-sh/client'
-import { Status, type StatusColor } from '@polar-sh/orbit'
+} from '@repalis/orbit/icons'
+import { schemas } from '@repalis/client'
+import { Status, type StatusColor } from '@repalis/orbit'
 import Link from 'next/link'
 import { useContext } from 'react'
 import { EventCardBase } from './EventCardBase'

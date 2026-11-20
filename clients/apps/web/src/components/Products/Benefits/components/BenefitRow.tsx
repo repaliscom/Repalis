@@ -6,22 +6,22 @@ import {
 } from '@/components/Benefit/utils'
 import { useDeleteBenefit } from '@/hooks/queries'
 import { extractApiErrorMessage } from '@/utils/api/errors'
-import { schemas } from '@polar-sh/client'
-import { Button } from '@polar-sh/orbit'
-import { Switch } from '@polar-sh/orbit'
+import { schemas } from '@repalis/client'
+import { Button } from '@repalis/orbit'
+import { Switch } from '@repalis/orbit'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@polar-sh/ui/components/ui/dropdown-menu'
-import { EllipsisVertical as MoreVertical } from '@polar-sh/orbit/icons'
+} from '@repalis/ui/components/ui/dropdown-menu'
+import { EllipsisVertical as MoreVertical } from '@repalis/orbit/icons'
 import { parseAsString, useQueryState } from 'nuqs'
 import { useCallback, useEffect, useRef } from 'react'
 import { twMerge } from 'tailwind-merge'
 import UpdateBenefitModalContent from '../../../Benefit/UpdateBenefitModalContent'
 import { ConfirmModal } from '../../../Modal/ConfirmModal'
-import { InlineModal } from '@polar-sh/orbit'
+import { InlineModal } from '@repalis/orbit'
 import { useModal } from '../../../Modal/useModal'
 import { toast } from '../../../Toast/use-toast'
 

@@ -1,9 +1,9 @@
 import { Effect, Exit, Scope } from 'effect'
 import { HttpClient, HttpClientRequest } from 'effect/http'
-import type { PolarEnvironment } from '@/schemas/Auth'
+import type { RepalisEnvironment } from '@/schemas/Auth'
 import { Auth } from '@/services/auth'
 
-export const authenticatedClient = (environment: PolarEnvironment) =>
+export const authenticatedClient = (environment: RepalisEnvironment) =>
   Effect.gen(function* () {
     const auth = yield* Auth
     const client = HttpClient.withScope(yield* HttpClient.HttpClient)

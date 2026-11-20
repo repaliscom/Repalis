@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, test } from 'vitest'
 import { Cause, Effect, Exit, FileSystem, Layer, PlatformError } from 'effect'
 import { CliError, Command } from 'effect/cli'
 import { createColors } from 'picocolors'
-import { AuthError, type PolarEnvironment } from '@/schemas/Auth'
+import { AuthError, type RepalisEnvironment } from '@/schemas/Auth'
 import { UsedEnvironments } from '@/services/api'
 import {
   Build,
@@ -38,7 +38,7 @@ type Env = Record<string, string>
 const telemetry = (
   env: Env = { POLAR_CLI_POSTHOG_KEY: 'phc_test' },
   build: BuildKind = 'release',
-  { writable = true, used = new Set<PolarEnvironment>() } = {},
+  { writable = true, used = new Set<RepalisEnvironment>() } = {},
 ) => {
   const files = new Map<string, string>()
   const events: TelemetryEvent[] = []
@@ -576,7 +576,7 @@ describe('Telemetry.record', () => {
   })
 
   test('reports the environments the command talked to', async () => {
-    const used = new Set<PolarEnvironment>()
+    const used = new Set<RepalisEnvironment>()
     const { record, events } = telemetry(undefined, 'release', { used })
     await record()
     used.add('sandbox')

@@ -1,15 +1,15 @@
-import { listBenefitGrants as listBenefitGrantsCustomerPortal } from '@polar-sh/sdk/2026-10/services/customer_portal/benefit_grants'
-import { listSubscriptions as listSubscriptionsCustomerPortal } from '@polar-sh/sdk/2026-10/services/customer_portal/subscriptions'
-import { getStateExternalCustomers } from '@polar-sh/sdk/2026-10/services/customers'
-import { listOrders as listOrdersCustomerPortal } from '@polar-sh/sdk/2026-10/services/customer_portal/orders'
-import { createCustomerSessions } from '@polar-sh/sdk/2026-10/services/customer_sessions'
-import { listSubscriptions } from '@polar-sh/sdk/2026-10/services/subscriptions'
-import type { models, PolarCore } from '@polar-sh/sdk/2026-10'
+import { listBenefitGrants as listBenefitGrantsCustomerPortal } from '@repalis/sdk/2026-10/services/customer_portal/benefit_grants'
+import { listSubscriptions as listSubscriptionsCustomerPortal } from '@repalis/sdk/2026-10/services/customer_portal/subscriptions'
+import { getStateExternalCustomers } from '@repalis/sdk/2026-10/services/customers'
+import { listOrders as listOrdersCustomerPortal } from '@repalis/sdk/2026-10/services/customer_portal/orders'
+import { createCustomerSessions } from '@repalis/sdk/2026-10/services/customer_sessions'
+import { listSubscriptions } from '@repalis/sdk/2026-10/services/subscriptions'
+import type { models, RepalisCore } from '@repalis/sdk/2026-10'
 import { APIError } from 'better-auth/api'
 import { createAuthEndpoint, sessionMiddleware } from 'better-auth/api'
 import * as z from 'zod/v4'
 import { resolveBillingPrincipal } from '../principal'
-import type { PolarOptions } from '../types'
+import type { RepalisOptions } from '../types'
 
 const OrganizationQuery = z.object({
   organizationId: z.string().min(1).optional(),
@@ -26,8 +26,8 @@ export interface PortalConfig {
 export const portal =
   ({ returnUrl, theme }: PortalConfig = {}) =>
   (
-    polar: PolarCore,
-    rootOptions?: Pick<PolarOptions, 'experimental_organizationSync'>,
+    polar: RepalisCore,
+    rootOptions?: Pick<RepalisOptions, 'experimental_organizationSync'>,
   ) => {
     const retUrl = returnUrl ? new URL(returnUrl) : undefined
 
@@ -91,7 +91,7 @@ export const portal =
           } catch (e: unknown) {
             if (e instanceof Error) {
               ctx.context.logger.error(
-                `Polar customer portal creation failed. Error: ${e.message}`,
+                `Repalis customer portal creation failed. Error: ${e.message}`,
               )
             }
 
@@ -135,7 +135,7 @@ export const portal =
           } catch (e: unknown) {
             if (e instanceof Error) {
               ctx.context.logger.error(
-                `Polar subscriptions list failed. Error: ${e.message}`,
+                `Repalis subscriptions list failed. Error: ${e.message}`,
               )
             }
 
@@ -264,7 +264,7 @@ export const portal =
               console.log(e)
               if (e instanceof Error) {
                 ctx.context.logger.error(
-                  `Polar subscriptions list with reference_id failed. Error: ${e.message}`,
+                  `Repalis subscriptions list with reference_id failed. Error: ${e.message}`,
                 )
               }
 
@@ -297,12 +297,12 @@ export const portal =
           } catch (e: unknown) {
             if (e instanceof Error) {
               ctx.context.logger.error(
-                `Polar subscriptions list failed. Error: ${e.message}`,
+                `Repalis subscriptions list failed. Error: ${e.message}`,
               )
             }
 
             throw new APIError('INTERNAL_SERVER_ERROR', {
-              message: 'Polar subscriptions list failed',
+              message: 'Repalis subscriptions list failed',
             })
           }
         },

@@ -1,9 +1,9 @@
 import AccessRestricted from '@/components/Finance/AccessRestricted'
 import { useHasPermission } from '@/hooks/permissions'
 import { permissionDeniedMessage } from '@/utils/permissions'
-import { schemas } from '@polar-sh/client'
-import { InlineModalHeader } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { schemas } from '@repalis/client'
+import { InlineModalHeader } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import { CheckoutLinkForm } from './CheckoutLinkForm'
 
 interface CheckoutLinkManagementModalProps {

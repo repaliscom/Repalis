@@ -17,17 +17,17 @@ import { useDataTableQueryState } from '@/hooks/useDataTableQueryState'
 import { DataTableSortingState, getAPIParams } from '@/utils/datatable'
 import { useDateRange } from '@/utils/date'
 import { formatMetadataValue } from '@/utils/formatters'
-import { schemas } from '@polar-sh/client'
-import { Box } from '@polar-sh/orbit/Box'
-import { Avatar } from '@polar-sh/orbit'
+import { schemas } from '@repalis/client'
+import { Box } from '@repalis/orbit/Box'
+import { Avatar } from '@repalis/orbit'
 import {
   DataTable,
   DataTableColumnDef,
   DataTableColumnHeader,
-} from '@polar-sh/orbit'
-import FormattedDateTime from '@polar-sh/ui/components/atoms/FormattedDateTime'
-import { Status } from '@polar-sh/orbit'
-import { Text } from '@polar-sh/orbit'
+} from '@repalis/orbit'
+import FormattedDateTime from '@repalis/ui/components/atoms/FormattedDateTime'
+import { Status } from '@repalis/orbit'
+import { Text } from '@repalis/orbit'
 import { functionalUpdate, OnChangeFn } from '@tanstack/react-table'
 import { useRouter } from 'next/navigation'
 import {

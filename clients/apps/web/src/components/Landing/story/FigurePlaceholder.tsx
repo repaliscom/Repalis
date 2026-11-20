@@ -1,5 +1,5 @@
-import { Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 
 /**
  * Stand-in for a chapter's figure, in the hero's chrome: the dimmed flow image, and a frame naming what the

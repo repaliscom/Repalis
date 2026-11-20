@@ -1,8 +1,8 @@
-# @polar-sh/tanstack-start
+# @repalis/tanstack-start
 
 Payments and Checkouts made dead simple with [Tanstack Start](https://tanstack.com/start)
 
-`pnpm install @polar-sh/tanstack-start`
+`pnpm install @repalis/tanstack-start`
 
 ## Checkout
 
@@ -10,14 +10,14 @@ Create a Checkout handler which takes care of redirections.
 
 ```typescript
 // routes/api/checkout.ts
-import { Checkout } from '@polar-sh/tanstack-start'
+import { Checkout } from '@repalis/tanstack-start'
 import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/api/checkout')({
   server: {
     handlers: {
       GET: Checkout({
-        accessToken: process.env.POLAR_ACCESS_TOKEN!,
+        accessToken: process.env.REPALIS_ACCESS_TOKEN!,
         successUrl: process.env.SUCCESS_URL,
         returnUrl: 'https://myapp.com', // Optional Return URL, which renders a Back-button in the Checkout
         environment: 'sandbox', // Use sandbox if you're testing Polar - omit the parameter or pass 'production' otherwise
@@ -43,7 +43,7 @@ Pass query params to this route.
 
 ### Customer IP Address
 
-Unless `customer_ip_address` is passed, the customer's IP address is taken from the `x-forwarded-for`, `x-real-ip` or `cf-connecting-ip` header and sent to Polar to show local currency. Set `customerIpAddress` to a function `(request) => ip` to resolve it yourself, or to `false` to not send it.
+Unless `customer_ip_address` is passed, the customer's IP address is taken from the `x-forwarded-for`, `x-real-ip` or `cf-connecting-ip` header and sent to Repalis to show local currency. Set `customerIpAddress` to a function `(request) => ip` to resolve it yourself, or to `false` to not send it.
 
 ## Customer Portal
 
@@ -51,15 +51,15 @@ Create a customer portal where your customer can view orders and subscriptions.
 
 ```typescript
 // routes/api/portal.ts
-import { CustomerPortal } from '@polar-sh/tanstack-start'
+import { CustomerPortal } from '@repalis/tanstack-start'
 import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/api/portal')({
   server: {
     handlers: {
       GET: CustomerPortal({
-        accessToken: process.env.POLAR_ACCESS_TOKEN!,
-        getCustomerId: async (request: Request) => '', // Function to resolve a Polar Customer ID
+        accessToken: process.env.REPALIS_ACCESS_TOKEN!,
+        getCustomerId: async (request: Request) => '', // Function to resolve a Repalis Customer ID
         returnUrl: 'https://myapp.com', // Optional Return URL, which renders a Back-button in the Customer Portal
         environment: 'sandbox', // Use sandbox if you're testing Polar - omit the parameter or pass 'production' otherwise
       }),
@@ -74,14 +74,14 @@ A simple utility which resolves incoming webhook payloads by verifying their sig
 
 ```typescript
 // routes/api/webhook/polar.ts
-import { Webhooks } from '@polar-sh/tanstack-start'
+import { Webhooks } from '@repalis/tanstack-start'
 import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/api/webhook/polar')({
   server: {
     handlers: {
       POST: Webhooks({
-        webhookSecret: process.env.POLAR_WEBHOOK_SECRET!,
+        webhookSecret: process.env.REPALIS_WEBHOOK_SECRET!,
         onPayload: async (payload) => {
           // Handle the payload
           // No need to return an acknowledge response

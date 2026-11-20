@@ -1,16 +1,16 @@
 'use client'
 
-import { CloseOutlined } from '@polar-sh/orbit/icons'
-import { Button, Grid, Input, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import MoneyInput from '@polar-sh/ui/components/atoms/MoneyInput'
+import { CloseOutlined } from '@repalis/orbit/icons'
+import { Button, Grid, Input, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import MoneyInput from '@repalis/ui/components/atoms/MoneyInput'
 import {
   FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-} from '@polar-sh/ui/components/ui/form'
+} from '@repalis/ui/components/ui/form'
 import React from 'react'
 import { useFormContext } from 'react-hook-form'
 import { ProductFormType } from '../ProductForm'

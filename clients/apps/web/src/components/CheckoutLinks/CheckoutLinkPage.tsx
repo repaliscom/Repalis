@@ -1,10 +1,10 @@
 import { OrganizationContext } from '@/providers/maintainerOrganization'
 import { CONFIG } from '@/utils/config'
-import { schemas } from '@polar-sh/client'
-import CopyToClipboardInput from '@polar-sh/ui/components/atoms/CopyToClipboardInput'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@polar-sh/orbit'
-import { Checkbox } from '@polar-sh/orbit'
-import { Label } from '@polar-sh/ui/components/ui/label'
+import { schemas } from '@repalis/client'
+import CopyToClipboardInput from '@repalis/ui/components/atoms/CopyToClipboardInput'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@repalis/orbit'
+import { Checkbox } from '@repalis/orbit'
+import { Label } from '@repalis/ui/components/ui/label'
 import { useContext, useMemo, useState } from 'react'
 import { toast } from '../Toast/use-toast'
 import { CheckoutLinkForm } from './CheckoutLinkForm'
@@ -23,7 +23,7 @@ export const CheckoutLinkPage = ({ checkoutLink }: CheckoutLinkPageProps) => {
     const theme = darkmode ? 'dark' : 'light'
 
     return `
-<a href="${checkoutLink?.url}" data-polar-checkout data-polar-checkout-theme="${theme}">Purchase</a>
+<a href="${checkoutLink?.url}" data-repalis-checkout data-repalis-checkout-theme="${theme}">Purchase</a>
 <script src="${CONFIG.CHECKOUT_EMBED_SCRIPT_SRC}" defer data-auto-init></script>
   `.trim()
   }, [checkoutLink, darkmode])

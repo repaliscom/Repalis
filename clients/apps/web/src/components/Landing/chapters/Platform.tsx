@@ -1,7 +1,7 @@
 import { StaticImage } from '@/components/Image/StaticImage'
-import { Grid, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import { ArrowRight } from '@polar-sh/orbit/icons'
+import { Grid, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import { ArrowRight } from '@repalis/orbit/icons'
 import type { ReactNode } from 'react'
 import { Chapter } from '../Chapter'
 import {

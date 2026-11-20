@@ -1,6 +1,6 @@
-import { Support as SupportIcon } from '@polar-sh/orbit/icons'
-import { schemas } from '@polar-sh/client'
-import { useSidebar } from '@polar-sh/ui/components/atoms/Sidebar'
+import { Support as SupportIcon } from '@repalis/orbit/icons'
+import { schemas } from '@repalis/client'
+import { useSidebar } from '@repalis/ui/components/atoms/Sidebar'
 import { twMerge } from 'tailwind-merge'
 
 import { FeedbackModal } from './FeedbackModal'

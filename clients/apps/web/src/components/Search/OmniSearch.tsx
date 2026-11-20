@@ -6,17 +6,17 @@ import {
 } from '@/components/Dashboard/navigation'
 import { useSettingsRoutes } from '@/components/Dashboard/navigationSettings'
 import { getServerURL } from '@/utils/api'
-import { schemas } from '@polar-sh/client'
-import { formatCurrency } from '@polar-sh/currency'
+import { schemas } from '@repalis/client'
+import { formatCurrency } from '@repalis/currency'
 import {
   Command,
   CommandGroup,
   CommandInput,
   CommandItem,
   CommandList,
-} from '@polar-sh/ui/components/ui/command'
+} from '@repalis/ui/components/ui/command'
 import * as Dialog from '@radix-ui/react-dialog'
-import { LoaderCircle as Loader2 } from '@polar-sh/orbit/icons'
+import { LoaderCircle as Loader2 } from '@repalis/orbit/icons'
 import { useRouter } from 'next/navigation'
 import { useEffect, useEffectEvent, useMemo, useState } from 'react'
 import { twMerge } from 'tailwind-merge'

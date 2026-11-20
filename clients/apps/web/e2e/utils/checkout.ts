@@ -1,4 +1,4 @@
-import type { schemas } from '@polar-sh/client'
+import type { schemas } from '@repalis/client'
 import type { Frame } from 'playwright'
 import { expect } from 'vitest'
 import type { App } from './app'

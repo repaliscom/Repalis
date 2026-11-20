@@ -1,4 +1,4 @@
-import { SpinnerNoMargin } from '@polar-sh/orbit'
+import { SpinnerNoMargin } from '@repalis/orbit'
 import { useEffect, useState } from 'react'
 
 export interface ProgressMessage {

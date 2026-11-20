@@ -1,6 +1,6 @@
 import { useAuth } from '@/hooks/auth'
-import { schemas } from '@polar-sh/client'
-import { Alert } from '@polar-sh/orbit'
+import { schemas } from '@repalis/client'
+import { Alert } from '@repalis/orbit'
 
 const getMessage = (
   type: schemas['FeedbackType'],

@@ -1,4 +1,4 @@
-import { Box } from '@polar-sh/orbit/Box'
+import { Box } from '@repalis/orbit/Box'
 import { BrandHero } from './BrandHero'
 import { ColorSection } from './ColorSection'
 import { IllustrationSection } from './IllustrationSection'

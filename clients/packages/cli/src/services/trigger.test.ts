@@ -86,7 +86,7 @@ describe('listEvents', () => {
 
     expect(await listEvents()).toEqual(catalog)
     expect(api.requests[0]!.headers.get('Authorization')).toBe('Bearer token')
-    expect(api.requests[0]!.headers.get('Polar-Organization')).toBe('org-1')
+    expect(api.requests[0]!.headers.get('Repalis-Organization')).toBe('org-1')
   })
 
   test.each([
@@ -129,7 +129,7 @@ describe('send', () => {
       overrides: { 'data.amount': '5' },
       deliver: true,
     })
-    expect(api.requests[0]!.headers.get('Polar-Organization')).toBe('org-1')
+    expect(api.requests[0]!.headers.get('Repalis-Organization')).toBe('org-1')
   })
 
   test('reports a missing listener', async () => {
@@ -151,7 +151,7 @@ describe('send', () => {
       suggestion: 'order.created',
     })
     expect(
-      api.requests.map((request) => request.headers.get('Polar-Organization')),
+      api.requests.map((request) => request.headers.get('Repalis-Organization')),
     ).toEqual(['org-1', 'org-1'])
   })
 

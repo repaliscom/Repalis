@@ -9,10 +9,10 @@ import { useHasPermission } from '@/hooks/permissions'
 import { useCreateCustomer } from '@/hooks/queries'
 import { setValidationErrors } from '@/utils/api/errors'
 import { permissionDeniedMessage } from '@/utils/permissions'
-import { schemas } from '@polar-sh/client'
-import { Button, InlineModalHeader } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import { Input } from '@polar-sh/orbit'
+import { schemas } from '@repalis/client'
+import { Button, InlineModalHeader } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import { Input } from '@repalis/orbit'
 import {
   Form,
   FormControl,
@@ -21,7 +21,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@polar-sh/ui/components/ui/form'
+} from '@repalis/ui/components/ui/form'
 import { useForm } from 'react-hook-form'
 import { toast } from '../Toast/use-toast'
 

@@ -1,5 +1,5 @@
-import { Box } from '@polar-sh/orbit/Box'
-import { Text, type TextColor, type TextVariant } from '@polar-sh/orbit'
+import { Box } from '@repalis/orbit/Box'
+import { Text, type TextColor, type TextVariant } from '@repalis/orbit'
 
 const variants: TextVariant[] = [
   'heading-2xl',
@@ -75,7 +75,7 @@ export function MonospaceSamples() {
             variant=&quot;{variant}&quot; monospace
           </Text>
           <Text variant={variant} monospace>
-            npm install @polar-sh/orbit
+            npm install @repalis/orbit
           </Text>
         </Box>
       ))}

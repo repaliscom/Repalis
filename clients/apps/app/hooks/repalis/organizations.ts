@@ -1,6 +1,6 @@
-import { usePolarClient } from '@/providers/RepalisClientProvider'
+import { useRepalisClient } from '@/providers/RepalisClientProvider'
 import { queryClient } from '@/utils/query'
-import { schemas, unwrap } from '@polar-sh/client'
+import { schemas, unwrap } from '@repalis/client'
 import * as Sentry from '@sentry/react-native'
 import { useMutation, useQuery } from '@tanstack/react-query'
 
@@ -11,7 +11,7 @@ export const useOrganizations = (
     enabled?: boolean
   } = { enabled: true },
 ) => {
-  const { polar } = usePolarClient()
+  const { polar } = useRepalisClient()
 
   return useQuery({
     queryKey: ['organizations'],
@@ -38,7 +38,7 @@ export const useOrganizations = (
 }
 
 export const useCreateOrganization = () => {
-  const { polar } = usePolarClient()
+  const { polar } = useRepalisClient()
 
   return useMutation({
     mutationFn: (organization: schemas['OrganizationCreate']) =>
@@ -54,7 +54,7 @@ export const useCreateOrganization = () => {
 }
 
 export const useDeleteOrganization = () => {
-  const { polar } = usePolarClient()
+  const { polar } = useRepalisClient()
 
   return useMutation({
     mutationFn: async (organizationId: string) => {

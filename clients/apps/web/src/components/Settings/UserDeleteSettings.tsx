@@ -2,7 +2,7 @@
 
 import { useLogout } from '@/hooks/auth'
 import { useDeleteUser } from '@/hooks/queries'
-import { Button } from '@polar-sh/orbit'
+import { Button } from '@repalis/orbit'
 import { useCallback, useState } from 'react'
 import { ConfirmModal } from '../Modal/ConfirmModal'
 import { toast } from '../Toast/use-toast'

@@ -1,5 +1,5 @@
 import GetStartedButton from '@/components/Auth/GetStartedButton'
-import { CheckOutlined, CloseOutlined } from '@polar-sh/orbit/icons'
+import { CheckOutlined, CloseOutlined } from '@repalis/orbit/icons'
 import React from 'react'
 import { twMerge } from 'tailwind-merge'
 import { ResourceLayout, ResourceSection } from './ResourceLayout'

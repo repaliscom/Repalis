@@ -1,10 +1,10 @@
 import { afterEach, expect, test, vi } from 'vitest'
 import { getDeployedMeter } from './meters'
-import { createPolar } from '../../sdk'
+import { createRepalis } from '../../sdk'
 
 afterEach(() => vi.restoreAllMocks())
 
-const sdk = createPolar({ accessToken: 'test' })
+const sdk = createRepalis({ accessToken: 'test' })
 
 test('looks up the meter by external ID', async () => {
   const fetch = vi

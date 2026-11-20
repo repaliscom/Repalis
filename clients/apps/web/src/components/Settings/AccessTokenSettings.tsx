@@ -5,9 +5,9 @@ import {
   usePersonalAccessTokens,
 } from '@/hooks/queries'
 import { extractApiErrorMessage } from '@/utils/api/errors'
-import { schemas } from '@polar-sh/client'
-import { Button } from '@polar-sh/orbit'
-import FormattedDateTime from '@polar-sh/ui/components/atoms/FormattedDateTime'
+import { schemas } from '@repalis/client'
+import { Button } from '@repalis/orbit'
+import FormattedDateTime from '@repalis/ui/components/atoms/FormattedDateTime'
 import {
   AlertDialog,
   AlertDialogAction,
@@ -18,7 +18,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from '@polar-sh/ui/components/ui/alert-dialog'
+} from '@repalis/ui/components/ui/alert-dialog'
 import { useCallback, useState } from 'react'
 import { toast } from '../Toast/use-toast'
 import { SettingsGroup, SettingsGroupRow } from './SettingsGroup'

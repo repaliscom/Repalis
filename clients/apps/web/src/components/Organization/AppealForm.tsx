@@ -4,10 +4,10 @@ import {
   useOrganizationAppeal,
   useOrganizationReviewStatus,
 } from '@/hooks/queries/org'
-import { schemas } from '@polar-sh/client'
-import { Button } from '@polar-sh/orbit'
-import { Textarea } from '@polar-sh/orbit/ui/textarea'
-import { LoaderCircle as Loader2 } from '@polar-sh/orbit/icons'
+import { schemas } from '@repalis/client'
+import { Button } from '@repalis/orbit'
+import { Textarea } from '@repalis/orbit/ui/textarea'
+import { LoaderCircle as Loader2 } from '@repalis/orbit/icons'
 import React, { useEffect, useId, useState } from 'react'
 import HumanReviewCase from './HumanReviewCase'
 

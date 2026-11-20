@@ -1,7 +1,7 @@
 'use client'
 
-import { schemas } from '@polar-sh/client'
-import { Grid, Input, Text } from '@polar-sh/orbit'
+import { schemas } from '@repalis/client'
+import { Grid, Input, Text } from '@repalis/orbit'
 import {
   FormControl,
   FormDescription,
@@ -9,7 +9,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@polar-sh/ui/components/ui/form'
+} from '@repalis/ui/components/ui/form'
 import { useState } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { ProductFormType } from '../ProductForm'

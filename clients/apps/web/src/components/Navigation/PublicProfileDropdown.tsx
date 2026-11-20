@@ -8,10 +8,10 @@ import {
   Face,
   LogoutOutlined,
   SpaceDashboardOutlined,
-} from '@polar-sh/orbit/icons'
-import { schemas } from '@polar-sh/client'
-import { Avatar } from '@polar-sh/orbit'
-import { Separator } from '@polar-sh/ui/components/ui/separator'
+} from '@repalis/orbit/icons'
+import { schemas } from '@repalis/client'
+import { Avatar } from '@repalis/orbit'
+import { Separator } from '@repalis/ui/components/ui/separator'
 import Link from 'next/link'
 import { useRef, useState } from 'react'
 import { twMerge } from 'tailwind-merge'

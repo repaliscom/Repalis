@@ -1,4 +1,4 @@
-import { SegmentedControl } from '@polar-sh/orbit'
+import { SegmentedControl } from '@repalis/orbit'
 
 export type ReviewFilter =
   | 'all'

@@ -1,4 +1,4 @@
-import { createCheckout } from '@polar-sh/checkout/test-utils'
+import { createCheckout } from '@repalis/checkout/test-utils'
 import { screen, waitFor } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
 import {

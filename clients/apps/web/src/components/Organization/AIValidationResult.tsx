@@ -1,12 +1,12 @@
 'use client'
 
 import { useOrganizationReviewStatus } from '@/hooks/queries/org'
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 import {
   CircleAlert as CircleAlertIcon,
   CircleCheckBig as CheckCircleIcon,
   LoaderCircle as Loader2Icon,
-} from '@polar-sh/orbit/icons'
+} from '@repalis/orbit/icons'
 import React, { useEffect, useState } from 'react'
 import AppealForm from './AppealForm'
 

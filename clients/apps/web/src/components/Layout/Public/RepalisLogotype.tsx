@@ -9,8 +9,8 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@polar-sh/ui/components/ui/dropdown-menu'
-import { ArrowDown, Clipboard } from '@polar-sh/orbit/icons'
+} from '@repalis/ui/components/ui/dropdown-menu'
+import { ArrowDown, Clipboard } from '@repalis/orbit/icons'
 import Link from 'next/link'
 import { MouseEventHandler, useCallback, useRef, useState } from 'react'
 import { twMerge } from 'tailwind-merge'

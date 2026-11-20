@@ -17,8 +17,8 @@ import {
   SpaceDashboardOutlined,
   TrendingUpFilled as TrendingUp,
   TuneOutlined,
-} from '@polar-sh/orbit/icons'
-import { schemas } from '@polar-sh/client'
+} from '@repalis/orbit/icons'
+import { schemas } from '@repalis/client'
 import { usePathname } from 'next/navigation'
 import { useMemo } from 'react'
 

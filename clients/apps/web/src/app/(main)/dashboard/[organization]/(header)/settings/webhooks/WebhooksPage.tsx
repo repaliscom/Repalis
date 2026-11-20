@@ -5,10 +5,10 @@ import { useModal } from '@/components/Modal/useModal'
 import NewWebhookModal from '@/components/Settings/Webhook/NewWebhookModal'
 import WebhookSettings from '@/components/Settings/Webhook/WebhookSettings'
 import { useIsManagedAsCode } from '@/hooks/permissions'
-import { schemas } from '@polar-sh/client'
-import { Button, InlineModal } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import { ArrowUpRight } from '@polar-sh/orbit/icons'
+import { schemas } from '@repalis/client'
+import { Button, InlineModal } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import { ArrowUpRight } from '@repalis/orbit/icons'
 
 export default function ClientPage({
   organization: org,

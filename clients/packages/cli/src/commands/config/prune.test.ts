@@ -119,7 +119,7 @@ describe('polar config prune', () => {
       ),
     )
     expect(output).toContain(
-      'polar.json: 1 entry removed, nothing changed on Polar',
+      'polar.json: 1 entry removed, nothing changed on Repalis',
     )
   })
 

@@ -1,7 +1,7 @@
 'use client'
 
 import { DashboardBody } from '@/components/Layout/DashboardLayout'
-import { Modal } from '@polar-sh/orbit'
+import { Modal } from '@repalis/orbit'
 import { useModal } from '@/components/Modal/useModal'
 import { BillingAddressModal } from '@/components/Settings/Billing/BillingAddressModal'
 import { BillingAddressSection } from '@/components/Settings/Billing/BillingAddressSection'
@@ -25,10 +25,10 @@ import {
   useOrganizationSubscription,
 } from '@/hooks/queries/billing'
 
-import { usePaymentMethodRedirectResult } from '@polar-sh/checkout/react/payment-method'
+import { usePaymentMethodRedirectResult } from '@repalis/checkout/react/payment-method'
 import { CONFIG } from '@/utils/config'
-import { schemas } from '@polar-sh/client'
-import { Box } from '@polar-sh/orbit/Box'
+import { schemas } from '@repalis/client'
+import { Box } from '@repalis/orbit/Box'
 import { useQueryClient } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 import { useCallback, useState } from 'react'

@@ -3,9 +3,9 @@
 import LogoType from '@/components/Brand/logos/LogoType'
 import { StaticImage } from '@/components/Image/StaticImage'
 import { useInView } from '@/hooks/useInView'
-import { Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import { Check, LoaderCircle } from '@polar-sh/orbit/icons'
+import { Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import { Check, LoaderCircle } from '@repalis/orbit/icons'
 import { Shimmer } from './Shimmer'
 import { useEffect, useState } from 'react'
 

@@ -1,5 +1,5 @@
 import { api } from '@/utils/client'
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 import { createSHA256 } from 'hash-wasm'
 import { getFileMimeType } from './mimeType'
 

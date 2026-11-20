@@ -4,37 +4,37 @@ import {
   updateExternalMembers,
   listExternalMembers,
   getExternalMembers,
-} from '@polar-sh/sdk/2026-10/services/customers/members'
+} from '@repalis/sdk/2026-10/services/customers/members'
 import {
   updateExternalCustomers,
   getExternalCustomers,
   createCustomers,
-} from '@polar-sh/sdk/2026-10/services/customers'
-import { errors, type models, type PolarCore } from '@polar-sh/sdk/2026-10'
+} from '@repalis/sdk/2026-10/services/customers'
+import { errors, type models, type RepalisCore } from '@repalis/sdk/2026-10'
 import type { Organization } from 'better-auth/plugins/organization'
 import {
   DEFAULT_BETTER_AUTH_CREATOR_ROLE,
   hasBetterAuthCreatorRole,
-  mapBetterAuthRoleToPolar,
+  mapBetterAuthRoleToRepalis,
   parseBetterAuthRoles,
 } from './roles'
 import type {
   BetterAuthOrganizationMemberMirror,
   BetterAuthOrganizationUser,
-  PolarMemberRole,
+  RepalisMemberRole,
   PolarNonOwnerMemberRole,
-  PolarOrganizationOptions,
-  PolarOrganizationRoleSyncOptions,
+  RepalisOrganizationOptions,
+  RepalisOrganizationRoleSyncOptions,
 } from './types'
 
 type PolarOrganizationCustomerData = Parameters<
-  NonNullable<PolarOrganizationOptions['getTeamCustomerCreateParams']>
+  NonNullable<RepalisOrganizationOptions['getTeamCustomerCreateParams']>
 >[0]
 
 export class PolarOrganizationCustomerTypeError extends Error {
   constructor(externalCustomerId: string) {
     super(
-      `Polar customer with external ID "${externalCustomerId}" is not a team customer`,
+      `Repalis customer with external ID "${externalCustomerId}" is not a team customer`,
     )
     this.name = 'PolarOrganizationCustomerTypeError'
   }
@@ -49,19 +49,19 @@ export class PolarOrganizationTeamCustomerNotFoundError extends Error {
   }
 }
 
-export class PolarOrganizationOwnerInvariantError extends Error {
+export class RepalisOrganizationOwnerInvariantError extends Error {
   constructor(organizationId: string, detail: string) {
     super(
       `Cannot synchronize Polar owner for organization "${organizationId}": ${detail}`,
     )
-    this.name = 'PolarOrganizationOwnerInvariantError'
+    this.name = 'RepalisOrganizationOwnerInvariantError'
   }
 }
 
 export class PolarOrganizationMemberRoleMappingError extends Error {
   constructor(role: unknown) {
     super(
-      `Polar organization member role mapper returned ${JSON.stringify(role)}; expected "member" or "billing_manager"`,
+      `Repalis organization member role mapper returned ${JSON.stringify(role)}; expected "member" or "billing_manager"`,
     )
     this.name = 'PolarOrganizationMemberRoleMappingError'
   }
@@ -94,7 +94,7 @@ const isExternalIdConflict = (
   )
 
 const findTeamCustomer = async (
-  client: PolarCore,
+  client: RepalisCore,
   externalCustomerId: string,
 ): Promise<models.Customer | null> => {
   try {
@@ -110,14 +110,14 @@ const findTeamCustomer = async (
 }
 
 export const isTeamCustomerSynchronized = async (
-  client: PolarCore,
+  client: RepalisCore,
   externalCustomerId: string,
 ): Promise<boolean> =>
   (await findTeamCustomer(client, externalCustomerId)) !== null
 
 export const ensureTeamCustomer = async (
-  client: PolarCore,
-  organizationOptions: PolarOrganizationOptions,
+  client: RepalisCore,
+  organizationOptions: RepalisOrganizationOptions,
   data: PolarOrganizationCustomerData,
 ) => {
   const existingCustomer = await findTeamCustomer(client, data.organization.id)
@@ -155,7 +155,7 @@ export const ensureTeamCustomer = async (
 }
 
 export const updateTeamCustomer = async (
-  client: PolarCore,
+  client: RepalisCore,
   organization: Organization & Record<string, unknown>,
 ) => {
   const updatedCustomer = await updateExternalCustomers(client)(
@@ -166,7 +166,7 @@ export const updateTeamCustomer = async (
 }
 
 const findMember = async (
-  client: PolarCore,
+  client: RepalisCore,
   organizationId: string,
   externalMemberId: string,
 ): Promise<models.Member | null> => {
@@ -186,7 +186,7 @@ type MemberRoleData = Pick<
 >
 
 const ensureMemberRecord = async (
-  client: PolarCore,
+  client: RepalisCore,
   organizationId: string,
   member: MemberRoleData,
   role: PolarNonOwnerMemberRole,
@@ -206,12 +206,12 @@ const ensureMemberRecord = async (
 }
 
 const resolveNonOwnerRole = async (
-  options: PolarOrganizationRoleSyncOptions,
+  options: RepalisOrganizationRoleSyncOptions,
   organizationId: string,
   member: MemberRoleData,
 ): Promise<PolarNonOwnerMemberRole> => {
-  if (!options.mapBetterAuthRoleToPolarRole) {
-    const role = mapBetterAuthRoleToPolar(
+  if (!options.mapBetterAuthRoleToRepalisRole) {
+    const role = mapBetterAuthRoleToRepalis(
       { role: member.role, isCanonicalOwner: false },
       options,
     )
@@ -221,7 +221,7 @@ const resolveNonOwnerRole = async (
     return role
   }
 
-  const role = await options.mapBetterAuthRoleToPolarRole({
+  const role = await options.mapBetterAuthRoleToRepalisRole({
     role: member.role,
     roles: parseBetterAuthRoles(member.role),
     organizationId,
@@ -246,10 +246,10 @@ export const byEarliestMembership = (
 }
 
 const updateMemberRole = async (
-  client: PolarCore,
+  client: RepalisCore,
   organizationId: string,
   externalMemberId: string,
-  role: PolarMemberRole,
+  role: RepalisMemberRole,
 ) => {
   await updateExternalMembers(client)(organizationId, externalMemberId, {
     role,
@@ -257,7 +257,7 @@ const updateMemberRole = async (
 }
 
 const getCurrentPolarOwner = async (
-  client: PolarCore,
+  client: RepalisCore,
   organizationId: string,
 ): Promise<models.Member> => {
   const customer = await findTeamCustomer(client, organizationId)
@@ -272,7 +272,7 @@ const getCurrentPolarOwner = async (
 
   const polarOwners = ownerPage.items
   if (polarOwners.length !== 1) {
-    throw new PolarOrganizationOwnerInvariantError(
+    throw new RepalisOrganizationOwnerInvariantError(
       organizationId,
       `Polar returned ${polarOwners.length} owners`,
     )
@@ -280,7 +280,7 @@ const getCurrentPolarOwner = async (
 
   const currentOwner = polarOwners[0]
   if (!currentOwner?.external_id) {
-    throw new PolarOrganizationOwnerInvariantError(
+    throw new RepalisOrganizationOwnerInvariantError(
       organizationId,
       'the current Polar owner has no external ID',
     )
@@ -290,8 +290,8 @@ const getCurrentPolarOwner = async (
 
 /** Transfer ownership only when the current Polar owner is no longer a Better Auth owner. */
 const syncOwnerTransfer = async (
-  client: PolarCore,
-  options: PolarOrganizationRoleSyncOptions,
+  client: RepalisCore,
+  options: RepalisOrganizationRoleSyncOptions,
   data: {
     organizationId: string
     members: readonly BetterAuthOrganizationMemberMirror[]
@@ -303,7 +303,7 @@ const syncOwnerTransfer = async (
     .sort(byEarliestMembership)
   const fallbackOwner = ownerCandidates[0]
   if (!fallbackOwner) {
-    throw new PolarOrganizationOwnerInvariantError(
+    throw new RepalisOrganizationOwnerInvariantError(
       data.organizationId,
       `Better Auth has no member with creator role "${creatorRole}"`,
     )
@@ -325,7 +325,7 @@ const syncOwnerTransfer = async (
     fallbackOwner.userId,
   )
   if (!successor) {
-    throw new PolarOrganizationOwnerInvariantError(
+    throw new RepalisOrganizationOwnerInvariantError(
       data.organizationId,
       `successor "${fallbackOwner.userId}" is not a Polar member`,
     )
@@ -365,8 +365,8 @@ const syncOwnerTransfer = async (
 }
 
 export const ensureMemberMirror = async (
-  client: PolarCore,
-  options: PolarOrganizationRoleSyncOptions,
+  client: RepalisCore,
+  options: RepalisOrganizationRoleSyncOptions,
   data: {
     organizationId: string
     user: BetterAuthOrganizationUser
@@ -388,8 +388,8 @@ export const ensureMemberMirror = async (
 }
 
 export const updateMemberRoleMirror = async (
-  client: PolarCore,
-  options: PolarOrganizationRoleSyncOptions,
+  client: RepalisCore,
+  options: RepalisOrganizationRoleSyncOptions,
   data: {
     organizationId: string
     user: BetterAuthOrganizationUser
@@ -422,7 +422,7 @@ export const updateMemberRoleMirror = async (
 }
 
 export const updateMemberMirror = async (
-  client: PolarCore,
+  client: RepalisCore,
   data: {
     organizationId: string
     user: BetterAuthOrganizationUser
@@ -435,7 +435,7 @@ export const updateMemberMirror = async (
 }
 
 export const promoteMemberMirrorToOwner = async (
-  client: PolarCore,
+  client: RepalisCore,
   data: {
     organizationId: string
     externalMemberId: string
@@ -447,7 +447,7 @@ export const promoteMemberMirrorToOwner = async (
     data.externalMemberId,
   )
   if (!polarSuccessor) {
-    throw new PolarOrganizationOwnerInvariantError(
+    throw new RepalisOrganizationOwnerInvariantError(
       data.organizationId,
       `successor "${data.externalMemberId}" is not a Polar member`,
     )
@@ -461,7 +461,7 @@ export const promoteMemberMirrorToOwner = async (
 }
 
 export const removeMemberMirror = async (
-  client: PolarCore,
+  client: RepalisCore,
   data: {
     organizationId: string
     externalMemberId: string

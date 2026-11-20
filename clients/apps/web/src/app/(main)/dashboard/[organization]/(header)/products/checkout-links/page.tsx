@@ -1,8 +1,8 @@
 import { MasterDetailIndex } from '@/components/Layout/MasterDetailIndex'
 import { getServerSideAPI } from '@/utils/client/serverside'
 import { getOrganizationBySlugOrNotFound } from '@/utils/organization'
-import { LinkOutlined } from '@polar-sh/orbit/icons'
-import { Button } from '@polar-sh/orbit'
+import { LinkOutlined } from '@repalis/orbit/icons'
+import { Button } from '@repalis/orbit'
 import { Metadata } from 'next'
 import Link from 'next/link'
 

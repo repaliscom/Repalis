@@ -4,9 +4,9 @@ import {
   isActiveMigrationOperation,
   useRunMerchantMigrationPrecheck,
 } from '@/hooks/queries/merchantMigrations'
-import { schemas } from '@polar-sh/client'
-import { Button, Spinner, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { schemas } from '@repalis/client'
+import { Button, Spinner, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import { CATALOG_READ_DURATION, CATALOG_READ_STALLED } from './catalogReadCopy'
 
 export function PrecheckPanel({

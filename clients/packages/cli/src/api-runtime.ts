@@ -1,4 +1,4 @@
-import { ApiCommandError, ApiRuntime } from '@polar-sh/cli-commands'
+import { ApiCommandError, ApiRuntime } from '@repalis/cli-commands'
 import { Console, Effect, Layer, Option, Result, Stdio, Terminal } from 'effect'
 import { Prompt } from 'effect/cli'
 import { Organizations } from '@/services/organizations'

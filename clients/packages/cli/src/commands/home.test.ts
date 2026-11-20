@@ -76,7 +76,7 @@ describe('home', () => {
       fakeOrganizations({ items: [acme] }),
     )
 
-    expect(output).toContain('POLAR_ACCESS_TOKEN')
+    expect(output).toContain('REPALIS_ACCESS_TOKEN')
     expect(output).toContain('Organization  Acme sandbox')
     expect(output).not.toContain('Switch organization')
   })

@@ -1,7 +1,7 @@
 import { CheckoutConfirmation } from '@/components/Checkout/CheckoutConfirmation'
 import CheckoutLayout from '@/components/Checkout/CheckoutLayout'
 import { getServerURL } from '@/utils/api'
-import { getLocaleDirection } from '@polar-sh/i18n'
+import { getLocaleDirection } from '@repalis/i18n'
 import { getSSRHeaders } from '@/utils/client'
 import { resolveLocale } from '@/utils/i18n'
 import {
@@ -9,7 +9,7 @@ import {
   NotFoundResponseError,
   createClient,
   unwrap,
-} from '@polar-sh/client'
+} from '@repalis/client'
 import { notFound, redirect } from 'next/navigation'
 
 export default async function Page(props: {

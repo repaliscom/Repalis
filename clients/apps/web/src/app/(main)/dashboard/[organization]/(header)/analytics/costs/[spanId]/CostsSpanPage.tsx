@@ -3,9 +3,9 @@
 import { formatCostAmount } from '@/utils/formatters'
 import { Chart } from '@/components/Costs/Chart'
 import { CostsBandedChart } from '@/components/Costs/CostsBandedChart'
-import { InlineModal } from '@polar-sh/orbit'
+import { InlineModal } from '@repalis/orbit'
 import { useModal } from '@/components/Modal/useModal'
-import { Spinner } from '@polar-sh/orbit'
+import { Spinner } from '@repalis/orbit'
 import { StatisticCard } from '@/components/Shared/StatisticCard'
 import { useEventTypes } from '@/hooks/queries/event_types'
 import {
@@ -17,10 +17,10 @@ import {
   getTimestampFormatter,
   parseAsISODateString,
 } from '@/utils/metrics'
-import { schemas } from '@polar-sh/client'
-import { formatCurrency } from '@polar-sh/currency'
-import { Button, Grid } from '@polar-sh/orbit'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@polar-sh/orbit'
+import { schemas } from '@repalis/client'
+import { formatCurrency } from '@repalis/currency'
+import { Button, Grid } from '@repalis/orbit'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@repalis/orbit'
 import { endOfDay, format, subMonths } from 'date-fns'
 import {
   parseAsArrayOf,

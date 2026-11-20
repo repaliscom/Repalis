@@ -8,10 +8,10 @@ import { paymentDeclineReasonColumns } from '@/components/PaymentStatus/paymentD
 import { ProductListItem } from '@/components/Products/ProductListItem'
 import { useCustomer } from '@/hooks/queries/customers'
 import { usePayments } from '@/hooks/queries/payments'
-import { schemas } from '@polar-sh/client'
-import { DataTable } from '@polar-sh/orbit'
-import FormattedDateTime from '@polar-sh/ui/components/atoms/FormattedDateTime'
-import { List } from '@polar-sh/orbit'
+import { schemas } from '@repalis/client'
+import { DataTable } from '@repalis/orbit'
+import FormattedDateTime from '@repalis/ui/components/atoms/FormattedDateTime'
+import { List } from '@repalis/orbit'
 import React from 'react'
 
 interface ClientPageProps {

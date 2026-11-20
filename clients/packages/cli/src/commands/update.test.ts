@@ -62,7 +62,7 @@ describe('update command', () => {
     const http = fakeHttp({
       [releases]: Response.json([
         {
-          tag_name: `@polar-sh/cli@${VERSION.slice(1)}`,
+          tag_name: `@repalis/cli@${VERSION.slice(1)}`,
           draft: false,
           prerelease: false,
           assets: [],
@@ -113,7 +113,7 @@ describe('update command', () => {
 
   test('surfaces package manager failures', async () => {
     const failure = new UpdaterError({
-      message: 'npm install --global @polar-sh/cli@9.9.9 exited with code 1',
+      message: 'npm install --global @repalis/cli@9.9.9 exited with code 1',
     })
     const { promise } = runUpdate([], fakeUpdater('yarn', 'v9.9.9', failure))
 
@@ -165,7 +165,7 @@ describe('downloadAndUpdate', () => {
     await Effect.runPromise(
       downloadAndUpdate(
         {
-          tag_name: '@polar-sh/cli@9.9.9',
+          tag_name: '@repalis/cli@9.9.9',
           draft: false,
           prerelease: false,
           version: 'v9.9.9',

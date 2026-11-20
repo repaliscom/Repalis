@@ -12,10 +12,10 @@ import {
   billsUsageOnMeterCycle,
   formatBilledMeterUnits,
 } from '@/utils/subscription'
-import { schemas } from '@polar-sh/client'
-import { Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import FormattedDateTime from '@polar-sh/ui/components/atoms/FormattedDateTime'
+import { schemas } from '@repalis/client'
+import { Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import FormattedDateTime from '@repalis/ui/components/atoms/FormattedDateTime'
 import { useMemo } from 'react'
 
 const SubscriptionInvoicePreview = ({

@@ -1,4 +1,4 @@
-export const MAIN_PACKAGE = '@polar-sh/cli'
+export const MAIN_PACKAGE = '@repalis/cli'
 export const PLATFORM_PACKAGE_PREFIX = `${MAIN_PACKAGE}-`
 export const COMMAND = 'polar'
 
@@ -74,7 +74,7 @@ export const mainManifest = (
     name: MAIN_PACKAGE,
     version,
     description:
-      'Polar CLI: tunnel webhooks locally and manage your Polar organization from the terminal',
+      'Polar CLI: tunnel webhooks locally and manage your Repalis organization from the terminal',
     license: 'Apache-2.0',
     repository,
     homepage: 'https://repalis.com',
@@ -163,7 +163,7 @@ Point Claude Code, Cursor, Codex or any other agent at \`polar\` and it can run 
 - API commands print JSON, and \`--json\` turns every other command's output and every error into JSON too. Errors carry a \`hint\` with the fix.
 - \`--fields\` keeps only the fields the agent needs, so responses stay small.
 - No hidden prompts: \`--sandbox\`/\`--production\` pick the environment, \`--confirm\` approves destructive commands, and \`--help\` describes every command with examples.
-- \`POLAR_ACCESS_TOKEN\` authenticates without a browser, in CI or a sandboxed agent.
+- \`REPALIS_ACCESS_TOKEN\` authenticates without a browser, in CI or a sandboxed agent.
 
 \`\`\`bash
 polar products list --fields id,name,prices.price_amount
@@ -198,11 +198,11 @@ polar orders list --fields id,total_amount,customer.email
 polar subscriptions revoke <id>
 \`\`\`
 
-**Tokens.** Create an organization access token for your app or CI. When \`POLAR_ACCESS_TOKEN\` is set, the CLI uses it instead of your login.
+**Tokens.** Create an organization access token for your app or CI. When \`REPALIS_ACCESS_TOKEN\` is set, the CLI uses it instead of your login.
 
 \`\`\`bash
-echo "POLAR_ACCESS_TOKEN=$(polar auth token)" >> .env.local
-polar auth token --scope products:read | gh secret set POLAR_ACCESS_TOKEN
+echo "REPALIS_ACCESS_TOKEN=$(polar auth token)" >> .env.local
+polar auth token --scope products:read | gh secret set REPALIS_ACCESS_TOKEN
 \`\`\`
 
 Every command, argument and flag is in the [command reference](https://repalis.com/docs/integrate/cli/reference).

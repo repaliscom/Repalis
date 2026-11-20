@@ -7,7 +7,7 @@ import {
   useVerifyOrganizationEmail,
 } from '@/hooks/repalis/organizationEmail'
 import { useToast } from '@/providers/ToastProvider'
-import { ClientResponseError, schemas } from '@polar-sh/client'
+import { ClientResponseError, schemas } from '@repalis/client'
 import { useState } from 'react'
 
 const CODE_LENGTH = 6
@@ -32,7 +32,7 @@ export const SupportEmailVerification = ({
     return (
       <Banner
         title="Add a support email"
-        description="Payouts need a verified support email. Add one from the Polar dashboard on the web."
+        description="Payouts need a verified support email. Add one from the Repalis dashboard on the web."
       />
     )
   }

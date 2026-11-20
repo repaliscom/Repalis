@@ -3,7 +3,7 @@ import { ReactNode } from 'react'
 import { describe, expect, it, vi } from 'vitest'
 import { CatalogEmptyPanel } from './CatalogEmptyPanel'
 
-vi.mock('@polar-sh/orbit', () => ({
+vi.mock('@repalis/orbit', () => ({
   Text: ({
     as: Tag = 'span',
     children,
@@ -20,7 +20,7 @@ vi.mock('@polar-sh/orbit', () => ({
   }) => <button disabled={disabled}>{children}</button>,
 }))
 
-vi.mock('@polar-sh/orbit/Box', () => ({
+vi.mock('@repalis/orbit/Box', () => ({
   Box: ({ children }: { children: ReactNode }) => <div>{children}</div>,
 }))
 

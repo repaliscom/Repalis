@@ -1,6 +1,6 @@
 'use client'
 
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 import React, { useMemo } from 'react'
 
 const stub = (): never => {

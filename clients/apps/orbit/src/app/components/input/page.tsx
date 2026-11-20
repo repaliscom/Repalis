@@ -1,9 +1,9 @@
 'use client'
 
 import { useState } from 'react'
-import { Box } from '@polar-sh/orbit/Box'
-import { Input } from '@polar-sh/orbit'
-import { Mail, Search } from '@polar-sh/orbit/icons'
+import { Box } from '@repalis/orbit/Box'
+import { Input } from '@repalis/orbit'
+import { Mail, Search } from '@repalis/orbit/icons'
 import {
   Example,
   PageHeader,

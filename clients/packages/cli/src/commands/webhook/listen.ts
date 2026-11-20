@@ -209,7 +209,7 @@ export const listen = Command.make('listen', { url, org, printSecret }).pipe(
     {
       command: 'polar webhook listen --print-secret',
       description:
-        'Print the signing secret, e.g. for POLAR_WEBHOOK_SECRET in .env',
+        'Print the signing secret, e.g. for REPALIS_WEBHOOK_SECRET in .env',
     },
   ]),
   streaming(({ url, org, printSecret }, emit) =>

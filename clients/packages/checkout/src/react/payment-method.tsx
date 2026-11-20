@@ -2,12 +2,12 @@
 
 import { useEffect, useRef } from 'react'
 import {
-  PolarEmbedPaymentMethod,
+  RepalisEmbedPaymentMethod,
   type EmbedPaymentMethodErrorCode,
   type EmbedPaymentMethodRedirectResult,
 } from '../payment-method'
 
-const POLAR_PAYMENT_METHOD_EVENT = 'POLAR_PAYMENT_METHOD'
+const REPALIS_PAYMENT_METHOD_EVENT = 'REPALIS_PAYMENT_METHOD'
 const EMBED_PATH = '/embed/payment-method'
 
 type IncomingMessage =
@@ -20,25 +20,25 @@ type IncomingMessage =
 const isPolarMessage = (
   // oxlint-disable-next-line typescript/no-explicit-any
   message: any,
-): message is IncomingMessage & { type: typeof POLAR_PAYMENT_METHOD_EVENT } => {
+): message is IncomingMessage & { type: typeof REPALIS_PAYMENT_METHOD_EVENT } => {
   return (
     !!message &&
     typeof message === 'object' &&
-    message.type === POLAR_PAYMENT_METHOD_EVENT
+    message.type === REPALIS_PAYMENT_METHOD_EVENT
   )
 }
 
 const resolveEmbedBaseURL = (): string => {
   // oxlint-disable-next-line typescript/ban-ts-comment
   // @ts-ignore - Defined at build time by tsdown
-  const origins = __POLAR_CHECKOUT_EMBED_SCRIPT_ALLOWED_ORIGINS__ as string
+  const origins = __REPALIS_CHECKOUT_EMBED_SCRIPT_ALLOWED_ORIGINS__ as string
   return origins.split(',')[0]
 }
 
 const isAllowedOrigin = (origin: string): boolean => {
   // oxlint-disable-next-line typescript/ban-ts-comment
   // @ts-ignore - Defined at build time by tsdown
-  return (__POLAR_CHECKOUT_EMBED_SCRIPT_ALLOWED_ORIGINS__ as string)
+  return (__REPALIS_CHECKOUT_EMBED_SCRIPT_ALLOWED_ORIGINS__ as string)
     .split(',')
     .includes(origin)
 }
@@ -46,13 +46,13 @@ const isAllowedOrigin = (origin: string): boolean => {
 const buildIframeAllow = (): string => {
   // oxlint-disable-next-line typescript/ban-ts-comment
   // @ts-ignore - Defined at build time by tsdown
-  const origins = (__POLAR_CHECKOUT_EMBED_SCRIPT_ALLOWED_ORIGINS__ as string)
+  const origins = (__REPALIS_CHECKOUT_EMBED_SCRIPT_ALLOWED_ORIGINS__ as string)
     .split(',')
     .join(' ')
   return `payment 'self' ${origins}; publickey-credentials-get 'self' ${origins};`
 }
 
-interface PolarPaymentMethodBaseProps {
+interface RepalisPaymentMethodBaseProps {
   /**
    * A short-lived session token returned by
    * `POST /v1/customer-sessions`. Pass whatever the API returned —
@@ -104,8 +104,8 @@ interface PolarPaymentMethodBaseProps {
   style?: React.CSSProperties
 }
 
-export type PolarPaymentMethodProps = PolarPaymentMethodBaseProps
-export type RepalisPaymentMethodProps = PolarPaymentMethodBaseProps
+export type RepalisPaymentMethodProps = RepalisPaymentMethodBaseProps
+export type RepalisPaymentMethodProps = RepalisPaymentMethodBaseProps
 
 /**
  * Embeds the Polar "add payment method" form as a bare, chrome-less
@@ -113,7 +113,7 @@ export type RepalisPaymentMethodProps = PolarPaymentMethodBaseProps
  *
  * The merchant is responsible for any surrounding UI (modal, sheet,
  * inline card, etc). For a one-line modal experience, use
- * `PolarEmbedPaymentMethod.create()` from `@polar-sh/checkout/payment-method`
+ * `RepalisEmbedPaymentMethod.create()` from `@repalis/checkout/payment-method`
  * instead.
  *
  * The iframe auto-resizes to its content height; you don't need to set
@@ -122,14 +122,14 @@ export type RepalisPaymentMethodProps = PolarPaymentMethodBaseProps
  *
  * @example
  * ```tsx
- * <PolarPaymentMethod
+ * <RepalisPaymentMethod
  *   sessionToken={token}
  *   onSuccess={(id) => console.log('Attached:', id)}
  *   onError={(code) => console.error(code)}
  * />
  * ```
  */
-export const PolarPaymentMethod = ({
+export const RepalisPaymentMethod = ({
   sessionToken,
   theme,
   setAsDefault,
@@ -140,7 +140,7 @@ export const PolarPaymentMethod = ({
   onError,
   className,
   style,
-}: PolarPaymentMethodProps) => {
+}: RepalisPaymentMethodProps) => {
   const containerRef = useRef<HTMLDivElement>(null)
 
   // Keep handlers in a ref so the effect doesn't re-mount the iframe
@@ -239,7 +239,7 @@ export const usePaymentMethodRedirectResult = ({
   useEffect(() => {
     if (handledRef.current) return
     handledRef.current = true
-    const result = PolarEmbedPaymentMethod.getRedirectResult()
+    const result = RepalisEmbedPaymentMethod.getRedirectResult()
     if (!result) return
     onResult?.(result)
     if (result.status === 'succeeded') {
@@ -250,4 +250,4 @@ export const usePaymentMethodRedirectResult = ({
   }, [onSuccess, onError, onResult])
 }
 
-export { PolarPaymentMethod as RepalisPaymentMethod }
+export { RepalisPaymentMethod as RepalisPaymentMethod }

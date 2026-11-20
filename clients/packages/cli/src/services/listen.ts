@@ -302,7 +302,7 @@ export const startListening = ({
       error.code === 401
         ? new ListenError({
             code: 401,
-            message: `Authentication rejected for ${organization.environment}. Check POLAR_ACCESS_TOKEN or run ${loginCommand(organization.environment)} --new-session.`,
+            message: `Authentication rejected for ${organization.environment}. Check REPALIS_ACCESS_TOKEN or run ${loginCommand(organization.environment)} --new-session.`,
           })
         : error,
     ),

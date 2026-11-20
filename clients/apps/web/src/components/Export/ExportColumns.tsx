@@ -1,8 +1,8 @@
 'use client'
 
 import { ChipSelect } from '@/components/Form/ChipSelect'
-import { Button, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { Button, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 
 export interface ExportColumnGroup<T extends string> {
   readonly label: string

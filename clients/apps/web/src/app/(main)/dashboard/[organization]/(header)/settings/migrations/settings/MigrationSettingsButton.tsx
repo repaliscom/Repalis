@@ -2,9 +2,9 @@
 
 import { useModal } from '@/components/Modal/useModal'
 import { useIsSettingMigrationTaxBehavior } from '@/hooks/queries/merchantMigrations'
-import { Button, Modal } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import { SlidersHorizontal } from '@polar-sh/orbit/icons'
+import { Button, Modal } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import { SlidersHorizontal } from '@repalis/orbit/icons'
 import { MigrationSettingsPanel } from './MigrationSettingsPanel'
 
 export function MigrationSettingsButton({

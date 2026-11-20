@@ -3,8 +3,8 @@
 import { ExportModal } from '@/components/Export/ExportModal'
 import { ExportColumnGroup } from '@/components/Export/ExportColumns'
 import { downloadCsvExport } from '@/components/Export/utils'
-import { schemas } from '@polar-sh/client'
-import { Alert } from '@polar-sh/orbit'
+import { schemas } from '@repalis/client'
+import { Alert } from '@repalis/orbit'
 import React from 'react'
 
 type ExportColumn = schemas['TransactionExportColumn']

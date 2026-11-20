@@ -2,15 +2,15 @@ import {
   type ApiClients,
   type ApiVersion,
   CURRENT_API_VERSION,
-} from '@polar-sh/cli-commands'
-import * as V2026_10 from '@polar-sh/sdk/2026-10'
-import * as V2027_01 from '@polar-sh/sdk/2027-01'
+} from '@repalis/cli-commands'
+import * as V2026_10 from '@repalis/sdk/2026-10'
+import * as V2027_01 from '@repalis/sdk/2027-01'
 import { Context, Effect, Layer, Option, Redacted, Schema } from 'effect'
 import {
   AuthError,
   loginCommand,
   orgCommand,
-  type PolarEnvironment,
+  type RepalisEnvironment,
 } from '@/schemas/Auth'
 import { apiOrigin } from '@/services/api'
 import { Auth } from '@/services/auth'
@@ -111,14 +111,14 @@ const describeFailure = (
 
 interface PolarImpl {
   getClient: (
-    environment?: PolarEnvironment,
+    environment?: RepalisEnvironment,
   ) => Effect.Effect<RepalisSDK, AuthError>
   use: <A, V extends ApiVersion = CurrentApiVersion>(
     fn: (
       client: ApiClients[V]['client'],
       core: ApiClients[V]['core'],
     ) => Promise<A>,
-    environment?: PolarEnvironment,
+    environment?: RepalisEnvironment,
     options?: UseOptions<V>,
   ) => Effect.Effect<A, AuthError>
 }
@@ -126,7 +126,7 @@ interface PolarImpl {
 export const make = Effect.gen(function* () {
   const auth = yield* Auth
 
-  const getClient = (environment: PolarEnvironment = 'sandbox') =>
+  const getClient = (environment: RepalisEnvironment = 'sandbox') =>
     Effect.gen(function* () {
       const baseUrl = yield* apiOrigin(environment)
       const { accessToken } = yield* auth.resolve(environment)
@@ -141,7 +141,7 @@ export const make = Effect.gen(function* () {
       client: ApiClients[V]['client'],
       core: ApiClients[V]['core'],
     ) => Promise<A>,
-    environment: PolarEnvironment = 'sandbox',
+    environment: RepalisEnvironment = 'sandbox',
     options?: UseOptions<V>,
   ) =>
     Effect.gen(function* () {
@@ -207,7 +207,7 @@ export const make = Effect.gen(function* () {
             case 401:
               return new AuthError({
                 statusCode: error.statusCode,
-                message: `Authentication rejected for ${environment}. Check POLAR_ACCESS_TOKEN or run ${loginCommand(environment)} --new-session.`,
+                message: `Authentication rejected for ${environment}. Check REPALIS_ACCESS_TOKEN or run ${loginCommand(environment)} --new-session.`,
               })
             case 403:
               return new AuthError({

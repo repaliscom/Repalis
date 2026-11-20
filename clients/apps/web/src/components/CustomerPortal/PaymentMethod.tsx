@@ -3,10 +3,10 @@ import {
   useCustomerPortalCustomer,
   useDeleteCustomerPaymentMethod,
 } from '@/hooks/queries/customerPortal'
-import type { Client, operations, schemas } from '@polar-sh/client'
-import { Button } from '@polar-sh/orbit'
-import { Status } from '@polar-sh/orbit'
-import { X } from '@polar-sh/orbit/icons'
+import type { Client, operations, schemas } from '@repalis/client'
+import { Button } from '@repalis/orbit'
+import { Status } from '@repalis/orbit'
+import { X } from '@repalis/orbit/icons'
 import {
   PaymentMethodDisplay,
   getPaymentMethodCardInfo,

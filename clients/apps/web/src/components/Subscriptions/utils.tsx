@@ -1,5 +1,5 @@
-import { schemas } from '@polar-sh/client'
-import type { PillColor } from '@polar-sh/orbit'
+import { schemas } from '@repalis/client'
+import type { PillColor } from '@repalis/orbit'
 import { useMemo } from 'react'
 import { twMerge } from 'tailwind-merge'
 

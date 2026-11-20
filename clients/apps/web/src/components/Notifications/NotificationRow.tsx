@@ -7,15 +7,15 @@ import {
   PersonAddAltOutlined,
   PersonRemoveOutlined,
   ShoppingBagOutlined,
-} from '@polar-sh/orbit/icons'
-import { schemas } from '@polar-sh/client'
-import { formatCurrency } from '@polar-sh/currency'
-import { DEFAULT_LOCALE } from '@polar-sh/i18n'
-import { formatDate } from '@polar-sh/i18n/formatters/date'
-import { Avatar, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import RepalisTimeAgo from '@polar-sh/ui/components/atoms/RepalisTimeAgo'
-import { PopoverClose } from '@polar-sh/ui/components/ui/popover'
+} from '@repalis/orbit/icons'
+import { schemas } from '@repalis/client'
+import { formatCurrency } from '@repalis/currency'
+import { DEFAULT_LOCALE } from '@repalis/i18n'
+import { formatDate } from '@repalis/i18n/formatters/date'
+import { Avatar, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import RepalisTimeAgo from '@repalis/ui/components/atoms/RepalisTimeAgo'
+import { PopoverClose } from '@repalis/ui/components/ui/popover'
 import Link from 'next/link'
 import type { ReactNode } from 'react'
 

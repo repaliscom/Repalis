@@ -2,7 +2,7 @@
 
 import { toast } from '@/components/Toast/use-toast'
 import { useSafeCopy } from '@/hooks/clipboard'
-import { Box } from '@polar-sh/orbit/Box'
+import { Box } from '@repalis/orbit/Box'
 
 interface ClickToCopyProps {
   children: React.ReactNode

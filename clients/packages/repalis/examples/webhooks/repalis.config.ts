@@ -23,7 +23,7 @@ export default defineConfig({
         'benefit_grant.created',
         'benefit_grant.revoked',
       )
-      .secret('POLAR_WEBHOOK_SECRET')
+      .secret('REPALIS_WEBHOOK_SECRET')
       .handle(() => import('./handler')),
     sales: slack(process.env.SLACK_SALES_WEBHOOK_URL ?? '').on(
       'order.paid',

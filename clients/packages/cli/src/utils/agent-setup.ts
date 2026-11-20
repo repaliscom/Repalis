@@ -99,7 +99,7 @@ export const nextSteps = ({ steps }: AgentSetupResult) => {
   if (lines.length === 0) return [ui.blank]
   return [
     ui.blank,
-    `${ui.INDENT}${ui.bold('Next, sign in to Polar')}`,
+    `${ui.INDENT}${ui.bold('Next, sign in to Repalis')}`,
     ...lines.map((line) => ui.step(line)),
     ui.blank,
   ]

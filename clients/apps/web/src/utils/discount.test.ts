@@ -1,4 +1,4 @@
-import type { schemas } from '@polar-sh/client'
+import type { schemas } from '@repalis/client'
 import { describe, expect, it } from 'vitest'
 import { getDiscountDisplay } from './discount'
 

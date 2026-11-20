@@ -1,13 +1,13 @@
-import { usePolarClient } from '@/providers/RepalisClientProvider'
+import { useRepalisClient } from '@/providers/RepalisClientProvider'
 import { queryClient } from '@/utils/query'
-import { operations, schemas, unwrap } from '@polar-sh/client'
+import { operations, schemas, unwrap } from '@repalis/client'
 import { useInfiniteQuery, useMutation, useQuery } from '@tanstack/react-query'
 
 export const useCheckoutLink = (
   organizationId: string | undefined,
   id: string | undefined,
 ) => {
-  const { polar } = usePolarClient()
+  const { polar } = useRepalisClient()
 
   return useQuery({
     queryKey: ['checkout_link', organizationId, { id }],
@@ -28,7 +28,7 @@ export const useInfiniteCheckoutLinks = (
     'organization_id'
   >,
 ) => {
-  const { polar } = usePolarClient()
+  const { polar } = useRepalisClient()
 
   return useInfiniteQuery({
     queryKey: ['infinite', 'checkout_links', organizationId, { ...params }],
@@ -54,7 +54,7 @@ export const useInfiniteCheckoutLinks = (
 }
 
 export const useCheckoutLinkCreate = (organizationId: string | undefined) => {
-  const { polar } = usePolarClient()
+  const { polar } = useRepalisClient()
 
   return useMutation({
     mutationFn: (data: schemas['CheckoutLinkCreateProducts']) =>
@@ -79,7 +79,7 @@ export const useCheckoutLinkUpdate = (
   organizationId: string | undefined,
   id: string,
 ) => {
-  const { polar } = usePolarClient()
+  const { polar } = useRepalisClient()
 
   return useMutation({
     mutationFn: (data: schemas['CheckoutLinkUpdate']) =>

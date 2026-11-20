@@ -19,19 +19,19 @@ import {
   TriangleAlert as AlertTriangle,
   XLogo as X,
   YouTube,
-} from '@polar-sh/orbit/icons'
-import { enums, isValidationError, schemas } from '@polar-sh/client'
-import { Avatar } from '@polar-sh/orbit'
-import { Button } from '@polar-sh/orbit'
-import CopyToClipboardInput from '@polar-sh/ui/components/atoms/CopyToClipboardInput'
-import CountryPicker from '@polar-sh/ui/components/atoms/CountryPicker'
-import { Input } from '@polar-sh/orbit'
+} from '@repalis/orbit/icons'
+import { enums, isValidationError, schemas } from '@repalis/client'
+import { Avatar } from '@repalis/orbit'
+import { Button } from '@repalis/orbit'
+import CopyToClipboardInput from '@repalis/ui/components/atoms/CopyToClipboardInput'
+import CountryPicker from '@repalis/ui/components/atoms/CountryPicker'
+import { Input } from '@repalis/orbit'
 import {
   Form,
   FormControl,
   FormField,
   FormMessage,
-} from '@polar-sh/ui/components/ui/form'
+} from '@repalis/ui/components/ui/form'
 import { useRouter } from 'next/navigation'
 import React, { useCallback, useId } from 'react'
 import { FileRejection } from 'react-dropzone'
@@ -39,7 +39,7 @@ import { useForm, useFormContext, useWatch } from 'react-hook-form'
 import { twMerge } from 'tailwind-merge'
 import { FileObject, useFileUpload } from '../FileUpload'
 import { toast } from '../Toast/use-toast'
-import { Box } from '@polar-sh/orbit/Box'
+import { Box } from '@repalis/orbit/Box'
 import {
   SupportEmailStatusIcon,
   SupportEmailVerifyPrompt,

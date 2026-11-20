@@ -12,13 +12,13 @@ import {
 import { useMetrics } from '@/hooks/queries/metrics'
 import { buildEventDashboardPath } from '@/utils/event'
 import { fromISODate, toISODate, parseAsISODateString } from '@/utils/metrics'
-import { schemas } from '@polar-sh/client'
-import { formatCurrency } from '@polar-sh/currency'
-import { Avatar, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { schemas } from '@repalis/client'
+import { formatCurrency } from '@repalis/currency'
+import { Avatar, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import { RankedList, RankedListItem } from './RankedListItem'
 import { TrendBadge } from './TrendBadge'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@polar-sh/orbit'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@repalis/orbit'
 import { endOfDay, subDays } from 'date-fns'
 import {
   ArrowDownRight,
@@ -29,7 +29,7 @@ import {
   TrendingUp,
   TriangleAlert as AlertTriangle,
   Users,
-} from '@polar-sh/orbit/icons'
+} from '@repalis/orbit/icons'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { parseAsArrayOf, parseAsString, useQueryState } from 'nuqs'

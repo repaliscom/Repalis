@@ -1,9 +1,9 @@
 'use client'
 
-import { InlineModalHeader } from '@polar-sh/orbit'
-import { schemas } from '@polar-sh/client'
-import { Button } from '@polar-sh/orbit'
-import { Form } from '@polar-sh/ui/components/ui/form'
+import { InlineModalHeader } from '@repalis/orbit'
+import { schemas } from '@repalis/client'
+import { Button } from '@repalis/orbit'
+import { Form } from '@repalis/ui/components/ui/form'
 import { useCallback } from 'react'
 import { useForm } from 'react-hook-form'
 import {

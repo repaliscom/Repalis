@@ -1,8 +1,8 @@
-# @polar-sh/nextjs
+# @repalis/nextjs
 
 Payments and Checkouts made dead simple with Next.js.
 
-`pnpm install @polar-sh/nextjs`
+`pnpm install @repalis/nextjs`
 
 ## Checkout
 
@@ -10,10 +10,10 @@ Create a Checkout handler which takes care of redirections.
 
 ```typescript
 // checkout/route.ts
-import { Checkout } from '@polar-sh/nextjs'
+import { Checkout } from '@repalis/nextjs'
 
 export const GET = Checkout({
-  accessToken: process.env.POLAR_ACCESS_TOKEN!,
+  accessToken: process.env.REPALIS_ACCESS_TOKEN!,
   successUrl: process.env.SUCCESS_URL,
   returnUrl: 'https://myapp.com', // Optional Return URL, which renders a Back-button in the Checkout
   environment: 'sandbox', // Use sandbox if you're testing Polar - omit the parameter or pass 'production' otherwise
@@ -36,7 +36,7 @@ Pass query params to this route.
 
 ### Customer IP Address
 
-Unless `customer_ip_address` is passed, the customer's IP address is taken from the `x-forwarded-for`, `x-real-ip` or `cf-connecting-ip` header and sent to Polar to show local currency. Set `customerIpAddress` to a function `(request) => ip` to resolve it yourself, or to `false` to not send it.
+Unless `customer_ip_address` is passed, the customer's IP address is taken from the `x-forwarded-for`, `x-real-ip` or `cf-connecting-ip` header and sent to Repalis to show local currency. Set `customerIpAddress` to a function `(request) => ip` to resolve it yourself, or to `false` to not send it.
 
 ## Customer Portal
 
@@ -44,12 +44,12 @@ Create a customer portal where your customer can view orders and subscriptions.
 
 ```typescript
 // portal/route.ts
-import { CustomerPortal } from '@polar-sh/nextjs'
+import { CustomerPortal } from '@repalis/nextjs'
 import type { NextRequest } from 'next/server'
 
 export const GET = CustomerPortal({
-  accessToken: process.env.POLAR_ACCESS_TOKEN!,
-  getCustomerId: async (req: NextRequest) => '', // Function to resolve a Polar Customer ID
+  accessToken: process.env.REPALIS_ACCESS_TOKEN!,
+  getCustomerId: async (req: NextRequest) => '', // Function to resolve a Repalis Customer ID
   returnUrl: 'https://myapp.com', // Optional Return URL, which renders a Back-button in the Customer Portal
   environment: 'sandbox', // Use sandbox if you're testing Polar - omit the parameter or pass 'production' otherwise
 })
@@ -63,10 +63,10 @@ A simple utility which resolves incoming webhook payloads by verifying their sig
 
 ```typescript
 // api/webhook/polar/route.ts
-import { Webhooks } from '@polar-sh/nextjs'
+import { Webhooks } from '@repalis/nextjs'
 
 export const POST = Webhooks({
-  webhookSecret: process.env.POLAR_WEBHOOK_SECRET!,
+  webhookSecret: process.env.REPALIS_WEBHOOK_SECRET!,
   onPayload: async (payload) => {
     // Handle the payload
     // No need to return an acknowledge response

@@ -1,10 +1,10 @@
 'use client'
 
-import { ChevronLeft, ChevronRight } from '@polar-sh/orbit/icons'
+import { ChevronLeft, ChevronRight } from '@repalis/orbit/icons'
 import * as React from 'react'
 import { DateRange, DayPicker } from 'react-day-picker'
 
-import { buttonVariants } from '@polar-sh/orbit/ui/button'
+import { buttonVariants } from '@repalis/orbit/ui/button'
 import { cn } from '@/lib/utils'
 
 export type CalendarProps = React.ComponentProps<typeof DayPicker>

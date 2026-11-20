@@ -4,7 +4,7 @@ import { CatalogVersionLabel } from '@/components/Products/CatalogVersionLabel'
 import { toast } from '@/components/Toast/use-toast'
 import { useCreditCustomerMeter } from '@/hooks/queries/customerMeters'
 import { extractApiErrorMessage, setValidationErrors } from '@/utils/api/errors'
-import { isValidationError, schemas } from '@polar-sh/client'
+import { isValidationError, schemas } from '@repalis/client'
 import {
   Button,
   Checkbox,
@@ -16,8 +16,8 @@ import {
   SelectTrigger,
   SelectValue,
   Text,
-} from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+} from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import {
   Form,
   FormControl,
@@ -25,7 +25,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@polar-sh/ui/components/ui/form'
+} from '@repalis/ui/components/ui/form'
 import { useState } from 'react'
 import { useForm, useWatch } from 'react-hook-form'
 import { AddCreditsSummary } from './AddCreditsSummary'

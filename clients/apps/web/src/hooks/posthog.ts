@@ -1,7 +1,7 @@
 'use client'
 
 import { DISTINCT_ID_COOKIE } from '@/experiments/constants'
-import type { schemas } from '@polar-sh/client'
+import type { schemas } from '@repalis/client'
 import type { JsonType } from '@posthog/core'
 import type { CaptureOptions } from 'posthog-js'
 import { usePostHog as useOuterPostHog } from 'posthog-js/react'

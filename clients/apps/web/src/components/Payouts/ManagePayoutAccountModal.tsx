@@ -10,29 +10,29 @@ import {
 import { extractApiErrorMessage } from '@/utils/api/errors'
 import { api } from '@/utils/client'
 import { permissionDeniedMessage } from '@/utils/permissions'
-import { ClientResponseError, schemas, unwrap } from '@polar-sh/client'
+import { ClientResponseError, schemas, unwrap } from '@repalis/client'
 import {
   Button,
   Text,
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+} from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@polar-sh/ui/components/ui/dropdown-menu'
-import FormattedDateTime from '@polar-sh/ui/components/atoms/FormattedDateTime'
+} from '@repalis/ui/components/ui/dropdown-menu'
+import FormattedDateTime from '@repalis/ui/components/atoms/FormattedDateTime'
 import {
   ExternalLink,
   MoreVertOutlined,
   Plus,
   Trash2,
-} from '@polar-sh/orbit/icons'
+} from '@repalis/orbit/icons'
 import React, { useCallback, useState } from 'react'
 import { useOrganization } from '@/hooks/queries'
 

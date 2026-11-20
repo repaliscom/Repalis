@@ -66,7 +66,7 @@ module "vercel" {
     next_public_sentry_dsn                          = var.next_public_sentry_dsn
     next_public_posthog_token                       = var.next_public_posthog_token
     next_public_apple_domain_association            = var.next_public_apple_domain_association
-    next_public_checkout_embed_script_src           = "https://cdn.jsdelivr.net/npm/@polar-sh/checkout@0.1/dist/embed.global.js"
+    next_public_checkout_embed_script_src           = "https://cdn.jsdelivr.net/npm/@repalis/checkout@0.1/dist/embed.global.js"
     next_public_stripe_payment_method_configuration = var.next_public_stripe_payment_method_configuration
     s3_public_images_bucket_protocol                = "https"
     s3_public_images_bucket_hostname                = "polar-public-files.s3.amazonaws.com"

@@ -15,7 +15,7 @@ import {
   XAxis,
   YAxis,
   type MouseHandlerDataParam,
-} from '@polar-sh/ui/components/ui/chart'
+} from '@repalis/ui/components/ui/chart'
 import { useTheme } from 'next-themes'
 import React, {
   useCallback,

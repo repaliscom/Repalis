@@ -3,16 +3,16 @@
 import { toast } from '@/components/Toast/use-toast'
 import { useCustomerPauseSubscription } from '@/hooks/queries/customerPortal'
 import { extractApiErrorMessage } from '@/utils/api/errors'
-import { Client, schemas } from '@polar-sh/client'
-import { Button } from '@polar-sh/orbit'
-import DatePicker from '@polar-sh/ui/components/atoms/DateTimePicker'
+import { Client, schemas } from '@repalis/client'
+import { Button } from '@repalis/orbit'
+import DatePicker from '@repalis/ui/components/atoms/DateTimePicker'
 import {
   Form,
   FormDescription,
   FormField,
   FormItem,
   FormLabel,
-} from '@polar-sh/ui/components/ui/form'
+} from '@repalis/ui/components/ui/form'
 import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { PortalDialog } from './PortalDialog'

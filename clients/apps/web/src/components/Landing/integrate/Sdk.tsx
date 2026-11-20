@@ -1,5 +1,5 @@
-import { Grid, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { Grid, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import { Chapter } from '../Chapter'
 import { DocsLink } from './DocsLink'
 import { Adapters } from './Adapters'
@@ -8,10 +8,10 @@ import { CodePanel } from './CodePanel'
 const SDK_DOCS = '/docs/integrate/sdk/introduction'
 
 const TYPESCRIPT = [
-  "import { createPolar } from '@polar-sh/sdk/2026-10'",
+  "import { createRepalis } from '@repalis/sdk/2026-10'",
   '',
-  'const polar = createPolar({',
-  '  accessToken: process.env.POLAR_ACCESS_TOKEN,',
+  'const polar = createRepalis({',
+  '  accessToken: process.env.REPALIS_ACCESS_TOKEN,',
   '})',
   '',
   '// every entitlement and balance, one call',
@@ -21,7 +21,7 @@ const TYPESCRIPT = [
 const PYTHON = [
   'from repalis.v2026_10 import Repalis',
   '',
-  'polar = Polar(os.environ["POLAR_ACCESS_TOKEN"])',
+  'polar = Polar(os.environ["REPALIS_ACCESS_TOKEN"])',
   '',
   '# every entitlement and balance, one call',
   'state = polar.customers.get_state_external("acme")',
@@ -39,7 +39,7 @@ const CLIENTS: Client[] = [
   {
     name: 'TypeScript',
     desc: 'For Node, Bun, Deno and the browser. The import path pins your API version and everything after that is autocomplete.',
-    install: 'npm install @polar-sh/sdk',
+    install: 'npm install @repalis/sdk',
     caption: 'index.ts',
     lines: TYPESCRIPT,
   },

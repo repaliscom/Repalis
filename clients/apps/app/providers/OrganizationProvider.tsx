@@ -2,7 +2,7 @@ import { Box } from '@/components/Shared/Box'
 import { useOrganizations } from '@/hooks/repalis/organizations'
 import { useStorageState } from '@/hooks/storage'
 import { ExtensionStorage } from '@bacons/apple-targets'
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { Redirect, usePathname } from 'expo-router'
 import { createContext, PropsWithChildren, useEffect, useMemo } from 'react'
@@ -28,7 +28,7 @@ export const OrganizationContext =
   // @ts-ignore
   createContext<OrganizationContextValue>(stub)
 
-export function PolarOrganizationProvider({ children }: PropsWithChildren) {
+export function RepalisOrganizationProvider({ children }: PropsWithChildren) {
   const [[isStorageLoading, organizationId], setOrganizationId] =
     useStorageState('organizationId')
 

@@ -5,9 +5,9 @@ import { Chat } from '@/components/Chat/Chat'
 import { type ChatMessage } from '@/components/Chat/types'
 import { useSupportCaseChat } from '@/components/SupportCase/useSupportCaseChat'
 import { useReplyToSupportCase, useSupportCase } from '@/hooks/queries/org'
-import { schemas } from '@polar-sh/client'
-import { Avatar, Text } from '@polar-sh/orbit'
-import { MessageCircle } from '@polar-sh/orbit/icons'
+import { schemas } from '@repalis/client'
+import { Avatar, Text } from '@repalis/orbit'
+import { MessageCircle } from '@repalis/orbit/icons'
 import { useCallback } from 'react'
 
 const EVENT_LABELS: Record<string, string> = {

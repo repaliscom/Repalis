@@ -1,6 +1,6 @@
-import { schemas } from '@polar-sh/client'
-import { Checkbox, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { schemas } from '@repalis/client'
+import { Checkbox, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import { useState } from 'react'
 
 const VISIBLE_COUNT = 8

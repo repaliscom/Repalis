@@ -1,7 +1,7 @@
 import { useCustomerBenefitGrantUpdate } from '@/hooks/queries/customerPortal'
 import { getQueryClient } from '@/utils/api/query'
 import { markdownOptions } from '@/utils/markdown'
-import { Client, schemas } from '@polar-sh/client'
+import { Client, schemas } from '@repalis/client'
 import {
   Button,
   Input,
@@ -11,15 +11,15 @@ import {
   SelectTrigger,
   SelectValue,
   Text,
-} from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+} from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import { PortalText } from '@/components/CustomerPortal/PortalPrimitives'
 import {
   DEFAULT_LOCALE,
   useTranslations,
   type AcceptedLocale,
   type TranslationKey,
-} from '@polar-sh/i18n'
+} from '@repalis/i18n'
 import Markdown from 'markdown-to-jsx'
 import { usePathname, useSearchParams } from 'next/navigation'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'

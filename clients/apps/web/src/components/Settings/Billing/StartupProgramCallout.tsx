@@ -5,10 +5,10 @@ import { usePostHog } from '@/hooks/posthog'
 import { useClaimStartupProgram } from '@/hooks/queries/billing'
 import { useBillingPlanTelemetry } from '@/hooks/useBillingPlanTelemetry'
 import { extractApiErrorMessage } from '@/utils/api/errors'
-import { schemas } from '@polar-sh/client'
-import { Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import { Button } from '@polar-sh/orbit'
+import { schemas } from '@repalis/client'
+import { Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import { Button } from '@repalis/orbit'
 
 /**
  * Callout shown on the billing page when the organization is invited to the
@@ -16,7 +16,7 @@ import { Button } from '@polar-sh/orbit'
  * single backend endpoint that dispatches:
  *
  * - **Free → Scale**: the response carries a `checkout` to redirect to
- *   (regular Polar checkout to set up payment; the discount is already
+ *   (regular Repalis checkout to set up payment; the discount is already
  *   attached).
  * - **Paid → Scale**: the response carries a `subscription` — the existing
  *   paid subscription was switched to Scale with the discount applied via
@@ -81,7 +81,7 @@ export const StartupProgramCallout = ({
       })
       return
     }
-    // Free → Scale: redirect through Polar checkout (discount pre-attached).
+    // Free → Scale: redirect through Repalis checkout (discount pre-attached).
     if (result.data.checkout) {
       window.location.href = result.data.checkout.url
       return

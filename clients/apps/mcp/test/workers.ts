@@ -18,8 +18,8 @@ export const get = vi.fn<
   ) => { getEntrypoint: () => { evaluate: typeof evaluate } }
 >(() => ({ getEntrypoint: () => ({ evaluate }) }))
 export const env = {
-  POLAR_SERVERS: {
-    'polar-mcp': 'https://api.polar.test',
+  REPALIS_SERVERS: {
+    'repalis-mcp': 'https://api.polar.test',
     'polar-sandbox': 'https://sandbox-api.polar.test',
   },
   LOADER: { get },

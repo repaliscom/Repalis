@@ -4,9 +4,9 @@ import { CatalogVersionLabel } from '@/components/Products/CatalogVersionLabel'
 import AmountLabel from '@/components/Shared/AmountLabel'
 import { SubscriptionStatusLabel } from '@/components/Subscriptions/utils'
 import { useSubscriptions } from '@/hooks/queries'
-import { schemas } from '@polar-sh/client'
-import { Button, DataTable, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { schemas } from '@repalis/client'
+import { Button, DataTable, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import Link from 'next/link'
 
 interface CustomerSubscriptionsTableProps {

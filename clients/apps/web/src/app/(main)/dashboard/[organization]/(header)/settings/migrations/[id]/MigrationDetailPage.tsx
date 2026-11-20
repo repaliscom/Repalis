@@ -5,9 +5,9 @@ import {
   useMerchantMigration,
   usePanTransfer,
 } from '@/hooks/queries/merchantMigrations'
-import { schemas } from '@polar-sh/client'
-import { Alert, Spinner, Status, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { schemas } from '@repalis/client'
+import { Alert, Spinner, Status, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import { PanTransferPanel } from '../cards/PanTransferPanel'
 import { ImportedStep } from '../ImportedStep'
 import { MigrationStepper } from '../MigrationStepper'

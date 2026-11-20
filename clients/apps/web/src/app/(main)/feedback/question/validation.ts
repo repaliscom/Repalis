@@ -1,4 +1,4 @@
-import { POLAR_DESCRIPTION } from '@/components/Feedback/constants'
+import { REPALIS_DESCRIPTION } from '@/components/Feedback/constants'
 import {
   aiTracing,
   flushAITelemetry,
@@ -21,11 +21,11 @@ export type ValidationStatus = z.infer<typeof validationSchema>['status']
 const VALIDATION_SYSTEM_PROMPT = `You classify incoming messages for the Polar support assistant.
 
 About Polar:
-${POLAR_DESCRIPTION}
+${REPALIS_DESCRIPTION}
 
 Return one of:
 - "account_review": the user is asking why their account is under review, why their payouts are on hold for a review, why they are being verified, or anything closely related to that. Examples: "why is my account under review?", "why are payouts on hold for a review?", "what's going on with this review?". When in doubt about whether a message is about an ongoing account review, return "account_review" — we have a canned answer for this case and never want to escalate it to a human.
-- "pre_approval": the user is asking us to confirm upfront whether their business, product, use case, or model is allowed on Polar, or to pre-approve their account before they sign up and go through onboarding. Examples: "can I sell X on Polar?", "is my use case eligible?", "would Polar approve a business that does Y?", "can you confirm I'm allowed under your AUP before I sign up?", "is my model acceptable?". We don't do proactive AUP or eligibility reviews over support — onboarding is the required path.
+- "pre_approval": the user is asking us to confirm upfront whether their business, product, use case, or model is allowed on Repalis, or to pre-approve their account before they sign up and go through onboarding. Examples: "can I sell X on Repalis?", "is my use case eligible?", "would Polar approve a business that does Y?", "can you confirm I'm allowed under your AUP before I sign up?", "is my model acceptable?". We don't do proactive AUP or eligibility reviews over support — onboarding is the required path.
 - "answerable": the message is a question, a bug report, or product feedback / a feature request, and is plausibly about Polar (its product, configuration, billing, payouts, integrations, account, API, or anything a Polar seller or customer would ask or report). It does not need to be phrased as a question — "Checkout fails on Safari" or "It would be great to export payouts as CSV" are answerable. Vague messages like "help" or "it's broken" are also answerable: the assistant will ask for details.
 - "off_topic": the message is clearly not about Polar (e.g. weather, unrelated programming questions, general chitchat, other unrelated products).
 

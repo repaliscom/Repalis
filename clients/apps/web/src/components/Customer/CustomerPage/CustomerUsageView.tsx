@@ -9,22 +9,22 @@ import { useHasPermission } from '@/hooks/permissions'
 import { useCustomerMeters } from '@/hooks/queries/customerMeters'
 import { useMultipleMeterQuantities } from '@/hooks/queries/meters'
 import { useSubscriptions } from '@/hooks/queries/subscriptions'
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/navigation'
-import { formatCurrency } from '@polar-sh/currency'
-import ShadowBox from '@polar-sh/ui/components/atoms/ShadowBox'
+import { formatCurrency } from '@repalis/currency'
+import ShadowBox from '@repalis/ui/components/atoms/ShadowBox'
 import {
   Button,
   DataTable,
   DataTableColumnHeader,
   InlineModal,
-} from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+} from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import { Suspense, useMemo, useState } from 'react'
 import FormattedUnits from '../../Meter/FormattedUnits'
 import { EmptyState } from '../../Shared/EmptyState'
-import { CircleGauge as GaugeCircleIcon } from '@polar-sh/orbit/icons'
+import { CircleGauge as GaugeCircleIcon } from '@repalis/orbit/icons'
 import { useCustomerMetricsParams } from './useCustomerMetricsParams'
 
 const StackedMeterChart = dynamic(() => import('../../Meter/StackedMeterChart'))

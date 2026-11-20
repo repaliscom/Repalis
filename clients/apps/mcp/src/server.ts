@@ -5,7 +5,7 @@ import type { ToolMode } from './clients'
 import { registerEvents } from './events'
 import { instructionsFor } from './instructions'
 import { RequestLog } from './log'
-import type { PolarApiOutboundProps } from './outbound'
+import type { RepalisApiOutboundProps } from './outbound'
 import { registerDocsTools } from './tools/docs'
 import { registerExecuteTool } from './tools/execute'
 import { registerFeedbackTool } from './tools/feedback'
@@ -13,7 +13,7 @@ import { registerOperationTools } from './tools/operations'
 import { registerSearchTool } from './tools/search'
 
 export const createServer = Effect.fn('createServer')(function* (
-  props: PolarApiOutboundProps,
+  props: RepalisApiOutboundProps,
   toolMode: ToolMode,
 ) {
   const { telemetry } = yield* RequestLog

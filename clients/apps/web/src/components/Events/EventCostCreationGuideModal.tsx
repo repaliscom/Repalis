@@ -1,5 +1,5 @@
-import { ArrowOutwardOutlined } from '@polar-sh/orbit/icons'
-import { Button } from '@polar-sh/orbit'
+import { ArrowOutwardOutlined } from '@repalis/orbit/icons'
+import { Button } from '@repalis/orbit'
 import { Well } from '../Shared/Well'
 import {
   SyntaxHighlighterClient,
@@ -21,10 +21,10 @@ export const EventCostCreationGuideModal = () => {
         <Well className="dark:bg-repalis-800 rounded-lg bg-gray-100 p-4 text-sm">
           <SyntaxHighlighterClient
             lang="typescript"
-            code={`import { Polar } from "@polar-sh/sdk";
+            code={`import { Polar } from "@repalis/sdk";
 
 const polar = new Polar({
-  accessToken: process.env["POLAR_ACCESS_TOKEN"] ?? "",
+  accessToken: process.env["REPALIS_ACCESS_TOKEN"] ?? "",
 });
 
 const result = await polar.events.ingest({

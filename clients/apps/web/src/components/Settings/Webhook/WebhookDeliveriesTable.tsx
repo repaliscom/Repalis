@@ -17,16 +17,16 @@ import {
 import {
   KeyboardArrowDownOutlined,
   KeyboardArrowRightOutlined,
-} from '@polar-sh/orbit/icons'
-import { operations, schemas } from '@polar-sh/client'
-import { Button } from '@polar-sh/orbit'
+} from '@repalis/orbit/icons'
+import { operations, schemas } from '@repalis/client'
+import { Button } from '@repalis/orbit'
 import {
   DataTable,
   DataTableCellContext,
   DataTableColumnDef,
   DataTableColumnHeader,
-} from '@polar-sh/orbit'
-import FormattedDateTime from '@polar-sh/ui/components/atoms/FormattedDateTime'
+} from '@repalis/orbit'
+import FormattedDateTime from '@repalis/ui/components/atoms/FormattedDateTime'
 import React, { useCallback } from 'react'
 import { twMerge } from 'tailwind-merge'
 

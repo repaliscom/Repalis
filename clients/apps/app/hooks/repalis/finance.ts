@@ -1,6 +1,6 @@
-import { usePolarClient } from '@/providers/RepalisClientProvider'
+import { useRepalisClient } from '@/providers/RepalisClientProvider'
 import { queryClient } from '@/utils/query'
-import { ClientResponseError, schemas, unwrap } from '@polar-sh/client'
+import { ClientResponseError, schemas, unwrap } from '@repalis/client'
 import { defaultRetry } from './retry'
 import {
   skipToken,
@@ -11,7 +11,7 @@ import {
 import { useEffect, useMemo, useState } from 'react'
 
 export const useOrganizationAccount = (organizationId?: string) => {
-  const { polar } = usePolarClient()
+  const { polar } = useRepalisClient()
 
   return useQuery({
     queryKey: ['finance', 'account', organizationId],
@@ -37,7 +37,7 @@ export const useOrganizationAccount = (organizationId?: string) => {
 }
 
 export const usePayoutAccount = (payoutAccountId?: string) => {
-  const { polar } = usePolarClient()
+  const { polar } = useRepalisClient()
 
   return useQuery({
     queryKey: ['finance', 'payoutAccount', payoutAccountId],
@@ -55,7 +55,7 @@ export const usePayoutAccount = (payoutAccountId?: string) => {
 }
 
 export const useTransactionsSummary = (accountId?: string) => {
-  const { polar } = usePolarClient()
+  const { polar } = useRepalisClient()
 
   return useQuery({
     queryKey: ['finance', accountId, 'transactions', 'summary'],
@@ -71,7 +71,7 @@ export const useTransactionsSummary = (accountId?: string) => {
 }
 
 export const usePayoutEstimate = (organizationId?: string) => {
-  const { polar } = usePolarClient()
+  const { polar } = useRepalisClient()
 
   return useQuery({
     queryKey: ['finance', organizationId, 'payouts', 'estimate'],
@@ -95,7 +95,7 @@ const COOLDOWN_PAYOUT_STATUSES: schemas['PayoutStatus'][] = [
 ]
 
 export const useNextPayoutAt = (account?: schemas['Account']) => {
-  const { polar } = usePolarClient()
+  const { polar } = useRepalisClient()
   const [now, setNow] = useState(() => Date.now())
 
   const { data, isError, isFetching, refetch } = useQuery({
@@ -149,7 +149,7 @@ export const useNextPayoutAt = (account?: schemas['Account']) => {
 }
 
 export const useCreatePayout = (organizationId?: string) => {
-  const { polar } = usePolarClient()
+  const { polar } = useRepalisClient()
 
   return useMutation({
     mutationFn: () => {
@@ -182,7 +182,7 @@ export const usePayout = (
 }
 
 export const usePayouts = () => {
-  const { polar } = usePolarClient()
+  const { polar } = useRepalisClient()
 
   return useQuery({
     queryKey: ['finance', 'payouts'],

@@ -3,17 +3,17 @@
 import { toast } from '@/components/Toast/use-toast'
 import { usePauseSubscription } from '@/hooks/queries'
 import { extractApiErrorMessage } from '@/utils/api/errors'
-import { schemas } from '@polar-sh/client'
-import { Button, InlineModalHeader, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import DatePicker from '@polar-sh/ui/components/atoms/DateTimePicker'
+import { schemas } from '@repalis/client'
+import { Button, InlineModalHeader, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import DatePicker from '@repalis/ui/components/atoms/DateTimePicker'
 import {
   Form,
   FormDescription,
   FormField,
   FormItem,
   FormLabel,
-} from '@polar-sh/ui/components/ui/form'
+} from '@repalis/ui/components/ui/form'
 import { useForm } from 'react-hook-form'
 
 interface PauseSubscriptionModalProps {

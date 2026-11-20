@@ -6,7 +6,7 @@ const forbiddenImports = [
     messageId: 'http',
   },
   {
-    matches: (source) => source.startsWith('@polar-sh/sdk'),
+    matches: (source) => source.startsWith('@repalis/sdk'),
     messageId: 'sdk',
   },
   {

@@ -98,7 +98,7 @@ const confirm =
       yield* say([ui.blank])
       const accepted = yield* Prompt.run(
         Prompt.Confirm({
-          message: `Remove ${plural(entries.filter(removable).length, 'entry', 'entries')} from ${config.file}? Nothing on Polar changes.`,
+          message: `Remove ${plural(entries.filter(removable).length, 'entry', 'entries')} from ${config.file}? Nothing on Repalis changes.`,
         }),
       ).pipe(Effect.orElseSucceed(() => false))
       if (!accepted) {
@@ -119,7 +119,7 @@ const render = (
     ? [
         ui.blank,
         ui.success(
-          `${config.file}: ${plural(entries.filter(removable).length, 'entry', 'entries')} removed, nothing changed on Polar`,
+          `${config.file}: ${plural(entries.filter(removable).length, 'entry', 'entries')} removed, nothing changed on Repalis`,
         ),
       ]
     : [
@@ -134,7 +134,7 @@ const render = (
 
 export const prune = Command.make('prune', { file, org, confirmed }).pipe(
   Command.withDescription(
-    'Remove unused deprecated entries from a billing config file, without changing anything on Polar',
+    'Remove unused deprecated entries from a billing config file, without changing anything on Repalis',
   ),
   Command.withExamples([
     {

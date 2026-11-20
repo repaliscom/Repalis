@@ -1,5 +1,5 @@
-import { usePolarClient } from '@/providers/RepalisClientProvider'
-import { operations, unwrap } from '@polar-sh/client'
+import { useRepalisClient } from '@/providers/RepalisClientProvider'
+import { operations, unwrap } from '@repalis/client'
 import { useQuery } from '@tanstack/react-query'
 
 export const useCustomFields = (
@@ -9,7 +9,7 @@ export const useCustomFields = (
     'organization_id'
   >,
 ) => {
-  const { polar } = usePolarClient()
+  const { polar } = useRepalisClient()
 
   return useQuery({
     queryKey: ['custom_fields', { organizationId, ...(parameters || {}) }],

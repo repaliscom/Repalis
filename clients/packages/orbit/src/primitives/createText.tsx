@@ -227,7 +227,7 @@ type TextProps<E extends TextTag = 'p'> = TextStyleProps & {
 
 const HEADING_FONT_FEATURES = "'ss07' 1, 'ss08' 1, 'liga' 0"
 const SKELETON_CLASSES =
-  'dark:bg-polar-700 animate-pulse rounded-sm bg-gray-100'
+  'dark:bg-repalis-700 animate-pulse rounded-sm bg-gray-100'
 
 const renderMultiLineSkeleton = (lines: number): ReactNode =>
   Array.from({ length: lines }, (_, i) => (

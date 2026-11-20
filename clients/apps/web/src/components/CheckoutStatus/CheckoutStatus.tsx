@@ -2,8 +2,8 @@ import {
   CheckoutStatusDisplayColor,
   CheckoutStatusDisplayTitle,
 } from '@/utils/checkout'
-import { schemas } from '@polar-sh/client'
-import { Status } from '@polar-sh/orbit'
+import { schemas } from '@repalis/client'
+import { Status } from '@repalis/orbit'
 
 const CheckoutStatus = ({
   checkout: { status },

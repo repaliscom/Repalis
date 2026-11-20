@@ -1,6 +1,6 @@
 'use client'
 
-import { FIXED_STATE_OPTIONS } from '@polar-sh/ui/lib/states'
+import { FIXED_STATE_OPTIONS } from '@repalis/ui/lib/states'
 import { Input } from './Input'
 import {
   NativeSelect,
@@ -15,7 +15,7 @@ import {
 export {
   COUNTRIES_WITH_FIXED_STATE_OPTIONS,
   FIXED_STATE_OPTIONS,
-} from '@polar-sh/ui/lib/states'
+} from '@repalis/ui/lib/states'
 
 const CountryStatePicker = ({
   className,

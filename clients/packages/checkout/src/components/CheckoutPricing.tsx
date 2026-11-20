@@ -1,7 +1,7 @@
 'use client'
 
-import { formatCurrency } from '@polar-sh/currency'
-import type { AcceptedLocale } from '@polar-sh/i18n'
+import { formatCurrency } from '@repalis/currency'
+import type { AcceptedLocale } from '@repalis/i18n'
 
 import { ProductCheckoutPublic } from '../guards'
 import { getDiscountDisplay } from '../utils/discount'
@@ -62,8 +62,8 @@ const CheckoutProductAmountLabel = ({
             {getDiscountDisplay(discount, checkout.currency, locale)}
           </span>
 
-          <div className="dark:bg-polar-800 inset-s-0 absolute top-1/2 -ms-1 flex h-2 w-2 -translate-y-1/2 transform rounded-full bg-gray-50"></div>
-          <div className="dark:bg-polar-800 inset-e-0 absolute top-1/2 -me-1 flex h-2 w-2 -translate-y-1/2 transform rounded-full bg-gray-50"></div>
+          <div className="dark:bg-repalis-800 inset-s-0 absolute top-1/2 -ms-1 flex h-2 w-2 -translate-y-1/2 transform rounded-full bg-gray-50"></div>
+          <div className="dark:bg-repalis-800 inset-e-0 absolute top-1/2 -me-1 flex h-2 w-2 -translate-y-1/2 transform rounded-full bg-gray-50"></div>
         </div>
       </div>
     </div>

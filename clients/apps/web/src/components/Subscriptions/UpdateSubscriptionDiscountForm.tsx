@@ -4,9 +4,9 @@ import { useDiscount, useDiscounts } from '@/hooks/queries'
 import { useUpdateSubscription } from '@/hooks/queries/subscriptions'
 import { extractApiErrorMessage, setValidationErrors } from '@/utils/api/errors'
 import { getDiscountDisplay } from '@/utils/discount'
-import { isValidationError, schemas } from '@polar-sh/client'
-import { Button } from '@polar-sh/orbit'
-import { Combobox } from '@polar-sh/ui/components/atoms/Combobox'
+import { isValidationError, schemas } from '@repalis/client'
+import { Button } from '@repalis/orbit'
+import { Combobox } from '@repalis/ui/components/atoms/Combobox'
 import {
   Form,
   FormDescription,
@@ -14,8 +14,8 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@polar-sh/ui/components/ui/form'
-import { X as XIcon } from '@polar-sh/orbit/icons'
+} from '@repalis/ui/components/ui/form'
+import { X as XIcon } from '@repalis/orbit/icons'
 import { useCallback, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from '../Toast/use-toast'

@@ -1,11 +1,11 @@
-import { createRepalisCore, type Repalis as RepalisSDK } from '@polar-sh/sdk/2026-10'
+import { createRepalisCore, type Repalis as RepalisSDK } from '@repalis/sdk/2026-10'
 import { Effect, Redacted } from 'effect'
 import {
   AuthError,
   loginCommand,
   type ActiveOrganization,
   type OrganizationSelection,
-  type PolarEnvironment,
+  type RepalisEnvironment,
   type Session,
 } from '@/schemas/Auth'
 import { Auth, type Credential } from '@/services/auth'
@@ -46,12 +46,12 @@ export const overrideCredential = (accessToken = 'ci-token'): Credential => ({
 
 interface AuthState {
   credential: Credential
-  environment: PolarEnvironment
-  sessions: PolarEnvironment[]
+  environment: RepalisEnvironment
+  sessions: RepalisEnvironment[]
   replaced: boolean
   failure: AuthError | undefined
   resolutions: Array<{
-    environment: PolarEnvironment
+    environment: RepalisEnvironment
     rejected: Redacted.Redacted<string> | undefined
   }>
 }
@@ -160,7 +160,7 @@ export const fakeOrganizations = (
 }
 
 interface CredentialsState {
-  sessions: Partial<Record<PolarEnvironment, Session>>
+  sessions: Partial<Record<RepalisEnvironment, Session>>
   failure: AuthError | undefined
   reads: number
   writes: number
@@ -265,7 +265,7 @@ export const fakeOAuth = (
 
 interface PolarState {
   requests: Array<{
-    environment: PolarEnvironment
+    environment: RepalisEnvironment
     organizationId: string | undefined
   }>
 }

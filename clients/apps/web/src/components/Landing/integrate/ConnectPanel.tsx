@@ -1,6 +1,6 @@
 import { type Snippet, SnippetPicker } from './SnippetPicker'
 
-const MCP_URL = 'https://mcp.repalis.com/mcp/polar-mcp'
+const MCP_URL = 'https://mcp.repalis.com/mcp/repalis-mcp'
 
 const CLIENTS: Snippet[] = [
   {

@@ -8,16 +8,16 @@ import {
   RefundStatusDisplayTitle,
 } from '@/components/Refunds/utils'
 import { useRefunds } from '@/hooks/queries/refunds'
-import { schemas } from '@polar-sh/client'
-import { formatCurrency } from '@polar-sh/currency'
+import { schemas } from '@repalis/client'
+import { formatCurrency } from '@repalis/currency'
 import {
   Button,
   DataTable,
   type DataTableColumnDef,
   InlineModal,
   Status,
-} from '@polar-sh/orbit'
-import FormattedDateTime from '@polar-sh/ui/components/atoms/FormattedDateTime'
+} from '@repalis/orbit'
+import FormattedDateTime from '@repalis/ui/components/atoms/FormattedDateTime'
 import { OrderSection } from './OrderSection'
 
 export const OrderRefundsSection = ({ order }: { order: schemas['Order'] }) => {

@@ -1,4 +1,4 @@
-import { Percent } from '@polar-sh/orbit/icons'
+import { Percent } from '@repalis/orbit/icons'
 import {
   ChangeEvent,
   FocusEvent,
@@ -7,7 +7,7 @@ import {
   useState,
 } from 'react'
 import { twMerge } from 'tailwind-merge'
-import { Input } from '@polar-sh/orbit'
+import { Input } from '@repalis/orbit'
 
 interface Props {
   name: string
@@ -75,7 +75,7 @@ const PercentageInput = (props: Props) => {
       id={id}
       name={name}
       className={twMerge(
-        'dark:placeholder:text-polar-500 block w-full px-4 text-base placeholder:text-gray-400',
+        'dark:placeholder:text-repalis-500 block w-full px-4 text-base placeholder:text-gray-400',
         props.className ?? '',
       )}
       value={internalValue}

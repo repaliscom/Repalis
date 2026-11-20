@@ -9,10 +9,10 @@ import {
   useSupportCase,
 } from '@/hooks/queries/org'
 import { useOrganizationSSE } from '@/hooks/sse'
-import { schemas } from '@polar-sh/client'
-import { Text } from '@polar-sh/orbit'
+import { schemas } from '@repalis/client'
+import { Text } from '@repalis/orbit'
 import { useQueryClient } from '@tanstack/react-query'
-import { LoaderCircle as Loader2, MessageCircle } from '@polar-sh/orbit/icons'
+import { LoaderCircle as Loader2, MessageCircle } from '@repalis/orbit/icons'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useSupportCaseChat } from '@/components/SupportCase/useSupportCaseChat'
 import { DecisionMessage } from './DecisionMessage'

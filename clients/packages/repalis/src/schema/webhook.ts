@@ -134,7 +134,7 @@ class RawWebhookEndpoint<
 export const endpoint = (url: string) => ({
   on: <const Events extends WebhookEventType>(
     ...events: [Events, ...Array<Events>]
-  ) => new RawWebhookEndpoint(url, events, 'POLAR_WEBHOOK_SECRET'),
+  ) => new RawWebhookEndpoint(url, events, 'REPALIS_WEBHOOK_SECRET'),
 })
 
 const notification = (format: 'discord' | 'slack') => (url: string) => ({

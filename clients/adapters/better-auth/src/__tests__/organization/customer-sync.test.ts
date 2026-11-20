@@ -1,12 +1,12 @@
 import type { Organization } from 'better-auth/plugins/organization'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { errors, type models } from '@polar-sh/sdk/2026-10'
+import { errors, type models } from '@repalis/sdk/2026-10'
 import {
   PolarOrganizationCustomerTypeError,
   ensureTeamCustomer,
   updateTeamCustomer,
 } from '../../organization/sync'
-import { createMockPolarClient, createMockUser } from '../utils/mocks'
+import { createMockRepalisClient, createMockUser } from '../utils/mocks'
 
 type CustomerIndividual = models.CustomerIndividual
 type CustomerTeam = models.CustomerTeam
@@ -91,10 +91,10 @@ describe('organization customer synchronization', () => {
     email: 'owner@example.com',
     name: 'Owner',
   })
-  let client: ReturnType<typeof createMockPolarClient>
+  let client: ReturnType<typeof createMockRepalisClient>
 
   beforeEach(() => {
-    client = createMockPolarClient()
+    client = createMockRepalisClient()
     vi.clearAllMocks()
   })
 

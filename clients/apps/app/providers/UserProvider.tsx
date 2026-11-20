@@ -1,6 +1,6 @@
-import { usePolarClient } from '@/providers/RepalisClientProvider'
+import { useRepalisClient } from '@/providers/RepalisClientProvider'
 import { useSession } from '@/providers/SessionProvider'
-import { schemas, unwrap } from '@polar-sh/client'
+import { schemas, unwrap } from '@repalis/client'
 import { useQuery } from '@tanstack/react-query'
 import { createContext, PropsWithChildren, useContext } from 'react'
 
@@ -20,7 +20,7 @@ export const useUser = () => useContext(UserContext)
 
 export function UserProvider({ children }: PropsWithChildren) {
   const { session } = useSession()
-  const { polar } = usePolarClient()
+  const { polar } = useRepalisClient()
 
   const { data: user, isLoading } = useQuery({
     queryKey: ['userinfo'],

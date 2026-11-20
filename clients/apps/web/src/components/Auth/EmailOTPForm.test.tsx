@@ -42,11 +42,11 @@ vi.mock('@/utils/api/errors', () => ({
   setValidationErrors: vi.fn(),
 }))
 
-vi.mock('@polar-sh/client', () => ({
+vi.mock('@repalis/client', () => ({
   isValidationError: () => false,
 }))
 
-vi.mock('@polar-sh/orbit', () => ({
+vi.mock('@repalis/orbit', () => ({
   Button: ({ children }: PropsWithChildren) => <button>{children}</button>,
   Input: (props: InputHTMLAttributes<HTMLInputElement>) => <input {...props} />,
 }))
@@ -59,7 +59,7 @@ vi.mock('@/utils/config', async (importOriginal) => {
   }
 })
 
-vi.mock('@polar-sh/ui/components/ui/form', () => {
+vi.mock('@repalis/ui/components/ui/form', () => {
   const Passthrough = ({ children }: PropsWithChildren) => children
 
   return {

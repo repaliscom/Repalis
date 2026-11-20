@@ -2,18 +2,18 @@ import { useToast } from '@/components/Toast/use-toast'
 import { useAuth } from '@/hooks/auth'
 import { useUpdateOrganizationMemberRole } from '@/hooks/queries/org'
 import { useOrganizationRoles } from '@/hooks/queries/roles'
-import { CheckFilled as Check } from '@polar-sh/orbit/icons'
-import { Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import { schemas } from '@polar-sh/client'
-import { Button } from '@polar-sh/orbit'
+import { CheckFilled as Check } from '@repalis/orbit/icons'
+import { Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import { schemas } from '@repalis/client'
+import { Button } from '@repalis/orbit'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@polar-sh/orbit'
+} from '@repalis/orbit'
 import { useMemo, useState } from 'react'
 
 import { ROLE_LABELS, ROLE_ORDER } from './constants'

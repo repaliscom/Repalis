@@ -3,11 +3,11 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 const mockCheckoutCreate = vi.fn()
 
-vi.mock('@polar-sh/sdk/2026-10', () => ({
-  createPolarCore: vi.fn(() => ({})),
+vi.mock('@repalis/sdk/2026-10', () => ({
+  createRepalisCore: vi.fn(() => ({})),
 }))
 
-vi.mock('@polar-sh/sdk/2026-10/services/checkouts', () => ({
+vi.mock('@repalis/sdk/2026-10/services/checkouts', () => ({
   createCheckouts: () => mockCheckoutCreate,
 }))
 
@@ -30,7 +30,7 @@ import { Checkout } from './checkout'
  *   2. `polar.models.checkout.Checkout` replaces every `{CHECKOUT_ID}` with the id.
  *   3. The merchant's success page reads query params via `URLSearchParams.get(...)`.
  *
- * Run: pnpm --filter @polar-sh/nextjs exec vitest run src/checkout/checkout_decodeuri_corruption.repro.test.ts
+ * Run: pnpm --filter @repalis/nextjs exec vitest run src/checkout/checkout_decodeuri_corruption.repro.test.ts
  */
 
 const CHECKOUT_ID = 'chk_123'

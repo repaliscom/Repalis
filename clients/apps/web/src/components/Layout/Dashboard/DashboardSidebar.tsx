@@ -10,9 +10,9 @@ import {
   KeyboardArrowDown,
   LockOutlined,
   Search,
-} from '@polar-sh/orbit/icons'
-import { schemas } from '@polar-sh/client'
-import { Avatar, Button } from '@polar-sh/orbit'
+} from '@repalis/orbit/icons'
+import { schemas } from '@repalis/client'
+import { Avatar, Button } from '@repalis/orbit'
 import {
   Sidebar,
   SidebarContent,
@@ -21,15 +21,15 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from '@polar-sh/ui/components/atoms/Sidebar'
+} from '@repalis/ui/components/atoms/Sidebar'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@polar-sh/ui/components/ui/dropdown-menu'
-import { Separator } from '@polar-sh/ui/components/ui/separator'
+} from '@repalis/ui/components/ui/dropdown-menu'
+import { Separator } from '@repalis/ui/components/ui/separator'
 import { m } from 'motion/react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'

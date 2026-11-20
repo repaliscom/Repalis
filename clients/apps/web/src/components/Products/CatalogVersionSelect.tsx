@@ -1,20 +1,20 @@
 import { useCatalogVersionLabels } from '@/hooks/queries/catalogs'
-import { schemas } from '@polar-sh/client'
-import { Button, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import { Check, ChevronDown } from '@polar-sh/orbit/icons'
+import { schemas } from '@repalis/client'
+import { Button, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import { Check, ChevronDown } from '@repalis/orbit/icons'
 import {
   Command,
   CommandEmpty,
   CommandInput,
   CommandItem,
   CommandList,
-} from '@polar-sh/ui/components/ui/command'
+} from '@repalis/ui/components/ui/command'
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@polar-sh/ui/components/ui/popover'
+} from '@repalis/ui/components/ui/popover'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { formatPublishedAt } from './ProductPage/ProductVersionBanner'

@@ -1,14 +1,14 @@
 import { Effect } from 'effect'
 import { announceAuthorization } from '@/commands/auth'
-import { AuthError, loginCommand, type PolarEnvironment } from '@/schemas/Auth'
+import { AuthError, loginCommand, type RepalisEnvironment } from '@/schemas/Auth'
 import { Auth } from '@/services/auth'
 import { Organizations } from '@/services/organizations'
 import { select } from '@/utils/prompt'
 
-type EnvironmentFlags = Record<PolarEnvironment, boolean>
+type EnvironmentFlags = Record<RepalisEnvironment, boolean>
 
 const chosenEnvironment = (flags: EnvironmentFlags) => {
-  const chosen = (Object.keys(flags) as PolarEnvironment[]).filter(
+  const chosen = (Object.keys(flags) as RepalisEnvironment[]).filter(
     (environment) => flags[environment],
   )
   if (chosen.length > 1) {
@@ -19,7 +19,7 @@ const chosenEnvironment = (flags: EnvironmentFlags) => {
   return Effect.succeed(chosen[0])
 }
 
-const pickEnvironment = select<PolarEnvironment>(
+const pickEnvironment = select<RepalisEnvironment>(
   {
     message: 'Which environment do you want to set up?',
     choices: [
@@ -30,7 +30,7 @@ const pickEnvironment = select<PolarEnvironment>(
   (environment) => environment,
 )
 
-const pickOrganization = (environment: PolarEnvironment, prompt: boolean) =>
+const pickOrganization = (environment: RepalisEnvironment, prompt: boolean) =>
   Effect.gen(function* () {
     const items = yield* (yield* Organizations).list(environment)
     if (items.length === 1) return items[0]!
@@ -57,7 +57,7 @@ const pickOrganization = (environment: PolarEnvironment, prompt: boolean) =>
     )
   })
 
-const notLoggedIn = (environment?: PolarEnvironment) =>
+const notLoggedIn = (environment?: RepalisEnvironment) =>
   new AuthError({
     message:
       environment === undefined
@@ -65,7 +65,7 @@ const notLoggedIn = (environment?: PolarEnvironment) =>
         : `Not logged in to ${environment}. Run ${loginCommand(environment)} first.`,
   })
 
-const login = (environment: PolarEnvironment) =>
+const login = (environment: RepalisEnvironment) =>
   Effect.gen(function* () {
     yield* (yield* Auth).login(
       environment,
@@ -75,7 +75,7 @@ const login = (environment: PolarEnvironment) =>
     return environment
   })
 
-const ensureSession = (environment: PolarEnvironment, prompt: boolean) =>
+const ensureSession = (environment: RepalisEnvironment, prompt: boolean) =>
   Effect.gen(function* () {
     const auth = yield* Auth
     if (yield* auth.override) return

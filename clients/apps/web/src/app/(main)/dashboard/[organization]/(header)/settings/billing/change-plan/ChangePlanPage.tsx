@@ -26,11 +26,11 @@ import {
   monthlyPlanAmount,
   planForInterval,
 } from '@/utils/planIntervals'
-import { ArrowBackOutlined } from '@polar-sh/orbit/icons'
-import { schemas } from '@polar-sh/client'
-import { SegmentedControl, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import { Button } from '@polar-sh/orbit'
+import { ArrowBackOutlined } from '@repalis/orbit/icons'
+import { schemas } from '@repalis/client'
+import { SegmentedControl, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import { Button } from '@repalis/orbit'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useMemo, useState } from 'react'

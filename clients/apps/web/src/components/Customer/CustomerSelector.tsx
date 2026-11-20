@@ -1,18 +1,18 @@
 'use client'
 
-import { Spinner } from '@polar-sh/orbit'
+import { Spinner } from '@repalis/orbit'
 import { useCustomers, useCustomersByIds } from '@/hooks/queries'
 import { useInViewport } from '@/hooks/utils'
-import { Close, SearchFilled as Search } from '@polar-sh/orbit/icons'
-import { Avatar } from '@polar-sh/orbit'
-import { Button } from '@polar-sh/orbit'
-import { Input } from '@polar-sh/orbit'
-import { List, ListItem } from '@polar-sh/orbit'
+import { Close, SearchFilled as Search } from '@repalis/orbit/icons'
+import { Avatar } from '@repalis/orbit'
+import { Button } from '@repalis/orbit'
+import { Input } from '@repalis/orbit'
+import { List, ListItem } from '@repalis/orbit'
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@polar-sh/ui/components/ui/popover'
+} from '@repalis/ui/components/ui/popover'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 interface CustomerSelectorProps {

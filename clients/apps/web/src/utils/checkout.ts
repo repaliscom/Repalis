@@ -1,6 +1,6 @@
-import type { ProductCheckoutPublic } from '@polar-sh/checkout/guards'
-import { Client, schemas, unwrap } from '@polar-sh/client'
-import type { StatusColor } from '@polar-sh/orbit'
+import type { ProductCheckoutPublic } from '@repalis/checkout/guards'
+import { Client, schemas, unwrap } from '@repalis/client'
+import type { StatusColor } from '@repalis/orbit'
 import { notFound } from 'next/navigation'
 import { cache } from 'react'
 

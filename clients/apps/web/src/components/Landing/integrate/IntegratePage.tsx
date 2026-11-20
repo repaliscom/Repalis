@@ -1,4 +1,4 @@
-import { Box } from '@polar-sh/orbit/Box'
+import { Box } from '@repalis/orbit/Box'
 import { ClosingCta } from '../ClosingCta'
 import { Api } from './Api'
 import { Cli } from './Cli'

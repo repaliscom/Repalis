@@ -32,12 +32,12 @@ export const token = Command.make('token', { scope }).pipe(
   ),
   Command.withExamples([
     {
-      command: 'echo "POLAR_ACCESS_TOKEN=$(polar auth token)" >> .env.local',
+      command: 'echo "REPALIS_ACCESS_TOKEN=$(polar auth token)" >> .env.local',
       description: 'Add a token for the active organization to .env.local',
     },
     {
       command:
-        'polar auth token --scope products:read --scope checkouts:write | gh secret set POLAR_ACCESS_TOKEN',
+        'polar auth token --scope products:read --scope checkouts:write | gh secret set REPALIS_ACCESS_TOKEN',
       description:
         'Preselect scopes and store the token as a GitHub Actions secret without writing it to disk',
     },

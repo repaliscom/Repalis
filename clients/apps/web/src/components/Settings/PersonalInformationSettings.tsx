@@ -3,17 +3,17 @@
 import { useAuth } from '@/hooks'
 import { useUpdateUser } from '@/hooks/queries'
 import { useMonthDigitTypeahead } from '@/hooks/useMonthDigitTypeahead'
-import { enums, schemas } from '@polar-sh/client'
-import { Button } from '@polar-sh/orbit'
-import CountryPicker from '@polar-sh/ui/components/atoms/CountryPicker'
-import { Input } from '@polar-sh/orbit'
+import { enums, schemas } from '@repalis/client'
+import { Button } from '@repalis/orbit'
+import CountryPicker from '@repalis/ui/components/atoms/CountryPicker'
+import { Input } from '@repalis/orbit'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@polar-sh/orbit'
+} from '@repalis/orbit'
 import {
   Form,
   FormControl,
@@ -21,7 +21,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@polar-sh/ui/components/ui/form'
+} from '@repalis/ui/components/ui/form'
 import { useCallback, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from '../Toast/use-toast'

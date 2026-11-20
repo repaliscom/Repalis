@@ -1,6 +1,6 @@
 import { beforeEach, expect, test } from 'vitest'
 import { Effect, Layer } from 'effect'
-import type { ActiveOrganization, PolarEnvironment } from '@/schemas/Auth'
+import type { ActiveOrganization, RepalisEnvironment } from '@/schemas/Auth'
 import { Auth } from '@/services/auth'
 import { Organizations, layer } from '@/services/organizations'
 import { Polar } from '@/services/repalis'
@@ -30,12 +30,12 @@ const second = {
 }
 let auth: ReturnType<typeof fakeAuth>
 let config: ReturnType<typeof fakeConfig>
-let pages: Partial<Record<PolarEnvironment, ActiveOrganization[][]>>
+let pages: Partial<Record<RepalisEnvironment, ActiveOrganization[][]>>
 let requests: Array<{
   page?: number
   id?: string
   slug?: string
-  environment: PolarEnvironment
+  environment: RepalisEnvironment
 }>
 let denied: boolean
 
@@ -128,7 +128,7 @@ test('token overrides ignore saved selection and cannot change it', async () => 
     Effect.runPromise(
       organizations.select({ id: second.id, environment: 'production' }),
     ),
-  ).rejects.toThrow('Unset POLAR_ACCESS_TOKEN')
+  ).rejects.toThrow('Unset REPALIS_ACCESS_TOKEN')
   expect(config.state.activeOrganization?.id).toBe(first.id)
   expect(config.state.writes).toBe(0)
 })

@@ -1,5 +1,5 @@
-import { schemas } from '@polar-sh/client'
-import { Avatar } from '@polar-sh/orbit'
+import { schemas } from '@repalis/client'
+import { Avatar } from '@repalis/orbit'
 
 interface BenefitGrantMemberBadgeProps {
   member: schemas['Member'] | null | undefined

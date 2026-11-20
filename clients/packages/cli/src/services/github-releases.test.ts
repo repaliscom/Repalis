@@ -9,14 +9,14 @@ const page = (number: number) =>
   `https://api.github.com/repos/repaliscom/Repalis/releases?per_page=100&page=${number}`
 
 const release = {
-  tag_name: '@polar-sh/cli@1.4.0',
+  tag_name: '@repalis/cli@1.4.0',
   draft: false,
   prerelease: false,
   assets: [
     {
       name: 'polar-darwin-arm64.zip',
       browser_download_url:
-        'https://github.com/repaliscom/Repalis/releases/download/@polar-sh/cli@1.4.0/polar-darwin-arm64.zip',
+        'https://github.com/repaliscom/Repalis/releases/download/@repalis/cli@1.4.0/polar-darwin-arm64.zip',
     },
   ],
 }
@@ -33,11 +33,11 @@ beforeEach(() => {
 describe('getLatestRelease', () => {
   test('ignores other packages, drafts, prereleases, and non-version tags', async () => {
     http.routes[page(1)] = Response.json([
-      { ...release, tag_name: '@polar-sh/sdk@99.0.0' },
-      { ...release, tag_name: '@polar-sh/cli@2.0.0', draft: true },
-      { ...release, tag_name: '@polar-sh/cli@3.0.0', prerelease: true },
-      { ...release, tag_name: '@polar-sh/cli@4.0.0-beta.1' },
-      { ...release, tag_name: '@polar-sh/cli@verification' },
+      { ...release, tag_name: '@repalis/sdk@99.0.0' },
+      { ...release, tag_name: '@repalis/cli@2.0.0', draft: true },
+      { ...release, tag_name: '@repalis/cli@3.0.0', prerelease: true },
+      { ...release, tag_name: '@repalis/cli@4.0.0-beta.1' },
+      { ...release, tag_name: '@repalis/cli@verification' },
       release,
     ])
 
@@ -46,12 +46,12 @@ describe('getLatestRelease', () => {
 
   test('paginates past unrelated releases and selects the highest semantic version', async () => {
     http.routes[page(1)] = Response.json(
-      [{ ...release, tag_name: '@polar-sh/sdk@99.0.0' }],
+      [{ ...release, tag_name: '@repalis/sdk@99.0.0' }],
       { headers: { link: `<${page(2)}>; rel="next"` } },
     )
     http.routes[page(2)] = Response.json([
-      { ...release, tag_name: '@polar-sh/cli@1.9.0' },
-      { ...release, tag_name: '@polar-sh/cli@1.10.0' },
+      { ...release, tag_name: '@repalis/cli@1.9.0' },
+      { ...release, tag_name: '@repalis/cli@1.10.0' },
       release,
     ])
 

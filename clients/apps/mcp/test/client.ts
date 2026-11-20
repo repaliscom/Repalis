@@ -10,7 +10,7 @@ export const rpc = async (
   query = '',
   headers: Record<string, string> = {},
 ) => {
-  const response = await request(`/mcp/polar-mcp${query}`, {
+  const response = await request(`/mcp/repalis-mcp${query}`, {
     method: 'POST',
     headers: {
       Authorization: 'Bearer polar_oat_test',

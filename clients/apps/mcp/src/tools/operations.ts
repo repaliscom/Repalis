@@ -8,7 +8,7 @@ import { HttpClientRequest, type HttpMethod } from 'effect/http'
 import generatedTools from '../generated/tools.json'
 import { intentJsonSchema } from '../intent'
 import { RequestLog } from '../log'
-import { polarApiClient, type PolarApiOutboundProps } from '../outbound'
+import { polarApiClient, type RepalisApiOutboundProps } from '../outbound'
 import { makeToolRunner, ToolError } from '../results'
 import { rejectedFields } from '../spec'
 
@@ -76,7 +76,7 @@ const buildUrl = (
 export const registerOperationTools = Effect.fn('registerOperationTools')(
   function* (
     server: McpServer,
-    { apiUrl, token, readOnly }: PolarApiOutboundProps,
+    { apiUrl, token, readOnly }: RepalisApiOutboundProps,
   ) {
     const runTool = yield* makeToolRunner
     const client = yield* polarApiClient(token)

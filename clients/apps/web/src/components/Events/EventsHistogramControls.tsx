@@ -1,7 +1,7 @@
-import { Text } from '@polar-sh/orbit'
+import { Text } from '@repalis/orbit'
 import { differenceInDays } from 'date-fns'
-import { Box } from '@polar-sh/orbit/Box'
-import { X, ZoomIn, ZoomOut } from '@polar-sh/orbit/icons'
+import { Box } from '@repalis/orbit/Box'
+import { X, ZoomIn, ZoomOut } from '@repalis/orbit/icons'
 import { formatEventCount } from '@/utils/event'
 import { ReactNode } from 'react'
 

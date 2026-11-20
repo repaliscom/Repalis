@@ -3,7 +3,7 @@ import { BunServices } from '@effect/platform-bun'
 import { Console, Effect, Layer, Option } from 'effect'
 import { CliConfig, CliOutput, Command, type HelpDoc } from 'effect/cli'
 import { FetchHttpClient } from 'effect/http'
-import { ApiRuntime } from '@polar-sh/cli-commands'
+import { ApiRuntime } from '@repalis/cli-commands'
 import { program, referenceBuiltIns } from '@/program'
 import { AgentSetup } from '@/services/agent-setup/service'
 import { Auth } from '@/services/auth'
@@ -66,7 +66,7 @@ const PAGES = 'integrate/cli/reference'
 const NAVIGATION = 'docs.json'
 const NAVIGATION_GROUP = 'CLI'
 const GENERATED =
-  '{/* Generated from the CLI by `pnpm --filter @polar-sh/cli docs:generate`. Do not edit by hand. */}'
+  '{/* Generated from the CLI by `pnpm --filter @repalis/cli docs:generate`. Do not edit by hand. */}'
 
 interface CommandTree {
   readonly name: string
@@ -348,7 +348,7 @@ if (!process.argv.includes('--check')) {
     console.log('CLI reference is up to date')
   } else {
     console.error(
-      `The CLI reference is out of date (${outdated.join(', ')}). Run \`pnpm --filter @polar-sh/cli docs:generate\` and commit the result.`,
+      `The CLI reference is out of date (${outdated.join(', ')}). Run \`pnpm --filter @repalis/cli docs:generate\` and commit the result.`,
     )
     process.exitCode = 1
   }

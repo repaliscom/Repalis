@@ -1,6 +1,6 @@
 'use client'
 
-import { Spinner } from '@polar-sh/orbit'
+import { Spinner } from '@repalis/orbit'
 import { useIsManagedAsCode } from '@/hooks/permissions'
 import { useMetersInfinite } from '@/hooks/queries/meters'
 import { useInViewport } from '@/hooks/utils'
@@ -11,23 +11,23 @@ import {
   CheckOutlined,
   FilterList,
   SearchFilled as Search,
-} from '@polar-sh/orbit/icons'
-import { schemas } from '@polar-sh/client'
-import { Button } from '@polar-sh/orbit'
-import { Input } from '@polar-sh/orbit'
-import { Status } from '@polar-sh/orbit'
+} from '@repalis/orbit/icons'
+import { schemas } from '@repalis/client'
+import { Button } from '@repalis/orbit'
+import { Input } from '@repalis/orbit'
+import { Status } from '@repalis/orbit'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@polar-sh/ui/components/ui/dropdown-menu'
+} from '@repalis/ui/components/ui/dropdown-menu'
 import Link from 'next/link'
 import { usePathname, useSearchParams } from 'next/navigation'
 import { parseAsStringLiteral, useQueryState } from 'nuqs'
 import React, { useEffect, useMemo } from 'react'
 import { twMerge } from 'tailwind-merge'
-import { METER_UNIT_DISPLAY_NAMES } from '@polar-sh/ui/lib/meterUnit'
+import { METER_UNIT_DISPLAY_NAMES } from '@repalis/ui/lib/meterUnit'
 
 interface MeterListSidebarProps {
   organization: schemas['Organization']

@@ -1,8 +1,8 @@
 import {
   type WebhooksConfig,
   handleWebhookPayload,
-} from '@polar-sh/adapter-utils'
-import { webhooks } from '@polar-sh/sdk/2026-10'
+} from '@repalis/adapter-utils'
+import { webhooks } from '@repalis/sdk/2026-10'
 import { type NextRequest, NextResponse } from 'next/server'
 
 export {
@@ -11,7 +11,7 @@ export {
   type EntitlementProperties,
   EntitlementStrategy,
   Entitlements,
-} from '@polar-sh/adapter-utils'
+} from '@repalis/adapter-utils'
 
 export const Webhooks = ({
   webhookSecret,
@@ -36,18 +36,18 @@ export const Webhooks = ({
         webhookSecret,
       )
     } catch (error) {
-      if (error instanceof webhooks.PolarWebhookVerificationError) {
+      if (error instanceof webhooks.RepalisWebhookVerificationError) {
         return NextResponse.json({ received: false }, { status: 403 })
       }
 
-      if (error instanceof webhooks.PolarWebhookUnknownTypeError) {
+      if (error instanceof webhooks.RepalisWebhookUnknownTypeError) {
         return NextResponse.json(
           { received: error.eventType !== null },
           { status: error.eventType !== null ? 200 : 400 },
         )
       }
 
-      if (error instanceof webhooks.PolarWebhookError) {
+      if (error instanceof webhooks.RepalisWebhookError) {
         return NextResponse.json({ received: false }, { status: 400 })
       }
 

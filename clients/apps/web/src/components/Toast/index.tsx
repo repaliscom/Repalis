@@ -1,6 +1,6 @@
 import * as ToastPrimitives from '@radix-ui/react-toast'
 import { cva, VariantProps } from 'class-variance-authority'
-import { X as XIcon } from '@polar-sh/orbit/icons'
+import { X as XIcon } from '@repalis/orbit/icons'
 import * as React from 'react'
 
 const ToastProvider = ToastPrimitives.Provider

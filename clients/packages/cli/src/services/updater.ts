@@ -13,7 +13,7 @@ import type { PlatformError } from 'effect/PlatformError'
 import { ChildProcess, ChildProcessSpawner } from 'effect/process'
 import { isJson } from '@/utils/output'
 
-export const PACKAGE_NAME = '@polar-sh/cli'
+export const PACKAGE_NAME = '@repalis/cli'
 export const REGISTRY_URL = `https://registry.npmjs.org/${PACKAGE_NAME.replaceAll('/', '%2F')}/latest`
 
 export const methods = ['binary', 'npm', 'pnpm', 'bun', 'yarn', 'vp'] as const

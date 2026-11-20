@@ -6,12 +6,12 @@ import {
   isOrderNonRecoverable,
 } from '@/utils/order'
 import { getPaymentDeclineMessage } from '@/utils/payment'
-import { schemas } from '@polar-sh/client'
-import { Pill, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import FormattedDateTime from '@polar-sh/ui/components/atoms/FormattedDateTime'
+import { schemas } from '@repalis/client'
+import { Pill, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import FormattedDateTime from '@repalis/ui/components/atoms/FormattedDateTime'
 import { addDays, isPast, min, parseISO } from 'date-fns'
-import { ExternalLink as ExternalLinkIcon } from '@polar-sh/orbit/icons'
+import { ExternalLink as ExternalLinkIcon } from '@repalis/orbit/icons'
 import { Children, type ReactNode } from 'react'
 
 const DUNNING_TOTAL_RETRY_DAYS = 21

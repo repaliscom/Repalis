@@ -39,7 +39,7 @@ locals {
       sensitive = false
     }
     NEXT_PUBLIC_CHECKOUT_EMBED_SCRIPT_SRC = {
-      value     = "https://cdn.jsdelivr.net/npm/@polar-sh/checkout@0.1/dist/embed.global.js"
+      value     = "https://cdn.jsdelivr.net/npm/@repalis/checkout@0.1/dist/embed.global.js"
       sensitive = false
     }
     NEXT_PUBLIC_STRIPE_PAYMENT_METHOD_CONFIGURATION = {
@@ -78,7 +78,7 @@ locals {
       value     = "https://polar-test-files.s3.amazonaws.com https://polar-test-files.s3.us-east-2.amazonaws.com https://polar-test-public-files.s3.amazonaws.com https://polar-test-public-files.s3.us-east-2.amazonaws.com"
       sensitive = false
     }
-    POLAR_CHECKOUT_EMBED_SCRIPT_ALLOWED_ORIGINS = {
+    REPALIS_CHECKOUT_EMBED_SCRIPT_ALLOWED_ORIGINS = {
       value     = "https://repalis.com,https://sandbox.repalis.com,https://test.repalis.com"
       sensitive = false
     }
@@ -128,7 +128,7 @@ locals {
       value     = "polar_test_session"
       sensitive = false
     }
-    POLAR_AUTH_COOKIE_KEY = {
+    REPALIS_AUTH_COOKIE_KEY = {
       value     = "polar_test_session"
       sensitive = false
     }
@@ -335,13 +335,13 @@ locals {
       value     = "60"
       sensitive = false
     }
-    POLAR_POLAR_ACCESS_TOKEN = {
+    POLAR_REPALIS_ACCESS_TOKEN = {
       value = var.polar_access_token
     }
-    POLAR_POLAR_WEBHOOK_SECRET = {
+    POLAR_REPALIS_WEBHOOK_SECRET = {
       value = var.polar_webhook_secret
     }
-    POLAR_POLAR_ORGANIZATION_ID = {
+    POLAR_REPALIS_ORGANIZATION_ID = {
       value     = var.polar_organization_id
       sensitive = false
     }
@@ -349,7 +349,7 @@ locals {
       value     = var.polar_scale_product_id
       sensitive = false
     }
-    POLAR_POLAR_API_URL = {
+    POLAR_REPALIS_API_URL = {
       value     = "https://test-api.repalis.com"
       sensitive = false
     }

@@ -1,8 +1,8 @@
 import {
   clientUpdateCheckouts,
   createCheckouts,
-} from '@polar-sh/sdk/2026-10/services/checkouts'
-import type { PolarCore } from '@polar-sh/sdk/2026-10'
+} from '@repalis/sdk/2026-10/services/checkouts'
+import type { RepalisCore } from '@repalis/sdk/2026-10'
 import {
   APIError,
   createAuthEndpoint,
@@ -13,7 +13,7 @@ import * as z from 'zod/v4'
 import {
   type CustomerIpAddressOption,
   resolveCustomerIpAddress,
-} from '@polar-sh/adapter-utils'
+} from '@repalis/adapter-utils'
 import { getBetterAuthCreatorRole } from '../organization/roles'
 import {
   getBetterAuthOrganizationOptions,
@@ -24,7 +24,7 @@ import {
 } from '../organization/seats'
 import { isTeamCustomerSynchronized } from '../organization/sync'
 import { resolveBillingPrincipal } from '../principal'
-import type { PolarOptions, Product } from '../types'
+import type { RepalisOptions, Product } from '../types'
 
 export interface CheckoutOptions {
   /**
@@ -48,7 +48,7 @@ export interface CheckoutOptions {
    */
   theme?: 'light' | 'dark'
   /**
-   * Customer IP address sent to Polar to pick the presentment currency.
+   * Customer IP address sent to Repalis to pick the presentment currency.
    * Pass a function to resolve it yourself, or `false` to not send it.
    */
   customerIpAddress?: CustomerIpAddressOption<Headers>
@@ -101,8 +101,8 @@ export type CheckoutParams = z.infer<typeof CheckoutParams>
 export const checkout =
   (checkoutOptions: CheckoutOptions = {}) =>
   (
-    polar: PolarCore,
-    rootOptions?: Pick<PolarOptions, 'experimental_organizationSync'>,
+    polar: RepalisCore,
+    rootOptions?: Pick<RepalisOptions, 'experimental_organizationSync'>,
   ) => {
     return {
       checkout: createAuthEndpoint(
@@ -163,9 +163,9 @@ export const checkout =
                 authorization: 'billing',
                 roleMapping: {
                   creatorRole: getBetterAuthCreatorRole(ctx.context),
-                  mapBetterAuthRoleToPolarRole:
+                  mapBetterAuthRoleToRepalisRole:
                     rootOptions?.experimental_organizationSync
-                      ?.mapBetterAuthRoleToPolarRole,
+                      ?.mapBetterAuthRoleToRepalisRole,
                 },
               })
             : undefined
@@ -310,7 +310,7 @@ export const checkout =
           } catch (e: unknown) {
             if (e instanceof Error) {
               ctx.context.logger.error(
-                `Polar checkout creation failed. Error: ${e.message}`,
+                `Repalis checkout creation failed. Error: ${e.message}`,
               )
             }
 

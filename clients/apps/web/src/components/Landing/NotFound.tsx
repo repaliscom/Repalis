@@ -1,5 +1,5 @@
-import { Button, Grid, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { Button, Grid, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import Link from 'next/link'
 import type { ComponentType } from 'react'
 import { WaveBars } from './graphics/WaveBars'

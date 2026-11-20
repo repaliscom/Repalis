@@ -1,6 +1,6 @@
-import { ArrowOutwardOutlined } from '@polar-sh/orbit/icons'
-import { Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { ArrowOutwardOutlined } from '@repalis/orbit/icons'
+import { Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import Link from 'next/link'
 
 const JOBS = [

@@ -1,6 +1,6 @@
 import { useIsManagedAsCode } from '@/hooks/permissions'
 import { useSelectedProducts } from '@/hooks/queries/products'
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 import { CatalogVersionSelect } from '../CatalogVersionSelect'
 
 export const ProductVersionSelect = ({

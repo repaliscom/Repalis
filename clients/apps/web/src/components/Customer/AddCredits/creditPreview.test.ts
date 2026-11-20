@@ -1,5 +1,5 @@
 import { MeteredPrice } from '@/utils/product'
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 import { describe, expect, it } from 'vitest'
 import {
   getMeterCreditOptions,

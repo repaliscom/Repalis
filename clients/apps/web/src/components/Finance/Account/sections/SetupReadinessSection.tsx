@@ -8,17 +8,17 @@ import NewWebhookModal from '@/components/Settings/Webhook/NewWebhookModal'
 import { toast } from '@/components/Toast/use-toast'
 import { useCheckoutLinks } from '@/hooks/queries/checkout_links'
 import { getQueryClient } from '@/utils/api/query'
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 import {
   Button,
   InlineModal,
   Modal,
   SegmentedControl,
   Text,
-} from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import CopyToClipboardInput from '@polar-sh/ui/components/atoms/CopyToClipboardInput'
-import Banner from '@polar-sh/ui/components/molecules/Banner'
+} from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import CopyToClipboardInput from '@repalis/ui/components/atoms/CopyToClipboardInput'
+import Banner from '@repalis/ui/components/molecules/Banner'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { DeliveryRadioGroup, LearnMore, Todo } from './SetupReadinessParts'

@@ -7,7 +7,7 @@ import {
   Environment,
   UsedEnvironments,
 } from '@/services/api'
-import type { PolarEnvironment } from '@/schemas/Auth'
+import type { RepalisEnvironment } from '@/schemas/Auth'
 
 const withEnv = <A>(
   effect: Effect.Effect<A>,
@@ -16,7 +16,7 @@ const withEnv = <A>(
 
 describe('apiUrl', () => {
   test('notes which environment a command talks to', () => {
-    const used = new Set<PolarEnvironment>()
+    const used = new Set<RepalisEnvironment>()
     withEnv(
       apiUrl('sandbox', '/cli/events').pipe(
         Effect.provideService(UsedEnvironments, used),
@@ -38,10 +38,10 @@ describe('apiUrl', () => {
     )
   })
 
-  test('honors POLAR_API_URL and strips trailing slashes', () => {
+  test('honors REPALIS_API_URL and strips trailing slashes', () => {
     expect(
       withEnv(apiUrl('production', '/cli/events'), {
-        POLAR_API_URL: 'http://127.0.0.1:8000//',
+        REPALIS_API_URL: 'http://127.0.0.1:8000//',
       }),
     ).toBe('http://127.0.0.1:8000/v1/cli/events')
   })
@@ -52,23 +52,23 @@ describe('apiUrl', () => {
     'http://api.polar.localhost',
     'https://api.staging.example',
   ])('accepts %s', (value) => {
-    expect(withEnv(apiOrigin('sandbox'), { POLAR_API_URL: value })).toBe(value)
+    expect(withEnv(apiOrigin('sandbox'), { REPALIS_API_URL: value })).toBe(value)
   })
 
   test('rejects plain http to a non-local host', () => {
     expect(() =>
-      withEnv(apiOrigin('sandbox'), { POLAR_API_URL: 'http://api.example' }),
+      withEnv(apiOrigin('sandbox'), { REPALIS_API_URL: 'http://api.example' }),
     ).toThrow('must use https unless it points at localhost')
   })
 
   test.each(['not a url', 'ftp://127.0.0.1'])('rejects %s', (value) => {
     expect(() =>
-      withEnv(apiOrigin('sandbox'), { POLAR_API_URL: value }),
-    ).toThrow('POLAR_API_URL must be an http(s) URL')
+      withEnv(apiOrigin('sandbox'), { REPALIS_API_URL: value }),
+    ).toThrow('REPALIS_API_URL must be an http(s) URL')
   })
 
-  test.each(['', '   '])('treats %j POLAR_API_URL as unset', (value) => {
-    expect(withEnv(apiOrigin('sandbox'), { POLAR_API_URL: value })).toBe(
+  test.each(['', '   '])('treats %j REPALIS_API_URL as unset', (value) => {
+    expect(withEnv(apiOrigin('sandbox'), { REPALIS_API_URL: value })).toBe(
       'https://sandbox-api.repalis.com',
     )
   })

@@ -82,7 +82,7 @@ describe('installedPackage', () => {
   })
 
   test('ignores packages that are not the CLI', async () => {
-    await install({ name: '@polar-sh/sdk', bin: { polar: 'bin/polar.exe' } })
+    await install({ name: '@repalis/sdk', bin: { polar: 'bin/polar.exe' } })
 
     await expect(run(installedPackage(executable))).resolves.toBeUndefined()
   })

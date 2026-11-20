@@ -6,9 +6,9 @@ import {
 } from '@/components/Benefit/utils'
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
-import { schemas } from '@polar-sh/client'
-import { Button } from '@polar-sh/orbit'
-import { GripVertical, X } from '@polar-sh/orbit/icons'
+import { schemas } from '@repalis/client'
+import { Button } from '@repalis/orbit'
+import { GripVertical, X } from '@repalis/orbit/icons'
 import { twMerge } from 'tailwind-merge'
 
 interface SortableBenefitRowProps {

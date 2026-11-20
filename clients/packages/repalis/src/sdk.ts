@@ -1,15 +1,15 @@
 export {
-  createPolar,
-  createPolarCore,
+  createRepalis,
+  createRepalisCore,
   errors,
   webhooks,
-} from '@polar-sh/sdk/2027-01'
+} from '@repalis/sdk/2027-01'
 
 export type {
   Environment,
   models,
   Polar,
-  PolarCore,
-  PolarOptions,
+  RepalisCore,
+  RepalisOptions,
   RequestOptions,
-} from '@polar-sh/sdk/2027-01'
+} from '@repalis/sdk/2027-01'

@@ -5,4 +5,4 @@
 ### Patch Changes
 
 - Updated dependencies [873039e]
-  - @polar-sh/ui@0.1.3
+  - @repalis/ui@0.1.3

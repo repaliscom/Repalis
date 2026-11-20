@@ -2,9 +2,9 @@
 
 import LogoIcon from '@/components/Brand/logos/LogoIcon'
 import { useInView } from '@/hooks/useInView'
-import { Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import { Check, LoaderCircle } from '@polar-sh/orbit/icons'
+import { Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import { Check, LoaderCircle } from '@repalis/orbit/icons'
 import { useReducedMotion } from 'motion/react'
 import { Shimmer } from '../Shimmer'
 import { ReactNode, useEffect, useState, useSyncExternalStore } from 'react'

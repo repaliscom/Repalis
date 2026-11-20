@@ -14,19 +14,19 @@ import { useDateRange } from '@/utils/date'
 import { getAPIParams } from '@/utils/datatable'
 import { formatMetadataValue } from '@/utils/formatters'
 import { dateRangeToInterval } from '@/utils/metrics'
-import { enums, schemas } from '@polar-sh/client'
-import { Box } from '@polar-sh/orbit/Box'
-import { Text } from '@polar-sh/orbit'
-import { formatCurrency } from '@polar-sh/currency'
-import { Truncated } from '@polar-sh/orbit'
-import { Avatar } from '@polar-sh/orbit'
+import { enums, schemas } from '@repalis/client'
+import { Box } from '@repalis/orbit/Box'
+import { Text } from '@repalis/orbit'
+import { formatCurrency } from '@repalis/currency'
+import { Truncated } from '@repalis/orbit'
+import { Avatar } from '@repalis/orbit'
 import {
   DataTable,
   DataTableColumnDef,
   DataTableColumnHeader,
-} from '@polar-sh/orbit'
-import { Status } from '@polar-sh/orbit'
-import FormattedDateTime from '@polar-sh/ui/components/atoms/FormattedDateTime'
+} from '@repalis/orbit'
+import { Status } from '@repalis/orbit'
+import FormattedDateTime from '@repalis/ui/components/atoms/FormattedDateTime'
 import { useRouter } from 'next/navigation'
 import {
   parseAsArrayOf,

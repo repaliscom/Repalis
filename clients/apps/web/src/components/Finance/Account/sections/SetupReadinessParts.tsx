@@ -1,13 +1,13 @@
 'use client'
 
-import { schemas } from '@polar-sh/client'
-import { Button, Pill, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { schemas } from '@repalis/client'
+import { Button, Pill, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import {
   RadioGroup,
   RadioGroupItem,
-} from '@polar-sh/ui/components/ui/radio-group'
-import { ExternalLink as ExternalLinkIcon } from '@polar-sh/orbit/icons'
+} from '@repalis/ui/components/ui/radio-group'
+import { ExternalLink as ExternalLinkIcon } from '@repalis/orbit/icons'
 import Link from 'next/link'
 import { Fragment, useState } from 'react'
 import { StatusIcon } from '../StatusIcon'

@@ -1,7 +1,7 @@
 'use client'
 
-import { Alert, Button } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { Alert, Button } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import Link from 'next/link'
 import { useState } from 'react'
 import type { PropRow } from '@/components/docs'

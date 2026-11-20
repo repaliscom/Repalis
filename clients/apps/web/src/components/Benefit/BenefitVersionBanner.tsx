@@ -2,9 +2,9 @@ import { useIsManagedAsCode } from '@/hooks/permissions'
 import { useGrantsForBenefit } from '@/hooks/queries/benefits'
 import { useCatalog, useLiveCatalog } from '@/hooks/queries/catalogs'
 import { DraftVersionBanner } from '@/components/Products/DraftVersionBanner'
-import { schemas } from '@polar-sh/client'
-import { Button, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { schemas } from '@repalis/client'
+import { Button, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import { useRouter } from 'next/navigation'
 
 const formatPublishedAt = (datetime: string | null | undefined) => {

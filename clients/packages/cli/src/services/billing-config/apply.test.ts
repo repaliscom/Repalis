@@ -88,7 +88,7 @@ describe('apply', () => {
     const result = await run(await write(source))
 
     const [request] = api.requests
-    expect(request?.headers.get('Polar-Organization')).toBe('org-1')
+    expect(request?.headers.get('Repalis-Organization')).toBe('org-1')
     expect(await request?.json()).toEqual(JSON.parse(source))
     expect(result).toEqual({
       status: 'applied',

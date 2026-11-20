@@ -9,17 +9,17 @@ import {
 } from '@/hooks/queries/customerPortal'
 import { useCopyMemberLoginLink } from '@/hooks/useCopyMemberLoginLink'
 import { validateEmail } from '@/utils/validation'
-import { MoreVertOutlined } from '@polar-sh/orbit/icons'
-import { Client, schemas } from '@polar-sh/client'
-import { Button } from '@polar-sh/orbit'
+import { MoreVertOutlined } from '@repalis/orbit/icons'
+import { Client, schemas } from '@repalis/client'
+import { Button } from '@repalis/orbit'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@polar-sh/ui/components/atoms/DropdownMenu'
-import { Status } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+} from '@repalis/ui/components/atoms/DropdownMenu'
+import { Status } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import { useState } from 'react'
 import { toast } from '../Toast/use-toast'
 import { seatStatusDisplayConfig } from '../Seats/seatStatus'

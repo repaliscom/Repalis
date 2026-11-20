@@ -1,8 +1,8 @@
 'use client'
 
-import { Box } from '@polar-sh/orbit/Box'
-import { Text } from '@polar-sh/orbit'
-import { Github } from '@polar-sh/orbit/icons'
+import { Box } from '@repalis/orbit/Box'
+import { Text } from '@repalis/orbit'
+import { Github } from '@repalis/orbit/icons'
 import { usePathname } from 'next/navigation'
 
 const REPO_BASE =

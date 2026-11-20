@@ -1,5 +1,5 @@
-import { Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import {
   PosterBody,
   PosterCanvas,
@@ -12,7 +12,7 @@ import {
 
 const COMMAND = [
   'curl https://api.repalis.com/v1/events/ingest \\',
-  '  -H "Authorization: Bearer $POLAR_TOKEN" \\',
+  '  -H "Authorization: Bearer $REPALIS_TOKEN" \\',
   '  -d \'{"events": [{',
   '    "name": "tokens.out",',
   '    "external_customer_id": "lumen",',

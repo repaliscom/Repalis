@@ -3,9 +3,9 @@ const nextConfig = {
   reactStrictMode: true,
   reactCompiler: true,
   experimental: {
-    optimizePackageImports: ['@polar-sh/orbit/icons'],
+    optimizePackageImports: ['@repalis/orbit/icons'],
   },
-  transpilePackages: ['@polar-sh/orbit', 'shiki'],
+  transpilePackages: ['@repalis/orbit', 'shiki'],
 }
 
 export default nextConfig

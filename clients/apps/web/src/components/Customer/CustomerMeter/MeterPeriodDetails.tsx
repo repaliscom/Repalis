@@ -2,8 +2,8 @@
 
 import { useEvents } from '@/hooks/queries/events'
 import { useMeterQuantities } from '@/hooks/queries/meters'
-import { schemas } from '@polar-sh/client'
-import { Box } from '@polar-sh/orbit/Box'
+import { schemas } from '@repalis/client'
+import { Box } from '@repalis/orbit/Box'
 import { useMemo } from 'react'
 import { MeterHistory, MeterHistoryEvent } from './MeterHistory'
 import { MeterPeriodEvents } from './MeterPeriodEvents'

@@ -1,5 +1,5 @@
-import { usePolarClient } from '@/providers/RepalisClientProvider'
-import { operations, schemas, unwrap } from '@polar-sh/client'
+import { useRepalisClient } from '@/providers/RepalisClientProvider'
+import { operations, schemas, unwrap } from '@repalis/client'
 import { useQuery } from '@tanstack/react-query'
 
 /**
@@ -23,7 +23,7 @@ export const useMetrics = (
   >,
   enabled = true,
 ) => {
-  const { polar } = usePolarClient()
+  const { polar } = useRepalisClient()
 
   return useQuery({
     queryKey: [

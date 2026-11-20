@@ -1,9 +1,9 @@
 'use client'
 
-import { schemas } from '@polar-sh/client'
-import { Tooltip, TooltipContent, TooltipTrigger } from '@polar-sh/orbit'
-import FormattedDateTime from '@polar-sh/ui/components/atoms/FormattedDateTime'
-import RepalisTimeAgo from '@polar-sh/ui/components/atoms/RepalisTimeAgo'
+import { schemas } from '@repalis/client'
+import { Tooltip, TooltipContent, TooltipTrigger } from '@repalis/orbit'
+import FormattedDateTime from '@repalis/ui/components/atoms/FormattedDateTime'
+import RepalisTimeAgo from '@repalis/ui/components/atoms/RepalisTimeAgo'
 import { useState } from 'react'
 
 const WEEK_MS = 7 * 24 * 60 * 60 * 1000

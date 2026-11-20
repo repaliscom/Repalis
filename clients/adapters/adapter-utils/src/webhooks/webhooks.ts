@@ -1,4 +1,4 @@
-import type { webhooks } from '@polar-sh/sdk/2026-10'
+import type { webhooks } from '@repalis/sdk/2026-10'
 import type { Entitlements } from '../entitlement/entitlement'
 
 export interface WebhooksConfig {

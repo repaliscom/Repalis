@@ -5,9 +5,9 @@ import { useModal } from '@/components/Modal/useModal'
 import { toast } from '@/components/Toast/use-toast'
 import { useAcceptDispute } from '@/hooks/queries/disputes'
 import { getDisputeReasonExplanation } from '@/utils/dispute'
-import { schemas } from '@polar-sh/client'
-import { Button, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { schemas } from '@repalis/client'
+import { Button, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import Link from 'next/link'
 
 const DISPUTE_DOCS_URL =

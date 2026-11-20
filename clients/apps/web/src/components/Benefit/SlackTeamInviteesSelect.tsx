@@ -3,8 +3,8 @@ import {
   Check as CheckIcon,
   ExpandMoreOutlined,
   X as XIcon,
-} from '@polar-sh/orbit/icons'
-import { Button } from '@polar-sh/orbit'
+} from '@repalis/orbit/icons'
+import { Button } from '@repalis/orbit'
 import {
   Command,
   CommandEmpty,
@@ -12,12 +12,12 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from '@polar-sh/ui/components/ui/command'
+} from '@repalis/ui/components/ui/command'
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@polar-sh/ui/components/ui/popover'
+} from '@repalis/ui/components/ui/popover'
 import { useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 

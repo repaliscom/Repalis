@@ -3,7 +3,7 @@
 import { ConfirmModal } from '@/components/Modal/ConfirmModal'
 import { toast } from '@/components/Toast/use-toast'
 import { useUpdateProducts } from '@/hooks/queries/products'
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 
 export type BulkArchiveAction = 'archive' | 'unarchive'
 

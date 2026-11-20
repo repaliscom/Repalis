@@ -1,9 +1,9 @@
 import { useAuthSessionStart } from '@/hooks'
 import { usePostHog, type EventName } from '@/hooks/posthog'
 import { useToast } from '@/components/Toast/use-toast'
-import { GitHub } from '@polar-sh/orbit/icons'
-import { schemas } from '@polar-sh/client'
-import { Button, type ButtonProps } from '@polar-sh/orbit'
+import { GitHub } from '@repalis/orbit/icons'
+import { schemas } from '@repalis/client'
+import { Button, type ButtonProps } from '@repalis/orbit'
 import { getGitHubAuthorizeLoginURL } from '@/utils/auth'
 
 interface GitHubLoginButtonProps {

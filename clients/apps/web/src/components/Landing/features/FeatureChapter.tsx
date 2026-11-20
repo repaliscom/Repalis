@@ -1,5 +1,5 @@
-import { Grid, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { Grid, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import { PropsWithChildren, ReactNode } from 'react'
 
 export const EmptyCell = () => <Box display={{ base: 'none', lg: 'flex' }} />

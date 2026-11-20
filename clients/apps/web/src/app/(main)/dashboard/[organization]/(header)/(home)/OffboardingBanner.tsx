@@ -1,8 +1,8 @@
-import { schemas } from '@polar-sh/client'
-import { Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import { Button } from '@polar-sh/orbit'
-import { TriangleAlert as AlertTriangleIcon } from '@polar-sh/orbit/icons'
+import { schemas } from '@repalis/client'
+import { Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import { Button } from '@repalis/orbit'
+import { TriangleAlert as AlertTriangleIcon } from '@repalis/orbit/icons'
 import Link from 'next/link'
 
 interface OffboardingBannerProps {

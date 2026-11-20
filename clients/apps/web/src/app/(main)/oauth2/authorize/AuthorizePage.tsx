@@ -1,11 +1,11 @@
 'use client'
 
 import { getServerURL } from '@/utils/api'
-import { schemas } from '@polar-sh/client'
-import { Avatar } from '@polar-sh/orbit'
-import { Button } from '@polar-sh/orbit'
-import { Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { schemas } from '@repalis/client'
+import { Avatar } from '@repalis/orbit'
+import { Button } from '@repalis/orbit'
+import { Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import { useCallback, useState } from 'react'
 import OrganizationSelector, {
   type OrganizationSelection,
@@ -148,7 +148,7 @@ const AuthorizePage = ({
           <span className="font-semibold text-gray-900 dark:text-white">
             {clientName}
           </span>{' '}
-          would like to access your Polar account.
+          would like to access your Repalis account.
         </Text>
       }
       footer={

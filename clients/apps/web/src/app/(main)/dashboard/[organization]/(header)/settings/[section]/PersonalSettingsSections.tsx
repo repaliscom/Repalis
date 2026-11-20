@@ -13,8 +13,8 @@ import TwoFactorSettings from '@/components/Settings/TwoFactorSettings'
 import UserDeleteSettings from '@/components/Settings/UserDeleteSettings'
 import { usePersonalAccessTokens } from '@/hooks/queries'
 import { useUserOrganizationNotificationSettings } from '@/hooks/queries/user_organizations'
-import { schemas } from '@polar-sh/client'
-import { Alert } from '@polar-sh/orbit'
+import { schemas } from '@repalis/client'
+import { Alert } from '@repalis/orbit'
 import { useState } from 'react'
 
 export const NotificationsSettings = ({

@@ -10,25 +10,25 @@ import {
 import { PortalCardList, PortalListItem, PortalText } from './PortalPrimitives'
 import { useCopyMemberLoginLink } from '@/hooks/useCopyMemberLoginLink'
 import { validateEmail } from '@/utils/validation'
-import { MoreVertOutlined } from '@polar-sh/orbit/icons'
-import { Client, schemas } from '@polar-sh/client'
-import { Button } from '@polar-sh/orbit'
+import { MoreVertOutlined } from '@repalis/orbit/icons'
+import { Client, schemas } from '@repalis/client'
+import { Button } from '@repalis/orbit'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@polar-sh/ui/components/atoms/DropdownMenu'
-import { Input } from '@polar-sh/orbit'
+} from '@repalis/ui/components/atoms/DropdownMenu'
+import { Input } from '@repalis/orbit'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@polar-sh/orbit'
+} from '@repalis/orbit'
 import { useState } from 'react'
-import { Box } from '@polar-sh/orbit/Box'
+import { Box } from '@repalis/orbit/Box'
 import { PortalConfirmDialog } from './PortalDialog'
 import { toast } from '../Toast/use-toast'
 

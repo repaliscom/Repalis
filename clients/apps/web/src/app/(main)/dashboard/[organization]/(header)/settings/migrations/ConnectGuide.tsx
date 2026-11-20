@@ -1,6 +1,6 @@
-import { Button, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import { ArrowUpRight, Check, CircleAlert } from '@polar-sh/orbit/icons'
+import { Button, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import { ArrowUpRight, Check, CircleAlert } from '@repalis/orbit/icons'
 import {
   expectedStripeKeyMode,
   REQUIRED_PERMISSIONS,

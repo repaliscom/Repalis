@@ -2,8 +2,8 @@ import {
   getSubscriptionStatusColor,
   subscriptionStatusDisplayNames,
 } from '@/components/Subscriptions/utils'
-import { schemas } from '@polar-sh/client'
-import { Status } from '@polar-sh/orbit'
+import { schemas } from '@repalis/client'
+import { Status } from '@repalis/orbit'
 
 export const SubscriptionStatusPill = ({
   subscription,

@@ -248,7 +248,7 @@ describe('token override', () => {
     const auth = await Effect.runPromise(authEffect())
     await expect(
       Effect.runPromise(auth.login('sandbox', true, () => Effect.void)),
-    ).rejects.toThrow('Unset POLAR_ACCESS_TOKEN')
+    ).rejects.toThrow('Unset REPALIS_ACCESS_TOKEN')
     expect(
       await Effect.runPromise(auth.logout(['sandbox', 'production'])),
     ).toEqual(['sandbox', 'production'])

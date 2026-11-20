@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { portal } from '../../plugins/portal'
 import { resolveBillingPrincipal } from '../../principal'
 import { mockApiError } from '../utils/helpers'
-import { createMockPolarClient } from '../utils/mocks'
+import { createMockRepalisClient } from '../utils/mocks'
 
 vi.mock('../../principal', () => ({
   resolveBillingPrincipal: vi.fn(),
@@ -29,10 +29,10 @@ const { APIError, sessionMiddleware, createAuthEndpoint } =
   (await vi.importMock('better-auth/api')) as any
 
 describe('portal plugin', () => {
-  let mockClient: ReturnType<typeof createMockPolarClient>
+  let mockClient: ReturnType<typeof createMockRepalisClient>
 
   beforeEach(() => {
-    mockClient = createMockPolarClient()
+    mockClient = createMockRepalisClient()
     vi.clearAllMocks()
   })
 
@@ -188,7 +188,7 @@ describe('portal plugin', () => {
         'Customer portal creation failed',
       )
       expect(ctx.context.logger.error).toHaveBeenCalledWith(
-        expect.stringContaining('Polar customer portal creation failed'),
+        expect.stringContaining('Repalis customer portal creation failed'),
       )
     })
 
@@ -369,7 +369,7 @@ describe('portal plugin', () => {
 
       await expect(handler(ctx)).rejects.toThrow('Subscriptions list failed')
       expect(ctx.context.logger.error).toHaveBeenCalledWith(
-        expect.stringContaining('Polar subscriptions list failed'),
+        expect.stringContaining('Repalis subscriptions list failed'),
       )
     })
   })
@@ -568,7 +568,7 @@ describe('portal plugin', () => {
       }
 
       await expect(handler(ctx)).rejects.toThrow(
-        'Polar subscriptions list failed',
+        'Repalis subscriptions list failed',
       )
     })
   })

@@ -1,9 +1,9 @@
 import { useEvent, useInfiniteEvents } from '@/hooks/queries/events'
 import { buildCustomerDashboardPath } from '@/utils/customer'
-import { schemas } from '@polar-sh/client'
-import { Button, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import { ChevronDown, ChevronRight, ChevronUp, X } from '@polar-sh/orbit/icons'
+import { schemas } from '@repalis/client'
+import { Button, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import { ChevronDown, ChevronRight, ChevronUp, X } from '@repalis/orbit/icons'
 import Link from 'next/link'
 import { ReactNode } from 'react'
 import {

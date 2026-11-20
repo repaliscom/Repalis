@@ -13,7 +13,7 @@ import {
   useTransactionsSummary,
 } from '@/hooks/repalis/finance'
 import { OrganizationContext } from '@/providers/OrganizationProvider'
-import { formatCurrency } from '@polar-sh/currency'
+import { formatCurrency } from '@repalis/currency'
 import { Stack, useRouter } from 'expo-router'
 import { useCallback, useContext } from 'react'
 import { RefreshControl, ScrollView } from 'react-native'

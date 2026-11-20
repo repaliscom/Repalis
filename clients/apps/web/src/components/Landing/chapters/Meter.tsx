@@ -1,4 +1,4 @@
-import { Box } from '@polar-sh/orbit/Box'
+import { Box } from '@repalis/orbit/Box'
 import { Chapter } from '../Chapter'
 import { GraphicCardGrid, type GraphicCardProps } from '../FeatureCards'
 import { MeterStream } from '../MeterStream'

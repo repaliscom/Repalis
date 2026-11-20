@@ -1,4 +1,4 @@
-import type { schemas } from '@polar-sh/client'
+import type { schemas } from '@repalis/client'
 
 export type ProductSpec =
   | schemas['ProductCreateOneTime']

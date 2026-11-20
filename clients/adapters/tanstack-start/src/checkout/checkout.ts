@@ -1,13 +1,13 @@
 import {
   clientUpdateCheckouts,
   createCheckouts,
-} from '@polar-sh/sdk/2026-10/services/checkouts'
-import { createPolarCore, type Environment } from '@polar-sh/sdk/2026-10'
+} from '@repalis/sdk/2026-10/services/checkouts'
+import { createRepalisCore, type Environment } from '@repalis/sdk/2026-10'
 import {
   type CustomerIpAddressOption,
   getCustomerIpAddress,
   resolveCustomerIpAddress,
-} from '@polar-sh/adapter-utils'
+} from '@repalis/adapter-utils'
 import type { StartRouteHandler } from '../types'
 
 export interface CheckoutConfig {
@@ -18,7 +18,7 @@ export interface CheckoutConfig {
   environment?: Environment
   theme?: 'light' | 'dark'
   /**
-   * Customer IP address sent to Polar to pick the presentment currency.
+   * Customer IP address sent to Repalis to pick the presentment currency.
    * Pass a function to resolve it yourself, or `false` to not send it.
    */
   customerIpAddress?: CustomerIpAddressOption<Request>
@@ -33,7 +33,7 @@ export const Checkout = <TPath extends string = string>({
   includeCheckoutId = true,
   customerIpAddress,
 }: CheckoutConfig): StartRouteHandler<TPath> => {
-  const polar = createPolarCore({
+  const polar = createRepalisCore({
     accessToken,
     environment,
   })

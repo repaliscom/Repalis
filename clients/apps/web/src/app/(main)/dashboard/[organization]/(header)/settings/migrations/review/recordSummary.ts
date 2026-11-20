@@ -1,5 +1,5 @@
 import { useMerchantMigrationRecordSummary } from '@/hooks/queries/merchantMigrations'
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 import { useMemo } from 'react'
 
 export type CountEntity =

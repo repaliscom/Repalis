@@ -72,13 +72,13 @@ jobs:
         with:
           bun-version-file: clients/packages/cli/package.json
 
-      - run: pnpm --dir clients install --filter @polar-sh/cli... --frozen-lockfile --ignore-scripts
+      - run: pnpm --dir clients install --filter @repalis/cli... --frozen-lockfile --ignore-scripts
       - run: pnpm --dir clients --filter @repalis/repalis build
-      - run: pnpm --dir clients --filter @polar-sh/cli exec effect-tsgo patch
-      - run: pnpm --dir clients --filter @polar-sh/cli format:check
-      - run: pnpm --dir clients --filter @polar-sh/cli lint
-      - run: pnpm --dir clients --filter @polar-sh/cli typecheck
-      - run: pnpm --dir clients --filter @polar-sh/cli test
+      - run: pnpm --dir clients --filter @repalis/cli exec effect-tsgo patch
+      - run: pnpm --dir clients --filter @repalis/cli format:check
+      - run: pnpm --dir clients --filter @repalis/cli lint
+      - run: pnpm --dir clients --filter @repalis/cli typecheck
+      - run: pnpm --dir clients --filter @repalis/cli test
 
   build:
     needs: test
@@ -131,7 +131,7 @@ jobs:
         with:
           bun-version-file: clients/packages/cli/package.json
 
-      - run: pnpm --dir ../.. install --filter @polar-sh/cli... --frozen-lockfile --ignore-scripts
+      - run: pnpm --dir ../.. install --filter @repalis/cli... --frozen-lockfile --ignore-scripts
       - run: pnpm --dir ../.. --filter @repalis/repalis build
 
       - name: Validate macOS signing configuration

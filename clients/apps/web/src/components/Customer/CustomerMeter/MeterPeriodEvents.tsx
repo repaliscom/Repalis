@@ -3,9 +3,9 @@
 import { EventRow } from '@/components/Events/EventRow'
 import Pagination from '@/components/Pagination/Pagination'
 import { useEvents } from '@/hooks/queries/events'
-import { schemas } from '@polar-sh/client'
-import { Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { schemas } from '@repalis/client'
+import { Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import { useSearchParams } from 'next/navigation'
 import { parseAsInteger, useQueryState } from 'nuqs'
 

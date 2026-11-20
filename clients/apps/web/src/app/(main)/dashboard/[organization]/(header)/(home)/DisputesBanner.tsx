@@ -2,8 +2,8 @@
 
 import { useHasPermission } from '@/hooks/permissions'
 import { useSupportCases } from '@/hooks/queries/supportCases'
-import { schemas } from '@polar-sh/client'
-import { Alert } from '@polar-sh/orbit'
+import { schemas } from '@repalis/client'
+import { Alert } from '@repalis/orbit'
 import { useRouter } from 'next/navigation'
 
 const ACTION_REQUIRED_STATUS: schemas['DisputeStatus'] = 'needs_response'

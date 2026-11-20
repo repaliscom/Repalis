@@ -1,7 +1,7 @@
 'use client'
 
-import { schemas } from '@polar-sh/client'
-import { Alert } from '@polar-sh/orbit/Alert'
+import { schemas } from '@repalis/client'
+import { Alert } from '@repalis/orbit/Alert'
 
 export const PastDueSubscriptionCallout = ({
   subscription,

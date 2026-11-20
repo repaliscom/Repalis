@@ -1,6 +1,6 @@
 'use client'
 
-import { ChevronLeft, ChevronRight } from '@polar-sh/orbit/icons'
+import { ChevronLeft, ChevronRight } from '@repalis/orbit/icons'
 interface PaginationProps {
   page: number
   totalPages: number

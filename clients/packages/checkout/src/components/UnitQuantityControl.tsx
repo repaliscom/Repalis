@@ -66,10 +66,10 @@ export const UnitQuantityControl = ({
   }
 
   const quantityButtonClassName =
-    'dark:text-polar-400 dark:hover:bg-polar-800 flex h-7 w-7 cursor-pointer items-center justify-center leading-none text-gray-500 transition-colors hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-40'
+    'dark:text-repalis-400 dark:hover:bg-repalis-800 flex h-7 w-7 cursor-pointer items-center justify-center leading-none text-gray-500 transition-colors hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-40'
 
   return (
-    <div className="dark:border-polar-700 flex items-center gap-0 rounded-lg border border-gray-200">
+    <div className="dark:border-repalis-700 flex items-center gap-0 rounded-lg border border-gray-200">
       <Button
         type="button"
         variant="ghost"
@@ -101,7 +101,7 @@ export const UnitQuantityControl = ({
           variant="ghost"
           onClick={startEditing}
           disabled={isUpdating}
-          className="dark:border-polar-700 dark:hover:bg-polar-800 h-7 min-w-10 cursor-pointer rounded-none border-x border-gray-200 px-2 text-center text-sm font-medium tabular-nums transition-colors hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50"
+          className="dark:border-repalis-700 dark:hover:bg-repalis-800 h-7 min-w-10 cursor-pointer rounded-none border-x border-gray-200 px-2 text-center text-sm font-medium tabular-nums transition-colors hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50"
           aria-label="Click to edit unit count"
           title="Click to edit"
         >

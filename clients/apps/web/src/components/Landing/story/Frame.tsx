@@ -1,6 +1,6 @@
 import LogoType from '@/components/Brand/logos/LogoType'
-import { Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import type { ReactNode, Ref } from 'react'
 
 /** A sheet inside a figure window: a body-size title, an optional aside, and its content filling the height. */

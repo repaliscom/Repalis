@@ -1,10 +1,10 @@
 'use client'
 
-import { Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import { Tooltip, TooltipContent, TooltipTrigger } from '@polar-sh/orbit'
-import FormattedInterval from '@polar-sh/ui/components/atoms/FormattedInterval'
-import { ArrowDownRight, ArrowUpRight, Minus } from '@polar-sh/orbit/icons'
+import { Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import { Tooltip, TooltipContent, TooltipTrigger } from '@repalis/orbit'
+import FormattedInterval from '@repalis/ui/components/atoms/FormattedInterval'
+import { ArrowDownRight, ArrowUpRight, Minus } from '@repalis/orbit/icons'
 import { fmtPct } from './utils'
 
 interface TrendBadgeProps {

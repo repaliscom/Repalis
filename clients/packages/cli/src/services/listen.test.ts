@@ -135,7 +135,7 @@ describe('startListening', () => {
     await tick()
     expect(requests[0]!.get('Authorization')).toBe('Bearer test-token')
     expect(requests[0]!.get('Accept')).toBe('text/event-stream')
-    expect(requests[0]!.get('Polar-Organization')).toBe('org_1')
+    expect(requests[0]!.get('Repalis-Organization')).toBe('org_1')
     await Effect.runPromise(Fiber.interrupt(fiber))
     expect(connections[0]!.signal?.aborted).toBe(true)
   })

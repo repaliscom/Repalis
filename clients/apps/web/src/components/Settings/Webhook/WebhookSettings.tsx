@@ -1,17 +1,17 @@
 'use client'
 
 import { useListWebhooksEndpoints } from '@/hooks/queries'
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 import {
   Alert,
   SpinnerNoMargin,
   Status,
   Text,
   Truncated,
-} from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import { ChevronRight, Send } from '@polar-sh/orbit/icons'
-import FormattedDateTime from '@polar-sh/ui/components/atoms/FormattedDateTime'
+} from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import { ChevronRight, Send } from '@repalis/orbit/icons'
+import FormattedDateTime from '@repalis/ui/components/atoms/FormattedDateTime'
 import Link from 'next/link'
 import { EmptyState } from '../../Shared/EmptyState'
 import { SettingsGroup } from '../SettingsGroup'
@@ -39,7 +39,7 @@ const WebhookSettings = ({ org }: { org: schemas['Organization'] }) => {
         <EmptyState
           icon={<Send />}
           title="No webhook endpoints"
-          description="Add an endpoint to receive events from Polar."
+          description="Add an endpoint to receive events from Repalis."
         />
       ) : (
         <SettingsGroup>

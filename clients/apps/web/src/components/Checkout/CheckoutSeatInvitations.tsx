@@ -2,15 +2,15 @@
 
 import { useAssignSeatFromCheckout } from '@/hooks/queries'
 import { validateEmail } from '@/utils/validation'
-import { getSeatPrice } from '@polar-sh/checkout/guards'
-import type { schemas } from '@polar-sh/client'
-import { Button } from '@polar-sh/orbit'
-import { Input } from '@polar-sh/orbit'
+import { getSeatPrice } from '@repalis/checkout/guards'
+import type { schemas } from '@repalis/client'
+import { Button } from '@repalis/orbit'
+import { Input } from '@repalis/orbit'
 import {
   MailCheck as MailCheckIcon,
   Plus as PlusIcon,
   X as XIcon,
-} from '@polar-sh/orbit/icons'
+} from '@repalis/orbit/icons'
 import { useState } from 'react'
 import { Well, WellContent, WellHeader } from '../Shared/Well'
 

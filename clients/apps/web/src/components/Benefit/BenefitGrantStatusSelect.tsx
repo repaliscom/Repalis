@@ -6,7 +6,7 @@ import {
   SelectSeparator,
   SelectTrigger,
   SelectValue,
-} from '@polar-sh/orbit'
+} from '@repalis/orbit'
 import React from 'react'
 
 export type BenefitGrantStatusFilter = 'any' | 'granted' | 'revoked'

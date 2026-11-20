@@ -1,4 +1,4 @@
-import ShadowBox from '@polar-sh/ui/components/atoms/ShadowBox'
+import ShadowBox from '@repalis/ui/components/atoms/ShadowBox'
 import { PropsWithChildren } from 'react'
 
 export const ContextCard = ({ children }: PropsWithChildren) => (

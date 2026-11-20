@@ -1,6 +1,6 @@
 import { buildCustomerDashboardPath } from '@/utils/customer'
-import { schemas } from '@polar-sh/client'
-import { formatCurrency } from '@polar-sh/currency'
+import { schemas } from '@repalis/client'
+import { formatCurrency } from '@repalis/currency'
 
 export type ReviewRow = schemas['MerchantMigrationRecordItem']
 export type ReviewEntity = ReviewRow['entity']

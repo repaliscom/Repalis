@@ -1,12 +1,12 @@
 'use client'
 
 import { useLiveCatalog } from '@/hooks/queries/catalogs'
-import { schemas } from '@polar-sh/client'
-import { Text, Tooltip, TooltipContent, TooltipTrigger } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import { LockOutlined } from '@polar-sh/orbit/icons'
-import RepalisTimeAgo from '@polar-sh/ui/components/atoms/RepalisTimeAgo'
-import { useSidebar } from '@polar-sh/ui/components/atoms/Sidebar'
+import { schemas } from '@repalis/client'
+import { Text, Tooltip, TooltipContent, TooltipTrigger } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import { LockOutlined } from '@repalis/orbit/icons'
+import RepalisTimeAgo from '@repalis/ui/components/atoms/RepalisTimeAgo'
+import { useSidebar } from '@repalis/ui/components/atoms/Sidebar'
 import {
   useGeneralRoutes,
   useOrganizationRoutes,

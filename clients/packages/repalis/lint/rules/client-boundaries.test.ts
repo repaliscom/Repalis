@@ -40,7 +40,7 @@ new RuleTester().run('client-boundaries', rule, {
     {
       name: 'importing the Polar API',
       filename: 'src/client/customer.ts',
-      code: `import { createPolar } from '../sdk'`,
+      code: `import { createRepalis } from '../sdk'`,
       errors: [{ messageId: 'api' }],
     },
     {

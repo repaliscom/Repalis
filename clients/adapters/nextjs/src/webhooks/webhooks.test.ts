@@ -1,37 +1,37 @@
 import { NextRequest } from 'next/server'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
-vi.mock('@polar-sh/adapter-utils', () => ({
+vi.mock('@repalis/adapter-utils', () => ({
   handleWebhookPayload: vi.fn(),
 }))
 
-vi.mock('@polar-sh/sdk/2026-10', () => {
-  class PolarWebhookError extends Error {}
-  class PolarWebhookVerificationError extends PolarWebhookError {
+vi.mock('@repalis/sdk/2026-10', () => {
+  class RepalisWebhookError extends Error {}
+  class RepalisWebhookVerificationError extends RepalisWebhookError {
     constructor(message: string) {
       super(message)
-      this.name = 'PolarWebhookVerificationError'
+      this.name = 'RepalisWebhookVerificationError'
     }
   }
-  class PolarWebhookUnknownTypeError extends PolarWebhookError {
+  class RepalisWebhookUnknownTypeError extends RepalisWebhookError {
     constructor(public readonly eventType: string | null) {
       super(`Unknown webhook event type: ${JSON.stringify(eventType)}`)
-      this.name = 'PolarWebhookUnknownTypeError'
+      this.name = 'RepalisWebhookUnknownTypeError'
     }
   }
 
   return {
     webhooks: {
       validateEvent: vi.fn(),
-      PolarWebhookError,
-      PolarWebhookVerificationError,
-      PolarWebhookUnknownTypeError,
+      RepalisWebhookError,
+      RepalisWebhookVerificationError,
+      RepalisWebhookUnknownTypeError,
     },
   }
 })
 
-import { handleWebhookPayload } from '@polar-sh/adapter-utils'
-import { webhooks } from '@polar-sh/sdk/2026-10'
+import { handleWebhookPayload } from '@repalis/adapter-utils'
+import { webhooks } from '@repalis/sdk/2026-10'
 import { Webhooks } from './webhooks'
 
 const mockHandleWebhookPayload = vi.mocked(handleWebhookPayload) as ReturnType<
@@ -134,7 +134,7 @@ describe('Webhooks', () => {
 
     it('should return 403 for webhook verification errors', async () => {
       mockValidateEvent.mockRejectedValue(
-        new webhooks.PolarWebhookVerificationError('Invalid signature'),
+        new webhooks.RepalisWebhookVerificationError('Invalid signature'),
       )
 
       const webhookHandler = Webhooks({
@@ -162,7 +162,7 @@ describe('Webhooks', () => {
 
     it('should acknowledge signed unknown webhook events', async () => {
       mockValidateEvent.mockRejectedValue(
-        new webhooks.PolarWebhookUnknownTypeError('future.event'),
+        new webhooks.RepalisWebhookUnknownTypeError('future.event'),
       )
 
       const webhookHandler = Webhooks({ webhookSecret: 'secret_123' })
@@ -181,7 +181,7 @@ describe('Webhooks', () => {
 
     it('should return 400 when the webhook event type is missing', async () => {
       mockValidateEvent.mockRejectedValue(
-        new webhooks.PolarWebhookUnknownTypeError(null),
+        new webhooks.RepalisWebhookUnknownTypeError(null),
       )
 
       const webhookHandler = Webhooks({ webhookSecret: 'secret_123' })
@@ -200,7 +200,7 @@ describe('Webhooks', () => {
 
     it('should return 400 for malformed webhook payloads', async () => {
       mockValidateEvent.mockRejectedValue(
-        new webhooks.PolarWebhookError('Failed to parse webhook payload'),
+        new webhooks.RepalisWebhookError('Failed to parse webhook payload'),
       )
 
       const webhookHandler = Webhooks({ webhookSecret: 'secret_123' })

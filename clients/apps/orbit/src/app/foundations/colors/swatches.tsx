@@ -1,10 +1,10 @@
-import { Box } from '@polar-sh/orbit/Box'
-import { Text } from '@polar-sh/orbit'
+import { Box } from '@repalis/orbit/Box'
+import { Text } from '@repalis/orbit'
 import type {
   BackgroundColorToken,
   TextColorToken,
   BorderColorToken,
-} from '@polar-sh/orbit/theme'
+} from '@repalis/orbit/theme'
 
 export const BACKGROUND_TOKENS: {
   token: BackgroundColorToken

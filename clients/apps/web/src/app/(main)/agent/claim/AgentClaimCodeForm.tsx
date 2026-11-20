@@ -1,5 +1,5 @@
-import { Input, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { Input, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 
 const CLAIM_CODE_WORDS = 3
 

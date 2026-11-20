@@ -46,7 +46,7 @@ const run = (
     scope,
     directory: `/${scope}/.agents/skills`,
     state: skills[scope] ?? 'missing',
-    skills: ['setup-polar'],
+    skills: ['setup-repalis'],
   })
   const service = AgentSetup.of({
     callingAgent,
@@ -105,7 +105,7 @@ describe('agent setup', () => {
           scope: 'project',
           directory: '/project/.agents/skills',
           state: 'outdated',
-          skills: ['setup-polar'],
+          skills: ['setup-repalis'],
         },
       ],
       steps: [],
