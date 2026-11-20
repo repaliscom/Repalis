@@ -11,10 +11,10 @@ fi
 
 ROOT="${CLAUDE_PROJECT_DIR:-$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)}"
 TMP="${TMPDIR:-/tmp}"
-LOG="$TMP/polar-session-start.log"
+LOG="$TMP/repalis-session-start.log"
 CONTAINERD_PIDFILE=/run/docker/containerd/containerd.pid
 DOCKERD_PIDFILE=/var/run/docker.pid
-DOCKERD_LOG="$TMP/polar-dockerd.log"
+DOCKERD_LOG="$TMP/repalis-dockerd.log"
 COMPOSE=(docker compose --project-directory "$ROOT/server")
 # uv needs ~/.local/bin first; /usr/local/bin is appended because its node symlink is
 # older than the one already on PATH and the workspace does not support it.
@@ -134,7 +134,7 @@ fi
 
 # The image pull and the frontend install share nothing with the Python setup, so they
 # run underneath it. The pull waits for the daemon inside the job to keep that overlap.
-PULL_LOG="$TMP/polar-compose-pull.log"
+PULL_LOG="$TMP/repalis-compose-pull.log"
 PULL_PID=
 pull_images() {
   wait_dockerd || return 1
@@ -156,7 +156,7 @@ ensure_pnpm() {
     echo "no pnpm version in clients/package.json packageManager; using pnpm on PATH"
     return 0
   fi
-  prefix="$HOME/.local/share/polar-pnpm/$version"
+  prefix="$HOME/.local/share/repalis-pnpm/$version"
 
   current=$(readlink -f "$(command -v pnpm)" 2>/dev/null)
   if [ -n "$current" ] && [ "$(head -c 4 "$current")" = $'\x7fELF' ] &&
@@ -172,20 +172,20 @@ ensure_pnpm() {
   ln -sf "$prefix/bin/pnpx" "$HOME/.local/bin/pnpx"
 }
 
-PNPM_LOG="$TMP/polar-pnpm-install.log"
+PNPM_LOG="$TMP/repalis-pnpm-install.log"
 { ensure_pnpm && pnpm --dir "$ROOT/clients" install --frozen-lockfile; } >"$PNPM_LOG" 2>&1 &
 PNPM_PID=$!
 
 # --dev carries pytest, mypy, ruff, fakeredis and xdist.
 step "uv sync" uv sync --dev --frozen --directory "$ROOT/server"
 
-# The other import-blocking artifact. polar.config only checks that the path exists, so
+# The other import-blocking artifact. repalis.config only checks that the path exists, so
 # fall back to the stub test_sdk.yaml already relies on rather than leaving it unimportable.
 if [ ! -f "$ROOT/server/emails/bin/react-email-pkg" ]; then
   if ! step "email renderer" uv run --directory "$ROOT/server" task emails; then
     mkdir -p "$ROOT/server/emails/bin"
     touch "$ROOT/server/emails/bin/react-email-pkg"
-    NOTES+=("Email renderer build failed; stubbed the binary so polar.config imports. Tests that actually render an email will fail -- run 'uv run task emails' in server/ to fix.")
+    NOTES+=("Email renderer build failed; stubbed the binary so repalis.config imports. Tests that actually render an email will fail -- run 'uv run task emails' in server/ to fix.")
   fi
 fi
 
@@ -242,7 +242,7 @@ fi
 reap "warm mypy cache" "$MYPY_PID" "$MYPY_LOG" optional
 reap "pnpm install" "$PNPM_PID" "$PNPM_LOG"
 
-echo "Polar environment prepared for tests and linters. Log: $LOG"
+echo "Repalis environment prepared for tests and linters. Log: $LOG"
 if [ ${#FAILURES[@]} -gt 0 ]; then
   echo "Setup steps that FAILED: ${FAILURES[*]}"
   echo "Check $LOG before trusting a test run."

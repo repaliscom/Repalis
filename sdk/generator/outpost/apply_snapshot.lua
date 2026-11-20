@@ -2,8 +2,8 @@ local cutoff = tonumber(ARGV[1])
 local state = redis.call('HGETALL', KEYS[1])
 local fields = {}
 for i = 1, #state, 2 do fields[state[i]] = state[i + 1] end
--- The pull's reset count when Polar answered: a read after the next reset asks Polar again.
--- Recorded even for an older snapshot it rejects: Redis then holds a newer one than Polar's answer.
+-- The pull's reset count when Repalis answered: a read after the next reset asks Repalis again.
+-- Recorded even for an older snapshot it rejects: Redis then holds a newer one than Repalis's answer.
 if ARGV[7] and fields['reset'] ~= ARGV[7] then
     if ARGV[7] == '' then
         redis.call('HDEL', KEYS[1], 'reset')
@@ -13,17 +13,17 @@ if ARGV[7] and fields['reset'] ~= ARGV[7] then
 end
 local current = fields['cold_until']
 local previous = fields['snapshot_version']
--- Polar sends each snapshot to every instance: an older one changes nothing.
+-- Repalis sends each snapshot to every instance: an older one changes nothing.
 if (current and tonumber(current) > cutoff)
     or (previous and tonumber(ARGV[2]) < tonumber(previous)) then
     return {}
 end
 local replaced = {}
 if current then replaced = {'cold_until', current} end
--- Polar's totals now cover the buckets before the cutoff. The local copy of each is
--- reported with its pending part, and kept while events Polar has not confirmed remain
+-- Repalis's totals now cover the buckets before the cutoff. The local copy of each is
+-- reported with its pending part, and kept while events Repalis has not confirmed remain
 -- pending in it, for an hour at most: that pending part is what the local read adds on
--- top of Polar's totals.
+-- top of Repalis's totals.
 local function sealed(start)
     local pending = fields['pending:' .. start .. ':count']
     return not pending or tonumber(pending) <= 0 or tonumber(start) + 3600000000 < cutoff

@@ -3,16 +3,16 @@ name: slop-check
 description: Strip agent-generated noise from a diff — comments that restate the code, private helpers in test files, near-duplicate tests, tests with no assertions, unrequested indexes and validation, defensive guards that duplicate an existing check. Use before opening a PR on agent-written code, or when the user asks to tighten a diff, remove slop, or cut verbose comments.
 license: MIT
 metadata:
-  author: polar
+  author: repalis
   version: "1.0.0"
 ---
 
-# Slop Check (Polar)
+# Slop Check (Repalis)
 
 The handle is the **diff**. The evidence is **lines that should not exist**.
 
 Not a bug hunt, not a style guide. One job: delete code that is recognisably agent-written
-and that a Polar reviewer would ask you to remove. Run it before the other lenses, because
+and that a Repalis reviewer would ask you to remove. Run it before the other lenses, because
 everything it cuts is diff nobody else has to read.
 
 Calibration, from real reviews:

@@ -1,18 +1,18 @@
 ---
 name: billing-review
-description: Review a diff that touches Polar's billing domain — subscriptions, cycles and crons, orders, billing entries, meters and usage, discounts, checkout, payments and dunning, refunds, disputes, payouts, wallets, tax and invoices. Use before opening a PR that changes money movement or subscription lifecycle, when the user asks for a billing review, or when a reviewer needs the domain rules the team enforces in review but that no linter catches.
+description: Review a diff that touches Repalis's billing domain — subscriptions, cycles and crons, orders, billing entries, meters and usage, discounts, checkout, payments and dunning, refunds, disputes, payouts, wallets, tax and invoices. Use before opening a PR that changes money movement or subscription lifecycle, when the user asks for a billing review, or when a reviewer needs the domain rules the team enforces in review but that no linter catches.
 license: MIT
 metadata:
-  author: polar
+  author: repalis
   version: "1.0.0"
 ---
 
-# Billing Review (Polar)
+# Billing Review (Repalis)
 
 The handle is the **diff**. The evidence is **where the change breaks a billing invariant the
 team enforces in review**.
 
-Not a general code review. The other lenses know Polar's conventions, contract and deploy
+Not a general code review. The other lenses know Repalis's conventions, contract and deploy
 shape. This one knows how the billing domain is supposed to behave.
 
 Distilled from ~210 review comments François (`frankie567`) left on billing PRs between
@@ -26,10 +26,10 @@ that assumes it.
 ## Scope
 
 ```
-polar/{subscription,order,billing_entry,billing_interval,meter,event,discount,checkout,checkout_link}/
-polar/{payment,payment_method,refund,dispute,payout,payout_account,wallet,transaction}/
-polar/{invoice,receipt,credit_note,tax,product,customer_seat,account}/  ·  polar/benefit/grant/
-polar/models/{subscription,order,order_item,product,product_price,discount,checkout,
+repalis/{subscription,order,billing_entry,billing_interval,meter,event,discount,checkout,checkout_link}/
+repalis/{payment,payment_method,refund,dispute,payout,payout_account,wallet,transaction}/
+repalis/{invoice,receipt,credit_note,tax,product,customer_seat,account}/  ·  repalis/benefit/grant/
+repalis/models/{subscription,order,order_item,product,product_price,discount,checkout,
               payment,billing_entry,refund,dispute,wallet,transaction}.py
 migrations/ and server/scripts/ when they touch those tables
 ```
@@ -125,8 +125,8 @@ The cycle already moves periods, writes events, and grants or revokes benefits.
 
 - Fee values are basis points: 4% is `400`. Check the unit before trusting arithmetic.
 - Per-jurisdiction tax comes straight from the Numeral API response. Recomputing it from rates
-  and `polar_round` introduces fractional-cent drift. (#11211)
-- Tax sits on transactions of type `payment`, which are on the **Polar** side and not linked
+  and `repalis_round` introduces fractional-cent drift. (#11211)
+- Tax sits on transactions of type `payment`, which are on the **Repalis** side and not linked
   to the merchant's account. Transactions reach an organization through `account_id`;
   `payment_organization_id` is a Pledge-era leftover that does not mean what it looks like.
   (#12204)

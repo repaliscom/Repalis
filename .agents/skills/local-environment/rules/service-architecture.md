@@ -6,16 +6,16 @@ tags: architecture, services, infrastructure
 
 # Service Architecture Reference
 
-Two Docker projects: shared infra (`polar-shared`, one per machine) and a
-per-instance app stack (`polar-app-<N>`, one per worktree). Shared infra
+Two Docker projects: shared infra (`repalis-shared`, one per machine) and a
+per-instance app stack (`repalis-app-<N>`, one per worktree). Shared infra
 publishes **no host ports** — reach it with `dev docker exec <service> ...`.
 
-## Infrastructure services (project `polar-shared`)
+## Infrastructure services (project `repalis-shared`)
 
 ### db (PostgreSQL 18.6)
-- Primary database. Reached at `db:5432` on the `polar-shared` network.
-- Credentials: `polar` / `polar`.
-- One logical database per instance: `polar_dev_<N>`.
+- Primary database. Reached at `db:5432` on the `repalis-shared` network.
+- Credentials: `repalis` / `repalis`.
+- One logical database per instance: `repalis_dev_<N>`.
 - Volume: `postgres18_data`. Health check: `pg_isready`.
 
 ### redis (Redis Alpine)
@@ -25,15 +25,15 @@ publishes **no host ports** — reach it with `dev docker exec <service> ...`.
 
 ### minio (S3-compatible storage)
 - File storage at `minio:9000` (container) or `localhost:9000` (host).
-- Console at `localhost:9001` with credentials `polar-development` / `polar123456789`.
-- Per-instance buckets: `polar-s3-<N>`, `polar-s3-public-<N>`.
+- Console at `localhost:9001` with credentials `repalis-development` / `polar123456789`.
+- Per-instance buckets: `repalis-s3-<N>`, `repalis-s3-public-<N>`.
 - Volume: `minio_data`.
 
 ### tinybird
 - Analytics engine at `tinybird:7181` (admin `7182`). Token is auto-discovered
   from the running container on api startup.
 
-## Application services (project `polar-app-<N>`)
+## Application services (project `repalis-app-<N>`)
 
 ### api (FastAPI backend)
 - `python:3.14.6-slim` + uvicorn, hot-reload on.
@@ -55,10 +55,10 @@ publishes **no host ports** — reach it with `dev docker exec <service> ...`.
 - Healthcheck via Node's built-in `fetch` (the image has no curl/wget).
 - Waits for api to be **healthy** before starting (it proxies SSR to api).
 
-## Optional monitoring (project `polar-shared`, `--monitoring`)
+## Optional monitoring (project `repalis-shared`, `--monitoring`)
 
 - **prometheus** — metrics, 1-day retention, at `prometheus:9090` (no host port).
-- **grafana** — dashboards at `grafana:3000` internally, login `polar` / `polar`
+- **grafana** — dashboards at `grafana:3000` internally, login `repalis` / `repalis`
   (no host port; port-forward if you need the UI).
 
 ## Container dependencies
@@ -85,6 +85,6 @@ grafana     → prometheus
 
 ## Networking
 
-App containers join a per-instance `default` bridge plus `polar-shared`. Infra
+App containers join a per-instance `default` bridge plus `repalis-shared`. Infra
 is addressed by name (`db:5432`, `redis:6379`, `minio:9000`, `api:8000`). Web
-stays off `polar-shared` so `http://api:8000` resolves to *this* instance's api.
+stays off `repalis-shared` so `http://api:8000` resolves to *this* instance's api.

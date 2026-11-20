@@ -7,8 +7,8 @@ tags: logs, debugging, troubleshooting
 # Viewing Service Logs
 
 `dev docker logs` **follows by default** (`-f` is on). It auto-routes by service
-name: app services (api/worker/web) come from this instance's `polar-app-<N>`
-project, and infra services (db/redis/minio/...) from `polar-shared`.
+name: app services (api/worker/web) come from this instance's `repalis-app-<N>`
+project, and infra services (db/redis/minio/...) from `repalis-shared`.
 
 ## Commands
 
@@ -30,7 +30,7 @@ command blocks streaming. (This maps to a foreground `docker compose logs`.)
 dev docker logs api
 dev docker logs worker
 dev docker logs web
-dev docker logs db       # auto-routed to polar-shared
+dev docker logs db       # auto-routed to repalis-shared
 dev docker logs redis
 dev docker logs minio
 ```
@@ -65,7 +65,7 @@ Traceback (most recent call last):
 
 **Task started:**
 ```
-[dramatiq.MainProcess] Task started: polar.tasks.example:process
+[dramatiq.MainProcess] Task started: repalis.tasks.example:process
 ```
 
 **Task completed:**

@@ -1,13 +1,13 @@
 ---
 name: conventions-check
-description: Check a diff against Polar's written conventions in server/AGENTS.md and clients/AGENTS.md — module structure, repository and service patterns, session types, auth dependencies, test organisation, Orbit Box usage, i18n placement. Use before opening a PR or when the user asks whether a change follows Polar's conventions.
+description: Check a diff against Repalis's written conventions in server/AGENTS.md and clients/AGENTS.md — module structure, repository and service patterns, session types, auth dependencies, test organisation, Orbit Box usage, i18n placement. Use before opening a PR or when the user asks whether a change follows Repalis's conventions.
 license: MIT
 metadata:
-  author: polar
+  author: repalis
   version: "1.0.0"
 ---
 
-# Conventions Check (Polar)
+# Conventions Check (Repalis)
 
 The handle is the **diff**. The evidence is a list of **places it breaks a rule written in
 `AGENTS.md`**.

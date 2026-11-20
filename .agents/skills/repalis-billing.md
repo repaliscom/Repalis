@@ -1,6 +1,6 @@
-# Polar Billing System
+# Repalis Billing System
 
-Comprehensive guide to Polar's billing infrastructure, covering entities, flows, Stripe integration, and benefit provisioning.
+Comprehensive guide to Repalis's billing infrastructure, covering entities, flows, Stripe integration, and benefit provisioning.
 
 ## Quick Reference
 
@@ -31,7 +31,7 @@ Checkout → Payment → Order → Transaction → Benefits
 ## 1. Core Entities
 
 ### Checkout
-**File:** `server/polar/models/checkout.py`
+**File:** `server/repalis/models/checkout.py`
 
 Shopping cart/payment session before order confirmation.
 
@@ -50,7 +50,7 @@ Shopping cart/payment session before order confirmation.
 ---
 
 ### CheckoutLink
-**File:** `server/polar/models/checkout_link.py`
+**File:** `server/repalis/models/checkout_link.py`
 
 Persistent URL that creates Checkout Sessions on visit.
 
@@ -66,7 +66,7 @@ Persistent URL that creates Checkout Sessions on visit.
 ---
 
 ### Order
-**File:** `server/polar/models/order.py`
+**File:** `server/repalis/models/order.py`
 
 Represents a billing event (one-time purchase or subscription cycle).
 
@@ -78,7 +78,7 @@ Represents a billing event (one-time purchase or subscription cycle).
 | `discount_amount` | int | Discount applied |
 | `tax_amount` | int | Tax collected |
 | `applied_balance_amount` | int | Account balance applied |
-| `platform_fee_amount` | int | Polar's fee |
+| `platform_fee_amount` | int | Repalis's fee |
 | `refunded_amount` | int | Already refunded |
 | `next_payment_attempt_at` | datetime | Dunning retry time |
 
@@ -91,7 +91,7 @@ Represents a billing event (one-time purchase or subscription cycle).
 ---
 
 ### Subscription
-**File:** `server/polar/models/subscription.py`
+**File:** `server/repalis/models/subscription.py`
 
 Recurring billing relationship.
 
@@ -114,7 +114,7 @@ Recurring billing relationship.
 ---
 
 ### Transaction
-**File:** `server/polar/models/transaction.py`
+**File:** `server/repalis/models/transaction.py`
 
 All money flows in the system.
 
@@ -130,7 +130,7 @@ All money flows in the system.
 ---
 
 ### Payment
-**File:** `server/polar/models/payment.py`
+**File:** `server/repalis/models/payment.py`
 
 Individual payment transaction.
 
@@ -146,7 +146,7 @@ Individual payment transaction.
 ---
 
 ### Refund
-**File:** `server/polar/models/refund.py`
+**File:** `server/repalis/models/refund.py`
 
 | Field | Type | Description |
 |-------|------|-------------|
@@ -158,7 +158,7 @@ Individual payment transaction.
 ---
 
 ### Customer
-**File:** `server/polar/models/customer.py`
+**File:** `server/repalis/models/customer.py`
 
 | Field | Type | Description |
 |-------|------|-------------|
@@ -171,7 +171,7 @@ Individual payment transaction.
 ---
 
 ### Product & ProductPrice
-**Files:** `server/polar/models/product.py`, `server/polar/models/product_price.py`
+**Files:** `server/repalis/models/product.py`, `server/repalis/models/product_price.py`
 
 | ProductPrice Types | Description |
 |-------------------|-------------|
@@ -183,7 +183,7 @@ Individual payment transaction.
 ---
 
 ### BillingEntry
-**File:** `server/polar/models/billing_entry.py`
+**File:** `server/repalis/models/billing_entry.py`
 
 Audit log for billing calculations.
 
@@ -230,7 +230,7 @@ Transaction (ledger)
 ## 3. Main Services
 
 ### SubscriptionService
-**File:** `server/polar/subscription/service.py`
+**File:** `server/repalis/subscription/service.py`
 
 Core subscription operations:
 
@@ -256,7 +256,7 @@ enqueue_benefits_grants(task="grant"|"revoke", customer, product)
 ```
 
 ### OrderService
-**File:** `server/polar/order/service.py`
+**File:** `server/repalis/order/service.py`
 
 ```python
 create_from_checkout(checkout)  # One-time purchase
@@ -266,7 +266,7 @@ create_order_balance(order)  # Ledger entries
 ```
 
 ### CheckoutService
-**File:** `server/polar/checkout/service.py`
+**File:** `server/repalis/checkout/service.py`
 
 ```python
 create(product, customer_data, discount_code)
@@ -276,7 +276,7 @@ handle_free_success(checkout)  # No payment needed
 ```
 
 ### PaymentService
-**File:** `server/polar/payment/service.py`
+**File:** `server/repalis/payment/service.py`
 
 ```python
 upsert_from_stripe_charge(charge, checkout, order)
@@ -285,7 +285,7 @@ handle_failure(payment)  # Update order status
 ```
 
 ### RefundService
-**File:** `server/polar/refund/service.py`
+**File:** `server/repalis/refund/service.py`
 
 ```python
 create(order, amount, tax_amount, reason, revoke_benefits)
@@ -294,7 +294,7 @@ upsert_from_stripe(stripe_refund)
 ```
 
 ### BenefitGrantService
-**File:** `server/polar/benefit/grant/service.py`
+**File:** `server/repalis/benefit/grant/service.py`
 
 ```python
 enqueue_benefits_grants(task, customer, product, order=None, subscription=None)
@@ -307,7 +307,7 @@ revoke_benefit(customer, benefit)
 ## 4. Dramatiq Background Tasks
 
 ### Subscription Tasks
-**File:** `server/polar/subscription/tasks.py`
+**File:** `server/repalis/subscription/tasks.py`
 
 | Task | Trigger | Action |
 |------|---------|--------|
@@ -316,7 +316,7 @@ revoke_benefit(customer, benefit)
 | `subscription.cancel_customer` | Customer deleted | Cancel all billable subscriptions (trialing, active, past_due) |
 
 ### Order Tasks
-**File:** `server/polar/order/tasks.py`
+**File:** `server/repalis/order/tasks.py`
 
 | Task | Trigger | Action |
 |------|---------|--------|
@@ -328,7 +328,7 @@ revoke_benefit(customer, benefit)
 | `order.process_dunning_order` | Individual retry | Retry single payment |
 
 ### Stripe Webhook Tasks
-**File:** `server/polar/integrations/stripe/tasks.py`
+**File:** `server/repalis/integrations/stripe/tasks.py`
 
 | Task | Stripe Event | Action |
 |------|--------------|--------|
@@ -340,7 +340,7 @@ revoke_benefit(customer, benefit)
 | `payout.paid` | Payout complete | Update payout status |
 
 ### Benefit Tasks
-**File:** `server/polar/benefit/tasks.py`
+**File:** `server/repalis/benefit/tasks.py`
 
 | Task | Trigger | Action |
 |------|---------|--------|
@@ -350,7 +350,7 @@ revoke_benefit(customer, benefit)
 | `benefit.cycle` | Subscription renewal | Reset credits with rollover |
 
 ### Checkout Tasks
-**File:** `server/polar/checkout/tasks.py`
+**File:** `server/repalis/checkout/tasks.py`
 
 | Task | Trigger | Action |
 |------|---------|--------|
@@ -358,7 +358,7 @@ revoke_benefit(customer, benefit)
 | `checkout.expire_open_checkouts` | **Every 15 min** | Mark expired checkouts |
 
 ### Payout Tasks
-**File:** `server/polar/payout/tasks.py`
+**File:** `server/repalis/payout/tasks.py`
 
 | Task | Trigger | Action |
 |------|---------|--------|
@@ -370,7 +370,7 @@ revoke_benefit(customer, benefit)
 | `payout.cancel_held_payouts` | Payout account swap | Cancel only held payouts on old account |
 
 ### Refund Tasks
-**File:** `server/polar/refund/tasks.py`
+**File:** `server/repalis/refund/tasks.py`
 
 | Task | Trigger | Action |
 |------|---------|--------|
@@ -381,7 +381,7 @@ revoke_benefit(customer, benefit)
 ## 5. Stripe Integration
 
 ### Webhook Endpoints
-**File:** `server/polar/integrations/stripe/endpoints.py`
+**File:** `server/repalis/integrations/stripe/endpoints.py`
 
 - `/v1/integrations/stripe/webhook` - Direct webhooks
 - `/v1/integrations/stripe/webhook-connect` - Connect account webhooks
@@ -419,7 +419,7 @@ Stripe POST → Verify signature → ExternalEvent.enqueue()
 ```
 
 ### StripeService
-**File:** `server/polar/integrations/stripe/service.py`
+**File:** `server/repalis/integrations/stripe/service.py`
 
 Key methods:
 - `create_payment_intent()`, `create_setup_intent()`
@@ -725,7 +725,7 @@ Held payout lifecycle:
 
 ### Models
 ```
-server/polar/models/
+server/repalis/models/
 ├── checkout.py
 ├── order.py
 ├── order_item.py
@@ -747,7 +747,7 @@ server/polar/models/
 
 ### Services
 ```
-server/polar/
+server/repalis/
 ├── subscription/service.py
 ├── order/service.py
 ├── checkout/service.py
@@ -771,7 +771,7 @@ server/polar/
 
 ### Background Tasks
 ```
-server/polar/
+server/repalis/
 ├── subscription/tasks.py
 ├── order/tasks.py
 ├── checkout/tasks.py
@@ -783,7 +783,7 @@ server/polar/
 
 ### Stripe Integration
 ```
-server/polar/integrations/stripe/
+server/repalis/integrations/stripe/
 ├── endpoints.py    # Webhook handlers
 ├── service.py      # Stripe API wrapper
 ├── tasks.py        # Webhook processing tasks

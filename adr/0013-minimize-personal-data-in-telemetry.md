@@ -11,7 +11,7 @@ Log selected operational facts, not customer payloads. Keep useful diagnostics w
 
 ## Context
 
-Polar's logs, traces, and error reports can copy customer data through explicit log
+Repalis's logs, traces, and error reports can copy customer data through explicit log
 fields, automatic request and worker instrumentation, URLs, and exception messages.
 Removing a field from one log does not remove the same value from a captured exception
 or another exporter. We need useful debugging context without turning telemetry into

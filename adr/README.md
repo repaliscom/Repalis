@@ -1,6 +1,6 @@
 # Architecture Decision Records
 
-Short records of the significant, cross-cutting decisions behind Polar. Corrected in place; superseded when the decision changes.
+Short records of the significant, cross-cutting decisions behind Repalis. Corrected in place; superseded when the decision changes.
 
 An **Architecture Decision Record (ADR)** captures one significant decision: what we
 chose, why, and what it costs us.
@@ -95,7 +95,7 @@ To check a diff against these ADRs, run the `adr-check` skill.
 ## All decisions
 
 - [ADR-0001: Record architecture decisions](0001-record-architecture-decisions.md) · Cross-cutting · Accepted
-- [ADR-0002: Business errors are status-coded PolarError subclasses](0002-status-coded-repalis-errors.md) · Backend · Accepted
+- [ADR-0002: Business errors are status-coded RepalisError subclasses](0002-status-coded-repalis-errors.md) · Backend · Accepted
 - [ADR-0003: One request or task is one transaction](0003-request-scoped-unit-of-work.md) · Backend · Accepted
 - [ADR-0004: Frontend UI is authored with Orbit Box and design tokens](0004-orbit-box-design-system.md) · Frontend · Accepted
 - [ADR-0005: Authorization is AuthSubject plus scopes](0005-auth-subject-and-scopes.md) · Backend · Accepted

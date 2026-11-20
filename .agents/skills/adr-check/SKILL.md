@@ -3,11 +3,11 @@ name: adr-check
 description: Check a code change against the repo's Accepted Architecture Decision Records (ADRs) in adr/ and report violations with citations. Use before opening a PR, when reviewing a diff, or when the user asks to check ADR compliance, whether changes follow the architecture decisions, or to verify a change against the ADRs.
 license: MIT
 metadata:
-  author: polar
+  author: repalis
   version: "1.0.0"
 ---
 
-# ADR Compliance Checker (Polar)
+# ADR Compliance Checker (Repalis)
 
 The handle is the **diff**. The evidence is a short report of **which Accepted ADRs
 the change touches and where it breaks them**. This is the ADR analogue of

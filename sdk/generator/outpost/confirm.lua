@@ -1,7 +1,7 @@
 local bucket = 'bucket:' .. ARGV[1] .. ':'
 local pending = 'pending:' .. ARGV[1] .. ':'
 local BATCH = 1000
--- Polar received the events but no snapshot counts them yet: a cold bucket keeps them
+-- Repalis received the events but no snapshot counts them yet: a cold bucket keeps them
 -- pending for the snapshot that will, a hot one counts them whole either way.
 if ARGV[2] == '1' then
     local cutoff = redis.call('HGET', KEYS[1], 'cold_until')
@@ -53,7 +53,7 @@ redis.call('HINCRBYFLOAT', KEYS[1], pending .. 'sum', -sum)
 if count <= 0 then
     redis.call('HDEL', KEYS[1], pending .. 'count', pending .. 'sum', pending .. 'min', pending .. 'max')
     local cutoff = redis.call('HGET', KEYS[1], 'cold_until')
-    -- Polar counts the whole bucket once it is cold: the local copy has nothing left to add.
+    -- Repalis counts the whole bucket once it is cold: the local copy has nothing left to add.
     if cutoff and tonumber(ARGV[1]) < tonumber(cutoff) then
         redis.call('HDEL', KEYS[1], bucket .. 'count', bucket .. 'sum', bucket .. 'min', bucket .. 'max')
     end

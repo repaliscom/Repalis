@@ -16,7 +16,7 @@ fi
 
 CANDIDATE="$1"
 BRANCH="$2"
-FORK_NAME="polar-${CANDIDATE}"
+FORK_NAME="repalis-${CANDIDATE}"
 REMOTE_URL="git@github.com:repaliscom/${FORK_NAME}.git"
 
 # Validate candidate name format

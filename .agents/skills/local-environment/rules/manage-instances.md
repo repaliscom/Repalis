@@ -8,13 +8,13 @@ tags: instances, parallel, isolation
 
 ## What are instances?
 
-An instance is one worktree's isolated app stack (project `polar-app-<N>`). All
-instances share a single infra stack (`polar-shared`), but each gets:
+An instance is one worktree's isolated app stack (project `repalis-app-<N>`). All
+instances share a single infra stack (`repalis-shared`), but each gets:
 
 - Its own api/web **host ports** (offset per instance)
-- Its own database `polar_dev_<N>` on the shared postgres
+- Its own database `repalis_dev_<N>` on the shared postgres
 - Its own redis DB index `<N>` on the shared redis
-- Its own S3 buckets `polar-s3-<N>` / `polar-s3-public-<N>` on the shared minio
+- Its own S3 buckets `repalis-s3-<N>` / `repalis-s3-public-<N>` on the shared minio
 
 So instances are cheap: only api/worker/web containers are duplicated, not the
 infra.
@@ -29,9 +29,9 @@ ports don't exist in this model.
 |---------|------------|------------|------------|
 | API (host) | 8000 | 8101 | 8102 |
 | Web (host) | 3000 | 3101 | 3102 |
-| DB (logical) | `polar_dev_0` | `polar_dev_1` | `polar_dev_2` |
+| DB (logical) | `repalis_dev_0` | `repalis_dev_1` | `repalis_dev_2` |
 | Redis (DB index) | 0 | 1 | 2 |
-| S3 bucket | `polar-s3-0` | `polar-s3-1` | `polar-s3-2` |
+| S3 bucket | `repalis-s3-0` | `repalis-s3-1` | `repalis-s3-2` |
 
 **Host-port formula (api/web only):** `Port = Base + Instance` (Base 8100 for
 api, 3100 for web), for instances 1–99. Instance 0 uses the legacy `8000`/`3000`.

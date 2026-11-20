@@ -15,7 +15,7 @@ if [[ $# -ne 1 ]]; then
 fi
 
 CANDIDATE="$1"
-FORK_NAME="polar-${CANDIDATE}"
+FORK_NAME="repalis-${CANDIDATE}"
 
 # Validate candidate name format
 if ! [[ "$CANDIDATE" =~ ^[a-zA-Z0-9_-]+$ ]]; then

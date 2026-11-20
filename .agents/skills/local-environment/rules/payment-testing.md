@@ -24,7 +24,7 @@ Email login codes are printed in the api container logs as a banner:
 Grab the latest one:
 
 ```bash
-docker logs --since 30s polar-app-<N>-api-1 2>&1 | grep -A1 "LOGIN CODE"
+docker logs --since 30s repalis-app-<N>-api-1 2>&1 | grep -A1 "LOGIN CODE"
 ```
 
 Use `admin@repalis.com` as the default test account — the seed creates it with
@@ -46,9 +46,9 @@ structural check: the linked profile must hold test keys, and since a sandbox
 has no live mode at all, the Stripe CLI must have stored no live key for it.
 A shared team account is a live account, so it fails that check.
 
-The Stripe CLI profile is always named `polar-sandbox`, so `dev` never
+The Stripe CLI profile is always named `repalis-sandbox`, so `dev` never
 depends on whichever account the CLI happens to have active. Pass
-`-p polar-sandbox` when running `stripe` by hand.
+`-p repalis-sandbox` when running `stripe` by hand.
 
 `dev stripe --listen` handles the full setup in one step: installs the
 Stripe CLI if missing, walks through creating/linking a sandbox, writes
@@ -111,9 +111,9 @@ that normally fire on a schedule. To force one immediately, enqueue the
 actor from inside the api container:
 
 ```bash
-docker exec polar-app-<N>-api-1 sh -c 'cd /app/server && uv run python -c "
+docker exec repalis-app-<N>-api-1 sh -c 'cd /app/server && uv run python -c "
 import asyncio, dramatiq
-import polar.tasks  # registers every actor as a side-effect of import
+import repalis.tasks  # registers every actor as a side-effect of import
 from repalis.worker import JobQueueManager, enqueue_job
 from repalis.redis import create_redis
 
@@ -128,11 +128,11 @@ asyncio.run(main())
 
 Two non-obvious bits:
 
-- `import polar.tasks` is required. Without it, the broker has no registered
+- `import repalis.tasks` is required. Without it, the broker has no registered
   actors and `enqueue_job` raises `dramatiq.errors.ActorNotFound`.
 - The `JobQueueManager.open(...)` context manager is what flushes the queued
   message to Redis. Without it, `enqueue_job` raises `LookupError` on the
-  `polar.job_queue_manager` context var.
+  `repalis.job_queue_manager` context var.
 
 ### Useful actors
 
@@ -151,6 +151,6 @@ A direct DB cross-check is still cheap and worth running when investigating
 balance/transaction issues:
 
 ```bash
-dev docker exec db psql -U polar -d polar_dev_<N> -c \
+dev docker exec db psql -U repalis -d repalis_dev_<N> -c \
   "SELECT total_balance FROM organizations WHERE slug='admin-org';"
 ```

@@ -195,7 +195,7 @@ If you want to work on or test enterprise SSO login, you can point it at a local
     docker run -p 8080:8080 ghcr.io/navikt/mock-oauth2-server:2.1.0
     ```
 
-    The seeded connection uses `client_secret` authentication (`client_id=polar`, `client_secret=polar-secret`). The mock server accepts any client, so there's nothing to register.
+    The seeded connection uses `client_secret` authentication (`client_id=repalis`, `client_secret=repalis-secret`). The mock server accepts any client, so there's nothing to register.
 
 2. **Start the SSO login** by opening [http://127.0.0.1:3000/auth/sso/admin-org](http://127.0.0.1:3000/auth/sso/admin-org). You'll be redirected to the mock IdP's login page.
 

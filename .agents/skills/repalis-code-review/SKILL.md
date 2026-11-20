@@ -38,8 +38,8 @@ Run the first four always. Add the rest only when the trigger matches.
 | `adr-check` | always |
 | `reuse-check` | always |
 | `slop-check` | always |
-| `api-surface-review` | `**/schemas.py`, `**/endpoints.py`, `polar/openapi.py`, `docs/openapi.json`, `sdk/`, `clients/packages/client/`; or a change to a list query in `**/service.py` or `**/repository.py` |
-| `ship-safety` | `migrations/versions/`, `**/tasks.py`, `polar/models/`, `server/scripts/`; an endpoint is removed; or the diff spans `server/` and `clients/` with a dependency between them |
+| `api-surface-review` | `**/schemas.py`, `**/endpoints.py`, `repalis/openapi.py`, `docs/openapi.json`, `sdk/`, `clients/packages/client/`; or a change to a list query in `**/service.py` or `**/repository.py` |
+| `ship-safety` | `migrations/versions/`, `**/tasks.py`, `repalis/models/`, `server/scripts/`; an endpoint is removed; or the diff spans `server/` and `clients/` with a dependency between them |
 | `billing-review` | the billing paths listed in that skill's Scope section |
 
 ## 3. Launch
@@ -80,7 +80,7 @@ list of ADR id, `file:line`, what breaks, and the fix. Map its findings to 🔴.
 ## 5. Report
 
 ```markdown
-## Polar Review
+## Repalis Review
 
 ### 🔴 Blocking
 - **[lens]** `file:line` — <what breaks>. Fix: <fix>
@@ -105,4 +105,4 @@ Ran: <...>. Skipped: <...> (no matching paths).
 ```
 
 Any 🔴 means CHANGES REQUESTED. 🟠 alone is a judgement call: say which way you lean and why.
-The 🟡 section is expected to have content — Polar reviews are mostly questions.
+The 🟡 section is expected to have content — Repalis reviews are mostly questions.

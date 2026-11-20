@@ -20571,7 +20571,7 @@
           "cli"
         ],
         "summary": "Create Benefit Grant",
-        "description": "Manually grant a benefit to a customer or one of their members.\n\nUse either Polar IDs for every reference or external IDs for every reference.\nFulfillment is asynchronous: the returned grant may not yet be granted.\nMeter-credit benefits cannot be granted manually.\n\n**Scopes**: `benefits:write`",
+        "description": "Manually grant a benefit to a customer or one of their members.\n\nUse either Repalis IDs for every reference or external IDs for every reference.\nFulfillment is asynchronous: the returned grant may not yet be granted.\nMeter-credit benefits cannot be granted manually.\n\n**Scopes**: `benefits:write`",
         "operationId": "benefit-grants:create",
         "security": [
           {
@@ -20642,7 +20642,7 @@
         },
         "x-tool-name": "benefit_grants_create",
         "x-tool-title": "Create Benefit Grant",
-        "x-tool-description": "Manually grant a benefit to a customer or one of their members.\n\nUse either Polar IDs for every reference or external IDs for every reference.\nFulfillment is asynchronous: the returned grant may not yet be granted.\nMeter-credit benefits cannot be granted manually.",
+        "x-tool-description": "Manually grant a benefit to a customer or one of their members.\n\nUse either Repalis IDs for every reference or external IDs for every reference.\nFulfillment is asynchronous: the returned grant may not yet be granted.\nMeter-credit benefits cannot be granted manually.",
         "x-tool-annotations": [
           "open_world"
         ],
@@ -77105,7 +77105,7 @@
               }
             ],
             "title": "Customer Cancellation Comment",
-            "description": "Customer feedback and why they decided to cancel.\n\n**IMPORTANT:**\nDo not use this to store internal notes! It's intended to be input\nfrom the customer and is therefore also available in their Polar\npurchases library.\n\nOnly set this in case your own service is requesting the reason from the\ncustomer. Or you copy a message directly from a customer\nconversation, i.e support."
+            "description": "Customer feedback and why they decided to cancel.\n\n**IMPORTANT:**\nDo not use this to store internal notes! It's intended to be input\nfrom the customer and is therefore also available in their Repalis\npurchases library.\n\nOnly set this in case your own service is requesting the reason from the\ncustomer. Or you copy a message directly from a customer\nconversation, i.e support."
           },
           "cancel_at_period_end": {
             "type": "boolean",
@@ -79518,7 +79518,7 @@
               }
             ],
             "title": "Customer Cancellation Comment",
-            "description": "Customer feedback and why they decided to cancel.\n\n**IMPORTANT:**\nDo not use this to store internal notes! It's intended to be input\nfrom the customer and is therefore also available in their Polar\npurchases library.\n\nOnly set this in case your own service is requesting the reason from the\ncustomer. Or you copy a message directly from a customer\nconversation, i.e support."
+            "description": "Customer feedback and why they decided to cancel.\n\n**IMPORTANT:**\nDo not use this to store internal notes! It's intended to be input\nfrom the customer and is therefore also available in their Repalis\npurchases library.\n\nOnly set this in case your own service is requesting the reason from the\ncustomer. Or you copy a message directly from a customer\nconversation, i.e support."
           },
           "revoke": {
             "type": "boolean",

@@ -2582,15 +2582,15 @@
       "destination": "/support"
     },
     {
-      "source": "/documentation/welcome-to-polar",
+      "source": "/documentation/welcome-to-repalis",
       "destination": "/introduction"
     },
     {
-      "source": "/documentation/tools/polar-migrate",
+      "source": "/documentation/tools/repalis-migrate",
       "destination": "/migrate"
     },
     {
-      "source": "/documentation/tools/polar-init",
+      "source": "/documentation/tools/repalis-init",
       "destination": "/introduction#quickstart-from-cli"
     },
     {
@@ -2742,15 +2742,15 @@
       "destination": "/features/finance/payouts"
     },
     {
-      "source": "/documentation/integrations/polar-for-raycast",
+      "source": "/documentation/integrations/repalis-for-raycast",
       "destination": "/features/integrations/raycast"
     },
     {
-      "source": "/documentation/integrations/polar-for-framer",
+      "source": "/documentation/integrations/repalis-for-framer",
       "destination": "/features/integrations/framer"
     },
     {
-      "source": "/documentation/integrations/polar-for-zapier",
+      "source": "/documentation/integrations/repalis-for-zapier",
       "destination": "/features/integrations/zapier"
     },
     {
@@ -2766,7 +2766,7 @@
       "destination": "/integrate/sandbox"
     },
     {
-      "source": "/documentation/integration-guides/authenticating-with-polar",
+      "source": "/documentation/integration-guides/authenticating-with-repalis",
       "destination": "/integrate/authentication"
     },
     {
@@ -2786,55 +2786,55 @@
       "destination": "/integrate/sdk/python"
     },
     {
-      "source": "/documentation/adapters/polar-shnextjs",
+      "source": "/documentation/adapters/repalis-nextjs",
       "destination": "/integrate/sdk/adapters/nextjs"
     },
     {
-      "source": "/documentation/adapters/polar-shastro",
+      "source": "/documentation/adapters/repalis-astro",
       "destination": "/integrate/sdk/adapters/astro"
     },
     {
-      "source": "/documentation/adapters/polar-shremix",
+      "source": "/documentation/adapters/repalis-remix",
       "destination": "/integrate/sdk/adapters/remix"
     },
     {
-      "source": "/documentation/adapters/polar-shsveltekit",
+      "source": "/documentation/adapters/repalis-sveltekit",
       "destination": "/integrate/sdk/adapters/sveltekit"
     },
     {
-      "source": "/documentation/adapters/polar-shdeno",
+      "source": "/documentation/adapters/repalis-deno",
       "destination": "/integrate/sdk/adapters/deno"
     },
     {
-      "source": "/documentation/adapters/polar-shelysia",
+      "source": "/documentation/adapters/repalis-elysia",
       "destination": "/integrate/sdk/adapters/elysia"
     },
     {
-      "source": "/documentation/adapters/polar-shexpress",
+      "source": "/documentation/adapters/repalis-express",
       "destination": "/integrate/sdk/adapters/express"
     },
     {
-      "source": "/documentation/adapters/polar-shfastify",
+      "source": "/documentation/adapters/repalis-fastify",
       "destination": "/integrate/sdk/adapters/fastify"
     },
     {
-      "source": "/documentation/adapters/polar-shhono",
+      "source": "/documentation/adapters/repalis-hono",
       "destination": "/integrate/sdk/adapters/hono"
     },
     {
-      "source": "/documentation/polar-as-merchant-of-record/tax",
+      "source": "/documentation/repalis-as-merchant-of-record/tax",
       "destination": "/merchant-of-record/introduction"
     },
     {
-      "source": "/documentation/polar-as-merchant-of-record/fees",
+      "source": "/documentation/repalis-as-merchant-of-record/fees",
       "destination": "/merchant-of-record/fees"
     },
     {
-      "source": "/documentation/polar-as-merchant-of-record/supported-countries",
+      "source": "/documentation/repalis-as-merchant-of-record/supported-countries",
       "destination": "/merchant-of-record/supported-countries"
     },
     {
-      "source": "/documentation/polar-as-merchant-of-record/acceptable-products-use",
+      "source": "/documentation/repalis-as-merchant-of-record/acceptable-products-use",
       "destination": "/merchant-of-record/acceptable-use/introduction"
     },
     {
@@ -2842,7 +2842,7 @@
       "destination": "https://repalis.com/legal/acceptable-use-policy"
     },
     {
-      "source": "/documentation/polar-as-merchant-of-record/account-reviews",
+      "source": "/documentation/repalis-as-merchant-of-record/account-reviews",
       "destination": "/merchant-of-record/account-reviews"
     },
     {

@@ -1,9 +1,9 @@
 ---
 name: open-pr
-description: Open or update a draft GitHub pull request after Polar-specific review and cubic CLI review. Use only when the user invokes open-pr, /open-pr, or $open-pr by name. Do not use for a plain request to open a PR, or for a host Create PR button.
+description: Open or update a draft GitHub pull request after Repalis-specific review and cubic CLI review. Use only when the user invokes open-pr, /open-pr, or $open-pr by name. Do not use for a plain request to open a PR, or for a host Create PR button.
 license: MIT
 metadata:
-  author: polar
+  author: repalis
   version: "1.0.0"
 ---
 
@@ -14,7 +14,7 @@ Open or update a **draft** pull request. Do not mark it ready for review.
 This is not a bug hunt and not a security review. `/code-review`, `/security-review`,
 and `/simplify` do those. Do not run Cursor `/review` here.
 
-Address every review comment by default (Polar, cubic CLI, cubic GitHub, humans).
+Address every review comment by default (Repalis, cubic CLI, cubic GitHub, humans).
 Fix, commit, push, rerun that step. Dispute only when the comment is factually wrong.
 
 ## 1. Preconditions
@@ -46,7 +46,7 @@ Fill the headings from `.github/pull_request_template.md`.
 
 If lint or tests fail, stop. Do not review or open a PR.
 
-## 2. Polar code review
+## 2. Repalis code review
 
 Read `.agents/skills/repalis-code-review/SKILL.md` and follow it exactly.
 

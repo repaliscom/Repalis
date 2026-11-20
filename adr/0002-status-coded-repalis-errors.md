@@ -1,4 +1,4 @@
-# ADR-0002: Business errors are status-coded PolarError subclasses
+# ADR-0002: Business errors are status-coded RepalisError subclasses
 
 Logical errors carry an explicit HTTP status; 422 is reserved for payload validation.
 
@@ -10,14 +10,14 @@ Logical errors carry an explicit HTTP status; 422 is reserved for payload valida
 
 ## Context
 
-`PolarError`'s default status code is 500, and Sentry reports every 500 as a hard crash. So a
+`RepalisError`'s default status code is 500, and Sentry reports every 500 as a hard crash. So a
 normal business conflict (say, "you already have an active subscription") raised without an
 explicit status pages on-call as if the service fell over, burying real incidents. Separately,
 422 means one specific thing to clients: the request payload was malformed.
 
 ## Decision
 
-For logical and conflict errors, raise `PolarError` subclasses with an explicit `status_code`
+For logical and conflict errors, raise `RepalisError` subclasses with an explicit `status_code`
 (404, 409, 410, 403, and so on) and declare them on the endpoint's `responses=` so the
 generated client gets the error schema. Reserve 422 for request-payload validation: never
 re-raise a business error as a validation error.
@@ -25,7 +25,7 @@ re-raise a business error as a validation error.
 ## Consequences
 
 - Clients get correct HTTP status codes, and expected conflicts stay out of the crash reporter.
-- The generated TypeScript client gets typed error shapes via `PolarError.schema()`.
+- The generated TypeScript client gets typed error shapes via `RepalisError.schema()`.
 - Don't add a content-less `422: {"description": ...}` override: it clobbers FastAPI's default
   `HTTPValidationError` and breaks the generated client.
 
@@ -40,4 +40,4 @@ re-raise a business error as a validation error.
 - `server/repalis/exceptions.py` (base + subclasses), `server/repalis/exception_handlers.py`
   (handlers, 422 separation).
 - Real usage: `server/repalis/checkout/service.py`, `server/repalis/checkout/endpoints.py`.
-- `server/AGENTS.md`, "Errors to status-coded `PolarError`".
+- `server/AGENTS.md`, "Errors to status-coded `RepalisError`".

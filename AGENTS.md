@@ -22,7 +22,7 @@ per-area `AGENTS.md` linked from the Architecture and Conventions sections befor
 ## Architecture
 
 ```
-polar/
+repalis/
 ├── server/                 # Python/FastAPI backend — see server/AGENTS.md
 │   ├── repalis/
 │   │   ├── {module}/
@@ -143,7 +143,7 @@ See `server/AGENTS.md` for backend command and testing specifics.
 Detailed, review-enforced patterns live next to the code — read the relevant file before writing:
 
 - **Backend** → `server/AGENTS.md`: modular structure, repository/service/endpoint patterns,
-  `lazy="raise"` relationships, status-coded `PolarError`, endpoints return ORM models,
+  `lazy="raise"` relationships, status-coded `RepalisError`, endpoints return ORM models,
   authentication (`AuthSubject` + scopes).
 - **Frontend** → `clients/AGENTS.md`: Orbit `<Box />` design system (raw Tailwind is **deprecated**
   for layout/spacing/color/etc.), TanStack Query for data, Zustand for state, 250-line `max-lines` limit,
@@ -178,8 +178,8 @@ directory. Invoke as `/name` in Cursor and Claude Code, or `$name` in Codex.
 
 - **Handbook**: [Engineering Handbook](https://linear.app/repalis/document/engineering-handbook-438113df8882)
 - **Design docs**: [Design documents](https://linear.app/repalis/document/design-documents-1b03e0f6e82b) — write one only when
-  Polar stores or processes new data, changes login or permissions, adds a
-  new system, or adds a third-party tool that can see Polar data. Start from the
+  Repalis stores or processes new data, changes login or permissions, adds a
+  new system, or adds a third-party tool that can see Repalis data. Start from the
   [design document template](https://linear.app/repalis/document/design-document-template-02c5d83b61b2).
 - **API guidelines**: [REST API Guidelines](https://linear.app/repalis/document/rest-api-guidelines-65841b9f4bcc)
 - **User/developer docs**: `docs/` (Mintlify) — `cd docs && pnpm dev` to serve locally.

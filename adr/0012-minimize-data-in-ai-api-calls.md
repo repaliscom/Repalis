@@ -10,11 +10,11 @@ AI API requests send only the data the feature needs. Do not send personal data,
 
 ## Context
 
-Polar calls AI providers (OpenAI, Anthropic, and others) from several product
+Repalis calls AI providers (OpenAI, Anthropic, and others) from several product
 features: organization reviews, Compass, onboarding, and similar. It is easy to
 put a full org, customer, or payment object in the prompt so the model has more
 context. Those providers then process that data. Extra fields that the prompt
-never uses (for example a date of birth) still leave Polar.
+never uses (for example a date of birth) still leave Repalis.
 
 ## Decision
 
