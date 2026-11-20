@@ -10,7 +10,7 @@ class DiscordGuildRole(Schema):
     id: str
     name: str
     position: int
-    is_polar_bot: bool
+    is_repalis_bot: bool
     color: Color
 
     @field_validator("color", mode="before")

@@ -83,7 +83,7 @@ async def index(request: Request) -> None:
         with tag.div(classes="flex flex-col items-center gap-8 py-16"):
             with tag.pre(
                 classes="font-mono text-xs leading-none select-none",
-                aria_label="Polar",
+                aria_label="Repalis",
             ):
                 text(POLAR_ASCII_LOGO)
             with tag.h1(classes="text-2xl font-bold"):

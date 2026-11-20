@@ -165,7 +165,7 @@ async def resolve_order(
                 )
                 if (
                     updated_intent.metadata
-                    and updated_intent.metadata.get("polar_failed_sync_payment")
+                    and updated_intent.metadata.get("repalis_failed_sync_payment")
                     == "true"
                 ):
                     return None

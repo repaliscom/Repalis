@@ -24,7 +24,7 @@ async def repalis_sdk(app: FastAPI) -> AsyncGenerator[RepalisAsync]:
     async with AsyncClient(
         transport=ASGITransport(app=app),
         base_url="http://test",
-        headers={"Authorization": "Bearer ", "Polar-Version": sdk.version},
+        headers={"Authorization": "Bearer ", "Repalis-Version": sdk.version},
     ) as client:
         await sdk._client._client.aclose()
         sdk._client._client = client
@@ -42,7 +42,7 @@ class TestSDK:
 
     async def test_get_organization(
         self,
-        polar: RepalisAsync,
+        repalis: RepalisAsync,
         organization: Organization,
         user_organization: UserOrganization,
     ) -> None:
@@ -51,7 +51,7 @@ class TestSDK:
 
     async def test_list_products(
         self,
-        polar: RepalisAsync,
+        repalis: RepalisAsync,
         product: Product,
         product_second: Product,
         user_organization: UserOrganization,
@@ -64,7 +64,7 @@ class TestSDK:
 
     async def test_list_benefits(
         self,
-        polar: RepalisAsync,
+        repalis: RepalisAsync,
         benefits: list[Benefit],
         user_organization: UserOrganization,
     ) -> None:
@@ -75,7 +75,7 @@ class TestSDK:
     async def test_list_orders(
         self,
         save_fixture: SaveFixture,
-        polar: RepalisAsync,
+        repalis: RepalisAsync,
         product: Product,
         product_one_time: Product,
         customer: Customer,
@@ -105,7 +105,7 @@ class TestSDK:
     async def test_list_subscriptions(
         self,
         save_fixture: SaveFixture,
-        polar: RepalisAsync,
+        repalis: RepalisAsync,
         product: Product,
         customer: Customer,
         user_organization: UserOrganization,
@@ -126,7 +126,7 @@ class TestSDK:
     async def test_cancel_subscription(
         self,
         save_fixture: SaveFixture,
-        polar: RepalisAsync,
+        repalis: RepalisAsync,
         product: Product,
         customer: Customer,
         user_organization: UserOrganization,
@@ -148,7 +148,7 @@ class TestSDK:
     async def test_create_checkout(
         self,
         save_fixture: SaveFixture,
-        polar: RepalisAsync,
+        repalis: RepalisAsync,
         product: Product,
         customer: Customer,
         user_organization: UserOrganization,
@@ -165,7 +165,7 @@ class TestSDK:
     async def test_create_checkout_link(
         self,
         save_fixture: SaveFixture,
-        polar: RepalisAsync,
+        repalis: RepalisAsync,
         product: Product,
         customer: Customer,
         user_organization: UserOrganization,
@@ -181,7 +181,7 @@ class TestSDK:
     async def test_client_get_checkout(
         self,
         save_fixture: SaveFixture,
-        polar: RepalisAsync,
+        repalis: RepalisAsync,
         product: Product,
         customer: Customer,
         user_organization: UserOrganization,

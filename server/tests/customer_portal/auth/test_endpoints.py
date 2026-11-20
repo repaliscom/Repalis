@@ -225,7 +225,7 @@ class TestEmailOTPVerify:
         response = await verify(portal_client, sent_code(send_code))
 
         assert response.status_code == 200
-        assert response.json()["token"].startswith("polar_mst_")
+        assert response.json()["token"].startswith("repalis_mst_")
         assert (
             settings.CUSTOMER_SESSION_AUTHENTICATION_SESSION_COOKIE_KEY
             not in portal_client.cookies

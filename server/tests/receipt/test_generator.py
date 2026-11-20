@@ -41,7 +41,7 @@ def _build_receipt(
         invoice_number="INV-AB1-0001",
         date=now,
         paid_at=now,
-        seller_name="Polar",
+        seller_name="Repalis",
         seller_address=addr,
         customer_name="Test Customer",
         customer_address=addr,

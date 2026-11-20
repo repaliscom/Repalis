@@ -253,7 +253,7 @@ class TestBuildPromptRiskSignals:
                 "risk_signals": RiskSignalData(
                     entries=[
                         RiskSignalEntry(
-                            source=OrganizationRiskSignal.Source.POLAR,
+                            source=OrganizationRiskSignal.Source.REPALIS,
                             type=OrganizationRiskSignal.Type.FRAUDULENT_WEBSITE,
                             risk_level=OrganizationRiskSignal.RiskLevel.NORMAL,
                             created_at=datetime(2026, 7, 2, tzinfo=UTC),

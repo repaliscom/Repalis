@@ -35,7 +35,7 @@ class TestRevokeLeaked:
         [
             ("repalis_at_u_123", TokenType.access_token),
             ("repalis_rt_u_123", TokenType.refresh_token),
-            ("polar_at_o_123", TokenType.access_token),
+            ("repalis_at_o_123", TokenType.access_token),
             ("polar_rt_o_123", TokenType.refresh_token),
         ],
     )
@@ -93,7 +93,7 @@ class TestRevokeLeaked:
     @pytest.mark.parametrize(
         ("token", "token_type"),
         [
-            ("polar_at_o_123", TokenType.access_token),
+            ("repalis_at_o_123", TokenType.access_token),
             ("polar_rt_o_123", TokenType.refresh_token),
         ],
     )
@@ -111,7 +111,7 @@ class TestRevokeLeaked:
         oauth2_token = await create_oauth2_token(
             save_fixture,
             client=oauth2_client,
-            access_token="polar_at_o_123",
+            access_token="repalis_at_o_123",
             refresh_token="polar_rt_o_123",
             scopes=["openid"],
             organization=organization,

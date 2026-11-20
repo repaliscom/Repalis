@@ -175,8 +175,8 @@ class WebhookEndpoint(IDSchema, TimestampedSchema, ExternalIDOutputMixin):
 
     @computed_field(  # type: ignore[prop-decorator]
         description=(
-            "Whether Polar signs deliveries to this endpoint with Standard Webhooks. "
-            "False means Polar's original HMAC over the UTF-8 bytes of the full secret."
+            "Whether Repalis signs deliveries to this endpoint with Standard Webhooks. "
+            "False means Repalis's original HMAC over the UTF-8 bytes of the full secret."
         ),
     )
     @property

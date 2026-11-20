@@ -424,7 +424,7 @@ class RepalisSelfService:
         current plan:
 
         - **Free → Scale**: returns ``(None, Checkout)`` — the org needs to
-          complete a Polar checkout to set up a payment method. The discount
+          complete a Repalis checkout to set up a payment method. The discount
           is auto-attached at checkout creation.
         - **Paid → Scale**: returns ``(Subscription, None)`` — the existing
           subscription is switched to Scale via PATCH and the discount is
@@ -528,7 +528,7 @@ class RepalisSelfService:
         *,
         external_member_id: str | None = None,
     ) -> str:
-        """Create a customer session token for the org's Polar billing customer.
+        """Create a customer session token for the org's Repalis billing customer.
 
         Returned token authenticates against `/v1/customer-portal/customers/me/*`
         for the duration of its TTL."""
@@ -727,7 +727,7 @@ class RepalisSelfService:
     async def handle_order_created_event(
         self, payload: WebhookOrderCreatedPayload
     ) -> None:
-        # polar-self emails are only meant for production customers; never send
+        # repalis-self emails are only meant for production customers; never send
         # them from the sandbox environment.
         if settings.is_sandbox():
             return
@@ -761,7 +761,7 @@ class RepalisSelfService:
         if not recipients:
             return
 
-        product_name = order.product.name if order.product is not None else "Polar"
+        product_name = order.product.name if order.product is not None else "Repalis"
 
         if order.billing_reason == "subscription_cycle":
             template_name = "repalis_self_subscription_cycled"
@@ -922,7 +922,7 @@ class RepalisSelfService:
         never have a payment to fail, and a subscription with no billing
         contacts has nobody to notify.
         """
-        # polar-self emails are only meant for production customers; never send
+        # repalis-self emails are only meant for production customers; never send
         # them from the sandbox environment.
         if settings.is_sandbox():
             return None
@@ -938,7 +938,7 @@ class RepalisSelfService:
             return None
 
         product_name = (
-            subscription.product.name if subscription.product is not None else "Polar"
+            subscription.product.name if subscription.product is not None else "Repalis"
         )
         return recipients, product_name
 

@@ -441,7 +441,7 @@ class TestFlaggedProductNames:
         await save_fixture(
             OrganizationRiskSignal(
                 organization=organization,
-                source=OrganizationRiskSignal.Source.POLAR,
+                source=OrganizationRiskSignal.Source.REPALIS,
                 type=type,
                 risk_level=OrganizationRiskSignal.RiskLevel.UNKNOWN,
                 payload={

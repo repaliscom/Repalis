@@ -27,7 +27,7 @@ DEVELOPMENT_JWKS = json.dumps(
         "keys": [
             {
                 "kty": "RSA",
-                "kid": "polar_dev",
+                "kid": "repalis_dev",
                 "use": "sig",
                 "n": "ru8ULeHoalP1LBFUiYo_055VtVqQgZCAGKxoiQNW8YdgBja1oclh0XOAPgG_AoITQOETDMlIxXV2ZBVzJ8DXMiZuyjTkCN5RSfXb3orgT7GOiLfm3GLLx_ft_3c3Lu942FMYQHV_cLh6iCIzsE6B2-RHth56LpXBc_ncwvqpXTq_misoISXqW9IH2MCL9A0WylWZQUwPJWb86dXUHc7-GCqNBTkFp0c8jyGFV3GCFuVucIWBjLx2_ceUfFn3c-F7vRyzSUzDlW22KMB7ylblN3oDkeJ1DB44fgqWGJBDyMU2LBZ95TZQeRcCUKlwpTCUORRF1fT4XzPkfCCxJ4epIQ",
                 "e": "AQAB",
@@ -137,7 +137,7 @@ class Settings(BaseSettings):
     CURRENT_HASH_SECRET_ID: str | None = None
     # The key set the LocalSigner signs with: a document, or a path to one.
     LOCAL_JWKS: str = DEVELOPMENT_JWKS
-    LOCAL_JWK_KID: str = "polar_dev"
+    LOCAL_JWK_KID: str = "repalis_dev"
     WWW_AUTHENTICATE_REALM: str = "repalis"
     ORGANIZATION_ACCESS_TOKEN_CACHE_TTL_SECONDS: float = 0
 
@@ -160,9 +160,9 @@ class Settings(BaseSettings):
     BACKOFFICE_GOOGLE_CLIENT_SECRET: SecretStr = SecretStr("")
     BACKOFFICE_GOOGLE_HOSTED_DOMAIN: str = ""
     BACKOFFICE_DEVELOPMENT_MODE: bool = False
-    BACKOFFICE_AUTHENTICATION_SESSION_COOKIE_KEY: str = "polar_backoffice_auth_session"
+    BACKOFFICE_AUTHENTICATION_SESSION_COOKIE_KEY: str = "repalis_backoffice_auth_session"
     BACKOFFICE_AUTHENTICATION_SESSION_TTL: timedelta = timedelta(minutes=15)
-    BACKOFFICE_USER_SESSION_COOKIE_KEY: str = "polar_backoffice_session"
+    BACKOFFICE_USER_SESSION_COOKIE_KEY: str = "repalis_backoffice_session"
     BACKOFFICE_USER_SESSION_TTL: timedelta = timedelta(hours=12)
     CHECKOUT_LINK_HOST: str | None = None  # e.g., "buy.repalis.com" in production
 
@@ -177,7 +177,7 @@ class Settings(BaseSettings):
 
     # Authentication session
     AUTHENTICATION_SESSION_TTL: timedelta = timedelta(minutes=15)
-    AUTHENTICATION_SESSION_COOKIE_KEY: str = "polar_auth_session"
+    AUTHENTICATION_SESSION_COOKIE_KEY: str = "repalis_auth_session"
     AUTHENTICATION_SESSION_COOKIE_DOMAIN: str | None = "127.0.0.1"
 
     # Email OTP
@@ -192,13 +192,13 @@ class Settings(BaseSettings):
 
     # OAuth2 session state
     OAUTH2_SESSION_STATE_TTL: timedelta = timedelta(minutes=10)
-    OAUTH2_SESSION_STATE_COOKIE_KEY: str = "polar_oauth2_state"
+    OAUTH2_SESSION_STATE_COOKIE_KEY: str = "repalis_oauth2_state"
     OAUTH2_SESSION_STATE_COOKIE_DOMAIN: str | None = "127.0.0.1"
 
     # User session
     USER_SESSION_TTL: timedelta = timedelta(days=31)
     USER_SESSION_FRESHNESS_TTL: timedelta = timedelta(hours=1)
-    USER_SESSION_COOKIE_KEY: str = "polar_session"
+    USER_SESSION_COOKIE_KEY: str = "repalis_session"
     USER_SESSION_COOKIE_DOMAIN: str | None = "127.0.0.1"
 
     # Customer session
@@ -210,8 +210,8 @@ class Settings(BaseSettings):
     )
 
     # Impersonation session
-    IMPERSONATION_COOKIE_KEY: str = "polar_original_session"
-    IMPERSONATION_INDICATOR_COOKIE_KEY: str = "polar_is_impersonating"
+    IMPERSONATION_COOKIE_KEY: str = "repalis_original_session"
+    IMPERSONATION_INDICATOR_COOKIE_KEY: str = "repalis_is_impersonating"
 
     # Email verification
     EMAIL_VERIFICATION_TTL_SECONDS: int = 60 * 30  # 30 minutes
@@ -427,7 +427,7 @@ class Settings(BaseSettings):
 
     # AWS (File Downloads)
     AWS_ACCESS_KEY_ID: str = "repalis-development"
-    AWS_SECRET_ACCESS_KEY: str = "polar123456789"
+    AWS_SECRET_ACCESS_KEY: str = "repalis123456789"
     AWS_REGION: str = "us-east-2"
     AWS_SIGNATURE_VERSION: str = "v4"
     # botocore defaults allow about 5 minutes per call. That is longer than the
@@ -484,7 +484,7 @@ class Settings(BaseSettings):
         return self.S3_PUBLIC_ENDPOINT_URL or self.S3_ENDPOINT_URL
 
     MINIO_USER: str = "repalis"
-    MINIO_PWD: str = "polarpolar"
+    MINIO_PWD: str = "repalisrepalis"
 
     # Chargeback Stop
     CHARGEBACK_STOP_WEBHOOK_SECRET: str = ""

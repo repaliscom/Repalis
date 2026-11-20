@@ -66,7 +66,7 @@ class TestDownloadablesEndpoints:
         # Revoke the benefit
         await TestDownloadable.run_revoke_task(session, redis, benefit, customer)
 
-        # Polar download endpoint will now 404
+        # Repalis download endpoint will now 404
         response = await client.get(
             "/v1/customer-portal/downloadables/i-am-a-hacker", follow_redirects=False
         )
@@ -107,7 +107,7 @@ class TestDownloadablesEndpoints:
         downloadable = DownloadableRead(**downloadable_list[0])
         repalis_download_url = downloadable.file.download.url
 
-        # Polar download endpoint gives presigned S3 redirect
+        # Repalis download endpoint gives presigned S3 redirect
         response = await client.get(repalis_download_url, follow_redirects=False)
         assert response.status_code == 302
         s3_download_url = response.headers.get("location", None)
@@ -250,7 +250,7 @@ class TestDownloadablesEndpoints:
         downloadable = downloadable_list[0]
         repalis_download_url = downloadable["file"]["download"]["url"]
 
-        # Polar download endpoint gives presigned S3 redirect
+        # Repalis download endpoint gives presigned S3 redirect
         response = await client.get(repalis_download_url, follow_redirects=False)
         assert response.status_code == 302
         s3_download_url = response.headers.get("location", None)

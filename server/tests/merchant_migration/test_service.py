@@ -762,7 +762,7 @@ class TestRunPrecheck:
         report = await service.run_precheck(session, auth_subject, migration.id)
 
         codes = {issue.code for issue in report.issues}
-        assert "product_exists_in_polar" in codes
+        assert "product_exists_in_repalis" in codes
 
     @pytest.mark.auth
     async def test_source_not_connected(
@@ -3700,7 +3700,7 @@ async def _imported_subscription(
     email: str,
     payment_method: CanonicalPaymentMethod | None = None,
 ) -> MerchantMigrationRecord:
-    """A pending subscription whose customer and product are already in Polar."""
+    """A pending subscription whose customer and product are already in Repalis."""
     customer = await create_customer(
         save_fixture,
         organization=organization,

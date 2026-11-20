@@ -1,7 +1,7 @@
 """Conftest for observability tests - isolated from main fixtures.
 
 These tests are designed to run in isolation without requiring the full
-Polar infrastructure (database, Redis, etc.). We override the
+Repalis infrastructure (database, Redis, etc.). We override the
 session-scoped autouse fixtures from the main test suite to prevent
 connection attempts.
 """

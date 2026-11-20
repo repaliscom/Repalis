@@ -22,7 +22,7 @@ from repalis.kit.extensions.sqlalchemy.types import StringEnum
 class ExternalEventSource(StrEnum):
     stripe = "stripe"
     chargeback_stop = "chargeback_stop"
-    polar = "polar"
+    repalis = "repalis"
 
 
 class ExternalEvent(RecordModel):
@@ -80,11 +80,11 @@ class ChargebackStopEvent(ExternalEvent):
 
 
 class RepalisSelfEvent(ExternalEvent):
-    source: Mapped[Literal[ExternalEventSource.polar]] = mapped_column(  # pyright: ignore
-        use_existing_column=True, default=ExternalEventSource.polar
+    source: Mapped[Literal[ExternalEventSource.repalis]] = mapped_column(  # pyright: ignore
+        use_existing_column=True, default=ExternalEventSource.repalis
     )
 
     __mapper_args__ = {
-        "polymorphic_identity": ExternalEventSource.polar,
+        "polymorphic_identity": ExternalEventSource.repalis,
         "polymorphic_load": "inline",
     }

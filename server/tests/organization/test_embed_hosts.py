@@ -193,7 +193,7 @@ class TestValidateHostPattern:
 
     def test_bare_public_suffix_allowed(self) -> None:
         """It matches that one host and admits nobody else, and a platform selling
-        through Polar may serve its own site there."""
+        through Repalis may serve its own site there."""
         assert validate_host_pattern("framer.website") == "framer.website"
 
 

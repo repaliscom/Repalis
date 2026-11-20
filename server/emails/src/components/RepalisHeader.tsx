@@ -6,7 +6,7 @@ const Header = () => (
       <Img
         alt="Repalis Logo"
         height="48"
-        src="https://polar-public-assets.s3.us-east-2.amazonaws.com/emails/polar-logo-2026-black-badge.png"
+        src="https://repalis-public-assets.s3.us-east-2.amazonaws.com/emails/repalis-logo-2026-black-badge.png"
       />
     </div>
   </Section>

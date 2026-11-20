@@ -1,6 +1,6 @@
-"""Polar's seller information for invoices.
+"""Repalis's seller information for invoices.
 
-Polar is registered for VAT in multiple jurisdictions. The number shown on
+Repalis is registered for VAT in multiple jurisdictions. The number shown on
 an invoice is looked up from `settings.INVOICES_VAT_NUMBERS` by the other
 party's billing country: if there's no entry for that country, no VAT
 number is shown.
@@ -22,21 +22,21 @@ COUNTRY_VAT_LABELS: dict[str, str] = {
 
 
 def get_repalis_vat_number(country: str | None) -> str | None:
-    """Polar's VAT number for an invoice, based on the other party's billing country."""
+    """Repalis's VAT number for an invoice, based on the other party's billing country."""
     if country is None:
         return None
     return settings.INVOICES_VAT_NUMBERS.get(country)
 
 
 def get_repalis_vat_label(address: Address | None) -> str:
-    """Locally-correct label for Polar's tax registration line."""
+    """Locally-correct label for Repalis's tax registration line."""
     if address is None:
         return "VAT"
     return COUNTRY_VAT_LABELS.get(address.country, "VAT")
 
 
 def get_repalis_additional_info(address: Address | None) -> str | None:
-    """Compose Polar's seller-side `additional_info` text for an invoice."""
+    """Compose Repalis's seller-side `additional_info` text for an invoice."""
     parts: list[str] = []
     if settings.INVOICES_ADDITIONAL_INFO:
         parts.append(settings.INVOICES_ADDITIONAL_INFO)

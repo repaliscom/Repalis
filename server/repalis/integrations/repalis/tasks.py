@@ -262,7 +262,7 @@ async def webhook_benefit_grant_created(
 ) -> None:
     async with AsyncSessionMaker() as session:
         async with external_event_service.handle(
-            session, ExternalEventSource.polar, event_id
+            session, ExternalEventSource.repalis, event_id
         ) as event:
             payload = deserialize(event.data, WebhookBenefitGrantCreatedPayload)
             await repalis_self.handle_benefit_grant_event(session, payload)
@@ -277,7 +277,7 @@ async def webhook_benefit_grant_updated(
 ) -> None:
     async with AsyncSessionMaker() as session:
         async with external_event_service.handle(
-            session, ExternalEventSource.polar, event_id
+            session, ExternalEventSource.repalis, event_id
         ) as event:
             payload = deserialize(event.data, WebhookBenefitGrantUpdatedPayload)
             await repalis_self.handle_benefit_grant_event(session, payload)
@@ -292,7 +292,7 @@ async def webhook_benefit_grant_revoked(
 ) -> None:
     async with AsyncSessionMaker() as session:
         async with external_event_service.handle(
-            session, ExternalEventSource.polar, event_id
+            session, ExternalEventSource.repalis, event_id
         ) as event:
             payload = deserialize(event.data, WebhookBenefitGrantRevokedPayload)
             await repalis_self.handle_benefit_grant_event(session, payload)
@@ -305,7 +305,7 @@ async def webhook_benefit_grant_revoked(
 async def webhook_order_created(event_id: Annotated[uuid.UUID, LoggableField]) -> None:
     async with AsyncSessionMaker() as session:
         async with external_event_service.handle(
-            session, ExternalEventSource.polar, event_id
+            session, ExternalEventSource.repalis, event_id
         ) as event:
             payload = deserialize(event.data, WebhookOrderCreatedPayload)
             try:
@@ -329,7 +329,7 @@ async def webhook_subscription_canceled(
 ) -> None:
     async with AsyncSessionMaker() as session:
         async with external_event_service.handle(
-            session, ExternalEventSource.polar, event_id
+            session, ExternalEventSource.repalis, event_id
         ) as event:
             payload = deserialize(event.data, WebhookSubscriptionCanceledPayload)
             await repalis_self.handle_subscription_canceled_event(payload)
@@ -344,7 +344,7 @@ async def webhook_subscription_past_due(
 ) -> None:
     async with AsyncSessionMaker() as session:
         async with external_event_service.handle(
-            session, ExternalEventSource.polar, event_id
+            session, ExternalEventSource.repalis, event_id
         ) as event:
             payload = deserialize(event.data, WebhookSubscriptionPastDuePayload)
             await repalis_self.handle_subscription_past_due_event(payload)
@@ -359,7 +359,7 @@ async def webhook_subscription_revoked(
 ) -> None:
     async with AsyncSessionMaker() as session:
         async with external_event_service.handle(
-            session, ExternalEventSource.polar, event_id
+            session, ExternalEventSource.repalis, event_id
         ) as event:
             payload = deserialize(event.data, WebhookSubscriptionRevokedPayload)
             await repalis_self.handle_subscription_revoked_event(session, payload)

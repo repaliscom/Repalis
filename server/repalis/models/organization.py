@@ -223,7 +223,7 @@ def _default_checkout_settings() -> OrganizationCheckoutSettings:
 
 
 class OrganizationDisputeSettings(TypedDict):
-    """`auto_accept_below_amount` is in Polar's settlement currency (USD)."""
+    """`auto_accept_below_amount` is in Repalis's settlement currency (USD)."""
 
     auto_accept_below_amount: int | None
 
@@ -659,7 +659,7 @@ class Organization(RateLimitGroupMixin, RecordModel):
     )
 
     # Support priority tier — the benefit's metadata ``level``, denormalized
-    # from the active Polar support grant (see SupportTier). NULL = free; only
+    # from the active Repalis support grant (see SupportTier). NULL = free; only
     # paid tiers are persisted, higher level = higher priority.
     support_tier: Mapped[int | None] = mapped_column(
         Integer, nullable=True, default=None
@@ -923,7 +923,7 @@ class Organization(RateLimitGroupMixin, RecordModel):
         )
 
     @property
-    def polar_site_url(self) -> str:
+    def repalis_site_url(self) -> str:
         return f"{settings.FRONTEND_BASE_URL}/{self.slug}"
 
     @property

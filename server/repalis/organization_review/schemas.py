@@ -85,7 +85,7 @@ AUP_SECTION_LABELS: dict[AUPSection, str] = {
         "3. Donations, crowdfunding, community access, advertising, and sponsorship"
     ),
     AUPSection.MARKETPLACES: (
-        "4. Marketplaces. Selling others' products or services using Polar against an "
+        "4. Marketplaces. Selling others' products or services using Repalis against an "
         "upfront payment or with an agreed upon revenue share"
     ),
     AUPSection.INTELLECTUAL_PROPERTY_INFRINGEMENT: (
@@ -98,7 +98,7 @@ AUP_SECTION_LABELS: dict[AUPSection, str] = {
         "another party"
     ),
     AUPSection.NON_REPALIS_SELLERS: (
-        "7. Any product or service that enables non-Polar Sellers to sell products and "
+        "7. Any product or service that enables non-Repalis Sellers to sell products and "
         "services to customers"
     ),
     AUPSection.ADVERTISING_UNSOLICITED_MARKETING: (

@@ -52,13 +52,13 @@ class TransactionType(StrEnum):
     refund = "refund"
     """Repalis refunded a payment (totally or partially)."""
     refund_reversal = "refund_reversal"
-    """A Polar refund is reversed (totally or partially)."""
+    """A Repalis refund is reversed (totally or partially)."""
     dispute = "dispute"
-    """A Polar payment is disputed (totally or partially)."""
+    """A Repalis payment is disputed (totally or partially)."""
     dispute_reversal = "dispute_reversal"
-    """A Polar payment dispute is reversed (totally or partially)."""
+    """A Repalis payment dispute is reversed (totally or partially)."""
     balance = "balance"
-    """Money flow between Polar and a user's account."""
+    """Money flow between Repalis and a user's account."""
     payout = "payout"
     """Money paid to the user's bank account."""
     payout_reversal = "payout_reversal"
@@ -108,7 +108,7 @@ class ProcessorFeeType(StrEnum):
 
     cross_border_transfer = "cross_border_transfer"
     """
-    Fee applied when money is transferred to a different country than Polar's.
+    Fee applied when money is transferred to a different country than Repalis's.
 
     For Stripe, it varies per country. Usually around **0.25% and 1% of the amount**.
     """
@@ -162,7 +162,7 @@ class PlatformFeeType(StrEnum):
     cross_border_transfer = "cross_border_transfer"
     """
     Fee applied by the payment processor when money is transferred
-    to a different country than Polar's.
+    to a different country than Repalis's.
     """
 
     payout = "payout"
@@ -201,7 +201,7 @@ class PlatformFeeType(StrEnum):
 
 class Transaction(RecordModel):
     """
-    Represent a money flow in the Polar system.
+    Represent a money flow in the Repalis system.
     """
 
     __tablename__ = "transactions"
@@ -312,9 +312,9 @@ class Transaction(RecordModel):
     tax_amount: Mapped[int] = mapped_column(BigInteger, nullable=False)
     """Amount of tax collected by Repalis for this payment."""
     tax_country: Mapped[str] = mapped_column(String(2), nullable=True)
-    """Country for which Polar collected the tax."""
+    """Country for which Repalis collected the tax."""
     tax_state: Mapped[str] = mapped_column(String(2), nullable=True)
-    """State for which Polar collected the tax."""
+    """State for which Repalis collected the tax."""
     presentment_amount: Mapped[int | None] = mapped_column(BigInteger, nullable=True)
     """Amount in cents of this transaction from customer's perspective."""
     presentment_tax_amount: Mapped[int | None] = mapped_column(
@@ -387,7 +387,7 @@ class Transaction(RecordModel):
     """
     ID of the `Account` concerned by this transaction.
 
-    If `None`, this transaction concerns Polar directly.
+    If `None`, this transaction concerns Repalis directly.
     """
 
     @declared_attr

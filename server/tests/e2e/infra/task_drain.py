@@ -96,8 +96,8 @@ class TaskDrainError(Exception):
 
 
 def _discover_task_modules() -> None:
-    """Import all ``tasks.py`` modules under ``polar/`` so actors register with the broker."""
-    polar_root = Path(__file__).resolve().parents[2] / "polar"
+    """Import all ``tasks.py`` modules under ``repalis/`` so actors register with the broker."""
+    polar_root = Path(__file__).resolve().parents[2] / "repalis"
     for tasks_file in polar_root.rglob("tasks.py"):
         # Skip test files, __pycache__, and hidden directories
         if any(
@@ -142,7 +142,7 @@ def build_actor_registry() -> dict[str, Any]:
     """
     Build a mapping from actor_name to the original async function.
 
-    Auto-discovers all task modules under polar/, then unwraps each
+    Auto-discovers all task modules under repalis/, then unwraps each
     registered actor to get the async function callable from tests.
     """
     _discover_task_modules()

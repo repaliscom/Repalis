@@ -4,7 +4,7 @@ Load test configuration.
 Environment variables:
 - LOAD_TEST_HOST: Base URL of the API (default: http://127.0.0.1:8000)
 - LOAD_TEST_EVENT_INGESTION_URL: Event ingestion endpoint (default: LOAD_TEST_HOST/v1/events/ingest)
-- LOAD_TEST_API_TOKEN: Organization access token (polar_oat_*) for authenticated requests
+- LOAD_TEST_API_TOKEN: Organization access token (repalis_oat_*) for authenticated requests
 - LOAD_TEST_PRODUCT_ID: Product ID for checkout tests
 - LOAD_TEST_EVENT_EXTERNAL_CUSTOMER_IDS: Comma-separated list of external customer IDs
 - LOAD_TEST_EVENT_BATCH_SIZE: Number of events per batch (default: 10)

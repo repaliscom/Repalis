@@ -100,7 +100,7 @@ async def create_balance_transactions(
     amount: int = 1000,
 ) -> tuple[Transaction, Transaction]:
     outgoing_transaction = Transaction(
-        account=None,  # Polar account
+        account=None,  # Repalis account
         type=TransactionType.balance,
         currency=currency,
         amount=-amount,  # Subtract the amount

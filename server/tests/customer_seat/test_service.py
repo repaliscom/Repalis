@@ -1597,7 +1597,7 @@ class TestClaimSeat:
         assert claimed_seat.invitation_token is None
         assert session_token is not None
         assert len(session_token) > 0
-        assert session_token.startswith("polar_mst_")
+        assert session_token.startswith("repalis_mst_")
 
     @pytest.mark.anyio
     async def test_claim_seat_member_model_soft_deleted_member_rejects(
@@ -1611,7 +1611,7 @@ class TestClaimSeat:
         customer session.
 
         Regression test for a privilege-escalation bug where the fallback
-        minted a `polar_cst_` for the billing (purchaser) customer when the
+        minted a `repalis_cst_` for the billing (purchaser) customer when the
         seat's linked member was missing, granting the seat-claimer full
         portal-write access as the purchaser.
         """

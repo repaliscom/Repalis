@@ -2028,7 +2028,7 @@ class OrderService:
         payment_intent = getattr(error.error, "payment_intent", None)
         if payment_intent is not None:
             intent_metadata = payment_intent.metadata or {}
-            intent_metadata["polar_failed_sync_payment"] = "true"
+            intent_metadata["repalis_failed_sync_payment"] = "true"
             await stripe_service.modify_payment_intent(
                 payment_intent.id, metadata=intent_metadata
             )

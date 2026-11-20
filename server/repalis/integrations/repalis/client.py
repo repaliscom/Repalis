@@ -12,12 +12,12 @@ from pydantic_core.core_schema import ErrorType
 from repalis.base import (
     RepalisClientError,
     RepalisNetworkError,
-    PolarRateLimitError,
+    RepalisRateLimitError,
     RepalisServerError,
 )
 from repalis.config import settings
 from repalis.exceptions import RepalisError as InternalRepalisError
-from repalis.v2026_04 import RepalisAsync as PolarSDK
+from repalis.v2026_04 import RepalisAsync as RepalisSDK
 from repalis.v2026_04.errors import (
     AlreadyCanceledSubscription,
     HTTPValidationError,
@@ -124,7 +124,7 @@ def _raise_error(
     if isinstance(error, HTTPValidationError):
         _record_validation_error(span, error)
         raise RepalisSelfClientError(message) from None
-    if isinstance(error, (PolarRateLimitError, RepalisServerError)):
+    if isinstance(error, (RepalisRateLimitError, RepalisServerError)):
         raise RepalisSelfClientOperationalError(message) from error
     raise RepalisSelfClientError(message) from error
 
@@ -155,7 +155,7 @@ async def _collect[T](items: AsyncIterable[T]) -> list[T]:
 
 class RepalisSelfClient:
     def __init__(self, *, access_token: str, api_url: str) -> None:
-        self._sdk = PolarSDK(
+        self._sdk = RepalisSDK(
             access_token or "unconfigured",
             base_url=api_url,
             timeout=REQUEST_TIMEOUT_SECONDS,
@@ -925,12 +925,12 @@ class RepalisSelfClient:
         *,
         external_customer_id: str,
         external_member_id: str | None,
-    ) -> PolarSDK:
+    ) -> RepalisSDK:
         session = await self._create_customer_session(
             external_customer_id=external_customer_id,
             external_member_id=external_member_id,
         )
-        return PolarSDK(
+        return RepalisSDK(
             session.token, base_url=self._api_url, timeout=REQUEST_TIMEOUT_SECONDS
         )
 
@@ -1035,7 +1035,7 @@ class RepalisSelfClient:
         external_member_id: str | None = None,
     ) -> str:
         """Create a short-lived customer session token for the mirrored
-        Polar billing customer."""
+        Repalis billing customer."""
         with logfire.span(
             "repalis.portal.create_customer_session",
             external_customer_id=external_customer_id,

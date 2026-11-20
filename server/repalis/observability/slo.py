@@ -25,13 +25,13 @@ log = structlog.get_logger()
 # to compare actual values against per-endpoint targets.
 
 SLO_P99_TARGET = Gauge(
-    "polar_slo_p99_target_seconds",
+    "repalis_slo_p99_target_seconds",
     "P99 latency SLO target in seconds for critical endpoints",
     ["endpoint", "method"],
 )
 
 SLO_AVAILABILITY_TARGET = Gauge(
-    "polar_slo_availability_target",
+    "repalis_slo_availability_target",
     "Availability SLO target as percentage for critical endpoints",
     ["endpoint", "method"],
 )
@@ -117,8 +117,8 @@ def _set_slo_metrics() -> None:
     Example PromQL using these metrics:
         # Check if p99 exceeds target for any critical endpoint:
         histogram_quantile(0.99, sum by (endpoint, method, le) (
-            rate(polar_http_request_duration_seconds_bucket[5m])
-        )) > on(endpoint, method) polar_slo_p99_target_seconds
+            rate(repalis_http_request_duration_seconds_bucket[5m])
+        )) > on(endpoint, method) repalis_slo_p99_target_seconds
     """
     for endpoint, method, p99_target, availability_target in CRITICAL_ENDPOINTS:
         SLO_P99_TARGET.labels(endpoint=endpoint, method=method).set(p99_target)

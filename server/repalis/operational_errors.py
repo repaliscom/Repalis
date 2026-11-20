@@ -71,21 +71,21 @@ def _timeout_lock_error_matcher(exc: BaseException) -> bool:
 
 
 def _external_event_already_handled_error_matcher(exc: BaseException) -> bool:
-    # Import deferred to avoid circular dependency with polar.worker
+    # Import deferred to avoid circular dependency with repalis.worker
     from repalis.external_event.service import ExternalEventAlreadyHandled
 
     return isinstance(exc, ExternalEventAlreadyHandled)
 
 
 def _tinybird_operational_error_matcher(exc: BaseException) -> bool:
-    # Import deferred to avoid circular dependency with polar.worker
+    # Import deferred to avoid circular dependency with repalis.worker
     from repalis.integrations.tinybird.client import TinybirdOperationalError
 
     return isinstance(exc, TinybirdOperationalError)
 
 
 def _repalis_self_client_operational_error_matcher(exc: BaseException) -> bool:
-    # Import deferred to avoid circular dependency with polar.worker
+    # Import deferred to avoid circular dependency with repalis.worker
     from repalis.integrations.repalis.client import RepalisSelfClientOperationalError
 
     return isinstance(exc, RepalisSelfClientOperationalError)

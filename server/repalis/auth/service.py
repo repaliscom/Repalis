@@ -23,7 +23,7 @@ from .scope import Scope
 
 log: Logger = structlog.get_logger()
 
-USER_SESSION_TOKEN_PREFIX = "polar_us_"
+USER_SESSION_TOKEN_PREFIX = "repalis_us_"
 
 R = TypeVar("R", bound=Response)
 
@@ -171,7 +171,7 @@ class AuthService:
         is_localhost = request.url.hostname in {"127.0.0.1", "localhost"}
         secure = not is_localhost
         response.set_cookie(
-            "polar_last_login_method",
+            "repalis_last_login_method",
             value=factor,
             max_age=60 * 60 * 24 * 365,
             path="/",

@@ -360,7 +360,7 @@ def _subscription_discount_imported(
     imported_discount_source_ids: set[str],
     importable_discount_source_ids: set[str],
 ) -> bool:
-    """Whether the coupon this subscription needs is already a Polar discount."""
+    """Whether the coupon this subscription needs is already a Repalis discount."""
     if not subscription.has_discount and not subscription.discount_source_ids:
         return True
     kept = kept_discount_source_id(subscription, importable_discount_source_ids)
@@ -496,7 +496,7 @@ class MerchantMigrationService:
         if create_schema.source_platform != MerchantMigrationSourcePlatform.stripe:
             raise UnsupportedMigrationSource(create_schema.source_platform)
 
-        # The key's mode must match the Polar environment, so a live switch never
+        # The key's mode must match the Repalis environment, so a live switch never
         # runs against Stripe test data (and a sandbox run never touches live data).
         expect_live = settings.is_production()
         if _is_live_key(create_schema.api_key) != expect_live:
@@ -878,7 +878,7 @@ class MerchantMigrationService:
         steps = [step.model_copy() for step in migration.pan_transfer_steps]
         if steps:
             # Copies only: a GET must not persist, but stored checklists can
-            # still be sitting on a key Polar no longer asks anyone to complete.
+            # still be sitting on a key Repalis no longer asks anyone to complete.
             self._advance_retired_steps(migration, steps)
         return self._checklist(migration, steps)
 
@@ -946,7 +946,7 @@ class MerchantMigrationService:
         self, session: AsyncSession, migration: MerchantMigration
     ) -> bool:
         """Whether every subscription to switch already has the card it charges on
-        Polar, typically moved by an earlier migration of the same account. The
+        Repalis, typically moved by an earlier migration of the same account. The
         switch moves a subscription without a card, so one missing card keeps
         the checklist."""
         if migration.pan_transfer_method != pan_transfer.PanTransferMethod.pan_copy:
@@ -1017,7 +1017,7 @@ class MerchantMigrationService:
         migration: MerchantMigration,
         steps: Sequence[PanTransferStep],
     ) -> None:
-        """Persist progress and start work for the current Polar-managed step."""
+        """Persist progress and start work for the current Repalis-managed step."""
         current = pan_transfer.current(steps)
         update_dict: dict[str, object] = {"pan_transfer_steps": steps}
         if current is not None:
@@ -1219,7 +1219,7 @@ class MerchantMigrationService:
     async def _complete_step(
         self, session: AsyncSession, migration: MerchantMigration, key: str
     ) -> None:
-        """Mark a step Polar performs as done. A no-op when it isn't ours to
+        """Mark a step Repalis performs as done. A no-op when it isn't ours to
         move — the work already finished once, or the merchant restarted."""
         current = pan_transfer.current(migration.pan_transfer_steps)
         if current is None or current.key != key:
@@ -1438,7 +1438,7 @@ class MerchantMigrationService:
         single call, delete the stored source key and mark the migration
         closed, so no other step ever sees a migration without its key that
         isn't closed. Call it again, in a new transaction, until it returns
-        False. Imported records stay: they map source objects to their Polar
+        False. Imported records stay: they map source objects to their Repalis
         counterparts. Each call holds the row lock `start_cutover` takes.
         """
         repository = MerchantMigrationRepository.from_session(session)
@@ -1491,7 +1491,7 @@ class MerchantMigrationService:
         # `Sequence`, not `list`: this class defines a `list` method, which would
         # shadow the builtin in an annotation evaluated in the class body.
     ) -> Sequence[PanTransferStep] | None:
-        """Mark a step Polar performs as done, or None when it isn't ours to move
+        """Mark a step Repalis performs as done, or None when it isn't ours to move
         — the work already finished once, or the merchant restarted."""
         current = pan_transfer.current(migration.pan_transfer_steps)
         if current is None or current.key != key:
@@ -1559,7 +1559,7 @@ class MerchantMigrationService:
             MerchantMigrationCutoverStatus.failed, 0
         )
         note = (
-            f"Polar now bills {moved} subscription(s), and stopped them on your source."
+            f"Repalis now bills {moved} subscription(s), and stopped them on your source."
         )
         if left:
             note += (
@@ -1610,7 +1610,7 @@ class MerchantMigrationService:
         # shadow the builtin in an annotation evaluated in the class body.
         steps: Sequence[PanTransferStep],
     ) -> bool:
-        """Walk past keys Polar no longer asks anyone to complete. True if the
+        """Walk past keys Repalis no longer asks anyone to complete. True if the
         current step moved, so the caller can persist."""
         working = list(steps)
         before = pan_transfer.current(working)
@@ -1627,7 +1627,7 @@ class MerchantMigrationService:
         return self._cutover_started(migration)
 
     def _cutover_started(self, migration: MerchantMigration) -> bool:
-        """The merchant has confirmed the switch step, so Polar is allowed to
+        """The merchant has confirmed the switch step, so Repalis is allowed to
         stop subscriptions on their source."""
         return self._step_completed(migration, STEP_CUTOVER)
 

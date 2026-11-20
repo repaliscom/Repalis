@@ -141,15 +141,15 @@ class InvoiceNumbering(StrEnum):
 
 
 class TokenType(StrEnum):
-    client_secret = "polar_client_secret"
-    client_registration_token = "polar_client_registration_token"
-    authorization_code = "polar_authorization_code"
-    access_token = "polar_access_token"
-    refresh_token = "polar_refresh_token"
-    personal_access_token = "polar_personal_access_token"
-    organization_access_token = "polar_organization_access_token"
+    client_secret = "repalis_client_secret"
+    client_registration_token = "repalis_client_registration_token"
+    authorization_code = "repalis_authorization_code"
+    access_token = "repalis_access_token"
+    refresh_token = "repalis_refresh_token"
+    personal_access_token = "repalis_personal_access_token"
+    organization_access_token = "repalis_organization_access_token"
     customer_session_token = "repalis_customer_session_token"
-    user_session_token = "polar_user_session_token"
+    user_session_token = "repalis_user_session_token"
 
 
 class EmailSender(StrEnum):

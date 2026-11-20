@@ -6,7 +6,7 @@ or belonging to METRICS_EXCLUDED_APPS) for availability and latency SLIs.
 
 Metrics:
 - repalis_http_request_total: Counter by endpoint, method, status_code, api_version, api_version_set
-- polar_http_request_duration_seconds: Histogram by endpoint, method, api_version, api_version_set
+- repalis_http_request_duration_seconds: Histogram by endpoint, method, api_version, api_version_set
 """
 
 import os
@@ -66,7 +66,7 @@ HTTP_REQUEST_TOTAL = Counter(
 # - Fast endpoints: p99 < 200ms (fine-grained buckets below 0.2s)
 # - Slow endpoints: p99 < 30s (extended range up to 30s)
 HTTP_REQUEST_DURATION_SECONDS = Histogram(
-    "polar_http_request_duration_seconds",
+    "repalis_http_request_duration_seconds",
     "HTTP request duration in seconds",
     ["endpoint", "method", "api_version", "api_version_set"],
     buckets=(0.01, 0.025, 0.05, 0.1, 0.25, 0.5, 1.0, 2.5, 5.0, 10.0, 30.0),
@@ -74,7 +74,7 @@ HTTP_REQUEST_DURATION_SECONDS = Histogram(
 
 # SSE metrics
 HTTP_SSE_CONNECTIONS_OPENED = Gauge(
-    "polar_http_sse_opened_connection_total",
+    "repalis_http_sse_opened_connection_total",
     "Number of currently open SSE connections",
     ["endpoint"],
 )

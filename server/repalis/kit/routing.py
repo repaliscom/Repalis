@@ -77,10 +77,10 @@ class ToolAPIRoute(APIRoute):
     individually by setting it in `openapi_extra`.
 
     `x-tool-annotations` gets `destructive` for `DELETE` routes and routes marked
-    with `polar.openapi.destructive()`. Routes with a request field marked with
+    with `repalis.openapi.destructive()`. Routes with a request field marked with
     `destructive_when_equals()` or `destructive_when_one_of()` get it when the
-    OpenAPI schema is generated, see `polar.openapi.add_destructive_tool_annotations`.
-    Routes marked with `polar.openapi.open_world()` get `open_world`.
+    OpenAPI schema is generated, see `repalis.openapi.add_destructive_tool_annotations`.
+    Routes marked with `repalis.openapi.open_world()` get `open_world`.
 
     It must come *before* `DocumentedAuthSubjectAPIRoute` in the MRO, so the
     description is read before the required scopes are appended to it.
@@ -226,7 +226,7 @@ class PaginationExtension(TypedDict):
 
 class PaginationAPIRoute(APIRoute):
     """
-    A subclass of `APIRoute` that automatically adds `x-polar-pagination` property
+    A subclass of `APIRoute` that automatically adds `x-repalis-pagination` property
     to the OpenAPI schema if the endpoint response model is a `ListResource`.
     """
 
@@ -249,7 +249,7 @@ class PaginationAPIRoute(APIRoute):
                 "type": "page_limit",
                 "item_schema": {"$ref": f"#/components/schemas/{item_schema_name}"},
             }
-            self.openapi_extra = {**openapi_extra, "x-polar-pagination": pagination}
+            self.openapi_extra = {**openapi_extra, "x-repalis-pagination": pagination}
 
 
 def generate_unique_id_function(route: APIRoute) -> str:

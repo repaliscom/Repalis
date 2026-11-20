@@ -6,13 +6,13 @@ and only creates the ones that are missing (matched by description / name).
 Usage:
 
     # Local (defaults to http://127.0.0.1:8000)
-    POLAR_ACCESS_TOKEN=... uv run python -m scripts.seed_polar_for_polar --env local
+    REPALIS_ACCESS_TOKEN=... uv run python -m scripts.seed_repalis_for_repalis --env local
 
     # Sandbox
-    POLAR_ACCESS_TOKEN=... uv run python -m scripts.seed_polar_for_polar --env sandbox
+    REPALIS_ACCESS_TOKEN=... uv run python -m scripts.seed_repalis_for_repalis --env sandbox
 
     # Production
-    POLAR_ACCESS_TOKEN=... uv run python -m scripts.seed_polar_for_polar --env prod
+    REPALIS_ACCESS_TOKEN=... uv run python -m scripts.seed_repalis_for_repalis --env prod
 
 If you use a user (not organization) access token, pass --organization-id.
 
@@ -210,10 +210,10 @@ def _make_client(env: str, token: str) -> RepalisAsync:
 
 
 async def _existing_benefits(
-    polar: RepalisAsync, organization_id: str | None
+    repalis: RepalisAsync, organization_id: str | None
 ) -> dict[str, Benefit]:
     by_description: dict[str, Benefit] = {}
-    async for benefit in polar.benefits.iter_list(
+    async for benefit in repalis.benefits.iter_list(
         page=1,
         limit=100,
         organization_id=organization_id,
@@ -223,10 +223,10 @@ async def _existing_benefits(
 
 
 async def _existing_products(
-    polar: RepalisAsync, organization_id: str | None
+    repalis: RepalisAsync, organization_id: str | None
 ) -> dict[tuple[str, str | None], Product]:
     by_name_and_interval: dict[tuple[str, str | None], Product] = {}
-    async for product in polar.products.iter_list(
+    async for product in repalis.products.iter_list(
         page=1,
         limit=100,
         organization_id=organization_id,
@@ -236,10 +236,10 @@ async def _existing_products(
 
 
 async def _seed_benefits(
-    polar: RepalisAsync, organization_id: str | None, dry_run: bool
+    repalis: RepalisAsync, organization_id: str | None, dry_run: bool
 ) -> dict[str, Benefit]:
     typer.echo("Listing existing benefits...")
-    existing = await _existing_benefits(polar, organization_id)
+    existing = await _existing_benefits(repalis, organization_id)
     typer.echo(f"Found {len(existing)} existing benefits.")
 
     prefix = "[dry-run] " if dry_run else ""
@@ -292,13 +292,13 @@ async def _seed_benefits(
 
 
 async def _seed_products(
-    polar: RepalisAsync,
+    repalis: RepalisAsync,
     organization_id: str | None,
     benefits_by_description: dict[str, Benefit],
     dry_run: bool,
 ) -> None:
     typer.echo("Listing existing products...")
-    existing = await _existing_products(polar, organization_id)
+    existing = await _existing_products(repalis, organization_id)
     typer.echo(f"Found {len(existing)} existing products.")
 
     prefix = "[dry-run] " if dry_run else ""
@@ -429,7 +429,7 @@ async def _seed_products(
 
 
 async def _seed_subscription_settings(
-    polar: RepalisAsync, organization_id: str | None, dry_run: bool
+    repalis: RepalisAsync, organization_id: str | None, dry_run: bool
 ) -> None:
     if organization_id is None:
         typer.echo("Skipping subscription settings (no organization id).")
@@ -471,15 +471,15 @@ async def _seed(
 ) -> None:
     mode = " (dry-run, no changes will be made)" if dry_run else ""
     typer.echo(f"Seeding on {env}{mode}...")
-    async with _make_client(env, token) as polar:
-        benefits_by_description = await _seed_benefits(polar, organization_id, dry_run)
+    async with _make_client(env, token) as repalis:
+        benefits_by_description = await _seed_benefits(repalis, organization_id, dry_run)
         if seed_products:
             await _seed_products(
-                polar, organization_id, benefits_by_description, dry_run
+                repalis, organization_id, benefits_by_description, dry_run
             )
         else:
             typer.echo("Skipping products (pass --products to seed).")
-        await _seed_subscription_settings(polar, organization_id, dry_run)
+        await _seed_subscription_settings(repalis, organization_id, dry_run)
 
 
 @cli.callback()
@@ -492,7 +492,7 @@ def main(
         typer.Option(
             "--token",
             "-t",
-            help="Polar access token. Falls back to $POLAR_ACCESS_TOKEN.",
+            help="Repalis access token. Falls back to $REPALIS_ACCESS_TOKEN.",
         ),
     ] = None,
     organization_id: Annotated[
@@ -518,10 +518,10 @@ def main(
         ),
     ] = False,
 ) -> None:
-    access_token = token or os.environ.get("POLAR_ACCESS_TOKEN")
+    access_token = token or os.environ.get("REPALIS_ACCESS_TOKEN")
     if not access_token:
         raise typer.BadParameter(
-            "Missing access token: pass --token or set POLAR_ACCESS_TOKEN."
+            "Missing access token: pass --token or set REPALIS_ACCESS_TOKEN."
         )
     asyncio.run(_seed(env, access_token, organization_id, seed_products, dry_run))
 

@@ -75,7 +75,7 @@ async def test_instrument_fastapi_host_routed_app_hides_path_values() -> None:
     async with httpx2.AsyncClient(
         transport=transport, base_url="http://buy.example.com"
     ) as client:
-        response = await client.get("/polar_cl_secret?customer_email=a@example.com")
+        response = await client.get("/repalis_cl_secret?customer_email=a@example.com")
 
     assert response.status_code == 200
     spans = exporter.exported_spans
@@ -85,7 +85,7 @@ async def test_instrument_fastapi_host_routed_app_hides_path_values() -> None:
     )
     for span in spans:
         serialized = f"{span.name} {dict(span.attributes or {})}"
-        assert "polar_cl_secret" not in serialized
+        assert "repalis_cl_secret" not in serialized
         assert "a@example.com" not in serialized
 
 

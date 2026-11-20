@@ -1,7 +1,7 @@
 """
 E2E: Lifecycle — trial subscription with metered pricing, canceled mid-trial.
 
-**Invariant:** Polar must never charge a customer during a trial. Neither
+**Invariant:** Repalis must never charge a customer during a trial. Neither
 static recurring prices nor metered usage should produce a Stripe charge
 before the trial converts to ``active``.
 
@@ -243,7 +243,7 @@ class TestTrialMeteredCancel:
         # ── Invariant: trial cancellation must not charge the customer ──
         create_payment_intent = stripe_sim.mock.create_payment_intent
         assert not create_payment_intent.called, (
-            "Polar tried to charge the customer during a trial. "
+            "Repalis tried to charge the customer during a trial. "
             f"`stripe_service.create_payment_intent` was called "
             f"{create_payment_intent.call_count} time(s) for "
             f"{USAGE_UNITS} units of metered trial usage. Trial usage "

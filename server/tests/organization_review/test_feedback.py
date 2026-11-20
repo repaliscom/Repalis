@@ -800,7 +800,7 @@ class TestCollectFeedbackDataIntegration:
                         dimension=ReviewDimension.PRODUCT_LEGITIMACY,
                         risk_level=RiskLevel.HIGH,
                         confidence=0.85,
-                        findings=["Price mismatch between website and Polar"],
+                        findings=["Price mismatch between website and Repalis"],
                         recommendation="Deny",
                     ),
                     DimensionAssessment(
@@ -858,7 +858,7 @@ class TestCollectFeedbackDataIntegration:
         assert agent_entry.dimensions[0].dimension == "product_legitimacy"
         assert agent_entry.dimensions[0].risk_level == "HIGH"
         assert agent_entry.dimensions[0].findings == [
-            "Price mismatch between website and Polar"
+            "Price mismatch between website and Repalis"
         ]
 
         human_entry = result.entries[1]

@@ -18,7 +18,7 @@ from repalis.user.repository import UserRepository
 
 from .repository import EmailVerificationRepository
 
-TOKEN_PREFIX = "polar_ev_"
+TOKEN_PREFIX = "repalis_ev_"
 
 
 class EmailUpdateError(RepalisError): ...

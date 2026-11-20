@@ -21,13 +21,13 @@ def _build(user: User) -> OAuth2Client:
 
 class TestHashSecret:
     def test_hashes_with_secret(self) -> None:
-        assert OAuth2Client.hash_secret("polar_cs_test") == get_token_hash(
-            "polar_cs_test"
+        assert OAuth2Client.hash_secret("repalis_cs_test") == get_token_hash(
+            "repalis_cs_test"
         )
 
     def test_is_deterministic(self) -> None:
-        assert OAuth2Client.hash_secret("polar_cs_test") == OAuth2Client.hash_secret(
-            "polar_cs_test"
+        assert OAuth2Client.hash_secret("repalis_cs_test") == OAuth2Client.hash_secret(
+            "repalis_cs_test"
         )
 
     def test_none_returns_none(self) -> None:

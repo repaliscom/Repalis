@@ -145,7 +145,7 @@ class MerchantMigrationRecordItem(Schema):
     customer_country_hint: str | None = Field(
         description=(
             "The payment-method country used as the billing-country fallback. "
-            "Present only to disclose fallback provenance; Polar tax still uses "
+            "Present only to disclose fallback provenance; Repalis tax still uses "
             "the imported customer billing address."
         ),
     )
@@ -179,7 +179,7 @@ class MerchantMigrationRecordItem(Schema):
     )
     tax_behavior: TaxBehavior | None = Field(
         description=(
-            "Polar tax after the switch. Defaults from the source when Stripe "
+            "Repalis tax after the switch. Defaults from the source when Stripe "
             "was collecting tax on an inclusive or exclusive price; otherwise "
             "inclusive. None for non-subscription rows."
         ),
@@ -193,7 +193,7 @@ class MerchantMigrationRecordItem(Schema):
     discount_code: str | None = Field(
         description=(
             "The checkout code of the coupon Repalis will keep on this subscription. "
-            "None when there is no coupon, or the coupon has no Polar-valid code."
+            "None when there is no coupon, or the coupon has no Repalis-valid code."
         ),
     )
     status: PrecheckRecordStatus = Field(
@@ -225,7 +225,7 @@ class MerchantMigrationRecordItem(Schema):
     )
     cutover_status: MerchantMigrationCutoverStatus | None = Field(
         description=(
-            "What the switch did with this subscription: `moved` (Polar bills it "
+            "What the switch did with this subscription: `moved` (Repalis bills it "
             "now), `skipped` (left on the source, see `cutover_error`) or `failed` "
             "(retryable). Null when the switch hasn't reached it, and for every "
             "entity other than subscriptions."
@@ -242,7 +242,7 @@ class MerchantMigrationRecordItem(Schema):
     )
     has_payment_method: bool | None = Field(
         description=(
-            "Whether Polar already has a card to charge for this subscription's "
+            "Whether Repalis already has a card to charge for this subscription's "
             "customer. Null for non-subscription rows."
         ),
     )
@@ -254,7 +254,7 @@ class MerchantMigrationRecordItem(Schema):
     )
     dependencies_imported: bool | None = Field(
         description=(
-            "Whether this subscription's customer and product are already in Polar, "
+            "Whether this subscription's customer and product are already in Repalis, "
             "so it can be created at cutover. Null for non-subscription rows."
         ),
     )
@@ -270,7 +270,7 @@ class MerchantMigrationRecordTaxUpdate(Schema):
     model_config = ConfigDict(extra="forbid")
 
     tax_behavior: TaxBehavior = Field(
-        description="Polar tax after the switch: `inclusive` or `exclusive`.",
+        description="Repalis tax after the switch: `inclusive` or `exclusive`.",
     )
 
 
@@ -308,7 +308,7 @@ type MerchantMigrationRecordUpdate = (
 class MerchantMigrationRecordSummaryEntity(PrecheckEntitySummary):
     """The pre-check's per-entity counts, plus where the ledger has got to."""
 
-    imported: int = Field(description="How many are already in Polar.")
+    imported: int = Field(description="How many are already in Repalis.")
     ready: int = Field(
         description="How many subscriptions are prepared and ready to switch."
     )
@@ -358,7 +358,7 @@ class MerchantMigrationImportRequest(Schema):
 
 class MerchantMigrationImportResult(Schema):
     entity: PrecheckEntity = Field(description="The source entity type.")
-    imported: int = Field(description="How many were created or reused in Polar.")
+    imported: int = Field(description="How many were created or reused in Repalis.")
     skipped: int = Field(
         description="How many were left on the source (not importable)."
     )
@@ -379,13 +379,13 @@ class MerchantMigrationCutoverRequest(Schema):
         description=(
             "Subscription ledger record ids to switch (from the records listing). "
             "When omitted, every subscription whose customer and product are in "
-            "Polar is switched (subject to `exclude_record_ids`)."
+            "Repalis is switched (subject to `exclude_record_ids`)."
         ),
     )
     exclude_record_ids: list[UUID4] | None = Field(
         default=None,
         description=(
-            "Switch every subscription whose customer and product are in Polar "
+            "Switch every subscription whose customer and product are in Repalis "
             "except these — the opt-out selection for large catalogs. Ignored when "
             "`record_ids` is set."
         ),
@@ -399,7 +399,7 @@ class MerchantMigrationCutoverReport(Schema):
     running: bool = Field(description="Whether a switch run is in progress.")
     completed: bool = Field(description="Whether the last switch run has finished.")
     total: int = Field(
-        description="Subscriptions whose customer and product are in Polar."
+        description="Subscriptions whose customer and product are in Repalis."
     )
     pending: int = Field(description="Not switched yet.")
     moved: int = Field(description="Now billed by Repalis.")
@@ -445,7 +445,7 @@ class MerchantMigrationOperation(Schema):
     """Background work for the current migration step."""
 
     status: MerchantMigrationOperationStatus = Field(
-        description="pending or running while Polar works; done or failed when it finishes."
+        description="pending or running while Repalis works; done or failed when it finishes."
     )
     kind: MerchantMigrationOperationKind | None = Field(
         description=(

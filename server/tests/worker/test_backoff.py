@@ -238,7 +238,7 @@ class TestBuildRetryScheduleName:
         first = _sqs.build_retry_schedule_name("arn:q", "msg-1", 3)
         second = _sqs.build_retry_schedule_name("arn:q", "msg-1", 3)
         assert first == second
-        assert first.startswith("polar-retry-")
+        assert first.startswith("repalis-retry-")
         assert len(first) <= 64
 
     def test_varies_by_input(self) -> None:
@@ -254,20 +254,20 @@ class TestScheduleDelayedMessage:
 
         _sqs.schedule_delayed_message(
             client,
-            "arn:aws:sqs:us-east-2:123456789012:polar-tasks-default",
+            "arn:aws:sqs:us-east-2:123456789012:repalis-tasks-default",
             "arn:aws:iam::123456789012:role/scheduler",
             '{"actor":"dummy"}',
             48 * 3600,
-            "polar-retry-abc123",
+            "repalis-retry-abc123",
         )
 
         client.create_schedule.assert_called_once()
         kwargs = client.create_schedule.call_args.kwargs
-        assert kwargs["Name"] == "polar-retry-abc123"
+        assert kwargs["Name"] == "repalis-retry-abc123"
         assert kwargs["ScheduleExpression"].startswith("at(")
         assert kwargs["ActionAfterCompletion"] == "DELETE"
         assert kwargs["Target"] == {
-            "Arn": "arn:aws:sqs:us-east-2:123456789012:polar-tasks-default",
+            "Arn": "arn:aws:sqs:us-east-2:123456789012:repalis-tasks-default",
             "RoleArn": "arn:aws:iam::123456789012:role/scheduler",
             "Input": '{"actor":"dummy"}',
         }
@@ -280,7 +280,7 @@ class TestScheduleDelayedMessage:
         )
 
         _sqs.schedule_delayed_message(
-            client, "arn:q", "arn:role", "{}", 48 * 3600, "polar-retry-abc123"
+            client, "arn:q", "arn:role", "{}", 48 * 3600, "repalis-retry-abc123"
         )
 
     def test_other_client_error_is_raised(self, mocker: MockerFixture) -> None:
@@ -292,7 +292,7 @@ class TestScheduleDelayedMessage:
 
         with pytest.raises(ClientError):
             _sqs.schedule_delayed_message(
-                client, "arn:q", "arn:role", "{}", 48 * 3600, "polar-retry-abc123"
+                client, "arn:q", "arn:role", "{}", 48 * 3600, "repalis-retry-abc123"
             )
 
 
@@ -304,12 +304,12 @@ class TestSendToDlq:
 
         _sqs.send_to_dlq(
             client,
-            "arn:aws:sqs:us-east-2:123456789012:polar-tasks-default",
+            "arn:aws:sqs:us-east-2:123456789012:repalis-tasks-default",
             '{"actor":"dummy"}',
         )
 
         client.get_queue_url.assert_called_once_with(
-            QueueName="polar-tasks-default-dlq"
+            QueueName="repalis-tasks-default-dlq"
         )
         client.send_message.assert_called_once_with(
             QueueUrl="https://sqs/queue-dlq", MessageBody='{"actor":"dummy"}'

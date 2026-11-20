@@ -269,7 +269,7 @@ def test_get_changes(
     organization: Organization,
     identities: int,
 ) -> None:
-    # Synced and older than the lookback: each snapshot reads it as Polar's.
+    # Synced and older than the lookback: each snapshot reads it as Repalis's.
     bucket_start = (
         get_reducer_bucket_start(utc_now()) - SYNCED_LOOKBACK - REDUCER_BUCKET_SIZE
     )

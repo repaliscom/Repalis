@@ -54,7 +54,7 @@ ERROR_BUDGET_REMAINING_QUERY = """
 
 ENDPOINT_P99_QUERY = """
 histogram_quantile(0.99, sum by (endpoint, method, le) (
-  rate(polar_http_request_duration_seconds_bucket{env="$env", endpoint=~$endpoints}[$range])
+  rate(repalis_http_request_duration_seconds_bucket{env="$env", endpoint=~$endpoints}[$range])
 ))
 """
 

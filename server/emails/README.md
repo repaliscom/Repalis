@@ -20,10 +20,10 @@ This will start a development server at [http://localhost:3000](http://localhost
 
 ## How to create a new email?
 
-1. On Python's side, in `server/polar/email/schemas.py`, add a new item to `EmailTemplate` and implement a Pydantic schema to describe the props of the email.
+1. On Python's side, in `server/repalis/email/schemas.py`, add a new item to `EmailTemplate` and implement a Pydantic schema to describe the props of the email.
 
 ```python
-# server/polar/email/schemas.py
+# server/repalis/email/schemas.py
 
 
 class EmailTemplate(StrEnum):

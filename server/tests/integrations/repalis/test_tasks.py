@@ -107,7 +107,7 @@ class TestAddMember:
         mocker: MockerFixture,
         plain_service_mock: MagicMock,
     ) -> None:
-        fake_customer = MagicMock(id="polar-customer-123")
+        fake_customer = MagicMock(id="repalis-customer-123")
         client = AsyncMock(spec=RepalisSelfClient)
         client.get_customer_by_external_id.return_value = fake_customer
         mocker.patch("repalis.integrations.repalis.tasks.get_client", return_value=client)
@@ -121,7 +121,7 @@ class TestAddMember:
 
         client.get_customer_by_external_id.assert_called_once_with("org-123")
         client.add_member.assert_called_once_with(
-            customer_id="polar-customer-123",
+            customer_id="repalis-customer-123",
             email="user@example.com",
             name="User Example",
             external_id="user-123",
@@ -227,7 +227,7 @@ class TestRemoveMember:
             tenant_external_id="org-123",
         )
 
-    async def test_plain_unlink_retried_after_polar_removal(
+    async def test_plain_unlink_retried_after_repalis_removal(
         self,
         mocker: MockerFixture,
         plain_service_mock: MagicMock,

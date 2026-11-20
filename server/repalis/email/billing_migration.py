@@ -20,9 +20,9 @@ async def previous_billing_provider_for_notice(
         return None
 
     orders = OrderRepository.from_session(session)
-    polar_orders = await orders.count_subscription_cycle_orders(subscription.id)
+    repalis_orders = await orders.count_subscription_cycle_orders(subscription.id)
     if (
-        template in PRE_BILLING_NOTICE_TEMPLATES and polar_orders > 0
-    ) or polar_orders > 1:
+        template in PRE_BILLING_NOTICE_TEMPLATES and repalis_orders > 0
+    ) or repalis_orders > 1:
         return None
     return MerchantMigrationSourcePlatform.stripe.label

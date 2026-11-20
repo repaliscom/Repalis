@@ -16,14 +16,14 @@ log: Logger = structlog.get_logger()
 QUEUE_NAMES = {queue.value for queue in TaskQueue}
 
 QUEUE_SIZE = Gauge(
-    "polar_queue_size",
+    "repalis_queue_size",
     "Number of messages in the queue",
     ["queue"],
     multiprocess_mode="mostrecent",
 )
 
 QUEUE_OLDEST_MESSAGE_AGE = Gauge(
-    "polar_queue_oldest_message_age_seconds",
+    "repalis_queue_oldest_message_age_seconds",
     "Age of the oldest message in the queue in seconds",
     ["queue"],
     multiprocess_mode="mostrecent",

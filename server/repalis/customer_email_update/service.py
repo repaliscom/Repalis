@@ -25,7 +25,7 @@ from .repository import CustomerEmailVerificationRepository
 
 log = structlog.get_logger()
 
-TOKEN_PREFIX = "polar_cev_"
+TOKEN_PREFIX = "repalis_cev_"
 
 
 class CustomerEmailUpdateError(RepalisError): ...

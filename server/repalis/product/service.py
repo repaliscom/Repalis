@@ -272,7 +272,7 @@ class ProductService:
         await risk_signal_service.record(
             session,
             product.organization,
-            source=OrganizationRiskSignal.Source.POLAR,
+            source=OrganizationRiskSignal.Source.REPALIS,
             type=(
                 OrganizationRiskSignal.Type.FLAGGED_PRODUCT_NAME_KEPT
                 if kept

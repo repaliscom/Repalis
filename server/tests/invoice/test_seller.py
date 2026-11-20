@@ -31,7 +31,7 @@ def configured_vat_numbers(mocker: MockerFixture) -> None:
     )
 
 
-class TestGetPolarVatNumber:
+class TestGetRepalisVatNumber:
     def test_none_country(self) -> None:
         assert get_repalis_vat_number(None) is None
 
@@ -45,7 +45,7 @@ class TestGetPolarVatNumber:
         assert get_repalis_vat_number("JP") is None
 
 
-class TestGetPolarVatLabel:
+class TestGetRepalisVatLabel:
     def test_none_address(self) -> None:
         assert get_repalis_vat_label(None) == "VAT"
 
@@ -70,7 +70,7 @@ class TestGetPolarVatLabel:
         assert get_repalis_vat_label(_address("NZ")) == "GST"
 
 
-class TestGetPolarAdditionalInfo:
+class TestGetRepalisAdditionalInfo:
     def test_mapped_country(self) -> None:
         info = get_repalis_additional_info(_address("FR"))
         assert info == "[support@repalis.com](mailto:support@repalis.com)\nVAT: EU372061545"

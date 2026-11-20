@@ -3475,7 +3475,7 @@ async def edit_organization(
                 update_dict=form_dict,
             )
 
-            # Keep the Polar-for-Polar billing customer's slug in sync with the
+            # Keep the Repalis-for-Repalis billing customer's slug in sync with the
             # organization slug (the org slug is the customer's slug).
             if slug_changed:
                 repalis_self_service.enqueue_update_customer_slug(

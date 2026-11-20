@@ -142,7 +142,7 @@ class TestSendChargebackPreventionNotice:
             subtotal_amount=1000,
             tax_amount=250,
         )
-        order.invoice_number = "POLAR-2026-00042"
+        order.invoice_number = "REPALIS-2026-00042"
         await save_fixture(order)
 
         refund = await create_refund(
@@ -161,7 +161,7 @@ class TestSendChargebackPreventionNotice:
         email = call.args[0]
         assert isinstance(email, ChargebackPreventionRefundEmail)
         assert email.props.email == owner.email
-        assert email.props.order_number == "POLAR-2026-00042"
+        assert email.props.order_number == "REPALIS-2026-00042"
         assert email.props.customer_name == customer.display_name
         assert email.props.amount == refund.total_amount
         assert email.props.formatted_amount == format_currency(
@@ -169,7 +169,7 @@ class TestSendChargebackPreventionNotice:
         )
         assert call.kwargs["to_email_addr"] == owner.email
         assert (
-            call.kwargs["subject"] == "Chargeback prevented for order POLAR-2026-00042"
+            call.kwargs["subject"] == "Chargeback prevented for order REPALIS-2026-00042"
         )
 
     async def test_order_number_falls_back_to_id(

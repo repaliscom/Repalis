@@ -127,7 +127,7 @@ async def notify_waiting_for_ops(
         redis,
         f"merchant_migration:slack:waiting_for_ops:{migration.id}:{step.key}",
         _migration_payload(
-            ":hourglass_flowing_sand: Merchant migration waiting for Polar Ops",
+            ":hourglass_flowing_sand: Merchant migration waiting for Repalis Ops",
             migration,
             step=step,
         ),

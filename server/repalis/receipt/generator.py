@@ -125,7 +125,7 @@ class Receipt(Invoice):
             paid_at=paid_at,
             seller_name=settings.INVOICES_NAME,
             organization_name=order.organization.name,
-            statement_descriptor=f"POLAR*{order.statement_descriptor_suffix}",
+            statement_descriptor=f"REPALIS*{order.statement_descriptor_suffix}",
             seller_address=settings.INVOICES_ADDRESS,
             seller_additional_info=get_repalis_additional_info(order.billing_address),
             customer_name=customer_name,
@@ -285,7 +285,7 @@ class ReceiptGenerator(InvoiceGenerator):
 
     def set_metadata(self) -> None:
         self.set_title(f"Receipt {self.data.number}")
-        self.set_creator("Polar")
+        self.set_creator("Repalis")
         self.set_author(settings.INVOICES_NAME)
         self.set_creation_date(utc_now())
 

@@ -376,7 +376,7 @@ def version[**P, R](
     return decorator
 
 
-VERSION_HEADER = "Polar-Version"
+VERSION_HEADER = "Repalis-Version"
 
 
 class APIVersionMiddleware:

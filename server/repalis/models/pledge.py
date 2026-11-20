@@ -18,28 +18,28 @@ from .user import User
 
 
 class PledgeState(StrEnum):
-    # Initiated by customer. Polar has not received money yet.
+    # Initiated by customer. Repalis has not received money yet.
     initiated = "initiated"
 
     # The pledge has been created.
-    # Type=pay_upfront: polar has recevied the money
-    # Type=pay_on_completion: polar has not recevied the money
+    # Type=pay_upfront: repalis has recevied the money
+    # Type=pay_on_completion: repalis has not recevied the money
     created = "created"
 
     # The fix was confirmed, and rewards have been created.
     # See issue rewards to track payment status.
     #
-    # Type=pay_upfront: polar has recevied the money
-    # Type=pay_on_completion: polar has recevied the money
+    # Type=pay_upfront: repalis has recevied the money
+    # Type=pay_on_completion: repalis has recevied the money
     pending = "pending"
 
     # The pledge was refunded in full before being paid out.
     refunded = "refunded"
-    # The pledge was disputed by the customer (via Polar)
+    # The pledge was disputed by the customer (via Repalis)
     disputed = "disputed"
     # The charge was disputed by the customer (via Stripe, aka "chargeback")
     charge_disputed = "charge_disputed"
-    # Manually cancalled by a Polar admin.
+    # Manually cancalled by a Repalis admin.
     cancelled = "cancelled"
 
     # Happy paths:

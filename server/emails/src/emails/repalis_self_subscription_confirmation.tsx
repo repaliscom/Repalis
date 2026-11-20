@@ -4,7 +4,7 @@ import type { schemas } from '../types'
 export function RepalisSelfSubscriptionConfirmation({
   email,
   product_name,
-}: schemas['PolarSelfSubscriptionConfirmationProps']) {
+}: schemas['RepalisSelfSubscriptionConfirmationProps']) {
   return (
     <WrapperRepalis preview="We're happy to have you selling on Repalis!">
       <Intro headline="Thanks for choosing Repalis!">
@@ -22,6 +22,6 @@ export function RepalisSelfSubscriptionConfirmation({
 RepalisSelfSubscriptionConfirmation.PreviewProps = {
   email: 'john@example.com',
   product_name: 'Repalis Pro',
-} satisfies schemas['PolarSelfSubscriptionConfirmationProps']
+} satisfies schemas['RepalisSelfSubscriptionConfirmationProps']
 
 export default RepalisSelfSubscriptionConfirmation

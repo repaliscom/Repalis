@@ -37,7 +37,7 @@ class MerchantMigrationCutoverStatus(StrEnum):
     other record type keeps forever.
     """
 
-    # Polar bills it from now on, and the source subscription is stopped.
+    # Repalis bills it from now on, and the source subscription is stopped.
     moved = "moved"
     # Deliberately left on the source, with a reason the merchant can act on.
     skipped = "skipped"
@@ -46,7 +46,7 @@ class MerchantMigrationCutoverStatus(StrEnum):
 
 
 class MerchantMigrationRecord(RecordModel):
-    """One imported thing, mapping a source object to its Polar counterpart.
+    """One imported thing, mapping a source object to its Repalis counterpart.
 
     The idempotency layer: scoped per organization by (type, source_id), so a
     migration can be retried and multiple runs can reuse already-imported
@@ -86,7 +86,7 @@ class MerchantMigrationRecord(RecordModel):
         default=MerchantMigrationRecordStatus.pending,
     )
     source_id: Mapped[str] = mapped_column(String, nullable=False)
-    # The Polar object created or reused for this record, once imported.
+    # The Repalis object created or reused for this record, once imported.
     target_id: Mapped[UUID | None] = mapped_column(Uuid, nullable=True, default=None)
     # Normalized in-memory representation (CanonicalRecord) captured at import.
     canonical: Mapped[dict[str, Any]] = mapped_column(

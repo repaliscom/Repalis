@@ -1,7 +1,7 @@
 """The PAN transfer checklist: moving saved cards onto Repalis's Stripe account.
 
 Moving cards takes days (Stripe to Stripe) or weeks (any other vault), and the work
-is split between the merchant, Polar Ops, Polar itself, Stripe, and the source
+is split between the merchant, Repalis Ops, Repalis itself, Stripe, and the source
 provider. So it's tracked as an ordered checklist: exactly one step is actionable
 at a time, and completing it unblocks the next.
 
@@ -54,7 +54,7 @@ class PanStepOwner(StrEnum):
 class PanStepKind(StrEnum):
     """What the owner has to do, which is what the frontend renders."""
 
-    # Nothing to click: Polar, Stripe or the provider is working.
+    # Nothing to click: Repalis, Stripe or the provider is working.
     auto = "auto"
     # Fill in values we need before the next step can run.
     input = "input"
@@ -427,7 +427,7 @@ def advance(
             step.started_at = utc_now()
         template = templates.get(step.key)
         # No template: the step left the checklist. Complete it so stored
-        # migrations don't stall on a key Polar no longer asks anyone to do.
+        # migrations don't stall on a key Repalis no longer asks anyone to do.
         if template is not None and not template.auto_complete:
             return steps
         _settle(step, PanStepActor.system)

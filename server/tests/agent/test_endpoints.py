@@ -34,8 +34,8 @@ from tests.fixtures.auth import make_session_stale
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_agent
 
-CLAIM_TOKEN = "polar_act_claim"
-LINK_TOKEN = "polar_acl_link"
+CLAIM_TOKEN = "repalis_act_claim"
+LINK_TOKEN = "repalis_acl_link"
 CODE = "amber-river-lemon"
 
 
@@ -199,7 +199,7 @@ class TestStartClaim:
         link_token = claim_attempt["verification_uri"].removeprefix(
             f"{settings.FRONTEND_BASE_URL}/agent/claim?token="
         )
-        assert link_token.startswith("polar_acl_")
+        assert link_token.startswith("repalis_acl_")
 
         agent = await AgentRepository.from_session(session).get_by_id(claim_agent.id)
         assert agent is not None
@@ -234,7 +234,7 @@ class TestPreviewClaim:
         assert json["organization"]["slug"] == organization.slug
 
     async def test_unknown_link(self, client: AsyncClient) -> None:
-        response = await client.get("/v1/agent/claim/polar_acl_unknown/preview")
+        response = await client.get("/v1/agent/claim/repalis_acl_unknown/preview")
 
         assert response.status_code == 404
 

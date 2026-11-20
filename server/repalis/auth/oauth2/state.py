@@ -16,7 +16,7 @@ from repalis.kit.utils import utc_now
 from repalis.models import OAuth2State
 from repalis.postgres import AsyncSession, get_db_session
 
-TOKEN_PREFIX = "polar_oauth2_"
+TOKEN_PREFIX = "repalis_oauth2_"
 
 
 class OAuth2StateService(OAuth2StateServiceBase):

@@ -39,7 +39,7 @@ async def test_create_order_invoice(
             postal_code="90001",
             country=CountryAlpha2("US"),
         ),
-        invoice_number="POLAR-0001",
+        invoice_number="REPALIS-0001",
     )
 
     s3_stub.add_response(
@@ -47,7 +47,7 @@ async def test_create_order_invoice(
         {},
         {
             "Bucket": settings.S3_CUSTOMER_INVOICES_BUCKET_NAME,
-            "Key": "Invoice-POLAR-0001.pdf",
+            "Key": "Invoice-REPALIS-0001.pdf",
             "ContentType": "application/pdf",
             "Body": ANY,
         },
@@ -55,7 +55,7 @@ async def test_create_order_invoice(
 
     invoice_path = await invoice_service.create_order_invoice(order)
 
-    assert invoice_path == "Invoice-POLAR-0001.pdf"
+    assert invoice_path == "Invoice-REPALIS-0001.pdf"
 
 
 @pytest.mark.anyio

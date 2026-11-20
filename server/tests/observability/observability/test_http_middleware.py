@@ -1,6 +1,6 @@
 """Tests for HTTP metrics middleware.
 
-These tests are isolated from the main Polar infrastructure to avoid
+These tests are isolated from the main Repalis infrastructure to avoid
 database and service connections during unit testing.
 """
 

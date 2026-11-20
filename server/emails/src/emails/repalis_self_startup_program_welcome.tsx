@@ -11,7 +11,7 @@ export function RepalisSelfStartupProgramWelcome({
   email,
   organization_name,
   billing_url,
-}: schemas['PolarSelfStartupProgramWelcomeProps']) {
+}: schemas['RepalisSelfStartupProgramWelcomeProps']) {
   return (
     <WrapperRepalis
       preview={`${organization_name} is in the Repalis Startup Program. 12 months free on Scale.`}
@@ -48,6 +48,6 @@ RepalisSelfStartupProgramWelcome.PreviewProps = {
   email: 'founder@acme.ai',
   organization_name: 'Acme AI',
   billing_url: 'https://repalis.com/dashboard/acme/settings/billing/change-plan',
-} satisfies schemas['PolarSelfStartupProgramWelcomeProps']
+} satisfies schemas['RepalisSelfStartupProgramWelcomeProps']
 
 export default RepalisSelfStartupProgramWelcome

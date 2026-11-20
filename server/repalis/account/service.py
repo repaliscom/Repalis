@@ -45,7 +45,7 @@ class AccountService:
         repository = AccountRepository.from_session(session)
         return await repository.create(
             Account(
-                currency="usd",  # FIXME: main Polar currency
+                currency="usd",  # FIXME: main Repalis currency
                 _platform_fee_percent=settings.PLATFORM_FEE_BASIS_POINTS,
                 _platform_fee_fixed=settings.PLATFORM_FEE_FIXED,
                 _platform_subscription_fee_percent=settings.PLATFORM_SUBSCRIPTION_FEE_BASIS_POINTS,

@@ -28,7 +28,7 @@ def _environment_banner() -> None:
 def title(title_parts: Sequence[str]) -> Generator[None]:
     with tag.title(id="page_title", hx_swap_oob="true"):
         text(
-            " · ".join((*title_parts, "Polar Backoffice")),
+            " · ".join((*title_parts, "Repalis Backoffice")),
         )
     yield
 

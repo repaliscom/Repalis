@@ -16,33 +16,33 @@ from prometheus_client import (
 
 # Task metrics
 TASK_EXECUTIONS = Counter(
-    "polar_task_executions_total",
+    "repalis_task_executions_total",
     "Total number of task executions",
     ["queue", "task_name", "status"],
 )
 
 TASK_DURATION = Histogram(
-    "polar_task_duration_seconds",
+    "repalis_task_duration_seconds",
     "Task execution duration in seconds",
     ["queue", "task_name"],
     buckets=(0.1, 0.25, 0.5, 1.0, 2.5, 5.0, 10.0, 30.0, 60.0, 120.0),
 )
 
 TASK_RETRIES = Counter(
-    "polar_task_retries_total",
+    "repalis_task_retries_total",
     "Total number of task retries",
     ["queue", "task_name"],
 )
 
 # Debounce metrics
 TASK_DEBOUNCED = Counter(
-    "polar_task_debounced_total",
+    "repalis_task_debounced_total",
     "Total number of debounced tasks",
     ["queue", "task_name"],
 )
 
 TASK_DEBOUNCE_DELAY = Histogram(
-    "polar_task_debounce_delay_seconds",
+    "repalis_task_debounce_delay_seconds",
     "Debounce delay in seconds (time between first enqueue and execution)",
     ["queue", "task_name"],
     buckets=(1.0, 5.0, 10.0, 30.0, 60.0, 120.0, 300.0, 600.0, 1800.0, 3600.0),
@@ -50,13 +50,13 @@ TASK_DEBOUNCE_DELAY = Histogram(
 
 # Staged events mover metrics
 STAGED_EVENTS_BACKLOG = Gauge(
-    "polar_staged_events_backlog",
+    "repalis_staged_events_backlog",
     "Number of events in staged_events waiting to be moved to events",
     multiprocess_mode="mostrecent",
 )
 
 STAGED_EVENTS_OLDEST_AGE = Gauge(
-    "polar_staged_events_oldest_age_seconds",
+    "repalis_staged_events_oldest_age_seconds",
     "Age of the oldest event in staged_events in seconds",
     multiprocess_mode="mostrecent",
 )

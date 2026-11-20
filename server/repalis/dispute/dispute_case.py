@@ -22,7 +22,7 @@ from repalis.support_case.service import support_case as support_case_service
 from repalis.worker import enqueue_job
 
 DISPUTE_GREETING = (
-    "Thanks for submitting your response. The Polar team will review your evidence "
+    "Thanks for submitting your response. The Repalis team will review your evidence "
     "and submit it to the card network on your behalf. We'll keep you posted "
     "here as the dispute progresses, or reach out if we need more information."
 )
@@ -145,7 +145,7 @@ class DisputeCaseService:
         *,
         deadline: datetime,
     ) -> SupportCaseMessage:
-        """Warn that Polar plans to concede this dispute, and when.
+        """Warn that Repalis plans to concede this dispute, and when.
 
         The deadline lives in the body, not in client-side copy: the wait is tunable.
         """

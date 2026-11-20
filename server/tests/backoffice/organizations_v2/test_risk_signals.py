@@ -111,7 +111,7 @@ class TestRenderRiskSignalsCard:
 
     def test_polar_signal_shows_its_description_and_level(self) -> None:
         signal = OrganizationRiskSignal(
-            source=OrganizationRiskSignal.Source.POLAR,
+            source=OrganizationRiskSignal.Source.REPALIS,
             type=OrganizationRiskSignal.Type.FRAUDULENT_WEBSITE,
             risk_level=OrganizationRiskSignal.RiskLevel.NORMAL,
             description="Detected by our own check.",

@@ -26,7 +26,7 @@ from repalis.postgres import AsyncSession, get_db_session
 from .factors import get_factors, get_org_factors
 from .schemas import AuthenticationSession as AuthenticationSessionSchema
 
-TOKEN_PREFIX = "polar_auth_session_"
+TOKEN_PREFIX = "repalis_auth_session_"
 
 
 class AuthenticationSessionException(RepalisError): ...

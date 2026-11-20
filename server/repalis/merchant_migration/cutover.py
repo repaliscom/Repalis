@@ -90,7 +90,7 @@ _SOURCE_CANCELED = (
 )
 _SOURCE_NOT_LIVE = (
     "The source reports it as `{status}`, which isn't a healthy subscription "
-    "Polar can take billing over from."
+    "Repalis can take billing over from."
 )
 _PLAN_CHANGED = (
     "The plan changed on the source since the import, so the imported "
@@ -101,7 +101,7 @@ _DISCOUNT_CHANGED = (
     "billing over at a different price. Re-run the import for this customer."
 )
 _ADD_ON_DISCOUNT_RESTRICTED = (
-    "This subscription's coupon only applies to some products, and Polar would "
+    "This subscription's coupon only applies to some products, and Repalis would "
     "discount the plan and its add-on together. It stays on the source rather "
     "than renewing at a different price."
 )
@@ -126,9 +126,9 @@ _NOT_COPYABLE = (
     "renewal fails and goes to dunning unless the customer re-enters their "
     "billing details first."
 )
-_NOT_PAUSED = "It isn't paused in Polar any more, so it was left alone."
+_NOT_PAUSED = "It isn't paused in Repalis any more, so it was left alone."
 _CARD_EXPIRED = (
-    "The copied card has expired, so the first Polar renewal will fail and go to "
+    "The copied card has expired, so the first Repalis renewal will fail and go to "
     "dunning. The customer needs to enter a new one."
 )
 _UNREADABLE = (
@@ -142,7 +142,7 @@ _NOT_IMPORTED = (
     "the import for this customer."
 )
 _STOPPED_NOT_ACTIVATED = (
-    "It was cancelled on the source but couldn't be switched on in Polar, so "
+    "It was cancelled on the source but couldn't be switched on in Repalis, so "
     "nobody is billing the customer. Retry the move to switch it on."
 )
 _STOP_UNCONFIRMED = (
@@ -163,7 +163,7 @@ _INVOICE_UNPAID = (
     "lose that payment, so retry once the source has collected it."
 )
 _RENEWALS_DISABLED = (
-    "Your organization can't renew subscriptions yet, so Polar wouldn't bill "
+    "Your organization can't renew subscriptions yet, so Repalis wouldn't bill "
     "this one after taking it over. It stays on the source until your account "
     "is active."
 )
@@ -190,10 +190,10 @@ def _imported_discount_at(
     product: Product,
     anchor_day: int | None,
 ) -> ImportedDiscount:
-    """The ``discount_applied_at`` that makes Polar discount the renewals the
+    """The ``discount_applied_at`` that makes Repalis discount the renewals the
     source still would.
 
-    Polar counts a discount from the start of the first period it discounted.
+    Repalis counts a discount from the start of the first period it discounted.
     The source doesn't: a ``once`` coupon still attached hasn't discounted an
     invoice yet, and a ``repeating`` one discounts every invoice before
     ``start + N months``, wherever that start falls in the period.
@@ -256,7 +256,7 @@ def _fail(reason: str) -> CutoverOutcome:
 def _ends_at_period_end(
     source: CanonicalSubscription, staged: CanonicalSubscription | None
 ) -> bool:
-    """Whether Polar should keep a scheduled end instead of renewing.
+    """Whether Repalis should keep a scheduled end instead of renewing.
 
     The live source wins. Stopping it clears Stripe's flag, so the stop comment
     records the value and a retry reads that (``cancel_at_period_end_known``).
@@ -702,7 +702,7 @@ class SubscriptionCutover:
 
         Usually a previous run finishing twice, but a customer can also resume
         from their portal, and then both sides bill them. An unpaid source
-        invoice doesn't wait here: Polar already bills that period.
+        invoice doesn't wait here: Repalis already bills that period.
         """
         source = await self.adapter.get_subscription(record.source_id)
         if source is not None and source.status != CanonicalSubscriptionStatus.canceled:
@@ -946,7 +946,7 @@ class SubscriptionCutover:
         end = self._period_end(source, subscription)
         start = source.current_period_start
         if start is None or start >= end:
-            # Polar's own start belongs to whichever period the import caught,
+            # Repalis's own start belongs to whichever period the import caught,
             # which can be renewals behind this end. Reuse its length, not it.
             length = subscription.current_period_end - subscription.current_period_start
             start = end - max(length, _MINIMUM_PERIOD)
@@ -973,7 +973,7 @@ class SubscriptionCutover:
         return next_end <= now
 
     def _trial_end(self, source: CanonicalSubscription) -> datetime | None:
-        """Keep a running trial running: Polar bills at its end, not today.
+        """Keep a running trial running: Repalis bills at its end, not today.
 
         Off the date, not the status: a retry reads the source we cancelled
         ourselves, which says `canceled` while the trial is still running.

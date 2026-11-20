@@ -66,7 +66,7 @@ def _encode_bytes_safely(value: bytes) -> str:
     return value.decode("utf-8", errors="replace")
 
 
-async def polar_redirection_exception_handler(
+async def repalis_redirection_exception_handler(
     request: Request, exc: Exception
 ) -> RedirectResponse:
     assert isinstance(exc, RepalisRedirectionError)
@@ -82,7 +82,7 @@ async def polar_redirection_exception_handler(
 
 def add_exception_handlers(app: FastAPI) -> None:
     app.add_exception_handler(
-        RepalisRedirectionError, polar_redirection_exception_handler
+        RepalisRedirectionError, repalis_redirection_exception_handler
     )
 
     app.add_exception_handler(

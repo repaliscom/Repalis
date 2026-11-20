@@ -203,13 +203,13 @@ def get_openapi(
                     "url": "https://api.repalis.com",
                     "description": "Production environment",
                     "x-speakeasy-server-id": "production",
-                    "x-polar-environment": "production",
+                    "x-repalis-environment": "production",
                 },
                 {
                     "url": "https://sandbox-api.repalis.com",
                     "description": "Sandbox environment",
                     "x-speakeasy-server-id": "sandbox",
-                    "x-polar-environment": "sandbox",
+                    "x-repalis-environment": "sandbox",
                 },
             ],
         )

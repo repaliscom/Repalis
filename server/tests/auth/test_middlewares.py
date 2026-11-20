@@ -396,7 +396,7 @@ class TestGetAuthSubjectRequestedOrganization:
         organization: Organization,
         user_organization: UserOrganization,
     ) -> None:
-        access_token = "polar_pat_test"
+        access_token = "repalis_pat_test"
         await save_fixture(
             PersonalAccessToken(
                 comment="test",

@@ -5,8 +5,8 @@ These metrics track checkout creation and success rates globally,
 enabling Grafana ML-based anomaly detection for payment flow health.
 
 Metrics:
-- polar_checkout_created_total: Counter of checkouts created
-- polar_checkout_succeeded_total: Counter of successful checkouts
+- repalis_checkout_created_total: Counter of checkouts created
+- repalis_checkout_succeeded_total: Counter of successful checkouts
 """
 
 import os
@@ -22,11 +22,11 @@ os.environ.setdefault("PROMETHEUS_MULTIPROC_DIR", str(prometheus_dir))
 from prometheus_client import Counter
 
 CHECKOUT_CREATED_TOTAL = Counter(
-    "polar_checkout_created_total",
+    "repalis_checkout_created_total",
     "Total number of checkouts created",
 )
 
 CHECKOUT_SUCCEEDED_TOTAL = Counter(
-    "polar_checkout_succeeded_total",
+    "repalis_checkout_succeeded_total",
     "Total number of checkouts that succeeded (payment completed)",
 )

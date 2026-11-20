@@ -22,7 +22,7 @@ Defaults to a dry-run; pass --execute to actually write.
 
 Options:
     --execute                actually assign the owner (default: dry-run)
-    --sync-polar-for-polar   also sync the new owner's role on Repalis's own
+    --sync-repalis-for-repalis   also sync the new owner's role on Repalis's own
                              self-customer (mirrors organization.change_owner)
     --yes                    skip the confirmation prompt
 """
@@ -61,13 +61,13 @@ def assign_owner(
     execute: bool = typer.Option(
         False, "--execute", help="Actually assign the owner (default: dry-run)."
     ),
-    sync_polar_for_polar: bool = typer.Option(
+    sync_repalis_for_repalis: bool = typer.Option(
         False,
-        "--sync-polar-for-polar",
+        "--sync-repalis-for-repalis",
         help=(
             "Also sync the new owner's role on Repalis's own self-customer, "
             "mirroring organization.change_owner. Fails if the org has no "
-            "Polar self-customer/member."
+            "Repalis self-customer/member."
         ),
     ),
     yes: bool = typer.Option(False, "--yes", help="Skip the confirmation prompt."),
@@ -152,7 +152,7 @@ def assign_owner(
             plan.append(
                 f"set role of {target_user.email} ({membership.role}) -> owner{suffix}"
             )
-            if sync_polar_for_polar:
+            if sync_repalis_for_repalis:
                 plan.append("sync new owner's role on Repalis's self-customer")
             typer.echo("Plan: " + "; ".join(plan))
 
@@ -185,17 +185,17 @@ def assign_owner(
                 typer.echo(f"Failed to assign owner: {e}")
                 raise typer.Exit(code=1) from e
 
-            if sync_polar_for_polar:
+            if sync_repalis_for_repalis:
                 # Reuse the same sync organization.change_owner performs, so the
                 # owner's role on Repalis's self-customer stays consistent.
                 try:
-                    await organization_service._sync_polar_self_customer_owner(
+                    await organization_service._sync_repalis_self_customer_owner(
                         session,
                         organization_id=organization.id,
                         new_owner_user=target_user,
                     )
                 except CannotChangeOwnerError as e:
-                    typer.echo(f"Polar-for-Polar sync failed: {e}")
+                    typer.echo(f"Repalis-for-Repalis sync failed: {e}")
                     raise typer.Exit(code=1) from e
 
             await session.commit()

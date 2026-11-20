@@ -24,7 +24,7 @@ class OrganizationRiskSignal(RecordModel):
 
     class Source(StrEnum):
         STRIPE = "stripe"
-        POLAR = "polar"
+        REPALIS = "repalis"
 
     class Type(StrEnum):
         FRAUDULENT_WEBSITE = "fraudulent_website"

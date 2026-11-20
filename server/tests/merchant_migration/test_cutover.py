@@ -498,7 +498,7 @@ class TestRun:
             price.product_price_id for price in subscription.subscription_product_prices
         ] == [replaced.id]
 
-    async def test_no_polar_price_at_the_subscriber_amount_stays_on_the_source(
+    async def test_no_repalis_price_at_the_subscriber_amount_stays_on_the_source(
         self,
         mocker: MockerFixture,
         session: AsyncSession,
@@ -1048,7 +1048,7 @@ class TestRun:
         assert subscription.current_period_end == renewal
         assert subscription.payment_method_id is not None
 
-    async def test_finishes_a_paused_polar_subscription_from_a_crashed_cutover(
+    async def test_finishes_a_paused_repalis_subscription_from_a_crashed_cutover(
         self,
         mocker: MockerFixture,
         session: AsyncSession,
@@ -1058,7 +1058,7 @@ class TestRun:
         imported_customer: Customer,
         product: Product,
     ) -> None:
-        """Create-then-activate can leave a paused Polar sub if the job dies."""
+        """Create-then-activate can leave a paused Repalis sub if the job dies."""
         copied_cards(mocker, build_stripe_payment_method(customer="cus_1"))
         subscription = await create_subscription(
             save_fixture,
@@ -1240,7 +1240,7 @@ class TestRun:
             migration.pan_transfer_method, "verify_cards"
         )
         card = await create_payment_method(
-            save_fixture, imported_customer, processor_id="pm_card_polar"
+            save_fixture, imported_customer, processor_id="pm_card_repalis"
         )
         staged = deserialize(pending_record.type, pending_record.canonical)
         assert isinstance(staged, CanonicalSubscription)
@@ -1266,7 +1266,7 @@ class TestRun:
         subscription = await _created(session, pending_record)
         assert subscription.payment_method_id == card.id
 
-    async def test_uses_the_exact_mapped_method_already_in_polar(
+    async def test_uses_the_exact_mapped_method_already_in_repalis(
         self,
         mocker: MockerFixture,
         session: AsyncSession,
@@ -1563,7 +1563,7 @@ class TestRun:
         assert "every period missed since" in (outcome.message or "")
         _assert_left_alone(adapter, pending_record)
 
-    async def test_retry_of_a_lapsed_paused_polar_subscription_still_fails(
+    async def test_retry_of_a_lapsed_paused_repalis_subscription_still_fails(
         self,
         mocker: MockerFixture,
         session: AsyncSession,
@@ -1573,7 +1573,7 @@ class TestRun:
         imported_customer: Customer,
         product: Product,
     ) -> None:
-        """A previous attempt that created Polar then failed lapse must not report moved."""
+        """A previous attempt that created Repalis then failed lapse must not report moved."""
         copied_cards(mocker, build_stripe_payment_method(customer="cus_1"))
         subscription = await create_subscription(
             save_fixture,
@@ -1618,7 +1618,7 @@ class TestRun:
 
 
 @pytest.mark.anyio
-class TestAlreadyLiveOnPolar:
+class TestAlreadyLiveOnRepalis:
     """Reconciling: whatever activated it, the source must not still be billing."""
 
     @pytest.fixture
@@ -1885,7 +1885,7 @@ class TestCancelAtPeriodEnd:
             == CustomerCancellationReason.too_expensive
         )
 
-    async def test_keeps_when_and_why_on_a_paused_polar_subscription(
+    async def test_keeps_when_and_why_on_a_paused_repalis_subscription(
         self,
         mocker: MockerFixture,
         session: AsyncSession,
@@ -2431,7 +2431,7 @@ class TestFailures:
         with pytest.raises(OperationalError):
             await cutover(adapter)
 
-    async def test_polar_subscription_no_longer_exists(
+    async def test_repalis_subscription_no_longer_exists(
         self,
         session: AsyncSession,
         save_fixture: SaveFixture,

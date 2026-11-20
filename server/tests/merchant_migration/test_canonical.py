@@ -438,7 +438,7 @@ class TestCustomerDiscount:
         assert result.customer_discount_source_id == "coupon_cust"
 
 
-class TestPolarDiscountHelpers:
+class TestRepalisDiscountHelpers:
     def test_code_strips_dashes_and_rejects_short(self) -> None:
         assert repalis_discount_code("LAUNCH-10") == "LAUNCH10"
         assert repalis_discount_code("AB") is None

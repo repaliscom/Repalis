@@ -120,7 +120,7 @@ def generate_event_payload(
 
     Note:
         organization_id is not included in the payload because the load test uses
-        organization tokens (polar_oat_*) which infer the organization from the token.
+        organization tokens (repalis_oat_*) which infer the organization from the token.
     """
     if event_name is None:
         event_name = random.choices(EVENT_NAMES, weights=EVENT_NAME_WEIGHTS, k=1)[0]

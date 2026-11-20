@@ -47,9 +47,9 @@ from .words import generate_claim_code
 
 log: Logger = structlog.get_logger()
 
-CLAIM_TOKEN_PREFIX = "polar_act_"
+CLAIM_TOKEN_PREFIX = "repalis_act_"
 CLAIM_TOKEN_TTL = IDENTITY_ASSERTION_TTL
-CLAIM_LINK_TOKEN_PREFIX = "polar_acl_"
+CLAIM_LINK_TOKEN_PREFIX = "repalis_acl_"
 CLAIM_TTL = timedelta(days=7)
 CLAIM_PRODUCTS_LIMIT = 20
 

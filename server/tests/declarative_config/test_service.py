@@ -1777,12 +1777,12 @@ class TestApply:
             redis,
             auth_subject,
             Config.model_validate(
-                {"webhooks": [{**ORDERS_WEBHOOK, "url": "https://example.com/polar"}]}
+                {"webhooks": [{**ORDERS_WEBHOOK, "url": "https://example.com/repalis"}]}
             ),
         )
 
         assert [change.action for change in result.changes] == [ConfigAction.updated]
-        assert endpoint.url == "https://example.com/polar"
+        assert endpoint.url == "https://example.com/repalis"
         assert endpoint.events == ["order.created", "order.paid"]
         assert endpoint.secret == "SECRET"
 
@@ -2841,7 +2841,7 @@ class TestPlan:
                     "webhooks": [
                         {
                             **ORDERS_WEBHOOK,
-                            "url": "https://example.com/polar",
+                            "url": "https://example.com/repalis",
                             "format": "slack",
                             "events": ["order.paid", "order.refunded"],
                         },
@@ -2859,7 +2859,7 @@ class TestPlan:
             (change.field, change.before, change.after)
             for change in plan.changes[0].diff
         ] == [
-            ("url", "https://example.com/webhook", "https://example.com/polar"),
+            ("url", "https://example.com/webhook", "https://example.com/repalis"),
             ("format", WebhookFormat.raw, WebhookFormat.slack),
             (
                 "events",

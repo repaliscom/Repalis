@@ -66,7 +66,7 @@ async def transform_webhook_events(
                         "webhook-signature": signature,
                     }
                     if payload_data.get("triggered"):
-                        event["headers"]["x-polar-triggered"] = "true"
+                        event["headers"]["x-repalis-triggered"] = "true"
                     yield json.dumps(event)
                     continue
         except (json.JSONDecodeError, KeyError) as e:

@@ -303,7 +303,7 @@ class CustomerService:
         )
         return_url = add_query_parameters(
             payment_method_create.return_url,
-            polar_setup_intent=setup_intent.id,
+            repalis_setup_intent=setup_intent.id,
         )
         try:
             setup_intent = await stripe_service.confirm_setup_intent(

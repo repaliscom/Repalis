@@ -1063,7 +1063,7 @@ class TestValidateLicenseKey:
         response = await client.post(
             "/v1/customer-portal/license-keys/validate",
             json={"key": lk.key, "organization_id": str(lk.organization_id)},
-            headers={"Polar-Version": str(V2027_01)},
+            headers={"Repalis-Version": str(V2027_01)},
         )
 
         assert response.status_code == 200
@@ -1110,7 +1110,7 @@ class TestValidateLicenseKey:
         response = await client.post(
             "/v1/customer-portal/license-keys/validate",
             json={"key": lk.key, "organization_id": str(lk.organization_id)},
-            headers={"Polar-Version": str(V2027_01)},
+            headers={"Repalis-Version": str(V2027_01)},
         )
 
         assert response.status_code == 200
@@ -1181,7 +1181,7 @@ class TestActivateLicenseKey:
                 "organization_id": str(lk.organization_id),
                 "label": "test",
             },
-            headers={"Polar-Version": str(V2027_01)},
+            headers={"Repalis-Version": str(V2027_01)},
         )
 
         assert response.status_code == 200

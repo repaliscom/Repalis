@@ -450,7 +450,7 @@ class PayoutService:
                 Payout(
                     processor=payout_account.type,
                     status=PayoutStatus.held if held else PayoutStatus.pending,
-                    currency="usd",  # FIXME: Main Polar currency
+                    currency="usd",  # FIXME: Main Repalis currency
                     amount=balance_amount_after_fees,
                     fees_amount=balance_amount - balance_amount_after_fees,
                     account_currency=payout_account.currency,
@@ -1075,7 +1075,7 @@ class PayoutService:
                 description = ""
                 if transaction.platform_fee_type is not None:
                     if transaction.platform_fee_type == "platform":
-                        description = "Polar fee"
+                        description = "Repalis fee"
                     else:
                         description = (
                             f"Payment processor fee ({transaction.platform_fee_type})"

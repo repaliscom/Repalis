@@ -19,7 +19,7 @@ GOOGLE_DISCOVERY_ENDPOINT = (
 class BackofficeOAuth2StateService(OAuth2StateService):
     def __init__(self, session: AsyncSession) -> None:
         super().__init__(session)
-        self.token_prefix = "polar_backoffice_oauth2_"
+        self.token_prefix = "repalis_backoffice_oauth2_"
         self.hash_secret = get_token_hash(self.token_prefix, secret=self.hash_secret)
 
 

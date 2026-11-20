@@ -45,7 +45,7 @@ class StartupProgramError(RepalisError): ...
 class StartupProgramService:
     """Startup Program logic, driven entirely through the Repalis API.
 
-    All reads and writes against billing-side entities (the Polar-for-Polar
+    All reads and writes against billing-side entities (the Repalis-for-Repalis
     customer and its dedicated discount) go through the SDK client, so the
     API enforces auth scoping, soft-delete filtering, and tenancy. Status is
     derived from the discount's ``redemptions_count``: no discount or 404 =>
@@ -58,7 +58,7 @@ class StartupProgramService:
 
         Eagerly creates the customer's dedicated 100% / 12 month / single-use
         discount on the Scale plan and records its id on the
-        Polar-for-Repalis customer's metadata. Idempotent: if the customer
+        Repalis-for-Repalis customer's metadata. Idempotent: if the customer
         already has a pointer to a live discount, returns that one. Any
         underlying SDK / network failure is logged and re-raised as a
         ``StartupProgramError`` so the caller (backoffice action) can toast
@@ -232,7 +232,7 @@ class StartupProgramService:
     async def resolve_checkout_discount_id(
         self, *, organization_id: uuid.UUID, product_id: str
     ) -> str | None:
-        """Return the discount id to attach to a Polar-for-Polar checkout.
+        """Return the discount id to attach to a Repalis-for-Repalis checkout.
 
         ``None`` unless the feature is enabled, the product is the Scale
         plan, and the organization has an invited (still redeemable)
@@ -320,7 +320,7 @@ class StartupProgramService:
             enqueue_email_template(
                 email,
                 to_email_addr=recipient,
-                subject="Welcome to the Polar Startup Program",
+                subject="Welcome to the Repalis Startup Program",
             )
 
     def _discount_name(self, organization: Organization) -> str:

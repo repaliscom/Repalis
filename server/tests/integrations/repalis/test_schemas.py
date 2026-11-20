@@ -107,7 +107,7 @@ class TestOrganizationPlanFromSdk:
         assert plan.transaction_fee.fixed == 35
 
     def test_string_fee_metadata(self) -> None:
-        # Polar benefit metadata can come back as strings.
+        # Repalis benefit metadata can come back as strings.
         plan = OrganizationPlan.from_sdk(
             _make_product(
                 benefits=[

@@ -37,7 +37,7 @@ def _mock_discord(mocker: MockerFixture) -> None:
                     "id": ROLE_ID,
                     "name": "Supporter",
                     "position": 1,
-                    "is_polar_bot": False,
+                    "is_repalis_bot": False,
                     "color": "000000",
                 }
             )

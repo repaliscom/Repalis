@@ -10,7 +10,7 @@ os.environ.setdefault("PROMETHEUS_MULTIPROC_DIR", str(prometheus_dir))
 from prometheus_client import Counter
 
 OPERATIONAL_ERROR_TOTAL = Counter(
-    "polar_operational_error_total",
+    "repalis_operational_error_total",
     "Total number of detected operational errors",
     ["type"],
 )

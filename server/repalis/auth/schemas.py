@@ -12,7 +12,7 @@ from repalis.kit.schemas import Schema
 
 from .sso.factor import SSOFactorMixin
 
-# The login method recorded in the `polar_last_login_method` cookie.
+# The login method recorded in the `repalis_last_login_method` cookie.
 LoginMethod = typing.Literal[
     "email_otp", "totp", "backup_codes", "apple", "github", "google", "sso"
 ]

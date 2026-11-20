@@ -156,7 +156,7 @@ _CHECKOUT_API_ONLY_BENEFITS: frozenset[BenefitType] = frozenset(
 )
 
 # Every other benefit delivers something on
-# its own — Polar grants it automatically (downloadables, license_keys,
+# its own — Repalis grants it automatically (downloadables, license_keys,
 # github_repository, discord, slack_shared_channel) or the customer sees it in
 # their portal (custom note).
 _CHECKOUT_FULFILLABLE_BENEFITS: frozenset[BenefitType] = (
@@ -273,7 +273,7 @@ class PaymentStatusResponse(BaseModel):
     )
     onboarding_resubmission_requested_at: datetime | None = Field(
         description=(
-            "When Polar requested that the organization review and resubmit "
+            "When Repalis requested that the organization review and resubmit "
             "its onboarding information, if applicable."
         ),
     )
@@ -1145,17 +1145,17 @@ class OrganizationService:
         if not settings.REPALIS_SELF_ENABLED:
             return
 
-        polar_organization_id = uuid.UUID(settings.POLAR_ORGANIZATION_ID)
-        if organization_id == polar_organization_id:
+        repalis_organization_id = uuid.UUID(settings.POLAR_ORGANIZATION_ID)
+        if organization_id == repalis_organization_id:
             return
 
         customer_repository = CustomerRepository.from_session(session)
         customer = await customer_repository.get_by_external_id_and_organization(
-            str(organization_id), polar_organization_id
+            str(organization_id), repalis_organization_id
         )
         if customer is None:
             raise CannotChangeOwnerError(
-                f"Polar self customer not found for organization {organization_id}"
+                f"Repalis self customer not found for organization {organization_id}"
             )
 
         member_repository = MemberRepository.from_session(session)
@@ -1164,7 +1164,7 @@ class OrganizationService:
         )
         if target_member is None:
             raise CannotChangeOwnerError(
-                f"Polar self member not found for user {new_owner_user.id}"
+                f"Repalis self member not found for user {new_owner_user.id}"
             )
 
         if target_member.role != MemberRole.owner:
@@ -2395,7 +2395,7 @@ class OrganizationService:
         """Setup readiness passes when the merchant has at least one
         checkout link and every live checkout link is auto-fulfillable
         (it sets a success_url so the merchant handles fulfillment via
-        redirect, or every product on it sells a Polar-fulfilled benefit),
+        redirect, or every product on it sells a Repalis-fulfilled benefit),
         or has both an organization access token and a webhook endpoint.
 
         Every live link is a purchasable surface, so a single link where

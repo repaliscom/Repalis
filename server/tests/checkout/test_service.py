@@ -6003,7 +6003,7 @@ class TestConfirm:
         assert checkout.customer.name == "ACME Corp Inc."
 
         # Stripe still receives the checkout-provided name (which may be the
-        # cardholder name); only Polar's customer.name is protected.
+        # cardholder name); only Repalis's customer.name is protected.
         update_call = stripe_service_mock.update_customer.call_args
         assert update_call.kwargs.get("name") == "John Smith"
 

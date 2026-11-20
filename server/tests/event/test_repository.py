@@ -127,7 +127,7 @@ class TestCustomerFilterClause:
 
 
 @pytest.mark.anyio
-class TestGetLatestPolarSelfIngestionTimestamp:
+class TestGetLatestRepalisSelfIngestionTimestamp:
     async def test_returns_latest_for_organization(
         self,
         save_fixture: SaveFixture,

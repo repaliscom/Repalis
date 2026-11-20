@@ -13,7 +13,7 @@ MAX_HOST_LENGTH = 253
 WILDCARD_PREFIX = "*."
 # Stands in for the wildcard so an entry can go through the origin parser.
 _WILDCARD_LABEL = "wildcard"
-_PORT_PROBE_SCHEME = "x-polar-probe"
+_PORT_PROBE_SCHEME = "x-repalis-probe"
 
 _LOCAL_SUFFIXES = (".localhost", ".local")
 

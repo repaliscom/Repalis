@@ -230,7 +230,7 @@ class OrganizationFeatureSettings(Schema):
     dispute_auto_accept_enabled: bool = Field(
         False,
         description=(
-            "If this organization can set a threshold below which Polar concedes "
+            "If this organization can set a threshold below which Repalis concedes "
             "disputes on its behalf. Requires `disputes_enabled`."
         ),
     )
@@ -347,7 +347,7 @@ class OrganizationDetails(OrganizationDetailsInput):
     intended_use: Annotated[str | None, Version(up_to=V2026_10)] = Field(
         None,
         deprecated=True,
-        description="How the organization will integrate and use Polar.",
+        description="How the organization will integrate and use Repalis.",
     )
     customer_acquisition: Annotated[list[str], Version(up_to=V2026_10)] = Field(
         default_factory=list,
@@ -565,7 +565,7 @@ class Organization(OrganizationBase):
     )
     onboarding_resubmission_requested_at: datetime | None = Field(
         description=(
-            "When Polar requested that the organization review and resubmit "
+            "When Repalis requested that the organization review and resubmit "
             "its onboarding information, if applicable."
         ),
     )
@@ -707,7 +707,7 @@ class OrganizationCreate(Schema):
     )
     details: OrganizationDetailsInput | None = Field(
         None,
-        description="Additional, private, business details Polar needs about active organizations for compliance (KYC).",
+        description="Additional, private, business details Repalis needs about active organizations for compliance (KYC).",
     )
     country: CountryAlpha2Input | None = Field(
         None, description="Two-letter country code (ISO 3166-1 alpha-2)."
@@ -739,7 +739,7 @@ class OrganizationUpdate(Schema):
     )
     details: OrganizationDetailsInput | None = Field(
         None,
-        description="Additional, private, business details Polar needs about active organizations for compliance (KYC).",
+        description="Additional, private, business details Repalis needs about active organizations for compliance (KYC).",
     )
     country: CountryAlpha2Input | None = Field(
         None, description="Two-letter country code (ISO 3166-1 alpha-2)."
@@ -803,7 +803,7 @@ class OrganizationPaymentStatus(Schema):
     )
     onboarding_resubmission_requested_at: datetime | None = Field(
         description=(
-            "When Polar requested that the organization review and resubmit "
+            "When Repalis requested that the organization review and resubmit "
             "its onboarding information, if applicable. Null for organizations "
             "that have never been reset for review."
         ),

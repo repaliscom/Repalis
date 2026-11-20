@@ -31,7 +31,7 @@ WelcomeMessage = Annotated[str | None, StringConstraints(max_length=4000)]
 
 class BenefitSlackSharedChannelProperties(Schema):
     slack_integration_id: UUID4 = Field(
-        description="Polar Slack integration linked to this benefit.",
+        description="Repalis Slack integration linked to this benefit.",
     )
     channel_name_template: ChannelNameTemplate = Field(
         description=(
@@ -63,7 +63,7 @@ class BenefitSlackSharedChannelProperties(Schema):
 
 class BenefitSlackSharedChannelCreateProperties(Schema):
     slack_integration_id: UUID4 = Field(
-        description="Polar Slack integration to use for this benefit.",
+        description="Repalis Slack integration to use for this benefit.",
     )
     channel_name_template: ValidatedChannelNameTemplate
     private: bool = True

@@ -6,7 +6,7 @@ export function RepalisSelfSubscriptionCancellation({
   email,
   product_name,
   ends_at,
-}: schemas['PolarSelfSubscriptionCancellationProps']) {
+}: schemas['RepalisSelfSubscriptionCancellationProps']) {
   const endDate = ends_at ? formatDate(ends_at) : null
 
   return (
@@ -36,6 +36,6 @@ RepalisSelfSubscriptionCancellation.PreviewProps = {
   email: 'john@example.com',
   product_name: 'Repalis Pro',
   ends_at: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
-} satisfies schemas['PolarSelfSubscriptionCancellationProps']
+} satisfies schemas['RepalisSelfSubscriptionCancellationProps']
 
 export default RepalisSelfSubscriptionCancellation

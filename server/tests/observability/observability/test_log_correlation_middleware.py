@@ -50,7 +50,7 @@ class TestClientHeaderCapture:
         captured = _run(
             _http_scope(
                 [
-                    (b"x-polar-client-version", b"mobile/1.4.0"),
+                    (b"x-repalis-client-version", b"mobile/1.4.0"),
                     (b"x-polar-client-runtime", b"fingerprint-abc"),
                     (b"x-polar-client-update", b"update-xyz"),
                 ]
@@ -61,7 +61,7 @@ class TestClientHeaderCapture:
         assert captured["client_update"] == "update-xyz"
 
     def test_binds_only_present_headers(self) -> None:
-        captured = _run(_http_scope([(b"x-polar-client-version", b"mobile/1.4.0")]))
+        captured = _run(_http_scope([(b"x-repalis-client-version", b"mobile/1.4.0")]))
         assert captured["client_version"] == "mobile/1.4.0"
         assert "client_runtime" not in captured
         assert "client_update" not in captured
@@ -73,7 +73,7 @@ class TestClientHeaderCapture:
         assert "client_update" not in captured
 
     def test_unbinds_after_request(self) -> None:
-        _run(_http_scope([(b"x-polar-client-version", b"mobile/1.4.0")]))
+        _run(_http_scope([(b"x-repalis-client-version", b"mobile/1.4.0")]))
         # Context must not leak past the request lifecycle.
         assert "client_version" not in structlog.contextvars.get_contextvars()
 
@@ -90,7 +90,7 @@ class TestClientHeaderCapture:
         async def noop_send(message: dict[str, Any]) -> None:
             pass
 
-        scope = _http_scope([(b"x-polar-client-version", b"mobile/1.4.0")])
+        scope = _http_scope([(b"x-repalis-client-version", b"mobile/1.4.0")])
         with pytest.raises(RuntimeError, match="boom"):
             asyncio.run(middleware(scope, cast(Receive, None), cast(Send, noop_send)))
 

@@ -19,7 +19,7 @@ from repalis.models import (
 
 from .scope import Scope
 
-ORGANIZATION_HEADER = "Polar-Organization"
+ORGANIZATION_HEADER = "Repalis-Organization"
 
 
 class Anonymous: ...
@@ -162,7 +162,7 @@ def is_single_organization_credential(auth_subject: AuthSubject[Any]) -> bool:
     """
     Check if the credential itself is bound to one organization: an organization
     token, an agent, or a user OAuth token down-scoped to exactly one organization.
-    Narrowing a request with the ``Polar-Organization`` header does not count.
+    Narrowing a request with the ``Repalis-Organization`` header does not count.
     """
     if is_organization(auth_subject) or is_agent(auth_subject):
         return True

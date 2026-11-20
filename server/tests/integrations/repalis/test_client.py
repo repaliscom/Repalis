@@ -214,7 +214,7 @@ class TestTriggerOrderInvoiceGeneration:
         self, mocker: MockerFixture
     ) -> None:
         # The wrapper no longer maps 422 (MissingInvoiceBillingDetails) to the
-        # removed PolarSelfNotPaidOrder; it surfaces as a generic client error
+        # removed RepalisSelfNotPaidOrder; it surfaces as a generic client error
         # so a caller can decide how to handle the permanent data problem.
         client = _client()
         mocker.patch.object(

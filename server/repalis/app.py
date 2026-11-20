@@ -90,18 +90,18 @@ def configure_cors(app: FastAPI) -> None:
     # Repalis frontend CORS configuration
     if settings.CORS_ORIGINS:
 
-        def polar_frontend_matcher(origin: str, scope: Scope) -> bool:
+        def repalis_frontend_matcher(origin: str, scope: Scope) -> bool:
             return origin in settings.CORS_ORIGINS
 
-        polar_frontend_config = CORSConfig(
-            polar_frontend_matcher,
+        repalis_frontend_config = CORSConfig(
+            repalis_frontend_matcher,
             allow_origins=[str(origin) for origin in settings.CORS_ORIGINS],
             allow_credentials=True,  # Cookies are allowed, but only there!
             allow_methods=["*"],
             allow_headers=["*"],
             expose_headers=["Content-Disposition"],
         )
-        configs.append(polar_frontend_config)
+        configs.append(repalis_frontend_config)
 
     # External API calls CORS configuration
     api_config = CORSConfig(

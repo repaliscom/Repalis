@@ -322,7 +322,7 @@ class TestPrecheckEngine:
         assert report.can_start is False
 
     async def test_blocker_names_only_the_currencies_polar_would_take(self) -> None:
-        # A price Polar drops anyway isn't a currency the merchant can switch to.
+        # A price Repalis drops anyway isn't a currency the merchant can switch to.
         report = await run(
             [
                 build_product(
@@ -421,7 +421,7 @@ class TestPrecheckEngine:
             [build_product(name="Pro")],
             existing_product_names={"pro"},
         )
-        assert "product_exists_in_polar" in codes(report, PrecheckIssueLevel.warning)
+        assert "product_exists_in_repalis" in codes(report, PrecheckIssueLevel.warning)
         assert report.can_start is True
         # the collision is a warning only: the product still imports.
         products = next(
@@ -431,7 +431,7 @@ class TestPrecheckEngine:
 
     async def test_no_existing_products_no_warning(self) -> None:
         report = await run([build_product(name="Pro")])
-        assert "product_exists_in_polar" not in codes(
+        assert "product_exists_in_repalis" not in codes(
             report, PrecheckIssueLevel.warning
         )
 
@@ -1148,7 +1148,7 @@ class TestClassifyRecords:
         assert items[0].reason_code == "subscription_customer_not_importable"
 
     def test_product_without_default_currency_price_skipped(self) -> None:
-        # Polar requires a price in the organization's default currency, so the
+        # Repalis requires a price in the organization's default currency, so the
         # classifier must not promise a product the importer would reject.
         records: list[CanonicalRecord] = [
             build_product(
@@ -1164,7 +1164,7 @@ class TestClassifyRecords:
         assert items[0].reason_level == PrecheckReasonLevel.action_required
 
     def test_short_product_name_skipped(self) -> None:
-        # The classifier must agree with the importer: a name Polar's schema
+        # The classifier must agree with the importer: a name Repalis's schema
         # rejects is skipped, not promised as importable (which would crash).
         records: list[CanonicalRecord] = [
             build_product(product_source_id="prod_1", name="AB"),
@@ -1201,7 +1201,7 @@ class TestClassifyRecords:
         items = classify_records(records, PrecheckEntity.products, "usd", {"pro"})
 
         assert items[0].status == PrecheckRecordStatus.importable
-        assert items[0].reason_code == "product_exists_in_polar"
+        assert items[0].reason_code == "product_exists_in_repalis"
         assert items[0].reason_level == PrecheckReasonLevel.info
 
     def test_duplicate_customer_email_skipped(self) -> None:

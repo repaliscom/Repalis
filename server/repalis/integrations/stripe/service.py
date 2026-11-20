@@ -42,8 +42,8 @@ if TYPE_CHECKING:
     from repalis.models import User
 
 #: Stripe PaymentIntent metadata key carrying the
-#: :class:`polar.models.payment.PaymentTrigger`. Producers (in
-#: ``polar.order.service``) and the consumer in ``polar.integrations.stripe.payment``
+#: :class:`repalis.models.payment.PaymentTrigger`. Producers (in
+#: ``repalis.order.service``) and the consumer in ``repalis.integrations.stripe.payment``
 #: must agree on this string.
 STRIPE_METADATA_PAYMENT_TRIGGER = "payment_trigger"
 SEPA_PAYMENT_METHOD_TYPES: Final = ("bancontact", "ideal", "sepa_debit", "sofort")
@@ -194,7 +194,7 @@ class StripeService:
     ) -> stripe_lib.Reversal:
         reverse_params: TransferCreateReversalParams = {
             "metadata": metadata or {},
-            "idempotency_key": f"polar:transfer_reverse:{id}",
+            "idempotency_key": f"repalis:transfer_reverse:{id}",
         }
         if amount is not None:
             reverse_params["amount"] = amount
@@ -488,7 +488,7 @@ class StripeService:
         return await stripe_lib.tax.Transaction.create_from_calculation_async(
             calculation=calculation_id,
             reference=reference,
-            idempotency_key=f"polar:tax_transaction:{reference}",
+            idempotency_key=f"repalis:tax_transaction:{reference}",
         )
 
     @overload
@@ -516,7 +516,7 @@ class StripeService:
             "mode": mode,
             "original_transaction": original_transaction_id,
             "reference": reference,
-            "idempotency_key": f"polar:tax_transaction_revert:{reference}",
+            "idempotency_key": f"repalis:tax_transaction_revert:{reference}",
         }
         if mode == "partial" and amount is not None:
             params["flat_amount"] = amount

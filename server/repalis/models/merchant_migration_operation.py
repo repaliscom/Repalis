@@ -1,10 +1,10 @@
 """Typed JSONB shape for ``MerchantMigration.operation``.
 
 Background precheck/import progress: status, opaque cursor, optional import
-selection, error, and last_progress_at. Kept under ``polar.models`` so the
+selection, error, and last_progress_at. Kept under ``repalis.models`` so the
 column can land in a migration-only PR (isolation check allows models +
 migrations only). Worker helpers that mutate this live in
-``polar.merchant_migration.operation``.
+``repalis.merchant_migration.operation``.
 """
 
 from datetime import UTC, datetime, timedelta

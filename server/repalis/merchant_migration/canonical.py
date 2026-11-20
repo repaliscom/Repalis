@@ -93,7 +93,7 @@ class CanonicalPrice:
 
 @dataclass
 class CanonicalProduct:
-    # In Polar the recurring interval lives on the product and a product holds
+    # In Repalis the recurring interval lives on the product and a product holds
     # several prices (one per currency), so a source product is grouped per
     # interval: one CanonicalProduct = one Repalis product = (source product,
     # interval), carrying all its prices, inactive ones included.
@@ -173,7 +173,7 @@ class CanonicalSubscription:
     # subscription has no discounts of its own. Resolved before the row is stored.
     customer_discount_source_id: str | None = None
     customer_discount_started_at: datetime | None = None
-    # Set when the source discount would change the charge if Polar kept one
+    # Set when the source discount would change the charge if Repalis kept one
     # coupon. The subscription stays on Stripe.
     discount_block: str | None = None
     # The customer already asked to stop. A selected cutover takes it over and
@@ -185,7 +185,7 @@ class CanonicalSubscription:
     # A fixed date the source stops it on. Stripe also fills it in for
     # ``cancel_at_period_end``, so only a date without that flag is its own end.
     cancel_at: datetime | None = None
-    # A source schedule is attached. It can change or end it later, which Polar
+    # A source schedule is attached. It can change or end it later, which Repalis
     # can't carry.
     has_scheduled_changes: bool = False
     # When and why the customer asked for that end, while it's still pending.
@@ -207,7 +207,7 @@ class CanonicalSubscription:
     anchor_day: int | None = None
     currency: str | None = None
     # Whether the source computed tax on this subscription. None when the source
-    # doesn't say. Polar always computes its own, so a subscription that billed
+    # doesn't say. Repalis always computes its own, so a subscription that billed
     # tax-free on the source will start being taxed after the switch.
     automatic_tax: bool | None = None
     # Stripe Price.tax_behavior when it is inclusive/exclusive. None if missing
@@ -221,11 +221,11 @@ class CanonicalSubscription:
     # Merchant pin at review. None means compute from the source fields above.
     tax_behavior: TaxBehavior | None = None
     # Stripe customer balance in minor units; negative is a credit. The source
-    # applies it to the next invoice and Polar has nowhere to carry it. None when
+    # applies it to the next invoice and Repalis has nowhere to carry it. None when
     # the customer wasn't expanded.
     customer_balance: int | None = None
     # Charges or credits queued for the next invoice, like a mid-cycle
-    # proration. The switch stops the source without invoicing them, and Polar
+    # proration. The switch stops the source without invoicing them, and Repalis
     # doesn't carry them over.
     has_pending_invoice_items: bool = False
     # Sold through Stripe Managed Payments: Link is the seller and holds the card
@@ -272,7 +272,7 @@ class SubscriptionDiscountBlock(StrEnum):
 
 @dataclass
 class CanonicalDiscount:
-    """A source coupon. Polar stores one discount per coupon; extra promotion
+    """A source coupon. Repalis stores one discount per coupon; extra promotion
     codes are counted on ``extra_codes`` and dropped."""
 
     source_id: str
@@ -371,7 +371,7 @@ def customer_discount_action(
 ) -> Literal["apply", "ignore", "block"]:
     """Whether a customer coupon can stand in for one subscription coupon.
 
-    Stripe puts a customer coupon on every recurring invoice. Polar can only
+    Stripe puts a customer coupon on every recurring invoice. Repalis can only
     attach it to this subscription, so that matches only when the coupon is
     limited to this product. An unrestricted coupon, or one that also lists
     other products, would discount purchases this subscription doesn't cover.
@@ -443,7 +443,7 @@ def discount_started_at_for(
 
 
 def repalis_discount_code(raw: str | None) -> str | None:
-    """Stripe promotion codes may include dashes; Polar codes are alphanumeric."""
+    """Stripe promotion codes may include dashes; Repalis codes are alphanumeric."""
     if raw is None:
         return None
     cleaned = "".join(character for character in raw if character.isalnum())
@@ -454,17 +454,17 @@ def repalis_discount_code(raw: str | None) -> str | None:
 
 
 def repalis_discount_amounts(amounts: dict[str, int]) -> dict[PresentmentCurrency, int]:
-    polar_amounts: dict[PresentmentCurrency, int] = {}
+    repalis_amounts: dict[PresentmentCurrency, int] = {}
     for currency, amount in amounts.items():
         try:
             key = PresentmentCurrency(currency.lower())
         except ValueError:
             continue
         try:
-            polar_amounts[key] = _AMOUNT.validate_python(amount)
+            repalis_amounts[key] = _AMOUNT.validate_python(amount)
         except ValidationError:
             continue
-    return polar_amounts
+    return repalis_amounts
 
 
 def tighter_cap(*caps: int | None) -> int | None:

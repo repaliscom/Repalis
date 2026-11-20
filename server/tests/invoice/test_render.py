@@ -23,9 +23,9 @@ def invoice() -> Invoice:
     return Invoice(
         number="12345",
         date=datetime.datetime(2025, 1, 1, 0, 0, 0, tzinfo=datetime.UTC),
-        seller_name="Polar Software Inc",
+        seller_name="Repalis Software Inc",
         seller_address=Address(
-            line1="123 Polar St",
+            line1="123 Repalis St",
             city="San Francisco",
             state="CA",
             postal_code="94107",

@@ -20,8 +20,8 @@ from .repository import (
     BackofficeUserSessionRepository,
 )
 
-AUTHENTICATION_TOKEN_PREFIX = "polar_backoffice_auth_"
-USER_SESSION_TOKEN_PREFIX = "polar_backoffice_session_"
+AUTHENTICATION_TOKEN_PREFIX = "repalis_backoffice_auth_"
+USER_SESSION_TOKEN_PREFIX = "repalis_backoffice_session_"
 
 
 class BackofficeAuthenticationSessionService(AuthenticationSessionService):

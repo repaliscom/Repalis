@@ -130,16 +130,16 @@ from repalis.webhook.service import generate_webhook_secret
 from repalis.worker import JobQueueManager
 from scripts.db import assert_dev_or_testing
 from scripts.seed_repalis_for_repalis import (
-    BENEFITS as POLAR_SELF_BENEFITS,
+    BENEFITS as REPALIS_SELF_BENEFITS,
 )
 from scripts.seed_repalis_for_repalis import (
-    EXTERNAL_BENEFITS as POLAR_SELF_EXTERNAL_BENEFITS,
+    EXTERNAL_BENEFITS as REPALIS_SELF_EXTERNAL_BENEFITS,
 )
 from scripts.seed_repalis_for_repalis import (
-    MONTHLY_PRODUCTS as POLAR_SELF_MONTHLY_PRODUCTS,
+    MONTHLY_PRODUCTS as REPALIS_SELF_MONTHLY_PRODUCTS,
 )
 from scripts.seed_repalis_for_repalis import (
-    PRODUCTS as POLAR_SELF_PRODUCTS,
+    PRODUCTS as REPALIS_SELF_PRODUCTS,
 )
 from tests.fixtures.database import save_fixture_factory
 from tests.fixtures.random_objects import (
@@ -154,7 +154,7 @@ cli = typer.Typer(invoke_without_command=True)
 TINYBIRD_FLUSH_CHUNK = 2500
 SEED_RANDOM_SEED = 20250814
 SIMPLE_COMPLEMENT_SEED_VERSION = "v1"
-SIMPLE_COMPLEMENT_EVENT_NAMESPACE = "polar_seed_simple_complement:"
+SIMPLE_COMPLEMENT_EVENT_NAMESPACE = "repalis_seed_simple_complement:"
 SIMPLE_COMPLEMENT_EVENT_PREFIX = (
     f"{SIMPLE_COMPLEMENT_EVENT_NAMESPACE}{SIMPLE_COMPLEMENT_SEED_VERSION}:"
 )
@@ -1065,14 +1065,14 @@ def _build_user_cost_span_events(
     return events
 
 
-async def _seed_polar_self_billing_catalog(
+async def _seed_repalis_self_billing_catalog(
     session: AsyncSession,
     organization: Organization,
     auth_subject: AuthSubject[User],
 ) -> None:
     """Materialize the Repalis self-billing benefits and tier products in the DB."""
     benefits_by_description: dict[str, Benefit] = {}
-    for benefit_data in POLAR_SELF_BENEFITS:
+    for benefit_data in REPALIS_SELF_BENEFITS:
         description = benefit_data["description"]
         metadata = benefit_data["metadata"]
         assert isinstance(description, str)
@@ -1090,7 +1090,7 @@ async def _seed_polar_self_billing_catalog(
         )
         benefits_by_description[description] = benefit
 
-    for product_data in POLAR_SELF_PRODUCTS:
+    for product_data in REPALIS_SELF_PRODUCTS:
         name = product_data["name"]
         description = product_data.get("description")
         metadata = product_data["metadata"]
@@ -1140,25 +1140,25 @@ async def _seed_polar_self_billing_catalog(
             for order, benefit_description in enumerate(
                 description
                 for description in benefit_descriptions
-                if description not in POLAR_SELF_EXTERNAL_BENEFITS
+                if description not in REPALIS_SELF_EXTERNAL_BENEFITS
             )
         ]
 
 
-async def _subscribe_seeded_orgs_to_polar_self(
+async def _subscribe_seeded_orgs_to_repalis_self(
     session: AsyncSession,
 ) -> int:
-    """Add every other seeded org as a team customer of the Polar self org.
+    """Add every other seeded org as a team customer of the Repalis self org.
 
     The free plan is subscriptionless, so no Repalis subscription is created here —
     customers default to the synthesized free plan until they pick a paid one.
     """
-    polar_self_org = (
+    repalis_self_org = (
         await session.execute(
-            select(Organization).where(Organization.slug == POLAR_ORG_SLUG)
+            select(Organization).where(Organization.slug == REPALIS_ORG_SLUG)
         )
     ).scalar_one_or_none()
-    if polar_self_org is None:
+    if repalis_self_org is None:
         return 0
 
     other_orgs = (
@@ -1166,7 +1166,7 @@ async def _subscribe_seeded_orgs_to_polar_self(
             await session.execute(
                 select(Organization)
                 .where(
-                    Organization.id != polar_self_org.id,
+                    Organization.id != repalis_self_org.id,
                     Organization.deleted_at.is_(None),
                     Organization.status != OrganizationStatus.BLOCKED,
                 )
@@ -1201,7 +1201,7 @@ async def _subscribe_seeded_orgs_to_polar_self(
 
         _create_seed_customer(
             session,
-            polar_self_org,
+            repalis_self_org,
             email=None,
             name=organization.name,
             customer_type=CustomerType.team,
@@ -1687,7 +1687,7 @@ async def _create_simple_fixture_graph(session: AsyncSession) -> None:
             "slug": "admin-org",
             "email": "admin@repalis.com",
             "website": "https://repalis.com",
-            "bio": "The admin organization of Polar",
+            "bio": "The admin organization of Repalis",
             "status": OrganizationStatus.ACTIVE,
             "feature_settings": {
                 "sso_enabled": True,
@@ -1696,11 +1696,11 @@ async def _create_simple_fixture_graph(session: AsyncSession) -> None:
             "sso_connection": {
                 "name": "Local Mock SSO",
                 "issuer": "http://localhost:8080/default",
-                "client_id": "polar",
-                "client_secret": "polar-secret",
+                "client_id": "repalis",
+                "client_secret": "repalis-secret",
             },
             "details": {
-                "about": "Polar is an open source payment infrastructure platform for developers",
+                "about": "Repalis is an open source payment infrastructure platform for developers",
                 "switching": False,
                 "switching_from": None,
                 "product_description": "SaaS platform for payment infrastructure",
@@ -1716,14 +1716,14 @@ async def _create_simple_fixture_graph(session: AsyncSession) -> None:
             ],
         },
         {
-            "name": "Polar",
-            "slug": "polar",
+            "name": "Repalis",
+            "slug": "repalis",
             "email": "admin@repalis.com",
             "website": "https://repalis.com",
             "bio": "Open source payment infrastructure for developers",
             "status": OrganizationStatus.ACTIVE,
             "details": {
-                "about": "Polar is an open source payment infrastructure platform for developers",
+                "about": "Repalis is an open source payment infrastructure platform for developers",
                 "switching": False,
                 "switching_from": None,
                 "product_description": "SaaS platform with usage-based billing for event ingestion",
@@ -1968,7 +1968,7 @@ async def _create_simple_fixture_graph(session: AsyncSession) -> None:
             session.add(coldmail_meter)
 
         # Create meter for Repalis organization
-        if org_data["slug"] == "polar":
+        if org_data["slug"] == "repalis":
             session.add(
                 Meter(
                     id=generate_uuid(),
@@ -1988,7 +1988,7 @@ async def _create_simple_fixture_graph(session: AsyncSession) -> None:
                 ),
             )
 
-            await _seed_polar_self_billing_catalog(
+            await _seed_repalis_self_billing_catalog(
                 session=session,
                 organization=organization,
                 auth_subject=auth_subject,
@@ -2102,7 +2102,7 @@ async def _create_simple_fixture_graph(session: AsyncSession) -> None:
             checkout_links = [
                 CheckoutLink(
                     payment_processor=PaymentProcessor.stripe,
-                    client_secret=generate_token(prefix="polar_cl_"),
+                    client_secret=generate_token(prefix="repalis_cl_"),
                     organization=organization,
                     label=f"{org_data['name']} store",
                     allow_discount_codes=True,
@@ -2118,7 +2118,7 @@ async def _create_simple_fixture_graph(session: AsyncSession) -> None:
                 checkout_links.append(
                     CheckoutLink(
                         payment_processor=PaymentProcessor.stripe,
-                        client_secret="polar_cl_e2e_seed_trial_subscription",
+                        client_secret="repalis_cl_e2e_seed_trial_subscription",
                         organization=organization,
                         label="E2E test checkout",
                         allow_discount_codes=False,
@@ -2318,9 +2318,9 @@ async def _create_simple_fixture_graph(session: AsyncSession) -> None:
 
                 await session.flush()
 
-    subscribed = await _subscribe_seeded_orgs_to_polar_self(session)
+    subscribed = await _subscribe_seeded_orgs_to_repalis_self(session)
     if subscribed:
-        print(f"Subscribed {subscribed} organization(s) to the Polar self free plan")
+        print(f"Subscribed {subscribed} organization(s) to the Repalis self free plan")
 
 
 async def _get_seeded_organizations(
@@ -2687,7 +2687,7 @@ async def _create_compass_seed(session: AsyncSession, acme: Organization) -> Non
                         if index < succeeded
                         else CheckoutStatus.expired
                     ),
-                    client_secret=generate_token(prefix="polar_c_"),
+                    client_secret=generate_token(prefix="repalis_c_"),
                     expires_at=opened_at + timedelta(days=1),
                     created_at=opened_at,
                     allow_discount_codes=True,
@@ -2763,7 +2763,7 @@ CLI_OAUTH2_REDIRECT_URI = "http://127.0.0.1:3333/oauth/callback"
 
 
 async def ensure_cli_oauth2_client(session: AsyncSession) -> None:
-    """Register the public client `polar auth login` uses against a local stack."""
+    """Register the public client `repalis auth login` uses against a local stack."""
     existing = await session.scalar(
         select(OAuth2Client).where(OAuth2Client.client_id == CLI_OAUTH2_CLIENT_ID)
     )
@@ -2772,7 +2772,7 @@ async def ensure_cli_oauth2_client(session: AsyncSession) -> None:
     oauth2_client = OAuth2Client(client_id=CLI_OAUTH2_CLIENT_ID, user=None)
     oauth2_client.set_client_metadata(
         {
-            "client_name": "Polar CLI",
+            "client_name": "Repalis CLI",
             "redirect_uris": [CLI_OAUTH2_REDIRECT_URI],
             "token_endpoint_auth_method": "none",
             "grant_types": ["authorization_code", "refresh_token"],
@@ -2797,8 +2797,8 @@ async def create_seed_data(session: AsyncSession, redis: Redis) -> None:
     )
 
 
-POLAR_ORG_SLUG = "polar"
-TOKEN_COMMENT = "Polar self-integration (dev seed)"
+REPALIS_ORG_SLUG = "repalis"
+TOKEN_COMMENT = "Repalis self-integration (dev seed)"
 TOKEN_SCOPE_VALUES = (
     Scope.customers_read,
     Scope.customers_write,
@@ -2820,7 +2820,7 @@ TOKEN_SCOPE_VALUES = (
 )
 TOKEN_SCOPES = " ".join(TOKEN_SCOPE_VALUES)
 
-WEBHOOK_NAME = "Polar self-integration (dev seed)"
+WEBHOOK_NAME = "Repalis self-integration (dev seed)"
 WEBHOOK_URL = "http://127.0.0.1:8000/v1/integrations/repalis/webhook"
 WEBHOOK_EVENTS: list[WebhookEventType] = [
     WebhookEventType.benefit_grant_created,
@@ -2830,8 +2830,8 @@ WEBHOOK_EVENTS: list[WebhookEventType] = [
     WebhookEventType.order_created,
 ]
 SERVER_ENV_PATH = Path(__file__).resolve().parent.parent / ".env"
-WEBHOOK_SECRET_ENV_KEY = "POLAR_POLAR_WEBHOOK_SECRET"
-SCALE_PRODUCT_NAME = str(POLAR_SELF_MONTHLY_PRODUCTS[-1]["name"])
+WEBHOOK_SECRET_ENV_KEY = "REPALIS_WEBHOOK_SECRET"
+SCALE_PRODUCT_NAME = str(REPALIS_SELF_MONTHLY_PRODUCTS[-1]["name"])
 
 
 def _write_webhook_secret_to_env(secret: str) -> None:
@@ -3073,9 +3073,9 @@ def seeds_load(
     asyncio.run(run())
 
 
-@cli.command(name="polar-self-env")
-def polar_self_env() -> None:
-    """Output Polar self-integration env vars for the seeded Polar org."""
+@cli.command(name="repalis-self-env")
+def repalis_self_env() -> None:
+    """Output Repalis self-integration env vars for the seeded Repalis org."""
 
     async def run() -> None:
         engine = create_async_engine("script")
@@ -3083,7 +3083,7 @@ def polar_self_env() -> None:
         async with sessionmaker() as session:
             org = (
                 await session.execute(
-                    select(Organization).where(Organization.slug == POLAR_ORG_SLUG)
+                    select(Organization).where(Organization.slug == REPALIS_ORG_SLUG)
                 )
             ).scalar_one_or_none()
             if org is None:
@@ -3118,7 +3118,7 @@ def polar_self_env() -> None:
             for t in existing:
                 await session.delete(t)
 
-            token, token_hash = generate_token_hash_pair(prefix="polar_oat_")
+            token, token_hash = generate_token_hash_pair(prefix="repalis_oat_")
             oat = OrganizationAccessToken(
                 organization_id=org.id,
                 token=token_hash,
@@ -3159,11 +3159,11 @@ def polar_self_env() -> None:
 
             _write_webhook_secret_to_env(webhook_secret)
 
-            print(f"POLAR_POLAR_ORGANIZATION_ID={org.id}")
-            print(f"POLAR_POLAR_SCALE_PRODUCT_ID={scale_product.id}")
-            print(f"POLAR_POLAR_ACCESS_TOKEN={token}")
+            print(f"REPALIS_ORGANIZATION_ID={org.id}")
+            print(f"REPALIS_SCALE_PRODUCT_ID={scale_product.id}")
+            print(f"REPALIS_ACCESS_TOKEN={token}")
             print(f"{WEBHOOK_SECRET_ENV_KEY}={webhook_secret}")
-            print("POLAR_POLAR_API_URL=http://127.0.0.1:8000")
+            print("REPALIS_API_URL=http://127.0.0.1:8000")
 
         await engine.dispose()
 

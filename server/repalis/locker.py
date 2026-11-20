@@ -49,7 +49,7 @@ class Locker:
         Acquire a distributed lock on the Redis server.
 
         Args:
-            name: Name of the lock. Automatically prefixed by `polarlock:`.
+            name: Name of the lock. Automatically prefixed by `repalislock:`.
             timeout: The lifetime of the lock in seconds.
             blocking_timeout: The maximum amount of time in seconds to spend trying
             to acquire the lock.
@@ -114,7 +114,7 @@ class Locker:
         Check if a lock is currently held.
 
         Args:
-            name: Name of the lock. Automatically prefixed by `polarlock:`.
+            name: Name of the lock. Automatically prefixed by `repalislock:`.
 
         Returns:
             bool: True if the lock is currently held, False otherwise.
@@ -123,7 +123,7 @@ class Locker:
         return await lock.locked()
 
     def _get_key(self, name: str) -> str:
-        return f"polarlock:{name}"
+        return f"repalislock:{name}"
 
 
 async def get_locker(redis: Redis = Depends(get_redis)) -> Locker:

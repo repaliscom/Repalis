@@ -2196,7 +2196,7 @@ def _order_dict(
         "billing_reason": billing_reason,
         "billing_name": billing_name,
         "billing_address": billing_address,
-        "invoice_number": "POLAR-0001",
+        "invoice_number": "REPALIS-0001",
         "is_invoice_generated": is_invoice_generated,
         "customer_id": customer_id,
         "product_id": product_id,
@@ -2469,7 +2469,7 @@ class TestHandleOrderCreatedEvent:
         assert attachments == [
             {
                 "remote_url": "https://example.com/inv.pdf",
-                "filename": "POLAR-0001.pdf",
+                "filename": "REPALIS-0001.pdf",
             }
         ]
 

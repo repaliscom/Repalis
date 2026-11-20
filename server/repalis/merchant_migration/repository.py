@@ -1148,7 +1148,7 @@ class MerchantMigrationRecordRepository(
     def _merge_discount_code(
         current: CanonicalDiscount, incoming: CanonicalDiscount
     ) -> CanonicalDiscount:
-        """Attach the first Polar-valid promotion code, preferring one that can
+        """Attach the first Repalis-valid promotion code, preferring one that can
         still be redeemed. Extra usable codes are counted so the precheck can warn.
 
         Coupons are extracted before their promotion codes, so a coupon record

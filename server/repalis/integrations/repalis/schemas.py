@@ -258,7 +258,7 @@ class OrganizationSubscription(Schema):
     startup_program_status: str | None = Field(
         default=None,
         description=(
-            "Polar Startup Program status for this organization. Derived from "
+            "Repalis Startup Program status for this organization. Derived from "
             "the organization's Startup Program discount: 'invited' when the "
             "discount exists and hasn't been redeemed, 'consumed' once it has. "
             "Null when the feature is disabled or the organization hasn't "
@@ -493,7 +493,7 @@ class OrganizationCustomerSession(Schema):
     token: str = Field(
         description=(
             "Short-lived customer session token bound to this organization's "
-            "mirrored Polar billing customer. Authenticates against "
+            "mirrored Repalis billing customer. Authenticates against "
             "`/v1/customer-portal/customers/me/*` for the duration of its TTL."
         ),
     )

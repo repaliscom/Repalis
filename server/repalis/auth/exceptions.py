@@ -40,7 +40,7 @@ class SessionNotFreshError(RepalisAuthError):
 
 class InvalidRequestedOrganization(RepalisAuthError):
     """
-    Exception raised when the ``Polar-Organization`` header is malformed.
+    Exception raised when the ``Repalis-Organization`` header is malformed.
     """
 
     def __init__(self, message: str) -> None:
@@ -49,13 +49,13 @@ class InvalidRequestedOrganization(RepalisAuthError):
 
 class RequestedOrganizationNotAccessible(RepalisAuthError):
     """
-    Exception raised when the ``Polar-Organization`` header names an organization
+    Exception raised when the ``Repalis-Organization`` header names an organization
     the credential can't access.
     """
 
     def __init__(self) -> None:
         message = (
-            "The organization in the Polar-Organization header "
+            "The organization in the Repalis-Organization header "
             "is not accessible with this credential."
         )
         super().__init__(message, 403)

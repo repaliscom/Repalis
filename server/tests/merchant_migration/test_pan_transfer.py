@@ -89,7 +89,7 @@ class TestBuild:
     def test_information_only_steps_complete_immediately(self) -> None:
         steps = _copy_steps()
 
-        # Sharing Polar's destination account has nothing to wait on, so the
+        # Sharing Repalis's destination account has nothing to wait on, so the
         # merchant lands straight on the step they have to act on.
         assert steps[0].key == "share_destination_account"
         assert steps[0].status == PanStepStatus.completed

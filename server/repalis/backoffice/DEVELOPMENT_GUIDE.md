@@ -1,6 +1,6 @@
 # Backoffice Development Guide
 
-This guide covers everything you need to know to create and maintain backoffice pages for the Polar billing platform.
+This guide covers everything you need to know to create and maintain backoffice pages for the Repalis billing platform.
 
 ## Table of Contents
 
@@ -26,7 +26,7 @@ The backoffice is built using:
 ### File Structure
 
 ```
-polar/backoffice/
+repalis/backoffice/
 ├── __init__.py              # FastAPI app configuration
 ├── README.md               # Basic setup instructions
 ├── DEVELOPMENT_GUIDE.md    # This file
@@ -57,10 +57,10 @@ Follow these steps to add a new entity to the backoffice:
 ### 1. Create the Module Structure
 
 ```bash
-mkdir polar/backoffice/my_entity
-touch polar/backoffice/my_entity/__init__.py
-touch polar/backoffice/my_entity/endpoints.py
-touch polar/backoffice/my_entity/forms.py  # Optional
+mkdir repalis/backoffice/my_entity
+touch repalis/backoffice/my_entity/__init__.py
+touch repalis/backoffice/my_entity/endpoints.py
+touch repalis/backoffice/my_entity/forms.py  # Optional
 ```
 
 ### 2. Define Endpoints

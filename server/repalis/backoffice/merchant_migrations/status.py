@@ -56,8 +56,8 @@ METHOD_LABELS: dict[PanTransferMethod, str] = {
 
 OWNER_LABELS: dict[PanStepOwner, str] = {
     PanStepOwner.merchant: "Merchant",
-    PanStepOwner.repalis_ops: "Polar Ops",
-    PanStepOwner.repalis_app: "Polar app",
+    PanStepOwner.repalis_ops: "Repalis Ops",
+    PanStepOwner.repalis_app: "Repalis app",
     PanStepOwner.stripe: "Stripe",
     PanStepOwner.provider: "Source provider",
 }
@@ -73,14 +73,14 @@ PAN_STEP_LABELS: dict[str, str] = {
     "open_stripe_request": "Open the migration request with Stripe",
     "request_provider_export": "Merchant asks their provider for the export",
     "provider_export": "Provider prepares the export",
-    "map_customers": "Polar maps the customers",
+    "map_customers": "Repalis maps the customers",
     "stripe_review": "Stripe reviews the file",
     "approve_import": "Approve the import",
     "stripe_import": "Stripe imports the cards",
-    "verify_cards": "Polar verifies the cards",
+    "verify_cards": "Repalis verifies the cards",
     "resolve_uncovered": "Merchant handles customers without a card",
     "cutover": "Merchant cuts over billing",
-    "move_subscriptions": "Polar activates the subscriptions",
+    "move_subscriptions": "Repalis activates the subscriptions",
 }
 
 PAN_STEP_GUIDANCE: dict[str, str] = {
@@ -89,7 +89,7 @@ PAN_STEP_GUIDANCE: dict[str, str] = {
         "step. Usually one business day after the merchant starts it."
     ),
     "open_stripe_request": (
-        "Open a card migration request with Stripe, share Polar's PCI documents, "
+        "Open a card migration request with Stripe, share Repalis's PCI documents, "
         "and record the request ID. The merchant quotes it to their provider."
     ),
     "approve_import": (
@@ -153,7 +153,7 @@ class Attention:
     def needs_ops(self) -> bool:
         """Whether this migration belongs in the operator's queue.
 
-        An overdue step counts even when nobody at Polar owns it: something we
+        An overdue step counts even when nobody at Repalis owns it: something we
         were promised hasn't landed, and chasing it is ours.
         """
         return self.level in OPS_LEVELS or self.stale_days is not None
@@ -265,7 +265,7 @@ def _pan_attention(step: PanTransferStep) -> Attention:
         case PanStepOwner.repalis_app:
             return Attention(
                 AttentionLevel.waiting_repalis_app,
-                "Polar job",
+                "Repalis job",
                 label,
                 stale_days,
             )
@@ -329,7 +329,7 @@ def attention(migration: MerchantMigration, failed_records: int) -> Attention:
         case _:
             return Attention(
                 AttentionLevel.waiting_repalis_app,
-                "Polar job",
+                "Repalis job",
                 STEP_LABELS[migration.step],
                 None,
             )

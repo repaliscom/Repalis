@@ -69,14 +69,14 @@ class S3File(IDSchema, validate_assignment=True):
     def to_metadata(self) -> dict[str, str]:
         metadata = {
             "repalis-id": str(self.id),
-            "polar-organization-id": str(self.organization_id),
-            "polar-name": self.name.encode("ascii", "ignore").decode("ascii"),
-            "polar-size": str(self.size),
+            "repalis-organization-id": str(self.organization_id),
+            "repalis-name": self.name.encode("ascii", "ignore").decode("ascii"),
+            "repalis-size": str(self.size),
         }
         if self.checksum_sha256_base64:
-            metadata["polar-sha256-base64"] = self.checksum_sha256_base64
+            metadata["repalis-sha256-base64"] = self.checksum_sha256_base64
         if self.checksum_sha256_hex:
-            metadata["polar-sha256-hex"] = self.checksum_sha256_hex
+            metadata["repalis-sha256-hex"] = self.checksum_sha256_hex
         return metadata
 
     @classmethod
@@ -84,16 +84,16 @@ class S3File(IDSchema, validate_assignment=True):
         metadata = head.get("Metadata", {})
 
         return cls(
-            id=metadata.get("polar-id"),
-            organization_id=metadata.get("polar-organization-id"),
-            name=metadata.get("polar-name"),
+            id=metadata.get("repalis-id"),
+            organization_id=metadata.get("repalis-organization-id"),
+            name=metadata.get("repalis-name"),
             path=path,
             mime_type=head["ContentType"],
-            size=metadata.get("polar-size"),
+            size=metadata.get("repalis-size"),
             storage_version=head.get("VersionId", None),
             checksum_etag=head.get("ETag", None),
-            checksum_sha256_base64=metadata.get("polar-sha256-base64"),
-            checksum_sha256_hex=metadata.get("polar-sha256-hex"),
+            checksum_sha256_base64=metadata.get("repalis-sha256-base64"),
+            checksum_sha256_hex=metadata.get("repalis-sha256-hex"),
             last_modified_at=head.get("LastModified", None),
         )
 

@@ -289,7 +289,7 @@ class EmbedHostNotAllowed(CheckoutError):
         super().__init__(message, 403)
 
 
-CHECKOUT_CLIENT_SECRET_PREFIX = "polar_c_"
+CHECKOUT_CLIENT_SECRET_PREFIX = "repalis_c_"
 
 
 class CheckoutService:

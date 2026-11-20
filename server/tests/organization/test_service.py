@@ -125,7 +125,7 @@ class TestCreate:
             "",
             "a",
             "ab",
-            "Polar Software Inc 🌀",
+            "Repalis Software Inc 🌀",
             "slug/with/slashes",
             *settings.ORGANIZATION_SLUG_RESERVED_KEYWORDS,
         ],
@@ -198,7 +198,7 @@ class TestCreate:
             )
 
     @pytest.mark.auth
-    @pytest.mark.parametrize("slug", ["polar-software-inc", "slug-with-dashes"])
+    @pytest.mark.parametrize("slug", ["repalis-software-inc", "slug-with-dashes"])
     async def test_valid(
         self,
         slug: str,
@@ -476,7 +476,7 @@ class TestUpdateReviewSubmission:
                 socials=[
                     OrganizationSocialLink(
                         platform=cast(OrganizationSocialPlatforms, "x"),
-                        url=cast(HttpUrl, "https://x.com/polar"),
+                        url=cast(HttpUrl, "https://x.com/repalis"),
                     )
                 ],
                 details=OrganizationDetails(
@@ -571,7 +571,7 @@ class TestUpdateReviewSubmission:
                 socials=[
                     OrganizationSocialLink(
                         platform=cast(OrganizationSocialPlatforms, "x"),
-                        url=cast(HttpUrl, "https://x.com/polar"),
+                        url=cast(HttpUrl, "https://x.com/repalis"),
                     )
                 ],
             ),
@@ -2501,7 +2501,7 @@ async def _setup_passing_org(
     user: User,
 ) -> Product:
     organization.website = "https://example.com"
-    organization.socials = [{"platform": "x", "url": "https://x.com/polar"}]
+    organization.socials = [{"platform": "x", "url": "https://x.com/repalis"}]
     organization.details = {
         "product_description": "Subscription SaaS for software teams and agencies."
     }
@@ -2812,7 +2812,7 @@ class TestGetReviewState:
         session: AsyncSession,
         organization: Organization,
     ) -> None:
-        organization.socials = [{"platform": "x", "url": "https://x.com/polar"}]
+        organization.socials = [{"platform": "x", "url": "https://x.com/repalis"}]
         await save_fixture(organization)
 
         state = await organization_service.get_review_state(session, organization)

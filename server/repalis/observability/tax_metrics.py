@@ -5,7 +5,7 @@ These metrics track which tax providers are used for calculations,
 enabling monitoring of tax provider fallback behavior and usage patterns.
 
 Metrics:
-- polar_tax_calculation_total: Counter of tax calculations by provider
+- repalis_tax_calculation_total: Counter of tax calculations by provider
 """
 
 import os
@@ -20,7 +20,7 @@ os.environ.setdefault("PROMETHEUS_MULTIPROC_DIR", str(prometheus_dir))
 from prometheus_client import Counter
 
 TAX_CALCULATION_TOTAL = Counter(
-    "polar_tax_calculation_total",
+    "repalis_tax_calculation_total",
     "Total number of tax calculations",
     ["provider", "success"],
 )

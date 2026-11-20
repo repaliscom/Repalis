@@ -22,7 +22,7 @@ class DiscordBotService:
             # Keep standard roles
             if not role["managed"]:
                 roles.append(
-                    DiscordGuildRole.model_validate({**role, "is_polar_bot": False})
+                    DiscordGuildRole.model_validate({**role, "is_repalis_bot": False})
                 )
                 continue
 
@@ -31,7 +31,7 @@ class DiscordBotService:
                 "bot_id"
             ) == settings.DISCORD_CLIENT_ID:
                 roles.append(
-                    DiscordGuildRole.model_validate({**role, "is_polar_bot": True})
+                    DiscordGuildRole.model_validate({**role, "is_repalis_bot": True})
                 )
 
         return DiscordGuild(name=guild["name"], roles=roles)

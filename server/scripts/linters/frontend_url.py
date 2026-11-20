@@ -5,7 +5,7 @@
 is an open redirect: `?return_path=@evil.com` yields
 `https://repalis.com@evil.com`, which browsers navigate to as `evil.com` (`@` is
 the userinfo delimiter). Request-derived paths must go through
-`get_safe_return_url` (`polar.kit.http`) instead.
+`get_safe_return_url` (`repalis.kit.http`) instead.
 
 Rules (per function, intra-procedural):
 - A parameter is *tainted* when declared with a FastAPI request marker
@@ -57,12 +57,12 @@ FRAMEWORK_PARAM_TYPES = frozenset(
 CALL_MESSAGE = (
     "request-derived value passed to generate_frontend_url — it concatenates "
     "without validation (open redirect). Route it through get_safe_return_url "
-    "(polar.kit.http). Escape with `# lint-skip: frontend-url` if already validated."
+    "(repalis.kit.http). Escape with `# lint-skip: frontend-url` if already validated."
 )
 
 CONCAT_MESSAGE = (
     "request-derived value concatenated with FRONTEND_BASE_URL — open "
-    "redirect. Route it through get_safe_return_url (polar.kit.http). Escape "
+    "redirect. Route it through get_safe_return_url (repalis.kit.http). Escape "
     "with `# lint-skip: frontend-url` if already validated."
 )
 

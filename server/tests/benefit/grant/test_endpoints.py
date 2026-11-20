@@ -53,7 +53,7 @@ class TestListBenefitGrants:
         )
 
         response = await client.get(
-            "/v1/benefit-grants/", headers={"Polar-Version": str(version)}
+            "/v1/benefit-grants/", headers={"Repalis-Version": str(version)}
         )
 
         assert response.status_code == 200

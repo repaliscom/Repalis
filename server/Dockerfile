@@ -72,7 +72,7 @@ RUN setcap -r /usr/bin/caddy
 FROM --platform=$BUILDPLATFORM python:3.14.6-slim AS production
 
 LABEL org.opencontainers.image.source=https://github.com/repaliscom/Repalis \
-  org.opencontainers.image.description="Polar" \
+  org.opencontainers.image.description="Repalis" \
   org.opencontainers.image.licenses=Apache-2.0
 
 COPY --from=uv /uv /uvx /bin/
@@ -175,7 +175,7 @@ RUN mkdir -p /var/run /var/cache /var/lib /var/task \
   && ln -s /tmp/tailscale /var/task/tailscale
 
 COPY docker/export_lambda_secrets.py /var/runtime/export-secrets.py
-COPY --chmod=755 docker/run_lambda_worker.sh /var/runtime/polar-bootstrap
+COPY --chmod=755 docker/run_lambda_worker.sh /var/runtime/repalis-bootstrap
 
 ARG RELEASE_VERSION
 ENV RELEASE_VERSION=${RELEASE_VERSION} \
@@ -186,5 +186,5 @@ ENV RELEASE_VERSION=${RELEASE_VERSION} \
   POLAR_IP_GEOLOCATION_DATABASE_DIRECTORY_PATH=/data \
   POLAR_IP_GEOLOCATION_DATABASE_NAME=country_asn.mmdb
 
-ENTRYPOINT ["/var/runtime/polar-bootstrap"]
+ENTRYPOINT ["/var/runtime/repalis-bootstrap"]
 CMD ["repalis.worker.aws_lambda.handler"]

@@ -180,7 +180,7 @@ _ORDER: dict[str, Any] = {
     "billing_reason": "subscription_cycle",
     "billing_name": None,
     "billing_address": None,
-    "invoice_number": "POLAR-0001",
+    "invoice_number": "REPALIS-0001",
     "is_invoice_generated": True,
     "customer_id": "00000000-0000-0000-0000-000000000002",
     "product_id": "00000000-0000-0000-0000-0000000000c1",

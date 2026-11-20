@@ -4,7 +4,7 @@ import type { schemas } from '../types'
 export function RepalisSelfSubscriptionRevoked({
   email,
   product_name,
-}: schemas['PolarSelfSubscriptionRevokedProps']) {
+}: schemas['RepalisSelfSubscriptionRevokedProps']) {
   return (
     <WrapperRepalis preview={`Your ${product_name} subscription has ended`}>
       <Intro headline={`Your ${product_name} subscription has ended`}>
@@ -28,6 +28,6 @@ export function RepalisSelfSubscriptionRevoked({
 RepalisSelfSubscriptionRevoked.PreviewProps = {
   email: 'john@example.com',
   product_name: 'Repalis Pro',
-} satisfies schemas['PolarSelfSubscriptionRevokedProps']
+} satisfies schemas['RepalisSelfSubscriptionRevokedProps']
 
 export default RepalisSelfSubscriptionRevoked

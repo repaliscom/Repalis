@@ -79,7 +79,7 @@ from .sso.endpoints import router as sso_login_router
 from .turnstile import verify_turnstile
 
 TOTP_ISSUER = (
-    "Polar" if settings.is_production() else f"Polar {settings.ENV.value.capitalize()}"
+    "Repalis" if settings.is_production() else f"Repalis {settings.ENV.value.capitalize()}"
 )
 
 router = APIRouter(prefix="/auth", tags=["auth", APITag.private])

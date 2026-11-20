@@ -97,13 +97,13 @@ class TestCreateEndpoint:
             format=WebhookFormat.raw,
             events=[],
             organization_id=None,
-            secret="polar_wh_secret_1234567890abcdef",
+            secret="repalis_wh_secret_1234567890abcdef",
         )
 
         endpoint = await webhook_service.create_endpoint(
             session, auth_subject, create_schema
         )
-        assert endpoint.secret == "polar_wh_secret_1234567890abcdef"
+        assert endpoint.secret == "repalis_wh_secret_1234567890abcdef"
         assert endpoint.secret_generated_at is None
 
 
@@ -146,10 +146,10 @@ class TestUpdateEndpoint:
             auth_subject,
             endpoint=webhook_endpoint_organization,
             update_schema=DeprecatedWebhookEndpointUpdateWithSecret(
-                secret="polar_wh_secret_1234567890abcdef"
+                secret="repalis_wh_secret_1234567890abcdef"
             ),
         )
-        assert updated_endpoint.secret == "polar_wh_secret_1234567890abcdef"
+        assert updated_endpoint.secret == "repalis_wh_secret_1234567890abcdef"
         assert updated_endpoint.secret_generated_at is None
 
     @pytest.mark.auth(

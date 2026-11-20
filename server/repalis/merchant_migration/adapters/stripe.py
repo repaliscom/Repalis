@@ -1,5 +1,5 @@
 """Reads a merchant's Stripe account with its own restricted-key client
-(never Polar's platform key) and normalizes it into CanonicalRecords."""
+(never Repalis's platform key) and normalizes it into CanonicalRecords."""
 
 import asyncio
 from collections.abc import AsyncIterator, Awaitable, Callable, Sequence
@@ -257,7 +257,7 @@ class StripeAdapter:
         # when the key can write, and with PermissionError when it can't. Only the
         # former means the scope is granted.
         try:
-            await self._client.v1.subscriptions.cancel_async("sub_polar_scope_probe")
+            await self._client.v1.subscriptions.cancel_async("sub_repalis_scope_probe")
         except stripe_lib.InvalidRequestError:
             pass
 
@@ -601,7 +601,7 @@ class StripeAdapter:
             return record
         applies_to = await self._coupon_product_ids(record.customer_discount_source_id)
         plan_product_id, add_on_product_id = self._item_product_ids(subscription)
-        # Stripe takes it off the add-on line only; Polar would discount both.
+        # Stripe takes it off the add-on line only; Repalis would discount both.
         if applies_to and add_on_product_id in applies_to:
             return replace(
                 record,
@@ -802,7 +802,7 @@ class StripeAdapter:
         """The plan, and on a two-item subscription the add-on billed on top of
         it. The add-on is the item bought in quantity; when neither or both
         are, Stripe's order decides and the first item is the plan. Items on
-        different intervals have no add-on: Polar bills both on the plan's."""
+        different intervals have no add-on: Repalis bills both on the plan's."""
         if len(items) != 2:
             return items[0], None
         first, second = items
@@ -894,7 +894,7 @@ class StripeAdapter:
     def _map_discount_attachments(
         self, subscription: stripe_lib.Subscription
     ) -> MappedSubscriptionDiscounts:
-        """Keep a discount only when one Polar coupon would take the same amount
+        """Keep a discount only when one Repalis coupon would take the same amount
         off this charge for the same duration. Anything else blocks the import."""
         mapped = self._map_subscription_discounts(subscription)
         items = subscription["items"]["data"]

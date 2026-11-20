@@ -95,12 +95,12 @@ const TEMPLATES: Record<string, React.FC<never>> = {
   repalis_self_subscription_past_due: RepalisSelfSubscriptionPastDue,
   repalis_self_subscription_revoked: RepalisSelfSubscriptionRevoked,
   repalis_self_startup_program_welcome: RepalisSelfStartupProgramWelcome,
-  polar_self_subscription_cancellation: RepalisSelfSubscriptionCancellation,
-  polar_self_subscription_confirmation: RepalisSelfSubscriptionConfirmation,
-  polar_self_subscription_cycled: RepalisSelfSubscriptionCycled,
-  polar_self_subscription_past_due: RepalisSelfSubscriptionPastDue,
-  polar_self_subscription_revoked: RepalisSelfSubscriptionRevoked,
-  polar_self_startup_program_welcome: RepalisSelfStartupProgramWelcome,
+  repalis_self_subscription_cancellation: RepalisSelfSubscriptionCancellation,
+  repalis_self_subscription_confirmation: RepalisSelfSubscriptionConfirmation,
+  repalis_self_subscription_cycled: RepalisSelfSubscriptionCycled,
+  repalis_self_subscription_past_due: RepalisSelfSubscriptionPastDue,
+  repalis_self_subscription_revoked: RepalisSelfSubscriptionRevoked,
+  repalis_self_startup_program_welcome: RepalisSelfStartupProgramWelcome,
 }
 
 export default TEMPLATES

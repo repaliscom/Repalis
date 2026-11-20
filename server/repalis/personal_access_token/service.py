@@ -22,7 +22,7 @@ from .repository import PersonalAccessTokenRepository
 
 log: Logger = structlog.get_logger()
 
-TOKEN_PREFIX = "polar_pat_"
+TOKEN_PREFIX = "repalis_pat_"
 
 
 class PersonalAccessTokenService(ResourceServiceReader[PersonalAccessToken]):

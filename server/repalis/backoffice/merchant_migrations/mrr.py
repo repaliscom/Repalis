@@ -3,7 +3,7 @@
 Record counts say how much work is left; MRR says how much is at stake. An
 operator picking what to chase wants the second one.
 
-Everything is derived from the staged ledger rather than the imported Polar
+Everything is derived from the staged ledger rather than the imported Repalis
 subscriptions, so the same arithmetic covers revenue that has already landed and
 revenue that hasn't moved yet.
 """
@@ -25,7 +25,7 @@ from repalis.merchant_migration.canonical import (
 from repalis.merchant_migration.repository import CanonicalRow
 from repalis.models.merchant_migration_record import MerchantMigrationRecordStatus
 
-# Source subscriptions that are actually producing revenue. Matches Polar's own
+# Source subscriptions that are actually producing revenue. Matches Repalis's own
 # billable statuses, so a trial counts as expected revenue and a canceled
 # subscription counts as nothing. Compared against the raw stored strings.
 EARNING_STATUSES = frozenset(

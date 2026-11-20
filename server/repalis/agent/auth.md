@@ -1,6 +1,6 @@
 # auth.md
 
-You are an agent. Polar lets you sign up on your own, build an organization (products, benefits,
+You are an agent. Repalis lets you sign up on your own, build an organization (products, benefits,
 meters, checkouts), and hand it over to a human later. Follow the steps in order.
 
 ## Step 1: Discover
@@ -11,7 +11,7 @@ meters, checkouts), and hand it over to a human later. Follow the steps in order
 
 ## Step 2: Sign up
 
-Polar supports the `anonymous` registration type only. You don't need anything from the human yet.
+Repalis supports the `anonymous` registration type only. You don't need anything from the human yet.
 
 ```http
 POST ${identity_endpoint}
@@ -30,7 +30,7 @@ Response:
   "assertion_expires": "<ISO 8601>",
   "pre_claim_scopes": ["products:write", "..."],
   "claim_url": "${claim_endpoint}",
-  "claim_token": "polar_act_...",
+  "claim_token": "repalis_act_...",
   "claim_token_expires": "<ISO 8601>",
   "post_claim_scopes": ["..."]
 }
@@ -53,7 +53,7 @@ this step with the same assertion. Once a human claimed you, use the assertion t
 returned (Step 4): the one from sign-up stops working.
 
 If you get `invalid_grant`, your assertion expired or you were revoked. Before the claim, sign up
-again. After it, ask the human to connect you to their account another way, such as Polar's MCP
+again. After it, ask the human to connect you to their account another way, such as Repalis's MCP
 server or CLI.
 
 Call the API with `Authorization: Bearer <access_token>`. Before the claim you can create one
@@ -82,7 +82,7 @@ Response:
   "claim_attempt": {
     "user_code": "amber-river-lemon",
     "expires_in": 604800,
-    "verification_uri": "<link to the Polar dashboard>",
+    "verification_uri": "<link to the Repalis dashboard>",
     "interval": 5
   }
 }
@@ -128,7 +128,7 @@ assertion. Use the new one in Step 3 from now on.
 | `claim_expired` (410) | `${claim_endpoint}` | Your claim token expired. Sign up again. |
 | `invalid_grant` | token endpoint, JWT bearer | See Step 3. |
 | `invalid_grant` | token endpoint, claim poll | The claim token is wrong, already used, or you were revoked. |
-| `invalid_client` | token endpoint | Don't send a `client_id`: Polar knows your client from your credentials. |
+| `invalid_client` | token endpoint | Don't send a `client_id`: Repalis knows your client from your credentials. |
 | `authorization_pending`, `slow_down`, `expired_token` | token endpoint, claim poll | See Step 4. |
 
 ## Revoking

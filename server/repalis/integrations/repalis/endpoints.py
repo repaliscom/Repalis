@@ -8,8 +8,8 @@ from repalis.models.external_event import ExternalEventSource
 from repalis.postgres import AsyncSession, get_db_session
 from repalis.routing import APIRouter
 from repalis.v2026_04.webhooks import (
-    PolarWebhookUnknownTypeError,
-    PolarWebhookVerificationError,
+    RepalisWebhookUnknownTypeError,
+    RepalisWebhookVerificationError,
     validate_event,
 )
 
@@ -48,9 +48,9 @@ async def webhook(
 
     try:
         validate_event(raw_body, headers, secret)
-    except PolarWebhookVerificationError:
+    except RepalisWebhookVerificationError:
         raise HTTPException(status_code=401)
-    except PolarWebhookUnknownTypeError:
+    except RepalisWebhookUnknownTypeError:
         # SDK doesn't recognize this event type yet — ignore for forward compat.
         return
 
@@ -67,7 +67,7 @@ async def webhook(
     delay = ORDER_CREATED_DELAY_MS if event_type == "order.created" else None
     await external_event_service.enqueue(
         session,
-        ExternalEventSource.polar,
+        ExternalEventSource.repalis,
         task_name,
         delivery_id,
         payload,

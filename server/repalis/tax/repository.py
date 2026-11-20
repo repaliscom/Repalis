@@ -17,7 +17,7 @@ from .sorting import TaxJurisdictionSortProperty
 
 # Transaction types that carry a tax amount. Payments add tax, refunds and
 # disputes subtract it, and their reversals add it back, so summing
-# `tax_amount` across these types yields the net tax Polar remitted. Other
+# `tax_amount` across these types yields the net tax Repalis remitted. Other
 # types (`balance`, `payout`, `processor_fee`, ...) store `tax_amount=0` but
 # still reference an order, so including them would inflate `order_count`.
 TAX_BEARING_TRANSACTION_TYPES = (
@@ -53,7 +53,7 @@ class TaxJurisdictionRepository(RepositoryBase[Transaction]):
         ).label("state")
         # Sum `tax_amount` across every tax-bearing transaction (payments,
         # refunds, disputes and their reversals — see the `type` filter below),
-        # which yields the net tax Polar remitted on the merchant's behalf after
+        # which yields the net tax Repalis remitted on the merchant's behalf after
         # refunds and disputes are netted out.
         tax_amount_column = func.sum(Transaction.tax_amount).label("tax_amount")
         order_count_column = func.count(func.distinct(Transaction.order_id)).label(

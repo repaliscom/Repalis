@@ -1,7 +1,7 @@
 """Tests that mobile/web client identification (polar #12159) is attached to
 PostHog *events*, and crucially NOT to person/profile properties.
 
-Isolated from the main Polar infrastructure (see conftest.py): no database or
+Isolated from the main Repalis infrastructure (see conftest.py): no database or
 service connections. Exercises the real path middleware -> ClientContext ->
 PostHog capture, with a mocked PostHog client.
 """
@@ -72,7 +72,7 @@ class TestPostHogClientContext:
         _run_request(
             _http_scope(
                 [
-                    (b"x-polar-client-version", b"mobile/1.4.0"),
+                    (b"x-repalis-client-version", b"mobile/1.4.0"),
                     (b"x-polar-client-runtime", b"fingerprint-abc"),
                     (b"x-polar-client-update", b"update-xyz"),
                 ]
@@ -103,7 +103,7 @@ class TestPostHogClientContext:
         from repalis.posthog import posthog
 
         _run_request(
-            _http_scope([(b"x-polar-client-version", b"mobile/1.4.0")]),
+            _http_scope([(b"x-repalis-client-version", b"mobile/1.4.0")]),
             lambda: None,
         )
 

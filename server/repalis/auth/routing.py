@@ -47,7 +47,7 @@ class DocumentedAuthSubjectAPIRoute(APIRoute):
     ) -> None:
         openapi_extra = kwargs.get("openapi_extra") or {}
         # Check we haven't already added the allowed subjects
-        if "x-polar-allowed-subjects" not in openapi_extra:
+        if "x-repalis-allowed-subjects" not in openapi_extra:
             for param in typing.get_type_hints(endpoint, include_extras=True).values():
                 if typing.get_origin(param) is not typing.Annotated:
                     continue
@@ -68,7 +68,7 @@ class DocumentedAuthSubjectAPIRoute(APIRoute):
                 )
 
                 kwargs["openapi_extra"] = {
-                    "x-polar-allowed-subjects": allowed_subjects_names,
+                    "x-repalis-allowed-subjects": allowed_subjects_names,
                     **openapi_extra,
                 }
 

@@ -230,11 +230,11 @@ class TestFile:
             "VersionId": "uploaded-version",
             "Metadata": {
                 "repalis-id": str(created.id),
-                "polar-organization-id": str(created.organization_id),
-                "polar-name": self.name,
-                "polar-size": str(created.size),
-                "polar-sha256-base64": self.base64,
-                "polar-sha256-hex": self.hex,
+                "repalis-organization-id": str(created.organization_id),
+                "repalis-name": self.name,
+                "repalis-size": str(created.size),
+                "repalis-sha256-base64": self.base64,
+                "repalis-sha256-hex": self.hex,
             },
         }
         s3_stub.add_response(

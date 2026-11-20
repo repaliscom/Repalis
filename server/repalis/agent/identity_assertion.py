@@ -1,7 +1,7 @@
 """The identity assertion an agent trades for access tokens (RFC 7523).
 
 A JWT signed with the key that signs our ID tokens. Its `type` claim keeps it
-apart from every other JWT Polar signs: `polar.kit.jwt.decode` rejects any other
+apart from every other JWT Repalis signs: `repalis.kit.jwt.decode` rejects any other
 type, and the ID tokens and SSO client assertions carry no `type` at all.
 """
 
@@ -47,7 +47,7 @@ def create_identity_assertion(agent_id: UUID) -> IdentityAssertion:
 
 
 def decode_identity_assertion(token: str) -> IdentityAssertionClaims:
-    """Raises `polar.kit.jwt.InvalidTokenError` if the assertion isn't valid."""
+    """Raises `repalis.kit.jwt.InvalidTokenError` if the assertion isn't valid."""
     claims = jwt.decode_sync(
         token=token,
         type=IDENTITY_ASSERTION_TYPE,

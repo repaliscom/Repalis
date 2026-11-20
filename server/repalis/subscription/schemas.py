@@ -366,7 +366,7 @@ class SubscriptionCreateExternalCustomer(SubscriptionCreateBase):
     external_customer_id: str = Field(
         description=(
             "The ID of the customer in your system to create the subscription for. "
-            "It must already exist in Polar."
+            "It must already exist in Repalis."
         )
     )
 
@@ -510,7 +510,7 @@ class SubscriptionCancelBase(Schema):
 
             **IMPORTANT:**
             Do not use this to store internal notes! It's intended to be input
-            from the customer and is therefore also available in their Polar
+            from the customer and is therefore also available in their Repalis
             purchases library.
 
             Only set this in case your own service is requesting the reason from the

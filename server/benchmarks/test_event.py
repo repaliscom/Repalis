@@ -272,7 +272,7 @@ def test_ingest_staged_events_http(
     run(client.aclose())
 
 
-# Events that name a parent Polar never receives keep waiting for it. Resolving the parents of a new
+# Events that name a parent Repalis never receives keep waiting for it. Resolving the parents of a new
 # batch should only look at the events waiting for that batch.
 @pytest.mark.parametrize("size", [1, 100])
 def test_resolve_pending_parents_next_to_1000_orphans(

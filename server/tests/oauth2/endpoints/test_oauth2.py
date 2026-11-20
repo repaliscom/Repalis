@@ -441,8 +441,8 @@ class TestOAuth2ConfigureDelete:
             await create_oauth2_token(
                 save_fixture,
                 client=token_client,
-                access_token=f"polar_at_{index}",
-                refresh_token=f"polar_rt_{index}",
+                access_token=f"repalis_at_{index}",
+                refresh_token=f"repalis_rt_{index}",
                 scopes=["openid"],
                 user=user,
             )
@@ -1690,9 +1690,9 @@ class TestOAuth2Token:
         json = response.json()
 
         access_token = json["access_token"]
-        assert access_token.startswith("polar_at_o_")
+        assert access_token.startswith("repalis_at_o_")
         refresh_token = json["refresh_token"]
-        assert refresh_token.startswith("polar_rt_o_")
+        assert refresh_token.startswith("repalis_rt_o_")
 
     async def test_authorization_code_id_token_signed_with_published_key(
         self,
@@ -1886,9 +1886,9 @@ class TestOAuth2Token:
         json = response.json()
 
         access_token = json["access_token"]
-        assert access_token.startswith("polar_at_o_")
+        assert access_token.startswith("repalis_at_o_")
         refresh_token = json["refresh_token"]
-        assert refresh_token.startswith("polar_rt_o_")
+        assert refresh_token.startswith("repalis_rt_o_")
 
     async def test_refresh_token_migrates_single_member_org_token(
         self,
@@ -1983,7 +1983,7 @@ class TestOAuth2Token:
 
         assert response.status_code == 200
         access_token = response.json()["access_token"]
-        assert access_token.startswith("polar_at_o_")
+        assert access_token.startswith("repalis_at_o_")
 
     async def test_refresh_token_unauthenticated_private_client(
         self,

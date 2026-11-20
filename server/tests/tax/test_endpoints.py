@@ -26,7 +26,7 @@ async def create_tax_transaction(
     currency: str = "usd",
 ) -> Transaction:
     # The org link flows through `order` (Order.organization_id); the
-    # transaction itself is on the Polar side and is not tied to an account.
+    # transaction itself is on the Repalis side and is not tied to an account.
     transaction = Transaction(
         type=type,
         account=None,

@@ -247,7 +247,7 @@ class TestGenerateWebhookSecret:
 
 class TestSignWebhook:
     def test_legacy_matches_utf8_hmac(self) -> None:
-        secret = "whsec_legacyPolarToken"
+        secret = "whsec_legacyRepalisToken"
         payload = '{"foo":"bar"}'
         timestamp = utc_now()
         signature = sign_webhook(
@@ -267,7 +267,7 @@ class TestSignWebhook:
         )
 
     def test_before_cutoff_stays_legacy_even_when_stamped(self) -> None:
-        secret = "whsec_legacyPolarToken"
+        secret = "whsec_legacyRepalisToken"
         payload = '{"foo":"bar"}'
         timestamp = utc_now()
         signature = sign_webhook(

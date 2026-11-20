@@ -392,11 +392,11 @@ class TestUpdate:
             session,
             customer,
             CustomerPortalCustomerUpdate(
-                billing_name="Polar Software Inc.",
+                billing_name="Repalis Software Inc.",
             ),
         )
 
-        assert updated_customer.billing_name == "Polar Software Inc."
+        assert updated_customer.billing_name == "Repalis Software Inc."
 
     async def test_valid(
         self,
@@ -411,13 +411,13 @@ class TestUpdate:
             session,
             customer,
             CustomerPortalCustomerUpdate(
-                billing_name="Polar Software Inc.",
+                billing_name="Repalis Software Inc.",
                 billing_address=AddressInput(country=CountryAlpha2Input("FR")),
                 tax_id="FR61954506077",
             ),
         )
 
-        assert updated_customer.billing_name == "Polar Software Inc."
+        assert updated_customer.billing_name == "Repalis Software Inc."
         assert updated_customer.billing_address is not None
         assert updated_customer.billing_address.country == "FR"
         assert updated_customer.tax_id is not None

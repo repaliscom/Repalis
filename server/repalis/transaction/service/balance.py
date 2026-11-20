@@ -39,7 +39,7 @@ class BalanceTransactionService(BaseTransactionService):
         issue_reward: IssueReward | None = None,
         platform_fee_type: PlatformFeeType | None = None,
     ) -> tuple[Transaction, Transaction]:
-        currency = "usd"  # FIXME: Main Polar currency
+        currency = "usd"  # FIXME: Main Repalis currency
 
         balance_correlation_key = str(uuid.uuid4())
 
@@ -127,7 +127,7 @@ class BalanceTransactionService(BaseTransactionService):
         incoming_incurred_by: Transaction | None = None,
         refund: Refund | None = None,
     ) -> tuple[Transaction, Transaction]:
-        currency = "usd"  # FIXME: Main Polar currency
+        currency = "usd"  # FIXME: Main Repalis currency
 
         outgoing, incoming = balance_transactions
         source_account_id = incoming.account_id
@@ -160,7 +160,7 @@ class BalanceTransactionService(BaseTransactionService):
         )
         incoming_reversal = Transaction(
             id=generate_uuid(),
-            account=None,  # Polar account
+            account=None,  # Repalis account
             type=TransactionType.balance,
             currency=currency,
             amount=amount,  # Add the amount

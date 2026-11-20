@@ -1236,7 +1236,7 @@ async def list_orders(
     authz: AuthorizeFinanceRead,
     pagination: PaginationParamsQuery,
 ) -> ListResource[OrganizationOrder]:
-    """List Polar orders billed to this organization."""
+    """List Repalis orders billed to this organization."""
     items, total = await repalis_self_service.list_orders(
         authz.organization.id,
         page=pagination.page,
@@ -1297,7 +1297,7 @@ async def update_billing_details(
 async def list_payment_methods(
     authz: AuthorizeOrgManageUserRead,
 ) -> ListResource[OrganizationPaymentMethod]:
-    """List the saved payment methods used to pay Polar invoices."""
+    """List the saved payment methods used to pay Repalis invoices."""
     methods, default_payment_method_id = await repalis_self_service.list_payment_methods(
         authz.organization.id,
         external_member_id=str(authz.auth_subject.subject.id),
@@ -1325,7 +1325,7 @@ async def list_payment_methods(
 async def create_customer_session(
     authz: AuthorizeOrgManageUser,
 ) -> OrganizationCustomerSession:
-    """Create a customer session token bound to this org's Polar billing
+    """Create a customer session token bound to this org's Repalis billing
     customer. The returned token authenticates against
     `/v1/customer-portal/customers/me/*` for the duration of its TTL."""
     token = await repalis_self_service.create_customer_session(
@@ -1357,7 +1357,7 @@ async def delete_payment_method(
     authz: AuthorizeOrgManageUser,
     payment_method_id: str,
 ) -> None:
-    """Delete a saved payment method used to pay Polar invoices."""
+    """Delete a saved payment method used to pay Repalis invoices."""
     await repalis_self_service.delete_payment_method(
         authz.organization.id,
         payment_method_id=payment_method_id,
@@ -1382,7 +1382,7 @@ async def set_default_payment_method(
     authz: AuthorizeOrgManageUser,
     payment_method_id: str,
 ) -> None:
-    """Set the default payment method used to pay Polar invoices."""
+    """Set the default payment method used to pay Repalis invoices."""
     await repalis_self_service.set_default_payment_method(
         authz.organization.id,
         payment_method_id=payment_method_id,
@@ -1407,7 +1407,7 @@ async def get_order_invoice(
     authz: AuthorizeFinanceRead,
     order_id: str,
 ) -> OrganizationOrderInvoice:
-    """Get the invoice URL for a Polar order belonging to this organization."""
+    """Get the invoice URL for a Repalis order belonging to this organization."""
     url = await repalis_self_service.get_order_invoice_url(
         authz.organization.id, order_id
     )
@@ -1424,7 +1424,7 @@ async def get_order_invoice(
 async def list_benefit_grants(
     authz: AuthorizeOrgManageUserRead,
 ) -> ListResource[OrganizationBenefitGrant]:
-    """List Slack shared channel benefit grants attached to this org's Polar
+    """List Slack shared channel benefit grants attached to this org's Repalis
     subscription."""
     grants = await repalis_self_service.list_benefit_grants(
         authz.organization.id,

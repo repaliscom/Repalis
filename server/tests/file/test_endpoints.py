@@ -92,7 +92,7 @@ class TestEndpoints:
 
         assert created.path.endswith(f"/{non_ascii_file_name.name}")
         assert create_multipart_upload.call_args.kwargs["Metadata"][
-            "polar-name"
+            "repalis-name"
         ].isascii()
         non_ascii_file_name.completed_parts(created)
 
@@ -197,11 +197,11 @@ class TestSVGSanitization:
         checksum = base64.b64encode(digest.digest()).decode()
         metadata = {
             "repalis-id": str(record.id),
-            "polar-organization-id": str(organization.id),
-            "polar-name": record.name,
-            "polar-size": str(len(sanitized)),
-            "polar-sha256-base64": checksum,
-            "polar-sha256-hex": digest.hexdigest(),
+            "repalis-organization-id": str(organization.id),
+            "repalis-name": record.name,
+            "repalis-size": str(len(sanitized)),
+            "repalis-sha256-base64": checksum,
+            "repalis-sha256-hex": digest.hexdigest(),
         }
         object_params = {
             "Bucket": S3_SERVICES[record.service].bucket,
