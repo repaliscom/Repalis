@@ -39,8 +39,8 @@ let requests: Array<{
 }>
 let denied: boolean
 
-const environmentOf = () => polar.state.requests.at(-1)!.environment
-const polar = fakeRepalis({
+const environmentOf = () => repalis.state.requests.at(-1)!.environment
+const repalis = fakeRepalis({
   organizations: {
     list: ({ page = 1, slug }: { page?: number; slug?: string }) => {
       const environment = environmentOf()
@@ -76,7 +76,7 @@ const service = () =>
           Layer.provide(
             Layer.mergeAll(
               Layer.succeed(Auth, auth.auth),
-              Layer.succeed(Polar, polar.polar),
+              Layer.succeed(Repalis, polar.polar),
               Layer.succeed(CLIConfig, config.config),
             ),
           ),

@@ -12,7 +12,7 @@ const Y = 180,
 const BOXES: [string, string, number][] = [
   ['YOUR APP', 'check()', 40],
   ['OUTPOST', 'your redis', 190],
-  ['POLAR', 'event log', 400],
+  ['REPALIS', 'event log', 400],
 ]
 const BW = 100
 const MID_Y = Y + BH / 2
@@ -33,8 +33,8 @@ const text = (x: number, y: number, t: string, fill = DIM, size = 7.5) => (
 const app = BOXES[0][2] + BW,
   outpost = BOXES[1][2],
   outpostEnd = BOXES[1][2] + BW,
-  polar = BOXES[2][2]
-const sync = (outpostEnd + polar) / 2
+  repalis = BOXES[2][2]
+const sync = (outpostEnd + repalis) / 2
 
 const figure = (
   <>
@@ -67,7 +67,7 @@ const figure = (
 
     <line
       x1={outpostEnd}
-      x2={polar}
+      x2={repalis}
       y1={MID_Y}
       y2={MID_Y}
       stroke={MID}

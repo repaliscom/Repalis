@@ -80,10 +80,10 @@ export const TaxPoster = () => (
 )
 
 const RESPONSIBILITIES: [string, string][] = [
-  ['Sales tax and VAT', 'POLAR'],
-  ['Fraud screening', 'POLAR'],
-  ['Chargebacks', 'POLAR'],
-  ['Compliance', 'POLAR'],
+  ['Sales tax and VAT', 'REPALIS'],
+  ['Fraud screening', 'REPALIS'],
+  ['Chargebacks', 'REPALIS'],
+  ['Compliance', 'REPALIS'],
   ['Your product', 'YOU'],
 ]
 

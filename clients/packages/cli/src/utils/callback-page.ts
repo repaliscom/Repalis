@@ -14,12 +14,12 @@ export const loginCopy: CallbackCopy = {
   denied: {
     title: 'Sign-in canceled',
     message:
-      'Authorization was denied. Return to your terminal and run <code>polar auth login</code> to try again.',
+      'Authorization was denied. Return to your terminal and run <code>repalis auth login</code> to try again.',
   },
   invalid: {
     title: 'Something went wrong',
     message:
-      'This sign-in link is invalid or has expired. Return to your terminal and run <code>polar auth login</code> again.',
+      'This sign-in link is invalid or has expired. Return to your terminal and run <code>repalis auth login</code> again.',
   },
 }
 
@@ -59,12 +59,12 @@ export const tokenCopy: CallbackCopy = {
   denied: {
     title: 'Token creation canceled',
     message:
-      'No token was created. Return to your terminal and run <code>polar auth token</code> to try again.',
+      'No token was created. Return to your terminal and run <code>repalis auth token</code> to try again.',
   },
   invalid: {
     title: 'Something went wrong',
     message:
-      'This link is invalid or has expired. Return to your terminal and run <code>polar auth token</code> again.',
+      'This link is invalid or has expired. Return to your terminal and run <code>repalis auth token</code> again.',
   },
 }
 
@@ -79,7 +79,7 @@ export const callbackPage = (
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light dark">
-<title>Polar CLI</title>
+<title>Repalis CLI</title>
 <style>
   :root {
     --background: #fff; --foreground: #000;

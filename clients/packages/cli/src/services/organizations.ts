@@ -32,7 +32,7 @@ const isUuid = (value: string) =>
 export const layer = Layer.effect(
   Organizations,
   Effect.gen(function* () {
-    const polar = yield* Repalis
+    const repalis = yield* Repalis
     const auth = yield* Auth
     const config = yield* CLIConfig
     const list = (environment: RepalisEnvironment) =>
@@ -40,7 +40,7 @@ export const layer = Layer.effect(
         const organizations: ActiveOrganization[] = []
         let page = 1
         while (true) {
-          const response = yield* polar.use(
+          const response = yield* repalis.use(
             (client) => client.organizations.list({ page, limit: 100 }),
             environment,
           )
@@ -66,7 +66,7 @@ export const layer = Layer.effect(
     })
     const get = (id: string, environment: RepalisEnvironment) =>
       Effect.map(
-        polar.use((client) => client.organizations.get(id), environment, {
+        repalis.use((client) => client.organizations.get(id), environment, {
           organizationId: id,
         }),
         (organization) => ({
@@ -78,7 +78,7 @@ export const layer = Layer.effect(
       )
     const getBySlug = (slug: string, environment: RepalisEnvironment) =>
       Effect.gen(function* () {
-        const response = yield* polar.use(
+        const response = yield* repalis.use(
           (client) => client.organizations.list({ slug, limit: 1 }),
           environment,
         )
@@ -103,7 +103,7 @@ export const layer = Layer.effect(
         const available = yield* auth.environments
         if (available.length === 0) {
           return yield* new AuthError({
-            message: 'Not logged in. Run polar auth login.',
+            message: 'Not logged in. Run repalis auth login.',
           })
         }
         if (available.length === 1)
@@ -115,7 +115,7 @@ export const layer = Layer.effect(
           if (found) return found
         }
         return yield* new AuthError({
-          message: `Organization ${reference} is missing or inaccessible in ${available.join(' and ')}. Check --org or run polar auth list.`,
+          message: `Organization ${reference} is missing or inaccessible in ${available.join(' and ')}. Check --org or run repalis auth list.`,
         })
       })
     return Organizations.of({

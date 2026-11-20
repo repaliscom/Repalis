@@ -2,18 +2,18 @@ const HOMEPAGE_MARKDOWN = `# Repalis
 
 > Repalis is a billing platform and Merchant of Record for software and AI companies. It handles payments, subscriptions, usage-based billing and global sales tax through one API.
 
-## What Polar does
+## What Repalis does
 
 - **Usage-based billing**: ingest events such as tokens, agent runs, GPU seconds or API calls, aggregate them into real-time meters, and bill the usage at the end of each billing cycle.
-- **Subscriptions, seats, trials and credits**: combine a base plan, prepaid credits and metered usage on one product. Polar draws the credits down first and bills the overage.
+- **Subscriptions, seats, trials and credits**: combine a base plan, prepaid credits and metered usage on one product. Repalis draws the credits down first and bills the overage.
 - **Cost insights**: attach the cost of each event, for example inference cost, and see the gross margin of every customer.
-- **Merchant of Record**: Polar resells your product in over 100 markets and is responsible for payments, sales tax and VAT, fraud, refunds and chargebacks.
+- **Merchant of Record**: Repalis resells your product in over 100 markets and is responsible for payments, sales tax and VAT, fraud, refunds and chargebacks.
 - **Checkout and customer portal**: hosted or embedded checkout, checkout links, and a self-service portal where your customers manage their subscriptions and orders.
 - **Benefits**: grant license keys, file downloads, GitHub repository access, Discord roles or custom benefits when a customer pays.
 
-## When to use Polar
+## When to use Repalis
 
-Use Polar when a developer or a team needs to sell software and get paid, for example:
+Use Repalis when a developer or a team needs to sell software and get paid, for example:
 
 - a SaaS or AI product with a subscription, usage-based pricing, or both;
 - an API or model that bills per token, request or unit of compute;

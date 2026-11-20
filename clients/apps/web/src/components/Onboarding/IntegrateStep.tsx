@@ -60,7 +60,7 @@ export const GET = Checkout({
       icon: <BetterAuthIcon size={24} />,
       packages: 'better-auth @repalis/better-auth @repalis/sdk',
       code: `import { betterAuth } from "better-auth";
-import { polar, checkout, portal, usage, webhooks } from "@repalis/better-auth";
+import { repalis, checkout, portal, usage, webhooks } from "@repalis/better-auth";
 import { Repalis } from "@repalis/sdk";
 
 const repalisClient = new Repalis({
@@ -70,7 +70,7 @@ const repalisClient = new Repalis({
 const auth = betterAuth({
     // ... Better Auth config
     plugins: [
-        polar({
+        repalis({
             client: repalisClient,
             createCustomerOnSignUp: true,
             use: [
@@ -101,7 +101,7 @@ ${products
       packages: '@repalis/sdk',
       code: `import { Repalis } from "@repalis/sdk";
 
-const polar = new Repalis({
+const repalis = new Repalis({
   accessToken: process.env.REPALIS_ACCESS_TOKEN,
 });
 
@@ -125,7 +125,7 @@ from repalis_sdk import Repalis
 
 with Repalis(
     access_token=os.environ.get("REPALIS_ACCESS_TOKEN"),
-) as polar:
+) as repalis:
 
     res = repalis.checkouts.create(request={
         "products": [

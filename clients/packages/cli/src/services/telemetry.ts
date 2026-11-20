@@ -30,13 +30,13 @@ declare const REPALIS_CLI_BUILD: string | undefined
 type Env = Record<string, string | undefined>
 
 export const Environment = Context.Reference<Env>(
-  'polar/Telemetry/Environment',
+  'repalis/Telemetry/Environment',
   { defaultValue: () => process.env },
 )
 
 export type BuildKind = 'release' | 'development'
 
-export const Build = Context.Reference<BuildKind>('polar/Telemetry/Build', {
+export const Build = Context.Reference<BuildKind>('repalis/Telemetry/Build', {
   defaultValue: () =>
     typeof REPALIS_CLI_BUILD !== 'undefined' && REPALIS_CLI_BUILD === 'release'
       ? 'release'
@@ -127,7 +127,7 @@ const redactions: ReadonlyArray<RegExp> = [
   /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/gi,
   /\beyJ[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+/g,
   /\bBearer\s+\S+/gi,
-  /\b(?:polar_|sk_|pk_|rk_|whsec_|ghp_|gho_|ghu_|ghs_|ghr_|github_pat_|glpat-|xox[baprs]-|AIza|ya29\.)[A-Za-z0-9_.-]+/g,
+  /\b(?:repalis_|sk_|pk_|rk_|whsec_|ghp_|gho_|ghu_|ghs_|ghr_|github_pat_|glpat-|xox[baprs]-|AIza|ya29\.)[A-Za-z0-9_.-]+/g,
   /\b(?:AKIA|ASIA)[A-Z0-9]{16}\b/g,
   /\b[a-z][a-z0-9+.-]*:\/\/\S+/gi,
   /(?:\/Users|\/home|\/root|\/tmp|\/var|\/private|[A-Za-z]:\\Users)(?:[\\/]\S*|\b)/g,
@@ -221,14 +221,14 @@ export interface TelemetryEvent {
 export class Sender extends Context.Service<
   Sender,
   { dispatch: (event: TelemetryEvent) => Effect.Effect<void> }
->()('polar/Telemetry/Sender') {}
+>()('repalis/Telemetry/Sender') {}
 
 export class Telemetry extends Context.Service<
   Telemetry,
   { record: (outcome: CommandOutcome) => Effect.Effect<void> }
->()('polar/Telemetry') {}
+>()('repalis/Telemetry') {}
 
-const stateFile = join(homedir(), '.polar', 'telemetry.json')
+const stateFile = join(homedir(), '.repalis', 'telemetry.json')
 
 const installId = (fs: FileSystem.FileSystem) =>
   Effect.gen(function* () {

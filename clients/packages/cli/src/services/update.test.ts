@@ -63,8 +63,8 @@ describe('getReleaseArchiveName', () => {
 describe('binaryNameFor', () => {
   test('adds the exe extension on windows only', () => {
     expect(binaryNameFor('windows')).toBe('repalis.exe')
-    expect(binaryNameFor('darwin')).toBe('polar')
-    expect(binaryNameFor('linux')).toBe('polar')
+    expect(binaryNameFor('darwin')).toBe('repalis')
+    expect(binaryNameFor('linux')).toBe('repalis')
   })
 })
 
@@ -116,8 +116,8 @@ describe('replaceBinary on macOS and Linux', () => {
   beforeEach(async () => {
     writeError = undefined
     dir = await makeTemp()
-    newBinaryPath = join(dir, 'polar-new')
-    binaryPath = join(dir, 'polar')
+    newBinaryPath = join(dir, 'repalis-new')
+    binaryPath = join(dir, 'repalis')
     await writeFile(newBinaryPath, '#!/bin/sh\necho new')
     await writeFile(binaryPath, '#!/bin/sh\necho old')
   })
@@ -220,7 +220,7 @@ describe('replaceBinary on windows', () => {
   beforeEach(async () => {
     copyError = undefined
     dir = await makeTemp()
-    newBinaryPath = join(dir, 'polar-new.exe')
+    newBinaryPath = join(dir, 'repalis-new.exe')
     binaryPath = join(dir, 'repalis.exe')
     await writeFile(newBinaryPath, 'new binary')
     await writeFile(binaryPath, 'old binary')
@@ -345,7 +345,7 @@ describe('install', () => {
 
   beforeEach(async () => {
     dir = await makeTemp()
-    binaryPath = join(dir, 'polar')
+    binaryPath = join(dir, 'repalis')
     await writeFile(binaryPath, 'old binary')
     http = fakeHttp({
       [archiveUrl]: () => new Response(archive),

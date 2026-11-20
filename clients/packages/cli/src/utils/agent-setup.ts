@@ -52,7 +52,7 @@ export const statusReport = (result: AgentSetupResult) => {
     ui.blank,
     ...(pending
       ? [
-          ui.step(`Run ${ui.command('polar agent setup')} to set them up`),
+          ui.step(`Run ${ui.command('repalis agent setup')} to set them up`),
           ui.blank,
         ]
       : []),
@@ -77,17 +77,17 @@ export const summary = ({ steps, clients }: AgentSetupResult) => {
   return [
     ui.warning('No Claude Code, Codex or Cursor installation found'),
     ui.step(
-      `Install the Repalis skills for another agent with ${ui.command('polar agent setup --skills project')}`,
+      `Install the Repalis skills for another agent with ${ui.command('repalis agent setup --skills project')}`,
     ),
-    ui.step(`and connect it to the Polar MCP server: ${MCP_DOCS}`),
+    ui.step(`and connect it to the Repalis MCP server: ${MCP_DOCS}`),
     ui.blank,
   ]
 }
 
 const signIn: Partial<Record<SetupStep['target'], string>> = {
-  'claude-code': `Claude Code: restart it, run ${ui.command('/mcp')} and sign in to polar or repalis-sandbox`,
-  codex: `Codex: run ${ui.command('codex mcp login polar')} or ${ui.command('codex mcp login repalis-sandbox')}`,
-  cursor: 'Cursor: open Settings → MCP and connect polar or repalis-sandbox',
+  'claude-code': `Claude Code: restart it, run ${ui.command('/mcp')} and sign in to repalis or repalis-sandbox`,
+  codex: `Codex: run ${ui.command('codex mcp login repalis')} or ${ui.command('codex mcp login repalis-sandbox')}`,
+  cursor: 'Cursor: open Settings → MCP and connect repalis or repalis-sandbox',
 }
 
 export const nextSteps = ({ steps }: AgentSetupResult) => {

@@ -52,23 +52,23 @@ export const plan = Command.make('plan', { file, org, prComment }).pipe(
   ),
   Command.withExamples([
     {
-      command: 'polar config plan',
+      command: 'repalis config plan',
       description: 'Check repalis.config.ts in the current directory',
     },
     {
-      command: 'polar config plan billing/repalis.json',
+      command: 'repalis config plan billing/repalis.json',
       description: 'Check a specific file',
     },
     {
-      command: 'polar config plan --org acme',
+      command: 'repalis config plan --org acme',
       description: 'Check against another organization, by slug or ID',
     },
     {
-      command: 'polar config plan --json',
+      command: 'repalis config plan --json',
       description: 'Print the changes and issues as JSON',
     },
     {
-      command: 'polar config plan --pr-comment',
+      command: 'repalis config plan --pr-comment',
       description:
         'Also post the plan on the pull request being built, in GitHub Actions or Buildkite',
     },

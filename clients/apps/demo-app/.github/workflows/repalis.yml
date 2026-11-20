@@ -8,7 +8,7 @@ on:
     paths: [repalis.config.ts]
 
 env:
-  POLAR_PREVIEW: '1'
+  REPALIS_PREVIEW: '1'
 
 jobs:
   plan:
@@ -25,9 +25,9 @@ jobs:
       - run: curl -fsSL https://repalis.com/install.sh | bash
       - name: Plan and comment on the pull request
         env:
-          REPALIS_ACCESS_TOKEN: ${{ secrets.POLAR_READ_TOKEN }}
+          REPALIS_ACCESS_TOKEN: ${{ secrets.REPALIS_READ_TOKEN }}
           GITHUB_TOKEN: ${{ github.token }}
-        run: polar config plan --pr-comment
+        run: repalis config plan --pr-comment
 
   apply:
     if: github.event_name == 'push'
@@ -43,5 +43,5 @@ jobs:
       - run: curl -fsSL https://repalis.com/install.sh | bash
       - name: Apply
         env:
-          REPALIS_ACCESS_TOKEN: ${{ secrets.POLAR_WRITE_TOKEN }}
-        run: polar config apply --confirm
+          REPALIS_ACCESS_TOKEN: ${{ secrets.REPALIS_WRITE_TOKEN }}
+        run: repalis config apply --confirm

@@ -66,7 +66,7 @@ export const STEPS: StepDefinition[] = [
         code: `import { RuntimeSDK } from '@repalis/repalis'
 import config from './repalis.config'
 
-export const polar = RuntimeSDK(config, {
+export const repalis = RuntimeSDK(config, {
   accessToken: process.env.REPALIS_ACCESS_TOKEN,
 })`,
       },
@@ -84,7 +84,7 @@ export const polar = RuntimeSDK(config, {
         code: `export async function getBalance() {
   const userId = await getUserId()
 
-  const customer = polar.actor({ externalCustomerId: userId }) // !
+  const customer = repalis.actor({ externalCustomerId: userId }) // !
 
   return customer.balance('tool_call') // !
   // → { balance: number, pristine: boolean }
@@ -101,7 +101,7 @@ export const polar = RuntimeSDK(config, {
     files: [
       {
         name: 'repalis.ts',
-        code: `const customer = polar.actor({ externalCustomerId: userId }) // !
+        code: `const customer = repalis.actor({ externalCustomerId: userId }) // !
 
 const { balance } = await customer.balance('tool_call') // !
 if (balance < count) { // !
@@ -128,7 +128,7 @@ await customer.track('tool_call', { // !
     files: [
       {
         name: 'repalis.ts',
-        code: `const customer = polar.actor({ externalCustomerId: userId }) // !
+        code: `const customer = repalis.actor({ externalCustomerId: userId }) // !
 
 const { granted } = await customer.access('custom_servers') // !
 if (!granted) { // !
@@ -155,7 +155,7 @@ await customer.track('tool_call', { // !
     files: [
       {
         name: 'repalis.ts',
-        code: `const customer = polar.actor({ externalCustomerId: userId }) // !
+        code: `const customer = repalis.actor({ externalCustomerId: userId }) // !
 
 await saveSurveyAnswer(userId, answer)
 

@@ -6,7 +6,7 @@ const CLIENTS: Snippet[] = [
   {
     name: 'Claude Code',
     caption: 'zsh',
-    lines: [`claude mcp add --transport http polar ${MCP_URL}`],
+    lines: [`claude mcp add --transport http repalis ${MCP_URL}`],
   },
   {
     name: 'Cursor',
@@ -14,7 +14,7 @@ const CLIENTS: Snippet[] = [
     lines: [
       '{',
       '  "mcpServers": {',
-      '    "polar": {',
+      '    "repalis": {',
       `      "url": "${MCP_URL}"`,
       '    }',
       '  }',
@@ -24,7 +24,7 @@ const CLIENTS: Snippet[] = [
   {
     name: 'Codex',
     caption: 'zsh',
-    lines: [`codex mcp add polar --url ${MCP_URL}`],
+    lines: [`codex mcp add repalis --url ${MCP_URL}`],
   },
   {
     name: 'ChatGPT',
@@ -41,7 +41,7 @@ const CLIENTS: Snippet[] = [
     caption: 'zsh',
     lines: [
       'npx skills add https://github.com/repaliscom/agent-toolkit \\',
-      '  --skill polar-integration',
+      '  --skill repalis-integration',
     ],
   },
 ]
