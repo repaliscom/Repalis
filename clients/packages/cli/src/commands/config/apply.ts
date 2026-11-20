@@ -61,7 +61,7 @@ const render = (
         applied(config, organization, result.entries),
         ...(result.draft
           ? next(
-              `${ui.INDENT}Products, benefits, meters and settings are saved to the draft catalog.\n${ui.INDENT}Run ${ui.command('polar config publish')} to make it live.`,
+              `${ui.INDENT}Products, benefits, meters and settings are saved to the draft catalog.\n${ui.INDENT}Run ${ui.command('repalis config publish')} to make it live.`,
             )
           : []),
         ui.blank,
@@ -86,7 +86,7 @@ const approve = (
       )
       return yield* new BillingConfigError({
         message: `Confirmation needed to apply to ${target(organization)}`,
-        hint: 'Pass --confirm to apply without asking, after reviewing polar config plan.',
+        hint: 'Pass --confirm to apply without asking, after reviewing repalis config plan.',
       })
     }
     yield* say(nextOpen())

@@ -90,7 +90,7 @@ describe('auth login', () => {
       await promise
 
       expect(terminal()).not.toContain('Which session')
-      expect(output()).toContain(`Logged out of Polar ${environment}`)
+      expect(output()).toContain(`Logged out of Repalis ${environment}`)
       expect(auth.state.sessions).toEqual([])
     },
   )
@@ -100,7 +100,7 @@ describe('auth login', () => {
     const { promise, output } = run(['logout'])
     await promise
 
-    expect(output()).toContain('Logged out of Polar sandbox')
+    expect(output()).toContain('Logged out of Repalis sandbox')
   })
 
   test('requires a flag outside a terminal when logged in to both', async () => {
@@ -438,7 +438,7 @@ describe('auth logout', () => {
     const { promise, output } = run(['logout', '--all'])
     await promise
 
-    expect(output()).toContain('Logged out of Polar sandbox')
+    expect(output()).toContain('Logged out of Repalis sandbox')
     expect(output()).toContain('Logged out of Repalis production')
     expect(auth.state.sessions).toEqual([])
   })
@@ -460,7 +460,7 @@ describe('auth logout', () => {
 
     expect(terminal()).toContain('Which session do you want to log out of?')
     expect(terminal()).toContain('All sessions')
-    expect(output()).toContain('Logged out of Polar sandbox')
+    expect(output()).toContain('Logged out of Repalis sandbox')
     expect(output()).toContain('Logged out of Repalis production')
   })
 
@@ -486,6 +486,6 @@ describe('auth logout', () => {
     await promise
 
     expect(output()).toContain('REPALIS_ACCESS_TOKEN remains active')
-    expect(output()).toContain('Logged out of Polar')
+    expect(output()).toContain('Logged out of Repalis')
   })
 })

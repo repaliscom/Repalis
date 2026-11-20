@@ -1,4 +1,4 @@
-# polar-nextjs
+# repalis-nextjs
 
 ## 1.1.1
 

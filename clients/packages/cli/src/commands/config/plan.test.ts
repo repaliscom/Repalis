@@ -96,7 +96,7 @@ describe('repalis config plan', () => {
     const { output, failed } = await run({ entries, issues: [warning] })
     expect(failed).toBe(false)
     expect(output).toMatch(
-      /Summary\n {2}╭─+╮\n *│ {2}Organization {2}Acme *│\n *│ {2}Environment {3}sandbox *│\n *│ {2}File {10}polar\.json *│\n *│ {2}Changes {7}0 to change, 1 to add, 0 unchanged *│\n *│ {2}Issues {8}1 warning *│\n {2}╰─+╯\n\n {2}Next\n {2}╭─+╮\n *│ {2}Run repalis config apply to apply it\. *│\n {2}╰─+╯\n$/,
+      /Summary\n {2}╭─+╮\n *│ {2}Organization {2}Acme *│\n *│ {2}Environment {3}sandbox *│\n *│ {2}File {10}repalis\.json *│\n *│ {2}Changes {7}0 to change, 1 to add, 0 unchanged *│\n *│ {2}Issues {8}1 warning *│\n {2}╰─+╯\n\n {2}Next\n {2}╭─+╮\n *│ {2}Run repalis config apply to apply it\. *│\n {2}╰─+╯\n$/,
     )
     expect(output).toMatch(TREE)
     expect(output).toContain(
@@ -104,7 +104,7 @@ describe('repalis config plan', () => {
     )
     expect(output).toContain('Issues        1 warning')
     expect(output).toMatch(
-      /^ {2}Preflight\n {2}╭─+╮\n {2}│ {2}Reading {4}polar\.json *│\n {2}│ {2}Found {6}1 meter *│\n {2}│ {2}Comparing {2}\d+ms *│\n {2}╰─+╯$/m,
+      /^ {2}Preflight\n {2}╭─+╮\n {2}│ {2}Reading {4}repalis\.json *│\n {2}│ {2}Found {6}1 meter *│\n {2}│ {2}Comparing {2}\d+ms *│\n {2}╰─+╯$/m,
     )
   })
 

@@ -212,7 +212,7 @@ describe('repalis config init', () => {
     expect(output).toMatch(/Package {7}@repalis\/polar installed/)
     expect(output).not.toContain('Install the config package')
     expect(output).toMatch(
-      /2 {2}Add your meters, benefits and products +polar\.config\.ts/,
+      /2 {2}Add your meters, benefits and products +repalis\.config\.ts/,
     )
     expect(output).toContain('repalis config plan')
     expect(output).toContain('repalis config apply')
@@ -505,7 +505,7 @@ describe('repalis config init', () => {
     )
     expect(output).not.toContain('Review its plan')
     expect(output).toMatch(
-      /1 {2}Read the docs +https:\/\/polar\.sh\/docs\/integrate\/cli\/config/,
+      /1 {2}Read the docs +https:\/\/repalis\.com\/docs\/integrate\/cli\/config/,
     )
     expect(output).toContain('Option 2  Do it yourself')
   })
@@ -759,7 +759,7 @@ describe('repalis config init', () => {
       expect(output).toMatch(
         /1 {2}Ask it +"Help me set up billing with my Repalis config"/,
       )
-      expect(output).toMatch(/2 {2}Edit the config +polar\.config\.ts/)
+      expect(output).toMatch(/2 {2}Edit the config +repalis\.config\.ts/)
       expect(output).not.toContain('Preview what would be created')
     })
 

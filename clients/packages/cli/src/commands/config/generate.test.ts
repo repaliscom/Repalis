@@ -16,7 +16,7 @@ let directory: string
 let config: string
 
 beforeEach(async () => {
-  directory = await mkdtemp(join(tmpdir(), 'polar-generate-'))
+  directory = await mkdtemp(join(tmpdir(), 'repalis-generate-'))
   config = join(directory, 'repalis.config.json')
   await writeFile(join(directory, 'pyproject.toml'), '')
   vi.spyOn(process, 'cwd').mockReturnValue(directory)
@@ -176,7 +176,7 @@ describe('repalis config generate', () => {
     const { exit } = await run([], { meters: [{ external_Id: 'tool_call' }] })
 
     expect(failure(exit)?.hint).toBe(
-      'meters[0] has no external_id. Run polar config plan to see what to fix.',
+      'meters[0] has no external_id. Run repalis config plan to see what to fix.',
     )
     await expect(read('repalis_types.py')).rejects.toThrow()
   })

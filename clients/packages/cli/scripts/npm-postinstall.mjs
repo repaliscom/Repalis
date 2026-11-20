@@ -55,7 +55,7 @@ function resolveBinary() {
 // npm is a .cmd wrapper on Windows, so it has to go through the shell there. The
 // arguments stay static and the prefix is passed as cwd, so nothing needs quoting.
 function installPackage() {
-  const temp = fs.mkdtempSync(path.join(os.tmpdir(), 'polar-cli-install-'))
+  const temp = fs.mkdtempSync(path.join(os.tmpdir(), 'repalis-cli-install-'))
   // A global install passes its flag down to lifecycle scripts as npm_config_global
   // or npm_config_location, which would send the child install to the global prefix.
   const env = { ...process.env }

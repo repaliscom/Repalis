@@ -452,7 +452,7 @@ const logout = Command.make('logout', {
         : []),
       ...targets.map((environment) =>
         deleted.includes(environment)
-          ? ui.success(`Logged out of Polar ${ui.bold(environment)}`)
+          ? ui.success(`Logged out of Repalis ${ui.bold(environment)}`)
           : ui.step(`Already logged out of ${environment}`),
       ),
       ...(targets.length === 0 ? [ui.step('Already logged out')] : []),
@@ -462,6 +462,6 @@ const logout = Command.make('logout', {
 )
 
 export const auth = Command.make('auth').pipe(
-  Command.withDescription('Manage your Polar sessions and active organization'),
+  Command.withDescription('Manage your Repalis sessions and active organization'),
   Command.withSubcommands([login, whoami, list, org, token, logout]),
 )

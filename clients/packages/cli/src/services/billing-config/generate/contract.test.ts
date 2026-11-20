@@ -151,7 +151,7 @@ describe('generate', () => {
     const [header, directive] = generate(
       {},
       python,
-      'polar\nimport os\n.json',
+      'repalis\nimport os\n.json',
     ).split('\n')
 
     expect(header).toBe(

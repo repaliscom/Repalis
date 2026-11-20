@@ -3,7 +3,7 @@ import type { JsonType } from '@posthog/core'
 /**
  * Utilities for telemetry around Repalis's *own* billing-plan upgrade flow
  * (the checkout that lives behind the dashboard's Pricing settings and the
- * dashboard upsell). Not to be confused with the customer-facing Polar
+ * dashboard upsell). Not to be confused with the customer-facing Repalis
  * Checkout product — these helpers are exclusively about us tracking how
  * Repalis's organizations move between Repalis's plans.
  *
