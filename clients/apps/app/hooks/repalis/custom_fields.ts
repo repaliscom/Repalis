@@ -9,7 +9,7 @@ export const useCustomFields = (
     'organization_id'
   >,
 ) => {
-  const { polar } = useRepalisClient()
+  const { repalis } = useRepalisClient()
 
   return useQuery({
     queryKey: ['custom_fields', { organizationId, ...(parameters || {}) }],

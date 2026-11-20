@@ -8,7 +8,7 @@ enum WidgetTokenStore {
     private static let readServices = ["app:no-auth", "app:auth", "app"]
 
     private static let clientID =
-        "polar_ci_yZLBGwoWZVsOdfN5CODRwVSTlJfwJhXqwg65e2CuNMZ"
+        "repalis_ci_yZLBGwoWZVsOdfN5CODRwVSTlJfwJhXqwg65e2CuNMZ"
     private static let tokenEndpoint =
         URL(string: "https://api.repalis.com/v1/oauth2/token")!
 

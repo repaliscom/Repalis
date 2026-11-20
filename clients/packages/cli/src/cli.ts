@@ -16,7 +16,7 @@ import * as Deliveries from '@/services/deliveries'
 import * as Config from '@/services/config'
 import * as Organizations from '@/services/organizations'
 import * as OAuth from '@/services/oauth'
-import * as Polar from '@/services/repalis'
+import * as Repalis from '@/services/repalis'
 import * as Telemetry from '@/services/telemetry'
 import * as TokenHandoff from '@/services/token-handoff'
 import * as Trigger from '@/services/trigger'
@@ -102,7 +102,7 @@ const instrumented = Effect.gen(function* () {
     Effect.tapCause(reportError),
     Effect.onExit((exit) =>
       telemetry.record({
-        command: Telemetry.commandPath(polar, args),
+        command: Telemetry.commandPath(repalis, args),
         flags,
         ...Telemetry.outcomeOf(exit, flags),
         durationMs: performance.now() - startedAt,

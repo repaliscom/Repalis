@@ -7,7 +7,7 @@ import type { ActiveOrganization } from '@/schemas/Auth'
 import { Auth } from '@/services/auth'
 import { CLIConfig } from '@/services/config'
 import * as OrganizationsService from '@/services/organizations'
-import * as Polar from '@/services/repalis'
+import * as Repalis from '@/services/repalis'
 import { type RunCliOptions, runCli } from '@/utils/test-utils/cli'
 import {
   fakeAuth,
@@ -22,7 +22,7 @@ vi.mock('effect/cli', async (importOriginal) => {
 })
 
 describe('generated commands', () => {
-  const root = Command.make('polar').pipe(Command.withSubcommands(commands))
+  const root = Command.make('repalis').pipe(Command.withSubcommands(commands))
   let requests: Request[]
   let auth: ReturnType<typeof fakeAuth>
 
@@ -191,7 +191,7 @@ describe('generated commands', () => {
       ).rejects.toMatchObject({
         message: 'Missing required flag --prices',
         hint: expect.stringContaining(
-          "polar products create --name <name> --prices '[{",
+          "repalis products create --name <name> --prices '[{",
         ),
       })
       expect(requests).toHaveLength(0)
@@ -541,7 +541,7 @@ describe('destructive flags', () => {
 })
 
 describe('organization resolution', () => {
-  const root = Command.make('polar').pipe(Command.withSubcommands(commands))
+  const root = Command.make('repalis').pipe(Command.withSubcommands(commands))
   const production = {
     id: '00000000-0000-4000-8000-00000000aa01',
     name: 'Production',
@@ -609,12 +609,12 @@ describe('organization resolution', () => {
       Layer.succeed(Auth, auth.auth),
       Layer.succeed(CLIConfig, config.config),
     )
-    const polar = Repalis.layer.pipe(Layer.provide(dependencies))
+    const repalis = Repalis.layer.pipe(Layer.provide(dependencies))
     const organizations = OrganizationsService.layer.pipe(
-      Layer.provide(Layer.mergeAll(polar, dependencies)),
+      Layer.provide(Layer.mergeAll(repalis, dependencies)),
     )
     const runtime = ApiRuntime.layer.pipe(
-      Layer.provide(Layer.mergeAll(polar, organizations)),
+      Layer.provide(Layer.mergeAll(repalis, organizations)),
     )
     return {
       ...cli,
@@ -773,7 +773,7 @@ describe('organization resolution', () => {
   test('missing selection fails without silently using sandbox credentials', async () => {
     config.state.activeOrganization = undefined
     await expect(run(['products', 'list']).promise).rejects.toThrow(
-      'polar auth org',
+      'repalis auth org',
     )
     expect(requests).toEqual([])
     expect(auth.state.resolutions).toEqual([])

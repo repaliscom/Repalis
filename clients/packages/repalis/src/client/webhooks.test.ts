@@ -15,7 +15,7 @@ const signed = (payload: unknown, key = signingKey) => {
   const signature = createHmac('sha256', key)
     .update(`${id}.${timestamp}.${body}`)
     .digest('base64')
-  return new Request('https://app.test/api/polar/webhooks', {
+  return new Request('https://app.test/api/repalis/webhooks', {
     method: 'POST',
     body,
     headers: {
@@ -36,7 +36,7 @@ const connect = (handler: WebhookHandlerLoader) => {
   const config = defineConfig({
     meters: () => ({}),
     webhooks: ({ endpoint, slack }) => ({
-      app: endpoint('https://app.test/api/polar/webhooks')
+      app: endpoint('https://app.test/api/repalis/webhooks')
         .on('order.paid', 'subscription.canceled')
         .secret('APP_WEBHOOK_SECRET')
         .handle(handler),
@@ -45,7 +45,7 @@ const connect = (handler: WebhookHandlerLoader) => {
       ),
     }),
   })
-  return { config, polar: RuntimeSDK(config, { accessToken: 'test' }) }
+  return { config, repalis: RuntimeSDK(config, { accessToken: 'test' }) }
 }
 
 beforeEach(() => {
@@ -57,19 +57,19 @@ afterEach(() => {
 })
 
 test('RuntimeSDK exposes routes only for webhooks with a handler', () => {
-  const { polar } = connect(async () => () => {})
-  expect(Object.keys(polar.webhooks)).toEqual(['app'])
-  expectTypeOf(polar.webhooks).toEqualTypeOf<{ readonly app: WebhookRoute }>()
+  const { repalis } = connect(async () => () => {})
+  expect(Object.keys(repalis.webhooks)).toEqual(['app'])
+  expectTypeOf(repalis.webhooks).toEqualTypeOf<{ readonly app: WebhookRoute }>()
 })
 
 test('a verified, declared event is passed to the handler and acknowledged', async () => {
   const handle = vi.fn()
-  const { config, polar } = connect(async () => handle)
+  const { config, repalis } = connect(async () => handle)
   expectTypeOf<WebhookEventOf<typeof config, 'app'>['type']>().toEqualTypeOf<
     'order.paid' | 'subscription.canceled'
   >()
 
-  const response = await polar.webhooks.app(signed(orderPaid))
+  const response = await repalis.webhooks.app(signed(orderPaid))
 
   expect(response.status).toBe(202)
   expect(handle).toHaveBeenCalledExactlyOnceWith(orderPaid)
@@ -77,12 +77,12 @@ test('a verified, declared event is passed to the handler and acknowledged', asy
 
 test('bad signatures and typeless bodies are rejected without loading the handler', async () => {
   const loader = vi.fn(async () => () => {})
-  const { polar } = connect(loader)
+  const { repalis } = connect(loader)
 
-  const forged = await polar.webhooks.app(
+  const forged = await repalis.webhooks.app(
     signed(orderPaid, Buffer.from('other-key')),
   )
-  const typeless = await polar.webhooks.app(signed({ data: {} }))
+  const typeless = await repalis.webhooks.app(signed({ data: {} }))
 
   expect(forged.status).toBe(403)
   expect(typeless.status).toBe(400)
@@ -91,9 +91,9 @@ test('bad signatures and typeless bodies are rejected without loading the handle
 
 test('events the endpoint does not declare are acknowledged without loading the handler', async () => {
   const loader = vi.fn(async () => () => {})
-  const { polar } = connect(loader)
+  const { repalis } = connect(loader)
 
-  const response = await polar.webhooks.app(
+  const response = await repalis.webhooks.app(
     signed({ ...orderPaid, type: 'order.refunded' }),
   )
 
@@ -104,10 +104,10 @@ test('events the endpoint does not declare are acknowledged without loading the 
 test('a default-export handler module is loaded once across requests', async () => {
   const handle = vi.fn()
   const loader = vi.fn(async () => ({ default: handle }))
-  const { polar } = connect(loader)
+  const { repalis } = connect(loader)
 
-  await polar.webhooks.app(signed(orderPaid))
-  await polar.webhooks.app(signed(orderPaid))
+  await repalis.webhooks.app(signed(orderPaid))
+  await repalis.webhooks.app(signed(orderPaid))
 
   expect(loader).toHaveBeenCalledOnce()
   expect(handle).toHaveBeenCalledTimes(2)
@@ -119,12 +119,12 @@ test('a handler that fails to load is loaded again on the next request', async (
     .fn<WebhookHandlerLoader>()
     .mockRejectedValueOnce(new Error('chunk failed'))
     .mockResolvedValue(handle)
-  const { polar } = connect(loader)
+  const { repalis } = connect(loader)
 
-  await expect(polar.webhooks.app(signed(orderPaid))).rejects.toThrow(
+  await expect(repalis.webhooks.app(signed(orderPaid))).rejects.toThrow(
     'chunk failed',
   )
-  const response = await polar.webhooks.app(signed(orderPaid))
+  const response = await repalis.webhooks.app(signed(orderPaid))
 
   expect(response.status).toBe(202)
   expect(loader).toHaveBeenCalledTimes(2)

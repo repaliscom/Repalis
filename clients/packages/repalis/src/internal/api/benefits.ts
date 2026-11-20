@@ -2,7 +2,7 @@ import type { models, Polar } from '../../sdk'
 import type { MemberIdentifier } from './utils'
 
 export const findBenefitGrant = async (
-  sdk: Polar,
+  sdk: Repalis,
   identifier: MemberIdentifier,
   externalBenefitId: string,
 ): Promise<models.BenefitGrant | undefined> => {

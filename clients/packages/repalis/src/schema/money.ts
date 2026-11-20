@@ -158,7 +158,7 @@ export interface Money<Per extends Scale = Scale> {
   readonly per: Per
 }
 
-// Mirrors `_ZERO_DECIMAL_CURRENCIES` in server/polar/kit/currency.py.
+// Mirrors `_ZERO_DECIMAL_CURRENCIES` in server/repalis/kit/currency.py.
 const zeroDecimalCurrencies = [
   'bif',
   'clp',

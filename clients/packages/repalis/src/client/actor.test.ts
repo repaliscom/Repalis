@@ -1,7 +1,7 @@
 import { describe, expect, expectTypeOf, it, vi } from 'vitest'
 import { z } from 'zod'
 import type { RuntimeSDKConfig } from '../schema/runtime'
-import { errors, type Polar } from '../sdk'
+import { errors, type Repalis } from '../sdk'
 import { createActor, EventValidationError } from './actor'
 
 const config = {
@@ -12,12 +12,12 @@ describe('actor benefits', () => {
   it('accepts only configured benefit names', () => {
     const actor = createActor(
       config,
-      {} as Polar,
+      {} as Repalis,
     )({ customerId: 'customer-id' })
     expectTypeOf(actor.access).parameter(0).toEqualTypeOf<'custom_meters'>()
     const unconfigured = createActor(
       {},
-      {} as Polar,
+      {} as Repalis,
     )({ customerId: 'customer-id' })
     expectTypeOf(unconfigured.access).parameter(0).toEqualTypeOf<never>()
   })
@@ -32,7 +32,7 @@ describe('actor benefits', () => {
     const list = vi.fn().mockResolvedValue({
       items: [{ benefit: { metadata: { seats: 5 } } }],
     })
-    const sdk = { benefitGrants: { list } } as unknown as Polar
+    const sdk = { benefitGrants: { list } } as unknown as Repalis
     const actor = createActor(config, sdk)(identifier)
 
     await expect(actor.access('custom_meters')).resolves.toEqual({
@@ -57,7 +57,7 @@ describe('actor benefits', () => {
     const list = vi.fn().mockResolvedValue({
       items: [{ benefit: { metadata: {} } }],
     })
-    const sdk = { benefitGrants: { list } } as unknown as Polar
+    const sdk = { benefitGrants: { list } } as unknown as Repalis
     const actor = createActor(
       config,
       sdk,
@@ -78,7 +78,7 @@ describe('actor benefits', () => {
 
   it('returns not granted when no matching grant exists', async () => {
     const list = vi.fn().mockResolvedValue({ items: [] })
-    const sdk = { benefitGrants: { list } } as unknown as Polar
+    const sdk = { benefitGrants: { list } } as unknown as Repalis
     const actor = createActor(config, sdk)({ customerId: 'customer-id' })
 
     await expect(actor.access('custom_meters')).resolves.toEqual({
@@ -100,7 +100,7 @@ describe('actor events', () => {
 
   const setup = () => {
     const ingest = vi.fn().mockResolvedValue({ inserted: 1 })
-    const sdk = { events: { ingest } } as unknown as Polar
+    const sdk = { events: { ingest } } as unknown as Repalis
     const actor = createActor({ events }, sdk)({ customerId: 'customer-id' })
     return { actor, ingest }
   }
@@ -235,7 +235,7 @@ describe('actor grants', () => {
     const sdk = {
       customerMeters: { credits, list },
       meters: { getExternal },
-    } as unknown as Polar
+    } as unknown as Repalis
     return { actor: createActor({ meters }, sdk), credits, list, getExternal }
   }
 
@@ -356,7 +356,7 @@ describe('actor grants', () => {
     const sdk = {
       customerMeters: { credits },
       meters: { getExternal },
-    } as unknown as Polar
+    } as unknown as Repalis
     const customer = createActor({ meters }, sdk)(identifier)
 
     await expect(customer.grant('tool_call', 100)).rejects.toThrow(

@@ -3,7 +3,7 @@ import { operations, unwrap } from '@repalis/client'
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query'
 
 export const useCustomer = (organizationId: string | undefined, id: string) => {
-  const { polar } = useRepalisClient()
+  const { repalis } = useRepalisClient()
 
   return useQuery({
     queryKey: ['customers', organizationId, { id }],
@@ -26,7 +26,7 @@ export const useCustomers = (
     'organization_id'
   >,
 ) => {
-  const { polar } = useRepalisClient()
+  const { repalis } = useRepalisClient()
 
   return useInfiniteQuery({
     queryKey: ['customers', { organizationId, ...(parameters || {}) }],

@@ -6,7 +6,7 @@ import {
   type RuntimeSDKConfig,
 } from './schema/runtime'
 import { HandledWebhookEndpoint } from './schema/webhook'
-import { createRepalis, type Polar, type RepalisOptions } from './sdk'
+import { createRepalis, type Repalis, type RepalisOptions } from './sdk'
 
 export type WebhookRoutes<Config extends RuntimeSDKConfig> = Config extends {
   readonly webhooks: infer Webhooks
@@ -19,7 +19,7 @@ export type WebhookRoutes<Config extends RuntimeSDKConfig> = Config extends {
   : Record<never, never>
 
 export type RuntimeConnection<Config extends RuntimeSDKConfig> = {
-  readonly sdk: Polar
+  readonly sdk: Repalis
   readonly actor: Actor<Config>
   readonly webhooks: WebhookRoutes<Config>
   readonly benefitKey: (benefit: {

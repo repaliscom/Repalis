@@ -20,7 +20,7 @@ export type RuntimeSDKConfig = {
   readonly webhooks?: Readonly<Record<string, WebhookEndpointDefinition>>
 }
 
-export const runtimeConfig = Symbol('polar.runtimeConfig')
+export const runtimeConfig = Symbol('repalis.runtimeConfig')
 
 export type DefinedConfig<Config extends RuntimeSDKConfig> = {
   readonly [runtimeConfig]: () => Config

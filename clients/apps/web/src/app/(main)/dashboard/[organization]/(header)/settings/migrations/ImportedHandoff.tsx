@@ -24,7 +24,7 @@ const UNCOUNTED = 'Your catalog is now in Repalis.'
 const CARDS_AT_STRIPE =
   "Your customers' cards are still at Stripe. Moving them lets Repalis charge " +
   'them. This is a checklist. You can leave and come back.'
-const MAYBE_ON_POLAR =
+const MAYBE_ON_REPALIS =
   'These subscriptions were prepared in an earlier migration. If their ' +
   "cards are already on Repalis, you'll go straight to the switch. Otherwise " +
   "you'll get a checklist to move them."
@@ -96,7 +96,7 @@ export function ImportedHandoff({
           {nothingLanded
             ? NOTHING_TO_MOVE
             : earlier
-              ? MAYBE_ON_POLAR
+              ? MAYBE_ON_REPALIS
               : CARDS_AT_STRIPE}
         </Text>
       </Box>

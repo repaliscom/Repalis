@@ -9,7 +9,7 @@ const organizationEmailQueryKey = (organizationId?: string) => [
 ]
 
 export const useOrganizationEmail = (organizationId?: string) => {
-  const { polar } = useRepalisClient()
+  const { repalis } = useRepalisClient()
 
   return useQuery({
     queryKey: organizationEmailQueryKey(organizationId),
@@ -25,7 +25,7 @@ export const useOrganizationEmail = (organizationId?: string) => {
 }
 
 export const useSendOrganizationEmailCode = (organizationId?: string) => {
-  const { polar } = useRepalisClient()
+  const { repalis } = useRepalisClient()
 
   return useMutation({
     mutationFn: async () => {
@@ -49,7 +49,7 @@ export const useSendOrganizationEmailCode = (organizationId?: string) => {
 }
 
 export const useVerifyOrganizationEmail = (organizationId?: string) => {
-  const { polar } = useRepalisClient()
+  const { repalis } = useRepalisClient()
 
   return useMutation({
     mutationFn: (code: string) => {

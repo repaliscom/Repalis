@@ -39,7 +39,7 @@ export type HasMetadata = {
 
 export interface MetadataBuilder {
   readonly [metadataKey]: Metadata | undefined
-  /** Your own key-value data, stored with it in Polar. Call it once. */
+  /** Your own key-value data, stored with it in Repalis. Call it once. */
   metadata<const Values extends Metadata>(
     metadata: Values,
   ): this & DeclaredMetadata<Values>

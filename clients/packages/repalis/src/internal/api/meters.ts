@@ -1,7 +1,7 @@
-import { errors, type models, type Polar } from '../../sdk'
+import { errors, type models, type Repalis } from '../../sdk'
 
 export const getDeployedMeter = async (
-  sdk: Polar,
+  sdk: Repalis,
   externalId: string,
 ): Promise<models.Meter> => {
   try {

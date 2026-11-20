@@ -359,7 +359,7 @@ class ProductBuilder<
     })
   }
 
-  /** The benefits customers get with this product. Polar grants and revokes them automatically. */
+  /** The benefits customers get with this product. Repalis grants and revokes them automatically. */
   grants<const Grant extends Benefit>(
     benefits: ReadonlyArray<Grant>,
   ): ProductBuilder<

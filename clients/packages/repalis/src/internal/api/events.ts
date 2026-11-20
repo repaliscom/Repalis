@@ -8,7 +8,7 @@ export type IngestedEvent = {
 }
 
 export const ingestEvents = async (
-  sdk: Polar,
+  sdk: Repalis,
   identifier: MemberIdentifier,
   events: readonly IngestedEvent[],
 ) => {

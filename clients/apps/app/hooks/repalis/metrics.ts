@@ -23,7 +23,7 @@ export const useMetrics = (
   >,
   enabled = true,
 ) => {
-  const { polar } = useRepalisClient()
+  const { repalis } = useRepalisClient()
 
   return useQuery({
     queryKey: [

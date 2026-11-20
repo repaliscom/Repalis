@@ -57,7 +57,7 @@ export const createWebhookRoute = (
       case 'malformed':
         return new Response(null, { status: 400 })
       // Newer event types, or ones subscribed to outside the config, are
-      // acknowledged so Polar doesn't retry them.
+      // acknowledged so Repalis doesn't retry them.
       case 'unknown_type':
         return accepted()
     }
@@ -65,7 +65,7 @@ export const createWebhookRoute = (
 
     if (!events.has(event.type)) return accepted()
 
-    // A throwing handler surfaces as a 5xx, so Polar redelivers the event.
+    // A throwing handler surfaces as a 5xx, so Repalis redelivers the event.
     const handle = await load()
     await handle(event)
     return accepted()

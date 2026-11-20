@@ -4,7 +4,7 @@ import { operations, schemas, unwrap } from '@repalis/client'
 import { useInfiniteQuery, useMutation, useQuery } from '@tanstack/react-query'
 
 export const useSubscription = (id: string) => {
-  const { polar } = useRepalisClient()
+  const { repalis } = useRepalisClient()
 
   return useQuery({
     queryKey: ['subscription', id],
@@ -20,7 +20,7 @@ export const useSubscriptions = (
     'organization_id'
   >,
 ) => {
-  const { polar } = useRepalisClient()
+  const { repalis } = useRepalisClient()
 
   return useInfiniteQuery({
     queryKey: ['subscriptions', { organizationId, ...(parameters || {}) }],
@@ -48,7 +48,7 @@ export const useSubscriptions = (
 const SUBSCRIPTION_UPDATE_HEADERS = { 'Repalis-Version': '2027-01' }
 
 export const useUpdateSubscription = (id: string) => {
-  const { polar } = useRepalisClient()
+  const { repalis } = useRepalisClient()
 
   return useMutation({
     mutationFn: (body: schemas['SubscriptionUpdate']) =>

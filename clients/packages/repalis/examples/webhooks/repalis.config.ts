@@ -15,7 +15,7 @@ export default defineConfig({
       .units(1000),
   }),
   webhooks: ({ endpoint, slack }) => ({
-    app: endpoint(`${process.env.APP_URL}/api/polar/webhooks`)
+    app: endpoint(`${process.env.APP_URL}/api/repalis/webhooks`)
       .on(
         'order.paid',
         'subscription.canceled',

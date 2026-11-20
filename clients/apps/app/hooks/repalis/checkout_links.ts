@@ -7,7 +7,7 @@ export const useCheckoutLink = (
   organizationId: string | undefined,
   id: string | undefined,
 ) => {
-  const { polar } = useRepalisClient()
+  const { repalis } = useRepalisClient()
 
   return useQuery({
     queryKey: ['checkout_link', organizationId, { id }],
@@ -28,7 +28,7 @@ export const useInfiniteCheckoutLinks = (
     'organization_id'
   >,
 ) => {
-  const { polar } = useRepalisClient()
+  const { repalis } = useRepalisClient()
 
   return useInfiniteQuery({
     queryKey: ['infinite', 'checkout_links', organizationId, { ...params }],
@@ -54,7 +54,7 @@ export const useInfiniteCheckoutLinks = (
 }
 
 export const useCheckoutLinkCreate = (organizationId: string | undefined) => {
-  const { polar } = useRepalisClient()
+  const { repalis } = useRepalisClient()
 
   return useMutation({
     mutationFn: (data: schemas['CheckoutLinkCreateProducts']) =>
@@ -79,7 +79,7 @@ export const useCheckoutLinkUpdate = (
   organizationId: string | undefined,
   id: string,
 ) => {
-  const { polar } = useRepalisClient()
+  const { repalis } = useRepalisClient()
 
   return useMutation({
     mutationFn: (data: schemas['CheckoutLinkUpdate']) =>

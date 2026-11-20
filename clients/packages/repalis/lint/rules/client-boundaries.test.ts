@@ -21,9 +21,9 @@ new RuleTester().run('client-boundaries', rule, {
       code: `import type { Billing } from '../schema/billing'`,
     },
     {
-      name: 'typing the Polar API',
+      name: 'typing the Repalis API',
       filename: 'src/client/actor.ts',
-      code: `import type { Polar } from '../sdk'`,
+      code: `import type { Repalis } from '../sdk'`,
     },
     {
       name: 'HTTP requests outside client',
@@ -38,7 +38,7 @@ new RuleTester().run('client-boundaries', rule, {
   ],
   invalid: [
     {
-      name: 'importing the Polar API',
+      name: 'importing the Repalis API',
       filename: 'src/client/customer.ts',
       code: `import { createRepalis } from '../sdk'`,
       errors: [{ messageId: 'api' }],

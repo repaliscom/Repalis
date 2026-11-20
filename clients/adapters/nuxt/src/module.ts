@@ -10,7 +10,7 @@ export type ModuleOptions = Record<string, unknown>
 export default defineNuxtModule<ModuleOptions>({
   meta: {
     name: '@repalis/nuxt',
-    configKey: 'polar',
+    configKey: 'repalis',
   },
   // Default configuration options of the Nuxt module
   defaults: {},

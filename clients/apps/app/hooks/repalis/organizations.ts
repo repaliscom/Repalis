@@ -11,7 +11,7 @@ export const useOrganizations = (
     enabled?: boolean
   } = { enabled: true },
 ) => {
-  const { polar } = useRepalisClient()
+  const { repalis } = useRepalisClient()
 
   return useQuery({
     queryKey: ['organizations'],
@@ -38,7 +38,7 @@ export const useOrganizations = (
 }
 
 export const useCreateOrganization = () => {
-  const { polar } = useRepalisClient()
+  const { repalis } = useRepalisClient()
 
   return useMutation({
     mutationFn: (organization: schemas['OrganizationCreate']) =>
@@ -54,7 +54,7 @@ export const useCreateOrganization = () => {
 }
 
 export const useDeleteOrganization = () => {
-  const { polar } = useRepalisClient()
+  const { repalis } = useRepalisClient()
 
   return useMutation({
     mutationFn: async (organizationId: string) => {

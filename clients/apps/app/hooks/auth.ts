@@ -12,7 +12,7 @@ import { useCallback } from 'react'
 import {
   useDeleteNotificationRecipient,
   useGetNotificationRecipient,
-} from './polar/notifications'
+} from './repalis/notifications'
 
 const widgetStorage = new ExtensionStorage('group.com.repalis.app')
 

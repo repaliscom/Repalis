@@ -6,7 +6,7 @@ import { useMutation, useQuery, UseQueryResult } from '@tanstack/react-query'
 import { Platform } from 'react-native'
 
 export const useCreateNotificationRecipient = () => {
-  const { polar } = useRepalisClient()
+  const { repalis } = useRepalisClient()
 
   return useMutation({
     mutationFn: async (expoPushToken: string) => {
@@ -30,7 +30,7 @@ export const useGetNotificationRecipient = (
   expoPushToken: string | undefined,
 ) => {
   const { session } = useSession()
-  const { polar } = useRepalisClient()
+  const { repalis } = useRepalisClient()
 
   return useQuery({
     queryKey: ['notification_recipient', expoPushToken],
@@ -53,11 +53,11 @@ export const useGetNotificationRecipient = (
 }
 
 export const useDeleteNotificationRecipient = () => {
-  const { polar } = useRepalisClient()
+  const { repalis } = useRepalisClient()
 
   return useMutation({
     mutationFn: async (id: string) => {
-      return polar
+      return repalis
         .DELETE('/v1/notifications/recipients/{id}', {
           params: {
             path: {
@@ -98,7 +98,7 @@ export const useListNotifications = (): UseQueryResult<
   schemas['NotificationsList'],
   Error
 > => {
-  const { polar } = useRepalisClient()
+  const { repalis } = useRepalisClient()
   const { session } = useSession()
 
   return useQuery({
@@ -109,7 +109,7 @@ export const useListNotifications = (): UseQueryResult<
 }
 
 export const useNotificationsMarkRead = () => {
-  const { polar } = useRepalisClient()
+  const { repalis } = useRepalisClient()
 
   return useMutation({
     mutationFn: (variables: { notificationId: string }) =>

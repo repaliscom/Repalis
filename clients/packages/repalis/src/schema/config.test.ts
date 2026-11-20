@@ -823,7 +823,7 @@ test('webhooks serialize with their format, events and pinned API version', () =
   const config = defineConfig({
     meters: () => ({}),
     webhooks: ({ endpoint, slack, discord }) => ({
-      app: endpoint('https://app.test/api/polar/webhooks')
+      app: endpoint('https://app.test/api/repalis/webhooks')
         .on('order.paid', 'subscription.canceled')
         .handle(async () => () => {}),
       sales: slack('https://hooks.slack.com/services/T0/B0/token').on(
@@ -837,7 +837,7 @@ test('webhooks serialize with their format, events and pinned API version', () =
   expect(config.toJSON().webhooks).toEqual([
     {
       external_id: 'app',
-      url: 'https://app.test/api/polar/webhooks',
+      url: 'https://app.test/api/repalis/webhooks',
       format: 'raw',
       events: ['order.paid', 'subscription.canceled'],
       api_version: '2027-01',

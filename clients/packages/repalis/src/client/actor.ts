@@ -155,13 +155,13 @@ const toMemberIdentifier = (identifier: ActorIdentifier): MemberIdentifier => ({
 
 export const createActor = <Config extends RuntimeSDKConfig>(
   config: Config,
-  sdk: Polar,
+  sdk: Repalis,
 ): Actor<Config> => {
   // Timestamp of the latest event ingested through this instance, per customer
   // and meter. The server processes events asynchronously, so a customer meter
   // last modified before this timestamp doesn't reflect that event yet.
   const latestIngestedAt = new Map<string, Date>()
-  // Polar meter ID per deployed meter external ID
+  // Repalis meter ID per deployed meter external ID
   const deployedMeters = new Map<string, string>()
   const cacheKey = (identifier: ActorIdentifier, externalMeterId: string) =>
     identifier.customerId !== undefined

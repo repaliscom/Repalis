@@ -12,7 +12,7 @@ const NOTIFICATION_SETTINGS_HEADERS = { 'Repalis-Version': '2027-01' }
 export const useUserOrganizationNotificationSettings = (
   organizationId?: string,
 ) => {
-  const { polar } = useRepalisClient()
+  const { repalis } = useRepalisClient()
 
   return useQuery({
     queryKey: ['user', 'notificationSettings', organizationId],
@@ -32,7 +32,7 @@ export const useUserOrganizationNotificationSettings = (
 }
 
 export const useUpdateUserOrganizationNotificationSettings = () => {
-  const { polar } = useRepalisClient()
+  const { repalis } = useRepalisClient()
   const queryClient = useQueryClient()
 
   return useMutation({

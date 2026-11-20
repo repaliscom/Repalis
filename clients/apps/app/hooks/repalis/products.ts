@@ -6,7 +6,7 @@ export const useProduct = (
   organizationId: string | undefined,
   id: string | undefined,
 ) => {
-  const { polar } = useRepalisClient()
+  const { repalis } = useRepalisClient()
 
   return useQuery({
     queryKey: ['product', organizationId, { id }],
@@ -25,7 +25,7 @@ export const useProducts = (
     'organization_id'
   >,
 ) => {
-  const { polar } = useRepalisClient()
+  const { repalis } = useRepalisClient()
 
   return useQuery({
     queryKey: ['products', organizationId, { ...options }],
@@ -45,7 +45,7 @@ export const useInfiniteProducts = (
     'organization_id'
   >,
 ) => {
-  const { polar } = useRepalisClient()
+  const { repalis } = useRepalisClient()
 
   return useInfiniteQuery({
     queryKey: ['infinite', 'products', organizationId, { ...options }],

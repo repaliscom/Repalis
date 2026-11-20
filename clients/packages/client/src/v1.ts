@@ -34404,7 +34404,7 @@ export interface components {
      * @description Who moves a step forward.
      * @enum {string}
      */
-    PanStepOwner: 'merchant' | 'polar_ops' | 'polar_app' | 'stripe' | 'provider'
+    PanStepOwner: 'merchant' | 'repalis_ops' | 'repalis_app' | 'stripe' | 'provider'
     /**
      * PanStepStatus
      * @enum {string}
@@ -76805,7 +76805,7 @@ export const panStepKindValues: ReadonlyArray<
 > = ['auto', 'input', 'confirm']
 export const panStepOwnerValues: ReadonlyArray<
   FlattenedDeepRequired<components>['schemas']['PanStepOwner']
-> = ['merchant', 'polar_ops', 'polar_app', 'stripe', 'provider']
+> = ['merchant', 'repalis_ops', 'repalis_app', 'stripe', 'provider']
 export const panStepStatusValues: ReadonlyArray<
   FlattenedDeepRequired<components>['schemas']['PanStepStatus']
 > = ['blocked', 'pending', 'in_progress', 'completed']

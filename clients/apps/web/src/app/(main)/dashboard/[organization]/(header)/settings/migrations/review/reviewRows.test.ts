@@ -152,7 +152,7 @@ describe('reasonLinks', () => {
     expect(
       reasonLinks(
         row({
-          reason_code: 'customer_subscribed_on_polar',
+          reason_code: 'customer_subscribed_on_repalis',
           conflicting_customer_id: 'cust_1',
         }),
         'acme',

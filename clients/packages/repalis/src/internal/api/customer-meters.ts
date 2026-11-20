@@ -13,13 +13,13 @@ export type CustomerMeterCredit = {
 }
 
 export const creditCustomerMeter = (
-  sdk: Polar,
+  sdk: Repalis,
   identifier: CustomerIdentifier,
   meter: CreditedMeter,
   { units, rollover, externalId }: CustomerMeterCredit,
 ): Promise<models.MeterCreditEvent> =>
   sdk.customerMeters.credits({
-    // Polar IDs and external IDs can't be mixed in one credit request
+    // Repalis IDs and external IDs can't be mixed in one credit request
     ...('customer_id' in identifier
       ? { ...identifier, meter_id: meter.id }
       : { ...identifier, external_meter_id: meter.externalId }),
@@ -29,7 +29,7 @@ export const creditCustomerMeter = (
   })
 
 export const getCustomerMeter = async (
-  sdk: Polar,
+  sdk: Repalis,
   identifier: CustomerIdentifier,
   externalMeterId: string,
 ): Promise<models.CustomerMeter | undefined> => {

@@ -358,7 +358,7 @@ type ProductsInput<
 // given, this repeats its key as required.
 type Present<Entries, Section> = [Entries] extends [never] ? unknown : Section
 
-/** Declares your Polar setup as code: meters, benefits, products and webhooks. */
+/** Declares your Repalis setup as code: meters, benefits, products and webhooks. */
 export const defineConfig = <
   const Meters extends MeterEntries,
   const Benefits extends BenefitEntries<MeterKey<Meters>> = never,
@@ -386,7 +386,7 @@ export const defineConfig = <
     readonly benefits?: BenefitsInput<Meters, Benefits>
     /** What customers buy, keyed by ID. */
     readonly products?: ProductsInput<Meters, Benefits, Products>
-    /** Where Polar sends events, keyed by ID. */
+    /** Where Repalis sends events, keyed by ID. */
     readonly webhooks?: (helpers: WebhookHelpers) => Webhooks
   } & Present<
     Benefits,

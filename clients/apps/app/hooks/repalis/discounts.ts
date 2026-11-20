@@ -9,7 +9,7 @@ export const useInfiniteDiscounts = (
     'organization_id'
   >,
 ) => {
-  const { polar } = useRepalisClient()
+  const { repalis } = useRepalisClient()
 
   return useInfiniteQuery({
     queryKey: ['infinite', 'discounts', organizationId, { ...params }],

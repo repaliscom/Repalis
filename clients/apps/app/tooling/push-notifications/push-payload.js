@@ -13,7 +13,7 @@ const payloads = {
     },
     body: {
       // Update with a proper order ID
-      deepLink: 'polar://orders/517a341f-6df1-4d21-8c32-c236a7d4069d',
+      deepLink: 'repalis://orders/517a341f-6df1-4d21-8c32-c236a7d4069d',
     },
   },
 
@@ -27,7 +27,7 @@ const payloads = {
       sound: 'default',
     },
     body: {
-      deepLink: 'polar://products',
+      deepLink: 'repalis://products',
     },
   },
 

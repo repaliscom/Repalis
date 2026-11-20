@@ -20,7 +20,7 @@ export const useUser = () => useContext(UserContext)
 
 export function UserProvider({ children }: PropsWithChildren) {
   const { session } = useSession()
-  const { polar } = useRepalisClient()
+  const { repalis } = useRepalisClient()
 
   const { data: user, isLoading } = useQuery({
     queryKey: ['userinfo'],

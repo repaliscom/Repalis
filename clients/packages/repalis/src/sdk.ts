@@ -8,7 +8,7 @@ export {
 export type {
   Environment,
   models,
-  Polar,
+  Repalis,
   RepalisCore,
   RepalisOptions,
   RequestOptions,

@@ -31,9 +31,9 @@ export default {
     },
     messages: {
       http: 'Commands must not call the API directly. Add or use a method on a service in src/services.',
-      sdk: 'Commands must not use the SDK directly. Go through the Polar service.',
+      sdk: 'Commands must not use the SDK directly. Go through the Repalis service.',
       lowLevel:
-        'Commands use the high-level services (Auth, Organizations, Polar, Trigger), not the ones underneath them.',
+        'Commands use the high-level services (Auth, Organizations, Repalis, Trigger), not the ones underneath them.',
       fetch:
         'Commands must not make HTTP requests. Add or use a method on a service in src/services.',
     },

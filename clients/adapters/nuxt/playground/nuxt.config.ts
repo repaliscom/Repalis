@@ -1,6 +1,6 @@
 export default defineNuxtConfig({
   modules: ['../src/module'],
-  polar: {},
+  repalis: {},
   devtools: { enabled: true },
   compatibilityDate: '2025-02-25',
   runtimeConfig: {

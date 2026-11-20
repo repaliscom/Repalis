@@ -15,10 +15,10 @@ export default {
     type: 'problem',
     docs: {
       description:
-        'A file in src/client defines what the customer calls. It must not talk to the Polar API or to storage itself; it calls internal and uses the adapter it was given.',
+        'A file in src/client defines what the customer calls. It must not talk to the Repalis API or to storage itself; it calls internal and uses the adapter it was given.',
     },
     messages: {
-      api: 'client/ must not call the Polar API directly. Add or use a function in internal/api.',
+      api: 'client/ must not call the Repalis API directly. Add or use a function in internal/api.',
       fetch:
         'client/ must not make HTTP requests. Add or use a function in internal/api.',
       adapter:

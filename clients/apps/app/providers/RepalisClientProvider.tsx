@@ -25,9 +25,9 @@ const CLIENT_VERSION_HEADERS = {
 }
 
 const RepalisClientContext = createContext<{
-  polar: Client
+  repalis: Client
 }>({
-  polar: createClient(
+  repalis: createClient(
     process.env.EXPO_PUBLIC_REPALIS_SERVER_URL ?? 'https://api.repalis.com',
     undefined,
     CLIENT_VERSION_HEADERS,
@@ -46,8 +46,6 @@ export function useRepalisClient() {
   return value
 }
 
-export const useRepalisClient = useRepalisClient
-
 export function RepalisClientProvider({ children }: PropsWithChildren) {
   const { session } = useSession()
 
@@ -62,10 +60,9 @@ export function RepalisClientProvider({ children }: PropsWithChildren) {
   }, [session])
 
   return (
-    <RepalisClientContext.Provider value={{ polar }}>
+    <RepalisClientContext.Provider value={{ repalis }}>
       {children}
     </RepalisClientContext.Provider>
   )
 }
 
-export const RepalisClientProvider = RepalisClientProvider

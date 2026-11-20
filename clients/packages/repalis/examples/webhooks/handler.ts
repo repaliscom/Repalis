@@ -1,6 +1,6 @@
 import { defineWebhookHandler } from '@repalis/repalis'
 import type config from './repalis.config'
-import { polar } from './repalis'
+import { repalis } from './repalis'
 
 const servers = {
   enable: async (customerId: string) => console.log('enable', customerId),
@@ -21,7 +21,7 @@ export default defineWebhookHandler<typeof config, 'app'>(async (event) => {
 
     case 'benefit_grant.created':
     case 'benefit_grant.revoked': {
-      if (polar.benefitKey(event.data.benefit) !== 'custom_servers') return
+      if (repalis.benefitKey(event.data.benefit) !== 'custom_servers') return
       const toggle =
         event.type === 'benefit_grant.created'
           ? servers.enable
