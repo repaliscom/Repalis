@@ -272,7 +272,7 @@ class TestBuildPromptRiskSignals:
         prompt = review_analyzer._build_prompt(snapshot)
 
         assert prompt.index("stripe: fraudulent_merchant") < prompt.index(
-            "polar: fraudulent_website"
+            "repalis: fraudulent_website"
         )
 
     def test_caps_signals_and_notes_omission(

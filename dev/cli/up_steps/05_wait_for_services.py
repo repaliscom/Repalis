@@ -128,9 +128,9 @@ def run(ctx: Context) -> bool:
         if token:
             update_secrets(
                 {
-                    "POLAR_TINYBIRD_API_TOKEN": token,
-                    "POLAR_TINYBIRD_READ_TOKEN": token,
-                    "POLAR_TINYBIRD_CLICKHOUSE_TOKEN": token,
+                    "REPALIS_TINYBIRD_API_TOKEN": token,
+                    "REPALIS_TINYBIRD_READ_TOKEN": token,
+                    "REPALIS_TINYBIRD_CLICKHOUSE_TOKEN": token,
                 }
             )
             run_command([str(ROOT_DIR / "dev" / "setup-environment")], capture=True)

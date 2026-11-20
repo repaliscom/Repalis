@@ -5,8 +5,8 @@ import shlex
 
 import boto3
 
-params = {"SecretId": os.environ["POLAR_WORKER_SECRETS_ARN"]}
-version_id = os.environ.get("POLAR_WORKER_SECRETS_VERSION")
+params = {"SecretId": os.environ["REPALIS_WORKER_SECRETS_ARN"]}
+version_id = os.environ.get("REPALIS_WORKER_SECRETS_VERSION")
 if version_id:
     params["VersionId"] = version_id
 secret = boto3.client("secretsmanager").get_secret_value(**params)

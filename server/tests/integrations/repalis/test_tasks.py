@@ -448,7 +448,7 @@ class TestFlushEventIngestion:
     def _patch_settings(self, mocker: MockerFixture, *, enabled: bool = True) -> None:
         settings = mocker.patch("repalis.integrations.repalis.tasks.settings")
         settings.REPALIS_SELF_ENABLED = enabled
-        settings.POLAR_ORGANIZATION_ID = str(self.SELF_ORG_ID)
+        settings.REPALIS_ORGANIZATION_ID = str(self.SELF_ORG_ID)
 
     async def test_noop_when_not_configured(self, mocker: MockerFixture) -> None:
         self._patch_settings(mocker, enabled=False)

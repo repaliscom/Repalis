@@ -1,4 +1,4 @@
-# Shared Polar dev infrastructure
+# Shared Repalis dev infrastructure
 # One copy of postgres/redis/minio/tinybird (and optional prometheus/grafana)
 # is brought up per machine, regardless of how many app instances run on top.
 # Auto-started by `dev docker up` when not already running.
@@ -27,8 +27,8 @@ services:
       POSTGRES_USER: repalis
       POSTGRES_PASSWORD: repalis
       POSTGRES_DB: repalis
-      POLAR_READ_USER: repalis_read
-      POLAR_READ_PASSWORD: repalis
+      REPALIS_READ_USER: repalis_read
+      REPALIS_READ_PASSWORD: repalis
     depends_on:
       db-pg15-dump:
         condition: service_completed_successfully

@@ -2,7 +2,7 @@
 set -euo pipefail
 umask 077
 
-: "${POLAR_BACKOFFICE_HOST:?Set the private backoffice hostname}"
+: "${REPALIS_BACKOFFICE_HOST:?Set the private backoffice hostname}"
 tailscale_oauth_secret="${TS_AUTHKEY:?Set the Tailscale OAuth client secret}"
 cloudflare_api_token="${CLOUDFLARE_API_TOKEN:?Set a DNS token scoped to the repalis.com zone}"
 unset TS_AUTHKEY CLOUDFLARE_API_TOKEN

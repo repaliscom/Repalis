@@ -144,15 +144,15 @@ def env_needs_sync() -> bool:
     if any(
         server.get(key) != secrets.get(key)
         for key in (
-            "POLAR_STRIPE_SECRET_KEY",
-            "POLAR_STRIPE_PUBLISHABLE_KEY",
-            "POLAR_STRIPE_WEBHOOK_SECRET",
-            "POLAR_STRIPE_CONNECT_WEBHOOK_SECRET",
+            "REPALIS_STRIPE_SECRET_KEY",
+            "REPALIS_STRIPE_PUBLISHABLE_KEY",
+            "REPALIS_STRIPE_WEBHOOK_SECRET",
+            "REPALIS_STRIPE_CONNECT_WEBHOOK_SECRET",
         )
     ):
         return True
 
-    publishable_key = secrets.get("POLAR_STRIPE_PUBLISHABLE_KEY")
+    publishable_key = secrets.get("REPALIS_STRIPE_PUBLISHABLE_KEY")
     if server.get("NEXT_PUBLIC_STRIPE_KEY") != publishable_key:
         return True
 
@@ -163,8 +163,8 @@ def env_needs_sync() -> bool:
 def has_saved_keys() -> bool:
     secrets = read_secrets()
     return bool(
-        secrets.get("POLAR_STRIPE_SECRET_KEY")
-        and secrets.get("POLAR_STRIPE_PUBLISHABLE_KEY")
+        secrets.get("REPALIS_STRIPE_SECRET_KEY")
+        and secrets.get("REPALIS_STRIPE_PUBLISHABLE_KEY")
     )
 
 
@@ -174,8 +174,8 @@ def saved_keys_rejection(profile: StripeProfile | None) -> str | None:
         return "no Stripe keys are configured"
 
     secrets = read_secrets()
-    secret_key = secrets.get("POLAR_STRIPE_SECRET_KEY", "")
-    publishable_key = secrets.get("POLAR_STRIPE_PUBLISHABLE_KEY", "")
+    secret_key = secrets.get("REPALIS_STRIPE_SECRET_KEY", "")
+    publishable_key = secrets.get("REPALIS_STRIPE_PUBLISHABLE_KEY", "")
     if not secret_key.startswith("sk_test_"):
         return "a live secret key is configured"
     if not publishable_key.startswith("pk_test_"):
@@ -343,8 +343,8 @@ def check_tax() -> None:
 def save_keys(profile: StripeProfile) -> None:
     update_secrets(
         {
-            "POLAR_STRIPE_SECRET_KEY": profile.secret_key,
-            "POLAR_STRIPE_PUBLISHABLE_KEY": profile.publishable_key,
+            "REPALIS_STRIPE_SECRET_KEY": profile.secret_key,
+            "REPALIS_STRIPE_PUBLISHABLE_KEY": profile.publishable_key,
         }
     )
 
@@ -378,8 +378,8 @@ def save_webhook_secret(webhook_secret: str) -> None:
     two *different* secrets — leave those alone rather than clobber them.
     """
     secrets = read_secrets()
-    direct = secrets.get("POLAR_STRIPE_WEBHOOK_SECRET", "")
-    connect = secrets.get("POLAR_STRIPE_CONNECT_WEBHOOK_SECRET", "")
+    direct = secrets.get("REPALIS_STRIPE_WEBHOOK_SECRET", "")
+    connect = secrets.get("REPALIS_STRIPE_CONNECT_WEBHOOK_SECRET", "")
     if direct != connect:
         console.print(
             "  [yellow]Kept your existing webhook secrets — they differ from each\n"
@@ -389,8 +389,8 @@ def save_webhook_secret(webhook_secret: str) -> None:
 
     update_secrets(
         {
-            "POLAR_STRIPE_WEBHOOK_SECRET": webhook_secret,
-            "POLAR_STRIPE_CONNECT_WEBHOOK_SECRET": webhook_secret,
+            "REPALIS_STRIPE_WEBHOOK_SECRET": webhook_secret,
+            "REPALIS_STRIPE_CONNECT_WEBHOOK_SECRET": webhook_secret,
         }
     )
     step_status(True, "Webhook secret", "saved")
@@ -419,7 +419,7 @@ def configure(relink: bool = False) -> StripeProfile | None:
         changed = True
 
     # New keys mean a different sandbox, so the stored listener secret is stale.
-    if changed or not read_secrets().get("POLAR_STRIPE_WEBHOOK_SECRET"):
+    if changed or not read_secrets().get("REPALIS_STRIPE_WEBHOOK_SECRET"):
         webhook_secret = obtain_webhook_secret()
         if webhook_secret:
             save_webhook_secret(webhook_secret)

@@ -110,9 +110,9 @@ COPY . /app/server/
 
 ARG RELEASE_VERSION
 ENV RELEASE_VERSION=${RELEASE_VERSION} \
-  POLAR_EMAIL_RENDERER_BINARY_PATH=/app/server/react-email-pkg \
-  POLAR_IP_GEOLOCATION_DATABASE_DIRECTORY_PATH=/data \
-  POLAR_IP_GEOLOCATION_DATABASE_NAME=country_asn.mmdb
+  REPALIS_EMAIL_RENDERER_BINARY_PATH=/app/server/react-email-pkg \
+  REPALIS_IP_GEOLOCATION_DATABASE_DIRECTORY_PATH=/data \
+  REPALIS_IP_GEOLOCATION_DATABASE_NAME=country_asn.mmdb
 
 CMD ["uv", "run", "uvicorn", "repalis.app:app", \
   "--host", "0.0.0.0", "--port", "10000", \
@@ -182,9 +182,9 @@ ENV RELEASE_VERSION=${RELEASE_VERSION} \
   LAMBDA_TASK_ROOT=/app/server \
   PATH="/app/server/.venv/bin:$PATH" \
   PYTHONPATH="/app/server:/app/server/.venv/lib/python3.14/site-packages" \
-  POLAR_EMAIL_RENDERER_BINARY_PATH=/app/server/react-email-pkg \
-  POLAR_IP_GEOLOCATION_DATABASE_DIRECTORY_PATH=/data \
-  POLAR_IP_GEOLOCATION_DATABASE_NAME=country_asn.mmdb
+  REPALIS_EMAIL_RENDERER_BINARY_PATH=/app/server/react-email-pkg \
+  REPALIS_IP_GEOLOCATION_DATABASE_DIRECTORY_PATH=/data \
+  REPALIS_IP_GEOLOCATION_DATABASE_NAME=country_asn.mmdb
 
 ENTRYPOINT ["/var/runtime/repalis-bootstrap"]
 CMD ["repalis.worker.aws_lambda.handler"]

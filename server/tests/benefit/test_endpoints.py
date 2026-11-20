@@ -592,7 +592,7 @@ class TestCreateBenefit:
                 "description": "Benefit",
                 "properties": {
                     "repository_owner": "repaliscom",
-                    "repository_name": "polar",
+                    "repository_name": "repalis",
                     "permission": "pull",
                 },
             },

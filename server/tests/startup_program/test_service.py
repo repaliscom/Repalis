@@ -17,7 +17,7 @@ from repalis.startup_program.service import (
 )
 from repalis.startup_program.service import startup_program as startup_program_service
 
-POLAR_ORG_ID = str(uuid.UUID("00000000-0000-0000-0000-0000000000a1"))
+REPALIS_ORG_ID = str(uuid.UUID("00000000-0000-0000-0000-0000000000a1"))
 SCALE_PRODUCT_ID = "prod_scale"
 SDK_CUSTOMER_ID = "cust_sdk_1"
 SDK_DISCOUNT_ID = "disc_sdk_1"
@@ -57,9 +57,9 @@ def _make_billing_contact(email: str) -> MagicMock:
 
 @pytest.fixture
 def configure_startup_program(monkeypatch: pytest.MonkeyPatch) -> None:
-    monkeypatch.setattr(settings, "POLAR_ORGANIZATION_ID", POLAR_ORG_ID)
+    monkeypatch.setattr(settings, "REPALIS_ORGANIZATION_ID", REPALIS_ORG_ID)
     monkeypatch.setattr(settings, "REPALIS_SCALE_PRODUCT_ID", SCALE_PRODUCT_ID)
-    monkeypatch.setattr(settings, "POLAR_ACCESS_TOKEN", "polar_test_token")
+    monkeypatch.setattr(settings, "REPALIS_ACCESS_TOKEN", "repalis_test_token")
 
 
 @pytest.fixture
@@ -83,7 +83,7 @@ class TestMarkInvited:
         monkeypatch: pytest.MonkeyPatch,
         organization: Organization,
     ) -> None:
-        monkeypatch.setattr(settings, "POLAR_ORGANIZATION_ID", "")
+        monkeypatch.setattr(settings, "REPALIS_ORGANIZATION_ID", "")
         monkeypatch.setattr(settings, "REPALIS_SCALE_PRODUCT_ID", "")
 
         with pytest.raises(StartupProgramError):
@@ -127,7 +127,7 @@ class TestMarkInvited:
         # subscription before its product is switched to Scale, so proration
         # at the switch reflects the discount.
         assert create_kwargs["products"] is None
-        # POLAR_ACCESS_TOKEN is organization-scoped, so the API rejects any
+        # REPALIS_ACCESS_TOKEN is organization-scoped, so the API rejects any
         # explicit organization_id on the request.
         assert "organization_id" not in create_kwargs
 
@@ -452,7 +452,7 @@ class TestResolveCheckoutDiscountId:
         monkeypatch: pytest.MonkeyPatch,
         client_mock: MagicMock,
     ) -> None:
-        monkeypatch.setattr(settings, "POLAR_ORGANIZATION_ID", "")
+        monkeypatch.setattr(settings, "REPALIS_ORGANIZATION_ID", "")
         monkeypatch.setattr(settings, "REPALIS_SCALE_PRODUCT_ID", "")
 
         resolved = await startup_program_service.resolve_checkout_discount_id(

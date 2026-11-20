@@ -77,11 +77,11 @@ resource "aws_iam_role_policy" "signing" {
 }
 
 output "current_key_arn" {
-  description = "ARN of the generation that signs now. Passed to the app as POLAR_AWS_JWKS_KMS_KEY_ID."
+  description = "ARN of the generation that signs now. Passed to the app as REPALIS_AWS_JWKS_KMS_KEY_ID."
   value       = aws_kms_key.signing[var.current_generation].arn
 }
 
 output "published_key_arns" {
-  description = "ARNs of every generation, the current one included. Passed to the app as POLAR_AWS_JWKS_KMS_PUBLISHED_KEY_IDS."
+  description = "ARNs of every generation, the current one included. Passed to the app as REPALIS_AWS_JWKS_KMS_PUBLISHED_KEY_IDS."
   value       = [for key in aws_kms_key.signing : key.arn]
 }

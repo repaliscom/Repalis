@@ -289,8 +289,8 @@ jobs:
       run:
         working-directory: server
     env:
-      POLAR_ENV: testing
-      POLAR_EMAIL_RENDERER_BINARY_PATH: /tmp/email-renderer
+      REPALIS_ENV: testing
+      REPALIS_EMAIL_RENDERER_BINARY_PATH: /tmp/email-renderer
     steps:
       - name: Harden the runner (Audit all outbound calls)
         uses: step-security/harden-runner@1d88384fd173af6ecb012dfd0264a306b711241a # v2.22.4

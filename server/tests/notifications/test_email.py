@@ -25,8 +25,8 @@ async def check_diff(notification: NotificationPayloadBase) -> None:
     body = await render_email_template(notification.to_email())
     expected = f"{subject}\n<hr>\n{body}"
 
-    # Run with `POLAR_TEST_RECORD=1 pytest` to produce new golden files :-)
-    record = os.environ.get("POLAR_TEST_RECORD") == "1"
+    # Run with `REPALIS_TEST_RECORD=1 pytest` to produce new golden files :-)
+    record = os.environ.get("REPALIS_TEST_RECORD") == "1"
 
     name = inspect.stack()[1].function
     testdata_path = Path(f"./tests/notifications/testdata/{name}.html")

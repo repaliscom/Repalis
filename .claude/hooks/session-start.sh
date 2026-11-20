@@ -213,17 +213,17 @@ fi
 # history. `task db_recreate` does this from config but replays every migration each run.
 build_template_db() {
   "$ROOT/dev/create-test-db" || return 1
-  POLAR_ENV=testing uv run --directory "$ROOT/server" task db_migrate
+  REPALIS_ENV=testing uv run --directory "$ROOT/server" task db_migrate
 }
 if [ "$PG_OK" -eq 1 ] && step "test template db" build_template_db; then
   # Exported in-process too, so the warm-up below clones rather than re-migrating.
-  export POLAR_TEST_DATABASE_TEMPLATE="repalis_test"
+  export REPALIS_TEST_DATABASE_TEMPLATE="repalis_test"
   # At most once: the env file outlives a single run and would grow unboundedly.
   if [ -n "${CLAUDE_ENV_FILE:-}" ] &&
-    ! grep -q POLAR_TEST_DATABASE_TEMPLATE "$CLAUDE_ENV_FILE" 2>/dev/null; then
-    echo 'export POLAR_TEST_DATABASE_TEMPLATE="repalis_test"' >> "$CLAUDE_ENV_FILE"
+    ! grep -q REPALIS_TEST_DATABASE_TEMPLATE "$CLAUDE_ENV_FILE" 2>/dev/null; then
+    echo 'export REPALIS_TEST_DATABASE_TEMPLATE="repalis_test"' >> "$CLAUDE_ENV_FILE"
   fi
-  NOTES+=("POLAR_TEST_DATABASE_TEMPLATE=repalis_test is set, so pytest clones a pre-migrated database per xdist worker. If you ADD a migration this session, re-run 'POLAR_ENV=testing uv run task db_migrate' in server/ to refresh the template, or the cloned schema will be stale.")
+  NOTES+=("REPALIS_TEST_DATABASE_TEMPLATE=repalis_test is set, so pytest clones a pre-migrated database per xdist worker. If you ADD a migration this session, re-run 'REPALIS_ENV=testing uv run task db_migrate' in server/ to refresh the template, or the cloned schema will be stale.")
 fi
 
 # mypy is the only CPU-bound step, so it overlaps the frontend install, not the pull.
@@ -234,7 +234,7 @@ MYPY_PID=$!
 # Warms bytecode and absorbs a first-run database flake. Needs Postgres even though these
 # tests never query it, because an autouse session fixture creates a database regardless.
 if [ "$PG_OK" -eq 1 ]; then
-  step "warm pytest" env POLAR_ENV=testing uv run --directory "$ROOT/server" \
+  step "warm pytest" env REPALIS_ENV=testing uv run --directory "$ROOT/server" \
     python -m pytest tests/kit/test_address.py -q --no-cov -p no:randomly
 fi
 

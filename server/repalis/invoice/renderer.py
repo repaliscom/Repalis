@@ -38,7 +38,7 @@ def build_renderer_env() -> dict[str, str]:
     return {
         key: value
         for key, value in os.environ.items()
-        if key.startswith("REPALIS_") or key.startswith("POLAR_") or key in PASSTHROUGH_ENV_VARS
+        if key.startswith("REPALIS_") or key in PASSTHROUGH_ENV_VARS
     }
 
 

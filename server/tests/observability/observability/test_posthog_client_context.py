@@ -1,4 +1,4 @@
-"""Tests that mobile/web client identification (polar #12159) is attached to
+"""Tests that mobile/web client identification (repalis #12159) is attached to
 PostHog *events*, and crucially NOT to person/profile properties.
 
 Isolated from the main Repalis infrastructure (see conftest.py): no database or

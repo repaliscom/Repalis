@@ -45,8 +45,8 @@ jobs:
     timeout-minutes: 15
     runs-on: blacksmith-4vcpu-ubuntu-2404
     env:
-      POLAR_EMAIL_RENDERER_BINARY_PATH: "/tmp/email-renderer"
-      POLAR_PYDANTIC_AI_GATEWAY_API_KEY: "POLAR_PYDANTIC_AI_GATEWAY_API_KEY"
+      REPALIS_EMAIL_RENDERER_BINARY_PATH: "/tmp/email-renderer"
+      REPALIS_PYDANTIC_AI_GATEWAY_API_KEY: "REPALIS_PYDANTIC_AI_GATEWAY_API_KEY"
       E2E_REDIS_URL: "redis://127.0.0.1:6379/0"
     services:
       redis:

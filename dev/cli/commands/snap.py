@@ -1099,7 +1099,7 @@ def register(app: typer.Typer, prompt_setup: callable) -> None:
         """
         console.print()
         title = gradient("Snap")
-        title.append("\nPolar's visual regression tool", style="dim")
+        title.append("\nRepalis's visual regression tool", style="dim")
         title.justify = "center"
         console.print(Panel(title, border_style="blue", padding=(1, 4)))
         console.print()

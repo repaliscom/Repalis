@@ -79,7 +79,7 @@ module "production" {
   api_service_config = {
     postgres_database      = module.planetscale.database_name
     postgres_read_database = module.planetscale.database_name
-    pre_deploy_command     = "env POLAR_POSTGRES_USER=${module.planetscale.app_role_username} POLAR_POSTGRES_PORT=5432 uv run task pre_deploy"
+    pre_deploy_command     = "env REPALIS_POSTGRES_USER=${module.planetscale.app_role_username} REPALIS_POSTGRES_PORT=5432 uv run task pre_deploy"
     allowed_hosts          = jsonencode(["repalis.com", local.private_backoffice_hostname])
     cors_origins           = "[\"https://repalis.com\", \"https://github.com\", \"https://repalis.com/docs\"]"
     custom_domains         = [{ name = "api.repalis.com" }, { name = "buy.repalis.com" }]

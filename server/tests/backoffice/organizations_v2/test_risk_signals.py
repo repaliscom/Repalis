@@ -109,7 +109,7 @@ class TestRenderRiskSignalsCard:
 
         assert "Stored description." in html
 
-    def test_polar_signal_shows_its_description_and_level(self) -> None:
+    def test_repalis_signal_shows_its_description_and_level(self) -> None:
         signal = OrganizationRiskSignal(
             source=OrganizationRiskSignal.Source.REPALIS,
             type=OrganizationRiskSignal.Type.FRAUDULENT_WEBSITE,
@@ -121,6 +121,6 @@ class TestRenderRiskSignalsCard:
 
         html = render(signal)
 
-        assert "polar" in html
+        assert "repalis" in html
         assert "badge-info" in html
         assert "Detected by our own check." in html

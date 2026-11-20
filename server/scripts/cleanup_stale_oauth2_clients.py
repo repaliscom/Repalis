@@ -22,7 +22,7 @@ async def cleanup_stale_oauth2_clients(
     configure_script_logging()
     if not settings.MCP_OAUTH2_CLIENT_ID:
         typer.echo(
-            "Set POLAR_MCP_OAUTH2_CLIENT_ID to protect the MCP client.", err=True
+            "Set REPALIS_MCP_OAUTH2_CLIENT_ID to protect the MCP client.", err=True
         )
         raise typer.Exit(1)
 

@@ -1145,7 +1145,7 @@ class OrganizationService:
         if not settings.REPALIS_SELF_ENABLED:
             return
 
-        repalis_organization_id = uuid.UUID(settings.REPALIS_ORGANIZATION_ID or settings.POLAR_ORGANIZATION_ID)
+        repalis_organization_id = uuid.UUID(settings.REPALIS_ORGANIZATION_ID)
         if organization_id == repalis_organization_id:
             return
 

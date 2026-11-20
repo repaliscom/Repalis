@@ -84,10 +84,10 @@ pnpm install && pnpm dev
 ```
 
 **Stripe** — add to `server/.env`:
-- `POLAR_STRIPE_SECRET_KEY`
-- `POLAR_STRIPE_PUBLISHABLE_KEY`
-- `POLAR_STRIPE_WEBHOOK_SECRET`
-- `POLAR_STRIPE_CONNECT_WEBHOOK_SECRET`
+- `REPALIS_STRIPE_SECRET_KEY`
+- `REPALIS_STRIPE_PUBLISHABLE_KEY`
+- `REPALIS_STRIPE_WEBHOOK_SECRET`
+- `REPALIS_STRIPE_CONNECT_WEBHOOK_SECRET`
 
 **Fresh worktrees** (`.claude/worktrees/`) don't carry `.env` or built artifacts. Before running
 tests in a new worktree, from the repo root:
@@ -102,7 +102,7 @@ One artifact actually blocks config import: *any existing file* at
 `EMAIL_RENDERER_BINARY_PATH` — the validator only checks that the path exists. When you need to
 collect tests, lint or typecheck without waiting on the ~60s email build, do what
 `test_sdk.yaml` does: `touch /tmp/email-renderer` and set
-`POLAR_EMAIL_RENDERER_BINARY_PATH=/tmp/email-renderer`. Tests that render an email will fail,
+`REPALIS_EMAIL_RENDERER_BINARY_PATH=/tmp/email-renderer`. Tests that render an email will fail,
 nothing else will.
 
 ## Development Workflow
@@ -119,12 +119,12 @@ uv run alembic upgrade head                               # apply migrations
 ```
 
 `uv run task test` adds coverage and runs serially. Use `task test_fast` (`-n auto`, no coverage)
-interactively, or scope to a path: `POLAR_ENV=testing uv run python -m pytest tests/<module>`.
+interactively, or scope to a path: `REPALIS_ENV=testing uv run python -m pytest tests/<module>`.
 
-Set `POLAR_TEST_DATABASE_TEMPLATE=repalis_test` (with `repalis_test` created and migrated) and each
+Set `REPALIS_TEST_DATABASE_TEMPLATE=repalis_test` (with `repalis_test` created and migrated) and each
 xdist worker clones that database instead of replaying the whole migration history into its own
 — see `tests/fixtures/database.py`. CI does this in `test_server.yaml`. **If you add a migration,
-re-run `POLAR_ENV=testing uv run task db_migrate` to refresh the template**, or workers will
+re-run `REPALIS_ENV=testing uv run task db_migrate` to refresh the template**, or workers will
 clone a stale schema.
 
 **Visual regression testing** — use `dev snap` to capture before/after screenshots across branches:

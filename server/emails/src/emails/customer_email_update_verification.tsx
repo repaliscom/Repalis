@@ -37,7 +37,7 @@ CustomerEmailUpdateVerification.PreviewProps = {
   email: 'new@example.com',
   organization_name: 'Acme Inc.',
   token_lifetime_minutes: 30,
-  url: 'https://repalis.com/acme-inc/portal/verify-email?token=polar_cev_abc123',
+  url: 'https://repalis.com/acme-inc/portal/verify-email?token=repalis_cev_abc123',
 }
 
 export default CustomerEmailUpdateVerification

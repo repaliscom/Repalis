@@ -27,7 +27,7 @@ async def test_instrument_fastapi(
     app = FastAPI()
     app.include_router(mid, prefix="/v1")
 
-    instrument_fastapi(app)  # same call as polar/app.py:264
+    instrument_fastapi(app)  # same call as repalis/app.py:264
 
     transport = httpx2.ASGITransport(app=app)
     async with httpx2.AsyncClient(

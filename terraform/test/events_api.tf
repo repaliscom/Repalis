@@ -20,30 +20,30 @@ locals {
         SERVICE_NAME             = local.events_api_name
         WEB_CONCURRENCY          = "4"
         FORWARDED_ALLOW_IPS      = local.forwarded_allow_ips
-        POLAR_BACKOFFICE_ENABLED = "false"
-        POLAR_ALLOWED_HOSTS      = local.api_allowed_hosts
-        POLAR_CORS_ORIGINS       = local.api_cors_origins
-        POLAR_DATABASE_POOL_SIZE = "20"
+        REPALIS_BACKOFFICE_ENABLED = "false"
+        REPALIS_ALLOWED_HOSTS      = local.api_allowed_hosts
+        REPALIS_CORS_ORIGINS       = local.api_cors_origins
+        REPALIS_DATABASE_POOL_SIZE = "20"
 
-        POLAR_POSTGRES_DATABASE      = module.planetscale.database_name
-        POLAR_POSTGRES_HOST          = local.planetscale_postgres_config.host
-        POLAR_POSTGRES_PORT          = local.planetscale_postgres_config.port
-        POLAR_POSTGRES_USER          = local.planetscale_postgres_config.user
-        POLAR_POSTGRES_PWD           = local.planetscale_postgres_config.password
-        POLAR_POSTGRES_READ_DATABASE = module.planetscale.database_name
-        POLAR_POSTGRES_READ_HOST     = local.planetscale_postgres_config.read_host
-        POLAR_POSTGRES_READ_PORT     = local.planetscale_postgres_config.read_port
-        POLAR_POSTGRES_READ_USER     = local.planetscale_postgres_config.read_user
-        POLAR_POSTGRES_READ_PWD      = local.planetscale_postgres_config.read_password
-        POLAR_POSTGRES_SSL           = "false"
+        REPALIS_POSTGRES_DATABASE      = module.planetscale.database_name
+        REPALIS_POSTGRES_HOST          = local.planetscale_postgres_config.host
+        REPALIS_POSTGRES_PORT          = local.planetscale_postgres_config.port
+        REPALIS_POSTGRES_USER          = local.planetscale_postgres_config.user
+        REPALIS_POSTGRES_PWD           = local.planetscale_postgres_config.password
+        REPALIS_POSTGRES_READ_DATABASE = module.planetscale.database_name
+        REPALIS_POSTGRES_READ_HOST     = local.planetscale_postgres_config.read_host
+        REPALIS_POSTGRES_READ_PORT     = local.planetscale_postgres_config.read_port
+        REPALIS_POSTGRES_READ_USER     = local.planetscale_postgres_config.read_user
+        REPALIS_POSTGRES_READ_PWD      = local.planetscale_postgres_config.read_password
+        REPALIS_POSTGRES_SSL           = "false"
         PGSSLMODE                    = local.planetscale_postgres_config.sslmode
         PGSSLROOTCERT                = local.planetscale_postgres_config.sslrootcert
 
-        POLAR_REDIS_URL = "rediss://${module.redis[0].host}:${module.redis[0].port}/1"
+        REPALIS_REDIS_URL = "rediss://${module.redis[0].host}:${module.redis[0].port}/1"
       },
     ) : key => value
     # The S3 span exporter stays off to measure its CPU cost under load.
-    if value != null && key != "POLAR_S3_LOGS_BUCKET_NAME"
+    if value != null && key != "REPALIS_S3_LOGS_BUCKET_NAME"
   } : {}
 }
 

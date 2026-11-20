@@ -152,7 +152,7 @@ module "backend_environment" {
   repalis_self_config = local.repalis_self_config
   tinybird_config   = local.tinybird_config
 
-  # Token only: without POLAR_SLACK_CHANNEL, invariant failures don't post to Slack.
+  # Token only: without REPALIS_SLACK_CHANNEL, invariant failures don't post to Slack.
   slo_report_config = var.slo_report_slack_bot_token != "" ? {
     slack_bot_token = var.slo_report_slack_bot_token
   } : null

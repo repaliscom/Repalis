@@ -62,8 +62,8 @@ jobs:
       - name: 📋 Plan
         working-directory: ./clients/apps/demo-app
         env:
-          POLAR_PREVIEW: "1"
-          POLAR_ENVIRONMENT: sandbox
+          REPALIS_PREVIEW: "1"
+          REPALIS_ENVIRONMENT: sandbox
           REPALIS_ACCESS_TOKEN: ${{ secrets.DEMO_REPALIS_ACCESS_TOKEN }}
           GITHUB_TOKEN: ${{ github.token }}
         run: bun ../../packages/cli/src/cli.ts config plan --pr-comment

@@ -17,7 +17,7 @@ from shared import (
 
 
 def _configure_repalis_self_integration() -> None:
-    """Query the seeded admin org and configure Polar self-integration env vars."""
+    """Query the seeded admin org and configure Repalis self-integration env vars."""
     result = run_command(
         ["uv", "run", "python", "-m", "scripts.seeds_load", "repalis-self-env"],
         cwd=SERVER_DIR,
@@ -34,7 +34,7 @@ def _configure_repalis_self_integration() -> None:
     update_secrets(values)
 
     run_command([str(ROOT_DIR / "dev" / "setup-environment")], capture=True)
-    console.print("[dim]Configured Polar self-integration in .env[/dim]")
+    console.print("[dim]Configured Repalis self-integration in .env[/dim]")
 
 
 def _print_command_output(result: object) -> None:

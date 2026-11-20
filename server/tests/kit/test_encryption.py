@@ -155,7 +155,7 @@ def test_get_key_provider_requires_kms_key_in_production(
     monkeypatch.setattr(settings, "AWS_KMS_KEY_ID", None)
     encryption.get_key_provider.cache_clear()
     try:
-        with pytest.raises(RuntimeError, match="POLAR_AWS_KMS_KEY_ID"):
+        with pytest.raises(RuntimeError, match="REPALIS_AWS_KMS_KEY_ID"):
             encryption.get_key_provider()
     finally:
         encryption.get_key_provider.cache_clear()

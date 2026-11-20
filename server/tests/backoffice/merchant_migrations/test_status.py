@@ -156,7 +156,7 @@ class TestAttention:
         assert result.level == AttentionLevel.waiting_merchant
         assert not result.needs_ops
 
-    def test_repalis_app_step_is_a_polar_job(self) -> None:
+    def test_repalis_app_step_is_a_repalis_job(self) -> None:
         migration = _migration(
             step=MerchantMigrationStep.copy_cards, steps=_advance_to("verify_cards")
         )

@@ -11,7 +11,7 @@ from repalis.kit.hash_secrets import (
     get_hash_secrets,
 )
 
-ARN = "arn:aws:secretsmanager:us-east-2:1:secret:polar-test-hash-secret"
+ARN = "arn:aws:secretsmanager:us-east-2:1:secret:repalis-test-hash-secret"
 
 
 @pytest.fixture(autouse=True)

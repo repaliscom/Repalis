@@ -51,8 +51,8 @@ jobs:
       pull-requests: write
 
     env:
-      POLAR_EMAIL_RENDERER_BINARY_PATH: "/tmp/email-renderer"
-      POLAR_PYDANTIC_AI_GATEWAY_API_KEY: "POLAR_PYDANTIC_AI_GATEWAY_API_KEY"
+      REPALIS_EMAIL_RENDERER_BINARY_PATH: "/tmp/email-renderer"
+      REPALIS_PYDANTIC_AI_GATEWAY_API_KEY: "REPALIS_PYDANTIC_AI_GATEWAY_API_KEY"
 
     steps:
       - name: Harden the runner (Audit all outbound calls)

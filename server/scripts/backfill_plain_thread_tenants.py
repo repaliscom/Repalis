@@ -163,7 +163,7 @@ async def run_backfill(
     customer_ids: list[str] | None = None,
 ) -> BackfillResult:
     result = BackfillResult()
-    self_org_id = uuid.UUID(settings.POLAR_ORGANIZATION_ID)
+    self_org_id = uuid.UUID(settings.REPALIS_ORGANIZATION_ID)
 
     semaphore = asyncio.Semaphore(concurrency)
     result_lock = asyncio.Lock()
@@ -226,9 +226,9 @@ async def backfill(
     """Backfill Plain thread tenants for threads missing a tenant."""
     configure_script_logging()
 
-    if not settings.POLAR_SELF_ENABLED:
+    if not settings.REPALIS_SELF_ENABLED:
         typer.echo(
-            "POLAR_ACCESS_TOKEN or POLAR_ORGANIZATION_ID is not configured, aborting."
+            "REPALIS_ACCESS_TOKEN or REPALIS_ORGANIZATION_ID is not configured, aborting."
         )
         raise typer.Exit(1)
 

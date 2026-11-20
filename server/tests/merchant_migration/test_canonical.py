@@ -443,7 +443,7 @@ class TestRepalisDiscountHelpers:
         assert repalis_discount_code("LAUNCH-10") == "LAUNCH10"
         assert repalis_discount_code("AB") is None
 
-    def test_amounts_drop_values_above_polar_max(self) -> None:
+    def test_amounts_drop_values_above_repalis_max(self) -> None:
         assert repalis_discount_amounts({"usd": 1_000_000_000_000}) == {}
         assert repalis_discount_amounts({"USD": 100, "xyz": 50}) == {
             PresentmentCurrency.usd: 100

@@ -59,7 +59,7 @@ if __name__ == "__main__":
         sys.exit()
 
     if arguments.command == "generate-all":
-        os.environ["POLAR_ENV"] = "testing"
+        os.environ["REPALIS_ENV"] = "testing"
         json.dump(generate_schemas(sorted(VERSIONS)), sys.stdout)
         sys.stdout.flush()
         sys.exit()
@@ -68,9 +68,9 @@ if __name__ == "__main__":
         parser.error(f"Unsupported API version: {arguments.version}")
 
     if arguments.private:
-        os.environ["POLAR_ENV"] = "development"
+        os.environ["REPALIS_ENV"] = "development"
     else:
-        os.environ["POLAR_ENV"] = "testing"
+        os.environ["REPALIS_ENV"] = "testing"
 
     schema = generate_schemas([arguments.version])[str(arguments.version)]
     json.dump(schema, sys.stdout)

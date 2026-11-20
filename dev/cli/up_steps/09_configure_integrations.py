@@ -19,39 +19,39 @@ NAME = "Configuring integrations"
 
 def is_github_configured() -> bool:
     """Check if GitHub App is configured."""
-    return bool(read_secrets().get("POLAR_GITHUB_CLIENT_ID"))
+    return bool(read_secrets().get("REPALIS_GITHUB_CLIENT_ID"))
 
 
 def is_github_skipped() -> bool:
     """Check if user chose to skip GitHub setup."""
-    value = read_secrets().get("POLAR_SKIP_GITHUB_SETUP", "")
+    value = read_secrets().get("REPALIS_SKIP_GITHUB_SETUP", "")
     return value.lower() == "true"
 
 
 def set_github_skipped(skipped: bool = True) -> None:
     """Remember that user chose to skip GitHub setup."""
     update_secrets(
-        {"POLAR_SKIP_GITHUB_SETUP": "true" if skipped else None}
+        {"REPALIS_SKIP_GITHUB_SETUP": "true" if skipped else None}
     )
 
 
 def is_stripe_skipped() -> bool:
     """Check if user chose to skip Stripe setup."""
-    value = read_secrets().get("POLAR_SKIP_STRIPE_SETUP", "")
+    value = read_secrets().get("REPALIS_SKIP_STRIPE_SETUP", "")
     return value.lower() == "true"
 
 
 def set_stripe_skipped(skipped: bool = True) -> None:
     """Remember that user chose to skip Stripe setup."""
     update_secrets(
-        {"POLAR_SKIP_STRIPE_SETUP": "true" if skipped else None}
+        {"REPALIS_SKIP_STRIPE_SETUP": "true" if skipped else None}
     )
 
 
 def _setup_stripe() -> None:
     """Interactive Stripe sandbox setup using the Stripe CLI."""
     console.print("\n  [bold]Stripe Setup[/bold]\n")
-    console.print("  Polar uses Stripe for payment processing. You'll need a Stripe")
+    console.print("  Repalis uses Stripe for payment processing. You'll need a Stripe")
     console.print("  sandbox and the Stripe CLI to develop locally.\n")
 
     if stripe_config.configure() is None:

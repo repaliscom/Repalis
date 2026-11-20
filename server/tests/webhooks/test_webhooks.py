@@ -232,7 +232,7 @@ class TestGenerateWebhookSecret:
         decoded = base64.b64decode(remainder)
         assert len(decoded) == WEBHOOK_SECRET_KEY_BYTES
 
-    def test_polar_token_before_cutoff(self, monkeypatch: pytest.MonkeyPatch) -> None:
+    def test_repalis_token_before_cutoff(self, monkeypatch: pytest.MonkeyPatch) -> None:
         from repalis.webhook import service
 
         monkeypatch.setattr(

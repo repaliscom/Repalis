@@ -12,7 +12,7 @@ from standardwebhooks.webhooks import Webhook as StandardWebhook
 
 from repalis.version import CURRENT_API_VERSION
 
-WEBHOOK_SECRET = "test_polar_webhook_secret"
+WEBHOOK_SECRET = "test_repalis_webhook_secret"
 WEBHOOK_URL = "/v1/integrations/repalis/webhook"
 
 _BENEFIT_GRANT: dict[str, Any] = {
@@ -229,7 +229,7 @@ def _sign(
 @pytest.fixture(autouse=True)
 def _set_webhook_secret(mocker: MockerFixture) -> None:
     mocker.patch(
-        "repalis.integrations.repalis.endpoints.settings.POLAR_WEBHOOK_SECRET",
+        "repalis.integrations.repalis.endpoints.settings.REPALIS_WEBHOOK_SECRET",
         WEBHOOK_SECRET,
     )
 
@@ -269,7 +269,7 @@ class TestWebhook:
         mocker: MockerFixture,
     ) -> None:
         mocker.patch(
-            "repalis.integrations.repalis.endpoints.settings.POLAR_WEBHOOK_SECRET", ""
+            "repalis.integrations.repalis.endpoints.settings.REPALIS_WEBHOOK_SECRET", ""
         )
         body, headers = _sign(_benefit_grant_event("subscription.active"))
 
@@ -324,7 +324,7 @@ class TestWebhook:
         enqueue_mock.assert_awaited_once()
         call = enqueue_mock.await_args
         assert call is not None
-        assert call.args[1].value == "polar"
+        assert call.args[1].value == "repalis"
         assert call.args[2] == f"repalis_self.webhook.{event_type}"
         assert call.args[3] == f"msg_{event_type}"
         assert call.args[4] == payload

@@ -219,7 +219,7 @@ def _make_payload(
 def configured(mocker: MockerFixture) -> None:
     settings = mocker.patch("repalis.integrations.repalis.service.settings")
     settings.REPALIS_SELF_ENABLED = True
-    settings.POLAR_ORGANIZATION_ID = str(SELF_ORG_ID)
+    settings.REPALIS_ORGANIZATION_ID = str(SELF_ORG_ID)
 
 
 @pytest.fixture
@@ -2601,7 +2601,7 @@ class TestHandleOrderCreatedEvent:
         enqueue_email_mock: MagicMock,
         mocker: MockerFixture,
     ) -> None:
-        # polar-self emails must never be sent from the sandbox environment.
+        # repalis-self emails must never be sent from the sandbox environment.
         mocker.patch(
             "repalis.integrations.repalis.service.settings.is_sandbox",
             return_value=True,

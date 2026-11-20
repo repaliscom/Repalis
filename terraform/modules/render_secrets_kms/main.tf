@@ -114,7 +114,7 @@ resource "aws_iam_role_policy" "secrets" {
 }
 
 output "key_arn" {
-  description = "Full ARN of the secrets KMS key. Passed to the app as POLAR_AWS_KMS_KEY_ID."
+  description = "Full ARN of the secrets KMS key. Passed to the app as REPALIS_AWS_KMS_KEY_ID."
   value       = aws_kms_key.secrets.arn
 }
 

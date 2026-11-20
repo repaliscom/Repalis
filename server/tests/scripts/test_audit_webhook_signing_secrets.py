@@ -34,7 +34,7 @@ SIGNABLE = [
     pytest.param(repalis_secret(32).rstrip("="), id="base64 left unpadded"),
     pytest.param("mysupersecretwebhookkey123456789", id="passphrase without a prefix"),
     pytest.param(
-        f"{WEBHOOK_SECRET_PREFIX}polar$$secret$$b64", id="characters the decoder drops"
+        f"{WEBHOOK_SECRET_PREFIX}repalis$$secret$$b64", id="characters the decoder drops"
     ),
 ]
 

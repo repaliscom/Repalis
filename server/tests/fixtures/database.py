@@ -30,7 +30,7 @@ def get_database_url(worker_id: str, driver: str = "asyncpg") -> str:
     )
 
 
-TEMPLATE_DATABASE = os.environ.get("POLAR_TEST_DATABASE_TEMPLATE")
+TEMPLATE_DATABASE = os.environ.get("REPALIS_TEST_DATABASE_TEMPLATE")
 
 ALEMBIC_CONFIG_FILE = pathlib.Path(__file__).parent.parent.parent / "alembic.ini"
 

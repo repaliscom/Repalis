@@ -103,8 +103,8 @@ the host the frontend uses (`localhost`). This is set in
 `dev/docker/docker-compose.dev.yml`:
 
 ```yaml
-POLAR_USER_SESSION_COOKIE_DOMAIN: localhost
-POLAR_AUTHENTICATION_SESSION_COOKIE_DOMAIN: localhost   # both must be present
+REPALIS_USER_SESSION_COOKIE_DOMAIN: localhost
+REPALIS_AUTHENTICATION_SESSION_COOKIE_DOMAIN: localhost   # both must be present
 ```
 
 If you see **`POST /v1/auth/email-otp/request` → 401 "Invalid or missing
@@ -152,8 +152,8 @@ CLI test keys expire every 90 days. Symptom of an expired key: checkout sticks o
 detects the expired key and re-runs the link flow, then recreate services (3c).
 
 If you ever set keys by hand, set them in the central file (or `server/.env`) and
-keep them on the **same account**: `POLAR_STRIPE_SECRET_KEY` (the secret key),
-`POLAR_STRIPE_PUBLISHABLE_KEY` and `NEXT_PUBLIC_STRIPE_KEY` (the publishable key —
+keep them on the **same account**: `REPALIS_STRIPE_SECRET_KEY` (the secret key),
+`REPALIS_STRIPE_PUBLISHABLE_KEY` and `NEXT_PUBLIC_STRIPE_KEY` (the publishable key —
 the browser tokenizes the card with it). pk and sk must belong to one account or
 the card tokenizes against one account while the backend charges another.
 
@@ -173,7 +173,7 @@ stripe listen \
 command's terminal — redirect to a file as above if you want to grep them in 3e.)
 
 It prints `Your webhook signing secret is whsec_...`. **Both**
-`POLAR_STRIPE_WEBHOOK_SECRET` and `POLAR_STRIPE_CONNECT_WEBHOOK_SECRET` must equal
+`REPALIS_STRIPE_WEBHOOK_SECRET` and `REPALIS_STRIPE_CONNECT_WEBHOOK_SECRET` must equal
 that secret. Leave the listener running in the background. If webhooks come back
 400 (signature failure), the configured secret is stale — re-sync it to the value
 the listener prints.
@@ -263,6 +263,6 @@ stale-key retry, a confusing validation message) — that's the signal.
   two secrets alone when they already differ from each other — that means they
   came from dashboard endpoints, not the CLI listener.
 - `dev seed` runs on the **host** against `server/.env`
-  (`POLAR_POSTGRES_*`), which is not the dockerized `repalis_dev_<N>`. For a
+  (`REPALIS_POSTGRES_*`), which is not the dockerized `repalis_dev_<N>`. For a
   docker instance, seed inside the container instead:
   `docker exec repalis-app-<N>-api-1 sh -c 'cd /app/server && uv run python -m scripts.seeds_load'`

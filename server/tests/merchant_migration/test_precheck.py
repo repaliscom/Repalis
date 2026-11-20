@@ -321,7 +321,7 @@ class TestPrecheckEngine:
         assert "no_default_currency_prices" in codes(report, PrecheckIssueLevel.blocker)
         assert report.can_start is False
 
-    async def test_blocker_names_only_the_currencies_polar_would_take(self) -> None:
+    async def test_blocker_names_only_the_currencies_repalis_would_take(self) -> None:
         # A price Repalis drops anyway isn't a currency the merchant can switch to.
         report = await run(
             [
@@ -1193,7 +1193,7 @@ class TestClassifyRecords:
         assert items[0].status == PrecheckRecordStatus.skipped
         assert items[0].reason_code == "missing_default_currency_price"
 
-    def test_product_already_in_polar_is_annotated_not_skipped(self) -> None:
+    def test_product_already_in_repalis_is_annotated_not_skipped(self) -> None:
         records: list[CanonicalRecord] = [
             build_product(product_source_id="prod_1", name="Pro")
         ]

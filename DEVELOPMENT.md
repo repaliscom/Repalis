@@ -155,8 +155,8 @@ everything. Use dashboard endpoints instead only when you need Stripe to reach a
 2. **Copy the sandbox API keys** from its API keys page and add them to `~/.config/repalis/secrets.env`:
 
     ```
-    POLAR_STRIPE_SECRET_KEY=sk_test_...
-    POLAR_STRIPE_PUBLISHABLE_KEY=pk_test_...
+    REPALIS_STRIPE_SECRET_KEY=sk_test_...
+    REPALIS_STRIPE_PUBLISHABLE_KEY=pk_test_...
     ```
 
 3. **Create webhook endpoints** to handle Stripe events:
@@ -169,14 +169,14 @@ everything. Use dashboard endpoints instead only when you need Stripe to reach a
     - Set the endpoint URL to: `https://your-domain.ngrok-free.app/v1/integrations/stripe/webhook`
     - Copy the webhook signing secret and add it to your `~/.config/repalis/secrets.env` file:
         ```
-        POLAR_STRIPE_WEBHOOK_SECRET=whsec_...
+        REPALIS_STRIPE_WEBHOOK_SECRET=whsec_...
         ```
     - Restart the same operation with:
         - events listed in `CONNECT_IMPLEMENTED_WEBHOOKS` (see `repalis/integrations/stripe/endpoints.py`)
         - Set the endpoint URL to: `https://your-domain.ngrok-free.app/v1/integrations/stripe/webhook-connect`
         - Copy the webhook signing secret and add it to your `~/.config/repalis/secrets.env` file:
             ```
-            POLAR_STRIPE_CONNECT_WEBHOOK_SECRET=whsec_...
+            REPALIS_STRIPE_CONNECT_WEBHOOK_SECRET=whsec_...
             ```
 
 These two secrets differ from each other, and `dev stripe` leaves them alone when it sees that —
@@ -323,14 +323,14 @@ uv run task lint         # ruff, auto-fixing
 uv run task lint_types   # mypy
 ```
 
-Or a single path: `POLAR_ENV=testing uv run python -m pytest tests/<module>`.
+Or a single path: `REPALIS_ENV=testing uv run python -m pytest tests/<module>`.
 
 `uv run task test` adds coverage and runs serially, so prefer `test_fast` locally. CI does
 neither — it shards `pytest ... -n auto --no-cov` across four jobs. Tests read the committed
 `server/.env.testing` (forced by `tests/conftest.py`), not `server/.env`, and each xdist worker
-gets its own `repalis_test_<worker_id>` database. Export `POLAR_TEST_DATABASE_TEMPLATE=repalis_test` — with
+gets its own `repalis_test_<worker_id>` database. Export `REPALIS_TEST_DATABASE_TEMPLATE=repalis_test` — with
 `repalis_test` created and migrated — to have workers clone that database instead of replaying
-every migration; refresh it with `POLAR_ENV=testing uv run task db_migrate` whenever you add a
+every migration; refresh it with `REPALIS_ENV=testing uv run task db_migrate` whenever you add a
 migration.
 
 Redis, Stripe credentials and a GitHub App are not required: tests substitute a fake Redis and
@@ -550,8 +550,8 @@ Apple Pay and Google Pay require HTTPS to work. To test these payment methods lo
 4. **Update `server/.env`** to allow CORS from ngrok and set the frontend URL:
 
     ```
-    POLAR_CORS_ORIGINS='["http://localhost:3000", "http://127.0.0.1:3000", "https://github.com", "https://your-ngrok-url.ngrok-free.app"]'
-    POLAR_FRONTEND_BASE_URL="https://your-ngrok-url.ngrok-free.app"
+    REPALIS_CORS_ORIGINS='["http://localhost:3000", "http://127.0.0.1:3000", "https://github.com", "https://your-ngrok-url.ngrok-free.app"]'
+    REPALIS_FRONTEND_BASE_URL="https://your-ngrok-url.ngrok-free.app"
     ```
 
 5. **Access your app** via the ngrok HTTPS URL (e.g., `https://abc123.ngrok-free.app`) in Safari (for Apple Pay) or Chrome (for Google Pay).

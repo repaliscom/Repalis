@@ -484,7 +484,7 @@ class TestPanTransferStepsType:
 
 class TestKinds:
     @pytest.mark.parametrize("method", list(PanTransferMethod))
-    def test_only_polar_and_third_parties_own_auto_steps(
+    def test_only_repalis_and_third_parties_own_auto_steps(
         self, method: PanTransferMethod
     ) -> None:
         # A step the merchant owns always has something to click, otherwise the

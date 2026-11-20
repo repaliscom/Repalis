@@ -1,4 +1,4 @@
-"""Report `POLAR_*` variables Terraform provisions that nothing reads.
+"""Report `REPALIS_*` variables Terraform provisions that nothing reads.
 
 The drift starts when a reader goes away: the setting leaves `config.py`, the
 Terraform that provisions it stays, and `extra="allow"` means the app never
@@ -20,7 +20,7 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parents[2]
 CONFIG = REPO / "server" / "repalis" / "config.py"
 
-NAME = re.compile(r"POLAR_[A-Z0-9_]+")
+NAME = re.compile(r"REPALIS_[A-Z0-9_]+")
 
 # Read somewhere this script cannot see.
 ALLOWED: frozenset[str] = frozenset()
@@ -54,7 +54,7 @@ def read() -> set[str]:
     if settings is None:
         raise RuntimeError(f"No Settings class in {CONFIG}")
     fields = {
-        f"POLAR_{statement.target.id}"
+        f"REPALIS_{statement.target.id}"
         for statement in settings.body
         if isinstance(statement, ast.AnnAssign)
         and isinstance(statement.target, ast.Name)
@@ -65,10 +65,10 @@ def read() -> set[str]:
 def main() -> int:
     orphans = provisioned() - read() - ALLOWED
     if not orphans:
-        print("OK: every POLAR_* variable Terraform sets is read.")
+        print("OK: every REPALIS_* variable Terraform sets is read.")
         return 0
 
-    print(f"{len(orphans)} POLAR_* variable(s) provisioned but never read:\n")
+    print(f"{len(orphans)} REPALIS_* variable(s) provisioned but never read:\n")
     for name in sorted(orphans):
         print(f"  {name}")
     print(

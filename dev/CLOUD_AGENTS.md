@@ -81,12 +81,12 @@ exist and the daemon may run as root on `overlayfs`; check `docker info` rather 
 **Backend config artifacts.** Config import fails without the email renderer binary
 (`server/emails/bin/react-email-pkg`, built by `dev up` / `uv run task emails`) → pydantic
 `EMAIL_RENDERER_BINARY_PATH` error. `server/.env` is **not** among them for tests:
-under `POLAR_ENV=testing` (which `tests/conftest.py` forces) `repalis/config.py` loads the
+under `REPALIS_ENV=testing` (which `tests/conftest.py` forces) `repalis/config.py` loads the
 committed `server/.env.testing`. `server/.env` is still required before `docker compose up -d`,
 which interpolates it. `dev status` reports "Worker unknown (check manually)" by design —
 confirm with `pgrep -af dramatiq` or the `repalis` tmux pane.
 
 **Tests need no manual DB setup** — an autouse `sqlalchemy_utils` fixture creates and drops
 `repalis_test_<worker_id>` (`repalis_test_master` without xdist), not `repalis_test` itself. Run
-`uv run task test_fast` or a subset with `POLAR_ENV=testing uv run python -m pytest <path>`.
+`uv run task test_fast` or a subset with `REPALIS_ENV=testing uv run python -m pytest <path>`.
 `dev/create-test-db` creates a plain, unmigrated `repalis_test` and is not part of this path.

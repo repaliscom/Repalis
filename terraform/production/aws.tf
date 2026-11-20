@@ -92,15 +92,15 @@ locals {
     module.backend_environment.environment_variables,
     module.backend_environment.secret_environment_variables,
     {
-      POLAR_POSTGRES_DATABASE = module.planetscale.database_name
-      POLAR_POSTGRES_HOST     = local.planetscale_postgres_config.host
-      POLAR_POSTGRES_PORT     = local.planetscale_postgres_config.port
-      POLAR_POSTGRES_USER     = local.planetscale_postgres_config.user
-      POLAR_POSTGRES_SSL      = "false"
+      REPALIS_POSTGRES_DATABASE = module.planetscale.database_name
+      REPALIS_POSTGRES_HOST     = local.planetscale_postgres_config.host
+      REPALIS_POSTGRES_PORT     = local.planetscale_postgres_config.port
+      REPALIS_POSTGRES_USER     = local.planetscale_postgres_config.user
+      REPALIS_POSTGRES_SSL      = "false"
       PGSSLMODE               = local.planetscale_postgres_config.sslmode
       PGSSLROOTCERT           = "/etc/pki/tls/certs/ca-bundle.crt"
-      POLAR_REDIS_URL         = "rediss://${module.redis.host}:${tostring(module.redis.port)}/1"
-      POLAR_POSTGRES_PWD      = local.planetscale_postgres_config.password
+      REPALIS_REDIS_URL         = "rediss://${module.redis.host}:${tostring(module.redis.port)}/1"
+      REPALIS_POSTGRES_PWD      = local.planetscale_postgres_config.password
       TAILSCALE_AUTHKEY       = var.lambda_worker_tailscale_token
     },
   )

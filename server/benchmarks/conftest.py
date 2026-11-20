@@ -1,6 +1,6 @@
 import os
 
-os.environ["POLAR_ENV"] = "testing"
+os.environ["REPALIS_ENV"] = "testing"
 
 import asyncio
 import collections.abc

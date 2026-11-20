@@ -119,7 +119,7 @@ class TestDownloadablesEndpoints:
             assert response.status_code == 410
 
     @pytest.mark.auth(CUSTOMER_AUTH_SUBJECT)
-    async def test_polar_disabled_file_vanishes(
+    async def test_repalis_disabled_file_vanishes(
         self,
         session: AsyncSession,
         redis: Redis,

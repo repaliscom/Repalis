@@ -210,7 +210,7 @@ async def revoke_subscription(
 async def track_event_ingestion() -> None:
     if not settings.REPALIS_SELF_ENABLED:
         return
-    self_organization_id = uuid.UUID(settings.REPALIS_ORGANIZATION_ID or settings.POLAR_ORGANIZATION_ID)
+    self_organization_id = uuid.UUID(settings.REPALIS_ORGANIZATION_ID)
     cutoff = utc_now() - timedelta(seconds=30)
     async with AsyncSessionMaker() as session:
         repository = EventRepository.from_session(session)

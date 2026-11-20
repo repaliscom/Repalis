@@ -10,8 +10,8 @@ from typing import Any
 
 import pytest
 
-# Set up test environment before any polar imports
-os.environ["POLAR_ENV"] = "testing"
+# Set up test environment before any repalis imports
+os.environ["REPALIS_ENV"] = "testing"
 
 
 @pytest.fixture(scope="session", autouse=True)

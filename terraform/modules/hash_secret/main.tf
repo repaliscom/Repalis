@@ -63,6 +63,6 @@ output "read_policy_json" {
 }
 
 output "secret_arn" {
-  description = "ARN of the secret. Passed to the app as POLAR_AWS_HASH_SECRET_ARN."
+  description = "ARN of the secret. Passed to the app as REPALIS_AWS_HASH_SECRET_ARN."
   value       = aws_secretsmanager_secret.hash.arn
 }

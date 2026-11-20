@@ -1,7 +1,7 @@
 import os
 from pathlib import Path
 
-os.environ["POLAR_ENV"] = "testing"
+os.environ["REPALIS_ENV"] = "testing"
 
 
 import freezegun
@@ -10,7 +10,7 @@ import pytest
 freezegun.configure(extend_ignore_list=["_pytest.timing"])
 
 _ci_collection_paths: set[Path] | None = None
-if test_files_path := os.environ.get("POLAR_TEST_FILES"):
+if test_files_path := os.environ.get("REPALIS_TEST_FILES"):
     test_files = {
         Path(__file__).parents[1] / file
         for file in Path(test_files_path).read_text().splitlines()
@@ -67,7 +67,7 @@ def pytest_collection_modifyitems(items: list[pytest.Item]) -> None:
             item.add_marker(pytest.mark.tinybird)
             item.add_marker(pytest.mark.xdist_group(name="tinybird"))
         if (
-            os.environ.get("POLAR_TEST_XDIST") == "true"
+            os.environ.get("REPALIS_TEST_XDIST") == "true"
             and item.get_closest_marker("tinybird")
             and item.nodeid.split("::", 1)[0] not in tinybird_files
         ):

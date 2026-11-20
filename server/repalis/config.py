@@ -71,7 +71,7 @@ def _validate_email_renderer_binary_path(value: Path) -> Path:
     return value
 
 
-env = Environment(os.getenv("REPALIS_ENV") or os.getenv("POLAR_ENV") or Environment.development)
+env = Environment(os.getenv("REPALIS_ENV", Environment.development))
 if env == Environment.testing:
     env_file = ".env.testing"
 elif env == Environment.test:
@@ -150,7 +150,6 @@ class Settings(BaseSettings):
     # checks). Excludes the org review website/setup collectors, which use a
     # browser-like UA to avoid bot detection by CDNs.
     REPALIS_USER_AGENT: str = "Repalis/1.0 (+https://repalis.com)"
-    POLAR_USER_AGENT: str = "Repalis/1.0 (+https://repalis.com)"
 
     # Base URL for the backend. Used by generate_external_url to
     # generate URLs to the backend accessible from the outside.
@@ -494,20 +493,16 @@ class Settings(BaseSettings):
     REPALIS_ACCESS_TOKEN: str = ""
     REPALIS_WEBHOOK_SECRET: str = ""
     REPALIS_ORGANIZATION_ID: str = ""
-    POLAR_ACCESS_TOKEN: str = ""
-    POLAR_WEBHOOK_SECRET: str = ""
-    POLAR_ORGANIZATION_ID: str = ""
     # Scale plan product, used by the Startup Program to grant a 100% discount
     REPALIS_SCALE_PRODUCT_ID: str = ""
     REPALIS_API_URL: str = "https://api.repalis.com"
-    POLAR_API_URL: str = "https://api.repalis.com"
 
     @property
     def REPALIS_SELF_ENABLED(self) -> bool:
         return all(
             [
-                self.REPALIS_ACCESS_TOKEN or self.POLAR_ACCESS_TOKEN,
-                self.REPALIS_ORGANIZATION_ID or self.POLAR_ORGANIZATION_ID,
+                self.REPALIS_ACCESS_TOKEN,
+                self.REPALIS_ORGANIZATION_ID,
             ]
         )
 
@@ -516,9 +511,9 @@ class Settings(BaseSettings):
         # All three are required: org_id to scope reads, scale_product_id to
         # attach the discount to, access_token so the SDK calls can auth.
         return bool(
-            (self.REPALIS_ORGANIZATION_ID or self.POLAR_ORGANIZATION_ID)
+            self.REPALIS_ORGANIZATION_ID
             and self.REPALIS_SCALE_PRODUCT_ID
-            and (self.REPALIS_ACCESS_TOKEN or self.POLAR_ACCESS_TOKEN)
+            and self.REPALIS_ACCESS_TOKEN
         )
 
     # Customer portal URL overrides per organization: either a single URL for the
@@ -683,7 +678,7 @@ class Settings(BaseSettings):
     TAX_RECORD_PROCESSOR: TaxProcessor = TaxProcessor.numeral
 
     model_config = SettingsConfigDict(
-        env_prefix="polar_",
+        env_prefix="repalis_",
         env_file_encoding="utf-8",
         case_sensitive=False,
         env_file=env_file,

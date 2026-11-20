@@ -70,7 +70,7 @@ def test_get_signer_requires_the_kms_key_in_production(
     monkeypatch.setattr(settings, "ENV", Environment.production)
     monkeypatch.setattr(settings, "AWS_JWKS_KMS_KEY_ID", None)
 
-    with pytest.raises(RuntimeError, match="POLAR_AWS_JWKS_KMS_KEY_ID"):
+    with pytest.raises(RuntimeError, match="REPALIS_AWS_JWKS_KMS_KEY_ID"):
         signer.get_signer()
 
 

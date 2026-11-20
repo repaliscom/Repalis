@@ -170,7 +170,7 @@ EXPECTED_ORGANIZATION_SLUGS = {
     "coldmail",
     "example-news-inc",
     "melted-sql",
-    "polar",
+    "repalis",
     "seatbased-members-corp",
     "widget-industries",
 }

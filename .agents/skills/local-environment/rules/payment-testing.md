@@ -52,8 +52,8 @@ depends on whichever account the CLI happens to have active. Pass
 
 `dev stripe --listen` handles the full setup in one step: installs the
 Stripe CLI if missing, walks through creating/linking a sandbox, writes
-`POLAR_STRIPE_SECRET_KEY`, `POLAR_STRIPE_PUBLISHABLE_KEY`, and
-`POLAR_STRIPE_WEBHOOK_SECRET` into the central secrets file, runs
+`REPALIS_STRIPE_SECRET_KEY`, `REPALIS_STRIPE_PUBLISHABLE_KEY`, and
+`REPALIS_STRIPE_WEBHOOK_SECRET` into the central secrets file, runs
 `dev/setup-environment` to propagate them, and then starts `stripe listen`
 forwarding to both the regular webhook endpoint and the Stripe Connect
 endpoint (`/v1/integrations/stripe/webhook` and
@@ -72,8 +72,8 @@ Leave it running and `stripe listen` will log each event with the API's
 2xx response. Missing webhook → confirm the api port matches
 `dev docker ports`.
 
-One listener signs both endpoints, so `POLAR_STRIPE_WEBHOOK_SECRET` and
-`POLAR_STRIPE_CONNECT_WEBHOOK_SECRET` hold the same value. If they already
+One listener signs both endpoints, so `REPALIS_STRIPE_WEBHOOK_SECRET` and
+`REPALIS_STRIPE_CONNECT_WEBHOOK_SECRET` hold the same value. If they already
 differ, they came from dashboard endpoints and `dev stripe` leaves them
 alone.
 

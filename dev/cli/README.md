@@ -102,7 +102,7 @@ dev repalis config plan              # Runs in your current directory, e.g. clie
 ```
 
 Arguments pass straight through. Like the released binary, it ignores `.env` files in the
-current directory, so a `POLAR_ACCESS_TOKEN` in an app's `.env.local` doesn't override your
+current directory, so a `REPALIS_ACCESS_TOKEN` in an app's `.env.local` doesn't override your
 saved session.
 
 ## Docker dev environment

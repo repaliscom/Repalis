@@ -24,7 +24,7 @@ SECRETS_FILE = Path(
 TEMPLATE_FILE = Path(__file__).parent.parent / "secrets.env.template"
 
 _HEADER = (
-    "# Polar Development Secrets\n"
+    "# Repalis Development Secrets\n"
     "# Shared across Git worktrees. See dev/secrets.env.template\n\n"
 )
 
