@@ -297,7 +297,7 @@ class OffSessionChargesNotEnabled(OrderError):
         self.organization_id = organization_id
         super().__init__(
             "Off-session charges are not enabled for this organization "
-            f"({organization_id}). Contact Polar support to opt in.",
+            f"({organization_id}). Contact Repalis support to opt in.",
             403,
         )
 

@@ -111,7 +111,7 @@ class PaymentRepository(
     async def count_failed_payments_for_order(self, order_id: UUID) -> int:
         """Count failed payments that count toward the dunning ceiling.
 
-        See :data:`polar.models.payment.DUNNING_COUNTING_TRIGGERS` for the
+        See :data:`repalis.models.payment.DUNNING_COUNTING_TRIGGERS` for the
         set of triggers included. Legacy rows with ``trigger IS NULL`` are
         excluded — the safer default for customers on historical data.
         """

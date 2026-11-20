@@ -11,7 +11,7 @@ from repalis.config import settings
 from repalis.models import BackofficeUser, Organization, User, UserOrganization
 from repalis.postgres import AsyncSession, get_db_session
 
-BACKOFFICE_HOST = "backoffice.polar.test"
+BACKOFFICE_HOST = "backoffice.repalis.test"
 DASHBOARD_HOST = "repalis.test"
 
 

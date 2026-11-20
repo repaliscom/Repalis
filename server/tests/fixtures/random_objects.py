@@ -2406,7 +2406,7 @@ async def create_payout(
         account_currency=account_currency,
         account_amount=account_amount,
         transactions=[transaction] if transaction else [],
-        invoice_number=invoice_number or rstr("POLAR-"),
+        invoice_number=invoice_number or rstr("REPALIS-"),
         attempts=[
             PayoutAttempt(
                 processor_id=rstr("PAYOUT_ATTEMPT_PROCESSOR_ID"),

@@ -159,7 +159,7 @@ async def test_tool_write_operations_are_classified(
     To fix this, either:
     - mark the route with `openapi_extra=destructive()`, if it's always destructive;
     - mark the request fields that make it destructive with `destructive_when_equals()`
-      or `destructive_when_one_of()` (see `polar/openapi.py`);
+      or `destructive_when_one_of()` (see `repalis/openapi.py`);
     - or add it to `NON_DESTRUCTIVE_TOOL_OPERATIONS` in this test.
     """.strip()
 

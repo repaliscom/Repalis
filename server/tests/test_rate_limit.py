@@ -403,7 +403,7 @@ class TestEndpointRules:
                     "agent-claim",
                 ),
                 (
-                    ["/v1/agent/claim/polar_acl_link"],
+                    ["/v1/agent/claim/repalis_acl_link"],
                     "GET",
                     [RateLimitGroup.default, RateLimitGroup.web],
                     "api",

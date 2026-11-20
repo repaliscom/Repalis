@@ -112,7 +112,7 @@ def get_protected_resource_metadata() -> OAuth2ProtectedResourceMetadata:
         authorization_servers=[constants.ISSUER],
         scopes_supported=SCOPES_SUPPORTED,
         bearer_methods_supported=["header"],
-        resource_name="Polar",
+        resource_name="Repalis",
         resource_documentation=constants.SERVICE_DOCUMENTATION,
     )
 

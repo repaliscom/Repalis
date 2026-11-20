@@ -24,7 +24,7 @@ class NoActiveListener(RepalisError):
         self.organization = organization
         super().__init__(
             f"No CLI is listening for {organization.slug}. "
-            "Run `polar webhook listen <url>` in another terminal first.",
+            "Run `repalis webhook listen <url>` in another terminal first.",
             status_code=409,
         )
 

@@ -103,7 +103,7 @@ class AmbiguousExternalWebhookEndpointID(WebhookError):
         self.external_id = external_id
         super().__init__(
             "Several webhook endpoints across your organizations share this "
-            "external ID. Use an organization-scoped token, the Polar webhook "
+            "external ID. Use an organization-scoped token, the Repalis webhook "
             "endpoint ID, or a unique external ID to disambiguate.",
             409,
         )

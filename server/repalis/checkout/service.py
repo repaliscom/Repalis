@@ -1615,7 +1615,7 @@ class CheckoutService:
         subscription: Subscription | None,
         order: Order | None,
     ) -> None:
-        """When a buyer purchases one or more seats through the default Polar
+        """When a buyer purchases one or more seats through the default Repalis
         confirmation flow, immediately claim a single seat for themselves so
         they get access without going through the invitation email loop. Any
         remaining seats stay available for them to invite teammates.

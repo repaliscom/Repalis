@@ -54,4 +54,4 @@ class OrganizationDomain(RecordModel):
 
     @property
     def verification_record_name(self) -> str:
-        return f"_polar-challenge.{self.domain}"
+        return f"_repalis-challenge.{self.domain}"

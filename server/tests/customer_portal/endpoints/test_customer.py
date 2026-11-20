@@ -522,7 +522,7 @@ class TestCheckEmailUpdate:
     async def test_invalid_token(self, client: AsyncClient) -> None:
         response = await client.get(
             "/v1/customer-portal/customers/me/email-update/check",
-            params={"token": "polar_cev_bogus"},
+            params={"token": "repalis_cev_bogus"},
         )
         assert response.status_code == 401
 
@@ -532,7 +532,7 @@ class TestVerifyEmailUpdate:
     async def test_invalid_token(self, client: AsyncClient) -> None:
         response = await client.post(
             "/v1/customer-portal/customers/me/email-update/verify",
-            json={"token": "polar_cev_bogus"},
+            json={"token": "repalis_cev_bogus"},
         )
         assert response.status_code == 401
 

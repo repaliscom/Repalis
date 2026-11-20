@@ -3,7 +3,7 @@ from datetime import UTC, datetime
 WEBHOOK_SECRET_PREFIX = "whsec_"
 WEBHOOK_SECRET_KEY_BYTES = 32
 
-# Secrets created before this instant keep Polar's original HMAC (UTF-8 of the
+# Secrets created before this instant keep Repalis's original HMAC (UTF-8 of the
 # full `whsec_…` string). That includes endpoints stamped with
 # `secret_generated_at` after that column shipped but before spec signing.
 # Bump this if deploy slips so those rows do not flip scheme.

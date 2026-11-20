@@ -13,7 +13,7 @@ the new one, so `john.doe@gmail.com` stored yesterday no longer matches
 `johndoe@gmail.com` presented today. Run this right after deploying the new
 normalization to close that gap.
 
-Normalization runs in Python against `polar.kit.email.normalize_email` rather
+Normalization runs in Python against `repalis.kit.email.normalize_email` rather
 than being mirrored in SQL, so there is exactly one definition of the rules.
 
 Addresses that no longer parse are counted and left untouched; the trial they

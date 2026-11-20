@@ -374,7 +374,7 @@ class OutpostService:
         version = await reducer_service.get_database_now(session)
         since = get_reducer_bucket_start(version - SYNCED_LOOKBACK)
         organization_id = next(iter(requested)).organization_id
-        # Credits are the customer's and all in Polar: Outpost never counts any.
+        # Credits are the customer's and all in Repalis: Outpost never counts any.
         credits = await reducer_service.get_credits(
             session,
             organization_id,

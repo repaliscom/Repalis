@@ -177,7 +177,7 @@ async def export(
                 )
             )
 
-    return CSVStreamingResponse(create_csv(), "polar-customers.csv")
+    return CSVStreamingResponse(create_csv(), "repalis-customers.csv")
 
 
 @router.get(

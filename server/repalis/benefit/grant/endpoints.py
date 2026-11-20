@@ -42,7 +42,7 @@ async def create(
 ) -> BenefitGrantModel:
     """Manually grant a benefit to a customer or one of their members.
 
-    Use either Polar IDs for every reference or external IDs for every reference.
+    Use either Repalis IDs for every reference or external IDs for every reference.
     Fulfillment is asynchronous: the returned grant may not yet be granted.
     Meter-credit benefits cannot be granted manually.
     """

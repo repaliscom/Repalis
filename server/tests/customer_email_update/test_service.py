@@ -157,7 +157,7 @@ class TestCheckToken:
         session: AsyncSession,
     ) -> None:
         service = CustomerEmailUpdateService()
-        assert await service.check_token(session, "polar_cev_bogustoken") is False
+        assert await service.check_token(session, "repalis_cev_bogustoken") is False
 
     async def test_expired_token(
         self,
@@ -191,7 +191,7 @@ class TestVerify:
         )
         service = CustomerEmailUpdateService()
         with pytest.raises(InvalidCustomerEmailUpdate):
-            await service.verify(session, "polar_cev_bogustoken")
+            await service.verify(session, "repalis_cev_bogustoken")
 
     async def test_expired_token_raises(
         self,

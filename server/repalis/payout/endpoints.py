@@ -147,7 +147,7 @@ async def get_csv(
     content = payout_service.get_csv(session, sessionmaker, payout)
 
     return CSVStreamingResponse(
-        content, f"polar-payout-{payout.created_at.isoformat()}.csv"
+        content, f"repalis-payout-{payout.created_at.isoformat()}.csv"
     )
 
 

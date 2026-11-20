@@ -2985,7 +2985,7 @@ async def startup_program_mark_invited(
 ) -> HXRedirectResponse | None:
     """Invite the organization to the Startup Program.
 
-    Resolves the Polar-for-Repalis customer (in Polar's org, with
+    Resolves the Repalis-for-Repalis customer (in Repalis's org, with
     ``external_id`` equal to the organization id) and eagerly creates its
     dedicated 100% Scale discount.
     """

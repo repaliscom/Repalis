@@ -1599,7 +1599,7 @@ class TestTriggerInvoiceGeneration:
             save_fixture, organization, user, type=PayoutAccountType.stripe
         )
 
-        original_invoice_number = "POLAR-12345"
+        original_invoice_number = "REPALIS-12345"
         payout = await create_payout(
             save_fixture,
             account=account,

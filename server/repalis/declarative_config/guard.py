@@ -9,7 +9,7 @@ class DeclarativeConfigManaged(RepalisError):
     def __init__(self) -> None:
         super().__init__(
             "This organization manages its catalog as code. "
-            "Change your config and run `polar config apply`.",
+            "Change your config and run `repalis config apply`.",
             403,
         )
 

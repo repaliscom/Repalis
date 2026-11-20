@@ -1173,7 +1173,7 @@ async def void(
             with tag.p():
                 text(
                     "Are you sure you want to void this order? "
-                    "Only Polar support can undo this action."
+                    "Only Repalis support can undo this action."
                 )
             with tag.div(classes="modal-action"):
                 with tag.form(method="dialog"):

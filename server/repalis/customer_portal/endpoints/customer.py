@@ -112,7 +112,7 @@ async def export(
     """Export all data for the authenticated customer as a JSON file."""
     customer = get_customer(auth_subject)
     data = await main_customer_service.get_export(session, customer)
-    filename = f"polar-customer-export-{customer.id}.json"
+    filename = f"repalis-customer-export-{customer.id}.json"
     return Response(
         content=json.dumps(data, indent=2),
         media_type="application/json",

@@ -14,7 +14,7 @@ class BenefitGrantUpdate(Schema):
 
 
 class BenefitGrantCreate(Schema):
-    """Manually grant a benefit using Polar IDs."""
+    """Manually grant a benefit using Repalis IDs."""
 
     model_config = ConfigDict(extra="forbid")
 

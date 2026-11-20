@@ -135,6 +135,6 @@ class CreditNote(Invoice):
 class CreditNoteGenerator(InvoiceGenerator):
     def set_metadata(self) -> None:
         self.set_title(f"Credit Note {self.data.number}")
-        self.set_creator("Polar")
+        self.set_creator("Repalis")
         self.set_author(settings.INVOICES_NAME)
         self.set_creation_date(utc_now())

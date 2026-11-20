@@ -17,7 +17,7 @@ class OrganizationRiskSignal(RecordModel):
     """A risk signal about an organization, for a human to review.
 
     Signals come from external systems (Stripe) and from our own checks
-    (Polar). Each row is one finding; `payload` holds the source-specific
+    (Repalis). Each row is one finding; `payload` holds the source-specific
     details. Signals are evidence, not verdicts: recording one never blocks the
     organization on its own.
     """

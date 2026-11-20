@@ -55,7 +55,7 @@ def get_client() -> IPGeolocationClient:
     if not DATABASE_PATH.exists():
         raise FileNotFoundError(
             f"Database not found at {DATABASE_PATH}. "
-            "Please run `python -m polar.checkout.ip_geolocation ACCESS_TOKEN`."
+            "Please run `python -m repalis.checkout.ip_geolocation ACCESS_TOKEN`."
         )
     return ipinfo_db.Client(path=DATABASE_PATH)
 

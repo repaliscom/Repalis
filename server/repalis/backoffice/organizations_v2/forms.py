@@ -104,7 +104,7 @@ class UpdateOrganizationDetailsDataForm(forms.BaseForm):
         Field(
             None,
             title="Intended Use",
-            description="How the organization will integrate and use Polar",
+            description="How the organization will integrate and use Repalis",
         ),
     ]
 

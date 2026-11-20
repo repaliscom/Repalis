@@ -237,7 +237,7 @@ def send_delayed_message(
 def build_retry_schedule_name(queue_arn: str, message_id: str, attempt: int) -> str:
     """Deterministic per logical handoff so a crash + SQS redelivery is idempotent."""
     digest = hashlib.sha256(f"{queue_arn}:{message_id}:{attempt}".encode()).hexdigest()
-    return f"polar-retry-{digest[:40]}"
+    return f"repalis-retry-{digest[:40]}"
 
 
 def schedule_delayed_message(

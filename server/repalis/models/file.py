@@ -68,7 +68,7 @@ class File(RecordModel):
 
     is_uploaded: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
 
-    # Flag for Polar to disable consumption of file
+    # Flag for Repalis to disable consumption of file
     is_enabled: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
 
     flagged_malicious_at: Mapped[datetime | None] = mapped_column(

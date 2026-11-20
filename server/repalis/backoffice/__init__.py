@@ -6,7 +6,7 @@ from tagflow import tag, text
 from repalis.exceptions import RepalisError
 from repalis.observability.http_metrics import exclude_app_from_metrics
 
-from .ascii_logo import POLAR_ASCII_LOGO
+from .ascii_logo import REPALIS_ASCII_LOGO
 from .auth.endpoints import router as auth_router
 from .benefits.endpoints import router as benefits_router
 from .customers.endpoints import router as customers_router
@@ -85,7 +85,7 @@ async def index(request: Request) -> None:
                 classes="font-mono text-xs leading-none select-none",
                 aria_label="Repalis",
             ):
-                text(POLAR_ASCII_LOGO)
+                text(REPALIS_ASCII_LOGO)
             with tag.h1(classes="text-2xl font-bold"):
                 text("Backoffice Dashboard")
 

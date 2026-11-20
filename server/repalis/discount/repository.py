@@ -104,7 +104,7 @@ class DiscountRedemptionRepository(
 
         def unalias(column: InstrumentedAttribute[str | None]) -> ColumnElement[str]:
             # Strip the `+alias` suffix from the local part in SQL, mirroring
-            # `polar.kit.email.unalias_email`. The provided `customer_email` is
+            # `repalis.kit.email.unalias_email`. The provided `customer_email` is
             # expected to be already unaliased and lowercased.
             return func.regexp_replace(func.lower(column), r"\+[^@]*", "")
 

@@ -702,7 +702,7 @@ class TestUpdateOrganization:
             json={
                 "website": "https://example.com",
                 "email": "support@example.com",
-                "socials": [{"platform": "x", "url": "https://x.com/polar"}],
+                "socials": [{"platform": "x", "url": "https://x.com/repalis"}],
             },
         )
         assert update_response.status_code == 200
@@ -737,7 +737,7 @@ class TestUpdateOrganization:
             json={
                 "website": "https://example.com",
                 "email": "support@example.com",
-                "socials": [{"platform": "x", "url": "https://x.com/polar"}],
+                "socials": [{"platform": "x", "url": "https://x.com/repalis"}],
                 "details": {
                     "product_description": "Subscription SaaS for software teams and agencies.",
                     "selling_categories": ["Software / SaaS"],

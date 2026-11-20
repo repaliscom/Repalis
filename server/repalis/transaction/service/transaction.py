@@ -141,7 +141,7 @@ class TransactionService(BaseTransactionService):
 
         result = await session.execute(statement)
 
-        currency = "usd"  # FIXME: Main Polar currency
+        currency = "usd"  # FIXME: Main Repalis currency
 
         try:
             amount, payout_amount, available_amount = result.one()._tuple()

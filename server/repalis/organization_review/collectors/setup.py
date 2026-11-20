@@ -230,7 +230,7 @@ async def resolve_url_redirects(urls: list[str]) -> list[UrlRedirectInfo]:
         transport=SSRFSafeTransport(),
         follow_redirects=False,  # We follow manually to validate each hop
         timeout=_REDIRECT_TIMEOUT,
-        headers={"User-Agent": "Mozilla/5.0 (compatible; PolarReviewBot/1.0)"},
+        headers={"User-Agent": "Mozilla/5.0 (compatible; RepalisReviewBot/1.0)"},
     ) as client:
         results = list(
             await asyncio.gather(

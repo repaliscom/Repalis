@@ -31,7 +31,7 @@ class TestUsdRates:
         assert rates == {"eur": 1.14738}
         assert cached == rates
         fetch.assert_awaited_once_with(["eur"])
-        ttl = await redis.ttl("polar:fx:usd:v1:eur")
+        ttl = await redis.ttl("repalis:fx:usd:v1:eur")
         assert 0 < ttl <= USD_RATE_CACHE_TTL_SECONDS
 
     async def test_invalid_cache_is_a_miss(
@@ -42,7 +42,7 @@ class TestUsdRates:
             new_callable=AsyncMock,
             return_value={"eur": 1.14738},
         )
-        await redis.set("polar:fx:usd:v1:eur", "not-a-rate")
+        await redis.set("repalis:fx:usd:v1:eur", "not-a-rate")
         breakdowns = [MrrBreakdown(Money({"eur": 11100}), Money(), Money())]
 
         rates = await merchant_migrations_service.usd_rates(redis, breakdowns)

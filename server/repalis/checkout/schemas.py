@@ -132,7 +132,7 @@ EmbedOrigin = Annotated[
         description=(
             "If you plan to embed the checkout session, "
             "set this to the Origin of the embedding page. "
-            "It'll allow the Polar iframe to communicate with the parent page."
+            "It'll allow the Repalis iframe to communicate with the parent page."
         ),
     ),
 ]

@@ -37,7 +37,7 @@ _MAX_UNWRAP_DEPTH = 10
 # Canary: fail fast if Dramatiq changes the CurrentMessage API we rely on.
 assert hasattr(CurrentMessage, "_MESSAGE"), (
     "Dramatiq CurrentMessage._MESSAGE no longer exists — "
-    "polar/worker/_runner.py needs updating to match the new API"
+    "repalis/worker/_runner.py needs updating to match the new API"
 )
 
 

@@ -18,7 +18,7 @@ import traceback
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[2]
-CONFIG = REPO / "server" / "polar" / "config.py"
+CONFIG = REPO / "server" / "repalis" / "config.py"
 
 NAME = re.compile(r"POLAR_[A-Z0-9_]+")
 

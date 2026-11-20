@@ -1864,7 +1864,7 @@ class TestExportSubscriptions:
         assert response.headers["content-type"] == "text/csv; charset=utf-8"
         assert (
             response.headers["content-disposition"]
-            == 'attachment; filename="polar-subscriptions.csv"'
+            == 'attachment; filename="repalis-subscriptions.csv"'
         )
 
         csv_lines = response.text.strip().split("\r\n")
@@ -2043,7 +2043,7 @@ class TestExportSubscriptions:
         assert response.status_code == 200
         assert (
             response.headers["content-disposition"]
-            == 'attachment; filename="polar-subscriptions-2024-06-01-2024-06-30.csv"'
+            == 'attachment; filename="repalis-subscriptions-2024-06-01-2024-06-30.csv"'
         )
         csv_lines = response.text.strip().split("\r\n")
         assert csv_lines == ["Product", product_second.name]

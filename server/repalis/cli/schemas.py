@@ -10,7 +10,7 @@ from repalis.models.webhook_endpoint import WebhookEventType
 class TriggerEvent(Schema):
     type: WebhookEventType
     description: str = Field(
-        description="One-line description of when Polar sends this event."
+        description="One-line description of when Repalis sends this event."
     )
 
 

@@ -84,12 +84,12 @@ class TestValidatePayload:
                 [
                     {
                         "token": "TOKEN",
-                        "type": "polar_personal_access_token",
+                        "type": "repalis_personal_access_token",
                         "source": "github",
                     },
                     {
                         "token": "TOKEN",
-                        "type": "polar_client_secret",
+                        "type": "repalis_client_secret",
                         "source": "github",
                         "url": "https://example.com",
                     },
@@ -100,7 +100,7 @@ class TestValidatePayload:
                 [
                     {
                         "token": "TOKEN",
-                        "type": "POLAR_PERSONAL_ACCESS_TOKEN",
+                        "type": "REPALIS_PERSONAL_ACCESS_TOKEN",
                         "source": "github",
                     }
                 ],

@@ -1,4 +1,4 @@
-POLAR_ASCII_LOGO = r"""
+REPALIS_ASCII_LOGO = r"""
                                                                      ######
                                                                      ######
                                                                      ######
@@ -32,3 +32,5 @@ POLAR_ASCII_LOGO = r"""
                                                                      ######
                                                                      ######
 """
+
+POLAR_ASCII_LOGO = REPALIS_ASCII_LOGO

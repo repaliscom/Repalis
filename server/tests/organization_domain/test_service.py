@@ -88,7 +88,7 @@ class TestReverify:
         email = enqueue_email_mock.call_args.args[0]
         assert isinstance(email, DomainVerificationLostEmail)
         assert email.props.domain == "acme.com"
-        assert email.props.record_name == "_polar-challenge.acme.com"
+        assert email.props.record_name == "_repalis-challenge.acme.com"
         assert email.props.record_value == "TOKEN"
         assert enqueue_email_mock.call_args.kwargs["to_email_addr"] == (
             user_organization.user.email

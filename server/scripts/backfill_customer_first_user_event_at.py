@@ -6,7 +6,7 @@ The column is filled going forward by event ingestion and by the
 events were all ingested before those paths existed. This script fills them.
 
 Events reach a customer under two keys: `customer_id` when the caller knew the
-Polar id, and `external_customer_id` otherwise — including events ingested before
+Repalis id, and `external_customer_id` otherwise — including events ingested before
 the customer row existed, which is the whole point of the column. Both views are
 read, and the earlier of the two wins.
 

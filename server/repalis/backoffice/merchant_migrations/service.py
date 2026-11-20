@@ -8,7 +8,7 @@ from repalis.redis import Redis
 from .mrr import MrrBreakdown
 
 USD_RATE_CACHE_TTL_SECONDS = 24 * 60 * 60
-_USD_RATE_CACHE_PREFIX = "polar:fx:usd:v1"
+_USD_RATE_CACHE_PREFIX = "repalis:fx:usd:v1"
 
 
 def _usd_rate_cache_key(currency: str) -> str:

@@ -30,7 +30,7 @@ class OrganizationDomainCreate(Schema):
 class OrganizationDomain(IDSchema, TimestampedSchema):
     domain: str = Field(description="Domain name.")
     verified_at: datetime | None = Field(
-        description="When Polar verified the domain. `null` while pending."
+        description="When Repalis verified the domain. `null` while pending."
     )
     verification_record_name: str = Field(
         description="Name of the DNS TXT record that proves ownership."

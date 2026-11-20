@@ -63,7 +63,7 @@ class Payout(RecordModel):
     """
     Status of this payout attempt.
 
-    Automatically kept in sync by a trigger defined in server/polar/models/payout_attempt.py
+    Automatically kept in sync by a trigger defined in server/repalis/models/payout_attempt.py
     """
     currency: Mapped[str] = mapped_column(String(3), nullable=False)
     """Currency of this transaction from Repalis's perspective. Should be `usd`."""

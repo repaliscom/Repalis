@@ -74,7 +74,7 @@ async def notify_organization_of_new_message(
 ) -> None:
     """Email an organization's members when a new staff message is posted on
     their case — a reply or a decision (a decision is just another message).
-    Polar staff work the case in the backoffice and are never emailed.
+    Repalis staff work the case in the backoffice and are never emailed.
 
     Merchant participation is org-level, so all members are notified. Direct
     email (bypassing the legacy notification system); discoverable via

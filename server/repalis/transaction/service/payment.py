@@ -68,7 +68,7 @@ class PaymentTransactionService(BaseTransactionService):
         tax_amount = 0
         tax_country = None
         tax_state = None
-        # Polar Custom Checkout sets tax info in metadata
+        # Repalis Custom Checkout sets tax info in metadata
         if "tax_amount" in charge.metadata:
             tax_amount = int(charge.metadata["tax_amount"])
             tax_country = charge.metadata["tax_country"]

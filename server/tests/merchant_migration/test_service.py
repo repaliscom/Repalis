@@ -4571,7 +4571,7 @@ class TestStartPanTransfer:
         cards_on_repalis: set[str],
     ) -> MerchantMigration:
         mocker.patch.object(
-            settings, "MERCHANT_MIGRATION_DESTINATION_STRIPE_ACCOUNT_ID", "acct_polar"
+            settings, "MERCHANT_MIGRATION_DESTINATION_STRIPE_ACCOUNT_ID", "acct_repalis"
         )
         migration = await build_connected_migration(save_fixture, organization)
         migration.step = MerchantMigrationStep.create_catalog

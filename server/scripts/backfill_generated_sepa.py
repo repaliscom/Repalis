@@ -149,7 +149,7 @@ async def recover_order(
     session: AsyncSession, order: Order, *, execute: bool, retry: bool
 ) -> None:
     if order.status != OrderStatus.pending or order.stripe_invoice_id is not None:
-        typer.echo(f"{order.id}: not a pending Polar-billed order; skipped")
+        typer.echo(f"{order.id}: not a pending Repalis-billed order; skipped")
         return
     customer_id = order.customer.stripe_customer_id
     if customer_id is None:

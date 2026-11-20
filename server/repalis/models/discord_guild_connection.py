@@ -11,7 +11,7 @@ from repalis.models.user import User
 class DiscordGuildConnection(RecordModel):
     """Records that an organization connected a Discord guild.
 
-    The Polar bot can act on any guild it has joined with nothing but the guild
+    The Repalis bot can act on any guild it has joined with nothing but the guild
     id, so a guild id arriving from a client is only trusted when a row here
     says that organization connected it.
     """

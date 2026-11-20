@@ -187,7 +187,7 @@ async def export(
                 + [getattr(period, slug, None) for slug in ordered_slugs]
             )
 
-    return CSVStreamingResponse(create_csv(), "polar-metrics.csv")
+    return CSVStreamingResponse(create_csv(), "repalis-metrics.csv")
 
 
 @router.get(

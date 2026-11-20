@@ -1332,7 +1332,7 @@ class WebhookSubscriptionUncanceledPayload(WebhookSubscriptionUpdatedPayloadBase
 
 class WebhookSubscriptionMigratedPayload(BaseWebhookPayload):
     """
-    Sent when Polar takes over billing of a subscription migrated from another provider.
+    Sent when Repalis takes over billing of a subscription migrated from another provider.
 
     This fires at cutover, once the subscription is live on Repalis. `provider`
     and `provider_subscription_id` identify the subscription on the billing

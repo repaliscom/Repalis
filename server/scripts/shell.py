@@ -98,7 +98,7 @@ def shell_asyncio(loop: asyncio.AbstractEventLoop, **namespace: object) -> None:
 
 def start_shell() -> None:
     rich.print("""
-[bold cyan]Welcome to the Polar shell![/bold cyan]
+[bold cyan]Welcome to the Repalis shell![/bold cyan]
 
 [bold yellow]Important notes:[/bold yellow]
 

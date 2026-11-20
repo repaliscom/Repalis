@@ -18,7 +18,7 @@ def content(
         with tag.ul():
             for title, href in [
                 (
-                    "Polar Backoffice",
+                    "Repalis Backoffice",
                     str(request.url_for("index")),
                 ),
                 *breadcrumbs,

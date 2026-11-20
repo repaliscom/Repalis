@@ -151,7 +151,7 @@ def get_filename(
     started_before: datetime | None,
     timezone: ZoneInfo,
 ) -> str:
-    filename = "polar-subscriptions"
+    filename = "repalis-subscriptions"
     for bound in (started_after, started_before):
         if bound is not None:
             filename += f"-{bound.astimezone(timezone).strftime('%Y-%m-%d')}"

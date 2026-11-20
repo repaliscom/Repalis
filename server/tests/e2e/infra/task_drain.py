@@ -97,15 +97,15 @@ class TaskDrainError(Exception):
 
 def _discover_task_modules() -> None:
     """Import all ``tasks.py`` modules under ``repalis/`` so actors register with the broker."""
-    polar_root = Path(__file__).resolve().parents[2] / "repalis"
-    for tasks_file in polar_root.rglob("tasks.py"):
+    repalis_root = Path(__file__).resolve().parents[2] / "repalis"
+    for tasks_file in repalis_root.rglob("tasks.py"):
         # Skip test files, __pycache__, and hidden directories
         if any(
             part.startswith((".", "__")) or part == "tests" for part in tasks_file.parts
         ):
             continue
         module_path = (
-            str(tasks_file.relative_to(polar_root.parent))
+            str(tasks_file.relative_to(repalis_root.parent))
             .replace("/", ".")
             .removesuffix(".py")
         )

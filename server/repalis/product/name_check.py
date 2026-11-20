@@ -57,7 +57,7 @@ FlaggedCategory = Choices(
 
 
 class ProductNameJudgment(BaseModel):
-    """Decide whether a product name describes a product Polar's Acceptable Use Policy forbids."""
+    """Decide whether a product name describes a product Repalis's Acceptable Use Policy forbids."""
 
     model_config = ConfigDict(use_attribute_docstrings=True)
 

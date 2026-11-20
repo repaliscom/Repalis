@@ -51,8 +51,8 @@ class TestClientHeaderCapture:
             _http_scope(
                 [
                     (b"x-repalis-client-version", b"mobile/1.4.0"),
-                    (b"x-polar-client-runtime", b"fingerprint-abc"),
-                    (b"x-polar-client-update", b"update-xyz"),
+                    (b"x-repalis-client-runtime", b"fingerprint-abc"),
+                    (b"x-repalis-client-update", b"update-xyz"),
                 ]
             )
         )

@@ -624,7 +624,7 @@ class TestImport:
 
 def _configure_destination(mocker: MockerFixture) -> None:
     mocker.patch.object(
-        settings, "MERCHANT_MIGRATION_DESTINATION_STRIPE_ACCOUNT_ID", "acct_polar"
+        settings, "MERCHANT_MIGRATION_DESTINATION_STRIPE_ACCOUNT_ID", "acct_repalis"
     )
 
 

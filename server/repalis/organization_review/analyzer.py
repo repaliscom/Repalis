@@ -1101,7 +1101,7 @@ class ReviewAnalyzer:
                 "⚠️ The following risk signals were raised against this organization. "
                 "'stripe' signals come from Stripe's fraud-detection systems and are "
                 "only recorded at 'elevated' or 'highest' severity, so treat them as "
-                "strong corroborating evidence. 'polar' signals come from our own "
+                "strong corroborating evidence. 'repalis' signals come from our own "
                 "checks; they are weaker heuristics that can have innocent "
                 "explanations, so weigh them by their risk level. All signals are "
                 "probabilistic, not proof on their own: verify whether the website "

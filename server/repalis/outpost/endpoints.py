@@ -83,7 +83,7 @@ async def confirm(
     auth_subject: OutpostWrite,
     sessionmaker: AsyncSessionMaker = Depends(get_db_sessionmaker),
 ) -> Confirmation:
-    """The pending ids Polar counts, with the snapshot that counts them."""
+    """The pending ids Repalis counts, with the snapshot that counts them."""
     # Its own session in REPEATABLE READ (see comment in service.py)
     # so that the ids and the totals come from one snapshot.
     async with sessionmaker() as session:

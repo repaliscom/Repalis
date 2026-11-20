@@ -72,7 +72,7 @@ class CustomerMeterCreditsCreateBase(Schema):
 
 
 class CustomerMeterCreditsIDCreate(CustomerMeterCreditsCreateBase):
-    """Schema to manually grant credits on a customer meter using Polar IDs."""
+    """Schema to manually grant credits on a customer meter using Repalis IDs."""
 
     customer_id: UUID4 = Field(
         description="The ID of the customer.", examples=[CUSTOMER_ID_EXAMPLE]

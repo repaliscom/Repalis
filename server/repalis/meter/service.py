@@ -89,7 +89,7 @@ class AmbiguousExternalMeterID(RepalisError):
         self.external_id = external_id
         super().__init__(
             "Several meters across your organizations share this external ID. "
-            "Use an organization-scoped token, the Polar meter ID, "
+            "Use an organization-scoped token, the Repalis meter ID, "
             "or a unique external ID to disambiguate.",
             409,
         )

@@ -132,6 +132,8 @@ class OrganizationDomainService:
 
         try:
             records = await _lookup_txt(organization_domain.verification_record_name)
+        if organization_domain.verification_record_value not in records:
+            records.update(await _lookup_txt(f"_polar-challenge.{organization_domain.domain}"))
         except dns.exception.DNSException as e:
             raise OrganizationDomainVerificationFailed(organization_domain) from e
         if organization_domain.verification_record_value not in records:

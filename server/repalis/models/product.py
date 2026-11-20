@@ -70,7 +70,7 @@ ProductVisibility = Annotated[Visibility, SetSchemaReference("ProductVisibility"
 
 
 # Referenced by table name rather than model to avoid circular imports: these
-# models import from `polar.product` while this module is still loading.
+# models import from `repalis.product` while this module is still loading.
 _orders = table("orders", column("product_id", Uuid))
 _subscriptions = table("subscriptions", column("product_id", Uuid))
 _subscription_updates = table(

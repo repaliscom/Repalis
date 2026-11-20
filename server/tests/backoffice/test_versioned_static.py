@@ -8,7 +8,7 @@ from repalis.backoffice import app as backoffice_app
 from repalis.backoffice.versioned_static import get_file_version
 
 STATIC_DIRECTORY = (
-    Path(__file__).parents[2] / "polar" / "backoffice" / "static"
+    Path(__file__).parents[2] / "repalis" / "backoffice" / "static"
 ).resolve()
 
 

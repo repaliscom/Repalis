@@ -101,7 +101,7 @@ class Snapshot(Schema):
     customer_exists: bool
     # Database time of the read: keep the payload with the highest version.
     version: EpochMicroseconds
-    # Usage before this is Polar's; Outpost counts its own from there on.
+    # Usage before this is Repalis's; Outpost counts its own from there on.
     cold_until: EpochMicroseconds
     count: int
     sum: float

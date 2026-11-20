@@ -60,7 +60,7 @@ class TestListOrganizationDomains:
         ]
         assert json["items"][1]["verified_at"] is None
         assert json["items"][1]["verification_record_name"] == (
-            "_polar-challenge.pending.com"
+            "_repalis-challenge.pending.com"
         )
         assert json["items"][1]["verification_record_value"] == "TOKEN"
 
@@ -267,7 +267,7 @@ class TestVerifyOrganizationDomain:
             f"/v1/organizations/{organization.id}/domains/{domain.id}/verify"
         )
         assert response.status_code == 400
-        lookup_txt_mock.assert_called_once_with("_polar-challenge.acme.com")
+        lookup_txt_mock.assert_called_once_with("_repalis-challenge.acme.com")
 
     @pytest.mark.auth
     async def test_verified_elsewhere(

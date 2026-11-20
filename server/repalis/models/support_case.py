@@ -97,7 +97,7 @@ class SupportCaseMessageType(StrEnum):
     dispute_prevented = "dispute_prevented"
     # the merchant's decision on a dispute (records the lifecycle in the thread)
     merchant_accepted = "merchant_accepted"
-    # Polar conceding a dispute for the merchant, under their threshold
+    # Repalis conceding a dispute for the merchant, under their threshold
     dispute_auto_accept_scheduled = "dispute_auto_accept_scheduled"
     dispute_auto_accept_canceled = "dispute_auto_accept_canceled"
     dispute_auto_accepted = "dispute_auto_accepted"

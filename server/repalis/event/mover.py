@@ -1,6 +1,6 @@
 """Continuously move ingested events from `staged_events` to `events`.
 
-Run with `python -m polar.event.mover`. Several instances can run side by side:
+Run with `python -m repalis.event.mover`. Several instances can run side by side:
 each claims its rows with `FOR UPDATE SKIP LOCKED`.
 """
 

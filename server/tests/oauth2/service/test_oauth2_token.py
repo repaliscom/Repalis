@@ -36,7 +36,7 @@ class TestRevokeLeaked:
             ("repalis_at_u_123", TokenType.access_token),
             ("repalis_rt_u_123", TokenType.refresh_token),
             ("repalis_at_o_123", TokenType.access_token),
-            ("polar_rt_o_123", TokenType.refresh_token),
+            ("repalis_rt_o_123", TokenType.refresh_token),
         ],
     )
     async def test_false_positive(
@@ -94,7 +94,7 @@ class TestRevokeLeaked:
         ("token", "token_type"),
         [
             ("repalis_at_o_123", TokenType.access_token),
-            ("polar_rt_o_123", TokenType.refresh_token),
+            ("repalis_rt_o_123", TokenType.refresh_token),
         ],
     )
     async def test_true_positive_organization(
@@ -112,7 +112,7 @@ class TestRevokeLeaked:
             save_fixture,
             client=oauth2_client,
             access_token="repalis_at_o_123",
-            refresh_token="polar_rt_o_123",
+            refresh_token="repalis_rt_o_123",
             scopes=["openid"],
             organization=organization,
         )

@@ -18,7 +18,7 @@ from repalis.oauth2.sub_type import SubType
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_agent
 
-CLAIM_TOKEN = "polar_act_claim"
+CLAIM_TOKEN = "repalis_act_claim"
 POLL = {"grant_type": CLAIM_GRANT_TYPE, "claim_token": CLAIM_TOKEN}
 
 

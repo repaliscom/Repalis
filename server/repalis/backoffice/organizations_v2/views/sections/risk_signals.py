@@ -1,4 +1,4 @@
-"""Rendering helpers for organization risk signals (Stripe Radar, Polar checks)."""
+"""Rendering helpers for organization risk signals (Stripe Radar, Repalis checks)."""
 
 import json
 import re
