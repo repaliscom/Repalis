@@ -34,7 +34,7 @@ pnpm add -g --allow-build=@repalis/cli @repalis/cli
 bun install -g --trust @repalis/cli
 ```
 
-Check that it works with `polar --version`.
+Check that it works with `repalis --version`.
 
 ## Development
 
@@ -43,9 +43,9 @@ From `clients/`, install dependencies with `pnpm install`, then use
 Bun `1.4.2` is the runtime, test runner, and binary compiler; pnpm manages dependencies.
 
 Run the CLI from source with `bun src/cli.ts <command>` in this directory, or
-compile the release binary with `pnpm build:binary` and run `./polar`.
+compile the release binary with `pnpm build:binary` and run `./repalis`.
 
-**To run against a local Polar API** instead of sandbox or production, point the CLI
+**To run against a local Repalis API** instead of sandbox or production, point the CLI
 at it with `REPALIS_API_URL` and authenticate with an organization access token
 created in the local dashboard (scopes `webhooks:read`, `webhooks:write`,
 `organizations:read`). The token replaces `auth login`, so there is no browser
@@ -139,20 +139,20 @@ unless told otherwise). The layout follows opencode's: one
 one, and a main `@repalis/cli` package that lists them as
 `optionalDependencies`. Its `bin` points at `bin/repalis.exe`, a placeholder that
 `postinstall.mjs` replaces with a hard link (or copy) of the platform binary, so
-after install the `polar` command runs the Bun executable directly with no Node
+after install the `repalis` command runs the Bun executable directly with no Node
 launcher in between. If installation scripts are disabled, the placeholder
 prints an error explaining that and points at `install.sh`.
 
 The `npm` job downloads the archives from the GitHub release, verifies them
 against `checksums.txt`, and runs `scripts/npm-package.ts` to turn each extracted
-`polar` binary into a platform package under `dist/npm/`, so npm always ships
+`repalis` binary into a platform package under `dist/npm/`, so npm always ships
 the exact bytes of the GitHub release. `scripts/npm-publish.ts` collects those
 directories, generates the main package from `scripts/npm-manifest.ts` and
 `scripts/npm-postinstall.mjs`, and publishes platform packages before the main
 one. It checks `npm view` first, so rerunning a workflow only publishes what is
 missing. The `npm` job runs it with `--dry-run` for verification builds.
 
-`polar update` follows opencode's updater. `src/services/updater.ts` resolves the
+`repalis update` follows opencode's updater. `src/services/updater.ts` resolves the
 running executable through its symlink and reads the `package.json` two levels
 up: if it names `@repalis/cli` and one of its `bin` entries is the executable,
 the CLI was installed from npm. It then asks `npm`, `pnpm`, `bun`, `yarn` and
@@ -222,10 +222,10 @@ After the first monorepo release is published:
 
 This is a manual operation with credentials that can publish to `repaliscom/cli`;
 the monorepo workflow does not publish there. Do not rebuild the bridge binaries
-from the old repository. Existing clients install the bridge via `polar update`,
+from the old repository. Existing clients install the bridge via `repalis update`,
 then discover future releases from the monorepo. Keep the bridge release available
 indefefinitely for users who update later.
 
 The legacy installer is deliberately retained as a bridge bootstrap for anyone who
 still fetches it from `repaliscom/cli` directly: it installs the bridge version,
-after which `polar update` installs the newest monorepo version.
+after which `repalis update` installs the newest monorepo version.

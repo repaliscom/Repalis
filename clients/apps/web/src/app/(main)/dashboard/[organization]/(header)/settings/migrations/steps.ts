@@ -4,9 +4,9 @@ import { isSwitchChecklistKey } from './cards/panTransferCopy'
 type Step = schemas['MerchantMigrationStep']
 
 // Who moves a step forward. `you` (the merchant) is implicit and never badged;
-// `polar` and `stripe` are surfaced so the merchant knows they're waiting on
+// `repalis` and `stripe` are surfaced so the merchant knows they're waiting on
 // someone else.
-export type StepOwner = 'you' | 'polar' | 'stripe' | 'varies'
+export type StepOwner = 'you' | 'repalis' | 'stripe' | 'varies'
 
 export interface MigrationStepDef {
   key: string
@@ -33,7 +33,7 @@ export const MIGRATION_STEPS: MigrationStepDef[] = [
   {
     key: 'assessment',
     short: 'Assessment',
-    owner: 'polar',
+    owner: 'repalis',
     title: 'Assess & import your catalog',
     description:
       'Repalis checks what can move, then imports the products, discounts and customers your subscriptions need.',
@@ -54,7 +54,7 @@ export const MIGRATION_STEPS: MigrationStepDef[] = [
   {
     key: 'cutover',
     short: 'Switch',
-    owner: 'polar',
+    owner: 'repalis',
     title: 'Switch billing to Repalis',
     description:
       'Repalis creates and activates the subscriptions you pick, then stops them on Stripe.',
@@ -65,7 +65,7 @@ export const MIGRATION_STEPS: MigrationStepDef[] = [
 export const OWNER_LABELS: Record<StepOwner, string | null> = {
   you: null,
   varies: null,
-  polar: 'Repalis',
+  repalis: 'Repalis',
   stripe: 'Stripe',
 }
 

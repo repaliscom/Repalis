@@ -41,8 +41,8 @@ const buildEntryValues = (
   if (data.paymentVolume) values.payment_volume = data.paymentVolume
   if (data.location) values.location = data.location
   if (data.pitch) values.pitch = data.pitch
-  if (data.currentBillingPlatform === 'Polar' && data.repalisOrgSlug) {
-    values.polar_org_slug = data.repalisOrgSlug
+  if (data.currentBillingPlatform === 'Repalis' && data.repalisOrgSlug) {
+    values.repalis_org_slug = data.repalisOrgSlug
   }
 
   // Select attributes — option titles must match the choices configured on

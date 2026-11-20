@@ -257,7 +257,7 @@ const overviewPage = (doc: HelpDoc.HelpDoc) =>
     frontmatter({
       title: 'Command reference',
       sidebarTitle: 'Reference',
-      description: 'Every command, argument and flag of the Polar CLI',
+      description: 'Every command, argument and flag of the Repalis CLI',
     }),
     GENERATED,
     'Each command has its own page. Run any command with `--help` to see the same information in your terminal.',

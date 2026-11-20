@@ -27,7 +27,7 @@ import {
 import { fakeHttp } from '@/utils/test-utils/http'
 
 const outcome: CommandOutcome = {
-  command: ['polar', 'auth', 'login'],
+  command: ['repalis', 'auth', 'login'],
   flags: ['production'],
   outcome: 'success',
   durationMs: 42.6,
@@ -136,9 +136,9 @@ describe('opt out', () => {
   })
 
   test('recognises compiled binaries', () => {
-    expect(isCompiledBinary('/$bunfs/root/polar')).toBe(true)
+    expect(isCompiledBinary('/$bunfs/root/repalis')).toBe(true)
     expect(isCompiledBinary('B:\\~BUN\\root\\repalis.exe')).toBe(true)
-    expect(isCompiledBinary('/Users/dev/polar/src/cli.ts')).toBe(false)
+    expect(isCompiledBinary('/Users/dev/repalis/src/cli.ts')).toBe(false)
     expect(isCompiledBinary()).toBe(false)
   })
 })
@@ -167,7 +167,7 @@ describe('environment detection', () => {
 })
 
 describe('command identification', () => {
-  const tree = Command.make('polar').pipe(
+  const tree = Command.make('repalis').pipe(
     Command.withSubcommands([
       Command.make('auth').pipe(
         Command.withSubcommands([Command.make('login'), Command.make('org')]),
@@ -178,15 +178,15 @@ describe('command identification', () => {
 
   test('walks the command tree past flags', () => {
     expect(commandPath(tree, ['auth', 'login', '--production'])).toEqual([
-      'polar',
+      'repalis',
       'auth',
       'login',
     ])
     expect(
       commandPath(tree, ['--log-level', 'debug', 'listen', 'http://x']),
-    ).toEqual(['polar', 'listen'])
-    expect(commandPath(tree, ['--help'])).toEqual(['polar'])
-    expect(commandPath(tree, ['bogus'])).toEqual(['polar'])
+    ).toEqual(['repalis', 'listen'])
+    expect(commandPath(tree, ['--help'])).toEqual(['repalis'])
+    expect(commandPath(tree, ['bogus'])).toEqual(['repalis'])
   })
 
   test('records flag names but never values', () => {
@@ -231,7 +231,7 @@ describe('outcomes', () => {
     expect(
       outcomeOf(
         Exit.fail(
-          new CliError.ShowHelp({ commandPath: ['polar'], errors: [] }),
+          new CliError.ShowHelp({ commandPath: ['repalis'], errors: [] }),
         ),
       ),
     ).toEqual({ outcome: 'help' })
@@ -239,11 +239,11 @@ describe('outcomes', () => {
       outcomeOf(
         Exit.fail(
           new CliError.ShowHelp({
-            commandPath: ['polar'],
+            commandPath: ['repalis'],
             errors: [
               new CliError.UnknownSubcommand({
                 subcommand: 'bogus',
-                parent: ['polar'],
+                parent: ['repalis'],
                 suggestions: [],
               }),
             ],
@@ -328,7 +328,7 @@ describe('outcomes', () => {
   test('names the flag, argument or subcommand behind a usage mistake, never a value', () => {
     const usage = (error: CliError.ShowHelp['errors'][number]) =>
       describeFailure(
-        new CliError.ShowHelp({ commandPath: ['polar'], errors: [error] }),
+        new CliError.ShowHelp({ commandPath: ['repalis'], errors: [error] }),
       )
     expect(
       usage(
@@ -353,7 +353,7 @@ describe('outcomes', () => {
       usage(
         new CliError.UnknownSubcommand({
           subcommand,
-          parent: ['polar'],
+          parent: ['repalis'],
           suggestions: [],
         }),
       )
@@ -438,7 +438,7 @@ describe('redact', () => {
     ],
     [
       'temporary directories',
-      'tar: /var/folders/ab/T/repalis-update-x/polar: Cannot open, see /tmp/log and /private/var/x',
+      'tar: /var/folders/ab/T/repalis-update-x/repalis: Cannot open, see /tmp/log and /private/var/x',
       'tar: <redacted> Cannot open, see <redacted> and <redacted>',
     ],
     [
@@ -472,16 +472,16 @@ describe('redact', () => {
   })
 
   test.each([
-    'Not logged in to sandbox. Run polar auth login --sandbox.',
+    'Not logged in to sandbox. Run repalis auth login --sandbox.',
     'Organization org_123 is missing or inaccessible. Check --org.',
     'Received unknown argument: --production',
-    '/opt/homebrew/bin/polar: permission denied',
+    '/opt/homebrew/bin/repalis: permission denied',
     'ENOENT /rootfs/etc/x',
     'ASIA-Pacific region unsupported',
     'Event stream error (403)',
     'Checksum mismatch! Expected: a1b2 Got: c3d4',
     'page 2 of 4, retry in 30s',
-    'polar update',
+    'repalis update',
     '',
   ])('leaves ordinary messages untouched: %s', (message) => {
     expect(redact(message)).toBe(message)
@@ -549,7 +549,7 @@ describe('Telemetry.record', () => {
       api_key: 'phc_test',
       event: 'cli_command',
       properties: {
-        command: 'polar auth login',
+        command: 'repalis auth login',
         flags: ['production'],
         outcome: 'failure',
         error: 'AuthError',
@@ -664,7 +664,7 @@ describe('send', () => {
     event: 'cli_command',
     distinct_id: 'cli:x',
     timestamp: '2026-09-10T00:00:00.000Z',
-    properties: { command: 'polar' },
+    properties: { command: 'repalis' },
   }
   const posthog = 'https://us.i.posthog.com/capture/'
   let http: ReturnType<typeof fakeHttp>

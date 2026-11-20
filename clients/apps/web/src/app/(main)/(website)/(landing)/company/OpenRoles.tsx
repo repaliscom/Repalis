@@ -9,15 +9,15 @@ const JOBS = [
     roles: [
       {
         role: 'Platform Engineering',
-        link: 'https://jobs.ashbyhq.com/polar/0b058d3d-f00a-480c-9e3b-481aa8904f09',
+        link: 'https://jobs.ashbyhq.com/repalis/0b058d3d-f00a-480c-9e3b-481aa8904f09',
       },
       {
         role: 'Product Engineering',
-        link: 'https://jobs.ashbyhq.com/polar/d2f09190-24ec-444f-8642-98596af4a793',
+        link: 'https://jobs.ashbyhq.com/repalis/d2f09190-24ec-444f-8642-98596af4a793',
       },
       {
         role: 'Merchant Operations',
-        link: 'https://jobs.ashbyhq.com/polar/24a6409b-30e7-445a-b997-8411a5e75933',
+        link: 'https://jobs.ashbyhq.com/repalis/24a6409b-30e7-445a-b997-8411a5e75933',
       },
     ],
   },

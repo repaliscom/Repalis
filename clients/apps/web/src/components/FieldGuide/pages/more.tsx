@@ -322,7 +322,7 @@ const tiers = (() => {
 const reconciliation = (() => {
   const x0 = 70,
     x1 = 390
-  const POLAR = 150,
+  const REPALIS = 150,
     BASE = 290,
     BAND = 312
   // Events step Outpost's balance up as they land; Repalis's snapshots settle it at three points along the way.
@@ -356,12 +356,12 @@ const reconciliation = (() => {
   )
   const fig = (
     <>
-      {label(x0 - 8, POLAR + 2.5, 'POLAR')}
+      {label(x0 - 8, REPALIS + 2.5, 'REPALIS')}
       <line
         x1={x0}
         x2={x1}
-        y1={POLAR}
-        y2={POLAR}
+        y1={REPALIS}
+        y2={REPALIS}
         stroke={MID}
         strokeWidth={HAIR}
       />
@@ -378,12 +378,12 @@ const reconciliation = (() => {
 
       {snapshots.map((x) => (
         <g key={x}>
-          <Guide a={[x, POLAR + 3]} b={[x, level(x) - 3]} />
-          <Anchor at={[x, POLAR]} />
+          <Guide a={[x, REPALIS + 3]} b={[x, level(x) - 3]} />
+          <Anchor at={[x, REPALIS]} />
           <Anchor at={[x, level(x)]} />
         </g>
       ))}
-      {label(snapshots[0], POLAR - 10, 'SNAPSHOT', 'middle')}
+      {label(snapshots[0], REPALIS - 10, 'SNAPSHOT', 'middle')}
 
       {/* the open part first, so the settled edge they share is drawn over it */}
       <rect

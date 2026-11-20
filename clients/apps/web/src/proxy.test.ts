@@ -381,9 +381,9 @@ describe('middleware function', () => {
 })
 
 describe('the /to/ dance', () => {
-  it('bounces /to/* to the sandbox host when polar_env cookie does not match the current env', async () => {
+  it('bounces /to/* to the sandbox host when repalis_env cookie does not match the current env', async () => {
     const request = new NextRequest('https://repalis.com/to/dashboard/products')
-    request.cookies.set('polar_env', 'sandbox')
+    request.cookies.set('repalis_env', 'sandbox')
 
     const response = await proxy(request)
 
@@ -397,7 +397,7 @@ describe('the /to/ dance', () => {
     const request = new NextRequest(
       'https://repalis.com/to/dashboard/products?foo=bar',
     )
-    request.cookies.set('polar_env', 'sandbox')
+    request.cookies.set('repalis_env', 'sandbox')
 
     const response = await proxy(request)
 
@@ -407,9 +407,9 @@ describe('the /to/ dance', () => {
     )
   })
 
-  it('does not bounce when polar_env cookie matches the current env', async () => {
+  it('does not bounce when repalis_env cookie matches the current env', async () => {
     const request = new NextRequest('https://repalis.com/to/dashboard/products')
-    request.cookies.set('polar_env', 'production')
+    request.cookies.set('repalis_env', 'production')
 
     const response = await proxy(request)
 
@@ -417,9 +417,9 @@ describe('the /to/ dance', () => {
     expect(response.headers.get('location')).toContain('/auth')
   })
 
-  it('ignores invalid polar_env cookie values', async () => {
+  it('ignores invalid repalis_env cookie values', async () => {
     const request = new NextRequest('https://repalis.com/to/dashboard/products')
-    request.cookies.set('polar_env', 'narnia')
+    request.cookies.set('repalis_env', 'narnia')
 
     const response = await proxy(request)
 
@@ -429,7 +429,7 @@ describe('the /to/ dance', () => {
 
   it('does not bounce non-/to/ paths even with a mismatching cookie', async () => {
     const request = new NextRequest('https://repalis.com/dashboard')
-    request.cookies.set('polar_env', 'sandbox')
+    request.cookies.set('repalis_env', 'sandbox')
 
     const response = await proxy(request)
 
@@ -649,7 +649,7 @@ describe('payment method embed policy', () => {
     )
   })
 
-  it('lets Polar embed itself without asking for the policy', async () => {
+  it('lets Repalis embed itself without asking for the policy', async () => {
     const response = await proxy(
       framedRequest(
         'https://repalis.com/embed/payment-method?session_token=repalis_cst_123&embed_origin=https%3A%2F%2Frepalis.com',
@@ -665,7 +665,7 @@ describe('payment method embed policy', () => {
     )
   })
 
-  it('lets Polar embed itself when the Host header differs from the URL host', async () => {
+  it('lets Repalis embed itself when the Host header differs from the URL host', async () => {
     const response = await proxy(
       framedRequest(
         'http://localhost:3000/embed/payment-method?session_token=repalis_cst_123&embed_origin=http%3A%2F%2F127.0.0.1%3A3000',

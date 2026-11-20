@@ -212,7 +212,7 @@ const CreateOrganizationForm = ({
                       className="cursor-pointer leading-relaxed font-medium"
                     >
                       I understand the restrictions above and agree to
-                      Polar&rsquo;s terms
+                      Repalis&rsquo;s terms
                     </label>
                     <ul className="dark:text-repalis-400 flex flex-col gap-y-1 text-sm text-gray-500">
                       <li>

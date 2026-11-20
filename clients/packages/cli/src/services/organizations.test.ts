@@ -240,7 +240,7 @@ test('no selection fails with guidance instead of choosing an organization', asy
   config = fakeConfig()
   const organizations = await service()
   await expect(Effect.runPromise(organizations.resolve())).rejects.toThrow(
-    'polar auth org',
+    'repalis auth org',
   )
   expect(requests).toEqual([])
 })

@@ -1,4 +1,4 @@
-const HOMEPAGE_MARKDOWN = `# Polar
+const HOMEPAGE_MARKDOWN = `# Repalis
 
 > Repalis is a billing platform and Merchant of Record for software and AI companies. It handles payments, subscriptions, usage-based billing and global sales tax through one API.
 

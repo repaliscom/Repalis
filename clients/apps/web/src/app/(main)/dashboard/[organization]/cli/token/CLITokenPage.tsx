@@ -64,7 +64,7 @@ export default function CLITokenPage() {
         toast({
           title: 'Could not send the token to the CLI',
           description:
-            'The CLI link is invalid. Revoke the token in your settings and run polar auth token again.',
+            'The CLI link is invalid. Revoke the token in your settings and run repalis auth token again.',
         })
         setStep({ name: 'created', token: created.token })
       }

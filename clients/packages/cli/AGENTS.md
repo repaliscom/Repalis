@@ -23,7 +23,7 @@ The `repalis-cli/*` rules in `lint/rules/` enforce these boundaries. Run
 Run the local CLI from source as `dev repalis <command>` (the `dev` CLI runs
 `src/` in your current directory, so `dev repalis config plan` from
 `clients/apps/demo-app` picks up its `repalis.config.ts`). Never test against a
-compiled `polar` binary with saved sessions: macOS treats the fresh binary as
+compiled `repalis` binary with saved sessions: macOS treats the fresh binary as
 untrusted and prompts for the keychain password on every read. When a compiled
 artifact must be tested, limit it to `--version` and `--help`, or set
 `REPALIS_ACCESS_TOKEN` to bypass the keyring.

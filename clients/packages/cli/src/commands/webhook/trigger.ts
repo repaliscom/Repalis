@@ -64,7 +64,7 @@ const deliveryRows = (
     onNone: () => [
       [
         'Forwarded by',
-        `your ${ui.command('polar webhook listen')} terminal, which shows the response`,
+        `your ${ui.command('repalis webhook listen')} terminal, which shows the response`,
       ],
     ],
     onSome: ({ forwardUrl, status, statusText, failure, durationMs }) => [
@@ -96,7 +96,7 @@ const responseBody = (delivery: Option.Option<Delivery>) =>
         : [],
   })
 
-const listHint = `Run ${ui.command('polar webhook trigger --list')} to see every event`
+const listHint = `Run ${ui.command('repalis webhook trigger --list')} to see every event`
 
 const Sent = Schema.Struct({
   kind: Schema.Literal('sent'),
@@ -150,24 +150,24 @@ export const trigger = Command.make('trigger', {
   Command.withDescription('Send a sample webhook event to your local server'),
   Command.withExamples([
     {
-      command: 'polar webhook trigger',
+      command: 'repalis webhook trigger',
       description: 'Pick an event from a list',
     },
     {
-      command: 'polar webhook trigger order.paid',
+      command: 'repalis webhook trigger order.paid',
       description: 'Send a sample order.paid event',
     },
     {
       command:
-        'polar webhook trigger order.paid --override data.customer.email=jane@example.com',
+        'repalis webhook trigger order.paid --override data.customer.email=jane@example.com',
       description: 'Change a field in the payload',
     },
     {
-      command: 'polar webhook trigger order.paid --seed 7',
+      command: 'repalis webhook trigger order.paid --seed 7',
       description: 'Generate the same IDs every time',
     },
     {
-      command: 'polar webhook trigger order.paid --dry-run',
+      command: 'repalis webhook trigger order.paid --dry-run',
       description: 'Print the payload instead of sending it',
     },
   ]),
@@ -179,7 +179,7 @@ export const trigger = Command.make('trigger', {
         if (!list && Option.isNone(event) && !(yield* interactive)) {
           return yield* new TriggerError({
             message: 'An event name is required when not running interactively',
-            hint: `Try ${ui.command('polar webhook trigger order.created')} or ${ui.command('polar webhook trigger --list')}`,
+            hint: `Try ${ui.command('repalis webhook trigger order.created')} or ${ui.command('repalis webhook trigger --list')}`,
           })
         }
 
@@ -214,13 +214,13 @@ export const trigger = Command.make('trigger', {
               NoActiveListener: () =>
                 new TriggerError({
                   message: `Nothing is listening for ${organization.name} in ${environment}`,
-                  hint: `Run ${ui.command('polar webhook listen <url>')} in another terminal, then try again`,
+                  hint: `Run ${ui.command('repalis webhook listen <url>')} in another terminal, then try again`,
                 }),
               UnknownEvent: ({ event, suggestion }) =>
                 new TriggerError({
                   message: `Unknown event "${event}"`,
                   hint: suggestion
-                    ? `Did you mean ${ui.command(`polar webhook trigger ${suggestion}`)}? ${listHint}`
+                    ? `Did you mean ${ui.command(`repalis webhook trigger ${suggestion}`)}? ${listHint}`
                     : listHint,
                 }),
               PayloadRejected: ({ detail }) =>

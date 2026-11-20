@@ -55,8 +55,8 @@ describe('auth login', () => {
     await promise
 
     expect(output()).toContain('Already logged in to sandbox')
-    expect(output()).toContain('polar auth login --sandbox --new-session')
-    expect(output()).toContain('polar auth login --production to sign in')
+    expect(output()).toContain('repalis auth login --sandbox --new-session')
+    expect(output()).toContain('repalis auth login --production to sign in')
   })
 
   test('explains how to replace an existing production session', async () => {
@@ -65,8 +65,8 @@ describe('auth login', () => {
     await promise
 
     expect(output()).toContain('Already logged in to production')
-    expect(output()).toContain('polar auth login --production --new-session')
-    expect(output()).toContain('polar auth login --sandbox to sign in')
+    expect(output()).toContain('repalis auth login --production --new-session')
+    expect(output()).toContain('repalis auth login --sandbox to sign in')
   })
 
   test('asks for the environment when no flag is given', async () => {
@@ -144,7 +144,7 @@ describe('auth login', () => {
     expect(output()).toContain('No organizations yet')
     expect(output()).toContain('https://repalis.com')
     expect(output()).toContain('https://sandbox.repalis.com')
-    expect(output()).toContain('polar auth org')
+    expect(output()).toContain('repalis auth org')
   })
 
   test('skips organization selection outside a terminal', async () => {
@@ -223,7 +223,7 @@ describe('auth whoami', () => {
     await promise
 
     expect(output()).toContain('No active organization')
-    expect(output()).toContain('polar auth org')
+    expect(output()).toContain('repalis auth org')
   })
 
   test('explains how to log in when there are no sessions', async () => {
@@ -232,8 +232,8 @@ describe('auth whoami', () => {
     await promise
 
     expect(output()).toContain('Not logged in')
-    expect(output()).toContain('polar auth login --sandbox')
-    expect(output()).toContain('polar auth login --production')
+    expect(output()).toContain('repalis auth login --sandbox')
+    expect(output()).toContain('repalis auth login --production')
   })
 
   test('shows the only organization of a token override', async () => {

@@ -2,9 +2,9 @@ import { schemas } from '@repalis/client'
 import { ReadonlyRequestCookies } from 'next/dist/server/web/spec-extension/adapters/request-cookies'
 
 const lastVisitedOrg = 'last_visited_org'
-export const REPALIS_ENV_COOKIE = 'polar_env'
+export const REPALIS_ENV_COOKIE = 'repalis_env'
 
-export type PolarEnv = 'production' | 'sandbox'
+export type RepalisEnv = 'production' | 'sandbox'
 
 export const setLastVisitedOrg = (
   organization: string,

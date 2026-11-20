@@ -86,31 +86,31 @@ export const init = Command.make('init', {
   ),
   Command.withExamples([
     {
-      command: 'polar config init',
+      command: 'repalis config init',
       description:
         'Write a config for the active organization at the root of your project',
     },
     {
-      command: 'polar config init --sandbox',
+      command: 'repalis config init --sandbox',
       description:
         'Set up your sandbox organization, logging in first if needed',
     },
     {
-      command: 'polar config init --org acme --format json',
+      command: 'repalis config init --org acme --format json',
       description: 'Write a JSON config for another organization',
     },
     {
-      command: 'polar config init --json --confirm',
+      command: 'repalis config init --json --confirm',
       description:
         'Use the suggested external IDs for existing resources that have none, for scripts and agents',
     },
     {
-      command: 'polar config init --json --external-id <id>=pro',
+      command: 'repalis config init --json --external-id <id>=pro',
       description:
         'Choose the external ID of an existing resource; init --json lists the IDs that need one',
     },
     {
-      command: 'polar config init billing/repalis.config.ts --json',
+      command: 'repalis config init billing/repalis.config.ts --json',
       description:
         'Write to a specific path and print the result as JSON, for scripts and agents',
     },
@@ -142,7 +142,7 @@ export const init = Command.make('init', {
         yield* say([
           ui.blank,
           ...banner([
-            ui.bold('polar config init'),
+            ui.bold('repalis config init'),
             ui.dim('Set up a billing config for your organization'),
           ]),
           ui.blank,

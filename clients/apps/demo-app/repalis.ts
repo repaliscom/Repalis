@@ -8,7 +8,7 @@ if (!accessToken) {
   throw new Error('REPALIS_ACCESS_TOKEN is required in .env.local')
 }
 
-export const polar = RuntimeSDK(config, {
+export const repalis = RuntimeSDK(config, {
   accessToken,
   environment: 'sandbox',
   // baseUrl: 'http://127.0.0.1:8000',
@@ -17,7 +17,7 @@ export const polar = RuntimeSDK(config, {
 const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 
 const findProducts = async (recurring: boolean) => {
-  const { items } = await polar.sdk.products.list({
+  const { items } = await repalis.sdk.products.list({
     is_recurring: recurring,
     limit: 100,
   })
@@ -84,13 +84,13 @@ export const getTopUps = async () =>
 
 export const createProCheckout = async (externalId: string, origin: string) => {
   const pro = await findPlan('pro')
-  const { items } = await polar.sdk.subscriptions.list({
+  const { items } = await repalis.sdk.subscriptions.list({
     external_customer_id: externalId,
     active: true,
     limit: 1,
   })
 
-  const checkout = await polar.sdk.checkouts.create({
+  const checkout = await repalis.sdk.checkouts.create({
     products: [pro.id],
     external_customer_id: externalId,
     // Upgrades the free subscription instead of creating a second one
@@ -103,7 +103,7 @@ export const createProCheckout = async (externalId: string, origin: string) => {
 
 export const isPro = async (externalId: string) => {
   const pro = await findPlan('pro')
-  const { items } = await polar.sdk.subscriptions.list({
+  const { items } = await repalis.sdk.subscriptions.list({
     external_customer_id: externalId,
     product_id: pro.id,
     active: true,
@@ -112,7 +112,7 @@ export const isPro = async (externalId: string) => {
   if (items.length === 0) return false
 
   // Benefits are granted asynchronously after the subscription becomes active
-  const { granted } = await polar
+  const { granted } = await repalis
     .actor({ externalCustomerId: externalId })
     .access('custom_servers')
   return granted
@@ -120,14 +120,14 @@ export const isPro = async (externalId: string) => {
 
 export const ensureFreePlan = async (email: string, externalId: string) => {
   try {
-    await polar.sdk.customers.getExternal(externalId)
+    await repalis.sdk.customers.getExternal(externalId)
   } catch (error) {
     if (!(error instanceof errors.ResourceNotFound)) throw error
     log('Creating customer', externalId)
-    await polar.sdk.customers.create({ email, external_id: externalId })
+    await repalis.sdk.customers.create({ email, external_id: externalId })
   }
 
-  const { items } = await polar.sdk.subscriptions.list({
+  const { items } = await repalis.sdk.subscriptions.list({
     external_customer_id: externalId,
     active: true,
     limit: 1,
@@ -137,13 +137,13 @@ export const ensureFreePlan = async (email: string, externalId: string) => {
   const freePlan = await findPlan('free')
 
   log('Subscribing customer to the free plan', externalId)
-  await polar.sdk.subscriptions.create({
+  await repalis.sdk.subscriptions.create({
     product_id: freePlan.id,
     external_customer_id: externalId,
   })
 
   // Credits are granted asynchronously after the subscription is created
-  const customer = polar.actor({ externalCustomerId: externalId })
+  const customer = repalis.actor({ externalCustomerId: externalId })
   const span = log.start('Waiting for free credits')
   const start = performance.now()
   while ((await customer.balance('tool_call')).balance === 0) {
@@ -167,12 +167,12 @@ export const purchaseTopUp = async (externalId: string, topUp: TopUp) => {
     throw new Error(`The ${topUp} product is not deployed in this environment.`)
   }
 
-  const actor = polar.actor({ externalCustomerId: externalId })
+  const actor = repalis.actor({ externalCustomerId: externalId })
   const { balance } = await actor.balance('tool_call')
-  const customer = await polar.sdk.customers.getExternal(externalId)
+  const customer = await repalis.sdk.customers.getExternal(externalId)
 
   log('Charging top-up off-session', topUp)
-  const order = await polar.sdk.orders.create({
+  const order = await repalis.sdk.orders.create({
     customer_id: customer.id,
     product_id: topUpProduct.id,
     currency: 'usd',
@@ -180,7 +180,7 @@ export const purchaseTopUp = async (externalId: string, topUp: TopUp) => {
 
   try {
     // Charges the payment method saved during the Pro checkout
-    await polar.sdk.orders.finalize(order.id, {})
+    await repalis.sdk.orders.finalize(order.id, {})
   } catch (error) {
     if (
       error instanceof errors.OrdersFinalize402Error ||
@@ -213,7 +213,7 @@ export const grantSurveyCredits = async (
 ) => {
   log(`Survey answer: ${answer}`)
 
-  await polar
+  await repalis
     .actor({ externalCustomerId: externalId })
     .grant('tool_call', SURVEY_CREDITS)
 }
@@ -223,7 +223,7 @@ export const callTool = async (
   server: 'builtin' | 'custom',
   count: number,
 ) => {
-  const customer = polar.actor({ externalCustomerId: externalId })
+  const customer = repalis.actor({ externalCustomerId: externalId })
   let granted: boolean | undefined
 
   if (server === 'custom') {

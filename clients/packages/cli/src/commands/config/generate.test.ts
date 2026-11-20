@@ -75,7 +75,7 @@ const at = (...path: ReadonlyArray<string>) => join(directory, ...path)
 
 const read = (...path: ReadonlyArray<string>) => readFile(at(...path), 'utf8')
 
-describe('polar config generate', () => {
+describe('repalis config generate', () => {
   test('writes Python next to the config', async () => {
     const { output, exit } = await run()
 
@@ -86,7 +86,7 @@ describe('polar config generate', () => {
     expect(output).toContain(
       `repalis_types.py written from ${at('repalis.config.json')}: 1 meter, 0 benefits, 0 products, 0 events`,
     )
-    expect(output).toContain('polar config generate --check')
+    expect(output).toContain('repalis config generate --check')
   })
 
   test('asks for the language when no project says which', async () => {
@@ -126,7 +126,7 @@ describe('polar config generate', () => {
     const { exit } = await run(['--language', 'py', '--check'])
 
     expect(failure(exit)?.hint).toBe(
-      'Run polar config generate --language py and commit the result.',
+      'Run repalis config generate --language py and commit the result.',
     )
   })
 
@@ -148,7 +148,7 @@ describe('polar config generate', () => {
     const { exit } = await run(['--out', at('app.py')])
 
     expect(failure(exit)?.message).toContain(
-      'exists and was not written by polar config generate',
+      'exists and was not written by repalis config generate',
     )
     expect(await read('app.py')).toBe('print("mine")\n')
   })
@@ -189,7 +189,7 @@ describe('polar config generate', () => {
       file: at('repalis_types.py'),
       language: 'py',
       status: 'written',
-      command: 'polar config generate',
+      command: 'repalis config generate',
       events: 0,
       meters: 1,
       benefits: 0,
@@ -204,7 +204,7 @@ describe('polar config generate', () => {
 
     expect(failure(exit)).toMatchObject({
       message: `${out} has not been generated`,
-      hint: `Run polar config generate --out ${out} and commit the result.`,
+      hint: `Run repalis config generate --out ${out} and commit the result.`,
     })
     await expect(read('src', 'names.py')).rejects.toThrow()
   })
@@ -225,7 +225,7 @@ describe('polar config generate', () => {
     const { exit } = await run(['--check'])
 
     expect(failure(exit)?.message).toContain(
-      'exists and was not written by polar config generate',
+      'exists and was not written by repalis config generate',
     )
   })
 

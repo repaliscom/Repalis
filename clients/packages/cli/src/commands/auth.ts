@@ -200,15 +200,15 @@ const login = Command.make('login', {
   Command.withDescription('Sign in to Repalis through your browser'),
   Command.withExamples([
     {
-      command: 'polar auth login',
+      command: 'repalis auth login',
       description: 'Choose sandbox or production, then sign in',
     },
     {
-      command: 'polar auth login --sandbox',
+      command: 'repalis auth login --sandbox',
       description: 'Sign in to sandbox',
     },
     {
-      command: 'polar auth login --production --new-session',
+      command: 'repalis auth login --production --new-session',
       description: 'Sign in to production again, replacing the saved session',
     },
   ]),

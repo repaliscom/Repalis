@@ -177,7 +177,7 @@ const message = (exit: Exit.Exit<unknown, unknown>) =>
     ? (Cause.squash(exit.cause) as { message: string }).message
     : undefined
 
-describe('polar config init', () => {
+describe('repalis config init', () => {
   test('writes an empty TypeScript config here and installs the package outside a terminal', async () => {
     const { calls, installed, output, exit } = await run(
       [],
@@ -740,8 +740,8 @@ describe('polar config init', () => {
           { resource: 'product', id: 'p-2', name: 'Team', external_id: 'team' },
         ],
         next: [
-          'polar config init --confirm',
-          'polar config init --confirm --external-id <id>=<external ID>',
+          'repalis config init --confirm',
+          'repalis config init --confirm --external-id <id>=<external ID>',
         ],
       })
     })

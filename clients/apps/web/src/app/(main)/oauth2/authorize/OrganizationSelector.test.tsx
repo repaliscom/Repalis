@@ -37,8 +37,8 @@ const organizations = [
   },
   {
     id: '83b81a4e-6e50-4af1-9b6b-5b70f38b3f70',
-    slug: 'polar',
-    name: 'polar',
+    slug: 'repalis',
+    name: 'repalis',
     avatar_url: null,
   },
 ]
@@ -57,7 +57,7 @@ describe('OrganizationSelector', () => {
     expect((screen.getByLabelText('acme') as HTMLInputElement).checked).toBe(
       false,
     )
-    expect((screen.getByLabelText('polar') as HTMLInputElement).checked).toBe(
+    expect((screen.getByLabelText('repalis') as HTMLInputElement).checked).toBe(
       false,
     )
     expect(screen.getByText('or select specific organizations')).toBeTruthy()
@@ -83,11 +83,11 @@ describe('OrganizationSelector', () => {
       true,
     )
 
-    fireEvent.click(screen.getByLabelText('polar'))
+    fireEvent.click(screen.getByLabelText('repalis'))
     expect((screen.getByLabelText('acme') as HTMLInputElement).checked).toBe(
       true,
     )
-    expect((screen.getByLabelText('polar') as HTMLInputElement).checked).toBe(
+    expect((screen.getByLabelText('repalis') as HTMLInputElement).checked).toBe(
       true,
     )
 
@@ -105,7 +105,7 @@ describe('OrganizationSelector', () => {
     expect((screen.getByLabelText('acme') as HTMLInputElement).checked).toBe(
       false,
     )
-    expect((screen.getByLabelText('polar') as HTMLInputElement).checked).toBe(
+    expect((screen.getByLabelText('repalis') as HTMLInputElement).checked).toBe(
       false,
     )
     expect(

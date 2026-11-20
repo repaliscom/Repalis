@@ -4,13 +4,13 @@
 
 ### Minor Changes
 
-- 26572db: Add `polar agent setup`, which detects Claude Code, Codex and Cursor and installs the Polar plugin, MCP servers and skills for each.
+- 26572db: Add `repalis agent setup`, which detects Claude Code, Codex and Cursor and installs the Repalis plugin, MCP servers and skills for each.
 
 ## 3.1.0
 
 ### Minor Changes
 
-- d3ae634: `polar --help` lists every command, and `polar <command> --help` shows the flags of every command under it at once.
+- d3ae634: `repalis --help` lists every command, and `repalis <command> --help` shows the flags of every command under it at once.
 
 ### Patch Changes
 
@@ -20,11 +20,11 @@
 
 ### Major Changes
 
-- dd16120: `polar listen` and `polar trigger` are now `polar webhook listen` and `polar webhook trigger`. Add `polar auth token` to create an organization access token through the dashboard. Add `--json` to every command and `--fields` to trim API command output. Destructive API commands ask for confirmation, or `--confirm` without a terminal.
+- dd16120: `repalis listen` and `repalis trigger` are now `repalis webhook listen` and `repalis webhook trigger`. Add `repalis auth token` to create an organization access token through the dashboard. Add `--json` to every command and `--fields` to trim API command output. Destructive API commands ask for confirmation, or `--confirm` without a terminal.
 
 ### Patch Changes
 
-- cc6f9f5: Mark `polar webhooks reset_webhook_endpoint_secret` as destructive so it requires user confirmation.
+- cc6f9f5: Mark `repalis webhooks reset_webhook_endpoint_secret` as destructive so it requires user confirmation.
 
 ## 2.0.2
 
@@ -44,14 +44,14 @@
 
 ### Major Changes
 
-- d107912: **API resources.** Manage your Polar data straight from the terminal: `polar customers`, `products`, `orders`, `subscriptions`, `checkouts`, `discounts`, `benefits`, `meters`, `webhooks` and more.
+- d107912: **API resources.** Manage your Repalis data straight from the terminal: `repalis customers`, `products`, `orders`, `subscriptions`, `checkouts`, `discounts`, `benefits`, `meters`, `webhooks` and more.
 
-  **`polar trigger`.** Send test webhook events to your app.
+  **`repalis trigger`.** Send test webhook events to your app.
 
-  **`polar listen`.** Forward webhooks to a port (`polar listen 3000`) or a URL and see how your server responded to each event.
+  **`repalis listen`.** Forward webhooks to a port (`repalis listen 3000`) or a URL and see how your server responded to each event.
 
-  **Auth.** `polar login` and `polar logout` are now `polar auth login` and `polar auth logout`. Use `polar auth whoami` to see who you're logged in as and `polar auth org` to switch organizations.
+  **Auth.** `repalis login` and `repalis logout` are now `repalis auth login` and `repalis auth logout`. Use `repalis auth whoami` to see who you're logged in as and `repalis auth org` to switch organizations.
 
   **Agentic experience.** JSON output (by default for API resources, with `--json` everywhere else), no hanging prompts, and errors that tell an agent exactly what to fix.
 
-  **Everything else.** Type `polar` to see your account and active org. Windows works without WSL.
+  **Everything else.** Type `repalis` to see your account and active org. Windows works without WSL.

@@ -55,7 +55,7 @@ export function reasonLinks(
   const customerHref = buildCustomerDashboardPath(organizationSlug, {
     id: row.conflicting_customer_id,
   })
-  if (row.reason_code === 'customer_subscribed_on_polar') {
+  if (row.reason_code === 'customer_subscribed_on_repalis') {
     return [{ label: 'View their Repalis subscription', href: customerHref }]
   }
   return [

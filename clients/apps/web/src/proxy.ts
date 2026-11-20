@@ -240,7 +240,7 @@ export async function proxy(request: NextRequest) {
   }
 
   if (request.nextUrl.pathname.startsWith('/to/')) {
-    const lastEnv = request.cookies.get(REPALIS_ENV_COOKIE)?.value
+    const lastEnv = request.cookies.get(REPALIS_ENV_COOKIE)?.value ?? request.cookies.get('polar_env')?.value
     const currentEnv = IS_SANDBOX ? 'sandbox' : 'production'
     if (
       (lastEnv === 'sandbox' || lastEnv === 'production') &&
