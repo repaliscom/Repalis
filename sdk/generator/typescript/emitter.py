@@ -64,11 +64,11 @@ class TypeScriptEmitter(EmitterBase):
         self.copy_file(self.templates_dir / "LICENSE", root_directory / "LICENSE")
 
         for skill_file in (
-            ".agents/skills/polar-typescript-sdk/SKILL.md",
-            ".agents/skills/polar-typescript-sdk/agents/openai.yaml",
-            ".agents/skills/polar-typescript-sdk/references/migration-from-v0.md",
-            ".agents/skills/polar-typescript-sdk/references/usage-events.md",
-            ".agents/skills/polar-typescript-sdk/references/webhooks.md",
+            ".agents/skills/repalis-typescript-sdk/SKILL.md",
+            ".agents/skills/repalis-typescript-sdk/agents/openai.yaml",
+            ".agents/skills/repalis-typescript-sdk/references/migration-from-v0.md",
+            ".agents/skills/repalis-typescript-sdk/references/usage-events.md",
+            ".agents/skills/repalis-typescript-sdk/references/webhooks.md",
         ):
             self.render_file(
                 skill_file,

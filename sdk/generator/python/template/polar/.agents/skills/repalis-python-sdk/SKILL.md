@@ -1,18 +1,18 @@
 ---
-name: polar-python-sdk
-description: Integrate Polar billing in server-side Python applications using the versioned Polar and PolarAsync clients. Use when implementing Polar customers and external IDs, checkout or customer portal sessions, customer-state entitlement checks, webhook validation and processing, API error handling, usage-event ingestion and metered billing, or migrating an application from the old Polar Python SDK.
+name: repalis-python-sdk
+description: Integrate Repalis billing in server-side Python applications using the versioned Repalis and RepalisAsync clients. Use when implementing Repalis customers and external IDs, checkout or customer portal sessions, customer-state entitlement checks, webhook validation and processing, API error handling, usage-event ingestion and metered billing, or migrating an application from the old Repalis Python SDK.
 ---
 
-# Polar Python SDK
+# Repalis Python SDK
 
-Use the generated, versioned Polar SDK without inventing methods or parameters.
+Use the generated, versioned Repalis SDK without inventing methods or parameters.
 
 ## Inspect the application first
 
 1. Identify the installed `polar-sdk` version and preserve the API version already selected by the application.
 2. Inspect generated service signatures, input `TypedDict` definitions, output dataclasses, and endpoint-specific errors before writing calls.
-3. Use `Polar` in synchronous code and `PolarAsync` in asynchronous code. Do not mix blocking SDK calls into an async request path.
-4. Identify whether the access token is scoped to an organization. When the selected token does not imply one, create the client with `Polar(..., organization_id=...)` or pass `organization_id`, and confirm the required endpoint scopes.
+3. Use `Repalis` in synchronous code and `RepalisAsync` in asynchronous code. Do not mix blocking SDK calls into an async request path.
+4. Identify whether the access token is scoped to an organization. When the selected token does not imply one, create the client with `Repalis(..., organization_id=...)` or pass `organization_id`, and confirm the required endpoint scopes.
 5. Keep client, webhook, and environment configuration on the server.
 
 ## Migrate from the old SDK
@@ -26,9 +26,9 @@ Keep production and sandbox access tokens separate. Never expose an organization
 ```python
 import os
 
-from polar.v2026_10 import Polar
+from polar.v{{ (ir.versions[-2] | default({})).version | replace("-", "_") | replace(".", "_") }} import Repalis
 
-with Polar(
+with Repalis(
     os.environ["POLAR_ACCESS_TOKEN"],
     environment="sandbox",
 ) as polar:
@@ -42,11 +42,11 @@ Use the async client with an application-lifetime async context in async service
 ```python
 import os
 
-from polar.v2026_10 import PolarAsync
+from polar.v{{ (ir.versions[-2] | default({})).version | replace("-", "_") | replace(".", "_") }} import RepalisAsync
 
 
 async def load_customer_state() -> None:
-    async with PolarAsync(os.environ["POLAR_ACCESS_TOKEN"]) as polar:
+    async with RepalisAsync(os.environ["POLAR_ACCESS_TOKEN"]) as polar:
         customer_state = await polar.customers.get_state_external("usr_123")
         print(customer_state)
 ```
@@ -58,11 +58,11 @@ async def load_customer_state() -> None:
 - Treat request payload definitions as generated `TypedDict` schemas.
 - Treat JSON object responses as generated, slotted dataclass instances or unions.
 - Expect UUID and date-time OpenAPI fields to remain strings in this SDK version.
-- Use `iter_*` for paginated endpoints. Use `for` with `Polar` and `async for` with `PolarAsync`; each additional page performs another API request.
+- Use `iter_*` for paginated endpoints. Use `for` with `Repalis` and `async for` with `RepalisAsync`; each additional page performs another API request.
 
 ## Correlate customers with stable external IDs
 
-Use the application's immutable user or organization identifier as the Polar customer `external_id`. It is unique within a Polar organization. It may be assigned later when initially unset, but it cannot be changed or removed once set.
+Use the application's immutable user or organization identifier as the Repalis customer `external_id`. It is unique within a Repalis organization. It may be assigned later when initially unset, but it cannot be changed or removed once set.
 
 ```python
 customer = polar.customers.create(
@@ -107,12 +107,13 @@ Validate return URLs and never let an untrusted caller choose another customer's
 Prefer a `feature_flag` benefit attached to the relevant products over inferring access from subscription statuses. Reconcile both access grants and access revocations.
 
 ```python
-from polar.v2026_10.outputs import CustomerState
+from polar.v{{ (ir.versions[-2] | default({})).version | replace("-", "_") | replace(".", "_") }}.outputs import CustomerState
 
 
 def has_feature_access(customer_state: CustomerState, benefit_id: str) -> bool:
     return any(
-        grant.benefit_id == benefit_id for grant in customer_state.granted_benefits
+        grant.benefit_id == benefit_id
+        for grant in customer_state.granted_benefits
     )
 
 
@@ -137,7 +138,7 @@ Read [Usage-event ingestion](references/usage-events.md) before implementing met
 - Match the event name and metadata to the configured meter.
 - Associate the event with exactly one `customer_id` or `external_customer_id`.
 - Assign every logical event a stable, unique `external_id`.
-- Reuse the same `external_id` when retrying so Polar can deduplicate the event.
+- Reuse the same `external_id` when retrying so Repalis can deduplicate the event.
 - Inspect both `inserted` and `duplicates` in the ingestion result.
 - Enforce usage limits in the application; ingestion does not reject an action because a customer has exhausted a balance.
 
@@ -145,9 +146,9 @@ Read [Usage-event ingestion](references/usage-events.md) before implementing met
 
 Handle generated endpoint-specific errors before broad SDK errors. Classify common base errors as follows:
 
-- `PolarNetworkError`: retry only when the operation is safe or carries a stable deduplication identifier.
-- `PolarRateLimitError`: apply bounded backoff and honor `retry_after` when present.
-- `PolarServerError`: retry selected 5xx failures with bounded exponential backoff and jitter.
-- `PolarClientError`: do not blindly retry authentication, authorization, validation, or not-found failures.
+- `RepalisNetworkError`: retry only when the operation is safe or carries a stable deduplication identifier.
+- `RepalisRateLimitError`: apply bounded backoff and honor `retry_after` when present.
+- `RepalisServerError`: retry selected 5xx failures with bounded exponential backoff and jitter.
+- `RepalisClientError`: do not blindly retry authentication, authorization, validation, or not-found failures.
 
 Never create a new usage-event `external_id` during a retry. For other mutations, use an endpoint-supported idempotency mechanism or application-level reconciliation before retrying.

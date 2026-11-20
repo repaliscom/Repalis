@@ -1,37 +1,37 @@
 ---
-name: polar-typescript-sdk
-description: Integrate Polar billing in server-side TypeScript applications using the versioned createPolar and createPolarCore clients. Use when implementing Polar customers and external IDs, checkout or customer portal sessions, customer-state entitlement checks, webhook validation and processing, API error handling, tree-shakable SDK calls, usage-event ingestion and metered billing, or migrating an application from the old Polar TypeScript SDK.
+name: repalis-typescript-sdk
+description: Integrate Repalis billing in server-side TypeScript applications using the versioned createRepalis and createRepalisCore clients. Use when implementing Repalis customers and external IDs, checkout or customer portal sessions, customer-state entitlement checks, webhook validation and processing, API error handling, tree-shakable SDK calls, usage-event ingestion and metered billing, or migrating an application from the old Repalis TypeScript SDK.
 ---
 
-# Polar TypeScript SDK
+# Repalis TypeScript SDK
 
-Use the generated, versioned Polar SDK without inventing methods or parameters.
+Use the generated, versioned Repalis SDK without inventing methods or parameters.
 
 ## Inspect the application first
 
 1. Identify the installed `@polar-sh/sdk` version and preserve the API version already selected by the application.
 2. Inspect generated service signatures, model interfaces, response types, and endpoint-specific errors before writing calls.
-3. Use `createPolar` for the full service client. Use `createPolarCore` with individual service functions when bundle size or tree-shaking matters.
-4. Identify whether the access token is scoped to an organization. When the selected token does not imply one, create the client with `createPolar({ ..., organizationId })` or pass `organization_id`, and confirm the required endpoint scopes.
+3. Use `createRepalis` for the full service client. Use `createRepalisCore` with individual service functions when bundle size or tree-shaking matters.
+4. Identify whether the access token is scoped to an organization. When the selected token does not imply one, create the client with `createRepalis({ ..., organizationId })` or pass `organization_id`, and confirm the required endpoint scopes.
 5. Keep client, webhook, and environment configuration in trusted server-side code.
 
 ## Migrate from the old SDK
 
-Read [Migration from the `<1.0.0` SDK](references/migration-from-v0.md) before changing an application that imports an unversioned `Polar` class or uses camelCase request and response fields. Do not mix old and new client, field-casing, pagination, error, or webhook conventions.
+Read [Migration from the `<1.0.0` SDK](references/migration-from-v0.md) before changing an application that imports an unversioned `Repalis` class or uses camelCase request and response fields. Do not mix old and new client, field-casing, pagination, error, or webhook conventions.
 
 ## Configure and reuse the client
 
 Keep production and sandbox access tokens separate. Never expose an organization access token in browser, mobile, or other public client code. Pass `environment: "sandbox"` while testing; omit it or pass `environment: "production"` in production.
 
 ```typescript
-import { createPolar } from "@polar-sh/sdk/{{ (ir.versions[-2] | default({})).version }}";
+import { createRepalis } from "@polar-sh/sdk/2026-10";
 
 const accessToken = process.env.POLAR_ACCESS_TOKEN;
 if (!accessToken) {
   throw new Error("POLAR_ACCESS_TOKEN is required");
 }
 
-const polar = createPolar({
+const polar = createRepalis({
   accessToken,
   environment: "sandbox",
 });
@@ -44,10 +44,10 @@ Create the client once for a long-running server and reuse it. The TypeScript cl
 For tree-shakable individual functions, create a core client and bind only the operations the application uses:
 
 ```typescript
-import { createPolarCore } from "@polar-sh/sdk/{{ (ir.versions[-2] | default({})).version }}";
-import { getStateExternalCustomers } from "@polar-sh/sdk/{{ (ir.versions[-2] | default({})).version }}/services/customers";
+import { createRepalisCore } from "@polar-sh/sdk/2026-10";
+import { getStateExternalCustomers } from "@polar-sh/sdk/2026-10/services/customers";
 
-const polarCore = createPolarCore({ accessToken });
+const polarCore = createRepalisCore({ accessToken });
 const getCustomerState = getStateExternalCustomers(polarCore);
 const customerState = await getCustomerState("usr_123");
 ```
@@ -73,7 +73,7 @@ for await (const customer of polar.customers.iterList({
 
 ## Correlate customers with stable external IDs
 
-Use the application's immutable user or organization identifier as the Polar customer `external_id`. It is unique within a Polar organization. It may be assigned later when initially unset, but it cannot be changed or removed once set.
+Use the application's immutable user or organization identifier as the Repalis customer `external_id`. It is unique within a Repalis organization. It may be assigned later when initially unset, but it cannot be changed or removed once set.
 
 ```typescript
 const customer = await polar.customers.create({
@@ -150,7 +150,7 @@ Read [Usage-event ingestion](references/usage-events.md) before implementing met
 - Match the event name and metadata to the configured meter.
 - Associate the event with exactly one `customer_id` or `external_customer_id`.
 - Assign every logical event a stable, unique `external_id`.
-- Reuse the same `external_id` when retrying so Polar can deduplicate the event.
+- Reuse the same `external_id` when retrying so Repalis can deduplicate the event.
 - Inspect both `inserted` and `duplicates` in the ingestion result.
 - Enforce usage limits in the application; ingestion does not reject an action because a customer has exhausted a balance.
 
@@ -158,9 +158,9 @@ Read [Usage-event ingestion](references/usage-events.md) before implementing met
 
 Handle generated endpoint-specific errors before broad SDK errors. Import base errors from `@polar-sh/sdk` and version-specific endpoint errors from the selected API version's `errors` namespace.
 
-- `PolarNetworkError`: retry only when the operation is safe or carries a stable deduplication identifier.
-- `PolarRateLimitError`: apply bounded backoff and honor `retryAfter` when present.
-- `PolarServerError`: retry selected 5xx failures with bounded exponential backoff and jitter.
-- `PolarClientError`: do not blindly retry authentication, authorization, validation, or not-found failures.
+- `RepalisNetworkError`: retry only when the operation is safe or carries a stable deduplication identifier.
+- `RepalisRateLimitError`: apply bounded backoff and honor `retryAfter` when present.
+- `RepalisServerError`: retry selected 5xx failures with bounded exponential backoff and jitter.
+- `RepalisClientError`: do not blindly retry authentication, authorization, validation, or not-found failures.
 
 Never create a new usage-event `external_id` during a retry. For other mutations, use an endpoint-supported idempotency mechanism or application-level reconciliation before retrying.

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Repalis TypeScript SDK"
+  short_description: "Build reliable Repalis billing integrations"
+  default_prompt: "Use $repalis-typescript-sdk to implement a secure Repalis billing integration in my TypeScript application."
