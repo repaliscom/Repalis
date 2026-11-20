@@ -8,7 +8,7 @@ from repalis.auth.models import AuthSubject, Organization, User
 from repalis.auth.permission import OrganizationPermission
 from repalis.authz.service import get_accessible_org_ids
 from repalis.enums import PaymentProcessor
-from repalis.exceptions import PolarError
+from repalis.exceptions import RepalisError
 from repalis.kit.pagination import PaginationParams
 from repalis.kit.sorting import Sorting
 from repalis.kit.utils import generate_uuid
@@ -20,7 +20,7 @@ from .repository import PaymentRepository
 from .sorting import PaymentSortProperty
 
 
-class PaymentError(PolarError): ...
+class PaymentError(RepalisError): ...
 
 
 class UnhandledPaymentIntent(PaymentError):

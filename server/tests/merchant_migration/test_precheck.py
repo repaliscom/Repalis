@@ -416,7 +416,7 @@ class TestPrecheckEngine:
         assert "duplicate_product_name" in codes(report, PrecheckIssueLevel.warning)
         assert report.can_start is True
 
-    async def test_existing_polar_product_warns_without_blocking(self) -> None:
+    async def test_existing_repalis_product_warns_without_blocking(self) -> None:
         report = await run(
             [build_product(name="Pro")],
             existing_product_names={"pro"},
@@ -733,7 +733,7 @@ class TestClassifyRecords:
         [
             (
                 "subscription_stacked_discounts",
-                "stacks discounts Polar can't combine",
+                "stacks discounts Repalis can't combine",
             ),
             (
                 "subscription_customer_discount",
@@ -1436,7 +1436,7 @@ class TestClassifyAddOns:
             ),
         ],
     )
-    def test_add_on_polar_cannot_bill_the_same_stays_on_the_source(
+    def test_add_on_repalis_cannot_bill_the_same_stays_on_the_source(
         self,
         subscription_fields: dict[str, Any],
         add_on_fields: dict[str, Any],

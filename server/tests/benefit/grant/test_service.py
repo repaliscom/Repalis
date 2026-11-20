@@ -21,7 +21,7 @@ from repalis.benefit.strategies.base.properties import BenefitGrantProperties
 from repalis.benefit.strategies.base.service import BenefitRetriableError
 from repalis.benefit.tasks import benefit_grant, benefit_revoke
 from repalis.config import settings
-from repalis.exceptions import NotPermitted, PolarRequestValidationError, ResourceNotFound
+from repalis.exceptions import NotPermitted, RepalisRequestValidationError, ResourceNotFound
 from repalis.kit.utils import utc_now
 from repalis.models import (
     Benefit,
@@ -221,7 +221,7 @@ class TestCreate:
             )
             field = "member_id"
             payload[field] = member.id
-        with pytest.raises(PolarRequestValidationError) as exc:
+        with pytest.raises(RepalisRequestValidationError) as exc:
             await benefit_grant_service.create(
                 session,
                 AuthSubject(organization, set(), None),
@@ -243,7 +243,7 @@ class TestCreate:
         recipient = customer if resource == "customer" else member_owner
         recipient.set_deleted_at()
         await save_fixture(recipient)
-        with pytest.raises(PolarRequestValidationError) as exc:
+        with pytest.raises(RepalisRequestValidationError) as exc:
             await benefit_grant_service.create(
                 session,
                 AuthSubject(organization, set(), None),
@@ -275,7 +275,7 @@ class TestCreate:
         else:
             benefit_organization.type = BenefitType.meter_credit
         await save_fixture(benefit_organization)
-        with pytest.raises(PolarRequestValidationError) as exc:
+        with pytest.raises(RepalisRequestValidationError) as exc:
             await benefit_grant_service.create(
                 session,
                 AuthSubject(organization, set(), None),
@@ -326,7 +326,7 @@ class TestCreate:
         benefit_organization.external_id = "benefit_1"
         await save_fixture(customer_organization_second)
         await save_fixture(benefit_organization)
-        with pytest.raises(PolarRequestValidationError) as exc:
+        with pytest.raises(RepalisRequestValidationError) as exc:
             await benefit_grant_service.create(
                 session,
                 AuthSubject(organization, set(), None),

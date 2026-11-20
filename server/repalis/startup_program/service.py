@@ -6,11 +6,11 @@ import structlog
 
 from repalis.config import settings
 from repalis.email.schemas import (
-    PolarSelfStartupProgramWelcomeEmail,
-    PolarSelfStartupProgramWelcomeProps,
+    RepalisSelfStartupProgramWelcomeEmail,
+    RepalisSelfStartupProgramWelcomeProps,
 )
 from repalis.email.sender import enqueue_email_template
-from repalis.exceptions import PolarError
+from repalis.exceptions import RepalisError
 from repalis.integrations.repalis.client import get_client
 from repalis.models import Organization
 
@@ -39,11 +39,11 @@ DISCOUNT_DURATION_IN_MONTHS = 12
 DISCOUNT_MAX_REDEMPTIONS = 1
 
 
-class StartupProgramError(PolarError): ...
+class StartupProgramError(RepalisError): ...
 
 
 class StartupProgramService:
-    """Startup Program logic, driven entirely through the Polar API.
+    """Startup Program logic, driven entirely through the Repalis API.
 
     All reads and writes against billing-side entities (the Polar-for-Polar
     customer and its dedicated discount) go through the SDK client, so the
@@ -58,7 +58,7 @@ class StartupProgramService:
 
         Eagerly creates the customer's dedicated 100% / 12 month / single-use
         discount on the Scale plan and records its id on the
-        Polar-for-Polar customer's metadata. Idempotent: if the customer
+        Polar-for-Repalis customer's metadata. Idempotent: if the customer
         already has a pointer to a live discount, returns that one. Any
         underlying SDK / network failure is logged and re-raised as a
         ``StartupProgramError`` so the caller (backoffice action) can toast
@@ -67,7 +67,7 @@ class StartupProgramService:
         if not settings.STARTUP_PROGRAM_ENABLED:
             raise StartupProgramError(
                 "Startup Program is not configured "
-                "(POLAR_ORGANIZATION_ID / POLAR_SCALE_PRODUCT_ID / POLAR_ACCESS_TOKEN)."
+                "(POLAR_ORGANIZATION_ID / REPALIS_SCALE_PRODUCT_ID / POLAR_ACCESS_TOKEN)."
             )
 
         try:
@@ -90,7 +90,7 @@ class StartupProgramService:
         )
         if customer is None:
             raise StartupProgramError(
-                "No Polar customer for organization "
+                "No Repalis customer for organization "
                 f"(organization_id={organization.id})."
             )
 
@@ -167,7 +167,7 @@ class StartupProgramService:
         if not settings.STARTUP_PROGRAM_ENABLED:
             raise StartupProgramError(
                 "Startup Program is not configured "
-                "(POLAR_ORGANIZATION_ID / POLAR_SCALE_PRODUCT_ID)."
+                "(POLAR_ORGANIZATION_ID / REPALIS_SCALE_PRODUCT_ID)."
             )
 
         client = get_client()
@@ -176,7 +176,7 @@ class StartupProgramService:
         )
         if customer is None:
             raise StartupProgramError(
-                "No Polar customer for organization "
+                "No Repalis customer for organization "
                 f"(organization_id={organization.id})."
             )
 
@@ -216,7 +216,7 @@ class StartupProgramService:
     async def get_status(self, organization_id: uuid.UUID) -> str | None:
         """Return the Startup Program status for an organization, if any.
 
-        ``None`` when the feature is disabled, the org has no Polar customer,
+        ``None`` when the feature is disabled, the org has no Repalis customer,
         no discount pointer, or the discount has been deleted (the API
         returns 404 → we treat as "not invited"). ``invited`` when the
         discount exists with ``redemptions_count == 0``; ``consumed`` once
@@ -240,7 +240,7 @@ class StartupProgramService:
         """
         if not settings.STARTUP_PROGRAM_ENABLED:
             return None
-        if product_id != settings.POLAR_SCALE_PRODUCT_ID:
+        if product_id != settings.REPALIS_SCALE_PRODUCT_ID:
             return None
         discount = await self._get_customer_discount(organization_id)
         if discount is None:
@@ -256,7 +256,7 @@ class StartupProgramService:
     async def _get_customer_discount(
         self, organization_id: uuid.UUID
     ) -> "Discount | None":
-        """Resolve the customer's Startup Program discount via the Polar API.
+        """Resolve the customer's Startup Program discount via the Repalis API.
 
         Best-effort: any SDK failure (auth, network, unexpected response) is
         logged and returns ``None``. This method is on the billing-page read
@@ -293,7 +293,7 @@ class StartupProgramService:
     ) -> None:
         """Enqueue a "Welcome to the Startup Program" email to each team member.
 
-        Recipients come from the Polar API's billing-contacts endpoint
+        Recipients come from the Repalis API's billing-contacts endpoint
         (matches the order webhook's recipient pattern). Best-effort: caller
         wraps in try/except so any failure is logged but doesn't block the
         invite.
@@ -310,8 +310,8 @@ class StartupProgramService:
         )
 
         for recipient in recipients:
-            email = PolarSelfStartupProgramWelcomeEmail(
-                props=PolarSelfStartupProgramWelcomeProps(
+            email = RepalisSelfStartupProgramWelcomeEmail(
+                props=RepalisSelfStartupProgramWelcomeProps(
                     email=recipient,
                     organization_name=organization.name,
                     billing_url=billing_url,

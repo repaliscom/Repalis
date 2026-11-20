@@ -3,7 +3,7 @@ from typing import Any
 from fastapi import Depends
 from pydantic import Field
 
-from repalis.exceptions import PolarRequestValidationError
+from repalis.exceptions import RepalisRequestValidationError
 from repalis.kit.schemas import Schema
 from repalis.openapi import APITag
 from repalis.organization.resolver import get_payload_organization
@@ -63,7 +63,7 @@ async def preview_channel_name(
     try:
         validate_template(payload.template)
     except InvalidTemplateError as e:
-        raise PolarRequestValidationError(
+        raise RepalisRequestValidationError(
             [
                 {
                     "type": "value_error",
@@ -83,7 +83,7 @@ async def preview_channel_name(
     try:
         channel_name = render_channel_name(payload.template, context, tolerant=True)
     except InvalidTemplateError as e:
-        raise PolarRequestValidationError(
+        raise RepalisRequestValidationError(
             [
                 {
                     "type": "value_error",

@@ -17,7 +17,7 @@ from reauth.factors import FactorBase
 from sqlalchemy import delete, select, update
 
 from repalis.config import settings
-from repalis.exceptions import PolarError
+from repalis.exceptions import RepalisError
 from repalis.kit.crypto import get_legacy_secret
 from repalis.kit.http import is_localhost
 from repalis.models import AuthenticationSession
@@ -29,7 +29,7 @@ from .schemas import AuthenticationSession as AuthenticationSessionSchema
 TOKEN_PREFIX = "polar_auth_session_"
 
 
-class AuthenticationSessionException(PolarError): ...
+class AuthenticationSessionException(RepalisError): ...
 
 
 class InvalidAuthenticationSession(AuthenticationSessionException):

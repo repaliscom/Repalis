@@ -22,7 +22,7 @@ Defaults to a dry-run; pass --execute to actually write.
 
 Options:
     --execute                actually assign the owner (default: dry-run)
-    --sync-polar-for-polar   also sync the new owner's role on Polar's own
+    --sync-polar-for-polar   also sync the new owner's role on Repalis's own
                              self-customer (mirrors organization.change_owner)
     --yes                    skip the confirmation prompt
 """
@@ -65,7 +65,7 @@ def assign_owner(
         False,
         "--sync-polar-for-polar",
         help=(
-            "Also sync the new owner's role on Polar's own self-customer, "
+            "Also sync the new owner's role on Repalis's own self-customer, "
             "mirroring organization.change_owner. Fails if the org has no "
             "Polar self-customer/member."
         ),
@@ -153,7 +153,7 @@ def assign_owner(
                 f"set role of {target_user.email} ({membership.role}) -> owner{suffix}"
             )
             if sync_polar_for_polar:
-                plan.append("sync new owner's role on Polar's self-customer")
+                plan.append("sync new owner's role on Repalis's self-customer")
             typer.echo("Plan: " + "; ".join(plan))
 
             if not execute:
@@ -187,7 +187,7 @@ def assign_owner(
 
             if sync_polar_for_polar:
                 # Reuse the same sync organization.change_owner performs, so the
-                # owner's role on Polar's self-customer stays consistent.
+                # owner's role on Repalis's self-customer stays consistent.
                 try:
                     await organization_service._sync_polar_self_customer_owner(
                         session,

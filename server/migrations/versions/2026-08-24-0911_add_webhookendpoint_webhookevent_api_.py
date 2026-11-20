@@ -11,7 +11,7 @@ from alembic import op
 
 from repalis.kit.versioning import APIVersionType
 
-# Polar Custom Imports
+# Repalis Custom Imports
 
 # revision identifiers, used by Alembic.
 revision = "0b0f090a35df"

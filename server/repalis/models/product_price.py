@@ -31,7 +31,7 @@ from repalis.enums import (
 from repalis.kit.currency import format_currency
 from repalis.kit.db.models import RecordModel
 from repalis.kit.extensions.sqlalchemy.types import StringEnum
-from repalis.kit.math import polar_round
+from repalis.kit.math import repalis_round
 from repalis.product.tiers import (
     SeatTiersData,
     SeatTierType,
@@ -248,7 +248,7 @@ class MeteredPrice:
         return label
 
     def _apply_cap(self, raw_amount: Decimal, label: str) -> tuple[int, str]:
-        amount = polar_round(raw_amount)
+        amount = repalis_round(raw_amount)
         if self.cap_amount is not None and amount > self.cap_amount:
             amount = self.cap_amount
             label += (

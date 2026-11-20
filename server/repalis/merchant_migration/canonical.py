@@ -84,7 +84,7 @@ class CanonicalPrice:
     # decimal price); such prices can't be imported.
     amount: int | None
     pricing_scheme: CanonicalPricingScheme
-    # Picks the price Polar sells when a product has several in one currency.
+    # Picks the price Repalis sells when a product has several in one currency.
     is_default: bool = False
     created_at: datetime | None = None
     # False when the source stopped selling it. It still bills its subscribers.
@@ -95,7 +95,7 @@ class CanonicalPrice:
 class CanonicalProduct:
     # In Polar the recurring interval lives on the product and a product holds
     # several prices (one per currency), so a source product is grouped per
-    # interval: one CanonicalProduct = one Polar product = (source product,
+    # interval: one CanonicalProduct = one Repalis product = (source product,
     # interval), carrying all its prices, inactive ones included.
     source_id: str
     product_source_id: str
@@ -116,7 +116,7 @@ class CanonicalCustomer:
     # From the source customer's own address.
     country: str | None
     # Card / payment-method fallback when `country` is missing. The importer
-    # writes it to Polar billing_address, while retaining this field so the
+    # writes it to Repalis billing_address, while retaining this field so the
     # review UI can disclose its provenance.
     country_hint: str | None = None
     billing_address: Address | None = None
@@ -160,11 +160,11 @@ class CanonicalSubscription:
     # True when the source subscription has any coupon. Kept so already-staged
     # rows still skip until a re-precheck fills ``discount_source_ids``.
     has_discount: bool = False
-    # Coupon ids on the source, first one Polar will keep. Empty means none, or
+    # Coupon ids on the source, first one Repalis will keep. Empty means none, or
     # the discounts array couldn't be expanded.
     discount_source_ids: list[str] = field(default_factory=list)
     # When the first coupon was applied. Prefer ``discount_starts`` for the
-    # coupon Polar actually keeps.
+    # coupon Repalis actually keeps.
     discount_started_at: datetime | None = None
     # Per-coupon apply times, so a later kept coupon doesn't inherit the first
     # (discarded) coupon's start.
@@ -192,7 +192,7 @@ class CanonicalSubscription:
     canceled_at: datetime | None = None
     cancellation_reason: str | None = None
     # When the source trial ends, so the cutover can keep the subscription
-    # trialing on Polar until then instead of billing it early.
+    # trialing on Repalis until then instead of billing it early.
     trial_end: datetime | None = None
     # This migration already stopped it on the source. Set when re-reading at
     # cutover, so a retry after a crash finishes the move instead of reading its
@@ -229,7 +229,7 @@ class CanonicalSubscription:
     # doesn't carry them over.
     has_pending_invoice_items: bool = False
     # Sold through Stripe Managed Payments: Link is the seller and holds the card
-    # authorization, so the merchant can't hand it to Polar.
+    # authorization, so the merchant can't hand it to Repalis.
     managed_payments: bool = False
     # Set on a two-item subscription when the second item reads as an add-on.
     # ``price_source_id`` and the fields above then describe the plan.
@@ -261,7 +261,7 @@ class CanonicalDiscountDuration(StrEnum):
 
 
 class SubscriptionDiscountBlock(StrEnum):
-    """Why a source discount can't be copied onto a Polar subscription."""
+    """Why a source discount can't be copied onto a Repalis subscription."""
 
     stacked = "subscription_stacked_discounts"
     customer = "subscription_customer_discount"
@@ -442,7 +442,7 @@ def discount_started_at_for(
     return None
 
 
-def polar_discount_code(raw: str | None) -> str | None:
+def repalis_discount_code(raw: str | None) -> str | None:
     """Stripe promotion codes may include dashes; Polar codes are alphanumeric."""
     if raw is None:
         return None
@@ -453,7 +453,7 @@ def polar_discount_code(raw: str | None) -> str | None:
         return None
 
 
-def polar_discount_amounts(amounts: dict[str, int]) -> dict[PresentmentCurrency, int]:
+def repalis_discount_amounts(amounts: dict[str, int]) -> dict[PresentmentCurrency, int]:
     polar_amounts: dict[PresentmentCurrency, int] = {}
     for currency, amount in amounts.items():
         try:

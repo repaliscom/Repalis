@@ -75,12 +75,12 @@ class EmailTemplate(StrEnum):
     domain_verification_lost = "domain_verification_lost"
     organization_email_verification = "organization_email_verification"
     chargeback_prevention_refund = "chargeback_prevention_refund"
-    polar_self_subscription_cancellation = "polar_self_subscription_cancellation"
-    polar_self_subscription_confirmation = "polar_self_subscription_confirmation"
-    polar_self_subscription_cycled = "polar_self_subscription_cycled"
-    polar_self_subscription_past_due = "polar_self_subscription_past_due"
-    polar_self_subscription_revoked = "polar_self_subscription_revoked"
-    polar_self_startup_program_welcome = "polar_self_startup_program_welcome"
+    repalis_self_subscription_cancellation = "repalis_self_subscription_cancellation"
+    repalis_self_subscription_confirmation = "repalis_self_subscription_confirmation"
+    repalis_self_subscription_cycled = "repalis_self_subscription_cycled"
+    repalis_self_subscription_past_due = "repalis_self_subscription_past_due"
+    repalis_self_subscription_revoked = "repalis_self_subscription_revoked"
+    repalis_self_startup_program_welcome = "repalis_self_startup_program_welcome"
 
 
 class SubscriptionEmail(SubscriptionBase):
@@ -573,72 +573,72 @@ class ChargebackPreventionRefundEmail(BaseModel):
     props: ChargebackPreventionRefundProps
 
 
-class PolarSelfSubscriptionConfirmationProps(EmailProps):
+class RepalisSelfSubscriptionConfirmationProps(EmailProps):
     product_name: str
 
 
-class PolarSelfSubscriptionConfirmationEmail(BaseModel):
-    template: Literal[EmailTemplate.polar_self_subscription_confirmation] = (
-        EmailTemplate.polar_self_subscription_confirmation
+class RepalisSelfSubscriptionConfirmationEmail(BaseModel):
+    template: Literal[EmailTemplate.repalis_self_subscription_confirmation] = (
+        EmailTemplate.repalis_self_subscription_confirmation
     )
-    props: PolarSelfSubscriptionConfirmationProps
+    props: RepalisSelfSubscriptionConfirmationProps
 
 
-class PolarSelfSubscriptionCycledProps(EmailProps):
+class RepalisSelfSubscriptionCycledProps(EmailProps):
     product_name: str
 
 
-class PolarSelfSubscriptionCycledEmail(BaseModel):
-    template: Literal[EmailTemplate.polar_self_subscription_cycled] = (
-        EmailTemplate.polar_self_subscription_cycled
+class RepalisSelfSubscriptionCycledEmail(BaseModel):
+    template: Literal[EmailTemplate.repalis_self_subscription_cycled] = (
+        EmailTemplate.repalis_self_subscription_cycled
     )
-    props: PolarSelfSubscriptionCycledProps
+    props: RepalisSelfSubscriptionCycledProps
 
 
-class PolarSelfSubscriptionCancellationProps(EmailProps):
+class RepalisSelfSubscriptionCancellationProps(EmailProps):
     product_name: str
     ends_at: str | None = None
 
 
-class PolarSelfSubscriptionCancellationEmail(BaseModel):
-    template: Literal[EmailTemplate.polar_self_subscription_cancellation] = (
-        EmailTemplate.polar_self_subscription_cancellation
+class RepalisSelfSubscriptionCancellationEmail(BaseModel):
+    template: Literal[EmailTemplate.repalis_self_subscription_cancellation] = (
+        EmailTemplate.repalis_self_subscription_cancellation
     )
-    props: PolarSelfSubscriptionCancellationProps
+    props: RepalisSelfSubscriptionCancellationProps
 
 
-class PolarSelfSubscriptionPastDueProps(EmailProps):
+class RepalisSelfSubscriptionPastDueProps(EmailProps):
     product_name: str
 
 
-class PolarSelfSubscriptionPastDueEmail(BaseModel):
-    template: Literal[EmailTemplate.polar_self_subscription_past_due] = (
-        EmailTemplate.polar_self_subscription_past_due
+class RepalisSelfSubscriptionPastDueEmail(BaseModel):
+    template: Literal[EmailTemplate.repalis_self_subscription_past_due] = (
+        EmailTemplate.repalis_self_subscription_past_due
     )
-    props: PolarSelfSubscriptionPastDueProps
+    props: RepalisSelfSubscriptionPastDueProps
 
 
-class PolarSelfSubscriptionRevokedProps(EmailProps):
+class RepalisSelfSubscriptionRevokedProps(EmailProps):
     product_name: str
 
 
-class PolarSelfSubscriptionRevokedEmail(BaseModel):
-    template: Literal[EmailTemplate.polar_self_subscription_revoked] = (
-        EmailTemplate.polar_self_subscription_revoked
+class RepalisSelfSubscriptionRevokedEmail(BaseModel):
+    template: Literal[EmailTemplate.repalis_self_subscription_revoked] = (
+        EmailTemplate.repalis_self_subscription_revoked
     )
-    props: PolarSelfSubscriptionRevokedProps
+    props: RepalisSelfSubscriptionRevokedProps
 
 
-class PolarSelfStartupProgramWelcomeProps(EmailProps):
+class RepalisSelfStartupProgramWelcomeProps(EmailProps):
     organization_name: str
     billing_url: str
 
 
-class PolarSelfStartupProgramWelcomeEmail(BaseModel):
-    template: Literal[EmailTemplate.polar_self_startup_program_welcome] = (
-        EmailTemplate.polar_self_startup_program_welcome
+class RepalisSelfStartupProgramWelcomeEmail(BaseModel):
+    template: Literal[EmailTemplate.repalis_self_startup_program_welcome] = (
+        EmailTemplate.repalis_self_startup_program_welcome
     )
-    props: PolarSelfStartupProgramWelcomeProps
+    props: RepalisSelfStartupProgramWelcomeProps
 
 
 class OrganizationOffboardedProps(EmailProps):
@@ -695,12 +695,12 @@ Email = Annotated[
     | DomainVerificationLostEmail
     | OrganizationEmailVerificationEmail
     | ChargebackPreventionRefundEmail
-    | PolarSelfSubscriptionCancellationEmail
-    | PolarSelfSubscriptionConfirmationEmail
-    | PolarSelfSubscriptionCycledEmail
-    | PolarSelfSubscriptionPastDueEmail
-    | PolarSelfSubscriptionRevokedEmail
-    | PolarSelfStartupProgramWelcomeEmail,
+    | RepalisSelfSubscriptionCancellationEmail
+    | RepalisSelfSubscriptionConfirmationEmail
+    | RepalisSelfSubscriptionCycledEmail
+    | RepalisSelfSubscriptionPastDueEmail
+    | RepalisSelfSubscriptionRevokedEmail
+    | RepalisSelfStartupProgramWelcomeEmail,
     Discriminator("template"),
 ]
 

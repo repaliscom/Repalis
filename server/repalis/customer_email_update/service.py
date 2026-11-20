@@ -11,7 +11,7 @@ from repalis.email.schemas import (
     CustomerEmailUpdateVerificationProps,
 )
 from repalis.email.sender import enqueue_email_template
-from repalis.exceptions import PolarError, PolarRequestValidationError
+from repalis.exceptions import RepalisError, RepalisRequestValidationError
 from repalis.integrations.stripe.service import stripe as stripe_service
 from repalis.kit.crypto import generate_token_hash_pair
 from repalis.kit.utils import utc_now
@@ -28,7 +28,7 @@ log = structlog.get_logger()
 TOKEN_PREFIX = "polar_cev_"
 
 
-class CustomerEmailUpdateError(PolarError): ...
+class CustomerEmailUpdateError(RepalisError): ...
 
 
 class InvalidCustomerEmailUpdate(CustomerEmailUpdateError):
@@ -47,7 +47,7 @@ class CustomerEmailUpdateService:
     ) -> tuple[CustomerEmailVerification, str]:
         customer_type = customer.type or CustomerType.individual
         if customer_type == CustomerType.team:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",
@@ -59,7 +59,7 @@ class CustomerEmailUpdateService:
             )
 
         if customer.email is not None and customer.email.lower() == new_email.lower():
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",
@@ -138,7 +138,7 @@ class CustomerEmailUpdateService:
         )
         if existing is not None and existing.id != customer.id:
             await session.delete(record)
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",

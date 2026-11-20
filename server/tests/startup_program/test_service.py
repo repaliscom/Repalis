@@ -58,7 +58,7 @@ def _make_billing_contact(email: str) -> MagicMock:
 @pytest.fixture
 def configure_startup_program(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setattr(settings, "POLAR_ORGANIZATION_ID", POLAR_ORG_ID)
-    monkeypatch.setattr(settings, "POLAR_SCALE_PRODUCT_ID", SCALE_PRODUCT_ID)
+    monkeypatch.setattr(settings, "REPALIS_SCALE_PRODUCT_ID", SCALE_PRODUCT_ID)
     monkeypatch.setattr(settings, "POLAR_ACCESS_TOKEN", "polar_test_token")
 
 
@@ -84,20 +84,20 @@ class TestMarkInvited:
         organization: Organization,
     ) -> None:
         monkeypatch.setattr(settings, "POLAR_ORGANIZATION_ID", "")
-        monkeypatch.setattr(settings, "POLAR_SCALE_PRODUCT_ID", "")
+        monkeypatch.setattr(settings, "REPALIS_SCALE_PRODUCT_ID", "")
 
         with pytest.raises(StartupProgramError):
             await startup_program_service.mark_invited(organization)
 
     @pytest.mark.usefixtures("configure_startup_program")
-    async def test_raises_when_no_polar_customer(
+    async def test_raises_when_no_repalis_customer(
         self,
         client_mock: MagicMock,
         organization: Organization,
     ) -> None:
         client_mock.get_customer_by_external_id_or_none.return_value = None
 
-        with pytest.raises(StartupProgramError, match="No Polar customer"):
+        with pytest.raises(StartupProgramError, match="No Repalis customer"):
             await startup_program_service.mark_invited(organization)
 
     @pytest.mark.usefixtures("configure_startup_program")
@@ -316,14 +316,14 @@ class TestUninvite:
             await startup_program_service.uninvite(organization)
 
     @pytest.mark.usefixtures("configure_startup_program")
-    async def test_raises_when_no_polar_customer(
+    async def test_raises_when_no_repalis_customer(
         self,
         client_mock: MagicMock,
         organization: Organization,
     ) -> None:
         client_mock.get_customer_by_external_id_or_none.return_value = None
 
-        with pytest.raises(StartupProgramError, match="No Polar customer"):
+        with pytest.raises(StartupProgramError, match="No Repalis customer"):
             await startup_program_service.uninvite(organization)
 
 
@@ -453,7 +453,7 @@ class TestResolveCheckoutDiscountId:
         client_mock: MagicMock,
     ) -> None:
         monkeypatch.setattr(settings, "POLAR_ORGANIZATION_ID", "")
-        monkeypatch.setattr(settings, "POLAR_SCALE_PRODUCT_ID", "")
+        monkeypatch.setattr(settings, "REPALIS_SCALE_PRODUCT_ID", "")
 
         resolved = await startup_program_service.resolve_checkout_discount_id(
             organization_id=uuid.uuid4(), product_id=SCALE_PRODUCT_ID

@@ -18,7 +18,7 @@ from repalis.external_event import tasks as external_event
 from repalis.feedback import tasks as feedback
 from repalis.file import tasks as file
 from repalis.integrations.chargeback_stop import tasks as chargeback_stop
-from repalis.integrations.repalis import tasks as polar_self
+from repalis.integrations.repalis import tasks as repalis_self
 from repalis.integrations.resend import tasks as resend
 from repalis.integrations.stripe import tasks as stripe
 from repalis.integrations.tinybird import tasks as tinybird
@@ -84,7 +84,7 @@ __all__ = [
     "payout",
     "payout_account",
     "personal_access_token",
-    "polar_self",
+    "repalis_self",
     "processor_transaction",
     "receipt",
     "reducer",

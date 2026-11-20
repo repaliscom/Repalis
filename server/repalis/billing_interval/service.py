@@ -10,7 +10,7 @@ from uuid import UUID
 import structlog
 
 from repalis.event.repository import EventRepository
-from repalis.exceptions import PolarError
+from repalis.exceptions import RepalisError
 from repalis.logging import Logger
 from repalis.meter.aggregation import AggregationFunction
 from repalis.models import BillingInterval, Customer, Subscription
@@ -42,12 +42,12 @@ USAGE_POLICIES = {
 }
 
 
-class BillingIntervalConflict(PolarError):
+class BillingIntervalConflict(RepalisError):
     def __init__(self, message: str) -> None:
         super().__init__(message, 409)
 
 
-class ReducerUsageUnavailable(PolarError):
+class ReducerUsageUnavailable(RepalisError):
     def __init__(self, subscription: Subscription, meter_ids: Iterable[UUID]) -> None:
         self.subscription = subscription
         self.meter_ids = sorted(meter_ids)

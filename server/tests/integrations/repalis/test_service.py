@@ -26,19 +26,19 @@ from pytest_mock import MockerFixture
 from repalis import deserialize
 from repalis.config import settings
 from repalis.integrations.repalis.exceptions import (
-    PolarSelfInvoiceNotReady,
-    PolarSelfNoActiveSubscription,
-    PolarSelfNotApproved,
-    PolarSelfNotConfigured,
-    PolarSelfOrderNotEligible,
-    PolarSelfOrderNotFound,
-    PolarSelfPaidSubscriptionAlreadyExists,
-    PolarSelfPlanNotFound,
-    PolarSelfWebhookError,
+    RepalisSelfInvoiceNotReady,
+    RepalisSelfNoActiveSubscription,
+    RepalisSelfNotApproved,
+    RepalisSelfNotConfigured,
+    RepalisSelfOrderNotEligible,
+    RepalisSelfOrderNotFound,
+    RepalisSelfPaidSubscriptionAlreadyExists,
+    RepalisSelfPlanNotFound,
+    RepalisSelfWebhookError,
     SupportBenefitError,
     TransactionFeeBenefitError,
 )
-from repalis.integrations.repalis.service import polar_self
+from repalis.integrations.repalis.service import repalis_self
 from repalis.models.member import MemberRole
 from repalis.models.organization import Organization, OrganizationStatus, SupportTier
 from repalis.postgres import AsyncReadSession, AsyncSession
@@ -218,7 +218,7 @@ def _make_payload(
 @pytest.fixture
 def configured(mocker: MockerFixture) -> None:
     settings = mocker.patch("repalis.integrations.repalis.service.settings")
-    settings.POLAR_SELF_ENABLED = True
+    settings.REPALIS_SELF_ENABLED = True
     settings.POLAR_ORGANIZATION_ID = str(SELF_ORG_ID)
 
 
@@ -322,7 +322,7 @@ class TestEnqueueUpdateMember:
     ) -> None:
         enqueue = mocker.patch("repalis.integrations.repalis.service.enqueue_job")
 
-        polar_self.enqueue_update_member(
+        repalis_self.enqueue_update_member(
             external_customer_id="org-123",
             external_id="user-123",
             name="Jane",
@@ -330,7 +330,7 @@ class TestEnqueueUpdateMember:
         )
 
         enqueue.assert_called_once_with(
-            "polar_self.update_member",
+            "repalis_self.update_member",
             external_customer_id="org-123",
             external_id="user-123",
             name="Jane",
@@ -342,14 +342,14 @@ class TestEnqueueUpdateMember:
     ) -> None:
         enqueue = mocker.patch("repalis.integrations.repalis.service.enqueue_job")
 
-        polar_self.enqueue_update_member(
+        repalis_self.enqueue_update_member(
             external_customer_id="org-123",
             external_id="user-123",
             name="Jane",
         )
 
         enqueue.assert_called_once_with(
-            "polar_self.update_member",
+            "repalis_self.update_member",
             external_customer_id="org-123",
             external_id="user-123",
             name="Jane",
@@ -364,7 +364,7 @@ class TestEnqueueTrackOrganizationReviewUsage:
         external_customer_id: str = str(ORG_A),
         cost_usd: Decimal | float | None = Decimal("0.0123"),
     ) -> None:
-        polar_self.enqueue_track_organization_review_usage(
+        repalis_self.enqueue_track_organization_review_usage(
             external_customer_id=external_customer_id,
             review_context="submission",
             vendor="openai",
@@ -377,7 +377,7 @@ class TestEnqueueTrackOrganizationReviewUsage:
 
     def test_noop_when_not_configured(self, mocker: MockerFixture) -> None:
         settings = mocker.patch("repalis.integrations.repalis.service.settings")
-        settings.POLAR_SELF_ENABLED = False
+        settings.REPALIS_SELF_ENABLED = False
         enqueue = mocker.patch("repalis.integrations.repalis.service.enqueue_job")
 
         self._call()
@@ -419,7 +419,7 @@ class TestEnqueueTrackOrganizationReviewUsage:
         self._call(cost_usd=Decimal("0.0123"))
 
         enqueue.assert_called_once_with(
-            "polar_self.track_organization_review_usage",
+            "repalis_self.track_organization_review_usage",
             external_customer_id=str(ORG_A),
             review_context="submission",
             vendor="openai",
@@ -448,7 +448,7 @@ class TestResolveFreePlan:
     ) -> None:
         subscription = MagicMock(spec=Subscription)
 
-        plan = await polar_self.resolve_free_plan(
+        plan = await repalis_self.resolve_free_plan(
             read_session_mock, ORG_A, subscription=subscription
         )
 
@@ -471,7 +471,7 @@ class TestResolveFreePlan:
         )
         account_repository_mock.get_by_organization.return_value = account
 
-        plan = await polar_self.resolve_free_plan(
+        plan = await repalis_self.resolve_free_plan(
             read_session_mock, ORG_A, subscription=None
         )
 
@@ -496,7 +496,7 @@ class TestResolveFreePlan:
         )
         account_repository_mock.get_by_organization.return_value = account
 
-        plan = await polar_self.resolve_free_plan(
+        plan = await repalis_self.resolve_free_plan(
             read_session_mock, ORG_A, subscription=None
         )
 
@@ -512,7 +512,7 @@ class TestResolveFreePlan:
     ) -> None:
         account_repository_mock.get_by_organization.return_value = None
 
-        plan = await polar_self.resolve_free_plan(
+        plan = await repalis_self.resolve_free_plan(
             read_session_mock, ORG_A, subscription=None
         )
 
@@ -525,36 +525,36 @@ class TestResolveFreePlan:
 class TestResolveOrganizationId:
     def test_valid_uuid(self) -> None:
         assert (
-            polar_self._resolve_organization_id(_make_customer(external_id=str(ORG_A)))
+            repalis_self._resolve_organization_id(_make_customer(external_id=str(ORG_A)))
             == ORG_A
         )
 
     def test_missing_external_id_raises(self) -> None:
-        with pytest.raises(PolarSelfWebhookError, match="external_id"):
-            polar_self._resolve_organization_id(_make_customer(external_id=None))
+        with pytest.raises(RepalisSelfWebhookError, match="external_id"):
+            repalis_self._resolve_organization_id(_make_customer(external_id=None))
 
     def test_non_uuid_external_id_raises(self) -> None:
-        with pytest.raises(PolarSelfWebhookError, match="not-a-uuid"):
-            polar_self._resolve_organization_id(
+        with pytest.raises(RepalisSelfWebhookError, match="not-a-uuid"):
+            repalis_self._resolve_organization_id(
                 _make_customer(external_id="not-a-uuid")
             )
 
 
 class TestExtractTransactionFee:
     def test_valid(self) -> None:
-        assert polar_self._extract_transaction_fee(
+        assert repalis_self._extract_transaction_fee(
             {"fee_percent": "380", "fee_fixed": "35", "subscription_fee_percent": "0"},
             _BENEFIT_ID,
         ) == (380, 35, 0)
 
     def test_native_int_values(self) -> None:
-        assert polar_self._extract_transaction_fee(
+        assert repalis_self._extract_transaction_fee(
             {"fee_percent": 380, "fee_fixed": 35, "subscription_fee_percent": 0},
             _BENEFIT_ID,
         ) == (380, 35, 0)
 
     def test_whole_float_values(self) -> None:
-        assert polar_self._extract_transaction_fee(
+        assert repalis_self._extract_transaction_fee(
             {"fee_percent": 380.0, "fee_fixed": 35.0, "subscription_fee_percent": 0.0},
             _BENEFIT_ID,
         ) == (380, 35, 0)
@@ -570,7 +570,7 @@ class TestExtractTransactionFee:
     )
     def test_invalid_fee_percent_raises(self, metadata: dict[str, Any]) -> None:
         with pytest.raises(TransactionFeeBenefitError, match="fee_percent"):
-            polar_self._extract_transaction_fee(metadata, _BENEFIT_ID)
+            repalis_self._extract_transaction_fee(metadata, _BENEFIT_ID)
 
     @pytest.mark.parametrize(
         "metadata",
@@ -583,27 +583,27 @@ class TestExtractTransactionFee:
     )
     def test_invalid_fee_fixed_raises(self, metadata: dict[str, Any]) -> None:
         with pytest.raises(TransactionFeeBenefitError, match="fee_fixed"):
-            polar_self._extract_transaction_fee(metadata, _BENEFIT_ID)
+            repalis_self._extract_transaction_fee(metadata, _BENEFIT_ID)
 
 
 class TestExtractSupport:
     def test_valid(self) -> None:
-        assert polar_self._extract_support(
+        assert repalis_self._extract_support(
             {"level": "2", "slack": "true", "prioritized": "false"}, _BENEFIT_ID
         ) == (2, True, False, None)
 
     def test_native_typed_values(self) -> None:
-        assert polar_self._extract_support(
+        assert repalis_self._extract_support(
             {"level": 2, "slack": True, "prioritized": False}, _BENEFIT_ID
         ) == (2, True, False, None)
 
     def test_whole_float_level(self) -> None:
-        assert polar_self._extract_support(
+        assert repalis_self._extract_support(
             {"level": 2.0, "slack": True, "prioritized": False}, _BENEFIT_ID
         ) == (2, True, False, None)
 
     def test_plain_tier_external_id(self) -> None:
-        assert polar_self._extract_support(
+        assert repalis_self._extract_support(
             {
                 "level": "2",
                 "slack": "true",
@@ -666,7 +666,7 @@ class TestExtractSupport:
     )
     def test_invalid_field_raises(self, metadata: dict[str, Any], match: str) -> None:
         with pytest.raises(SupportBenefitError, match=match):
-            polar_self._extract_support(metadata, _BENEFIT_ID)
+            repalis_self._extract_support(metadata, _BENEFIT_ID)
 
 
 @pytest.mark.anyio
@@ -679,7 +679,7 @@ class TestApplyTransactionFee:
     ) -> None:
         grant = _make_fee_grant()
 
-        await polar_self._apply_transaction_fee(session_mock, ORG_A, grant)
+        await repalis_self._apply_transaction_fee(session_mock, ORG_A, grant)
 
         account_repository_mock.get_by_organization.assert_awaited_once_with(ORG_A)
         set_platform_fee_mock.assert_awaited_once()
@@ -696,7 +696,7 @@ class TestApplyTransactionFee:
         account_repository_mock: MagicMock,
         set_platform_fee_mock: AsyncMock,
     ) -> None:
-        await polar_self._apply_transaction_fee(session_mock, ORG_A, None)
+        await repalis_self._apply_transaction_fee(session_mock, ORG_A, None)
 
         set_platform_fee_mock.assert_awaited_once()
         assert set_platform_fee_mock.await_args is not None
@@ -715,7 +715,7 @@ class TestApplyTransactionFee:
         account_repository_mock.get_by_organization.return_value = None
         grant = _make_fee_grant()
 
-        await polar_self._apply_transaction_fee(session_mock, ORG_A, grant)
+        await repalis_self._apply_transaction_fee(session_mock, ORG_A, grant)
 
         set_platform_fee_mock.assert_not_awaited()
 
@@ -730,7 +730,7 @@ class TestApplySupport:
     ) -> None:
         grant = _make_support_grant()
 
-        await polar_self._apply_support(session_mock, ORG_A, grant)
+        await repalis_self._apply_support(session_mock, ORG_A, grant)
 
         plain_update_tenant_tier_mock.assert_awaited_once_with(
             tenant_external_id=str(ORG_A), tier_external_id=None
@@ -757,7 +757,7 @@ class TestApplySupport:
             }
         )
 
-        await polar_self._apply_support(session_mock, ORG_A, grant)
+        await repalis_self._apply_support(session_mock, ORG_A, grant)
 
         plain_update_tenant_tier_mock.assert_awaited_once_with(
             tenant_external_id=str(ORG_A), tier_external_id="pro"
@@ -773,7 +773,7 @@ class TestApplySupport:
         organization_repository_mock: MagicMock,
         plain_update_tenant_tier_mock: AsyncMock,
     ) -> None:
-        await polar_self._apply_support(session_mock, ORG_A, None)
+        await repalis_self._apply_support(session_mock, ORG_A, None)
 
         plain_update_tenant_tier_mock.assert_awaited_once_with(
             tenant_external_id=str(ORG_A), tier_external_id=None
@@ -790,7 +790,7 @@ class TestApplySupport:
     ) -> None:
         monkeypatch.setattr(settings, "PLAIN_DEFAULT_TIER_EXTERNAL_ID", "free")
 
-        await polar_self._apply_support(session_mock, ORG_A, None)
+        await repalis_self._apply_support(session_mock, ORG_A, None)
 
         # Plain gets the default tier; the org stays NULL (the two agree).
         plain_update_tenant_tier_mock.assert_awaited_once_with(
@@ -816,7 +816,7 @@ class TestApplySupport:
             }
         )
 
-        await polar_self._apply_support(session_mock, ORG_A, grant)
+        await repalis_self._apply_support(session_mock, ORG_A, grant)
 
         plain_update_tenant_tier_mock.assert_awaited_once_with(
             tenant_external_id=str(ORG_A), tier_external_id="pro"
@@ -830,7 +830,7 @@ class TestApplySupport:
         grant = _make_support_grant(level="two")
 
         with pytest.raises(SupportBenefitError):
-            await polar_self._apply_support(session_mock, ORG_A, grant)
+            await repalis_self._apply_support(session_mock, ORG_A, grant)
 
 
 class TestSupportTier:
@@ -862,7 +862,7 @@ class TestHandleBenefitGrantEvent:
             WebhookBenefitGrantCreatedPayload,
         )
 
-        await polar_self.handle_benefit_grant_event(session_mock, payload)
+        await repalis_self.handle_benefit_grant_event(session_mock, payload)
 
         set_platform_fee_mock.assert_awaited_once()
         assert set_platform_fee_mock.await_args is not None
@@ -888,7 +888,7 @@ class TestHandleBenefitGrantEvent:
             WebhookBenefitGrantRevokedPayload,
         )
 
-        await polar_self.handle_benefit_grant_event(session_mock, payload)
+        await repalis_self.handle_benefit_grant_event(session_mock, payload)
 
         set_platform_fee_mock.assert_awaited_once()
         assert set_platform_fee_mock.await_args is not None
@@ -918,7 +918,7 @@ class TestHandleBenefitGrantEvent:
             WebhookBenefitGrantRevokedPayload,
         )
 
-        await polar_self.handle_benefit_grant_event(session_mock, payload)
+        await repalis_self.handle_benefit_grant_event(session_mock, payload)
 
         set_platform_fee_mock.assert_awaited_once()
         assert set_platform_fee_mock.await_args is not None
@@ -940,7 +940,7 @@ class TestHandleBenefitGrantEvent:
             WebhookBenefitGrantCreatedPayload,
         )
 
-        await polar_self.handle_benefit_grant_event(session_mock, payload)
+        await repalis_self.handle_benefit_grant_event(session_mock, payload)
 
         list_grants_mock.assert_not_awaited()
         set_platform_fee_mock.assert_not_awaited()
@@ -957,7 +957,7 @@ class TestHandleBenefitGrantEvent:
             WebhookBenefitGrantCreatedPayload,
         )
 
-        await polar_self.handle_benefit_grant_event(session_mock, payload)
+        await repalis_self.handle_benefit_grant_event(session_mock, payload)
 
         list_grants_mock.assert_not_awaited()
         set_platform_fee_mock.assert_not_awaited()
@@ -978,8 +978,8 @@ class TestHandleBenefitGrantEvent:
             WebhookBenefitGrantCreatedPayload,
         )
 
-        with pytest.raises(PolarSelfWebhookError, match="external_id"):
-            await polar_self.handle_benefit_grant_event(session_mock, payload)
+        with pytest.raises(RepalisSelfWebhookError, match="external_id"):
+            await repalis_self.handle_benefit_grant_event(session_mock, payload)
 
         list_grants_mock.assert_not_awaited()
         set_platform_fee_mock.assert_not_awaited()
@@ -996,7 +996,7 @@ class TestHandleBenefitGrantEvent:
             WebhookBenefitGrantCreatedPayload,
         )
 
-        await polar_self.handle_benefit_grant_event(session_mock, payload)
+        await repalis_self.handle_benefit_grant_event(session_mock, payload)
 
         list_grants_mock.assert_awaited_once_with(customer_id=_CUSTOMER_ID)
         organization = preview_access_org_repository_mock.get_by_id.return_value
@@ -1014,7 +1014,7 @@ class TestHandleBenefitGrantEvent:
             WebhookBenefitGrantUpdatedPayload,
         )
 
-        await polar_self.handle_benefit_grant_event(session_mock, payload)
+        await repalis_self.handle_benefit_grant_event(session_mock, payload)
 
         organization = preview_access_org_repository_mock.get_by_id.return_value
         assert organization.feature_settings == _PREVIEW_FLAGS_ENABLED
@@ -1031,7 +1031,7 @@ class TestHandleBenefitGrantEvent:
             WebhookBenefitGrantRevokedPayload,
         )
 
-        await polar_self.handle_benefit_grant_event(session_mock, payload)
+        await repalis_self.handle_benefit_grant_event(session_mock, payload)
 
         organization = preview_access_org_repository_mock.get_by_id.return_value
         assert organization.feature_settings == _PREVIEW_FLAGS_DISABLED
@@ -1049,7 +1049,7 @@ class TestHandleBenefitGrantEvent:
             WebhookBenefitGrantRevokedPayload,
         )
 
-        await polar_self.handle_benefit_grant_event(session_mock, payload)
+        await repalis_self.handle_benefit_grant_event(session_mock, payload)
 
         organization = preview_access_org_repository_mock.get_by_id.return_value
         assert organization.feature_settings == _PREVIEW_FLAGS_ENABLED
@@ -1066,7 +1066,7 @@ class TestHandleBenefitGrantEvent:
             WebhookBenefitGrantCreatedPayload,
         )
 
-        await polar_self.handle_benefit_grant_event(session_mock, payload)
+        await repalis_self.handle_benefit_grant_event(session_mock, payload)
 
         list_grants_mock.assert_awaited_once_with(customer_id=_CUSTOMER_ID)
         organization = sso_org_repository_mock.get_by_id.return_value
@@ -1084,7 +1084,7 @@ class TestHandleBenefitGrantEvent:
             WebhookBenefitGrantRevokedPayload,
         )
 
-        await polar_self.handle_benefit_grant_event(session_mock, payload)
+        await repalis_self.handle_benefit_grant_event(session_mock, payload)
 
         organization = sso_org_repository_mock.get_by_id.return_value
         assert organization.feature_settings == {"sso_enabled": False}
@@ -1104,7 +1104,7 @@ class TestHandleBenefitGrantEvent:
             WebhookBenefitGrantRevokedPayload,
         )
 
-        await polar_self.handle_benefit_grant_event(session_mock, payload)
+        await repalis_self.handle_benefit_grant_event(session_mock, payload)
 
         organization = sso_org_repository_mock.get_by_id.return_value
         assert organization.feature_settings == {"sso_enabled": True}
@@ -1121,7 +1121,7 @@ class TestApplyPreviewAccess:
         organization = preview_access_org_repository_mock.get_by_id.return_value
         organization.feature_settings = {"member_model_enabled": True}
 
-        await polar_self._apply_preview_access(
+        await repalis_self._apply_preview_access(
             session_mock, ORG_A, _make_preview_grant()
         )
 
@@ -1141,7 +1141,7 @@ class TestApplyPreviewAccess:
         organization = preview_access_org_repository_mock.get_by_id.return_value
         organization.feature_settings = {**_PREVIEW_FLAGS_ENABLED}
 
-        await polar_self._apply_preview_access(session_mock, ORG_A, None)
+        await repalis_self._apply_preview_access(session_mock, ORG_A, None)
 
         assert organization.feature_settings == _PREVIEW_FLAGS_DISABLED
 
@@ -1152,7 +1152,7 @@ class TestApplyPreviewAccess:
     ) -> None:
         preview_access_org_repository_mock.get_by_id.return_value = None
 
-        await polar_self._apply_preview_access(
+        await repalis_self._apply_preview_access(
             session_mock, ORG_A, _make_preview_grant()
         )
 
@@ -1168,7 +1168,7 @@ class TestApplySSO:
         organization.feature_settings = {"member_model_enabled": True}
         organization.sso_enforced = False
 
-        await polar_self._apply_sso(session_mock, ORG_A, _make_sso_grant())
+        await repalis_self._apply_sso(session_mock, ORG_A, _make_sso_grant())
 
         sso_org_repository_mock.get_by_id.assert_awaited_once_with(
             ORG_A, include_blocked=True
@@ -1185,7 +1185,7 @@ class TestApplySSO:
     ) -> None:
         organization = sso_org_repository_mock.get_by_id.return_value
 
-        await polar_self._apply_sso(session_mock, ORG_A, _make_sso_grant())
+        await repalis_self._apply_sso(session_mock, ORG_A, _make_sso_grant())
 
         assert organization.sso_enforced is True
 
@@ -1196,7 +1196,7 @@ class TestApplySSO:
     ) -> None:
         organization = sso_org_repository_mock.get_by_id.return_value
 
-        await polar_self._apply_sso(session_mock, ORG_A, None)
+        await repalis_self._apply_sso(session_mock, ORG_A, None)
 
         # Enforcement must go with the feature: an enforcing organization whose
         # login page offers no SSO factor is unreachable.
@@ -1210,7 +1210,7 @@ class TestApplySSO:
     ) -> None:
         sso_org_repository_mock.get_by_id.return_value = None
 
-        await polar_self._apply_sso(session_mock, ORG_A, None)
+        await repalis_self._apply_sso(session_mock, ORG_A, None)
 
 
 def _make_product(
@@ -1345,18 +1345,18 @@ def client_mock(mocker: MockerFixture) -> MagicMock:
 class TestCancelSubscription:
     async def test_not_configured_raises(self, mocker: MockerFixture) -> None:
         settings = mocker.patch("repalis.integrations.repalis.service.settings")
-        settings.POLAR_SELF_ENABLED = False
+        settings.REPALIS_SELF_ENABLED = False
 
-        with pytest.raises(PolarSelfNotConfigured):
-            await polar_self.cancel_subscription(organization_id=ORG_A)
+        with pytest.raises(RepalisSelfNotConfigured):
+            await repalis_self.cancel_subscription(organization_id=ORG_A)
 
     async def test_no_active_subscription_raises(
         self, configured: None, client_mock: MagicMock
     ) -> None:
         client_mock.get_active_subscription.return_value = None
 
-        with pytest.raises(PolarSelfNoActiveSubscription):
-            await polar_self.cancel_subscription(organization_id=ORG_A)
+        with pytest.raises(RepalisSelfNoActiveSubscription):
+            await repalis_self.cancel_subscription(organization_id=ORG_A)
 
         client_mock.cancel_subscription.assert_not_awaited()
 
@@ -1366,7 +1366,7 @@ class TestCancelSubscription:
         active = _make_subscription(id="sub_existing")
         client_mock.get_active_subscription.return_value = active
 
-        await polar_self.cancel_subscription(organization_id=ORG_A)
+        await repalis_self.cancel_subscription(organization_id=ORG_A)
 
         client_mock.cancel_subscription.assert_awaited_once_with(
             subscription_id="sub_existing",
@@ -1387,7 +1387,7 @@ class TestCancelSubscription:
             id="sub_existing"
         )
 
-        await polar_self.cancel_subscription(organization_id=ORG_A)
+        await repalis_self.cancel_subscription(organization_id=ORG_A)
 
         organization_repository_mock.get_by_id.assert_not_awaited()
         client_mock.cancel_subscription.assert_awaited_once_with(
@@ -1399,10 +1399,10 @@ class TestCancelSubscription:
 class TestListPlans:
     async def test_not_configured_raises(self, mocker: MockerFixture) -> None:
         settings = mocker.patch("repalis.integrations.repalis.service.settings")
-        settings.POLAR_SELF_ENABLED = False
+        settings.REPALIS_SELF_ENABLED = False
 
-        with pytest.raises(PolarSelfNotConfigured):
-            await polar_self.list_plans()
+        with pytest.raises(RepalisSelfNotConfigured):
+            await repalis_self.list_plans()
 
     async def test_sorts_by_metadata_order(
         self, configured: None, client_mock: MagicMock
@@ -1413,7 +1413,7 @@ class TestListPlans:
             _make_product(id="p2", metadata={"order": 2}),
         ]
 
-        plans = await polar_self.list_plans()
+        plans = await repalis_self.list_plans()
 
         assert [p.id for p in plans] == ["p1", "p2", "p3"]
 
@@ -1425,7 +1425,7 @@ class TestListPlans:
             _make_product(id="custom_only", metadata={"custom": True}),
         ]
 
-        plans = await polar_self.list_plans()
+        plans = await repalis_self.list_plans()
 
         assert [p.id for p in plans] == ["self_serve"]
 
@@ -1437,7 +1437,7 @@ class TestListPlans:
             _make_product(id="ordered", metadata={"order": 1}),
         ]
 
-        plans = await polar_self.list_plans()
+        plans = await repalis_self.list_plans()
 
         assert [p.id for p in plans] == ["ordered", "no_order"]
 
@@ -1446,17 +1446,17 @@ class TestListPlans:
 class TestGetSubscription:
     async def test_not_configured_raises(self, mocker: MockerFixture) -> None:
         settings = mocker.patch("repalis.integrations.repalis.service.settings")
-        settings.POLAR_SELF_ENABLED = False
+        settings.REPALIS_SELF_ENABLED = False
 
-        with pytest.raises(PolarSelfNotConfigured):
-            await polar_self.get_subscription(ORG_A)
+        with pytest.raises(RepalisSelfNotConfigured):
+            await repalis_self.get_subscription(ORG_A)
 
     async def test_returns_none_when_no_active_sub(
         self, configured: None, client_mock: MagicMock
     ) -> None:
         client_mock.get_active_subscription.return_value = None
 
-        result = await polar_self.get_subscription(ORG_A)
+        result = await repalis_self.get_subscription(ORG_A)
 
         assert result is None
         client_mock.get_active_subscription.assert_awaited_once_with(
@@ -1469,7 +1469,7 @@ class TestGetSubscription:
         sub = _make_subscription()
         client_mock.get_active_subscription.return_value = sub
 
-        result = await polar_self.get_subscription(ORG_A)
+        result = await repalis_self.get_subscription(ORG_A)
 
         assert result is sub
 
@@ -1480,10 +1480,10 @@ class TestStartCheckout:
         self, mocker: MockerFixture, read_session_mock: AsyncReadSession
     ) -> None:
         settings = mocker.patch("repalis.integrations.repalis.service.settings")
-        settings.POLAR_SELF_ENABLED = False
+        settings.REPALIS_SELF_ENABLED = False
 
-        with pytest.raises(PolarSelfNotConfigured):
-            await polar_self.start_checkout(
+        with pytest.raises(RepalisSelfNotConfigured):
+            await repalis_self.start_checkout(
                 session=read_session_mock, organization_id=ORG_A, product_id="prod_1"
             )
 
@@ -1497,8 +1497,8 @@ class TestStartCheckout:
             _make_product(id="known", metadata={"order": 1}),
         ]
 
-        with pytest.raises(PolarSelfPlanNotFound):
-            await polar_self.start_checkout(
+        with pytest.raises(RepalisSelfPlanNotFound):
+            await repalis_self.start_checkout(
                 session=read_session_mock, organization_id=ORG_A, product_id="unknown"
             )
 
@@ -1514,8 +1514,8 @@ class TestStartCheckout:
             _make_product(id="custom_only", metadata={"custom": True}),
         ]
 
-        with pytest.raises(PolarSelfPlanNotFound):
-            await polar_self.start_checkout(
+        with pytest.raises(RepalisSelfPlanNotFound):
+            await repalis_self.start_checkout(
                 session=read_session_mock,
                 organization_id=ORG_A,
                 product_id="custom_only",
@@ -1533,8 +1533,8 @@ class TestStartCheckout:
         ]
         organization_repository_mock.get_by_id.return_value = None
 
-        with pytest.raises(PolarSelfNotApproved):
-            await polar_self.start_checkout(
+        with pytest.raises(RepalisSelfNotApproved):
+            await repalis_self.start_checkout(
                 session=read_session_mock,
                 organization_id=ORG_A,
                 product_id="prod_paid",
@@ -1559,8 +1559,8 @@ class TestStartCheckout:
             price_amount=2000,
         )
 
-        with pytest.raises(PolarSelfPaidSubscriptionAlreadyExists) as exc_info:
-            await polar_self.start_checkout(
+        with pytest.raises(RepalisSelfPaidSubscriptionAlreadyExists) as exc_info:
+            await repalis_self.start_checkout(
                 session=read_session_mock,
                 organization_id=ORG_A,
                 product_id="prod_paid",
@@ -1585,7 +1585,7 @@ class TestStartCheckout:
             price_amount=0,
         )
 
-        await polar_self.start_checkout(
+        await repalis_self.start_checkout(
             session=read_session_mock,
             organization_id=ORG_A,
             product_id="prod_paid",
@@ -1621,7 +1621,7 @@ class TestStartCheckout:
             discount_id="disc_startup",
         )
 
-        await polar_self.start_checkout(
+        await repalis_self.start_checkout(
             session=read_session_mock,
             organization_id=ORG_A,
             product_id="prod_paid",
@@ -1642,7 +1642,7 @@ class TestStartCheckout:
         ]
         client_mock.get_active_subscription.return_value = None
 
-        await polar_self.start_checkout(
+        await repalis_self.start_checkout(
             session=read_session_mock,
             organization_id=ORG_A,
             product_id="prod_paid",
@@ -1664,7 +1664,7 @@ class TestStartCheckout:
             id="sub_existing", product_id="prod_pro", discount_id=None
         )
 
-        await polar_self.start_checkout(
+        await repalis_self.start_checkout(
             session=read_session_mock,
             organization_id=ORG_A,
             product_id="prod_paid",
@@ -1679,10 +1679,10 @@ class TestChangePlan:
         self, mocker: MockerFixture, read_session_mock: AsyncReadSession
     ) -> None:
         settings = mocker.patch("repalis.integrations.repalis.service.settings")
-        settings.POLAR_SELF_ENABLED = False
+        settings.REPALIS_SELF_ENABLED = False
 
-        with pytest.raises(PolarSelfNotConfigured):
-            await polar_self.change_plan(
+        with pytest.raises(RepalisSelfNotConfigured):
+            await repalis_self.change_plan(
                 session=read_session_mock, organization_id=ORG_A, product_id="p"
             )
 
@@ -1696,8 +1696,8 @@ class TestChangePlan:
             _make_product(id="known", metadata={"order": 1}),
         ]
 
-        with pytest.raises(PolarSelfPlanNotFound):
-            await polar_self.change_plan(
+        with pytest.raises(RepalisSelfPlanNotFound):
+            await repalis_self.change_plan(
                 session=read_session_mock, organization_id=ORG_A, product_id="unknown"
             )
 
@@ -1715,8 +1715,8 @@ class TestChangePlan:
         ]
         client_mock.get_active_subscription.return_value = None
 
-        with pytest.raises(PolarSelfNoActiveSubscription):
-            await polar_self.change_plan(
+        with pytest.raises(RepalisSelfNoActiveSubscription):
+            await repalis_self.change_plan(
                 session=read_session_mock, organization_id=ORG_A, product_id="prod_2"
             )
 
@@ -1736,7 +1736,7 @@ class TestChangePlan:
             id="sub_existing", product_id="prod_1"
         )
 
-        await polar_self.change_plan(
+        await repalis_self.change_plan(
             session=read_session_mock, organization_id=ORG_A, product_id="prod_2"
         )
 
@@ -1760,7 +1760,7 @@ class TestChangePlan:
             id="sub_existing", product_id="prod_1", amount=2000
         )
 
-        await polar_self.change_plan(
+        await repalis_self.change_plan(
             session=read_session_mock, organization_id=ORG_A, product_id="prod_2"
         )
 
@@ -1788,7 +1788,7 @@ class TestChangePlan:
             cancel_at_period_end=True,
         )
 
-        await polar_self.change_plan(
+        await repalis_self.change_plan(
             session=read_session_mock, organization_id=ORG_A, product_id="prod_2"
         )
 
@@ -1815,8 +1815,8 @@ class TestChangePlan:
         inactive.can_change_plan.return_value = False
         organization_repository_mock.get_by_id.return_value = inactive
 
-        with pytest.raises(PolarSelfNotApproved):
-            await polar_self.change_plan(
+        with pytest.raises(RepalisSelfNotApproved):
+            await repalis_self.change_plan(
                 session=read_session_mock, organization_id=ORG_A, product_id="prod_2"
             )
 
@@ -1834,7 +1834,7 @@ class TestChangePlan:
         to a non-eligible plan must clear the discount — otherwise the Startup
         Program discount would leak onto the new plan."""
         mocker.patch(
-            "repalis.integrations.repalis.service.settings.POLAR_SCALE_PRODUCT_ID",
+            "repalis.integrations.repalis.service.settings.REPALIS_SCALE_PRODUCT_ID",
             "prod_scale",
         )
         client_mock.list_recurring_products.return_value = [
@@ -1847,7 +1847,7 @@ class TestChangePlan:
             discount_id="disc_startup",
         )
 
-        await polar_self.change_plan(
+        await repalis_self.change_plan(
             session=read_session_mock,
             organization_id=ORG_A,
             product_id="prod_growth",
@@ -1888,7 +1888,7 @@ class TestChangePlan:
             discount_id=None,
         )
 
-        await polar_self.change_plan(
+        await repalis_self.change_plan(
             session=read_session_mock, organization_id=ORG_A, product_id="prod_2"
         )
 
@@ -1913,7 +1913,7 @@ class TestChangePlan:
             id="sub_existing", product_id="prod_pro", amount=2000
         )
         mocker.patch(
-            "repalis.integrations.repalis.service.settings.POLAR_SCALE_PRODUCT_ID",
+            "repalis.integrations.repalis.service.settings.REPALIS_SCALE_PRODUCT_ID",
             "prod_scale",
         )
         mocker.patch(
@@ -1922,7 +1922,7 @@ class TestChangePlan:
             AsyncMock(return_value="disc_startup"),
         )
 
-        await polar_self.change_plan(
+        await repalis_self.change_plan(
             session=read_session_mock,
             organization_id=ORG_A,
             product_id="prod_scale",
@@ -1965,7 +1965,7 @@ class TestChangePlan:
             AsyncMock(return_value=None),
         )
 
-        await polar_self.change_plan(
+        await repalis_self.change_plan(
             session=read_session_mock,
             organization_id=ORG_A,
             product_id="prod_growth",
@@ -1985,10 +1985,10 @@ class TestClaimStartupProgram:
         self, mocker: MockerFixture, read_session_mock: AsyncReadSession
     ) -> None:
         settings = mocker.patch("repalis.integrations.repalis.service.settings")
-        settings.POLAR_SELF_ENABLED = False
+        settings.REPALIS_SELF_ENABLED = False
 
-        with pytest.raises(PolarSelfNotConfigured):
-            await polar_self.claim_startup_program(
+        with pytest.raises(RepalisSelfNotConfigured):
+            await repalis_self.claim_startup_program(
                 session=read_session_mock, organization_id=ORG_A
             )
 
@@ -2006,7 +2006,7 @@ class TestClaimStartupProgram:
             True,
         )
         mocker.patch(
-            "repalis.integrations.repalis.service.settings.POLAR_SCALE_PRODUCT_ID",
+            "repalis.integrations.repalis.service.settings.REPALIS_SCALE_PRODUCT_ID",
             "prod_scale",
         )
         mocker.patch(
@@ -2016,7 +2016,7 @@ class TestClaimStartupProgram:
         )
         client_mock.get_active_subscription.return_value = None
 
-        subscription, checkout = await polar_self.claim_startup_program(
+        subscription, checkout = await repalis_self.claim_startup_program(
             session=read_session_mock,
             organization_id=ORG_A,
             success_url="https://app.example/billing?ok=1",
@@ -2053,7 +2053,7 @@ class TestClaimStartupProgram:
             True,
         )
         mocker.patch(
-            "repalis.integrations.repalis.service.settings.POLAR_SCALE_PRODUCT_ID",
+            "repalis.integrations.repalis.service.settings.REPALIS_SCALE_PRODUCT_ID",
             "prod_scale",
         )
         mocker.patch(
@@ -2063,7 +2063,7 @@ class TestClaimStartupProgram:
         )
 
         with pytest.raises(StartupProgramError, match="claimable"):
-            await polar_self.claim_startup_program(
+            await repalis_self.claim_startup_program(
                 session=read_session_mock, organization_id=ORG_A
             )
 
@@ -2087,7 +2087,7 @@ class TestClaimStartupProgram:
             True,
         )
         mocker.patch(
-            "repalis.integrations.repalis.service.settings.POLAR_SCALE_PRODUCT_ID",
+            "repalis.integrations.repalis.service.settings.REPALIS_SCALE_PRODUCT_ID",
             "prod_scale",
         )
         mocker.patch(
@@ -2099,7 +2099,7 @@ class TestClaimStartupProgram:
             id="sub_existing", product_id="prod_growth", amount=10000
         )
 
-        subscription, checkout = await polar_self.claim_startup_program(
+        subscription, checkout = await repalis_self.claim_startup_program(
             session=read_session_mock, organization_id=ORG_A
         )
 
@@ -2137,7 +2137,7 @@ class TestClaimStartupProgram:
             True,
         )
         mocker.patch(
-            "repalis.integrations.repalis.service.settings.POLAR_SCALE_PRODUCT_ID",
+            "repalis.integrations.repalis.service.settings.REPALIS_SCALE_PRODUCT_ID",
             "prod_scale",
         )
         mocker.patch(
@@ -2149,7 +2149,7 @@ class TestClaimStartupProgram:
             id="sub_existing", product_id="prod_scale", amount=40000
         )
 
-        subscription, checkout = await polar_self.claim_startup_program(
+        subscription, checkout = await repalis_self.claim_startup_program(
             session=read_session_mock, organization_id=ORG_A
         )
 
@@ -2249,10 +2249,10 @@ def orders_client_mock(mocker: MockerFixture) -> MagicMock:
 class TestListOrders:
     async def test_not_configured_raises(self, mocker: MockerFixture) -> None:
         settings = mocker.patch("repalis.integrations.repalis.service.settings")
-        settings.POLAR_SELF_ENABLED = False
+        settings.REPALIS_SELF_ENABLED = False
 
-        with pytest.raises(PolarSelfNotConfigured):
-            await polar_self.list_orders(ORG_A)
+        with pytest.raises(RepalisSelfNotConfigured):
+            await repalis_self.list_orders(ORG_A)
 
     async def test_lists_orders_by_external_customer_id(
         self, configured: None, orders_client_mock: MagicMock
@@ -2260,7 +2260,7 @@ class TestListOrders:
         order = _make_order(id="ord_1")
         orders_client_mock.list_customer_orders.return_value = ([order], 1)
 
-        items, total = await polar_self.list_orders(ORG_A, page=2, limit=20)
+        items, total = await repalis_self.list_orders(ORG_A, page=2, limit=20)
 
         assert items == [order]
         assert total == 1
@@ -2276,18 +2276,18 @@ class TestListOrders:
 class TestGetOrderInvoiceUrl:
     async def test_not_configured_raises(self, mocker: MockerFixture) -> None:
         settings = mocker.patch("repalis.integrations.repalis.service.settings")
-        settings.POLAR_SELF_ENABLED = False
+        settings.REPALIS_SELF_ENABLED = False
 
-        with pytest.raises(PolarSelfNotConfigured):
-            await polar_self.get_order_invoice_url(ORG_A, "ord_1")
+        with pytest.raises(RepalisSelfNotConfigured):
+            await repalis_self.get_order_invoice_url(ORG_A, "ord_1")
 
     async def test_customer_not_found_raises_order_not_found(
         self, configured: None, orders_client_mock: MagicMock
     ) -> None:
         orders_client_mock.get_customer_by_external_id_or_none.return_value = None
 
-        with pytest.raises(PolarSelfOrderNotFound):
-            await polar_self.get_order_invoice_url(ORG_A, "ord_1")
+        with pytest.raises(RepalisSelfOrderNotFound):
+            await repalis_self.get_order_invoice_url(ORG_A, "ord_1")
 
         orders_client_mock.get_order.assert_not_awaited()
 
@@ -2296,8 +2296,8 @@ class TestGetOrderInvoiceUrl:
     ) -> None:
         orders_client_mock.get_order.return_value = None
 
-        with pytest.raises(PolarSelfOrderNotFound):
-            await polar_self.get_order_invoice_url(ORG_A, "ord_1")
+        with pytest.raises(RepalisSelfOrderNotFound):
+            await repalis_self.get_order_invoice_url(ORG_A, "ord_1")
 
         orders_client_mock.get_order_invoice.assert_not_awaited()
 
@@ -2308,8 +2308,8 @@ class TestGetOrderInvoiceUrl:
             customer_id="some-other-customer"
         )
 
-        with pytest.raises(PolarSelfOrderNotFound):
-            await polar_self.get_order_invoice_url(ORG_A, "ord_1")
+        with pytest.raises(RepalisSelfOrderNotFound):
+            await repalis_self.get_order_invoice_url(ORG_A, "ord_1")
 
         orders_client_mock.get_order_invoice.assert_not_awaited()
 
@@ -2319,8 +2319,8 @@ class TestGetOrderInvoiceUrl:
         orders_client_mock.get_order.return_value = _make_order()
         orders_client_mock.get_order_invoice.return_value = None
 
-        with pytest.raises(PolarSelfOrderNotFound):
-            await polar_self.get_order_invoice_url(ORG_A, "ord_1")
+        with pytest.raises(RepalisSelfOrderNotFound):
+            await repalis_self.get_order_invoice_url(ORG_A, "ord_1")
 
     async def test_returns_invoice_url(
         self, configured: None, orders_client_mock: MagicMock
@@ -2330,7 +2330,7 @@ class TestGetOrderInvoiceUrl:
             "https://example.com/inv.pdf"
         )
 
-        url = await polar_self.get_order_invoice_url(ORG_A, "ord_1")
+        url = await repalis_self.get_order_invoice_url(ORG_A, "ord_1")
 
         assert url == "https://example.com/inv.pdf"
         orders_client_mock.get_order_invoice.assert_awaited_once_with(order_id="ord_1")
@@ -2382,7 +2382,7 @@ class TestHandleOrderCreatedEvent:
         )
         payload = _make_order_created_payload(billing_reason="purchase")
 
-        await polar_self.handle_order_created_event(payload)
+        await repalis_self.handle_order_created_event(payload)
 
         order_webhook_client_mock.list_billing_contacts.assert_not_awaited()
         enqueue_email_mock.assert_not_called()
@@ -2395,7 +2395,7 @@ class TestHandleOrderCreatedEvent:
         order_webhook_client_mock.get_order.return_value = None
         payload = _make_order_created_payload()
 
-        await polar_self.handle_order_created_event(payload)
+        await repalis_self.handle_order_created_event(payload)
 
         order_webhook_client_mock.list_billing_contacts.assert_not_awaited()
         enqueue_email_mock.assert_not_called()
@@ -2410,7 +2410,7 @@ class TestHandleOrderCreatedEvent:
         order_webhook_client_mock.get_order.return_value = _make_order(net_amount=0)
         payload = _make_order_created_payload(net_amount=0)
 
-        await polar_self.handle_order_created_event(payload)
+        await repalis_self.handle_order_created_event(payload)
 
         order_webhook_client_mock.list_billing_contacts.assert_not_awaited()
         order_webhook_client_mock.trigger_order_invoice_generation.assert_not_awaited()
@@ -2425,7 +2425,7 @@ class TestHandleOrderCreatedEvent:
         order_webhook_client_mock.list_billing_contacts.return_value = []
         payload = _make_order_created_payload()
 
-        await polar_self.handle_order_created_event(payload)
+        await repalis_self.handle_order_created_event(payload)
 
         enqueue_email_mock.assert_not_called()
 
@@ -2439,7 +2439,7 @@ class TestHandleOrderCreatedEvent:
         )
         payload = _make_order_created_payload()
 
-        await polar_self.handle_order_created_event(payload)
+        await repalis_self.handle_order_created_event(payload)
 
         order_webhook_client_mock.trigger_order_invoice_generation.assert_not_awaited()
         order_webhook_client_mock.get_order_invoice.assert_not_awaited()
@@ -2458,7 +2458,7 @@ class TestHandleOrderCreatedEvent:
         )
         payload = _make_order_created_payload()
 
-        await polar_self.handle_order_created_event(payload)
+        await repalis_self.handle_order_created_event(payload)
 
         order_webhook_client_mock.trigger_order_invoice_generation.assert_not_awaited()
         order_webhook_client_mock.get_order_invoice.assert_awaited_once_with(
@@ -2485,8 +2485,8 @@ class TestHandleOrderCreatedEvent:
         )
         payload = _make_order_created_payload()
 
-        with pytest.raises(PolarSelfInvoiceNotReady):
-            await polar_self.handle_order_created_event(payload)
+        with pytest.raises(RepalisSelfInvoiceNotReady):
+            await repalis_self.handle_order_created_event(payload)
 
         order_webhook_client_mock.trigger_order_invoice_generation.assert_awaited_once_with(
             order_id="ord_1"
@@ -2508,7 +2508,7 @@ class TestHandleOrderCreatedEvent:
         )
         payload = _make_order_created_payload(status="void")
 
-        await polar_self.handle_order_created_event(payload)
+        await repalis_self.handle_order_created_event(payload)
 
         order_webhook_client_mock.list_billing_contacts.assert_not_awaited()
         order_webhook_client_mock.trigger_order_invoice_generation.assert_not_awaited()
@@ -2531,7 +2531,7 @@ class TestHandleOrderCreatedEvent:
         )
         payload = _make_order_created_payload(status="void")
 
-        await polar_self.handle_order_created_event(payload)
+        await repalis_self.handle_order_created_event(payload)
 
         order_webhook_client_mock.trigger_order_invoice_generation.assert_not_awaited()
         order_webhook_client_mock.get_order_invoice.assert_not_awaited()
@@ -2545,7 +2545,7 @@ class TestHandleOrderCreatedEvent:
         # Race: the refetched order was non-void, so the trigger ran, but the
         # order became draft/void between the refetch and the trigger call.
         # The terminal ineligibility must propagate untouched — converting it
-        # to PolarSelfInvoiceNotReady would burn the retry budget on an order
+        # to RepalisSelfInvoiceNotReady would burn the retry budget on an order
         # that will never become eligible.
         order_webhook_client_mock.get_order.return_value = _make_order(
             billing_name="Acme Inc",
@@ -2553,12 +2553,12 @@ class TestHandleOrderCreatedEvent:
             is_invoice_generated=False,
         )
         order_webhook_client_mock.trigger_order_invoice_generation.side_effect = (
-            PolarSelfOrderNotEligible("ord_1")
+            RepalisSelfOrderNotEligible("ord_1")
         )
         payload = _make_order_created_payload()
 
-        with pytest.raises(PolarSelfOrderNotEligible):
-            await polar_self.handle_order_created_event(payload)
+        with pytest.raises(RepalisSelfOrderNotEligible):
+            await repalis_self.handle_order_created_event(payload)
 
         enqueue_email_mock.assert_not_called()
 
@@ -2575,8 +2575,8 @@ class TestHandleOrderCreatedEvent:
         order_webhook_client_mock.get_order_invoice.return_value = None
         payload = _make_order_created_payload()
 
-        with pytest.raises(PolarSelfInvoiceNotReady):
-            await polar_self.handle_order_created_event(payload)
+        with pytest.raises(RepalisSelfInvoiceNotReady):
+            await repalis_self.handle_order_created_event(payload)
 
         enqueue_email_mock.assert_not_called()
 
@@ -2590,7 +2590,7 @@ class TestHandleOrderCreatedEvent:
         order_webhook_client_mock.get_order.return_value = _make_order(net_amount=0)
         payload = _make_order_created_payload(net_amount=2000)
 
-        await polar_self.handle_order_created_event(payload)
+        await repalis_self.handle_order_created_event(payload)
 
         order_webhook_client_mock.get_order.assert_awaited_once_with(order_id="ord_1")
         enqueue_email_mock.assert_not_called()
@@ -2609,7 +2609,7 @@ class TestHandleOrderCreatedEvent:
         order_webhook_client_mock.get_order.return_value = _make_order()
         payload = _make_order_created_payload()
 
-        await polar_self.handle_order_created_event(payload)
+        await repalis_self.handle_order_created_event(payload)
 
         order_webhook_client_mock.get_order.assert_not_awaited()
         order_webhook_client_mock.list_billing_contacts.assert_not_awaited()
@@ -2682,7 +2682,7 @@ class TestHandleSubscriptionCanceledEvent:
     ) -> None:
         payload = _make_subscription_canceled_payload(amount=0)
 
-        await polar_self.handle_subscription_canceled_event(payload)
+        await repalis_self.handle_subscription_canceled_event(payload)
 
         subscription_webhook_client_mock.list_billing_contacts.assert_not_awaited()
         enqueue_email_mock.assert_not_called()
@@ -2695,7 +2695,7 @@ class TestHandleSubscriptionCanceledEvent:
         subscription_webhook_client_mock.list_billing_contacts.return_value = []
         payload = _make_subscription_canceled_payload(amount=2000)
 
-        await polar_self.handle_subscription_canceled_event(payload)
+        await repalis_self.handle_subscription_canceled_event(payload)
 
         enqueue_email_mock.assert_not_called()
 
@@ -2708,14 +2708,14 @@ class TestHandleSubscriptionCanceledEvent:
             amount=2000, ends_at="2026-02-01T00:00:00Z"
         )
 
-        await polar_self.handle_subscription_canceled_event(payload)
+        await repalis_self.handle_subscription_canceled_event(payload)
 
         subscription_webhook_client_mock.list_billing_contacts.assert_awaited_once_with(
             customer_id=_CUSTOMER_ID
         )
         enqueue_email_mock.assert_called_once()
         email = enqueue_email_mock.call_args.args[0]
-        assert email.template == "polar_self_subscription_cancellation"
+        assert email.template == "repalis_self_subscription_cancellation"
         assert email.props.product_name == "Pro"
         assert email.props.ends_at is not None
         assert email.props.ends_at.startswith("2026-02-01")
@@ -2730,7 +2730,7 @@ class TestHandleSubscriptionCanceledEvent:
     ) -> None:
         payload = _make_subscription_canceled_payload(amount=2000, ends_at=None)
 
-        await polar_self.handle_subscription_canceled_event(payload)
+        await repalis_self.handle_subscription_canceled_event(payload)
 
         enqueue_email_mock.assert_called_once()
         email = enqueue_email_mock.call_args.args[0]
@@ -2748,7 +2748,7 @@ class TestHandleSubscriptionCanceledEvent:
         )
         payload = _make_subscription_canceled_payload(amount=2000)
 
-        await polar_self.handle_subscription_canceled_event(payload)
+        await repalis_self.handle_subscription_canceled_event(payload)
 
         subscription_webhook_client_mock.list_billing_contacts.assert_not_awaited()
         enqueue_email_mock.assert_not_called()
@@ -2764,7 +2764,7 @@ class TestHandleSubscriptionPastDueEvent:
         # A $0 subscription has no payment to fail, so there's nothing to notify.
         payload = _make_subscription_past_due_payload(amount=0)
 
-        await polar_self.handle_subscription_past_due_event(payload)
+        await repalis_self.handle_subscription_past_due_event(payload)
 
         subscription_webhook_client_mock.list_billing_contacts.assert_not_awaited()
         enqueue_email_mock.assert_not_called()
@@ -2777,7 +2777,7 @@ class TestHandleSubscriptionPastDueEvent:
         subscription_webhook_client_mock.list_billing_contacts.return_value = []
         payload = _make_subscription_past_due_payload(amount=2000)
 
-        await polar_self.handle_subscription_past_due_event(payload)
+        await repalis_self.handle_subscription_past_due_event(payload)
 
         enqueue_email_mock.assert_not_called()
 
@@ -2788,14 +2788,14 @@ class TestHandleSubscriptionPastDueEvent:
     ) -> None:
         payload = _make_subscription_past_due_payload(amount=2000)
 
-        await polar_self.handle_subscription_past_due_event(payload)
+        await repalis_self.handle_subscription_past_due_event(payload)
 
         subscription_webhook_client_mock.list_billing_contacts.assert_awaited_once_with(
             customer_id=_CUSTOMER_ID
         )
         enqueue_email_mock.assert_called_once()
         email = enqueue_email_mock.call_args.args[0]
-        assert email.template == "polar_self_subscription_past_due"
+        assert email.template == "repalis_self_subscription_past_due"
         assert email.props.product_name == "Pro"
         kwargs = enqueue_email_mock.call_args.kwargs
         assert kwargs["to_email_addr"] == "billing@example.com"
@@ -2813,7 +2813,7 @@ class TestHandleSubscriptionPastDueEvent:
         )
         payload = _make_subscription_past_due_payload(amount=2000)
 
-        await polar_self.handle_subscription_past_due_event(payload)
+        await repalis_self.handle_subscription_past_due_event(payload)
 
         subscription_webhook_client_mock.list_billing_contacts.assert_not_awaited()
         enqueue_email_mock.assert_not_called()
@@ -2829,7 +2829,7 @@ class TestHandleSubscriptionRevokedEvent:
     ) -> None:
         payload = _make_subscription_revoked_payload(amount=0)
 
-        await polar_self.handle_subscription_revoked_event(session, payload)
+        await repalis_self.handle_subscription_revoked_event(session, payload)
 
         subscription_webhook_client_mock.list_billing_contacts.assert_not_awaited()
         enqueue_email_mock.assert_not_called()
@@ -2843,7 +2843,7 @@ class TestHandleSubscriptionRevokedEvent:
         subscription_webhook_client_mock.list_billing_contacts.return_value = []
         payload = _make_subscription_revoked_payload(amount=2000)
 
-        await polar_self.handle_subscription_revoked_event(session, payload)
+        await repalis_self.handle_subscription_revoked_event(session, payload)
 
         enqueue_email_mock.assert_not_called()
 
@@ -2855,14 +2855,14 @@ class TestHandleSubscriptionRevokedEvent:
     ) -> None:
         payload = _make_subscription_revoked_payload(amount=2000)
 
-        await polar_self.handle_subscription_revoked_event(session, payload)
+        await repalis_self.handle_subscription_revoked_event(session, payload)
 
         subscription_webhook_client_mock.list_billing_contacts.assert_awaited_once_with(
             customer_id=_CUSTOMER_ID
         )
         enqueue_email_mock.assert_called_once()
         email = enqueue_email_mock.call_args.args[0]
-        assert email.template == "polar_self_subscription_revoked"
+        assert email.template == "repalis_self_subscription_revoked"
         assert email.props.product_name == "Pro"
         kwargs = enqueue_email_mock.call_args.kwargs
         assert kwargs["to_email_addr"] == "billing@example.com"
@@ -2882,7 +2882,7 @@ class TestHandleSubscriptionRevokedEvent:
             amount=2000, external_customer_id=str(organization.id)
         )
 
-        await polar_self.handle_subscription_revoked_event(session, payload)
+        await repalis_self.handle_subscription_revoked_event(session, payload)
 
         subscription_webhook_client_mock.list_billing_contacts.assert_not_awaited()
         enqueue_email_mock.assert_not_called()
@@ -2900,7 +2900,7 @@ class TestHandleSubscriptionRevokedEvent:
         )
         payload = _make_subscription_revoked_payload(amount=2000)
 
-        await polar_self.handle_subscription_revoked_event(session, payload)
+        await repalis_self.handle_subscription_revoked_event(session, payload)
 
         subscription_webhook_client_mock.list_billing_contacts.assert_not_awaited()
         enqueue_email_mock.assert_not_called()

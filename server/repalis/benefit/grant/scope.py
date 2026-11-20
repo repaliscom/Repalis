@@ -4,7 +4,7 @@ import structlog
 from sqlalchemy.orm import joinedload
 
 from repalis.customer.repository import CustomerRepository
-from repalis.exceptions import PolarError
+from repalis.exceptions import RepalisError
 from repalis.logging import Logger
 from repalis.member.repository import MemberRepository
 from repalis.member.service import member_service
@@ -26,7 +26,7 @@ from .repository import BenefitGrantRepository
 log: Logger = structlog.get_logger()
 
 
-class BenefitGrantScopeError(PolarError): ...
+class BenefitGrantScopeError(RepalisError): ...
 
 
 class InvalidScopeError(BenefitGrantScopeError):

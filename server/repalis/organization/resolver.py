@@ -4,7 +4,7 @@ from pydantic import UUID4
 
 from repalis.auth.models import AuthSubject, is_agent, is_organization
 from repalis.authz.service import get_accessible_org_ids
-from repalis.exceptions import PolarRequestValidationError
+from repalis.exceptions import RepalisRequestValidationError
 from repalis.models import Agent, Organization, User
 from repalis.organization.repository import OrganizationRepository
 from repalis.postgres import AsyncReadSession
@@ -28,7 +28,7 @@ async def get_payload_organization(
 ) -> Organization:
     if is_organization(auth_subject):
         if model.organization_id is not None:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "organization_token",
@@ -61,7 +61,7 @@ async def get_payload_organization(
                 organization = await repository.get_by_id(next(iter(accessible)))
                 if organization is not None:
                     return organization
-        raise PolarRequestValidationError(
+        raise RepalisRequestValidationError(
             [
                 {
                     "type": "missing",
@@ -77,7 +77,7 @@ async def get_payload_organization(
 
     accessible = await get_accessible_org_ids(session, auth_subject)
     if model.organization_id not in accessible:
-        raise PolarRequestValidationError(
+        raise RepalisRequestValidationError(
             [
                 {
                     "loc": (
@@ -94,7 +94,7 @@ async def get_payload_organization(
     organization = await repository.get_by_id(model.organization_id)
 
     if organization is None:
-        raise PolarRequestValidationError(
+        raise RepalisRequestValidationError(
             [
                 {
                     "loc": (

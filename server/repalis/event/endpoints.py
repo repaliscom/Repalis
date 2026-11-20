@@ -8,7 +8,7 @@ from pydantic import UUID4
 
 from repalis.exceptions import (
     NotPermitted,
-    PolarRequestValidationError,
+    RepalisRequestValidationError,
     ResourceNotFound,
 )
 from repalis.kit.metadata import MetadataQuery, get_metadata_query_openapi_schema
@@ -336,7 +336,7 @@ async def list_statistics_timeseries(
     """
     # Validate interval limits
     if not is_under_limits(filters.start_date, filters.end_date, filters.interval):
-        raise PolarRequestValidationError(
+        raise RepalisRequestValidationError(
             [
                 {
                     "loc": ("query",),

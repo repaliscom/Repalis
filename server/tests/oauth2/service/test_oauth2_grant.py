@@ -22,7 +22,7 @@ class TestCreateOrUpdateGrant:
             sync_session,
             sub_type=SubType.user,
             sub_id=user.id,
-            client_id="polar_ci_user",
+            client_id="repalis_ci_user",
             scope="openid",
             organization_ids=[],
         )
@@ -30,7 +30,7 @@ class TestCreateOrUpdateGrant:
             sync_session,
             sub_type=SubType.user,
             sub_id=user.id,
-            client_id="polar_ci_user",
+            client_id="repalis_ci_user",
             scope="openid email",
             organization_ids=[],
         )
@@ -43,7 +43,7 @@ class TestCreateOrUpdateGrant:
             select(func.count())
             .select_from(OAuth2Grant)
             .where(
-                OAuth2Grant.client_id == "polar_ci_user",
+                OAuth2Grant.client_id == "repalis_ci_user",
                 OAuth2Grant.user_id == user.id,
             )
         )

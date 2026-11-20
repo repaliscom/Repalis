@@ -4,7 +4,7 @@ from typing import Annotated
 import structlog
 from sqlalchemy.orm import selectinload
 
-from repalis.exceptions import PolarTaskError
+from repalis.exceptions import RepalisTaskError
 from repalis.logging import Logger
 from repalis.models.product import Product
 from repalis.observability.task_logging import LoggableField
@@ -17,7 +17,7 @@ from .service import seat_service
 log: Logger = structlog.get_logger()
 
 
-class SeatTaskError(PolarTaskError): ...
+class SeatTaskError(RepalisTaskError): ...
 
 
 class ProductDoesNotExist(SeatTaskError):

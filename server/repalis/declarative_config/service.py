@@ -20,7 +20,7 @@ from repalis.catalog.repository import CatalogRepository
 from repalis.catalog.service import CatalogMembers, CatalogRemovals
 from repalis.catalog.service import catalog as catalog_service
 from repalis.custom_field.repository import CustomFieldRepository
-from repalis.exceptions import PolarError, PolarRequestValidationError
+from repalis.exceptions import RepalisError, RepalisRequestValidationError
 from repalis.meter.repository import MeterRepository
 from repalis.meter.schemas import MeterUpdate
 from repalis.meter.service import meter as meter_service
@@ -171,12 +171,12 @@ class _OrganizationTarget:
     organization_id: UUID | None
 
 
-class ConfigAsCodeNotEnabled(PolarError):
+class ConfigAsCodeNotEnabled(RepalisError):
     def __init__(self) -> None:
         super().__init__("Config as code is not enabled for this organization.", 403)
 
 
-class ConfigCatalogPublished(PolarError):
+class ConfigCatalogPublished(RepalisError):
     def __init__(self) -> None:
         super().__init__(
             "This organization published more than one catalog with config as "
@@ -185,7 +185,7 @@ class ConfigCatalogPublished(PolarError):
         )
 
 
-class ConfigUnsupportedResources(PolarError):
+class ConfigUnsupportedResources(RepalisError):
     def __init__(self, benefits: Sequence[str], products: Sequence[str]) -> None:
         unsupported = [
             *(f"benefit {name}" for name in benefits),
@@ -199,28 +199,28 @@ class ConfigUnsupportedResources(PolarError):
         )
 
 
-class ConfigMeterConflict(PolarError):
+class ConfigMeterConflict(RepalisError):
     def __init__(self) -> None:
         super().__init__(
             "A meter in this config was created by a concurrent request. Retry.", 409
         )
 
 
-class ConfigBenefitConflict(PolarError):
+class ConfigBenefitConflict(RepalisError):
     def __init__(self) -> None:
         super().__init__(
             "A benefit in this config was created by a concurrent request. Retry.", 409
         )
 
 
-class ConfigProductConflict(PolarError):
+class ConfigProductConflict(RepalisError):
     def __init__(self) -> None:
         super().__init__(
             "A product in this config was created by a concurrent request. Retry.", 409
         )
 
 
-class ConfigWebhookConflict(PolarError):
+class ConfigWebhookConflict(RepalisError):
     def __init__(self) -> None:
         super().__init__(
             "A webhook endpoint in this config was created by a concurrent request. "
@@ -229,7 +229,7 @@ class ConfigWebhookConflict(PolarError):
         )
 
 
-class ConfigCustomFieldConflict(PolarError):
+class ConfigCustomFieldConflict(RepalisError):
     def __init__(self) -> None:
         super().__init__(
             "A custom field in this config was created by a concurrent request. Retry.",
@@ -237,7 +237,7 @@ class ConfigCustomFieldConflict(PolarError):
         )
 
 
-class ConfigInvalid(PolarError):
+class ConfigInvalid(RepalisError):
     def __init__(self, errors: list[ConfigIssue]) -> None:
         super().__init__("The config can't be applied.", 409)
         self.errors = errors
@@ -267,14 +267,14 @@ _SECTIONS = {
 }
 
 
-_CONFLICTS: dict[str | None, Callable[[], PolarError]] = {
+_CONFLICTS: dict[str | None, Callable[[], RepalisError]] = {
     _METER_EXTERNAL_ID_INDEX: ConfigMeterConflict,
     _BENEFIT_EXTERNAL_ID_INDEX: ConfigBenefitConflict,
     _PRODUCT_EXTERNAL_ID_INDEX: ConfigProductConflict,
 }
 
 
-def _conflict(error: IntegrityError) -> PolarError:
+def _conflict(error: IntegrityError) -> RepalisError:
     conflict = _CONFLICTS.get(_constraint_name(error))
     if conflict is None:
         raise error
@@ -1370,7 +1370,7 @@ class DeclarativeConfigService:
                         notify=False,
                         declarative_config=True,
                     )
-            except PolarRequestValidationError as e:
+            except RepalisRequestValidationError as e:
                 raise products.product_error(e, change.index, external_ids) from e
             if in_place is None and (change.existing is None or copy_on_write):
                 await product_service.notify_created(session, product)

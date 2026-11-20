@@ -25,7 +25,7 @@ from sqlalchemy.orm import Mapped, declared_attr, mapped_column, relationship
 from repalis.config import settings
 from repalis.custom_field.data import CustomFieldDataMixin
 from repalis.enums import TaxBehavior, TaxProcessor
-from repalis.exceptions import PolarError
+from repalis.exceptions import RepalisError
 from repalis.kit.address import Address, AddressType
 from repalis.kit.db.models import OrganizationCreatedAtIndexMixin, RecordModel
 from repalis.kit.extensions.sqlalchemy.types import StringEnum
@@ -91,7 +91,7 @@ class OrderStatus(StrEnum):
         return {cls.paid, cls.partially_refunded}  # pyright: ignore
 
 
-class OrderError(PolarError): ...
+class OrderError(RepalisError): ...
 
 
 class RefundAmountTooHigh(OrderError):

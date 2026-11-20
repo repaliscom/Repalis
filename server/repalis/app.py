@@ -11,7 +11,7 @@ from repalis import worker  # noqa
 from repalis.agent.endpoints import auth_md_router
 from repalis.api import router
 from repalis.auth.exception_handlers import (
-    PolarAuthRedirectionError,
+    RepalisAuthRedirectionError,
     SSORequired,
     auth_redirection_error_exception_handler,
     sso_required_exception_handler,
@@ -87,7 +87,7 @@ log: Logger = structlog.get_logger()
 def configure_cors(app: FastAPI) -> None:
     configs: list[CORSConfig] = []
 
-    # Polar frontend CORS configuration
+    # Repalis frontend CORS configuration
     if settings.CORS_ORIGINS:
 
         def polar_frontend_matcher(origin: str, scope: Scope) -> bool:
@@ -258,7 +258,7 @@ def create_app(
     add_exception_handlers(app)
     app.add_exception_handler(OAuth2Error, oauth2_error_exception_handler)
     app.add_exception_handler(
-        PolarAuthRedirectionError, auth_redirection_error_exception_handler
+        RepalisAuthRedirectionError, auth_redirection_error_exception_handler
     )
     app.add_exception_handler(SSORequired, sso_required_exception_handler)
 

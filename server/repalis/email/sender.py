@@ -9,7 +9,7 @@ from email_validator import validate_email
 
 from repalis.config import settings
 from repalis.enums import EmailSender as EmailSenderType
-from repalis.exceptions import PolarError
+from repalis.exceptions import RepalisError
 from repalis.logging import Logger
 from repalis.worker import enqueue_job
 
@@ -34,7 +34,7 @@ def to_ascii_email(email: str) -> str:
     return validated_email.ascii_email or email
 
 
-class EmailSenderError(PolarError): ...
+class EmailSenderError(RepalisError): ...
 
 
 class EmailSenderOperationalError(EmailSenderError):

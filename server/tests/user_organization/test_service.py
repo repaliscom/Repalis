@@ -205,7 +205,7 @@ class TestRemoveMember:
         assert deleted_user_org is not None
         assert deleted_user_org.deleted_at is not None
 
-    async def test_enqueues_polar_self_member_removal(
+    async def test_enqueues_repalis_self_member_removal(
         self,
         mocker: MockerFixture,
         session: Any,
@@ -215,7 +215,7 @@ class TestRemoveMember:
         user_organization_second: UserOrganization,
     ) -> None:
         enqueue_remove_member_mock = mocker.patch(
-            "repalis.user_organization.service.polar_self_service.enqueue_remove_member"
+            "repalis.user_organization.service.repalis_self_service.enqueue_remove_member"
         )
 
         await user_organization_service.remove_member(
@@ -237,7 +237,7 @@ class TestRemoveMember:
         user: User,
     ) -> None:
         enqueue_remove_member_mock = mocker.patch(
-            "repalis.user_organization.service.polar_self_service.enqueue_remove_member"
+            "repalis.user_organization.service.repalis_self_service.enqueue_remove_member"
         )
 
         await user_organization_service.remove_member(
@@ -748,7 +748,7 @@ class TestSetRole:
         user_second: User,
     ) -> None:
         enqueue_update_member_mock = mocker.patch(
-            "repalis.user_organization.service.polar_self_service.enqueue_update_member"
+            "repalis.user_organization.service.repalis_self_service.enqueue_update_member"
         )
         relation = UserOrganization(
             user_id=user_second.id, organization_id=organization.id
@@ -779,7 +779,7 @@ class TestSetRole:
         user_organization: UserOrganization,
     ) -> None:
         enqueue_update_member_mock = mocker.patch(
-            "repalis.user_organization.service.polar_self_service.enqueue_update_member"
+            "repalis.user_organization.service.repalis_self_service.enqueue_update_member"
         )
         relation = UserOrganization(
             user_id=user_second.id,
@@ -811,7 +811,7 @@ class TestSetRole:
         user_second: User,
     ) -> None:
         enqueue_update_member_mock = mocker.patch(
-            "repalis.user_organization.service.polar_self_service.enqueue_update_member"
+            "repalis.user_organization.service.repalis_self_service.enqueue_update_member"
         )
         relation = UserOrganization(
             user_id=user_second.id,
@@ -943,7 +943,7 @@ class TestTransferOwnership:
         user_second: User,
     ) -> None:
         enqueue_update_member_mock = mocker.patch(
-            "repalis.user_organization.service.polar_self_service.enqueue_update_member"
+            "repalis.user_organization.service.repalis_self_service.enqueue_update_member"
         )
         await save_fixture(
             UserOrganization(

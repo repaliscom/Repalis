@@ -41,7 +41,7 @@ class TestJWTBearerGrant:
 
         assert response.status_code == 200
         json = response.json()
-        assert json["access_token"].startswith("polar_at_a_")
+        assert json["access_token"].startswith("repalis_at_a_")
         assert "refresh_token" not in json
         assert json["expires_in"] == 3600
         assert set(json["scope"].split()) == UNCLAIMED_AGENT_SCOPES
@@ -198,7 +198,7 @@ class TestJWTBearerGrant:
 
         assert response.status_code == 200
         json = response.json()
-        assert json["access_token"].startswith("polar_at_u_")
+        assert json["access_token"].startswith("repalis_at_u_")
         assert "refresh_token" not in json
         assert set(json["scope"].split()) == CLAIMED_AGENT_SCOPES
 

@@ -4,16 +4,16 @@ from pydantic import BaseModel, Field, create_model
 from typing_extensions import TypeForm
 
 from repalis.config import settings
-from repalis.exceptions import PolarError
+from repalis.exceptions import RepalisError
 
 
-class PolarAuthError(PolarError):
+class RepalisAuthError(RepalisError):
     """
     Base exception class for authentication errors.
     """
 
 
-class UnavailableFactorError(PolarAuthError):
+class UnavailableFactorError(RepalisAuthError):
     """
     Exception raised when a requested authentication factor is unavailable for the
     given authentication session.
@@ -25,7 +25,7 @@ class UnavailableFactorError(PolarAuthError):
         super().__init__(message, 403)
 
 
-class SessionNotFreshError(PolarAuthError):
+class SessionNotFreshError(RepalisAuthError):
     """
     Exception raised when an operation requires a recently authenticated session.
     """
@@ -38,7 +38,7 @@ class SessionNotFreshError(PolarAuthError):
         super().__init__(message, 403)
 
 
-class InvalidRequestedOrganization(PolarAuthError):
+class InvalidRequestedOrganization(RepalisAuthError):
     """
     Exception raised when the ``Polar-Organization`` header is malformed.
     """
@@ -47,7 +47,7 @@ class InvalidRequestedOrganization(PolarAuthError):
         super().__init__(message, 400)
 
 
-class RequestedOrganizationNotAccessible(PolarAuthError):
+class RequestedOrganizationNotAccessible(RepalisAuthError):
     """
     Exception raised when the ``Polar-Organization`` header names an organization
     the credential can't access.
@@ -61,7 +61,7 @@ class RequestedOrganizationNotAccessible(PolarAuthError):
         super().__init__(message, 403)
 
 
-class SSORequired(PolarAuthError):
+class SSORequired(RepalisAuthError):
     """
     Exception raised when the email belongs to a domain whose organization
     enforces SSO.
@@ -87,7 +87,7 @@ class SSORequired(PolarAuthError):
         return cls._schema
 
 
-class GetEmailError(PolarAuthError):
+class GetEmailError(RepalisAuthError):
     """
     Exception raised when there's an error getting the email from an OAuth2 provider.
     """
@@ -109,7 +109,7 @@ class UnverifiedEmailError(GetEmailError):
         super().__init__(message)
 
 
-class PolarAuthRedirectionError(PolarError):
+class RepalisAuthRedirectionError(RepalisError):
     """
     Exception class for authentication errors
     that should be displayed nicely to the user through our UI.

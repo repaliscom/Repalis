@@ -4,7 +4,7 @@ from typing import Any
 import httpx2
 import structlog
 
-from repalis.exceptions import PolarError
+from repalis.exceptions import RepalisError
 
 from .payload import SlackPayload
 
@@ -13,7 +13,7 @@ log = structlog.get_logger()
 BASE_URL = "https://slack.com/api"
 
 
-class SlackClientError(PolarError):
+class SlackClientError(RepalisError):
     pass
 
 

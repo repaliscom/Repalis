@@ -17,8 +17,8 @@ from repalis.customer.repository import CustomerRepository
 from repalis.customer_seat.repository import CustomerSeatRepository
 from repalis.exceptions import (
     NotPermitted,
-    PolarError,
-    PolarRequestValidationError,
+    RepalisError,
+    RepalisRequestValidationError,
     ResourceNotFound,
 )
 from repalis.kit.pagination import PaginationParams
@@ -39,12 +39,12 @@ from .sorting import MemberSortProperty
 log = structlog.get_logger()
 
 
-class AmbiguousExternalCustomerID(PolarError):
+class AmbiguousExternalCustomerID(RepalisError):
     def __init__(self, external_customer_id: str) -> None:
         self.external_customer_id = external_customer_id
         super().__init__(
             "Several customers across your organizations share this external "
-            "customer ID. Use an organization-scoped token, the Polar customer "
+            "customer ID. Use an organization-scoped token, the Repalis customer "
             "ID, or a unique external ID to disambiguate.",
             409,
         )
@@ -261,7 +261,7 @@ class MemberService:
             Deleted Member
 
         Raises:
-            PolarRequestValidationError: If trying to delete the only owner
+            RepalisRequestValidationError: If trying to delete the only owner
         """
         repository = MemberRepository.from_session(session)
 
@@ -270,7 +270,7 @@ class MemberService:
             members = await repository.list_by_customer(member.customer_id)
             owner_count = sum(1 for m in members if m.role == MemberRole.owner)
             if owner_count <= 1:
-                raise PolarRequestValidationError(
+                raise RepalisRequestValidationError(
                     [
                         {
                             "type": "value_error",
@@ -415,7 +415,7 @@ class MemberService:
 
         raw_email = owner_email or customer.email
         if raw_email is None:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",
@@ -734,7 +734,7 @@ class MemberService:
                 customer_id, external_id
             )
         ):
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",
@@ -812,7 +812,7 @@ class MemberService:
         customer_repository = CustomerRepository.from_session(session)
         customer = await customer_repository.get_by_id(member.customer_id)
         if customer is not None and customer.type == CustomerType.individual:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",
@@ -831,7 +831,7 @@ class MemberService:
             member.customer_id, new_email
         )
         if existing is not None and existing.id != member.id:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",
@@ -892,7 +892,7 @@ class MemberService:
                     caller_member is not None and caller_member.role == MemberRole.owner
                 )
                 if not caller_is_owner and not allow_ownership_transfer:
-                    raise PolarRequestValidationError(
+                    raise RepalisRequestValidationError(
                         [
                             {
                                 "type": "value_error",
@@ -922,7 +922,7 @@ class MemberService:
 
             # Prevent removing the last owner
             if is_losing_owner_role and owner_count <= 1:
-                raise PolarRequestValidationError(
+                raise RepalisRequestValidationError(
                     [
                         {
                             "type": "value_error",

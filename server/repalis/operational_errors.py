@@ -84,11 +84,11 @@ def _tinybird_operational_error_matcher(exc: BaseException) -> bool:
     return isinstance(exc, TinybirdOperationalError)
 
 
-def _polar_self_client_operational_error_matcher(exc: BaseException) -> bool:
+def _repalis_self_client_operational_error_matcher(exc: BaseException) -> bool:
     # Import deferred to avoid circular dependency with polar.worker
-    from repalis.integrations.repalis.client import PolarSelfClientOperationalError
+    from repalis.integrations.repalis.client import RepalisSelfClientOperationalError
 
-    return isinstance(exc, PolarSelfClientOperationalError)
+    return isinstance(exc, RepalisSelfClientOperationalError)
 
 
 def _email_sender_operational_error_matcher(exc: BaseException) -> bool:
@@ -105,7 +105,7 @@ _operation_error_matchers: dict[str, OperationalErrorMatcher] = {
     "timeout_lock_error": _timeout_lock_error_matcher,
     "external_event_already_handled": _external_event_already_handled_error_matcher,
     "tinybird_operational_error": _tinybird_operational_error_matcher,
-    "polar_self_client_operational_error": _polar_self_client_operational_error_matcher,
+    "repalis_self_client_operational_error": _repalis_self_client_operational_error_matcher,
     "email_sender_operational_error": _email_sender_operational_error_matcher,
 }
 

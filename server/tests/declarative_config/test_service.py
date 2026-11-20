@@ -63,7 +63,7 @@ from repalis.enums import (
     SubscriptionRecurringInterval,
     TaxBehaviorOption,
 )
-from repalis.exceptions import NotPermitted, PolarRequestValidationError
+from repalis.exceptions import NotPermitted, RepalisRequestValidationError
 from repalis.kit.trial import TrialInterval
 from repalis.kit.utils import utc_now
 from repalis.kit.visibility import Visibility
@@ -455,7 +455,7 @@ class TestInit:
             save_fixture, organization=organization, recurring_interval=None
         )
 
-        with pytest.raises(PolarRequestValidationError) as error:
+        with pytest.raises(RepalisRequestValidationError) as error:
             await declarative_config_service.init(
                 session,
                 auth_subject,
@@ -497,7 +497,7 @@ class TestInit:
     ) -> None:
         meter = await create_meter(save_fixture, organization=organization)
 
-        with pytest.raises(PolarRequestValidationError) as error:
+        with pytest.raises(RepalisRequestValidationError) as error:
             await declarative_config_service.init(
                 session,
                 auth_subject,

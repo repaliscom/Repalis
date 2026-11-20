@@ -311,7 +311,7 @@ from repalis.observability.task_logging import LoggableField
 from repalis.worker import AsyncSessionMaker, TaskPriority, actor, enqueue_job
 
 
-class ResourceTaskError(PolarTaskError): ...
+class ResourceTaskError(RepalisTaskError): ...
 
 
 @actor(actor_name="resource.created", priority=TaskPriority.LOW)
@@ -425,10 +425,10 @@ select(X).options(joinedload(X.rel))  # or selectinload / contains_eager
 
 Exception: a relationship may always eager-load (`lazy="selectin"`/`"joined"`) when there's a legitimate reason to — typically many-to-many association tables.
 
-### Errors → status-coded `PolarError`, not validation errors
-Logical/conflict errors are `PolarError` subclasses carrying their own `status_code` (409 conflict, 404 not found; 422 is for request-payload validation only); the global exception handler renders them. Don't catch and re-raise as `PolarRequestValidationError` — that's only for request-*payload* validation (→ 422). Declare them on the endpoint's `responses=` so the OpenAPI client gets the schema:
+### Errors → status-coded `RepalisError`, not validation errors
+Logical/conflict errors are `RepalisError` subclasses carrying their own `status_code` (409 conflict, 404 not found; 422 is for request-payload validation only); the global exception handler renders them. Don't catch and re-raise as `RepalisRequestValidationError` — that's only for request-*payload* validation (→ 422). Declare them on the endpoint's `responses=` so the OpenAPI client gets the schema:
 ```python
-class CaseClosedError(PolarError):
+class CaseClosedError(RepalisError):
     def __init__(self) -> None:
         super().__init__("This case is closed.", 409)
 

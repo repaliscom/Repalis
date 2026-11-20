@@ -5,7 +5,7 @@ from typing import Annotated
 from fastapi import Query
 from pydantic import BaseModel, Field
 
-from repalis.exceptions import PolarRequestValidationError
+from repalis.exceptions import RepalisRequestValidationError
 
 type Sorting[PE] = tuple[PE, bool]
 
@@ -46,7 +46,7 @@ def SortingGetter[PE: StrEnum](
             try:
                 parsed_sorting.append((sort_property_enum(criteria), desc))
             except ValueError:
-                raise PolarRequestValidationError(
+                raise RepalisRequestValidationError(
                     [
                         {
                             "loc": ("query", "sorting"),

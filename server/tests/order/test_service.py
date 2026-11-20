@@ -31,7 +31,7 @@ from repalis.enums import (
     TaxProcessor,
 )
 from repalis.event.system import SystemEvent
-from repalis.exceptions import PolarRequestValidationError
+from repalis.exceptions import RepalisRequestValidationError
 from repalis.integrations.stripe.service import StripeService
 from repalis.invoice.service import invoice as invoice_service
 from repalis.kit.address import (
@@ -46,7 +46,7 @@ from repalis.kit.currency import (
     get_minimum_currency_amount,
 )
 from repalis.kit.db.postgres import AsyncSession
-from repalis.kit.math import polar_round
+from repalis.kit.math import repalis_round
 from repalis.kit.pagination import PaginationParams
 from repalis.kit.utils import utc_now
 from repalis.kit.visibility import Visibility
@@ -227,7 +227,7 @@ def calculate_tax_mock(tax_service_mock: MagicMock) -> AsyncMock:
         tax_ids: list[TaxID],
         tax_exempted: bool,
     ) -> tuple[TaxCalculation, TaxProcessor]:
-        tax_amount = polar_round(amount * 0.20)
+        tax_amount = repalis_round(amount * 0.20)
         return (
             {
                 "processor_id": "TAX_PROCESSOR_ID",
@@ -534,7 +534,7 @@ class TestUpdate:
             billing_address=Address.model_validate(set_address),
         )
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await order_service.update(
                 session,
                 order,
@@ -4138,7 +4138,7 @@ class TestHandlePayment:
     ) -> None:
         # Create a customer with a billing address so that _calculate_tax
         # will actually invoke tax_calculation_service.calculate and produce a non-zero amount.
-        # The mocked calculate returns polar_round(amount * 0.20), so for net_amount=1000 → 200.
+        # The mocked calculate returns repalis_round(amount * 0.20), so for net_amount=1000 → 200.
         customer_with_address = await create_customer(
             save_fixture,
             organization=organization,
@@ -7420,7 +7420,7 @@ class TestCreateDraftOrder:
             customer_id=customer.id,
             product_id=uuid.uuid4(),
         )
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await order_service.create_draft_order(
                 session, off_session_organization, payload
             )
@@ -7437,7 +7437,7 @@ class TestCreateDraftOrder:
             customer_id=customer.id,
             product_id=product.id,
         )
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await order_service.create_draft_order(
                 session, off_session_organization, payload
             )
@@ -7459,7 +7459,7 @@ class TestCreateDraftOrder:
             customer_id=customer.id,
             product_id=product.id,
         )
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await order_service.create_draft_order(
                 session, off_session_organization, payload
             )
@@ -7474,7 +7474,7 @@ class TestCreateDraftOrder:
             customer_id=uuid.uuid4(),
             product_id=product_one_time.id,
         )
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await order_service.create_draft_order(
                 session, off_session_organization, payload
             )
@@ -7588,7 +7588,7 @@ class TestCreateDraftOrder:
             product_id=product_one_time.id,
             currency="gbp",
         )
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await order_service.create_draft_order(
                 session, off_session_organization, payload
             )
@@ -7606,7 +7606,7 @@ class TestCreateDraftOrder:
             customer_id=customer.id,
             product_id=product_one_time_custom_price.id,
         )
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await order_service.create_draft_order(
                 session, off_session_organization, payload
             )
@@ -7708,7 +7708,7 @@ class TestCreateDraftOrder:
             product_id=product_one_time.id,
             amount=10,
         )
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await order_service.create_draft_order(
                 session, off_session_organization, payload
             )
@@ -7727,7 +7727,7 @@ class TestCreateDraftOrder:
             product_id=product_one_time.id,
             amount=get_maximum_currency_amount("usd") + 1,
         )
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await order_service.create_draft_order(
                 session, off_session_organization, payload
             )
@@ -7786,7 +7786,7 @@ class TestCreateDraftOrder:
             product_id=product.id,
             custom_field_data={"level": "not-a-number"},
         )
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await order_service.create_draft_order(
                 session, off_session_organization, payload
             )
@@ -7814,7 +7814,7 @@ class TestCreateDraftOrder:
             customer_id=customer.id,
             product_id=product_one_time.id,
         )
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await order_service.create_draft_order(
                 session, off_session_organization, payload
             )
@@ -7836,7 +7836,7 @@ class TestCreateDraftOrder:
             product_id=product.id,
             amount=5000,
         )
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await order_service.create_draft_order(
                 session, off_session_organization, payload
             )
@@ -7853,7 +7853,7 @@ class TestCreateDraftOrder:
             product_id=product_one_time.id,
             units=3,
         )
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await order_service.create_draft_order(
                 session, off_session_organization, payload
             )
@@ -7902,7 +7902,7 @@ class TestCreateDraftOrder:
             product_id=product.id,
             units=4,
         )
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await order_service.create_draft_order(
                 session, off_session_organization, payload
             )
@@ -7930,7 +7930,7 @@ class TestCreateDraftOrder:
             product_id=product.id,
             units=101,
         )
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await order_service.create_draft_order(
                 session, off_session_organization, payload
             )
@@ -7953,7 +7953,7 @@ class TestCreateDraftOrder:
             product_id=product.id,
             units=1,
         )
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await order_service.create_draft_order(
                 session, off_session_organization, payload
             )

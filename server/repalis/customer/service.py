@@ -20,7 +20,7 @@ from repalis.benefit.grant.repository import BenefitGrantRepository
 from repalis.config import settings
 from repalis.customer_meter.repository import CustomerMeterRepository
 from repalis.customer_session.service import customer_session as customer_session_service
-from repalis.exceptions import PolarRequestValidationError, ValidationError
+from repalis.exceptions import RepalisRequestValidationError, ValidationError
 from repalis.kit.address import Address
 from repalis.kit.anonymization import (
     ANONYMIZED_EMAIL_DOMAIN,
@@ -154,7 +154,7 @@ class CustomerService:
         )
 
         if not is_under_limits(start.date(), end.date(), interval):
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",
@@ -275,12 +275,12 @@ class CustomerService:
             )
 
         if errors:
-            raise PolarRequestValidationError(errors)
+            raise RepalisRequestValidationError(errors)
 
         validated_tax_id = None
         if customer_create.tax_id is not None:
             if customer_create.billing_address is None:
-                raise PolarRequestValidationError(
+                raise RepalisRequestValidationError(
                     [
                         {
                             "type": "missing",
@@ -296,7 +296,7 @@ class CustomerService:
                     customer_create.billing_address.country,
                 )
             except InvalidTaxID as e:
-                raise PolarRequestValidationError(
+                raise RepalisRequestValidationError(
                     [
                         {
                             "type": "invalid",
@@ -348,7 +348,7 @@ class CustomerService:
         repository = CustomerRepository.from_session(session)
 
         if await repository.get_by_email_and_organization(email, organization.id):
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",
@@ -412,7 +412,7 @@ class CustomerService:
         except IntegrityError as e:
             error_str = str(e)
             if "ix_customers_organization_id_email_not_null" in error_str:
-                raise PolarRequestValidationError(
+                raise RepalisRequestValidationError(
                     [
                         {
                             "type": "value_error",
@@ -423,7 +423,7 @@ class CustomerService:
                     ]
                 ) from e
             if "customers_organization_id_external_id_key" in error_str:
-                raise PolarRequestValidationError(
+                raise RepalisRequestValidationError(
                     [
                         {
                             "type": "value_error",
@@ -540,7 +540,7 @@ class CustomerService:
             )
 
         if errors:
-            raise PolarRequestValidationError(errors)
+            raise RepalisRequestValidationError(errors)
 
         if "tax_id" in customer_update.model_fields_set:
             if customer_update.tax_id is None:
@@ -553,7 +553,7 @@ class CustomerService:
                     customer, customer_update
                 )
                 if billing_address is None:
-                    raise PolarRequestValidationError(
+                    raise RepalisRequestValidationError(
                         [
                             {
                                 "type": "missing",
@@ -568,7 +568,7 @@ class CustomerService:
                         customer_update.tax_id, billing_address.country
                     )
                 except InvalidTaxID as e:
-                    raise PolarRequestValidationError(
+                    raise RepalisRequestValidationError(
                         [
                             {
                                 "type": "invalid",
@@ -588,7 +588,7 @@ class CustomerService:
                 customer, customer_update
             )
             if billing_address is None:
-                raise PolarRequestValidationError(
+                raise RepalisRequestValidationError(
                     [
                         {
                             "type": "missing",
@@ -603,7 +603,7 @@ class CustomerService:
                     customer.tax_id[0], billing_address.country
                 )
             except InvalidTaxID as e:
-                raise PolarRequestValidationError(
+                raise RepalisRequestValidationError(
                     [
                         {
                             "type": "invalid",
@@ -624,7 +624,7 @@ class CustomerService:
         except IntegrityError as e:
             error_str = str(e)
             if "customers_organization_id_external_id_key" in error_str:
-                raise PolarRequestValidationError(
+                raise RepalisRequestValidationError(
                     [
                         {
                             "type": "value_error",

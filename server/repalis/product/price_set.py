@@ -1,7 +1,7 @@
 from collections.abc import Sequence
 from typing import Self
 
-from repalis.exceptions import PolarError
+from repalis.exceptions import RepalisError
 from repalis.models import Product, ProductPrice
 
 from .guard import (
@@ -16,7 +16,7 @@ from .guard import (
 )
 
 
-class PriceSetError(PolarError): ...
+class PriceSetError(RepalisError): ...
 
 
 class NoPricesForCurrencies(PriceSetError):

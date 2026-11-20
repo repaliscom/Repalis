@@ -8,7 +8,7 @@ from repalis.email.schemas import (
     OrganizationOffboardedProps,
 )
 from repalis.email.sender import enqueue_email_template
-from repalis.exceptions import PolarTaskError
+from repalis.exceptions import RepalisTaskError
 from repalis.integrations.plain.service import plain as plain_service
 from repalis.models.organization import OrganizationStatus
 from repalis.observability.task_logging import LoggableField
@@ -30,7 +30,7 @@ from .service import organization as organization_service
 log = structlog.get_logger()
 
 
-class OrganizationTaskError(PolarTaskError): ...
+class OrganizationTaskError(RepalisTaskError): ...
 
 
 class OrganizationDoesNotExist(OrganizationTaskError):
@@ -149,7 +149,7 @@ async def organization_offboarded(
                     )
                 ),
                 to_email_addr=email,
-                subject=f"{organization.name} has been offboarded from Polar",
+                subject=f"{organization.name} has been offboarded from Repalis",
             )
 
 

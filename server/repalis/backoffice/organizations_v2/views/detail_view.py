@@ -56,7 +56,7 @@ class OrganizationDetailView:
         self.has_open_case = has_open_case
         self.has_risk_signals = has_risk_signals
         self.has_flagged_names = has_flagged_names
-        # Startup Program status string is derived via the Polar API and
+        # Startup Program status string is derived via the Repalis API and
         # populated by the endpoint; ``None`` means "feature disabled" OR
         # "not invited". The card collapses both into the same rendering.
         self.startup_program_status = startup_program_status
@@ -152,9 +152,9 @@ class OrganizationDetailView:
     def _render_startup_program_card(self, request: Request) -> None:
         """Show Startup Program state and an Invite action.
 
-        Status comes from the Polar API (customer + discount), pre-computed
+        Status comes from the Repalis API (customer + discount), pre-computed
         by the endpoint and passed in as ``startup_program_status``. The
-        "no Polar customer" case shows up as ``None`` (same as "not invited")
+        "no Repalis customer" case shows up as ``None`` (same as "not invited")
         — clicking Invite surfaces the specific error via toast.
         """
         if not settings.STARTUP_PROGRAM_ENABLED:

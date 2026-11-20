@@ -22,8 +22,8 @@ from reauth.factors.totp import (
 
 from repalis.auth.dependencies import WebUserOrAnonymous
 from repalis.auth.exceptions import (
-    PolarAuthError,
-    PolarAuthRedirectionError,
+    RepalisAuthError,
+    RepalisAuthRedirectionError,
     SessionNotFreshError,
     SSORequired,
     UnavailableFactorError,
@@ -160,14 +160,14 @@ async def complete(
             authentication_session
         )
     except (IdentityNotAttachedException, FactorsRemainingException) as e:
-        raise PolarAuthRedirectionError(
+        raise RepalisAuthRedirectionError(
             "Authentication session cannot be completed"
         ) from e
 
     user_repository = UserRepository.from_session(session)
     user = await user_repository.get_by_id(identity_id)
     if user is None:
-        raise PolarAuthRedirectionError("User not found for authenticated identity")
+        raise RepalisAuthRedirectionError("User not found for authenticated identity")
 
     context = authentication_session.context or {}
 
@@ -183,7 +183,7 @@ async def complete(
             user.id, organization_id
         )
         if membership is None:
-            raise PolarAuthRedirectionError("You are not a member of this organization")
+            raise RepalisAuthRedirectionError("You are not a member of this organization")
         organization_ids = frozenset({organization_id})
         factor = "sso"
     else:
@@ -248,7 +248,7 @@ async def email_otp_request(
     responses={
         403: {
             "description": "Invalid or expired OTP, or the account cannot sign in",
-            "model": PolarAuthError.schema() | UserCannotAuthenticate.schema(),
+            "model": RepalisAuthError.schema() | UserCannotAuthenticate.schema(),
         }
     },
 )
@@ -272,7 +272,7 @@ async def email_otp_verify(
             email_otp_verify.code, authentication_session.id
         )
     except (InvalidOTPException, ExpiredOTPException) as e:
-        raise PolarAuthError("Invalid or expired OTP", 403) from e
+        raise RepalisAuthError("Invalid or expired OTP", 403) from e
 
     # New user
     if identity_id is None:
@@ -313,7 +313,7 @@ async def totp_enroll(
     try:
         enrollment = await totp_factor.enroll(user.id)
     except AlreadyEnrolledTOTPException as e:
-        raise PolarAuthError("TOTP factor already enrolled", 409) from e
+        raise RepalisAuthError("TOTP factor already enrolled", 409) from e
 
     return TOTPEnrollment(
         secret=enrollment.secret,
@@ -332,7 +332,7 @@ async def totp_enroll(
             "description": (
                 "Session is not fresh, TOTP factor not enrolled, or invalid TOTP code."
             ),
-            "model": SessionNotFreshError.schema() | PolarAuthError.schema(),
+            "model": SessionNotFreshError.schema() | RepalisAuthError.schema(),
         }
     },
 )
@@ -345,11 +345,11 @@ async def totp_enable(
     try:
         await totp_factor.enable(user.id, enable.code)
     except NotEnrolledTOTPException as e:
-        raise PolarAuthError("TOTP factor not enrolled", 403) from e
+        raise RepalisAuthError("TOTP factor not enrolled", 403) from e
     except AlreadyEnabledTOTPException as e:
-        raise PolarAuthError("TOTP factor already enabled", 409) from e
+        raise RepalisAuthError("TOTP factor already enabled", 409) from e
     except InvalidTOTPCodeException as e:
-        raise PolarAuthError("Invalid TOTP code", 403) from e
+        raise RepalisAuthError("Invalid TOTP code", 403) from e
 
 
 @router.delete(
@@ -392,9 +392,9 @@ async def totp_verify(
     try:
         await totp_factor.verify(authentication_session.identity_id, enable.code)
     except NotEnrolledTOTPException as e:
-        raise PolarAuthError("TOTP factor not enrolled", 403) from e
+        raise RepalisAuthError("TOTP factor not enrolled", 403) from e
     except InvalidTOTPCodeException as e:
-        raise PolarAuthError("Invalid TOTP code", 403) from e
+        raise RepalisAuthError("Invalid TOTP code", 403) from e
 
     authentication_session = await authentication_session_service.advance(
         authentication_session, authentication_session.identity_id, totp_factor
@@ -453,7 +453,7 @@ async def backup_codes_verify(
             authentication_session.identity_id, verify.code
         )
     except (InvalidBackupCodeException, AlreadyUsedBackupCodeException) as e:
-        raise PolarAuthError("Invalid or expired backup code", 400) from e
+        raise RepalisAuthError("Invalid or expired backup code", 400) from e
 
     authentication_session = await authentication_session_service.advance(
         authentication_session, authentication_session.identity_id, backup_codes_factor

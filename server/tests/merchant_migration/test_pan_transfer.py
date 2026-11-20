@@ -1,6 +1,6 @@
 import pytest
 
-from repalis.exceptions import PolarRequestValidationError
+from repalis.exceptions import RepalisRequestValidationError
 from repalis.kit.utils import utc_now
 from repalis.merchant_migration import pan_transfer
 from repalis.merchant_migration.pan_transfer import (
@@ -42,7 +42,7 @@ def _advance_to(
             return steps
         actor = (
             PanStepActor.system
-            if step.owner == PanStepOwner.polar_app
+            if step.owner == PanStepOwner.repalis_app
             else PanStepActor.ops
         )
         template = pan_transfer._template(method, step.key)
@@ -109,7 +109,7 @@ class TestBuild:
         current = pan_transfer.current(steps)
         assert current is not None
         assert current.key == "open_stripe_request"
-        assert current.owner == PanStepOwner.polar_ops
+        assert current.owner == PanStepOwner.repalis_ops
 
     @pytest.mark.parametrize("method", list(PanTransferMethod))
     def test_keys_are_unique(self, method: PanTransferMethod) -> None:
@@ -124,7 +124,7 @@ class TestBuild:
     ) -> None:
         templates = pan_transfer.templates_for(method)
         assert templates[-1].key == "move_subscriptions"
-        assert templates[-1].owner == PanStepOwner.polar_app
+        assert templates[-1].owner == PanStepOwner.repalis_app
         # Cutover is the last thing the merchant does before we take over billing.
         assert templates[-2].key == "cutover"
         assert templates[-2].owner == PanStepOwner.merchant
@@ -325,7 +325,7 @@ class TestComplete:
     def test_requires_declared_inputs(self) -> None:
         steps = pan_transfer.build(PanTransferMethod.pan_import)
 
-        with pytest.raises(PolarRequestValidationError) as exc:
+        with pytest.raises(RepalisRequestValidationError) as exc:
             pan_transfer.complete(
                 PanTransferMethod.pan_import,
                 steps,
@@ -338,7 +338,7 @@ class TestComplete:
         assert errors[0]["loc"] == ("body", "inputs", "stripe_migration_request_id")
 
     def test_copy_requires_stripe_migration_id(self) -> None:
-        with pytest.raises(PolarRequestValidationError) as exc:
+        with pytest.raises(RepalisRequestValidationError) as exc:
             pan_transfer.complete(
                 PanTransferMethod.pan_copy,
                 _copy_steps(),
@@ -373,7 +373,7 @@ class TestComplete:
         actor: PanStepActor,
     ) -> None:
         steps = pan_transfer.build(method)
-        with pytest.raises(PolarRequestValidationError) as exc:
+        with pytest.raises(RepalisRequestValidationError) as exc:
             pan_transfer.complete(
                 method,
                 steps,
@@ -387,7 +387,7 @@ class TestComplete:
         assert errors[0]["loc"] == ("body", "inputs", "stripe_migration_request_id")
 
     def test_rejects_undeclared_inputs(self) -> None:
-        with pytest.raises(PolarRequestValidationError) as exc:
+        with pytest.raises(RepalisRequestValidationError) as exc:
             pan_transfer.complete(
                 PanTransferMethod.pan_copy,
                 _copy_steps(),

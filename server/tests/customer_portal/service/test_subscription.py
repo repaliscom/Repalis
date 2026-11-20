@@ -26,7 +26,7 @@ from repalis.customer_portal.service.subscription import (
     customer_subscription as customer_subscription_service,
 )
 from repalis.enums import SubscriptionProrationBehavior
-from repalis.exceptions import PolarRequestValidationError
+from repalis.exceptions import RepalisRequestValidationError
 from repalis.kit.pagination import PaginationParams
 from repalis.models import (
     Customer,
@@ -239,7 +239,7 @@ class TestUpdate:
     async def test_not_existing_product(
         self, session: AsyncSession, subscription: Subscription
     ) -> None:
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await customer_subscription_service.update(
                 session,
                 subscription,
@@ -256,7 +256,7 @@ class TestUpdate:
         product = await create_product(
             save_fixture, organization=organization, recurring_interval=None
         )
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await customer_subscription_service.update(
                 session,
                 subscription,
@@ -269,7 +269,7 @@ class TestUpdate:
         subscription: Subscription,
         product_organization_second: Product,
     ) -> None:
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await customer_subscription_service.update(
                 session,
                 subscription,
@@ -561,7 +561,7 @@ class TestClearPendingUpdate:
 
         updates = CustomerSubscriptionUpdateClear(pending_update=None)
 
-        with pytest.raises(PolarRequestValidationError) as exc_info:
+        with pytest.raises(RepalisRequestValidationError) as exc_info:
             await customer_subscription_service.update(
                 session, subscription, updates=updates
             )

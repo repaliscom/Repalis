@@ -72,7 +72,7 @@ class TestProtectedResourceMetadata:
 
 UNAUTHORIZED_HEADERS = [
     pytest.param({}, id="no token"),
-    pytest.param({"Authorization": "Bearer polar_at_u_invalid"}, id="bad token"),
+    pytest.param({"Authorization": "Bearer repalis_at_u_invalid"}, id="bad token"),
 ]
 
 

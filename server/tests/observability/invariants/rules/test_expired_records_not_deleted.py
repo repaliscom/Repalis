@@ -203,13 +203,13 @@ async def create_deletable_records(
     )
     await save_fixture(
         OAuth2Client(
-            client_id="polar_ci_stale_client",
+            client_id="repalis_ci_stale_client",
             created_at=deletable_at - timedelta(days=7),
         )
     )
     await save_fixture(
         OAuth2Token(
-            client_id="polar_ci_client",
+            client_id="repalis_ci_client",
             token_type="bearer",
             access_token="access_token",
             refresh_token=None,
@@ -374,7 +374,7 @@ class TestCheck:
         deletable_at = utc_now() - OVERDUE
         await save_fixture(
             OAuth2Token(
-                client_id="polar_ci_client",
+                client_id="repalis_ci_client",
                 token_type="bearer",
                 access_token="access_token",
                 refresh_token="refresh_token",

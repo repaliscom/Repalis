@@ -55,7 +55,7 @@ from sqlalchemy.orm import contains_eager, joinedload
 
 from repalis.config import settings
 from repalis.customer.repository import CustomerRepository
-from repalis.exceptions import PolarError
+from repalis.exceptions import RepalisError
 from repalis.kit.currency import format_currency
 from repalis.kit.db.postgres import AsyncReadSessionMaker
 from repalis.models import (
@@ -186,7 +186,7 @@ async def _generate_thread_subject(content: str, fallback: str) -> str:
         return fallback
 
 
-class PlainServiceError(PolarError): ...
+class PlainServiceError(RepalisError): ...
 
 
 class AccountReviewThreadCreationError(PlainServiceError):
@@ -1194,7 +1194,7 @@ class PlainService:
                 "Looping In with guidelines",
                 (
                     "I'm looping in the {organization_name} team to the conversation so that they can help you. "
-                    "Please allow them up to 48 hours to get back to you ([guidelines for merchants on Polar](https://repalis.com/docs/merchant-of-record/account-reviews#operational-guidelines))."
+                    "Please allow them up to 48 hours to get back to you ([guidelines for merchants on Repalis](https://repalis.com/docs/merchant-of-record/account-reviews#operational-guidelines))."
                 ),
             ),
             (

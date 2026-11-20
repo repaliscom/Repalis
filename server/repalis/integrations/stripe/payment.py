@@ -6,7 +6,7 @@ import structlog
 from repalis.checkout.repository import CheckoutRepository
 from repalis.checkout.service import NotConfirmedCheckout
 from repalis.checkout.service import checkout as checkout_service
-from repalis.exceptions import PolarError
+from repalis.exceptions import RepalisError
 from repalis.integrations.stripe.service import (
     STRIPE_METADATA_PAYMENT_TRIGGER,
 )
@@ -38,14 +38,14 @@ from repalis.worker import enqueue_job
 log: Logger = structlog.get_logger()
 
 
-class OrderDoesNotExist(PolarError):
+class OrderDoesNotExist(RepalisError):
     def __init__(self, order_id: str) -> None:
         self.order_id = order_id
         message = f"Order with id {order_id} does not exist."
         super().__init__(message)
 
 
-class UnresolvedPaymentError(PolarError):
+class UnresolvedPaymentError(RepalisError):
     def __init__(self, processor_id: str) -> None:
         self.processor_id = processor_id
         message = (

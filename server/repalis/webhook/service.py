@@ -31,7 +31,7 @@ from repalis.declarative_config.guard import (
 )
 from repalis.email.schemas import EmailAdapter
 from repalis.email.sender import enqueue_email_template
-from repalis.exceptions import PolarError, PolarRequestValidationError, ResourceNotFound
+from repalis.exceptions import RepalisError, RepalisRequestValidationError, ResourceNotFound
 from repalis.kit.crypto import generate_token
 from repalis.kit.db.postgres import AsyncSession
 from repalis.kit.pagination import PaginationParams
@@ -95,7 +95,7 @@ def generate_webhook_secret() -> str:
     return f"{WEBHOOK_SECRET_PREFIX}{base64.b64encode(key).decode()}"
 
 
-class WebhookError(PolarError): ...
+class WebhookError(RepalisError): ...
 
 
 class AmbiguousExternalWebhookEndpointID(WebhookError):
@@ -264,7 +264,7 @@ class WebhookService:
             try:
                 validate_hostname(AnyUrl(endpoint.url))
             except ValueError as e:
-                raise PolarRequestValidationError(
+                raise RepalisRequestValidationError(
                     [
                         {
                             "type": "value_error",

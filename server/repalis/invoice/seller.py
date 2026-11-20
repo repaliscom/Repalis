@@ -21,33 +21,33 @@ COUNTRY_VAT_LABELS: dict[str, str] = {
 }
 
 
-def get_polar_vat_number(country: str | None) -> str | None:
+def get_repalis_vat_number(country: str | None) -> str | None:
     """Polar's VAT number for an invoice, based on the other party's billing country."""
     if country is None:
         return None
     return settings.INVOICES_VAT_NUMBERS.get(country)
 
 
-def get_polar_vat_label(address: Address | None) -> str:
+def get_repalis_vat_label(address: Address | None) -> str:
     """Locally-correct label for Polar's tax registration line."""
     if address is None:
         return "VAT"
     return COUNTRY_VAT_LABELS.get(address.country, "VAT")
 
 
-def get_polar_additional_info(address: Address | None) -> str | None:
+def get_repalis_additional_info(address: Address | None) -> str | None:
     """Compose Polar's seller-side `additional_info` text for an invoice."""
     parts: list[str] = []
     if settings.INVOICES_ADDITIONAL_INFO:
         parts.append(settings.INVOICES_ADDITIONAL_INFO)
-    vat_number = get_polar_vat_number(address.country if address else None)
+    vat_number = get_repalis_vat_number(address.country if address else None)
     if vat_number is not None:
-        parts.append(f"{get_polar_vat_label(address)}: {vat_number}")
+        parts.append(f"{get_repalis_vat_label(address)}: {vat_number}")
     return "\n".join(parts) if parts else None
 
 
 __all__ = [
-    "get_polar_additional_info",
-    "get_polar_vat_label",
-    "get_polar_vat_number",
+    "get_repalis_additional_info",
+    "get_repalis_vat_label",
+    "get_repalis_vat_number",
 ]

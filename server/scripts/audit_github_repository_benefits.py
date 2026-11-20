@@ -209,7 +209,7 @@ def print_report(
 @cli.command()
 @typer_async
 async def audit(
-    organization_id: UUID = typer.Argument(..., help="Polar organization UUID"),
+    organization_id: UUID = typer.Argument(..., help="Repalis organization UUID"),
 ) -> None:
     """Audit GitHub collaborators against active repository benefit grants."""
     configure_script_logging()

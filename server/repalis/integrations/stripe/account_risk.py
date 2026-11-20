@@ -12,7 +12,7 @@ from dataclasses import dataclass
 from datetime import UTC, datetime
 from typing import Any
 
-from repalis.exceptions import PolarError
+from repalis.exceptions import RepalisError
 from repalis.models.organization_risk_signal import OrganizationRiskSignal
 
 _REFERENCE_LINE = re.compile(r"^\[(\d+)\]\s+(\S+)$")
@@ -29,7 +29,7 @@ ACTIONABLE_RISK_LEVELS: frozenset[OrganizationRiskSignal.RiskLevel] = frozenset(
 )
 
 
-class UnknownAccountRiskEvaluation(PolarError):
+class UnknownAccountRiskEvaluation(RepalisError):
     def __init__(self, evaluation_id: str) -> None:
         self.evaluation_id = evaluation_id
         super().__init__(f"No pending website evaluation for {evaluation_id}.")

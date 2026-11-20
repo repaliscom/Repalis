@@ -2,7 +2,7 @@ from collections.abc import Sequence
 from typing import Any
 from uuid import UUID
 
-from repalis.exceptions import PolarError
+from repalis.exceptions import RepalisError
 from repalis.kit.pagination import PaginationParams, paginate
 from repalis.models import Organization, OrganizationSSOConnection
 from repalis.organization_domain.service import (
@@ -17,7 +17,7 @@ from .schemas import (
 )
 
 
-class SSONotEnabled(PolarError):
+class SSONotEnabled(RepalisError):
     def __init__(self, organization: Organization) -> None:
         self.organization_id = organization.id
         super().__init__(
@@ -26,7 +26,7 @@ class SSONotEnabled(PolarError):
         )
 
 
-class LastSSOConnectionRequired(PolarError):
+class LastSSOConnectionRequired(RepalisError):
     def __init__(self) -> None:
         super().__init__(
             "This organization enforces SSO. Disable SSO enforcement before "
@@ -35,7 +35,7 @@ class LastSSOConnectionRequired(PolarError):
         )
 
 
-class SSORequiresVerifiedDomain(PolarError):
+class SSORequiresVerifiedDomain(RepalisError):
     def __init__(self) -> None:
         super().__init__(
             "This organization must verify a domain before setting up SSO.", 409

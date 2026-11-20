@@ -19,7 +19,7 @@ from repalis.credit_note.repository import CreditNoteRepository
 from repalis.credit_note.service import credit_note as credit_note_service
 from repalis.customer.schemas.customer import CustomerUpdate
 from repalis.customer.service import customer as customer_service
-from repalis.exceptions import PolarRequestValidationError
+from repalis.exceptions import RepalisRequestValidationError
 from repalis.invoice.service import invoice as invoice_service
 from repalis.kit.address import AddressInput
 from repalis.kit.currency import format_currency, get_currency_decimal_factor
@@ -894,7 +894,7 @@ async def refund(
                         await customer_service.update(
                             session, order.customer, customer_update
                         )
-                    except PolarRequestValidationError as e:
+                    except RepalisRequestValidationError as e:
                         raise ValidationError.from_exception_data(
                             form_class.__name__,
                             [

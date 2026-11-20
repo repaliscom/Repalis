@@ -53,7 +53,7 @@ from .canonical import (
     canonical_price_key,
     customer_country_fallbacks,
     discount_started_at_for,
-    polar_discount_amounts,
+    repalis_discount_amounts,
     subscription_price_key,
     subscription_price_key_values,
 )
@@ -118,7 +118,7 @@ DISCOUNT_DROP_CODES = {
     "discount_products_not_importable",
 }
 # Reasons the merchant has to act on. Every other code is informational: the
-# record either imports as-is, or Polar can't take it and there is nothing to do.
+# record either imports as-is, or Repalis can't take it and there is nothing to do.
 ACTION_REQUIRED_CODES = {
     "customer_missing_email",
     "duplicate_customer_email",
@@ -127,7 +127,7 @@ ACTION_REQUIRED_CODES = {
     "product_not_sold_in_default_currency",
     "send_invoice_collection",
     "customer_stripe_id_conflict",
-    "customer_subscribed_on_polar",
+    "customer_subscribed_on_repalis",
     "customer_tax_id_dropped",
     "customer_tax_exempt",
     "subscription_tax_behavior_unspecified",
@@ -138,24 +138,24 @@ _DUPLICATE_PRODUCT_NAME_REASON = (
     "Another source product uses this name. Both import and share it in Polar."
 )
 _EXISTING_PRODUCT_NAME_REASON = (
-    "A Polar product already uses this name. Importing adds a second one."
+    "A Repalis product already uses this name. Importing adds a second one."
 )
 _DUPLICATE_CUSTOMER_EMAIL_REASON = (
-    "Another source customer uses this email, and a Polar customer can only carry "
+    "Another source customer uses this email, and a Repalis customer can only carry "
     "one source id. Merge them at the source, then run the pre-check again."
 )
 _CUSTOMER_CREDIT_REASON = (
     "The customer has a credit balance on Stripe that would lower their next "
-    "invoice, and Polar can't carry it over. Settle it on Stripe, then run the "
+    "invoice, and Repalis can't carry it over. Settle it on Stripe, then run the "
     "pre-check again."
 )
 _CUSTOMER_DEBT_REASON = (
     "The customer owes a balance on Stripe that would be added to their next "
-    "invoice, and Polar can't carry it over. Settle it on Stripe, then run the "
+    "invoice, and Repalis can't carry it over. Settle it on Stripe, then run the "
     "pre-check again."
 )
 _MISSING_EMAIL_REASON = (
-    "The source customer has no email, so it can't be imported into Polar."
+    "The source customer has no email, so it can't be imported into Repalis."
 )
 _SUBSCRIPTION_PRODUCT_MISSING_REASON = (
     "This subscription's price wasn't in the catalog Polar read from Stripe. "
@@ -165,12 +165,12 @@ _SUBSCRIPTION_CUSTOMER_REASON = (
     "The customer for this subscription won't be imported, so it stays on the source."
 )
 _CUSTOMER_SUBSCRIBED_ON_POLAR_REASON = (
-    "This customer already has a subscription on Polar. Moving this one too "
+    "This customer already has a subscription on Repalis. Moving this one too "
     "would bill them twice, so it stays on Stripe. If it's a duplicate, cancel "
     "it on Stripe. If they should keep both, contact Polar support."
 )
 _CUSTOMER_STRIPE_ID_CONFLICT_REASON = (
-    "A Polar customer with this email is already tied to a different Stripe "
+    "A Repalis customer with this email is already tied to a different Stripe "
     "customer that still holds a saved card or an earlier migration's import, "
     "so this one stays on Stripe. Contact Polar support to resolve it."
 )
@@ -178,38 +178,38 @@ _NO_IMPORTABLE_PRICE_REASON = (
     "None of this product's prices can be imported, so the product is skipped."
 )
 _UNSOLD_PRICE_REASON = (
-    "Polar sells one price per currency. Subscribers on this one keep paying what "
-    "they pay today, and new customers get the one Polar sells."
+    "Repalis sells one price per currency. Subscribers on this one keep paying what "
+    "they pay today, and new customers get the one Repalis sells."
 )
 _MISSING_COUNTRY_REASON = (
     "No billing or payment-method country was found. The customer will import, "
-    "but Polar won't calculate tax until a billing country is added."
+    "but Repalis won't calculate tax until a billing country is added."
 )
 _TAX_ID_DROPPED_REASON = (
     "This customer had a tax ID or reverse charge on Stripe that can't be "
-    "imported. Add a valid tax ID on Polar before the first renewal, or they'll "
+    "imported. Add a valid tax ID on Repalis before the first renewal, or they'll "
     "be charged tax as a consumer."
 )
 _TAX_EXEMPT_REASON = (
     "This customer is tax-exempt on Stripe. Polar calculates tax as merchant of "
     "record and doesn't carry the exemption over, so they'll be charged tax from "
-    "their first renewal on Polar. Let them know before you migrate."
+    "their first renewal on Repalis. Let them know before you migrate."
 )
 _TAX_BEHAVIOR_UNSPECIFIED_REASON = (
     "The Stripe price doesn't say whether tax is included, so Stripe Tax used "
-    "your account's default. Polar will treat it as tax-inclusive. Check that "
+    "your account's default. Repalis will treat it as tax-inclusive. Check that "
     "matches what the customer paid, and change it here if not."
 )
-_TRIALING_REASON = "On trial. Billing resumes on Polar when the trial ends."
+_TRIALING_REASON = "On trial. Billing resumes on Repalis when the trial ends."
 _PAYMENT_REENTRY_REASON = (
-    "The payment method can't be copied. It still moves to Polar, and renews "
+    "The payment method can't be copied. It still moves to Repalis, and renews "
     "with another card copied for this customer if there is one. Otherwise its "
     "next renewal fails and goes to dunning unless the customer re-enters their "
     "billing details first."
 )
 _PAYMENT_METHOD_MISSING_REASON = (
     "The source has no payment method for this subscription. It still moves "
-    "to Polar, but its next renewal fails and goes to dunning unless the "
+    "to Repalis, but its next renewal fails and goes to dunning unless the "
     "customer adds one first."
 )
 _SUBSCRIPTION_DISCOUNT_REASON = (
@@ -218,12 +218,12 @@ _SUBSCRIPTION_DISCOUNT_REASON = (
 )
 _DISCOUNT_BLOCK_NOTICES = {
     SubscriptionDiscountBlock.stacked: (
-        "This subscription stacks discounts Polar can't combine into one coupon, "
+        "This subscription stacks discounts Repalis can't combine into one coupon, "
         "so the renewal amount wouldn't match. It stays on Stripe."
     ),
     SubscriptionDiscountBlock.customer: (
         "This customer has a coupon that also applies to other purchases, not "
-        "just this subscription. Polar can't keep that without changing what "
+        "just this subscription. Repalis can't keep that without changing what "
         "they pay. It stays on Stripe."
     ),
     SubscriptionDiscountBlock.item: (
@@ -242,7 +242,7 @@ _DISCOUNT_BLOCK_NOTICES = {
     ),
 }
 _SUBSCRIPTION_DISCOUNT_CURRENCY_REASON = (
-    "This coupon takes a fixed amount off in a currency Polar can't apply to "
+    "This coupon takes a fixed amount off in a currency Repalis can't apply to "
     "this subscription. It stays on Stripe rather than renewing at a different "
     "price."
 )
@@ -252,12 +252,12 @@ _SUBSCRIPTION_ADD_ON_DISCOUNT_REASON = (
     "Stripe rather than renewing at a different price."
 )
 _SUBSCRIPTION_ADD_ON_PRICE_MISSING_REASON = (
-    "Polar can't bill this subscription's add-on: we couldn't read its price "
+    "Repalis can't bill this subscription's add-on: we couldn't read its price "
     "in the subscription's currency (the product may have been deleted in "
     "Stripe), or the amount is one Polar doesn't support. It stays on Stripe."
 )
 _SUBSCRIPTION_DISCOUNT_START_REASON = (
-    "The source doesn't say when this coupon was applied, so Polar can't "
+    "The source doesn't say when this coupon was applied, so Repalis can't "
     "continue its remaining duration. It stays on the source."
 )
 _MULTIPLE_DISCOUNTS_REASON = (
@@ -312,7 +312,7 @@ def _is_supported_currency(currency: str) -> bool:
 def _importable_fixed_amounts(amounts: dict[str, int]) -> dict[str, int]:
     return {
         currency.value: amount
-        for currency, amount in polar_discount_amounts(amounts).items()
+        for currency, amount in repalis_discount_amounts(amounts).items()
     }
 
 
@@ -452,7 +452,7 @@ class PrecheckEngine:
     def _check_product(
         self, product: CanonicalProduct, default_currency: str
     ) -> Iterable[PrecheckIssue]:
-        # A product Polar can't represent is skipped along with its subscriptions,
+        # A product Repalis can't represent is skipped along with its subscriptions,
         # rather than blocking the whole migration.
         dropped = False
         if product.recurring_interval is None:
@@ -476,7 +476,7 @@ class PrecheckEngine:
                 message=(
                     f"Product '{product.name}' recurs every "
                     f"{product.recurring_interval_count} {product.recurring_interval}, "
-                    "which Polar can't represent; it and its subscriptions won't "
+                    "which Repalis can't represent; it and its subscriptions won't "
                     "be imported."
                 ),
                 source_id=product.source_id,
@@ -490,7 +490,7 @@ class PrecheckEngine:
                 code="product_name_too_short",
                 message=(
                     f"Product '{product.name or '(empty)'}' has a name shorter than "
-                    f"{PRODUCT_NAME_MIN_LENGTH} characters, which Polar can't "
+                    f"{PRODUCT_NAME_MIN_LENGTH} characters, which Repalis can't "
                     "represent; it and its subscriptions won't be imported."
                 ),
                 source_id=product.source_id,
@@ -509,13 +509,13 @@ class PrecheckEngine:
                     code="multiple_prices_same_currency",
                     message=(
                         f"Product '{product.name}' has {count} prices in "
-                        f"{currency.upper()}. Polar sells one of them and keeps "
+                        f"{currency.upper()}. Repalis sells one of them and keeps "
                         "the others as archived prices, so existing subscribers "
                         "keep paying what they pay today."
                     ),
                     source_id=product.source_id,
                 )
-        # A Polar product must price in the organization's default currency: it's
+        # A Repalis product must price in the organization's default currency: it's
         # the fallback for every checkout that has no local price. A product with
         # no importable price at all is reported as such instead.
         if importable_currencies and default_currency not in importable_currencies:
@@ -608,7 +608,7 @@ class PrecheckEngine:
         products_by_name: dict[str, set[str]],
         existing_product_names: set[str],
     ) -> Iterable[PrecheckIssue]:
-        # Warn, don't block: the product still imports, as a new Polar product next
+        # Warn, don't block: the product still imports, as a new Repalis product next
         # to the existing one. Mapping onto it is a later, merchant-driven step.
         for name in products_by_name:
             if name.lower() in existing_product_names:
@@ -616,7 +616,7 @@ class PrecheckEngine:
                     level=PrecheckIssueLevel.warning,
                     code="product_exists_in_polar",
                     message=(
-                        f"A Polar product named '{name}' already exists; importing "
+                        f"A Repalis product named '{name}' already exists; importing "
                         "will create a duplicate."
                     ),
                     source_id=None,
@@ -676,7 +676,7 @@ class PrecheckEngine:
                 level=PrecheckIssueLevel.warning,
                 code="multiple_line_items",
                 message=(
-                    "Subscription has items Polar can't carry as a plan and one "
+                    "Subscription has items Repalis can't carry as a plan and one "
                     "add-on billed with it; it won't be imported."
                 ),
                 source_id=source_id,
@@ -806,7 +806,7 @@ class PrecheckEngine:
                 code="unsupported_add_on_price",
                 message=(
                     "The add-on on this subscription isn't a flat price per "
-                    "unit, so Polar can't bill it the same way; it won't be "
+                    "unit, so Repalis can't bill it the same way; it won't be "
                     "imported."
                 ),
                 source_id=source_id,
@@ -845,7 +845,7 @@ class PrecheckEngine:
                     level=PrecheckIssueLevel.warning,
                     code="unsupported_percentage",
                     message=(
-                        f"Coupon '{discount.name}' has a percentage Polar can't "
+                        f"Coupon '{discount.name}' has a percentage Repalis can't "
                         "represent, so it and subscriptions using it won't be imported."
                     ),
                     source_id=source_id,
@@ -867,7 +867,7 @@ class PrecheckEngine:
                 level=PrecheckIssueLevel.warning,
                 code="unsupported_repeating_duration",
                 message=(
-                    f"Coupon '{discount.name}' repeats for a duration Polar can't "
+                    f"Coupon '{discount.name}' repeats for a duration Repalis can't "
                     "represent, so it and subscriptions using it won't be imported."
                 ),
                 source_id=source_id,
@@ -949,7 +949,7 @@ class Reason:
 
     code: str
     message: str
-    polar_customer_id: UUID | None = None
+    repalis_customer_id: UUID | None = None
 
     @property
     def level(self) -> PrecheckReasonLevel:
@@ -993,7 +993,7 @@ def subscription_import_reason(
 def payment_method_reason(
     payment_method: CanonicalPaymentMethod | None,
 ) -> Reason | None:
-    """What to know about the method a subscription will renew with on Polar.
+    """What to know about the method a subscription will renew with on Repalis.
 
     Never a reason to skip: the switch moves it either way, and a first renewal
     that can't be charged goes to dunning like any other."""
@@ -1076,7 +1076,7 @@ def _item(
         reason=reason.message if reason else None,
         reason_code=reason.code if reason else None,
         reason_level=reason.level if reason else None,
-        conflicting_customer_id=reason.polar_customer_id if reason else None,
+        conflicting_customer_id=reason.repalis_customer_id if reason else None,
         cutover_status=None,
         cutover_error=None,
         renews_at=renews_at,
@@ -1633,7 +1633,7 @@ def _sale_rank(price: CanonicalPrice) -> tuple[bool, bool, datetime]:
 
 def imports_archived(product: CanonicalProduct, default_currency: str) -> bool:
     """An archived source product, or a live one the source no longer sells in
-    the organization's default currency, imports as an archived Polar product:
+    the organization's default currency, imports as an archived Repalis product:
     new customers can't buy it, and its prices still bill their subscribers."""
     return product.archived or not any(
         price.active and price.currency.lower() == default_currency
@@ -1644,7 +1644,7 @@ def imports_archived(product: CanonicalProduct, default_currency: str) -> bool:
 def _sold_prices(
     product: CanonicalProduct, default_currency: str
 ) -> dict[str, CanonicalPrice]:
-    """The price Polar sells in each currency: the source default, else the
+    """The price Repalis sells in each currency: the source default, else the
     newest. A live product only sells prices the source still sells."""
     sellable_only = not imports_archived(product, default_currency)
     sold: dict[str, CanonicalPrice] = {}
@@ -1668,7 +1668,7 @@ def _sold_price_keys(product: CanonicalProduct, default_currency: str) -> set[Pr
 def archived_price_keys(
     product: CanonicalProduct, default_currency: str
 ) -> set[PriceKey]:
-    """Importable prices that bill another amount than the one Polar sells in
+    """Importable prices that bill another amount than the one Repalis sells in
     their currency, or in a currency it doesn't sell. Each amount imports as an
     archived price on the same product, so its subscribers keep paying it. A
     price at the sold amount bills through the sold one."""
@@ -1686,7 +1686,7 @@ def plan_customer_imports(
     existing_customers: Mapping[str, CustomerStripeIdentity] | None = None,
 ) -> dict[str, Reason | None]:
     """Per customer ``source_id``, the skip reason or ``None`` when importable.
-    A Polar customer is unique by email and carries a single source id, so of
+    A Repalis customer is unique by email and carries a single source id, so of
     several customers sharing an email only the first can be imported; a customer
     with no email can't be imported at all."""
     duplicates = _duplicate_customer_source_ids(customers)
@@ -1715,18 +1715,18 @@ def plan_customer_imports(
 
 
 def stripe_id_conflict_reason(polar: CustomerStripeIdentity) -> Reason:
-    """Why a source customer can't take over the Polar customer with its email.
-    A live Polar subscription is the one case the merchant can settle alone."""
+    """Why a source customer can't take over the Repalis customer with its email.
+    A live Repalis subscription is the one case the merchant can settle alone."""
     if polar.subscribed:
         return Reason(
-            "customer_subscribed_on_polar",
+            "customer_subscribed_on_repalis",
             _CUSTOMER_SUBSCRIBED_ON_POLAR_REASON,
-            polar_customer_id=polar.id,
+            repalis_customer_id=polar.id,
         )
     return Reason(
         "customer_stripe_id_conflict",
         _CUSTOMER_STRIPE_ID_CONFLICT_REASON,
-        polar_customer_id=polar.id,
+        repalis_customer_id=polar.id,
     )
 
 
@@ -1764,8 +1764,8 @@ def plan_discount_imports(
 ) -> dict[str, Reason | None]:
     """Per coupon ``source_id``, the skip reason or ``None`` when importable.
 
-    A coupon restricted to source products Polar won't take is skipped rather
-    than imported unrestricted (that would apply it to every Polar product).
+    A coupon restricted to source products Repalis won't take is skipped rather
+    than imported unrestricted (that would apply it to every Repalis product).
     """
     product_plans = plan_product_imports(products, default_currency)
     importable_product_source_ids = {
@@ -1807,7 +1807,7 @@ def kept_discount_source_id(
     subscription: CanonicalSubscription,
     importable_discount_source_ids: Container[str],
 ) -> str | None:
-    """The first coupon Polar will keep on this subscription, if any."""
+    """The first coupon Repalis will keep on this subscription, if any."""
     for source_id in subscription.discount_source_ids:
         if source_id in importable_discount_source_ids:
             return source_id

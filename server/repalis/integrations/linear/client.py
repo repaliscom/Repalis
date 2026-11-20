@@ -3,7 +3,7 @@ import typing
 import httpx2
 
 from repalis.config import settings
-from repalis.exceptions import PolarError
+from repalis.exceptions import RepalisError
 
 from .schemas import Issue, IssueCreateFromTemplateInput, IssueCreatePayload
 
@@ -25,7 +25,7 @@ mutation CreateIssueFromTemplate($input: IssueCreateInput!) {
 """
 
 
-class LinearClientError(PolarError): ...
+class LinearClientError(RepalisError): ...
 
 
 class LinearClient:

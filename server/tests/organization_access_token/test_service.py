@@ -8,7 +8,7 @@ from repalis.auth.models import AuthSubject
 from repalis.auth.scope import Scope
 from repalis.email.schemas import OrganizationAccessTokenLeakedEmail
 from repalis.enums import TokenType
-from repalis.exceptions import PolarRequestValidationError
+from repalis.exceptions import RepalisRequestValidationError
 from repalis.kit.crypto import get_token_hash
 from repalis.kit.utils import utc_now
 from repalis.models import (
@@ -105,7 +105,7 @@ class TestCreateScopeValidation:
             user, {Scope.organization_access_tokens_write}, pat_session
         )
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await organization_access_token_service.create(
                 session,
                 auth_subject,

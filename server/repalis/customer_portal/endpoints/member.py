@@ -4,7 +4,7 @@ import structlog
 from fastapi import Depends
 
 from repalis.auth.models import is_member
-from repalis.exceptions import NotPermitted, PolarRequestValidationError, ResourceNotFound
+from repalis.exceptions import NotPermitted, RepalisRequestValidationError, ResourceNotFound
 from repalis.kit.pagination import ListResource, PaginationParamsQuery
 from repalis.member.repository import MemberRepository
 from repalis.member.service import member_service
@@ -112,7 +112,7 @@ async def add_member(
 
     # Prevent adding a new owner - there must be exactly one
     if member_create.role == MemberRole.owner:
-        raise PolarRequestValidationError(
+        raise RepalisRequestValidationError(
             [
                 {
                     "type": "value_error",
@@ -175,7 +175,7 @@ async def update_member(
         and member_update.role != member.role
         and member.id == actor_member.id
     ):
-        raise PolarRequestValidationError(
+        raise RepalisRequestValidationError(
             [
                 {
                     "type": "value_error",
@@ -232,7 +232,7 @@ async def remove_member(
 
     # Prevent self-removal
     if member.id == actor_member.id:
-        raise PolarRequestValidationError(
+        raise RepalisRequestValidationError(
             [
                 {
                     "type": "value_error",

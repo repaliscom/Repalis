@@ -8,7 +8,7 @@ from pydantic_core import PydanticCustomError
 from sqlalchemy import Dialect, TypeDecorator
 from sqlalchemy.dialects.postgresql import JSONB
 
-from repalis.exceptions import PolarError
+from repalis.exceptions import RepalisError
 
 BIGINT_MAX = 9223372036854775807
 
@@ -205,7 +205,7 @@ class NonContiguousTiersError(ValueError):
         self.next_min_seats = next_min_seats
 
 
-class InvalidQuantityError(PolarError):
+class InvalidQuantityError(RepalisError):
     def __init__(self, message: str) -> None:
         super().__init__(message, status_code=400)
 

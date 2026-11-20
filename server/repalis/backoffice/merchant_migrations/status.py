@@ -1,7 +1,7 @@
 """What an operator needs to read off a migration at a glance.
 
 Two questions, both answered here: how far has this migration got, and is anyone
-at Polar holding it up. The merchant-facing app answers neither — it only ever
+at Repalis holding it up. The merchant-facing app answers neither — it only ever
 shows one merchant their own checklist — so the wording and the triage rules are
 this module's own.
 """
@@ -56,8 +56,8 @@ METHOD_LABELS: dict[PanTransferMethod, str] = {
 
 OWNER_LABELS: dict[PanStepOwner, str] = {
     PanStepOwner.merchant: "Merchant",
-    PanStepOwner.polar_ops: "Polar Ops",
-    PanStepOwner.polar_app: "Polar app",
+    PanStepOwner.repalis_ops: "Polar Ops",
+    PanStepOwner.repalis_app: "Polar app",
     PanStepOwner.stripe: "Stripe",
     PanStepOwner.provider: "Source provider",
 }
@@ -66,7 +66,7 @@ OWNER_LABELS: dict[PanStepOwner, str] = {
 # `panTransferCopy.ts`): here a step says who we are waiting on and what the
 # operator does about it.
 PAN_STEP_LABELS: dict[str, str] = {
-    "share_destination_account": "Share Polar's Stripe account",
+    "share_destination_account": "Share Repalis's Stripe account",
     "start_copy": "Merchant starts the copy in Stripe",
     "authorize_copy": "Accept the incoming copy",
     "stripe_copy": "Stripe copies the cards",
@@ -85,7 +85,7 @@ PAN_STEP_LABELS: dict[str, str] = {
 
 PAN_STEP_GUIDANCE: dict[str, str] = {
     "authorize_copy": (
-        "Accept the copy request on Polar's Stripe account, then complete this "
+        "Accept the copy request on Repalis's Stripe account, then complete this "
         "step. Usually one business day after the merchant starts it."
     ),
     "open_stripe_request": (
@@ -124,7 +124,7 @@ class AttentionLevel(StrEnum):
     ops_followup = "ops_followup"
     waiting_third_party = "waiting_third_party"
     waiting_merchant = "waiting_merchant"
-    waiting_polar_app = "waiting_polar_app"
+    waiting_repalis_app = "waiting_repalis_app"
     done = "done"
 
 
@@ -239,7 +239,7 @@ def _pan_attention(step: PanTransferStep) -> Attention:
     stale_days = _stale_days(step)
 
     match step.owner:
-        case PanStepOwner.polar_ops:
+        case PanStepOwner.repalis_ops:
             return Attention(
                 AttentionLevel.ops_action,
                 "Ops action",
@@ -262,9 +262,9 @@ def _pan_attention(step: PanTransferStep) -> Attention:
                 label,
                 stale_days,
             )
-        case PanStepOwner.polar_app:
+        case PanStepOwner.repalis_app:
             return Attention(
-                AttentionLevel.waiting_polar_app,
+                AttentionLevel.waiting_repalis_app,
                 "Polar job",
                 label,
                 stale_days,
@@ -328,7 +328,7 @@ def attention(migration: MerchantMigration, failed_records: int) -> Attention:
             )
         case _:
             return Attention(
-                AttentionLevel.waiting_polar_app,
+                AttentionLevel.waiting_repalis_app,
                 "Polar job",
                 STEP_LABELS[migration.step],
                 None,
@@ -337,8 +337,8 @@ def attention(migration: MerchantMigration, failed_records: int) -> Attention:
 
 def is_ops_actionable(step: PanTransferStep) -> bool:
     """Whether the backoffice offers to complete this step. Ops never stand in for
-    `polar_app`: those steps have side effects that completing would skip."""
-    return step.owner != PanStepOwner.polar_app
+    `repalis_app`: those steps have side effects that completing would skip."""
+    return step.owner != PanStepOwner.repalis_app
 
 
 def step_inputs(migration: MerchantMigration, key: str) -> list[tuple[str, bool]]:

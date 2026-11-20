@@ -152,7 +152,7 @@ class TestGetLatestPolarSelfIngestionTimestamp:
         )
 
         repository = EventRepository.from_session(session)
-        result = await repository.get_latest_polar_self_ingestion_timestamp(
+        result = await repository.get_latest_repalis_self_ingestion_timestamp(
             organization.id
         )
 
@@ -164,7 +164,7 @@ class TestGetLatestPolarSelfIngestionTimestamp:
         organization: Organization,
     ) -> None:
         repository = EventRepository.from_session(session)
-        result = await repository.get_latest_polar_self_ingestion_timestamp(
+        result = await repository.get_latest_repalis_self_ingestion_timestamp(
             organization.id
         )
 
@@ -187,7 +187,7 @@ class TestGetLatestPolarSelfIngestionTimestamp:
         )
 
         repository = EventRepository.from_session(session)
-        result = await repository.get_latest_polar_self_ingestion_timestamp(
+        result = await repository.get_latest_repalis_self_ingestion_timestamp(
             organization.id
         )
 
@@ -209,7 +209,7 @@ class TestGetLatestPolarSelfIngestionTimestamp:
         )
 
         repository = EventRepository.from_session(session)
-        result = await repository.get_latest_polar_self_ingestion_timestamp(
+        result = await repository.get_latest_repalis_self_ingestion_timestamp(
             organization.id
         )
 

@@ -6,7 +6,7 @@ Create Date: 2026-10-08 16:24:39.249342
 
 """
 
-# Polar Custom Imports
+# Repalis Custom Imports
 
 # revision identifiers, used by Alembic.
 revision = "f9772ac1ba20"

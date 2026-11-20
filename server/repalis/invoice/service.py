@@ -4,7 +4,7 @@ import json
 from datetime import datetime
 
 from repalis.config import settings
-from repalis.exceptions import PolarError
+from repalis.exceptions import RepalisError
 from repalis.integrations.aws.s3 import S3Service
 from repalis.kit.utils import utc_now
 from repalis.models import Account, Order, Payout
@@ -26,7 +26,7 @@ INVOICE_TEMPLATE_VERSION = 2
 invalidate previously generated invoices."""
 
 
-class InvoiceError(PolarError): ...
+class InvoiceError(RepalisError): ...
 
 
 class MissingAccountBillingDetails(InvoiceError):

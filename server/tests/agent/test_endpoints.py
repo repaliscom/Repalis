@@ -295,12 +295,12 @@ class TestConfirmClaim:
         posthog_mock = mocker.patch("repalis.agent.service.posthog")
         enqueue_job_mock = mocker.patch("repalis.organization.service.enqueue_job")
         create_customer_mock = mocker.patch(
-            "repalis.organization.service.polar_self_service.enqueue_create_customer"
+            "repalis.organization.service.repalis_self_service.enqueue_create_customer"
         )
         pre_claim_token = OAuth2Token(
             client_id=claim_agent.oauth2_client.client_id,
             token_type="bearer",
-            access_token=get_token_hash("polar_at_a_pre_claim"),
+            access_token=get_token_hash("repalis_at_a_pre_claim"),
             scope="products:write",
             sub_type=SubType.agent,
             agent=claim_agent,

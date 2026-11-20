@@ -639,7 +639,7 @@ class TestEditOrganization:
 
         enqueue_update_customer_slug_mock = mocker.patch(
             "repalis.backoffice.organizations_v2.endpoints"
-            ".polar_self_service.enqueue_update_customer_slug"
+            ".repalis_self_service.enqueue_update_customer_slug"
         )
 
         response = await backoffice_client.post(
@@ -669,7 +669,7 @@ class TestEditOrganization:
 
         enqueue_update_customer_slug_mock = mocker.patch(
             "repalis.backoffice.organizations_v2.endpoints"
-            ".polar_self_service.enqueue_update_customer_slug"
+            ".repalis_self_service.enqueue_update_customer_slug"
         )
 
         response = await backoffice_client.post(

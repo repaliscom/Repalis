@@ -4,7 +4,7 @@ from datetime import datetime
 
 from repalis.config import settings
 from repalis.customer.repository import CustomerRepository
-from repalis.exceptions import PolarError
+from repalis.exceptions import RepalisError
 from repalis.integrations.aws.s3 import S3Service
 from repalis.kit.db.postgres import AsyncSession
 from repalis.models import CreditNote, CreditNoteItem, Refund
@@ -19,7 +19,7 @@ from .repository import CreditNoteRepository
 CREDIT_NOTE_NUMBER_PREFIX = "CN"
 
 
-class CreditNoteError(PolarError): ...
+class CreditNoteError(RepalisError): ...
 
 
 class CreditNoteAlreadyExists(CreditNoteError):

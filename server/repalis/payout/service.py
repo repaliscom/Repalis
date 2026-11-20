@@ -14,7 +14,7 @@ from repalis.authz.service import get_accessible_org_ids
 from repalis.config import settings
 from repalis.enums import PayoutAccountType
 from repalis.eventstream.service import publish as eventstream_publish
-from repalis.exceptions import PolarError, PolarRequestValidationError
+from repalis.exceptions import RepalisError, RepalisRequestValidationError
 from repalis.integrations.linear.client import linear as linear_service
 from repalis.integrations.stripe.service import stripe as stripe_service
 from repalis.integrations.stripe.utils import get_expandable_id
@@ -92,7 +92,7 @@ def _adjust_payout_amount_for_zero_decimal_currency(
     return adjusted_amount, remainder
 
 
-class PayoutError(PolarError): ...
+class PayoutError(RepalisError): ...
 
 
 class OrganizationCannotPayout(PayoutError):
@@ -973,7 +973,7 @@ class PayoutService:
                 account.id, payout_generate_invoice.invoice_number
             )
             if existing_payout is not None and existing_payout.id != payout.id:
-                raise PolarRequestValidationError(
+                raise RepalisRequestValidationError(
                     [
                         {
                             "type": "value_error",

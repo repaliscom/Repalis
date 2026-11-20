@@ -26,27 +26,27 @@ if TYPE_CHECKING:
 
 
 def test_actor_to_queue_name_maps_dramatiq_queue(mocker: MockerFixture) -> None:
-    mocker.patch.object(settings, "WORKER_SQS_QUEUE_PREFIX", "polar-test-tasks")
+    mocker.patch.object(settings, "WORKER_SQS_QUEUE_PREFIX", "repalis-test-tasks")
 
     assert (
         actor_to_queue_name("customer.state_changed")
-        == "polar-test-tasks-high-priority"
+        == "repalis-test-tasks-high-priority"
     )
-    assert actor_to_queue_name("dummy") == "polar-test-tasks-low-priority"
-    assert actor_to_queue_name("webhook_event.send") == "polar-test-tasks-webhooks"
+    assert actor_to_queue_name("dummy") == "repalis-test-tasks-low-priority"
+    assert actor_to_queue_name("webhook_event.send") == "repalis-test-tasks-webhooks"
     assert (
         actor_to_queue_name("receipt.render")
-        == "polar-test-tasks-invoices-and-receipts"
+        == "repalis-test-tasks-invoices-and-receipts"
     )
 
 
 def test_resolve_queue_url_falls_back_to_default(mocker: MockerFixture) -> None:
-    mocker.patch.object(settings, "WORKER_SQS_QUEUE_PREFIX", "polar-test-tasks")
+    mocker.patch.object(settings, "WORKER_SQS_QUEUE_PREFIX", "repalis-test-tasks")
     client = get_sqs_client()
 
     def fake_get_queue_url(_client: object, queue_name: str) -> str:
-        if queue_name == "polar-test-tasks-default":
-            return "https://sqs.example.com/polar-test-tasks-default"
+        if queue_name == "repalis-test-tasks-default":
+            return "https://sqs.example.com/repalis-test-tasks-default"
         raise client.exceptions.QueueDoesNotExist(
             {"Error": {"Code": "AWS.SimpleQueueService.NonExistentQueue"}},
             "GetQueueUrl",
@@ -55,8 +55,8 @@ def test_resolve_queue_url_falls_back_to_default(mocker: MockerFixture) -> None:
     mocker.patch("repalis.worker._sqs.get_queue_url", side_effect=fake_get_queue_url)
 
     assert (
-        resolve_queue_url(client, "polar-test-tasks-high-priority")
-        == "https://sqs.example.com/polar-test-tasks-default"
+        resolve_queue_url(client, "repalis-test-tasks-high-priority")
+        == "https://sqs.example.com/repalis-test-tasks-default"
     )
 
 

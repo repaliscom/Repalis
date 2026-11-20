@@ -1,4 +1,4 @@
-"""The cutover: Polar creates subscriptions immediately before taking over billing.
+"""The cutover: Repalis creates subscriptions immediately before taking over billing.
 
 Every check runs before the source is stopped, so a subscription that fails one
 stays there.
@@ -86,7 +86,7 @@ _LOCKED_COLUMNS = ["status", "current_period_start", "current_period_end"]
 
 _GONE = "It no longer exists on the source, so there is nothing to take over."
 _SOURCE_CANCELED = (
-    "It was cancelled on the source after the import, so Polar won't start billing it."
+    "It was cancelled on the source after the import, so Repalis won't start billing it."
 )
 _SOURCE_NOT_LIVE = (
     "The source reports it as `{status}`, which isn't a healthy subscription "
@@ -97,7 +97,7 @@ _PLAN_CHANGED = (
     "subscription no longer matches. Re-run the import for this customer."
 )
 _DISCOUNT_CHANGED = (
-    "The coupon on the source changed since the import, so Polar won't take "
+    "The coupon on the source changed since the import, so Repalis won't take "
     "billing over at a different price. Re-run the import for this customer."
 )
 _ADD_ON_DISCOUNT_RESTRICTED = (
@@ -106,23 +106,23 @@ _ADD_ON_DISCOUNT_RESTRICTED = (
     "than renewing at a different price."
 )
 _DISCOUNT_NOT_IMPORTED = (
-    "This subscription's coupon was never imported into Polar, so taking it "
+    "This subscription's coupon was never imported into Repalis, so taking it "
     "over would renew at full price. Re-run the import for this customer."
 )
 _DISCOUNT_MISSING_START = (
-    "The source doesn't say when this coupon was applied, so Polar can't "
+    "The source doesn't say when this coupon was applied, so Repalis can't "
     "continue its remaining duration. It stays on the source."
 )
 _DISCOUNT_END_UNREPRESENTABLE = (
-    "Polar can't end this coupon on the same renewal the source does, so it "
+    "Repalis can't end this coupon on the same renewal the source does, so it "
     "would discount a renewal the source charges in full. It stays on the source."
 )
 _NO_PAYMENT_METHOD = (
-    "No copied payment method has landed on Polar for this customer. Unless "
+    "No copied payment method has landed on Repalis for this customer. Unless "
     "they have a default one by the next renewal, it fails and goes to dunning."
 )
 _NOT_COPYABLE = (
-    "It renews with a payment method that can't be copied to Polar. Its next "
+    "It renews with a payment method that can't be copied to Repalis. Its next "
     "renewal fails and goes to dunning unless the customer re-enters their "
     "billing details first."
 )
@@ -135,10 +135,10 @@ _UNREADABLE = (
     "We can't read what was imported for this subscription, so we can't tell "
     "whether it still matches the source. Re-run the import for this customer."
 )
-_CUSTOMER_DELETED = "The Polar customer was deleted, so it can't be billed."
-_SUBSCRIPTION_GONE = "The imported Polar subscription no longer exists."
+_CUSTOMER_DELETED = "The Repalis customer was deleted, so it can't be billed."
+_SUBSCRIPTION_GONE = "The imported Repalis subscription no longer exists."
 _NOT_IMPORTED = (
-    "It was never imported into Polar, so there is nothing to switch on. Re-run "
+    "It was never imported into Repalis, so there is nothing to switch on. Re-run "
     "the import for this customer."
 )
 _STOPPED_NOT_ACTIVATED = (
@@ -457,7 +457,7 @@ class SubscriptionCutover:
         already_stopped: bool,
         scheduled_end: _ScheduledEnd | None,
     ) -> CutoverOutcome:
-        """Stop the source, then switch the Polar subscription on.
+        """Stop the source, then switch the Repalis subscription on.
 
         Past the stop nothing may raise: the paused subscription and its ledger
         row have to commit, so a retry picks up a customer nobody is billing.
@@ -698,7 +698,7 @@ class SubscriptionCutover:
     async def _reconcile_active(
         self, record: MerchantMigrationRecord
     ) -> CutoverOutcome:
-        """Already live on Polar, so make sure it isn't live on the source too.
+        """Already live on Repalis, so make sure it isn't live on the source too.
 
         Usually a previous run finishing twice, but a customer can also resume
         from their portal, and then both sides bill them. An unpaid source

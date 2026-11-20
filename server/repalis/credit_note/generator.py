@@ -10,7 +10,7 @@ from repalis.invoice.generator import (
     escape_markdown,
     format_date,
 )
-from repalis.invoice.seller import get_polar_additional_info
+from repalis.invoice.seller import get_repalis_additional_info
 from repalis.kit.currency import format_currency
 from repalis.kit.utils import utc_now
 from repalis.models.credit_note import CreditNoteReason
@@ -91,7 +91,7 @@ class CreditNote(Invoice):
             date=credit_note.created_at,
             seller_name=settings.INVOICES_NAME,
             seller_address=settings.INVOICES_ADDRESS,
-            seller_additional_info=get_polar_additional_info(
+            seller_additional_info=get_repalis_additional_info(
                 credit_note.billing_address
             ),
             organization_name=credit_note.order.organization.name,

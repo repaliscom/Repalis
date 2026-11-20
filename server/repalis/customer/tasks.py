@@ -6,7 +6,7 @@ from sqlalchemy.orm import joinedload
 from repalis.event.repository import EventRepository
 from repalis.event.service import event as event_service
 from repalis.event.system import CustomerUpdatedFields, SystemEvent, build_system_event
-from repalis.exceptions import PolarTaskError
+from repalis.exceptions import RepalisTaskError
 from repalis.integrations.tinybird import service as tinybird_service
 from repalis.models import Customer
 from repalis.models.webhook_endpoint import CustomerWebhookEventType, WebhookEventType
@@ -17,7 +17,7 @@ from .repository import CustomerRepository
 from .service import customer as customer_service
 
 
-class CustomerTaskError(PolarTaskError): ...
+class CustomerTaskError(RepalisTaskError): ...
 
 
 class CustomerDoesNotExist(CustomerTaskError):

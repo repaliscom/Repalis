@@ -69,7 +69,7 @@ class Logging[RendererType]:
                 "disable_existing_loggers": True,
                 "filters": {"task_message": {"()": TaskLogFilter}},
                 "formatters": {
-                    "polar": {
+                    "repalis": {
                         "()": structlog.stdlib.ProcessorFormatter,
                         "processors": [
                             structlog.stdlib.ProcessorFormatter.remove_processors_meta,
@@ -96,7 +96,7 @@ class Logging[RendererType]:
                     "default": {
                         "level": level,
                         "class": "logging.StreamHandler",
-                        "formatter": "polar",
+                        "formatter": "repalis",
                         "filters": ["task_message"],
                     },
                 },

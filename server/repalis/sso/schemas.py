@@ -50,7 +50,7 @@ RESERVED_AUTHORIZATION_PARAMETERS = {
 
 def _validate_authorization_parameter_key(key: str) -> str:
     if key in RESERVED_AUTHORIZATION_PARAMETERS:
-        raise ValueError(f"`{key}` is set by Polar and can't be overridden.")
+        raise ValueError(f"`{key}` is set by Repalis and can't be overridden.")
     return key
 
 

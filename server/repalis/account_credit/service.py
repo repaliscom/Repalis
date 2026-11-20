@@ -2,7 +2,7 @@ from datetime import datetime
 from typing import Any
 from uuid import UUID
 
-from repalis.exceptions import PolarError
+from repalis.exceptions import RepalisError
 from repalis.kit.services import ResourceServiceReader
 from repalis.kit.utils import utc_now
 from repalis.models import Account, AccountCredit, Organization
@@ -17,7 +17,7 @@ from repalis.postgres import AsyncSession
 from .repository import AccountCreditRepository
 
 
-class AccountCreditError(PolarError): ...
+class AccountCreditError(RepalisError): ...
 
 
 class CreditAlreadyRevokedError(AccountCreditError):

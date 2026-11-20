@@ -86,7 +86,7 @@ class TestBeforeSend:
         event = {
             "request": {
                 "data": {
-                    "access_token": "polar_at_xxx",
+                    "access_token": "repalis_at_xxx",
                     "api_key": "sk_test_xxx",
                     "assertion": "eyJ.xxx.yyy",
                     "client_secret": "polar_cs_xxx",

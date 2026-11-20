@@ -25,12 +25,12 @@ from repalis.email.schemas import OrganizationInviteEmail, OrganizationInvitePro
 from repalis.email.sender import enqueue_email_template
 from repalis.exceptions import (
     NotPermitted,
-    PolarRequestValidationError,
+    RepalisRequestValidationError,
     ResourceNotFound,
 )
 from repalis.integrations.repalis.exceptions import (
-    PolarSelfPaidSubscriptionAlreadyExists,
-    PolarSelfPaymentMethodInUse,
+    RepalisSelfPaidSubscriptionAlreadyExists,
+    RepalisSelfPaymentMethodInUse,
 )
 from repalis.integrations.repalis.schemas import (
     OrganizationBenefitGrant,
@@ -50,7 +50,7 @@ from repalis.integrations.repalis.schemas import (
     OrganizationSubscriptionUpdate,
     organization_payment_method_from_sdk,
 )
-from repalis.integrations.repalis.service import polar_self as polar_self_service
+from repalis.integrations.repalis.service import repalis_self as repalis_self_service
 from repalis.kit.concurrency import create_task_group
 from repalis.kit.http import check_url_reachable, get_ip_address
 from repalis.kit.pagination import ListResource, Pagination, PaginationParamsQuery
@@ -254,7 +254,7 @@ async def set_payout_account(
         payout_account is None
         or payout_account.admin_id != authz.auth_subject.subject.id
     ):
-        raise PolarRequestValidationError(
+        raise RepalisRequestValidationError(
             [
                 {
                     "type": "value_error",
@@ -663,7 +663,7 @@ async def invite_member(
             )
         ),
         to_email_addr=email,
-        subject=f"You've been invited to {organization.name} on Polar",
+        subject=f"You've been invited to {organization.name} on Repalis",
     )
 
     # Get the user organization relationship to return
@@ -867,7 +867,7 @@ async def submit_appeal(
             appeal_submitted_at=result.appeal_submitted_at,  # type: ignore[arg-type]
         )
     except ValueError as e:
-        raise PolarRequestValidationError(
+        raise RepalisRequestValidationError(
             [
                 {
                     "type": "value_error",
@@ -1001,15 +1001,15 @@ async def list_plans(
 ) -> Sequence[OrganizationPlan]:
     """List the plans this organization can subscribe to.
 
-    The free plan is synthesized (no underlying Polar product); selecting it in
+    The free plan is synthesized (no underlying Repalis product); selecting it in
     the UI cancels the active subscription instead of creating one.
     """
     async with create_task_group() as tg:
-        products = tg.create_task(polar_self_service.list_plans())
+        products = tg.create_task(repalis_self_service.list_plans())
         subscription = tg.create_task(
-            polar_self_service.get_subscription(authz.organization.id)
+            repalis_self_service.get_subscription(authz.organization.id)
         )
-    free_plan = await polar_self_service.resolve_free_plan(
+    free_plan = await repalis_self_service.resolve_free_plan(
         session, authz.organization.id, subscription=subscription.return_value
     )
     return [
@@ -1023,7 +1023,7 @@ def _apply_startup_program(
 ) -> OrganizationSubscription:
     if settings.STARTUP_PROGRAM_ENABLED:
         subscription_obj.startup_program_scale_product_id = (
-            settings.POLAR_SCALE_PRODUCT_ID
+            settings.REPALIS_SCALE_PRODUCT_ID
         )
         subscription_obj.startup_program_status = status
     return subscription_obj
@@ -1051,14 +1051,14 @@ async def get_subscription(
     authz: AuthorizeOrgManageRead,
     session: AsyncReadSession = Depends(get_db_read_session),
 ) -> OrganizationSubscription:
-    """Get the current Polar subscription for this organization.
+    """Get the current Repalis subscription for this organization.
 
     Returns a synthesized free-plan representation when the organization has no
     active paid subscription. Grandfathered orgs get the "Early Member" variant.
     """
     async with create_task_group() as tg:
         subscription_task = tg.create_task(
-            polar_self_service.get_subscription(authz.organization.id)
+            repalis_self_service.get_subscription(authz.organization.id)
         )
         startup_program_status_task = tg.create_task(
             startup_program_service.get_status(authz.organization.id)
@@ -1066,7 +1066,7 @@ async def get_subscription(
     subscription = subscription_task.return_value
     startup_program_status = startup_program_status_task.return_value
     if subscription is None:
-        free_plan = await polar_self_service.resolve_free_plan(
+        free_plan = await repalis_self_service.resolve_free_plan(
             session, authz.organization.id, subscription=None
         )
         subscription_obj = OrganizationSubscription.free(plan=free_plan)
@@ -1082,7 +1082,7 @@ async def get_subscription(
     summary="Start Subscription Checkout",
     responses={
         201: {"description": "Checkout session created."},
-        409: {"model": PolarSelfPaidSubscriptionAlreadyExists.schema()},
+        409: {"model": RepalisSelfPaidSubscriptionAlreadyExists.schema()},
         404: OrganizationNotFound,
     },
     tags=[APITag.private],
@@ -1093,9 +1093,9 @@ async def start_subscription_checkout(
     body: OrganizationCheckoutRequest,
     session: AsyncReadSession = Depends(get_db_read_session),
 ) -> OrganizationCheckoutResponse:
-    """Create a Polar checkout session for an initial paid subscription."""
+    """Create a Repalis checkout session for an initial paid subscription."""
     customer_ip_address = get_ip_address(request)
-    checkout = await polar_self_service.start_checkout(
+    checkout = await repalis_self_service.start_checkout(
         session=session,
         organization_id=authz.organization.id,
         product_id=body.product_id,
@@ -1126,7 +1126,7 @@ async def change_subscription_plan(
     session: AsyncReadSession = Depends(get_db_read_session),
 ) -> OrganizationSubscription:
     """Change the plan for an organization's existing subscription."""
-    subscription = await polar_self_service.change_plan(
+    subscription = await repalis_self_service.change_plan(
         session=session,
         organization_id=authz.organization.id,
         product_id=body.product_id,
@@ -1158,7 +1158,7 @@ async def cancel_subscription_endpoint(
     The organization stays on its paid plan until period end, then transitions
     to the synthesized free plan.
     """
-    subscription = await polar_self_service.cancel_subscription(
+    subscription = await repalis_self_service.cancel_subscription(
         organization_id=authz.organization.id,
     )
     return await _enrich_subscription(
@@ -1194,7 +1194,7 @@ async def claim_startup_program(
     """
     customer_ip_address = get_ip_address(request)
     try:
-        subscription, checkout = await polar_self_service.claim_startup_program(
+        subscription, checkout = await repalis_self_service.claim_startup_program(
             session=session,
             organization_id=authz.organization.id,
             customer_ip_address=customer_ip_address,
@@ -1203,7 +1203,7 @@ async def claim_startup_program(
             embed_origin=body.embed_origin,
         )
     except StartupProgramError as e:
-        raise PolarRequestValidationError(
+        raise RepalisRequestValidationError(
             [
                 {
                     "type": "value_error",
@@ -1237,7 +1237,7 @@ async def list_orders(
     pagination: PaginationParamsQuery,
 ) -> ListResource[OrganizationOrder]:
     """List Polar orders billed to this organization."""
-    items, total = await polar_self_service.list_orders(
+    items, total = await repalis_self_service.list_orders(
         authz.organization.id,
         page=pagination.page,
         limit=pagination.limit,
@@ -1259,8 +1259,8 @@ async def list_orders(
 async def get_billing_details(
     authz: AuthorizeOrgManageUserRead,
 ) -> OrganizationBillingDetails:
-    """Get the billing name, address, and tax ID used on Polar invoices."""
-    customer = await polar_self_service.get_billing_details(
+    """Get the billing name, address, and tax ID used on Repalis invoices."""
+    customer = await repalis_self_service.get_billing_details(
         authz.organization.id,
         external_member_id=str(authz.auth_subject.subject.id),
     )
@@ -1278,8 +1278,8 @@ async def update_billing_details(
     authz: AuthorizeOrgManageUser,
     body: OrganizationBillingDetailsUpdate,
 ) -> OrganizationBillingDetails:
-    """Update the billing name, address, and tax ID used on Polar invoices."""
-    customer = await polar_self_service.update_billing_details(
+    """Update the billing name, address, and tax ID used on Repalis invoices."""
+    customer = await repalis_self_service.update_billing_details(
         authz.organization.id,
         update=body,
         external_member_id=str(authz.auth_subject.subject.id),
@@ -1298,7 +1298,7 @@ async def list_payment_methods(
     authz: AuthorizeOrgManageUserRead,
 ) -> ListResource[OrganizationPaymentMethod]:
     """List the saved payment methods used to pay Polar invoices."""
-    methods, default_payment_method_id = await polar_self_service.list_payment_methods(
+    methods, default_payment_method_id = await repalis_self_service.list_payment_methods(
         authz.organization.id,
         external_member_id=str(authz.auth_subject.subject.id),
     )
@@ -1328,7 +1328,7 @@ async def create_customer_session(
     """Create a customer session token bound to this org's Polar billing
     customer. The returned token authenticates against
     `/v1/customer-portal/customers/me/*` for the duration of its TTL."""
-    token = await polar_self_service.create_customer_session(
+    token = await repalis_self_service.create_customer_session(
         authz.organization.id,
         external_member_id=str(authz.auth_subject.subject.id),
     )
@@ -1344,7 +1344,7 @@ async def create_customer_session(
         400: {
             "description": "Payment method is in use by an active "
             "subscription and cannot be deleted.",
-            "model": PolarSelfPaymentMethodInUse.schema(),
+            "model": RepalisSelfPaymentMethodInUse.schema(),
         },
         404: {
             "description": "Organization or payment method not found.",
@@ -1358,7 +1358,7 @@ async def delete_payment_method(
     payment_method_id: str,
 ) -> None:
     """Delete a saved payment method used to pay Polar invoices."""
-    await polar_self_service.delete_payment_method(
+    await repalis_self_service.delete_payment_method(
         authz.organization.id,
         payment_method_id=payment_method_id,
         external_member_id=str(authz.auth_subject.subject.id),
@@ -1383,7 +1383,7 @@ async def set_default_payment_method(
     payment_method_id: str,
 ) -> None:
     """Set the default payment method used to pay Polar invoices."""
-    await polar_self_service.set_default_payment_method(
+    await repalis_self_service.set_default_payment_method(
         authz.organization.id,
         payment_method_id=payment_method_id,
         external_member_id=str(authz.auth_subject.subject.id),
@@ -1408,7 +1408,7 @@ async def get_order_invoice(
     order_id: str,
 ) -> OrganizationOrderInvoice:
     """Get the invoice URL for a Polar order belonging to this organization."""
-    url = await polar_self_service.get_order_invoice_url(
+    url = await repalis_self_service.get_order_invoice_url(
         authz.organization.id, order_id
     )
     return OrganizationOrderInvoice(url=url)
@@ -1426,7 +1426,7 @@ async def list_benefit_grants(
 ) -> ListResource[OrganizationBenefitGrant]:
     """List Slack shared channel benefit grants attached to this org's Polar
     subscription."""
-    grants = await polar_self_service.list_benefit_grants(
+    grants = await repalis_self_service.list_benefit_grants(
         authz.organization.id,
         external_member_id=str(authz.auth_subject.subject.id),
     )
@@ -1456,7 +1456,7 @@ async def update_benefit_grant(
 ) -> OrganizationBenefitGrant:
     """Set the Slack admin email that should receive the Slack Connect invite
     for this benefit grant."""
-    grant = await polar_self_service.update_benefit_grant(
+    grant = await repalis_self_service.update_benefit_grant(
         authz.organization.id,
         benefit_grant_id=benefit_grant_id,
         update=body,

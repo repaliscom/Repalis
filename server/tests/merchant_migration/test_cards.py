@@ -168,7 +168,7 @@ class TestLinkPaymentMethod:
 
         assert await link_payment_method(session, customer) is None
 
-    async def test_customer_not_on_polars_account_yet(
+    async def test_customer_not_on_repaliss_account_yet(
         self,
         mocker: MockerFixture,
         session: AsyncSession,
@@ -329,7 +329,7 @@ class TestLinkPaymentMethod:
         assert payment_method is None
         assert await _payment_methods(session, imported_customer) == []
 
-    async def test_rejects_a_mapped_method_missing_on_polar(
+    async def test_rejects_a_mapped_method_missing_on_repalis(
         self,
         mocker: MockerFixture,
         session: AsyncSession,

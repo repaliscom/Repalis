@@ -10,7 +10,7 @@ from repalis.auth.permission import OrganizationPermission
 from repalis.authz.service import assert_resource_permission, get_accessible_org_ids
 from repalis.customer.repository import CustomerRepository
 from repalis.enums import TokenType
-from repalis.exceptions import PolarError, PolarRequestValidationError
+from repalis.exceptions import RepalisError, RepalisRequestValidationError
 from repalis.kit.crypto import generate_token_hash_pair
 from repalis.kit.services import ResourceServiceReader
 from repalis.logging import Logger
@@ -29,12 +29,12 @@ log: Logger = structlog.get_logger()
 CUSTOMER_SESSION_TOKEN_PREFIX = "polar_cst_"
 
 
-class AmbiguousExternalCustomerID(PolarError):
+class AmbiguousExternalCustomerID(RepalisError):
     def __init__(self, external_customer_id: str) -> None:
         self.external_customer_id = external_customer_id
         super().__init__(
             "Several customers across your organizations share this external "
-            "customer ID. Use an organization-scoped token, the Polar customer "
+            "customer ID. Use an organization-scoped token, the Repalis customer "
             "ID, or a unique external ID to disambiguate.",
             409,
         )
@@ -85,7 +85,7 @@ class CustomerSessionService(ResourceServiceReader[CustomerSession]):
                 ) from e
 
         if customer is None:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "loc": ("body", id_field),
@@ -121,7 +121,7 @@ class CustomerSessionService(ResourceServiceReader[CustomerSession]):
 
         customer_type = customer.type or CustomerType.individual
         if customer_type == CustomerType.team:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "loc": ("body", "member_id"),
@@ -144,7 +144,7 @@ class CustomerSessionService(ResourceServiceReader[CustomerSession]):
             member_id, customer.id
         )
         if member is None:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "loc": ("body", "member_id"),
@@ -169,7 +169,7 @@ class CustomerSessionService(ResourceServiceReader[CustomerSession]):
             customer.id, external_member_id
         )
         if member is None:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "loc": ("body", "external_member_id"),
@@ -200,7 +200,7 @@ class CustomerSessionService(ResourceServiceReader[CustomerSession]):
             if member is not None:
                 member.customer = customer
         if member is None:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "loc": ("body", "customer_id"),

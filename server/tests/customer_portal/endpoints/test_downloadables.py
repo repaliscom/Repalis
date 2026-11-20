@@ -105,17 +105,17 @@ class TestDownloadablesEndpoints:
         assert pagination["total_count"] == 1
         assert len(downloadable_list) == 1
         downloadable = DownloadableRead(**downloadable_list[0])
-        polar_download_url = downloadable.file.download.url
+        repalis_download_url = downloadable.file.download.url
 
         # Polar download endpoint gives presigned S3 redirect
-        response = await client.get(polar_download_url, follow_redirects=False)
+        response = await client.get(repalis_download_url, follow_redirects=False)
         assert response.status_code == 302
         s3_download_url = response.headers.get("location", None)
         assert s3_download_url
 
         expires_at = downloadable.file.download.expires_at
         with freeze_time(expires_at + timedelta(seconds=1)):
-            response = await client.get(polar_download_url, follow_redirects=False)
+            response = await client.get(repalis_download_url, follow_redirects=False)
             assert response.status_code == 410
 
     @pytest.mark.auth(CUSTOMER_AUTH_SUBJECT)
@@ -197,7 +197,7 @@ class TestDownloadablesEndpoints:
         assert response.status_code == 200
         data = response.json()
         assert data["pagination"]["total_count"] == 1
-        polar_download_url = data["items"][0]["file"]["download"]["url"]
+        repalis_download_url = data["items"][0]["file"]["download"]["url"]
 
         statement = (
             sql.update(File)
@@ -212,7 +212,7 @@ class TestDownloadablesEndpoints:
         assert data["pagination"]["total_count"] == 0
         assert len(data["items"]) == 0
 
-        response = await client.get(polar_download_url, follow_redirects=False)
+        response = await client.get(repalis_download_url, follow_redirects=False)
         assert response.status_code == 410
 
     @pytest.mark.auth(CUSTOMER_AUTH_SUBJECT)
@@ -248,10 +248,10 @@ class TestDownloadablesEndpoints:
         assert pagination["total_count"] == 1
         assert len(downloadable_list) == 1
         downloadable = downloadable_list[0]
-        polar_download_url = downloadable["file"]["download"]["url"]
+        repalis_download_url = downloadable["file"]["download"]["url"]
 
         # Polar download endpoint gives presigned S3 redirect
-        response = await client.get(polar_download_url, follow_redirects=False)
+        response = await client.get(repalis_download_url, follow_redirects=False)
         assert response.status_code == 302
         s3_download_url = response.headers.get("location", None)
         assert s3_download_url

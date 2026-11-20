@@ -731,7 +731,7 @@ class TestRunPrecheck:
         assert records[0].canonical["name"] == "Pro"
 
     @pytest.mark.auth
-    async def test_warns_when_a_polar_product_already_exists(
+    async def test_warns_when_a_repalis_product_already_exists(
         self,
         mocker: MockerFixture,
         session: AsyncSession,
@@ -1654,7 +1654,7 @@ class TestImportCatalog:
         assert updated.step == MerchantMigrationStep.create_catalog
 
     @pytest.mark.auth
-    async def test_copies_tax_id_onto_polar_customer(
+    async def test_copies_tax_id_onto_repalis_customer(
         self,
         mocker: MockerFixture,
         session: AsyncSession,
@@ -1851,13 +1851,13 @@ class TestImportCatalog:
 
         await _import_catalog(session, auth_subject, migration.id)
 
-        [polar_product] = await _products(session, organization)
+        [repalis_product] = await _products(session, organization)
         record = await record_repository.get_imported_product_dependency(
             organization.id, "price_1"
         )
         assert record is not None
         assert record.source_id == "prod_1:month:1"
-        assert record.target_id == polar_product.id
+        assert record.target_id == repalis_product.id
 
     @pytest.mark.auth
     async def test_reprecheck_after_archiving_a_price_keeps_one_product(
@@ -1903,13 +1903,13 @@ class TestImportCatalog:
 
         await _import_catalog(session, auth_subject, migration.id)
 
-        [polar_product] = await _products(session, organization)
+        [repalis_product] = await _products(session, organization)
         record_repository = MerchantMigrationRecordRepository.from_session(session)
         record = await record_repository.get_imported_product_dependency(
             organization.id, "price_1"
         )
         assert record is not None
-        assert record.target_id == polar_product.id
+        assert record.target_id == repalis_product.id
         coupon = await record_repository.get_by_source(
             organization_id=organization.id,
             type=MerchantMigrationRecordType.discount,
@@ -2593,7 +2593,7 @@ class TestImportCatalog:
         ("subscribed", "reason_code"),
         [
             (False, "customer_stripe_id_conflict"),
-            (True, "customer_subscribed_on_polar"),
+            (True, "customer_subscribed_on_repalis"),
         ],
     )
     async def test_customer_skipped_on_stripe_id_conflict(
@@ -2608,10 +2608,10 @@ class TestImportCatalog:
         subscribed: bool,
         reason_code: str,
     ) -> None:
-        # An existing Polar customer whose own Stripe id still holds a saved card
+        # An existing Repalis customer whose own Stripe id still holds a saved card
         # or bills a subscription can't be moved onto the source id, or those
         # would stop charging.
-        polar_customer = await customer_service.create_for_organization(
+        repalis_customer = await customer_service.create_for_organization(
             session,
             organization,
             email="alice@example.com",
@@ -2623,11 +2623,11 @@ class TestImportCatalog:
             await create_subscription(
                 save_fixture,
                 product=product,
-                customer=polar_customer,
+                customer=repalis_customer,
                 status=SubscriptionStatus.active,
             )
         else:
-            await create_payment_method(save_fixture, polar_customer)
+            await create_payment_method(save_fixture, repalis_customer)
         migration = await _staged_migration(
             mocker, session, save_fixture, auth_subject, organization
         )
@@ -2656,7 +2656,7 @@ class TestImportCatalog:
             pagination=PaginationParams(page=1, limit=20),
         )
         assert items[0].reason_code == reason_code
-        assert items[0].conflicting_customer_id == polar_customer.id
+        assert items[0].conflicting_customer_id == repalis_customer.id
         assert items[0].reason_level == PrecheckReasonLevel.action_required
 
     @pytest.mark.auth
@@ -2669,7 +2669,7 @@ class TestImportCatalog:
         organization: Organization,
         user_organization: UserOrganization,
     ) -> None:
-        polar_customer = await create_customer(
+        repalis_customer = await create_customer(
             save_fixture,
             organization=organization,
             email="alice@example.com",
@@ -2700,8 +2700,8 @@ class TestImportCatalog:
             source_id="cus_1",
         )
         assert customer_record is not None
-        assert customer_record.target_id == polar_customer.id
-        assert polar_customer.stripe_customer_id == "cus_1"
+        assert customer_record.target_id == repalis_customer.id
+        assert repalis_customer.stripe_customer_id == "cus_1"
 
     @pytest.mark.auth
     async def test_rerunning_precheck_does_not_regress_step(
@@ -4568,7 +4568,7 @@ class TestStartPanTransfer:
         organization: Organization,
         product: Product,
         *,
-        cards_on_polar: set[str],
+        cards_on_repalis: set[str],
     ) -> MerchantMigration:
         mocker.patch.object(
             settings, "MERCHANT_MIGRATION_DESTINATION_STRIPE_ACCOUNT_ID", "acct_polar"
@@ -4590,7 +4590,7 @@ class TestStartPanTransfer:
                     type=CanonicalPaymentMethodType.card,
                 ),
             )
-            if source_id in cards_on_polar:
+            if source_id in cards_on_repalis:
                 customer = await customer_repository.get_by_email_and_organization(
                     f"{source_id}@example.com", organization.id
                 )
@@ -4601,7 +4601,7 @@ class TestStartPanTransfer:
         return migration
 
     @pytest.mark.auth
-    async def test_goes_straight_to_the_switch_when_every_card_is_on_polar(
+    async def test_goes_straight_to_the_switch_when_every_card_is_on_repalis(
         self,
         mocker: MockerFixture,
         session: AsyncSession,
@@ -4618,7 +4618,7 @@ class TestStartPanTransfer:
             save_fixture,
             organization,
             product,
-            cards_on_polar={"sub_1", "sub_2"},
+            cards_on_repalis={"sub_1", "sub_2"},
         )
 
         checklist = await service.start_pan_transfer(
@@ -4663,7 +4663,7 @@ class TestStartPanTransfer:
             save_fixture,
             organization,
             product,
-            cards_on_polar={"sub_1", "sub_2"},
+            cards_on_repalis={"sub_1", "sub_2"},
         )
         migration.operation = MerchantMigrationOperation(
             status=MerchantMigrationOperationStatus.running,
@@ -4694,7 +4694,7 @@ class TestStartPanTransfer:
             save_fixture,
             organization,
             product,
-            cards_on_polar={"sub_1"},
+            cards_on_repalis={"sub_1"},
         )
 
         checklist = await service.start_pan_transfer(
@@ -4766,7 +4766,7 @@ class TestStreamCustomerIdsToCopy:
         ]
 
     @pytest.mark.auth
-    async def test_drops_its_own_customers_whose_card_is_on_polar(
+    async def test_drops_its_own_customers_whose_card_is_on_repalis(
         self,
         session: AsyncSession,
         save_fixture: SaveFixture,

@@ -15,14 +15,14 @@ from repalis.customer.repository import CustomerRepository
 from repalis.customer_seat.service import seat_service as customer_seat_service
 from repalis.dispute.dispute_case import dispute_case as dispute_case_service
 from repalis.enums import PaymentProcessor
-from repalis.exceptions import PolarError
+from repalis.exceptions import RepalisError
 from repalis.integrations.chargeback_stop.types import (
     RETRACTED_ALERT_STATUS,
     ChargebackStopAlert,
 )
 from repalis.integrations.stripe.service import stripe as stripe_service
 from repalis.integrations.stripe.utils import get_expandable_id
-from repalis.kit.math import polar_round
+from repalis.kit.math import repalis_round
 from repalis.kit.pagination import PaginationParams
 from repalis.kit.sorting import Sorting
 from repalis.kit.utils import utc_now
@@ -57,7 +57,7 @@ from .stripe import get_dispute_balance_transaction, is_rapid_resolution_dispute
 DISPUTE_AUTO_ACCEPT_DELAY = timedelta(hours=24)
 
 
-class DisputeError(PolarError):
+class DisputeError(RepalisError):
     pass
 
 
@@ -215,7 +215,7 @@ class DisputeService:
         )
         if payment_transaction is None or payment_transaction.exchange_rate is None:
             return None
-        return polar_round(
+        return repalis_round(
             (dispute.amount + dispute.tax_amount) * payment_transaction.exchange_rate
         )
 

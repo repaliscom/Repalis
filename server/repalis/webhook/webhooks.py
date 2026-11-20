@@ -34,7 +34,7 @@ from repalis.customer.schemas.customer import CustomerResponse as CustomerSchema
 from repalis.customer.schemas.state import CustomerState as CustomerStateSchema
 from repalis.customer_seat.schemas import CustomerSeat as CustomerSeatSchema
 from repalis.discount.schemas import Discount as DiscountSchema
-from repalis.exceptions import PolarError
+from repalis.exceptions import RepalisError
 from repalis.integrations.discord.webhook import (
     DiscordEmbedField,
     DiscordPayload,
@@ -119,7 +119,7 @@ WebhookTypeObject = (
 )
 
 
-class UnsupportedTarget(PolarError):
+class UnsupportedTarget(RepalisError):
     def __init__(
         self,
         target: User | Organization,
@@ -132,7 +132,7 @@ class UnsupportedTarget(PolarError):
         super().__init__(message)
 
 
-class SkipEvent(PolarError):
+class SkipEvent(RepalisError):
     def __init__(self, event: WebhookEventType, format: WebhookFormat) -> None:
         self.event = event
         self.format = format
@@ -1334,7 +1334,7 @@ class WebhookSubscriptionMigratedPayload(BaseWebhookPayload):
     """
     Sent when Polar takes over billing of a subscription migrated from another provider.
 
-    This fires at cutover, once the subscription is live on Polar. `provider`
+    This fires at cutover, once the subscription is live on Repalis. `provider`
     and `provider_subscription_id` identify the subscription on the billing
     provider so you can correlate the two.
 

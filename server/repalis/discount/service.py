@@ -19,7 +19,7 @@ from repalis.discount.repository import (
     DiscountRedemptionRepository,
     DiscountRepository,
 )
-from repalis.exceptions import PolarError, PolarRequestValidationError
+from repalis.exceptions import RepalisError, RepalisRequestValidationError
 from repalis.kit.db.locking import is_lock_not_available_error
 from repalis.kit.email import EmailNotValidError, unalias_email
 from repalis.kit.pagination import PaginationParams, paginate
@@ -58,7 +58,7 @@ DISCOUNT_LOCKED_FIELD_MESSAGE = (
 )
 
 
-class DiscountError(PolarError): ...
+class DiscountError(RepalisError): ...
 
 
 class DiscountNotRedeemableError(DiscountError):
@@ -165,7 +165,7 @@ class DiscountService(ResourceServiceReader[Discount]):
                     product_id, organization.id
                 )
                 if product is None:
-                    raise PolarRequestValidationError(
+                    raise RepalisRequestValidationError(
                         [
                             {
                                 "type": "value_error",
@@ -224,7 +224,7 @@ class DiscountService(ResourceServiceReader[Discount]):
             code, organization_id
         )
         if existing_discount is not None:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",
@@ -244,7 +244,7 @@ class DiscountService(ResourceServiceReader[Discount]):
         if await repository.get_by_external_id_and_organization(
             external_id, organization_id
         ):
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",
@@ -270,7 +270,7 @@ class DiscountService(ResourceServiceReader[Discount]):
             "duration" in discount_update.model_fields_set
             and discount_update.duration != discount.duration
         ):
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",
@@ -282,7 +282,7 @@ class DiscountService(ResourceServiceReader[Discount]):
             )
 
         if discount_update.type is not None and discount_update.type != discount.type:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",
@@ -298,7 +298,7 @@ class DiscountService(ResourceServiceReader[Discount]):
                 session, discount_update.code, discount.organization, redeemable=False
             )
             if existing_discount is not None and existing_discount.id != discount.id:
-                raise PolarRequestValidationError(
+                raise RepalisRequestValidationError(
                     [
                         {
                             "type": "value_error",
@@ -314,7 +314,7 @@ class DiscountService(ResourceServiceReader[Discount]):
             and discount_update.external_id != discount.external_id
         ):
             if discount.external_id is not None:
-                raise PolarRequestValidationError(
+                raise RepalisRequestValidationError(
                     [
                         {
                             "type": "value_error",
@@ -336,7 +336,7 @@ class DiscountService(ResourceServiceReader[Discount]):
                 if field in discount_update.model_fields_set:
                     discount_update_value = getattr(discount_update, field)
                     if discount_update_value != getattr(discount, field, None):
-                        raise PolarRequestValidationError(
+                        raise RepalisRequestValidationError(
                             [
                                 {
                                     "type": "value_error",
@@ -358,7 +358,7 @@ class DiscountService(ResourceServiceReader[Discount]):
                         product_id, discount.organization_id
                     )
                     if product is None:
-                        raise PolarRequestValidationError(
+                        raise RepalisRequestValidationError(
                             [
                                 {
                                     "type": "value_error",

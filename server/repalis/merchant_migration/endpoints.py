@@ -555,7 +555,7 @@ async def set_tax_behavior(
             | MerchantMigrationRecordNotFound.schema(),
         },
         409: {
-            "description": "The subscription has already switched to Polar.",
+            "description": "The subscription has already switched to Repalis.",
             "model": RecordTaxLocked.schema(),
         },
     },

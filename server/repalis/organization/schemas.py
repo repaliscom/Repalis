@@ -248,7 +248,7 @@ class OrganizationFeatureSettings(Schema):
         False,
         description=(
             "If this organization can migrate its billing from another "
-            "provider (e.g. Stripe) to Polar."
+            "provider (e.g. Stripe) to Repalis."
         ),
     )
     staged_events_ingest_enabled: Annotated[
@@ -286,7 +286,7 @@ class OrganizationFeatureSettings(Schema):
 class OrganizationFeatureSettingsUpdate(Schema):
     """Feature settings that organizations can update themselves.
 
-    Other feature settings are managed by Polar staff: they're ignored if
+    Other feature settings are managed by Repalis staff: they're ignored if
     provided and keep their current value.
     """
 

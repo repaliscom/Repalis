@@ -5,7 +5,7 @@ from repalis.custom_field.schemas import CustomFieldCreateText, CustomFieldUpdat
 from repalis.custom_field.service import CustomFieldVersionLocked
 from repalis.custom_field.service import custom_field as custom_field_service
 from repalis.declarative_config.guard import DeclarativeConfigManaged
-from repalis.exceptions import PolarRequestValidationError
+from repalis.exceptions import RepalisRequestValidationError
 from repalis.kit.pagination import PaginationParams
 from repalis.kit.utils import utc_now
 from repalis.models import (
@@ -165,7 +165,7 @@ class TestCreate:
         organization: Organization,
         text_field: CustomFieldText,
     ) -> None:
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await custom_field_service.create(
                 session,
                 CustomFieldCreateText(

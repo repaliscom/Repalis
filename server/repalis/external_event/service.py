@@ -3,7 +3,7 @@ import uuid
 from collections.abc import AsyncIterator
 from typing import Any, cast
 
-from repalis.exceptions import PolarError
+from repalis.exceptions import RepalisError
 from repalis.kit.utils import utc_now
 from repalis.models import ExternalEvent
 from repalis.models.external_event import ExternalEventSource, StripeEvent
@@ -13,7 +13,7 @@ from repalis.worker import enqueue_job
 from .repository import ExternalEventRepository
 
 
-class ExternalEventError(PolarError): ...
+class ExternalEventError(RepalisError): ...
 
 
 class ExternalEventDoesNotExist(ExternalEventError):

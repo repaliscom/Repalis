@@ -138,7 +138,7 @@ class Settings(BaseSettings):
     # The key set the LocalSigner signs with: a document, or a path to one.
     LOCAL_JWKS: str = DEVELOPMENT_JWKS
     LOCAL_JWK_KID: str = "polar_dev"
-    WWW_AUTHENTICATE_REALM: str = "polar"
+    WWW_AUTHENTICATE_REALM: str = "repalis"
     ORGANIZATION_ACCESS_TOKEN_CACHE_TTL_SECONDS: float = 0
 
     # JSON list of accepted CORS origins
@@ -146,7 +146,7 @@ class Settings(BaseSettings):
 
     ALLOWED_HOSTS: set[str] = {"127.0.0.1:3000", "localhost:3000"}
 
-    # User-Agent sent by Polar's outbound HTTP clients (e.g. URL reachability
+    # User-Agent sent by Repalis's outbound HTTP clients (e.g. URL reachability
     # checks). Excludes the org review website/setup collectors, which use a
     # browser-like UA to avoid bot detection by CDNs.
     POLAR_USER_AGENT: str = "Repalis/1.0 (+https://repalis.com)"
@@ -206,7 +206,7 @@ class Settings(BaseSettings):
     CUSTOMER_SESSION_CODE_TTL: timedelta = timedelta(minutes=30)
     CUSTOMER_SESSION_CODE_LENGTH: int = 6
     CUSTOMER_SESSION_AUTHENTICATION_SESSION_COOKIE_KEY: str = (
-        "polar_customer_auth_session"
+        "repalis_customer_auth_session"
     )
 
     # Impersonation session
@@ -223,13 +223,13 @@ class Settings(BaseSettings):
     IP_GEOLOCATION_DATABASE_NAME: str = "ip-geolocation.mmdb"
 
     # Database
-    POSTGRES_USER: str = "polar"
-    POSTGRES_PWD: str = "polar"
+    POSTGRES_USER: str = "repalis"
+    POSTGRES_PWD: str = "repalis"
     POSTGRES_HOST: str = "127.0.0.1"
     POSTGRES_PORT: int = 5432
     POSTGRES_HOST_FALLBACK: str | None = None
     POSTGRES_PORT_FALLBACK: int | None = None
-    POSTGRES_DATABASE: str = "polar"
+    POSTGRES_DATABASE: str = "repalis"
     POSTGRES_SSL: bool = False
     # Full connection URL, as injected by managed Postgres integrations
     # (e.g. Neon). When set, its components take precedence over the parts above.
@@ -354,7 +354,7 @@ class Settings(BaseSettings):
     STRIPE_CONNECT_WEBHOOK_SECRET: str = ""
     # Account risk signals (preview). Empty disables the endpoint.
     STRIPE_ACCOUNT_RISK_WEBHOOK_SECRET: str = ""
-    STRIPE_STATEMENT_DESCRIPTOR: str = "POLAR"
+    STRIPE_STATEMENT_DESCRIPTOR: str = "REPALIS"
     # The Stripe account merchants copy or import their saved cards into. Shown to
     # the merchant so they can address the transfer to us.
     MERCHANT_MIGRATION_DESTINATION_STRIPE_ACCOUNT_ID: str = ""
@@ -426,7 +426,7 @@ class Settings(BaseSettings):
     PLAIN_DEFAULT_TIER_EXTERNAL_ID: str | None = None
 
     # AWS (File Downloads)
-    AWS_ACCESS_KEY_ID: str = "polar-development"
+    AWS_ACCESS_KEY_ID: str = "repalis-development"
     AWS_SECRET_ACCESS_KEY: str = "polar123456789"
     AWS_REGION: str = "us-east-2"
     AWS_SIGNATURE_VERSION: str = "v4"
@@ -460,14 +460,14 @@ class Settings(BaseSettings):
         "observability.invariants.enqueue",
         "observability.invariants.check",
     }
-    WORKER_SQS_QUEUE_PREFIX: str = "polar-tasks"
+    WORKER_SQS_QUEUE_PREFIX: str = "repalis-tasks"
     # Override to http://127.0.0.1:4566 in .env to target LocalStack
     SQS_ENDPOINT_URL: str | None = None
     WORKER_SQS_SCHEDULER_ROLE_ARN: str | None = None
 
     # Downloadable files
-    S3_FILES_BUCKET_NAME: str = "polar-s3"
-    S3_FILES_PUBLIC_BUCKET_NAME: str = "polar-s3-public"
+    S3_FILES_BUCKET_NAME: str = "repalis-s3"
+    S3_FILES_PUBLIC_BUCKET_NAME: str = "repalis-s3-public"
     S3_FILES_PRESIGN_TTL: int = 3600  # 60 minutes
     S3_FILES_DOWNLOAD_SECRET: str = "supersecret"
     S3_FILES_DOWNLOAD_SALT: str = "saltysalty"
@@ -483,22 +483,22 @@ class Settings(BaseSettings):
     def s3_presign_endpoint_url(self) -> str | None:
         return self.S3_PUBLIC_ENDPOINT_URL or self.S3_ENDPOINT_URL
 
-    MINIO_USER: str = "polar"
+    MINIO_USER: str = "repalis"
     MINIO_PWD: str = "polarpolar"
 
     # Chargeback Stop
     CHARGEBACK_STOP_WEBHOOK_SECRET: str = ""
 
-    # Polar's usage of Polar
+    # Repalis's usage of Repalis
     POLAR_ACCESS_TOKEN: str = ""
     POLAR_WEBHOOK_SECRET: str = ""
     POLAR_ORGANIZATION_ID: str = ""
     # Scale plan product, used by the Startup Program to grant a 100% discount
-    POLAR_SCALE_PRODUCT_ID: str = ""
+    REPALIS_SCALE_PRODUCT_ID: str = ""
     POLAR_API_URL: str = "https://api.repalis.com"
 
     @property
-    def POLAR_SELF_ENABLED(self) -> bool:
+    def REPALIS_SELF_ENABLED(self) -> bool:
         return all(
             [
                 self.POLAR_ACCESS_TOKEN,
@@ -512,7 +512,7 @@ class Settings(BaseSettings):
         # attach the discount to, access_token so the SDK calls can auth.
         return bool(
             self.POLAR_ORGANIZATION_ID
-            and self.POLAR_SCALE_PRODUCT_ID
+            and self.REPALIS_SCALE_PRODUCT_ID
             and self.POLAR_ACCESS_TOKEN
         )
 
@@ -529,10 +529,10 @@ class Settings(BaseSettings):
         return override
 
     # Invoices
-    S3_CUSTOMER_INVOICES_BUCKET_NAME: str = "polar-customer-invoices"
-    S3_CUSTOMER_RECEIPTS_BUCKET_NAME: str = "polar-customer-receipts"
-    S3_PAYOUT_INVOICES_BUCKET_NAME: str = "polar-payout-invoices"
-    INVOICES_NAME: str = "Polar Software, Inc."
+    S3_CUSTOMER_INVOICES_BUCKET_NAME: str = "repalis-customer-invoices"
+    S3_CUSTOMER_RECEIPTS_BUCKET_NAME: str = "repalis-customer-receipts"
+    S3_PAYOUT_INVOICES_BUCKET_NAME: str = "repalis-payout-invoices"
+    INVOICES_NAME: str = "Repalis Software, Inc."
     INVOICES_ADDRESS: Address = Address(
         line1="548 Market St",
         line2="PMB 61301",

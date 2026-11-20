@@ -148,7 +148,7 @@ class EmailOTPFactor(EmailOTPFactorBase):
         code_lifetime_minutes = ceil(delta / 60)
 
         domain = settings.frontend_hostname
-        subject = "Sign up to Polar" if signup else "Sign in to Polar"
+        subject = "Sign up to Repalis" if signup else "Sign in to Repalis"
         enqueue_email_template(
             LoginCodeEmail(
                 props=LoginCodeProps(

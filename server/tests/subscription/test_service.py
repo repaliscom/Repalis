@@ -33,7 +33,7 @@ from repalis.event.repository import EventRepository
 from repalis.event.system import SystemEvent
 from repalis.exceptions import (
     PaymentNotReady,
-    PolarRequestValidationError,
+    RepalisRequestValidationError,
     ResourceUnavailable,
 )
 from repalis.kit.currency import PresentmentCurrency
@@ -298,7 +298,7 @@ class TestCreate:
             customer_id=uuid.uuid4(),
         )
 
-        with pytest.raises(PolarRequestValidationError) as exc_info:
+        with pytest.raises(RepalisRequestValidationError) as exc_info:
             await subscription_service.create(
                 session, subscription_create, auth_subject
             )
@@ -323,7 +323,7 @@ class TestCreate:
             customer_id=customer.id,
         )
 
-        with pytest.raises(PolarRequestValidationError) as exc_info:
+        with pytest.raises(RepalisRequestValidationError) as exc_info:
             await subscription_service.create(
                 session, subscription_create, auth_subject
             )
@@ -359,7 +359,7 @@ class TestCreate:
             customer_id=customer.id,
         )
 
-        with pytest.raises(PolarRequestValidationError) as exc_info:
+        with pytest.raises(RepalisRequestValidationError) as exc_info:
             await subscription_service.create(
                 session, subscription_create, auth_subject
             )
@@ -550,7 +550,7 @@ class TestCreate:
             customer_id=customer.id,
         )
 
-        with pytest.raises(PolarRequestValidationError) as exc_info:
+        with pytest.raises(RepalisRequestValidationError) as exc_info:
             await subscription_service.create(
                 session, subscription_create, auth_subject
             )
@@ -575,7 +575,7 @@ class TestCreate:
             currency=PresentmentCurrency.pln,
         )
 
-        with pytest.raises(PolarRequestValidationError) as exc_info:
+        with pytest.raises(RepalisRequestValidationError) as exc_info:
             await subscription_service.create(
                 session, subscription_create, auth_subject
             )
@@ -607,7 +607,7 @@ class TestCreate:
             currency=PresentmentCurrency.pln,
         )
 
-        with pytest.raises(PolarRequestValidationError) as exc_info:
+        with pytest.raises(RepalisRequestValidationError) as exc_info:
             await subscription_service.create(
                 session, subscription_create, auth_subject
             )
@@ -693,7 +693,7 @@ class TestCreate:
             customer_id=uuid.uuid4(),
         )
 
-        with pytest.raises(PolarRequestValidationError) as exc_info:
+        with pytest.raises(RepalisRequestValidationError) as exc_info:
             await subscription_service.create(
                 session, subscription_create, auth_subject
             )
@@ -717,7 +717,7 @@ class TestCreate:
             external_customer_id="nonexistent",
         )
 
-        with pytest.raises(PolarRequestValidationError) as exc_info:
+        with pytest.raises(RepalisRequestValidationError) as exc_info:
             await subscription_service.create(
                 session, subscription_create, auth_subject
             )
@@ -919,7 +919,7 @@ class TestCreate:
             customer_id=customer.id,
         )
 
-        with pytest.raises(PolarRequestValidationError) as exc_info:
+        with pytest.raises(RepalisRequestValidationError) as exc_info:
             await subscription_service.create(
                 session, subscription_create, auth_subject
             )
@@ -969,7 +969,7 @@ class TestCreate:
             customer_id=customer.id,
         )
 
-        with pytest.raises(PolarRequestValidationError) as exc_info:
+        with pytest.raises(RepalisRequestValidationError) as exc_info:
             await subscription_service.create(
                 session, subscription_create, auth_subject
             )
@@ -1004,7 +1004,7 @@ class TestCreate:
             customer_id=customer.id,
         )
 
-        with pytest.raises(PolarRequestValidationError) as exc_info:
+        with pytest.raises(RepalisRequestValidationError) as exc_info:
             await subscription_service.create(
                 session, subscription_create, auth_subject
             )
@@ -1047,7 +1047,7 @@ class TestCreate:
             customer_id=customer.id,
         )
 
-        with pytest.raises(PolarRequestValidationError) as exc_info:
+        with pytest.raises(RepalisRequestValidationError) as exc_info:
             await subscription_service.create(
                 session, subscription_create, auth_subject
             )
@@ -1083,7 +1083,7 @@ class TestCreate:
             currency=PresentmentCurrency.pln,
         )
 
-        with pytest.raises(PolarRequestValidationError) as exc_info:
+        with pytest.raises(RepalisRequestValidationError) as exc_info:
             await subscription_service.create(
                 session, subscription_create, auth_subject
             )
@@ -4230,7 +4230,7 @@ class TestPause:
             current_period_end=current_period_end,
         )
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             async with SubscriptionUpdateContext(
                 session, subscription, subscription_service
             ) as ctx:
@@ -6519,7 +6519,7 @@ class TestUpdateProduct:
         old_version.is_current = False
         await save_fixture(old_version)
 
-        with pytest.raises(PolarRequestValidationError) as error:
+        with pytest.raises(RepalisRequestValidationError) as error:
             async with SubscriptionUpdateContext(
                 session, subscription, subscription_service
             ) as ctx:
@@ -7447,7 +7447,7 @@ class TestUpdateProduct:
         )
         assert len(subscription.prices) == 1
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             async with SubscriptionUpdateContext(
                 session, subscription, subscription_service
             ) as ctx:
@@ -7533,7 +7533,7 @@ class TestUpdateProduct:
             seats=2,
         )
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             async with SubscriptionUpdateContext(
                 session, subscription, subscription_service
             ) as ctx:
@@ -8043,7 +8043,7 @@ class TestUpdateProduct:
             prices=[("seat", 1500, "usd")],
         )
 
-        with pytest.raises(PolarRequestValidationError) as exc_info:
+        with pytest.raises(RepalisRequestValidationError) as exc_info:
             async with SubscriptionUpdateContext(
                 session, subscription, subscription_service
             ) as ctx:
@@ -8129,7 +8129,7 @@ class TestUpdateDiscount:
             discount=discount_percentage_50,
         )
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             async with SubscriptionUpdateContext(
                 session, subscription, subscription_service
             ) as ctx:
@@ -8153,7 +8153,7 @@ class TestUpdateDiscount:
             discount=discount_percentage_50,
         )
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             async with SubscriptionUpdateContext(
                 session, subscription, subscription_service
             ) as ctx:
@@ -8275,7 +8275,7 @@ class TestUpdateDiscount:
             organization=organization,
         )
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             async with SubscriptionUpdateContext(
                 session, subscription, subscription_service
             ) as ctx:
@@ -8450,7 +8450,7 @@ class TestUpdateTrial:
             customer=customer,
         )
 
-        with pytest.raises(PolarRequestValidationError) as exc_info:
+        with pytest.raises(RepalisRequestValidationError) as exc_info:
             async with SubscriptionUpdateContext(
                 session, subscription, subscription_service
             ) as ctx:
@@ -8520,7 +8520,7 @@ class TestUpdateTrial:
         assert subscription.current_period_end is not None
         trial_end_before_period = subscription.current_period_end - timedelta(days=1)
 
-        with pytest.raises(PolarRequestValidationError) as exc_info:
+        with pytest.raises(RepalisRequestValidationError) as exc_info:
             async with SubscriptionUpdateContext(
                 session, subscription, subscription_service
             ) as ctx:
@@ -12206,7 +12206,7 @@ class TestClearPendingUpdate:
         )
 
         # When/Then: Should raise validation error
-        with pytest.raises(PolarRequestValidationError) as exc_info:
+        with pytest.raises(RepalisRequestValidationError) as exc_info:
             async with SubscriptionUpdateContext(
                 session, subscription, subscription_service
             ) as ctx:

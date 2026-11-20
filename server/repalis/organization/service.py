@@ -24,12 +24,12 @@ from repalis.config import settings
 from repalis.customer.repository import CustomerRepository
 from repalis.enums import InvoiceNumbering, SubscriptionProrationBehavior
 from repalis.exceptions import (
-    PolarError,
-    PolarRequestValidationError,
+    RepalisError,
+    RepalisRequestValidationError,
     ValidationError,
 )
 from repalis.integrations.repalis.service import billing_member_role
-from repalis.integrations.repalis.service import polar_self as polar_self_service
+from repalis.integrations.repalis.service import repalis_self as repalis_self_service
 from repalis.integrations.resend.service import resend as resend_service
 from repalis.integrations.stripe.account_risk import (
     ACTIONABLE_RISK_LEVELS,
@@ -291,7 +291,7 @@ class OrganizationDeletionCheckResult(BaseModel):
     )
 
 
-class OrganizationError(PolarError): ...
+class OrganizationError(RepalisError): ...
 
 
 class ActivationGate(StrEnum):
@@ -482,7 +482,7 @@ class OrganizationService:
 
         repository = OrganizationRepository.from_session(session)
         if await repository.slug_exists(create_schema.slug):
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "loc": ("body", "slug"),
@@ -518,7 +518,7 @@ class OrganizationService:
                 organization.account = await account_service.create(session)
                 await session.flush()
         except IntegrityError as e:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "loc": ("body", "slug"),
@@ -548,7 +548,7 @@ class OrganizationService:
         self, session: AsyncSession, organization: Organization, owner: User
     ) -> None:
         """Make `owner` the owner of a new organization and run its setup."""
-        polar_self_service.enqueue_create_customer(
+        repalis_self_service.enqueue_create_customer(
             organization_id=organization.id,
             name=organization.name,
             slug=organization.slug,
@@ -561,7 +561,7 @@ class OrganizationService:
             organization,
             owner,
             role=OrganizationRole.owner,
-            enqueue_polar_self_member=False,
+            enqueue_repalis_self_member=False,
         )
 
         posthog.user_event(
@@ -592,7 +592,7 @@ class OrganizationService:
         )
 
         if products_without_currency:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "loc": ("body", "default_presentment_currency"),
@@ -632,7 +632,7 @@ class OrganizationService:
                     "reset_proration_behavior_enabled"
                 )
             ):
-                raise PolarRequestValidationError(
+                raise RepalisRequestValidationError(
                     [
                         {
                             "type": "value_error",
@@ -727,12 +727,12 @@ class OrganizationService:
         try:
             OrganizationReviewSubmissionBody.model_validate({"body": organization})
         except PydanticValidationError as e:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 cast(Sequence[ValidationError], e.errors())
             ) from e
 
         if not await organization_email_service.is_verified(session, organization):
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",
@@ -968,7 +968,7 @@ class OrganizationService:
             )
 
         if organization._avatar_url:
-            # Anonymize by setting to Polar logo
+            # Anonymize by setting to Repalis logo
             update_dict["avatar_url"] = (
                 "https://avatars.githubusercontent.com/u/105373340?s=48&v=4"
             )
@@ -994,7 +994,7 @@ class OrganizationService:
         if review is not None:
             await appeal_case_service.close_for_organization_deletion(session, review)
 
-        polar_self_service.enqueue_delete_customer(organization_id=organization.id)
+        repalis_self_service.enqueue_delete_customer(organization_id=organization.id)
         resend_service.enqueue_sync_organization_members(organization.id)
 
         log.info(
@@ -1064,8 +1064,8 @@ class OrganizationService:
         user: User,
         *,
         role: OrganizationRole = OrganizationRole.member,
-        polar_self_member_delay: int | None = None,
-        enqueue_polar_self_member: bool = True,
+        repalis_self_member_delay: int | None = None,
+        enqueue_repalis_self_member: bool = True,
     ) -> None:
         try:
             async with session.begin_nested():
@@ -1105,14 +1105,14 @@ class OrganizationService:
             await session.execute(stmt)
             await session.flush()
         finally:
-            if enqueue_polar_self_member:
-                polar_self_service.enqueue_add_member(
+            if enqueue_repalis_self_member:
+                repalis_self_service.enqueue_add_member(
                     external_customer_id=str(organization.id),
                     email=user.email,
                     name=user.full_name or user.email.split("@", 1)[0],
                     external_id=str(user.id),
                     role=billing_member_role(role),
-                    delay=polar_self_member_delay,
+                    delay=repalis_self_member_delay,
                 )
             resend_service.enqueue_sync_user(user.id)
 
@@ -1129,20 +1129,20 @@ class OrganizationService:
             organization_id=organization_id,
         )
 
-        await self._sync_polar_self_customer_owner(
+        await self._sync_repalis_self_customer_owner(
             session,
             organization_id=organization_id,
             new_owner_user=new_owner_user,
         )
 
-    async def _sync_polar_self_customer_owner(
+    async def _sync_repalis_self_customer_owner(
         self,
         session: AsyncSession,
         *,
         organization_id: uuid.UUID,
         new_owner_user: User,
     ) -> None:
-        if not settings.POLAR_SELF_ENABLED:
+        if not settings.REPALIS_SELF_ENABLED:
             return
 
         polar_organization_id = uuid.UUID(settings.POLAR_ORGANIZATION_ID)
@@ -1604,7 +1604,7 @@ class OrganizationService:
         session.add(organization)
 
         self._enqueue_cancel_pending_payouts(organization)
-        polar_self_service.enqueue_revoke_subscription(organization_id=organization.id)
+        repalis_self_service.enqueue_revoke_subscription(organization_id=organization.id)
         if stripe_reject_reason is not None:
             self._enqueue_reject_stripe_account(organization, stripe_reject_reason)
 
@@ -2670,7 +2670,7 @@ class OrganizationService:
         """Enable preview access to in-preview features for this organization.
 
         Mirrors the paid-plan benefit webhook
-        (`PolarSelfService._apply_preview_access`) by flipping on every
+        (`RepalisSelfService._apply_preview_access`) by flipping on every
         `PREVIEW_ACCESS_FEATURE_FLAGS` flag, so Sandbox testing matches the real
         paid-plan behavior. Intended for Sandbox only: the endpoint guards on
         `settings.is_sandbox()`.
@@ -2683,7 +2683,7 @@ class OrganizationService:
                     **organization.feature_settings,
                     **{
                         flag: True
-                        for flag in polar_self_service.PREVIEW_ACCESS_FEATURE_FLAGS
+                        for flag in repalis_self_service.PREVIEW_ACCESS_FEATURE_FLAGS
                     },
                 }
             },

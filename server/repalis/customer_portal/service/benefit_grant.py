@@ -9,7 +9,7 @@ from sqlalchemy.sql.elements import OrderByList
 
 from repalis.auth.models import AuthSubject, Customer, Member, is_customer, is_member
 from repalis.customer.repository import CustomerRepository
-from repalis.exceptions import NotPermitted, PolarRequestValidationError
+from repalis.exceptions import NotPermitted, RepalisRequestValidationError
 from repalis.kit.db.postgres import AsyncSession
 from repalis.kit.pagination import PaginationParams, paginate
 from repalis.kit.services import ResourceServiceReader
@@ -160,7 +160,7 @@ class CustomerBenefitGrantService(ResourceServiceReader[BenefitGrant]):
             raise NotPermitted("Cannot update a revoked benefit grant.")
 
         if benefit_grant_update.benefit_type != benefit_grant.benefit.type:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",
@@ -202,7 +202,7 @@ class CustomerBenefitGrantService(ResourceServiceReader[BenefitGrant]):
                     oauth_account = customer.get_oauth_account(account_id, platform)
 
                 if oauth_account is None:
-                    raise PolarRequestValidationError(
+                    raise RepalisRequestValidationError(
                         [
                             {
                                 "type": "value_error",

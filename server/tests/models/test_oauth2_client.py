@@ -12,7 +12,7 @@ from tests.fixtures.database import SaveFixture
 
 def _build(user: User) -> OAuth2Client:
     client = OAuth2Client(
-        client_id="polar_ci_test",
+        client_id="repalis_ci_test",
         user=user,
     )
     client.id = OAuth2Client.generate_id()

@@ -3,13 +3,13 @@ from fastapi.responses import JSONResponse, RedirectResponse
 
 from repalis.kit.http import add_query_parameters
 
-from .exceptions import PolarAuthRedirectionError, SSORequired
+from .exceptions import RepalisAuthRedirectionError, SSORequired
 
 
 async def auth_redirection_error_exception_handler(
     request: Request, exc: Exception
 ) -> Response:
-    assert isinstance(exc, PolarAuthRedirectionError)
+    assert isinstance(exc, RepalisAuthRedirectionError)
     error_url = add_query_parameters(exc.url, error=exc.message, **exc.extra)
     return RedirectResponse(error_url, exc.status_code)
 
@@ -27,7 +27,7 @@ async def sso_required_exception_handler(request: Request, exc: Exception) -> Re
 
 
 __all__ = [
-    "PolarAuthRedirectionError",
+    "RepalisAuthRedirectionError",
     "SSORequired",
     "auth_redirection_error_exception_handler",
     "sso_required_exception_handler",

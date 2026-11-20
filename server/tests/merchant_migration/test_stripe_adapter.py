@@ -1593,7 +1593,7 @@ class TestGetSubscription:
                 status="canceled",
                 canceled_at=1_700_500_000,
                 cancellation_comment=(
-                    "Migrated to Polar (migration m_1; cancel at period end)"
+                    "Migrated to Repalis (migration m_1; cancel at period end)"
                 ),
             )
         )
@@ -1906,7 +1906,7 @@ class TestGetSubscription:
         client.v1.subscriptions.retrieve_async = mocker.AsyncMock(
             return_value=_stripe_subscription(
                 status="canceled",
-                cancellation_comment="Migrated to Polar (migration abc)",
+                cancellation_comment="Migrated to Repalis (migration abc)",
             )
         )
 
@@ -1937,7 +1937,7 @@ class TestGetSubscription:
                 status="canceled",
                 cancel_at_period_end=False,
                 cancellation_comment=(
-                    "Migrated to Polar (migration abc; cancel at period end)"
+                    "Migrated to Repalis (migration abc; cancel at period end)"
                 ),
             )
         )
@@ -1956,7 +1956,7 @@ class TestGetSubscription:
         client.v1.subscriptions.retrieve_async = mocker.AsyncMock(
             return_value=_stripe_subscription(
                 status="canceled",
-                cancellation_comment="Migrated to Polar (migration abc; renews)",
+                cancellation_comment="Migrated to Repalis (migration abc; renews)",
             )
         )
 
@@ -2010,7 +2010,7 @@ class TestStopSourceSubscription:
         await adapter.stop_source_subscription("sub_1", reference="abc")
 
     async def test_a_real_failure_propagates(self, mocker: MockerFixture) -> None:
-        """The caller must not activate on Polar while the source keeps billing."""
+        """The caller must not activate on Repalis while the source keeps billing."""
         adapter, client = _adapter(mocker)
         client.v1.subscriptions.cancel_async = mocker.AsyncMock(
             side_effect=stripe_lib.InvalidRequestError("bad request", "id")

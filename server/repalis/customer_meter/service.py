@@ -26,7 +26,7 @@ from repalis.event.system import (
     SystemEvent,
     build_system_event,
 )
-from repalis.exceptions import PolarError, PolarRequestValidationError, ResourceNotFound
+from repalis.exceptions import RepalisError, RepalisRequestValidationError, ResourceNotFound
 from repalis.kit.db.locking import is_lock_not_available_error
 from repalis.kit.math import non_negative_running_sum
 from repalis.kit.metadata import get_nested_metadata_attr
@@ -56,12 +56,12 @@ from .sorting import CustomerMeterSortProperty
 _MAX_REVERSIBLE_DAYS = 7
 
 
-class CustomerMeterCreditExternalIDConflict(PolarError):
+class CustomerMeterCreditExternalIDConflict(RepalisError):
     def __init__(self) -> None:
         super().__init__("This external_id is already used by a different event.", 409)
 
 
-class CustomerMeterCreditNotReversible(PolarError):
+class CustomerMeterCreditNotReversible(RepalisError):
     def __init__(self, message: str) -> None:
         super().__init__(message, 409)
 
@@ -298,7 +298,7 @@ class CustomerMeterService:
                     credit_create.external_customer_id
                 ) from e
         if customer is None:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",
@@ -329,7 +329,7 @@ class CustomerMeterService:
             or meter.archived_at is not None
             or meter.organization_id != customer.organization_id
         ):
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",

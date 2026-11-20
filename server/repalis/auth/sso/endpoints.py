@@ -39,7 +39,7 @@ from ..authentication_session import (
     get_authentication_session,
     get_org_authentication_session_service,
 )
-from ..exceptions import PolarAuthRedirectionError
+from ..exceptions import RepalisAuthRedirectionError
 from ..factors import get_org_factors
 from ..helpers import OIDC_ERROR_MESSAGE, check_factor, set_state_cookie
 from ..oauth2.state import OAuth2StateService, get_oauth2_state_service
@@ -102,7 +102,7 @@ async def get_org_authentication_session(
     """
     context = authentication_session.context or {}
     if context.get("organization_id") != str(organization.id):
-        raise PolarAuthRedirectionError(
+        raise RepalisAuthRedirectionError(
             "This authentication session was not started for this organization"
         )
     return authentication_session
@@ -179,7 +179,7 @@ async def authorize(
             sso_connection_id=str(connection_id),
         )
     except OIDCException as e:
-        raise PolarAuthRedirectionError(OIDC_ERROR_MESSAGE) from e
+        raise RepalisAuthRedirectionError(OIDC_ERROR_MESSAGE) from e
 
     response = RedirectResponse(authorization_url, status_code=303)
     set_state_cookie(request, response, state, oauth2_state.expires_at)
@@ -207,20 +207,20 @@ async def callback(
     session: AsyncSession = Depends(get_db_session),
 ) -> RedirectResponse:
     if state is None:
-        raise PolarAuthRedirectionError("Missing OAuth2 state")
+        raise RepalisAuthRedirectionError("Missing OAuth2 state")
 
     state_cookie = request.cookies.get(settings.OAUTH2_SESSION_STATE_COOKIE_KEY)
     if state_cookie is None:
-        raise PolarAuthRedirectionError("Missing OAuth2 state cookie")
+        raise RepalisAuthRedirectionError("Missing OAuth2 state cookie")
     if state != state_cookie:
-        raise PolarAuthRedirectionError("Invalid OAuth2 state")
+        raise RepalisAuthRedirectionError("Invalid OAuth2 state")
 
     oauth2_state = await state_service.get_by_token(state)
     if oauth2_state is None or oauth2_state.context is None:
-        raise PolarAuthRedirectionError("Invalid OAuth2 state")
+        raise RepalisAuthRedirectionError("Invalid OAuth2 state")
     connection_id = oauth2_state.context.get("sso_connection_id")
     if connection_id is None:
-        raise PolarAuthRedirectionError("Invalid OAuth2 state")
+        raise RepalisAuthRedirectionError("Invalid OAuth2 state")
 
     connection = await get_sso_connection(slug, UUID(connection_id), session)
     factor = await get_sso_factor(connection, factors)
@@ -234,36 +234,36 @@ async def callback(
             error_uri=error_uri,
         )
     except (ExpiredStateException, InvalidStateException) as e:
-        raise PolarAuthRedirectionError("OAuth2 session expired") from e
+        raise RepalisAuthRedirectionError("OAuth2 session expired") from e
     except OAuth2CallbackException as e:
-        raise PolarAuthRedirectionError(e.message or "OAuth2 callback error") from e
+        raise RepalisAuthRedirectionError(e.message or "OAuth2 callback error") from e
     except (OAuth2TokenException, OAuth2GetProfileException) as e:
-        raise PolarAuthRedirectionError("OAuth2 error") from e
+        raise RepalisAuthRedirectionError("OAuth2 error") from e
     except OIDCException as e:
-        raise PolarAuthRedirectionError(OIDC_ERROR_MESSAGE) from e
+        raise RepalisAuthRedirectionError(OIDC_ERROR_MESSAGE) from e
 
     if oauth_account is None or oauth_account.id_token is None:
-        raise PolarAuthRedirectionError(OIDC_ERROR_MESSAGE)
+        raise RepalisAuthRedirectionError(OIDC_ERROR_MESSAGE)
 
     claims = await factor.get_id_token_claims(oauth_account.id_token)
     email_verified = claims.get("email_verified")
     if email_verified is not True:
         if email_verified is False:
-            raise PolarAuthRedirectionError("The email address could not be verified")
+            raise RepalisAuthRedirectionError("The email address could not be verified")
         try:
             # Some providers (e.g. Okta) omit `email_verified` from the id_token but
             # assert it at the userinfo endpoint. Fall back to the profile before failing.
             profile = await factor.get_profile(oauth_account.access_token)
         except (OAuth2GetProfileException, NotImplementedError) as e:
-            raise PolarAuthRedirectionError(
+            raise RepalisAuthRedirectionError(
                 "The email address could not be verified"
             ) from e
         if profile.get("email_verified") is not True:
-            raise PolarAuthRedirectionError("The email address could not be verified")
+            raise RepalisAuthRedirectionError("The email address could not be verified")
 
     email = claims.get("email")
     if email is None:
-        raise PolarAuthRedirectionError("The identity provider did not assert an email")
+        raise RepalisAuthRedirectionError("The identity provider did not assert an email")
 
     domain = validate_email_syntax(email).domain
     domain_repository = OrganizationDomainRepository.from_session(session)
@@ -273,14 +273,14 @@ async def callback(
         )
         is None
     ):
-        raise PolarAuthRedirectionError(
+        raise RepalisAuthRedirectionError(
             "This email address is not in a verified domain of this organization"
         )
 
     try:
         user, created = await user_service.get_by_email_or_create(session, email)
     except UserCannotAuthenticate as e:
-        raise PolarAuthRedirectionError(e.message) from e
+        raise RepalisAuthRedirectionError(e.message) from e
     if created:
         user.email_verified = True
         session.add(user)
@@ -330,21 +330,21 @@ async def complete(
             authentication_session
         )
     except (IdentityNotAttachedException, FactorsRemainingException) as e:
-        raise PolarAuthRedirectionError(
+        raise RepalisAuthRedirectionError(
             "Authentication session cannot be completed"
         ) from e
 
     user_repository = UserRepository.from_session(session)
     user = await user_repository.get_by_id(identity_id)
     if user is None:
-        raise PolarAuthRedirectionError("User not found for authenticated identity")
+        raise RepalisAuthRedirectionError("User not found for authenticated identity")
 
     user_organization_repository = UserOrganizationRepository.from_session(session)
     membership = await user_organization_repository.get_by_user_and_organization(
         user.id, organization.id
     )
     if membership is None:
-        raise PolarAuthRedirectionError("You are not a member of this organization")
+        raise RepalisAuthRedirectionError("You are not a member of this organization")
 
     context = authentication_session.context or {}
     response = await auth_service.get_login_response(

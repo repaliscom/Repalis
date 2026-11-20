@@ -2,7 +2,7 @@ import pytest
 from pytest_mock import MockerFixture
 
 from repalis.auth.models import AuthSubject
-from repalis.exceptions import PolarRequestValidationError
+from repalis.exceptions import RepalisRequestValidationError
 from repalis.feedback.schemas import FeedbackCreate
 from repalis.feedback.service import feedback as feedback_service
 from repalis.models import Organization, User, UserOrganization
@@ -73,7 +73,7 @@ class TestSubmit:
         organization: Organization,
         auth_subject: AuthSubject[User],
     ) -> None:
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await feedback_service.submit(
                 session, auth_subject, _build_payload(organization)
             )

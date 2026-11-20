@@ -56,7 +56,7 @@ async def test_success_matching_amounts(
     payout_transaction = await create_transaction(
         save_fixture,
         type=TransactionType.payout,
-        amount=-1000,  # -$10.00 from Polar's perspective
+        amount=-1000,  # -$10.00 from Repalis's perspective
         account=account,
         account_currency="usd",
         presentment_currency="usd",

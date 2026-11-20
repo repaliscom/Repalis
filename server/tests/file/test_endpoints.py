@@ -196,7 +196,7 @@ class TestSVGSanitization:
         digest = hashlib.sha256(sanitized)
         checksum = base64.b64encode(digest.digest()).decode()
         metadata = {
-            "polar-id": str(record.id),
+            "repalis-id": str(record.id),
             "polar-organization-id": str(organization.id),
             "polar-name": record.name,
             "polar-size": str(len(sanitized)),

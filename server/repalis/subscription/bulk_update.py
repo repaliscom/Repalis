@@ -6,7 +6,7 @@ from repalis.auth.models import AuthSubject, User
 from repalis.auth.permission import OrganizationPermission
 from repalis.authz.service import assert_resource_permission
 from repalis.enums import SubscriptionProrationBehavior
-from repalis.exceptions import NotPermitted, PolarError, PolarRequestValidationError
+from repalis.exceptions import NotPermitted, RepalisError, RepalisRequestValidationError
 from repalis.kit.utils import utc_now
 from repalis.logging import Logger
 from repalis.models import Organization, Product, Subscription, SubscriptionBulkUpdate
@@ -48,7 +48,7 @@ class SubscriptionBulkUpdateService:
             session, auth_subject, bulk_update_create.target_product_id
         )
         if target is None or not target.is_current or target.is_archived:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",
@@ -165,7 +165,7 @@ class SubscriptionBulkUpdateService:
                             proration_behavior=bulk_update.proration_behavior,
                         )
                 moved += 1
-            except PolarError as e:
+            except RepalisError as e:
                 if e.status_code >= 500:
                     raise
                 log.info(

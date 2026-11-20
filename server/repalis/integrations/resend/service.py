@@ -2,7 +2,7 @@ import typing
 from uuid import UUID
 
 from repalis.config import settings
-from repalis.exceptions import PolarError
+from repalis.exceptions import RepalisError
 from repalis.models import User
 from repalis.models.organization import OrganizationStatus
 from repalis.postgres import AsyncSession
@@ -13,7 +13,7 @@ from repalis.worker import enqueue_job
 from .client import ContactDoesNotExist, InvalidIdentifier, client
 
 
-class ResendServiceError(PolarError): ...
+class ResendServiceError(RepalisError): ...
 
 
 class UserDoesNotExist(ResendServiceError):

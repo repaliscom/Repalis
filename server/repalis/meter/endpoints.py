@@ -3,7 +3,7 @@ from zoneinfo import ZoneInfo
 
 from fastapi import Depends, Query
 
-from repalis.exceptions import PolarRequestValidationError, ResourceNotFound
+from repalis.exceptions import RepalisRequestValidationError, ResourceNotFound
 from repalis.kit.metadata import MetadataQuery, get_metadata_query_openapi_schema
 from repalis.kit.pagination import ListResource, PaginationParamsQuery
 from repalis.kit.time_queries import is_under_limits
@@ -148,7 +148,7 @@ async def quantities(
     if not is_under_limits(
         filters.start_timestamp, filters.end_timestamp, filters.interval
     ):
-        raise PolarRequestValidationError(
+        raise RepalisRequestValidationError(
             [
                 {
                     "loc": ("query",),

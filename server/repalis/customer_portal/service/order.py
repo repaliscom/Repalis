@@ -9,7 +9,7 @@ from sqlalchemy.sql.elements import OrderByList
 
 from repalis.auth.models import AuthSubject, Customer, Member
 from repalis.enums import PaymentProcessor
-from repalis.exceptions import PolarError
+from repalis.exceptions import RepalisError
 from repalis.invoice.service import invoice as invoice_service
 from repalis.kit.db.postgres import AsyncSession
 from repalis.kit.pagination import PaginationParams
@@ -29,7 +29,7 @@ from ..schemas.order import (
 )
 
 
-class CustomerOrderError(PolarError): ...
+class CustomerOrderError(RepalisError): ...
 
 
 class OrderNotEligibleForRetry(CustomerOrderError):

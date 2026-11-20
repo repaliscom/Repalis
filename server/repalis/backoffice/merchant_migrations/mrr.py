@@ -14,7 +14,7 @@ from typing import Any
 from uuid import UUID
 
 from repalis.kit.currency import get_currency_decimal_factor
-from repalis.kit.math import polar_round
+from repalis.kit.math import repalis_round
 from repalis.merchant_migration.canonical import (
     CanonicalPricingScheme,
     CanonicalSubscriptionStatus,
@@ -91,7 +91,7 @@ class Money:
             rate = rates.get(code)
             if rate is None:
                 return None
-            total += polar_round(
+            total += repalis_round(
                 amount * rate * usd_factor / get_currency_decimal_factor(code)
             )
         return total
@@ -101,8 +101,8 @@ class Money:
 class MrrBreakdown:
     """Where a migration's recurring revenue currently sits."""
 
-    # Imported into Polar (paused until cutover, but ours to bill).
-    on_polar: Money
+    # Imported into Repalis (paused until cutover, but ours to bill).
+    on_repalis: Money
     # Staged and importable, still on the source.
     to_move: Money
     # Skipped or failed: revenue this migration will leave behind.
@@ -110,11 +110,11 @@ class MrrBreakdown:
 
     @property
     def total(self) -> Money:
-        return self.on_polar + self.to_move + self.staying
+        return self.on_repalis + self.to_move + self.staying
 
     @property
     def migrated_percent(self) -> int:
-        """Share of the migration's revenue already on Polar, across currencies.
+        """Share of the migration's revenue already on Repalis, across currencies.
 
         Mixing currencies in one ratio is imprecise, but the alternative is no
         headline number at all, and this is a progress indicator rather than an
@@ -123,14 +123,14 @@ class MrrBreakdown:
         total = sum(self.total.amounts.values())
         if total == 0:
             return 0
-        return round(100 * sum(self.on_polar.amounts.values()) / total)
+        return round(100 * sum(self.on_repalis.amounts.values()) / total)
 
-    def share_on_polar(self, rates: Mapping[str, float]) -> int:
+    def share_on_repalis(self, rates: Mapping[str, float]) -> int:
         """Prefer a USD-weighted share when every currency can be converted."""
         total = self.total.to_usd(rates)
-        on_polar = self.on_polar.to_usd(rates)
-        if total and on_polar is not None:
-            return round(100 * on_polar / total)
+        on_repalis = self.on_repalis.to_usd(rates)
+        if total and on_repalis is not None:
+            return round(100 * on_repalis / total)
         return self.migrated_percent
 
 
@@ -181,7 +181,7 @@ def _price_index(
 
 
 _BUCKETS = {
-    MerchantMigrationRecordStatus.imported: "on_polar",
+    MerchantMigrationRecordStatus.imported: "on_repalis",
     MerchantMigrationRecordStatus.pending: "to_move",
 }
 # Skipped and failed both mean "this revenue is not coming with us".
@@ -200,7 +200,7 @@ def breakdown(
     """
     prices = _price_index(products)
     buckets: dict[UUID, dict[str, dict[str, int]]] = {
-        migration_id: {"on_polar": {}, "to_move": {}, "staying": {}}
+        migration_id: {"on_repalis": {}, "to_move": {}, "staying": {}}
         for migration_id in migration_ids
     }
 
@@ -246,7 +246,7 @@ def breakdown(
 
     return {
         migration_id: MrrBreakdown(
-            on_polar=Money(bucket["on_polar"]),
+            on_repalis=Money(bucket["on_repalis"]),
             to_move=Money(bucket["to_move"]),
             staying=Money(bucket["staying"]),
         )

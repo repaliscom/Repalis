@@ -5,8 +5,8 @@ from typing import Annotated
 import structlog
 
 from repalis.config import Environment, settings
-from repalis.exceptions import PolarTaskError
-from repalis.integrations.repalis.service import polar_self
+from repalis.exceptions import RepalisTaskError
+from repalis.integrations.repalis.service import repalis_self
 from repalis.models.organization import (
     FIRST_REVIEW_THRESHOLD_CENTS,
     Organization,
@@ -48,7 +48,7 @@ from .schemas import (
 log = structlog.get_logger(__name__)
 
 
-class OrganizationReviewTaskError(PolarTaskError): ...
+class OrganizationReviewTaskError(RepalisTaskError): ...
 
 
 class OrganizationDoesNotExist(OrganizationReviewTaskError):
@@ -106,7 +106,7 @@ async def _persist_agent_result(
         estimated_cost_usd=result.usage.estimated_cost_usd,
     )
 
-    polar_self.enqueue_track_organization_review_usage(
+    repalis_self.enqueue_track_organization_review_usage(
         external_customer_id=str(organization.id),
         review_context=review_context.value,
         vendor=result.model_provider,

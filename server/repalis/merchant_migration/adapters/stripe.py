@@ -37,7 +37,7 @@ from ..canonical import (
     apply_customer_discount,
     earlier_datetime,
     parse_tax_behavior,
-    polar_discount_code,
+    repalis_discount_code,
     tighter_cap,
 )
 from ..errors import MerchantMigrationError
@@ -69,7 +69,7 @@ SKIPPED_SUBSCRIPTION_STATUSES = frozenset(
 # between the Stripe cancellation and its own commit retries against a
 # subscription it already cancelled; without this marker the retry would read
 # that as the customer having churned and strand the subscription unbilled.
-CANCELLATION_COMMENT_PREFIX = "Migrated to Polar"
+CANCELLATION_COMMENT_PREFIX = "Migrated to Repalis"
 _PERIOD_END_MARKER = "cancel at period end"
 _RENEWS_MARKER = "renews"
 
@@ -1231,7 +1231,7 @@ class StripeAdapter:
         mapped = self._map_coupon(coupon)
         if mapped is None:
             return None
-        code = polar_discount_code(promotion_code.code)
+        code = repalis_discount_code(promotion_code.code)
         if code is None:
             return None
         remaining = tighter_cap(
@@ -1249,7 +1249,7 @@ class StripeAdapter:
             or remaining == 0
             or (ends_at is not None and ends_at <= utc_now())
         )
-        # A spent code can't be redeemed, so restrictions Polar can't enforce
+        # A spent code can't be redeemed, so restrictions Repalis can't enforce
         # don't matter: keep it at its limit instead of dropping the code.
         if not spent and self._promotion_code_is_restricted(promotion_code):
             return None

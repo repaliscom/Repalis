@@ -404,9 +404,9 @@ async def get_migration(
                 ):
                     pass
                 with metric_card(
-                    "On Polar",
-                    views.usd(breakdown.on_polar, rates),
-                    subtitle=f"{breakdown.share_on_polar(rates)}% of the migration",
+                    "On Repalis",
+                    views.usd(breakdown.on_repalis, rates),
+                    subtitle=f"{breakdown.share_on_repalis(rates)}% of the migration",
                 ):
                     pass
                 with metric_card(

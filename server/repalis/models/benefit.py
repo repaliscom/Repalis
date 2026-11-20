@@ -9,7 +9,7 @@ from sqlalchemy import Boolean, ForeignKey, Index, Text, Uuid, text
 from sqlalchemy.dialects.postgresql import JSONB, TSVECTOR
 from sqlalchemy.orm import Mapped, declared_attr, mapped_column, relationship
 
-from repalis.exceptions import PolarError
+from repalis.exceptions import RepalisError
 from repalis.kit.db.models import RecordModel
 from repalis.kit.extensions.sqlalchemy.types import StringEnum
 from repalis.kit.external_id import ExternalIDMixin
@@ -22,7 +22,7 @@ if TYPE_CHECKING:
     from repalis.models import BenefitGrant, Catalog, Organization
 
 
-class TaxApplicationMustBeSpecified(PolarError):
+class TaxApplicationMustBeSpecified(RepalisError):
     def __init__(self, type: "BenefitType") -> None:
         self.type = type
         message = "The tax application should be specified for this type."

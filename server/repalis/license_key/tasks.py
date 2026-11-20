@@ -5,7 +5,7 @@ import structlog
 
 from repalis.benefit.grant.repository import BenefitGrantRepository
 from repalis.benefit.grant.service import benefit_grant as benefit_grant_service
-from repalis.exceptions import PolarTaskError
+from repalis.exceptions import RepalisTaskError
 from repalis.logging import Logger
 from repalis.models.license_key import LicenseKeyStatus
 from repalis.observability.task_logging import LoggableField
@@ -16,7 +16,7 @@ from .repository import LicenseKeyRepository
 log: Logger = structlog.get_logger()
 
 
-class LicenseKeyTaskError(PolarTaskError): ...
+class LicenseKeyTaskError(RepalisTaskError): ...
 
 
 class LicenseKeyDoesNotExist(LicenseKeyTaskError):

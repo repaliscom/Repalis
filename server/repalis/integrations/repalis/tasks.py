@@ -6,7 +6,7 @@ from typing import Annotated
 from dramatiq import Retry
 
 from repalis import deserialize
-from repalis.base import PolarClientError
+from repalis.base import RepalisClientError
 from repalis.config import settings
 from repalis.event.repository import EventRepository
 from repalis.external_event.service import external_event as external_event_service
@@ -35,12 +35,12 @@ from repalis.worker import (
 )
 
 from .client import get_client
-from .exceptions import PolarSelfInvoiceNotReady, PolarSelfOrderNotEligible
-from .service import polar_self
+from .exceptions import RepalisSelfInvoiceNotReady, RepalisSelfOrderNotEligible
+from .service import repalis_self
 
 
 @actor(
-    actor_name="polar_self.create_customer",
+    actor_name="repalis_self.create_customer",
     priority=TaskPriority.LOW,
 )
 async def create_customer(
@@ -76,7 +76,7 @@ async def create_customer(
 
 
 @actor(
-    actor_name="polar_self.add_member",
+    actor_name="repalis_self.add_member",
     priority=TaskPriority.LOW,
 )
 async def add_member(
@@ -112,7 +112,7 @@ async def add_member(
 
 
 @actor(
-    actor_name="polar_self.update_member",
+    actor_name="repalis_self.update_member",
     priority=TaskPriority.LOW,
 )
 async def update_member(
@@ -127,7 +127,7 @@ async def update_member(
             external_customer_id=external_customer_id,
             external_id=external_id,
         )
-    except PolarClientError as e:
+    except RepalisClientError as e:
         if e.status_code == 404 and can_retry():
             raise Retry(delay=1000) from e
         if e.status_code == 404:
@@ -143,7 +143,7 @@ async def update_member(
 
 
 @actor(
-    actor_name="polar_self.update_customer_slug",
+    actor_name="repalis_self.update_customer_slug",
     priority=TaskPriority.LOW,
 )
 async def update_customer_slug(
@@ -159,7 +159,7 @@ async def update_customer_slug(
 
 
 @actor(
-    actor_name="polar_self.remove_member",
+    actor_name="repalis_self.remove_member",
     priority=TaskPriority.LOW,
 )
 async def remove_member(
@@ -179,7 +179,7 @@ async def remove_member(
 
 
 @actor(
-    actor_name="polar_self.delete_customer",
+    actor_name="repalis_self.delete_customer",
     priority=TaskPriority.LOW,
 )
 async def delete_customer(external_id: Annotated[str, LoggableField]) -> None:
@@ -187,7 +187,7 @@ async def delete_customer(external_id: Annotated[str, LoggableField]) -> None:
 
 
 @actor(
-    actor_name="polar_self.revoke_subscription",
+    actor_name="repalis_self.revoke_subscription",
     priority=TaskPriority.LOW,
 )
 async def revoke_subscription(
@@ -203,18 +203,18 @@ async def revoke_subscription(
 
 
 @actor(
-    actor_name="polar_self.track_event_ingestion_v2",
+    actor_name="repalis_self.track_event_ingestion_v2",
     cron_trigger=CronTrigger.from_crontab("*/5 * * * *"),
     priority=TaskPriority.LOW,
 )
 async def track_event_ingestion() -> None:
-    if not settings.POLAR_SELF_ENABLED:
+    if not settings.REPALIS_SELF_ENABLED:
         return
     self_organization_id = uuid.UUID(settings.POLAR_ORGANIZATION_ID)
     cutoff = utc_now() - timedelta(seconds=30)
     async with AsyncSessionMaker() as session:
         repository = EventRepository.from_session(session)
-        last_flush = await repository.get_latest_polar_self_ingestion_timestamp(
+        last_flush = await repository.get_latest_repalis_self_ingestion_timestamp(
             self_organization_id
         )
     counts = await count_user_events_by_organization(
@@ -228,7 +228,7 @@ async def track_event_ingestion() -> None:
 
 
 @actor(
-    actor_name="polar_self.track_organization_review_usage",
+    actor_name="repalis_self.track_organization_review_usage",
     priority=TaskPriority.LOW,
 )
 async def track_organization_review_usage(
@@ -254,7 +254,7 @@ async def track_organization_review_usage(
 
 
 @actor(
-    actor_name="polar_self.webhook.benefit_grant.created",
+    actor_name="repalis_self.webhook.benefit_grant.created",
     priority=TaskPriority.LOW,
 )
 async def webhook_benefit_grant_created(
@@ -265,11 +265,11 @@ async def webhook_benefit_grant_created(
             session, ExternalEventSource.polar, event_id
         ) as event:
             payload = deserialize(event.data, WebhookBenefitGrantCreatedPayload)
-            await polar_self.handle_benefit_grant_event(session, payload)
+            await repalis_self.handle_benefit_grant_event(session, payload)
 
 
 @actor(
-    actor_name="polar_self.webhook.benefit_grant.updated",
+    actor_name="repalis_self.webhook.benefit_grant.updated",
     priority=TaskPriority.LOW,
 )
 async def webhook_benefit_grant_updated(
@@ -280,11 +280,11 @@ async def webhook_benefit_grant_updated(
             session, ExternalEventSource.polar, event_id
         ) as event:
             payload = deserialize(event.data, WebhookBenefitGrantUpdatedPayload)
-            await polar_self.handle_benefit_grant_event(session, payload)
+            await repalis_self.handle_benefit_grant_event(session, payload)
 
 
 @actor(
-    actor_name="polar_self.webhook.benefit_grant.revoked",
+    actor_name="repalis_self.webhook.benefit_grant.revoked",
     priority=TaskPriority.LOW,
 )
 async def webhook_benefit_grant_revoked(
@@ -295,11 +295,11 @@ async def webhook_benefit_grant_revoked(
             session, ExternalEventSource.polar, event_id
         ) as event:
             payload = deserialize(event.data, WebhookBenefitGrantRevokedPayload)
-            await polar_self.handle_benefit_grant_event(session, payload)
+            await repalis_self.handle_benefit_grant_event(session, payload)
 
 
 @actor(
-    actor_name="polar_self.webhook.order.created",
+    actor_name="repalis_self.webhook.order.created",
     priority=TaskPriority.LOW,
 )
 async def webhook_order_created(event_id: Annotated[uuid.UUID, LoggableField]) -> None:
@@ -309,19 +309,19 @@ async def webhook_order_created(event_id: Annotated[uuid.UUID, LoggableField]) -
         ) as event:
             payload = deserialize(event.data, WebhookOrderCreatedPayload)
             try:
-                await polar_self.handle_order_created_event(payload)
-            except PolarSelfInvoiceNotReady as e:
+                await repalis_self.handle_order_created_event(payload)
+            except RepalisSelfInvoiceNotReady as e:
                 if can_retry():
                     raise Retry() from e
                 raise
-            except PolarSelfOrderNotEligible:
+            except RepalisSelfOrderNotEligible:
                 # Order is draft/void: permanently ineligible for invoicing.
                 # Nothing to email — drop the message instead of retrying.
                 return
 
 
 @actor(
-    actor_name="polar_self.webhook.subscription.canceled",
+    actor_name="repalis_self.webhook.subscription.canceled",
     priority=TaskPriority.LOW,
 )
 async def webhook_subscription_canceled(
@@ -332,11 +332,11 @@ async def webhook_subscription_canceled(
             session, ExternalEventSource.polar, event_id
         ) as event:
             payload = deserialize(event.data, WebhookSubscriptionCanceledPayload)
-            await polar_self.handle_subscription_canceled_event(payload)
+            await repalis_self.handle_subscription_canceled_event(payload)
 
 
 @actor(
-    actor_name="polar_self.webhook.subscription.past_due",
+    actor_name="repalis_self.webhook.subscription.past_due",
     priority=TaskPriority.LOW,
 )
 async def webhook_subscription_past_due(
@@ -347,11 +347,11 @@ async def webhook_subscription_past_due(
             session, ExternalEventSource.polar, event_id
         ) as event:
             payload = deserialize(event.data, WebhookSubscriptionPastDuePayload)
-            await polar_self.handle_subscription_past_due_event(payload)
+            await repalis_self.handle_subscription_past_due_event(payload)
 
 
 @actor(
-    actor_name="polar_self.webhook.subscription.revoked",
+    actor_name="repalis_self.webhook.subscription.revoked",
     priority=TaskPriority.LOW,
 )
 async def webhook_subscription_revoked(
@@ -362,4 +362,4 @@ async def webhook_subscription_revoked(
             session, ExternalEventSource.polar, event_id
         ) as event:
             payload = deserialize(event.data, WebhookSubscriptionRevokedPayload)
-            await polar_self.handle_subscription_revoked_event(session, payload)
+            await repalis_self.handle_subscription_revoked_event(session, payload)

@@ -172,7 +172,7 @@ class TestUpdate:
         await save_fixture(user)
 
         enqueue_mock = mocker.patch(
-            "repalis.user.service.polar_self_service.enqueue_update_member"
+            "repalis.user.service.repalis_self_service.enqueue_update_member"
         )
 
         await user_service.update(
@@ -199,7 +199,7 @@ class TestUpdate:
         await save_fixture(user)
 
         enqueue_mock = mocker.patch(
-            "repalis.user.service.polar_self_service.enqueue_update_member"
+            "repalis.user.service.repalis_self_service.enqueue_update_member"
         )
 
         await user_service.update(
@@ -222,7 +222,7 @@ class TestUpdate:
         await save_fixture(user)
 
         enqueue_mock = mocker.patch(
-            "repalis.user.service.polar_self_service.enqueue_update_member"
+            "repalis.user.service.repalis_self_service.enqueue_update_member"
         )
 
         await user_service.update(

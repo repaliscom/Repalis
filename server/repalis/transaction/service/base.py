@@ -2,14 +2,14 @@ import itertools
 
 from sqlalchemy import select
 
-from repalis.exceptions import PolarError
+from repalis.exceptions import RepalisError
 from repalis.kit.services import ResourceServiceReader
 from repalis.models import Transaction
 from repalis.models.transaction import TransactionType
 from repalis.postgres import AsyncSession
 
 
-class BaseTransactionServiceError(PolarError): ...
+class BaseTransactionServiceError(RepalisError): ...
 
 
 class BaseTransactionService(ResourceServiceReader[Transaction]):

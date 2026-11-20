@@ -3,7 +3,7 @@ from typing import Any
 from uuid import UUID
 
 from repalis.custom_field.schemas import AttachedCustomFieldCreate
-from repalis.exceptions import PolarRequestValidationError
+from repalis.exceptions import RepalisRequestValidationError
 from repalis.exceptions import ValidationError as RequestValidationError
 from repalis.product.schemas import (
     ProductCreateOneTime,
@@ -40,10 +40,10 @@ _PRICE_INPUT_FIELDS = {
 
 
 def product_error(
-    error: PolarRequestValidationError,
+    error: RepalisRequestValidationError,
     index: int,
     external_ids: dict[str, str],
-) -> PolarRequestValidationError:
+) -> RepalisRequestValidationError:
     errors: list[RequestValidationError] = []
     for detail in error.errors():
         path = list(detail["loc"][1:])
@@ -59,7 +59,7 @@ def product_error(
                 else external_ids.get(str(detail["input"])),
             )
         )
-    return PolarRequestValidationError(errors)
+    return RepalisRequestValidationError(errors)
 
 
 def price_create(

@@ -1,7 +1,7 @@
 """Reading the moved cards back onto the imported customers.
 
 A copy lands them under the source's `cus_…` id but with fresh `pm_…` ids, so
-they stay invisible to Polar until stored as payment methods of our own.
+they stay invisible to Repalis until stored as payment methods of our own.
 """
 
 import csv
@@ -142,7 +142,7 @@ async def link_payment_method(
         # No such customer on our account: the copy hasn't reached them.
         return None
 
-    # Only cards: like Link, a copied bank debit isn't charged on Polar, and
+    # Only cards: like Link, a copied bank debit isn't charged on Repalis, and
     # the customer enters their billing details again.
     payment_methods = [
         await payment_method_service.upsert_from_stripe(
@@ -176,7 +176,7 @@ async def link_mapped_payment_method(
     except stripe_lib.InvalidRequestError as e:
         raise PaymentMethodMappingCSVError(
             f"Copied payment method {mapping.destination_payment_method_id} "
-            "does not exist on Polar's Stripe account."
+            "does not exist on Repalis's Stripe account."
         ) from e
     stripe_customer = stripe_payment_method.customer
     if (

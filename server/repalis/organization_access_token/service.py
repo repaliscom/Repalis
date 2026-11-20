@@ -24,7 +24,7 @@ from repalis.email.schemas import (
 )
 from repalis.email.sender import enqueue_email_template
 from repalis.enums import TokenType
-from repalis.exceptions import PolarRequestValidationError
+from repalis.exceptions import RepalisRequestValidationError
 from repalis.kit.crypto import generate_token_hash_pair, get_token_hash
 from repalis.kit.pagination import PaginationParams
 from repalis.kit.sorting import Sorting
@@ -207,7 +207,7 @@ class OrganizationAccessTokenService:
         requested = {Scope(s) for s in requested_scopes}
         excess = requested - caller_scopes
         if excess:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",
@@ -265,7 +265,7 @@ class OrganizationAccessTokenService:
                     )
                 ),
                 to_email_addr=email,
-                subject="Security Notice - Your Polar Organization Access Token has been leaked",
+                subject="Security Notice - Your Repalis Organization Access Token has been leaked",
             )
 
         log.info(

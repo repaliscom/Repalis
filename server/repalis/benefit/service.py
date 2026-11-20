@@ -16,7 +16,7 @@ from repalis.declarative_config.guard import (
     DeclarativeConfigManaged,
     assert_catalog_editable,
 )
-from repalis.exceptions import NotPermitted, PolarRequestValidationError
+from repalis.exceptions import NotPermitted, RepalisRequestValidationError
 from repalis.kit.db.postgres import AsyncReadSession, AsyncSession
 from repalis.kit.metadata import MetadataQuery, apply_metadata_clause
 from repalis.kit.pagination import PaginationParams
@@ -164,7 +164,7 @@ class BenefitService:
             create_schema.type == BenefitType.slack_shared_channel
             and not organization.feature_settings.get("slack_benefit_enabled", False)
         ):
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",
@@ -191,7 +191,7 @@ class BenefitService:
                 create_schema.external_id, organization.id
             )
         ):
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",
@@ -218,7 +218,7 @@ class BenefitService:
             and create_schema.visibility is not None
             and create_schema.visibility != Visibility.public
         ):
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",
@@ -276,7 +276,7 @@ class BenefitService:
             await assert_catalog_editable(session, benefit.organization_id)
 
         if benefit_update.type != benefit.type:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",
@@ -293,7 +293,7 @@ class BenefitService:
         ):
             repository = BenefitRepository.from_session(session)
             if benefit.external_id is not None:
-                raise PolarRequestValidationError(
+                raise RepalisRequestValidationError(
                     [
                         {
                             "type": "value_error",
@@ -309,7 +309,7 @@ class BenefitService:
                     benefit_update.external_id, benefit.organization_id
                 )
             ):
-                raise PolarRequestValidationError(
+                raise RepalisRequestValidationError(
                     [
                         {
                             "type": "value_error",
@@ -331,7 +331,7 @@ class BenefitService:
                 and visibility is not None
                 and visibility != Visibility.public
             ):
-                raise PolarRequestValidationError(
+                raise RepalisRequestValidationError(
                     [
                         {
                             "type": "value_error",

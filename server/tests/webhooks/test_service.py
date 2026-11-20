@@ -9,7 +9,7 @@ from pytest_mock import MockerFixture
 from repalis.auth.models import AuthSubject
 from repalis.auth.scope import Scope
 from repalis.checkout.eventstream import CheckoutEvent
-from repalis.exceptions import PolarRequestValidationError, ResourceNotFound
+from repalis.exceptions import RepalisRequestValidationError, ResourceNotFound
 from repalis.kit.schemas import HttpsUrl
 from repalis.kit.utils import utc_now
 from repalis.models import (
@@ -60,7 +60,7 @@ class TestCreateEndpoint:
             organization_id=uuid.uuid4(),
         )
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await webhook_service.create_endpoint(session, auth_subject, create_schema)
 
     @pytest.mark.auth(
@@ -171,7 +171,7 @@ class TestUpdateEndpoint:
         )
         await save_fixture(endpoint)
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await webhook_service.update_endpoint(
                 session,
                 auth_subject,

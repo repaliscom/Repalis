@@ -1,7 +1,7 @@
 import uuid
 from typing import Annotated
 
-from repalis.exceptions import PolarTaskError
+from repalis.exceptions import RepalisTaskError
 from repalis.integrations.resend.service import resend as resend_service
 from repalis.observability.task_logging import LoggableField
 from repalis.worker import AsyncSessionMaker, TaskPriority, actor
@@ -9,7 +9,7 @@ from repalis.worker import AsyncSessionMaker, TaskPriority, actor
 from .repository import UserRepository
 
 
-class UserTaskError(PolarTaskError): ...
+class UserTaskError(RepalisTaskError): ...
 
 
 class UserDoesNotExist(UserTaskError):

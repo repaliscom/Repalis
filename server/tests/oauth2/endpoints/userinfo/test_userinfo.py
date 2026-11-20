@@ -10,7 +10,7 @@ from ...conftest import create_oauth2_token
 @pytest.fixture
 async def oauth2_client(save_fixture: SaveFixture, user: User) -> OAuth2Client:
     oauth2_client = OAuth2Client(
-        client_id="polar_ci_123",
+        client_id="repalis_ci_123",
         user=user,
     )
     oauth2_client.set_client_metadata(
@@ -68,7 +68,7 @@ class TestOAuth2UserInfo:
         await create_oauth2_token(
             save_fixture,
             client=agent.oauth2_client,
-            access_token="polar_at_a_123",
+            access_token="repalis_at_a_123",
             refresh_token=None,
             scopes=["openid"],
             agent=agent,
@@ -77,7 +77,7 @@ class TestOAuth2UserInfo:
         response = await client.request(
             method,
             "/v1/oauth2/userinfo",
-            headers={"Authorization": "Bearer polar_at_a_123"},
+            headers={"Authorization": "Bearer repalis_at_a_123"},
         )
 
         assert response.status_code == 200

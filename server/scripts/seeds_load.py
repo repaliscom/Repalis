@@ -1070,7 +1070,7 @@ async def _seed_polar_self_billing_catalog(
     organization: Organization,
     auth_subject: AuthSubject[User],
 ) -> None:
-    """Materialize the Polar self-billing benefits and tier products in the DB."""
+    """Materialize the Repalis self-billing benefits and tier products in the DB."""
     benefits_by_description: dict[str, Benefit] = {}
     for benefit_data in POLAR_SELF_BENEFITS:
         description = benefit_data["description"]
@@ -1150,7 +1150,7 @@ async def _subscribe_seeded_orgs_to_polar_self(
 ) -> int:
     """Add every other seeded org as a team customer of the Polar self org.
 
-    The free plan is subscriptionless, so no Polar subscription is created here —
+    The free plan is subscriptionless, so no Repalis subscription is created here —
     customers default to the synthesized free plan until they pick a paid one.
     """
     polar_self_org = (
@@ -1967,7 +1967,7 @@ async def _create_simple_fixture_graph(session: AsyncSession) -> None:
             )
             session.add(coldmail_meter)
 
-        # Create meter for Polar organization
+        # Create meter for Repalis organization
         if org_data["slug"] == "polar":
             session.add(
                 Meter(
@@ -2758,7 +2758,7 @@ async def create_simple_complement_seed_data(session: AsyncSession) -> bool:
     return True
 
 
-CLI_OAUTH2_CLIENT_ID = "polar_ci_local_cli"
+CLI_OAUTH2_CLIENT_ID = "repalis_ci_local_cli"
 CLI_OAUTH2_REDIRECT_URI = "http://127.0.0.1:3333/oauth/callback"
 
 

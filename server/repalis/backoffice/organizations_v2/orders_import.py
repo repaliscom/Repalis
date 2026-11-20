@@ -18,7 +18,7 @@ from repalis.benefit.grant.repository import BenefitGrantRepository
 from repalis.benefit.repository import BenefitRepository
 from repalis.customer.repository import CustomerRepository
 from repalis.customer.service import customer as customer_service
-from repalis.exceptions import PolarError
+from repalis.exceptions import RepalisError
 from repalis.kit.address import SUPPORTED_COUNTRIES, Address, CountryAlpha2
 from repalis.license_key.repository import LicenseKeyRepository
 from repalis.models import Benefit, BenefitGrant, Customer, Order, Organization, Product
@@ -34,7 +34,7 @@ from repalis.worker._enqueue import JobQueueManager
 from ..components import alert
 
 
-class MultipleProductsWithSameNameError(PolarError):
+class MultipleProductsWithSameNameError(RepalisError):
     def __init__(self, product_name: str) -> None:
         self.product_name = product_name
         message = (
@@ -89,7 +89,7 @@ class RowError:
     message: str
 
 
-class OrdersImportError(PolarError):
+class OrdersImportError(RepalisError):
     def __init__(self, errors: list[RowError]) -> None:
         self.errors = errors
         super().__init__("Errors encountered during import")
@@ -177,7 +177,7 @@ async def orders_import(
         product_name = _getter(
             row,
             "product_name",
-            "product_name_on_polar",
+            "product_name_on_repalis",
         )
         if product_name is None:
             errors.append(RowError(i + 1, "Missing product name"))

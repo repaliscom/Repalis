@@ -19,7 +19,7 @@ from repalis.benefit.grant.repository import BenefitGrantRepository
 from repalis.benefit.repository import BenefitRepository
 from repalis.checkout_link.repository import CheckoutLinkRepository
 from repalis.custom_field.repository import CustomFieldRepository
-from repalis.exceptions import PolarError, PolarRequestValidationError
+from repalis.exceptions import RepalisError, RepalisRequestValidationError
 from repalis.kit.pagination import PaginationParams
 from repalis.kit.utils import utc_now
 from repalis.meter.repository import MeterRepository
@@ -249,17 +249,17 @@ def _catalog_changes(
     )
 
 
-class CatalogNotFound(PolarError):
+class CatalogNotFound(RepalisError):
     def __init__(self, id: uuid.UUID) -> None:
         super().__init__(f"No catalog with ID {id}.", 404)
 
 
-class CatalogNotDraft(PolarError):
+class CatalogNotDraft(RepalisError):
     def __init__(self, id: uuid.UUID) -> None:
         super().__init__(f"The catalog {id} isn't a draft.", 409)
 
 
-class CatalogMissingCurrency(PolarError):
+class CatalogMissingCurrency(RepalisError):
     def __init__(self, currency: str, products: Sequence[Product]) -> None:
         super().__init__(
             f"Every active product must have a price in {currency.upper()}. "
@@ -464,7 +464,7 @@ class CatalogService:
         if catalog.deleted_at is not None:
             raise CatalogNotFound(catalog.id)
         if catalog_update.name is None and catalog.status != CatalogStatus.draft:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",

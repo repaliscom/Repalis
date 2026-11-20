@@ -16,7 +16,7 @@ from repalis.authz.service import (
 )
 from repalis.checkout_link.repository import CheckoutLinkRepository
 from repalis.discount.service import discount as discount_service
-from repalis.exceptions import PolarRequestValidationError, ValidationError
+from repalis.exceptions import RepalisRequestValidationError, ValidationError
 from repalis.kit.crypto import generate_token
 from repalis.kit.pagination import PaginationParams
 from repalis.kit.services import ResourceServiceReader
@@ -205,7 +205,7 @@ class CheckoutLinkService(ResourceServiceReader[CheckoutLink]):
                 session, checkout_link_update.products, auth_subject
             )
             if checkout_link.organization_id != products[0].organization_id:
-                raise PolarRequestValidationError(
+                raise RepalisRequestValidationError(
                     [
                         {
                             "type": "value_error",
@@ -372,7 +372,7 @@ class CheckoutLinkService(ResourceServiceReader[CheckoutLink]):
             )
 
         if len(errors) > 0:
-            raise PolarRequestValidationError(errors)
+            raise RepalisRequestValidationError(errors)
 
         return products
 
@@ -389,7 +389,7 @@ class CheckoutLinkService(ResourceServiceReader[CheckoutLink]):
         price = await product_price_repository.get_readable_by_id(price_id, org_ids)
 
         if price is None:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",
@@ -401,7 +401,7 @@ class CheckoutLinkService(ResourceServiceReader[CheckoutLink]):
             )
 
         if price.is_archived:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",
@@ -414,7 +414,7 @@ class CheckoutLinkService(ResourceServiceReader[CheckoutLink]):
 
         product = price.product
         if product.is_archived:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",
@@ -426,7 +426,7 @@ class CheckoutLinkService(ResourceServiceReader[CheckoutLink]):
             )
 
         if not product.is_current:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",
@@ -438,7 +438,7 @@ class CheckoutLinkService(ResourceServiceReader[CheckoutLink]):
             )
 
         if product.visibility == Visibility.draft:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",
@@ -474,7 +474,7 @@ class CheckoutLinkService(ResourceServiceReader[CheckoutLink]):
         )
 
         if discount is None:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",
@@ -542,7 +542,7 @@ class CheckoutLinkService(ResourceServiceReader[CheckoutLink]):
         for product in products:
             unit_prices = self._get_unit_prices(product)
             if not unit_prices:
-                raise PolarRequestValidationError(
+                raise RepalisRequestValidationError(
                     [
                         {
                             "type": "value_error",
@@ -564,7 +564,7 @@ class CheckoutLinkService(ResourceServiceReader[CheckoutLink]):
                     maximum_label = (
                         str(maximum_units) if maximum_units is not None else "unlimited"
                     )
-                    raise PolarRequestValidationError(
+                    raise RepalisRequestValidationError(
                         [
                             {
                                 "type": "value_error",
@@ -586,7 +586,7 @@ class CheckoutLinkService(ResourceServiceReader[CheckoutLink]):
         for product in products:
             seat_price = self._get_seat_price(product)
             if seat_price is None:
-                raise PolarRequestValidationError(
+                raise RepalisRequestValidationError(
                     [
                         {
                             "type": "value_error",
@@ -607,7 +607,7 @@ class CheckoutLinkService(ResourceServiceReader[CheckoutLink]):
                 maximum_label = (
                     str(maximum_seats) if maximum_seats is not None else "unlimited"
                 )
-                raise PolarRequestValidationError(
+                raise RepalisRequestValidationError(
                     [
                         {
                             "type": "value_error",

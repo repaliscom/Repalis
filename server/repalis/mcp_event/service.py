@@ -12,7 +12,7 @@ from repalis.auth.models import AuthSubject
 from repalis.auth.permission import OrganizationPermission
 from repalis.authz.service import assert_organization_permission
 from repalis.config import Environment, settings
-from repalis.exceptions import PolarError, ResourceNotFound
+from repalis.exceptions import RepalisError, ResourceNotFound
 from repalis.kit.db.postgres import AsyncSession
 from repalis.kit.http import SSRFBlockedError, SSRFSafeTransport
 from repalis.kit.utils import generate_uuid, utc_now
@@ -37,7 +37,7 @@ CallbackEndpointErrorReason = Literal[
 ]
 
 
-class CallbackEndpointError(PolarError):
+class CallbackEndpointError(RepalisError):
     def __init__(self, reason: CallbackEndpointErrorReason) -> None:
         super().__init__(reason, 400)
 

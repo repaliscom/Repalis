@@ -25,7 +25,7 @@ from repalis.event.tinybird_repository import TinybirdEventRepository
 from repalis.event_type.repository import EventTypeRepository
 from repalis.event_type.schemas import EventTypeWithStats
 from repalis.event_type.service import event_type_service
-from repalis.exceptions import PolarError, PolarRequestValidationError, ValidationError
+from repalis.exceptions import RepalisError, RepalisRequestValidationError, ValidationError
 from repalis.integrations.tinybird.service import (
     TinybirdTimeseriesStats,
     chunk_tinybird_events,
@@ -104,7 +104,7 @@ HISTOGRAM_STEPS_SECONDS = (
 )
 
 
-class EventError(PolarError): ...
+class EventError(RepalisError): ...
 
 
 class EventIngestValidationError(EventError):
@@ -752,8 +752,8 @@ class EventService:
             limit=limit,
         )
 
-        # Fetch customer details for all rows that have a Polar customer_id,
-        # or an external_customer_id that maps to a readable Polar customer.
+        # Fetch customer details for all rows that have a Repalis customer_id,
+        # or an external_customer_id that maps to a readable Repalis customer.
         row_customer_ids = [
             uuid.UUID(row.customer_id) for row in rows if row.customer_id
         ]
@@ -1013,7 +1013,7 @@ class EventService:
                 meter_id, organization_ids
             )
             if meter is None:
-                raise PolarRequestValidationError(
+                raise RepalisRequestValidationError(
                     [
                         {
                             "type": "meter_id",
@@ -1116,7 +1116,7 @@ class EventService:
             events.append(event_dict)
 
         if len(errors) > 0:
-            raise PolarRequestValidationError(errors)
+            raise RepalisRequestValidationError(errors)
 
         repository = EventRepository.from_session(session)
         organization_ids = {event["organization_id"] for event in events}

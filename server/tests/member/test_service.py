@@ -8,7 +8,7 @@ from sqlalchemy.exc import IntegrityError
 
 from repalis.auth.models import AuthSubject
 from repalis.enums import SubscriptionRecurringInterval
-from repalis.exceptions import NotPermitted, PolarRequestValidationError
+from repalis.exceptions import NotPermitted, RepalisRequestValidationError
 from repalis.kit.pagination import PaginationParams
 from repalis.member.repository import MemberRepository
 from repalis.member.service import member_service
@@ -636,7 +636,7 @@ class TestCreate:
         )
         await save_fixture(existing)
 
-        with pytest.raises(PolarRequestValidationError) as exc_info:
+        with pytest.raises(RepalisRequestValidationError) as exc_info:
             await member_service.create(
                 session,
                 auth_subject,
@@ -887,7 +887,7 @@ class TestUpdate:
         organization: Organization,
     ) -> None:
         """Test that cannot change role when member is the only owner."""
-        from repalis.exceptions import PolarRequestValidationError
+        from repalis.exceptions import RepalisRequestValidationError
 
         customer = await create_customer(
             save_fixture,
@@ -904,7 +904,7 @@ class TestUpdate:
         )
         await save_fixture(owner)
 
-        with pytest.raises(PolarRequestValidationError) as exc_info:
+        with pytest.raises(RepalisRequestValidationError) as exc_info:
             await member_service.update(session, owner, role=MemberRole.member)
 
         assert (
@@ -919,7 +919,7 @@ class TestUpdate:
         organization: Organization,
     ) -> None:
         """Test that cannot promote member to owner when an owner already exists."""
-        from repalis.exceptions import PolarRequestValidationError
+        from repalis.exceptions import RepalisRequestValidationError
 
         customer = await create_customer(
             save_fixture,
@@ -945,7 +945,7 @@ class TestUpdate:
         )
         await save_fixture(member)
 
-        with pytest.raises(PolarRequestValidationError) as exc_info:
+        with pytest.raises(RepalisRequestValidationError) as exc_info:
             await member_service.update(session, member, role=MemberRole.owner)
 
         assert (
@@ -1269,7 +1269,7 @@ class TestUpdateEmail:
             role=MemberRole.member,
         )
 
-        with pytest.raises(PolarRequestValidationError) as exc_info:
+        with pytest.raises(RepalisRequestValidationError) as exc_info:
             await member_service.update(session, member, email="TAKEN@example.com")
 
         assert "already exists" in exc_info.value.errors()[0]["msg"].lower()
@@ -1299,7 +1299,7 @@ class TestUpdateEmail:
             role=MemberRole.owner,
         )
 
-        with pytest.raises(PolarRequestValidationError) as exc_info:
+        with pytest.raises(RepalisRequestValidationError) as exc_info:
             await member_service.update(session, owner, email="new@example.com")
 
         assert "individual customer" in exc_info.value.errors()[0]["msg"].lower()
@@ -1575,7 +1575,7 @@ class TestDelete:
         organization: Organization,
     ) -> None:
         """Test that the only owner cannot be deleted."""
-        from repalis.exceptions import PolarRequestValidationError
+        from repalis.exceptions import RepalisRequestValidationError
 
         customer = await create_customer(
             save_fixture,
@@ -1592,7 +1592,7 @@ class TestDelete:
         )
         await save_fixture(owner)
 
-        with pytest.raises(PolarRequestValidationError) as exc_info:
+        with pytest.raises(RepalisRequestValidationError) as exc_info:
             await member_service.delete(session, owner)
 
         assert "only owner" in exc_info.value.errors()[0]["msg"].lower()

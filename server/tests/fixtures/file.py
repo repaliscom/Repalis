@@ -229,7 +229,7 @@ class TestFile:
             "LastModified": utc_now(),
             "VersionId": "uploaded-version",
             "Metadata": {
-                "polar-id": str(created.id),
+                "repalis-id": str(created.id),
                 "polar-organization-id": str(created.organization_id),
                 "polar-name": self.name,
                 "polar-size": str(created.size),

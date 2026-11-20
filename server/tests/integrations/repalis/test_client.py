@@ -4,7 +4,7 @@ from typing import Any
 from unittest.mock import AsyncMock, MagicMock
 
 import pytest
-from repalis.base import PolarNetworkError, PolarServerError, deserialize
+from repalis.base import RepalisNetworkError, RepalisServerError, deserialize
 from repalis.v2026_04.errors import (
     AlreadyCanceledSubscription as SDKAlreadyCanceledSubscription,
 )
@@ -33,18 +33,18 @@ from repalis.v2026_04.outputs import (
 from pytest_mock import MockerFixture
 
 from repalis.integrations.repalis.client import (
-    PolarSelfClient,
-    PolarSelfClientError,
-    PolarSelfClientOperationalError,
+    RepalisSelfClient,
+    RepalisSelfClientError,
+    RepalisSelfClientOperationalError,
 )
 from repalis.integrations.repalis.exceptions import (
-    PolarSelfCustomerNotFound,
-    PolarSelfOrderNotEligible,
+    RepalisSelfCustomerNotFound,
+    RepalisSelfOrderNotEligible,
 )
 
 
-def _client() -> PolarSelfClient:
-    return PolarSelfClient(access_token="test", api_url="http://test")
+def _client() -> RepalisSelfClient:
+    return RepalisSelfClient(access_token="test", api_url="http://test")
 
 
 def _not_eligible() -> SDKOrderNotEligibleForInvoice:
@@ -110,7 +110,7 @@ class TestCustomerSessionErrors:
             ),
         )
 
-        with pytest.raises(PolarSelfCustomerNotFound) as exc_info:
+        with pytest.raises(RepalisSelfCustomerNotFound) as exc_info:
             await client.portal_get_customer(external_customer_id=str(organization_id))
 
         assert exc_info.value.organization_id == organization_id
@@ -129,7 +129,7 @@ class TestCustomerSessionErrors:
             ),
         )
 
-        with pytest.raises(PolarSelfClientError):
+        with pytest.raises(RepalisSelfClientError):
             await client.portal_create_customer_session(
                 external_customer_id=str(uuid.uuid4()), external_member_id="user"
             )
@@ -172,7 +172,7 @@ class TestCreateCustomer:
             ),
         )
 
-        with pytest.raises(PolarSelfClientError) as exc_info:
+        with pytest.raises(RepalisSelfClientError) as exc_info:
             await client.create_customer(
                 external_id="org",
                 name="Acme",
@@ -191,12 +191,12 @@ class TestCreateCustomer:
 
 @pytest.mark.anyio
 class TestTriggerOrderInvoiceGeneration:
-    async def test_409_order_not_eligible_raises_polar_self_order_not_eligible(
+    async def test_409_order_not_eligible_raises_repalis_self_order_not_eligible(
         self, mocker: MockerFixture
     ) -> None:
         # The live API returns 409 OrderNotEligibleForInvoice for draft/void
         # orders. The wrapper must surface this as the terminal
-        # PolarSelfOrderNotEligible (not the old "retry later" mapping).
+        # RepalisSelfOrderNotEligible (not the old "retry later" mapping).
         client = _client()
         mocker.patch.object(
             client._sdk.orders,
@@ -204,7 +204,7 @@ class TestTriggerOrderInvoiceGeneration:
             new=AsyncMock(side_effect=_not_eligible()),
         )
 
-        with pytest.raises(PolarSelfOrderNotEligible) as exc_info:
+        with pytest.raises(RepalisSelfOrderNotEligible) as exc_info:
             await client.trigger_order_invoice_generation(order_id="ord_1")
 
         assert exc_info.value.order_id == "ord_1"
@@ -223,10 +223,10 @@ class TestTriggerOrderInvoiceGeneration:
             new=AsyncMock(side_effect=_missing_billing()),
         )
 
-        with pytest.raises(PolarSelfClientError) as exc_info:
+        with pytest.raises(RepalisSelfClientError) as exc_info:
             await client.trigger_order_invoice_generation(order_id="ord_1")
 
-        assert not isinstance(exc_info.value, PolarSelfOrderNotEligible)
+        assert not isinstance(exc_info.value, RepalisSelfOrderNotEligible)
         assert "409" not in str(exc_info.value)
         assert "422" in str(exc_info.value)
 
@@ -240,23 +240,23 @@ class TestTriggerOrderInvoiceGeneration:
             new=AsyncMock(side_effect=_not_found()),
         )
 
-        with pytest.raises(PolarSelfClientError) as exc_info:
+        with pytest.raises(RepalisSelfClientError) as exc_info:
             await client.trigger_order_invoice_generation(order_id="ord_1")
 
-        assert not isinstance(exc_info.value, PolarSelfOrderNotEligible)
+        assert not isinstance(exc_info.value, RepalisSelfOrderNotEligible)
         assert "404" in str(exc_info.value)
 
     async def test_5xx_raises_operational_error(self, mocker: MockerFixture) -> None:
         # Transient server errors must surface as the retryable
-        # PolarSelfClientOperationalError, not the terminal ineligibility error.
+        # RepalisSelfClientOperationalError, not the terminal ineligibility error.
         client = _client()
         mocker.patch.object(
             client._sdk.orders,
             "generate_invoice",
-            new=AsyncMock(side_effect=PolarServerError(500, "boom")),
+            new=AsyncMock(side_effect=RepalisServerError(500, "boom")),
         )
 
-        with pytest.raises(PolarSelfClientOperationalError):
+        with pytest.raises(RepalisSelfClientOperationalError):
             await client.trigger_order_invoice_generation(order_id="ord_1")
 
     async def test_success_returns_none(self, mocker: MockerFixture) -> None:
@@ -311,10 +311,10 @@ class TestRevokeSubscription:
         mocker.patch.object(
             client._sdk.subscriptions,
             "revoke",
-            new=AsyncMock(side_effect=PolarServerError(500, "boom")),
+            new=AsyncMock(side_effect=RepalisServerError(500, "boom")),
         )
 
-        with pytest.raises(PolarSelfClientOperationalError):
+        with pytest.raises(RepalisSelfClientOperationalError):
             await client.revoke_subscription(subscription_id="sub_1")
 
 
@@ -381,16 +381,16 @@ class TestListBillingContacts:
         mocker.patch.object(
             client._sdk.customers.members,
             "iter_list",
-            side_effect=PolarServerError(500, "boom"),
+            side_effect=RepalisServerError(500, "boom"),
         )
 
-        with pytest.raises(PolarSelfClientOperationalError):
+        with pytest.raises(RepalisSelfClientOperationalError):
             await client.list_billing_contacts(customer_id="cus_1")
 
 
 def _failing_iter() -> AsyncIterator[Any]:
     async def _gen() -> AsyncIterator[Any]:
-        raise PolarNetworkError("ReadTimeout")
+        raise RepalisNetworkError("ReadTimeout")
         yield
 
     return _gen()
@@ -419,12 +419,12 @@ class TestNetworkErrorRetry:
         get = mocker.patch.object(
             client._sdk.orders,
             "get",
-            new=AsyncMock(side_effect=PolarNetworkError("ReadTimeout")),
+            new=AsyncMock(side_effect=RepalisNetworkError("ReadTimeout")),
         )
 
         with pytest.raises(
-            PolarSelfClientOperationalError,
-            match="get_order failed with network error: PolarNetworkError",
+            RepalisSelfClientOperationalError,
+            match="get_order failed with network error: RepalisNetworkError",
         ):
             await client.get_order(order_id="ord_1")
 

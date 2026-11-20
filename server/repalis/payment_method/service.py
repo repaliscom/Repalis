@@ -14,7 +14,7 @@ from repalis.email.deduplication import payment_method_expiration_reminder_key
 from repalis.email.schemas import EmailAdapter
 from repalis.email.sender import enqueue_email_template
 from repalis.enums import PaymentProcessor
-from repalis.exceptions import PolarError
+from repalis.exceptions import RepalisError
 from repalis.integrations.stripe.service import stripe as stripe_service
 from repalis.integrations.stripe.utils import get_expandable_id
 from repalis.models import Checkout, Customer, Order, PaymentMethod, Subscription
@@ -29,7 +29,7 @@ from .schemas import PaymentMethodCard
 GENERATED_SEPA_PAYMENT_METHOD_TYPES = ("bancontact", "ideal", "sofort")
 
 
-class PaymentMethodError(PolarError): ...
+class PaymentMethodError(RepalisError): ...
 
 
 class NoPaymentMethodOnIntent(PaymentMethodError):

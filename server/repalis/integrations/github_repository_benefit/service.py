@@ -9,7 +9,7 @@ from sqlalchemy.exc import IntegrityError
 
 import repalis.integrations.github.client as github
 from repalis.config import settings
-from repalis.exceptions import PolarError, ResourceAlreadyExists
+from repalis.exceptions import RepalisError, ResourceAlreadyExists
 from repalis.integrations.github.service.user import github_user as github_user_service
 from repalis.integrations.github_repository_benefit.schemas import (
     GitHubInvitesBenefitOrganization,
@@ -34,7 +34,7 @@ github_oauth_client = GitHubOAuth2(
 )
 
 
-class GitHubError(PolarError): ...
+class GitHubError(RepalisError): ...
 
 
 class GitHubRepositoryBenefitAccountNotConnected(GitHubError):

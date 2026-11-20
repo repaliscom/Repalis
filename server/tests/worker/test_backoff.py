@@ -75,13 +75,13 @@ class TestSetMessageVisibility:
 
         _sqs.set_message_visibility(
             client,
-            "arn:aws:sqs:us-east-2:123456789012:polar-sandbox-tasks-dummy",
+            "arn:aws:sqs:us-east-2:123456789012:repalis-sandbox-tasks-dummy",
             "receipt-handle",
             42,
         )
 
         client.get_queue_url.assert_called_once_with(
-            QueueName="polar-sandbox-tasks-dummy"
+            QueueName="repalis-sandbox-tasks-dummy"
         )
         client.change_message_visibility.assert_called_once_with(
             QueueUrl="https://sqs/queue",
@@ -206,13 +206,13 @@ class TestSendDelayedMessage:
 
         _sqs.send_delayed_message(
             client,
-            "arn:aws:sqs:us-east-2:123456789012:polar-sandbox-tasks-dummy",
+            "arn:aws:sqs:us-east-2:123456789012:repalis-sandbox-tasks-dummy",
             '{"actor":"dummy"}',
             60,
         )
 
         client.get_queue_url.assert_called_once_with(
-            QueueName="polar-sandbox-tasks-dummy"
+            QueueName="repalis-sandbox-tasks-dummy"
         )
         client.send_message.assert_called_once_with(
             QueueUrl="https://sqs/queue",

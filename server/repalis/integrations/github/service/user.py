@@ -1,6 +1,6 @@
 import structlog
 
-from repalis.exceptions import PolarError
+from repalis.exceptions import RepalisError
 from repalis.integrations.github.client import GitHub, TokenAuthStrategy
 
 from .. import client as github
@@ -11,7 +11,7 @@ log = structlog.get_logger()
 type GithubEmail = tuple[str, bool]
 
 
-class GithubUserServiceError(PolarError): ...
+class GithubUserServiceError(RepalisError): ...
 
 
 class NoPrimaryEmailError(GithubUserServiceError):

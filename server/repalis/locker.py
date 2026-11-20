@@ -7,14 +7,14 @@ from fastapi import Depends
 from redis.asyncio.lock import Lock
 from redis.exceptions import LockNotOwnedError
 
-from repalis.exceptions import PolarError
+from repalis.exceptions import RepalisError
 from repalis.logging import Logger
 from repalis.redis import Redis, get_redis
 
 log: Logger = structlog.get_logger()
 
 
-class LockerError(PolarError):
+class LockerError(RepalisError):
     def __init__(
         self,
         message: str = "A concurrency error occurred. Try again later.",

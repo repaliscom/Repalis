@@ -5,7 +5,7 @@ from opentelemetry import trace
 
 from repalis.config import settings
 from repalis.customer.repository import CustomerRepository
-from repalis.exceptions import PolarTaskError
+from repalis.exceptions import RepalisTaskError
 from repalis.observability.task_logging import LoggableField
 from repalis.worker import (
     AsyncSessionMaker,
@@ -18,7 +18,7 @@ from repalis.worker import (
 from .service import customer_meter as customer_meter_service
 
 
-class CustomerMeterTaskError(PolarTaskError): ...
+class CustomerMeterTaskError(RepalisTaskError): ...
 
 
 class CustomerDoesNotExist(CustomerMeterTaskError):

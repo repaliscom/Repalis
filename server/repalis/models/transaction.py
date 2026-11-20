@@ -46,11 +46,11 @@ class TransactionType(StrEnum):
     """
 
     payment = "payment"
-    """Polar received a payment."""
+    """Repalis received a payment."""
     processor_fee = "processor_fee"
-    """A payment processor fee was charged to Polar."""
+    """A payment processor fee was charged to Repalis."""
     refund = "refund"
-    """Polar refunded a payment (totally or partially)."""
+    """Repalis refunded a payment (totally or partially)."""
     refund_reversal = "refund_reversal"
     """A Polar refund is reversed (totally or partially)."""
     dispute = "dispute"
@@ -62,7 +62,7 @@ class TransactionType(StrEnum):
     payout = "payout"
     """Money paid to the user's bank account."""
     payout_reversal = "payout_reversal"
-    """A payout is reversed back to Polar (totally or partially)."""
+    """A payout is reversed back to Repalis (totally or partially)."""
 
 
 class ProcessorFeeType(StrEnum):
@@ -136,7 +136,7 @@ class ProcessorFeeType(StrEnum):
 
 class PlatformFeeType(StrEnum):
     """
-    Type of fees applied by Polar, and billed to the users.
+    Type of fees applied by Repalis, and billed to the users.
     """
 
     payment = "payment"
@@ -189,7 +189,7 @@ class PlatformFeeType(StrEnum):
 
     platform = "platform"
     """
-    Polar platform fee.
+    Repalis platform fee.
 
     **Deprecated: we no longer have a generic platform fee. They're always associated with a specific reason.**
     """
@@ -302,15 +302,15 @@ class Transaction(RecordModel):
     """Payment processor. For TransactionType.balance, it should be `None`."""
 
     currency: Mapped[str] = mapped_column(String(3), nullable=False)
-    """Currency of this transaction from Polar's perspective. Should be `usd`."""
+    """Currency of this transaction from Repalis's perspective. Should be `usd`."""
     amount: Mapped[int] = mapped_column(BigInteger, nullable=False)
-    """Amount in cents of this transaction from Polar's perspective."""
+    """Amount in cents of this transaction from Repalis's perspective."""
     account_currency: Mapped[str] = mapped_column(String(3), nullable=False)
     """Currency of this transaction from user's account perspective. Might not be `usd`."""
     account_amount: Mapped[int] = mapped_column(BigInteger, nullable=False)
     """Amount in cents of this transaction from user's account perspective."""
     tax_amount: Mapped[int] = mapped_column(BigInteger, nullable=False)
-    """Amount of tax collected by Polar for this payment."""
+    """Amount of tax collected by Repalis for this payment."""
     tax_country: Mapped[str] = mapped_column(String(2), nullable=True)
     """Country for which Polar collected the tax."""
     tax_state: Mapped[str] = mapped_column(String(2), nullable=True)
@@ -320,7 +320,7 @@ class Transaction(RecordModel):
     presentment_tax_amount: Mapped[int | None] = mapped_column(
         BigInteger, nullable=True
     )
-    """Amount of tax in the presentment currency collected by Polar for this payment."""
+    """Amount of tax in the presentment currency collected by Repalis for this payment."""
     presentment_currency: Mapped[str | None] = mapped_column(String(3), nullable=True)
     """Currency in which the customer made the payment."""
     exchange_rate: Mapped[float | None] = mapped_column(Float, nullable=True)
@@ -330,9 +330,9 @@ class Transaction(RecordModel):
     )
     """Tax processor used to calculate and collect tax for this payment."""
     tax_filing_amount: Mapped[int | None] = mapped_column(BigInteger, nullable=True)
-    """Amount of tax filed to the jurisdiction by Polar for this payment."""
+    """Amount of tax filed to the jurisdiction by Repalis for this payment."""
     tax_filing_currency: Mapped[str | None] = mapped_column(String(3), nullable=True)
-    """Currency in which the tax was filed to the jurisdiction by Polar."""
+    """Currency in which the tax was filed to the jurisdiction by Repalis."""
     tax_processor_id: Mapped[str | None] = mapped_column(
         String, nullable=True, default=None
     )

@@ -20,7 +20,7 @@ from repalis.cli.service import (
     list_trigger_events,
     trigger_event,
 )
-from repalis.exceptions import PolarRequestValidationError
+from repalis.exceptions import RepalisRequestValidationError
 from repalis.models import Organization
 from repalis.models.organization import STATUS_CAPABILITIES, OrganizationStatus
 from repalis.models.webhook_endpoint import WebhookEventType
@@ -183,7 +183,7 @@ class TestApplyOverrides:
     def test_rejects_invalid_paths_with_a_validation_error(self, path: str) -> None:
         payload = {"type": "order.paid", "data": {"amount": 1, "items": [{}]}}
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             apply_overrides(payload, {path: "x"})
 
 
@@ -243,7 +243,7 @@ class TestTriggerEvent:
     async def test_rejects_overrides_the_schema_would_drop(
         self, redis: Redis, organization: Organization
     ) -> None:
-        with pytest.raises(PolarRequestValidationError) as error:
+        with pytest.raises(RepalisRequestValidationError) as error:
             await trigger_event(
                 redis,
                 organization,
@@ -292,7 +292,7 @@ class TestTriggerEvent:
     async def test_rejects_overrides_that_break_the_schema(
         self, redis: Redis, organization: Organization
     ) -> None:
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await trigger_event(
                 redis,
                 organization,

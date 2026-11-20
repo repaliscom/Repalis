@@ -48,7 +48,7 @@ class MerchantMigrationStep(StrEnum):
     # Every imported subscription was switched, skipped or failed. Finishing
     # deletes the source key.
     completed = "completed"
-    # Closed by Polar after the retention period without activity.
+    # Closed by Repalis after the retention period without activity.
     closed = "closed"
 
 
@@ -59,7 +59,7 @@ MERCHANT_MIGRATION_FINISHED_STEPS = (
 
 
 class MerchantMigration(RecordModel):
-    """One merchant migration to Polar.
+    """One merchant migration to Repalis.
 
     The root of a migration: which provider we import from, how far the run has
     progressed, and the PAN transfer checklist tracking the card move.

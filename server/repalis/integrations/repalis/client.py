@@ -10,14 +10,14 @@ import logfire
 from pydantic_core.core_schema import ErrorType
 
 from repalis.base import (
-    PolarClientError,
-    PolarNetworkError,
+    RepalisClientError,
+    RepalisNetworkError,
     PolarRateLimitError,
-    PolarServerError,
+    RepalisServerError,
 )
 from repalis.config import settings
-from repalis.exceptions import PolarError as InternalPolarError
-from repalis.v2026_04 import PolarAsync as PolarSDK
+from repalis.exceptions import RepalisError as InternalRepalisError
+from repalis.v2026_04 import RepalisAsync as PolarSDK
 from repalis.v2026_04.errors import (
     AlreadyCanceledSubscription,
     HTTPValidationError,
@@ -58,26 +58,26 @@ from repalis.v2026_04.outputs import (
 )
 
 from .exceptions import (
-    PolarSelfBenefitGrantNotFound,
-    PolarSelfCustomerNotFound,
-    PolarSelfOrderNotEligible,
-    PolarSelfPaymentMethodInUse,
-    PolarSelfPaymentMethodNotFound,
+    RepalisSelfBenefitGrantNotFound,
+    RepalisSelfCustomerNotFound,
+    RepalisSelfOrderNotEligible,
+    RepalisSelfPaymentMethodInUse,
+    RepalisSelfPaymentMethodNotFound,
 )
 
 
-class PolarSelfClientError(InternalPolarError):
+class RepalisSelfClientError(InternalRepalisError):
     def __init__(self, message: str) -> None:
         super().__init__(message)
 
 
-class PolarSelfClientOperationalError(PolarSelfClientError):
+class RepalisSelfClientOperationalError(RepalisSelfClientError):
     """Raised for transient/retryable SDK errors (429, 5xx, network)."""
 
 
-class PolarSelfClientValidationError(InternalPolarError):
+class RepalisSelfClientValidationError(InternalRepalisError):
     def __init__(self, body: str) -> None:
-        super().__init__("Polar API request validation failed", status_code=422)
+        super().__init__("Repalis API request validation failed", status_code=422)
         self.message = body
 
 
@@ -105,17 +105,17 @@ def _record_validation_error(
 
 
 def _raise_validation_error(
-    span: Any, error: PolarClientError | PolarServerError, allowed_fields: set[str]
+    span: Any, error: RepalisClientError | RepalisServerError, allowed_fields: set[str]
 ) -> NoReturn:
     span.set_attribute("http.status_code", 422)
     span.set_attribute("error.type", type(error).__name__)
     if isinstance(error, HTTPValidationError):
         _record_validation_error(span, error, allowed_fields)
-    raise PolarSelfClientValidationError(str(getattr(error, "error", error))) from None
+    raise RepalisSelfClientValidationError(str(getattr(error, "error", error))) from None
 
 
 def _raise_error(
-    span: Any, error: PolarClientError | PolarServerError, operation: str
+    span: Any, error: RepalisClientError | RepalisServerError, operation: str
 ) -> NoReturn:
     span.set_attribute("http.status_code", error.status_code)
     span.set_attribute("error.type", type(error).__name__)
@@ -123,15 +123,15 @@ def _raise_error(
     message = f"{operation} failed with status {error.status_code}"
     if isinstance(error, HTTPValidationError):
         _record_validation_error(span, error)
-        raise PolarSelfClientError(message) from None
-    if isinstance(error, (PolarRateLimitError, PolarServerError)):
-        raise PolarSelfClientOperationalError(message) from error
-    raise PolarSelfClientError(message) from error
+        raise RepalisSelfClientError(message) from None
+    if isinstance(error, (PolarRateLimitError, RepalisServerError)):
+        raise RepalisSelfClientOperationalError(message) from error
+    raise RepalisSelfClientError(message) from error
 
 
-def _raise_network_error(span: Any, exc: PolarNetworkError, operation: str) -> NoReturn:
+def _raise_network_error(span: Any, exc: RepalisNetworkError, operation: str) -> NoReturn:
     span.set_attribute("error.type", type(exc).__name__)
-    raise PolarSelfClientOperationalError(
+    raise RepalisSelfClientOperationalError(
         f"{operation} failed with network error: {type(exc).__name__}: {exc}"
     ) from exc
 
@@ -144,7 +144,7 @@ NETWORK_RETRY_DELAY_SECONDS = 0.1
 async def _retry_network_error[T](call: Callable[[], Awaitable[T]]) -> T:
     try:
         return await call()
-    except PolarNetworkError:
+    except RepalisNetworkError:
         await asyncio.sleep(NETWORK_RETRY_DELAY_SECONDS)
         return await call()
 
@@ -153,7 +153,7 @@ async def _collect[T](items: AsyncIterable[T]) -> list[T]:
     return [item async for item in items]
 
 
-class PolarSelfClient:
+class RepalisSelfClient:
     def __init__(self, *, access_token: str, api_url: str) -> None:
         self._sdk = PolarSDK(
             access_token or "unconfigured",
@@ -179,9 +179,9 @@ class PolarSelfClient:
                 )
             except ResourceNotFound:
                 pass
-            except (PolarClientError, PolarServerError) as e:
+            except (RepalisClientError, RepalisServerError) as e:
                 _raise_error(span, e, "create_customer.fetch_existing")
-            except PolarNetworkError as e:
+            except RepalisNetworkError as e:
                 _raise_network_error(span, e, "create_customer.fetch_existing")
 
             try:
@@ -196,9 +196,9 @@ class PolarSelfClient:
                         "external_id": owner_external_id,
                     },
                 )
-            except (PolarClientError, PolarServerError) as e:
+            except (RepalisClientError, RepalisServerError) as e:
                 _raise_error(span, e, "create_customer")
-            except PolarNetworkError as e:
+            except RepalisNetworkError as e:
                 _raise_network_error(span, e, "create_customer")
 
     async def cancel_subscription(self, *, subscription_id: str) -> Subscription:
@@ -211,9 +211,9 @@ class PolarSelfClient:
                     subscription_id,
                     cancel_at_period_end=True,
                 )
-            except (PolarClientError, PolarServerError) as e:
+            except (RepalisClientError, RepalisServerError) as e:
                 _raise_error(span, e, "cancel_subscription")
-            except PolarNetworkError as e:
+            except RepalisNetworkError as e:
                 _raise_network_error(span, e, "cancel_subscription")
 
     async def revoke_subscription(self, *, subscription_id: str) -> None:
@@ -227,12 +227,12 @@ class PolarSelfClient:
                 )
             except AlreadyCanceledSubscription:
                 span.set_attribute("already_canceled", True)
-            except (PolarClientError, PolarServerError) as e:
+            except (RepalisClientError, RepalisServerError) as e:
                 if e.status_code == 404:
                     span.set_attribute("not_found", True)
                     return
                 _raise_error(span, e, "revoke_subscription")
-            except PolarNetworkError as e:
+            except RepalisNetworkError as e:
                 _raise_network_error(span, e, "revoke_subscription")
 
     async def uncancel_subscription(self, *, subscription_id: str) -> Subscription:
@@ -245,9 +245,9 @@ class PolarSelfClient:
                     subscription_id,
                     cancel_at_period_end=False,
                 )
-            except (PolarClientError, PolarServerError) as e:
+            except (RepalisClientError, RepalisServerError) as e:
                 _raise_error(span, e, "uncancel_subscription")
-            except PolarNetworkError as e:
+            except RepalisNetworkError as e:
                 _raise_network_error(span, e, "uncancel_subscription")
 
     async def get_customer_by_external_id(self, external_id: str) -> Customer:
@@ -258,7 +258,7 @@ class PolarSelfClient:
                 return await _retry_network_error(
                     lambda: self._sdk.customers.get_external(external_id)
                 )
-            except PolarNetworkError as e:
+            except RepalisNetworkError as e:
                 _raise_network_error(span, e, "get_customer_by_external_id")
 
     async def get_customer_by_external_id_or_none(
@@ -266,7 +266,7 @@ class PolarSelfClient:
     ) -> Customer | None:
         try:
             return await self.get_customer_by_external_id(external_id)
-        except (PolarClientError, PolarServerError) as e:
+        except (RepalisClientError, RepalisServerError) as e:
             if e.status_code == 404:
                 return None
             raise
@@ -293,9 +293,9 @@ class PolarSelfClient:
                         sorting=["-created_at"],
                     )
                 )
-            except (PolarClientError, PolarServerError) as e:
+            except (RepalisClientError, RepalisServerError) as e:
                 _raise_error(span, e, "list_customer_orders")
-            except PolarNetworkError as e:
+            except RepalisNetworkError as e:
                 _raise_network_error(span, e, "list_customer_orders")
 
             items = list(response.items)
@@ -310,12 +310,12 @@ class PolarSelfClient:
                 return await _retry_network_error(
                     lambda: self._sdk.orders.get(order_id)
                 )
-            except (PolarClientError, PolarServerError) as e:
+            except (RepalisClientError, RepalisServerError) as e:
                 if e.status_code == 404:
                     span.set_attribute("not_found", True)
                     return None
                 _raise_error(span, e, "get_order")
-            except PolarNetworkError as e:
+            except RepalisNetworkError as e:
                 _raise_network_error(span, e, "get_order")
 
     async def get_order_invoice(self, *, order_id: str) -> str | None:
@@ -324,19 +324,19 @@ class PolarSelfClient:
                 invoice = await _retry_network_error(
                     lambda: self._sdk.orders.invoice(order_id)
                 )
-            except (PolarClientError, PolarServerError) as e:
+            except (RepalisClientError, RepalisServerError) as e:
                 if e.status_code == 404:
                     span.set_attribute("not_found", True)
                     return None
                 _raise_error(span, e, "get_order_invoice")
-            except PolarNetworkError as e:
+            except RepalisNetworkError as e:
                 _raise_network_error(span, e, "get_order_invoice")
             return invoice.url
 
     async def trigger_order_invoice_generation(self, *, order_id: str) -> None:
         """Trigger PDF generation for an order.
 
-        Raises ``PolarSelfOrderNotEligible`` (terminal) if the API returns
+        Raises ``RepalisSelfOrderNotEligible`` (terminal) if the API returns
         409 — the order's status (``draft``/``void``) permanently disqualifies
         it from invoice generation, so the caller should treat it as out of
         scope rather than retrying.
@@ -348,14 +348,14 @@ class PolarSelfClient:
                 await _retry_network_error(
                     lambda: self._sdk.orders.generate_invoice(order_id)
                 )
-            except (PolarClientError, PolarServerError) as e:
+            except (RepalisClientError, RepalisServerError) as e:
                 if e.status_code == 409 and isinstance(e, OrderNotEligibleForInvoice):
                     span.set_attribute("order_not_eligible", True)
                     span.set_attribute("http.status_code", e.status_code)
                     span.set_attribute("error.type", type(e).__name__)
-                    raise PolarSelfOrderNotEligible(order_id) from e
+                    raise RepalisSelfOrderNotEligible(order_id) from e
                 _raise_error(span, e, "trigger_order_invoice_generation")
-            except PolarNetworkError as e:
+            except RepalisNetworkError as e:
                 _raise_network_error(span, e, "trigger_order_invoice_generation")
 
     async def list_recurring_products(self, *, organization_id: str) -> list[Product]:
@@ -375,9 +375,9 @@ class PolarSelfClient:
                         )
                     )
                 )
-            except (PolarClientError, PolarServerError) as e:
+            except (RepalisClientError, RepalisServerError) as e:
                 _raise_error(span, e, "list_recurring_products")
-            except PolarNetworkError as e:
+            except RepalisNetworkError as e:
                 _raise_network_error(span, e, "list_recurring_products")
 
             span.set_attribute("product_count", len(products))
@@ -399,9 +399,9 @@ class PolarSelfClient:
                         limit=1,
                     )
                 )
-            except (PolarClientError, PolarServerError) as e:
+            except (RepalisClientError, RepalisServerError) as e:
                 _raise_error(span, e, "get_active_subscription")
-            except PolarNetworkError as e:
+            except RepalisNetworkError as e:
                 _raise_network_error(span, e, "get_active_subscription")
 
             items = response.items
@@ -438,9 +438,9 @@ class PolarSelfClient:
                     embed_origin=embed_origin,
                     discount_id=discount_id,
                 )
-            except (PolarClientError, PolarServerError) as e:
+            except (RepalisClientError, RepalisServerError) as e:
                 _raise_error(span, e, "create_checkout")
-            except PolarNetworkError as e:
+            except RepalisNetworkError as e:
                 _raise_network_error(span, e, "create_checkout")
 
     async def update_subscription_product(
@@ -461,9 +461,9 @@ class PolarSelfClient:
                     product_id=product_id,
                     proration_behavior=proration_behavior,
                 )
-            except (PolarClientError, PolarServerError) as e:
+            except (RepalisClientError, RepalisServerError) as e:
                 _raise_error(span, e, "update_subscription_product")
-            except PolarNetworkError as e:
+            except RepalisNetworkError as e:
                 _raise_network_error(span, e, "update_subscription_product")
 
     async def update_subscription_discount(
@@ -485,9 +485,9 @@ class PolarSelfClient:
                     subscription_id,
                     discount_id=discount_id,
                 )
-            except (PolarClientError, PolarServerError) as e:
+            except (RepalisClientError, RepalisServerError) as e:
                 _raise_error(span, e, "update_subscription_discount")
-            except PolarNetworkError as e:
+            except RepalisNetworkError as e:
                 _raise_network_error(span, e, "update_subscription_discount")
 
     async def get_member_by_external_id(
@@ -505,7 +505,7 @@ class PolarSelfClient:
                         external_id,
                     )
                 )
-            except PolarNetworkError as e:
+            except RepalisNetworkError as e:
                 _raise_network_error(span, e, "get_member_by_external_id")
 
     async def list_billing_contacts(self, *, customer_id: str) -> list[Member]:
@@ -533,9 +533,9 @@ class PolarSelfClient:
                     # it as an empty result and move on, rather than failing the
                     # whole lookup.
                     continue
-                except (PolarClientError, PolarServerError) as e:
+                except (RepalisClientError, RepalisServerError) as e:
                     _raise_error(span, e, "list_billing_contacts")
-                except PolarNetworkError as e:
+                except RepalisNetworkError as e:
                     _raise_network_error(span, e, "list_billing_contacts")
             span.set_attribute("count", len(contacts))
             return contacts
@@ -565,12 +565,12 @@ class PolarSelfClient:
                         role=cast(MemberCreateRole, role),
                     )
                 )
-            except (PolarClientError, PolarServerError) as e:
+            except (RepalisClientError, RepalisServerError) as e:
                 if e.status_code == 409:
                     span.set_attribute("conflict", True)
                     return
                 _raise_error(span, e, "add_member")
-            except PolarNetworkError as e:
+            except RepalisNetworkError as e:
                 _raise_network_error(span, e, "add_member")
 
     async def update_member(
@@ -598,12 +598,12 @@ class PolarSelfClient:
                         **member_update,
                     )
                 )
-            except (PolarClientError, PolarServerError) as e:
+            except (RepalisClientError, RepalisServerError) as e:
                 if e.status_code == 404:
                     span.set_attribute("not_found", True)
                     return
                 _raise_error(span, e, "update_member")
-            except PolarNetworkError as e:
+            except RepalisNetworkError as e:
                 _raise_network_error(span, e, "update_member")
 
     async def update_customer_metadata(
@@ -612,7 +612,7 @@ class PolarSelfClient:
         external_id: str,
         metadata: dict[str, str | int | float | bool],
     ) -> None:
-        # The Polar API replaces metadata wholesale on update; callers must
+        # The Repalis API replaces metadata wholesale on update; callers must
         # merge any existing keys they want to preserve before passing them in.
         with logfire.span(
             "repalis.update_customer_metadata", external_id=external_id
@@ -624,12 +624,12 @@ class PolarSelfClient:
                         metadata=metadata,
                     )
                 )
-            except (PolarClientError, PolarServerError) as e:
+            except (RepalisClientError, RepalisServerError) as e:
                 if e.status_code == 404:
                     span.set_attribute("not_found", True)
                     return
                 _raise_error(span, e, "update_customer_metadata")
-            except PolarNetworkError as e:
+            except RepalisNetworkError as e:
                 _raise_network_error(span, e, "update_customer_metadata")
 
     async def create_percentage_discount(
@@ -662,9 +662,9 @@ class PolarSelfClient:
                     organization_id=organization_id,
                     metadata=metadata or {},
                 )
-            except (PolarClientError, PolarServerError) as e:
+            except (RepalisClientError, RepalisServerError) as e:
                 _raise_error(span, e, "create_percentage_discount")
-            except PolarNetworkError as e:
+            except RepalisNetworkError as e:
                 _raise_network_error(span, e, "create_percentage_discount")
 
     async def get_discount(self, *, discount_id: str) -> Discount | None:
@@ -673,12 +673,12 @@ class PolarSelfClient:
                 return await _retry_network_error(
                     lambda: self._sdk.discounts.get(discount_id)
                 )
-            except (PolarClientError, PolarServerError) as e:
+            except (RepalisClientError, RepalisServerError) as e:
                 if e.status_code == 404:
                     span.set_attribute("not_found", True)
                     return None
                 _raise_error(span, e, "get_discount")
-            except PolarNetworkError as e:
+            except RepalisNetworkError as e:
                 _raise_network_error(span, e, "get_discount")
 
     async def delete_discount(self, *, discount_id: str) -> None:
@@ -688,12 +688,12 @@ class PolarSelfClient:
                 await _retry_network_error(
                     lambda: self._sdk.discounts.delete(discount_id)
                 )
-            except (PolarClientError, PolarServerError) as e:
+            except (RepalisClientError, RepalisServerError) as e:
                 if e.status_code == 404:
                     span.set_attribute("not_found", True)
                     return
                 _raise_error(span, e, "delete_discount")
-            except PolarNetworkError as e:
+            except RepalisNetworkError as e:
                 _raise_network_error(span, e, "delete_discount")
 
     async def remove_member(
@@ -711,12 +711,12 @@ class PolarSelfClient:
                         external_id,
                     )
                 )
-            except (PolarClientError, PolarServerError) as e:
+            except (RepalisClientError, RepalisServerError) as e:
                 if e.status_code == 404:
                     span.set_attribute("not_found", True)
                     return
                 _raise_error(span, e, "remove_member")
-            except PolarNetworkError as e:
+            except RepalisNetworkError as e:
                 _raise_network_error(span, e, "remove_member")
 
     async def list_customer_benefit_grants(
@@ -736,9 +736,9 @@ class PolarSelfClient:
                         )
                     )
                 )
-            except (PolarClientError, PolarServerError) as e:
+            except (RepalisClientError, RepalisServerError) as e:
                 _raise_error(span, e, "list_customer_benefit_grants")
-            except PolarNetworkError as e:
+            except RepalisNetworkError as e:
                 _raise_network_error(span, e, "list_customer_benefit_grants")
 
             span.set_attribute("grant_count", len(grants))
@@ -753,12 +753,12 @@ class PolarSelfClient:
                         anonymize=True,
                     )
                 )
-            except (PolarClientError, PolarServerError) as e:
+            except (RepalisClientError, RepalisServerError) as e:
                 if e.status_code == 404:
                     span.set_attribute("not_found", True)
                     return
                 _raise_error(span, e, "delete_customer")
-            except PolarNetworkError as e:
+            except RepalisNetworkError as e:
                 _raise_network_error(span, e, "delete_customer")
 
     async def track_event_ingestion(
@@ -788,12 +788,12 @@ class PolarSelfClient:
                         request_timeout=EVENT_INGESTION_TIMEOUT_SECONDS,
                     )
                 )
-            except (PolarClientError, PolarServerError) as e:
+            except (RepalisClientError, RepalisServerError) as e:
                 if e.status_code == 409:
                     span.set_attribute("conflict", True)
                     return
                 _raise_error(span, e, "track_event_ingestion")
-            except PolarNetworkError as e:
+            except RepalisNetworkError as e:
                 _raise_network_error(span, e, "track_event_ingestion")
 
     async def _track_llm_span_usage(
@@ -865,12 +865,12 @@ class PolarSelfClient:
                     await _retry_network_error(
                         lambda: self._sdk.events.ingest(events=events)
                     )
-            except (PolarClientError, PolarServerError) as e:
+            except (RepalisClientError, RepalisServerError) as e:
                 if e.status_code == 409:
                     span.set_attribute("conflict", True)
                     return
                 _raise_error(span, e, operation)
-            except PolarNetworkError as e:
+            except RepalisNetworkError as e:
                 _raise_network_error(span, e, operation)
 
     async def track_organization_review_usage(
@@ -917,7 +917,7 @@ class PolarSelfClient:
                 list(item.loc) == ["body", "external_customer_id"]
                 for item in e.error.detail or []
             ):
-                raise PolarSelfCustomerNotFound(UUID(external_customer_id)) from e
+                raise RepalisSelfCustomerNotFound(UUID(external_customer_id)) from e
             raise
 
     async def _create_portal_sdk(
@@ -956,9 +956,9 @@ class PolarSelfClient:
 
             try:
                 return await _retry_network_error(get_customer)
-            except (PolarClientError, PolarServerError) as e:
+            except (RepalisClientError, RepalisServerError) as e:
                 _raise_error(span, e, "repalis.portal.get_customer")
-            except PolarNetworkError as e:
+            except RepalisNetworkError as e:
                 _raise_network_error(span, e, "repalis.portal.get_customer")
 
     async def portal_list_payment_methods(
@@ -986,9 +986,9 @@ class PolarSelfClient:
 
             try:
                 methods = await _retry_network_error(list_payment_methods)
-            except (PolarClientError, PolarServerError) as e:
+            except (RepalisClientError, RepalisServerError) as e:
                 _raise_error(span, e, "repalis.portal.list_payment_methods")
-            except PolarNetworkError as e:
+            except RepalisNetworkError as e:
                 _raise_network_error(span, e, "repalis.portal.list_payment_methods")
 
             span.set_attribute("payment_method_count", len(methods))
@@ -1016,16 +1016,16 @@ class PolarSelfClient:
                     await portal_sdk.customer_portal.customers.delete_payment_method(
                         payment_method_id
                     )
-            except (PolarClientError, PolarServerError) as e:
+            except (RepalisClientError, RepalisServerError) as e:
                 if e.status_code == 404:
                     span.set_attribute("not_found", True)
-                    raise PolarSelfPaymentMethodNotFound(payment_method_id) from e
+                    raise RepalisSelfPaymentMethodNotFound(payment_method_id) from e
                 if e.status_code == 400:
                     span.set_attribute("http.status_code", 400)
                     span.set_attribute("error.type", type(e).__name__)
-                    raise PolarSelfPaymentMethodInUse(payment_method_id) from e
+                    raise RepalisSelfPaymentMethodInUse(payment_method_id) from e
                 _raise_error(span, e, "repalis.portal.delete_payment_method")
-            except PolarNetworkError as e:
+            except RepalisNetworkError as e:
                 _raise_network_error(span, e, "repalis.portal.delete_payment_method")
 
     async def portal_create_customer_session(
@@ -1049,9 +1049,9 @@ class PolarSelfClient:
                     )
                 )
                 return session.token
-            except (PolarClientError, PolarServerError) as e:
+            except (RepalisClientError, RepalisServerError) as e:
                 _raise_error(span, e, "repalis.portal.create_customer_session")
-            except PolarNetworkError as e:
+            except RepalisNetworkError as e:
                 _raise_network_error(span, e, "repalis.portal.create_customer_session")
 
     async def portal_update_customer(
@@ -1077,13 +1077,13 @@ class PolarSelfClient:
 
             try:
                 return await _retry_network_error(update_customer)
-            except (PolarClientError, PolarServerError) as e:
+            except (RepalisClientError, RepalisServerError) as e:
                 if e.status_code == 422:
                     _raise_validation_error(
                         span, e, set(CustomerPortalCustomerUpdate.__annotations__)
                     )
                 _raise_error(span, e, "repalis.portal.update_customer")
-            except PolarNetworkError as e:
+            except RepalisNetworkError as e:
                 _raise_network_error(span, e, "repalis.portal.update_customer")
 
     async def portal_list_benefit_grants(
@@ -1109,9 +1109,9 @@ class PolarSelfClient:
 
             try:
                 grants = await _retry_network_error(list_benefit_grants)
-            except (PolarClientError, PolarServerError) as e:
+            except (RepalisClientError, RepalisServerError) as e:
                 _raise_error(span, e, "repalis.portal.list_benefit_grants")
-            except PolarNetworkError as e:
+            except RepalisNetworkError as e:
                 _raise_network_error(span, e, "repalis.portal.list_benefit_grants")
 
             span.set_attribute("grant_count", len(grants))
@@ -1141,24 +1141,24 @@ class PolarSelfClient:
                         benefit_grant_id,
                         **update,
                     )
-            except (PolarClientError, PolarServerError) as e:
+            except (RepalisClientError, RepalisServerError) as e:
                 if e.status_code == 404:
                     span.set_attribute("not_found", True)
-                    raise PolarSelfBenefitGrantNotFound(benefit_grant_id) from e
+                    raise RepalisSelfBenefitGrantNotFound(benefit_grant_id) from e
                 if e.status_code == 422:
                     _raise_validation_error(span, e, {"benefit_type", "properties"})
                 _raise_error(span, e, "repalis.portal.update_benefit_grant")
-            except PolarNetworkError as e:
+            except RepalisNetworkError as e:
                 _raise_network_error(span, e, "repalis.portal.update_benefit_grant")
 
 
-_client: PolarSelfClient | None = None
+_client: RepalisSelfClient | None = None
 
 
-def get_client() -> PolarSelfClient:
+def get_client() -> RepalisSelfClient:
     global _client
     if _client is None:
-        _client = PolarSelfClient(
+        _client = RepalisSelfClient(
             access_token=settings.POLAR_ACCESS_TOKEN,
             api_url=settings.POLAR_API_URL,
         )

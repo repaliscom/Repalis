@@ -5,8 +5,8 @@ from fastapi.responses import RedirectResponse
 
 from repalis.dispute.dispute_case import dispute_case as dispute_case_service
 from repalis.exceptions import (
-    PolarError,
-    PolarRequestValidationError,
+    RepalisError,
+    RepalisRequestValidationError,
     ResourceNotFound,
 )
 from repalis.file.service import file as file_service
@@ -51,15 +51,15 @@ from .service import support_case as support_case_service
 router = APIRouter(prefix="/support-cases", tags=["support-cases", APITag.private])
 
 
-class CaseRepliesNotSupportedError(PolarError):
+class CaseRepliesNotSupportedError(RepalisError):
     def __init__(self, case: SupportCase) -> None:
         super().__init__(f"Replies to {case.type} cases are not supported yet.", 409)
 
 
 def _reply_type_mismatch(
     message: ReviewAppealSupportCaseMessageCreate | DisputeSupportCaseMessageCreate,
-) -> PolarRequestValidationError:
-    return PolarRequestValidationError(
+) -> RepalisRequestValidationError:
+    return RepalisRequestValidationError(
         [
             {
                 "type": "value_error",

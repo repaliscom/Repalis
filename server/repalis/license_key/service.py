@@ -15,7 +15,7 @@ from repalis.benefit.strategies.license_keys.properties import (
     BenefitLicenseKeyExpirationProperties,
     BenefitLicenseKeysProperties,
 )
-from repalis.exceptions import BadRequest, NotPermitted, PolarError, ResourceNotFound
+from repalis.exceptions import BadRequest, NotPermitted, RepalisError, ResourceNotFound
 from repalis.kit.pagination import PaginationParams, paginate
 from repalis.kit.utils import utc_now
 from repalis.models import (
@@ -51,7 +51,7 @@ ROTATABLE_STATUSES: frozenset[LicenseKeyStatus] = frozenset(
 )
 
 
-class LicenseKeyError(PolarError): ...
+class LicenseKeyError(RepalisError): ...
 
 
 class RotateNotPermitted(LicenseKeyError):

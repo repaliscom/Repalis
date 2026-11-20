@@ -12,7 +12,7 @@ from starlette.types import ASGIApp, Receive, Send
 from starlette.types import Scope as ASGIScope
 
 from repalis import rate_limit
-from repalis.app import app as polar_app
+from repalis.app import app as repalis_app
 from repalis.auth.middlewares import AuthSubjectMiddleware
 from repalis.auth.models import AuthSubject
 from repalis.auth.scope import Scope
@@ -236,7 +236,7 @@ def test_ingest_staged_events_http(
     assert bind is not None
     instrument_sqlalchemy([bind.sync_engine])
 
-    app: ASGIApp = rate_limit.get_middleware(polar_app, redis)
+    app: ASGIApp = rate_limit.get_middleware(repalis_app, redis)
     app = AuthSubjectMiddleware(app)
     app = TransactionalMiddleware(app)
     app = rate_limit.get_authentication_middleware(app, redis)

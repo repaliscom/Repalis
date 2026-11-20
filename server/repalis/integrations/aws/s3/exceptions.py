@@ -1,4 +1,4 @@
-from repalis.exceptions import PolarError
+from repalis.exceptions import RepalisError
 
 
-class S3FileError(PolarError): ...
+class S3FileError(RepalisError): ...

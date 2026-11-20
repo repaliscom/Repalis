@@ -9,7 +9,7 @@ from authlib.oauth2 import OAuth2Error
 from authlib.oauth2.rfc7523.jwt_bearer import JWT_BEARER_GRANT_TYPE
 
 from repalis.auth.scope import CLAIMED_AGENT_SCOPES, UNCLAIMED_AGENT_SCOPES
-from repalis.exceptions import PolarError, ResourceNotFound
+from repalis.exceptions import RepalisError, ResourceNotFound
 from repalis.kit.crypto import (
     generate_token,
     generate_token_hash_pair,
@@ -72,7 +72,7 @@ class ClaimedOrInFlightError(OAuth2Error):
     status_code = 409
 
 
-class AgentClaimError(PolarError): ...
+class AgentClaimError(RepalisError): ...
 
 
 class AgentClaimEmailMismatch(AgentClaimError):

@@ -7,7 +7,7 @@ import structlog
 from dramatiq import Retry
 from sqlalchemy.orm import joinedload, selectinload
 
-from repalis.exceptions import PolarTaskError
+from repalis.exceptions import RepalisTaskError
 from repalis.kit.utils import utc_now
 from repalis.logging import Logger
 from repalis.models import Order, Product
@@ -47,7 +47,7 @@ MAX_RETRIES = 10
 SUBSCRIPTION_ORDER_GRACE_PERIOD = timedelta(minutes=15)
 
 
-class OrderTaskError(PolarTaskError): ...
+class OrderTaskError(RepalisTaskError): ...
 
 
 class SubscriptionDoesNotExist(OrderTaskError):

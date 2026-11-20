@@ -57,7 +57,7 @@ def _advance_to(key: str) -> list[PanTransferStep]:
             return steps
         actor = (
             PanStepActor.system
-            if current.owner == PanStepOwner.polar_app
+            if current.owner == PanStepOwner.repalis_app
             else PanStepActor.ops
         )
         template = pan_transfer._template(PanTransferMethod.pan_copy, current.key)
@@ -77,7 +77,7 @@ def _finish_all() -> list[PanTransferStep]:
         assert current is not None
         actor = (
             PanStepActor.system
-            if current.owner == PanStepOwner.polar_app
+            if current.owner == PanStepOwner.repalis_app
             else PanStepActor.ops
         )
         template = pan_transfer._template(PanTransferMethod.pan_copy, current.key)
@@ -156,14 +156,14 @@ class TestAttention:
         assert result.level == AttentionLevel.waiting_merchant
         assert not result.needs_ops
 
-    def test_polar_app_step_is_a_polar_job(self) -> None:
+    def test_repalis_app_step_is_a_polar_job(self) -> None:
         migration = _migration(
             step=MerchantMigrationStep.copy_cards, steps=_advance_to("verify_cards")
         )
 
         result = attention(migration, NO_FAILURES)
 
-        assert result.level == AttentionLevel.waiting_polar_app
+        assert result.level == AttentionLevel.waiting_repalis_app
 
     def test_pre_card_steps_wait_on_the_merchant(self) -> None:
         migration = _migration(step=MerchantMigrationStep.pre_check)

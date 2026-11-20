@@ -18,7 +18,7 @@ from repalis.customer.repository import CustomerRepository
 from repalis.event.service import event as event_service
 from repalis.event.system import BenefitGrantMetadata, SystemEvent, build_system_event
 from repalis.eventstream.service import publish as eventstream_publish
-from repalis.exceptions import PolarError, PolarRequestValidationError, ResourceNotFound
+from repalis.exceptions import RepalisError, RepalisRequestValidationError, ResourceNotFound
 from repalis.kit.pagination import PaginationParams, paginate
 from repalis.kit.sorting import Sorting
 from repalis.kit.utils import utc_now
@@ -57,7 +57,7 @@ from .sorting import BenefitGrantSortProperty
 log: Logger = structlog.get_logger()
 
 
-class BenefitGrantError(PolarError): ...
+class BenefitGrantError(RepalisError): ...
 
 
 class BenefitGrantAlreadyExists(BenefitGrantError):
@@ -78,9 +78,9 @@ class BenefitGrantService:
 
         def invalid_reference(
             field: str, message: LiteralString
-        ) -> PolarRequestValidationError:
+        ) -> RepalisRequestValidationError:
             field = f"external_{field}" if external else field
-            return PolarRequestValidationError(
+            return RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",

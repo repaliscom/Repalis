@@ -31,7 +31,7 @@ from repalis.account_credit.service import account_credit_service
 from repalis.backoffice.routing import BackofficeRouter
 from repalis.config import settings
 from repalis.enums import PayoutAccountType
-from repalis.exceptions import PolarRequestValidationError
+from repalis.exceptions import RepalisRequestValidationError
 from repalis.file.repository import FileRepository
 from repalis.file.sorting import FileSortProperty
 from repalis.integrations.plain.service import (
@@ -39,7 +39,7 @@ from repalis.integrations.plain.service import (
     plain_thread_url,
 )
 from repalis.integrations.plain.service import plain as plain_service
-from repalis.integrations.repalis.service import polar_self as polar_self_service
+from repalis.integrations.repalis.service import repalis_self as repalis_self_service
 from repalis.integrations.stripe.service import StripeAccountRejectReason
 from repalis.integrations.stripe.service import stripe as stripe_service
 from repalis.kit.pagination import count_subquery
@@ -967,7 +967,7 @@ async def get_organization_detail(
     if not impersonate_user and members:
         impersonate_user = members[0].user
 
-    # Startup Program status is derived via the Polar API (customer +
+    # Startup Program status is derived via the Repalis API (customer +
     # discount). The view only needs the resulting status string.
     startup_program_status: str | None = None
     if settings.STARTUP_PROGRAM_ENABLED:
@@ -2672,7 +2672,7 @@ async def activate_dialog(
             )
         except OrganizationError as e:
             error_message = e.message
-        except PolarRequestValidationError as e:
+        except RepalisRequestValidationError as e:
             error_message = "; ".join(error["msg"] for error in e.errors())
         else:
             match result:
@@ -2985,7 +2985,7 @@ async def startup_program_mark_invited(
 ) -> HXRedirectResponse | None:
     """Invite the organization to the Startup Program.
 
-    Resolves the Polar-for-Polar customer (in Polar's org, with
+    Resolves the Polar-for-Repalis customer (in Polar's org, with
     ``external_id`` equal to the organization id) and eagerly creates its
     dedicated 100% Scale discount.
     """
@@ -3478,7 +3478,7 @@ async def edit_organization(
             # Keep the Polar-for-Polar billing customer's slug in sync with the
             # organization slug (the org slug is the customer's slug).
             if slug_changed:
-                polar_self_service.enqueue_update_customer_slug(
+                repalis_self_service.enqueue_update_customer_slug(
                     organization_id=organization.id, slug=organization.slug
                 )
 

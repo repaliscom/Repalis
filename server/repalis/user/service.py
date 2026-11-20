@@ -7,8 +7,8 @@ import structlog
 from sqlalchemy import func, update
 from sqlalchemy.exc import IntegrityError
 
-from repalis.exceptions import PolarError
-from repalis.integrations.repalis.service import polar_self as polar_self_service
+from repalis.exceptions import RepalisError
+from repalis.integrations.repalis.service import repalis_self as repalis_self_service
 from repalis.integrations.resend.service import resend as resend_service
 from repalis.integrations.stripe.service import stripe as stripe_service
 from repalis.kit.anonymization import anonymize_email_for_deletion
@@ -32,7 +32,7 @@ from .schemas import (
 log = structlog.get_logger()
 
 
-class UserError(PolarError): ...
+class UserError(RepalisError): ...
 
 
 class IdentityAlreadyVerified(UserError):
@@ -152,7 +152,7 @@ class UserService:
                 updated_user.id
             )
             for organization in organizations:
-                polar_self_service.enqueue_update_member(
+                repalis_self_service.enqueue_update_member(
                     external_customer_id=str(organization.id),
                     external_id=str(updated_user.id),
                     name=updated_user.full_name,

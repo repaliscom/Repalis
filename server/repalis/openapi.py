@@ -74,7 +74,7 @@ class APITag(StrEnum):
 
 def cli_preview(*fields: tuple[str, str]) -> dict[str, Any]:
     return {
-        "x-polar-cli-preview": {
+        "x-repalis-cli-preview": {
             "fields": [{"key": key, "label": label} for key, label in fields]
         }
     }

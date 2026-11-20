@@ -281,7 +281,7 @@ class TestWebhook:
     async def test_unhandled_event_type_is_ignored(
         self, client: AsyncClient, enqueue_mock: AsyncMock
     ) -> None:
-        # subscription.uncanceled is a valid (parseable) Polar event type, but
+        # subscription.uncanceled is a valid (parseable) Repalis event type, but
         # not in IMPLEMENTED_WEBHOOKS.
         body, headers = _sign(_subscription_event("subscription.uncanceled"))
 
@@ -325,7 +325,7 @@ class TestWebhook:
         call = enqueue_mock.await_args
         assert call is not None
         assert call.args[1].value == "polar"
-        assert call.args[2] == f"polar_self.webhook.{event_type}"
+        assert call.args[2] == f"repalis_self.webhook.{event_type}"
         assert call.args[3] == f"msg_{event_type}"
         assert call.args[4] == payload
         assert call.kwargs["delay"] is None
@@ -336,7 +336,7 @@ class TestWebhook:
         enqueue_mock: AsyncMock,
     ) -> None:
         # Defer order.created processing so payment settlement and invoice
-        # generation have time to complete on Polar's side.
+        # generation have time to complete on Repalis's side.
         payload = _order_event("order.created")
         body, headers = _sign(payload, msg_id="msg_order.created")
 
@@ -346,7 +346,7 @@ class TestWebhook:
         enqueue_mock.assert_awaited_once()
         call = enqueue_mock.await_args
         assert call is not None
-        assert call.args[2] == "polar_self.webhook.order.created"
+        assert call.args[2] == "repalis_self.webhook.order.created"
         assert call.kwargs["delay"] == 60_000
 
     @pytest.mark.parametrize(
@@ -372,7 +372,7 @@ class TestWebhook:
         enqueue_mock.assert_awaited_once()
         call = enqueue_mock.await_args
         assert call is not None
-        assert call.args[2] == f"polar_self.webhook.{event_type}"
+        assert call.args[2] == f"repalis_self.webhook.{event_type}"
         assert call.args[3] == f"msg_{event_type}"
         assert call.args[4] == payload
         assert call.kwargs["delay"] is None

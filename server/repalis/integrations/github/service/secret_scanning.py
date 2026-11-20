@@ -12,7 +12,7 @@ from pydantic import BeforeValidator, TypeAdapter, ValidationError
 from repalis.auth.service import auth as auth_service
 from repalis.customer_session.service import customer_session as customer_session_service
 from repalis.enums import TokenType
-from repalis.exceptions import PolarError
+from repalis.exceptions import RepalisError
 from repalis.kit.schemas import Schema
 from repalis.oauth2.service.oauth2_authorization_code import (
     oauth2_authorization_code as oauth2_authorization_code_service,
@@ -87,7 +87,7 @@ TOKEN_TYPE_SERVICE_MAP: dict[TokenType, RevokedLeakedProtocol] = {
 }
 
 
-class GitHubSecretScanningError(PolarError): ...
+class GitHubSecretScanningError(RepalisError): ...
 
 
 class PublicKeyNotFound(GitHubSecretScanningError):

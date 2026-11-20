@@ -3,7 +3,7 @@ from typing import Annotated
 
 import structlog
 
-from repalis.exceptions import PolarTaskError
+from repalis.exceptions import RepalisTaskError
 from repalis.locker import Locker, TimeoutLockError
 from repalis.logging import Logger
 from repalis.observability.task_logging import LoggableField
@@ -24,7 +24,7 @@ log: Logger = structlog.get_logger()
 RENDER_RETRY_DELAY_MS = 5_000
 
 
-class ReceiptTaskError(PolarTaskError): ...
+class ReceiptTaskError(RepalisTaskError): ...
 
 
 class ReceiptOrderDoesNotExist(ReceiptTaskError):

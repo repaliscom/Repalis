@@ -78,7 +78,7 @@ class PrecheckReasonLevel(StrEnum):
 class PrecheckEntitySummary(Schema):
     entity: PrecheckEntity = Field(description="The source entity type.")
     total: int = Field(description="How many were read from the source.")
-    importable: int = Field(description="How many will be imported into Polar.")
+    importable: int = Field(description="How many will be imported into Repalis.")
     skipped: int = Field(
         description="How many won't be imported and stay on the source."
     )
@@ -137,7 +137,7 @@ class MerchantMigrationRecordItem(Schema):
     )
     customer_country: str | None = Field(
         description=(
-            "The billing country Polar will import. This is the source customer "
+            "The billing country Repalis will import. This is the source customer "
             "country, or a payment-method fallback. None for product and price "
             "rows, or when neither is available."
         ),
@@ -151,7 +151,7 @@ class MerchantMigrationRecordItem(Schema):
     )
     customer_billing_address: Address | None = Field(
         description=(
-            "The billing address Polar will import for the customer. None when "
+            "The billing address Repalis will import for the customer. None when "
             "only a payment-method country fallback or no address is available."
         ),
     )
@@ -186,13 +186,13 @@ class MerchantMigrationRecordItem(Schema):
     )
     discount_name: str | None = Field(
         description=(
-            "The coupon Polar will keep on this subscription. None for "
+            "The coupon Repalis will keep on this subscription. None for "
             "non-subscription rows, or when the subscription has no importable coupon."
         ),
     )
     discount_code: str | None = Field(
         description=(
-            "The checkout code of the coupon Polar will keep on this subscription. "
+            "The checkout code of the coupon Repalis will keep on this subscription. "
             "None when there is no coupon, or the coupon has no Polar-valid code."
         ),
     )
@@ -219,7 +219,7 @@ class MerchantMigrationRecordItem(Schema):
     )
     conflicting_customer_id: UUID4 | None = Field(
         description=(
-            "The Polar customer that already exists for this email, when the skip "
+            "The Repalis customer that already exists for this email, when the skip "
             "reason is a Stripe id conflict. None otherwise."
         ),
     )
@@ -282,7 +282,7 @@ class MerchantMigrationRecordBillingAddressUpdate(Schema):
     model_config = ConfigDict(extra="forbid")
 
     billing_address: AddressInput = Field(
-        description="Billing address Polar will store on the imported customer.",
+        description="Billing address Repalis will store on the imported customer.",
     )
 
     @model_validator(mode="after")
@@ -344,7 +344,7 @@ class MerchantMigrationImportRequest(Schema):
             "Subscription ledger record ids to prepare (from the records listing). "
             "Their customers and products are imported automatically. When omitted, "
             "every importable subscription is prepared (subject to "
-            "`exclude_record_ids`). Polar subscriptions are created at cutover."
+            "`exclude_record_ids`). Repalis subscriptions are created at cutover."
         ),
     )
     exclude_record_ids: list[UUID4] | None = Field(
@@ -402,7 +402,7 @@ class MerchantMigrationCutoverReport(Schema):
         description="Subscriptions whose customer and product are in Polar."
     )
     pending: int = Field(description="Not switched yet.")
-    moved: int = Field(description="Now billed by Polar.")
+    moved: int = Field(description="Now billed by Repalis.")
     skipped: int = Field(description="Left on the source.")
     failed: int = Field(description="Hit an unexpected error.")
 
@@ -433,7 +433,7 @@ class PanTransferChecklist(Schema):
     destination_account_id: str | None = Field(
         description=(
             "The Stripe account the cards move into. The merchant needs it to "
-            "address the copy or import to Polar."
+            "address the copy or import to Repalis."
         )
     )
     steps: Sequence[PanTransferStep] = Field(

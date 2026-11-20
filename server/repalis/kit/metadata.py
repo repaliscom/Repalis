@@ -8,7 +8,7 @@ from sqlalchemy import ColumnExpressionArgument, Select, and_, or_, true
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import Mapped, mapped_column
 
-from repalis.exceptions import PolarRequestValidationError
+from repalis.exceptions import RepalisRequestValidationError
 
 MetadataColumn = Annotated[
     dict[str, Any], mapped_column(JSONB, nullable=False, default=dict)
@@ -139,7 +139,7 @@ def _get_metadata_query(request: Request) -> dict[str, list[str]] | None:
         if match := re.match(_metadata_pattern, key):
             metadata_key = match.group(1)
             if "\x00" in metadata_key or "\x00" in value:
-                raise PolarRequestValidationError(
+                raise RepalisRequestValidationError(
                     [
                         {
                             "type": "value_error",

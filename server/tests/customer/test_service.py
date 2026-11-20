@@ -12,7 +12,7 @@ from repalis.customer.schemas.customer import (
 )
 from repalis.customer.service import customer as customer_service
 from repalis.event.system import SystemEvent
-from repalis.exceptions import PolarRequestValidationError
+from repalis.exceptions import RepalisRequestValidationError
 from repalis.kit.address import Address, AddressInput, CountryAlpha2, CountryAlpha2Input
 from repalis.kit.pagination import PaginationParams
 from repalis.member.repository import MemberRepository
@@ -216,7 +216,7 @@ class TestCreate:
         auth_subject: AuthSubject[User],
         organization: Organization,
     ) -> None:
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await customer_service.create(
                 session,
                 CustomerIndividualCreate(
@@ -243,7 +243,7 @@ class TestCreate:
         if is_user(auth_subject):
             payload["organization_id"] = str(organization.id)
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await customer_service.create(
                 session, CustomerIndividualCreate.model_validate(payload), auth_subject
             )
@@ -267,7 +267,7 @@ class TestCreate:
         if is_user(auth_subject):
             payload["organization_id"] = str(organization.id)
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await customer_service.create(
                 session, CustomerIndividualCreate.model_validate(payload), auth_subject
             )
@@ -412,7 +412,7 @@ class TestCreate:
         if is_user(auth_subject):
             payload["organization_id"] = str(organization.id)
 
-        with pytest.raises(PolarRequestValidationError) as exc_info:
+        with pytest.raises(RepalisRequestValidationError) as exc_info:
             await customer_service.create(
                 session, CustomerIndividualCreate.model_validate(payload), auth_subject
             )
@@ -453,7 +453,7 @@ class TestCreate:
         if is_user(auth_subject):
             payload["organization_id"] = str(organization.id)
 
-        with pytest.raises(PolarRequestValidationError) as exc_info:
+        with pytest.raises(RepalisRequestValidationError) as exc_info:
             await customer_service.create(
                 session, CustomerIndividualCreate.model_validate(payload), auth_subject
             )
@@ -477,7 +477,7 @@ class TestCreate:
         if is_user(auth_subject):
             payload["organization_id"] = str(organization.id)
 
-        with pytest.raises(PolarRequestValidationError) as exc_info:
+        with pytest.raises(RepalisRequestValidationError) as exc_info:
             await customer_service.create(
                 session, CustomerIndividualCreate.model_validate(payload), auth_subject
             )
@@ -502,7 +502,7 @@ class TestCreate:
         if is_user(auth_subject):
             payload["organization_id"] = str(organization.id)
 
-        with pytest.raises(PolarRequestValidationError) as exc_info:
+        with pytest.raises(RepalisRequestValidationError) as exc_info:
             await customer_service.create(
                 session, CustomerIndividualCreate.model_validate(payload), auth_subject
             )
@@ -573,7 +573,7 @@ class TestUpdate:
     async def test_existing_external_id(
         self, session: AsyncSession, customer: Customer, customer_external_id: Customer
     ) -> None:
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await customer_service.update(
                 session,
                 customer,
@@ -594,7 +594,7 @@ class TestUpdate:
         session: AsyncSession,
         customer_external_id: Customer,
     ) -> None:
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await customer_service.update(
                 session,
                 customer_external_id,
@@ -613,7 +613,7 @@ class TestUpdate:
             organization=organization,
             billing_address=Address(country=CountryAlpha2("FR")),
         )
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await customer_service.update(
                 session, customer, CustomerUpdate(billing_address=None)
             )
@@ -623,7 +623,7 @@ class TestUpdate:
     async def test_existing_email(
         self, session: AsyncSession, customer: Customer, customer_second: Customer
     ) -> None:
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await customer_service.update(
                 session,
                 customer,
@@ -757,7 +757,7 @@ class TestUpdate:
         customer.type = CustomerType.team
         await save_fixture(customer)
 
-        with pytest.raises(PolarRequestValidationError) as exc_info:
+        with pytest.raises(RepalisRequestValidationError) as exc_info:
             await customer_service.update(
                 session,
                 customer,
@@ -782,7 +782,7 @@ class TestUpdate:
         customer.type = CustomerType.team
         await save_fixture(customer)
 
-        with pytest.raises(PolarRequestValidationError) as exc_info:
+        with pytest.raises(RepalisRequestValidationError) as exc_info:
             await customer_service.update(
                 session,
                 customer,
@@ -823,7 +823,7 @@ class TestUpdate:
         customer: Customer,
     ) -> None:
         """Updating a customer with tax_id but no billing_address should fail."""
-        with pytest.raises(PolarRequestValidationError) as exc_info:
+        with pytest.raises(RepalisRequestValidationError) as exc_info:
             await customer_service.update(
                 session,
                 customer,
@@ -844,7 +844,7 @@ class TestUpdate:
             email="invalid-taxid-update@example.com",
             billing_address=Address(country=CountryAlpha2("FR")),
         )
-        with pytest.raises(PolarRequestValidationError) as exc_info:
+        with pytest.raises(RepalisRequestValidationError) as exc_info:
             await customer_service.update(
                 session,
                 customer,
@@ -893,7 +893,7 @@ class TestUpdate:
             tax_id=("FR61954506077", TaxIDFormat.eu_vat),
         )
         # Changing country to US should fail because FR VAT is not valid in US
-        with pytest.raises(PolarRequestValidationError) as exc_info:
+        with pytest.raises(RepalisRequestValidationError) as exc_info:
             await customer_service.update(
                 session,
                 customer,

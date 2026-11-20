@@ -44,7 +44,7 @@ class AUPSection(StrEnum):
     MARKETPLACES = "marketplaces"
     INTELLECTUAL_PROPERTY_INFRINGEMENT = "intellectual_property_infringement"
     UNAUTHORIZED_DATA_ACCESS = "unauthorized_data_access"
-    NON_POLAR_SELLERS = "non_polar_sellers"
+    NON_REPALIS_SELLERS = "non_repalis_sellers"
     ADVERTISING_UNSOLICITED_MARKETING = "advertising_unsolicited_marketing"
     ADULT_CONTENT = "adult_content"
     MINORS = "minors"
@@ -97,7 +97,7 @@ AUP_SECTION_LABELS: dict[AUPSection, str] = {
         "6. Any product or service that enables unauthorized access to data belonging to "
         "another party"
     ),
-    AUPSection.NON_POLAR_SELLERS: (
+    AUPSection.NON_REPALIS_SELLERS: (
         "7. Any product or service that enables non-Polar Sellers to sell products and "
         "services to customers"
     ),

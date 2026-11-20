@@ -93,7 +93,7 @@ async def _create_oauth2_token(
     agent: Agent | None = None,
 ) -> OAuth2Token:
     if agent is None:
-        client = OAuth2Client(client_id="polar_ci_test")
+        client = OAuth2Client(client_id="repalis_ci_test")
         await save_fixture(client)
     else:
         client = agent.oauth2_client

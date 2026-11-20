@@ -9,32 +9,32 @@ from fastapi.responses import JSONResponse, RedirectResponse
 
 from repalis.config import settings
 from repalis.exceptions import (
-    PolarError,
-    PolarRedirectionError,
-    PolarRequestValidationError,
+    RepalisError,
+    RepalisRedirectionError,
+    RepalisRequestValidationError,
 )
 
 
 @overload
-async def polar_exception_handler(
+async def repalis_exception_handler(
     connection: Request, exc: Exception
 ) -> JSONResponse: ...
 
 
 @overload
-async def polar_exception_handler(connection: WebSocket, exc: Exception) -> None: ...
+async def repalis_exception_handler(connection: WebSocket, exc: Exception) -> None: ...
 
 
 @overload
-async def polar_exception_handler(
+async def repalis_exception_handler(
     connection: HTTPConnection, exc: Exception
 ) -> JSONResponse | None: ...
 
 
-async def polar_exception_handler(
+async def repalis_exception_handler(
     connection: HTTPConnection, exc: Exception
 ) -> JSONResponse | None:
-    assert isinstance(exc, PolarError)
+    assert isinstance(exc, RepalisError)
     response = JSONResponse(
         status_code=exc.status_code,
         content={"error": type(exc).__name__, "detail": jsonable_encoder(exc.detail)},
@@ -49,7 +49,7 @@ async def polar_exception_handler(
 async def request_validation_exception_handler(
     request: Request, exc: Exception
 ) -> JSONResponse:
-    assert isinstance(exc, (RequestValidationError, PolarRequestValidationError))
+    assert isinstance(exc, (RequestValidationError, RepalisRequestValidationError))
     return JSONResponse(
         status_code=422,
         content={
@@ -69,7 +69,7 @@ def _encode_bytes_safely(value: bytes) -> str:
 async def polar_redirection_exception_handler(
     request: Request, exc: Exception
 ) -> RedirectResponse:
-    assert isinstance(exc, PolarRedirectionError)
+    assert isinstance(exc, RepalisRedirectionError)
     error_url_params = urlencode(
         {
             "message": exc.message,
@@ -82,13 +82,13 @@ async def polar_redirection_exception_handler(
 
 def add_exception_handlers(app: FastAPI) -> None:
     app.add_exception_handler(
-        PolarRedirectionError, polar_redirection_exception_handler
+        RepalisRedirectionError, polar_redirection_exception_handler
     )
 
     app.add_exception_handler(
         RequestValidationError, request_validation_exception_handler
     )
     app.add_exception_handler(
-        PolarRequestValidationError, request_validation_exception_handler
+        RepalisRequestValidationError, request_validation_exception_handler
     )
-    app.add_exception_handler(PolarError, polar_exception_handler)
+    app.add_exception_handler(RepalisError, repalis_exception_handler)

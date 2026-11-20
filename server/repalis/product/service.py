@@ -26,8 +26,8 @@ from repalis.declarative_config.guard import (
 from repalis.enums import SubscriptionRecurringInterval
 from repalis.exceptions import (
     NotPermitted,
-    PolarError,
-    PolarRequestValidationError,
+    RepalisError,
+    RepalisRequestValidationError,
     ValidationError,
 )
 from repalis.file.service import file as file_service
@@ -84,7 +84,7 @@ from .schemas import (
 from .sorting import ProductSortProperty
 
 
-class ProductError(PolarError): ...
+class ProductError(RepalisError): ...
 
 
 class ProductNotDeletable(ProductError):
@@ -250,7 +250,7 @@ class ProductService:
             if attempt.category not in FLAGGED_PRODUCT_PHRASES
         ]
         if errors:
-            raise PolarRequestValidationError(errors)
+            raise RepalisRequestValidationError(errors)
 
         await ProductRepository.from_session(session).get_by_id(
             product.id, for_update=True
@@ -328,7 +328,7 @@ class ProductService:
                 create_schema.external_id, organization.id
             )
         ):
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",
@@ -417,7 +417,7 @@ class ProductService:
             )
 
         if errors:
-            raise PolarRequestValidationError(errors)
+            raise RepalisRequestValidationError(errors)
 
         await session.flush()
 
@@ -644,7 +644,7 @@ class ProductService:
                 errors.extend(attached_custom_fields_errors)
 
         if errors:
-            raise PolarRequestValidationError(errors)
+            raise RepalisRequestValidationError(errors)
 
         if product.is_archived and update_schema.is_archived is False:
             product = await self._unarchive(product)
@@ -719,7 +719,7 @@ class ProductService:
         for order, benefit_id in enumerate(benefits):
             benefit = await benefit_service.get(session, auth_subject, benefit_id)
             if benefit is None:
-                raise PolarRequestValidationError(
+                raise RepalisRequestValidationError(
                     [
                         {
                             "type": "value_error",
@@ -730,7 +730,7 @@ class ProductService:
                     ]
                 )
             if benefit.organization_id != product.organization_id:
-                raise PolarRequestValidationError(
+                raise RepalisRequestValidationError(
                     [
                         {
                             "type": "value_error",
@@ -741,7 +741,7 @@ class ProductService:
                     ]
                 )
             if not benefit.selectable and benefit not in previous_benefits:
-                raise PolarRequestValidationError(
+                raise RepalisRequestValidationError(
                     [
                         {
                             "type": "value_error",
@@ -767,7 +767,7 @@ class ProductService:
 
         for deleted_benefit in deleted_benefits:
             if not deleted_benefit.selectable:
-                raise PolarRequestValidationError(
+                raise RepalisRequestValidationError(
                     [
                         {
                             "type": "value_error",

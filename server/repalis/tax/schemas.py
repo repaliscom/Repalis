@@ -10,7 +10,7 @@ from repalis.organization.schemas import OrganizationID
 
 
 class TaxJurisdiction(Schema):
-    """Aggregated tax remitted by Polar for a single jurisdiction.
+    """Aggregated tax remitted by Repalis for a single jurisdiction.
 
     US and Canadian jurisdictions are reported at the state/province level;
     every other country is aggregated at the country level.
@@ -36,7 +36,7 @@ class TaxJurisdiction(Schema):
     currency: str = Field(description="Currency of the remitted tax amount.")
     tax_amount: int = Field(
         description=(
-            "Net tax remitted by Polar in this jurisdiction, in the currency's "
+            "Net tax remitted by Repalis in this jurisdiction, in the currency's "
             "minor unit. Refunds and disputes are netted out."
         )
     )
@@ -90,7 +90,7 @@ class TaxJurisdiction(Schema):
 
 
 class TaxSummary(Schema):
-    """Aggregated tax remitted by Polar across all jurisdictions.
+    """Aggregated tax remitted by Repalis across all jurisdictions.
 
     Totals span the full filtered dataset, independent of the pagination
     applied to the jurisdiction breakdown.
@@ -99,7 +99,7 @@ class TaxSummary(Schema):
     currency: str = Field(description="Currency of the remitted tax amount.")
     tax_amount: int = Field(
         description=(
-            "Net tax remitted by Polar across all jurisdictions, in the "
+            "Net tax remitted by Repalis across all jurisdictions, in the "
             "currency's minor unit. Refunds and disputes are netted out."
         )
     )

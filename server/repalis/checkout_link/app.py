@@ -3,7 +3,7 @@ from fastapi.responses import RedirectResponse
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from repalis.config import settings
-from repalis.exceptions import PolarError, ResourceNotFound
+from repalis.exceptions import RepalisError, ResourceNotFound
 from repalis.kit.routing import TransactionalAPIRoute, get_api_router_class
 
 from .endpoints import redirect
@@ -31,7 +31,7 @@ app = FastAPI(
     exception_handlers={
         StarletteHTTPException: redirect_to_frontend,
         ResourceNotFound: redirect_to_frontend_not_found,
-        PolarError: redirect_to_frontend,
+        RepalisError: redirect_to_frontend,
     },
 )
 app.include_router(router)

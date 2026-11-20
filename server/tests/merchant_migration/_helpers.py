@@ -116,10 +116,10 @@ async def build_connected_migration(
 
 _STEP_ACTORS = {
     PanStepOwner.merchant: PanStepActor.merchant,
-    PanStepOwner.polar_ops: PanStepActor.ops,
+    PanStepOwner.repalis_ops: PanStepActor.ops,
     PanStepOwner.stripe: PanStepActor.ops,
     PanStepOwner.provider: PanStepActor.ops,
-    PanStepOwner.polar_app: PanStepActor.system,
+    PanStepOwner.repalis_app: PanStepActor.system,
 }
 
 
@@ -314,7 +314,7 @@ async def stage_subscription_record(
 
 
 def copied_cards(mocker: MockerFixture, *cards: Any) -> None:
-    """What `list_payment_methods` finds on Polar's Stripe account."""
+    """What `list_payment_methods` finds on Repalis's Stripe account."""
 
     async def listed(customer: str) -> AsyncIterator[Any]:
         for card in cards:

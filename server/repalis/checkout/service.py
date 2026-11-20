@@ -49,8 +49,8 @@ from repalis.event.system import (
 from repalis.exceptions import (
     NotPermitted,
     PaymentNotReady,
-    PolarError,
-    PolarRequestValidationError,
+    RepalisError,
+    RepalisRequestValidationError,
     ResourceNotFound,
     ValidationError,
 )
@@ -157,7 +157,7 @@ if typing.TYPE_CHECKING:
 log: Logger = structlog.get_logger()
 
 
-class CheckoutError(PolarError): ...
+class CheckoutError(RepalisError): ...
 
 
 class ExpiredCheckoutError(CheckoutError):
@@ -451,7 +451,7 @@ class CheckoutService:
                 price_set = PriceSet.from_prices(prices, *currencies)
                 currency = price_set.currency
             except NoPricesForCurrencies as e:
-                raise PolarRequestValidationError(
+                raise RepalisRequestValidationError(
                     [
                         {
                             "type": "value_error",
@@ -492,7 +492,7 @@ class CheckoutService:
         customer_tax_id: TaxID | None = None
         if checkout_create.customer_tax_id is not None:
             if checkout_create.customer_billing_address is None:
-                raise PolarRequestValidationError(
+                raise RepalisRequestValidationError(
                     [
                         {
                             "type": "missing",
@@ -508,7 +508,7 @@ class CheckoutService:
                     checkout_create.customer_billing_address.country,
                 )
             except InvalidTaxID as e:
-                raise PolarRequestValidationError(
+                raise RepalisRequestValidationError(
                     [
                         {
                             "type": "value_error",
@@ -539,7 +539,7 @@ class CheckoutService:
                 checkout_max_seats=max_seats,
             )
         elif checkout_create.seats is not None:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",
@@ -570,7 +570,7 @@ class CheckoutService:
                 max_units=max_units,
             )
         elif checkout_create.units is not None:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",
@@ -595,7 +595,7 @@ class CheckoutService:
                 checkout_create.customer_id, product.organization_id
             )
             if customer is None:
-                raise PolarRequestValidationError(
+                raise RepalisRequestValidationError(
                     [
                         {
                             "type": "value_error",
@@ -805,7 +805,7 @@ class CheckoutService:
                 products.append(product)
 
         if len(products) == 0:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",
@@ -837,7 +837,7 @@ class CheckoutService:
         try:
             currency_prices = PriceSet.from_product(product, *currencies)
         except NoPricesForCurrencies as e:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",
@@ -907,7 +907,7 @@ class CheckoutService:
                     ValueError,
                     TypeError,
                     OverflowError,
-                    PolarRequestValidationError,
+                    RepalisRequestValidationError,
                 ):
                     pass
 
@@ -932,7 +932,7 @@ class CheckoutService:
                     discount_id=checkout_link.discount_id,
                 )
             # If the discount is not valid, just ignore it
-            except PolarRequestValidationError:
+            except RepalisRequestValidationError:
                 pass
 
         checkout = Checkout(
@@ -998,7 +998,7 @@ class CheckoutService:
                         discount_code=discount_code,
                     )
                     checkout.discount = discount
-                except PolarRequestValidationError:
+                except RepalisRequestValidationError:
                     pass
 
             custom_field_data_value = query_prefill.get("custom_field_data")
@@ -1026,7 +1026,7 @@ class CheckoutService:
                             **(checkout.custom_field_data or {}),
                             **validated_data,
                         }
-                    except PolarRequestValidationError:
+                    except RepalisRequestValidationError:
                         # If validation fails, just ignore the custom field data
                         pass
 
@@ -1124,7 +1124,7 @@ class CheckoutService:
                         session, auth_subject, checkout, checkout_confirm
                     )
             except DiscountNotRedeemableError as e:
-                raise PolarRequestValidationError(
+                raise RepalisRequestValidationError(
                     [
                         {
                             "type": "value_error",
@@ -1270,7 +1270,7 @@ class CheckoutService:
             )
 
         if len(errors) > 0:
-            raise PolarRequestValidationError(errors)
+            raise RepalisRequestValidationError(errors)
 
         if (
             checkout.payment_processor == PaymentProcessor.stripe
@@ -1848,7 +1848,7 @@ class CheckoutService:
         )
 
         if price is None:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",
@@ -1860,7 +1860,7 @@ class CheckoutService:
             )
 
         if price.is_archived:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",
@@ -1873,7 +1873,7 @@ class CheckoutService:
 
         product = price.product
         if product.is_archived:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",
@@ -1885,7 +1885,7 @@ class CheckoutService:
             )
 
         if not product.is_current:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",
@@ -1917,7 +1917,7 @@ class CheckoutService:
             and p.price_currency == price.price_currency
         ]
         if other_static_prices:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",
@@ -1943,7 +1943,7 @@ class CheckoutService:
         product = await product_service.get(session, auth_subject, product_id)
 
         if product is None:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",
@@ -1955,7 +1955,7 @@ class CheckoutService:
             )
 
         if product.is_archived:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",
@@ -1967,7 +1967,7 @@ class CheckoutService:
             )
 
         if not product.is_current:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",
@@ -1979,7 +1979,7 @@ class CheckoutService:
             )
 
         if product.visibility == Visibility.draft:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",
@@ -1996,7 +1996,7 @@ class CheckoutService:
         try:
             currency_prices = PriceSet.from_product(product, *currencies)
         except NoPricesForCurrencies as e:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",
@@ -2050,7 +2050,7 @@ class CheckoutService:
                     }
                 )
         if len(errors) > 0:
-            raise PolarRequestValidationError(errors)
+            raise RepalisRequestValidationError(errors)
 
         products = [
             next(iter(products_by_external_id.get(external_product_id, [])), None)
@@ -2128,7 +2128,7 @@ class CheckoutService:
             )
 
         if len(errors) > 0:
-            raise PolarRequestValidationError(errors)
+            raise RepalisRequestValidationError(errors)
 
         return validated_products
 
@@ -2187,7 +2187,7 @@ class CheckoutService:
             validated_prices[product] = validated_product_prices
 
         if len(errors) > 0:
-            raise PolarRequestValidationError(errors)
+            raise RepalisRequestValidationError(errors)
 
         return validated_prices
 
@@ -2229,7 +2229,7 @@ class CheckoutService:
         loc_field = "discount_id" if discount_id is not None else "discount_code"
 
         if not any(is_discount_applicable(price) for price in product.prices):
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",
@@ -2255,7 +2255,7 @@ class CheckoutService:
             )
 
         if discount is None:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",
@@ -2282,7 +2282,7 @@ class CheckoutService:
         )
 
         if subscription is None:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",
@@ -2295,7 +2295,7 @@ class CheckoutService:
 
         for price in subscription.prices:
             if not price.is_free:
-                raise PolarRequestValidationError(
+                raise RepalisRequestValidationError(
                     [
                         {
                             "type": "value_error",
@@ -2333,7 +2333,7 @@ class CheckoutService:
                     checkout.product, updated_currency
                 )
             except NoPricesForCurrencies as e:
-                raise PolarRequestValidationError(
+                raise RepalisRequestValidationError(
                     [
                         {
                             "type": "value_error",
@@ -2356,7 +2356,7 @@ class CheckoutService:
             )
 
             if product is None:
-                raise PolarRequestValidationError(
+                raise RepalisRequestValidationError(
                     [
                         {
                             "type": "value_error",
@@ -2368,7 +2368,7 @@ class CheckoutService:
                 )
 
             if product.is_archived:
-                raise PolarRequestValidationError(
+                raise RepalisRequestValidationError(
                     [
                         {
                             "type": "value_error",
@@ -2392,7 +2392,7 @@ class CheckoutService:
                         if p.id == checkout_update.product_price_id
                     )
                 except StopIteration as e:
-                    raise PolarRequestValidationError(
+                    raise RepalisRequestValidationError(
                         [
                             {
                                 "type": "value_error",
@@ -2419,7 +2419,7 @@ class CheckoutService:
                         )
                         checkout.currency = updated_currency
                     except NoPricesForCurrencies:
-                        raise PolarRequestValidationError(
+                        raise RepalisRequestValidationError(
                             [
                                 {
                                     "type": "value_error",
@@ -2488,7 +2488,7 @@ class CheckoutService:
             )
         elif checkout_update.seats is not None:
             # Seats provided for non-seat-based pricing
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",
@@ -2516,7 +2516,7 @@ class CheckoutService:
             )
         elif checkout_update.units is not None:
             # Units provided for non-unit-based pricing
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",
@@ -2592,7 +2592,7 @@ class CheckoutService:
                     or checkout.customer_billing_address
                 )
                 if customer_billing_address is None:
-                    raise PolarRequestValidationError(
+                    raise RepalisRequestValidationError(
                         [
                             {
                                 "type": "missing",
@@ -2607,7 +2607,7 @@ class CheckoutService:
                         customer_tax_id_number, customer_billing_address.country
                     )
                 except InvalidTaxID as e:
-                    raise PolarRequestValidationError(
+                    raise RepalisRequestValidationError(
                         [
                             {
                                 "type": "value_error",
@@ -2997,7 +2997,7 @@ class CheckoutService:
                 maximum_seats = checkout_max_seats
 
         if seats < minimum_seats:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "greater_than_equal",
@@ -3010,7 +3010,7 @@ class CheckoutService:
             )
 
         if maximum_seats is not None and seats > maximum_seats:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "less_than_equal",
@@ -3052,13 +3052,13 @@ class CheckoutService:
                         "input": max_seats,
                     }
                 )
-            raise PolarRequestValidationError(fields)
+            raise RepalisRequestValidationError(fields)
 
         tier_minimum = price.get_minimum_seats()
         tier_maximum = price.get_maximum_seats()
 
         if min_seats is not None and min_seats < tier_minimum:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "greater_than_equal",
@@ -3075,7 +3075,7 @@ class CheckoutService:
             and max_seats is not None
             and max_seats > tier_maximum
         ):
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "less_than_equal",
@@ -3117,13 +3117,13 @@ class CheckoutService:
                         "input": max_units,
                     }
                 )
-            raise PolarRequestValidationError(fields)
+            raise RepalisRequestValidationError(fields)
 
         price_minimum = price.get_minimum_purchasable_units()
         price_maximum = price.get_maximum_units()
 
         if min_units is not None and min_units < price_minimum:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "greater_than_equal",
@@ -3140,7 +3140,7 @@ class CheckoutService:
             and max_units is not None
             and max_units > price_maximum
         ):
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "less_than_equal",

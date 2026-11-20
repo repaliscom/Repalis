@@ -2,17 +2,17 @@ from fastapi import Request
 from fastapi.responses import Response
 from tagflow import tag, text
 
-from repalis.exceptions import PolarError
+from repalis.exceptions import RepalisError
 
 from .layout import layout
 from .responses import TagResponse
 from .toast import add_toast
 
 
-async def backoffice_polar_exception_handler(
+async def backoffice_repalis_exception_handler(
     request: Request, exc: Exception
 ) -> Response:
-    assert isinstance(exc, PolarError)
+    assert isinstance(exc, RepalisError)
     if request.headers.get("HX-Request") == "true":
         await add_toast(request, exc.message, "error")
         return TagResponse(status_code=200)

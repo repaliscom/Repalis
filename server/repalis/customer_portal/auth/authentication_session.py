@@ -25,7 +25,7 @@ from repalis.postgres import AsyncSession, get_db_session
 
 from .factors import get_factors
 
-TOKEN_PREFIX = "polar_customer_auth_session_"
+TOKEN_PREFIX = "repalis_customer_auth_session_"
 
 
 class CustomerSessionAuthenticationSessionService(AuthenticationSessionServiceBase):

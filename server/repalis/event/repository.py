@@ -319,9 +319,9 @@ class EventRepository(RepositoryBase[Event], RepositoryIDMixin[Event, UUID]):
         Step 1: link parent_id wherever a pending ref now matches a parent
         row. Run as four UPDATEs to keep each plan cleanly indexed:
           1a — child in batch, parent in DB, ref by external_id
-          1c — child in batch, parent in DB, ref by Polar ID (UUID)
+          1c — child in batch, parent in DB, ref by Repalis ID (UUID)
           1b — parent in batch, child pending in DB, ref by external_id
-          1d — parent in batch, child pending in DB, ref by Polar ID (UUID)
+          1d — parent in batch, child pending in DB, ref by Repalis ID (UUID)
 
         Step 2: propagate root_id along parent_id edges with a single
         iterative UPDATE. Each round roots every event whose immediate
@@ -481,7 +481,7 @@ class EventRepository(RepositoryBase[Event], RepositoryIDMixin[Event, UUID]):
         result = await self.session.execute(statement)
         return {external_id for (external_id,) in result}
 
-    async def get_latest_polar_self_ingestion_timestamp(
+    async def get_latest_repalis_self_ingestion_timestamp(
         self, organization_id: UUID
     ) -> datetime | None:
         statement = select(func.max(Event.timestamp)).where(

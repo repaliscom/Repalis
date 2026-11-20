@@ -18,7 +18,7 @@ from sqlalchemy.orm import Mapped, declared_attr, mapped_column, relationship
 from repalis.config import settings
 from repalis.kit.address import Address, AddressType
 from repalis.kit.db.models import RecordModel
-from repalis.kit.math import polar_round
+from repalis.kit.math import repalis_round
 
 if TYPE_CHECKING:
     from .account_credit import AccountCredit
@@ -125,13 +125,13 @@ class Account(RecordModel):
         basis_points, fixed, _ = self.platform_fee
         fee_in_cents = Decimal(amount_in_cents) * basis_points / 10_000 + fixed
         # Apply same logic as Stripe fee rounding
-        return polar_round(fee_in_cents)
+        return repalis_round(fee_in_cents)
 
     def calculate_subscription_fee_in_cents(self, amount_in_cents: int) -> int:
         _, _, subscription_fee_basis_points = self.platform_fee
         fee_in_cents = Decimal(amount_in_cents) * subscription_fee_basis_points / 10_000
         # Apply same logic as Stripe fee rounding
-        return polar_round(fee_in_cents)
+        return repalis_round(fee_in_cents)
 
     def reduce_credit_balance(self, amount: int) -> None:
         self.credit_balance -= min(amount, self.credit_balance)

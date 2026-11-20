@@ -15,7 +15,7 @@ from pytest_mock import MockerFixture
 
 from repalis.config import settings
 from repalis.enums import PayoutAccountType
-from repalis.exceptions import PolarRequestValidationError
+from repalis.exceptions import RepalisRequestValidationError
 from repalis.integrations.stripe.service import StripeService
 from repalis.kit.address import Address, CountryAlpha2
 from repalis.kit.db.postgres import AsyncSessionMaker
@@ -1537,7 +1537,7 @@ class TestTriggerInvoiceGeneration:
         await save_fixture(payout2)
 
         # Try to set the same invoice number on the second payout
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await payout_service.trigger_invoice_generation(
                 session, payout2, PayoutGenerateInvoice(invoice_number=invoice_number)
             )

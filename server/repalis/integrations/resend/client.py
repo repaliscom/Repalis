@@ -4,10 +4,10 @@ from urllib.parse import quote
 import httpx2
 
 from repalis.config import settings
-from repalis.exceptions import PolarError
+from repalis.exceptions import RepalisError
 
 
-class ResendClientError(PolarError):
+class ResendClientError(RepalisError):
     pass
 
 

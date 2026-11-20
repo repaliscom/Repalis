@@ -10,7 +10,7 @@ from repalis.agent.repository import AgentRepository
 from repalis.auth.models import AuthSubject
 from repalis.auth.service import auth as auth_service
 from repalis.config import settings
-from repalis.integrations.repalis.service import PolarSelfService
+from repalis.integrations.repalis.service import RepalisSelfService
 from repalis.kit.utils import utc_now
 from repalis.kit.versioning import APIVersion
 from repalis.models import (
@@ -308,7 +308,7 @@ class TestEnablePreviewAccess:
 
         assert response.status_code == 200
         feature_settings = response.json()["feature_settings"]
-        for flag in PolarSelfService.PREVIEW_ACCESS_FEATURE_FLAGS:
+        for flag in RepalisSelfService.PREVIEW_ACCESS_FEATURE_FLAGS:
             assert feature_settings[flag] is True
         # Existing flags are preserved.
         assert feature_settings["issue_funding_enabled"] is True

@@ -7,7 +7,7 @@ from fastapi import FastAPI
 from sqlalchemy.ext.asyncio import async_sessionmaker
 from starlette.types import Receive, Scope, Send
 
-from repalis.app import app as polar_app
+from repalis.app import app as repalis_app
 from repalis.auth.dependencies import _auth_subject_factory_cache
 from repalis.auth.models import AuthSubject, Subject
 from repalis.checkout.ip_geolocation import _get_client_dependency
@@ -45,16 +45,16 @@ class IsolatedSessionTestClient(httpx2.AsyncClient):
 async def app(
     auth_subject: AuthSubject[Subject], session: AsyncSession, redis: Redis
 ) -> AsyncGenerator[FastAPI]:
-    polar_app.dependency_overrides[get_db_session] = lambda: session
-    polar_app.dependency_overrides[get_db_read_session] = lambda: session
-    polar_app.dependency_overrides[get_redis] = lambda: redis
-    polar_app.dependency_overrides[_get_client_dependency] = lambda: None
+    repalis_app.dependency_overrides[get_db_session] = lambda: session
+    repalis_app.dependency_overrides[get_db_read_session] = lambda: session
+    repalis_app.dependency_overrides[get_redis] = lambda: redis
+    repalis_app.dependency_overrides[_get_client_dependency] = lambda: None
     for auth_subject_getter in _auth_subject_factory_cache.values():
-        polar_app.dependency_overrides[auth_subject_getter] = lambda: auth_subject
+        repalis_app.dependency_overrides[auth_subject_getter] = lambda: auth_subject
 
-    yield polar_app
+    yield repalis_app
 
-    polar_app.dependency_overrides.pop(get_db_session)
+    repalis_app.dependency_overrides.pop(get_db_session)
 
 
 @pytest.fixture

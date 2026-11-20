@@ -7,7 +7,7 @@ from repalis.config import settings
 from repalis.customer.repository import CustomerRepository
 from repalis.email.schemas import CustomerSessionCodeEmail, CustomerSessionCodeProps
 from repalis.email.sender import enqueue_email_template
-from repalis.exceptions import PolarError
+from repalis.exceptions import RepalisError
 from repalis.member.repository import MemberRepository
 from repalis.member.service import member_service
 from repalis.models import (
@@ -27,7 +27,7 @@ class CustomerOption:
     name: str | None
 
 
-class CustomerSessionError(PolarError): ...
+class CustomerSessionError(RepalisError): ...
 
 
 class OrganizationDoesNotExist(CustomerSessionError):

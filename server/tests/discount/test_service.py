@@ -16,7 +16,7 @@ from repalis.discount.legacy_schemas import (
 from repalis.discount.repository import DiscountRepository
 from repalis.discount.service import DiscountNotRedeemableError
 from repalis.discount.service import discount as discount_service
-from repalis.exceptions import PolarRequestValidationError
+from repalis.exceptions import RepalisRequestValidationError
 from repalis.kit.currency import PresentmentCurrency
 from repalis.kit.utils import utc_now
 from repalis.models import (
@@ -140,7 +140,7 @@ class TestCreate:
             side_effect=[None, existing_discount],
         )
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await discount_service.create(
                 session,
                 DiscountFixedCreate(
@@ -211,7 +211,7 @@ class TestCreate:
             external_id="ext_1337",
         )
 
-        with pytest.raises(PolarRequestValidationError) as e:
+        with pytest.raises(RepalisRequestValidationError) as e:
             await discount_service.create(
                 session,
                 DiscountFixedCreate(
@@ -281,7 +281,7 @@ class TestUpdate:
             organization=organization,
         )
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await discount_service.update(
                 session,
                 discount,
@@ -307,7 +307,7 @@ class TestUpdate:
             organization=organization,
         )
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await discount_service.update(
                 session,
                 discount,
@@ -358,7 +358,7 @@ class TestUpdate:
         )
         await session.refresh(discount, ["organization", "redemptions_count"])
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await discount_service.update(
                 session,
                 discount,
@@ -410,7 +410,7 @@ class TestUpdate:
         )
         await session.refresh(discount, ["organization", "redemptions_count"])
 
-        with pytest.raises(PolarRequestValidationError) as exc_info:
+        with pytest.raises(RepalisRequestValidationError) as exc_info:
             await discount_service.update(
                 session,
                 discount,
@@ -464,7 +464,7 @@ class TestUpdate:
         )
         await session.refresh(discount, ["organization", "redemptions_count"])
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await discount_service.update(
                 session,
                 discount,
@@ -684,7 +684,7 @@ class TestUpdate:
             code="OTHER",
         )
 
-        with pytest.raises(PolarRequestValidationError) as exc_info:
+        with pytest.raises(RepalisRequestValidationError) as exc_info:
             await discount_service.update(
                 session,
                 discount_to_update,
@@ -740,7 +740,7 @@ class TestUpdate:
             external_id="ext_1337",
         )
 
-        with pytest.raises(PolarRequestValidationError) as e:
+        with pytest.raises(RepalisRequestValidationError) as e:
             await discount_service.update(
                 session,
                 discount,

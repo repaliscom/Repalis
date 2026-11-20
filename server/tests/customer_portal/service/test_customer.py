@@ -15,7 +15,7 @@ from repalis.customer_portal.service.customer import (
     customer as customer_service,
 )
 from repalis.event.system import SystemEvent
-from repalis.exceptions import PolarRequestValidationError
+from repalis.exceptions import RepalisRequestValidationError
 from repalis.integrations.stripe.service import StripeService
 from repalis.kit.address import Address, AddressInput, CountryAlpha2, CountryAlpha2Input
 from repalis.models import Customer, Organization, PaymentMethod
@@ -303,7 +303,7 @@ class TestUpdate:
             billing_address=None,
             tax_id=None,
         )
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await customer_service.update(
                 session,
                 customer,
@@ -324,7 +324,7 @@ class TestUpdate:
             billing_address=Address(country=CountryAlpha2("GB")),
             tax_id=None,
         )
-        with pytest.raises(PolarRequestValidationError) as exc_info:
+        with pytest.raises(RepalisRequestValidationError) as exc_info:
             await customer_service.update(
                 session,
                 customer,
@@ -348,7 +348,7 @@ class TestUpdate:
             billing_address=Address(country=CountryAlpha2("FR")),
             tax_id=("FR61954506077", TaxIDFormat.eu_vat),
         )
-        with pytest.raises(PolarRequestValidationError) as exc_info:
+        with pytest.raises(RepalisRequestValidationError) as exc_info:
             await customer_service.update(
                 session,
                 customer,
@@ -371,7 +371,7 @@ class TestUpdate:
             organization=organization,
             billing_address=Address(country=CountryAlpha2("FR")),
         )
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await customer_service.update(
                 session, customer, CustomerPortalCustomerUpdate(billing_address=None)
             )

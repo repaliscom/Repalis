@@ -1,4 +1,4 @@
-"""Seed transaction-fee benefits and tier products via the Polar SDK.
+"""Seed transaction-fee benefits and tier products via the Repalis SDK.
 
 Targets local, sandbox, or production. Lists existing benefits/products first
 and only creates the ones that are missing (matched by description / name).
@@ -17,7 +17,7 @@ Usage:
 If you use a user (not organization) access token, pass --organization-id.
 
 The ``BENEFITS`` and ``PRODUCTS`` lists below are the source of truth for the
-Polar self-billing plan catalog and are also imported by the dev seed loader
+Repalis self-billing plan catalog and are also imported by the dev seed loader
 (``scripts.seeds_load``) to materialize the same catalog directly in the DB.
 
 ``EXTERNAL_BENEFITS`` lists benefits that products reference but that this
@@ -31,7 +31,7 @@ import os
 from typing import Annotated
 
 import typer
-from repalis.v2026_04 import PolarAsync
+from repalis.v2026_04 import RepalisAsync
 from repalis.v2026_04.inputs import (
     ProductPriceFixedCreate,
     ProductUpdate,
@@ -199,18 +199,18 @@ PRODUCTS: list[dict[str, object]] = [
 ]
 
 
-def _make_client(env: str, token: str) -> PolarAsync:
+def _make_client(env: str, token: str) -> RepalisAsync:
     if env == "local":
-        return PolarAsync(token, base_url=LOCAL_SERVER_URL)
+        return RepalisAsync(token, base_url=LOCAL_SERVER_URL)
     if env == "sandbox":
-        return PolarAsync(token, environment="sandbox")
+        return RepalisAsync(token, environment="sandbox")
     if env == "prod":
-        return PolarAsync(token, environment="production")
+        return RepalisAsync(token, environment="production")
     raise typer.BadParameter(f"Unknown env: {env}")
 
 
 async def _existing_benefits(
-    polar: PolarAsync, organization_id: str | None
+    polar: RepalisAsync, organization_id: str | None
 ) -> dict[str, Benefit]:
     by_description: dict[str, Benefit] = {}
     async for benefit in polar.benefits.iter_list(
@@ -223,7 +223,7 @@ async def _existing_benefits(
 
 
 async def _existing_products(
-    polar: PolarAsync, organization_id: str | None
+    polar: RepalisAsync, organization_id: str | None
 ) -> dict[tuple[str, str | None], Product]:
     by_name_and_interval: dict[tuple[str, str | None], Product] = {}
     async for product in polar.products.iter_list(
@@ -236,7 +236,7 @@ async def _existing_products(
 
 
 async def _seed_benefits(
-    polar: PolarAsync, organization_id: str | None, dry_run: bool
+    polar: RepalisAsync, organization_id: str | None, dry_run: bool
 ) -> dict[str, Benefit]:
     typer.echo("Listing existing benefits...")
     existing = await _existing_benefits(polar, organization_id)
@@ -255,7 +255,7 @@ async def _seed_benefits(
             if dry_run:
                 typer.echo(f"  {prefix}create {description!r}")
                 continue
-            created = await polar.benefits.create(
+            created = await repalis_sdk.benefits.create(
                 type="feature_flag",
                 description=description,
                 properties={},
@@ -278,7 +278,7 @@ async def _seed_benefits(
             )
             continue
 
-        await polar.benefits.update(
+        await repalis_sdk.benefits.update(
             current.id,
             type="feature_flag",
             metadata=desired_metadata,
@@ -292,7 +292,7 @@ async def _seed_benefits(
 
 
 async def _seed_products(
-    polar: PolarAsync,
+    polar: RepalisAsync,
     organization_id: str | None,
     benefits_by_description: dict[str, Benefit],
     dry_run: bool,
@@ -355,7 +355,7 @@ async def _seed_products(
                 price = ProductPriceFixedCreate(
                     amount_type="fixed", price_amount=price_amount
                 )
-            created = await polar.products.create(
+            created = await repalis_sdk.products.create(
                 name=name,
                 description=desired_description,
                 recurring_interval=recurring_interval,
@@ -364,7 +364,7 @@ async def _seed_products(
                 visibility=desired_visibility,
                 organization_id=organization_id,
             )
-            await polar.products.update_benefits(
+            await repalis_sdk.products.update_benefits(
                 created.id,
                 benefits=desired_benefit_ids,
             )
@@ -398,7 +398,7 @@ async def _seed_products(
                     product_update["visibility"] = desired_visibility
                 if description_changed:
                     product_update["description"] = desired_description
-                await polar.products.update(current.id, **product_update)
+                await repalis_sdk.products.update(current.id, **product_update)
                 typer.echo(
                     f"  update {name!r} -> {current.id} "
                     f"(metadata was {current_metadata}, now {desired_metadata}; "
@@ -418,7 +418,7 @@ async def _seed_products(
                     f"(was {current_benefit_ids}, now {sorted(desired_benefit_ids)})"
                 )
             else:
-                await polar.products.update_benefits(
+                await repalis_sdk.products.update_benefits(
                     current.id,
                     benefits=desired_benefit_ids,
                 )
@@ -429,12 +429,12 @@ async def _seed_products(
 
 
 async def _seed_subscription_settings(
-    polar: PolarAsync, organization_id: str | None, dry_run: bool
+    polar: RepalisAsync, organization_id: str | None, dry_run: bool
 ) -> None:
     if organization_id is None:
         typer.echo("Skipping subscription settings (no organization id).")
         return
-    org = await polar.organizations.get(organization_id)
+    org = await repalis_sdk.organizations.get(organization_id)
     current = org.subscription_settings
     if current.proration_behavior == "invoice":
         typer.echo("  skip   subscription_settings (proration already 'invoice')")
@@ -446,7 +446,7 @@ async def _seed_subscription_settings(
             f"{current.proration_behavior} -> invoice)"
         )
         return
-    await polar.organizations.update(
+    await repalis_sdk.organizations.update(
         organization_id,
         subscription_settings={
             "allow_multiple_subscriptions": current.allow_multiple_subscriptions,

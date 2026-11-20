@@ -6,7 +6,7 @@ from uuid import UUID
 
 from pydantic import ValidationError
 
-from repalis.exceptions import PolarError, PolarRequestValidationError
+from repalis.exceptions import RepalisError, RepalisRequestValidationError
 from repalis.kit.utils import generate_uuid
 from repalis.models import Organization
 from repalis.models.webhook_endpoint import WebhookEventType
@@ -19,7 +19,7 @@ from .listener import has_active_listener
 from .schemas import TriggerEvent, TriggerRequest, TriggerResponse
 
 
-class NoActiveListener(PolarError):
+class NoActiveListener(RepalisError):
     def __init__(self, organization: Organization) -> None:
         self.organization = organization
         super().__init__(
@@ -47,8 +47,8 @@ def list_trigger_events() -> Sequence[TriggerEvent]:
     ]
 
 
-def _override_error(path: str, value: Any, message: str) -> PolarRequestValidationError:
-    return PolarRequestValidationError(
+def _override_error(path: str, value: Any, message: str) -> RepalisRequestValidationError:
+    return RepalisRequestValidationError(
         [
             {
                 "loc": ("body", "overrides", path),
@@ -134,7 +134,7 @@ async def trigger_event(
     try:
         validated = WebhookPayloadTypeAdapter.validate_python(payload)
     except ValidationError as e:
-        raise PolarRequestValidationError(
+        raise RepalisRequestValidationError(
             [
                 {
                     "loc": ("body", "overrides", *error["loc"]),

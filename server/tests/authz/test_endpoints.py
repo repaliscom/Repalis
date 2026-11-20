@@ -228,7 +228,7 @@ class TestPolicyGuardListBenefitGrants:
         user_organization: UserOrganization,
     ) -> None:
         mocker.patch(
-            "repalis.organization.endpoints.polar_self_service.list_benefit_grants",
+            "repalis.organization.endpoints.repalis_self_service.list_benefit_grants",
             return_value=[],
         )
 

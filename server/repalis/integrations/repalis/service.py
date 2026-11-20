@@ -8,11 +8,11 @@ from repalis.account.repository import AccountRepository
 from repalis.config import settings
 from repalis.email.schemas import (
     EmailAdapter,
-    PolarSelfSubscriptionCancellationProps,
-    PolarSelfSubscriptionConfirmationProps,
-    PolarSelfSubscriptionCycledProps,
-    PolarSelfSubscriptionPastDueProps,
-    PolarSelfSubscriptionRevokedProps,
+    RepalisSelfSubscriptionCancellationProps,
+    RepalisSelfSubscriptionConfirmationProps,
+    RepalisSelfSubscriptionCycledProps,
+    RepalisSelfSubscriptionPastDueProps,
+    RepalisSelfSubscriptionRevokedProps,
 )
 from repalis.email.sender import Attachment, enqueue_email_template
 from repalis.integrations.plain.service import plain as plain_service
@@ -52,14 +52,14 @@ from repalis.worker import enqueue_job
 
 from .client import get_client
 from .exceptions import (
-    PolarSelfInvoiceNotReady,
-    PolarSelfNoActiveSubscription,
-    PolarSelfNotApproved,
-    PolarSelfNotConfigured,
-    PolarSelfOrderNotFound,
-    PolarSelfPaidSubscriptionAlreadyExists,
-    PolarSelfPlanNotFound,
-    PolarSelfWebhookError,
+    RepalisSelfInvoiceNotReady,
+    RepalisSelfNoActiveSubscription,
+    RepalisSelfNotApproved,
+    RepalisSelfNotConfigured,
+    RepalisSelfOrderNotFound,
+    RepalisSelfPaidSubscriptionAlreadyExists,
+    RepalisSelfPlanNotFound,
+    RepalisSelfWebhookError,
     SupportBenefitError,
     TransactionFeeBenefitError,
 )
@@ -96,7 +96,7 @@ def billing_member_role(organization_role: OrganizationRole) -> MemberRole:
     return MemberRole.member
 
 
-class PolarSelfService:
+class RepalisSelfService:
     INITIAL_MEMBER_DELAY_MS = 1000
 
     PREVIEW_ACCESS_FEATURE_FLAGS = (
@@ -108,7 +108,7 @@ class PolarSelfService:
 
     @property
     def is_configured(self) -> bool:
-        return settings.POLAR_SELF_ENABLED
+        return settings.REPALIS_SELF_ENABLED
 
     def enqueue_create_customer(
         self,
@@ -123,7 +123,7 @@ class PolarSelfService:
         if not self.is_configured:
             return
         enqueue_job(
-            "polar_self.create_customer",
+            "repalis_self.create_customer",
             external_id=str(organization_id),
             name=name,
             slug=slug,
@@ -145,7 +145,7 @@ class PolarSelfService:
         if not self.is_configured:
             return
         enqueue_job(
-            "polar_self.add_member",
+            "repalis_self.add_member",
             delay=delay,
             external_customer_id=external_customer_id,
             email=email,
@@ -165,7 +165,7 @@ class PolarSelfService:
         if not self.is_configured:
             return
         enqueue_job(
-            "polar_self.update_member",
+            "repalis_self.update_member",
             external_customer_id=external_customer_id,
             external_id=external_id,
             name=name,
@@ -178,7 +178,7 @@ class PolarSelfService:
         if not self.is_configured:
             return
         enqueue_job(
-            "polar_self.update_customer_slug",
+            "repalis_self.update_customer_slug",
             external_id=str(organization_id),
             slug=slug,
         )
@@ -189,7 +189,7 @@ class PolarSelfService:
         if not self.is_configured:
             return
         enqueue_job(
-            "polar_self.remove_member",
+            "repalis_self.remove_member",
             external_customer_id=external_customer_id,
             external_id=external_id,
         )
@@ -198,7 +198,7 @@ class PolarSelfService:
         if not self.is_configured:
             return
         enqueue_job(
-            "polar_self.delete_customer",
+            "repalis_self.delete_customer",
             external_id=str(organization_id),
         )
 
@@ -206,7 +206,7 @@ class PolarSelfService:
         if not self.is_configured:
             return
         enqueue_job(
-            "polar_self.revoke_subscription",
+            "repalis_self.revoke_subscription",
             external_customer_id=str(organization_id),
         )
 
@@ -232,7 +232,7 @@ class PolarSelfService:
         if cost_decimal <= 0:
             return
         enqueue_job(
-            "polar_self.track_organization_review_usage",
+            "repalis_self.track_organization_review_usage",
             external_customer_id=external_customer_id,
             review_context=review_context,
             vendor=vendor,
@@ -245,7 +245,7 @@ class PolarSelfService:
 
     async def list_plans(self) -> list["Product"]:
         if not self.is_configured:
-            raise PolarSelfNotConfigured()
+            raise RepalisSelfNotConfigured()
         products = await get_client().list_recurring_products(
             organization_id=settings.POLAR_ORGANIZATION_ID
         )
@@ -291,7 +291,7 @@ class PolarSelfService:
         self, organization_id: uuid.UUID
     ) -> "Subscription | None":
         if not self.is_configured:
-            raise PolarSelfNotConfigured()
+            raise RepalisSelfNotConfigured()
         return await get_client().get_active_subscription(
             external_customer_id=str(organization_id)
         )
@@ -308,7 +308,7 @@ class PolarSelfService:
         embed_origin: str | None = None,
     ) -> "Checkout":
         if not self.is_configured:
-            raise PolarSelfNotConfigured()
+            raise RepalisSelfNotConfigured()
         await self._ensure_plan(product_id)
         await self._require_approval(session, organization_id=organization_id)
         client = get_client()
@@ -319,7 +319,7 @@ class PolarSelfService:
             existing is not None
             and self._product_fixed_price_amount(existing.product) != 0
         ):
-            raise PolarSelfPaidSubscriptionAlreadyExists(organization_id)
+            raise RepalisSelfPaidSubscriptionAlreadyExists(organization_id)
         # Auto-apply the Startup Program discount when an eligible organization
         # checks out the Scale plan.
         discount_id = await startup_program_service.resolve_checkout_discount_id(
@@ -344,7 +344,7 @@ class PolarSelfService:
         product_id: str,
     ) -> "Subscription":
         if not self.is_configured:
-            raise PolarSelfNotConfigured()
+            raise RepalisSelfNotConfigured()
         target_product = await self._ensure_plan(product_id)
         await self._require_approval(session, organization_id=organization_id)
         client = get_client()
@@ -352,7 +352,7 @@ class PolarSelfService:
             external_customer_id=str(organization_id)
         )
         if subscription is None:
-            raise PolarSelfNoActiveSubscription(organization_id)
+            raise RepalisSelfNoActiveSubscription(organization_id)
         if subscription.cancel_at_period_end:
             subscription = await client.uncancel_subscription(
                 subscription_id=subscription.id
@@ -366,7 +366,7 @@ class PolarSelfService:
         # Mirror ``start_checkout``: without this a Pro/Growth -> Scale switch
         # via the Change Plan page would skip the Startup Program discount even
         # when the org is invited.
-        if product_id == settings.POLAR_SCALE_PRODUCT_ID:
+        if product_id == settings.REPALIS_SCALE_PRODUCT_ID:
             discount_id = await startup_program_service.resolve_checkout_discount_id(
                 organization_id=organization_id, product_id=product_id
             )
@@ -399,13 +399,13 @@ class PolarSelfService:
         self, *, organization_id: uuid.UUID
     ) -> "Subscription":
         if not self.is_configured:
-            raise PolarSelfNotConfigured()
+            raise RepalisSelfNotConfigured()
         client = get_client()
         subscription = await client.get_active_subscription(
             external_customer_id=str(organization_id)
         )
         if subscription is None:
-            raise PolarSelfNoActiveSubscription(organization_id)
+            raise RepalisSelfNoActiveSubscription(organization_id)
         return await client.cancel_subscription(subscription_id=subscription.id)
 
     async def claim_startup_program(
@@ -431,14 +431,14 @@ class PolarSelfService:
           applied immediately. No checkout flow needed.
         """
         if not self.is_configured:
-            raise PolarSelfNotConfigured()
+            raise RepalisSelfNotConfigured()
         if not settings.STARTUP_PROGRAM_ENABLED:
             raise StartupProgramError("Startup Program is not configured.")
         await self._require_approval(session, organization_id=organization_id)
 
         discount_id = await startup_program_service.resolve_checkout_discount_id(
             organization_id=organization_id,
-            product_id=settings.POLAR_SCALE_PRODUCT_ID,
+            product_id=settings.REPALIS_SCALE_PRODUCT_ID,
         )
         if discount_id is None:
             raise StartupProgramError(
@@ -455,7 +455,7 @@ class PolarSelfService:
             # Free plan → needs checkout to set up a payment method. The
             # discount auto-attaches because we pass discount_id explicitly.
             checkout = await client.create_checkout(
-                product_id=settings.POLAR_SCALE_PRODUCT_ID,
+                product_id=settings.REPALIS_SCALE_PRODUCT_ID,
                 external_customer_id=str(organization_id),
                 subscription_id=None,
                 customer_ip_address=customer_ip_address,
@@ -471,7 +471,7 @@ class PolarSelfService:
                 subscription_id=subscription.id
             )
 
-        needs_switch = subscription.product_id != settings.POLAR_SCALE_PRODUCT_ID
+        needs_switch = subscription.product_id != settings.REPALIS_SCALE_PRODUCT_ID
 
         # Attach the discount BEFORE switching the product so the proration
         # computed at the switch reflects the 100% discount (a $0 prorated
@@ -487,7 +487,7 @@ class PolarSelfService:
             # already in place the API computes a $0 prorated charge.
             subscription = await client.update_subscription_product(
                 subscription_id=subscription.id,
-                product_id=settings.POLAR_SCALE_PRODUCT_ID,
+                product_id=settings.REPALIS_SCALE_PRODUCT_ID,
                 proration_behavior="invoice",
             )
 
@@ -501,7 +501,7 @@ class PolarSelfService:
         limit: int = 50,
     ) -> tuple[list["Order"], int]:
         if not self.is_configured:
-            raise PolarSelfNotConfigured()
+            raise RepalisSelfNotConfigured()
 
         return await get_client().list_customer_orders(
             external_customer_id=str(organization_id),
@@ -516,7 +516,7 @@ class PolarSelfService:
         external_member_id: str | None = None,
     ) -> "CustomerPortalCustomer":
         if not self.is_configured:
-            raise PolarSelfNotConfigured()
+            raise RepalisSelfNotConfigured()
         return await get_client().portal_get_customer(
             external_customer_id=str(organization_id),
             external_member_id=external_member_id,
@@ -533,7 +533,7 @@ class PolarSelfService:
         Returned token authenticates against `/v1/customer-portal/customers/me/*`
         for the duration of its TTL."""
         if not self.is_configured:
-            raise PolarSelfNotConfigured()
+            raise RepalisSelfNotConfigured()
         return await get_client().portal_create_customer_session(
             external_customer_id=str(organization_id),
             external_member_id=external_member_id,
@@ -546,7 +546,7 @@ class PolarSelfService:
         external_member_id: str | None = None,
     ) -> tuple[list["CustomerPaymentMethod"], str | None]:
         if not self.is_configured:
-            raise PolarSelfNotConfigured()
+            raise RepalisSelfNotConfigured()
         client = get_client()
         async with create_task_group() as tg:
             customer = tg.create_task(
@@ -572,7 +572,7 @@ class PolarSelfService:
         external_member_id: str | None = None,
     ) -> None:
         if not self.is_configured:
-            raise PolarSelfNotConfigured()
+            raise RepalisSelfNotConfigured()
         await get_client().portal_delete_payment_method(
             external_customer_id=str(organization_id),
             payment_method_id=payment_method_id,
@@ -587,7 +587,7 @@ class PolarSelfService:
         external_member_id: str | None = None,
     ) -> "CustomerPortalCustomer":
         if not self.is_configured:
-            raise PolarSelfNotConfigured()
+            raise RepalisSelfNotConfigured()
         return await get_client().portal_update_customer(
             external_customer_id=str(organization_id),
             external_member_id=external_member_id,
@@ -602,7 +602,7 @@ class PolarSelfService:
         external_member_id: str | None = None,
     ) -> "CustomerPortalCustomer":
         if not self.is_configured:
-            raise PolarSelfNotConfigured()
+            raise RepalisSelfNotConfigured()
         # Only forward fields the client explicitly sent so we don't
         # null out billing_address / tax_id on a partial update.
         sdk_update = cast(
@@ -622,7 +622,7 @@ class PolarSelfService:
         external_member_id: str | None = None,
     ) -> list[CustomerBenefitGrantSlackSharedChannel]:
         if not self.is_configured:
-            raise PolarSelfNotConfigured()
+            raise RepalisSelfNotConfigured()
         grants = await get_client().portal_list_benefit_grants(
             external_customer_id=str(organization_id),
             external_member_id=external_member_id,
@@ -642,7 +642,7 @@ class PolarSelfService:
         external_member_id: str | None = None,
     ) -> CustomerBenefitGrantSlackSharedChannel:
         if not self.is_configured:
-            raise PolarSelfNotConfigured()
+            raise RepalisSelfNotConfigured()
         grant = await get_client().portal_update_benefit_grant(
             external_customer_id=str(organization_id),
             benefit_grant_id=benefit_grant_id,
@@ -664,22 +664,22 @@ class PolarSelfService:
         self, organization_id: uuid.UUID, order_id: str
     ) -> str:
         if not self.is_configured:
-            raise PolarSelfNotConfigured()
+            raise RepalisSelfNotConfigured()
 
         client = get_client()
         customer = await client.get_customer_by_external_id_or_none(
             str(organization_id)
         )
         if customer is None:
-            raise PolarSelfOrderNotFound(order_id)
+            raise RepalisSelfOrderNotFound(order_id)
 
         order = await client.get_order(order_id=order_id)
         if order is None or order.customer_id != customer.id:
-            raise PolarSelfOrderNotFound(order_id)
+            raise RepalisSelfOrderNotFound(order_id)
 
         url = await client.get_order_invoice(order_id=order_id)
         if url is None:
-            raise PolarSelfOrderNotFound(order_id)
+            raise RepalisSelfOrderNotFound(order_id)
         return url
 
     async def handle_benefit_grant_event(
@@ -692,7 +692,7 @@ class PolarSelfService:
         organization_id = self._resolve_organization_id(grant.customer)
 
         with logfire.span(
-            "polar_self.webhook.benefit_grant",
+            "repalis_self.webhook.benefit_grant",
             event_type=payload.type,
             benefit_id=grant.benefit_id,
             benefit_type=benefit_type,
@@ -764,10 +764,10 @@ class PolarSelfService:
         product_name = order.product.name if order.product is not None else "Polar"
 
         if order.billing_reason == "subscription_cycle":
-            template_name = "polar_self_subscription_cycled"
+            template_name = "repalis_self_subscription_cycled"
             subject = f"Your {product_name} subscription renewed"
         else:
-            template_name = "polar_self_subscription_confirmation"
+            template_name = "repalis_self_subscription_confirmation"
             subject = f"You're now on {product_name}"
 
         attachments: list[Attachment] | None = None
@@ -775,13 +775,13 @@ class PolarSelfService:
         if invoice_expected:
             if not order.is_invoice_generated:
                 # Kick off PDF generation if the API hasn't done so yet, then
-                # retry — generation runs asynchronously on Polar's side.
+                # retry — generation runs asynchronously on Repalis's side.
                 await client.trigger_order_invoice_generation(order_id=order.id)
-                raise PolarSelfInvoiceNotReady(order.id)
+                raise RepalisSelfInvoiceNotReady(order.id)
 
             invoice_url = await client.get_order_invoice(order_id=order.id)
             if invoice_url is None:
-                raise PolarSelfInvoiceNotReady(order.id)
+                raise RepalisSelfInvoiceNotReady(order.id)
             attachments = [
                 {
                     "remote_url": invoice_url,
@@ -790,16 +790,16 @@ class PolarSelfService:
             ]
 
         with logfire.span(
-            "polar_self.webhook.order_created",
+            "repalis_self.webhook.order_created",
             order_id=order.id,
             billing_reason=order.billing_reason,
         ):
             for recipient in recipients:
-                if template_name == "polar_self_subscription_confirmation":
+                if template_name == "repalis_self_subscription_confirmation":
                     email = EmailAdapter.validate_python(
                         {
                             "template": template_name,
-                            "props": PolarSelfSubscriptionConfirmationProps(
+                            "props": RepalisSelfSubscriptionConfirmationProps(
                                 email=recipient,
                                 product_name=product_name,
                             ).model_dump(),
@@ -809,7 +809,7 @@ class PolarSelfService:
                     email = EmailAdapter.validate_python(
                         {
                             "template": template_name,
-                            "props": PolarSelfSubscriptionCycledProps(
+                            "props": RepalisSelfSubscriptionCycledProps(
                                 email=recipient,
                                 product_name=product_name,
                             ).model_dump(),
@@ -833,14 +833,14 @@ class PolarSelfService:
         ends_at = subscription.ends_at
 
         with logfire.span(
-            "polar_self.webhook.subscription_canceled",
+            "repalis_self.webhook.subscription_canceled",
             subscription_id=subscription.id,
         ):
             for recipient in recipients:
                 email = EmailAdapter.validate_python(
                     {
-                        "template": "polar_self_subscription_cancellation",
-                        "props": PolarSelfSubscriptionCancellationProps(
+                        "template": "repalis_self_subscription_cancellation",
+                        "props": RepalisSelfSubscriptionCancellationProps(
                             email=recipient,
                             product_name=product_name,
                             ends_at=ends_at,
@@ -863,14 +863,14 @@ class PolarSelfService:
         recipients, product_name = context
 
         with logfire.span(
-            "polar_self.webhook.subscription_past_due",
+            "repalis_self.webhook.subscription_past_due",
             subscription_id=subscription.id,
         ):
             for recipient in recipients:
                 email = EmailAdapter.validate_python(
                     {
-                        "template": "polar_self_subscription_past_due",
-                        "props": PolarSelfSubscriptionPastDueProps(
+                        "template": "repalis_self_subscription_past_due",
+                        "props": RepalisSelfSubscriptionPastDueProps(
                             email=recipient,
                             product_name=product_name,
                         ).model_dump(),
@@ -894,14 +894,14 @@ class PolarSelfService:
         recipients, product_name = context
 
         with logfire.span(
-            "polar_self.webhook.subscription_revoked",
+            "repalis_self.webhook.subscription_revoked",
             subscription_id=subscription.id,
         ):
             for recipient in recipients:
                 email = EmailAdapter.validate_python(
                     {
-                        "template": "polar_self_subscription_revoked",
-                        "props": PolarSelfSubscriptionRevokedProps(
+                        "template": "repalis_self_subscription_revoked",
+                        "props": RepalisSelfSubscriptionRevokedProps(
                             email=recipient,
                             product_name=product_name,
                         ).model_dump(),
@@ -947,7 +947,7 @@ class PolarSelfService:
     ) -> bool:
         try:
             organization_id = self._resolve_organization_id(subscription.customer)
-        except PolarSelfWebhookError:
+        except RepalisSelfWebhookError:
             return False
         organization_repository = OrganizationRepository.from_session(session)
         organization = await organization_repository.get_by_id(
@@ -969,13 +969,13 @@ class PolarSelfService:
             organization_id, include_blocked=True
         )
         if organization is None or not organization.can_change_plan():
-            raise PolarSelfNotApproved(organization_id)
+            raise RepalisSelfNotApproved(organization_id)
 
     async def _ensure_plan(self, product_id: str) -> "Product":
         plans = await self.list_plans()
         plan = next((p for p in plans if p.id == product_id), None)
         if plan is None:
-            raise PolarSelfPlanNotFound(product_id)
+            raise RepalisSelfPlanNotFound(product_id)
         return plan
 
     def _product_fixed_price_amount(self, product: "Product") -> int:
@@ -989,11 +989,11 @@ class PolarSelfService:
     ) -> uuid.UUID:
         raw = customer.external_id
         if not isinstance(raw, str):
-            raise PolarSelfWebhookError(f"Customer {customer.id} has no external_id")
+            raise RepalisSelfWebhookError(f"Customer {customer.id} has no external_id")
         try:
             return uuid.UUID(raw)
         except ValueError as e:
-            raise PolarSelfWebhookError(
+            raise RepalisSelfWebhookError(
                 f"Customer external_id is not a UUID: {raw!r}"
             ) from e
 
@@ -1057,7 +1057,7 @@ class PolarSelfService:
         from repalis.account.service import account as account_service
 
         with logfire.span(
-            "polar_self.webhook.transaction_fee.applied",
+            "repalis_self.webhook.transaction_fee.applied",
             organization_id=str(organization_id),
             fee_percent=fee_percent,
             fee_fixed=fee_fixed,
@@ -1141,7 +1141,7 @@ class PolarSelfService:
         )
 
         with logfire.span(
-            "polar_self.webhook.support.applied",
+            "repalis_self.webhook.support.applied",
             organization_id=str(organization_id),
             level=level,
             slack=slack,
@@ -1177,7 +1177,7 @@ class PolarSelfService:
             return
 
         with logfire.span(
-            "polar_self.webhook.preview_access.applied",
+            "repalis_self.webhook.preview_access.applied",
             organization_id=str(organization_id),
             enabled=enabled,
         ):
@@ -1202,7 +1202,7 @@ class PolarSelfService:
             return
 
         with logfire.span(
-            "polar_self.webhook.sso.applied",
+            "repalis_self.webhook.sso.applied",
             organization_id=str(organization_id),
             enabled=enabled,
         ):
@@ -1229,11 +1229,11 @@ class PolarSelfService:
         ]
         if len(matching) > 1:
             benefit_ids = [grant.benefit_id for grant in matching]
-            raise PolarSelfWebhookError(
+            raise RepalisSelfWebhookError(
                 f"Customer {customer_id} holds {len(matching)} active "
                 f"{benefit_type!r} benefit grants, expected at most 1: {benefit_ids}"
             )
         return matching[0] if matching else None
 
 
-polar_self = PolarSelfService()
+repalis_self = RepalisSelfService()

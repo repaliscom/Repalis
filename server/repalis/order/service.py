@@ -45,7 +45,7 @@ from repalis.event.system import (
     build_system_event,
 )
 from repalis.eventstream.service import publish as eventstream_publish
-from repalis.exceptions import PolarError, PolarRequestValidationError, ValidationError
+from repalis.exceptions import RepalisError, RepalisRequestValidationError, ValidationError
 from repalis.file.s3 import S3_SERVICES
 from repalis.integrations.stripe.service import (
     STRIPE_METADATA_PAYMENT_TRIGGER,
@@ -145,7 +145,7 @@ from .sorting import OrderSortProperty
 log: Logger = structlog.get_logger()
 
 
-class OrderError(PolarError): ...
+class OrderError(RepalisError): ...
 
 
 class RecurringProduct(OrderError):
@@ -507,7 +507,7 @@ class OrderService:
                     )
 
         if errors:
-            raise PolarRequestValidationError(errors)
+            raise RepalisRequestValidationError(errors)
 
         order = await repository.update(
             order, update_dict=order_update.model_dump(exclude_unset=True)
@@ -760,7 +760,7 @@ class OrderService:
             return
         currency_minimum = get_minimum_currency_amount(currency)
         if payload.amount < currency_minimum:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "greater_than_equal",
@@ -776,7 +776,7 @@ class OrderService:
             )
         currency_maximum = get_maximum_currency_amount(currency)
         if payload.amount > currency_maximum:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "less_than_equal",
@@ -803,7 +803,7 @@ class OrderService:
         noun = price.get_unit_noun(units)
         currency_minimum = get_minimum_currency_amount(currency)
         if amount < currency_minimum:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",
@@ -820,7 +820,7 @@ class OrderService:
             )
         currency_maximum = get_maximum_currency_amount(currency)
         if amount > currency_maximum:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",
@@ -982,7 +982,7 @@ class OrderService:
             options=product_repository.get_eager_options(),
         )
         if product is None:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",
@@ -993,7 +993,7 @@ class OrderService:
                 ]
             )
         if product.is_recurring:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",
@@ -1007,7 +1007,7 @@ class OrderService:
                 ]
             )
         if product.has_seat_based_price:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",
@@ -1028,7 +1028,7 @@ class OrderService:
         # rejected.
         static_prices = [price for price in product.prices if is_static_price(price)]
         if not static_prices:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",
@@ -1042,7 +1042,7 @@ class OrderService:
             not (is_fixed_price(price) or is_unit_price(price))
             for price in static_prices
         ):
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",
@@ -1061,7 +1061,7 @@ class OrderService:
             payload.customer_id, organization.id
         )
         if customer is None:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",
@@ -1083,7 +1083,7 @@ class OrderService:
         try:
             currency_prices = PriceSet.from_product(product, currency)
         except NoPricesForCurrencies as e:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",
@@ -1108,7 +1108,7 @@ class OrderService:
         unit_price = currency_prices.get_unit_price()
         if unit_price is not None:
             if payload.units is None:
-                raise PolarRequestValidationError(
+                raise RepalisRequestValidationError(
                     [
                         {
                             "type": "missing",
@@ -1120,7 +1120,7 @@ class OrderService:
                 )
             validate_unit_limits(unit_price, payload.units)
         elif payload.units is not None:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",
@@ -1181,7 +1181,7 @@ class OrderService:
                 allow_silent_failure=False,
             )
         except TaxCalculationLogicalError as e:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",

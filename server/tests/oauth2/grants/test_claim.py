@@ -124,7 +124,7 @@ class TestClaimGrant:
 
         assert response.status_code == 200
         json = response.json()
-        assert json["access_token"].startswith("polar_at_u_")
+        assert json["access_token"].startswith("repalis_at_u_")
         assert "refresh_token" not in json
         assert set(json["scope"].split()) == CLAIMED_AGENT_SCOPES
 

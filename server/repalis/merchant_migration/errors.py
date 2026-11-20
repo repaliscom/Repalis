@@ -1,6 +1,6 @@
-from repalis.exceptions import PolarError
+from repalis.exceptions import RepalisError
 
 
-class MerchantMigrationError(PolarError):
+class MerchantMigrationError(RepalisError):
     """Base for everything this module raises, so a caller can catch the whole
     feature in one clause."""

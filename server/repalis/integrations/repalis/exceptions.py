@@ -1,29 +1,29 @@
 import uuid
 
-from repalis.exceptions import PolarError
+from repalis.exceptions import RepalisError
 
 
-class PolarSelfWebhookError(PolarError): ...
+class RepalisSelfWebhookError(RepalisError): ...
 
 
-class TransactionFeeBenefitError(PolarSelfWebhookError): ...
+class TransactionFeeBenefitError(RepalisSelfWebhookError): ...
 
 
-class SupportBenefitError(PolarSelfWebhookError): ...
+class SupportBenefitError(RepalisSelfWebhookError): ...
 
 
-class PolarSelfNotConfigured(PolarError):
+class RepalisSelfNotConfigured(RepalisError):
     def __init__(self) -> None:
-        super().__init__("Polar self-billing is not configured.", status_code=404)
+        super().__init__("Repalis self-billing is not configured.", status_code=404)
 
 
-class PolarSelfPlanNotFound(PolarError):
+class RepalisSelfPlanNotFound(RepalisError):
     def __init__(self, product_id: str) -> None:
         super().__init__(f"Plan {product_id!r} is not available.", status_code=404)
         self.product_id = product_id
 
 
-class PolarSelfNoActiveSubscription(PolarError):
+class RepalisSelfNoActiveSubscription(RepalisError):
     def __init__(self, organization_id: uuid.UUID) -> None:
         super().__init__(
             f"Organization {organization_id} has no active subscription.",
@@ -32,7 +32,7 @@ class PolarSelfNoActiveSubscription(PolarError):
         self.organization_id = organization_id
 
 
-class PolarSelfPaidSubscriptionAlreadyExists(PolarError):
+class RepalisSelfPaidSubscriptionAlreadyExists(RepalisError):
     def __init__(self, organization_id: uuid.UUID) -> None:
         super().__init__(
             "This organization already has an active paid subscription. "
@@ -42,22 +42,22 @@ class PolarSelfPaidSubscriptionAlreadyExists(PolarError):
         self.organization_id = organization_id
 
 
-class PolarSelfOrderNotFound(PolarError):
+class RepalisSelfOrderNotFound(RepalisError):
     def __init__(self, order_id: str) -> None:
         super().__init__(f"Order {order_id!r} not found.", status_code=404)
         self.order_id = order_id
 
 
-class PolarSelfCustomerNotFound(PolarError):
+class RepalisSelfCustomerNotFound(RepalisError):
     def __init__(self, organization_id: uuid.UUID) -> None:
         super().__init__(
-            f"Organization {organization_id} has no Polar customer.",
+            f"Organization {organization_id} has no Repalis customer.",
             status_code=404,
         )
         self.organization_id = organization_id
 
 
-class PolarSelfPaymentMethodNotFound(PolarError):
+class RepalisSelfPaymentMethodNotFound(RepalisError):
     def __init__(self, payment_method_id: str) -> None:
         super().__init__(
             f"Payment method {payment_method_id!r} not found.",
@@ -66,7 +66,7 @@ class PolarSelfPaymentMethodNotFound(PolarError):
         self.payment_method_id = payment_method_id
 
 
-class PolarSelfBenefitGrantNotFound(PolarError):
+class RepalisSelfBenefitGrantNotFound(RepalisError):
     def __init__(self, benefit_grant_id: str) -> None:
         super().__init__(
             f"Benefit grant {benefit_grant_id!r} not found.",
@@ -75,7 +75,7 @@ class PolarSelfBenefitGrantNotFound(PolarError):
         self.benefit_grant_id = benefit_grant_id
 
 
-class PolarSelfPaymentMethodInUse(PolarError):
+class RepalisSelfPaymentMethodInUse(RepalisError):
     def __init__(self, payment_method_id: str) -> None:
         super().__init__(
             "This payment method is used by an active subscription and "
@@ -86,7 +86,7 @@ class PolarSelfPaymentMethodInUse(PolarError):
         self.payment_method_id = payment_method_id
 
 
-class PolarSelfNotApproved(PolarError):
+class RepalisSelfNotApproved(RepalisError):
     def __init__(self, organization_id: uuid.UUID) -> None:
         super().__init__(
             "Your organization must complete review and be approved "
@@ -96,16 +96,16 @@ class PolarSelfNotApproved(PolarError):
         self.organization_id = organization_id
 
 
-class PolarSelfInvoiceNotReady(PolarSelfWebhookError):
+class RepalisSelfInvoiceNotReady(RepalisSelfWebhookError):
     def __init__(self, order_id: str) -> None:
         super().__init__(f"Invoice for order {order_id!r} not yet generated.")
         self.order_id = order_id
 
 
-class PolarSelfOrderNotEligible(PolarSelfWebhookError):
+class RepalisSelfOrderNotEligible(RepalisSelfWebhookError):
     """Order is permanently ineligible for invoice generation (draft/void).
 
-    Unlike ``PolarSelfInvoiceNotReady`` (retry later while the PDF renders),
+    Unlike ``RepalisSelfInvoiceNotReady`` (retry later while the PDF renders),
     this is a terminal condition: the order's status disqualifies it and
     retrying will not help. Callers should treat it as out of scope rather
     than schedule a retry.

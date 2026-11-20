@@ -5,7 +5,7 @@ from uuid import UUID
 from sqlalchemy import Select
 
 from repalis.benefit.repository import BenefitRepository
-from repalis.exceptions import PolarRequestValidationError, ValidationError
+from repalis.exceptions import RepalisRequestValidationError, ValidationError
 from repalis.meter.repository import MeterRepository
 from repalis.models import Benefit, Meter, Organization, Product
 from repalis.postgres import AsyncSession
@@ -135,7 +135,7 @@ async def assign(
         ),
     ]
     if errors:
-        raise PolarRequestValidationError(errors)
+        raise RepalisRequestValidationError(errors)
     for item, external_id in pending:
         item.external_id = external_id
     await session.flush()

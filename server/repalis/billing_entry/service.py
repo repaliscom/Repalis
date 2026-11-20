@@ -16,8 +16,8 @@ from repalis.billing_interval.service import billing_interval as billing_interva
 from repalis.billing_interval.types import MeterCharge
 from repalis.event.repository import EventRepository
 from repalis.event.system import SystemEvent
-from repalis.exceptions import PolarError
-from repalis.kit.math import non_negative_running_sum, polar_round
+from repalis.exceptions import RepalisError
+from repalis.kit.math import non_negative_running_sum, repalis_round
 from repalis.kit.utils import utc_now
 from repalis.meter.aggregation import AggregationFunction
 from repalis.meter.service import meter as meter_service
@@ -65,7 +65,7 @@ class MeteredLineItem:
     proration: Literal[False] = False
 
 
-class ReducerUsageAlreadyBilled(PolarError):
+class ReducerUsageAlreadyBilled(RepalisError):
     def __init__(self, subscription: Subscription) -> None:
         self.subscription = subscription
         super().__init__(
@@ -487,7 +487,7 @@ class BillingEntryService:
             )
             period_share = charge.period_shares[price_id]
             if period_share < 1:
-                amount = polar_round(amount * period_share)
+                amount = repalis_round(amount * period_share)
                 amount_label += f" — {period_share:.0%} of the period"
             priced.append((price, amount, amount_label))
             if price.meter.aggregation.is_summable():

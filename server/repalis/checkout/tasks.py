@@ -6,7 +6,7 @@ import structlog
 from dramatiq import Retry
 
 from repalis.config import settings
-from repalis.exceptions import PolarTaskError
+from repalis.exceptions import RepalisTaskError
 from repalis.kit.utils import utc_now
 from repalis.logging import Logger
 from repalis.models.checkout import CheckoutStatus
@@ -29,7 +29,7 @@ from .service import checkout as checkout_service
 log: Logger = structlog.get_logger()
 
 
-class CheckoutTaskError(PolarTaskError): ...
+class CheckoutTaskError(RepalisTaskError): ...
 
 
 class CheckoutDoesNotExist(CheckoutTaskError):

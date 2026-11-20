@@ -30,7 +30,7 @@ from ..authentication_session import (
     get_authentication_session_service,
     get_optional_authentication_session,
 )
-from ..exceptions import GetEmailError, PolarAuthRedirectionError
+from ..exceptions import GetEmailError, RepalisAuthRedirectionError
 from ..helpers import (
     OIDC_ERROR_MESSAGE,
     check_factor,
@@ -82,7 +82,7 @@ def get_oauth_login_router(
                 authentication_session_token_hash=authentication_session.token_hash,
             )
         except OIDCException as e:
-            raise PolarAuthRedirectionError(OIDC_ERROR_MESSAGE) from e
+            raise RepalisAuthRedirectionError(OIDC_ERROR_MESSAGE) from e
 
         response = RedirectResponse(authorization_url, status_code=303)
         set_state_cookie(
@@ -115,14 +115,14 @@ def get_oauth_login_router(
         ),
     ) -> RedirectResponse:
         if state is None:
-            raise PolarAuthRedirectionError("Missing OAuth2 state")
+            raise RepalisAuthRedirectionError("Missing OAuth2 state")
 
         state_cookie = request.cookies.get(settings.OAUTH2_SESSION_STATE_COOKIE_KEY)
         if state_cookie is None:
-            raise PolarAuthRedirectionError("Missing OAuth2 state cookie")
+            raise RepalisAuthRedirectionError("Missing OAuth2 state cookie")
 
         if not secrets.compare_digest(state, state_cookie):
-            raise PolarAuthRedirectionError("Invalid OAuth2 state")
+            raise RepalisAuthRedirectionError("Invalid OAuth2 state")
 
         try:
             enrollment, oauth_account, oauth_state = await factor.callback(
@@ -133,36 +133,36 @@ def get_oauth_login_router(
                 error_uri=error_uri,
             )
         except (ExpiredStateException, InvalidStateException) as e:
-            raise PolarAuthRedirectionError("OAuth2 session expired") from e
+            raise RepalisAuthRedirectionError("OAuth2 session expired") from e
         except GetEmailError as e:
-            raise PolarAuthRedirectionError(e.message) from e
+            raise RepalisAuthRedirectionError(e.message) from e
         except OAuth2CallbackException as e:
-            raise PolarAuthRedirectionError(e.message or "OAuth2 callback error") from e
+            raise RepalisAuthRedirectionError(e.message or "OAuth2 callback error") from e
         except OAuth2TokenException as e:
-            raise PolarAuthRedirectionError("OAuth2 error") from e
+            raise RepalisAuthRedirectionError("OAuth2 error") from e
         except OAuth2GetProfileException as e:
-            raise PolarAuthRedirectionError("OAuth2 error") from e
+            raise RepalisAuthRedirectionError("OAuth2 error") from e
         except OIDCException as e:
-            raise PolarAuthRedirectionError(OIDC_ERROR_MESSAGE) from e
+            raise RepalisAuthRedirectionError(OIDC_ERROR_MESSAGE) from e
 
         # Cross-site POST callbacks don't carry the SameSite=Lax authentication session cookie,
         # so retrieve it from the state, which is bound to this browser by the state cookie above.
         if authentication_session is None:
             context = oauth_state.context
             if context is None:
-                raise PolarAuthRedirectionError("No active authentication session")
+                raise RepalisAuthRedirectionError("No active authentication session")
             authentication_session_token_hash = context.get(
                 "authentication_session_token_hash"
             )
             if authentication_session_token_hash is None:
-                raise PolarAuthRedirectionError("No active authentication session")
+                raise RepalisAuthRedirectionError("No active authentication session")
             authentication_session = (
                 await authentication_session_service.get_by_token_hash(
                     authentication_session_token_hash
                 )
             )
             if authentication_session is None:
-                raise PolarAuthRedirectionError("No active authentication session")
+                raise RepalisAuthRedirectionError("No active authentication session")
 
         session = authentication_session_service.session
         context = authentication_session.context
@@ -187,7 +187,7 @@ def get_oauth_login_router(
                     oauth_account
                 )
             except GetEmailError as e:
-                raise PolarAuthRedirectionError(e.message) from e
+                raise RepalisAuthRedirectionError(e.message) from e
 
             if sso_redirect := await _get_sso_redirect(session, email, context):
                 set_state_cookie(
@@ -198,13 +198,13 @@ def get_oauth_login_router(
             try:
                 user, _ = await user_service.get_by_email_or_create(session, email)
             except UserCannotAuthenticate as e:
-                raise PolarAuthRedirectionError(e.message) from e
+                raise RepalisAuthRedirectionError(e.message) from e
             try:
                 enrollment = await factor.enroll(user.id, oauth_account)
             except OAuth2GetProfileException as e:
-                raise PolarAuthRedirectionError("OAuth2 error") from e
+                raise RepalisAuthRedirectionError("OAuth2 error") from e
             except GetEmailError as e:
-                raise PolarAuthRedirectionError(e.message) from e
+                raise RepalisAuthRedirectionError(e.message) from e
             identity_id = user.id
 
         authentication_session = await authentication_session_service.advance(
@@ -244,7 +244,7 @@ def get_oauth_link_router(
                 return_to=return_to,
             )
         except OIDCException as e:
-            raise PolarAuthRedirectionError(
+            raise RepalisAuthRedirectionError(
                 OIDC_ERROR_MESSAGE,
                 url=return_to,
                 type="oauth_link_error",
@@ -271,18 +271,18 @@ def get_oauth_link_router(
         )
         error_parameters = {"type": "oauth_link_error", "factor": identifier}
         if state is None:
-            raise PolarAuthRedirectionError(
+            raise RepalisAuthRedirectionError(
                 "Missing OAuth2 state", url=default_return_to, **error_parameters
             )
 
         state_cookie = request.cookies.get(settings.OAUTH2_SESSION_STATE_COOKIE_KEY)
         if state_cookie is None:
-            raise PolarAuthRedirectionError(
+            raise RepalisAuthRedirectionError(
                 "Missing OAuth2 state cookie", url=default_return_to, **error_parameters
             )
 
         if state != state_cookie:
-            raise PolarAuthRedirectionError(
+            raise RepalisAuthRedirectionError(
                 "Invalid OAuth2 state", url=default_return_to, **error_parameters
             )
 
@@ -295,38 +295,38 @@ def get_oauth_link_router(
                 error_uri=error_uri,
             )
         except (ExpiredStateException, InvalidStateException) as e:
-            raise PolarAuthRedirectionError(
+            raise RepalisAuthRedirectionError(
                 "OAuth2 session expired", url=default_return_to, **error_parameters
             ) from e
         except OAuth2IdentityMismatchException as e:
             return_to = e.state.context.get("return_to") if e.state.context else None
-            raise PolarAuthRedirectionError(
+            raise RepalisAuthRedirectionError(
                 "This account is already linked to another user",
                 url=return_to or default_return_to,
                 **error_parameters,
             ) from e
         except OAuth2CallbackException as e:
             return_to = e.state.context.get("return_to") if e.state.context else None
-            raise PolarAuthRedirectionError(
+            raise RepalisAuthRedirectionError(
                 e.message or "OAuth2 callback error",
                 url=return_to or default_return_to,
                 **error_parameters,
             ) from e
         except OAuth2TokenException as e:
             return_to = e.state.context.get("return_to") if e.state.context else None
-            raise PolarAuthRedirectionError(
+            raise RepalisAuthRedirectionError(
                 "OAuth2 error", url=return_to or default_return_to, **error_parameters
             ) from e
         except OAuth2GetProfileException as e:
-            raise PolarAuthRedirectionError(
+            raise RepalisAuthRedirectionError(
                 "OAuth2 error", url=default_return_to, **error_parameters
             ) from e
         except GetEmailError as e:
-            raise PolarAuthRedirectionError(
+            raise RepalisAuthRedirectionError(
                 e.message, url=default_return_to, **error_parameters
             ) from e
         except OIDCException as e:
-            raise PolarAuthRedirectionError(
+            raise RepalisAuthRedirectionError(
                 OIDC_ERROR_MESSAGE, url=default_return_to, **error_parameters
             ) from e
 

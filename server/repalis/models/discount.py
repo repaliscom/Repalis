@@ -29,7 +29,7 @@ from sqlalchemy.orm import (
 
 from repalis.kit.db.models import RecordModel
 from repalis.kit.external_id import ExternalIDMixin
-from repalis.kit.math import polar_round
+from repalis.kit.math import repalis_round
 from repalis.kit.metadata import MetadataMixin
 
 if TYPE_CHECKING:
@@ -249,7 +249,7 @@ class DiscountPercentage(Discount):
     basis_points: Mapped[int] = mapped_column(Integer, nullable=True)
 
     def get_discount_amount(self, amount: int, currency: str) -> int:
-        return polar_round(Decimal(amount) * self.basis_points / 10_000)
+        return repalis_round(Decimal(amount) * self.basis_points / 10_000)
 
     def allocate_discount_amounts(self, amounts: list[int], currency: str) -> list[int]:
         # Each amount is discounted independently. Because each share is rounded

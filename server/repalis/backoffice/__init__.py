@@ -3,7 +3,7 @@ from pathlib import Path
 from fastapi import APIRouter, Depends, FastAPI, Request
 from tagflow import tag, text
 
-from repalis.exceptions import PolarError
+from repalis.exceptions import RepalisError
 from repalis.observability.http_metrics import exclude_app_from_metrics
 
 from .ascii_logo import POLAR_ASCII_LOGO
@@ -12,7 +12,7 @@ from .benefits.endpoints import router as benefits_router
 from .customers.endpoints import router as customers_router
 from .dependencies import get_admin
 from .email_logs.endpoints import router as email_logs_router
-from .exception_handlers import backoffice_polar_exception_handler
+from .exception_handlers import backoffice_repalis_exception_handler
 from .external_events.endpoints import router as external_events_router
 from .feedbacks.endpoints import router as feedbacks_router
 from .impersonation.endpoints import router as impersonation_router
@@ -44,7 +44,7 @@ exclude_app_from_metrics(app)
 app.add_middleware(SecurityHeadersMiddleware)
 app.add_middleware(TagflowMiddleware)
 
-app.add_exception_handler(PolarError, backoffice_polar_exception_handler)
+app.add_exception_handler(RepalisError, backoffice_repalis_exception_handler)
 
 
 app.mount(

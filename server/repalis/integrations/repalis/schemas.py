@@ -51,8 +51,8 @@ class OrganizationPlan(Schema):
     product_id: str | None = Field(
         default=None,
         description=(
-            "Polar product ID. Null for the synthesized free plan, which has no "
-            "underlying Polar product."
+            "Repalis product ID. Null for the synthesized free plan, which has no "
+            "underlying Repalis product."
         ),
     )
     name: str
@@ -236,7 +236,7 @@ class OrganizationSubscription(Schema):
     subscription_id: str | None = Field(
         default=None,
         description=(
-            "Polar subscription ID. Null when the organization has no active "
+            "Repalis subscription ID. Null when the organization has no active "
             "subscription and is on the free plan."
         ),
     )
@@ -268,7 +268,7 @@ class OrganizationSubscription(Schema):
     startup_program_scale_product_id: str | None = Field(
         default=None,
         description=(
-            "Polar product id of the Scale plan, against which the Startup "
+            "Repalis product id of the Scale plan, against which the Startup "
             "Program discount applies. Null when the feature is disabled."
         ),
     )
@@ -326,7 +326,7 @@ class OrganizationSubscription(Schema):
 
 
 class OrganizationCheckoutRequest(Schema):
-    product_id: str = Field(description="Polar product ID to subscribe to.")
+    product_id: str = Field(description="Repalis product ID to subscribe to.")
     success_url: Annotated[str, AfterValidator(get_safe_return_url)] | None = None
     return_url: Annotated[str, AfterValidator(get_safe_return_url)] | None = None
     embed_origin: str | None = None
@@ -374,7 +374,7 @@ class OrganizationStartupProgramClaimResponse(Schema):
 
 
 class OrganizationSubscriptionUpdate(Schema):
-    product_id: str = Field(description="Polar product ID to switch the plan to.")
+    product_id: str = Field(description="Repalis product ID to switch the plan to.")
 
 
 class OrganizationOrder(Schema):

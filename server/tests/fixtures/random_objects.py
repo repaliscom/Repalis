@@ -260,7 +260,7 @@ async def create_agent(
     status: AgentStatus = AgentStatus.unclaimed,
     **kwargs: Any,
 ) -> Agent:
-    oauth2_client = OAuth2Client(client_id=rstr("polar_ci_"))
+    oauth2_client = OAuth2Client(client_id=rstr("repalis_ci_"))
     oauth2_client.set_client_metadata(
         {
             "client_name": "Test Agent",

@@ -1,4 +1,4 @@
-from repalis.exceptions import PolarRequestValidationError
+from repalis.exceptions import RepalisRequestValidationError
 
 from .guard import UnitPrice
 
@@ -29,7 +29,7 @@ def validate_unit_limits(
             maximum_units = max_units
 
     if units < minimum_units:
-        raise PolarRequestValidationError(
+        raise RepalisRequestValidationError(
             [
                 {
                     "type": "greater_than_equal",
@@ -42,7 +42,7 @@ def validate_unit_limits(
         )
 
     if maximum_units is not None and units > maximum_units:
-        raise PolarRequestValidationError(
+        raise RepalisRequestValidationError(
             [
                 {
                     "type": "less_than_equal",

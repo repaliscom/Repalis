@@ -2,18 +2,18 @@ from repalis.config import settings
 
 from .sub_type import SubType
 
-CLIENT_ID_PREFIX = "polar_ci_"
+CLIENT_ID_PREFIX = "repalis_ci_"
 CLIENT_SECRET_PREFIX = "polar_cs_"
-CLIENT_REGISTRATION_TOKEN_PREFIX = "polar_crt_"
+CLIENT_REGISTRATION_TOKEN_PREFIX = "repalis_crt_"
 AUTHORIZATION_CODE_PREFIX = "polar_ac_"
 ACCESS_TOKEN_PREFIX: dict[SubType, str] = {
-    SubType.user: "polar_at_u_",
+    SubType.user: "repalis_at_u_",
     SubType.organization: "polar_at_o_",
-    SubType.agent: "polar_at_a_",
+    SubType.agent: "repalis_at_a_",
 }
 # Agents get no refresh tokens: they trade their identity assertion instead.
 REFRESH_TOKEN_PREFIX: dict[SubType, str] = {
-    SubType.user: "polar_rt_u_",
+    SubType.user: "repalis_rt_u_",
     SubType.organization: "polar_rt_o_",
 }
 

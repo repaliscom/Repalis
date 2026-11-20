@@ -83,7 +83,7 @@ from repalis.version import V2027_01
 _NAME_DESCRIPTION = "The name of the event."
 _SOURCE_DESCRIPTION = (
     "The source of the event. "
-    "`system` events are created by Polar. "
+    "`system` events are created by Repalis. "
     "`user` events are the one you create through our ingestion API."
 )
 
@@ -203,14 +203,14 @@ class EventCreateBase(Schema):
         default=None,
         description=(
             "The ID of the parent event. "
-            "Can be either a Polar event ID (UUID) or an external event ID."
+            "Can be either a Repalis event ID (UUID) or an external event ID."
         ),
     )
     metadata: EventMetadataInput = Field(
         description=METADATA_DESCRIPTION.format(
             heading=(
                 "Key-value object allowing you to store additional information about the event. "
-                "Some keys like `_llm` are structured data that are handled specially by Polar."
+                "Some keys like `_llm` are structured data that are handled specially by Repalis."
             )
         ),
         default_factory=metadata_default_factory,
@@ -221,7 +221,7 @@ class EventCreateBase(Schema):
 class EventCreateCustomer(EventCreateBase):
     customer_id: UUID4 = Field(
         description=(
-            "ID of the customer in your Polar organization associated with the event."
+            "ID of the customer in your Repalis organization associated with the event."
         )
     )
     member_id: UUID4 | None = Field(
@@ -267,7 +267,7 @@ class BaseEvent(IDSchema):
     )
     customer_id: UUID4 | None = Field(
         description=(
-            "ID of the customer in your Polar organization associated with the event."
+            "ID of the customer in your Repalis organization associated with the event."
         )
     )
     customer: Customer | None = Field(
@@ -301,13 +301,13 @@ class BaseEvent(IDSchema):
 
 
 class SystemEventBase(BaseEvent):
-    """An event created by Polar."""
+    """An event created by Repalis."""
 
     source: Literal[EventSource.system] = Field(description=_SOURCE_DESCRIPTION)
 
 
 class MeterCreditEvent(SystemEventBase):
-    """An event created by Polar when credits are added to a customer meter."""
+    """An event created by Repalis when credits are added to a customer meter."""
 
     name: Literal[SystemEventEnum.meter_credited] = Field(description=_NAME_DESCRIPTION)
     metadata: MeterCreditedMetadata = Field(
@@ -316,7 +316,7 @@ class MeterCreditEvent(SystemEventBase):
 
 
 class MeterResetEvent(SystemEventBase):
-    """An event created by Polar when a customer meter is reset."""
+    """An event created by Repalis when a customer meter is reset."""
 
     name: Literal[SystemEventEnum.meter_reset] = Field(description=_NAME_DESCRIPTION)
     metadata: MeterResetMetadata = Field(
@@ -325,7 +325,7 @@ class MeterResetEvent(SystemEventBase):
 
 
 class BenefitGrantedEvent(SystemEventBase):
-    """An event created by Polar when a benefit is granted to a customer."""
+    """An event created by Repalis when a benefit is granted to a customer."""
 
     name: Literal[SystemEventEnum.benefit_granted] = Field(
         description=_NAME_DESCRIPTION
@@ -336,7 +336,7 @@ class BenefitGrantedEvent(SystemEventBase):
 
 
 class BenefitCycledEvent(SystemEventBase):
-    """An event created by Polar when a benefit is cycled."""
+    """An event created by Repalis when a benefit is cycled."""
 
     name: Literal[SystemEventEnum.benefit_cycled] = Field(description=_NAME_DESCRIPTION)
     metadata: BenefitGrantMetadata = Field(
@@ -345,7 +345,7 @@ class BenefitCycledEvent(SystemEventBase):
 
 
 class BenefitUpdatedEvent(SystemEventBase):
-    """An event created by Polar when a benefit is updated."""
+    """An event created by Repalis when a benefit is updated."""
 
     name: Literal[SystemEventEnum.benefit_updated] = Field(
         description=_NAME_DESCRIPTION
@@ -356,7 +356,7 @@ class BenefitUpdatedEvent(SystemEventBase):
 
 
 class BenefitRevokedEvent(SystemEventBase):
-    """An event created by Polar when a benefit is revoked from a customer."""
+    """An event created by Repalis when a benefit is revoked from a customer."""
 
     name: Literal[SystemEventEnum.benefit_revoked] = Field(
         description=_NAME_DESCRIPTION
@@ -367,7 +367,7 @@ class BenefitRevokedEvent(SystemEventBase):
 
 
 class BenefitManuallyGrantedEvent(SystemEventBase):
-    """An event created by Polar when a benefit grant is created manually."""
+    """An event created by Repalis when a benefit grant is created manually."""
 
     name: Literal[SystemEventEnum.benefit_manually_granted] = Field(
         description=_NAME_DESCRIPTION
@@ -378,7 +378,7 @@ class BenefitManuallyGrantedEvent(SystemEventBase):
 
 
 class BenefitManuallyRevokedEvent(SystemEventBase):
-    """An event created by Polar when a benefit grant is manually revoked."""
+    """An event created by Repalis when a benefit grant is manually revoked."""
 
     name: Literal[SystemEventEnum.benefit_manually_revoked] = Field(
         description=_NAME_DESCRIPTION
@@ -389,7 +389,7 @@ class BenefitManuallyRevokedEvent(SystemEventBase):
 
 
 class BenefitUnrevokedEvent(SystemEventBase):
-    """An event created by Polar when a manual revocation is cleared."""
+    """An event created by Repalis when a manual revocation is cleared."""
 
     name: Literal[SystemEventEnum.benefit_unrevoked] = Field(
         description=_NAME_DESCRIPTION
@@ -400,7 +400,7 @@ class BenefitUnrevokedEvent(SystemEventBase):
 
 
 class SubscriptionCreatedEvent(SystemEventBase):
-    """An event created by Polar when a subscription is created."""
+    """An event created by Repalis when a subscription is created."""
 
     name: Literal[SystemEventEnum.subscription_created] = Field(
         description=_NAME_DESCRIPTION
@@ -411,7 +411,7 @@ class SubscriptionCreatedEvent(SystemEventBase):
 
 
 class SubscriptionUpdatedEvent(SystemEventBase):
-    """An event created by Polar when a subscription is updated."""
+    """An event created by Repalis when a subscription is updated."""
 
     name: Literal[SystemEventEnum.subscription_updated] = Field(
         description=_NAME_DESCRIPTION
@@ -422,7 +422,7 @@ class SubscriptionUpdatedEvent(SystemEventBase):
 
 
 class SubscriptionCycledEvent(SystemEventBase):
-    """An event created by Polar when a subscription is cycled."""
+    """An event created by Repalis when a subscription is cycled."""
 
     name: Literal[SystemEventEnum.subscription_cycled] = Field(
         description=_NAME_DESCRIPTION
@@ -433,7 +433,7 @@ class SubscriptionCycledEvent(SystemEventBase):
 
 
 class SubscriptionCanceledEvent(SystemEventBase):
-    """An event created by Polar when a subscription is canceled."""
+    """An event created by Repalis when a subscription is canceled."""
 
     name: Literal[SystemEventEnum.subscription_canceled] = Field(
         description=_NAME_DESCRIPTION
@@ -444,7 +444,7 @@ class SubscriptionCanceledEvent(SystemEventBase):
 
 
 class SubscriptionRevokedEvent(SystemEventBase):
-    """An event created by Polar when a subscription is revoked from a customer."""
+    """An event created by Repalis when a subscription is revoked from a customer."""
 
     name: Literal[SystemEventEnum.subscription_revoked] = Field(
         description=_NAME_DESCRIPTION
@@ -455,7 +455,7 @@ class SubscriptionRevokedEvent(SystemEventBase):
 
 
 class SubscriptionUncanceledEvent(SystemEventBase):
-    """An event created by Polar when a subscription cancellation is reversed."""
+    """An event created by Repalis when a subscription cancellation is reversed."""
 
     name: Literal[SystemEventEnum.subscription_uncanceled] = Field(
         description=_NAME_DESCRIPTION
@@ -466,7 +466,7 @@ class SubscriptionUncanceledEvent(SystemEventBase):
 
 
 class SubscriptionPastDueEvent(SystemEventBase):
-    """An event created by Polar when a subscription becomes past due."""
+    """An event created by Repalis when a subscription becomes past due."""
 
     name: Literal[SystemEventEnum.subscription_past_due] = Field(
         description=_NAME_DESCRIPTION
@@ -477,7 +477,7 @@ class SubscriptionPastDueEvent(SystemEventBase):
 
 
 class SubscriptionReactivatedEvent(SystemEventBase):
-    """An event created by Polar when a past due subscription is recovered."""
+    """An event created by Repalis when a past due subscription is recovered."""
 
     name: Literal[SystemEventEnum.subscription_reactivated] = Field(
         description=_NAME_DESCRIPTION
@@ -488,7 +488,7 @@ class SubscriptionReactivatedEvent(SystemEventBase):
 
 
 class SubscriptionReinstatedEvent(SystemEventBase):
-    """An event created by Polar when a canceled subscription is reinstated."""
+    """An event created by Repalis when a canceled subscription is reinstated."""
 
     name: Literal[SystemEventEnum.subscription_reinstated] = Field(
         description=_NAME_DESCRIPTION
@@ -499,7 +499,7 @@ class SubscriptionReinstatedEvent(SystemEventBase):
 
 
 class SubscriptionPausedEvent(SystemEventBase):
-    """An event created by Polar when a subscription is paused."""
+    """An event created by Repalis when a subscription is paused."""
 
     name: Literal[SystemEventEnum.subscription_paused] = Field(
         description=_NAME_DESCRIPTION
@@ -510,7 +510,7 @@ class SubscriptionPausedEvent(SystemEventBase):
 
 
 class SubscriptionResumedEvent(SystemEventBase):
-    """An event created by Polar when a paused subscription is resumed."""
+    """An event created by Repalis when a paused subscription is resumed."""
 
     name: Literal[SystemEventEnum.subscription_resumed] = Field(
         description=_NAME_DESCRIPTION
@@ -521,7 +521,7 @@ class SubscriptionResumedEvent(SystemEventBase):
 
 
 class SubscriptionMigratedEvent(SystemEventBase):
-    """An event created by Polar when a subscription is migrated to Polar."""
+    """An event created by Repalis when a subscription is migrated to Repalis."""
 
     name: Literal[SystemEventEnum.subscription_migrated] = Field(
         description=_NAME_DESCRIPTION
@@ -532,7 +532,7 @@ class SubscriptionMigratedEvent(SystemEventBase):
 
 
 class SubscriptionProductUpdatedEvent(SystemEventBase):
-    """An event created by Polar when a subscription changes the product."""
+    """An event created by Repalis when a subscription changes the product."""
 
     name: Literal[SystemEventEnum.subscription_product_updated] = Field(
         description=_NAME_DESCRIPTION
@@ -543,7 +543,7 @@ class SubscriptionProductUpdatedEvent(SystemEventBase):
 
 
 class SubscriptionSeatsUpdatedEvent(SystemEventBase):
-    """An event created by Polar when a the seats on a subscription is changed."""
+    """An event created by Repalis when a the seats on a subscription is changed."""
 
     name: Literal[SystemEventEnum.subscription_seats_updated] = Field(
         description=_NAME_DESCRIPTION
@@ -554,7 +554,7 @@ class SubscriptionSeatsUpdatedEvent(SystemEventBase):
 
 
 class SubscriptionUnitsUpdatedEvent(SystemEventBase):
-    """An event created by Polar when the units on a subscription are changed."""
+    """An event created by Repalis when the units on a subscription are changed."""
 
     name: Literal[SystemEventEnum.subscription_units_updated] = Field(
         description=_NAME_DESCRIPTION
@@ -565,7 +565,7 @@ class SubscriptionUnitsUpdatedEvent(SystemEventBase):
 
 
 class SubscriptionUpdateClearedEvent(SystemEventBase):
-    """An event created by Polar when a pending subscription update is cleared without being applied."""
+    """An event created by Repalis when a pending subscription update is cleared without being applied."""
 
     name: Literal[SystemEventEnum.subscription_update_cleared] = Field(
         description=_NAME_DESCRIPTION
@@ -576,7 +576,7 @@ class SubscriptionUpdateClearedEvent(SystemEventBase):
 
 
 class SubscriptionBillingPeriodUpdatedEvent(SystemEventBase):
-    """An event created by Polar when a subscription billing period is updated."""
+    """An event created by Repalis when a subscription billing period is updated."""
 
     name: Literal[SystemEventEnum.subscription_billing_period_updated] = Field(
         description=_NAME_DESCRIPTION
@@ -587,7 +587,7 @@ class SubscriptionBillingPeriodUpdatedEvent(SystemEventBase):
 
 
 class OrderPaidEvent(SystemEventBase):
-    """An event created by Polar when an order is paid."""
+    """An event created by Repalis when an order is paid."""
 
     name: Literal[SystemEventEnum.order_paid] = Field(description=_NAME_DESCRIPTION)
     metadata: OrderPaidMetadata = Field(
@@ -596,7 +596,7 @@ class OrderPaidEvent(SystemEventBase):
 
 
 class CustomerCreatedEvent(SystemEventBase):
-    """An event created by Polar when a customer is created."""
+    """An event created by Repalis when a customer is created."""
 
     name: Literal[SystemEventEnum.customer_created] = Field(
         description=_NAME_DESCRIPTION
@@ -607,7 +607,7 @@ class CustomerCreatedEvent(SystemEventBase):
 
 
 class OrderRefundedEvent(SystemEventBase):
-    """An event created by Polar when an order is refunded."""
+    """An event created by Repalis when an order is refunded."""
 
     name: Literal[SystemEventEnum.order_refunded] = Field(description=_NAME_DESCRIPTION)
     metadata: OrderRefundedMetadata = Field(
@@ -616,7 +616,7 @@ class OrderRefundedEvent(SystemEventBase):
 
 
 class OrderVoidedEvent(SystemEventBase):
-    """An event created by Polar when an order is voided."""
+    """An event created by Repalis when an order is voided."""
 
     name: Literal[SystemEventEnum.order_voided] = Field(description=_NAME_DESCRIPTION)
     metadata: OrderVoidedMetadata = Field(
@@ -625,7 +625,7 @@ class OrderVoidedEvent(SystemEventBase):
 
 
 class OrderUnvoidedEvent(SystemEventBase):
-    """An event created by Polar when an order is unvoided."""
+    """An event created by Repalis when an order is unvoided."""
 
     name: Literal[SystemEventEnum.order_unvoided] = Field(description=_NAME_DESCRIPTION)
     metadata: OrderUnvoidedMetadata = Field(
@@ -634,7 +634,7 @@ class OrderUnvoidedEvent(SystemEventBase):
 
 
 class CheckoutCreatedEvent(SystemEventBase):
-    """An event created by Polar when a checkout is created."""
+    """An event created by Repalis when a checkout is created."""
 
     name: Literal[SystemEventEnum.checkout_created] = Field(
         description=_NAME_DESCRIPTION
@@ -645,7 +645,7 @@ class CheckoutCreatedEvent(SystemEventBase):
 
 
 class CustomerUpdatedEvent(SystemEventBase):
-    """An event created by Polar when a customer is updated."""
+    """An event created by Repalis when a customer is updated."""
 
     name: Literal[SystemEventEnum.customer_updated] = Field(
         description=_NAME_DESCRIPTION
@@ -656,7 +656,7 @@ class CustomerUpdatedEvent(SystemEventBase):
 
 
 class CustomerDeletedEvent(SystemEventBase):
-    """An event created by Polar when a customer is deleted."""
+    """An event created by Repalis when a customer is deleted."""
 
     name: Literal[SystemEventEnum.customer_deleted] = Field(
         description=_NAME_DESCRIPTION
@@ -667,7 +667,7 @@ class CustomerDeletedEvent(SystemEventBase):
 
 
 class BalanceOrderEvent(SystemEventBase):
-    """An event created by Polar when an order is paid."""
+    """An event created by Repalis when an order is paid."""
 
     name: Literal[SystemEventEnum.balance_order] = Field(description=_NAME_DESCRIPTION)
     metadata: BalanceOrderMetadata = Field(
@@ -676,7 +676,7 @@ class BalanceOrderEvent(SystemEventBase):
 
 
 class BalanceCreditOrderEvent(SystemEventBase):
-    """An event created by Polar when an order is paid via customer balance."""
+    """An event created by Repalis when an order is paid via customer balance."""
 
     name: Literal[SystemEventEnum.balance_credit_order] = Field(
         description=_NAME_DESCRIPTION
@@ -687,7 +687,7 @@ class BalanceCreditOrderEvent(SystemEventBase):
 
 
 class BalanceRefundEvent(SystemEventBase):
-    """An event created by Polar when an order is refunded."""
+    """An event created by Repalis when an order is refunded."""
 
     name: Literal[SystemEventEnum.balance_refund] = Field(description=_NAME_DESCRIPTION)
     metadata: BalanceRefundMetadata = Field(
@@ -696,7 +696,7 @@ class BalanceRefundEvent(SystemEventBase):
 
 
 class BalanceRefundReversalEvent(SystemEventBase):
-    """An event created by Polar when a refund is reverted."""
+    """An event created by Repalis when a refund is reverted."""
 
     name: Literal[SystemEventEnum.balance_refund_reversal] = Field(
         description=_NAME_DESCRIPTION
@@ -707,7 +707,7 @@ class BalanceRefundReversalEvent(SystemEventBase):
 
 
 class BalanceDisputeEvent(SystemEventBase):
-    """An event created by Polar when an order is disputed."""
+    """An event created by Repalis when an order is disputed."""
 
     name: Literal[SystemEventEnum.balance_dispute] = Field(
         description=_NAME_DESCRIPTION
@@ -718,7 +718,7 @@ class BalanceDisputeEvent(SystemEventBase):
 
 
 class BalanceDisputeReversalEvent(SystemEventBase):
-    """An event created by Polar when a dispute is won and funds are reinstated."""
+    """An event created by Repalis when a dispute is won and funds are reinstated."""
 
     name: Literal[SystemEventEnum.balance_dispute_reversal] = Field(
         description=_NAME_DESCRIPTION
@@ -892,7 +892,7 @@ class ListPropertyGroupStats(Schema):
 class CustomerStat(Schema):
     """Aggregated statistics for a single customer across all their root events."""
 
-    customer_id: UUID4 | None = Field(description="Polar customer ID.")
+    customer_id: UUID4 | None = Field(description="Repalis customer ID.")
     external_customer_id: str | None = Field(description="External customer ID.")
     name: str | None = Field(description="Customer name.", default=None)
     email: str | None = Field(description="Customer email.", default=None)
@@ -920,7 +920,7 @@ class VarianceEvent(Schema):
 
     event_id: UUID4 = Field(description="The root event ID.")
     name: str = Field(description="The event name.")
-    customer_id: UUID4 | None = Field(description="Polar customer ID.")
+    customer_id: UUID4 | None = Field(description="Repalis customer ID.")
     external_customer_id: str | None = Field(description="External customer ID.")
     timestamp: AwareDatetime = Field(description="Timestamp of the root event.")
     values: dict[str, Decimal] = Field(

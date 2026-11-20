@@ -13,7 +13,7 @@ from repalis.authz.service import get_accessible_org_ids
 from repalis.customer.repository import CustomerRepository
 from repalis.customer_seat.sender import send_seat_invitation_email
 from repalis.eventstream.service import publish as eventstream_publish
-from repalis.exceptions import PolarError
+from repalis.exceptions import RepalisError
 from repalis.kit.db.postgres import AsyncSession
 from repalis.member.repository import MemberRepository
 from repalis.member.service import member_service
@@ -41,7 +41,7 @@ from .repository import CustomerSeatRepository
 log = structlog.get_logger()
 
 
-class SeatError(PolarError): ...
+class SeatError(RepalisError): ...
 
 
 class SeatNotAvailable(SeatError):

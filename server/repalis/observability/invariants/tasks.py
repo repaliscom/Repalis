@@ -1,6 +1,6 @@
 from typing import Annotated
 
-from repalis.exceptions import PolarTaskError
+from repalis.exceptions import RepalisTaskError
 from repalis.observability.task_logging import LoggableField
 from repalis.worker import (
     AsyncReadSessionMaker,
@@ -14,7 +14,7 @@ from .rules import INVARIANTS
 from .service import invariant as invariant_service
 
 
-class InvariantTaskError(PolarTaskError):
+class InvariantTaskError(RepalisTaskError):
     """Base class for invariant task errors."""
 
 

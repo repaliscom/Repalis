@@ -12,7 +12,7 @@ from repalis.kit.http import is_localhost
 from repalis.organization.repository import OrganizationRepository
 from repalis.postgres import AsyncSession
 
-from .exceptions import PolarAuthRedirectionError
+from .exceptions import RepalisAuthRedirectionError
 
 OIDC_ERROR_MESSAGE = "An authentication error occurred. Please try again."
 
@@ -50,7 +50,7 @@ def check_factor(
     for available_factor in available_factors:
         if available_factor.identifier == factor.identifier:
             return
-    raise PolarAuthRedirectionError("Factor not available for this session")
+    raise RepalisAuthRedirectionError("Factor not available for this session")
 
 
 async def get_sso_redirect_url(

@@ -16,7 +16,7 @@ from repalis.enums import (
     SubscriptionProrationBehavior,
     SubscriptionRecurringInterval,
 )
-from repalis.exceptions import PolarRequestValidationError
+from repalis.exceptions import RepalisRequestValidationError
 from repalis.integrations.stripe.account_risk import (
     MerchantRiskSignal,
     UnknownAccountRiskEvaluation,
@@ -164,7 +164,7 @@ class TestCreate:
         session: AsyncSession,
         organization: Organization,
     ) -> None:
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await organization_service.create(
                 session,
                 OrganizationCreate(name=organization.name, slug=organization.slug),
@@ -190,7 +190,7 @@ class TestCreate:
             OrganizationRepository, "slug_exists", new=AsyncMock(return_value=False)
         )
 
-        with pytest.raises(PolarRequestValidationError) as exc_info:
+        with pytest.raises(RepalisRequestValidationError) as exc_info:
             await organization_service.create(
                 session,
                 OrganizationCreate(name=organization.name, slug=organization.slug),
@@ -229,17 +229,17 @@ class TestCreate:
         )
 
     @pytest.mark.auth
-    async def test_enqueues_polar_self_customer_with_owner(
+    async def test_enqueues_repalis_self_customer_with_owner(
         self,
         mocker: MockerFixture,
         auth_subject: AuthSubject[User],
         session: AsyncSession,
     ) -> None:
         create_customer_mock = mocker.patch(
-            "repalis.organization.service.polar_self_service.enqueue_create_customer"
+            "repalis.organization.service.repalis_self_service.enqueue_create_customer"
         )
         add_member_mock = mocker.patch(
-            "repalis.organization.service.polar_self_service.enqueue_add_member"
+            "repalis.organization.service.repalis_self_service.enqueue_add_member"
         )
 
         organization = await organization_service.create(
@@ -359,7 +359,7 @@ class TestCreate:
         await save_fixture(agent)
         enqueue_job_mock = mocker.patch("repalis.organization.service.enqueue_job")
         create_customer_mock = mocker.patch(
-            "repalis.organization.service.polar_self_service.enqueue_create_customer"
+            "repalis.organization.service.repalis_self_service.enqueue_create_customer"
         )
 
         organization = await organization_service.create(
@@ -544,7 +544,7 @@ class TestUpdateReviewSubmission:
             ),
         )
 
-        with pytest.raises(PolarRequestValidationError) as exc_info:
+        with pytest.raises(RepalisRequestValidationError) as exc_info:
             await organization_service.submit_for_review(session, organization)
 
         error_locations = {tuple(error["loc"]) for error in exc_info.value.errors()}
@@ -577,7 +577,7 @@ class TestUpdateReviewSubmission:
             ),
         )
 
-        with pytest.raises(PolarRequestValidationError) as exc_info:
+        with pytest.raises(RepalisRequestValidationError) as exc_info:
             await organization_service.submit_for_review(session, organization)
 
         error_locations = {tuple(error["loc"]) for error in exc_info.value.errors()}
@@ -865,7 +865,7 @@ class TestSubmitForReviewEmail:
             "switching": False,
         }
 
-        with pytest.raises(PolarRequestValidationError) as exc_info:
+        with pytest.raises(RepalisRequestValidationError) as exc_info:
             await organization_service.submit_for_review(session, organization)
 
         assert [e["loc"] for e in exc_info.value.errors()] == [("body", "email")]
@@ -1537,7 +1537,7 @@ class TestDenyOrganization:
             for call in enqueue_job_mock.call_args_list
         )
 
-    async def test_enqueues_polar_self_subscription_revocation(
+    async def test_enqueues_repalis_self_subscription_revocation(
         self,
         mocker: MockerFixture,
         session: AsyncSession,
@@ -1545,7 +1545,7 @@ class TestDenyOrganization:
     ) -> None:
         organization.status = OrganizationStatus.REVIEW
         enqueue_revoke_mock = mocker.patch(
-            "repalis.organization.service.polar_self_service.enqueue_revoke_subscription"
+            "repalis.organization.service.repalis_self_service.enqueue_revoke_subscription"
         )
 
         await organization_service.deny_organization(session, organization)
@@ -2036,7 +2036,7 @@ class TestBackofficeSubmitAndMaybeActivate:
         organization.details = {}
         organization.details_submitted_at = None
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await organization_service.backoffice_submit_and_maybe_activate(
                 session, organization
             )
@@ -4468,14 +4468,14 @@ class TestRequestDeletion:
 
 @pytest.mark.anyio
 class TestSoftDeleteOrganization:
-    async def test_enqueues_polar_self_customer_deletion(
+    async def test_enqueues_repalis_self_customer_deletion(
         self,
         mocker: MockerFixture,
         session: AsyncSession,
         organization: Organization,
     ) -> None:
         enqueue_delete_customer_mock = mocker.patch(
-            "repalis.organization.service.polar_self_service.enqueue_delete_customer"
+            "repalis.organization.service.repalis_self_service.enqueue_delete_customer"
         )
 
         await organization_service.soft_delete_organization(session, organization)
@@ -4492,7 +4492,7 @@ class TestSoftDeleteOrganization:
         organization: Organization,
         user: User,
     ) -> None:
-        mocker.patch("repalis.organization.service.polar_self_service")
+        mocker.patch("repalis.organization.service.repalis_self_service")
         review = OrganizationReview(
             organization_id=organization.id,
             verdict=OrganizationReview.Verdict.FAIL,
@@ -4530,7 +4530,7 @@ class TestSoftDeleteOrganization:
     ) -> None:
         # Disputes are live financial matters — they must outlive the merchant
         # deleting their account.
-        mocker.patch("repalis.organization.service.polar_self_service")
+        mocker.patch("repalis.organization.service.repalis_self_service")
         order = await create_order(save_fixture, customer=customer, product=product)
         payment = await create_payment(save_fixture, organization, order=order)
         dispute = await create_dispute(save_fixture, order, payment)
@@ -4576,7 +4576,7 @@ class TestSoftDeleteOrganization:
         assert result.website != "https://test.com"
         assert result.bio != "Test bio"
 
-        # Avatar should be set to Polar logo
+        # Avatar should be set to Repalis logo
         assert result.avatar_url is not None
         assert "avatars.githubusercontent.com" in result.avatar_url
 
@@ -4650,7 +4650,7 @@ class TestSoftDeleteOrganization:
     ) -> None:
         # Backoffice/erasure deletions scrub the slug as PII rather than
         # archiving it for reuse, leaving no recoverable trace of the original.
-        mocker.patch("repalis.organization.service.polar_self_service")
+        mocker.patch("repalis.organization.service.repalis_self_service")
         original_slug = organization.slug
 
         result = await organization_service.soft_delete_organization(
@@ -4766,7 +4766,7 @@ class TestResetProrationBehavior:
         }
         await save_fixture(organization)
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await organization_service.update(
                 session,
                 organization,
@@ -6214,7 +6214,7 @@ class TestAddUser:
             (OrganizationRole.member, MemberRole.member),
         ],
     )
-    async def test_mirrors_org_role_to_polar_self_member_role(
+    async def test_mirrors_org_role_to_repalis_self_member_role(
         self,
         mocker: MockerFixture,
         session: AsyncSession,
@@ -6224,7 +6224,7 @@ class TestAddUser:
         expected_member_role: MemberRole,
     ) -> None:
         add_member_mock = mocker.patch(
-            "repalis.organization.service.polar_self_service.enqueue_add_member"
+            "repalis.organization.service.repalis_self_service.enqueue_add_member"
         )
 
         await organization_service.add_user(

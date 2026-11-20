@@ -59,7 +59,7 @@ class PledgeState(StrEnum):
 
 
 class PledgeType(StrEnum):
-    # Up front pledges, paid to Polar directly, transfered to maintainer when completed.
+    # Up front pledges, paid to Repalis directly, transfered to maintainer when completed.
     pay_upfront = "pay_upfront"
 
     # Pledge without upfront payment. The pledger pays after the issue is completed.

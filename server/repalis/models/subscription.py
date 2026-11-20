@@ -176,7 +176,7 @@ class Subscription(CustomFieldDataMixin, MetadataMixin, RecordModel):
     Original ID of the subscription in Stripe.
 
     If set, indicates that the subscription was originally managed by Stripe Billing,
-    but has been migrated to be managed by Polar.
+    but has been migrated to be managed by Repalis.
     """
 
     tax_behavior: Mapped[TaxBehavior | None] = mapped_column(

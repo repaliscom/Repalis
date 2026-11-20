@@ -1,4 +1,4 @@
-from repalis.exceptions import PolarRequestValidationError
+from repalis.exceptions import RepalisRequestValidationError
 from repalis.kit.currency import (
     format_currency,
     get_maximum_currency_amount,
@@ -22,7 +22,7 @@ def validate_custom_price_amount(
     the checkout and off-session order flows so both enforce identical bounds.
     """
     if amount < 0:
-        raise PolarRequestValidationError(
+        raise RepalisRequestValidationError(
             [
                 {
                     "type": "greater_than_equal",
@@ -37,7 +37,7 @@ def validate_custom_price_amount(
     # Enforce the price's configured minimum (0 means free / pay-what-you-want
     # is allowed, so a 0 amount passes here).
     if amount < price.minimum_amount:
-        raise PolarRequestValidationError(
+        raise RepalisRequestValidationError(
             [
                 {
                     "type": "greater_than_equal",
@@ -55,7 +55,7 @@ def validate_custom_price_amount(
     if amount > 0:
         currency_minimum = get_minimum_currency_amount(currency)
         if amount < currency_minimum:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "invalid_amount",
@@ -71,7 +71,7 @@ def validate_custom_price_amount(
             )
 
     if price.maximum_amount is not None and amount > price.maximum_amount:
-        raise PolarRequestValidationError(
+        raise RepalisRequestValidationError(
             [
                 {
                     "type": "less_than_equal",
@@ -85,7 +85,7 @@ def validate_custom_price_amount(
 
     currency_maximum = get_maximum_currency_amount(currency)
     if amount > currency_maximum:
-        raise PolarRequestValidationError(
+        raise RepalisRequestValidationError(
             [
                 {
                     "type": "less_than_equal",

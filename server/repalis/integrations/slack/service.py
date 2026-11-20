@@ -6,7 +6,7 @@ import structlog
 
 from repalis.benefit.grant.repository import BenefitGrantRepository
 from repalis.benefit.repository import BenefitRepository
-from repalis.exceptions import BadRequest, PolarError, ResourceNotFound
+from repalis.exceptions import BadRequest, RepalisError, ResourceNotFound
 from repalis.kit import jwt
 from repalis.kit.db.postgres import AsyncReadSession, AsyncSession
 from repalis.kit.utils import utc_now
@@ -23,7 +23,7 @@ OAUTH_STATE_JWT_TYPE: Literal["slack_integration_oauth"] = "slack_integration_oa
 CALLBACK_ROUTE = "integrations.slack.callback"
 
 
-class SlackIntegrationError(PolarError): ...
+class SlackIntegrationError(RepalisError): ...
 
 
 class SlackIntegrationInvalidCredentials(BadRequest):
@@ -45,7 +45,7 @@ class SlackIntegrationInvalidState(BadRequest):
 class SlackIntegrationAppIdAlreadyLinked(BadRequest):
     def __init__(self) -> None:
         super().__init__(
-            "This Slack app is already connected to another Polar organization."
+            "This Slack app is already connected to another Repalis organization."
         )
 
 

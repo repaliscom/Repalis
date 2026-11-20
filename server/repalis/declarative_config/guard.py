@@ -1,11 +1,11 @@
 from uuid import UUID
 
-from repalis.exceptions import PolarError
+from repalis.exceptions import RepalisError
 from repalis.organization.repository import OrganizationRepository
 from repalis.postgres import AsyncReadSession
 
 
-class DeclarativeConfigManaged(PolarError):
+class DeclarativeConfigManaged(RepalisError):
     def __init__(self) -> None:
         super().__init__(
             "This organization manages its catalog as code. "

@@ -10,7 +10,7 @@ from tests.fixtures.database import SaveFixture
 @pytest.fixture
 async def oauth2_client(save_fixture: SaveFixture, user: User) -> OAuth2Client:
     oauth2_client = OAuth2Client(
-        client_id="polar_ci_123",
+        client_id="repalis_ci_123",
         user=user,
     )
     oauth2_client.set_client_metadata(
@@ -63,7 +63,7 @@ class TestListOAuth2Clients:
         self, client: AsyncClient, session: AsyncSession, user: User
     ) -> None:
         oauth2_client = OAuth2Client(
-            client_id="polar_ci_123",
+            client_id="repalis_ci_123",
             user=user,
         )
         oauth2_client.set_client_metadata(

@@ -1,5 +1,5 @@
 from repalis.auth.models import AuthSubject
-from repalis.exceptions import PolarError, PolarRequestValidationError
+from repalis.exceptions import RepalisError, RepalisRequestValidationError
 from repalis.kit.db.postgres import AsyncSession
 from repalis.models import Feedback, User
 from repalis.user_organization.service import (
@@ -11,7 +11,7 @@ from .repository import FeedbackRepository
 from .schemas import FeedbackCreate
 
 
-class FeedbackError(PolarError): ...
+class FeedbackError(RepalisError): ...
 
 
 class FeedbackService:
@@ -31,7 +31,7 @@ class FeedbackService:
             and create_schema.organization_id not in auth_subject.organization_ids
         )
         if membership is None or out_of_scope:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",

@@ -168,7 +168,7 @@ class Dispute(RecordModel):
 
     @property
     def merchant_evidence_due_by(self) -> datetime | None:
-        # Merchants on the disputes dashboard send evidence to Polar, which needs
+        # Merchants on the disputes dashboard send evidence to Repalis, which needs
         # time to review it before the processor's deadline.
         disputes_enabled = self.order.organization.feature_settings.get(
             "disputes_enabled", False

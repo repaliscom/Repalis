@@ -303,7 +303,7 @@ class MerchantMigrationRecordRepository(
         The customers this migration imported, plus the ones behind pending
         subscriptions it took over from an earlier migration of the account,
         less those whose every pending switchable subscription here already has
-        its card on Polar. Copying those again would only duplicate the card.
+        its card on Repalis. Copying those again would only duplicate the card.
         """
         covered = await self.payment_method_coverage(migration_id, exact=True)
         customer_source_id = MerchantMigrationRecord.canonical.op("->>")(
@@ -806,7 +806,7 @@ class MerchantMigrationRecordRepository(
     async def payment_method_coverage(
         self, migration_id: UUID, *, exact: bool = False
     ) -> set[UUID]:
-        """Switchable subscription record ids whose Polar customer has a card."""
+        """Switchable subscription record ids whose Repalis customer has a card."""
         result = await self.session.execute(
             self._payment_method_coverage_statement(migration_id, exact=exact)
         )

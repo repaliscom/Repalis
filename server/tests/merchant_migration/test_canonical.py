@@ -22,8 +22,8 @@ from repalis.merchant_migration.canonical import (
     customer_discount_action,
     deserialize,
     discount_started_at_for,
-    polar_discount_amounts,
-    polar_discount_code,
+    repalis_discount_amounts,
+    repalis_discount_code,
     serialize,
 )
 from repalis.models.merchant_migration_record import MerchantMigrationRecordType
@@ -440,12 +440,12 @@ class TestCustomerDiscount:
 
 class TestPolarDiscountHelpers:
     def test_code_strips_dashes_and_rejects_short(self) -> None:
-        assert polar_discount_code("LAUNCH-10") == "LAUNCH10"
-        assert polar_discount_code("AB") is None
+        assert repalis_discount_code("LAUNCH-10") == "LAUNCH10"
+        assert repalis_discount_code("AB") is None
 
     def test_amounts_drop_values_above_polar_max(self) -> None:
-        assert polar_discount_amounts({"usd": 1_000_000_000_000}) == {}
-        assert polar_discount_amounts({"USD": 100, "xyz": 50}) == {
+        assert repalis_discount_amounts({"usd": 1_000_000_000_000}) == {}
+        assert repalis_discount_amounts({"USD": 100, "xyz": 50}) == {
             PresentmentCurrency.usd: 100
         }
 

@@ -1,4 +1,4 @@
-"""Imports the staged catalog into Polar (the `create_catalog` step).
+"""Imports the staged catalog into Repalis (the `create_catalog` step).
 Idempotent; subscriptions are created later, during cutover.
 """
 
@@ -65,7 +65,7 @@ from .canonical import (
     canonical_price_key,
     customer_country_fallbacks,
     deserialize,
-    polar_discount_amounts,
+    repalis_discount_amounts,
     subscription_price_key,
 )
 from .precheck import (
@@ -98,7 +98,7 @@ _PRICES_ALREADY_IMPORTED = Reason(
 )
 _CUSTOMER_ALREADY_SUBSCRIBED = Reason(
     _DEPENDENCY_CODE,
-    "This customer already has a live subscription to the product on Polar, so a "
+    "This customer already has a live subscription to the product on Repalis, so a "
     "duplicate isn't created. It stays on the source.",
 )
 
@@ -154,7 +154,7 @@ def _covered_source_ids(
     return covered
 
 
-def _polar_product_ids_by_source(
+def _repalis_product_ids_by_source(
     product_records: Sequence[MerchantMigrationRecord],
     products: Sequence[CanonicalProduct],
 ) -> dict[str, list[UUID]]:
@@ -170,7 +170,7 @@ def _polar_product_ids_by_source(
     return ids_by_source
 
 
-def _polar_product_ids(
+def _repalis_product_ids(
     discount: CanonicalDiscount, ids_by_source: dict[str, list[UUID]]
 ) -> list[UUID]:
     return [
@@ -381,7 +381,7 @@ class _ImportContext:
 
 @dataclass(frozen=True)
 class ImportedCustomer:
-    """The Polar customer to use, or why the record is skipped."""
+    """The Repalis customer to use, or why the record is skipped."""
 
     customer: Customer | None = None
     skip: Reason | None = None
@@ -414,7 +414,7 @@ class CatalogImporter:
         records remain; the report once the pass is done.
 
         A phase that still has more than the remaining budget stops the task
-        there. A restricted discount with none of its products on Polar yet,
+        there. A restricted discount with none of its products on Repalis yet,
         while one of them is still pending, stays pending and does not keep the
         pass open.
         """
@@ -670,7 +670,7 @@ class CatalogImporter:
         product_records: Sequence[MerchantMigrationRecord],
     ) -> list[MerchantMigrationRecord]:
         """Pending discounts this pass can settle. A restricted one with none of
-        its products on Polar yet stays out while any of them is still pending:
+        its products on Repalis yet stays out while any of them is still pending:
         importing it now would skip it for good."""
         discounts = [
             self._as(deserialize(record.type, record.canonical), CanonicalDiscount)
@@ -688,7 +688,7 @@ class CatalogImporter:
             for record, product in zip(product_records, products, strict=True)
             if record.status == MerchantMigrationRecordStatus.pending
         }
-        polar_product_ids_by_source = _polar_product_ids_by_source(
+        repalis_product_ids_by_source = _repalis_product_ids_by_source(
             product_records, products
         )
         actionable: list[MerchantMigrationRecord] = []
@@ -700,7 +700,7 @@ class CatalogImporter:
                 continue
             if (
                 discount.product_source_ids
-                and not _polar_product_ids(discount, polar_product_ids_by_source)
+                and not _repalis_product_ids(discount, repalis_product_ids_by_source)
                 and any(
                     product_source_id in pending_product_source_ids
                     for product_source_id in discount.product_source_ids
@@ -731,8 +731,8 @@ class CatalogImporter:
             if plan.skip is not None:
                 await self._mark_skipped(record, plan.skip)
                 continue
-            polar_product = await self._create_product(product, plan)
-            await self._mark_imported(record, polar_product.id)
+            repalis_product = await self._create_product(product, plan)
+            await self._mark_imported(record, repalis_product.id)
 
     async def _import_customers(
         self,
@@ -765,9 +765,9 @@ class CatalogImporter:
         *,
         product_records: Sequence[MerchantMigrationRecord],
     ) -> None:
-        """Import coupons, restricted to the Polar products of their Stripe ones.
+        """Import coupons, restricted to the Repalis products of their Stripe ones.
 
-        A restricted coupon imports once any of its products is on Polar: waiting
+        A restricted coupon imports once any of its products is on Repalis: waiting
         for every catalog row would wait forever on rows nothing selects, like a
         yearly price nobody is on.
         """
@@ -782,7 +782,7 @@ class CatalogImporter:
         plans = plan_discount_imports(
             discounts, products, self.organization.default_presentment_currency
         )
-        polar_product_ids_by_source = _polar_product_ids_by_source(
+        repalis_product_ids_by_source = _repalis_product_ids_by_source(
             product_records, products
         )
         for record, discount in zip(records, discounts, strict=True):
@@ -790,7 +790,7 @@ class CatalogImporter:
             if skip is not None:
                 await self._mark_skipped(record, skip)
                 continue
-            product_ids = _polar_product_ids(discount, polar_product_ids_by_source)
+            product_ids = _repalis_product_ids(discount, repalis_product_ids_by_source)
             if discount.product_source_ids and not product_ids:
                 await self._mark_skipped(
                     record,
@@ -803,8 +803,8 @@ class CatalogImporter:
                     ),
                 )
                 continue
-            polar_discount = await self._create_discount(discount, product_ids)
-            await self._mark_imported(record, polar_discount.id)
+            repalis_discount = await self._create_discount(discount, product_ids)
+            await self._mark_imported(record, repalis_discount.id)
 
     async def _restrict_imported_discounts(
         self,
@@ -817,7 +817,7 @@ class CatalogImporter:
         earlier migration imported the coupon."""
         if not new_product_ids:
             return
-        polar_product_ids_by_source = _polar_product_ids_by_source(
+        repalis_product_ids_by_source = _repalis_product_ids_by_source(
             product_records,
             [
                 self._as(deserialize(record.type, record.canonical), CanonicalProduct)
@@ -834,8 +834,8 @@ class CatalogImporter:
                 record,
                 [
                     product_id
-                    for product_id in _polar_product_ids(
-                        imported, polar_product_ids_by_source
+                    for product_id in _repalis_product_ids(
+                        imported, repalis_product_ids_by_source
                     )
                     if product_id in new_product_ids
                 ],
@@ -899,7 +899,7 @@ class CatalogImporter:
         ]
         # A bulk import must not webhook or re-review the org for every product.
         # An organization token rejects an explicit organization_id.
-        polar_product = await product_service.create(
+        repalis_product = await product_service.create(
             self.session,
             ProductCreateRecurring(
                 name=product.name,
@@ -919,21 +919,21 @@ class CatalogImporter:
         for currency, amount in archived_amounts:
             await price_repository.create(
                 ProductPriceFixed(
-                    product=polar_product,
+                    product=repalis_product,
                     price_currency=currency,
                     price_amount=amount,
                     is_archived=True,
                 )
             )
         if imports_archived(product, default_currency):
-            polar_product.is_archived = True
+            repalis_product.is_archived = True
             await self.session.flush()
-        return polar_product
+        return repalis_product
 
     async def _create_discount(
         self, discount: CanonicalDiscount, product_ids: list[UUID]
     ) -> Discount:
-        # Polar can't store the source's used count, so ``max_redemptions`` is
+        # Repalis can't store the source's used count, so ``max_redemptions`` is
         # what's left. A spent code keeps its name at 0 left, which blocks it.
         exhausted = discount.max_redemptions == 0
         duration = DiscountDuration(discount.duration.value)
@@ -962,7 +962,7 @@ class CatalogImporter:
             )
         else:
             create = DiscountFixedCreate(
-                amounts=polar_discount_amounts(discount.amounts), **shared
+                amounts=repalis_discount_amounts(discount.amounts), **shared
             )
         created = await discount_service.create(
             self.session, create, self.auth_subject, notify=False
@@ -1014,7 +1014,7 @@ class CatalogImporter:
             if updates:
                 await self.customer_repository.update(existing, update_dict=updates)
             return ImportedCustomer(customer=existing)
-        polar_customer = await customer_service.create_for_organization(
+        repalis_customer = await customer_service.create_for_organization(
             self.session,
             self.organization,
             email=customer.email,
@@ -1023,7 +1023,7 @@ class CatalogImporter:
             stripe_customer_id=stripe_customer_id,
             tax_id=customer.tax_id,
         )
-        return ImportedCustomer(customer=polar_customer)
+        return ImportedCustomer(customer=repalis_customer)
 
     def _stripe_customer_id(self, customer: CanonicalCustomer) -> str | None:
         # PAN copy preserves the Stripe `cus_…` id; other providers have no

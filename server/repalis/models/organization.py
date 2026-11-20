@@ -45,7 +45,7 @@ from repalis.enums import (
     SubscriptionProrationBehavior,
     TaxBehaviorOption,
 )
-from repalis.exceptions import PolarError
+from repalis.exceptions import RepalisError
 from repalis.kit.currency import PresentmentCurrency
 from repalis.kit.db.models import RateLimitGroupMixin, RecordModel
 from repalis.kit.extensions.sqlalchemy import StringEnum
@@ -62,7 +62,7 @@ if TYPE_CHECKING:
     from .product import Product
 
 
-class PayoutAccountNotReady(PolarError):
+class PayoutAccountNotReady(RepalisError):
     def __init__(self, organization: "Organization") -> None:
         self.organization = organization
         message = "Your payout account is not ready yet. Complete the setup to receive payouts."
@@ -331,7 +331,7 @@ CapabilityName = Literal[
 CAPABILITY_NAMES = cast(tuple[CapabilityName, ...], get_args(CapabilityName))
 
 
-class InvalidStatusTransitionError(PolarError):
+class InvalidStatusTransitionError(RepalisError):
     def __init__(
         self, current: "OrganizationStatus", target: "OrganizationStatus"
     ) -> None:

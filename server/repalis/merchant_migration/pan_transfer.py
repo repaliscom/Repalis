@@ -1,4 +1,4 @@
-"""The PAN transfer checklist: moving saved cards onto Polar's Stripe account.
+"""The PAN transfer checklist: moving saved cards onto Repalis's Stripe account.
 
 Moving cards takes days (Stripe to Stripe) or weeks (any other vault), and the work
 is split between the merchant, Polar Ops, Polar itself, Stripe, and the source
@@ -25,7 +25,7 @@ from sqlalchemy import Dialect
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.types import TypeDecorator
 
-from repalis.exceptions import PolarRequestValidationError, ValidationError
+from repalis.exceptions import RepalisRequestValidationError, ValidationError
 from repalis.kit.schemas import Schema
 from repalis.kit.utils import utc_now
 
@@ -33,7 +33,7 @@ from .errors import MerchantMigrationError
 
 
 class PanTransferMethod(StrEnum):
-    """How the cards reach Polar's Stripe account."""
+    """How the cards reach Repalis's Stripe account."""
 
     # Stripe to Stripe. Self-serve in the Stripe Dashboard, hours to 72h.
     pan_copy = "pan_copy"
@@ -45,8 +45,8 @@ class PanStepOwner(StrEnum):
     """Who moves a step forward."""
 
     merchant = "merchant"
-    polar_ops = "polar_ops"
-    polar_app = "polar_app"
+    repalis_ops = "repalis_ops"
+    repalis_app = "repalis_app"
     stripe = "stripe"
     provider = "provider"
 
@@ -77,7 +77,7 @@ class PanStepActor(StrEnum):
     system = "system"
 
 
-# Ops can unblock a merchant who is stuck, but never stands in for `polar_app`:
+# Ops can unblock a merchant who is stuck, but never stands in for `repalis_app`:
 # those steps have side effects (creating payment methods, moving subscriptions)
 # that completing the step would skip rather than perform.
 _ACTOR_OWNERS: dict[PanStepActor, frozenset[PanStepOwner]] = {
@@ -85,12 +85,12 @@ _ACTOR_OWNERS: dict[PanStepActor, frozenset[PanStepOwner]] = {
     PanStepActor.ops: frozenset(
         {
             PanStepOwner.merchant,
-            PanStepOwner.polar_ops,
+            PanStepOwner.repalis_ops,
             PanStepOwner.stripe,
             PanStepOwner.provider,
         }
     ),
-    PanStepActor.system: frozenset({PanStepOwner.polar_app}),
+    PanStepActor.system: frozenset({PanStepOwner.repalis_app}),
 }
 
 _ACTIONABLE = (PanStepStatus.pending, PanStepStatus.in_progress)
@@ -160,7 +160,7 @@ class PanStepTemplate:
     kind: PanStepKind
     required_inputs: tuple[str, ...] = ()
     optional_inputs: tuple[str, ...] = ()
-    # Steps that only surface information Polar already holds. They complete the
+    # Steps that only surface information Repalis already holds. They complete the
     # moment they become current, so the merchant never waits on a no-op.
     auto_complete: bool = False
 
@@ -190,7 +190,7 @@ class PanTransferStep(Schema):
     inputs: dict[str, str] = Field(description="Values collected on this step.")
     note: str | None = Field(
         description=(
-            "Free text from Polar Ops, shown to the merchant. How a weeks-long "
+            "Free text from Repalis Ops, shown to the merchant. How a weeks-long "
             "wait on Stripe or the provider gets explained without a support thread."
         )
     )
@@ -227,7 +227,7 @@ class PanTransferStepsType(TypeDecorator[Any]):
 PAN_COPY_TEMPLATES: tuple[PanStepTemplate, ...] = (
     PanStepTemplate(
         key="share_destination_account",
-        owner=PanStepOwner.polar_app,
+        owner=PanStepOwner.repalis_app,
         kind=PanStepKind.auto,
         auto_complete=True,
     ),
@@ -239,7 +239,7 @@ PAN_COPY_TEMPLATES: tuple[PanStepTemplate, ...] = (
     ),
     PanStepTemplate(
         key="authorize_copy",
-        owner=PanStepOwner.polar_ops,
+        owner=PanStepOwner.repalis_ops,
         kind=PanStepKind.confirm,
     ),
     PanStepTemplate(
@@ -249,7 +249,7 @@ PAN_COPY_TEMPLATES: tuple[PanStepTemplate, ...] = (
     ),
     PanStepTemplate(
         key=STEP_VERIFY_CARDS,
-        owner=PanStepOwner.polar_app,
+        owner=PanStepOwner.repalis_app,
         kind=PanStepKind.auto,
     ),
     PanStepTemplate(
@@ -259,7 +259,7 @@ PAN_COPY_TEMPLATES: tuple[PanStepTemplate, ...] = (
     ),
     PanStepTemplate(
         key=STEP_MOVE_SUBSCRIPTIONS,
-        owner=PanStepOwner.polar_app,
+        owner=PanStepOwner.repalis_app,
         kind=PanStepKind.auto,
     ),
 )
@@ -268,7 +268,7 @@ PAN_COPY_TEMPLATES: tuple[PanStepTemplate, ...] = (
 PAN_IMPORT_TEMPLATES: tuple[PanStepTemplate, ...] = (
     PanStepTemplate(
         key="open_stripe_request",
-        owner=PanStepOwner.polar_ops,
+        owner=PanStepOwner.repalis_ops,
         kind=PanStepKind.input,
         required_inputs=(STRIPE_MIGRATION_REQUEST_ID_INPUT,),
     ),
@@ -286,7 +286,7 @@ PAN_IMPORT_TEMPLATES: tuple[PanStepTemplate, ...] = (
     ),
     PanStepTemplate(
         key="map_customers",
-        owner=PanStepOwner.polar_app,
+        owner=PanStepOwner.repalis_app,
         kind=PanStepKind.auto,
     ),
     PanStepTemplate(
@@ -296,7 +296,7 @@ PAN_IMPORT_TEMPLATES: tuple[PanStepTemplate, ...] = (
     ),
     PanStepTemplate(
         key="approve_import",
-        owner=PanStepOwner.polar_ops,
+        owner=PanStepOwner.repalis_ops,
         kind=PanStepKind.confirm,
     ),
     PanStepTemplate(
@@ -306,7 +306,7 @@ PAN_IMPORT_TEMPLATES: tuple[PanStepTemplate, ...] = (
     ),
     PanStepTemplate(
         key=STEP_VERIFY_CARDS,
-        owner=PanStepOwner.polar_app,
+        owner=PanStepOwner.repalis_app,
         kind=PanStepKind.auto,
     ),
     PanStepTemplate(
@@ -316,7 +316,7 @@ PAN_IMPORT_TEMPLATES: tuple[PanStepTemplate, ...] = (
     ),
     PanStepTemplate(
         key=STEP_MOVE_SUBSCRIPTIONS,
-        owner=PanStepOwner.polar_app,
+        owner=PanStepOwner.repalis_app,
         kind=PanStepKind.auto,
     ),
 )
@@ -373,9 +373,9 @@ def skip_to(
     *,
     note: str,
 ) -> list[PanTransferStep]:
-    """Settle every step before `key` as done by Polar and make `key` current.
+    """Settle every step before `key` as done by Repalis and make `key` current.
 
-    For cards that are already on Polar: there is nothing to move, so no one
+    For cards that are already on Repalis: there is nothing to move, so no one
     should be asked to start, authorize or wait on a transfer.
     """
     _get(steps, key)
@@ -401,7 +401,7 @@ def current(steps: Sequence[PanTransferStep]) -> PanTransferStep | None:
 
 def current_ops_step(steps: Sequence[PanTransferStep]) -> PanTransferStep | None:
     step = current(steps)
-    if step is not None and step.owner == PanStepOwner.polar_ops:
+    if step is not None and step.owner == PanStepOwner.repalis_ops:
         return step
     return None
 
@@ -477,7 +477,7 @@ def _validate_inputs(template: PanStepTemplate, inputs: dict[str, str]) -> None:
             }
         )
     if errors:
-        raise PolarRequestValidationError(errors)
+        raise RepalisRequestValidationError(errors)
 
 
 def complete(

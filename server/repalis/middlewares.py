@@ -58,9 +58,9 @@ class LogCorrelationIdMiddleware:
         client_context = {
             key: value
             for key, value in (
-                ("client_version", headers.get("x-polar-client-version")),
-                ("client_runtime", headers.get("x-polar-client-runtime")),
-                ("client_update", headers.get("x-polar-client-update")),
+                ("client_version", headers.get("x-repalis-client-version")),
+                ("client_runtime", headers.get("x-repalis-client-runtime")),
+                ("client_update", headers.get("x-repalis-client-update")),
             )
             if value is not None
         }
@@ -186,7 +186,7 @@ class PathRewriteMiddleware:
         message.setdefault("headers", [])
         headers = MutableHeaders(scope=message)
         if replacements > 0:
-            headers["X-Polar-Deprecation-Notice"] = (
+            headers["X-Repalis-Deprecation-Notice"] = (
                 "The API root has moved from /api/v1 to /v1. "
                 "Please update your integration."
             )
@@ -207,7 +207,7 @@ class SandboxResponseHeaderMiddleware:
             if message["type"] == "http.response.start":
                 message.setdefault("headers", [])
                 headers = MutableHeaders(scope=message)
-                headers["X-Polar-Sandbox"] = "1"
+                headers["X-Repalis-Sandbox"] = "1"
             await send(message)
 
         await self.app(scope, receive, send_wrapper)

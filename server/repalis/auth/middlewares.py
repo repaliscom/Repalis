@@ -19,7 +19,7 @@ from repalis.customer_session.service import (
 from repalis.customer_session.service import (
     customer_session as customer_session_service,
 )
-from repalis.exception_handlers import polar_exception_handler
+from repalis.exception_handlers import repalis_exception_handler
 from repalis.kit.utils import utc_now
 from repalis.logging import Logger
 from repalis.member_session.service import member_session as member_session_service
@@ -58,7 +58,7 @@ from repalis.worker import JobQueueManager, enqueue_job
 
 from .exceptions import (
     InvalidRequestedOrganization,
-    PolarAuthError,
+    RepalisAuthError,
     RequestedOrganizationNotAccessible,
 )
 from .models import (
@@ -300,8 +300,8 @@ class AuthSubjectMiddleware:
                 auth_subject = await get_auth_subject(connection, session)
         except OAuth2Error as e:
             response = await oauth2_error_exception_handler(connection, e)
-        except PolarAuthError as e:
-            response = await polar_exception_handler(connection, e)
+        except RepalisAuthError as e:
+            response = await repalis_exception_handler(connection, e)
         else:
             response = None
 

@@ -4,13 +4,13 @@ from enum import StrEnum
 from typing import Literal, Protocol, TypedDict, overload
 
 from repalis.enums import TaxBehavior
-from repalis.exceptions import PolarError
+from repalis.exceptions import RepalisError
 from repalis.kit.address import Address
 
 from ..tax_id import TaxID
 
 
-class TaxError(PolarError): ...
+class TaxError(RepalisError): ...
 
 
 class TaxCalculationError(TaxError): ...

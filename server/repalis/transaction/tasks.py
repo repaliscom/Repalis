@@ -3,7 +3,7 @@ from typing import Annotated
 
 from dramatiq import Retry
 
-from repalis.exceptions import PolarTaskError
+from repalis.exceptions import RepalisTaskError
 from repalis.observability.task_logging import LoggableField
 from repalis.worker import AsyncSessionMaker, CronTrigger, TaskPriority, actor, can_retry
 
@@ -16,7 +16,7 @@ from .service.processor_fee import (
 )
 
 
-class TransactionTaskError(PolarTaskError): ...
+class TransactionTaskError(RepalisTaskError): ...
 
 
 class PaymentTransactionDoesNotExist(TransactionTaskError):

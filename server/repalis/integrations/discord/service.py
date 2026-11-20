@@ -1,7 +1,7 @@
 import structlog
 
 from repalis.config import settings
-from repalis.exceptions import PolarError
+from repalis.exceptions import RepalisError
 from repalis.logging import Logger
 
 from .client import bot_client
@@ -10,7 +10,7 @@ from .schemas import DiscordGuild, DiscordGuildRole
 log: Logger = structlog.get_logger()
 
 
-class DiscordError(PolarError): ...
+class DiscordError(RepalisError): ...
 
 
 class DiscordBotService:

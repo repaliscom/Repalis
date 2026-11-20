@@ -8,7 +8,7 @@ from dramatiq import Retry
 from repalis.benefit.grant.repository import BenefitGrantRepository
 from repalis.benefit.repository import BenefitRepository
 from repalis.customer.repository import CustomerRepository
-from repalis.exceptions import PolarTaskError
+from repalis.exceptions import RepalisTaskError
 from repalis.logging import Logger
 from repalis.models.benefit_grant import BenefitGrantScopeArgs, BenefitGrantSelectorArgs
 from repalis.observability.task_logging import LoggableField
@@ -30,7 +30,7 @@ from .strategies import BenefitRetriableError
 log: Logger = structlog.get_logger()
 
 
-class BenefitTaskError(PolarTaskError): ...
+class BenefitTaskError(RepalisTaskError): ...
 
 
 class CustomerDoesNotExist(BenefitTaskError):

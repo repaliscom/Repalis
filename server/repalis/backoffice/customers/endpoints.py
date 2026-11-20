@@ -28,7 +28,7 @@ from repalis.customer.repository import CustomerRepository
 from repalis.customer.schemas.customer import CustomerUpdate
 from repalis.customer.service import customer as customer_service
 from repalis.customer_session.service import customer_session as customer_session_service
-from repalis.exceptions import PolarRequestValidationError
+from repalis.exceptions import RepalisRequestValidationError
 from repalis.kit.currency import PresentmentCurrency, get_currency_decimal_factor
 from repalis.kit.pagination import PaginationParamsQuery
 from repalis.kit.schemas import empty_str_to_none
@@ -1039,7 +1039,7 @@ async def edit_email(
             )
         except ValidationError as e:
             validation_error = e
-        except PolarRequestValidationError as e:
+        except RepalisRequestValidationError as e:
             error_message = "; ".join(err["msg"] for err in e.errors())
 
     # GET or failed POST - show the form modal

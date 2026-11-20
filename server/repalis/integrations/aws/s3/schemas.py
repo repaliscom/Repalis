@@ -68,7 +68,7 @@ class S3File(IDSchema, validate_assignment=True):
 
     def to_metadata(self) -> dict[str, str]:
         metadata = {
-            "polar-id": str(self.id),
+            "repalis-id": str(self.id),
             "polar-organization-id": str(self.organization_id),
             "polar-name": self.name.encode("ascii", "ignore").decode("ascii"),
             "polar-size": str(self.size),

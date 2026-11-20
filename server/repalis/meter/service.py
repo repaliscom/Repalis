@@ -39,7 +39,7 @@ from repalis.declarative_config.guard import (
 )
 from repalis.event.repository import EventRepository
 from repalis.event.tinybird_repository import TinybirdEventRepository
-from repalis.exceptions import PolarError, PolarRequestValidationError, ValidationError
+from repalis.exceptions import RepalisError, RepalisRequestValidationError, ValidationError
 from repalis.kit.metadata import MetadataQuery, apply_metadata_clause, get_metadata_clause
 from repalis.kit.pagination import PaginationParams
 from repalis.kit.sorting import Sorting
@@ -84,7 +84,7 @@ METER_LOCKED_FIELD_MESSAGE = (
 )
 
 
-class AmbiguousExternalMeterID(PolarError):
+class AmbiguousExternalMeterID(RepalisError):
     def __init__(self, external_id: str) -> None:
         self.external_id = external_id
         super().__init__(
@@ -218,7 +218,7 @@ class MeterService:
                 meter_create.external_id, organization.id
             )
         ):
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",
@@ -323,7 +323,7 @@ class MeterService:
             )
 
         if errors:
-            raise PolarRequestValidationError(errors)
+            raise RepalisRequestValidationError(errors)
 
         update_dict = meter_update.model_dump(
             by_alias=True,
@@ -365,7 +365,7 @@ class MeterService:
         )
 
         if active_prices and active_prices > 0:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",
@@ -378,7 +378,7 @@ class MeterService:
 
         repository = MeterRepository.from_session(session)
         if await repository.has_billable_subscriptions(meter.id):
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",
@@ -399,7 +399,7 @@ class MeterService:
         )
 
         if active_benefits and active_benefits > 0:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",

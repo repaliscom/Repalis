@@ -204,7 +204,7 @@ def render_risk_signals_card(signals: Sequence[OrganizationRiskSignal]) -> None:
             with tag.span(classes="text-sm text-base-content/60"):
                 text(
                     "Raised by Stripe's fraud-detection systems (high-severity "
-                    "only) and by Polar's own checks."
+                    "only) and by Repalis's own checks."
                 )
 
         _render_signal_list(signals)

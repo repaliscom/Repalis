@@ -8,7 +8,7 @@ from sqlalchemy.orm import contains_eager, joinedload, selectinload
 from sqlalchemy.sql.elements import OrderByList
 
 from repalis.auth.models import AuthSubject, Customer, Member
-from repalis.exceptions import PolarError
+from repalis.exceptions import RepalisError
 from repalis.kit.db.postgres import AsyncSession
 from repalis.kit.pagination import PaginationParams, paginate
 from repalis.kit.services import ResourceServiceReader
@@ -44,7 +44,7 @@ from ..schemas.subscription import (
 from ..utils import get_customer_id
 
 
-class CustomerSubscriptionError(PolarError): ...
+class CustomerSubscriptionError(RepalisError): ...
 
 
 class UpdateSubscriptionPlanNotAllowed(CustomerSubscriptionError):

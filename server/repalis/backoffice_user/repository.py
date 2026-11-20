@@ -1,6 +1,6 @@
 from sqlalchemy import func, or_, select, update
 
-from repalis.exceptions import PolarError
+from repalis.exceptions import RepalisError
 from repalis.kit.repository import RepositoryBase
 from repalis.models import BackofficeUser
 
@@ -19,7 +19,7 @@ class BackofficeUserRepository(RepositoryBase[BackofficeUser]):
             and by_email is not None
             and by_provider.id != by_email.id
         ):
-            raise PolarError("Backoffice email is linked to a different identity", 409)
+            raise RepalisError("Backoffice email is linked to a different identity", 409)
 
         user = by_provider or by_email
         if user is None:
@@ -44,7 +44,7 @@ class BackofficeUserRepository(RepositoryBase[BackofficeUser]):
         )
         linked_user = (await self.session.scalars(statement)).one_or_none()
         if linked_user is None:
-            raise PolarError("Backoffice email is linked to a different identity", 409)
+            raise RepalisError("Backoffice email is linked to a different identity", 409)
         return linked_user
 
     async def _get_by_email(self, email: str) -> BackofficeUser | None:

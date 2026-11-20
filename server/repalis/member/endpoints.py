@@ -6,7 +6,7 @@ from fastapi import Depends, Query
 from repalis.auth.permission import OrganizationPermission
 from repalis.authz.service import assert_resource_permission
 from repalis.customer.schemas.customer import CustomerID, ExternalCustomerID
-from repalis.exceptions import NotPermitted, PolarRequestValidationError, ResourceNotFound
+from repalis.exceptions import NotPermitted, RepalisRequestValidationError, ResourceNotFound
 from repalis.kit.pagination import ListResource, PaginationParamsQuery
 from repalis.openapi import APITag, cli_preview, destructive
 from repalis.postgres import (
@@ -75,7 +75,7 @@ def _validate_customer_id_params(
     customer_id: UUID | None, external_customer_id: str | None
 ) -> None:
     if customer_id is None and external_customer_id is None:
-        raise PolarRequestValidationError(
+        raise RepalisRequestValidationError(
             [
                 {
                     "type": "missing",
@@ -86,7 +86,7 @@ def _validate_customer_id_params(
             ]
         )
     if customer_id is not None and external_customer_id is not None:
-        raise PolarRequestValidationError(
+        raise RepalisRequestValidationError(
             [
                 {
                     "type": "value_error",

@@ -34,7 +34,7 @@ from repalis.benefit.strategies.slack_shared_channel.schemas import (
     BenefitSlackSharedChannelCreateProperties,
     BenefitSlackSharedChannelUpdate,
 )
-from repalis.exceptions import NotPermitted, PolarRequestValidationError
+from repalis.exceptions import NotPermitted, RepalisRequestValidationError
 from repalis.kit.pagination import PaginationParams
 from repalis.kit.schemas import Schema
 from repalis.kit.visibility import Visibility
@@ -369,7 +369,7 @@ class TestUserCreate:
         # then
         session.expunge_all()
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await benefit_service.user_create(
                 session, redis, create_schema, auth_subject
             )
@@ -388,7 +388,7 @@ class TestUserCreate:
         # then
         session.expunge_all()
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await benefit_service.user_create(
                 session, redis, create_schema, auth_subject
             )
@@ -411,7 +411,7 @@ class TestUserCreate:
         # then
         session.expunge_all()
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await benefit_service.user_create(
                 session, redis, create_schema, auth_subject
             )
@@ -466,7 +466,7 @@ class TestUserCreate:
 
         session.expunge_all()
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await benefit_service.user_create(
                 session, redis, create_schema, auth_subject
             )
@@ -528,7 +528,7 @@ class TestUserCreate:
         # then
         session.expunge_all()
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await benefit_service.user_create(
                 session, redis, create_schema, auth_subject
             )
@@ -657,7 +657,7 @@ class TestUserCreate:
             visibility=visibility,
         )
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await benefit_service.user_create(
                 session, redis, create_schema, auth_subject
             )
@@ -710,7 +710,7 @@ class TestUserCreate:
             save_fixture, organization=organization, external_id="ext_1337"
         )
 
-        with pytest.raises(PolarRequestValidationError) as e:
+        with pytest.raises(RepalisRequestValidationError) as e:
             await benefit_service.user_create(
                 session,
                 redis,
@@ -940,7 +940,7 @@ class TestUpdate:
             save_fixture, organization=organization, external_id="ext_1337"
         )
 
-        with pytest.raises(PolarRequestValidationError) as e:
+        with pytest.raises(RepalisRequestValidationError) as e:
             await benefit_service.update(
                 session,
                 redis,

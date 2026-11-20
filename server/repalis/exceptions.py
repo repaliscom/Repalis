@@ -8,9 +8,9 @@ from pydantic_core import ValidationError as PydanticValidationError
 from repalis.config import settings
 
 
-class PolarError(Exception):
+class RepalisError(Exception):
     """
-    Base exception class for all errors raised by Polar.
+    Base exception class for all errors raised by Repalis.
 
     A custom exception handler for FastAPI takes care
     of catching and returning a proper HTTP error from them.
@@ -54,7 +54,7 @@ class PolarError(Exception):
         return cls._schema
 
 
-class PolarTaskError(PolarError):
+class RepalisTaskError(RepalisError):
     """
     Base exception class for errors raised by tasks.
 
@@ -66,7 +66,7 @@ class PolarTaskError(PolarError):
         super().__init__(message)
 
 
-class PolarRedirectionError(PolarError):
+class RepalisRedirectionError(RepalisError):
     """
     Exception class for errors
     that should be displayed nicely to the user through our UI.
@@ -84,12 +84,12 @@ class PolarRedirectionError(PolarError):
         super().__init__(message, status_code)
 
 
-class BadRequest(PolarError):
+class BadRequest(RepalisError):
     def __init__(self, message: str = "Bad request", status_code: int = 400) -> None:
         super().__init__(message, status_code)
 
 
-class NotPermitted(PolarError):
+class NotPermitted(RepalisError):
     def __init__(self, message: str = "Not permitted", status_code: int = 403) -> None:
         super().__init__(message, status_code)
 
@@ -104,7 +104,7 @@ def get_resource_metadata_attribute() -> dict[str, str]:
     }
 
 
-class Unauthorized(PolarError):
+class Unauthorized(RepalisError):
     def __init__(self, message: str = "Unauthorized", status_code: int = 401) -> None:
         attributes = {
             "realm": settings.WWW_AUTHENTICATE_REALM,
@@ -120,29 +120,29 @@ class Unauthorized(PolarError):
         )
 
 
-class InternalServerError(PolarError):
+class InternalServerError(RepalisError):
     def __init__(
         self, message: str = "Internal Server Error", status_code: int = 500
     ) -> None:
         super().__init__(message, status_code)
 
 
-class ResourceNotFound(PolarError):
+class ResourceNotFound(RepalisError):
     def __init__(self, message: str = "Not found", status_code: int = 404) -> None:
         super().__init__(message, status_code)
 
 
-class ResourceUnavailable(PolarError):
+class ResourceUnavailable(RepalisError):
     def __init__(self, message: str = "Unavailable", status_code: int = 410) -> None:
         super().__init__(message, status_code)
 
 
-class ResourceAlreadyExists(PolarError):
+class ResourceAlreadyExists(RepalisError):
     def __init__(self, message: str = "Already exists", status_code: int = 409) -> None:
         super().__init__(message, status_code)
 
 
-class PaymentNotReady(PolarError):
+class PaymentNotReady(RepalisError):
     def __init__(
         self,
         message: str = "Organization is not ready to accept payments",
@@ -160,7 +160,7 @@ class ValidationError(TypedDict):
     url: NotRequired[str]
 
 
-class PolarRequestValidationError(PolarError):
+class RepalisRequestValidationError(RepalisError):
     def __init__(self, errors: Sequence[ValidationError]) -> None:
         self._errors = errors
         types = ", ".join(error["type"] for error in errors)

@@ -148,7 +148,7 @@ PaymentMethodTypeInput = Annotated[
 
 _external_customer_id_description = (
     "ID of the customer in your system. "
-    "If a matching customer exists on Polar, the resulting order "
+    "If a matching customer exists on Repalis, the resulting order "
     "will be linked to this customer. "
     "Otherwise, a new customer will be created with this external ID set."
 )

@@ -71,8 +71,8 @@ from repalis.event.system import (
 )
 from repalis.exceptions import (
     PaymentNotReady,
-    PolarError,
-    PolarRequestValidationError,
+    RepalisError,
+    RepalisRequestValidationError,
     ResourceUnavailable,
     ValidationError,
 )
@@ -177,7 +177,7 @@ merchant winds down across several short jobs that each stay under the worker's
 60s time limit."""
 
 
-class SubscriptionError(PolarError): ...
+class SubscriptionError(RepalisError): ...
 
 
 class TrialAlreadyRedeemed(SubscriptionError):
@@ -273,7 +273,7 @@ class CannotReinstateSubscription(SubscriptionError):
         super().__init__(message, 400)
 
 
-class NotASeatBasedSubscription(PolarRequestValidationError):
+class NotASeatBasedSubscription(RepalisRequestValidationError):
     def __init__(self, subscription: Subscription, requested_seats: int) -> None:
         self.subscription = subscription
         self.requested_seats = requested_seats
@@ -289,7 +289,7 @@ class NotASeatBasedSubscription(PolarRequestValidationError):
         )
 
 
-class SeatsAlreadyAssigned(PolarRequestValidationError):
+class SeatsAlreadyAssigned(RepalisRequestValidationError):
     def __init__(
         self, subscription: Subscription, assigned_count: int, requested_seats: int
     ) -> None:
@@ -312,7 +312,7 @@ class SeatsAlreadyAssigned(PolarRequestValidationError):
         )
 
 
-class BelowMinimumSeats(PolarRequestValidationError):
+class BelowMinimumSeats(RepalisRequestValidationError):
     def __init__(
         self,
         subscription: Subscription,
@@ -347,7 +347,7 @@ class BelowMinimumSeats(PolarRequestValidationError):
         super().__init__([error])
 
 
-class AboveMaximumSeats(PolarRequestValidationError):
+class AboveMaximumSeats(RepalisRequestValidationError):
     def __init__(
         self,
         subscription: Subscription,
@@ -380,7 +380,7 @@ class AboveMaximumSeats(PolarRequestValidationError):
         super().__init__([error])
 
 
-class NotAUnitBasedSubscription(PolarRequestValidationError):
+class NotAUnitBasedSubscription(RepalisRequestValidationError):
     def __init__(self, subscription: Subscription, requested_units: int) -> None:
         self.subscription = subscription
         self.requested_units = requested_units
@@ -396,7 +396,7 @@ class NotAUnitBasedSubscription(PolarRequestValidationError):
         )
 
 
-class BelowMinimumUnits(PolarRequestValidationError):
+class BelowMinimumUnits(RepalisRequestValidationError):
     def __init__(
         self,
         subscription: Subscription,
@@ -431,7 +431,7 @@ class BelowMinimumUnits(PolarRequestValidationError):
         super().__init__([error])
 
 
-class AboveMaximumUnits(PolarRequestValidationError):
+class AboveMaximumUnits(RepalisRequestValidationError):
     def __init__(
         self,
         subscription: Subscription,
@@ -810,7 +810,7 @@ class SubscriptionService:
                     )
 
         if len(errors) > 0:
-            raise PolarRequestValidationError(errors)
+            raise RepalisRequestValidationError(errors)
 
         assert product is not None
 
@@ -840,7 +840,7 @@ class SubscriptionService:
             )
 
         if customer is None:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",
@@ -1068,7 +1068,7 @@ class SubscriptionService:
         canceled_at: datetime | None = None,
         customer_cancellation_reason: CustomerCancellationReason | None = None,
     ) -> Subscription:
-        """Hand billing of an imported subscription over to Polar (the cutover).
+        """Hand billing of an imported subscription over to Repalis (the cutover).
 
         Unlike ``resume``, this starts no fresh period and charges nothing: the
         customer already paid the old provider through ``current_period_end``. It
@@ -1825,7 +1825,7 @@ class SubscriptionService:
             if not organization.feature_settings.get(
                 "reset_proration_behavior_enabled"
             ):
-                raise PolarRequestValidationError(
+                raise RepalisRequestValidationError(
                     [
                         {
                             "type": "value_error",
@@ -1964,7 +1964,7 @@ class SubscriptionService:
         )
 
         if product is None:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",
@@ -1976,7 +1976,7 @@ class SubscriptionService:
             )
 
         if product.is_archived:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",
@@ -1988,7 +1988,7 @@ class SubscriptionService:
             )
 
         if not product.is_current:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",
@@ -2000,7 +2000,7 @@ class SubscriptionService:
             )
 
         if product.visibility not in allowed_visibilities:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",
@@ -2012,7 +2012,7 @@ class SubscriptionService:
             )
 
         if not product.is_recurring:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",
@@ -2026,7 +2026,7 @@ class SubscriptionService:
         try:
             currency_prices = PriceSet.from_product(product, subscription.currency)
         except NoPricesForCurrencies as e:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",
@@ -2039,7 +2039,7 @@ class SubscriptionService:
 
         for price in currency_prices:
             if is_custom_price(price):
-                raise PolarRequestValidationError(
+                raise RepalisRequestValidationError(
                     [
                         {
                             "type": "value_error",
@@ -2054,7 +2054,7 @@ class SubscriptionService:
         old_has_seat_prices = any(is_seat_price(p) for p in subscription.prices)
         new_has_seat_prices = any(is_seat_price(p) for p in currency_prices)
         if old_has_seat_prices and not new_has_seat_prices:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",
@@ -2069,7 +2069,7 @@ class SubscriptionService:
         old_has_unit_prices = any(is_unit_price(p) for p in subscription.prices)
         new_has_unit_prices = any(is_unit_price(p) for p in currency_prices)
         if old_has_unit_prices and not new_has_unit_prices:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",
@@ -2361,7 +2361,7 @@ class SubscriptionService:
     ) -> Subscription:
         """Clear the pending update for a subscription."""
         if subscription.pending_update is None:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",
@@ -2423,7 +2423,7 @@ class SubscriptionService:
             currency=subscription.currency,
         )
         if resolved_discount is None:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",
@@ -2438,7 +2438,7 @@ class SubscriptionService:
                 ]
             )
         if resolved_discount == subscription.discount:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",
@@ -2560,7 +2560,7 @@ class SubscriptionService:
         else:
             # Can't end trial if not trialing
             if trial_end == "now":
-                raise PolarRequestValidationError(
+                raise RepalisRequestValidationError(
                     [
                         {
                             "type": "value_error",
@@ -2574,7 +2574,7 @@ class SubscriptionService:
             else:
                 # Ensure trial_end is after current_period_end to prevent customer loss
                 if trial_end <= subscription.current_period_end:
-                    raise PolarRequestValidationError(
+                    raise RepalisRequestValidationError(
                         [
                             {
                                 "type": "value_error",
@@ -3025,7 +3025,7 @@ class SubscriptionService:
             raise CannotPauseSubscription(subscription)
 
         if resumes_at is not None and resumes_at <= subscription.current_period_end:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",
@@ -3734,7 +3734,7 @@ class SubscriptionService:
             return False
 
         if proration_behavior == SubscriptionProrationBehavior.next_period:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",
@@ -3784,7 +3784,7 @@ class SubscriptionService:
             return
 
         if proration_behavior == SubscriptionProrationBehavior.next_period:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",

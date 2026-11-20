@@ -8,9 +8,9 @@ from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import joinedload
 
 from repalis.config import settings
-from repalis.exceptions import PolarError
+from repalis.exceptions import RepalisError
 from repalis.integrations.repalis.service import billing_member_role
-from repalis.integrations.repalis.service import polar_self as polar_self_service
+from repalis.integrations.repalis.service import repalis_self as repalis_self_service
 from repalis.integrations.resend.service import resend as resend_service
 from repalis.kit.utils import utc_now
 from repalis.models import User, UserOrganization
@@ -28,7 +28,7 @@ log = structlog.get_logger()
 ADMIN_CAPABLE_ROLES = {OrganizationRole.owner, OrganizationRole.admin}
 
 
-class UserOrganizationError(PolarError): ...
+class UserOrganizationError(RepalisError): ...
 
 
 class OrganizationNotFound(UserOrganizationError):
@@ -243,7 +243,7 @@ class UserOrganizationService:
             raise ConcurrentRoleModification(user_id, organization_id)
         user_org.role = role
         user = user_org.user
-        polar_self_service.enqueue_update_member(
+        repalis_self_service.enqueue_update_member(
             external_customer_id=str(organization_id),
             external_id=str(user_id),
             name=user.full_name or user.email.split("@", 1)[0],
@@ -305,7 +305,7 @@ class UserOrganizationService:
             # different user as owner. Surface as `AlreadyOwner` so the
             # caller can refresh state and retry.
             raise AlreadyOwner(new_owner_user_id, organization_id) from e
-        polar_self_service.enqueue_update_member(
+        repalis_self_service.enqueue_update_member(
             external_customer_id=str(organization_id),
             external_id=str(new_owner_user_id),
             name=new_owner_user.full_name or new_owner_user.email.split("@", 1)[0],
@@ -351,7 +351,7 @@ class UserOrganizationService:
                 user_id=user_id,
                 role=existing.role if existing is not None else None,
             )
-            polar_self_service.enqueue_remove_member(
+            repalis_self_service.enqueue_remove_member(
                 external_customer_id=str(organization_id),
                 external_id=str(user_id),
             )

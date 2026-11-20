@@ -1,7 +1,7 @@
 import structlog
 from sqlalchemy import func, select
 
-from repalis.exceptions import PolarError
+from repalis.exceptions import RepalisError
 from repalis.kit.services import ResourceServiceReader
 from repalis.logging import Logger
 from repalis.models import OAuthAccount, User
@@ -11,7 +11,7 @@ from repalis.postgres import AsyncSession
 log: Logger = structlog.get_logger()
 
 
-class OAuthError(PolarError): ...
+class OAuthError(RepalisError): ...
 
 
 class OAuthAccountNotFound(OAuthError):

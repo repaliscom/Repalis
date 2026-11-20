@@ -38,7 +38,7 @@ _ATTENTION_BADGES: dict[AttentionLevel, str] = {
     AttentionLevel.ops_followup: "badge-warning",
     AttentionLevel.waiting_third_party: _NEUTRAL_BADGE,
     AttentionLevel.waiting_merchant: _NEUTRAL_BADGE,
-    AttentionLevel.waiting_polar_app: _NEUTRAL_BADGE,
+    AttentionLevel.waiting_repalis_app: _NEUTRAL_BADGE,
     AttentionLevel.done: _NEUTRAL_BADGE,
 }
 
@@ -117,7 +117,7 @@ def mrr_cell(breakdown: MrrBreakdown, rates: Mapping[str, float]) -> None:
         with tag.div(classes="whitespace-nowrap"):
             text(f"{usd(total, rates)} /mo")
         with tag.div(classes="text-xs text-base-content/60"):
-            parts = [f"{breakdown.share_on_polar(rates)}% on Polar"]
+            parts = [f"{breakdown.share_on_repalis(rates)}% on Repalis"]
             if not breakdown.to_move.is_zero:
                 parts.append(f"{usd(breakdown.to_move, rates)} to move")
             if not breakdown.staying.is_zero:
@@ -132,7 +132,7 @@ def mrr_table(breakdown: MrrBreakdown, rates: Mapping[str, float]) -> None:
     them alongside would read as "these records earn this much".
     """
     rows = (
-        ("On Polar", breakdown.on_polar),
+        ("On Repalis", breakdown.on_repalis),
         ("To move", breakdown.to_move),
         ("Not migrating", breakdown.staying),
     )

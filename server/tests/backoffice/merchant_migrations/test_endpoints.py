@@ -87,7 +87,7 @@ def _advance_to(key: str) -> list[PanTransferStep]:
             return steps
         actor = (
             PanStepActor.system
-            if current.owner == PanStepOwner.polar_app
+            if current.owner == PanStepOwner.repalis_app
             else PanStepActor.ops
         )
         template = pan_transfer._template(PanTransferMethod.pan_copy, current.key)
@@ -333,7 +333,7 @@ class TestMrr:
 
         assert response.status_code == 200
         assert "$29.00 /mo" in response.text
-        assert "100% on Polar" in response.text
+        assert "100% on Repalis" in response.text
 
     async def test_detail_splits_moved_from_still_to_move(
         self,

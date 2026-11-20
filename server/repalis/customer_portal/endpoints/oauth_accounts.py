@@ -16,7 +16,7 @@ from repalis.benefit.strategies.base.service import BenefitActionRequiredError
 from repalis.config import settings
 from repalis.customer.repository import CustomerRepository
 from repalis.customer_session.service import customer_session as customer_session_service
-from repalis.exceptions import NotPermitted, PolarError, Unauthorized
+from repalis.exceptions import NotPermitted, RepalisError, Unauthorized
 from repalis.integrations.discord.oauth import user_client as discord_user_client
 from repalis.kit import jwt
 from repalis.kit.http import ReturnTo, add_query_parameters, get_safe_return_url
@@ -73,7 +73,7 @@ def _get_response_attributes(
     return attrs
 
 
-class OAuthCallbackError(PolarError):
+class OAuthCallbackError(RepalisError):
     def __init__(self, message: str) -> None:
         super().__init__(message, 400)
 

@@ -16,7 +16,7 @@ from repalis.dispute.repository import DisputeRepository
 from repalis.enums import PaymentProcessor
 from repalis.event.service import event as event_service
 from repalis.event.system import OrderRefundedMetadata, SystemEvent, build_system_event
-from repalis.exceptions import PolarError, PolarRequestValidationError, ResourceNotFound
+from repalis.exceptions import RepalisError, RepalisRequestValidationError, ResourceNotFound
 from repalis.integrations.stripe.service import stripe as stripe_service
 from repalis.integrations.stripe.utils import get_expandable_id
 from repalis.kit.db.postgres import AsyncSession
@@ -59,7 +59,7 @@ from .sorting import RefundSortProperty
 log: Logger = structlog.get_logger()
 
 
-class RefundError(PolarError): ...
+class RefundError(RepalisError): ...
 
 
 class RefundUnknownPayment(ResourceNotFound):
@@ -191,7 +191,7 @@ class RefundService:
             .options(*order_repository.get_eager_options())
         )
         if not order:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",
@@ -220,7 +220,7 @@ class RefundService:
                 metadata=create_schema.metadata,
             )
         except RefundAmountTooHigh as e:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",

@@ -10,7 +10,7 @@ from repalis.customer_email_update.service import (
     CustomerEmailUpdateService,
     InvalidCustomerEmailUpdate,
 )
-from repalis.exceptions import PolarRequestValidationError
+from repalis.exceptions import RepalisRequestValidationError
 from repalis.integrations.stripe.service import StripeService
 from repalis.kit.crypto import generate_token_hash_pair, get_token_hash
 from repalis.kit.utils import utc_now
@@ -67,7 +67,7 @@ class TestRequestEmailUpdate:
         await save_fixture(customer)
 
         service = CustomerEmailUpdateService()
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await service.request_email_update(session, customer, "new@example.com")
 
     async def test_rejects_same_email(
@@ -81,7 +81,7 @@ class TestRequestEmailUpdate:
         )
 
         service = CustomerEmailUpdateService()
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await service.request_email_update(session, customer, "Same@Example.com")
 
     async def test_cancels_existing_pending_verification(
@@ -235,7 +235,7 @@ class TestVerify:
         )
 
         service = CustomerEmailUpdateService()
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await service.verify(session, token)
 
         # Verification record should be deleted

@@ -79,7 +79,7 @@ class ChargebackStopEvent(ExternalEvent):
     }
 
 
-class PolarSelfEvent(ExternalEvent):
+class RepalisSelfEvent(ExternalEvent):
     source: Mapped[Literal[ExternalEventSource.polar]] = mapped_column(  # pyright: ignore
         use_existing_column=True, default=ExternalEventSource.polar
     )

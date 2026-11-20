@@ -9,7 +9,7 @@ from repalis.enums import PaymentProcessor
 from repalis.event.service import event as event_service
 from repalis.event.system import BalanceRefundMetadata, SystemEvent, build_system_event
 from repalis.integrations.stripe.service import stripe as stripe_service
-from repalis.kit.math import polar_round
+from repalis.kit.math import repalis_round
 from repalis.logging import Logger
 from repalis.models import Customer, Order, Refund, Transaction
 from repalis.models.refund import RefundStatus
@@ -74,7 +74,7 @@ class RefundTransactionService(BaseTransactionService):
             settlement_amount = balance_transaction.amount
             settlement_currency = balance_transaction.currency
             exchange_rate = -settlement_amount / (refund.amount + refund.tax_amount)
-            settlement_tax_amount = -polar_round(refund.tax_amount * exchange_rate)
+            settlement_tax_amount = -repalis_round(refund.tax_amount * exchange_rate)
         else:
             raise NotImplementedError()
 

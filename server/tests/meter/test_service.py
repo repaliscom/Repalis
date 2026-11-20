@@ -16,7 +16,7 @@ from repalis.enums import SubscriptionRecurringInterval
 from repalis.event.repository import EventRepository
 from repalis.event.service import event as event_service
 from repalis.event.system import SystemEvent
-from repalis.exceptions import PolarRequestValidationError
+from repalis.exceptions import RepalisRequestValidationError
 from repalis.kit.time_queries import TimeInterval
 from repalis.kit.utils import utc_now
 from repalis.meter.aggregation import (
@@ -230,7 +230,7 @@ class TestCreate:
             save_fixture, organization=organization, external_id="ext_1337"
         )
 
-        with pytest.raises(PolarRequestValidationError) as e:
+        with pytest.raises(RepalisRequestValidationError) as e:
             await meter_service.create(
                 session,
                 MeterCreate(
@@ -288,7 +288,7 @@ class TestUpdate:
             save_fixture, organization=organization, last_billed_event=event
         )
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await meter_service.update(session, meter, meter_update, auth_subject)
 
     @pytest.mark.parametrize(
@@ -433,7 +433,7 @@ class TestUpdate:
         )
         meter = await create_meter(save_fixture, organization=organization)
 
-        with pytest.raises(PolarRequestValidationError) as e:
+        with pytest.raises(RepalisRequestValidationError) as e:
             await meter_service.update(
                 session,
                 meter,

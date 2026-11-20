@@ -2,7 +2,7 @@ import pytest
 from fastapi import Request
 from pydantic import ValidationError
 
-from repalis.exceptions import PolarRequestValidationError
+from repalis.exceptions import RepalisRequestValidationError
 from repalis.kit.metadata import MetadataInputMixin, _get_metadata_query
 
 
@@ -55,5 +55,5 @@ def test_get_metadata_query() -> None:
     ],
 )
 def test_get_metadata_query_null_character(query_string: str) -> None:
-    with pytest.raises(PolarRequestValidationError):
+    with pytest.raises(RepalisRequestValidationError):
         _get_metadata_query(_build_request(query_string))

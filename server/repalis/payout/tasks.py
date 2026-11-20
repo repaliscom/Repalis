@@ -3,7 +3,7 @@ from typing import Annotated
 
 import structlog
 
-from repalis.exceptions import PolarTaskError
+from repalis.exceptions import RepalisTaskError
 from repalis.logging import Logger
 from repalis.models.payout import PayoutStatus
 from repalis.observability.task_logging import LoggableField
@@ -25,7 +25,7 @@ from .service import payout as payout_service
 log: Logger = structlog.get_logger()
 
 
-class PayoutTaskError(PolarTaskError): ...
+class PayoutTaskError(RepalisTaskError): ...
 
 
 class PayoutDoesNotExist(PayoutTaskError):

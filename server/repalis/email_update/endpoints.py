@@ -4,7 +4,7 @@ from fastapi.responses import RedirectResponse
 from repalis.auth.exceptions import SessionNotFreshError
 from repalis.authz.dependencies import AuthorizeWebUserWrite, AuthorizeWebUserWriteFresh
 from repalis.config import settings
-from repalis.exceptions import PolarRedirectionError
+from repalis.exceptions import RepalisRedirectionError
 from repalis.kit.db.postgres import AsyncSession
 from repalis.kit.http import ReturnTo, get_safe_return_url
 from repalis.openapi import APITag
@@ -55,7 +55,7 @@ async def verify_email_update(
     try:
         user = await email_update_service.verify(session, token, auth_subject.subject)
     except EmailUpdateError as e:
-        raise PolarRedirectionError(e.message, return_to=return_to) from e
+        raise RepalisRedirectionError(e.message, return_to=return_to) from e
 
     return_url = get_safe_return_url(return_to)
     response = RedirectResponse(return_url, 303)

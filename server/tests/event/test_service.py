@@ -23,7 +23,7 @@ from repalis.event.service import event as event_service
 from repalis.event.sorting import EventNamesSortProperty
 from repalis.event.system import SystemEvent, build_system_event
 from repalis.event_type.repository import EventTypeRepository
-from repalis.exceptions import PolarRequestValidationError
+from repalis.exceptions import RepalisRequestValidationError
 from repalis.integrations.tinybird.service import TinybirdEventTypeStats
 from repalis.kit.pagination import PaginationParams
 from repalis.kit.time_queries import TimeInterval
@@ -686,7 +686,7 @@ class TestIngest:
             ]
         )
 
-        with pytest.raises(PolarRequestValidationError) as e:
+        with pytest.raises(RepalisRequestValidationError) as e:
             await event_service.ingest(session, auth_subject, ingest)
 
         errors = e.value.errors()
@@ -713,7 +713,7 @@ class TestIngest:
             ]
         )
 
-        with pytest.raises(PolarRequestValidationError) as e:
+        with pytest.raises(RepalisRequestValidationError) as e:
             await event_service.ingest(session, auth_subject, ingest)
 
         errors = e.value.errors()
@@ -742,7 +742,7 @@ class TestIngest:
             ]
         )
 
-        with pytest.raises(PolarRequestValidationError) as e:
+        with pytest.raises(RepalisRequestValidationError) as e:
             await event_service.ingest(session, auth_subject, ingest)
 
         [error] = e.value.errors()
@@ -787,7 +787,7 @@ class TestIngest:
             ]
         )
 
-        with pytest.raises(PolarRequestValidationError) as e:
+        with pytest.raises(RepalisRequestValidationError) as e:
             await event_service.ingest(session, auth_subject, ingest)
 
         errors = e.value.errors()
@@ -822,7 +822,7 @@ class TestIngest:
             ]
         )
 
-        with pytest.raises(PolarRequestValidationError) as e:
+        with pytest.raises(RepalisRequestValidationError) as e:
             await event_service.ingest(session, auth_subject, ingest)
 
         errors = e.value.errors()
@@ -865,7 +865,7 @@ class TestIngest:
             ]
         )
 
-        with pytest.raises(PolarRequestValidationError) as e:
+        with pytest.raises(RepalisRequestValidationError) as e:
             await event_service.ingest(session, auth_subject, ingest)
 
         errors = e.value.errors()
@@ -1603,7 +1603,7 @@ class TestIngest:
             ]
         )
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await event_service.ingest(session, auth_subject, ingest)
 
     @pytest.mark.auth(AuthSubjectFixture(subject="organization"))
@@ -1634,7 +1634,7 @@ class TestIngest:
             ]
         )
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await event_service.ingest(session, auth_subject, ingest)
 
     @pytest.mark.auth(AuthSubjectFixture(subject="organization"))

@@ -685,7 +685,7 @@ class TestRevert:
         assert balance_transactions[0] == outgoing_balance  # From Polar...
         assert balance_transactions[1] == incoming_balance  # ... to Account
         assert balance_transactions[2] == refund_outgoing_balance  # From Account...
-        assert balance_transactions[3] == refund_incoming_balance  # ... to Polar
+        assert balance_transactions[3] == refund_incoming_balance  # ... to Repalis
 
         reverse_balance_account = balance_transactions[4]  # From Polar...
         assert reverse_balance_account.account is None
@@ -695,12 +695,12 @@ class TestRevert:
         assert reverse_balance_account.amount == -refund_incoming_balance.amount
         assert reverse_balance_account.payment_transaction is None
 
-        reverse_balance_polar = balance_transactions[5]  # ... to Account
-        assert reverse_balance_polar.account is not None
-        assert reverse_balance_polar.balance_reversal_transaction is not None
-        assert reverse_balance_polar.balance_reversal_transaction == incoming_balance
-        assert reverse_balance_polar.amount == -refund_outgoing_balance.amount
-        assert reverse_balance_polar.payment_transaction is None
+        reverse_balance_repalis = balance_transactions[5]  # ... to Account
+        assert reverse_balance_repalis.account is not None
+        assert reverse_balance_repalis.balance_reversal_transaction is not None
+        assert reverse_balance_repalis.balance_reversal_transaction == incoming_balance
+        assert reverse_balance_repalis.amount == -refund_outgoing_balance.amount
+        assert reverse_balance_repalis.payment_transaction is None
 
     async def test_only_restores_reverted_refund_balances(
         self,
@@ -991,7 +991,7 @@ class TestRevert:
         assert balance_transactions[0] == outgoing_balance  # From Polar...
         assert balance_transactions[1] == incoming_balance  # ... to Account
         assert balance_transactions[2] == refund_outgoing_balance  # From Account...
-        assert balance_transactions[3] == refund_incoming_balance  # ... to Polar
+        assert balance_transactions[3] == refund_incoming_balance  # ... to Repalis
 
         reverse_balance_account = balance_transactions[4]  # From Polar...
         assert reverse_balance_account.account is None
@@ -1001,9 +1001,9 @@ class TestRevert:
         assert reverse_balance_account.amount == -refund_incoming_balance.amount
         assert reverse_balance_account.payment_transaction is None
 
-        reverse_balance_polar = balance_transactions[5]  # ... to Account
-        assert reverse_balance_polar.account is not None
-        assert reverse_balance_polar.balance_reversal_transaction is not None
-        assert reverse_balance_polar.balance_reversal_transaction == incoming_balance
-        assert reverse_balance_polar.amount == -refund_outgoing_balance.amount
-        assert reverse_balance_polar.payment_transaction is None
+        reverse_balance_repalis = balance_transactions[5]  # ... to Account
+        assert reverse_balance_repalis.account is not None
+        assert reverse_balance_repalis.balance_reversal_transaction is not None
+        assert reverse_balance_repalis.balance_reversal_transaction == incoming_balance
+        assert reverse_balance_repalis.amount == -refund_outgoing_balance.amount
+        assert reverse_balance_repalis.payment_transaction is None

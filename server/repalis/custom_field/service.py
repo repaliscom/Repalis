@@ -25,7 +25,7 @@ from repalis.authz.service import (
 )
 from repalis.custom_field.sorting import CustomFieldSortProperty
 from repalis.declarative_config.guard import assert_catalog_editable
-from repalis.exceptions import PolarError, PolarRequestValidationError
+from repalis.exceptions import RepalisError, RepalisRequestValidationError
 from repalis.kit.pagination import PaginationParams, paginate
 from repalis.kit.services import ResourceServiceReader
 from repalis.kit.sorting import Sorting
@@ -41,7 +41,7 @@ from .repository import CustomFieldRepository
 from .schemas import CustomFieldCreate, CustomFieldUpdate
 
 
-class CustomFieldVersionLocked(PolarError):
+class CustomFieldVersionLocked(RepalisError):
     def __init__(self) -> None:
         super().__init__(
             "This custom field has other versions. Only its current version "
@@ -138,7 +138,7 @@ class CustomFieldService(ResourceServiceReader[CustomField]):
             organization.id, custom_field_create.slug
         )
         if existing_field is not None:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",
@@ -182,7 +182,7 @@ class CustomFieldService(ResourceServiceReader[CustomField]):
             raise CustomFieldVersionLocked()
 
         if custom_field.type != custom_field_update.type:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",
@@ -201,7 +201,7 @@ class CustomFieldService(ResourceServiceReader[CustomField]):
                 custom_field.organization_id, custom_field_update.slug
             )
             if existing_field is not None and existing_field.id != custom_field.id:
-                raise PolarRequestValidationError(
+                raise RepalisRequestValidationError(
                     [
                         {
                             "type": "value_error",

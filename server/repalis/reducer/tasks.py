@@ -6,7 +6,7 @@ from apscheduler.triggers.cron import CronTrigger
 
 from repalis.billing_interval.service import billing_interval as billing_interval_service
 from repalis.customer.repository import CustomerRepository
-from repalis.exceptions import PolarTaskError
+from repalis.exceptions import RepalisTaskError
 from repalis.observability.task_logging import LoggableField
 from repalis.worker import (
     AsyncSessionMaker,
@@ -20,7 +20,7 @@ from . import cache
 from .service import reducer as reducer_service
 
 
-class CustomerDoesNotExist(PolarTaskError):
+class CustomerDoesNotExist(RepalisTaskError):
     def __init__(self, customer_id: uuid.UUID) -> None:
         self.customer_id = customer_id
         super().__init__(f"The customer with id {customer_id} does not exist.")

@@ -8,7 +8,7 @@ from sqlalchemy.dialects.postgresql import insert
 from sqlalchemy.orm import selectinload
 
 from repalis.event.service import event as event_service
-from repalis.exceptions import PolarTaskError
+from repalis.exceptions import RepalisTaskError
 from repalis.meter.repository import MeterRepository
 from repalis.meter.service import meter as meter_service
 from repalis.models import Event, Meter, MeterEvent
@@ -17,7 +17,7 @@ from repalis.organization.repository import OrganizationRepository
 from repalis.worker import AsyncSessionMaker, TaskPriority, actor, enqueue_job
 
 
-class MeterTaskError(PolarTaskError): ...
+class MeterTaskError(RepalisTaskError): ...
 
 
 class MeterDoesNotExist(MeterTaskError):

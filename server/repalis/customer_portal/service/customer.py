@@ -6,7 +6,7 @@ import stripe as stripe_lib
 
 from repalis.auth.models import AuthSubject, Customer, Member
 from repalis.customer.repository import CustomerRepository
-from repalis.exceptions import PolarError, PolarRequestValidationError
+from repalis.exceptions import RepalisError, RepalisRequestValidationError
 from repalis.integrations.stripe.service import stripe as stripe_service
 from repalis.integrations.stripe.utils import get_expandable_id
 from repalis.kit.http import add_query_parameters
@@ -43,7 +43,7 @@ if TYPE_CHECKING:
     from stripe.params._modify_customer_params import ModifyCustomerParams
 
 
-class CustomerError(PolarError): ...
+class CustomerError(RepalisError): ...
 
 
 class CustomerNotReady(CustomerError):
@@ -74,7 +74,7 @@ class CustomerService:
 
         if "billing_address" in customer_update.model_fields_set:
             if customer_update.billing_address is None:
-                raise PolarRequestValidationError(
+                raise RepalisRequestValidationError(
                     [
                         {
                             "type": "missing",
@@ -90,7 +90,7 @@ class CustomerService:
         new_default_payment_method: PaymentMethod | None = None
         if "default_payment_method_id" in customer_update.model_fields_set:
             if customer_update.default_payment_method_id is None:
-                raise PolarRequestValidationError(
+                raise RepalisRequestValidationError(
                     [
                         {
                             "type": "missing",
@@ -107,7 +107,7 @@ class CustomerService:
                 )
             )
             if new_default_payment_method is None:
-                raise PolarRequestValidationError(
+                raise RepalisRequestValidationError(
                     [
                         {
                             "type": "invalid",
@@ -128,7 +128,7 @@ class CustomerService:
                 # `customer.billing_address` already reflects any update
                 # applied above.
                 if customer.billing_address is None:
-                    raise PolarRequestValidationError(
+                    raise RepalisRequestValidationError(
                         [
                             {
                                 "type": "missing",
@@ -143,7 +143,7 @@ class CustomerService:
                         customer_update.tax_id, customer.billing_address.country
                     )
                 except InvalidTaxID as e:
-                    raise PolarRequestValidationError(
+                    raise RepalisRequestValidationError(
                         [
                             {
                                 "type": "invalid",
@@ -161,7 +161,7 @@ class CustomerService:
             # re-validate the existing tax ID against the new country.
             # `customer.billing_address` was updated in-place above.
             if customer.billing_address is None:
-                raise PolarRequestValidationError(
+                raise RepalisRequestValidationError(
                     [
                         {
                             "type": "missing",
@@ -176,7 +176,7 @@ class CustomerService:
                     customer.tax_id[0], customer.billing_address.country
                 )
             except InvalidTaxID as e:
-                raise PolarRequestValidationError(
+                raise RepalisRequestValidationError(
                     [
                         {
                             "type": "invalid",
@@ -337,7 +337,7 @@ class CustomerService:
                 expand=["payment_method"],
             )
         except stripe_lib.InvalidRequestError as e:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "invalid",
@@ -352,7 +352,7 @@ class CustomerService:
             setup_intent.customer is None
             or get_expandable_id(setup_intent.customer) != customer.stripe_customer_id
         ):
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "invalid",
@@ -364,7 +364,7 @@ class CustomerService:
             )
 
         if setup_intent.status not in ("succeeded", "requires_action"):
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "invalid",
@@ -399,7 +399,7 @@ class CustomerService:
             )
 
         if set_default and setup_intent.payment_method is None:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "invalid",

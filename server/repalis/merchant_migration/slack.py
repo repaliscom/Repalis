@@ -4,7 +4,7 @@ from datetime import timedelta
 import structlog
 
 from repalis.config import Environment, settings
-from repalis.exceptions import PolarTaskError
+from repalis.exceptions import RepalisTaskError
 from repalis.integrations.slack.client import client as slack_client
 from repalis.integrations.slack.payload import (
     SlackPayload,
@@ -27,7 +27,7 @@ IN_PROGRESS_KEY_TTL = timedelta(minutes=2)
 ALERT_ENVIRONMENTS = frozenset({Environment.production, Environment.sandbox})
 
 
-class SlackAlertInProgress(PolarTaskError):
+class SlackAlertInProgress(RepalisTaskError):
     def __init__(self, key: str) -> None:
         super().__init__(f"Slack alert {key} is already being sent.")
 
@@ -83,7 +83,7 @@ def _migration_payload(
 
 
 async def _post_once(redis: Redis, key: str, payload: SlackPayload) -> None:
-    # The channel defaults to Polar's Ops channel, so a bot token in a local
+    # The channel defaults to Repalis's Ops channel, so a bot token in a local
     # .env or a test run must not post into it.
     if settings.ENV not in ALERT_ENVIRONMENTS:
         log.info("merchant_migration.slack.skipped_environment", key=key)

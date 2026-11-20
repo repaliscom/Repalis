@@ -148,7 +148,7 @@ class TokenType(StrEnum):
     refresh_token = "polar_refresh_token"
     personal_access_token = "polar_personal_access_token"
     organization_access_token = "polar_organization_access_token"
-    customer_session_token = "polar_customer_session_token"
+    customer_session_token = "repalis_customer_session_token"
     user_session_token = "polar_user_session_token"
 
 

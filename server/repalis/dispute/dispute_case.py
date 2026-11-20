@@ -2,7 +2,7 @@ from collections.abc import Sequence
 from datetime import datetime
 from uuid import UUID
 
-from repalis.exceptions import PolarError
+from repalis.exceptions import RepalisError
 from repalis.models import Dispute, File, Organization, User
 from repalis.models.support_case import (
     DisputeSupportCase,
@@ -31,7 +31,7 @@ DISPUTE_GREETING = (
 DISPUTE_GREETING_DELAY_MS = 2000
 
 
-class DisputeCaseError(PolarError): ...
+class DisputeCaseError(RepalisError): ...
 
 
 class CaseAlreadyExistsError(DisputeCaseError):

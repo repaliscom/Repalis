@@ -1,5 +1,5 @@
 from repalis.auth.models import is_customer, is_member
-from repalis.exceptions import PolarRequestValidationError
+from repalis.exceptions import RepalisRequestValidationError
 from repalis.models import CustomerSession, MemberSession
 from repalis.openapi import APITag
 from repalis.routing import APIRouter
@@ -51,7 +51,7 @@ async def get_authenticated_user(
     elif is_customer(auth_subject):
         customer = auth_subject.subject
         if customer.email is None:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "loc": ("body",),

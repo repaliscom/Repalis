@@ -8,7 +8,7 @@ from pytest_mock import MockerFixture
 from repalis.billing_entry.repository import BillingEntryRepository
 from repalis.enums import SubscriptionProrationBehavior
 from repalis.event.system import SystemEvent
-from repalis.exceptions import PolarRequestValidationError
+from repalis.exceptions import RepalisRequestValidationError
 from repalis.models import Customer, Organization, Product
 from repalis.models.billing_entry import BillingEntryDirection, BillingEntryType
 from repalis.models.product_price import ProductPriceUnit
@@ -435,7 +435,7 @@ class TestUnitProductChange:
             save_fixture, product=unit_product, customer=customer, units=3
         )
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await subscription_service.validate_product_change(
                 session, subscription, product_id=other_product.id
             )
@@ -559,7 +559,7 @@ class TestUnitProductChange:
             save_fixture, product=product, customer=customer
         )
 
-        with pytest.raises(PolarRequestValidationError) as exc_info:
+        with pytest.raises(RepalisRequestValidationError) as exc_info:
             async with SubscriptionUpdateContext(
                 session, subscription, subscription_service
             ) as ctx:

@@ -2,7 +2,7 @@ from collections.abc import Sequence
 from uuid import UUID
 
 from repalis.eventstream.service import publish as eventstream_publish
-from repalis.exceptions import PolarError
+from repalis.exceptions import RepalisError
 from repalis.models import BackofficeUser, File, Organization, User
 from repalis.models.organization_review import OrganizationReview
 from repalis.models.support_case import (
@@ -39,7 +39,7 @@ async def publish_appeal_update(organization_id: UUID) -> None:
     )
 
 
-class AppealCaseError(PolarError): ...
+class AppealCaseError(RepalisError): ...
 
 
 class CaseAlreadyExistsError(AppealCaseError):

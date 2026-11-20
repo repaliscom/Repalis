@@ -60,20 +60,20 @@ def test_sqs_endpoint_url_does_not_select_static_aws_credentials(
 
 @pytest.mark.anyio
 async def test_send_jobs_reuses_client_and_queue_url(mocker: MockerFixture) -> None:
-    queue_url = "https://sqs.example.com/polar-test-tasks-default"
+    queue_url = "https://sqs.example.com/repalis-test-tasks-default"
     client = mocker.patch("repalis.worker._sqs.sqs_client")
     client.get_queue_url.return_value = {"QueueUrl": queue_url}
     client.send_message_batch.return_value = {}
     mocker.patch("repalis.worker._sqs._queue_url_cache", {})
     mocker.patch(
-        "repalis.worker._sqs.actor_to_queue_name", return_value="polar-test-tasks-default"
+        "repalis.worker._sqs.actor_to_queue_name", return_value="repalis-test-tasks-default"
     )
 
     jobs = [_sqs.Job("dummy", (), {})]
     await _sqs.send_jobs(jobs)
     await _sqs.send_jobs(jobs)
 
-    client.get_queue_url.assert_called_once_with(QueueName="polar-test-tasks-default")
+    client.get_queue_url.assert_called_once_with(QueueName="repalis-test-tasks-default")
     assert client.send_message_batch.call_args_list == [
         mocker.call(QueueUrl=queue_url, Entries=mocker.ANY),
         mocker.call(QueueUrl=queue_url, Entries=mocker.ANY),

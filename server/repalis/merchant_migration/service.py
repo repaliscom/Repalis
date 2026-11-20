@@ -13,7 +13,7 @@ from repalis.auth.scope import Scope
 from repalis.authz.service import assert_organization_permission
 from repalis.config import settings
 from repalis.customer.repository import CustomerRepository, CustomerStripeIdentity
-from repalis.exceptions import NotPermitted, PolarError
+from repalis.exceptions import NotPermitted, RepalisError
 from repalis.kit.address import Address
 from repalis.kit.db.postgres import AsyncSession
 from repalis.kit.encryption import EncryptedString
@@ -129,7 +129,7 @@ _FINISHED_CUTOVER_ERROR = (
 _STALLED_OPERATION_ERROR = (
     "The last migration job stalled. Start it again, then try once it finishes."
 )
-_CARDS_ALREADY_ON_POLAR = "Every card was already on Polar, so nothing had to move."
+_CARDS_ALREADY_ON_REPALIS = "Every card was already on Repalis, so nothing had to move."
 
 
 def _import_failure_log_fields(error: BaseException) -> dict[str, object]:
@@ -296,7 +296,7 @@ class RecordNotSubscription(MerchantMigrationError):
 
 class RecordTaxLocked(MerchantMigrationError):
     def __init__(self) -> None:
-        super().__init__("This subscription has already switched to Polar.", 409)
+        super().__init__("This subscription has already switched to Repalis.", 409)
 
 
 class BlockedByPrecheck(MerchantMigrationError):
@@ -326,7 +326,7 @@ class SourceKeyModeMismatch(MerchantMigrationError):
     def __init__(self, *, expect_live: bool) -> None:
         mode = "live" if expect_live else "test"
         super().__init__(
-            f"This Polar environment needs a {mode}-mode Stripe key "
+            f"This Repalis environment needs a {mode}-mode Stripe key "
             f"(e.g. `rk_{mode}_…`), so the migration runs against {mode} data.",
             400,
         )
@@ -831,7 +831,7 @@ class MerchantMigrationService:
                     exclude_record_ids=exclude_record_ids,
                 )
                 report = await importer.import_next_batch()
-        except PolarError as error:
+        except RepalisError as error:
             log.warning(
                 "merchant_migration.import_failed",
                 merchant_migration_id=migration_id,
@@ -891,7 +891,7 @@ class MerchantMigrationService:
         """Authorize the migration, then return a stream of the customer source
         IDs Stripe Copy still has to move, not only the imported ones despite
         the name: customers behind subscriptions taken over from an earlier
-        migration are included, and customers whose cards are already on Polar
+        migration are included, and customers whose cards are already on Repalis
         are left out. Auth runs before the generator is returned so 403/404
         cannot land mid-stream."""
         await self._get_manageable(session, auth_subject, migration_id)
@@ -926,12 +926,12 @@ class MerchantMigrationService:
 
         steps = pan_transfer.build(migration.pan_transfer_method)
         step = MerchantMigrationStep.copy_cards
-        if await self._cards_already_on_polar(session, migration):
+        if await self._cards_already_on_repalis(session, migration):
             steps = pan_transfer.skip_to(
                 migration.pan_transfer_method,
                 steps,
                 STEP_CUTOVER,
-                note=_CARDS_ALREADY_ON_POLAR,
+                note=_CARDS_ALREADY_ON_REPALIS,
             )
             step = MerchantMigrationStep.activate_subscriptions
         repository = MerchantMigrationRepository.from_session(session)
@@ -942,7 +942,7 @@ class MerchantMigrationService:
         self._enqueue_waiting_for_ops(migration, steps)
         return self._checklist(migration, steps)
 
-    async def _cards_already_on_polar(
+    async def _cards_already_on_repalis(
         self, session: AsyncSession, migration: MerchantMigration
     ) -> bool:
         """Whether every subscription to switch already has the card it charges on
@@ -964,7 +964,7 @@ class MerchantMigrationService:
         *,
         inputs: dict[str, str],
     ) -> PanTransferChecklist:
-        """Complete a merchant-owned step. Steps owned by Polar Ops, Stripe or the
+        """Complete a merchant-owned step. Steps owned by Repalis Ops, Stripe or the
         source provider are moved from the backoffice, not here."""
         migration = await self._get_manageable(
             session, auth_subject, migration_id, for_update=True
@@ -1251,7 +1251,7 @@ class MerchantMigrationService:
         record_ids: Sequence[UUID] | None = None,
         exclude_record_ids: Sequence[UUID] | None = None,
     ) -> MerchantMigrationCutoverReport:
-        """Switch the picked imported subscriptions over to Polar.
+        """Switch the picked imported subscriptions over to Repalis.
 
         Serves both the first confirmation and every retry: records the
         selection, re-opens skipped/failed rows, and kicks the worker. Only
@@ -1389,7 +1389,7 @@ class MerchantMigrationService:
             migration.operation.selection if migration.operation is not None else None
         )
         counts = await record_repository.count_cutover_statuses(migration.id, selection)
-        completed_steps = self._complete_polar_app_step(
+        completed_steps = self._complete_repalis_app_step(
             migration, STEP_MOVE_SUBSCRIPTIONS
         )
         update_dict: dict[str, object] = {"operation": self._done_operation(migration)}
@@ -1484,7 +1484,7 @@ class MerchantMigrationService:
             operation is not None and operation.is_active and not operation.is_stalled()
         )
 
-    def _complete_polar_app_step(
+    def _complete_repalis_app_step(
         self,
         migration: MerchantMigration,
         key: str,
@@ -1798,12 +1798,12 @@ class MerchantMigrationService:
         )
         if customer_record.target_id is not None:
             customer_repository = CustomerRepository.from_session(session)
-            polar_customer = await customer_repository.get_by_id(
+            repalis_customer = await customer_repository.get_by_id(
                 customer_record.target_id
             )
-            if polar_customer is not None:
+            if repalis_customer is not None:
                 await customer_repository.update(
-                    polar_customer, update_dict={"billing_address": billing_address}
+                    repalis_customer, update_dict={"billing_address": billing_address}
                 )
         return update
 
@@ -1933,7 +1933,7 @@ class MerchantMigrationService:
             PrecheckEntity.subscriptions in entities
             or PrecheckEntity.customers in entities
         ):
-            existing_customers = await self._existing_polar_customers(
+            existing_customers = await self._existing_repalis_customers(
                 session, migration
             )
 
@@ -1981,7 +1981,7 @@ class MerchantMigrationService:
             items.extend(entity_items)
         return items
 
-    async def _existing_polar_customers(
+    async def _existing_repalis_customers(
         self, session: AsyncReadSession, migration: MerchantMigration
     ) -> dict[str, CustomerStripeIdentity]:
         if migration.source_platform != MerchantMigrationSourcePlatform.stripe:

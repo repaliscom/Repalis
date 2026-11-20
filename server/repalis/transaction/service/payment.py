@@ -7,7 +7,7 @@ from sqlalchemy.exc import IntegrityError
 
 from repalis.integrations.stripe.service import stripe as stripe_service
 from repalis.integrations.stripe.utils import get_expandable_id
-from repalis.kit.math import polar_round
+from repalis.kit.math import repalis_round
 from repalis.logging import Logger
 from repalis.models import Transaction
 from repalis.models.transaction import Processor, TransactionType
@@ -77,7 +77,7 @@ class PaymentTransactionService(BaseTransactionService):
         settlement_amount = balance_transaction.amount
         settlement_currency = balance_transaction.currency
         exchange_rate = balance_transaction.exchange_rate or 1.0
-        settlement_tax_amount = polar_round(tax_amount * exchange_rate)
+        settlement_tax_amount = repalis_round(tax_amount * exchange_rate)
 
         risk = getattr(charge, "outcome", None) or {}
         transaction = Transaction(

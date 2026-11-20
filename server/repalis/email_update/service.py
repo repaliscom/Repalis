@@ -6,7 +6,7 @@ from sqlalchemy import delete
 from repalis.auth.models import AuthSubject
 from repalis.email.schemas import EmailUpdateEmail, EmailUpdateProps
 from repalis.email.sender import enqueue_email_template
-from repalis.exceptions import PolarError, PolarRequestValidationError
+from repalis.exceptions import RepalisError, RepalisRequestValidationError
 from repalis.integrations.resend.service import resend as resend_service
 from repalis.kit.crypto import generate_token_hash_pair
 from repalis.kit.services import ResourceServiceReader
@@ -21,7 +21,7 @@ from .repository import EmailVerificationRepository
 TOKEN_PREFIX = "polar_ev_"
 
 
-class EmailUpdateError(PolarError): ...
+class EmailUpdateError(RepalisError): ...
 
 
 class InvalidEmailUpdate(EmailUpdateError):
@@ -48,7 +48,7 @@ class EmailUpdateService(ResourceServiceReader[EmailVerification]):
         user_repository = UserRepository.from_session(session)
         existing_user = await user_repository.get_by_email(email)
         if existing_user is not None and existing_user.id != user.id:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "type": "value_error",

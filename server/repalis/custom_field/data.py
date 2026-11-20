@@ -8,7 +8,7 @@ from sqlalchemy import event
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import Mapped, Mapper, ORMDescriptor, mapped_column
 
-from repalis.exceptions import PolarRequestValidationError
+from repalis.exceptions import RepalisRequestValidationError
 
 if TYPE_CHECKING:
     from repalis.models import CustomField, Organization
@@ -96,6 +96,6 @@ def validate_custom_field_data(
     try:
         return schema.model_validate(data).model_dump(mode="json", exclude_unset=True)
     except ValidationError as e:
-        raise PolarRequestValidationError(
+        raise RepalisRequestValidationError(
             [{**err, "loc": (*error_loc_prefix, *err["loc"])} for err in e.errors()]  # pyright: ignore
         )

@@ -10,7 +10,7 @@ from repalis.email.schemas import (
     SupportCaseOrganizationNewMessageProps,
 )
 from repalis.email.sender import enqueue_email_template
-from repalis.exceptions import PolarTaskError
+from repalis.exceptions import RepalisTaskError
 from repalis.file.s3 import S3_SERVICES
 from repalis.kit.utils import utc_now
 from repalis.models import File, Organization
@@ -35,7 +35,7 @@ from repalis.user_organization.service import (
 from repalis.worker import AsyncSessionMaker, TaskPriority, actor
 
 
-class SupportCaseTaskError(PolarTaskError): ...
+class SupportCaseTaskError(RepalisTaskError): ...
 
 
 class SupportCaseDoesNotExist(SupportCaseTaskError):

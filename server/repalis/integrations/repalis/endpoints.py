@@ -63,7 +63,7 @@ async def webhook(
     if not delivery_id:
         raise HTTPException(status_code=400)
 
-    task_name = f"polar_self.webhook.{event_type}"
+    task_name = f"repalis_self.webhook.{event_type}"
     delay = ORDER_CREATED_DELAY_MS if event_type == "order.created" else None
     await external_event_service.enqueue(
         session,

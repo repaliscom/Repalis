@@ -26,7 +26,7 @@ from fpdf.table import Table
 from pydantic import BaseModel
 
 from repalis.config import Environment, settings
-from repalis.invoice.seller import get_polar_additional_info
+from repalis.invoice.seller import get_repalis_additional_info
 from repalis.kit.address import Address
 from repalis.kit.currency import format_currency
 from repalis.kit.utils import utc_now
@@ -252,7 +252,7 @@ class Invoice(BaseModel):
             organization_name=order.organization.name,
             statement_descriptor=f"POLAR*{order.statement_descriptor_suffix}",
             seller_address=settings.INVOICES_ADDRESS,
-            seller_additional_info=get_polar_additional_info(order.billing_address),
+            seller_additional_info=get_repalis_additional_info(order.billing_address),
             customer_name=order.billing_name,
             customer_additional_info=escape_markdown(order.tax_id[0])
             if order.tax_id

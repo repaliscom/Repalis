@@ -73,7 +73,7 @@ async def merchant_migration_verify_cards(
 async def merchant_migration_cutover(
     merchant_migration_id: Annotated[UUID, LoggableField],
 ) -> None:
-    """Switch billing over to Polar, one subscription per run.
+    """Switch billing over to Repalis, one subscription per run.
 
     Each run is its own transaction because the run cancels a subscription on the
     merchant's provider: work already done must never be replayed by a retry of

@@ -66,11 +66,11 @@ class Payout(RecordModel):
     Automatically kept in sync by a trigger defined in server/polar/models/payout_attempt.py
     """
     currency: Mapped[str] = mapped_column(String(3), nullable=False)
-    """Currency of this transaction from Polar's perspective. Should be `usd`."""
+    """Currency of this transaction from Repalis's perspective. Should be `usd`."""
     amount: Mapped[int] = mapped_column(BigInteger, nullable=False)
-    """Amount in cents of this transaction from Polar's perspective."""
+    """Amount in cents of this transaction from Repalis's perspective."""
     fees_amount: Mapped[int] = mapped_column(BigInteger, nullable=False)
-    """Fees amount in cents of this transaction from Polar's perspective."""
+    """Fees amount in cents of this transaction from Repalis's perspective."""
     account_currency: Mapped[str] = mapped_column(String(3), nullable=False)
     """Currency of this transaction from user's account perspective. Might not be `usd`."""
     account_amount: Mapped[int] = mapped_column(BigInteger, nullable=False)

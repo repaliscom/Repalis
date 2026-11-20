@@ -13,7 +13,7 @@ from repalis.auth.permission import ROLE_PERMISSIONS, OrganizationPermission
 from repalis.config import settings
 from repalis.email.schemas import DomainVerificationLostEmail, DomainVerificationLostProps
 from repalis.email.sender import enqueue_email_template
-from repalis.exceptions import PolarError
+from repalis.exceptions import RepalisError
 from repalis.kit.pagination import PaginationParams, paginate
 from repalis.kit.utils import utc_now
 from repalis.logging import Logger
@@ -30,7 +30,7 @@ from .schemas import OrganizationDomainCreate
 log: Logger = structlog.get_logger()
 
 
-class OrganizationDomainAlreadyExists(PolarError):
+class OrganizationDomainAlreadyExists(RepalisError):
     def __init__(self, domain: str) -> None:
         self.domain = domain
         super().__init__(
@@ -38,7 +38,7 @@ class OrganizationDomainAlreadyExists(PolarError):
         )
 
 
-class OrganizationDomainVerificationFailed(PolarError):
+class OrganizationDomainVerificationFailed(RepalisError):
     def __init__(self, organization_domain: OrganizationDomain) -> None:
         self.domain = organization_domain.domain
         super().__init__(
@@ -49,7 +49,7 @@ class OrganizationDomainVerificationFailed(PolarError):
         )
 
 
-class OrganizationDomainVerifiedElsewhere(PolarError):
+class OrganizationDomainVerifiedElsewhere(RepalisError):
     def __init__(self, domain: str) -> None:
         self.domain = domain
         super().__init__(

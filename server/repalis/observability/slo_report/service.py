@@ -40,15 +40,15 @@ CRITICAL_ENDPOINTS_MATCHER = '"{}"'.format(
 
 GLOBAL_AVAILABILITY_QUERY = """
 100 * (1 - (
-  (sum(increase(polar_http_request_total{env="$env", status_code=~"5.."}[$range])) or vector(0))
-  / sum(increase(polar_http_request_total{env="$env"}[$range]))
+  (sum(increase(repalis_http_request_total{env="$env", status_code=~"5.."}[$range])) or vector(0))
+  / sum(increase(repalis_http_request_total{env="$env"}[$range]))
 ))
 """
 
 ERROR_BUDGET_REMAINING_QUERY = """
 100 * clamp_min(1 - (
-  (sum(increase(polar_http_request_total{env="$env", status_code=~"5.."}[$range])) or vector(0))
-  / clamp_min(0.0005 * sum(increase(polar_http_request_total{env="$env"}[$range])), 0.001)
+  (sum(increase(repalis_http_request_total{env="$env", status_code=~"5.."}[$range])) or vector(0))
+  / clamp_min(0.0005 * sum(increase(repalis_http_request_total{env="$env"}[$range])), 0.001)
 ), 0)
 """
 
@@ -60,25 +60,25 @@ histogram_quantile(0.99, sum by (endpoint, method, le) (
 
 ENDPOINT_AVAILABILITY_QUERY = """
 100 * (1 - (
-  sum by (endpoint, method) (increase(polar_http_request_total{env="$env", endpoint=~$endpoints, status_code=~"5.."}[$range]))
-  or (sum by (endpoint, method) (increase(polar_http_request_total{env="$env", endpoint=~$endpoints}[$range])) * 0)
-) / clamp_min(sum by (endpoint, method) (increase(polar_http_request_total{env="$env", endpoint=~$endpoints}[$range])), 1))
+  sum by (endpoint, method) (increase(repalis_http_request_total{env="$env", endpoint=~$endpoints, status_code=~"5.."}[$range]))
+  or (sum by (endpoint, method) (increase(repalis_http_request_total{env="$env", endpoint=~$endpoints}[$range])) * 0)
+) / clamp_min(sum by (endpoint, method) (increase(repalis_http_request_total{env="$env", endpoint=~$endpoints}[$range])), 1))
 """
 
 ENDPOINT_REQUEST_COUNT_QUERY = """
-sum by (endpoint, method) (increase(polar_http_request_total{env="$env", endpoint=~$endpoints}[$range]))
+sum by (endpoint, method) (increase(repalis_http_request_total{env="$env", endpoint=~$endpoints}[$range]))
 """
 
 ENDPOINT_ERROR_COUNT_QUERY = """
-sum by (endpoint, method) (increase(polar_http_request_total{env="$env", endpoint=~$endpoints, status_code=~"5.."}[$range]))
+sum by (endpoint, method) (increase(repalis_http_request_total{env="$env", endpoint=~$endpoints, status_code=~"5.."}[$range]))
 """
 
 TOTAL_REQUESTS_QUERY = """
-sum(increase(polar_http_request_total{env="$env"}[$range]))
+sum(increase(repalis_http_request_total{env="$env"}[$range]))
 """
 
 TOTAL_ERRORS_QUERY = """
-sum(increase(polar_http_request_total{env="$env", status_code=~"5.."}[$range]))
+sum(increase(repalis_http_request_total{env="$env", status_code=~"5.."}[$range]))
 """
 
 

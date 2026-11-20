@@ -48,7 +48,7 @@ class TestDeleteStale:
         await create_oauth2_token(
             save_fixture,
             client=token_client,
-            access_token="polar_at_u_existing",
+            access_token="repalis_at_u_existing",
             refresh_token=None,
             scopes=["openid"],
             user=user,

@@ -5,7 +5,7 @@ from zoneinfo import ZoneInfo
 from fastapi import Depends, Path, Query
 from pydantic import UUID4
 
-from repalis.exceptions import PolarRequestValidationError, ResourceNotFound
+from repalis.exceptions import RepalisRequestValidationError, ResourceNotFound
 from repalis.kit.csv import CSVStreamingResponse, IterableCSVWriter
 from repalis.kit.time_queries import (
     MAX_INTERVAL_DAYS,
@@ -67,7 +67,7 @@ async def get(
         valid_slugs = {m.slug for m in METRICS}
         invalid_slugs = set(filters.metrics) - valid_slugs
         if invalid_slugs:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "loc": ("query", "metrics"),
@@ -79,7 +79,7 @@ async def get(
             )
 
     if not is_under_limits(filters.start_date, filters.end_date, filters.interval):
-        raise PolarRequestValidationError(
+        raise RepalisRequestValidationError(
             [
                 {
                     "loc": ("query",),
@@ -126,7 +126,7 @@ async def export(
     if filters.metrics is not None:
         invalid_slugs = set(filters.metrics) - VALID_METRIC_SLUGS
         if invalid_slugs:
-            raise PolarRequestValidationError(
+            raise RepalisRequestValidationError(
                 [
                     {
                         "loc": ("query", "metrics"),
@@ -138,7 +138,7 @@ async def export(
             )
 
     if not is_under_limits(filters.start_date, filters.end_date, filters.interval):
-        raise PolarRequestValidationError(
+        raise RepalisRequestValidationError(
             [
                 {
                     "loc": ("query",),

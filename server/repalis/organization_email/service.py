@@ -9,7 +9,7 @@ from repalis.email.schemas import (
     OrganizationEmailVerificationProps,
 )
 from repalis.email.sender import enqueue_email_template
-from repalis.exceptions import PolarError
+from repalis.exceptions import RepalisError
 from repalis.kit.crypto import get_token_hash, get_token_hash_candidates
 from repalis.kit.utils import utc_now
 from repalis.models import Organization, OrganizationEmail
@@ -22,17 +22,17 @@ CODE_LENGTH = 6
 CODE_ALPHABET = string.ascii_uppercase + string.digits
 
 
-class OrganizationEmailMissing(PolarError):
+class OrganizationEmailMissing(RepalisError):
     def __init__(self) -> None:
         super().__init__("The organization has no support email to verify.", 409)
 
 
-class InvalidVerificationCode(PolarError):
+class InvalidVerificationCode(RepalisError):
     def __init__(self) -> None:
         super().__init__("This code is invalid or has expired.", 400)
 
 
-class SupportEmailNotVerified(PolarError):
+class SupportEmailNotVerified(RepalisError):
     def __init__(self) -> None:
         super().__init__("The support email must be verified first.", 403)
 

@@ -8,7 +8,7 @@ from sqlalchemy.orm import selectinload
 from repalis.auth.models import AuthSubject
 from repalis.authz.service import get_accessible_org_ids
 from repalis.enums import PayoutAccountType
-from repalis.exceptions import PolarError
+from repalis.exceptions import RepalisError
 from repalis.integrations.stripe.service import StripeAccountRejectReason, stripe
 from repalis.kit.db.postgres import AsyncReadSession
 from repalis.models import Organization, PayoutAccount, User
@@ -24,7 +24,7 @@ from .schemas import PayoutAccountCreate, PayoutAccountLink
 log = structlog.get_logger()
 
 
-class PayoutAccountServiceError(PolarError):
+class PayoutAccountServiceError(RepalisError):
     pass
 
 

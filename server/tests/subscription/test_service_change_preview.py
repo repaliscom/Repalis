@@ -9,7 +9,7 @@ from repalis.enums import (
     SubscriptionProrationBehavior,
     SubscriptionRecurringInterval,
 )
-from repalis.exceptions import PolarRequestValidationError
+from repalis.exceptions import RepalisRequestValidationError
 from repalis.kit.trial import TrialInterval
 from repalis.models import (
     BillingEntry,
@@ -214,7 +214,7 @@ class TestCalculateChangePreview:
             save_fixture, product=product, customer=customer
         )
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await subscription_service.calculate_change_preview(
                 session,
                 subscription,

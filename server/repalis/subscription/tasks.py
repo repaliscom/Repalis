@@ -6,7 +6,7 @@ import structlog
 from opentelemetry import trace
 from sqlalchemy.orm import joinedload, selectinload
 
-from repalis.exceptions import PolarTaskError
+from repalis.exceptions import RepalisTaskError
 from repalis.kit.utils import utc_now
 from repalis.logging import Logger
 from repalis.models import Subscription, SubscriptionMeter
@@ -29,7 +29,7 @@ from .service import subscription as subscription_service
 log: Logger = structlog.get_logger()
 
 
-class SubscriptionTaskError(PolarTaskError): ...
+class SubscriptionTaskError(RepalisTaskError): ...
 
 
 class SubscriptionDoesNotExist(SubscriptionTaskError):

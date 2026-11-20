@@ -9,7 +9,7 @@ from pydantic import ValidationError as PydanticValidationError
 from pydantic_core import PydanticCustomError
 
 from repalis.exception_handlers import request_validation_exception_handler
-from repalis.exceptions import PolarRequestValidationError
+from repalis.exceptions import RepalisRequestValidationError
 
 
 def _dummy_request() -> Request:
@@ -76,7 +76,7 @@ class TestRequestValidationExceptionHandler:
         assert isinstance(error["input"]["list"][0], str)
 
     async def test_polar_request_validation_error_with_non_utf8_bytes(self) -> None:
-        exc = PolarRequestValidationError(
+        exc = RepalisRequestValidationError(
             [
                 {
                     "loc": ("body",),
@@ -91,13 +91,13 @@ class TestRequestValidationExceptionHandler:
 
         assert response.status_code == 422
         payload = _payload(response.body)
-        assert payload["error"] == "PolarRequestValidationError"
+        assert payload["error"] == "RepalisRequestValidationError"
         assert isinstance(payload["detail"][0]["input"], str)
 
     async def test_polar_request_validation_error_message_excludes_input(
         self,
     ) -> None:
-        exc = PolarRequestValidationError(
+        exc = RepalisRequestValidationError(
             [
                 {
                     "loc": ("body", "email"),
