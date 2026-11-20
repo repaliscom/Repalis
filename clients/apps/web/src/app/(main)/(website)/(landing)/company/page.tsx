@@ -120,7 +120,7 @@ export default function CompanyPage() {
         name="Design"
         title="Design taken as seriously as uptime"
         subtitle="From API ergonomics to checkout"
-        description="Design at Polar spans the entire stack. Great developer ergonomics, docs that respect your time, dashboards that make usage billing legible and checkouts your customers trust."
+        description="Design at Repalis spans the entire stack. Great developer ergonomics, docs that respect your time, dashboards that make usage billing legible and checkouts your customers trust."
         cta={
           <Link href="/brand">
             <Button size="lg">Explore the brand</Button>
@@ -135,7 +135,7 @@ export default function CompanyPage() {
             <Box position="relative" overflow="hidden" aspectRatio="1 / 1">
               <StaticImage
                 src="/assets/brand/marketing/billboard_01.jpg"
-                alt="Polar billboard reading 'Your customers 10x'd their usage overnight. Polar already invoiced for it.'"
+                alt="Repalis billboard reading 'Your customers 10x'd their usage overnight. Repalis already invoiced for it.'"
                 fill
                 className="object-cover"
                 sizes="(min-width: 768px) 40rem, 100vw"

@@ -54,12 +54,12 @@ const GROUPS: LegalGroup[] = [
     documents: [
       {
         title: 'Master Services Terms',
-        description: 'Core contractual terms for using Polar as a platform.',
+        description: 'Core contractual terms for using Repalis as a platform.',
         href: '/legal/master-services-terms',
       },
       {
         title: 'Acceptable Use Policy',
-        description: 'Rules and restrictions for using Polar services.',
+        description: 'Rules and restrictions for using Repalis services.',
         href: '/legal/acceptable-use-policy',
       },
       {
@@ -74,7 +74,7 @@ const GROUPS: LegalGroup[] = [
     documents: [
       {
         title: 'Privacy Policy',
-        description: 'How Polar collects, uses, and protects personal data.',
+        description: 'How Repalis collects, uses, and protects personal data.',
         href: '/legal/privacy-policy',
       },
       {
@@ -90,12 +90,12 @@ const GROUPS: LegalGroup[] = [
       {
         title: 'Sub-processors',
         description:
-          'Third-party service providers and affiliates supporting the delivery and operation of the Polar platform.',
+          'Third-party service providers and affiliates supporting the delivery and operation of the Repalis platform.',
         href: '/legal/sub-processors',
       },
       {
         title: 'Payment Processor Partners',
-        description: 'Information about payment partners used by Polar.',
+        description: 'Information about payment partners used by Repalis.',
         href: '/legal/payment-processor-partners',
       },
     ],
@@ -149,7 +149,7 @@ export default function Legal() {
               Legal
             </Text>
             <Text variant="heading-m" as="p" color="muted" wrap="balance">
-              The terms and policies behind Polar
+              The terms and policies behind Repalis
             </Text>
           </Box>
         </Grid>

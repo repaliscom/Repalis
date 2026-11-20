@@ -9,7 +9,7 @@ const PRINCIPLES = [
   {
     title: 'Build in the open',
     description:
-      'Polar is open source. We build in public, with our community.',
+      'Repalis is open source. We build in public, with our community.',
   },
   {
     title: 'Obsess over developers',

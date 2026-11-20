@@ -132,7 +132,7 @@ export default function Downloads() {
         >
           <Box flexDirection="column">
             <Text variant="heading-s" as="h1" wrap="balance">
-              Polar in your pocket
+              Repalis in your pocket
             </Text>
             <Text variant="heading-s" as="p" color="muted" wrap="balance">
               Apps and plugins for every platform
@@ -141,7 +141,7 @@ export default function Downloads() {
           <Box position="relative" overflow="hidden" aspectRatio="3 / 2">
             <StaticImage
               src="/assets/landing/company/repalis.jpg"
-              alt="Polar graphic"
+              alt="Repalis graphic"
               fill
               className="object-cover"
               sizes="(min-width: 1024px) 50vw, 100vw"
@@ -161,7 +161,7 @@ export default function Downloads() {
 
       <Chapter
         name="Plugins"
-        title="Polar in your favourite tools"
+        title="Repalis in your favourite tools"
         subtitle="Raycast and Framer"
       >
         <DownloadGrid items={PLUGINS} />
