@@ -280,7 +280,7 @@ jobs:
                 ...context.repo,
                 tag_name: tag,
                 target_commitish: context.sha,
-                name: publish ? `Polar CLI v${version}` : tag,
+                name: publish ? `Repalis CLI v${version}` : tag,
                 body,
                 draft: true,
                 prerelease: !publish,

@@ -4,7 +4,7 @@ on:
   pull_request:
     types: [opened, synchronize]
     paths:
-      - "clients/apps/demo-app/polar.config.ts"
+      - "clients/apps/demo-app/repalis.config.ts"
       - ".github/workflows/demo_config_plan.yaml"
 
 permissions:

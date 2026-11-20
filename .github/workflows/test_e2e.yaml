@@ -21,7 +21,7 @@ jobs:
     runs-on: blacksmith-4vcpu-ubuntu-2404
 
     env:
-      E2E_API_URL: ${{ inputs.api_url || 'https://sandbox-api.polar.sh' }}
+      E2E_API_URL: ${{ inputs.api_url || 'https://sandbox-api.repalis.com' }}
       SOURCE_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
       SLACK_CHANNEL_ID: ${{ secrets.E2E_SLACK_CHANNEL_ID }}
       E2E_ORG_TOKEN: ${{ secrets.E2E_ORG_TOKEN }}

@@ -1,6 +1,6 @@
-# The Polar Development CLI
+# The Repalis Development CLI
 
-A CLI tool to streamline Polar development environment setup and management.
+A CLI tool to streamline Repalis development environment setup and management.
 
 ## Installation
 
@@ -23,7 +23,7 @@ The CLI collects anonymous usage analytics to help improve the tool. This includ
 
 To disable analytics, set either environment variable:
 
-- `DEV_CLI_NO_ANALYTICS=1` — Polar-specific opt-out
+- `DEV_CLI_NO_ANALYTICS=1` — Repalis-specific opt-out
 - `DO_NOT_TRACK=1` — Standard privacy flag
 
 ## Commands
@@ -94,11 +94,11 @@ dev snap --interactive              # Show browser (headed mode)
 
 Captures before/after screenshots across branches and generates a visual diff report.
 
-### Polar CLI from source
+### Repalis CLI from source
 
 ```bash
-dev polar auth login --local        # Any `polar` command, run from clients/packages/cli/src
-dev polar config plan               # Runs in your current directory, e.g. clients/apps/demo-app
+dev repalis auth login --local       # Any `repalis` command, run from clients/packages/cli/src
+dev repalis config plan              # Runs in your current directory, e.g. clients/apps/demo-app
 ```
 
 Arguments pass straight through. Like the released binary, it ignores `.env` files in the

@@ -333,12 +333,12 @@ def _write_apps_web_env_file(github_app: dict[str, typing.Any] | None = None) ->
 def _get_options():
     default_backend_external_url = None
     default_github_app_name = (
-        f"polar-development-{''.join(random.choices(string.ascii_lowercase, k=8))}"
+        f"repalis-development-{''.join(random.choices(string.ascii_lowercase, k=8))}"
     )
     default_github_setup_base_url = "http://localhost:51562"
 
     parser = argparse.ArgumentParser(
-        description="Setup the environment files for Polar development"
+        description="Setup the environment files for Repalis development"
     )
     parser.add_argument(
         "--setup-github-app",
@@ -348,14 +348,14 @@ def _get_options():
     parser.add_argument(
         "--backend-external-url",
         type=str,
-        help="The Polar backend base URL, available externally.",
+        help="The Repalis backend base URL, available externally.",
         default=default_backend_external_url,
         required=False,
     )
     parser.add_argument(
         "--github-app-name",
         type=str,
-        help="The name of the Polar backend app",
+        help="The name of the Repalis backend app",
         default=default_github_app_name,
     )
     parser.add_argument(

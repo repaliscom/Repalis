@@ -35,7 +35,7 @@ Two things to know when running tests here:
 
 ## Cursor Cloud specific instructions
 
-Prefer the Polar Development CLI (`dev/cli/`, alias `dev`) — the same path local developers use.
+Prefer the Repalis Development CLI (`dev/cli/`, alias `dev`) — the same path local developers use.
 See `dev/cli/README.md` for the full command list. Do **not** use `dev docker` (the heavier
 image-based stack from the `local-environment` skill) unless you specifically need it.
 Standard lint/test commands live in `server/AGENTS.md` and `clients/AGENTS.md`.
@@ -47,7 +47,7 @@ Standard lint/test commands live in `server/AGENTS.md` and `clients/AGENTS.md`.
 sudo dockerd > /tmp/dockerd.log 2>&1 &
 
 dev up --skip-integrations   # deps, infra (incl. Tinybird), migrations, builds
-dev seed                     # sample orgs/products + admin@polar.sh (NOT part of `dev up`)
+dev seed                     # sample orgs/products + admin@repalis.com (NOT part of `dev up`)
 dev start                    # api + worker + web (+ stripe) in tmux session `polar`
 # Stop with:  dev stop
 # Status:     dev status
