@@ -1,45 +1,34 @@
 'use client'
 
 import { m, useReducedMotion, type Variants } from 'motion/react'
-import { useId } from 'react'
 import {
   LOGO_ICON_VIEWBOX,
-  LOGO_MARK_ARC_PATH,
-  LOGO_MARK_ARC_STROKE_WIDTH,
-  LOGO_MARK_ARC_STROKES,
-  LOGO_MARK_HUB,
-  LOGO_MARK_RAYS_PATH,
+  LOGO_MARK_HORIZONTAL_PATH,
+  LOGO_MARK_PATH,
   LOGO_TYPE_VIEWBOX,
   LOGO_WORDMARK_PATH,
 } from './paths'
-import { LOGO_REVEAL_ARC, LOGO_REVEAL_EASE, LOGO_REVEAL_RAYS } from './timing'
+import { LOGO_REVEAL_EASE } from './timing'
 
 const EASE_FADE = [0.4, 0, 0.6, 1] as const
 
-const rays: Variants = {
-  hidden: { r: 0 },
+const markVariants: Variants = {
+  hidden: { opacity: 0, y: 8 },
   visible: {
-    r: LOGO_MARK_HUB.r,
-    transition: { ...LOGO_REVEAL_RAYS, ease: LOGO_REVEAL_EASE },
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.7, ease: LOGO_REVEAL_EASE },
   },
 }
 
-const arc: Variants = {
-  hidden: { pathLength: 0 },
-  visible: {
-    pathLength: 1,
-    transition: { ...LOGO_REVEAL_ARC, ease: LOGO_REVEAL_EASE },
-  },
-}
-
-const wordmark: Variants = {
-  hidden: { opacity: 0, x: -40 },
+const wordmarkVariants: Variants = {
+  hidden: { opacity: 0, x: -20 },
   visible: {
     opacity: 1,
     x: 0,
     transition: {
-      x: { duration: 1.1, delay: 0.08, ease: LOGO_REVEAL_EASE },
-      opacity: { duration: 0.55, delay: 0.3, ease: EASE_FADE },
+      x: { duration: 0.8, delay: 0.12, ease: LOGO_REVEAL_EASE },
+      opacity: { duration: 0.6, delay: 0.18, ease: EASE_FADE },
     },
   },
 }
@@ -53,7 +42,6 @@ const LogoReveal = ({
   size?: number
   className?: string
 }) => {
-  const id = useId()
   const reducedMotion = useReducedMotion()
 
   return (
@@ -70,40 +58,16 @@ const LogoReveal = ({
       whileInView="visible"
       viewport={{ once: true, amount: 0.6 }}
     >
-      <mask id={`${id}-rays`}>
-        <m.circle
-          cx={LOGO_MARK_HUB.cx}
-          cy={LOGO_MARK_HUB.cy}
-          fill="white"
-          variants={rays}
-        />
-      </mask>
-      <mask id={`${id}-arc`}>
-        {LOGO_MARK_ARC_STROKES.map((d) => (
-          <m.path
-            key={d}
-            d={d}
-            stroke="white"
-            strokeWidth={LOGO_MARK_ARC_STROKE_WIDTH}
-            variants={arc}
-          />
-        ))}
-      </mask>
-      <path
-        d={LOGO_MARK_RAYS_PATH}
+      <m.path
+        d={variant === 'icon' ? LOGO_MARK_PATH : LOGO_MARK_HORIZONTAL_PATH}
         fill="currentColor"
-        mask={`url(#${id}-rays)`}
-      />
-      <path
-        d={LOGO_MARK_ARC_PATH}
-        fill="currentColor"
-        mask={`url(#${id}-arc)`}
+        variants={markVariants}
       />
       {variant === 'logotype' ? (
         <m.path
           d={LOGO_WORDMARK_PATH}
           fill="currentColor"
-          variants={wordmark}
+          variants={wordmarkVariants}
         />
       ) : null}
     </m.svg>

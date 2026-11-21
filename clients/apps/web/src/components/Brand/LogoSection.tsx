@@ -14,7 +14,7 @@ import { LOGO_MARK_PATH } from './logos/paths'
 
 const LOGO_VIDEO_ID = 'd4e6d6f9f184a80ee8db27577897e626'
 
-const LOGO_ICON_SVG = `<svg width="310" height="310" viewBox="0 0 310 310" fill="none" xmlns="http://www.w3.org/2000/svg">
+const LOGO_ICON_SVG = `<svg width="120" height="96" viewBox="0 0 120 96" fill="none" xmlns="http://www.w3.org/2000/svg">
   <path d="${LOGO_MARK_PATH}" fill="currentColor"/>
 </svg>`
 

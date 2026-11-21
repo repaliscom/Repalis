@@ -1,5 +1,9 @@
 import { twMerge } from 'tailwind-merge'
-import { LOGO_MARK_PATH, LOGO_TYPE_VIEWBOX, LOGO_WORDMARK_PATH } from './paths'
+import {
+  LOGO_MARK_HORIZONTAL_PATH,
+  LOGO_TYPE_VIEWBOX,
+  LOGO_WORDMARK_PATH,
+} from './paths'
 
 const LogoType = ({
   className,
@@ -19,8 +23,8 @@ const LogoType = ({
       width={width}
       height={height}
     >
+      <path d={LOGO_MARK_HORIZONTAL_PATH} fill="currentColor" />
       <path d={LOGO_WORDMARK_PATH} fill="currentColor" />
-      <path d={LOGO_MARK_PATH} fill="currentColor" />
     </svg>
   )
 }
