@@ -16,7 +16,7 @@ interface Destination {
 const DESTINATIONS: Destination[] = [
   { title: 'Homepage', href: '/', Graphic: SteppedRadial },
   { title: 'Blog', href: '/blog', Graphic: VectorField },
-  { title: 'Documentation', href: 'https://repalis.com/docs', Graphic: WaveBars },
+  { title: 'Documentation', href: '/docs', Graphic: WaveBars },
   { title: 'Company', href: '/company', Graphic: LinkedRings },
 ]
 

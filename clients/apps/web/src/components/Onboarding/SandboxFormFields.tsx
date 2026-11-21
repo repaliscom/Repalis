@@ -192,7 +192,7 @@ export function SandboxFormFields({
                   </a>{' '}
                   &amp;{' '}
                   <a
-                    href="https://repalis.com/docs/merchant-of-record/account-reviews"
+                    href="/docs/merchant-of-record/account-reviews"
                     className="text-gray-900 underline dark:text-white"
                     target="_blank"
                     rel="noopener noreferrer"

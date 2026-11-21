@@ -198,7 +198,7 @@ export const DashboardSidebar = ({
                 'flex flex-row items-center rounded-lg border border-transparent text-sm transition-colors dark:border-transparent',
                 'dark:text-repalis-500 dark:hover:text-repalis-200 text-gray-500 hover:text-black',
               )}
-              href="https://repalis.com/docs"
+              href="/docs"
               target="_blank"
               rel="noopener noreferrer"
             >

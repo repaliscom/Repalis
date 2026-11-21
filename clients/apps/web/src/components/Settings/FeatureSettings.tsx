@@ -72,7 +72,7 @@ export default function FeatureSettings({
               <>
                 Show{' '}
                 <a
-                  href="https://repalis.com/docs/features/checkout/localization"
+                  href="/docs/features/checkout/localization"
                   target="_blank"
                   className="underline"
                   rel="noreferrer noopener"

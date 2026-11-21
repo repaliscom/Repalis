@@ -53,7 +53,7 @@ export const navMenus: NavMenu[] = [
       items: [
         {
           label: 'Documentation',
-          href: 'https://repalis.com/docs',
+          href: '/docs',
           target: '_blank',
         },
       ],

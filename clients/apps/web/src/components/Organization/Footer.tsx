@@ -109,7 +109,7 @@ const Footer = () => {
           </FooterSection>
 
           <FooterSection title="Support">
-            <FooterLink href="https://repalis.com/docs">Docs</FooterLink>
+            <FooterLink href="/docs">Docs</FooterLink>
             <FooterLink href="mailto:contact@repalis.com">Contact</FooterLink>
             <FooterLink href="https://status.repalis.com">
               Service Status

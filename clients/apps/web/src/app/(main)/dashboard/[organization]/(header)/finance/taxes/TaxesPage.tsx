@@ -194,7 +194,7 @@ export default function TaxesPage({
 
             <Button variant="default" asChild>
               <a
-                href="https://repalis.com/docs/merchant-of-record/introduction"
+                href="/docs/merchant-of-record/introduction"
                 target="_blank"
                 rel="noopener noreferrer"
               >

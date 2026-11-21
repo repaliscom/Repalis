@@ -151,6 +151,8 @@ services:
       # must be set in server/.env (they're loaded via env_file)
       # REPALIS_API_URL is for server-side requests (container-to-container)
       REPALIS_API_URL: http://api:8000
+      # Documentation proxy target (local mintlify container or production site)
+      DOCS_URL: ${DOCS_URL:-http://docs:3333}
       # Browser-side MinIO uploads require a host-reachable MinIO. Shared infra
       # publishes MinIO on host port 9000, and the API generates presigned URLs
       # against REPALIS_S3_PUBLIC_ENDPOINT_URL (http://localhost:9000), so direct
@@ -189,6 +191,18 @@ services:
       resources:
         limits:
           memory: 6G
+
+  docs:
+    image: node:24-slim
+    working_dir: /app/docs
+    command: npx -y mintlify dev --host --no-open --port 3333
+    volumes:
+      - ../../docs:/app/docs:cached
+    ports:
+      - "${DOCS_PORT:-3333}:3333"
+    networks:
+      - default
+    restart: unless-stopped
 
 networks:
   default:

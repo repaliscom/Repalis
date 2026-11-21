@@ -35,7 +35,7 @@ const resourceLinks = [
   {
     title: 'Documentation',
     description: 'Learn the ins and outs of the Repalis platform',
-    href: 'https://repalis.com/docs',
+    href: '/docs',
     target: '_blank',
   },
   {

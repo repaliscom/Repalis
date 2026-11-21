@@ -11,7 +11,7 @@ import { Box } from '@repalis/orbit/Box'
 import Link from 'next/link'
 
 const DISPUTE_DOCS_URL =
-  'https://repalis.com/docs/merchant-of-record/fees#dispute/chargeback-fees'
+  '/docs/merchant-of-record/fees#dispute/chargeback-fees'
 
 export const DisputeBanner = ({
   dispute,

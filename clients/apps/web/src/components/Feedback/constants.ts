@@ -9,6 +9,6 @@ export const REJECTION_PRE_APPROVAL_TEXT =
 
 export const ACCOUNT_REVIEW_REPLY = `Account reviews are part of our continuous compliance process. Repalis reviews active merchants to make sure your use case stays within our Acceptable Use Policy and your account remains in good standing.
 
-You can read more about how reviews work and what to do during one in [our documentation](https://repalis.com/docs/merchant-of-record/account-reviews).
+You can read more about how reviews work and what to do during one in [our documentation](/docs/merchant-of-record/account-reviews).
 
 If you're already in a review, please avoid sending follow-ups unless you have additional information to add — this can push your request further down the queue.`

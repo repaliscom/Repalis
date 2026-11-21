@@ -30,7 +30,7 @@ const PageNotFound = () => {
         </li>
         <li>
           <a
-            href="https://repalis.com/docs"
+            href="/docs"
             className="dark:hover:text-repalis-300 block p-1 hover:text-gray-700 hover:underline"
             rel="noopener noreferrer"
           >

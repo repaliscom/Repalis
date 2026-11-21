@@ -89,6 +89,14 @@ const nextConfig = {
   },
 
   async rewrites() {
+    const docsUrl = process.env.DOCS_URL || 'http://docs:3333'
+    const isLocalDocs =
+      docsUrl.includes('localhost') ||
+      docsUrl.includes('docs:3333') ||
+      docsUrl.includes('127.0.0.1')
+    const docsTarget = isLocalDocs ? docsUrl : docsUrl.replace(/\/docs\/?$/, '')
+    const docsAssetsOrigin = docsUrl.replace(/\/docs\/?$/, '')
+
     return {
       beforeFiles: [
         {
@@ -101,6 +109,27 @@ const nextConfig = {
               value: '.*text/markdown.*',
             },
           ],
+        },
+        // Mintlify Documentation rewrites (local dev & production)
+        {
+          source: '/_mintlify/:path*',
+          destination: `${docsAssetsOrigin}/_mintlify/:path*`,
+        },
+        {
+          source: '/mintlify-assets/:path*',
+          destination: `${docsAssetsOrigin}/mintlify-assets/:path*`,
+        },
+        {
+          source: '/docs',
+          destination: isLocalDocs
+            ? `${docsTarget}/introduction`
+            : `${docsTarget}/docs`,
+        },
+        {
+          source: '/docs/:path*',
+          destination: isLocalDocs
+            ? `${docsTarget}/:path*`
+            : `${docsTarget}/docs/:path*`,
         },
         {
           source: '/perspectives',

@@ -87,7 +87,7 @@ const ManageWithAgentContent = () => (
       <CommandBlock />
       <Box>
         <a
-          href="https://repalis.com/docs/integrate/mcp"
+          href="/docs/integrate/mcp"
           target="_blank"
           rel="noopener noreferrer"
         >

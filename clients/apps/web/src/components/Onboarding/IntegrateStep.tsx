@@ -43,7 +43,7 @@ const frameworks = (products: schemas['Product'][]) =>
     {
       slug: 'nextjs',
       name: 'Next.js',
-      link: 'https://repalis.com/docs/integrate/sdk/adapters/nextjs',
+      link: '/docs/integrate/sdk/adapters/nextjs',
       icon: <NextJsIcon size={24} />,
       packages: '@repalis/nextjs',
       code: `import { Checkout } from "@repalis/nextjs";
@@ -56,7 +56,7 @@ export const GET = Checkout({
     {
       slug: 'better-auth',
       name: 'BetterAuth',
-      link: 'https://repalis.com/docs/integrate/sdk/adapters/better-auth',
+      link: '/docs/integrate/sdk/adapters/better-auth',
       icon: <BetterAuthIcon size={24} />,
       packages: 'better-auth @repalis/better-auth @repalis/sdk',
       code: `import { betterAuth } from "better-auth";
@@ -96,7 +96,7 @@ ${products
     {
       slug: 'nodejs',
       name: 'Node.js',
-      link: 'https://repalis.com/docs/integrate/sdk/typescript',
+      link: '/docs/integrate/sdk/typescript',
       icon: <NodeJsIcon size={24} />,
       packages: '@repalis/sdk',
       code: `import { Repalis } from "@repalis/sdk";
@@ -117,7 +117,7 @@ redirect(checkout.url)`,
     {
       slug: 'python',
       name: 'Python',
-      link: 'https://repalis.com/docs/integrate/sdk/python',
+      link: '/docs/integrate/sdk/python',
       icon: <PythonIcon size={24} />,
       pythonInstall: 'pip install repalis-sdk',
       code: `import os
@@ -238,7 +238,7 @@ export const IntegrateStep = ({ products }: IntegrateStepProps) => {
           </Box>
           <Box flexDirection="column" rowGap="l">
             <a
-              href={`https://repalis.com/docs/integrate/sdk/adapters/nextjs`}
+              href="/docs/integrate/sdk/adapters/nextjs"
               target="_blank"
               rel="noopener noreferrer"
               className="w-full"

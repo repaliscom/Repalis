@@ -8,7 +8,7 @@ import {
 import { Box } from '@repalis/orbit/Box'
 
 const FLAGGED_FILES_DOCS_URL =
-  'https://repalis.com/docs/features/benefits/file-downloads#flagged-files'
+  '/docs/features/benefits/file-downloads#flagged-files'
 
 export const FlaggedMaliciousStatus = () => (
   <Tooltip>

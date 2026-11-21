@@ -22,6 +22,10 @@
   ],
   "rewrites": [
     {
+      "source": "/_mintlify/:path*",
+      "destination": "https://repalis.mintlify.site/_mintlify/:path*"
+    },
+    {
       "source": "/_mintlify/api/:path+",
       "destination": "https://repalis.mintlify.site/_mintlify/api/:path+"
     },

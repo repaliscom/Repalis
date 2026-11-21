@@ -231,7 +231,7 @@ export const RefundModal = ({ order, hide }: RefundModalProps) => {
               </p>
               <p>
                 <a
-                  href="https://repalis.com/docs/features/refunds"
+                  href="/docs/features/refunds"
                   className="underline hover:no-underline"
                   target="_blank"
                   rel="noreferrer noopener"

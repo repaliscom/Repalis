@@ -217,7 +217,7 @@ const CreateOrganizationForm = ({
                     <ul className="dark:text-repalis-400 flex flex-col gap-y-1 text-sm text-gray-500">
                       <li>
                         <a
-                          href="https://repalis.com/docs/merchant-of-record/account-reviews"
+                          href="/docs/merchant-of-record/account-reviews"
                           className="text-blue-600 hover:underline dark:text-blue-400"
                           target="_blank"
                           rel="noopener noreferrer"

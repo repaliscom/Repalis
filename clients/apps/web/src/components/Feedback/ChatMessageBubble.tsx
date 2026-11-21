@@ -6,7 +6,7 @@ import type { UIMessage } from 'ai'
 
 import { extractText } from './messages'
 
-const REPALIS_DOCS_BASE = 'https://repalis.com/docs/'
+const REPALIS_DOCS_BASE = '/docs/'
 
 const normalizeAssistantLinks = (text: string): string =>
   text.replace(

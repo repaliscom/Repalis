@@ -85,7 +85,7 @@ const mobileNavigationItems: NavigationItem[] = [
   },
   {
     title: 'Documentation',
-    href: 'https://repalis.com/docs',
+    href: '/docs',
     target: '_blank',
   },
   {
