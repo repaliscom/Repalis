@@ -74,6 +74,7 @@ x-common-backend-env: &common-backend-env
 x-api-volumes: &api-volumes
   - ../../server:/app/server:cached
   - ../../dev:/app/dev:cached
+  - ../../sdk:/app/sdk:cached
   - server_uv_cache:/root/.cache/uv
   - api_venv:/app/server/.venv
   - pnpm_store:/root/.local/share/pnpm/store
@@ -81,6 +82,7 @@ x-api-volumes: &api-volumes
 x-worker-volumes: &worker-volumes
   - ../../server:/app/server:cached
   - ../../dev:/app/dev:cached
+  - ../../sdk:/app/sdk:cached
   - server_uv_cache:/root/.cache/uv
   - worker_venv:/app/server/.venv
   - pnpm_store:/root/.local/share/pnpm/store

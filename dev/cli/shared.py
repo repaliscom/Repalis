@@ -2,7 +2,10 @@
 
 import json
 import os
-import pty
+try:
+    import pty
+except ImportError:
+    pty = None
 import re
 import shutil
 import socket
@@ -157,6 +160,39 @@ def run_with_live_status(cmd: list[str], message: str) -> subprocess.CompletedPr
     The command writes to a pseudo-terminal, so tools that only report progress
     to a terminal, like softwareupdate's download, still do.
     """
+    if pty is None:
+        try:
+            process = subprocess.Popen(
+                cmd,
+                stdin=subprocess.DEVNULL,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.STDOUT,
+                text=True,
+                errors="replace",
+            )
+        except FileNotFoundError:
+            return None
+        chunks: list[str] = []
+
+        def read_output() -> None:
+            if process.stdout:
+                for line in iter(process.stdout.readline, ""):
+                    chunks.append(line)
+                process.stdout.close()
+
+        reader = threading.Thread(target=read_output, daemon=True)
+        reader.start()
+        started = time.monotonic()
+        spinner = Spinner("dots", text=Text(f" {message}", style="bold"))
+        with Live(Padding(spinner, (0, 0, 0, 2)), console=console, refresh_per_second=8, transient=True):
+            while process.poll() is None:
+                lines = [line.strip() for line in re.split(r"[\r\n]", "".join(chunks)) if line.strip()]
+                minutes, seconds = divmod(int(time.monotonic() - started), 60)
+                spinner.update(text=Text(f" {lines[-1] if lines else message}  {minutes}m {seconds:02d}s", style="bold"))
+                time.sleep(0.25)
+        reader.join(timeout=2)
+        return subprocess.CompletedProcess(cmd, process.returncode, stdout="".join(chunks), stderr="")
+
     master, slave = pty.openpty()
     try:
         process = subprocess.Popen(cmd, stdin=subprocess.DEVNULL, stdout=slave, stderr=slave)

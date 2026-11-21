@@ -6,7 +6,10 @@ else. Keep this module to the standard library plus python-dotenv: the
 setup-environment script depends on only those.
 """
 
-import fcntl
+try:
+    import fcntl
+except ImportError:
+    fcntl = None
 import os
 import shutil
 import stat
@@ -40,10 +43,12 @@ def secrets_lock():
     lock_path = SECRETS_FILE.with_name(f"{SECRETS_FILE.name}.lock")
     fd = os.open(lock_path, os.O_CREAT | os.O_RDWR, 0o600)
     try:
-        fcntl.flock(fd, fcntl.LOCK_EX)
+        if fcntl is not None:
+            fcntl.flock(fd, fcntl.LOCK_EX)
         yield
     finally:
-        fcntl.flock(fd, fcntl.LOCK_UN)
+        if fcntl is not None:
+            fcntl.flock(fd, fcntl.LOCK_UN)
         os.close(fd)
 
 

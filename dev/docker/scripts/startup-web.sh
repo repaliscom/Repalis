@@ -34,7 +34,21 @@ if [[ ! -d "packages/orbit/dist" ]]; then
     echo "Building @repalis/orbit..."
     pnpm --filter @repalis/orbit build
 else
-    echo "@repalis/ui already built"
+    echo "@repalis/orbit already built"
+fi
+
+if [[ ! -d "packages/currency/dist" ]]; then
+    echo "Building @repalis/currency..."
+    pnpm --filter @repalis/currency build
+else
+    echo "@repalis/currency already built"
+fi
+
+if [[ ! -d "packages/i18n/dist" ]]; then
+    echo "Building @repalis/i18n..."
+    pnpm --filter @repalis/i18n build
+else
+    echo "@repalis/i18n already built"
 fi
 
 if [[ ! -d "packages/checkout/dist" ]]; then
