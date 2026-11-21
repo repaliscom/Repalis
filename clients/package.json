@@ -15,7 +15,7 @@
     "knip": "knip",
     "box-codemod": "pnpm --filter @repalis/box-codemod box-codemod",
     "preinstall": "npx only-allow pnpm",
-    "prepare": "pnpm --filter @repalis/cli exec effect-tsgo patch && ([ -n \"$VERCEL\" ] || turbo run build --filter='./packages/*')",
+    "prepare": "([ -f \"packages/cli/node_modules/.bin/effect-tsgo\" ] && pnpm --filter @repalis/cli exec effect-tsgo patch || true) && ([ -n \"$VERCEL\" ] || [ -n \"$DOCKER\" ] || turbo run build --filter='./packages/*')",
     "release-packages": "turbo run build test --filter='./packages/*' --filter='./adapters/*' --filter='!@repalis/cli' && turbo run lint --filter='!@repalis/cli' && changeset publish"
   },
   "devDependencies": {

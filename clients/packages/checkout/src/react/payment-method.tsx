@@ -105,7 +105,6 @@ interface RepalisPaymentMethodBaseProps {
 }
 
 export type RepalisPaymentMethodProps = RepalisPaymentMethodBaseProps
-export type RepalisPaymentMethodProps = RepalisPaymentMethodBaseProps
 
 /**
  * Embeds the Repalis "add payment method" form as a bare, chrome-less

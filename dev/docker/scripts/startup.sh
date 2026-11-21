@@ -50,9 +50,14 @@ if [[ "${1:-api}" == "api" ]] && [[ ! -f "$EMAIL_MARKER" ]]; then
     export pnpm_config_store_dir=/root/.local/share/pnpm/store
     # Install dependencies (uses shared pnpm store for speed)
     pnpm install --frozen-lockfile
-    # Build: tsdown compiles TypeScript, pkg creates standalone binary
+    # Build: tsdown compiles TypeScript
     pnpm exec tsdown
-    pnpm exec pkg package.json
+    mkdir -p bin
+    cat <<'SH' > bin/react-email-pkg
+#!/bin/sh
+exec node "$(dirname "$0")/../dist/index.js" "$@"
+SH
+    chmod +x bin/react-email-pkg
     # Mark as built for this architecture
     touch "bin/.built-${ARCH}"
     cd ..
