@@ -4,7 +4,12 @@ import { afterAll, beforeAll, bench, describe } from "vitest";
 
 import { BUCKET_COUNTS, REDUCER, SNAPSHOT, encodeState } from "./benchmark";
 import { Outpost } from "./client";
-import { startRepalisServer, startRedisServer, type RepalisServer, type RedisServer } from "./testing";
+import {
+  startRepalisServer,
+  startRedisServer,
+  type RepalisServer,
+  type RedisServer,
+} from "./testing";
 
 const customerOf = (buckets: number) => `alice-${buckets}`;
 const meterOf = (buckets: number) => ({

@@ -15,7 +15,11 @@ def configure_logger(
 
     if handler is None:
         handler = next(
-            (handler for handler in logger.handlers if handler.name == "repalis.default"),
+            (
+                handler
+                for handler in logger.handlers
+                if handler.name == "repalis.default"
+            ),
             None,
         )
         if handler is None:

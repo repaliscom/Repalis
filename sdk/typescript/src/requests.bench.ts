@@ -28,7 +28,9 @@ describe("customer requests", () => {
   let repalis: ReturnType<typeof createRepalis>;
   let server: ReturnType<typeof spawn> | undefined;
   const requestBatch = () =>
-    Promise.all(Array.from({ length: data.concurrency }, () => repalis.customers.list({ limit: 1 })));
+    Promise.all(
+      Array.from({ length: data.concurrency }, () => repalis.customers.list({ limit: 1 })),
+    );
 
   bench(
     `${data.concurrency} concurrent customer requests`,

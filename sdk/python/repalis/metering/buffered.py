@@ -8,7 +8,12 @@ import typing
 import anyio
 import anyio.lowlevel
 
-from repalis import RepalisError, RepalisNetworkError, RepalisRateLimitError, RepalisServerError
+from repalis import (
+    RepalisError,
+    RepalisNetworkError,
+    RepalisRateLimitError,
+    RepalisServerError,
+)
 from repalis.logging import get_logger
 from repalis.metering.client import MeteringClient
 from repalis.metering.errors import (
@@ -373,7 +378,11 @@ class BufferedMeteringStrategy:
             try:
                 await self.repalis.events.ingest(events=batch)
                 break
-            except (RepalisNetworkError, RepalisRateLimitError, RepalisServerError) as e:
+            except (
+                RepalisNetworkError,
+                RepalisRateLimitError,
+                RepalisServerError,
+            ) as e:
                 if isinstance(e, RepalisRateLimitError) and e.retry_after is not None:
                     delay = max(float(e.retry_after), 1.0)
                     waited += delay

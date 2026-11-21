@@ -2,7 +2,12 @@ import { afterAll, beforeAll, bench, describe } from "vitest";
 
 import { CREDIT_REDUCER, REDUCER, SNAPSHOT } from "./benchmark";
 import { Outpost } from "./client";
-import { startRepalisServer, startRedisServer, type RepalisServer, type RedisServer } from "./testing";
+import {
+  startRepalisServer,
+  startRedisServer,
+  type RepalisServer,
+  type RedisServer,
+} from "./testing";
 
 const meter = { meter_id: "meter", external_customer_id: "alice" };
 

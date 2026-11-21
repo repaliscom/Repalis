@@ -63,6 +63,7 @@ export default async function RootLayout({
             }}
           />
         )}
+        <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
         {CONFIG.ENVIRONMENT === 'development' ? (
           <link href="/favicon-dev.png" rel="icon" />
         ) : (

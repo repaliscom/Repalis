@@ -1,16 +1,27 @@
 import types
 import typing
 
-from repalis.base import AsyncClientBase, RequestTimeout, SyncClientBase, resolve_base_url
+from repalis.base import (
+    AsyncClientBase,
+    RequestTimeout,
+    SyncClientBase,
+    resolve_base_url,
+)
 from repalis.metering import (
     BufferedMeteringOptions,
     Metering,
     MeteringOutpostOptions,
     MeteringStrategyProtocol,
 )
-from repalis.v2026_10.services.benefit_grants import BenefitGrantsAsync, BenefitGrantsSync
+from repalis.v2026_10.services.benefit_grants import (
+    BenefitGrantsAsync,
+    BenefitGrantsSync,
+)
 from repalis.v2026_10.services.benefits import BenefitsAsync, BenefitsSync
-from repalis.v2026_10.services.checkout_links import CheckoutLinksAsync, CheckoutLinksSync
+from repalis.v2026_10.services.checkout_links import (
+    CheckoutLinksAsync,
+    CheckoutLinksSync,
+)
 from repalis.v2026_10.services.checkouts import CheckoutsAsync, CheckoutsSync
 from repalis.v2026_10.services.custom_fields import CustomFieldsAsync, CustomFieldsSync
 from repalis.v2026_10.services.customer_meters import (
@@ -21,7 +32,10 @@ from repalis.v2026_10.services.customer_portal import (
     CustomerPortalAsync,
     CustomerPortalSync,
 )
-from repalis.v2026_10.services.customer_seats import CustomerSeatsAsync, CustomerSeatsSync
+from repalis.v2026_10.services.customer_seats import (
+    CustomerSeatsAsync,
+    CustomerSeatsSync,
+)
 from repalis.v2026_10.services.customer_sessions import (
     CustomerSessionsAsync,
     CustomerSessionsSync,
@@ -37,11 +51,17 @@ from repalis.v2026_10.services.meters import MetersAsync, MetersSync
 from repalis.v2026_10.services.metrics import MetricsAsync, MetricsSync
 from repalis.v2026_10.services.oauth2 import Oauth2Async, Oauth2Sync
 from repalis.v2026_10.services.orders import OrdersAsync, OrdersSync
-from repalis.v2026_10.services.organizations import OrganizationsAsync, OrganizationsSync
+from repalis.v2026_10.services.organizations import (
+    OrganizationsAsync,
+    OrganizationsSync,
+)
 from repalis.v2026_10.services.payments import PaymentsAsync, PaymentsSync
 from repalis.v2026_10.services.products import ProductsAsync, ProductsSync
 from repalis.v2026_10.services.refunds import RefundsAsync, RefundsSync
-from repalis.v2026_10.services.subscriptions import SubscriptionsAsync, SubscriptionsSync
+from repalis.v2026_10.services.subscriptions import (
+    SubscriptionsAsync,
+    SubscriptionsSync,
+)
 from repalis.v2026_10.services.webhooks import WebhooksAsync, WebhooksSync
 
 Environment = typing.Literal["production", "sandbox"]

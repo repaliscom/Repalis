@@ -42,8 +42,8 @@ from repalis.outpost.client import (
     WRITE_BUCKET_SCRIPT,
     MissingExternalIdError,
     Outpost,
-    RepalisOutpostError,
     RedisReconnectBackoff,
+    RepalisOutpostError,
     UnavailableRedisError,
     _is_connection_error,
     _NotReadyError,
@@ -1345,7 +1345,8 @@ async def test_keeps_the_organizations_configuration_a_pull_wrote_while_another_
             group.start_soon(start_another)
             with anyio.fail_after(1):
                 while (
-                    len(_requested(repalis_requests, "GET /v1/outpost/configuration")) < 2
+                    len(_requested(repalis_requests, "GET /v1/outpost/configuration"))
+                    < 2
                 ):
                     await anyio.lowlevel.checkpoint()
             configuration_status["delay"] = 0

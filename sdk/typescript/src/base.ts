@@ -168,7 +168,7 @@ export class ClientBase {
       "Content-Type": "application/json",
       "Repalis-Version": this.options.version,
       Authorization: `Bearer ${this.options.accessToken}`,
-      "User-Agent": "repalis-sdk-typescript/1.3.1",
+      "User-Agent": "repalis-sdk-typescript/0.0.0",
     });
     if (this.options.organizationId !== undefined) {
       headers.set("Repalis-Organization", this.options.organizationId);

@@ -5,9 +5,18 @@ import anyio
 import anyio.lowlevel
 import pytest
 
-from repalis import RepalisClientError, RepalisError, RepalisNetworkError, RepalisRateLimitError
+from repalis import (
+    RepalisClientError,
+    RepalisError,
+    RepalisNetworkError,
+    RepalisRateLimitError,
+)
 from repalis.metering import FlushProtocol, MeteringDeliveryError, MeteringTimeoutError
-from repalis.metering.buffered import BufferedMeteringStrategy, DropReason, _FlushRequest
+from repalis.metering.buffered import (
+    BufferedMeteringStrategy,
+    DropReason,
+    _FlushRequest,
+)
 from repalis.metering.client import MeteringClient
 from repalis.metering.events import EventInput
 

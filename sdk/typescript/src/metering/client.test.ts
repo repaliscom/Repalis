@@ -470,7 +470,9 @@ it.each([false, true])(
 it("forwards buffer options and reports failed delivery", async () => {
   vi.spyOn(console, "warn").mockImplementation(() => {});
   const repalis = createRepalis({ accessToken: "token" });
-  const send = vi.spyOn(repalis.events, "ingest").mockRejectedValue(new RepalisNetworkError("offline"));
+  const send = vi
+    .spyOn(repalis.events, "ingest")
+    .mockRejectedValue(new RepalisNetworkError("offline"));
   const onDropped = vi.fn();
   {
     const metering = repalis.metering({

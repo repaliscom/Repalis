@@ -6,7 +6,12 @@ import { BUCKET_COUNTS, COLD_UNTIL, encodeState } from "./benchmark";
 import benchmark from "./benchmark.json";
 import { Outpost } from "./client";
 import { BUCKET_SIZE, type Reducer } from "./reducer";
-import { startRepalisServer, startRedisServer, type RepalisServer, type RedisServer } from "./testing";
+import {
+  startRepalisServer,
+  startRedisServer,
+  type RepalisServer,
+  type RedisServer,
+} from "./testing";
 
 const OPTIONS = { warmupTime: 500, time: 2_000 };
 // encodeState seeds every bucket with 10 events.

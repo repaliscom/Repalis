@@ -166,7 +166,7 @@ def _default_headers(
     headers = {
         "Repalis-Version": version,
         "Authorization": f"Bearer {access_token}",
-        "User-Agent": "repalis-sdk-python/1.3.1",
+        "User-Agent": "repalis-sdk-python/0.0.0",
     }
     if organization_id is not None:
         headers["Repalis-Organization"] = organization_id

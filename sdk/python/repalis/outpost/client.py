@@ -1722,7 +1722,9 @@ class Outpost:
                         error.response.is_client_error
                         and error.response.status_code != 429
                     ):
-                        raise RepalisOutpostError("Repalis rejected the pull") from error
+                        raise RepalisOutpostError(
+                            "Repalis rejected the pull"
+                        ) from error
                     raise
                 pages += 1
                 if changes["reset"]:

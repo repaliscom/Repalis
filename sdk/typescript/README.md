@@ -23,7 +23,7 @@ the current API version:
 import { createRepalis } from "@repalis/sdk/2026-10";
 
 const repalis = createRepalis({
-    accessToken: "repalis_oat_xxx",
+  accessToken: "repalis_oat_xxx",
 });
 
 const customerState = await repalis.customers.getStateExternal("customer_external_id");
@@ -43,8 +43,8 @@ in seconds:
 
 ```typescript
 const repalis = createRepalis({
-    accessToken: "repalis_oat_xxx",
-    timeout: 30,
+  accessToken: "repalis_oat_xxx",
+  timeout: 30,
 });
 ```
 
@@ -52,7 +52,7 @@ Override the timeout for an individual request with the final request options ar
 
 ```typescript
 const customerState = await repalis.customers.getStateExternal("customer_external_id", {
-    timeout: 60,
+  timeout: 60,
 });
 ```
 
@@ -60,7 +60,7 @@ Override the access token for an individual request the same way:
 
 ```typescript
 const customerState = await repalis.customers.getStateExternal("customer_external_id", {
-    accessToken: "repalis_at_u_override",
+  accessToken: "repalis_at_u_override",
 });
 ```
 
@@ -72,8 +72,8 @@ Pass `organizationId` to get a client that acts on a single organization. It sen
 
 ```typescript
 const acme = createRepalis({
-    accessToken: "repalis_at_u_xxx",
-    organizationId: "acme_organization_id",
+  accessToken: "repalis_at_u_xxx",
+  organizationId: "acme_organization_id",
 });
 const customers = await acme.customers.list();
 ```
@@ -90,7 +90,7 @@ import { createRepalisCore } from "@repalis/sdk/2026-10";
 import { getStateExternalCustomers } from "@repalis/sdk/2026-10/services/customers";
 
 const repalis = createRepalisCore({
-    accessToken: "repalis_oat_xxx",
+  accessToken: "repalis_oat_xxx",
 });
 
 const customerState = await getStateExternalCustomers(repalis)("customer_external_id");
@@ -110,11 +110,11 @@ const repalis = createRepalis({ accessToken: "repalis_oat_xxx" });
 const metering = repalis.metering();
 
 async function recordUsage() {
-    await metering.track({
-        name: "api_request",
-        external_customer_id: "customer_123",
-        metadata: { tokens: 42 },
-    });
+  await metering.track({
+    name: "api_request",
+    external_customer_id: "customer_123",
+    metadata: { tokens: 42 },
+  });
 }
 ```
 
@@ -142,9 +142,9 @@ in the queue:
 
 ```typescript
 export async function POST() {
-    await metering.track({ name: "api_request", external_customer_id: "customer_123" });
-    await metering.flush();
-    return Response.json({ ok: true });
+  await metering.track({ name: "api_request", external_customer_id: "customer_123" });
+  await metering.flush();
+  return Response.json({ ok: true });
 }
 ```
 
@@ -156,10 +156,10 @@ the `flush()` promise from the callback so Next.js can wait for delivery.
 import { after } from "next/server";
 
 export async function POST() {
-    await metering.track({ name: "api_request", external_customer_id: "customer_123" });
-    after(() => metering.flush());
+  await metering.track({ name: "api_request", external_customer_id: "customer_123" });
+  after(() => metering.flush());
 
-    return Response.json({ ok: true });
+  return Response.json({ ok: true });
 }
 ```
 
@@ -209,7 +209,7 @@ Read a customer's meter directly or through an actor:
 
 ```typescript
 const meter = await metering.meter("meter_uuid", {
-    external_customer_id: "customer_123",
+  external_customer_id: "customer_123",
 });
 const actorMeter = await actor.meter("meter_uuid");
 if (meter !== null) console.log(meter.consumed_units, meter.credited_units, meter.balance);
@@ -241,16 +241,16 @@ storage or the buffer gives it up.
 | `batchSize`       | `100`       | Maximum events per HTTP request.                            |
 | `batchIntervalMs` | `1000`      | Milliseconds to collect a batch after its first event.      |
 | `maxAttempts`     | `3`         | Total attempts per batch, including the first.              |
-| `onDelivered`     | `undefined` | Callback for events Repalis accepted; may be async.           |
+| `onDelivered`     | `undefined` | Callback for events Repalis accepted; may be async.         |
 | `onDropped`       | `undefined` | Callback for dropped events and their reason; may be async. |
 
 #### Outpost
 
-| Option            | Default                          | Meaning                                                    |
-| ----------------- | -------------------------------- | ---------------------------------------------------------- |
-| `redisUrl`        | `REDIS_URL` environment variable | Redis instance used by Outpost.                            |
+| Option            | Default                          | Meaning                                                      |
+| ----------------- | -------------------------------- | ------------------------------------------------------------ |
+| `redisUrl`        | `REDIS_URL` environment variable | Redis instance used by Outpost.                              |
 | `telemetry`       | `true`                           | Send Outpost metrics and traces to Repalis.                  |
-| `snapshotTimeout` | `5000`                           | Milliseconds a cold read waits for its initial snapshot.   |
+| `snapshotTimeout` | `5000`                           | Milliseconds a cold read waits for its initial snapshot.     |
 | `confirmTimeout`  | `2000`                           | Milliseconds a snapshot waits for Repalis to confirm events. |
 
 Telemetry can also be disabled with `REPALIS_OUTPOST_TELEMETRY=0`.
@@ -269,38 +269,38 @@ const app = express();
 const webhookSecret = process.env.REPALIS_WEBHOOK_SECRET;
 
 if (!webhookSecret) {
-    throw new Error("REPALIS_WEBHOOK_SECRET is required");
+  throw new Error("REPALIS_WEBHOOK_SECRET is required");
 }
 
 const rawBody = express.raw({ type: "application/json" });
 app.post("/webhooks/repalis", rawBody, async (request, response) => {
-    try {
-        const event = await webhooks.validateEvent(
-            request.body,
-            {
-                "webhook-id": request.header("webhook-id") ?? "",
-                "webhook-timestamp": request.header("webhook-timestamp") ?? "",
-                "webhook-signature": request.header("webhook-signature") ?? "",
-            },
-            webhookSecret,
-        );
+  try {
+    const event = await webhooks.validateEvent(
+      request.body,
+      {
+        "webhook-id": request.header("webhook-id") ?? "",
+        "webhook-timestamp": request.header("webhook-timestamp") ?? "",
+        "webhook-signature": request.header("webhook-signature") ?? "",
+      },
+      webhookSecret,
+    );
 
-        if (event.type === "order.created") {
-            console.log(event.data.id);
-        }
-
-        response.status(200).json({ received: true });
-    } catch (error) {
-        if (error instanceof webhooks.RepalisWebhookVerificationError) {
-            response.status(403).json({ error: "Invalid webhook signature" });
-            return;
-        }
-        if (error instanceof webhooks.RepalisWebhookError) {
-            response.status(400).json({ error: "Invalid webhook payload" });
-            return;
-        }
-        throw error;
+    if (event.type === "order.created") {
+      console.log(event.data.id);
     }
+
+    response.status(200).json({ received: true });
+  } catch (error) {
+    if (error instanceof webhooks.RepalisWebhookVerificationError) {
+      response.status(403).json({ error: "Invalid webhook signature" });
+      return;
+    }
+    if (error instanceof webhooks.RepalisWebhookError) {
+      response.status(400).json({ error: "Invalid webhook payload" });
+      return;
+    }
+    throw error;
+  }
 });
 ```
 

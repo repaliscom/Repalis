@@ -34404,7 +34404,12 @@ export interface components {
      * @description Who moves a step forward.
      * @enum {string}
      */
-    PanStepOwner: 'merchant' | 'repalis_ops' | 'repalis_app' | 'stripe' | 'provider'
+    PanStepOwner:
+      | 'merchant'
+      | 'repalis_ops'
+      | 'repalis_app'
+      | 'stripe'
+      | 'provider'
     /**
      * PanStepStatus
      * @enum {string}
@@ -35238,39 +35243,6 @@ export interface components {
       | 'disputed'
       | 'charge_disputed'
       | 'cancelled'
-    /** RepalisAuthError */
-    RepalisAuthError: {
-      /**
-       * Error
-       * @example RepalisAuthError
-       * @constant
-       */
-      error: 'RepalisAuthError'
-      /** Detail */
-      detail: string
-    }
-    /** RepalisSelfPaidSubscriptionAlreadyExists */
-    RepalisSelfPaidSubscriptionAlreadyExists: {
-      /**
-       * Error
-       * @example RepalisSelfPaidSubscriptionAlreadyExists
-       * @constant
-       */
-      error: 'RepalisSelfPaidSubscriptionAlreadyExists'
-      /** Detail */
-      detail: string
-    }
-    /** RepalisSelfPaymentMethodInUse */
-    RepalisSelfPaymentMethodInUse: {
-      /**
-       * Error
-       * @example RepalisSelfPaymentMethodInUse
-       * @constant
-       */
-      error: 'RepalisSelfPaymentMethodInUse'
-      /** Detail */
-      detail: string
-    }
     /**
      * PortalAuthenticatedUser
      * @description Information about the authenticated portal user.
@@ -37399,6 +37371,39 @@ export interface components {
        * @example 2026-01-01T00:00:00.000000Z
        */
       published_at: string
+    }
+    /** RepalisAuthError */
+    RepalisAuthError: {
+      /**
+       * Error
+       * @example RepalisAuthError
+       * @constant
+       */
+      error: 'RepalisAuthError'
+      /** Detail */
+      detail: string
+    }
+    /** RepalisSelfPaidSubscriptionAlreadyExists */
+    RepalisSelfPaidSubscriptionAlreadyExists: {
+      /**
+       * Error
+       * @example RepalisSelfPaidSubscriptionAlreadyExists
+       * @constant
+       */
+      error: 'RepalisSelfPaidSubscriptionAlreadyExists'
+      /** Detail */
+      detail: string
+    }
+    /** RepalisSelfPaymentMethodInUse */
+    RepalisSelfPaymentMethodInUse: {
+      /**
+       * Error
+       * @example RepalisSelfPaymentMethodInUse
+       * @constant
+       */
+      error: 'RepalisSelfPaymentMethodInUse'
+      /** Detail */
+      detail: string
     }
     /** ResourceNotFound */
     ResourceNotFound: {

@@ -9,7 +9,7 @@ from repalis.base import (
     deserialize,
 )
 
-__version__ = "1.3.1"
+__version__ = "0.0.0"
 __all__ = [
     "RepalisClientError",
     "RepalisDeserializationError",

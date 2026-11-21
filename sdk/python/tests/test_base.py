@@ -442,7 +442,9 @@ class TestOrganization:
         assert request.headers["Repalis-Organization"] == "org_1"
 
     @pytest.mark.parametrize("repalis_class", [Repalis, RepalisAsync])
-    def test_repalis_organization(self, repalis_class: type[Repalis | RepalisAsync]) -> None:
+    def test_repalis_organization(
+        self, repalis_class: type[Repalis | RepalisAsync]
+    ) -> None:
         repalis = repalis_class("repalis_at_u_xxx", organization_id="org_1")
 
         request = repalis._client.build_request(method="GET", url="/v1/items/")
@@ -453,7 +455,7 @@ class TestOrganization:
 def test_user_agent(client: SyncClientBase | AsyncClientBase) -> None:
     request = client.build_request(method="GET", url="/v1/items/")
 
-    assert request.headers["User-Agent"] == "repalis-sdk-python/1.3.1"
+    assert request.headers["User-Agent"] == "repalis-sdk-python/0.0.0"
 
 
 def test_parse_response_json_empty_body() -> None:

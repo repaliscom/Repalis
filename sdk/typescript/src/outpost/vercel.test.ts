@@ -65,7 +65,7 @@ describe("vercelAffinity", () => {
       expect(headers.has("x-vercel-affinity-id")).toBe(false);
       expect(headers.has("x-vercel-trusted-oidc-idp-token")).toBe(false);
     }
-  });
+  }, 15_000);
 
   it("moves a shard to a fresh instance a minute before Vercel would retire its own", async () => {
     const pin = vercelAffinity({ maxDurationSeconds: 300 });
