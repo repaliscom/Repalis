@@ -138,7 +138,7 @@ def _assert_ports_free(instance: int) -> None:
             raise typer.Exit(1)
 
 
-APP_SERVICES = frozenset(("api", "worker", "web"))
+APP_SERVICES = frozenset(("api", "worker", "web", "docs"))
 SHARED_SERVICES = frozenset(
     (
         "db",
@@ -616,6 +616,7 @@ def _print_access_info(ctx: typer.Context, instance: int) -> None:
     console.print("[bold]App services:[/bold]")
     console.print(f"  API:           http://localhost:{api_port(instance)}")
     console.print(f"  Web:           http://localhost:{web_port(instance)}")
+    console.print(f"  Docs:          http://localhost:3333")
     console.print()
     console.print(
         "[bold]Shared infra:[/bold] (no host ports — reach via `dev docker exec <service>`)"
