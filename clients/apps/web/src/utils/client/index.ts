@@ -10,8 +10,25 @@ import {
 import { ReadonlyRequestCookies } from 'next/dist/server/web/spec-extension/adapters/request-cookies'
 import { NextRequest } from 'next/server'
 
+const isAbortError = (error: unknown): boolean => {
+  if (!error) return false
+  if (typeof DOMException !== 'undefined' && error instanceof DOMException && error.name === 'AbortError') return true
+  if (error instanceof Error && error.name === 'AbortError') return true
+  if (
+    typeof error === 'object' &&
+    'name' in error &&
+    (error as { name: string }).name === 'AbortError'
+  ) {
+    return true
+  }
+  return false
+}
+
 const errorMiddleware: Middleware = {
-  onError: async () => {
+  onError: async ({ error }) => {
+    if (isAbortError(error)) {
+      return
+    }
     toast({
       title: 'A network error occurred',
       description: 'Please try again later',

@@ -245,7 +245,7 @@ class RepalisSelfService:
 
     async def list_plans(self) -> list["Product"]:
         if not self.is_configured:
-            raise RepalisSelfNotConfigured()
+            return []
         products = await get_client().list_recurring_products(
             organization_id=settings.REPALIS_ORGANIZATION_ID
         )
@@ -291,7 +291,7 @@ class RepalisSelfService:
         self, organization_id: uuid.UUID
     ) -> "Subscription | None":
         if not self.is_configured:
-            raise RepalisSelfNotConfigured()
+            return None
         return await get_client().get_active_subscription(
             external_customer_id=str(organization_id)
         )
