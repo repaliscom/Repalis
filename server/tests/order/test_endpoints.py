@@ -8,7 +8,14 @@ from pytest_mock import MockerFixture
 
 from repalis.auth.models import AuthSubject
 from repalis.auth.scope import Scope
-from repalis.models import Customer, Order, Organization, Product, User, UserOrganization
+from repalis.models import (
+    Customer,
+    Order,
+    Organization,
+    Product,
+    User,
+    UserOrganization,
+)
 from repalis.models.discount import DiscountDuration, DiscountType
 from repalis.models.order import OrderStatus
 from repalis.order.service import PaymentFailed, PaymentFailedReason

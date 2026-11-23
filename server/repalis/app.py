@@ -56,7 +56,10 @@ from repalis.middlewares import (
     TransactionalMiddleware,
 )
 from repalis.oauth2.endpoints.well_known import router as well_known_router
-from repalis.oauth2.exception_handlers import OAuth2Error, oauth2_error_exception_handler
+from repalis.oauth2.exception_handlers import (
+    OAuth2Error,
+    oauth2_error_exception_handler,
+)
 from repalis.observability.http_middleware import HttpMetricsMiddleware
 from repalis.observability.memory_profile import (
     start_memory_profiler,

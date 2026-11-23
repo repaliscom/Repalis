@@ -22,7 +22,10 @@ from opentelemetry.sdk.trace.sampling import (
 )
 from starlette.routing import Host
 
-from repalis.observability.http_telemetry import HttpURLSpanProcessor, server_request_hook
+from repalis.observability.http_telemetry import (
+    HttpURLSpanProcessor,
+    server_request_hook,
+)
 from repalis.observability.s3_span_exporter import S3SpanExporter
 
 if TYPE_CHECKING:

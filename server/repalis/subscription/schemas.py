@@ -14,7 +14,11 @@ from pydantic import (
 from pydantic.json_schema import SkipJsonSchema
 
 from repalis.custom_field.data import CustomFieldDataOutputMixin
-from repalis.customer.schemas.customer import CustomerBase, CustomerID, ExternalCustomerID
+from repalis.customer.schemas.customer import (
+    CustomerBase,
+    CustomerID,
+    ExternalCustomerID,
+)
 from repalis.discount.schemas import DiscountID, DiscountMinimal
 from repalis.enums import (
     ProrationBehaviorSetting,

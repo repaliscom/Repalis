@@ -6,7 +6,11 @@ from fastapi import Depends, Query
 from repalis.auth.permission import OrganizationPermission
 from repalis.authz.service import assert_resource_permission
 from repalis.customer.schemas.customer import CustomerID, ExternalCustomerID
-from repalis.exceptions import NotPermitted, RepalisRequestValidationError, ResourceNotFound
+from repalis.exceptions import (
+    NotPermitted,
+    RepalisRequestValidationError,
+    ResourceNotFound,
+)
 from repalis.kit.pagination import ListResource, PaginationParamsQuery
 from repalis.openapi import APITag, cli_preview, destructive
 from repalis.postgres import (

@@ -12,7 +12,9 @@ import structlog
 from babel.dates import format_date
 from babel.numbers import format_decimal
 
-from repalis.billing_interval.service import billing_interval as billing_interval_service
+from repalis.billing_interval.service import (
+    billing_interval as billing_interval_service,
+)
 from repalis.billing_interval.types import MeterCharge
 from repalis.event.repository import EventRepository
 from repalis.event.system import SystemEvent

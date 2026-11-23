@@ -12,7 +12,9 @@ class TestSendSeatInvitationEmail:
         customer_seat_pending: CustomerSeat,
         organization: Organization,
     ) -> None:
-        mock_enqueue = mocker.patch("repalis.customer_seat.sender.enqueue_email_template")
+        mock_enqueue = mocker.patch(
+            "repalis.customer_seat.sender.enqueue_email_template"
+        )
 
         send_seat_invitation_email(
             customer_email="test@example.com",
@@ -41,7 +43,9 @@ class TestSendSeatInvitationEmail:
     ) -> None:
         customer_seat_claimed.invitation_token = None
 
-        mock_enqueue = mocker.patch("repalis.customer_seat.sender.enqueue_email_template")
+        mock_enqueue = mocker.patch(
+            "repalis.customer_seat.sender.enqueue_email_template"
+        )
         mock_log = mocker.patch("repalis.customer_seat.sender.log")
 
         send_seat_invitation_email(
@@ -61,7 +65,9 @@ class TestSendSeatInvitationEmail:
         customer_seat_pending: CustomerSeat,
         organization: Organization,
     ) -> None:
-        mock_enqueue = mocker.patch("repalis.customer_seat.sender.enqueue_email_template")
+        mock_enqueue = mocker.patch(
+            "repalis.customer_seat.sender.enqueue_email_template"
+        )
 
         send_seat_invitation_email(
             customer_email="test@example.com",

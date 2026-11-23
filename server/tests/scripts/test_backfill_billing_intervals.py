@@ -3,7 +3,9 @@ from datetime import UTC, datetime, timedelta
 import pytest
 
 from repalis.billing_interval.repository import BillingIntervalRepository
-from repalis.billing_interval.service import billing_interval as billing_interval_service
+from repalis.billing_interval.service import (
+    billing_interval as billing_interval_service,
+)
 from repalis.enums import SubscriptionRecurringInterval
 from repalis.models import Customer, Meter, Organization, Product, Subscription
 from repalis.models.billing_interval import UsagePolicy

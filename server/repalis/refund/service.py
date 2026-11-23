@@ -16,7 +16,11 @@ from repalis.dispute.repository import DisputeRepository
 from repalis.enums import PaymentProcessor
 from repalis.event.service import event as event_service
 from repalis.event.system import OrderRefundedMetadata, SystemEvent, build_system_event
-from repalis.exceptions import RepalisError, RepalisRequestValidationError, ResourceNotFound
+from repalis.exceptions import (
+    RepalisError,
+    RepalisRequestValidationError,
+    ResourceNotFound,
+)
 from repalis.integrations.stripe.service import stripe as stripe_service
 from repalis.integrations.stripe.utils import get_expandable_id
 from repalis.kit.db.postgres import AsyncSession
@@ -33,7 +37,12 @@ from repalis.models import (
 )
 from repalis.models.dispute import DisputeAlertProcessor
 from repalis.models.order import RefundAmountTooHigh
-from repalis.models.refund import Refund, RefundFailureReason, RefundReason, RefundStatus
+from repalis.models.refund import (
+    Refund,
+    RefundFailureReason,
+    RefundReason,
+    RefundStatus,
+)
 from repalis.models.webhook_endpoint import WebhookEventType
 from repalis.order.repository import OrderRepository
 from repalis.order.service import order as order_service

@@ -26,7 +26,11 @@ from repalis.event.system import (
     SystemEvent,
     build_system_event,
 )
-from repalis.exceptions import RepalisError, RepalisRequestValidationError, ResourceNotFound
+from repalis.exceptions import (
+    RepalisError,
+    RepalisRequestValidationError,
+    ResourceNotFound,
+)
 from repalis.kit.db.locking import is_lock_not_available_error
 from repalis.kit.math import non_negative_running_sum
 from repalis.kit.metadata import get_nested_metadata_attr

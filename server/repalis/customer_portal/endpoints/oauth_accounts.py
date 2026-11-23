@@ -15,7 +15,9 @@ from repalis.benefit.grant.repository import BenefitGrantRepository
 from repalis.benefit.strategies.base.service import BenefitActionRequiredError
 from repalis.config import settings
 from repalis.customer.repository import CustomerRepository
-from repalis.customer_session.service import customer_session as customer_session_service
+from repalis.customer_session.service import (
+    customer_session as customer_session_service,
+)
 from repalis.exceptions import NotPermitted, RepalisError, Unauthorized
 from repalis.integrations.discord.oauth import user_client as discord_user_client
 from repalis.kit import jwt

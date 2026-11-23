@@ -4,7 +4,9 @@ from typing import Annotated
 
 from apscheduler.triggers.cron import CronTrigger
 
-from repalis.billing_interval.service import billing_interval as billing_interval_service
+from repalis.billing_interval.service import (
+    billing_interval as billing_interval_service,
+)
 from repalis.customer.repository import CustomerRepository
 from repalis.exceptions import RepalisTaskError
 from repalis.observability.task_logging import LoggableField

@@ -2,7 +2,9 @@ import pytest
 from sqlalchemy import select
 
 from repalis.auth.models import AuthSubject
-from repalis.customer_session.service import customer_session as customer_session_service
+from repalis.customer_session.service import (
+    customer_session as customer_session_service,
+)
 from repalis.models import Member, Organization, User, UserOrganization
 from repalis.models.member import MemberRole
 from repalis.postgres import AsyncSession

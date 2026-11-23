@@ -41,7 +41,9 @@ from repalis.checkout.service import (
 from repalis.checkout.service import checkout as checkout_service
 from repalis.config import Environment, settings
 from repalis.customer_seat.service import SeatService
-from repalis.customer_session.service import customer_session as customer_session_service
+from repalis.customer_session.service import (
+    customer_session as customer_session_service,
+)
 from repalis.discount.repository import DiscountRedemptionRepository
 from repalis.discount.service import discount as discount_service
 from repalis.enums import (
@@ -51,7 +53,11 @@ from repalis.enums import (
     TaxProcessor,
 )
 from repalis.event.system import SystemEvent
-from repalis.exceptions import NotPermitted, PaymentNotReady, RepalisRequestValidationError
+from repalis.exceptions import (
+    NotPermitted,
+    PaymentNotReady,
+    RepalisRequestValidationError,
+)
 from repalis.integrations.stripe.service import StripeService
 from repalis.kit.address import Address, AddressInput, CountryAlpha2
 from repalis.kit.currency import PresentmentCurrency

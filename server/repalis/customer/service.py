@@ -19,7 +19,9 @@ from repalis.authz.service import (
 from repalis.benefit.grant.repository import BenefitGrantRepository
 from repalis.config import settings
 from repalis.customer_meter.repository import CustomerMeterRepository
-from repalis.customer_session.service import customer_session as customer_session_service
+from repalis.customer_session.service import (
+    customer_session as customer_session_service,
+)
 from repalis.exceptions import RepalisRequestValidationError, ValidationError
 from repalis.kit.address import Address
 from repalis.kit.anonymization import (

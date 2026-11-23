@@ -7,7 +7,11 @@ import pytest
 from pytest_mock import MockerFixture
 
 from repalis.dispute.dispute_case import DISPUTE_GREETING
-from repalis.dispute.tasks import auto_accept, enqueue_auto_accepts, post_dispute_greeting
+from repalis.dispute.tasks import (
+    auto_accept,
+    enqueue_auto_accepts,
+    post_dispute_greeting,
+)
 from repalis.kit.utils import utc_now
 from repalis.models import Customer, Dispute, Organization, Product
 from repalis.models.support_case import (

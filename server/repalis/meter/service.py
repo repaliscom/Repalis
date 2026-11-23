@@ -39,8 +39,16 @@ from repalis.declarative_config.guard import (
 )
 from repalis.event.repository import EventRepository
 from repalis.event.tinybird_repository import TinybirdEventRepository
-from repalis.exceptions import RepalisError, RepalisRequestValidationError, ValidationError
-from repalis.kit.metadata import MetadataQuery, apply_metadata_clause, get_metadata_clause
+from repalis.exceptions import (
+    RepalisError,
+    RepalisRequestValidationError,
+    ValidationError,
+)
+from repalis.kit.metadata import (
+    MetadataQuery,
+    apply_metadata_clause,
+    get_metadata_clause,
+)
 from repalis.kit.pagination import PaginationParams
 from repalis.kit.sorting import Sorting
 from repalis.kit.time_queries import TimeInterval, get_timestamp_series_cte

@@ -268,7 +268,9 @@ class TestCreate:
         user_organization: UserOrganization,
     ) -> None:
         organization.status = status
-        stripe_adapter = mocker.patch("repalis.merchant_migration.service.StripeAdapter")
+        stripe_adapter = mocker.patch(
+            "repalis.merchant_migration.service.StripeAdapter"
+        )
 
         with pytest.raises(OrganizationNotOnboarded):
             await service.create(session, auth_subject, _create_schema(organization))

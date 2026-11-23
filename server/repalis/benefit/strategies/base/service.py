@@ -1,7 +1,11 @@
 from typing import Any, Protocol, Unpack, cast
 
 from repalis.auth.models import Agent, AuthSubject
-from repalis.exceptions import RepalisError, RepalisRequestValidationError, ValidationError
+from repalis.exceptions import (
+    RepalisError,
+    RepalisRequestValidationError,
+    ValidationError,
+)
 from repalis.models import Benefit, Customer, Member, Organization, User
 from repalis.models.benefit_grant import BenefitGrantScopeArgs
 from repalis.postgres import AsyncSession

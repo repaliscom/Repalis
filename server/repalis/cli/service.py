@@ -47,7 +47,9 @@ def list_trigger_events() -> Sequence[TriggerEvent]:
     ]
 
 
-def _override_error(path: str, value: Any, message: str) -> RepalisRequestValidationError:
+def _override_error(
+    path: str, value: Any, message: str
+) -> RepalisRequestValidationError:
     return RepalisRequestValidationError(
         [
             {

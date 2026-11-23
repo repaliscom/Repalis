@@ -160,7 +160,9 @@ class TestSyncUser:
         failure_stage: str,
     ) -> None:
         mocker.patch.object(settings, "RESEND_ACTIVE_USERS_SEGMENT_ID", "active-users")
-        delete = mocker.patch("repalis.integrations.resend.service.client.delete_contact")
+        delete = mocker.patch(
+            "repalis.integrations.resend.service.client.delete_contact"
+        )
         previous_email = user.email
         user.email = "new@example.com"
         user.resend_id = "old-contact"
@@ -485,7 +487,9 @@ class TestSyncOrganizationMembers:
         mocker: MockerFixture,
     ) -> None:
         mocker.patch.object(settings, "RESEND_ACTIVE_USERS_SEGMENT_ID", "active-users")
-        enqueue_job_mock = mocker.patch("repalis.integrations.resend.service.enqueue_job")
+        enqueue_job_mock = mocker.patch(
+            "repalis.integrations.resend.service.enqueue_job"
+        )
 
         await resend_service.sync_organization_members(session, organization.id)
 
@@ -516,7 +520,9 @@ class TestOnOrganizationStatusChanged:
         enqueued: bool,
     ) -> None:
         mocker.patch.object(settings, "RESEND_ACTIVE_USERS_SEGMENT_ID", "active-users")
-        enqueue_job_mock = mocker.patch("repalis.integrations.resend.service.enqueue_job")
+        enqueue_job_mock = mocker.patch(
+            "repalis.integrations.resend.service.enqueue_job"
+        )
         organization_id = uuid4()
 
         resend_service.on_organization_status_changed(

@@ -12,7 +12,9 @@ from repalis.customer_email_update.service import (
 from repalis.customer_email_update.service import (
     customer_email_update as customer_email_update_service,
 )
-from repalis.customer_session.service import customer_session as customer_session_service
+from repalis.customer_session.service import (
+    customer_session as customer_session_service,
+)
 from repalis.exceptions import NotPermitted
 from repalis.openapi import APITag
 from repalis.postgres import (

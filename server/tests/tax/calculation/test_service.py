@@ -66,7 +66,9 @@ class TestCalculate:
         numeral_mock = mocker.patch(
             "repalis.tax.calculation.numeral_tax_service.calculate"
         )
-        stripe_mock = mocker.patch("repalis.tax.calculation.stripe_tax_service.calculate")
+        stripe_mock = mocker.patch(
+            "repalis.tax.calculation.stripe_tax_service.calculate"
+        )
 
         with pytest.raises(InvalidAddressError):
             await tax_calculation.calculate(

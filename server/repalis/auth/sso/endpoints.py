@@ -263,7 +263,9 @@ async def callback(
 
     email = claims.get("email")
     if email is None:
-        raise RepalisAuthRedirectionError("The identity provider did not assert an email")
+        raise RepalisAuthRedirectionError(
+            "The identity provider did not assert an email"
+        )
 
     domain = validate_email_syntax(email).domain
     domain_repository = OrganizationDomainRepository.from_session(session)

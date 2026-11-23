@@ -3,7 +3,14 @@ import pytest
 from repalis.benefit.grant.repository import BenefitGrantRepository
 from repalis.benefit.strategies import BenefitActionRequiredError
 from repalis.kit.utils import utc_now
-from repalis.models import BenefitGrant, Customer, Member, Organization, Payment, Product
+from repalis.models import (
+    BenefitGrant,
+    Customer,
+    Member,
+    Organization,
+    Payment,
+    Product,
+)
 from repalis.models.benefit import BenefitType
 from repalis.postgres import AsyncSession
 from tests.fixtures.database import SaveFixture

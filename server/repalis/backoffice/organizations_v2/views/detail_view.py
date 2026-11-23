@@ -30,9 +30,7 @@ def _get_logfire_url(organization_id: UUID) -> str:
         "q": f"attributes->>'subject_id' = '{organization_id}'",
         "last": "30d",
     }
-    return (
-        f"https://logfire-us.pydantic.dev/repalis/repalis?{urllib.parse.urlencode(params)}"
-    )
+    return f"https://logfire-us.pydantic.dev/repalis/repalis?{urllib.parse.urlencode(params)}"
 
 
 class OrganizationDetailView:

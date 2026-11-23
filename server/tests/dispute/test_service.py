@@ -63,7 +63,9 @@ def refund_service_mock(mocker: MockerFixture) -> MagicMock:
 
 @pytest.fixture
 def customer_seat_service_mock(mocker: MockerFixture) -> MagicMock:
-    return mocker.patch("repalis.dispute.service.customer_seat_service", spec=SeatService)
+    return mocker.patch(
+        "repalis.dispute.service.customer_seat_service", spec=SeatService
+    )
 
 
 @pytest.fixture
@@ -1630,7 +1632,9 @@ class TestAccept:
             session, dispute, organization=organization
         )
 
-        close_mock = mocker.patch("repalis.dispute.service.stripe_service.close_dispute")
+        close_mock = mocker.patch(
+            "repalis.dispute.service.stripe_service.close_dispute"
+        )
         close_mock.return_value = build_stripe_dispute(
             status="lost", balance_transactions=[]
         )
@@ -1664,7 +1668,9 @@ class TestAccept:
         dispute = await create_dispute(
             save_fixture, order, payment, status=DisputeStatus.under_review
         )
-        close_mock = mocker.patch("repalis.dispute.service.stripe_service.close_dispute")
+        close_mock = mocker.patch(
+            "repalis.dispute.service.stripe_service.close_dispute"
+        )
 
         with pytest.raises(DisputeNotOpenError):
             await dispute_service.accept(session, dispute)

@@ -18,7 +18,11 @@ from repalis.customer.repository import CustomerRepository
 from repalis.event.service import event as event_service
 from repalis.event.system import BenefitGrantMetadata, SystemEvent, build_system_event
 from repalis.eventstream.service import publish as eventstream_publish
-from repalis.exceptions import RepalisError, RepalisRequestValidationError, ResourceNotFound
+from repalis.exceptions import (
+    RepalisError,
+    RepalisRequestValidationError,
+    ResourceNotFound,
+)
 from repalis.kit.pagination import PaginationParams, paginate
 from repalis.kit.sorting import Sorting
 from repalis.kit.utils import utc_now

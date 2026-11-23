@@ -88,7 +88,9 @@ def _mock_stripe_adapter(
     adapter.get_source_account = mocker.AsyncMock(
         return_value=CanonicalAccount(country=country, has_connected_accounts=False)
     )
-    mocker.patch("repalis.merchant_migration.service.StripeAdapter", return_value=adapter)
+    mocker.patch(
+        "repalis.merchant_migration.service.StripeAdapter", return_value=adapter
+    )
 
 
 @pytest.mark.anyio

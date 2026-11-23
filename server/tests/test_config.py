@@ -41,7 +41,10 @@ class TestBuildPostgresDsn:
     def test_no_fallback(self) -> None:
         dsn = build_dsn("asyncpg", fallback_host=None, fallback_port=None)
 
-        assert dsn == "postgresql+asyncpg://repalis:s3cret@primary.example.com:6432/repalis"
+        assert (
+            dsn
+            == "postgresql+asyncpg://repalis:s3cret@primary.example.com:6432/repalis"
+        )
 
     @pytest.mark.parametrize(
         "password",

@@ -7,7 +7,9 @@ from freezegun import freeze_time
 from pytest_mock import MockerFixture
 
 from repalis.billing_interval.repository import BillingIntervalRepository
-from repalis.billing_interval.service import billing_interval as billing_interval_service
+from repalis.billing_interval.service import (
+    billing_interval as billing_interval_service,
+)
 from repalis.enums import SubscriptionProrationBehavior, SubscriptionRecurringInterval
 from repalis.kit.trial import TrialInterval
 from repalis.models import (

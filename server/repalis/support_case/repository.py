@@ -6,7 +6,13 @@ from sqlalchemy import ColumnElement, Select, func, select
 from sqlalchemy.dialects.postgresql import insert as pg_insert
 from sqlalchemy.orm import joinedload
 
-from repalis.auth.models import AuthSubject, Organization, User, is_organization, is_user
+from repalis.auth.models import (
+    AuthSubject,
+    Organization,
+    User,
+    is_organization,
+    is_user,
+)
 from repalis.auth.permission import OrganizationPermission
 from repalis.authz.repository import select_accessible_org_ids
 from repalis.kit.repository import (

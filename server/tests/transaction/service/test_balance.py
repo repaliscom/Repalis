@@ -190,7 +190,9 @@ class TestCreateReversalBalance:
         user: User,
         account: Account,
     ) -> None:
-        enqueue_job_mock = mocker.patch("repalis.transaction.service.balance.enqueue_job")
+        enqueue_job_mock = mocker.patch(
+            "repalis.transaction.service.balance.enqueue_job"
+        )
 
         balance_transactions = await create_balance_transactions(
             save_fixture, destination_account=account, amount=1000

@@ -19,7 +19,9 @@ class BackofficeUserRepository(RepositoryBase[BackofficeUser]):
             and by_email is not None
             and by_provider.id != by_email.id
         ):
-            raise RepalisError("Backoffice email is linked to a different identity", 409)
+            raise RepalisError(
+                "Backoffice email is linked to a different identity", 409
+            )
 
         user = by_provider or by_email
         if user is None:
@@ -44,7 +46,9 @@ class BackofficeUserRepository(RepositoryBase[BackofficeUser]):
         )
         linked_user = (await self.session.scalars(statement)).one_or_none()
         if linked_user is None:
-            raise RepalisError("Backoffice email is linked to a different identity", 409)
+            raise RepalisError(
+                "Backoffice email is linked to a different identity", 409
+            )
         return linked_user
 
     async def _get_by_email(self, email: str) -> BackofficeUser | None:

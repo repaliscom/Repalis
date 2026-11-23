@@ -16,12 +16,19 @@ from repalis.benefit.grant.schemas import (
 )
 from repalis.benefit.grant.service import BenefitGrantAlreadyExists
 from repalis.benefit.grant.service import benefit_grant as benefit_grant_service
-from repalis.benefit.strategies import BenefitActionRequiredError, BenefitServiceProtocol
+from repalis.benefit.strategies import (
+    BenefitActionRequiredError,
+    BenefitServiceProtocol,
+)
 from repalis.benefit.strategies.base.properties import BenefitGrantProperties
 from repalis.benefit.strategies.base.service import BenefitRetriableError
 from repalis.benefit.tasks import benefit_grant, benefit_revoke
 from repalis.config import settings
-from repalis.exceptions import NotPermitted, RepalisRequestValidationError, ResourceNotFound
+from repalis.exceptions import (
+    NotPermitted,
+    RepalisRequestValidationError,
+    ResourceNotFound,
+)
 from repalis.kit.utils import utc_now
 from repalis.models import (
     Benefit,

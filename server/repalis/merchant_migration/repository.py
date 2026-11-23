@@ -21,7 +21,13 @@ from sqlalchemy import (
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import aliased, joinedload
 
-from repalis.auth.models import AuthSubject, Organization, User, is_organization, is_user
+from repalis.auth.models import (
+    AuthSubject,
+    Organization,
+    User,
+    is_organization,
+    is_user,
+)
 from repalis.authz.repository import select_accessible_org_ids
 from repalis.config import settings
 from repalis.enums import TaxBehavior

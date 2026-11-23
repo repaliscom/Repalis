@@ -1558,9 +1558,7 @@ class MerchantMigrationService:
         left = counts.get(MerchantMigrationCutoverStatus.skipped, 0) + counts.get(
             MerchantMigrationCutoverStatus.failed, 0
         )
-        note = (
-            f"Repalis now bills {moved} subscription(s), and stopped them on your source."
-        )
+        note = f"Repalis now bills {moved} subscription(s), and stopped them on your source."
         if left:
             note += (
                 f" {left} didn't move; open the subscriptions list to "

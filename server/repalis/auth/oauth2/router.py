@@ -137,7 +137,9 @@ def get_oauth_login_router(
         except GetEmailError as e:
             raise RepalisAuthRedirectionError(e.message) from e
         except OAuth2CallbackException as e:
-            raise RepalisAuthRedirectionError(e.message or "OAuth2 callback error") from e
+            raise RepalisAuthRedirectionError(
+                e.message or "OAuth2 callback error"
+            ) from e
         except OAuth2TokenException as e:
             raise RepalisAuthRedirectionError("OAuth2 error") from e
         except OAuth2GetProfileException as e:

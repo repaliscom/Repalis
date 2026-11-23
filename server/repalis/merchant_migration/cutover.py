@@ -85,9 +85,7 @@ _MINIMUM_PERIOD = timedelta(days=1)
 _LOCKED_COLUMNS = ["status", "current_period_start", "current_period_end"]
 
 _GONE = "It no longer exists on the source, so there is nothing to take over."
-_SOURCE_CANCELED = (
-    "It was cancelled on the source after the import, so Repalis won't start billing it."
-)
+_SOURCE_CANCELED = "It was cancelled on the source after the import, so Repalis won't start billing it."
 _SOURCE_NOT_LIVE = (
     "The source reports it as `{status}`, which isn't a healthy subscription "
     "Repalis can take billing over from."

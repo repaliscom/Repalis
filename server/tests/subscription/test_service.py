@@ -123,7 +123,9 @@ from repalis.subscription.service import (
 from repalis.subscription.service import subscription as subscription_service
 from repalis.subscription.update import generate_subscription_update
 from repalis.trial_redemption.repository import TrialRedemptionRepository
-from repalis.trial_redemption.service import trial_redemption as trial_redemption_service
+from repalis.trial_redemption.service import (
+    trial_redemption as trial_redemption_service,
+)
 from tests.fixtures.auth import AuthSubjectFixture
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.events import get_all_by_name

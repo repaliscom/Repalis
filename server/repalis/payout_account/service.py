@@ -151,7 +151,9 @@ class PayoutAccountService:
         # Don't make it active while a ready account is still paying them out.
         if current is None or not current.is_payout_ready:
             # Late import: organization.service imports payout_account.service.
-            from repalis.organization.service import organization as organization_service
+            from repalis.organization.service import (
+                organization as organization_service,
+            )
 
             await organization_service.set_payout_account(
                 session, organization, payout_account

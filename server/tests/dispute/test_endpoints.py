@@ -215,11 +215,15 @@ class TestAcceptDispute:
     ) -> None:
         case = await create_dispute_case(save_fixture, organization, customer, product)
         # Stub the processor call and the loss side-effects; let the rest run.
-        mocker.patch("repalis.dispute.service.dispute_transaction_service.create_dispute")
+        mocker.patch(
+            "repalis.dispute.service.dispute_transaction_service.create_dispute"
+        )
         mocker.patch(
             "repalis.dispute.service.benefit_grant_service.enqueue_benefits_grants"
         )
-        close_mock = mocker.patch("repalis.dispute.service.stripe_service.close_dispute")
+        close_mock = mocker.patch(
+            "repalis.dispute.service.stripe_service.close_dispute"
+        )
         close_mock.return_value = build_stripe_dispute(
             status="lost", balance_transactions=[]
         )

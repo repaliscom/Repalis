@@ -4,7 +4,11 @@ import structlog
 from fastapi import Depends
 
 from repalis.auth.models import is_member
-from repalis.exceptions import NotPermitted, RepalisRequestValidationError, ResourceNotFound
+from repalis.exceptions import (
+    NotPermitted,
+    RepalisRequestValidationError,
+    ResourceNotFound,
+)
 from repalis.kit.pagination import ListResource, PaginationParamsQuery
 from repalis.member.repository import MemberRepository
 from repalis.member.service import member_service

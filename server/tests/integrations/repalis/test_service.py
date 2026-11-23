@@ -5,6 +5,7 @@ from typing import Any
 from unittest.mock import AsyncMock, MagicMock
 
 import pytest
+from pytest_mock import MockerFixture
 from repalis.v2026_04.outputs import (
     BenefitGrant,
     CustomerIndividual,
@@ -21,7 +22,6 @@ from repalis.v2026_04.webhooks import (
     WebhookSubscriptionPastDuePayload,
     WebhookSubscriptionRevokedPayload,
 )
-from pytest_mock import MockerFixture
 
 from repalis import deserialize
 from repalis.config import settings
@@ -525,7 +525,9 @@ class TestResolveFreePlan:
 class TestResolveOrganizationId:
     def test_valid_uuid(self) -> None:
         assert (
-            repalis_self._resolve_organization_id(_make_customer(external_id=str(ORG_A)))
+            repalis_self._resolve_organization_id(
+                _make_customer(external_id=str(ORG_A))
+            )
             == ORG_A
         )
 

@@ -32,7 +32,8 @@ from tests.fixtures.database import SaveFixture
 @pytest.fixture(autouse=True)
 def enqueue_email_mock(mocker: MockerFixture) -> MagicMock:
     return mocker.patch(
-        "repalis.organization_access_token.service.enqueue_email_template", autospec=True
+        "repalis.organization_access_token.service.enqueue_email_template",
+        autospec=True,
     )
 
 

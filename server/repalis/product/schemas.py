@@ -58,7 +58,10 @@ from repalis.kit.schemas import (
     StripValidator,
     TimestampedSchema,
 )
-from repalis.kit.trial import TrialConfigurationInputMixin, TrialConfigurationOutputMixin
+from repalis.kit.trial import (
+    TrialConfigurationInputMixin,
+    TrialConfigurationOutputMixin,
+)
 from repalis.kit.versioning import QuerySchema, Version
 from repalis.kit.visibility import Visibility
 from repalis.meter.unit import MeterUnit

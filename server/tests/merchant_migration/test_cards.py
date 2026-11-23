@@ -126,7 +126,8 @@ def _listing(
             yield payment_method
 
     mocker.patch(
-        "repalis.merchant_migration.cards.stripe_service.list_payment_methods", new=_list
+        "repalis.merchant_migration.cards.stripe_service.list_payment_methods",
+        new=_list,
     )
 
 

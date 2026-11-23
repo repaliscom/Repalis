@@ -79,7 +79,9 @@ from .sso.endpoints import router as sso_login_router
 from .turnstile import verify_turnstile
 
 TOTP_ISSUER = (
-    "Repalis" if settings.is_production() else f"Repalis {settings.ENV.value.capitalize()}"
+    "Repalis"
+    if settings.is_production()
+    else f"Repalis {settings.ENV.value.capitalize()}"
 )
 
 router = APIRouter(prefix="/auth", tags=["auth", APITag.private])
@@ -183,7 +185,9 @@ async def complete(
             user.id, organization_id
         )
         if membership is None:
-            raise RepalisAuthRedirectionError("You are not a member of this organization")
+            raise RepalisAuthRedirectionError(
+                "You are not a member of this organization"
+            )
         organization_ids = frozenset({organization_id})
         factor = "sso"
     else:

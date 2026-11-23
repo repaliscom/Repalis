@@ -9,7 +9,9 @@ import structlog
 from sqlalchemy import and_, false, or_
 
 from repalis.billing_interval.repository import BillingIntervalRepository
-from repalis.billing_interval.service import billing_interval as billing_interval_service
+from repalis.billing_interval.service import (
+    billing_interval as billing_interval_service,
+)
 from repalis.billing_interval.service import select_settlement_windows
 from repalis.event.repository import EventRepository
 from repalis.meter.service import meter as meter_service

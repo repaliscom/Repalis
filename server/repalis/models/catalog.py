@@ -19,7 +19,12 @@ from repalis.kit.db.models import RecordModel
 from repalis.kit.extensions.sqlalchemy.types import StringEnum
 
 if TYPE_CHECKING:
-    from repalis.models import CatalogBenefit, CatalogMeter, CatalogProduct, Organization
+    from repalis.models import (
+        CatalogBenefit,
+        CatalogMeter,
+        CatalogProduct,
+        Organization,
+    )
 
 
 class CatalogStatus(StrEnum):

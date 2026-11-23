@@ -282,7 +282,8 @@ class TestPaymentIntentSucceeded:
 
         # Mock Stripe API calls
         mocker.patch(
-            "repalis.integrations.stripe.tasks.payment.resolve_order", return_value=order
+            "repalis.integrations.stripe.tasks.payment.resolve_order",
+            return_value=order,
         )
 
         stripe_payment_method = stripe_lib.PaymentMethod.construct_from(
@@ -357,7 +358,8 @@ class TestPaymentIntentSucceeded:
         context_mock.return_value.__aexit__ = AsyncMock(return_value=None)
 
         mocker.patch(
-            "repalis.integrations.stripe.tasks.payment.resolve_order", return_value=order
+            "repalis.integrations.stripe.tasks.payment.resolve_order",
+            return_value=order,
         )
 
         subscription_service_mock = mocker.patch(

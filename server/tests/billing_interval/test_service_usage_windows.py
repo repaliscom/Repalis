@@ -15,7 +15,9 @@ from repalis.billing_interval.service import (
     get_usage_period_start,
     split_windows,
 )
-from repalis.billing_interval.service import billing_interval as billing_interval_service
+from repalis.billing_interval.service import (
+    billing_interval as billing_interval_service,
+)
 from repalis.billing_interval.types import MeterCharge
 from repalis.meter.aggregation import AggregationFunction
 from repalis.models import Customer, Meter, Organization, Product

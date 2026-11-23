@@ -78,7 +78,9 @@ class TestRefund:
             Address(country=CountryAlpha2("FR")) if has_billing_address else None
         )
         await save_fixture(order)
-        create = mocker.patch("repalis.backoffice.orders.endpoints.refund_service.create")
+        create = mocker.patch(
+            "repalis.backoffice.orders.endpoints.refund_service.create"
+        )
 
         response = await backoffice_client.post(
             f"/orders/{order.id}/refund",
@@ -136,7 +138,9 @@ class TestRefund:
         amount: int,
         tax: int,
     ) -> None:
-        create = mocker.patch("repalis.backoffice.orders.endpoints.refund_service.create")
+        create = mocker.patch(
+            "repalis.backoffice.orders.endpoints.refund_service.create"
+        )
         update = mocker.patch(
             "repalis.backoffice.orders.endpoints.customer_service.update"
         )
@@ -173,7 +177,9 @@ class TestRefund:
         mocker: MockerFixture,
         data: dict[str, str],
     ) -> None:
-        create = mocker.patch("repalis.backoffice.orders.endpoints.refund_service.create")
+        create = mocker.patch(
+            "repalis.backoffice.orders.endpoints.refund_service.create"
+        )
         response = await backoffice_client.post(f"/orders/{order.id}/refund", data=data)
         assert response.status_code == 200
         create.assert_not_awaited()
@@ -189,7 +195,9 @@ class TestRefund:
         order.billing_address = Address(country=CountryAlpha2("FR"))
         order.update_refunds(order.net_amount, 0)
         await save_fixture(order)
-        create = mocker.patch("repalis.backoffice.orders.endpoints.refund_service.create")
+        create = mocker.patch(
+            "repalis.backoffice.orders.endpoints.refund_service.create"
+        )
         response = await backoffice_client.post(
             f"/orders/{order.id}/refund",
             data={

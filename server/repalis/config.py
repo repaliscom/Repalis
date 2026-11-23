@@ -160,7 +160,9 @@ class Settings(BaseSettings):
     BACKOFFICE_GOOGLE_CLIENT_SECRET: SecretStr = SecretStr("")
     BACKOFFICE_GOOGLE_HOSTED_DOMAIN: str = ""
     BACKOFFICE_DEVELOPMENT_MODE: bool = False
-    BACKOFFICE_AUTHENTICATION_SESSION_COOKIE_KEY: str = "repalis_backoffice_auth_session"
+    BACKOFFICE_AUTHENTICATION_SESSION_COOKIE_KEY: str = (
+        "repalis_backoffice_auth_session"
+    )
     BACKOFFICE_AUTHENTICATION_SESSION_TTL: timedelta = timedelta(minutes=15)
     BACKOFFICE_USER_SESSION_COOKIE_KEY: str = "repalis_backoffice_session"
     BACKOFFICE_USER_SESSION_TTL: timedelta = timedelta(hours=12)
@@ -541,7 +543,9 @@ class Settings(BaseSettings):
         state="US-CA",
         country=CountryAlpha2("US"),
     )
-    INVOICES_ADDITIONAL_INFO: str | None = "[support@repalis.com](mailto:support@repalis.com)"
+    INVOICES_ADDITIONAL_INFO: str | None = (
+        "[support@repalis.com](mailto:support@repalis.com)"
+    )
     INVOICES_VAT_NUMBERS: dict[str, str] = {}
     PAYOUT_INVOICES_PREFIX: str = "REPALIS-"
 

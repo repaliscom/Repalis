@@ -30,7 +30,13 @@ from repalis.transaction.service.payment import (
     payment_transaction as payment_transaction_service,
 )
 from repalis.user.service import user as user_service
-from repalis.worker import AsyncSessionMaker, TaskPriority, actor, can_retry, get_retries
+from repalis.worker import (
+    AsyncSessionMaker,
+    TaskPriority,
+    actor,
+    can_retry,
+    get_retries,
+)
 
 from . import payment
 from .account_risk import UnknownAccountRiskEvaluation, parse_account_signal

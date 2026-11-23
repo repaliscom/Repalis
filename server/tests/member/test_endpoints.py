@@ -3,7 +3,14 @@ import uuid
 import pytest
 from httpx2 import AsyncClient
 
-from repalis.models import Account, Customer, Member, Organization, User, UserOrganization
+from repalis.models import (
+    Account,
+    Customer,
+    Member,
+    Organization,
+    User,
+    UserOrganization,
+)
 from repalis.models.customer import CustomerType
 from repalis.models.user_organization import OrganizationRole
 from tests.fixtures.auth import AuthSubjectFixture

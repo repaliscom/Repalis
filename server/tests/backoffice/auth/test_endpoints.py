@@ -218,7 +218,9 @@ class TestGoogleLogin:
         existing_provider_id: str | None,
         expected_status: int,
     ) -> None:
-        staff = BackofficeUser(email="STAFF@repalis.com", provider_id=existing_provider_id)
+        staff = BackofficeUser(
+            email="STAFF@repalis.com", provider_id=existing_provider_id
+        )
         session.add(staff)
         await session.flush()
 

@@ -13,7 +13,9 @@ from repalis.authz.dependencies import (
     AuthorizeWebUserWriteFresh,
 )
 from repalis.authz.repository import AuthzRepository
-from repalis.customer_portal.endpoints.downloadables import router as downloadables_router
+from repalis.customer_portal.endpoints.downloadables import (
+    router as downloadables_router,
+)
 from repalis.customer_portal.endpoints.license_keys import router as license_keys_router
 from repalis.customer_portal.endpoints.order import router as order_router
 from repalis.customer_portal.endpoints.subscription import router as subscription_router

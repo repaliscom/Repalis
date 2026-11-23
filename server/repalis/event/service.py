@@ -25,7 +25,11 @@ from repalis.event.tinybird_repository import TinybirdEventRepository
 from repalis.event_type.repository import EventTypeRepository
 from repalis.event_type.schemas import EventTypeWithStats
 from repalis.event_type.service import event_type_service
-from repalis.exceptions import RepalisError, RepalisRequestValidationError, ValidationError
+from repalis.exceptions import (
+    RepalisError,
+    RepalisRequestValidationError,
+    ValidationError,
+)
 from repalis.integrations.tinybird.service import (
     TinybirdTimeseriesStats,
     chunk_tinybird_events,

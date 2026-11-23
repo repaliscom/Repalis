@@ -4,7 +4,9 @@ from repalis.auth.models import AuthSubject
 from repalis.customer_portal.service.order import (
     CustomerOrderSortProperty,
 )
-from repalis.customer_portal.service.order import customer_order as customer_order_service
+from repalis.customer_portal.service.order import (
+    customer_order as customer_order_service,
+)
 from repalis.kit.db.postgres import AsyncSession
 from repalis.kit.pagination import PaginationParams
 from repalis.kit.sorting import Sorting

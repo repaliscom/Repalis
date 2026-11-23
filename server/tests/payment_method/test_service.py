@@ -9,7 +9,14 @@ from pytest_mock import MockerFixture
 from repalis.enums import PaymentProcessor, SubscriptionRecurringInterval
 from repalis.integrations.stripe.service import StripeService
 from repalis.kit.utils import utc_now
-from repalis.models import Checkout, Customer, Order, Organization, PaymentMethod, Product
+from repalis.models import (
+    Checkout,
+    Customer,
+    Order,
+    Organization,
+    PaymentMethod,
+    Product,
+)
 from repalis.models.organization import OrganizationCustomerEmailSettings
 from repalis.models.subscription import SubscriptionStatus
 from repalis.payment_method.service import (

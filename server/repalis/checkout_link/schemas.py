@@ -20,7 +20,10 @@ from repalis.kit.schemas import (
     Schema,
     TimestampedSchema,
 )
-from repalis.kit.trial import TrialConfigurationInputMixin, TrialConfigurationOutputMixin
+from repalis.kit.trial import (
+    TrialConfigurationInputMixin,
+    TrialConfigurationOutputMixin,
+)
 from repalis.kit.versioning import QuerySchema, Version
 from repalis.organization.schemas import OrganizationID
 from repalis.product.schemas import (

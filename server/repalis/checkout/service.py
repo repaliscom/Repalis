@@ -36,7 +36,9 @@ from repalis.custom_field.data import validate_custom_field_data
 from repalis.customer.repository import CustomerRepository
 from repalis.customer_seat.repository import CustomerSeatRepository
 from repalis.customer_seat.service import seat_service
-from repalis.customer_session.service import customer_session as customer_session_service
+from repalis.customer_session.service import (
+    customer_session as customer_session_service,
+)
 from repalis.discount.service import DiscountNotRedeemableError
 from repalis.discount.service import discount as discount_service
 from repalis.enums import PaymentProcessor, TaxBehavior
@@ -132,7 +134,9 @@ from repalis.tax.tax_id import (
     to_stripe_tax_id,
     validate_tax_id,
 )
-from repalis.trial_redemption.service import trial_redemption as trial_redemption_service
+from repalis.trial_redemption.service import (
+    trial_redemption as trial_redemption_service,
+)
 from repalis.webhook.service import webhook as webhook_service
 from repalis.worker import enqueue_job
 

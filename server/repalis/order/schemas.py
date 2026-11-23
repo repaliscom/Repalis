@@ -18,7 +18,11 @@ from repalis.custom_field.data import (
     CustomFieldDataInputMixin,
     CustomFieldDataOutputMixin,
 )
-from repalis.customer.schemas.customer import CustomerBase, CustomerID, ExternalCustomerID
+from repalis.customer.schemas.customer import (
+    CustomerBase,
+    CustomerID,
+    ExternalCustomerID,
+)
 from repalis.discount.schemas import DiscountMinimal
 from repalis.exceptions import ResourceNotFound
 from repalis.kit.address import Address, AddressInput

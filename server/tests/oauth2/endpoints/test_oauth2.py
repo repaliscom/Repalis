@@ -83,7 +83,9 @@ async def public_oauth2_client(save_fixture: SaveFixture, user: User) -> OAuth2C
 async def first_party_oauth2_client(
     save_fixture: SaveFixture, user: User
 ) -> OAuth2Client:
-    oauth2_client = OAuth2Client(client_id="repalis_ci_123", first_party=True, user=user)
+    oauth2_client = OAuth2Client(
+        client_id="repalis_ci_123", first_party=True, user=user
+    )
     await oauth2_client.set_client_secret("repalis_cs_123")
     await oauth2_client.set_registration_access_token("repalis_crt_123")
     oauth2_client.set_client_metadata(

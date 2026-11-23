@@ -11,7 +11,12 @@ from repalis.integrations.aws.s3.schemas import (
     S3FileUpload,
     S3FileUploadCompleted,
 )
-from repalis.kit.schemas import ClassName, MultipleQueryFilter, Schema, SetSchemaReference
+from repalis.kit.schemas import (
+    ClassName,
+    MultipleQueryFilter,
+    Schema,
+    SetSchemaReference,
+)
 from repalis.kit.versioning import QuerySchema
 from repalis.models.file import File, FileServiceTypes
 from repalis.organization.schemas import OrganizationID

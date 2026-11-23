@@ -27,7 +27,11 @@ from repalis.custom_field.schemas import (
     Slug,
     TextPropertiesInput,
 )
-from repalis.enums import MeterInterval, SubscriptionRecurringInterval, TaxBehaviorOption
+from repalis.enums import (
+    MeterInterval,
+    SubscriptionRecurringInterval,
+    TaxBehaviorOption,
+)
 from repalis.kit.currency import PresentmentCurrency
 from repalis.kit.external_id import ExternalID
 from repalis.kit.metadata import MetadataInputMixin, MetadataOutputType

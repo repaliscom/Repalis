@@ -10,7 +10,9 @@ from fastapi.exceptions import RequestValidationError
 from pydantic import BeforeValidator, TypeAdapter, ValidationError
 
 from repalis.auth.service import auth as auth_service
-from repalis.customer_session.service import customer_session as customer_session_service
+from repalis.customer_session.service import (
+    customer_session as customer_session_service,
+)
 from repalis.enums import TokenType
 from repalis.exceptions import RepalisError
 from repalis.kit.schemas import Schema

@@ -27,7 +27,9 @@ from repalis.config import settings
 from repalis.customer.repository import CustomerRepository
 from repalis.customer.schemas.customer import CustomerUpdate
 from repalis.customer.service import customer as customer_service
-from repalis.customer_session.service import customer_session as customer_session_service
+from repalis.customer_session.service import (
+    customer_session as customer_session_service,
+)
 from repalis.exceptions import RepalisRequestValidationError
 from repalis.kit.currency import PresentmentCurrency, get_currency_decimal_factor
 from repalis.kit.pagination import PaginationParamsQuery

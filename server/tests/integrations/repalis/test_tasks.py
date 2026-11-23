@@ -4,9 +4,9 @@ from unittest.mock import AsyncMock, MagicMock
 
 import pytest
 from dramatiq import Retry
+from pytest_mock import MockerFixture
 from repalis.v2026_04.errors import ResourceNotFound
 from repalis.v2026_04.outputs import ResourceNotFound as ResourceNotFoundData
-from pytest_mock import MockerFixture
 
 from repalis.config import settings
 from repalis.integrations.plain.service import TenantOperationError
@@ -49,7 +49,9 @@ class TestCreateCustomer:
         plain_service_mock: MagicMock,
     ) -> None:
         client = AsyncMock(spec=RepalisSelfClient)
-        mocker.patch("repalis.integrations.repalis.tasks.get_client", return_value=client)
+        mocker.patch(
+            "repalis.integrations.repalis.tasks.get_client", return_value=client
+        )
 
         await create_customer(
             external_id="org-123",
@@ -82,7 +84,9 @@ class TestCreateCustomer:
     ) -> None:
         monkeypatch.setattr(settings, "PLAIN_DEFAULT_TIER_EXTERNAL_ID", "free")
         client = AsyncMock(spec=RepalisSelfClient)
-        mocker.patch("repalis.integrations.repalis.tasks.get_client", return_value=client)
+        mocker.patch(
+            "repalis.integrations.repalis.tasks.get_client", return_value=client
+        )
 
         await create_customer(
             external_id="org-123",
@@ -110,7 +114,9 @@ class TestAddMember:
         fake_customer = MagicMock(id="repalis-customer-123")
         client = AsyncMock(spec=RepalisSelfClient)
         client.get_customer_by_external_id.return_value = fake_customer
-        mocker.patch("repalis.integrations.repalis.tasks.get_client", return_value=client)
+        mocker.patch(
+            "repalis.integrations.repalis.tasks.get_client", return_value=client
+        )
 
         await add_member(
             external_customer_id="org-123",
@@ -141,7 +147,9 @@ class TestAddMember:
             404,
             ResourceNotFoundData(error="ResourceNotFound", detail="Not found"),
         )
-        mocker.patch("repalis.integrations.repalis.tasks.get_client", return_value=client)
+        mocker.patch(
+            "repalis.integrations.repalis.tasks.get_client", return_value=client
+        )
         mocker.patch("repalis.integrations.repalis.tasks.can_retry", return_value=True)
 
         with pytest.raises(Retry):
@@ -164,7 +172,9 @@ class TestAddMember:
         )
         client = AsyncMock(spec=RepalisSelfClient)
         client.get_customer_by_external_id.side_effect = not_found
-        mocker.patch("repalis.integrations.repalis.tasks.get_client", return_value=client)
+        mocker.patch(
+            "repalis.integrations.repalis.tasks.get_client", return_value=client
+        )
         mocker.patch("repalis.integrations.repalis.tasks.can_retry", return_value=False)
 
         with pytest.raises(ResourceNotFound):
@@ -184,7 +194,9 @@ class TestRemoveMember:
         plain_service_mock: MagicMock,
     ) -> None:
         client = AsyncMock(spec=RepalisSelfClient)
-        mocker.patch("repalis.integrations.repalis.tasks.get_client", return_value=client)
+        mocker.patch(
+            "repalis.integrations.repalis.tasks.get_client", return_value=client
+        )
 
         await remove_member(
             external_customer_id="org-123",
@@ -207,7 +219,9 @@ class TestRemoveMember:
         plain_service_mock: MagicMock,
     ) -> None:
         client = AsyncMock(spec=RepalisSelfClient)
-        mocker.patch("repalis.integrations.repalis.tasks.get_client", return_value=client)
+        mocker.patch(
+            "repalis.integrations.repalis.tasks.get_client", return_value=client
+        )
         plain_service_mock.remove_customer_from_tenant.side_effect = (
             TenantOperationError("org-123", "remove_customer", "Plain API failure")
         )
@@ -233,7 +247,9 @@ class TestRemoveMember:
         plain_service_mock: MagicMock,
     ) -> None:
         client = AsyncMock(spec=RepalisSelfClient)
-        mocker.patch("repalis.integrations.repalis.tasks.get_client", return_value=client)
+        mocker.patch(
+            "repalis.integrations.repalis.tasks.get_client", return_value=client
+        )
         plain_service_mock.remove_customer_from_tenant.side_effect = [
             TenantOperationError("org-123", "remove_customer", "Plain API failure"),
             None,
@@ -270,7 +286,9 @@ class TestUpdateMember:
     ) -> None:
         client = AsyncMock(spec=RepalisSelfClient)
         client.get_member_by_external_id.return_value = MagicMock(id="member-123")
-        mocker.patch("repalis.integrations.repalis.tasks.get_client", return_value=client)
+        mocker.patch(
+            "repalis.integrations.repalis.tasks.get_client", return_value=client
+        )
 
         await update_member(
             external_customer_id="org-123",
@@ -291,7 +309,9 @@ class TestUpdateMember:
     ) -> None:
         client = AsyncMock(spec=RepalisSelfClient)
         client.get_member_by_external_id.return_value = MagicMock(id="member-123")
-        mocker.patch("repalis.integrations.repalis.tasks.get_client", return_value=client)
+        mocker.patch(
+            "repalis.integrations.repalis.tasks.get_client", return_value=client
+        )
 
         await update_member(
             external_customer_id="org-123",
@@ -316,7 +336,9 @@ class TestUpdateMember:
             404,
             ResourceNotFoundData(error="ResourceNotFound", detail="Not found"),
         )
-        mocker.patch("repalis.integrations.repalis.tasks.get_client", return_value=client)
+        mocker.patch(
+            "repalis.integrations.repalis.tasks.get_client", return_value=client
+        )
         mocker.patch("repalis.integrations.repalis.tasks.can_retry", return_value=True)
 
         with pytest.raises(Retry):
@@ -338,7 +360,9 @@ class TestUpdateMember:
             404,
             ResourceNotFoundData(error="ResourceNotFound", detail="Not found"),
         )
-        mocker.patch("repalis.integrations.repalis.tasks.get_client", return_value=client)
+        mocker.patch(
+            "repalis.integrations.repalis.tasks.get_client", return_value=client
+        )
         mocker.patch("repalis.integrations.repalis.tasks.can_retry", return_value=False)
 
         await update_member(
@@ -361,7 +385,9 @@ class TestUpdateCustomerSlug:
         fake_customer.metadata = {"slug": "old-slug", "other": "keep"}
         client = AsyncMock(spec=RepalisSelfClient)
         client.get_customer_by_external_id_or_none.return_value = fake_customer
-        mocker.patch("repalis.integrations.repalis.tasks.get_client", return_value=client)
+        mocker.patch(
+            "repalis.integrations.repalis.tasks.get_client", return_value=client
+        )
 
         await update_customer_slug(external_id="org-123", slug="new-slug")
 
@@ -379,7 +405,9 @@ class TestUpdateCustomerSlug:
         fake_customer.metadata = None
         client = AsyncMock(spec=RepalisSelfClient)
         client.get_customer_by_external_id_or_none.return_value = fake_customer
-        mocker.patch("repalis.integrations.repalis.tasks.get_client", return_value=client)
+        mocker.patch(
+            "repalis.integrations.repalis.tasks.get_client", return_value=client
+        )
 
         await update_customer_slug(external_id="org-123", slug="new-slug")
 
@@ -394,7 +422,9 @@ class TestUpdateCustomerSlug:
     ) -> None:
         client = AsyncMock(spec=RepalisSelfClient)
         client.get_customer_by_external_id_or_none.return_value = None
-        mocker.patch("repalis.integrations.repalis.tasks.get_client", return_value=client)
+        mocker.patch(
+            "repalis.integrations.repalis.tasks.get_client", return_value=client
+        )
 
         await update_customer_slug(external_id="org-123", slug="new-slug")
 
@@ -408,7 +438,9 @@ class TestDeleteCustomer:
         mocker: MockerFixture,
     ) -> None:
         client = AsyncMock(spec=RepalisSelfClient)
-        mocker.patch("repalis.integrations.repalis.tasks.get_client", return_value=client)
+        mocker.patch(
+            "repalis.integrations.repalis.tasks.get_client", return_value=client
+        )
 
         await delete_customer(external_id="org-123")
 
@@ -420,7 +452,9 @@ class TestRevokeSubscription:
     async def test_revokes_active_subscription(self, mocker: MockerFixture) -> None:
         client = AsyncMock(spec=RepalisSelfClient)
         client.get_active_subscription.return_value = MagicMock(id="sub-123")
-        mocker.patch("repalis.integrations.repalis.tasks.get_client", return_value=client)
+        mocker.patch(
+            "repalis.integrations.repalis.tasks.get_client", return_value=client
+        )
 
         await revoke_subscription(external_customer_id="org-123")
 
@@ -434,7 +468,9 @@ class TestRevokeSubscription:
     ) -> None:
         client = AsyncMock(spec=RepalisSelfClient)
         client.get_active_subscription.return_value = None
-        mocker.patch("repalis.integrations.repalis.tasks.get_client", return_value=client)
+        mocker.patch(
+            "repalis.integrations.repalis.tasks.get_client", return_value=client
+        )
 
         await revoke_subscription(external_customer_id="org-123")
 
@@ -476,7 +512,9 @@ class TestFlushEventIngestion:
             return_value={},
         )
         client = AsyncMock(spec=RepalisSelfClient)
-        mocker.patch("repalis.integrations.repalis.tasks.get_client", return_value=client)
+        mocker.patch(
+            "repalis.integrations.repalis.tasks.get_client", return_value=client
+        )
 
         await track_event_ingestion()
 
@@ -502,7 +540,9 @@ class TestFlushEventIngestion:
             return_value=counts,
         )
         client = AsyncMock(spec=RepalisSelfClient)
-        mocker.patch("repalis.integrations.repalis.tasks.get_client", return_value=client)
+        mocker.patch(
+            "repalis.integrations.repalis.tasks.get_client", return_value=client
+        )
 
         await track_event_ingestion()
 
@@ -524,7 +564,9 @@ class TestTrackOrganizationReviewUsage:
         mocker: MockerFixture,
     ) -> None:
         client = AsyncMock(spec=RepalisSelfClient)
-        mocker.patch("repalis.integrations.repalis.tasks.get_client", return_value=client)
+        mocker.patch(
+            "repalis.integrations.repalis.tasks.get_client", return_value=client
+        )
 
         await track_organization_review_usage(
             external_customer_id="org-123",

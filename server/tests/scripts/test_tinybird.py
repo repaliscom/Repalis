@@ -150,4 +150,6 @@ class TestTinybirdCLI:
                 False,
             ),
         ]
-        assert "Deploying to workspace repalis branch preview_pr_123..." in result.stdout
+        assert (
+            "Deploying to workspace repalis branch preview_pr_123..." in result.stdout
+        )

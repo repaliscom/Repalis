@@ -73,11 +73,17 @@ class TestGetRepalisVatLabel:
 class TestGetRepalisAdditionalInfo:
     def test_mapped_country(self) -> None:
         info = get_repalis_additional_info(_address("FR"))
-        assert info == "[support@repalis.com](mailto:support@repalis.com)\nVAT: EU372061545"
+        assert (
+            info
+            == "[support@repalis.com](mailto:support@repalis.com)\nVAT: EU372061545"
+        )
 
     def test_uk(self) -> None:
         info = get_repalis_additional_info(_address("GB"))
-        assert info == "[support@repalis.com](mailto:support@repalis.com)\nVAT: GB458254961"
+        assert (
+            info
+            == "[support@repalis.com](mailto:support@repalis.com)\nVAT: GB458254961"
+        )
 
     def test_canada_uses_gst_hst_label(self) -> None:
         info = get_repalis_additional_info(_address("CA"))
@@ -87,7 +93,9 @@ class TestGetRepalisAdditionalInfo:
 
     def test_new_zealand_uses_gst_label(self) -> None:
         info = get_repalis_additional_info(_address("NZ"))
-        assert info == ("[support@repalis.com](mailto:support@repalis.com)\nGST: 148-410-224")
+        assert info == (
+            "[support@repalis.com](mailto:support@repalis.com)\nGST: 148-410-224"
+        )
 
     def test_unmapped_country(self) -> None:
         info = get_repalis_additional_info(_address("US"))

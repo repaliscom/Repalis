@@ -35,8 +35,14 @@ from repalis.models import (
     UserSession,
 )
 from repalis.models.member_session import MEMBER_SESSION_TOKEN_PREFIX
-from repalis.oauth2.constants import is_access_token_prefix, is_registration_token_prefix
-from repalis.oauth2.exception_handlers import OAuth2Error, oauth2_error_exception_handler
+from repalis.oauth2.constants import (
+    is_access_token_prefix,
+    is_registration_token_prefix,
+)
+from repalis.oauth2.exception_handlers import (
+    OAuth2Error,
+    oauth2_error_exception_handler,
+)
 from repalis.oauth2.exceptions import InvalidTokenError
 from repalis.oauth2.service.oauth2_token import oauth2_token as oauth2_token_service
 from repalis.organization_access_token.service import (

@@ -111,7 +111,9 @@ def _raise_validation_error(
     span.set_attribute("error.type", type(error).__name__)
     if isinstance(error, HTTPValidationError):
         _record_validation_error(span, error, allowed_fields)
-    raise RepalisSelfClientValidationError(str(getattr(error, "error", error))) from None
+    raise RepalisSelfClientValidationError(
+        str(getattr(error, "error", error))
+    ) from None
 
 
 def _raise_error(
@@ -129,7 +131,9 @@ def _raise_error(
     raise RepalisSelfClientError(message) from error
 
 
-def _raise_network_error(span: Any, exc: RepalisNetworkError, operation: str) -> NoReturn:
+def _raise_network_error(
+    span: Any, exc: RepalisNetworkError, operation: str
+) -> NoReturn:
     span.set_attribute("error.type", type(exc).__name__)
     raise RepalisSelfClientOperationalError(
         f"{operation} failed with network error: {type(exc).__name__}: {exc}"

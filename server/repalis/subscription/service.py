@@ -29,7 +29,9 @@ from repalis.benefit.strategies.meter_credit.properties import (
 from repalis.billing_entry.repository import BillingEntryRepository
 from repalis.billing_entry.service import MeteredLineItem
 from repalis.billing_entry.service import billing_entry as billing_entry_service
-from repalis.billing_interval.service import billing_interval as billing_interval_service
+from repalis.billing_interval.service import (
+    billing_interval as billing_interval_service,
+)
 from repalis.checkout.eventstream import CheckoutEvent, publish_checkout_event
 from repalis.checkout.guard import has_product_checkout
 from repalis.config import settings
@@ -139,7 +141,9 @@ from repalis.product.price_set import NoPricesForCurrencies, PriceSet
 from repalis.product.repository import ProductRepository
 from repalis.product.service import product as product_service
 from repalis.redis import Redis
-from repalis.trial_redemption.service import trial_redemption as trial_redemption_service
+from repalis.trial_redemption.service import (
+    trial_redemption as trial_redemption_service,
+)
 from repalis.webhook.service import webhook as webhook_service
 from repalis.worker import enqueue_job, make_bulk_job_delay_calculator
 

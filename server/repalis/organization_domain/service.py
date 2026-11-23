@@ -11,7 +11,10 @@ from sqlalchemy.exc import IntegrityError
 
 from repalis.auth.permission import ROLE_PERMISSIONS, OrganizationPermission
 from repalis.config import settings
-from repalis.email.schemas import DomainVerificationLostEmail, DomainVerificationLostProps
+from repalis.email.schemas import (
+    DomainVerificationLostEmail,
+    DomainVerificationLostProps,
+)
 from repalis.email.sender import enqueue_email_template
 from repalis.exceptions import RepalisError
 from repalis.kit.pagination import PaginationParams, paginate

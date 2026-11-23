@@ -1298,7 +1298,10 @@ async def list_payment_methods(
     authz: AuthorizeOrgManageUserRead,
 ) -> ListResource[OrganizationPaymentMethod]:
     """List the saved payment methods used to pay Repalis invoices."""
-    methods, default_payment_method_id = await repalis_self_service.list_payment_methods(
+    (
+        methods,
+        default_payment_method_id,
+    ) = await repalis_self_service.list_payment_methods(
         authz.organization.id,
         external_member_id=str(authz.auth_subject.subject.id),
     )

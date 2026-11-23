@@ -4,6 +4,7 @@ from typing import Any
 from unittest.mock import AsyncMock, MagicMock
 
 import pytest
+from pytest_mock import MockerFixture
 from repalis.base import RepalisNetworkError, RepalisServerError, deserialize
 from repalis.v2026_04.errors import (
     AlreadyCanceledSubscription as SDKAlreadyCanceledSubscription,
@@ -30,7 +31,6 @@ from repalis.v2026_04.outputs import (
 from repalis.v2026_04.outputs import (
     ResourceNotFound as ResourceNotFoundData,
 )
-from pytest_mock import MockerFixture
 
 from repalis.integrations.repalis.client import (
     RepalisSelfClient,
@@ -399,7 +399,9 @@ def _failing_iter() -> AsyncIterator[Any]:
 @pytest.mark.anyio
 class TestNetworkErrorRetry:
     async def test_retries_once_then_succeeds(self, mocker: MockerFixture) -> None:
-        mocker.patch("repalis.integrations.repalis.client.NETWORK_RETRY_DELAY_SECONDS", 0)
+        mocker.patch(
+            "repalis.integrations.repalis.client.NETWORK_RETRY_DELAY_SECONDS", 0
+        )
         client = _client()
         grant = object()
         iter_list = mocker.patch.object(
@@ -414,7 +416,9 @@ class TestNetworkErrorRetry:
         assert iter_list.call_count == 2
 
     async def test_repeated_network_errors_raise(self, mocker: MockerFixture) -> None:
-        mocker.patch("repalis.integrations.repalis.client.NETWORK_RETRY_DELAY_SECONDS", 0)
+        mocker.patch(
+            "repalis.integrations.repalis.client.NETWORK_RETRY_DELAY_SECONDS", 0
+        )
         client = _client()
         get = mocker.patch.object(
             client._sdk.orders,

@@ -47,7 +47,9 @@ from repalis.event.system import SystemEvent as SystemEventEnum
 from repalis.event_type.repository import EventTypeRepository
 from repalis.integrations.tinybird.client import client as tinybird_client
 from repalis.integrations.tinybird.service import DATASOURCE_EVENTS
-from repalis.integrations.tinybird.service import ingest_events as tinybird_ingest_events
+from repalis.integrations.tinybird.service import (
+    ingest_events as tinybird_ingest_events,
+)
 from repalis.kit.crypto import generate_token, generate_token_hash_pair
 from repalis.kit.currency import PresentmentCurrency
 from repalis.kit.db.postgres import create_async_sessionmaker

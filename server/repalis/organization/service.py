@@ -40,7 +40,10 @@ from repalis.integrations.stripe.account_risk import (
 )
 from repalis.integrations.stripe.service import StripeAccountRejectReason
 from repalis.integrations.stripe.service import stripe as stripe_service
-from repalis.kit.anonymization import anonymize_email_for_deletion, anonymize_for_deletion
+from repalis.kit.anonymization import (
+    anonymize_email_for_deletion,
+    anonymize_for_deletion,
+)
 from repalis.kit.currency import PresentmentCurrency
 from repalis.kit.http import check_url_reachable
 from repalis.kit.pagination import PaginationParams
@@ -1604,7 +1607,9 @@ class OrganizationService:
         session.add(organization)
 
         self._enqueue_cancel_pending_payouts(organization)
-        repalis_self_service.enqueue_revoke_subscription(organization_id=organization.id)
+        repalis_self_service.enqueue_revoke_subscription(
+            organization_id=organization.id
+        )
         if stripe_reject_reason is not None:
             self._enqueue_reject_stripe_account(organization, stripe_reject_reason)
 

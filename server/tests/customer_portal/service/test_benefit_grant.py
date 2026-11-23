@@ -8,7 +8,9 @@ from repalis.benefit.strategies import BenefitActionRequiredError
 from repalis.customer_portal.schemas.benefit_grant import (
     CustomerBenefitGrantSlackSharedChannelUpdate,
 )
-from repalis.customer_portal.service.benefit_grant import CustomerBenefitGrantSortProperty
+from repalis.customer_portal.service.benefit_grant import (
+    CustomerBenefitGrantSortProperty,
+)
 from repalis.customer_portal.service.benefit_grant import (
     customer_benefit_grant as customer_benefit_grant_service,
 )

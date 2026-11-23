@@ -31,7 +31,11 @@ from repalis.declarative_config.guard import (
 )
 from repalis.email.schemas import EmailAdapter
 from repalis.email.sender import enqueue_email_template
-from repalis.exceptions import RepalisError, RepalisRequestValidationError, ResourceNotFound
+from repalis.exceptions import (
+    RepalisError,
+    RepalisRequestValidationError,
+    ResourceNotFound,
+)
 from repalis.kit.crypto import generate_token
 from repalis.kit.db.postgres import AsyncSession
 from repalis.kit.pagination import PaginationParams

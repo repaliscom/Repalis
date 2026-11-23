@@ -66,7 +66,8 @@ async def test_send_jobs_reuses_client_and_queue_url(mocker: MockerFixture) -> N
     client.send_message_batch.return_value = {}
     mocker.patch("repalis.worker._sqs._queue_url_cache", {})
     mocker.patch(
-        "repalis.worker._sqs.actor_to_queue_name", return_value="repalis-test-tasks-default"
+        "repalis.worker._sqs.actor_to_queue_name",
+        return_value="repalis-test-tasks-default",
     )
 
     jobs = [_sqs.Job("dummy", (), {})]

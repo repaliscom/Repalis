@@ -19,7 +19,9 @@ from sqlalchemy.orm import with_polymorphic
 
 from repalis.billing_interval.repository import BillingIntervalRepository
 from repalis.billing_interval.service import USAGE_POLICIES, derive_meter_billing_states
-from repalis.billing_interval.service import billing_interval as billing_interval_service
+from repalis.billing_interval.service import (
+    billing_interval as billing_interval_service,
+)
 from repalis.kit.db.postgres import AsyncSession, create_async_sessionmaker
 from repalis.models import (
     BillingInterval,
