@@ -255,7 +255,7 @@ async def _seed_benefits(
             if dry_run:
                 typer.echo(f"  {prefix}create {description!r}")
                 continue
-            created = await repalis_sdk.benefits.create(
+            created = await repalis.benefits.create(
                 type="feature_flag",
                 description=description,
                 properties={},
@@ -278,7 +278,7 @@ async def _seed_benefits(
             )
             continue
 
-        await repalis_sdk.benefits.update(
+        await repalis.benefits.update(
             current.id,
             type="feature_flag",
             metadata=desired_metadata,
@@ -355,7 +355,7 @@ async def _seed_products(
                 price = ProductPriceFixedCreate(
                     amount_type="fixed", price_amount=price_amount
                 )
-            created = await repalis_sdk.products.create(
+            created = await repalis.products.create(
                 name=name,
                 description=desired_description,
                 recurring_interval=recurring_interval,
@@ -364,7 +364,7 @@ async def _seed_products(
                 visibility=desired_visibility,
                 organization_id=organization_id,
             )
-            await repalis_sdk.products.update_benefits(
+            await repalis.products.update_benefits(
                 created.id,
                 benefits=desired_benefit_ids,
             )
@@ -398,7 +398,7 @@ async def _seed_products(
                     product_update["visibility"] = desired_visibility
                 if description_changed:
                     product_update["description"] = desired_description
-                await repalis_sdk.products.update(current.id, **product_update)
+                await repalis.products.update(current.id, **product_update)
                 typer.echo(
                     f"  update {name!r} -> {current.id} "
                     f"(metadata was {current_metadata}, now {desired_metadata}; "
@@ -418,7 +418,7 @@ async def _seed_products(
                     f"(was {current_benefit_ids}, now {sorted(desired_benefit_ids)})"
                 )
             else:
-                await repalis_sdk.products.update_benefits(
+                await repalis.products.update_benefits(
                     current.id,
                     benefits=desired_benefit_ids,
                 )
@@ -434,7 +434,7 @@ async def _seed_subscription_settings(
     if organization_id is None:
         typer.echo("Skipping subscription settings (no organization id).")
         return
-    org = await repalis_sdk.organizations.get(organization_id)
+    org = await repalis.organizations.get(organization_id)
     current = org.subscription_settings
     if current.proration_behavior == "invoice":
         typer.echo("  skip   subscription_settings (proration already 'invoice')")
@@ -446,7 +446,7 @@ async def _seed_subscription_settings(
             f"{current.proration_behavior} -> invoice)"
         )
         return
-    await repalis_sdk.organizations.update(
+    await repalis.organizations.update(
         organization_id,
         subscription_settings={
             "allow_multiple_subscriptions": current.allow_multiple_subscriptions,
@@ -472,7 +472,9 @@ async def _seed(
     mode = " (dry-run, no changes will be made)" if dry_run else ""
     typer.echo(f"Seeding on {env}{mode}...")
     async with _make_client(env, token) as repalis:
-        benefits_by_description = await _seed_benefits(repalis, organization_id, dry_run)
+        benefits_by_description = await _seed_benefits(
+            repalis, organization_id, dry_run
+        )
         if seed_products:
             await _seed_products(
                 repalis, organization_id, benefits_by_description, dry_run

@@ -213,7 +213,7 @@ from repalis.postgres import create_async_engine
 from sqlalchemy import text
 
 async def check():
-    engine = create_async_engine()
+    engine = create_async_engine('script')
     async with engine.connect() as conn:
         result = await conn.execute(text('SELECT COUNT(*) FROM organizations'))
         count = result.scalar()
