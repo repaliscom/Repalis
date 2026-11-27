@@ -7,21 +7,21 @@ import stripe as stripe_lib
 from pytest_mock import MockerFixture
 from sqlalchemy import update
 
-from polar.enums import PaymentProcessor, SubscriptionRecurringInterval
-from polar.integrations.stripe.service import StripeService
-from polar.kit.utils import utc_now
-from polar.models import Checkout, Customer, Order, Organization, PaymentMethod, Product
-from polar.models.organization import OrganizationCustomerEmailSettings
-from polar.models.subscription import SubscriptionStatus
-from polar.payment_method.repository import PaymentMethodRepository
-from polar.payment_method.service import (
+from repalis.enums import PaymentProcessor, SubscriptionRecurringInterval
+from repalis.integrations.stripe.service import StripeService
+from repalis.kit.utils import utc_now
+from repalis.models import Checkout, Customer, Order, Organization, PaymentMethod, Product
+from repalis.models.organization import OrganizationCustomerEmailSettings
+from repalis.models.subscription import SubscriptionStatus
+from repalis.payment_method.repository import PaymentMethodRepository
+from repalis.payment_method.service import (
     NoGeneratedSEPAPaymentMethod,
     PaymentMethodInUseByActiveSubscription,
 )
-from polar.payment_method.service import (
+from repalis.payment_method.service import (
     payment_method as payment_method_service,
 )
-from polar.postgres import AsyncSession
+from repalis.postgres import AsyncSession
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (
     create_active_subscription,
@@ -52,7 +52,7 @@ class TestResolveFromStripeIntent:
         )
         generated.id = "pm_generated"
         get_method = mocker.patch(
-            "polar.payment_method.service.stripe_service.get_payment_method",
+            "repalis.payment_method.service.stripe_service.get_payment_method",
             side_effect=[original, generated],
         )
         details = {
@@ -82,7 +82,7 @@ class TestResolveFromStripeIntent:
                 None,
             )
             mocker.patch(
-                "polar.payment_method.service.stripe_service.get_setup_intent",
+                "repalis.payment_method.service.stripe_service.get_setup_intent",
                 return_value=intent,
             )
         elif intent_type == "payment_intent":
@@ -95,7 +95,7 @@ class TestResolveFromStripeIntent:
                 None,
             )
             mocker.patch(
-                "polar.payment_method.service.stripe_service.get_charge",
+                "repalis.payment_method.service.stripe_service.get_charge",
                 return_value=charge,
             )
         else:
@@ -119,7 +119,7 @@ class TestResolveFromStripeIntent:
     async def test_card_unchanged(self, mocker: MockerFixture, expanded: bool) -> None:
         method = build_stripe_payment_method(type="card")
         get_method = mocker.patch(
-            "polar.payment_method.service.stripe_service.get_payment_method",
+            "repalis.payment_method.service.stripe_service.get_payment_method",
             return_value=method,
         )
         intent = stripe_lib.SetupIntent.construct_from(
@@ -132,7 +132,7 @@ class TestResolveFromStripeIntent:
     async def test_missing_generated_method(self, mocker: MockerFixture) -> None:
         original = build_stripe_payment_method(type="ideal")
         mocker.patch(
-            "polar.payment_method.service.stripe_service.get_payment_method",
+            "repalis.payment_method.service.stripe_service.get_payment_method",
             return_value=original,
         )
         charge = stripe_lib.Charge.construct_from(
@@ -352,7 +352,7 @@ class TestDelete:
     @pytest.fixture(autouse=True)
     def stripe_service_mock(self, mocker: MockerFixture) -> MagicMock:
         mock = MagicMock(spec=StripeService)
-        mocker.patch("polar.payment_method.service.stripe_service", new=mock)
+        mocker.patch("repalis.payment_method.service.stripe_service", new=mock)
         return mock
 
     async def test_delete_payment_method_with_no_subscriptions(
@@ -686,7 +686,7 @@ class TestDelete:
 @pytest.fixture
 def enqueue_email_template_mock(mocker: MockerFixture) -> MagicMock:
     return mocker.patch(
-        "polar.payment_method.service.enqueue_email_template", autospec=True
+        "repalis.payment_method.service.enqueue_email_template", autospec=True
     )
 
 

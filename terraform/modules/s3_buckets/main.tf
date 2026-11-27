@@ -44,14 +44,14 @@ variable "malware_protection_role_arn" {
 }
 
 variable "app_access_account_id" {
-  description = "Workload account holding the polar-{environment}-* roles that read and write these buckets"
+  description = "Workload account holding the repalis-{environment}-* roles that read and write these buckets"
   type        = string
   default     = null
 }
 
 locals {
-  name_prefix         = (var.environment == "production" ? "polar" : "polar-${var.environment}")
-  full_name_prefix    = "polar-${var.environment}"
+  name_prefix         = (var.environment == "production" ? "repalis" : "repalis-${var.environment}")
+  full_name_prefix    = "repalis-${var.environment}"
   public_files_bucket = coalesce(var.public_files_bucket_name, "${local.name_prefix}-public-files")
 
   malware_scan_protected_buckets = var.malware_protection_enabled ? {
@@ -157,7 +157,7 @@ locals {
         Resource  = "${local.app_access_bucket_arns[key]}/*"
         Condition = {
           ArnLike = {
-            "aws:PrincipalArn" = "arn:aws:iam::${var.app_access_account_id}:role/polar-${var.environment}-*"
+            "aws:PrincipalArn" = "arn:aws:iam::${var.app_access_account_id}:role/repalis-${var.environment}-*"
           }
         }
       },

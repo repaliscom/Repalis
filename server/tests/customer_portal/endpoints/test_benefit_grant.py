@@ -1,10 +1,10 @@
 import pytest
 from httpx2 import AsyncClient
 
-from polar.kit.visibility import Visibility
-from polar.models import Benefit, Customer, Member, Organization, Subscription
-from polar.models.benefit import BenefitType
-from polar.models.customer import CustomerOAuthAccount, CustomerOAuthPlatform
+from repalis.kit.visibility import Visibility
+from repalis.models import Benefit, Customer, Member, Organization, Subscription
+from repalis.models.benefit import BenefitType
+from repalis.models.customer import CustomerOAuthAccount, CustomerOAuthPlatform
 from tests.fixtures.auth import CUSTOMER_AUTH_SUBJECT
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_benefit, create_benefit_grant

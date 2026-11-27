@@ -1,13 +1,13 @@
 'use client'
 
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
-} from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+} from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 
 type ProrationBehaviorSetting = schemas['Organization']['proration_behavior']
 
@@ -57,7 +57,7 @@ export const ProrationBehavior: React.FC<ProrationBehaviorProps> = ({
         </SelectContent>
       </Select>
       {value === 'auto' && (
-        <p className="dark:text-polar-500 text-xs text-gray-500">
+        <p className="dark:text-repalis-500 text-xs text-gray-500">
           Use 2027-01 as your API version to ensure compatibility
         </p>
       )}

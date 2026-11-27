@@ -2,10 +2,10 @@
 title: "Python SDK"
 sidebarTitle: "Python"
 icon: python
-description: "Fully typed Python client for the Polar API"
+description: "Fully typed Python client for the Repalis API"
 ---
 
-The official Python SDK provides fully typed synchronous and asynchronous clients for the Polar API.
+The official Python SDK provides fully typed synchronous and asynchronous clients for the Repalis API.
 
 ## Installation
 
@@ -14,45 +14,45 @@ The SDK requires Python 3.11 or later.
 <Tabs>
   <Tab title="uv">
     ```bash Terminal
-    uv add polar-sdk
+    uv add repalis-sdk
     ```
   </Tab>
   <Tab title="pip">
     ```bash Terminal
-    pip install polar-sdk
+    pip install repalis-sdk
     ```
   </Tab>
 </Tabs>
 
 ## Quickstart
 
-Create an [organization access token](/integrate/oat), store it in `POLAR_ACCESS_TOKEN`, and make your first request:
+Create an [organization access token](/integrate/oat), store it in `REPALIS_ACCESS_TOKEN`, and make your first request:
 
 ```python main.py
 import os
 
-from polar.v2026_10 import Polar
+from repalis.v2026_10 import Repalis
 
-polar = Polar(os.environ["POLAR_ACCESS_TOKEN"])
+repalis = Repalis(os.environ["REPALIS_ACCESS_TOKEN"])
 
-customer_state = polar.customers.get_state_external("customer_external_id")
+customer_state = repalis.customers.get_state_external("customer_external_id")
 print(customer_state)
 ```
 
 ### Async client
 
-Use `PolarAsync` in asynchronous applications:
+Use `RepalisAsync` in asynchronous applications:
 
 ```python async_main.py
 import asyncio
 import os
 
-from polar.v2026_10 import PolarAsync
+from repalis.v2026_10 import RepalisAsync
 
 
 async def main() -> None:
-    polar = PolarAsync(os.environ["POLAR_ACCESS_TOKEN"])
-    customer_state = await polar.customers.get_state_external(
+    repalis = RepalisAsync(os.environ["REPALIS_ACCESS_TOKEN"])
+    customer_state = await repalis.customers.get_state_external(
         "customer_external_id"
     )
     print(customer_state)
@@ -67,30 +67,30 @@ The import path pins your client to the `2026-10` API version.
 
 Both clients support context managers to close their HTTP connections automatically when the block exits.
 
-For synchronous applications, use `Polar` with `with`:
+For synchronous applications, use `Repalis` with `with`:
 
 ```python
 import os
 
-from polar.v2026_10 import Polar
+from repalis.v2026_10 import Repalis
 
-with Polar(os.environ["POLAR_ACCESS_TOKEN"]) as polar:
-    customer_state = polar.customers.get_state_external("customer_external_id")
+with Repalis(os.environ["REPALIS_ACCESS_TOKEN"]) as repalis:
+    customer_state = repalis.customers.get_state_external("customer_external_id")
     print(customer_state)
 ```
 
-For asynchronous applications, use `PolarAsync` with `async with`:
+For asynchronous applications, use `RepalisAsync` with `async with`:
 
 ```python
 import asyncio
 import os
 
-from polar.v2026_10 import PolarAsync
+from repalis.v2026_10 import RepalisAsync
 
 
 async def main() -> None:
-    async with PolarAsync(os.environ["POLAR_ACCESS_TOKEN"]) as polar:
-        customer_state = await polar.customers.get_state_external(
+    async with RepalisAsync(os.environ["REPALIS_ACCESS_TOKEN"]) as repalis:
+        customer_state = await repalis.customers.get_state_external(
             "customer_external_id"
         )
         print(customer_state)
@@ -104,10 +104,10 @@ asyncio.run(main())
 The client uses production by default. Pass `environment="sandbox"` to use the isolated [sandbox environment](/integrate/sandbox):
 
 ```python
-polar = Polar(
-    os.environ["POLAR_ACCESS_TOKEN"],
+repalis = Repalis(
+    os.environ["REPALIS_ACCESS_TOKEN"],
     environment="sandbox",
 )
 ```
 
-[View the source code on GitHub](https://github.com/polarsource/polar/tree/main/sdk/python).
+[View the source code on GitHub](https://github.com/repaliscom/Repalis/tree/main/sdk/python).

@@ -5,13 +5,13 @@ import {
   Heading,
   List,
   Text,
-  WrapperPolar,
+  WrapperRepalis,
 } from '../components/foundation'
 import InfoBox from '../components/InfoBox'
 import type { schemas } from '../types'
 
 const FLAGGED_FILES_DOCS_URL =
-  'https://polar.sh/docs/features/benefits/file-downloads#flagged-files'
+  'https://repalis.com/docs/features/benefits/file-downloads#flagged-files'
 
 export function NotificationFileFlaggedMalicious({
   file_name,
@@ -20,7 +20,7 @@ export function NotificationFileFlaggedMalicious({
   benefits_url,
 }: schemas['MaintainerFileFlaggedMaliciousNotificationPayload']) {
   return (
-    <WrapperPolar
+    <WrapperRepalis
       preview={`Security alert: ${file_name} was flagged as malicious`}
     >
       <Heading>Security alert</Heading>
@@ -54,7 +54,7 @@ export function NotificationFileFlaggedMalicious({
       </Text>
       {benefits_url && <Button href={benefits_url}>View benefits</Button>}
       <Footer email={null} />
-    </WrapperPolar>
+    </WrapperRepalis>
   )
 }
 
@@ -63,7 +63,7 @@ NotificationFileFlaggedMalicious.PreviewProps = {
   organization_name: 'Acme Inc.',
   organization_slug: 'acme-inc',
   threat_names: ['EICAR-Test-File (not a virus)'],
-  benefits_url: 'https://polar.sh/dashboard/acme-inc/products/benefits',
+  benefits_url: 'https://repalis.com/dashboard/acme-inc/products/benefits',
 }
 
 export default NotificationFileFlaggedMalicious

@@ -3,18 +3,18 @@ export default {
     footer: {
       poweredBy: 'Drivs av',
       merchantOfRecord:
-        'Denna beställning behandlas av vår online-återförsäljare & Merchant of Record, Polar, som också hanterar beställningsrelaterade frågor och returer.',
+        'Denna beställning behandlas av vår online-återförsäljare & Merchant of Record, Repalis, som också hanterar beställningsrelaterade frågor och returer.',
       mandateSubscriptionTrial:
-        'Genom att klicka på "{buttonLabel}" godkänner du att Polar Software, Inc., vår online-återförsäljare och registrerade säljare, debiterar din valda betalningsmetod med beloppet som visas ovan i slutet av din provperiod och vid varje efterföljande faktureringsdatum tills du avslutar prenumerationen, samt godkänner våra {buyerTermsLink}. Du kan när som helst avsluta prenumerationen innan provperioden löper ut för att undvika att bli debiterad.',
+        'Genom att klicka på "{buttonLabel}" godkänner du att Repalis Software, Inc., vår online-återförsäljare och registrerade säljare, debiterar din valda betalningsmetod med beloppet som visas ovan i slutet av din provperiod och vid varje efterföljande faktureringsdatum tills du avslutar prenumerationen, samt godkänner våra {buyerTermsLink}. Du kan när som helst avsluta prenumerationen innan provperioden löper ut för att undvika att bli debiterad.',
       mandateSubscription:
-        'Genom att klicka på "{buttonLabel}" godkänner du att Polar Software, Inc., vår online-återförsäljare och registrerade säljare, omedelbart debiterar din valda betalningsmetod med beloppet som visas ovan och debiterar samma belopp vid varje efterföljande faktureringsdatum tills du avslutar prenumerationen, samt godkänner våra {buyerTermsLink}.',
+        'Genom att klicka på "{buttonLabel}" godkänner du att Repalis Software, Inc., vår online-återförsäljare och registrerade säljare, omedelbart debiterar din valda betalningsmetod med beloppet som visas ovan och debiterar samma belopp vid varje efterföljande faktureringsdatum tills du avslutar prenumerationen, samt godkänner våra {buyerTermsLink}.',
       buyerTermsLink: 'Köpvillkor',
       mandateOneTime:
-        'Genom att klicka på "{buttonLabel}" godkänner du att Polar Software, Inc., vår onlineåterförsäljare och registrerade handlare, debiterar din valda betalningsmetod med beloppet som visas ovan, samt accepterar {buyerTermsLink}. Detta är en engångsavgift.',
+        'Genom att klicka på "{buttonLabel}" godkänner du att Repalis Software, Inc., vår onlineåterförsäljare och registrerade handlare, debiterar din valda betalningsmetod med beloppet som visas ovan, samt accepterar {buyerTermsLink}. Detta är en engångsavgift.',
       mandateSubscriptionTrialDiscounted:
-        'Genom att klicka på "{buttonLabel}" ger du Polar Software, Inc., vår återförsäljare online och merchant of record, tillstånd att debitera din valda betalningsmetod det rabatterade belopp som visas ovan när din provperiod är slut, och ordinarie pris på varje faktureringsdatum efter att din rabattperiod har upphört, tills du avbryter, och godkänner {buyerTermsLink}. Du kan när som helst avbryta före provperiodens slut för att undvika debitering.',
+        'Genom att klicka på "{buttonLabel}" ger du Repalis Software, Inc., vår återförsäljare online och merchant of record, tillstånd att debitera din valda betalningsmetod det rabatterade belopp som visas ovan när din provperiod är slut, och ordinarie pris på varje faktureringsdatum efter att din rabattperiod har upphört, tills du avbryter, och godkänner {buyerTermsLink}. Du kan när som helst avbryta före provperiodens slut för att undvika debitering.',
       mandateSubscriptionDiscounted:
-        'Genom att klicka på "{buttonLabel}" ger du Polar Software, Inc., vår återförsäljare online och merchant of record, tillstånd att omedelbart debitera din valda betalningsmetod det rabatterade belopp som visas ovan, och ordinarie pris på varje faktureringsdatum efter att din rabattperiod har upphört, tills du avbryter, och godkänner {buyerTermsLink}.',
+        'Genom att klicka på "{buttonLabel}" ger du Repalis Software, Inc., vår återförsäljare online och merchant of record, tillstånd att omedelbart debitera din valda betalningsmetod det rabatterade belopp som visas ovan, och ordinarie pris på varje faktureringsdatum efter att din rabattperiod har upphört, tills du avbryter, och godkänner {buyerTermsLink}.',
     },
     form: {
       email: 'Email',

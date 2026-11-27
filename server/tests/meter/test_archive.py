@@ -5,16 +5,16 @@ from unittest.mock import MagicMock
 import pytest
 from pytest_mock.plugin import MockerFixture
 
-from polar.auth.models import AuthSubject
-from polar.enums import SubscriptionRecurringInterval
-from polar.exceptions import PolarRequestValidationError
-from polar.integrations.tinybird.client import TinybirdClient
-from polar.meter.service import meter as meter_service
-from polar.models import Benefit, Customer, Meter, Organization, Product, Subscription
-from polar.models.benefit import BenefitType
-from polar.models.subscription import SubscriptionStatus
-from polar.postgres import AsyncSession
-from polar.product.tiers import Tiers, TierType
+from repalis.auth.models import AuthSubject
+from repalis.enums import SubscriptionRecurringInterval
+from repalis.exceptions import RepalisRequestValidationError
+from repalis.integrations.tinybird.client import TinybirdClient
+from repalis.meter.service import meter as meter_service
+from repalis.models import Benefit, Customer, Meter, Organization, Product, Subscription
+from repalis.models.benefit import BenefitType
+from repalis.models.subscription import SubscriptionStatus
+from repalis.postgres import AsyncSession
+from repalis.product.tiers import Tiers, TierType
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (
     create_active_subscription,
@@ -28,7 +28,7 @@ from tests.fixtures.random_objects import (
 
 @pytest.fixture
 def enqueue_job_mock(mocker: MockerFixture) -> MagicMock:
-    return mocker.patch("polar.meter.service.enqueue_job")
+    return mocker.patch("repalis.meter.service.enqueue_job")
 
 
 @pytest.fixture
@@ -78,7 +78,7 @@ class TestMeterArchive:
         auth_subject: AuthSubject[Organization],
     ) -> None:
         # Try to archive meter that's attached to an active product
-        with pytest.raises(PolarRequestValidationError) as exc:
+        with pytest.raises(RepalisRequestValidationError) as exc:
             await meter_service.archive(session, meter)
         assert (
             "Cannot archive meter that is still attached to active products"
@@ -110,7 +110,7 @@ class TestMeterArchive:
             ),
         )
 
-        with pytest.raises(PolarRequestValidationError) as exc:
+        with pytest.raises(RepalisRequestValidationError) as exc:
             await meter_service.archive(session, meter)
         assert (
             "Cannot archive meter that is still attached to active products"
@@ -150,7 +150,7 @@ class TestMeterArchive:
         price.is_archived = True
         await save_fixture(price)
 
-        with pytest.raises(PolarRequestValidationError) as exc:
+        with pytest.raises(RepalisRequestValidationError) as exc:
             await meter_service.archive(session, meter)
         assert (
             "Cannot archive meter that is still used by active subscriptions"
@@ -197,7 +197,7 @@ class TestMeterArchive:
         await save_fixture(benefit)
 
         # Try to archive meter that's referenced by an active benefit
-        with pytest.raises(PolarRequestValidationError) as exc:
+        with pytest.raises(RepalisRequestValidationError) as exc:
             await meter_service.archive(session, meter)
         assert (
             "Cannot archive meter that is still referenced by active benefits"

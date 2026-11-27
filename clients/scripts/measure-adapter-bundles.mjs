@@ -6,15 +6,15 @@ import { gzipSync } from 'node:zlib'
 import { build, version } from 'esbuild'
 
 const clients = resolve(dirname(fileURLToPath(import.meta.url)), '..')
-const [label, outputDirectory, clientFactory = 'createPolarCore'] =
+const [label, outputDirectory, clientFactory = 'createRepalisCore'] =
   process.argv.slice(2)
 if (!label || !outputDirectory) {
   throw new Error(
-    'Usage: node scripts/measure-adapter-bundles.mjs <label> <output-directory> [createPolarCore|createPolar]',
+    'Usage: node scripts/measure-adapter-bundles.mjs <label> <output-directory> [createRepalisCore|createRepalis]',
   )
 }
-if (!['createPolarCore', 'createPolar'].includes(clientFactory)) {
-  throw new Error('Client factory must be createPolarCore or createPolar')
+if (!['createRepalisCore', 'createRepalis'].includes(clientFactory)) {
+  throw new Error('Client factory must be createRepalisCore or createRepalis')
 }
 
 const entries = {
@@ -35,7 +35,7 @@ for (const [name, [adapter, entry]] of Object.entries(entries)) {
     const key = configured ? `${name}/with-client` : name
     const result = await build({
       stdin: {
-        contents: `export * from './${entry}';${name === 'nuxt/module' ? `export { default } from './${entry}';` : ''}${configured ? `import { ${clientFactory} } from '@polar-sh/sdk/2026-04'; export const client = ${clientFactory}({accessToken: process.env.POLAR_ACCESS_TOKEN});` : ''}`,
+        contents: `export * from './${entry}';${name === 'nuxt/module' ? `export { default } from './${entry}';` : ''}${configured ? `import { ${clientFactory} } from '@repalis/sdk/2026-04'; export const client = ${clientFactory}({accessToken: process.env.REPALIS_ACCESS_TOKEN});` : ''}`,
         resolveDir: directory,
         sourcefile: 'bundle-entry.ts',
         loader: 'ts',
@@ -49,7 +49,7 @@ for (const [name, [adapter, entry]] of Object.entries(entries)) {
       write: false,
       metafile: true,
       alias: {
-        '@polar-sh/adapter-utils': resolve(
+        '@repalis/adapter-utils': resolve(
           clients,
           'adapters/adapter-utils/src/index.ts',
         ),
@@ -83,7 +83,7 @@ for (const [name, [adapter, entry]] of Object.entries(entries)) {
 }
 const sdk = JSON.parse(
   await readFile(
-    resolve(clients, 'adapters/nextjs/node_modules/@polar-sh/sdk/package.json'),
+    resolve(clients, 'adapters/nextjs/node_modules/@repalis/sdk/package.json'),
     'utf8',
   ),
 )

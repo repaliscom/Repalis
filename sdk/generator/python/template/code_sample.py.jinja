@@ -8,9 +8,9 @@
 {{ call_path }}()
 {%- endif -%}
 {% endmacro -%}
-from polar.{{ version }} import Polar
+from repalis.{{ version }} import Repalis
 
-polar = Polar("polar_oat_xxx")
+repalis = Repalis("repalis_oat_xxx")
 
 {% if pagination %}for item in {{ render_call() }}:
     print(item)

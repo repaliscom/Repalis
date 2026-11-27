@@ -4,7 +4,7 @@ from scripts.linters.dry_run import check
 
 DB_SCRIPT = (
     "import typer\n"
-    "from polar.kit.db.postgres import create_async_sessionmaker\n"
+    "from repalis.kit.db.postgres import create_async_sessionmaker\n"
     "def main({parameters}) -> None: ...\n"
     'if __name__ == "__main__":\n'
     "    main()\n"

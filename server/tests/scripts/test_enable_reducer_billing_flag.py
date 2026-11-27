@@ -3,9 +3,9 @@ from decimal import Decimal
 
 import pytest
 
-from polar.enums import SubscriptionRecurringInterval
-from polar.kit.db.postgres import AsyncSession
-from polar.models import User
+from repalis.enums import SubscriptionRecurringInterval
+from repalis.kit.db.postgres import AsyncSession
+from repalis.models import User
 from scripts.enable_reducer_billing_flag import count_candidates, enable_statement
 from scripts.helper import run_batched_update
 from tests.fixtures.database import SaveFixture

@@ -1,13 +1,13 @@
 import { MasterDetailIndex } from '@/components/Layout/MasterDetailIndex'
 import { getServerSideAPI } from '@/utils/client/serverside'
 import { getOrganizationBySlugOrNotFound } from '@/utils/organization'
-import { Button } from '@polar-sh/orbit'
+import { Button } from '@repalis/orbit'
 import { Metadata } from 'next'
 import Link from 'next/link'
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: 'Benefits', // " | Polar is added by the template"
+    title: 'Benefits', // " | Repalis is added by the template"
   }
 }
 
@@ -48,7 +48,7 @@ export default async function Page(props: {
   return (
     <div className="mt-96 flex w-full flex-col items-center justify-center gap-4">
       <h1 className="text-2xl">No Benefits</h1>
-      <p className="dark:text-polar-500 text-gray-500">
+      <p className="dark:text-repalis-500 text-gray-500">
         Create a benefit to get started
       </p>
       {!organization.feature_settings?.config_as_code_enabled && (

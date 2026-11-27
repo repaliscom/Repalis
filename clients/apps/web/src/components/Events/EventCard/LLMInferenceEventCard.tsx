@@ -1,4 +1,4 @@
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 import { EventCardBase } from './EventCardBase'
 import { UserEventCard } from './UserEventCard'
 
@@ -14,7 +14,7 @@ const DataRow = ({
       <div className="flex w-32 shrink-0 flex-row items-center gap-x-4 sm:w-48">
         <span>{label}</span>
       </div>
-      <span className="dark:text-polar-500 min-w-0 break-all text-gray-500">
+      <span className="dark:text-repalis-500 min-w-0 break-all text-gray-500">
         {value}
       </span>
     </div>

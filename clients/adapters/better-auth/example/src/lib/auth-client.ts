@@ -1,10 +1,10 @@
-import { polarClient } from '@polar-sh/better-auth'
+import { repalisClient } from '@repalis/better-auth'
 import { organizationClient } from 'better-auth/client/plugins'
 import { createAuthClient } from 'better-auth/react'
 
 export const authClient = createAuthClient({
   baseURL: 'http://localhost:3001', // the base url of your auth server
-  plugins: [organizationClient(), polarClient()],
+  plugins: [organizationClient(), repalisClient()],
 })
 
 export const checkoutForOrganization = (organizationId: string) =>

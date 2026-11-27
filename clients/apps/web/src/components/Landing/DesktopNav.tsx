@@ -2,12 +2,12 @@
 
 import { AuthModal } from '@/components/Auth/AuthModal'
 import GetStartedButton from '@/components/Auth/GetStartedButton'
-import { PolarLogotype } from '@/components/Layout/Public/PolarLogotype'
+import { RepalisLogotype } from '@/components/Layout/Public/RepalisLogotype'
 import { useModal } from '@/components/Modal/useModal'
 import { usePostHog } from '@/hooks/posthog'
-import { ArrowOutwardOutlined } from '@polar-sh/orbit/icons'
-import { Button, Grid, Modal, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { ArrowOutwardOutlined } from '@repalis/orbit/icons'
+import { Button, Grid, Modal, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import { m } from 'motion/react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -59,7 +59,7 @@ export const LandingPageDesktopNavigation = () => {
         alignItems="center"
         justifyContent="between"
       >
-        <PolarLogotype logoVariant="logotype" size={84} href="/" />
+        <RepalisLogotype logoVariant="logotype" size={84} href="/" />
         {/* the links sit at the true centre, whatever the widths either side */}
         <div className="absolute left-1/2 -translate-x-1/2">
           <Box as="ul" alignItems="center" columnGap="2xl">

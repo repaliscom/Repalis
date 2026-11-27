@@ -1,6 +1,6 @@
 'use client'
 
-import { Box } from '@polar-sh/orbit/Box'
+import { Box } from '@repalis/orbit/Box'
 import { flexRender, type RowData } from '@tanstack/react-table'
 import { type ReactNode, useEffect } from 'react'
 import { twMerge } from 'tailwind-merge'
@@ -104,8 +104,8 @@ export const CondensedTable = <T extends RowData>({
             className={twMerge(
               'w-full cursor-pointer text-left',
               selected
-                ? 'dark:bg-polar-800 bg-gray-100'
-                : 'dark:hover:bg-polar-800/50 hover:bg-gray-50',
+                ? 'dark:bg-repalis-800 bg-gray-100'
+                : 'dark:hover:bg-repalis-800/50 hover:bg-gray-50',
             )}
           >
             {renderCompact && (

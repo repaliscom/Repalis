@@ -5,11 +5,11 @@ import anyio
 import anyio.lowlevel
 import pytest
 
-from polar import PolarClientError, PolarError, PolarNetworkError, PolarRateLimitError
-from polar.metering import FlushProtocol, MeteringDeliveryError, MeteringTimeoutError
-from polar.metering.buffered import BufferedMeteringStrategy, DropReason, _FlushRequest
-from polar.metering.client import MeteringClient
-from polar.metering.events import EventInput
+from repalis import RepalisClientError, RepalisError, RepalisNetworkError, RepalisRateLimitError
+from repalis.metering import FlushProtocol, MeteringDeliveryError, MeteringTimeoutError
+from repalis.metering.buffered import BufferedMeteringStrategy, DropReason, _FlushRequest
+from repalis.metering.client import MeteringClient
+from repalis.metering.events import EventInput
 
 
 @pytest.fixture
@@ -30,7 +30,7 @@ async def test_flush_drains_batches_and_keeps_accepting_events(
 ) -> None:
     strategy = BufferedMeteringStrategy(client, batch_size=2, batch_interval=60)
     assert isinstance(strategy, FlushProtocol)
-    with pytest.raises(PolarError, match="has not started"):
+    with pytest.raises(RepalisError, match="has not started"):
         await strategy.flush()
     with anyio.fail_after(1):
         async with strategy:
@@ -157,7 +157,7 @@ async def test_released_flushes_batch_queued_events(
 async def test_flush_waits_for_retries(
     client: AsyncMock, events: list[EventInput]
 ) -> None:
-    client.events.ingest.side_effect = [PolarRateLimitError(429, 0), None]
+    client.events.ingest.side_effect = [RepalisRateLimitError(429, 0), None]
     with anyio.fail_after(3):
         async with BufferedMeteringStrategy(client, batch_interval=60) as strategy:
             await strategy.track(events[0])
@@ -177,7 +177,7 @@ async def test_retry_after_waits_a_second_without_spending_attempts(
     async def send(*, events: list[EventInput]) -> None:
         calls.append(time.monotonic())
         if len(calls) == 1:
-            raise PolarRateLimitError(429, 0)
+            raise RepalisRateLimitError(429, 0)
 
     client.events.ingest.side_effect = send
     with anyio.fail_after(3):
@@ -196,7 +196,7 @@ async def test_retry_after_beyond_budget_drops_the_batch(
     client: AsyncMock, events: list[EventInput]
 ) -> None:
     on_dropped = AsyncMock()
-    client.events.ingest.side_effect = PolarRateLimitError(429, 301)
+    client.events.ingest.side_effect = RepalisRateLimitError(429, 301)
     with anyio.fail_after(0.5):
         async with BufferedMeteringStrategy(
             client, batch_interval=60, shutdown_timeout=0.02, on_dropped=on_dropped
@@ -213,8 +213,8 @@ async def test_retry_after_beyond_budget_drops_the_batch(
 @pytest.mark.parametrize(
     "error, reason",
     [
-        (PolarNetworkError("offline"), "retry_exhausted"),
-        (PolarClientError(422, "invalid"), "permanent_error"),
+        (RepalisNetworkError("offline"), "retry_exhausted"),
+        (RepalisClientError(422, "invalid"), "permanent_error"),
     ],
 )
 async def test_flush_waits_for_drop_reporting(
@@ -346,7 +346,7 @@ async def test_exit_shields_in_flight_batch_from_cancellation(
 async def test_exit_bounds_retry_wait(
     client: AsyncMock, events: list[EventInput]
 ) -> None:
-    client.events.ingest.side_effect = PolarNetworkError("unavailable")
+    client.events.ingest.side_effect = RepalisNetworkError("unavailable")
     with anyio.fail_after(1), pytest.raises(MeteringDeliveryError):
         async with BufferedMeteringStrategy(
             client, batch_size=1, shutdown_timeout=0.02
@@ -381,7 +381,7 @@ async def test_shutdown_reports_only_unfinished_events(
     async def send(*, events: list[EventInput]) -> None:
         if events[0]["name"] == "0":
             if drop_first:
-                raise PolarNetworkError("unavailable")
+                raise RepalisNetworkError("unavailable")
             return
         await anyio.sleep_forever()
 
@@ -429,17 +429,17 @@ def test_rejects_non_positive_batch_size(client: AsyncMock, batch_size: int) -> 
 async def test_a_failing_on_delivered_stays_out_of_the_delivery_retries(
     client: AsyncMock, events: list[EventInput]
 ) -> None:
-    failure = PolarNetworkError("callback failed")
+    failure = RepalisNetworkError("callback failed")
     on_delivered = AsyncMock(side_effect=failure)
     on_dropped = AsyncMock()
     strategy = BufferedMeteringStrategy(
         client, max_attempts=1, on_delivered=on_delivered, on_dropped=on_dropped
     )
     with anyio.fail_after(1):
-        with pytest.raises(PolarNetworkError) as exc_info:
+        with pytest.raises(RepalisNetworkError) as exc_info:
             async with strategy:
                 await strategy.track(events[0])
-                with pytest.raises(PolarNetworkError):
+                with pytest.raises(RepalisNetworkError):
                     await strategy.flush()
         assert exc_info.value is failure
     client.events.ingest.assert_awaited_once()
@@ -453,7 +453,7 @@ async def test_background_failures_go_to_the_newest_overlapping_flush(
     reporting = anyio.Event()
     release = anyio.Event()
     observed: list[MeteringDeliveryError] = []
-    cause = PolarClientError(422, "invalid")
+    cause = RepalisClientError(422, "invalid")
 
     async def on_dropped(batch: list[EventInput], reason: DropReason) -> None:
         reporting.set()
@@ -493,7 +493,7 @@ async def test_a_newer_flush_releases_older_ones_and_reports_their_failures(
     release = anyio.Event()
     released = anyio.Event()
     observed: list[MeteringDeliveryError] = []
-    cause = PolarClientError(422, "invalid")
+    cause = RepalisClientError(422, "invalid")
 
     async def send(*, events: list[EventInput]) -> None:
         await release.wait()
@@ -560,7 +560,7 @@ async def test_abandoned_flush_preserves_failures_and_other_waiters(
     sending = anyio.Event()
     release = anyio.Event()
     completed = anyio.Event()
-    cause = PolarClientError(422, "invalid")
+    cause = RepalisClientError(422, "invalid")
 
     async def send(*, events: list[EventInput]) -> None:
         sending.set()
@@ -640,7 +640,7 @@ async def test_timed_out_drop_reporting_remains_observable(
         reporting.set()
         await release.wait()
 
-    client.events.ingest.side_effect = PolarClientError(422, "invalid")
+    client.events.ingest.side_effect = RepalisClientError(422, "invalid")
     with anyio.fail_after(1):
         async with BufferedMeteringStrategy(
             client, batch_size=1, on_dropped=on_dropped
@@ -669,7 +669,7 @@ async def test_flush_excludes_later_delivery_failures(
             sending.set()
             await release.wait()
         else:
-            raise PolarClientError(422, "invalid")
+            raise RepalisClientError(422, "invalid")
 
     async def first_flush() -> None:
         await strategy.flush()
@@ -721,7 +721,7 @@ async def test_cancellation_at_completion_does_not_acknowledge_failure(
     async def send(*, events: list[EventInput]) -> None:
         sending.set()
         await release.wait()
-        raise PolarClientError(422, "invalid")
+        raise RepalisClientError(422, "invalid")
 
     async def flush(*, task_status: anyio.abc.TaskStatus[anyio.CancelScope]) -> None:
         with anyio.CancelScope() as scope:

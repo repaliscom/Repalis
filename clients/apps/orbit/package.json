@@ -16,8 +16,8 @@
     "node": "=24"
   },
   "dependencies": {
-    "@polar-sh/orbit": "workspace:*",
-    "@polar-sh/ui": "workspace:*",
+    "@repalis/orbit": "workspace:*",
+    "@repalis/ui": "workspace:*",
     "@stylexjs/stylex": "catalog:",
     "next": "^16.4.6",
     "next-themes": "catalog:",
@@ -26,7 +26,7 @@
     "shiki": "catalog:"
   },
   "devDependencies": {
-    "@polar-sh/typescript-config": "workspace:*",
+    "@repalis/typescript-config": "workspace:*",
     "@stylexjs/babel-plugin": "catalog:",
     "@stylexjs/postcss-plugin": "catalog:",
     "@tailwindcss/forms": "catalog:",

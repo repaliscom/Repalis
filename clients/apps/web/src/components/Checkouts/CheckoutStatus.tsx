@@ -4,7 +4,7 @@ import {
   type StatusIconProps,
 } from '@/components/Shared/StatusIcon'
 import { CheckoutStatusDisplayTitle } from '@/utils/checkout'
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 
 type Status = schemas['CheckoutStatus']
 

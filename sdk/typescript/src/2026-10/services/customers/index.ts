@@ -24,9 +24,9 @@ export const listCustomers = (client: ClientBase) => {
    * @param query - Query parameters
    * @param requestOptions - Request options
    * @returns {ListResourceCustomer}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    * @throws {HTTPValidationError} Validation Error
    */
   return async (
@@ -74,9 +74,9 @@ export const listCustomers = (client: ClientBase) => {
  * @param query - Query parameters
  * @param requestOptions - Request options
  * @returns {AsyncGenerator<Customer>} A generator that yields items of type Customer.
- * @throws {PolarNetworkError} When a network error occurs
- * @throws {PolarRateLimitError} When the rate limit is exceeded
- * @throws {PolarServerError} When the server returns a 5xx error
+ * @throws {RepalisNetworkError} When a network error occurs
+ * @throws {RepalisRateLimitError} When the rate limit is exceeded
+ * @throws {RepalisServerError} When the server returns a 5xx error
  * @throws {HTTPValidationError} Validation Error
  */
 export const iterListCustomers = (client: ClientBase) => {
@@ -121,9 +121,9 @@ export const createCustomers = (client: ClientBase) => {
    * @param body - Request body
    * @param requestOptions - Request options
    * @returns {Customer}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    * @throws {HTTPValidationError} Validation Error
    */
   return async (body: CustomerCreate, requestOptions?: RequestOptions): Promise<Customer> => {
@@ -145,9 +145,9 @@ export const getCustomers = (client: ClientBase) => {
    * @param id - The customer ID.
    * @param requestOptions - Request options
    * @returns {Customer}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    * @throws {ResourceNotFound} Customer not found.
    * @throws {HTTPValidationError} Validation Error
    */
@@ -194,9 +194,9 @@ export const deleteCustomers = (client: ClientBase) => {
    * @param query - Query parameters
    * @param requestOptions - Request options
    * @returns {void}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    * @throws {ResourceNotFound} Customer not found.
    * @throws {HTTPValidationError} Validation Error
    */
@@ -237,9 +237,9 @@ export const updateCustomers = (client: ClientBase) => {
    * @param body - Request body
    * @param requestOptions - Request options
    * @returns {Customer}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    * @throws {ResourceNotFound} Customer not found.
    * @throws {HTTPValidationError} Validation Error
    */
@@ -275,9 +275,9 @@ export const getExternalCustomers = (client: ClientBase) => {
    * @param external_id - The customer external ID.
    * @param requestOptions - Request options
    * @returns {Customer}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    * @throws {ResourceNotFound} Customer not found.
    * @throws {HTTPValidationError} Validation Error
    */
@@ -314,9 +314,9 @@ export const deleteExternalCustomers = (client: ClientBase) => {
    * @param query - Query parameters
    * @param requestOptions - Request options
    * @returns {void}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    * @throws {ResourceNotFound} Customer not found.
    * @throws {HTTPValidationError} Validation Error
    */
@@ -357,9 +357,9 @@ export const updateExternalCustomers = (client: ClientBase) => {
    * @param body - Request body
    * @param requestOptions - Request options
    * @returns {Customer}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    * @throws {ResourceNotFound} Customer not found.
    * @throws {HTTPValidationError} Validation Error
    */
@@ -401,9 +401,9 @@ export const getStateCustomers = (client: ClientBase) => {
    * @param id - The customer ID.
    * @param requestOptions - Request options
    * @returns {CustomerState}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    * @throws {ResourceNotFound} Customer not found.
    * @throws {HTTPValidationError} Validation Error
    */
@@ -441,9 +441,9 @@ export const getStateExternalCustomers = (client: ClientBase) => {
    * @param external_id - The customer external ID.
    * @param requestOptions - Request options
    * @returns {CustomerState}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    * @throws {ResourceNotFound} Customer not found.
    * @throws {HTTPValidationError} Validation Error
    */
@@ -476,9 +476,9 @@ export const listPaymentMethodsCustomers = (client: ClientBase) => {
    * @param query - Query parameters
    * @param requestOptions - Request options
    * @returns {ListResourcePaymentMethod}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    * @throws {ResourceNotFound} Customer not found.
    * @throws {HTTPValidationError} Validation Error
    */
@@ -520,9 +520,9 @@ export const listPaymentMethodsCustomers = (client: ClientBase) => {
  * @param query - Query parameters
  * @param requestOptions - Request options
  * @returns {AsyncGenerator<PaymentMethod>} A generator that yields items of type PaymentMethod.
- * @throws {PolarNetworkError} When a network error occurs
- * @throws {PolarRateLimitError} When the rate limit is exceeded
- * @throws {PolarServerError} When the server returns a 5xx error
+ * @throws {RepalisNetworkError} When a network error occurs
+ * @throws {RepalisRateLimitError} When the rate limit is exceeded
+ * @throws {RepalisServerError} When the server returns a 5xx error
  * @throws {ResourceNotFound} Customer not found.
  * @throws {HTTPValidationError} Validation Error
  */
@@ -566,9 +566,9 @@ export const listPaymentMethodsExternalCustomers = (client: ClientBase) => {
    * @param query - Query parameters
    * @param requestOptions - Request options
    * @returns {ListResourcePaymentMethod}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    * @throws {ResourceNotFound} Customer not found.
    * @throws {HTTPValidationError} Validation Error
    */
@@ -610,9 +610,9 @@ export const listPaymentMethodsExternalCustomers = (client: ClientBase) => {
  * @param query - Query parameters
  * @param requestOptions - Request options
  * @returns {AsyncGenerator<PaymentMethod>} A generator that yields items of type PaymentMethod.
- * @throws {PolarNetworkError} When a network error occurs
- * @throws {PolarRateLimitError} When the rate limit is exceeded
- * @throws {PolarServerError} When the server returns a 5xx error
+ * @throws {RepalisNetworkError} When a network error occurs
+ * @throws {RepalisRateLimitError} When the rate limit is exceeded
+ * @throws {RepalisServerError} When the server returns a 5xx error
  * @throws {ResourceNotFound} Customer not found.
  * @throws {HTTPValidationError} Validation Error
  */

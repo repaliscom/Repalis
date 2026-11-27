@@ -1,12 +1,12 @@
 import { useNotifications, useNotificationsMarkRead } from '@/hooks/queries'
-import { Bell } from '@polar-sh/orbit/icons'
-import { Button, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { Bell } from '@repalis/orbit/icons'
+import { Button, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@polar-sh/ui/components/ui/popover'
+} from '@repalis/ui/components/ui/popover'
 import { useState } from 'react'
 import { NotificationRow } from './NotificationRow'
 
@@ -69,7 +69,7 @@ export const NotificationsPopover = () => {
             {notifications.length > 0 && (
               <Box alignItems="center" columnGap="s">
                 <span
-                  className={`size-1.5 rounded-full ${hasUnread ? 'bg-blue-500' : 'dark:bg-polar-600 bg-gray-300'}`}
+                  className={`size-1.5 rounded-full ${hasUnread ? 'bg-blue-500' : 'dark:bg-repalis-600 bg-gray-300'}`}
                 />
                 <Text variant="caption" color="muted" tabularNums>
                   {unreadCount >= 100 ? '99+' : unreadCount} new

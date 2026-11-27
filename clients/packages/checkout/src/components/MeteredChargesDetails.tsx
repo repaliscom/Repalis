@@ -1,13 +1,13 @@
 'use client'
 
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 import {
   DEFAULT_LOCALE,
   useTranslations,
   type AcceptedLocale,
   type TranslateFn,
-} from '@polar-sh/i18n'
-import { cn } from '@polar-sh/ui/lib/utils'
+} from '@repalis/i18n'
+import { cn } from '@repalis/ui/lib/utils'
 import { Fragment, useId, useState } from 'react'
 import { hasProductCheckout } from '../guards'
 import { getMeteredPrices } from '../utils/product'
@@ -68,13 +68,13 @@ const MeteredChargesDetails = ({
   const numberFormat = new Intl.NumberFormat(locale)
 
   return (
-    <div className="dark:border-polar-700 mt-2 flex flex-col gap-y-2 border-t border-gray-200 pt-4">
+    <div className="dark:border-repalis-700 mt-2 flex flex-col gap-y-2 border-t border-gray-200 pt-4">
       <button
         type="button"
         aria-expanded={expanded}
         aria-controls={rowsId}
         onClick={() => setExpanded((value) => !value)}
-        className="dark:text-polar-500 flex cursor-pointer flex-row items-center justify-between gap-x-8 text-gray-500"
+        className="dark:text-repalis-500 flex cursor-pointer flex-row items-center justify-between gap-x-8 text-gray-500"
       >
         <span>{t('checkout.pricing.meteredChargesMayApply')}</span>
         <ChevronDownIcon

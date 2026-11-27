@@ -13,18 +13,18 @@ import freezegun
 import pytest
 from httpx2 import AsyncClient
 
-from polar.auth.scope import Scope
-from polar.enums import SubscriptionRecurringInterval
-from polar.kit.db.postgres import AsyncSession
-from polar.kit.versioning import VERSION_HEADER
-from polar.meter.aggregation import (
+from repalis.auth.scope import Scope
+from repalis.enums import SubscriptionRecurringInterval
+from repalis.kit.db.postgres import AsyncSession
+from repalis.kit.versioning import VERSION_HEADER
+from repalis.meter.aggregation import (
     Aggregation,
     AggregationFunction,
     PropertyAggregation,
 )
-from polar.models import Meter, Organization, Product
-from polar.reducer.service import reducer as reducer_service
-from polar.version import V2027_01
+from repalis.models import Meter, Organization, Product
+from repalis.reducer.service import reducer as reducer_service
+from repalis.version import V2027_01
 from tests.e2e.infra import DrainFn, SchedulerSimulator, StripeSimulator
 from tests.e2e.purchase.conftest import complete_purchase
 from tests.fixtures.auth import AuthSubjectFixture

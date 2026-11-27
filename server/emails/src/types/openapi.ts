@@ -743,7 +743,7 @@ export interface components {
       /**
        * Repository Owner
        * @description The owner of the repository.
-       * @example polarsource
+       * @example repaliscom
        */
       repository_owner: string
       /**
@@ -1036,7 +1036,7 @@ export interface components {
       /**
        * Slack Integration Id
        * Format: uuid4
-       * @description Polar Slack integration linked to this benefit.
+       * @description Repalis Slack integration linked to this benefit.
        */
       slack_integration_id: string
       /**
@@ -1962,7 +1962,7 @@ export interface components {
       details_submitted_at: string | null
       /**
        * Onboarding Resubmission Requested At
-       * @description When Polar requested that the organization review and resubmit its onboarding information, if applicable.
+       * @description When Repalis requested that the organization review and resubmit its onboarding information, if applicable.
        */
       onboarding_resubmission_requested_at: string | null
       /**
@@ -2357,7 +2357,7 @@ export interface components {
     }
     /**
      * OrganizationDisputeSettings
-     * @description `auto_accept_below_amount` is in Polar's settlement currency (USD).
+     * @description `auto_accept_below_amount` is in Repalis's settlement currency (USD).
      */
     OrganizationDisputeSettings: {
       /** Auto Accept Below Amount */
@@ -2460,7 +2460,7 @@ export interface components {
       sso_enabled: boolean
       /**
        * Dispute Auto Accept Enabled
-       * @description If this organization can set a threshold below which Polar concedes disputes on its behalf. Requires `disputes_enabled`.
+       * @description If this organization can set a threshold below which Repalis concedes disputes on its behalf. Requires `disputes_enabled`.
        * @default false
        */
       dispute_auto_accept_enabled: boolean
@@ -2472,10 +2472,16 @@ export interface components {
       compass_enabled: boolean
       /**
        * Merchant Migration Enabled
-       * @description If this organization can migrate its billing from another provider (e.g. Stripe) to Polar.
+       * @description If this organization can migrate its billing from another provider (e.g. Stripe) to Repalis.
        * @default false
        */
       merchant_migration_enabled: boolean
+      /**
+       * Staged Events Ingest Enabled
+       * @description If this organization's ingested events are queued in `staged_events` and moved to `events` out of band.
+       * @default false
+       */
+      staged_events_ingest_enabled: boolean
       /**
        * Config As Code Enabled
        * @description If this organization can manage its configuration from a declarative config document.
@@ -2488,12 +2494,6 @@ export interface components {
        * @default false
        */
       reducer_billing_enabled: boolean
-      /**
-       * Lemon Squeezy Migration Enabled
-       * @description If this organization can migrate its billing from Lemon Squeezy to Polar.
-       * @default false
-       */
-      lemon_squeezy_migration_enabled: boolean
     }
     /** OrganizationInviteEmail */
     OrganizationInviteEmail: {
@@ -2582,8 +2582,6 @@ export interface components {
       proration_behavior: ('invoice' | 'prorate' | 'next_period') | 'auto'
       /** Benefit Revocation Grace Period */
       benefit_revocation_grace_period: number
-      /** Trial Ended Reactivation Period */
-      trial_ended_reactivation_period?: number
       /** Prevent Trial Abuse */
       prevent_trial_abuse: boolean
       /** Allow Customer Updates */
@@ -2687,18 +2685,18 @@ export interface components {
       /** Url */
       url: string
     }
-    /** PolarSelfStartupProgramWelcomeEmail */
-    PolarSelfStartupProgramWelcomeEmail: {
+    /** RepalisSelfStartupProgramWelcomeEmail */
+    RepalisSelfStartupProgramWelcomeEmail: {
       /**
        * Template
-       * @default polar_self_startup_program_welcome
+       * @default repalis_self_startup_program_welcome
        * @constant
        */
-      template: 'polar_self_startup_program_welcome'
-      props: components['schemas']['PolarSelfStartupProgramWelcomeProps']
+      template: 'repalis_self_startup_program_welcome'
+      props: components['schemas']['RepalisSelfStartupProgramWelcomeProps']
     }
-    /** PolarSelfStartupProgramWelcomeProps */
-    PolarSelfStartupProgramWelcomeProps: {
+    /** RepalisSelfStartupProgramWelcomeProps */
+    RepalisSelfStartupProgramWelcomeProps: {
       /** Email */
       email: string
       /** Organization Name */
@@ -2706,18 +2704,18 @@ export interface components {
       /** Billing Url */
       billing_url: string
     }
-    /** PolarSelfSubscriptionCancellationEmail */
-    PolarSelfSubscriptionCancellationEmail: {
+    /** RepalisSelfSubscriptionCancellationEmail */
+    RepalisSelfSubscriptionCancellationEmail: {
       /**
        * Template
-       * @default polar_self_subscription_cancellation
+       * @default repalis_self_subscription_cancellation
        * @constant
        */
-      template: 'polar_self_subscription_cancellation'
-      props: components['schemas']['PolarSelfSubscriptionCancellationProps']
+      template: 'repalis_self_subscription_cancellation'
+      props: components['schemas']['RepalisSelfSubscriptionCancellationProps']
     }
-    /** PolarSelfSubscriptionCancellationProps */
-    PolarSelfSubscriptionCancellationProps: {
+    /** RepalisSelfSubscriptionCancellationProps */
+    RepalisSelfSubscriptionCancellationProps: {
       /** Email */
       email: string
       /** Product Name */
@@ -2728,69 +2726,69 @@ export interface components {
        */
       ends_at: string | null
     }
-    /** PolarSelfSubscriptionConfirmationEmail */
-    PolarSelfSubscriptionConfirmationEmail: {
+    /** RepalisSelfSubscriptionConfirmationEmail */
+    RepalisSelfSubscriptionConfirmationEmail: {
       /**
        * Template
-       * @default polar_self_subscription_confirmation
+       * @default repalis_self_subscription_confirmation
        * @constant
        */
-      template: 'polar_self_subscription_confirmation'
-      props: components['schemas']['PolarSelfSubscriptionConfirmationProps']
+      template: 'repalis_self_subscription_confirmation'
+      props: components['schemas']['RepalisSelfSubscriptionConfirmationProps']
     }
-    /** PolarSelfSubscriptionConfirmationProps */
-    PolarSelfSubscriptionConfirmationProps: {
+    /** RepalisSelfSubscriptionConfirmationProps */
+    RepalisSelfSubscriptionConfirmationProps: {
       /** Email */
       email: string
       /** Product Name */
       product_name: string
     }
-    /** PolarSelfSubscriptionCycledEmail */
-    PolarSelfSubscriptionCycledEmail: {
+    /** RepalisSelfSubscriptionCycledEmail */
+    RepalisSelfSubscriptionCycledEmail: {
       /**
        * Template
-       * @default polar_self_subscription_cycled
+       * @default repalis_self_subscription_cycled
        * @constant
        */
-      template: 'polar_self_subscription_cycled'
-      props: components['schemas']['PolarSelfSubscriptionCycledProps']
+      template: 'repalis_self_subscription_cycled'
+      props: components['schemas']['RepalisSelfSubscriptionCycledProps']
     }
-    /** PolarSelfSubscriptionCycledProps */
-    PolarSelfSubscriptionCycledProps: {
+    /** RepalisSelfSubscriptionCycledProps */
+    RepalisSelfSubscriptionCycledProps: {
       /** Email */
       email: string
       /** Product Name */
       product_name: string
     }
-    /** PolarSelfSubscriptionPastDueEmail */
-    PolarSelfSubscriptionPastDueEmail: {
+    /** RepalisSelfSubscriptionPastDueEmail */
+    RepalisSelfSubscriptionPastDueEmail: {
       /**
        * Template
-       * @default polar_self_subscription_past_due
+       * @default repalis_self_subscription_past_due
        * @constant
        */
-      template: 'polar_self_subscription_past_due'
-      props: components['schemas']['PolarSelfSubscriptionPastDueProps']
+      template: 'repalis_self_subscription_past_due'
+      props: components['schemas']['RepalisSelfSubscriptionPastDueProps']
     }
-    /** PolarSelfSubscriptionPastDueProps */
-    PolarSelfSubscriptionPastDueProps: {
+    /** RepalisSelfSubscriptionPastDueProps */
+    RepalisSelfSubscriptionPastDueProps: {
       /** Email */
       email: string
       /** Product Name */
       product_name: string
     }
-    /** PolarSelfSubscriptionRevokedEmail */
-    PolarSelfSubscriptionRevokedEmail: {
+    /** RepalisSelfSubscriptionRevokedEmail */
+    RepalisSelfSubscriptionRevokedEmail: {
       /**
        * Template
-       * @default polar_self_subscription_revoked
+       * @default repalis_self_subscription_revoked
        * @constant
        */
-      template: 'polar_self_subscription_revoked'
-      props: components['schemas']['PolarSelfSubscriptionRevokedProps']
+      template: 'repalis_self_subscription_revoked'
+      props: components['schemas']['RepalisSelfSubscriptionRevokedProps']
     }
-    /** PolarSelfSubscriptionRevokedProps */
-    PolarSelfSubscriptionRevokedProps: {
+    /** RepalisSelfSubscriptionRevokedProps */
+    RepalisSelfSubscriptionRevokedProps: {
       /** Email */
       email: string
       /** Product Name */
@@ -3362,7 +3360,6 @@ export interface components {
       | 'canceled'
       | 'unpaid'
       | 'paused'
-      | 'trial_ended'
     /** SubscriptionTrialConversionReminderEmail */
     SubscriptionTrialConversionReminderEmail: {
       /**
@@ -3416,16 +3413,6 @@ export interface components {
       previous_billing_provider: string | null
       /** Trial End Date */
       trial_end_date: string
-      /**
-       * Payment Method Required
-       * @default true
-       */
-      payment_method_required: boolean
-      /**
-       * Billing Address Required
-       * @default false
-       */
-      billing_address_required: boolean
     }
     /** SubscriptionUncanceledEmail */
     SubscriptionUncanceledEmail: {

@@ -1,10 +1,10 @@
 'use client'
 
 import { useCustomerCustomerMeters } from '@/hooks/queries/customerPortal'
-import { SearchFilled as Search } from '@polar-sh/orbit/icons'
-import { Client, schemas } from '@polar-sh/client'
-import { Grid, Input, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { SearchFilled as Search } from '@repalis/orbit/icons'
+import { Client, schemas } from '@repalis/client'
+import { Grid, Input, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import { useMemo, useState } from 'react'
 import FormattedUnits from '../Meter/FormattedUnits'
 import {

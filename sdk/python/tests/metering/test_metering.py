@@ -9,9 +9,9 @@ import anyio.lowlevel
 import httpx2
 import pytest
 
-from polar import PolarClientError, PolarError, PolarNetworkError
-from polar.base import AsyncClientBase
-from polar.metering import (
+from repalis import RepalisClientError, RepalisError, RepalisNetworkError
+from repalis.base import AsyncClientBase
+from repalis.metering import (
     BufferedMeteringOptions,
     CustomerMeter,
     EventInput,
@@ -25,10 +25,10 @@ from polar.metering import (
     MeteringTimeoutError,
     ValidateProtocol,
 )
-from polar.metering.buffered import BufferedMeteringStrategy
-from polar.metering.errors import UnknownMeterError
-from polar.outpost import Outpost
-from polar.v2026_04 import PolarAsync
+from repalis.metering.buffered import BufferedMeteringStrategy
+from repalis.metering.errors import UnknownMeterError
+from repalis.outpost import Outpost
+from repalis.v2026_04 import RepalisAsync
 
 
 @pytest.mark.anyio
@@ -45,8 +45,8 @@ async def test_flush_optional_strategies(fail: bool) -> None:
     assert isinstance(first, FlushProtocol)
     assert not isinstance(ordinary, FlushProtocol)
     async with (
-        PolarAsync("token") as polar,
-        polar.metering(strategies=[first, ordinary, second]) as metering,
+        RepalisAsync("token") as repalis,
+        repalis.metering(strategies=[first, ordinary, second]) as metering,
     ):
         if fail:
             with pytest.raises(RuntimeError) as exc_info:
@@ -92,8 +92,8 @@ async def test_factory_outpost_configuration(
     exit = AsyncMock()
     monkeypatch.setattr(Outpost, "__aenter__", enter)
     monkeypatch.setattr(Outpost, "__aexit__", exit)
-    async with PolarAsync("token") as polar:
-        metering = polar.metering(outpost=outpost_options)
+    async with RepalisAsync("token") as repalis:
+        metering = repalis.metering(outpost=outpost_options)
         monkeypatch.setenv("REDIS_URL", "redis://changed:6379")
         async with metering:
             # Outpost delivers its events itself: the buffer would send each one twice.
@@ -101,7 +101,7 @@ async def test_factory_outpost_configuration(
             if expected_url:
                 assert isinstance(strategy, Outpost)
                 assert strategy.redis_url == expected_url
-                assert strategy._client is polar._client._client
+                assert strategy._client is repalis._client._client
             else:
                 assert isinstance(strategy, BufferedMeteringStrategy)
     assert enter.await_count == (1 if expected_url else 0)
@@ -113,11 +113,11 @@ async def test_factory_outpost_configuration(
 async def test_factory_requires_outpost_url(
     outpost: MeteringOutpostOptions | typing.Literal[True],
 ) -> None:
-    async with PolarAsync("token") as polar:
+    async with RepalisAsync("token") as repalis:
         with pytest.raises(
             MeteringError, match="Outpost requires redis_url or REDIS_URL"
         ):
-            polar.metering(outpost=outpost)
+            repalis.metering(outpost=outpost)
 
 
 @pytest.mark.anyio
@@ -125,9 +125,9 @@ async def test_factory_requires_outpost_url(
 async def test_factory_rejects_mixed_configuration(
     options: dict[str, typing.Any],
 ) -> None:
-    async with PolarAsync("token") as polar:
+    async with RepalisAsync("token") as repalis:
         with pytest.raises(MeteringError, match="Cannot combine strategies"):
-            polar.metering(strategies=[], **options)
+            repalis.metering(strategies=[], **options)
 
 
 @pytest.mark.anyio
@@ -139,11 +139,11 @@ async def test_factory_explicit_strategies(
     strategy = AsyncMock(spec=MeteringStrategyProtocol)
     strategies: list[MeteringStrategyProtocol] = [] if empty else [strategy]
     async with (
-        PolarAsync("token") as polar,
-        polar.metering(strategies=strategies) as metering,
+        RepalisAsync("token") as repalis,
+        repalis.metering(strategies=strategies) as metering,
     ):
         assert metering.strategies == strategies
-        assert metering._client is polar._client
+        assert metering._client is repalis._client
         await metering.track(name="usage", external_customer_id="customer")
     assert strategy.__aenter__.await_count == (0 if empty else 1)
     assert strategy.track.await_count == (0 if empty else 1)
@@ -153,10 +153,10 @@ async def test_factory_explicit_strategies(
 @pytest.mark.anyio
 async def test_factory_buffer_options(monkeypatch: pytest.MonkeyPatch) -> None:
     on_dropped = AsyncMock()
-    async with PolarAsync("token") as polar:
-        send = AsyncMock(side_effect=PolarNetworkError("offline"))
-        monkeypatch.setattr(polar.events, "ingest", send)
-        async with polar.metering(
+    async with RepalisAsync("token") as repalis:
+        send = AsyncMock(side_effect=RepalisNetworkError("offline"))
+        monkeypatch.setattr(repalis.events, "ingest", send)
+        async with repalis.metering(
             buffered=BufferedMeteringOptions(
                 batch_size=1, batch_interval=60, max_attempts=1, on_dropped=on_dropped
             )
@@ -186,10 +186,10 @@ async def test_factory_runs_outpost_alone_and_refuses_buffer_options_beside_it()
         on_delivered=on_delivered,
         on_dropped=on_dropped,
     )
-    async with PolarAsync("token") as polar:
+    async with RepalisAsync("token") as repalis:
         with pytest.raises(MeteringError):
-            polar.metering(buffered=BufferedMeteringOptions(), outpost=options)
-        [outpost] = polar.metering(outpost=options).strategies
+            repalis.metering(buffered=BufferedMeteringOptions(), outpost=options)
+        [outpost] = repalis.metering(outpost=options).strategies
         assert isinstance(outpost, Outpost)
         assert outpost._on_delivered is on_delivered
         assert outpost._on_dropped is on_dropped
@@ -199,13 +199,13 @@ async def test_factory_runs_outpost_alone_and_refuses_buffer_options_beside_it()
 async def test_factory_refuses_the_buffer_beside_outpost_as_explicit_strategies() -> (
     None
 ):
-    async with PolarAsync("token") as polar, httpx2.AsyncClient() as client:
+    async with RepalisAsync("token") as repalis, httpx2.AsyncClient() as client:
         strategies: list[MeteringStrategyProtocol] = [
-            BufferedMeteringStrategy(polar),
+            BufferedMeteringStrategy(repalis),
             Outpost("redis://localhost:6379", client=client),
         ]
         with pytest.raises(MeteringError):
-            polar.metering(strategies=strategies)
+            repalis.metering(strategies=strategies)
 
 
 @pytest.mark.anyio
@@ -214,8 +214,8 @@ async def test_factory_outpost_options_and_startup_failure(
 ) -> None:
     enter = AsyncMock(side_effect=RuntimeError("Redis unavailable"))
     monkeypatch.setattr(Outpost, "__aenter__", enter)
-    async with PolarAsync("token") as polar:
-        metering = polar.metering(
+    async with RepalisAsync("token") as repalis:
+        metering = repalis.metering(
             outpost=MeteringOutpostOptions(
                 redis_url="redis://localhost:6379", telemetry=False
             )
@@ -232,8 +232,8 @@ async def test_factory_outpost_options_and_startup_failure(
 async def test_metering_enters_and_calls_both_strategies(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
-    async with PolarAsync("token") as polar, httpx2.AsyncClient() as client:
-        buffered = BufferedMeteringStrategy(polar)
+    async with RepalisAsync("token") as repalis, httpx2.AsyncClient() as client:
+        buffered = BufferedMeteringStrategy(repalis)
         outpost = Outpost("redis://localhost:6379", client=client)
         mocks: list[tuple[AsyncMock, AsyncMock, AsyncMock]] = []
         for strategy in (buffered, outpost):
@@ -251,7 +251,7 @@ async def test_metering_enters_and_calls_both_strategies(
             "external_customer_id": "customer",
         }
         async with Metering(
-            strategies=[buffered, outpost], client=polar._client
+            strategies=[buffered, outpost], client=repalis._client
         ) as metering:
             for enter, exit, ingest in mocks:
                 enter.assert_awaited_once()
@@ -282,9 +282,9 @@ async def test_dates_an_event_that_carries_no_timestamp() -> None:
             seen.append(event)
 
     async with (
-        PolarAsync("token") as polar,
+        RepalisAsync("token") as repalis,
         Metering(
-            strategies=[Recording(), Recording()], client=polar._client
+            strategies=[Recording(), Recording()], client=repalis._client
         ) as metering,
     ):
         before = datetime.datetime.now(datetime.UTC)
@@ -309,8 +309,8 @@ async def test_strategy_validation_runs_before_any_track() -> None:
     assert isinstance(refusing, ValidateProtocol)
     assert not isinstance(accepting, ValidateProtocol)
     async with (
-        PolarAsync("token") as polar,
-        polar.metering(strategies=[accepting, refusing]) as metering,
+        RepalisAsync("token") as repalis,
+        repalis.metering(strategies=[accepting, refusing]) as metering,
     ):
         with pytest.raises(RuntimeError, match="refused"):
             await metering.track(name="usage", external_customer_id="customer")
@@ -323,10 +323,10 @@ async def test_failed_strategy_startup_closes_buffered_strategy(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     event: EventInput = {"name": "usage", "external_customer_id": "customer"}
-    async with PolarAsync("token") as polar, httpx2.AsyncClient() as client:
+    async with RepalisAsync("token") as repalis, httpx2.AsyncClient() as client:
         ingest = AsyncMock()
-        monkeypatch.setattr(polar.events, "ingest", ingest)
-        buffered = BufferedMeteringStrategy(polar, batch_interval=60)
+        monkeypatch.setattr(repalis.events, "ingest", ingest)
+        buffered = BufferedMeteringStrategy(repalis, batch_interval=60)
         outpost = Outpost("redis://localhost:6379", client=client)
 
         async def fail_startup(self: Outpost) -> Outpost:
@@ -337,7 +337,7 @@ async def test_failed_strategy_startup_closes_buffered_strategy(
         with anyio.fail_after(1):
             with pytest.raises(RuntimeError, match="startup failed"):
                 async with Metering(
-                    strategies=[buffered, outpost], client=polar._client
+                    strategies=[buffered, outpost], client=repalis._client
                 ):
                     pytest.fail("Startup should have failed")
 
@@ -404,7 +404,7 @@ async def test_invalid_actor(identity: dict[str, typing.Any]) -> None:
         with pytest.raises(InvalidActorError) as exc_info:
             await metering.actor(**identity)
         assert isinstance(exc_info.value, MeteringError)
-        assert isinstance(exc_info.value, PolarError)
+        assert isinstance(exc_info.value, RepalisError)
 
         with pytest.raises(InvalidActorError):
             await metering.track(name="usage", **identity)
@@ -422,13 +422,13 @@ import asyncio
 import sys
 from unittest.mock import AsyncMock
 
-sys.modules["polar.outpost"] = None
+sys.modules["repalis.outpost"] = None
 sys.modules["redis"] = None
 sys.modules["opentelemetry"] = None
 
-from polar.base import AsyncClientBase
-from polar.metering import Metering
-from polar.metering.buffered import BufferedMeteringStrategy
+from repalis.base import AsyncClientBase
+from repalis.metering import Metering
+from repalis.metering.buffered import BufferedMeteringStrategy
 
 async def main():
     async with Metering(
@@ -470,9 +470,9 @@ async def test_meter_api_fallback(
             },
         )
     )
-    async with PolarAsync("token", organization_id="org") as polar:
-        monkeypatch.setattr(polar._client, "send_request", send)
-        async with polar.metering() as metering:
+    async with RepalisAsync("token", organization_id="org") as repalis:
+        monkeypatch.setattr(repalis._client, "send_request", send)
+        async with repalis.metering() as metering:
             if external:
                 actor = await metering.actor(external_customer_id="external")
                 result = await actor.meter("meter")
@@ -494,7 +494,7 @@ async def test_meter_api_fallback(
     key = "external_customer_id" if external else "customer_id"
     assert request.url.params[key] == ("external" if external else "customer")
     assert request.headers["Authorization"] == "Bearer token"
-    assert request.headers["Polar-Organization"] == "org"
+    assert request.headers["Repalis-Organization"] == "org"
 
 
 @pytest.mark.anyio
@@ -559,9 +559,9 @@ async def test_meter_unknown_to_its_strategy_is_read_through_the_api(
     strategy.meter = AsyncMock(
         side_effect=UnknownMeterError("Outpost reduces no meter")
     )
-    async with PolarAsync("token", organization_id="org") as polar:
-        monkeypatch.setattr(polar._client, "send_request", send)
-        async with Metering(strategies=[strategy], client=polar._client) as metering:
+    async with RepalisAsync("token", organization_id="org") as repalis:
+        monkeypatch.setattr(repalis._client, "send_request", send)
+        async with Metering(strategies=[strategy], client=repalis._client) as metering:
             result = await metering.meter(meter_id="meter", customer_id="customer")
     assert result == CustomerMeter(
         meter_id="meter",
@@ -575,14 +575,14 @@ async def test_meter_unknown_to_its_strategy_is_read_through_the_api(
 
 @pytest.mark.anyio
 async def test_meter_api_error_propagates(monkeypatch: pytest.MonkeyPatch) -> None:
-    async with PolarAsync("token") as polar:
+    async with RepalisAsync("token") as repalis:
         monkeypatch.setattr(
-            polar._client,
+            repalis._client,
             "send_request",
             AsyncMock(return_value=httpx2.Response(403, text="Forbidden")),
         )
-        async with polar.metering() as metering:
-            with pytest.raises(PolarClientError):
+        async with repalis.metering() as metering:
+            with pytest.raises(RepalisClientError):
                 await metering.meter(meter_id="meter", external_customer_id="customer")
 
 
@@ -596,8 +596,8 @@ async def test_public_flush_enforces_timeout_for_custom_strategy() -> None:
 
     strategy.flush.side_effect = flush
     async with (
-        PolarAsync("token") as polar,
-        polar.metering(strategies=[strategy]) as metering,
+        RepalisAsync("token") as repalis,
+        repalis.metering(strategies=[strategy]) as metering,
     ):
         with anyio.fail_after(1), pytest.raises(MeteringTimeoutError):
             await metering.flush(timeout=0.01)
@@ -608,13 +608,13 @@ async def test_context_preserves_body_and_delivery_errors(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     body_error = ValueError("body failed")
-    delivery_error = PolarClientError(422, "rejected")
-    async with PolarAsync("token") as polar:
+    delivery_error = RepalisClientError(422, "rejected")
+    async with RepalisAsync("token") as repalis:
         monkeypatch.setattr(
-            polar.events, "ingest", AsyncMock(side_effect=delivery_error)
+            repalis.events, "ingest", AsyncMock(side_effect=delivery_error)
         )
         with pytest.raises(ExceptionGroup) as failure:
-            async with polar.metering() as metering:
+            async with repalis.metering() as metering:
                 await metering.track(name="usage", external_customer_id="customer")
                 raise body_error
     assert failure.value.exceptions[0] is body_error

@@ -5,11 +5,11 @@ from datetime import datetime
 import pytest
 from pydantic import ValidationError
 
-from polar.benefit.strategies.license_keys.schemas import (
+from repalis.benefit.strategies.license_keys.schemas import (
     BenefitLicenseKeyExpirationProperties,
     BenefitLicenseKeysCreateProperties,
 )
-from polar.license_key.schemas import LicenseKeyCreate
+from repalis.license_key.schemas import LicenseKeyCreate
 
 INT32_MAX = 2147483647
 
@@ -29,8 +29,8 @@ class TestLicenseKeyPrefixValidation:
 
     def test_valid_prefix_preserved(self) -> None:
         """Test that valid prefix is preserved."""
-        properties = BenefitLicenseKeysCreateProperties(prefix="POLAR")
-        assert properties.prefix == "POLAR"
+        properties = BenefitLicenseKeysCreateProperties(prefix="REPALIS")
+        assert properties.prefix == "REPALIS"
 
     def test_none_prefix_preserved(self) -> None:
         """Test that None prefix is preserved."""

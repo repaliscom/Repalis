@@ -12,9 +12,9 @@ export const listDisputes = (client: ClientBase) => {
    * @param query - Query parameters
    * @param requestOptions - Request options
    * @returns {ListResourceDispute}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    * @throws {HTTPValidationError} Validation Error
    */
   return async (
@@ -52,9 +52,9 @@ export const listDisputes = (client: ClientBase) => {
  * @param query - Query parameters
  * @param requestOptions - Request options
  * @returns {AsyncGenerator<Dispute>} A generator that yields items of type Dispute.
- * @throws {PolarNetworkError} When a network error occurs
- * @throws {PolarRateLimitError} When the rate limit is exceeded
- * @throws {PolarServerError} When the server returns a 5xx error
+ * @throws {RepalisNetworkError} When a network error occurs
+ * @throws {RepalisRateLimitError} When the rate limit is exceeded
+ * @throws {RepalisServerError} When the server returns a 5xx error
  * @throws {HTTPValidationError} Validation Error
  */
 export const iterListDisputes = (client: ClientBase) => {
@@ -95,9 +95,9 @@ export const getDisputes = (client: ClientBase) => {
    * @param id - The dispute ID.
    * @param requestOptions - Request options
    * @returns {Dispute}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    * @throws {ResourceNotFound} Dispute not found.
    * @throws {HTTPValidationError} Validation Error
    */
@@ -132,9 +132,9 @@ export const acceptDisputes = (client: ClientBase) => {
    * @param id - The dispute ID.
    * @param requestOptions - Request options
    * @returns {Dispute}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    * @throws {ResourceNotFound} Dispute not found.
    * @throws {DisputeNotOpenError} Conflict
    * @throws {HTTPValidationError} Validation Error

@@ -3,7 +3,7 @@ import {
   AuthError,
   environments,
   loginCommand,
-  type PolarEnvironment,
+  type RepalisEnvironment,
   type Session,
 } from '@/schemas/Auth'
 import { Credentials } from '@/services/credentials'
@@ -20,31 +20,31 @@ export class Auth extends Context.Service<
   Auth,
   {
     resolve: (
-      environment: PolarEnvironment,
+      environment: RepalisEnvironment,
       rejectedToken?: Redacted.Redacted<string>,
     ) => Effect.Effect<Credential, AuthError>
     login: (
-      environment: PolarEnvironment,
+      environment: RepalisEnvironment,
       newSession: boolean,
       announce: AnnounceAuthorization,
     ) => Effect.Effect<boolean, AuthError>
     logout: (
-      targets: ReadonlyArray<PolarEnvironment>,
-    ) => Effect.Effect<PolarEnvironment[], AuthError>
+      targets: ReadonlyArray<RepalisEnvironment>,
+    ) => Effect.Effect<RepalisEnvironment[], AuthError>
     override: Effect.Effect<boolean>
-    environments: Effect.Effect<PolarEnvironment[], AuthError>
+    environments: Effect.Effect<RepalisEnvironment[], AuthError>
   }
 >()('Auth') {}
 
-const isEnvironment = (value: string): value is PolarEnvironment =>
+const isEnvironment = (value: string): value is RepalisEnvironment =>
   (environments as readonly string[]).includes(value)
 
 export const make = (
   tokenOverride: Effect.Effect<string | undefined> = Effect.sync(
-    () => process.env['POLAR_ACCESS_TOKEN'],
+    () => process.env['REPALIS_ACCESS_TOKEN'],
   ),
   environmentOverride: Effect.Effect<string | undefined> = Effect.sync(
-    () => process.env['POLAR_ENVIRONMENT'],
+    () => process.env['REPALIS_ENVIRONMENT'],
   ),
 ) =>
   Effect.gen(function* () {
@@ -65,26 +65,26 @@ export const make = (
       if (isEnvironment(value)) return value
       return yield* new AuthError({
         message:
-          'POLAR_ENVIRONMENT must be "sandbox", "production" or "local".',
+          'REPALIS_ENVIRONMENT must be "sandbox", "production" or "local".',
       })
     })
     const requireSavedMode = Effect.gen(function* () {
       if (yield* override)
         return yield* new AuthError({
-          message: 'Unset POLAR_ACCESS_TOKEN to manage saved sessions.',
+          message: 'Unset REPALIS_ACCESS_TOKEN to manage saved sessions.',
         })
     })
-    const saved = (environment: PolarEnvironment) =>
+    const saved = (environment: RepalisEnvironment) =>
       Effect.gen(function* () {
         const session = yield* store.read(environment)
         if (!session)
           return yield* new AuthError({
-            message: `Not logged in to ${environment}. Run ${loginCommand(environment)} or set POLAR_ACCESS_TOKEN.`,
+            message: `Not logged in to ${environment}. Run ${loginCommand(environment)} or set REPALIS_ACCESS_TOKEN.`,
           })
         return session
       })
     const resolve = (
-      environment: PolarEnvironment,
+      environment: RepalisEnvironment,
       rejectedToken?: Redacted.Redacted<string>,
     ) =>
       Effect.gen(function* () {
@@ -93,12 +93,12 @@ export const make = (
           if (!token.trim())
             return yield* new AuthError({
               message:
-                'POLAR_ACCESS_TOKEN is empty. Supply a valid token or unset it.',
+                'REPALIS_ACCESS_TOKEN is empty. Supply a valid token or unset it.',
             })
           if (rejectedToken)
             return yield* new AuthError({
               message:
-                'POLAR_ACCESS_TOKEN was rejected. Check its environment and permissions; no saved session was used.',
+                'REPALIS_ACCESS_TOKEN was rejected. Check its environment and permissions; no saved session was used.',
             })
           return {
             source: 'override' as const,
@@ -131,7 +131,7 @@ export const make = (
       resolve,
       environments: Effect.gen(function* () {
         if (yield* override) return [yield* overrideEnvironment]
-        const available: PolarEnvironment[] = []
+        const available: RepalisEnvironment[] = []
         for (const environment of environments) {
           if (yield* store.read(environment)) available.push(environment)
         }
@@ -158,7 +158,7 @@ export const make = (
         }),
       logout: (targets) =>
         Effect.gen(function* () {
-          const deleted: PolarEnvironment[] = []
+          const deleted: RepalisEnvironment[] = []
           for (const environment of targets) {
             if (yield* locks[environment].withPermit(store.delete(environment)))
               deleted.push(environment)

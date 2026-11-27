@@ -5,12 +5,12 @@ import pytest
 from pytest_mock import MockerFixture
 from sqlalchemy import select
 
-from polar.backoffice.app import app as backoffice_app
-from polar.backoffice.dependencies import get_admin
-from polar.models import User
-from polar.models.backoffice_user_session import BackofficeUserSession
-from polar.models.user import IdentityVerificationStatus
-from polar.postgres import AsyncSession, get_db_session
+from repalis.backoffice.app import app as backoffice_app
+from repalis.backoffice.dependencies import get_admin
+from repalis.models import User
+from repalis.models.backoffice_user_session import BackofficeUserSession
+from repalis.models.user import IdentityVerificationStatus
+from repalis.postgres import AsyncSession, get_db_session
 from tests.fixtures.database import SaveFixture
 
 
@@ -49,7 +49,7 @@ class TestDeleteUser:
         await save_fixture(user_second)
 
         redact_mock = mocker.patch(
-            "polar.user.service.stripe_service.redact_verification_session",
+            "repalis.user.service.stripe_service.redact_verification_session",
             new_callable=mocker.AsyncMock,
         )
 

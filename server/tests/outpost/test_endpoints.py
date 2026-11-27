@@ -17,27 +17,27 @@ from opentelemetry.proto.common.v1.common_pb2 import AnyValue
 from pytest_mock import MockerFixture
 from sqlalchemy import event as sqlalchemy_event
 
-from polar.auth.scope import Scope
-from polar.event.system import SystemEvent
-from polar.kit.utils import utc_now
-from polar.meter.aggregation import UniqueAggregation
-from polar.models import (
+from repalis.auth.scope import Scope
+from repalis.event.system import SystemEvent
+from repalis.kit.utils import utc_now
+from repalis.meter.aggregation import UniqueAggregation
+from repalis.models import (
     Customer,
     Meter,
     Organization,
     ReducerBucket,
     StagedEvent,
 )
-from polar.models.event import EventSource
-from polar.models.reducer import ReducerKind
-from polar.outpost.schemas import to_epoch_microseconds
-from polar.outpost.service import SYNCED_LOOKBACK
-from polar.outpost.service import outpost as outpost_service
-from polar.postgres import AsyncSession
-from polar.redis import Redis
-from polar.reducer.repository import ReducerRepository
-from polar.reducer.service import get_reducer_bucket_start
-from polar.reducer.service import reducer as reducer_service
+from repalis.models.event import EventSource
+from repalis.models.reducer import ReducerKind
+from repalis.outpost.schemas import to_epoch_microseconds
+from repalis.outpost.service import SYNCED_LOOKBACK
+from repalis.outpost.service import outpost as outpost_service
+from repalis.postgres import AsyncSession
+from repalis.redis import Redis
+from repalis.reducer.repository import ReducerRepository
+from repalis.reducer.service import get_reducer_bucket_start
+from repalis.reducer.service import reducer as reducer_service
 from tests.fixtures import AuthSubjectFixture, SaveFixture
 from tests.fixtures.random_objects import (
     METER_TEST_EVENT,
@@ -1011,7 +1011,7 @@ class TestRequests:
             save_fixture, organization=organization, meters=[meter]
         )
 
-        # A reducer Polar does not know does not cost the other identities of the
+        # A reducer Repalis does not know does not cost the other identities of the
         # request their snapshots.
         response = await client.post(
             "/v1/outpost/meter-usage",
@@ -1362,7 +1362,7 @@ class TestTelemetry:
         organization: Organization,
     ) -> None:
         forward_mock = mocker.patch(
-            "polar.outpost.service.logfire.forward_export_request",
+            "repalis.outpost.service.logfire.forward_export_request",
             return_value=ForwardExportRequestResponse(
                 status_code=200,
                 headers={"Content-Type": "application/x-protobuf"},
@@ -1373,7 +1373,7 @@ class TestTelemetry:
         response = await client.post(
             "/v1/outpost/telemetry",
             content=_export_request(
-                **{"polar.organization_id": "spoofed", "service.name": "other"}
+                **{"repalis.organization_id": "spoofed", "service.name": "other"}
             ).SerializeToString(),
             headers={"Content-Type": "application/x-protobuf"},
         )
@@ -1386,7 +1386,7 @@ class TestTelemetry:
             for attribute in forwarded.resource_spans[0].resource.attributes
         }
         assert attributes == {
-            "polar.organization_id": str(organization.id),
+            "repalis.organization_id": str(organization.id),
             "service.name": "outpost",
             "deployment.environment.name": "testing",
         }
@@ -1432,7 +1432,7 @@ class TestTelemetryMetrics:
         organization: Organization,
     ) -> None:
         forward_mock = mocker.patch(
-            "polar.outpost.service.logfire.forward_export_request",
+            "repalis.outpost.service.logfire.forward_export_request",
             return_value=ForwardExportRequestResponse(
                 status_code=200,
                 headers={"Content-Type": "application/x-protobuf"},
@@ -1443,7 +1443,7 @@ class TestTelemetryMetrics:
         response = await client.post(
             "/v1/outpost/telemetry/metrics",
             content=_metrics_request(
-                **{"polar.organization_id": "spoofed", "service.name": "other"}
+                **{"repalis.organization_id": "spoofed", "service.name": "other"}
             ).SerializeToString(),
             headers={"Content-Type": "application/x-protobuf"},
         )
@@ -1456,7 +1456,7 @@ class TestTelemetryMetrics:
             for attribute in forwarded.resource_metrics[0].resource.attributes
         }
         assert attributes == {
-            "polar.organization_id": str(organization.id),
+            "repalis.organization_id": str(organization.id),
             "service.name": "outpost",
             "deployment.environment.name": "testing",
         }

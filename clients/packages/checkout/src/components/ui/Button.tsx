@@ -1,4 +1,4 @@
-import { cn } from '@polar-sh/ui/lib/utils'
+import { cn } from '@repalis/ui/lib/utils'
 import type * as React from 'react'
 
 const baseClasses =
@@ -8,9 +8,9 @@ const variantClasses = {
   default:
     'bg-black dark:bg-white dark:text-black text-white hover:opacity-85 transition-opacity duration-100',
   secondary:
-    'text-black dark:text-white hover:bg-gray-200 dark:bg-polar-700 dark:hover:bg-polar-600 bg-gray-100 border dark:border-white/5 border-black/4',
+    'text-black dark:text-white hover:bg-gray-200 dark:bg-repalis-700 dark:hover:bg-repalis-600 bg-gray-100 border dark:border-white/5 border-black/4',
   ghost:
-    'bg-transparent hover:bg-gray-200 dark:hover:bg-polar-700 text-black dark:text-white',
+    'bg-transparent hover:bg-gray-200 dark:hover:bg-repalis-700 text-black dark:text-white',
 } as const
 
 const sizeClasses = {

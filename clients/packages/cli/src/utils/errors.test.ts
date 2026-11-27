@@ -1,4 +1,4 @@
-import { ApiCommandError } from '@polar-sh/cli-commands'
+import { ApiCommandError } from '@repalis/cli-commands'
 import { describe, expect, test } from 'vitest'
 import { ListenError } from '@/services/listen'
 import { TriggerError } from '@/schemas/Trigger'
@@ -8,7 +8,7 @@ import { AuthError } from '@/schemas/Auth'
 import { GitHubReleaseError } from '@/services/github-releases'
 
 const releasesHint =
-  'Releases are published at https://github.com/polarsource/polar/releases'
+  'Releases are published at https://github.com/repaliscom/Repalis/releases'
 
 describe('reportedError', () => {
   test('writes the JSON error envelope for --json=true', () => {
@@ -52,12 +52,12 @@ describe('describeError', () => {
       describeError(
         new ApiCommandError({
           message: 'Missing required flag --prices',
-          hint: 'Example: polar products create',
+          hint: 'Example: repalis products create',
         }),
       ),
     ).toEqual({
       title: 'Missing required flag --prices',
-      hint: 'Example: polar products create',
+      hint: 'Example: repalis products create',
     })
     expect(describeError(new ApiCommandError({ message: 'Nope' }))).toEqual({
       title: 'Nope',
@@ -73,7 +73,7 @@ describe('describeError', () => {
   test.each([
     [403, 'You do not have access to this organization.'],
     [404, 'The organization could not be found.'],
-    [503, 'The Polar API may be having issues, try again shortly.'],
+    [503, 'The Repalis API may be having issues, try again shortly.'],
   ])('hints listen errors with status %d', (code, hint) => {
     expect(
       describeError(new ListenError({ message: 'Listen failed', code })),

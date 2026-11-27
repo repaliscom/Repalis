@@ -9,15 +9,15 @@ import { fakeHttp } from '@/utils/test-utils/http'
 import { VERSION } from '@/version'
 
 const releasesUrl =
-  'https://api.github.com/repos/polarsource/polar/releases?per_page=100&page=1'
+  'https://api.github.com/repos/repaliscom/Repalis/releases?per_page=100&page=1'
 
 let home: string
 let http: ReturnType<typeof fakeHttp>
 
-const stateFile = () => join(home, '.polar', 'update-check.json')
+const stateFile = () => join(home, '.repalis', 'update-check.json')
 
 const writeState = async (state: unknown) => {
-  await mkdir(join(home, '.polar'), { recursive: true })
+  await mkdir(join(home, '.repalis'), { recursive: true })
   await writeFile(
     stateFile(),
     typeof state === 'string' ? state : JSON.stringify(state),
@@ -27,7 +27,7 @@ const writeState = async (state: unknown) => {
 const release = (version: string) => () =>
   Response.json([
     {
-      tag_name: `@polar-sh/cli@${version}`,
+      tag_name: `@repalis/cli@${version}`,
       draft: false,
       prerelease: false,
       assets: [],
@@ -38,7 +38,7 @@ const check = () =>
   Effect.runPromise(checkForUpdate({ home }).pipe(Effect.provide(http.layer)))
 
 beforeEach(async () => {
-  home = await mkdtemp(join(tmpdir(), 'polar-home-'))
+  home = await mkdtemp(join(tmpdir(), 'repalis-home-'))
   http = fakeHttp()
 })
 

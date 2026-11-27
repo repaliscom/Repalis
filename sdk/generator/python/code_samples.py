@@ -46,7 +46,7 @@ def render_code_sample(sample: OperationSample) -> str:
     return (
         TEMPLATE.render(
             version=f"v{sample.api.version.replace('-', '_').replace('.', '_')}",
-            call_path=f"polar.{client_path}.{method_name}",
+            call_path=f"repalis.{client_path}.{method_name}",
             positional_arguments=positional_arguments,
             keyword_arguments=keyword_arguments,
             pagination=sample.method.pagination is not None,

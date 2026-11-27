@@ -1,15 +1,15 @@
 ---
 name: local-environment
-description: Local development environment management for Polar using Docker
+description: Local development environment management for Repalis using Docker
 license: MIT
 metadata:
-  author: polar
+  author: repalis
   version: "1.1.0"
 ---
 
 # Local Environment Skill
 
-Helps manage the Polar local development environment through the `dev docker`
+Helps manage the Repalis local development environment through the `dev docker`
 CLI. Use it to start, stop, debug, or reason about the local stack.
 
 ## The two-part model
@@ -17,11 +17,11 @@ CLI. Use it to start, stop, debug, or reason about the local stack.
 `dev docker` deliberately splits the stack so many worktrees can share one set
 of heavy infra:
 
-- **Shared infra** — one copy per machine, Docker project `polar-shared`:
+- **Shared infra** — one copy per machine, Docker project `repalis-shared`:
   postgres, redis, minio, tinybird, and optional prometheus/grafana. Postgres
   and redis publish no host ports; MinIO exposes 9000/9001 for browser
   uploads. Use `dev docker exec <service> ...` for services without host ports.
-- **Per-instance app stack** — one per worktree, project `polar-app-<N>`: api,
+- **Per-instance app stack** — one per worktree, project `repalis-app-<N>`: api,
   worker, web. Only **api and web** publish host ports, offset per instance so
   worktrees don't collide.
 
@@ -35,8 +35,8 @@ uploads and console access.
 `dev docker` auto-detects the instance for the current worktree, so `-i` is
 rarely needed. Priority:
 
-1. `POLAR_DOCKER_INSTANCE` pinned in `dev/docker/.env.docker` (`dev docker set-instance N`)
-2. The cross-worktree registry (`~/.config/polar/docker-instances.json`)
+1. `REPALIS_DOCKER_INSTANCE` pinned in `dev/docker/.env.docker` (`dev docker set-instance N`)
+2. The cross-worktree registry (`~/.config/repalis/docker-instances.json`)
 3. Otherwise the lowest free number, then registered
 
 Run `dev docker ports` to see the resolved instance and its URLs (add `--json`
@@ -79,14 +79,14 @@ the correct ports (it's gitignored, so regenerate after `set-instance`).
 
 | Service | Project | Host port (instance 0 / N) | Notes |
 |---------|---------|----------------------------|-------|
-| api | `polar-app-<N>` | 8000 / 8100+N | FastAPI; `/healthz` healthcheck |
-| web | `polar-app-<N>` | 3000 / 3100+N | Next.js; healthchecked |
-| worker | `polar-app-<N>` | none | Background jobs |
-| db | `polar-shared` | none (`exec`) | PostgreSQL; DB `polar_dev_<N>` |
-| redis | `polar-shared` | none (`exec`) | Redis DB index = N |
-| minio | `polar-shared` | 9000, 9001 | S3; buckets `polar-s3-<N>`; console at 9001 |
-| tinybird | `polar-shared` | none (`exec`) | Analytics |
-| prometheus / grafana | `polar-shared` | none (`exec`) | `--monitoring` only |
+| api | `repalis-app-<N>` | 8000 / 8100+N | FastAPI; `/healthz` healthcheck |
+| web | `repalis-app-<N>` | 3000 / 3100+N | Next.js; healthchecked |
+| worker | `repalis-app-<N>` | none | Background jobs |
+| db | `repalis-shared` | none (`exec`) | PostgreSQL; DB `repalis_dev_<N>` |
+| redis | `repalis-shared` | none (`exec`) | Redis DB index = N |
+| minio | `repalis-shared` | 9000, 9001 | S3; buckets `repalis-s3-<N>`; console at 9001 |
+| tinybird | `repalis-shared` | none (`exec`) | Analytics |
+| prometheus / grafana | `repalis-shared` | none (`exec`) | `--monitoring` only |
 
 Discover the exact host ports for the current worktree with `dev docker ports`.
 
@@ -102,9 +102,9 @@ Only api and web get host ports: `Port = Base + Instance` (Base 8100 for api,
 | 2 | 8102 | 3102 |
 | 5 | 8105 | 3105 |
 
-Everything else is per-instance but not on a host port: database `polar_dev_<N>`,
-redis DB index `<N>`, buckets `polar-s3-<N>` / `polar-s3-public-<N>`. Reach them
-via `dev docker exec <service>` or `docker exec polar-shared-<service>-1`.
+Everything else is per-instance but not on a host port: database `repalis_dev_<N>`,
+redis DB index `<N>`, buckets `repalis-s3-<N>` / `repalis-s3-public-<N>`. Reach them
+via `dev docker exec <service>` or `docker exec repalis-shared-<service>-1`.
 
 ## Rules index
 

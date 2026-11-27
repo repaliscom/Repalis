@@ -1,15 +1,15 @@
-import { Button } from '@polar-sh/orbit'
-import { Input } from '@polar-sh/orbit'
+import { Button } from '@repalis/orbit'
+import { Input } from '@repalis/orbit'
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormMessage,
-} from '@polar-sh/ui/components/ui/form'
+} from '@repalis/ui/components/ui/form'
 import { MouseEvent, useCallback, useRef, useState } from 'react'
 import { useForm, useWatch } from 'react-hook-form'
-import { Modal, type ModalProps } from '@polar-sh/orbit'
+import { Modal, type ModalProps } from '@repalis/orbit'
 
 // Collapses runs of any Unicode whitespace (including non-breaking spaces,
 // common in labels pasted from design tools) into a single regular space, so
@@ -105,7 +105,7 @@ export const ConfirmModal = ({
         <div className="flex flex-col gap-y-4 p-8">
           <h3 className="text-xl font-medium">{title}</h3>
           {description && (
-            <p className="dark:text-polar-400 max-w-full text-sm text-gray-500">
+            <p className="dark:text-repalis-400 max-w-full text-sm text-gray-500">
               {description}
             </p>
           )}
@@ -120,7 +120,7 @@ export const ConfirmModal = ({
             >
               {confirmPrompt && (
                 <>
-                  <p className="dark:text-polar-400 max-w-full text-sm text-gray-500">
+                  <p className="dark:text-repalis-400 max-w-full text-sm text-gray-500">
                     Please enter &quot;{normalizedConfirmPrompt}&quot; to
                     confirm:
                   </p>

@@ -1,8 +1,8 @@
 from datetime import timedelta
 
-from polar.event.system import SystemEvent, build_system_event
-from polar.kit.utils import utc_now
-from polar.models import Customer, Organization
+from repalis.event.system import SystemEvent, build_system_event
+from repalis.kit.utils import utc_now
+from repalis.models import Customer, Organization
 
 
 class TestBuildSystemEvent:

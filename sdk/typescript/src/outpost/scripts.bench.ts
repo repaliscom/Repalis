@@ -18,7 +18,7 @@ const keyOf = (buckets: number) => stateKey(identityOf(buckets));
 // An event of 7 units in the given bucket: what WRITE_BUCKET takes after the key count. Each
 // call brings a new external_id, as events do; the same one would be a duplicate and write nothing.
 let sequence = 0;
-// What track queues for Polar with an event's first write.
+// What track queues for Repalis with an event's first write.
 const queuedEvent = JSON.stringify({
   name: "api_call",
   external_customer_id: "alice",
@@ -94,7 +94,7 @@ describe("WRITE_BUCKET", () => {
 
 describe("APPLY_SNAPSHOT", () => {
   for (const buckets of BUCKET_COUNTS) {
-    // The seeded snapshot again, as every instance gets each of Polar's: the script scans
+    // The seeded snapshot again, as every instance gets each of Repalis's: the script scans
     // every field, finds nothing to change and writes only the version.
     bench(
       `apply a snapshot to a ${buckets}-bucket state`,

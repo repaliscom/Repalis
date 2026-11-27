@@ -11,15 +11,15 @@ import {
 } from '@/hooks/queries'
 import { extractApiErrorMessage } from '@/utils/api/errors'
 import { getPauseAction } from '@/utils/subscription'
-import { MoreVertOutlined } from '@polar-sh/orbit/icons'
-import { schemas } from '@polar-sh/client'
-import { Button, InlineModal } from '@polar-sh/orbit'
+import { MoreVertOutlined } from '@repalis/orbit/icons'
+import { schemas } from '@repalis/client'
+import { Button, InlineModal } from '@repalis/orbit'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@polar-sh/ui/components/atoms/DropdownMenu'
+} from '@repalis/ui/components/atoms/DropdownMenu'
 
 interface SubscriptionActionsMenuProps {
   subscription: schemas['Subscription']

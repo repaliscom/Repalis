@@ -1,5 +1,5 @@
 import { SkeletonBar } from '@/components/Shared/SkeletonBar'
-import { Box } from '@polar-sh/orbit/Box'
+import { Box } from '@repalis/orbit/Box'
 
 const FIELD_WIDTHS = [220, 140, 60, 120, 160]
 

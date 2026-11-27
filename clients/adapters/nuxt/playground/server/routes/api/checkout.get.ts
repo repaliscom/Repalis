@@ -1,12 +1,12 @@
 export default defineEventHandler((event) => {
   const {
-    private: { polarAccessToken, polarCheckoutSuccessUrl, polarServer },
+    private: { repalisAccessToken, repalisCheckoutSuccessUrl, repalisServer },
   } = useRuntimeConfig()
 
   const checkoutHandler = Checkout({
-    accessToken: polarAccessToken,
-    successUrl: polarCheckoutSuccessUrl,
-    environment: polarServer as 'sandbox' | 'production',
+    accessToken: repalisAccessToken,
+    successUrl: repalisCheckoutSuccessUrl,
+    environment: repalisServer as 'sandbox' | 'production',
   })
 
   return checkoutHandler(event)

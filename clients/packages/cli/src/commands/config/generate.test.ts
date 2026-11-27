@@ -16,8 +16,8 @@ let directory: string
 let config: string
 
 beforeEach(async () => {
-  directory = await mkdtemp(join(tmpdir(), 'polar-generate-'))
-  config = join(directory, 'polar.config.json')
+  directory = await mkdtemp(join(tmpdir(), 'repalis-generate-'))
+  config = join(directory, 'repalis.config.json')
   await writeFile(join(directory, 'pyproject.toml'), '')
   vi.spyOn(process, 'cwd').mockReturnValue(directory)
 })
@@ -75,18 +75,18 @@ const at = (...path: ReadonlyArray<string>) => join(directory, ...path)
 
 const read = (...path: ReadonlyArray<string>) => readFile(at(...path), 'utf8')
 
-describe('polar config generate', () => {
+describe('repalis config generate', () => {
   test('writes Python next to the config', async () => {
     const { output, exit } = await run()
 
     expect(Exit.isSuccess(exit)).toBe(true)
-    expect(await read('polar_types.py')).toContain(
+    expect(await read('repalis_types.py')).toContain(
       'tool_call: typing.Literal["tool_call"] = "tool_call"',
     )
     expect(output).toContain(
-      `polar_types.py written from ${at('polar.config.json')}: 1 meter, 0 benefits, 0 products, 0 events`,
+      `repalis_types.py written from ${at('repalis.config.json')}: 1 meter, 0 benefits, 0 products, 0 events`,
     )
-    expect(output).toContain('polar config generate --check')
+    expect(output).toContain('repalis config generate --check')
   })
 
   test('asks for the language when no project says which', async () => {
@@ -98,7 +98,7 @@ describe('polar config generate', () => {
       message: 'Could not tell which language to generate',
       hint: expect.stringContaining('Pass --language with one of: py'),
     })
-    await expect(read('polar_types.py')).rejects.toThrow()
+    await expect(read('repalis_types.py')).rejects.toThrow()
   })
 
   test('takes the language from --out when no project says which', async () => {
@@ -111,13 +111,13 @@ describe('polar config generate', () => {
 
   test('finds the project above a config kept in a subfolder', async () => {
     await mkdir(at('billing'))
-    config = at('billing', 'polar.config.json')
+    config = at('billing', 'repalis.config.json')
     vi.spyOn(process, 'cwd').mockReturnValue(at('billing'))
 
     const { exit } = await run()
 
     expect(Exit.isSuccess(exit)).toBe(true)
-    expect(await read('billing', 'polar_types.py')).toContain('class Meters:')
+    expect(await read('billing', 'repalis_types.py')).toContain('class Meters:')
   })
 
   test('takes the language from --language when no project says which', async () => {
@@ -126,7 +126,7 @@ describe('polar config generate', () => {
     const { exit } = await run(['--language', 'py', '--check'])
 
     expect(failure(exit)?.hint).toBe(
-      'Run polar config generate --language py and commit the result.',
+      'Run repalis config generate --language py and commit the result.',
     )
   })
 
@@ -148,7 +148,7 @@ describe('polar config generate', () => {
     const { exit } = await run(['--out', at('app.py')])
 
     expect(failure(exit)?.message).toContain(
-      'exists and was not written by polar config generate',
+      'exists and was not written by repalis config generate',
     )
     expect(await read('app.py')).toBe('print("mine")\n')
   })
@@ -160,8 +160,8 @@ describe('polar config generate', () => {
       meters: [{ external_id: 'api_call' }],
     })
 
-    expect(output).toContain('polar_types.py written')
-    expect(await read('polar_types.py')).toContain('api_call')
+    expect(output).toContain('repalis_types.py written')
+    expect(await read('repalis_types.py')).toContain('api_call')
   })
 
   test('says so when the file is already up to date', async () => {
@@ -169,27 +169,27 @@ describe('polar config generate', () => {
 
     const { output } = await run()
 
-    expect(output).toContain('polar_types.py is up to date')
+    expect(output).toContain('repalis_types.py is up to date')
   })
 
   test('refuses a config it cannot read names from', async () => {
     const { exit } = await run([], { meters: [{ external_Id: 'tool_call' }] })
 
     expect(failure(exit)?.hint).toBe(
-      'meters[0] has no external_id. Run polar config plan to see what to fix.',
+      'meters[0] has no external_id. Run repalis config plan to see what to fix.',
     )
-    await expect(read('polar_types.py')).rejects.toThrow()
+    await expect(read('repalis_types.py')).rejects.toThrow()
   })
 
   test('prints what it did as JSON', async () => {
     const { output } = await run(['--json'])
 
     expect(JSON.parse(output)).toEqual({
-      config: at('polar.config.json'),
-      file: at('polar_types.py'),
+      config: at('repalis.config.json'),
+      file: at('repalis_types.py'),
       language: 'py',
       status: 'written',
-      command: 'polar config generate',
+      command: 'repalis config generate',
       events: 0,
       meters: 1,
       benefits: 0,
@@ -204,35 +204,35 @@ describe('polar config generate', () => {
 
     expect(failure(exit)).toMatchObject({
       message: `${out} has not been generated`,
-      hint: `Run polar config generate --out ${out} and commit the result.`,
+      hint: `Run repalis config generate --out ${out} and commit the result.`,
     })
     await expect(read('src', 'names.py')).rejects.toThrow()
   })
 
   test('with --check, fails on a stale file and leaves it alone', async () => {
     await run([], { meters: [{ external_id: 'api_call' }] })
-    const stale = await read('polar_types.py')
+    const stale = await read('repalis_types.py')
 
     const { exit } = await run(['--check'])
 
     expect(failure(exit)?.message).toContain('is out of date')
-    expect(await read('polar_types.py')).toBe(stale)
+    expect(await read('repalis_types.py')).toBe(stale)
   })
 
   test('with --check, says so when the file is not one it wrote', async () => {
-    await writeFile(at('polar_types.py'), 'print("mine")\n')
+    await writeFile(at('repalis_types.py'), 'print("mine")\n')
 
     const { exit } = await run(['--check'])
 
     expect(failure(exit)?.message).toContain(
-      'exists and was not written by polar config generate',
+      'exists and was not written by repalis config generate',
     )
   })
 
   test('with --check, passes on a checkout with Windows line endings', async () => {
     await run()
-    const written = await read('polar_types.py')
-    await writeFile(at('polar_types.py'), written.replaceAll('\n', '\r\n'))
+    const written = await read('repalis_types.py')
+    await writeFile(at('repalis_types.py'), written.replaceAll('\n', '\r\n'))
 
     const { exit } = await run(['--check'])
 

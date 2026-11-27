@@ -6,14 +6,14 @@ import dramatiq
 import pytest
 from pytest_mock import MockerFixture
 
-import polar.tasks  # noqa: F401  (registers actors with the broker)
-from polar.config import settings
-from polar.logging import CorrelationID
-from polar.models.webhook_endpoint import WebhookEventType
-from polar.redis import Redis
-from polar.worker import MAX_JOB_PAYLOAD_BYTES, JobQueueManager
-from polar.worker._enqueue import EVENT_INGESTED_CHUNK_SIZE
-from polar.worker._sqs import (
+import repalis.tasks  # noqa: F401  (registers actors with the broker)
+from repalis.config import settings
+from repalis.logging import CorrelationID
+from repalis.models.webhook_endpoint import WebhookEventType
+from repalis.redis import Redis
+from repalis.worker import MAX_JOB_PAYLOAD_BYTES, JobQueueManager
+from repalis.worker._enqueue import EVENT_INGESTED_CHUNK_SIZE
+from repalis.worker._sqs import (
     SQS_MAX_BATCH_BYTES,
     actor_to_queue_name,
     get_sqs_client,
@@ -26,37 +26,37 @@ if TYPE_CHECKING:
 
 
 def test_actor_to_queue_name_maps_dramatiq_queue(mocker: MockerFixture) -> None:
-    mocker.patch.object(settings, "WORKER_SQS_QUEUE_PREFIX", "polar-test-tasks")
+    mocker.patch.object(settings, "WORKER_SQS_QUEUE_PREFIX", "repalis-test-tasks")
 
     assert (
         actor_to_queue_name("customer.state_changed")
-        == "polar-test-tasks-high-priority"
+        == "repalis-test-tasks-high-priority"
     )
-    assert actor_to_queue_name("dummy") == "polar-test-tasks-low-priority"
-    assert actor_to_queue_name("webhook_event.send") == "polar-test-tasks-webhooks"
+    assert actor_to_queue_name("dummy") == "repalis-test-tasks-low-priority"
+    assert actor_to_queue_name("webhook_event.send") == "repalis-test-tasks-webhooks"
     assert (
         actor_to_queue_name("receipt.render")
-        == "polar-test-tasks-invoices-and-receipts"
+        == "repalis-test-tasks-invoices-and-receipts"
     )
 
 
 def test_resolve_queue_url_falls_back_to_default(mocker: MockerFixture) -> None:
-    mocker.patch.object(settings, "WORKER_SQS_QUEUE_PREFIX", "polar-test-tasks")
+    mocker.patch.object(settings, "WORKER_SQS_QUEUE_PREFIX", "repalis-test-tasks")
     client = get_sqs_client()
 
     def fake_get_queue_url(_client: object, queue_name: str) -> str:
-        if queue_name == "polar-test-tasks-default":
-            return "https://sqs.example.com/polar-test-tasks-default"
+        if queue_name == "repalis-test-tasks-default":
+            return "https://sqs.example.com/repalis-test-tasks-default"
         raise client.exceptions.QueueDoesNotExist(
             {"Error": {"Code": "AWS.SimpleQueueService.NonExistentQueue"}},
             "GetQueueUrl",
         )
 
-    mocker.patch("polar.worker._sqs.get_queue_url", side_effect=fake_get_queue_url)
+    mocker.patch("repalis.worker._sqs.get_queue_url", side_effect=fake_get_queue_url)
 
     assert (
-        resolve_queue_url(client, "polar-test-tasks-high-priority")
-        == "https://sqs.example.com/polar-test-tasks-default"
+        resolve_queue_url(client, "repalis-test-tasks-high-priority")
+        == "https://sqs.example.com/repalis-test-tasks-default"
     )
 
 
@@ -65,7 +65,7 @@ class TestFlushGate:
     async def test_disabled_routes_everything_to_redis(
         self, redis: Redis, mocker: MockerFixture
     ) -> None:
-        send_jobs = mocker.patch("polar.worker._enqueue._sqs.send_jobs")
+        send_jobs = mocker.patch("repalis.worker._enqueue._sqs.send_jobs")
 
         CorrelationID.set()
         jqm = JobQueueManager()
@@ -80,7 +80,7 @@ class TestFlushGate:
     ) -> None:
         mocker.patch.object(settings, "WORKER_SQS_ENABLED", True)
         mocker.patch.object(settings, "WORKER_SQS_ACTORS", {"customer.state_changed"})
-        send_jobs = mocker.patch("polar.worker._enqueue._sqs.send_jobs")
+        send_jobs = mocker.patch("repalis.worker._enqueue._sqs.send_jobs")
 
         CorrelationID.set()
         customer_id = uuid4()
@@ -105,7 +105,7 @@ class TestFlushGate:
     ) -> None:
         mocker.patch.object(settings, "WORKER_SQS_ENABLED", True)
         mocker.patch.object(settings, "WORKER_SQS_ACTORS", {"customer.webhook"})
-        send_jobs = mocker.patch("polar.worker._enqueue._sqs.send_jobs")
+        send_jobs = mocker.patch("repalis.worker._enqueue._sqs.send_jobs")
 
         CorrelationID.set()
         customer_id = uuid4()
@@ -140,7 +140,7 @@ class TestFlushIngestedEventsChunking:
     async def test_splits_into_ordered_chunks(
         self, redis: Redis, mocker: MockerFixture
     ) -> None:
-        mocker.patch("polar.worker._enqueue.EVENT_INGESTED_CHUNK_SIZE", 3)
+        mocker.patch("repalis.worker._enqueue.EVENT_INGESTED_CHUNK_SIZE", 3)
 
         CorrelationID.set()
         event_ids = [uuid4() for _ in range(8)]

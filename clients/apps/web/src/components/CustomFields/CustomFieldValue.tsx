@@ -1,7 +1,7 @@
-import { CheckOutlined, CloseOutlined } from '@polar-sh/orbit/icons'
-import { schemas } from '@polar-sh/client'
-import FormattedDateTime from '@polar-sh/ui/components/atoms/FormattedDateTime'
-import { TextArea } from '@polar-sh/orbit'
+import { CheckOutlined, CloseOutlined } from '@repalis/orbit/icons'
+import { schemas } from '@repalis/client'
+import FormattedDateTime from '@repalis/ui/components/atoms/FormattedDateTime'
+import { TextArea } from '@repalis/orbit'
 
 const numberFormat = new Intl.NumberFormat(undefined, {})
 

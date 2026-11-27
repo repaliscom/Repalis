@@ -1,9 +1,9 @@
 import {
   createCheckout,
   createCustomPrice,
-} from '@polar-sh/checkout/test-utils'
-import type { schemas } from '@polar-sh/client'
-import { type AcceptedLocale, SUPPORTED_LOCALES } from '@polar-sh/i18n'
+} from '@repalis/checkout/test-utils'
+import type { schemas } from '@repalis/client'
+import { type AcceptedLocale, SUPPORTED_LOCALES } from '@repalis/i18n'
 import { fireEvent, screen, waitFor } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
 import {
@@ -29,7 +29,7 @@ describe('Checkout page', () => {
       expect(api.requests).toContainEqual(
         expect.objectContaining({
           method: 'POST',
-          path: '/v1/checkouts/client/polar_c_test/opened',
+          path: '/v1/checkouts/client/repalis_c_test/opened',
           body: { distinct_id: DISTINCT_ID },
         }),
       ),
@@ -104,7 +104,7 @@ describe('Checkout page', () => {
     expect(api.requests).toContainEqual(
       expect.objectContaining({
         method: 'POST',
-        path: '/v1/checkouts/client/polar_c_test/confirm',
+        path: '/v1/checkouts/client/repalis_c_test/confirm',
       }),
     )
   })
@@ -132,7 +132,7 @@ describe('Checkout page', () => {
     })
 
     expect(
-      (await screen.findAllByText('Polar Penguin is in test mode')).length,
+      (await screen.findAllByText('Repalis Penguin is in test mode')).length,
     ).toBeGreaterThan(0)
     expect(screen.getByRole('button', { name: 'Get for free' })).toBeEnabled()
     expect(
@@ -158,7 +158,7 @@ describe('Checkout page', () => {
     })
     expect(accountReviewLink).toHaveAttribute(
       'href',
-      '/dashboard/polar-penguin/finance/account',
+      '/dashboard/repalis-penguin/finance/account',
     )
   })
 
@@ -174,7 +174,7 @@ describe('Checkout page', () => {
 
     await waitFor(() =>
       expect(router.push).toHaveBeenCalledWith(
-        '/polar-penguin/portal/request?email=jane%40example.com',
+        '/repalis-penguin/portal/request?email=jane%40example.com',
       ),
     )
   })

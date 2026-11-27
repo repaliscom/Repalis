@@ -3,8 +3,8 @@
 import { useModal } from '@/components/Modal/useModal'
 import { OrderSection } from '@/components/Orders/OrderSection'
 import { useOrganizationSeats } from '@/hooks/queries/seats'
-import { schemas } from '@polar-sh/client'
-import { Button, InlineModal, Text } from '@polar-sh/orbit'
+import { schemas } from '@repalis/client'
+import { Button, InlineModal, Text } from '@repalis/orbit'
 import { AssignSeatModal } from './AssignSeatModal'
 import { OrganizationSeatTable } from './OrganizationSeatTable'
 

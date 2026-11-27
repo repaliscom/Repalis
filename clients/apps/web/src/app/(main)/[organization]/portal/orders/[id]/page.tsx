@@ -16,15 +16,15 @@ export async function generateMetadata(props: {
   )
 
   return {
-    title: `Customer portal | ${organization.name}`, // " | Polar is added by the template"
+    title: `Customer portal | ${organization.name}`, // " | Repalis is added by the template"
     openGraph: {
-      title: `Customer portal | ${organization.name} on Polar`,
-      description: `Customer portal | ${organization.name} on Polar`,
-      siteName: 'Polar',
+      title: `Customer portal | ${organization.name} on Repalis`,
+      description: `Customer portal | ${organization.name} on Repalis`,
+      siteName: 'Repalis',
       type: 'website',
       images: [
         {
-          url: `https://polar.sh/og?org=${organization.slug}`,
+          url: `https://repalis.com/og?org=${organization.slug}`,
           width: 1200,
           height: 630,
         },
@@ -33,15 +33,15 @@ export async function generateMetadata(props: {
     twitter: {
       images: [
         {
-          url: `https://polar.sh/og?org=${organization.slug}`,
+          url: `https://repalis.com/og?org=${organization.slug}`,
           width: 1200,
           height: 630,
-          alt: `${organization.name} on Polar`,
+          alt: `${organization.name} on Repalis`,
         },
       ],
       card: 'summary_large_image',
-      title: `Customer portal | ${organization.name} on Polar`,
-      description: `Customer portal | ${organization.name} on Polar`,
+      title: `Customer portal | ${organization.name} on Repalis`,
+      description: `Customer portal | ${organization.name} on Repalis`,
     },
   }
 }

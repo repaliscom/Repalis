@@ -1,18 +1,18 @@
 'use client'
 
-import { Spinner } from '@polar-sh/orbit'
+import { Spinner } from '@repalis/orbit'
 import { useCustomers, useCustomersByIds } from '@/hooks/queries'
 import { useInViewport } from '@/hooks/utils'
-import { Close, SearchFilled as Search } from '@polar-sh/orbit/icons'
-import { Avatar } from '@polar-sh/orbit'
-import { Button } from '@polar-sh/orbit'
-import { Input } from '@polar-sh/orbit'
-import { List, ListItem } from '@polar-sh/orbit'
+import { Close, SearchFilled as Search } from '@repalis/orbit/icons'
+import { Avatar } from '@repalis/orbit'
+import { Button } from '@repalis/orbit'
+import { Input } from '@repalis/orbit'
+import { List, ListItem } from '@repalis/orbit'
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@polar-sh/ui/components/ui/popover'
+} from '@repalis/ui/components/ui/popover'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 interface CustomerSelectorProps {
@@ -151,7 +151,7 @@ export const CustomerSelector = ({
               </div>
             )}
             {allCustomers.length === 0 && !hasNextPage && (
-              <div className="dark:text-polar-500 flex w-full items-center justify-center py-8 text-sm text-gray-500">
+              <div className="dark:text-repalis-500 flex w-full items-center justify-center py-8 text-sm text-gray-500">
                 {query ? 'No customers found' : 'No customers yet'}
               </div>
             )}
@@ -178,7 +178,7 @@ export const CustomerSelector = ({
               <Button
                 size="icon"
                 variant="ghost"
-                className="dark:text-polar-500 size-6 text-gray-500 opacity-0 transition-[opacity,background-color] group-hover:opacity-100"
+                className="dark:text-repalis-500 size-6 text-gray-500 opacity-0 transition-[opacity,background-color] group-hover:opacity-100"
                 onClick={(e) => {
                   e.stopPropagation()
                   handleToggleCustomer(customer.id)

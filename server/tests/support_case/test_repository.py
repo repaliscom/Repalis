@@ -8,16 +8,16 @@ from datetime import timedelta
 import pytest
 from sqlalchemy.exc import IntegrityError
 
-from polar.kit.utils import utc_now
-from polar.models import BackofficeUser, Customer, Organization, Product
-from polar.models.support_case import (
+from repalis.kit.utils import utc_now
+from repalis.models import BackofficeUser, Customer, Organization, Product
+from repalis.models.support_case import (
     DisputeSupportCase,
     ReviewAppealSupportCase,
     SupportCaseParticipant,
     SupportCaseParticipantKind,
 )
-from polar.postgres import AsyncSession
-from polar.support_case.repository import (
+from repalis.postgres import AsyncSession
+from repalis.support_case.repository import (
     SupportCaseParticipantRepository,
     SupportCaseRepository,
 )

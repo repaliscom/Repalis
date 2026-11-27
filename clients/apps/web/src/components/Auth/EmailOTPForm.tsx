@@ -4,16 +4,16 @@ import { useAuthSessionStart, useEmailOTPRequest } from '@/hooks'
 import { usePostHog, type EventName } from '@/hooks/posthog'
 import { TURNSTILE_SCRIPT_URL, useTurnstile } from '@/hooks/useTurnstile'
 import { setValidationErrors } from '@/utils/api/errors'
-import { isValidationError, schemas } from '@polar-sh/client'
-import { Button } from '@polar-sh/orbit'
-import { Input } from '@polar-sh/orbit'
+import { isValidationError, schemas } from '@repalis/client'
+import { Button } from '@repalis/orbit'
+import { Input } from '@repalis/orbit'
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormMessage,
-} from '@polar-sh/ui/components/ui/form'
+} from '@repalis/ui/components/ui/form'
 import { useRouter } from 'next/navigation'
 import Script from 'next/script'
 import { useState } from 'react'

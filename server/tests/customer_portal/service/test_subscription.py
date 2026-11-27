@@ -4,8 +4,8 @@ from datetime import UTC, datetime
 import pytest
 from pytest_mock import MockerFixture
 
-from polar.auth.models import AuthSubject
-from polar.customer_portal.schemas.subscription import (
+from repalis.auth.models import AuthSubject
+from repalis.customer_portal.schemas.subscription import (
     CustomerSubscriptionChangeProduct,
     CustomerSubscriptionChangeUnits,
     CustomerSubscriptionPause,
@@ -15,31 +15,31 @@ from polar.customer_portal.schemas.subscription import (
     CustomerSubscriptionUpdateSeats,
     CustomerSubscriptionUpdateUnits,
 )
-from polar.customer_portal.service.subscription import (
+from repalis.customer_portal.service.subscription import (
     PauseResumeNotAllowed,
     PaymentMethodRequired,
     UpdateSubscriptionPlanNotAllowed,
     UpdateSubscriptionSeatsNotAllowed,
     UpdateSubscriptionUnitsNotAllowed,
 )
-from polar.customer_portal.service.subscription import (
+from repalis.customer_portal.service.subscription import (
     customer_subscription as customer_subscription_service,
 )
-from polar.enums import SubscriptionProrationBehavior
-from polar.exceptions import PolarRequestValidationError
-from polar.kit.pagination import PaginationParams
-from polar.models import (
+from repalis.enums import SubscriptionProrationBehavior
+from repalis.exceptions import RepalisRequestValidationError
+from repalis.kit.pagination import PaginationParams
+from repalis.models import (
     Customer,
     Organization,
     Product,
     ProductPriceFixed,
     Subscription,
 )
-from polar.models.subscription import CustomerCancellationReason, SubscriptionStatus
-from polar.notifications.notification import NotificationType
-from polar.postgres import AsyncSession
-from polar.subscription.service import AlreadyCanceledSubscription
-from polar.subscription.update import generate_subscription_update
+from repalis.models.subscription import CustomerCancellationReason, SubscriptionStatus
+from repalis.notifications.notification import NotificationType
+from repalis.postgres import AsyncSession
+from repalis.subscription.service import AlreadyCanceledSubscription
+from repalis.subscription.update import generate_subscription_update
 from tests.fixtures.auth import AuthSubjectFixture
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (
@@ -105,7 +105,7 @@ class TestList:
         organization: Organization,
         customer: Customer,
     ) -> None:
-        from polar.enums import SubscriptionRecurringInterval
+        from repalis.enums import SubscriptionRecurringInterval
 
         product_match = await create_product(
             save_fixture,
@@ -151,7 +151,7 @@ class TestList:
         customer: Customer,
     ) -> None:
         """Test that % in query is treated as literal, not wildcard."""
-        from polar.enums import SubscriptionRecurringInterval
+        from repalis.enums import SubscriptionRecurringInterval
 
         product_with_percent = await create_product(
             save_fixture,
@@ -197,7 +197,7 @@ class TestList:
         customer: Customer,
     ) -> None:
         """Test that _ in query is treated as literal, not single-char wildcard."""
-        from polar.enums import SubscriptionRecurringInterval
+        from repalis.enums import SubscriptionRecurringInterval
 
         product_with_underscore = await create_product(
             save_fixture,
@@ -239,7 +239,7 @@ class TestUpdate:
     async def test_not_existing_product(
         self, session: AsyncSession, subscription: Subscription
     ) -> None:
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await customer_subscription_service.update(
                 session,
                 subscription,
@@ -256,7 +256,7 @@ class TestUpdate:
         product = await create_product(
             save_fixture, organization=organization, recurring_interval=None
         )
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await customer_subscription_service.update(
                 session,
                 subscription,
@@ -269,7 +269,7 @@ class TestUpdate:
         subscription: Subscription,
         product_organization_second: Product,
     ) -> None:
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await customer_subscription_service.update(
                 session,
                 subscription,
@@ -480,7 +480,7 @@ class TestCancel:
         customer: Customer,
     ) -> None:
         send_to_org_members_mock = mocker.patch(
-            "polar.subscription.service.notifications_service.send_to_org_members"
+            "repalis.subscription.service.notifications_service.send_to_org_members"
         )
         subscription = await create_active_subscription(
             save_fixture,
@@ -559,7 +559,7 @@ class TestClearPendingUpdate:
 
         updates = CustomerSubscriptionUpdateClear(pending_update=None)
 
-        with pytest.raises(PolarRequestValidationError) as exc_info:
+        with pytest.raises(RepalisRequestValidationError) as exc_info:
             await customer_subscription_service.update(
                 session, subscription, updates=updates
             )

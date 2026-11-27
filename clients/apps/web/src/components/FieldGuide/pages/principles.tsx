@@ -4,7 +4,7 @@ import { landscape } from './more'
 
 /**
  * The third principle, before the machinery of chapter 04: your app asks Outpost, which answers at once from its own
- * Redis, while the line on to Polar syncs in the background.
+ * Redis, while the line on to Repalis syncs in the background.
  */
 
 const Y = 180,
@@ -12,7 +12,7 @@ const Y = 180,
 const BOXES: [string, string, number][] = [
   ['YOUR APP', 'check()', 40],
   ['OUTPOST', 'your redis', 190],
-  ['POLAR', 'event log', 400],
+  ['REPALIS', 'event log', 400],
 ]
 const BW = 100
 const MID_Y = Y + BH / 2
@@ -33,8 +33,8 @@ const text = (x: number, y: number, t: string, fill = DIM, size = 7.5) => (
 const app = BOXES[0][2] + BW,
   outpost = BOXES[1][2],
   outpostEnd = BOXES[1][2] + BW,
-  polar = BOXES[2][2]
-const sync = (outpostEnd + polar) / 2
+  repalis = BOXES[2][2]
+const sync = (outpostEnd + repalis) / 2
 
 const figure = (
   <>
@@ -67,7 +67,7 @@ const figure = (
 
     <line
       x1={outpostEnd}
-      x2={polar}
+      x2={repalis}
       y1={MID_Y}
       y2={MID_Y}
       stroke={MID}
@@ -92,13 +92,13 @@ export const faultTolerance = landscape(
   'm-tolerant',
   'Zero latency & fault tolerance',
   'Checks are answered next to your code, without waiting on the network.',
-  'Your app asks Outpost, which answers at once from your own Redis. Outpost and Polar sync in the background, off the path of the check.',
+  'Your app asks Outpost, which answers at once from your own Redis. Outpost and Repalis sync in the background, off the path of the check.',
   figure,
   [
     [
       'Next to your code',
       [
-        'Checks are answered by Outpost inside your app, from state kept in your own Redis. There is no round trip to Polar.',
+        'Checks are answered by Outpost inside your app, from state kept in your own Redis. There is no round trip to Repalis.',
       ],
     ],
     [
@@ -110,7 +110,7 @@ export const faultTolerance = landscape(
     [
       'Always in sync',
       [
-        'Events flow to Polar in the background, and Polar’s numbers settle the local ones as they arrive.',
+        'Events flow to Repalis in the background, and Repalis’s numbers settle the local ones as they arrive.',
       ],
     ],
   ],

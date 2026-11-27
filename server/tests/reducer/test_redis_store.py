@@ -1,7 +1,7 @@
 import uuid
 from datetime import UTC, datetime
 
-from polar.reducer.redis_store import get_reducer_bucket_key
+from repalis.reducer.redis_store import get_reducer_bucket_key
 
 BUCKET_START = datetime(2026, 10, 7, 12, 5, tzinfo=UTC)
 

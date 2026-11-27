@@ -6,7 +6,7 @@ The column is filled going forward by event ingestion and by the
 events were all ingested before those paths existed. This script fills them.
 
 Events reach a customer under two keys: `customer_id` when the caller knew the
-Polar id, and `external_customer_id` otherwise — including events ingested before
+Repalis id, and `external_customer_id` otherwise — including events ingested before
 the customer row existed, which is the whole point of the column. Both views are
 read, and the earlier of the two wins.
 
@@ -41,19 +41,19 @@ from rich.console import Console
 from rich.progress import Progress
 from sqlalchemy import Table, func, literal, select
 
-from polar.customer.repository import CustomerRepository
-from polar.integrations.tinybird.client import client as tinybird_client
-from polar.integrations.tinybird.service import (
+from repalis.customer.repository import CustomerRepository
+from repalis.integrations.tinybird.client import client as tinybird_client
+from repalis.integrations.tinybird.service import (
     _compile,
     _parse_datetime,
     _parse_uuid,
     event_types_by_customer_id_table,
     event_types_by_external_customer_id_table,
 )
-from polar.kit.db.postgres import AsyncSession, create_async_sessionmaker
-from polar.models import Organization
-from polar.models.event import EventSource
-from polar.postgres import create_async_engine
+from repalis.kit.db.postgres import AsyncSession, create_async_sessionmaker
+from repalis.models import Organization
+from repalis.models.event import EventSource
+from repalis.postgres import create_async_engine
 from scripts.helper import (
     configure_script_console_logging,
     typer_async,

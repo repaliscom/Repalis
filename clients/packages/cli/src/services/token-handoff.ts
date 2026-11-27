@@ -9,7 +9,7 @@ import { Context, Effect, Layer, Redacted } from 'effect'
 import type {
   ActiveOrganization,
   AuthError,
-  PolarEnvironment,
+  RepalisEnvironment,
 } from '@/schemas/Auth'
 import { apiOrigin, dashboardOrigin } from '@/services/api'
 import { tokenCopy } from '@/utils/callback-page'
@@ -17,15 +17,15 @@ import { awaitCallback, type CallbackResult } from '@/utils/loopback'
 
 const CALLBACK_PATH = '/token/callback'
 
-export const sdkHint = (environment: PolarEnvironment) =>
+export const sdkHint = (environment: RepalisEnvironment) =>
   Effect.gen(function* () {
     switch (environment) {
       case 'production':
         return undefined
       case 'sandbox':
-        return "This is a sandbox token. Pass server: 'sandbox' to your Polar SDK."
+        return "This is a sandbox token. Pass server: 'sandbox' to your Repalis SDK."
       case 'local':
-        return `This is a local token. Pass serverURL: '${yield* apiOrigin('local')}' to your Polar SDK.`
+        return `This is a local token. Pass serverURL: '${yield* apiOrigin('local')}' to your Repalis SDK.`
     }
   })
 

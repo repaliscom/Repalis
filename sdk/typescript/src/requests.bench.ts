@@ -7,7 +7,7 @@ import { bench, describe } from "vitest";
 
 import type { ListResourceCustomer } from "./2027-01/models";
 
-import { createPolar, createPolarCore } from "./2027-01";
+import { createRepalis, createRepalisCore } from "./2027-01";
 import data from "./customers.benchmark.json";
 
 const accessToken = "benchmark";
@@ -25,10 +25,12 @@ function customerPage(count: number): Uint8Array<ArrayBuffer> {
 }
 
 describe("customer requests", () => {
-  let polar: ReturnType<typeof createPolar>;
+  let repalis: ReturnType<typeof createRepalis>;
   let server: ReturnType<typeof spawn> | undefined;
   const requestBatch = () =>
-    Promise.all(Array.from({ length: data.concurrency }, () => polar.customers.list({ limit: 1 })));
+    Promise.all(
+      Array.from({ length: data.concurrency }, () => repalis.customers.list({ limit: 1 })),
+    );
 
   bench(
     `${data.concurrency} concurrent customer requests`,
@@ -51,7 +53,7 @@ describe("customer requests", () => {
             }),
           ]);
           assert(baseUrl.startsWith("http://127.0.0.1:"));
-          polar = createPolar({ accessToken, baseUrl });
+          repalis = createRepalis({ accessToken, baseUrl });
           const pages = await requestBatch();
           assert(pages.every((page) => page.items[0]?.id === data.customer.id));
         } catch (error) {
@@ -69,7 +71,7 @@ describe("customer requests", () => {
 });
 
 describe("customer response decoding", () => {
-  const client = createPolarCore({ accessToken });
+  const client = createRepalisCore({ accessToken });
   const body = customerPage(data.page_size);
   const decode = () => client.parseResponse<ListResourceCustomer>(new Response(body), "json");
 

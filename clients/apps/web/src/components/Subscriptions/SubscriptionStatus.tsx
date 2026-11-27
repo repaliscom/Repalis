@@ -1,6 +1,6 @@
-import { schemas } from '@polar-sh/client'
-import { Pill } from '@polar-sh/orbit'
-import { CircleX, Clock } from '@polar-sh/orbit/icons'
+import { schemas } from '@repalis/client'
+import { Pill } from '@repalis/orbit'
+import { CircleX, Clock } from '@repalis/orbit/icons'
 import { SubscriptionStatusIcon } from './SubscriptionStatusIcon'
 import { getSubscriptionStatusLabel } from './utils'
 

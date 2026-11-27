@@ -1,15 +1,15 @@
 'use client'
 
 import LogoIcon from '@/components/Brand/logos/LogoIcon'
-import { Modal } from '@polar-sh/orbit'
+import { Modal } from '@repalis/orbit'
 import { useModal } from '@/components/Modal/useModal'
 import { useAuth } from '@/hooks/auth'
 import { OrganizationContext } from '@/providers/maintainerOrganization'
 import { CONFIG } from '@/utils/config'
 import { setLastVisitedEnv, setLastVisitedOrg } from '@/utils/cookies'
-import { ViewSidebarOutlined } from '@polar-sh/orbit/icons'
-import { Button } from '@polar-sh/orbit'
-import { SidebarTrigger } from '@polar-sh/ui/components/atoms/Sidebar'
+import { ViewSidebarOutlined } from '@repalis/orbit/icons'
+import { Button } from '@repalis/orbit'
+import { SidebarTrigger } from '@repalis/ui/components/atoms/Sidebar'
 import { m } from 'motion/react'
 import { usePathname } from 'next/navigation'
 import {
@@ -72,7 +72,7 @@ const MobileNav = () => {
   const { currentUser } = useAuth()
 
   const header = (
-    <div className="dark:bg-polar-900 sticky top-0 right-0 left-0 flex w-full flex-row items-center justify-between bg-gray-50 p-4">
+    <div className="dark:bg-repalis-900 sticky top-0 right-0 left-0 flex w-full flex-row items-center justify-between bg-gray-50 p-4">
       {/* oxlint-disable-next-line @next/next/no-html-link-for-pages */}
       <a
         href="/"
@@ -89,7 +89,7 @@ const MobileNav = () => {
   )
 
   return (
-    <div className="dark:bg-polar-900 relative z-20 flex w-screen flex-col items-center justify-between bg-gray-50 md:hidden">
+    <div className="dark:bg-repalis-900 relative z-20 flex w-screen flex-col items-center justify-between bg-gray-50 md:hidden">
       {header}
     </div>
   )
@@ -161,7 +161,7 @@ export const DashboardBody = ({
       {contextViewPlacement === 'left' && detailView}
       <div
         className={twMerge(
-          'dark:bg-polar-900 dark:border-polar-800 relative flex min-w-0 flex-2 flex-col items-center rounded-2xl border-gray-200 bg-white md:overflow-y-auto md:border md:shadow-xs',
+          'dark:bg-repalis-900 dark:border-repalis-800 relative flex min-w-0 flex-2 flex-col items-center rounded-2xl border-gray-200 bg-white md:overflow-y-auto md:border md:shadow-xs',
           flush ? '' : 'px-4 md:px-8',
         )}
       >
@@ -235,7 +235,7 @@ export const DashboardBody = ({
             exit: { opacity: 0, transition: { duration: 0.3 } },
           }}
           className={twMerge(
-            'dark:bg-polar-900 dark:border-polar-800 hidden w-full flex-1 overflow-y-auto rounded-2xl border border-gray-200 bg-white md:block md:max-w-[320px] md:shadow-xs xl:max-w-[440px]',
+            'dark:bg-repalis-900 dark:border-repalis-800 hidden w-full flex-1 overflow-y-auto rounded-2xl border border-gray-200 bg-white md:block md:max-w-[320px] md:shadow-xs xl:max-w-[440px]',
             contextViewClassName,
           )}
         >

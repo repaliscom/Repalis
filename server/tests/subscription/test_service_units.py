@@ -5,23 +5,23 @@ import freezegun
 import pytest
 from pytest_mock import MockerFixture
 
-from polar.billing_entry.repository import BillingEntryRepository
-from polar.enums import SubscriptionProrationBehavior
-from polar.event.system import SystemEvent
-from polar.exceptions import PolarRequestValidationError
-from polar.models import Customer, Organization, Product
-from polar.models.billing_entry import BillingEntryDirection, BillingEntryType
-from polar.models.product_price import ProductPriceUnit
-from polar.postgres import AsyncSession
-from polar.product.tiers import Tiers, TierType
-from polar.subscription.repository import SubscriptionUpdateRepository
-from polar.subscription.service import (
+from repalis.billing_entry.repository import BillingEntryRepository
+from repalis.enums import SubscriptionProrationBehavior
+from repalis.event.system import SystemEvent
+from repalis.exceptions import RepalisRequestValidationError
+from repalis.models import Customer, Organization, Product
+from repalis.models.billing_entry import BillingEntryDirection, BillingEntryType
+from repalis.models.product_price import ProductPriceUnit
+from repalis.postgres import AsyncSession
+from repalis.product.tiers import Tiers, TierType
+from repalis.subscription.repository import SubscriptionUpdateRepository
+from repalis.subscription.service import (
     AboveMaximumUnits,
     BelowMinimumUnits,
     NotAUnitBasedSubscription,
     SubscriptionUpdateContext,
 )
-from polar.subscription.service import subscription as subscription_service
+from repalis.subscription.service import subscription as subscription_service
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.events import get_all_by_name
 from tests.fixtures.random_objects import (
@@ -435,7 +435,7 @@ class TestUnitProductChange:
             save_fixture, product=unit_product, customer=customer, units=3
         )
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await subscription_service.validate_product_change(
                 session, subscription, product_id=other_product.id
             )
@@ -559,7 +559,7 @@ class TestUnitProductChange:
             save_fixture, product=product, customer=customer
         )
 
-        with pytest.raises(PolarRequestValidationError) as exc_info:
+        with pytest.raises(RepalisRequestValidationError) as exc_info:
             async with SubscriptionUpdateContext(
                 session, subscription, subscription_service
             ) as ctx:

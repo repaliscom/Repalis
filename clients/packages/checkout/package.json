@@ -1,13 +1,13 @@
 {
-  "name": "@polar-sh/checkout",
-  "description": "Polar Checkout SDK",
-  "author": "Polar",
+  "name": "@repalis/checkout",
+  "description": "Repalis Checkout SDK",
+  "author": "Repalis",
   "license": "Apache-2.0",
   "type": "module",
   "version": "0.6.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/polarsource/polar.git",
+    "url": "https://github.com/repaliscom/Repalis.git",
     "directory": "clients/packages/checkout"
   },
   "scripts": {
@@ -83,7 +83,7 @@
     }
   },
   "devDependencies": {
-    "@polar-sh/typescript-config": "workspace:*",
+    "@repalis/typescript-config": "workspace:*",
     "@radix-ui/react-checkbox": "catalog:",
     "@radix-ui/react-select": "catalog:",
     "@stripe/react-stripe-js": "catalog:",
@@ -100,10 +100,10 @@
     "tsdown": "catalog:",
     "typescript": "catalog:",
     "vitest": "catalog:",
-    "@polar-sh/currency": "workspace:^",
-    "@polar-sh/client": "workspace:*",
-    "@polar-sh/i18n": "workspace:*",
-    "@polar-sh/ui": "workspace:^",
+    "@repalis/currency": "workspace:^",
+    "@repalis/client": "workspace:*",
+    "@repalis/i18n": "workspace:*",
+    "@repalis/ui": "workspace:^",
     "event-source-plus": "catalog:",
     "eventemitter3": "catalog:",
     "markdown-to-jsx": "catalog:",

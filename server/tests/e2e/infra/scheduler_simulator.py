@@ -27,11 +27,11 @@ from datetime import datetime
 
 from sqlalchemy import func
 
-from polar.kit.db.postgres import AsyncSession
-from polar.kit.utils import utc_now
-from polar.models import Subscription
-from polar.subscription.scheduler import SubscriptionJobStore, _next_run_time
-from polar.worker import JobQueueManager
+from repalis.kit.db.postgres import AsyncSession
+from repalis.kit.utils import utc_now
+from repalis.models import Subscription
+from repalis.subscription.scheduler import SubscriptionJobStore, _next_run_time
+from repalis.worker import JobQueueManager
 from tests.e2e.infra.task_drain import DrainFn, DrainResult
 
 

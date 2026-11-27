@@ -1,6 +1,6 @@
 import { ParsedMetricPeriod } from '@/hooks/queries'
 import { getFormattedMetricValue, getTimestampFormatter } from '@/utils/metrics'
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 import dynamic from 'next/dynamic'
 import { useTheme } from 'next-themes'
 import { Suspense, useMemo } from 'react'

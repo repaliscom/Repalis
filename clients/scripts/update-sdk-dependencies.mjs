@@ -17,7 +17,7 @@ packagePaths.push(join('packages', 'cli', 'package.json'))
 
 for (const packagePath of packagePaths) {
   const packageJson = JSON.parse(await readFile(packagePath, 'utf8'))
-  if (packageJson.private && packageJson.name !== 'polar-cli') continue
+  if (packageJson.private && packageJson.name !== '@repalis/cli') continue
 
   let packageUpdated = false
   for (const section of [
@@ -26,14 +26,14 @@ for (const packagePath of packagePaths) {
     'optionalDependencies',
     'peerDependencies',
   ]) {
-    const sdkVersion = packageJson[section]?.['@polar-sh/sdk']
+    const sdkVersion = packageJson[section]?.['@repalis/sdk']
     if (!sdkVersion) continue
 
     const prefix = sdkVersion.match(/^[~^]/)?.[0] ?? ''
     const nextVersion = `${prefix}${version}`
     if (sdkVersion === nextVersion) continue
 
-    packageJson[section]['@polar-sh/sdk'] = nextVersion
+    packageJson[section]['@repalis/sdk'] = nextVersion
     packageUpdated = true
   }
 
@@ -48,6 +48,6 @@ if (updated) {
   const releases = packages.map((name) => `"${name}": patch`).join('\n')
   await writeFile(
     join('.changeset', `sdk-${version}.md`),
-    `---\n${releases}\n---\n\nUpdate \`@polar-sh/sdk\` to version ${version}.\n`,
+    `---\n${releases}\n---\n\nUpdate \`@repalis/sdk\` to version ${version}.\n`,
   )
 }

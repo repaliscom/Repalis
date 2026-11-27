@@ -6,10 +6,10 @@ import pytest
 from httpx2 import AsyncClient
 from pytest_mock import MockerFixture
 
-from polar.auth.scope import Scope
-from polar.enums import SubscriptionRecurringInterval
-from polar.kit.utils import utc_now
-from polar.models import (
+from repalis.auth.scope import Scope
+from repalis.enums import SubscriptionRecurringInterval
+from repalis.kit.utils import utc_now
+from repalis.models import (
     Catalog,
     CatalogBenefit,
     CatalogMeter,
@@ -19,7 +19,7 @@ from polar.models import (
     Product,
     UserOrganization,
 )
-from polar.models.catalog import CatalogStatus
+from repalis.models.catalog import CatalogStatus
 from tests.fixtures.auth import AuthSubjectFixture
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (
@@ -446,7 +446,7 @@ class TestPublish:
     async def test_meter_changes(
         self, mocker: MockerFixture, client: AsyncClient, meters_draft: Catalog
     ) -> None:
-        mocker.patch("polar.meter.service.enqueue_job")
+        mocker.patch("repalis.meter.service.enqueue_job")
 
         response = await client.post(f"/v1/catalogs/{meters_draft.id}/publish")
 

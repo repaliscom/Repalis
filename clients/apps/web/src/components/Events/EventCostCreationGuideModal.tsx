@@ -1,5 +1,5 @@
-import { ArrowOutwardOutlined } from '@polar-sh/orbit/icons'
-import { Button } from '@polar-sh/orbit'
+import { ArrowOutwardOutlined } from '@repalis/orbit/icons'
+import { Button } from '@repalis/orbit'
 import { Well } from '../Shared/Well'
 import {
   SyntaxHighlighterClient,
@@ -12,22 +12,22 @@ export const EventCostCreationGuideModal = () => {
       <div className="flex flex-col gap-8 p-6">
         <div className="flex flex-col gap-y-4">
           <h1 className="text-2xl">Event Cost Ingestion</h1>
-          <p className="dark:text-polar-500 text-gray-500">
+          <p className="dark:text-repalis-500 text-gray-500">
             Associate costs with events by adding a{' '}
             <code className="font-mono text-sm">_cost</code> property to your
             event metadata.
           </p>
         </div>
-        <Well className="dark:bg-polar-800 rounded-lg bg-gray-100 p-4 text-sm">
+        <Well className="dark:bg-repalis-800 rounded-lg bg-gray-100 p-4 text-sm">
           <SyntaxHighlighterClient
             lang="typescript"
-            code={`import { Polar } from "@polar-sh/sdk";
+            code={`import { Repalis } from "@repalis/sdk";
 
-const polar = new Polar({
-  accessToken: process.env["POLAR_ACCESS_TOKEN"] ?? "",
+const repalis = new Repalis({
+  accessToken: process.env["REPALIS_ACCESS_TOKEN"] ?? "",
 });
 
-const result = await polar.events.ingest({
+const result = await repalis.events.ingest({
   events: [
     {
       name: "<value>",
@@ -46,7 +46,7 @@ const result = await polar.events.ingest({
         </Well>
         <div className="flex flex-row items-center gap-x-4">
           <a
-            href="https://docs.polar.sh/features/cost-insights/cost-events"
+            href="https://docs.repalis.com/features/cost-insights/cost-events"
             target="_blank"
             rel="noopener noreferrer"
             className="flex flex-row items-center"

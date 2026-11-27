@@ -2,11 +2,11 @@ from datetime import timedelta
 
 import pytest
 
-from polar.catalog.service import catalog as catalog_service
-from polar.kit.db.postgres import AsyncSession
-from polar.kit.utils import utc_now
-from polar.models import Catalog, Organization
-from polar.models.catalog import CatalogStatus
+from repalis.catalog.service import catalog as catalog_service
+from repalis.kit.db.postgres import AsyncSession
+from repalis.kit.utils import utc_now
+from repalis.models import Catalog, Organization
+from repalis.models.catalog import CatalogStatus
 from scripts.backfill_catalog_names import backfill_statement
 from scripts.helper import run_batched_update
 from tests.fixtures.database import SaveFixture

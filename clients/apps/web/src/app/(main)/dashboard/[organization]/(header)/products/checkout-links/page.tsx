@@ -1,8 +1,8 @@
 import { MasterDetailIndex } from '@/components/Layout/MasterDetailIndex'
 import { getServerSideAPI } from '@/utils/client/serverside'
 import { getOrganizationBySlugOrNotFound } from '@/utils/organization'
-import { LinkOutlined } from '@polar-sh/orbit/icons'
-import { Button } from '@polar-sh/orbit'
+import { LinkOutlined } from '@repalis/orbit/icons'
+import { Button } from '@repalis/orbit'
 import { Metadata } from 'next'
 import Link from 'next/link'
 
@@ -55,7 +55,7 @@ export default async function Page(props: {
         <LinkOutlined fontSize="large" />
         <div className="flex flex-col items-center justify-center gap-y-2">
           <h3 className="text-xl">No Checkout Links</h3>
-          <p className="dark:text-polar-500 text-gray-500">
+          <p className="dark:text-repalis-500 text-gray-500">
             Create a new checkout link to share with your customers
           </p>
         </div>

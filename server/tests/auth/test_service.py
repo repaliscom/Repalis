@@ -1,10 +1,10 @@
 import pytest
 from sqlalchemy import select
 
-from polar.auth.scope import Scope
-from polar.auth.service import auth as auth_service
-from polar.models import Organization, User, UserSessionOrganization
-from polar.postgres import AsyncSession
+from repalis.auth.scope import Scope
+from repalis.auth.service import auth as auth_service
+from repalis.models import Organization, User, UserSessionOrganization
+from repalis.postgres import AsyncSession
 
 
 @pytest.mark.anyio

@@ -6,12 +6,12 @@ import { extractApiErrorMessage } from '@/utils/api/errors'
 import { getQueryClient } from '@/utils/api/query'
 import { api } from '@/utils/client'
 import { permissionDeniedMessage } from '@/utils/permissions'
-import { ArrowOutwardOutlined } from '@polar-sh/orbit/icons'
-import { isValidationError, schemas } from '@polar-sh/client'
-import { formatCurrency } from '@polar-sh/currency'
-import { Button, Modal, Spinner as SpinnerNoMargin } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import FormattedDateTime from '@polar-sh/ui/components/atoms/FormattedDateTime'
+import { ArrowOutwardOutlined } from '@repalis/orbit/icons'
+import { isValidationError, schemas } from '@repalis/client'
+import { formatCurrency } from '@repalis/currency'
+import { Button, Modal, Spinner as SpinnerNoMargin } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import FormattedDateTime from '@repalis/ui/components/atoms/FormattedDateTime'
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { DetailRow } from '../Shared/DetailRow'
 import { SupportEmailBlocker } from './SupportEmailBlocker'
@@ -177,7 +177,7 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
                 </p>
                 <p>
                   <a
-                    href="https://polar.sh/docs/merchant-of-record/account-reviews"
+                    href="/docs/merchant-of-record/account-reviews"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -238,7 +238,7 @@ const WithdrawModal: React.FC<WithdrawModalProps> = ({
                 <div className="flex flex-col gap-8">
                   <div className="flex flex-col gap-2">
                     <h1 className="text-2xl">Withdraw your balance</h1>
-                    <p className="dark:text-polar-500 text-gray-500">
+                    <p className="dark:text-repalis-500 text-gray-500">
                       You&apos;re about to withdraw your balance to your bank
                       account.
                     </p>

@@ -7,19 +7,19 @@ import { useIsManagedAsCode } from '@/hooks/permissions'
 import { useDeleteProduct, useMetrics, useUpdateProduct } from '@/hooks/queries'
 import { apiErrorToast, extractApiErrorMessage } from '@/utils/api/errors'
 import { getChartRangeParams } from '@/utils/metrics'
-import { MoreVert } from '@polar-sh/orbit/icons'
-import { schemas } from '@polar-sh/client'
-import { Button } from '@polar-sh/orbit'
-import { Status } from '@polar-sh/orbit'
-import { Subnav, SubnavItem } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { MoreVert } from '@repalis/orbit/icons'
+import { schemas } from '@repalis/client'
+import { Button } from '@repalis/orbit'
+import { Status } from '@repalis/orbit'
+import { Subnav, SubnavItem } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@polar-sh/ui/components/ui/dropdown-menu'
+} from '@repalis/ui/components/ui/dropdown-menu'
 import { useRouter } from 'next/navigation'
 import { useCallback, useState } from 'react'
 import { DashboardBody } from '../../Layout/DashboardLayout'
@@ -170,7 +170,7 @@ export const ProductPage = ({ organization, product }: ProductPageProps) => {
               {product.is_archived && <Status status="Archived" color="gray" />}
             </div>
           </div>
-          <span className="dark:text-polar-500 text-xl text-gray-400 [&_*]:!text-current">
+          <span className="dark:text-repalis-500 text-xl text-gray-400 [&_*]:!text-current">
             <ProductPriceLabel
               product={product}
               currency={organization.default_presentment_currency}

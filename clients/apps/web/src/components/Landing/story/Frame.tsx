@@ -1,6 +1,6 @@
 import LogoType from '@/components/Brand/logos/LogoType'
-import { Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import type { ReactNode, Ref } from 'react'
 
 /** A sheet inside a figure window: a body-size title, an optional aside, and its content filling the height. */
@@ -19,7 +19,7 @@ export const Sheet = ({
   /** Sets the title one step larger, for sheets that are products rather than parts of a figure. */
   large?: boolean
 }) => (
-  <div className="dark:bg-polar-900 flex min-h-0 w-full min-w-0 flex-col rounded-xl bg-white">
+  <div className="dark:bg-repalis-900 flex min-h-0 w-full min-w-0 flex-col rounded-xl bg-white">
     <Box flexDirection="column" rowGap="l" padding="xl" height="100%">
       <Box justifyContent="between" alignItems="baseline" columnGap="l">
         <Box alignItems="baseline" columnGap="m" flexWrap="wrap">
@@ -44,9 +44,9 @@ export const Sheet = ({
 
 /** The three flow images, as static classes so Tailwind can see them. Chapters rotate through them in page order. */
 export const FLOW = {
-  1: 'bg-[url(/assets/landing/company/Polar_Flow_01_No_Logo.jpg)]',
-  2: 'bg-[url(/assets/landing/company/Polar_Flow_02_No_Logo.jpg)]',
-  3: 'bg-[url(/assets/landing/company/Polar_Flow_03_No_Logo.jpg)]',
+  1: 'bg-[url(/assets/landing/company/Repalis_Flow_01_No_Logo.jpg)]',
+  2: 'bg-[url(/assets/landing/company/Repalis_Flow_02_No_Logo.jpg)]',
+  3: 'bg-[url(/assets/landing/company/Repalis_Flow_03_No_Logo.jpg)]',
 } as const
 export type Flow = keyof typeof FLOW
 
@@ -64,7 +64,7 @@ export const WindowFrame = ({
   className?: string
 }) => (
   <div
-    className={`dark:bg-polar-950 relative mx-auto flex w-full min-w-0 flex-col rounded-2xl bg-gray-100 p-1 ${narrow ? 'max-w-[56rem]' : ''} ${className}`}
+    className={`dark:bg-repalis-950 relative mx-auto flex w-full min-w-0 flex-col rounded-2xl bg-gray-100 p-1 ${narrow ? 'max-w-[56rem]' : ''} ${className}`}
   >
     <Box
       alignItems="center"
@@ -109,7 +109,7 @@ export const Window = ({
     className={
       bare
         ? 'relative w-full'
-        : `dark:border-polar-800 relative w-full overflow-hidden rounded-md border border-gray-200 bg-cover bg-center p-4 md:p-12 ${FLOW[flow]}`
+        : `dark:border-repalis-800 relative w-full overflow-hidden rounded-md border border-gray-200 bg-cover bg-center p-4 md:p-12 ${FLOW[flow]}`
     }
   >
     {bare ? null : (

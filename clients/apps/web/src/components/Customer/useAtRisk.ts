@@ -1,5 +1,5 @@
 import { useSubscriptions } from '@/hooks/queries'
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 import { useMemo } from 'react'
 
 export type RiskReason = 'past_due' | 'canceling'

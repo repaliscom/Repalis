@@ -1,8 +1,8 @@
 'use client'
 
 import { getDisputeDisplayStatus } from '@/utils/dispute'
-import { schemas } from '@polar-sh/client'
-import { Status } from '@polar-sh/orbit'
+import { schemas } from '@repalis/client'
+import { Status } from '@repalis/orbit'
 import { differenceInCalendarDays } from 'date-fns'
 import { useState } from 'react'
 

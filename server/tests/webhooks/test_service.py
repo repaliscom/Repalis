@@ -6,32 +6,32 @@ from unittest.mock import MagicMock
 import pytest
 from pytest_mock import MockerFixture
 
-from polar.auth.models import AuthSubject
-from polar.auth.scope import Scope
-from polar.checkout.eventstream import CheckoutEvent
-from polar.exceptions import PolarRequestValidationError, ResourceNotFound
-from polar.kit.schemas import HttpsUrl
-from polar.kit.utils import utc_now
-from polar.models import (
+from repalis.auth.models import AuthSubject
+from repalis.auth.scope import Scope
+from repalis.checkout.eventstream import CheckoutEvent
+from repalis.exceptions import RepalisRequestValidationError, ResourceNotFound
+from repalis.kit.schemas import HttpsUrl
+from repalis.kit.utils import utc_now
+from repalis.models import (
     Organization,
     Product,
     WebhookDelivery,
     WebhookEndpoint,
     WebhookEvent,
 )
-from polar.models.webhook_endpoint import WebhookEventType, WebhookFormat
-from polar.postgres import AsyncSession
-from polar.version import CURRENT_API_VERSION
-from polar.webhook.repository import WebhookDeliveryRepository
-from polar.webhook.schemas import (
+from repalis.models.webhook_endpoint import WebhookEventType, WebhookFormat
+from repalis.postgres import AsyncSession
+from repalis.version import CURRENT_API_VERSION
+from repalis.webhook.repository import WebhookDeliveryRepository
+from repalis.webhook.schemas import (
     DeprecatedWebhookEndpointCreateWithSecret,
     DeprecatedWebhookEndpointUpdateWithSecret,
     WebhookEndpointCreate,
     WebhookEndpointUpdate,
 )
-from polar.webhook.service import EventDoesNotExist, EventNotSuccessul
-from polar.webhook.service import webhook as webhook_service
-from polar.webhook.webhooks import WebhookCheckoutUpdatedPayload
+from repalis.webhook.service import EventDoesNotExist, EventNotSuccessul
+from repalis.webhook.service import webhook as webhook_service
+from repalis.webhook.webhooks import WebhookCheckoutUpdatedPayload
 from tests.fixtures.auth import AuthSubjectFixture
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_checkout
@@ -39,7 +39,7 @@ from tests.fixtures.random_objects import create_checkout
 
 @pytest.fixture
 def enqueue_job_mock(mocker: MockerFixture) -> MagicMock:
-    return mocker.patch("polar.webhook.service.enqueue_job")
+    return mocker.patch("repalis.webhook.service.enqueue_job")
 
 
 webhook_url = cast(HttpsUrl, "https://example.com/hook")
@@ -60,7 +60,7 @@ class TestCreateEndpoint:
             organization_id=uuid.uuid4(),
         )
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await webhook_service.create_endpoint(session, auth_subject, create_schema)
 
     @pytest.mark.auth(
@@ -97,13 +97,13 @@ class TestCreateEndpoint:
             format=WebhookFormat.raw,
             events=[],
             organization_id=None,
-            secret="polar_wh_secret_1234567890abcdef",
+            secret="repalis_wh_secret_1234567890abcdef",
         )
 
         endpoint = await webhook_service.create_endpoint(
             session, auth_subject, create_schema
         )
-        assert endpoint.secret == "polar_wh_secret_1234567890abcdef"
+        assert endpoint.secret == "repalis_wh_secret_1234567890abcdef"
         assert endpoint.secret_generated_at is None
 
 
@@ -146,10 +146,10 @@ class TestUpdateEndpoint:
             auth_subject,
             endpoint=webhook_endpoint_organization,
             update_schema=DeprecatedWebhookEndpointUpdateWithSecret(
-                secret="polar_wh_secret_1234567890abcdef"
+                secret="repalis_wh_secret_1234567890abcdef"
             ),
         )
-        assert updated_endpoint.secret == "polar_wh_secret_1234567890abcdef"
+        assert updated_endpoint.secret == "repalis_wh_secret_1234567890abcdef"
         assert updated_endpoint.secret_generated_at is None
 
     @pytest.mark.auth(
@@ -171,7 +171,7 @@ class TestUpdateEndpoint:
         )
         await save_fixture(endpoint)
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await webhook_service.update_endpoint(
                 session,
                 auth_subject,
@@ -282,7 +282,7 @@ class TestOnEventSuccess:
         webhook_endpoint_organization: WebhookEndpoint,
     ) -> None:
         publish_checkout_event_mock = mocker.patch(
-            "polar.webhook.service.publish_checkout_event"
+            "repalis.webhook.service.publish_checkout_event"
         )
         checkout = await create_checkout(save_fixture, products=[product])
         timestamp = utc_now()

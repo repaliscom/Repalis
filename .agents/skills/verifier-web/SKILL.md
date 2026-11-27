@@ -1,13 +1,13 @@
 ---
 name: verifier-web
-description: Evidence-capture protocol for verifying web/dashboard/backoffice/checkout changes in the Polar local stack by driving the real UI with Playwright. Auto-discovered by the built-in /verify skill; can also be invoked directly. Brings up the Docker stack, logs in via the real email-OTP flow, and exercises flows end-to-end (including a live Stripe checkout) capturing screenshots as evidence.
+description: Evidence-capture protocol for verifying web/dashboard/backoffice/checkout changes in the Repalis local stack by driving the real UI with Playwright. Auto-discovered by the built-in /verify skill; can also be invoked directly. Brings up the Docker stack, logs in via the real email-OTP flow, and exercises flows end-to-end (including a live Stripe checkout) capturing screenshots as evidence.
 license: MIT
 metadata:
-  author: polar
+  author: repalis
   version: "1.0.0"
 ---
 
-# Web Verifier (Polar)
+# Web Verifier (Repalis)
 
 The handle is the **browser**. The evidence is **screenshots + the resulting
 DB/backoffice state**. This skill is the repo's replay protocol for any change
@@ -50,7 +50,7 @@ Web:  http://localhost:31NN
 ```
 
 (`N` is the instance; e.g. instance 7 → API `:8107`, Web `:3107`. Container
-names are `polar-app-<N>-api-1`, `-web-1`, `-worker-1`; DB is `polar_dev_<N>`.)
+names are `repalis-app-<N>-api-1`, `-web-1`, `-worker-1`; DB is `repalis_dev_<N>`.)
 
 Poll readiness before driving anything:
 
@@ -71,12 +71,12 @@ into the dashboard authenticates the backoffice too.
 
 1. `browser_navigate` → `http://localhost:31NN/auth`
    (the nav "Login" link is hidden; go to `/auth` directly. `/login` 404s.)
-2. Type `admin@polar.sh` into the Email field, click **Sign in with email**.
-   The seed account `admin@polar.sh` owns `admin-org` (approved, payout account,
+2. Type `admin@repalis.com` into the Email field, click **Sign in with email**.
+   The seed account `admin@repalis.com` owns `admin-org` (approved, payout account,
    products) — go straight to checkout testing, no onboarding.
 3. The page advances to `/auth/email-otp`. Read the code from the api logs:
    ```bash
-   docker logs --since 60s polar-app-<N>-api-1 2>&1 | grep -A1 "LOGIN CODE"
+   docker logs --since 60s repalis-app-<N>-api-1 2>&1 | grep -A1 "LOGIN CODE"
    ```
 4. Type the 6-character code (uppercase letters + digits, e.g. `C9YLIF`) → lands
    on `/dashboard/admin-org`.
@@ -91,7 +91,7 @@ backoffice then renders unstyled and `/backoffice/static/styles.css` +
 cd server && uv run task backoffice
 ```
 
-The output lands in `server/polar/backoffice/static/` on the host, which is
+The output lands in `server/repalis/backoffice/static/` on the host, which is
 mounted into the api container — it's picked up live, no recreate needed.
 (`dev docker up` has a "Building backoffice assets" step, but don't rely on it
 having run; check that the backoffice is styled and rebuild if not.)
@@ -103,8 +103,8 @@ the host the frontend uses (`localhost`). This is set in
 `dev/docker/docker-compose.dev.yml`:
 
 ```yaml
-POLAR_USER_SESSION_COOKIE_DOMAIN: localhost
-POLAR_AUTHENTICATION_SESSION_COOKIE_DOMAIN: localhost   # both must be present
+REPALIS_USER_SESSION_COOKIE_DOMAIN: localhost
+REPALIS_AUTHENTICATION_SESSION_COOKIE_DOMAIN: localhost   # both must be present
 ```
 
 If you see **`POST /v1/auth/email-otp/request` → 401 "Invalid or missing
@@ -131,10 +131,10 @@ api 202s the webhook and the **worker** creates the order.
 
 Use **your own Stripe sandbox** (https://dashboard.stripe.com/sandboxes). Never a
 live account, and never a shared team account — `dev stripe` refuses both. The
-Stripe CLI profile is always `polar-sandbox`.
+Stripe CLI profile is always `repalis-sandbox`.
 
 **Secrets are set up once and reused across worktrees.** They live centrally in
-`~/.config/polar/secrets.env` and `dev/setup-environment` propagates them into
+`~/.config/repalis/secrets.env` and `dev/setup-environment` propagates them into
 each worktree's `server/.env`. So you don't redo Stripe setup per worktree —
 populate the central file once. The one-step path:
 
@@ -152,8 +152,8 @@ CLI test keys expire every 90 days. Symptom of an expired key: checkout sticks o
 detects the expired key and re-runs the link flow, then recreate services (3c).
 
 If you ever set keys by hand, set them in the central file (or `server/.env`) and
-keep them on the **same account**: `POLAR_STRIPE_SECRET_KEY` (the secret key),
-`POLAR_STRIPE_PUBLISHABLE_KEY` and `NEXT_PUBLIC_STRIPE_KEY` (the publishable key —
+keep them on the **same account**: `REPALIS_STRIPE_SECRET_KEY` (the secret key),
+`REPALIS_STRIPE_PUBLISHABLE_KEY` and `NEXT_PUBLIC_STRIPE_KEY` (the publishable key —
 the browser tokenizes the card with it). pk and sk must belong to one account or
 the card tokenizes against one account while the backend charges another.
 
@@ -173,7 +173,7 @@ stripe listen \
 command's terminal — redirect to a file as above if you want to grep them in 3e.)
 
 It prints `Your webhook signing secret is whsec_...`. **Both**
-`POLAR_STRIPE_WEBHOOK_SECRET` and `POLAR_STRIPE_CONNECT_WEBHOOK_SECRET` must equal
+`REPALIS_STRIPE_WEBHOOK_SECRET` and `REPALIS_STRIPE_CONNECT_WEBHOOK_SECRET` must equal
 that secret. Leave the listener running in the background. If webhooks come back
 400 (signature failure), the configured secret is stale — re-sync it to the value
 the listener prints.
@@ -192,9 +192,9 @@ api, web, *and* worker on every env change.
 
 1. Find/make a checkout link for an `admin-org` product, then open its redirect
    to start a checkout session. The redirect token is the link's
-   **`client_secret`** (the `polar_cl_...` value — not the UUID `id`):
+   **`client_secret`** (the `repalis_cl_...` value — not the UUID `id`):
    ```
-   http://localhost:81NN/v1/checkout-links/<polar_cl_...>/redirect
+   http://localhost:81NN/v1/checkout-links/<repalis_cl_...>/redirect
    ```
    List it (qualify the column — both tables have `id`/`client_secret`):
    ```sql
@@ -203,7 +203,7 @@ api, web, *and* worker on every env change.
      where o.slug = 'admin-org' limit 1;
    ```
 2. Fill the form:
-   - **Email** — real domain + tag, e.g. `petru+verify-<flow>@polar.sh`.
+   - **Email** — real domain + tag, e.g. `petru+verify-<flow>@repalis.com`.
      `.local` and `example.com` are rejected by checkout email validation.
    - **Card** (inside the Stripe iframe): `4242 4242 4242 4242`, exp `12 / 34`,
      CVC `123`.
@@ -236,10 +236,10 @@ https://docs.stripe.com/testing.
 grep -E 'POST|payment_intent|charge' /tmp/stripe-listen.log
 
 # order + subscription created by the worker
-dev docker exec db psql -U polar -d polar_dev_<N> -tc \
+dev docker exec db psql -U repalis -d repalis_dev_<N> -tc \
  "select o.status, o.net_amount_v2, c.email from orders o
    join customers c on c.id=o.customer_id
-   where c.email='petru+verify-<flow>@polar.sh' order by o.created_at desc limit 1;"
+   where c.email='petru+verify-<flow>@repalis.com' order by o.created_at desc limit 1;"
 ```
 
 Expect `paid | 2000 | …`. Also confirm it renders in backoffice **Orders**
@@ -263,6 +263,6 @@ stale-key retry, a confusing validation message) — that's the signal.
   two secrets alone when they already differ from each other — that means they
   came from dashboard endpoints, not the CLI listener.
 - `dev seed` runs on the **host** against `server/.env`
-  (`POLAR_POSTGRES_*`), which is not the dockerized `polar_dev_<N>`. For a
+  (`REPALIS_POSTGRES_*`), which is not the dockerized `repalis_dev_<N>`. For a
   docker instance, seed inside the container instead:
-  `docker exec polar-app-<N>-api-1 sh -c 'cd /app/server && uv run python -m scripts.seeds_load'`
+  `docker exec repalis-app-<N>-api-1 sh -c 'cd /app/server && uv run python -m scripts.seeds_load'`

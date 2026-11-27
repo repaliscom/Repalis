@@ -1,9 +1,9 @@
 <CardGroup cols={2}>
   <Card title="Production Base URL" icon="globe">
-    `https://api.polar.sh/v1`
+    `https://api.repalis.com/v1`
   </Card>
   <Card title="Sandbox Base URL" icon="flask">
-    `https://sandbox-api.polar.sh/v1`
+    `https://sandbox-api.repalis.com/v1`
   </Card>
   <Card title="Auth (Organization)" icon="key" href="/integrate/oat">
     Use an **Organization Access Token (OAT)** in the `Authorization: Bearer`
@@ -20,46 +20,46 @@
 
 ## Official SDKs
 
-Use our new, fully typed SDKs to integrate with the Polar API from TypeScript or Python.
+Use our new, fully typed SDKs to integrate with the Repalis API from TypeScript or Python.
 
 Create an [organization access token](/integrate/oat), then install the SDK and make your first request:
 
 <Tabs>
   <Tab title="TypeScript">
     ```bash npm
-    npm install @polar-sh/sdk
+    npm install @repalis/sdk
     ```
 
     ```typescript app.ts
-    import { createPolar } from "@polar-sh/sdk/{version}";
+    import { createRepalis } from "@repalis/sdk/{version}";
 
-    const polar = createPolar({
-      accessToken: process.env.POLAR_ACCESS_TOKEN!,
+    const repalis = createRepalis({
+      accessToken: process.env.REPALIS_ACCESS_TOKEN!,
     });
 
-    const customerState = await polar.customers.getStateExternal("customer_external_id");
+    const customerState = await repalis.customers.getStateExternal("customer_external_id");
     console.log(customerState);
     ```
   </Tab>
   <Tab title="Python">
     <CodeGroup>
       ```bash uv
-      uv add polar-sdk
+      uv add repalis-sdk
       ```
 
       ```bash pip
-      pip install polar-sdk
+      pip install repalis-sdk
       ```
     </CodeGroup>
 
     ```python main.py
     import os
 
-    from polar.v{pythonVersion} import Polar
+    from repalis.v{pythonVersion} import Repalis
 
-    polar = Polar(os.environ["POLAR_ACCESS_TOKEN"])
+    repalis = Repalis(os.environ["REPALIS_ACCESS_TOKEN"])
 
-    customer_state = polar.customers.get_state_external("customer_external_id")
+    customer_state = repalis.customers.get_state_external("customer_external_id")
     print(customer_state)
     ```
   </Tab>
@@ -71,8 +71,8 @@ Both clients use production by default. Pass `environment="sandbox"` in Python o
 
 | Environment | Base URL                          | Purpose                         |
 | ----------- | --------------------------------- | ------------------------------- |
-| Production  | `https://api.polar.sh/v1`         | Real customers & live payments  |
-| Sandbox     | `https://sandbox-api.polar.sh/v1` | Safe testing & integration work |
+| Production  | `https://api.repalis.com/v1`         | Real customers & live payments  |
+| Sandbox     | `https://sandbox-api.repalis.com/v1` | Safe testing & integration work |
 
 <Info>
   The sandbox environment is fully isolated—data, users, tokens, and
@@ -89,7 +89,7 @@ Read more: [Sandbox Environment](/integrate/sandbox)
 Use an **OAT** to act on behalf of your organization (manage products, prices, checkouts, orders, subscriptions, benefits, etc.).
 
 ```http
-Authorization: Bearer polar_oat_xxxxxxxxxxxxxxxxx
+Authorization: Bearer repalis_oat_xxxxxxxxxxxxxxxxx
 ```
 
 <Tip>
@@ -127,20 +127,20 @@ Do **not** use OATs in the browser. For customer-facing flows, {<a href={`/api-r
 
 <CodeGroup>
 ```bash curl (Production - Core API)
-curl https://api.polar.sh/v1/products/ \
-  -H "Authorization: Bearer $POLAR_OAT" \
+curl https://api.repalis.com/v1/products/ \
+  -H "Authorization: Bearer $REPALIS_OAT" \
   -H "Accept: application/json"
 ```
 
 ```bash curl (Sandbox - Core API)
-curl https://sandbox-api.polar.sh/v1/products/ \
-  -H "Authorization: Bearer $POLAR_OAT_SANDBOX" \
+curl https://sandbox-api.repalis.com/v1/products/ \
+  -H "Authorization: Bearer $REPALIS_OAT_SANDBOX" \
   -H "Accept: application/json"
 ```
 
 ```bash curl (Customer Portal API)
-curl https://api.polar.sh/v1/customer-portal/orders/ \
-  -H "Authorization: Bearer $POLAR_CUSTOMER_TOKEN" \
+curl https://api.repalis.com/v1/customer-portal/orders/ \
+  -H "Authorization: Bearer $REPALIS_CUSTOMER_TOKEN" \
   -H "Accept: application/json"
 ```
 
@@ -148,7 +148,7 @@ curl https://api.polar.sh/v1/customer-portal/orders/ \
 
 ## Pagination
 
-List endpoints in the Polar API support pagination to help you efficiently retrieve large datasets. Use the `page` and `limit` query parameters to control pagination.
+List endpoints in the Repalis API support pagination to help you efficiently retrieve large datasets. Use the `page` and `limit` query parameters to control pagination.
 
 ### Query Parameters
 
@@ -177,8 +177,8 @@ Let's say you want to fetch products with a limit of 100 items per page:
 
 <CodeGroup>
 ```bash Request
-curl https://api.polar.sh/v1/products/?page=1&limit=100 \
-  -H "Authorization: Bearer $POLAR_OAT" \
+curl https://api.repalis.com/v1/products/?page=1&limit=100 \
+  -H "Authorization: Bearer $REPALIS_OAT" \
   -H "Accept: application/json"
 ```
 
@@ -213,7 +213,7 @@ In this example:
 
 ## Rate Limits
 
-Polar API has rate limits to ensure fair usage and maintain performance. Limits differ between the **Sandbox** and **Production** environments.
+Repalis API has rate limits to ensure fair usage and maintain performance. Limits differ between the **Sandbox** and **Production** environments.
 
 ### Production
 

@@ -5,13 +5,13 @@ export const metadata: Metadata = {
   title: 'Pricing',
   description: 'Transparent pricing for every stage of growth',
   keywords:
-    'polar pricing, merchant of record fees, usage-based billing pricing, saas billing costs, transaction fees',
+    'repalis pricing, merchant of record fees, usage-based billing pricing, saas billing costs, transaction fees',
   openGraph: {
-    siteName: 'Polar',
+    siteName: 'Repalis',
     type: 'website',
     images: [
       {
-        url: 'https://polar.sh/assets/brand/polar_og.jpg',
+        url: 'https://repalis.com/assets/brand/repalis_og.jpg',
         width: 1200,
         height: 630,
       },
@@ -21,10 +21,10 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     images: [
       {
-        url: 'https://polar.sh/assets/brand/polar_og.jpg',
+        url: 'https://repalis.com/assets/brand/repalis_og.jpg',
         width: 1200,
         height: 630,
-        alt: 'Polar',
+        alt: 'Repalis',
       },
     ],
   },

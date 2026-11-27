@@ -7,10 +7,10 @@ import {
   useSendOrganizationEmailCode,
 } from '@/hooks/queries'
 import { extractApiErrorMessage } from '@/utils/api/errors'
-import { schemas } from '@polar-sh/client'
-import { Modal } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import { CircleAlert, CircleCheck, Clock } from '@polar-sh/orbit/icons'
+import { schemas } from '@repalis/client'
+import { Modal } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import { CircleAlert, CircleCheck, Clock } from '@repalis/orbit/icons'
 import { useState } from 'react'
 import { SupportEmailVerifyFlow } from './SupportEmailVerifyFlow'
 

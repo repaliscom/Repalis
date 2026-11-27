@@ -285,7 +285,7 @@ class CLICommandsEmitter(EmitterBase):
         required = [field for field in fields if field.required]
         example = " ".join(
             [
-                "polar",
+                "repalis",
                 *command_path,
                 method.name,
                 *(f"<{p.name}>" for p in method.path_params),
@@ -382,7 +382,7 @@ class CLICommandsEmitter(EmitterBase):
             "method": method,
             "sdk_method": operation_name(method.name),
             "sdk_service": ".".join(service_path),
-            "sdk_type": "Polar" + "".join(f"[{json.dumps(p)}]" for p in service_path),
+            "sdk_type": "Repalis" + "".join(f"[{json.dumps(p)}]" for p in service_path),
             "runtime_path": "../" * len(service_path),
             "input_type": input_type,
             "required": [field.name for field in required],

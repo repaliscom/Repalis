@@ -4,9 +4,9 @@ sidebarTitle: "Webhooks"
 description: "Receive real webhook events locally and trigger sample events on demand"
 ---
 
-Polar delivers webhooks to public URLs, which your local server does not have.
-The CLI bridges that gap: `polar webhook listen` streams your organization's webhook
-events to a local URL, and `polar webhook trigger` sends realistic sample events
+Repalis delivers webhooks to public URLs, which your local server does not have.
+The CLI bridges that gap: `repalis webhook listen` streams your organization's webhook
+events to a local URL, and `repalis webhook trigger` sends realistic sample events
 whenever you need one, without waiting for a real checkout or subscription.
 
 ## Receive webhooks locally
@@ -14,7 +14,7 @@ whenever you need one, without waiting for a real checkout or subscription.
 <Steps>
   <Step title="Sign in and choose an organization">
     ```bash Terminal
-    polar auth login --sandbox
+    repalis auth login --sandbox
     ```
 
     Pick the organization you want to receive events for. See
@@ -24,7 +24,7 @@ whenever you need one, without waiting for a real checkout or subscription.
     Point the CLI at the URL your webhook handler listens on:
 
     ```bash Terminal
-    polar webhook listen http://localhost:3000/api/webhooks
+    repalis webhook listen http://localhost:3000/api/webhooks
     ```
 
     ```text
@@ -41,7 +41,7 @@ whenever you need one, without waiting for a real checkout or subscription.
     verification passes:
 
     ```bash .env
-    POLAR_WEBHOOK_SECRET=6t3c8ce2247c493a3ade20uea4484d64
+    REPALIS_WEBHOOK_SECRET=6t3c8ce2247c493a3ade20uea4484d64
     ```
   </Step>
 </Steps>
@@ -53,16 +53,16 @@ if it drops. Press `Ctrl+C` to stop.
 
 <Note>
   Events follow the active organization's environment. Listen with a sandbox
-  organization while developing, and switch with `polar auth org` when you need
+  organization while developing, and switch with `repalis auth org` when you need
   production events.
 </Note>
 
 ## Trigger sample events
 
-With `polar webhook listen` running in one terminal, send a sample event from another:
+With `repalis webhook listen` running in one terminal, send a sample event from another:
 
 ```bash Terminal
-polar webhook trigger order.created
+repalis webhook trigger order.created
 ```
 
 The CLI generates a realistic payload for the event, delivers it through your
@@ -71,7 +71,7 @@ organization. Run it without an event name to pick one from a list, or print
 the catalog:
 
 ```bash Terminal
-polar webhook trigger --list
+repalis webhook trigger --list
 ```
 
 ### Shape the payload
@@ -80,7 +80,7 @@ Override any field with `path=value`, repeating the flag as needed. Values are
 sent as text unless you pass `null`, a JSON object, an array or a quoted string:
 
 ```bash Terminal
-polar webhook trigger order.created \
+repalis webhook trigger order.created \
   --override data.customer.email=jane@example.com \
   --override data.net_amount=4900
 ```
@@ -90,7 +90,7 @@ Generated IDs and values are random on every run. Pass any integer as
 payload, which is handy for scripted tests:
 
 ```bash Terminal
-polar webhook trigger subscription.active --seed 42
+repalis webhook trigger subscription.active --seed 42
 ```
 
 ### Inspect without sending
@@ -98,7 +98,7 @@ polar webhook trigger subscription.active --seed 42
 Print the payload instead of delivering it:
 
 ```bash Terminal
-polar webhook trigger checkout.created --dry-run
+repalis webhook trigger checkout.created --dry-run
 ```
 
 ## Next steps

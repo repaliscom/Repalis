@@ -1,11 +1,11 @@
 // Generated from organizations:list (2026-10). Do not edit.
-import type { Polar } from '@polar-sh/sdk/2026-10'
+import type { Repalis } from '@repalis/sdk/2026-10'
 import { Effect } from 'effect'
 import { Command, Flag } from 'effect/cli'
 import { ApiRuntime } from '../runtime'
 import { fields, data, mergeInput, nullableStringFlag, org } from '../inputs'
 
-type Query = NonNullable<Parameters<Polar['organizations']['list']>[0]>
+type Query = NonNullable<Parameters<Repalis['organizations']['list']>[0]>
 
 export const command = Command.make(
   'list',

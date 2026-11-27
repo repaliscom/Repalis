@@ -1,4 +1,4 @@
-# Polar App
+# Repalis App
 
 iOS and Android app built with Expo and React Native.
 

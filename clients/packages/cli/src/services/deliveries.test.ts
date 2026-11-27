@@ -16,7 +16,7 @@ const delivery: Delivery = {
 let directory: string
 
 beforeEach(async () => {
-  directory = await mkdtemp(join(tmpdir(), 'polar-deliveries-'))
+  directory = await mkdtemp(join(tmpdir(), 'repalis-deliveries-'))
 })
 
 afterEach(async () => {

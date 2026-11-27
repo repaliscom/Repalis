@@ -9,17 +9,17 @@ from pytest_mock import MockerFixture
 from sqlalchemy import delete
 from sqlalchemy import event as sqlalchemy_event
 
-from polar.auth.models import AuthSubject
-from polar.auth.scope import Scope
-from polar.config import settings
-from polar.custom_field.schemas import AttachedCustomFieldCreate
-from polar.enums import SubscriptionRecurringInterval, TaxBehaviorOption
-from polar.exceptions import PolarRequestValidationError
-from polar.kit.currency import PresentmentCurrency
-from polar.kit.db.postgres import create_async_engine, create_async_sessionmaker
-from polar.kit.pagination import PaginationParams
-from polar.kit.trial import TrialInterval
-from polar.models import (
+from repalis.auth.models import AuthSubject
+from repalis.auth.scope import Scope
+from repalis.config import settings
+from repalis.custom_field.schemas import AttachedCustomFieldCreate
+from repalis.enums import SubscriptionRecurringInterval, TaxBehaviorOption
+from repalis.exceptions import RepalisRequestValidationError
+from repalis.kit.currency import PresentmentCurrency
+from repalis.kit.db.postgres import create_async_engine, create_async_sessionmaker
+from repalis.kit.pagination import PaginationParams
+from repalis.kit.trial import TrialInterval
+from repalis.models import (
     Account,
     Benefit,
     Customer,
@@ -31,27 +31,27 @@ from polar.models import (
     User,
     UserOrganization,
 )
-from polar.models.benefit import BenefitType
-from polar.models.custom_field import CustomFieldType
-from polar.models.discount import DiscountDuration, DiscountType
-from polar.models.file import FileServiceTypes, ProductMediaFile
-from polar.models.organization import OrganizationStatus
-from polar.models.product_price import (
+from repalis.models.benefit import BenefitType
+from repalis.models.custom_field import CustomFieldType
+from repalis.models.discount import DiscountDuration, DiscountType
+from repalis.models.file import FileServiceTypes, ProductMediaFile
+from repalis.models.organization import OrganizationStatus
+from repalis.models.product_price import (
     ProductPriceAmountType,
     ProductPriceFixed,
     ProductPriceMeteredTiers,
 )
-from polar.organization_review.schemas import ReviewContext
-from polar.postgres import AsyncSession
-from polar.product.guard import (
+from repalis.organization_review.schemas import ReviewContext
+from repalis.postgres import AsyncSession
+from repalis.product.guard import (
     is_fixed_price,
     is_metered_price,
     is_seat_price,
     is_static_price,
     is_unit_price,
 )
-from polar.product.legacy_schemas import ProductUpdate as LegacyProductUpdate
-from polar.product.schemas import (
+from repalis.product.legacy_schemas import ProductUpdate as LegacyProductUpdate
+from repalis.product.schemas import (
     ExistingProductPrice,
     ProductCreate,
     ProductCreateOneTime,
@@ -64,10 +64,10 @@ from polar.product.schemas import (
     ProductPriceUnitBasedCreate,
     ProductUpdate,
 )
-from polar.product.service import ProductNotDeletable
-from polar.product.service import product as product_service
-from polar.product.sorting import ProductSortProperty
-from polar.product.tiers import Tiers, TiersInput, TierType
+from repalis.product.service import ProductNotDeletable
+from repalis.product.service import product as product_service
+from repalis.product.sorting import ProductSortProperty
+from repalis.product.tiers import Tiers, TiersInput, TierType
 from tests.fixtures.auth import AuthSubjectFixture
 from tests.fixtures.database import (
     SaveFixture,
@@ -94,7 +94,7 @@ from tests.fixtures.random_objects import (
 
 @pytest.fixture
 def enqueue_job_mock(mocker: MockerFixture) -> AsyncMock:
-    return mocker.patch("polar.product.service.enqueue_job")
+    return mocker.patch("repalis.product.service.enqueue_job")
 
 
 @pytest.mark.anyio
@@ -383,7 +383,7 @@ class TestCreate:
             ],
         )
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await product_service.create(session, create_schema, auth_subject)
 
     @pytest.mark.auth
@@ -406,7 +406,7 @@ class TestCreate:
             ],
         )
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await product_service.create(session, create_schema, auth_subject)
 
     @pytest.mark.auth
@@ -452,7 +452,7 @@ class TestCreate:
             external_id="ext_1337",
         )
 
-        with pytest.raises(PolarRequestValidationError) as e:
+        with pytest.raises(RepalisRequestValidationError) as e:
             await product_service.create(
                 session,
                 ProductCreateOneTime(
@@ -583,7 +583,7 @@ class TestCreate:
             ],
         )
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await product_service.create(session, create_schema, auth_subject)
 
     @pytest.mark.auth(AuthSubjectFixture(subject="organization"))
@@ -630,7 +630,7 @@ class TestCreate:
             medias=[uuid.uuid4()],
         )
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await product_service.create(session, create_schema, auth_subject)
 
     @pytest.mark.auth
@@ -655,7 +655,7 @@ class TestCreate:
             medias=[uuid.uuid4(), uuid.uuid4()],
         )
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await product_service.create(session, create_schema, auth_subject)
 
     @pytest.mark.auth
@@ -686,7 +686,7 @@ class TestCreate:
             ],
         )
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await product_service.create(session, create_schema, auth_subject)
 
     @pytest.mark.auth
@@ -736,7 +736,7 @@ class TestCreate:
             medias=[file.id],
         )
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await product_service.create(session, create_schema, auth_subject)
 
     @pytest.mark.auth
@@ -868,7 +868,7 @@ class TestCreate:
         user_organization: UserOrganization,
         meter: Meter,
     ) -> None:
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await product_service.create(
                 session,
                 ProductCreateOneTime(
@@ -898,7 +898,7 @@ class TestCreate:
         organization: Organization,
         user_organization: UserOrganization,
     ) -> None:
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await product_service.create(
                 session,
                 ProductCreateRecurring(
@@ -929,7 +929,7 @@ class TestCreate:
     ) -> None:
         meter = await create_meter(save_fixture, organization=organization_second)
 
-        with pytest.raises(PolarRequestValidationError) as exc_info:
+        with pytest.raises(RepalisRequestValidationError) as exc_info:
             await product_service.create(
                 session,
                 ProductCreateRecurring(
@@ -958,7 +958,7 @@ class TestCreate:
         user_organization: UserOrganization,
         meter: Meter,
     ) -> None:
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await product_service.create(
                 session,
                 ProductCreateOneTime(
@@ -985,7 +985,7 @@ class TestCreate:
         user_organization: UserOrganization,
         meter: Meter,
     ) -> None:
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await product_service.create(
                 session,
                 ProductCreateRecurring(
@@ -1019,7 +1019,7 @@ class TestCreate:
         user_organization: UserOrganization,
     ) -> None:
         """Test that multiple static prices in the same currency are not allowed"""
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await product_service.create(
                 session,
                 ProductCreateOneTime(
@@ -1051,7 +1051,7 @@ class TestCreate:
         meter: Meter,
     ) -> None:
         """Test that each currency must have the same set of prices"""
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await product_service.create(
                 session,
                 ProductCreateRecurring(
@@ -1091,7 +1091,7 @@ class TestCreate:
         meter: Meter,
     ) -> None:
         """Test that the default presentment currency is included in the product prices"""
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await product_service.create(
                 session,
                 ProductCreateRecurring(
@@ -1223,7 +1223,7 @@ class TestCreate:
         meter: Meter,
     ) -> None:
         """Test that prices for the same currency must have the same tax_behavior"""
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await product_service.create(
                 session,
                 ProductCreateRecurring(
@@ -1436,7 +1436,7 @@ class TestCreateUnitBasedPrice:
         organization: Organization,
         user_organization: UserOrganization,
     ) -> None:
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await product_service.create(
                 session,
                 ProductCreateRecurring(
@@ -1456,7 +1456,7 @@ class TestCreateUnitBasedPrice:
         organization: Organization,
         user_organization: UserOrganization,
     ) -> None:
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await product_service.create(
                 session,
                 ProductCreateRecurring(
@@ -1476,7 +1476,7 @@ class TestCreateUnitBasedPrice:
         organization: Organization,
         user_organization: UserOrganization,
     ) -> None:
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await product_service.create(
                 session,
                 ProductCreateRecurring(
@@ -1642,7 +1642,7 @@ class TestCreateFixedSeatComposition:
         organization: Organization,
         user_organization: UserOrganization,
     ) -> None:
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await product_service.create(
                 session,
                 ProductCreateRecurring(
@@ -1665,7 +1665,7 @@ class TestCreateFixedSeatComposition:
         organization: Organization,
         user_organization: UserOrganization,
     ) -> None:
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await product_service.create(
                 session,
                 ProductCreateRecurring(
@@ -1688,7 +1688,7 @@ class TestCreateFixedSeatComposition:
         organization: Organization,
         user_organization: UserOrganization,
     ) -> None:
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await product_service.create(
                 session,
                 ProductCreateRecurring(
@@ -1714,7 +1714,7 @@ class TestCreateFixedSeatComposition:
         organization: Organization,
         user_organization: UserOrganization,
     ) -> None:
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await product_service.create(
                 session,
                 ProductCreateRecurring(
@@ -1741,7 +1741,7 @@ class TestCreateFixedSeatComposition:
         user_organization: UserOrganization,
     ) -> None:
         """USD = fixed + seat, EUR = fixed only must be rejected."""
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await product_service.create(
                 session,
                 ProductCreateRecurring(
@@ -1767,7 +1767,7 @@ class TestCreateFixedSeatComposition:
         organization: Organization,
         user_organization: UserOrganization,
     ) -> None:
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await product_service.create(
                 session,
                 ProductCreateRecurring(
@@ -1797,7 +1797,7 @@ class TestUpdate:
         user_organization: UserOrganization,
     ) -> None:
         update_schema = ProductUpdate(prices=[])
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await product_service.update(
                 session,
                 product,
@@ -2075,7 +2075,7 @@ class TestUpdate:
         user_organization: UserOrganization,
     ) -> None:
         update_schema = ProductUpdate(medias=[uuid.uuid4()])
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await product_service.update(
                 session,
                 product,
@@ -2121,7 +2121,7 @@ class TestUpdate:
         await save_fixture(file)
 
         update_schema = ProductUpdate(medias=[file.id])
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await product_service.update(
                 session,
                 product,
@@ -2179,7 +2179,7 @@ class TestUpdate:
             recurring_interval=SubscriptionRecurringInterval.year
         )
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await product_service.update(
                 session,
                 product,
@@ -2201,7 +2201,7 @@ class TestUpdate:
         assert product.recurring_interval_count == 1
         update_schema = LegacyProductUpdate(recurring_interval_count=3)
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await product_service.update(
                 session,
                 product,
@@ -2309,7 +2309,7 @@ class TestUpdate:
                 ),
             ]
         )
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await product_service.update(
                 session,
                 product,
@@ -2338,7 +2338,7 @@ class TestUpdate:
                 ),
             ]
         )
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await product_service.update(
                 session,
                 product,
@@ -2358,7 +2358,7 @@ class TestUpdate:
     ) -> None:
         meter = await create_meter(save_fixture, organization=organization_second)
 
-        with pytest.raises(PolarRequestValidationError) as exc_info:
+        with pytest.raises(RepalisRequestValidationError) as exc_info:
             await product_service.update(
                 session,
                 product,
@@ -2391,7 +2391,7 @@ class TestUpdate:
             trial_interval=TrialInterval.month, trial_interval_count=1
         )
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await product_service.update(
                 session,
                 product_one_time,
@@ -2463,7 +2463,7 @@ class TestUpdate:
             external_id="ext_1337",
         )
 
-        with pytest.raises(PolarRequestValidationError) as e:
+        with pytest.raises(RepalisRequestValidationError) as e:
             await product_service.update(
                 session, product, ProductUpdate(external_id="ext_42"), auth_subject
             )
@@ -2676,7 +2676,7 @@ class TestUpdateBenefits:
         )
         assert len(product.product_benefits) == len(benefits)
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await product_service.update_benefits(
                 session,
                 product,
@@ -2704,7 +2704,7 @@ class TestUpdateBenefits:
             UserOrganization(user=user, organization=organization_second)
         )
 
-        with pytest.raises(PolarRequestValidationError) as exc_info:
+        with pytest.raises(RepalisRequestValidationError) as exc_info:
             await product_service.update_benefits(
                 session,
                 product,
@@ -2953,7 +2953,7 @@ class TestUpdateBenefits:
             properties={"note": None},
         )
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await product_service.update_benefits(
                 session,
                 product,
@@ -2989,7 +2989,7 @@ class TestUpdateBenefits:
             benefits=[not_selectable_benefit],
         )
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await product_service.update_benefits(
                 session,
                 product,

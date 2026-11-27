@@ -4,12 +4,12 @@ from datetime import UTC, datetime
 import pytest
 from httpx2 import AsyncClient
 
-from polar.models import (
+from repalis.models import (
     Account,
     Transaction,
     UserOrganization,
 )
-from polar.models.user_organization import OrganizationRole
+from repalis.models.user_organization import OrganizationRole
 from tests.fixtures.auth import AuthSubjectFixture
 from tests.fixtures.database import SaveFixture
 from tests.transaction.conftest import create_transaction

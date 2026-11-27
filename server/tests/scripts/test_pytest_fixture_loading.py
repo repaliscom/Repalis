@@ -14,10 +14,10 @@ def test_fixture_loading_matches_execution_mode(
     for name in (
         "PYTEST_XDIST_WORKER",
         "PYTEST_XDIST_WORKER_COUNT",
-        "POLAR_TEST_FILES",
+        "REPALIS_TEST_FILES",
     ):
         monkeypatch.delenv(name, raising=False)
-    monkeypatch.setenv("POLAR_TEST_XDIST", "true")
+    monkeypatch.setenv("REPALIS_TEST_XDIST", "true")
     monkeypatch.setenv("PYTEST_DISABLE_PLUGIN_AUTOLOAD", "1")
     imports = pytester.path / "imports"
     imports.mkdir()

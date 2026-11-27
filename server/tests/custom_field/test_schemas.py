@@ -3,8 +3,8 @@ from typing import Any
 import pytest
 from pydantic import TypeAdapter, ValidationError
 
-from polar.custom_field.schemas import CustomFieldCreate, CustomFieldUpdate
-from polar.models.custom_field import CustomFieldType
+from repalis.custom_field.schemas import CustomFieldCreate, CustomFieldUpdate
+from repalis.models.custom_field import CustomFieldType
 
 CustomFieldCreateAdapter: TypeAdapter[CustomFieldCreate] = TypeAdapter(
     CustomFieldCreate

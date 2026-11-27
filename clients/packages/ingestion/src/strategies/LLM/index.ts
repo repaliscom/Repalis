@@ -5,7 +5,7 @@ import {
   type IngestionStrategyCustomer,
   type IngestionStrategyExternalCustomer,
 } from '../../strategy'
-import type { models } from '@polar-sh/sdk/2027-01'
+import type { models } from '@repalis/sdk/2027-01'
 import { aiSdkMethods, type LLMStrategyAISDK } from './aiSdk'
 import {
   isTanStackAI,

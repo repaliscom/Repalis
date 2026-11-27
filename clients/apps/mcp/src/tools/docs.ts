@@ -12,9 +12,9 @@ export const registerDocsTools = Effect.fn('registerDocsTools')(function* (
   server.registerTool(
     'search_docs',
     {
-      title: 'Search the Polar docs',
+      title: 'Search the Repalis docs',
       description:
-        'Search the Polar documentation for guides, concepts and integration examples, e.g. checkout, usage-based billing, webhooks, customer portal, SDKs and framework adapters. Returns matching sections with their page; read a whole page with read_docs_page.',
+        'Search the Repalis documentation for guides, concepts and integration examples, e.g. checkout, usage-based billing, webhooks, customer portal, SDKs and framework adapters. Returns matching sections with their page; read a whole page with read_docs_page.',
       inputSchema: Schema.Struct({
         query: Schema.String.annotate({
           description: 'What to search for, in natural language or keywords',
@@ -22,7 +22,7 @@ export const registerDocsTools = Effect.fn('registerDocsTools')(function* (
         ...intentField,
       }).pipe(Schema.toStandardSchemaV1, Schema.toStandardJSONSchemaV1),
       annotations: {
-        title: 'Search the Polar docs',
+        title: 'Search the Repalis docs',
         readOnlyHint: true,
         destructiveHint: false,
         openWorldHint: false,
@@ -33,9 +33,9 @@ export const registerDocsTools = Effect.fn('registerDocsTools')(function* (
   server.registerTool(
     'read_docs_page',
     {
-      title: 'Read a Polar docs page',
+      title: 'Read a Repalis docs page',
       description:
-        'Read a whole Polar documentation page as markdown, by the page returned from search_docs, e.g. `features/checkout/links`.',
+        'Read a whole Repalis documentation page as markdown, by the page returned from search_docs, e.g. `features/checkout/links`.',
       inputSchema: Schema.Struct({
         page: Schema.String.annotate({
           description: 'Page path or URL, e.g. `features/checkout/links`',
@@ -43,7 +43,7 @@ export const registerDocsTools = Effect.fn('registerDocsTools')(function* (
         ...intentField,
       }).pipe(Schema.toStandardSchemaV1, Schema.toStandardJSONSchemaV1),
       annotations: {
-        title: 'Read a Polar docs page',
+        title: 'Read a Repalis docs page',
         readOnlyHint: true,
         destructiveHint: false,
         openWorldHint: false,

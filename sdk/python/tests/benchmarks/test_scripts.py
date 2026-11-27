@@ -6,11 +6,11 @@ import pytest
 from pytest_codspeed import BenchmarkFixture
 from redis import Redis
 
-from polar.outpost.client import (
+from repalis.outpost.client import (
     APPLY_SNAPSHOT_SCRIPT,
     WRITE_BUCKET_SCRIPT,
 )
-from polar.outpost.reducer import BUCKET_SIZE
+from repalis.outpost.reducer import BUCKET_SIZE
 from tests.benchmarks import BUCKET_COUNTS, COLD_UNTIL, encode_state
 
 pytestmark = pytest.mark.benchmark
@@ -37,7 +37,7 @@ def key_of(buckets: int) -> str:
 _ids = itertools.count(1)
 
 
-# What track queues for Polar with an event's first write.
+# What track queues for Repalis with an event's first write.
 QUEUED_EVENT = json.dumps(
     {
         "name": "api_call",
@@ -116,7 +116,7 @@ def test_apply_snapshot(
     benchmark: BenchmarkFixture, redis: Redis, buckets: int
 ) -> None:
     sha = redis.script_load(APPLY_SNAPSHOT_SCRIPT)
-    # The seeded snapshot again, as every instance gets each of Polar's: the script scans
+    # The seeded snapshot again, as every instance gets each of Repalis's: the script scans
     # every field, finds nothing to change and writes only the version.
     benchmark(
         redis.evalsha,

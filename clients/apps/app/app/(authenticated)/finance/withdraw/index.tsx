@@ -9,13 +9,13 @@ import {
   useOrganizationAccount,
   usePayoutEstimate,
   useTransactionsSummary,
-} from '@/hooks/polar/finance'
-import { useOrganizationEmail } from '@/hooks/polar/organizationEmail'
-import { useOrders } from '@/hooks/polar/orders'
+} from '@/hooks/repalis/finance'
+import { useOrganizationEmail } from '@/hooks/repalis/organizationEmail'
+import { useOrders } from '@/hooks/repalis/orders'
 import { useStoreReview } from '@/hooks/useStoreReview'
 import { OrganizationContext } from '@/providers/OrganizationProvider'
 import { capture } from '@/utils/posthog'
-import { formatCurrency } from '@polar-sh/currency'
+import { formatCurrency } from '@repalis/currency'
 import { Stack, useRouter } from 'expo-router'
 import React, { useContext, useMemo } from 'react'
 import { SafeAreaView } from 'react-native'

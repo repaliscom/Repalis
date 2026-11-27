@@ -11,9 +11,9 @@ import freezegun
 import pytest
 from httpx2 import AsyncClient
 
-from polar.kit.db.postgres import AsyncSession
-from polar.models import Organization, Product
-from polar.models.billing_entry import BillingEntryType
+from repalis.kit.db.postgres import AsyncSession
+from repalis.models import Organization, Product
+from repalis.models.billing_entry import BillingEntryType
 from tests.e2e.conftest import E2E_AUTH
 from tests.e2e.infra import (
     DrainFn,

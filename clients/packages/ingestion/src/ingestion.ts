@@ -1,10 +1,10 @@
 import {
-  createPolar,
+  createRepalis,
   type Environment,
   type models,
-  type Polar,
-} from '@polar-sh/sdk/2027-01'
-import type { EventInput, Metering } from '@polar-sh/sdk/metering'
+  type Repalis,
+} from '@repalis/sdk/2027-01'
+import type { EventInput, Metering } from '@repalis/sdk/metering'
 import * as Option from 'effect/Option'
 import * as Schema from 'effect/Schema'
 import type {
@@ -49,9 +49,9 @@ export type IngestionTokenConfig = {
   serverURL?: string
 }
 
-export const createTokenClient = (config?: IngestionTokenConfig): Polar =>
-  createPolar({
-    accessToken: config?.accessToken ?? process.env.POLAR_ACCESS_TOKEN ?? '',
+export const createTokenClient = (config?: IngestionTokenConfig): Repalis =>
+  createRepalis({
+    accessToken: config?.accessToken ?? process.env.REPALIS_ACCESS_TOKEN ?? '',
     environment: config?.server,
     baseUrl: config?.serverURL,
   })
@@ -99,8 +99,8 @@ const toEventMetadata = (
   return _llm ? { ...eventMetadata, _llm } : eventMetadata
 }
 
-export class PolarIngestion<TContext extends IngestionContext> {
-  public polarClient?: Polar
+export class RepalisIngestion<TContext extends IngestionContext> {
+  public repalisClient?: Repalis
   public metering?: Metering
   private transformers: Transformer<TContext>[] = []
   public costResolver?: (ctx: TContext) => models.CostMetadataInput
@@ -143,11 +143,11 @@ export class PolarIngestion<TContext extends IngestionContext> {
         return
       }
 
-      if (!this.polarClient) {
-        throw new Error('Polar client not initialized')
+      if (!this.repalisClient) {
+        throw new Error('Repalis client not initialized')
       }
 
-      await this.polarClient.events.ingest({
+      await this.repalisClient.events.ingest({
         events: [event],
       })
     })
@@ -185,7 +185,7 @@ export function Ingestion(config?: IngestionTokenConfig | Metering) {
 
   return {
     strategy: ((strategy) => {
-      strategy.polarClient = createTokenClient(config)
+      strategy.repalisClient = createTokenClient(config)
 
       return strategy
     }) satisfies IngestionStrategyAttacher,

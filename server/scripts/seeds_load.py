@@ -15,25 +15,25 @@ from sqlalchemy import delete, func, select
 from sqlalchemy import event as sqlalchemy_event
 from sqlalchemy.orm import joinedload, selectinload
 
-import polar.tasks  # noqa: F401
-from polar.auth.models import AuthSubject
-from polar.auth.scope import Scope
-from polar.benefit.schemas import BenefitCreate
-from polar.benefit.strategies.custom.schemas import BenefitCustomCreate
-from polar.benefit.strategies.downloadables.schemas import BenefitDownloadablesCreate
-from polar.benefit.strategies.feature_flag.schemas import (
+import repalis.tasks  # noqa: F401
+from repalis.auth.models import AuthSubject
+from repalis.auth.scope import Scope
+from repalis.benefit.schemas import BenefitCreate
+from repalis.benefit.strategies.custom.schemas import BenefitCustomCreate
+from repalis.benefit.strategies.downloadables.schemas import BenefitDownloadablesCreate
+from repalis.benefit.strategies.feature_flag.schemas import (
     BenefitFeatureFlagCreate,
     BenefitFeatureFlagCreateProperties,
 )
 
 # Import tasks to register all dramatiq actors
-from polar.benefit.strategies.license_keys.schemas import BenefitLicenseKeysCreate
-from polar.config import settings
-from polar.customer.schemas.customer import CustomerIndividualCreate
-from polar.customer.service import customer as customer_service
-from polar.customer_session.service import CUSTOMER_SESSION_TOKEN_PREFIX
-from polar.dispute.dispute_case import dispute_case as dispute_case_service
-from polar.enums import (
+from repalis.benefit.strategies.license_keys.schemas import BenefitLicenseKeysCreate
+from repalis.config import settings
+from repalis.customer.schemas.customer import CustomerIndividualCreate
+from repalis.customer.service import customer as customer_service
+from repalis.customer_session.service import CUSTOMER_SESSION_TOKEN_PREFIX
+from repalis.dispute.dispute_case import dispute_case as dispute_case_service
+from repalis.enums import (
     PaymentProcessor,
     PayoutAccountType,
     SubscriptionProrationBehavior,
@@ -41,78 +41,78 @@ from polar.enums import (
     TaxBehavior,
     TaxBehaviorOption,
 )
-from polar.event.repository import EventRepository
-from polar.event.service import event as event_service
-from polar.event.system import SystemEvent as SystemEventEnum
-from polar.event_type.repository import EventTypeRepository
-from polar.integrations.tinybird.client import client as tinybird_client
-from polar.integrations.tinybird.service import DATASOURCE_EVENTS
-from polar.integrations.tinybird.service import ingest_events as tinybird_ingest_events
-from polar.kit.crypto import generate_token, generate_token_hash_pair
-from polar.kit.currency import PresentmentCurrency
-from polar.kit.db.postgres import create_async_sessionmaker  # lint-skip: dry-run
-from polar.kit.trial import TrialInterval
-from polar.kit.utils import generate_uuid, utc_now
-from polar.kit.visibility import Visibility
-from polar.meter.aggregation import CountAggregation
-from polar.meter.filter import Filter, FilterClause, FilterConjunction, FilterOperator
-from polar.models.benefit import Benefit, BenefitType
-from polar.models.checkout import Checkout, CheckoutStatus
-from polar.models.checkout_link import CheckoutLink
-from polar.models.checkout_link_product import CheckoutLinkProduct
-from polar.models.checkout_product import CheckoutProduct
-from polar.models.customer import Customer, CustomerType
-from polar.models.customer_seat import CustomerSeat, SeatStatus
-from polar.models.customer_session import CustomerSession
-from polar.models.discount import DiscountDuration, DiscountPercentage
-from polar.models.event import Event as EventModel
-from polar.models.file import File, FileServiceTypes
-from polar.models.member import Member, MemberRole
-from polar.models.meter import Meter
-from polar.models.oauth2_client import OAuth2Client
-from polar.models.order import Order
-from polar.models.organization import (
+from repalis.event.repository import EventRepository
+from repalis.event.service import event as event_service
+from repalis.event.system import SystemEvent as SystemEventEnum
+from repalis.event_type.repository import EventTypeRepository
+from repalis.integrations.tinybird.client import client as tinybird_client
+from repalis.integrations.tinybird.service import DATASOURCE_EVENTS
+from repalis.integrations.tinybird.service import ingest_events as tinybird_ingest_events
+from repalis.kit.crypto import generate_token, generate_token_hash_pair
+from repalis.kit.currency import PresentmentCurrency
+from repalis.kit.db.postgres import create_async_sessionmaker  # lint-skip: dry-run
+from repalis.kit.trial import TrialInterval
+from repalis.kit.utils import generate_uuid, utc_now
+from repalis.kit.visibility import Visibility
+from repalis.meter.aggregation import CountAggregation
+from repalis.meter.filter import Filter, FilterClause, FilterConjunction, FilterOperator
+from repalis.models.benefit import Benefit, BenefitType
+from repalis.models.checkout import Checkout, CheckoutStatus
+from repalis.models.checkout_link import CheckoutLink
+from repalis.models.checkout_link_product import CheckoutLinkProduct
+from repalis.models.checkout_product import CheckoutProduct
+from repalis.models.customer import Customer, CustomerType
+from repalis.models.customer_seat import CustomerSeat, SeatStatus
+from repalis.models.customer_session import CustomerSession
+from repalis.models.discount import DiscountDuration, DiscountPercentage
+from repalis.models.event import Event as EventModel
+from repalis.models.file import File, FileServiceTypes
+from repalis.models.member import Member, MemberRole
+from repalis.models.meter import Meter
+from repalis.models.oauth2_client import OAuth2Client
+from repalis.models.order import Order
+from repalis.models.organization import (
     Organization,
     OrganizationCustomerEmailSettings,
     OrganizationDetails,
     OrganizationStatus,
 )
-from polar.models.organization_access_token import OrganizationAccessToken
-from polar.models.organization_domain import OrganizationDomain
-from polar.models.organization_review import OrganizationReview
-from polar.models.organization_sso_connection import (
+from repalis.models.organization_access_token import OrganizationAccessToken
+from repalis.models.organization_domain import OrganizationDomain
+from repalis.models.organization_review import OrganizationReview
+from repalis.models.organization_sso_connection import (
     OrganizationSSOConnection,
     OrganizationSSOConnectionType,
 )
-from polar.models.payout_account import PayoutAccount
-from polar.models.product import Product
-from polar.models.product_benefit import ProductBenefit
-from polar.models.product_price import (
+from repalis.models.payout_account import PayoutAccount
+from repalis.models.product import Product
+from repalis.models.product_benefit import ProductBenefit
+from repalis.models.product_price import (
     ProductPriceAmountType,
     ProductPriceFixed,
     ProductPriceSeatUnit,
 )
-from polar.models.subscription import Subscription, SubscriptionStatus
-from polar.models.subscription_product_price import SubscriptionProductPrice
-from polar.models.support_case import (
+from repalis.models.subscription import Subscription, SubscriptionStatus
+from repalis.models.subscription_product_price import SubscriptionProductPrice
+from repalis.models.support_case import (
     SupportCase,
     SupportCaseAudience,
     SupportCaseMessage,
     SupportCaseMessageAuthorKind,
     SupportCaseType,
 )
-from polar.models.user import IdentityVerificationStatus, User
-from polar.models.user_organization import UserOrganization
-from polar.models.webhook_endpoint import (
+from repalis.models.user import IdentityVerificationStatus, User
+from repalis.models.user_organization import UserOrganization
+from repalis.models.webhook_endpoint import (
     WebhookEndpoint,
     WebhookEventType,
     WebhookFormat,
 )
-from polar.organization.schemas import OrganizationCreate
-from polar.organization.service import organization as organization_service
-from polar.organization_review.appeal_case import appeal_case as appeal_case_service
-from polar.postgres import AsyncSession, create_async_engine
-from polar.product.schemas import (
+from repalis.organization.schemas import OrganizationCreate
+from repalis.organization.service import organization as organization_service
+from repalis.organization_review.appeal_case import appeal_case as appeal_case_service
+from repalis.postgres import AsyncSession, create_async_engine
+from repalis.product.schemas import (
     ProductCreate,
     ProductCreateOneTime,
     ProductCreateRecurring,
@@ -120,26 +120,26 @@ from polar.product.schemas import (
     ProductPriceMeteredUnitCreate,
     ProductPriceSeatBasedCreate,
 )
-from polar.product.service import product as product_service
-from polar.product.tiers import TiersInput, TierType
-from polar.redis import Redis, create_redis
-from polar.support_case.service import support_case as support_case_service
-from polar.user.repository import UserRepository
-from polar.user.service import user as user_service
-from polar.webhook.service import generate_webhook_secret
-from polar.worker import JobQueueManager
+from repalis.product.service import product as product_service
+from repalis.product.tiers import TiersInput, TierType
+from repalis.redis import Redis, create_redis
+from repalis.support_case.service import support_case as support_case_service
+from repalis.user.repository import UserRepository
+from repalis.user.service import user as user_service
+from repalis.webhook.service import generate_webhook_secret
+from repalis.worker import JobQueueManager
 from scripts.db import assert_dev_or_testing
-from scripts.seed_polar_for_polar import (
-    BENEFITS as POLAR_SELF_BENEFITS,
+from scripts.seed_repalis_for_repalis import (
+    BENEFITS as REPALIS_SELF_BENEFITS,
 )
-from scripts.seed_polar_for_polar import (
-    EXTERNAL_BENEFITS as POLAR_SELF_EXTERNAL_BENEFITS,
+from scripts.seed_repalis_for_repalis import (
+    EXTERNAL_BENEFITS as REPALIS_SELF_EXTERNAL_BENEFITS,
 )
-from scripts.seed_polar_for_polar import (
-    MONTHLY_PRODUCTS as POLAR_SELF_MONTHLY_PRODUCTS,
+from scripts.seed_repalis_for_repalis import (
+    MONTHLY_PRODUCTS as REPALIS_SELF_MONTHLY_PRODUCTS,
 )
-from scripts.seed_polar_for_polar import (
-    PRODUCTS as POLAR_SELF_PRODUCTS,
+from scripts.seed_repalis_for_repalis import (
+    PRODUCTS as REPALIS_SELF_PRODUCTS,
 )
 from tests.fixtures.database import save_fixture_factory
 from tests.fixtures.random_objects import (
@@ -154,7 +154,7 @@ cli = typer.Typer(invoke_without_command=True)
 TINYBIRD_FLUSH_CHUNK = 2500
 SEED_RANDOM_SEED = 20250814
 SIMPLE_COMPLEMENT_SEED_VERSION = "v1"
-SIMPLE_COMPLEMENT_EVENT_NAMESPACE = "polar_seed_simple_complement:"
+SIMPLE_COMPLEMENT_EVENT_NAMESPACE = "repalis_seed_simple_complement:"
 SIMPLE_COMPLEMENT_EVENT_PREFIX = (
     f"{SIMPLE_COMPLEMENT_EVENT_NAMESPACE}{SIMPLE_COMPLEMENT_SEED_VERSION}:"
 )
@@ -170,7 +170,7 @@ EXPECTED_ORGANIZATION_SLUGS = {
     "coldmail",
     "example-news-inc",
     "melted-sql",
-    "polar",
+    "repalis",
     "seatbased-members-corp",
     "widget-industries",
 }
@@ -1065,14 +1065,14 @@ def _build_user_cost_span_events(
     return events
 
 
-async def _seed_polar_self_billing_catalog(
+async def _seed_repalis_self_billing_catalog(
     session: AsyncSession,
     organization: Organization,
     auth_subject: AuthSubject[User],
 ) -> None:
-    """Materialize the Polar self-billing benefits and tier products in the DB."""
+    """Materialize the Repalis self-billing benefits and tier products in the DB."""
     benefits_by_description: dict[str, Benefit] = {}
-    for benefit_data in POLAR_SELF_BENEFITS:
+    for benefit_data in REPALIS_SELF_BENEFITS:
         description = benefit_data["description"]
         metadata = benefit_data["metadata"]
         assert isinstance(description, str)
@@ -1090,7 +1090,7 @@ async def _seed_polar_self_billing_catalog(
         )
         benefits_by_description[description] = benefit
 
-    for product_data in POLAR_SELF_PRODUCTS:
+    for product_data in REPALIS_SELF_PRODUCTS:
         name = product_data["name"]
         description = product_data.get("description")
         metadata = product_data["metadata"]
@@ -1140,25 +1140,25 @@ async def _seed_polar_self_billing_catalog(
             for order, benefit_description in enumerate(
                 description
                 for description in benefit_descriptions
-                if description not in POLAR_SELF_EXTERNAL_BENEFITS
+                if description not in REPALIS_SELF_EXTERNAL_BENEFITS
             )
         ]
 
 
-async def _subscribe_seeded_orgs_to_polar_self(
+async def _subscribe_seeded_orgs_to_repalis_self(
     session: AsyncSession,
 ) -> int:
-    """Add every other seeded org as a team customer of the Polar self org.
+    """Add every other seeded org as a team customer of the Repalis self org.
 
-    The free plan is subscriptionless, so no Polar subscription is created here —
+    The free plan is subscriptionless, so no Repalis subscription is created here —
     customers default to the synthesized free plan until they pick a paid one.
     """
-    polar_self_org = (
+    repalis_self_org = (
         await session.execute(
-            select(Organization).where(Organization.slug == POLAR_ORG_SLUG)
+            select(Organization).where(Organization.slug == REPALIS_ORG_SLUG)
         )
     ).scalar_one_or_none()
-    if polar_self_org is None:
+    if repalis_self_org is None:
         return 0
 
     other_orgs = (
@@ -1166,7 +1166,7 @@ async def _subscribe_seeded_orgs_to_polar_self(
             await session.execute(
                 select(Organization)
                 .where(
-                    Organization.id != polar_self_org.id,
+                    Organization.id != repalis_self_org.id,
                     Organization.deleted_at.is_(None),
                     Organization.status != OrganizationStatus.BLOCKED,
                 )
@@ -1201,7 +1201,7 @@ async def _subscribe_seeded_orgs_to_polar_self(
 
         _create_seed_customer(
             session,
-            polar_self_org,
+            repalis_self_org,
             email=None,
             name=organization.name,
             customer_type=CustomerType.team,
@@ -1685,22 +1685,22 @@ async def _create_simple_fixture_graph(session: AsyncSession) -> None:
         {
             "name": "Admin Org",
             "slug": "admin-org",
-            "email": "admin@polar.sh",
-            "website": "https://polar.sh",
-            "bio": "The admin organization of Polar",
+            "email": "admin@repalis.com",
+            "website": "https://repalis.com",
+            "bio": "The admin organization of Repalis",
             "status": OrganizationStatus.ACTIVE,
             "feature_settings": {
                 "sso_enabled": True,
             },
-            "verified_domain": "polar.sh",
+            "verified_domain": "repalis.sh",
             "sso_connection": {
                 "name": "Local Mock SSO",
                 "issuer": "http://localhost:8080/default",
-                "client_id": "polar",
-                "client_secret": "polar-secret",
+                "client_id": "repalis",
+                "client_secret": "repalis-secret",
             },
             "details": {
-                "about": "Polar is an open source payment infrastructure platform for developers",
+                "about": "Repalis is an open source payment infrastructure platform for developers",
                 "switching": False,
                 "switching_from": None,
                 "product_description": "SaaS platform for payment infrastructure",
@@ -1716,14 +1716,14 @@ async def _create_simple_fixture_graph(session: AsyncSession) -> None:
             ],
         },
         {
-            "name": "Polar",
-            "slug": "polar",
-            "email": "admin@polar.sh",
-            "website": "https://polar.sh",
+            "name": "Repalis",
+            "slug": "repalis",
+            "email": "admin@repalis.com",
+            "website": "https://repalis.com",
             "bio": "Open source payment infrastructure for developers",
             "status": OrganizationStatus.ACTIVE,
             "details": {
-                "about": "Polar is an open source payment infrastructure platform for developers",
+                "about": "Repalis is an open source payment infrastructure platform for developers",
                 "switching": False,
                 "switching_from": None,
                 "product_description": "SaaS platform with usage-based billing for event ingestion",
@@ -1753,7 +1753,7 @@ async def _create_simple_fixture_graph(session: AsyncSession) -> None:
         {
             "name": "SeatBased Members Corp",
             "slug": "seatbased-members-corp",
-            "email": "admin@polar.sh",
+            "email": "admin@repalis.com",
             "website": "https://seatbased-members.com",
             "bio": "Organization with seat-based pricing and members model enabled",
             "status": OrganizationStatus.ACTIVE,
@@ -1778,7 +1778,7 @@ async def _create_simple_fixture_graph(session: AsyncSession) -> None:
             ],
             "seat_based_customers": [
                 {
-                    "email": "customer-with-members@polar.sh",
+                    "email": "customer-with-members@repalis.com",
                     "name": "Customer With Members Inc",
                     "seats_purchased": 5,
                     "seats_allocated": 2,
@@ -1967,8 +1967,8 @@ async def _create_simple_fixture_graph(session: AsyncSession) -> None:
             )
             session.add(coldmail_meter)
 
-        # Create meter for Polar organization
-        if org_data["slug"] == "polar":
+        # Create meter for Repalis organization
+        if org_data["slug"] == "repalis":
             session.add(
                 Meter(
                     id=generate_uuid(),
@@ -1988,7 +1988,7 @@ async def _create_simple_fixture_graph(session: AsyncSession) -> None:
                 ),
             )
 
-            await _seed_polar_self_billing_catalog(
+            await _seed_repalis_self_billing_catalog(
                 session=session,
                 organization=organization,
                 auth_subject=auth_subject,
@@ -2102,7 +2102,7 @@ async def _create_simple_fixture_graph(session: AsyncSession) -> None:
             checkout_links = [
                 CheckoutLink(
                     payment_processor=PaymentProcessor.stripe,
-                    client_secret=generate_token(prefix="polar_cl_"),
+                    client_secret=generate_token(prefix="repalis_cl_"),
                     organization=organization,
                     label=f"{org_data['name']} store",
                     allow_discount_codes=True,
@@ -2118,7 +2118,7 @@ async def _create_simple_fixture_graph(session: AsyncSession) -> None:
                 checkout_links.append(
                     CheckoutLink(
                         payment_processor=PaymentProcessor.stripe,
-                        client_secret="polar_cl_e2e_seed_trial_subscription",
+                        client_secret="repalis_cl_e2e_seed_trial_subscription",
                         organization=organization,
                         label="E2E test checkout",
                         allow_discount_codes=False,
@@ -2136,7 +2136,7 @@ async def _create_simple_fixture_graph(session: AsyncSession) -> None:
         seeded_customers = []
         for i in range(num_customers):
             # customer_email = f"customer_{org_data['slug']}_{i + 1}@example.com"
-            customer_email = f"customer_{org_data['slug']}_{i + 1}@polar.sh"
+            customer_email = f"customer_{org_data['slug']}_{i + 1}@repalis.com"
             customer = _create_seed_customer(
                 session,
                 organization,
@@ -2318,9 +2318,9 @@ async def _create_simple_fixture_graph(session: AsyncSession) -> None:
 
                 await session.flush()
 
-    subscribed = await _subscribe_seeded_orgs_to_polar_self(session)
+    subscribed = await _subscribe_seeded_orgs_to_repalis_self(session)
     if subscribed:
-        print(f"Subscribed {subscribed} organization(s) to the Polar self free plan")
+        print(f"Subscribed {subscribed} organization(s) to the Repalis self free plan")
 
 
 async def _get_seeded_organizations(
@@ -2351,7 +2351,7 @@ async def _simple_seed_is_complete(session: AsyncSession) -> bool:
     sentinel_customer_id = await session.scalar(
         select(Customer.id).where(
             Customer.organization_id == acme.id,
-            Customer.email == "customer_acme-corp_1@polar.sh",
+            Customer.email == "customer_acme-corp_1@repalis.com",
             Customer.deleted_at.is_(None),
         )
     )
@@ -2499,7 +2499,7 @@ async def _create_simple_complement_event_history(
             await session.execute(
                 select(Customer).where(
                     Customer.organization_id.in_(organization_ids),
-                    Customer.email.like(r"customer\_%@polar.sh", escape="\\"),
+                    Customer.email.like(r"customer\_%@repalis.com", escape="\\"),
                     Customer.deleted_at.is_(None),
                 )
             )
@@ -2687,7 +2687,7 @@ async def _create_compass_seed(session: AsyncSession, acme: Organization) -> Non
                         if index < succeeded
                         else CheckoutStatus.expired
                     ),
-                    client_secret=generate_token(prefix="polar_c_"),
+                    client_secret=generate_token(prefix="repalis_c_"),
                     expires_at=opened_at + timedelta(days=1),
                     created_at=opened_at,
                     allow_discount_codes=True,
@@ -2758,12 +2758,12 @@ async def create_simple_complement_seed_data(session: AsyncSession) -> bool:
     return True
 
 
-CLI_OAUTH2_CLIENT_ID = "polar_ci_local_cli"
+CLI_OAUTH2_CLIENT_ID = "repalis_ci_local_cli"
 CLI_OAUTH2_REDIRECT_URI = "http://127.0.0.1:3333/oauth/callback"
 
 
 async def ensure_cli_oauth2_client(session: AsyncSession) -> None:
-    """Register the public client `polar auth login` uses against a local stack."""
+    """Register the public client `repalis auth login` uses against a local stack."""
     existing = await session.scalar(
         select(OAuth2Client).where(OAuth2Client.client_id == CLI_OAUTH2_CLIENT_ID)
     )
@@ -2772,7 +2772,7 @@ async def ensure_cli_oauth2_client(session: AsyncSession) -> None:
     oauth2_client = OAuth2Client(client_id=CLI_OAUTH2_CLIENT_ID, user=None)
     oauth2_client.set_client_metadata(
         {
-            "client_name": "Polar CLI",
+            "client_name": "Repalis CLI",
             "redirect_uris": [CLI_OAUTH2_REDIRECT_URI],
             "token_endpoint_auth_method": "none",
             "grant_types": ["authorization_code", "refresh_token"],
@@ -2797,8 +2797,8 @@ async def create_seed_data(session: AsyncSession, redis: Redis) -> None:
     )
 
 
-POLAR_ORG_SLUG = "polar"
-TOKEN_COMMENT = "Polar self-integration (dev seed)"
+REPALIS_ORG_SLUG = "repalis"
+TOKEN_COMMENT = "Repalis self-integration (dev seed)"
 TOKEN_SCOPE_VALUES = (
     Scope.customers_read,
     Scope.customers_write,
@@ -2820,8 +2820,8 @@ TOKEN_SCOPE_VALUES = (
 )
 TOKEN_SCOPES = " ".join(TOKEN_SCOPE_VALUES)
 
-WEBHOOK_NAME = "Polar self-integration (dev seed)"
-WEBHOOK_URL = "http://127.0.0.1:8000/v1/integrations/polar/webhook"
+WEBHOOK_NAME = "Repalis self-integration (dev seed)"
+WEBHOOK_URL = "http://127.0.0.1:8000/v1/integrations/repalis/webhook"
 WEBHOOK_EVENTS: list[WebhookEventType] = [
     WebhookEventType.benefit_grant_created,
     WebhookEventType.benefit_grant_updated,
@@ -2830,8 +2830,8 @@ WEBHOOK_EVENTS: list[WebhookEventType] = [
     WebhookEventType.order_created,
 ]
 SERVER_ENV_PATH = Path(__file__).resolve().parent.parent / ".env"
-WEBHOOK_SECRET_ENV_KEY = "POLAR_POLAR_WEBHOOK_SECRET"
-SCALE_PRODUCT_NAME = str(POLAR_SELF_MONTHLY_PRODUCTS[-1]["name"])
+WEBHOOK_SECRET_ENV_KEY = "REPALIS_REPALIS_WEBHOOK_SECRET"
+SCALE_PRODUCT_NAME = str(REPALIS_SELF_MONTHLY_PRODUCTS[-1]["name"])
 
 
 def _write_webhook_secret_to_env(secret: str) -> None:
@@ -2867,7 +2867,7 @@ async def create_single_org_seed(
 
     user, _created = await user_service.get_by_email_or_create(
         session=session,
-        email=f"{slug}@polar.sh",
+        email=f"{slug}@repalis.com",
     )
     user_repository = UserRepository.from_session(session)
     await user_repository.update(
@@ -2885,7 +2885,7 @@ async def create_single_org_seed(
         create_schema=OrganizationCreate(name=name, slug=slug),
         auth_subject=auth_subject,
     )
-    organization.email = f"{slug}@polar.sh"
+    organization.email = f"{slug}@repalis.com"
     organization.bio = f"Seeded organization: {name}"
     organization.set_status(OrganizationStatus.ACTIVE)
     organization.details_submitted_at = utc_now()
@@ -2974,7 +2974,7 @@ async def create_single_org_seed(
 
     num_customers = random.randint(5, 10)
     for i in range(num_customers):
-        customer_email = f"customer_{slug}_{i + 1}@polar.sh"
+        customer_email = f"customer_{slug}_{i + 1}@repalis.com"
         customer = await customer_service.create(
             session=session,
             customer_create=CustomerIndividualCreate(
@@ -3073,9 +3073,9 @@ def seeds_load(
     asyncio.run(run())
 
 
-@cli.command(name="polar-self-env")
-def polar_self_env() -> None:
-    """Output Polar self-integration env vars for the seeded Polar org."""
+@cli.command(name="repalis-self-env")
+def repalis_self_env() -> None:
+    """Output Repalis self-integration env vars for the seeded Repalis org."""
 
     async def run() -> None:
         engine = create_async_engine("script")
@@ -3083,7 +3083,7 @@ def polar_self_env() -> None:
         async with sessionmaker() as session:
             org = (
                 await session.execute(
-                    select(Organization).where(Organization.slug == POLAR_ORG_SLUG)
+                    select(Organization).where(Organization.slug == REPALIS_ORG_SLUG)
                 )
             ).scalar_one_or_none()
             if org is None:
@@ -3118,7 +3118,7 @@ def polar_self_env() -> None:
             for t in existing:
                 await session.delete(t)
 
-            token, token_hash = generate_token_hash_pair(prefix="polar_oat_")
+            token, token_hash = generate_token_hash_pair(prefix="repalis_oat_")
             oat = OrganizationAccessToken(
                 organization_id=org.id,
                 token=token_hash,
@@ -3159,11 +3159,11 @@ def polar_self_env() -> None:
 
             _write_webhook_secret_to_env(webhook_secret)
 
-            print(f"POLAR_POLAR_ORGANIZATION_ID={org.id}")
-            print(f"POLAR_POLAR_SCALE_PRODUCT_ID={scale_product.id}")
-            print(f"POLAR_POLAR_ACCESS_TOKEN={token}")
+            print(f"REPALIS_REPALIS_ORGANIZATION_ID={org.id}")
+            print(f"REPALIS_REPALIS_SCALE_PRODUCT_ID={scale_product.id}")
+            print(f"REPALIS_REPALIS_ACCESS_TOKEN={token}")
             print(f"{WEBHOOK_SECRET_ENV_KEY}={webhook_secret}")
-            print("POLAR_POLAR_API_URL=http://127.0.0.1:8000")
+            print("REPALIS_REPALIS_API_URL=http://127.0.0.1:8000")
 
         await engine.dispose()
 

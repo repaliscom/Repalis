@@ -3,23 +3,23 @@ import uuid
 import pytest
 from httpx2 import AsyncClient
 
-from polar.auth.models import AuthSubject
-from polar.kit.utils import utc_now
-from polar.kit.versioning import APIVersion
-from polar.models import (
+from repalis.auth.models import AuthSubject
+from repalis.kit.utils import utc_now
+from repalis.kit.versioning import APIVersion
+from repalis.models import (
     Organization,
     OrganizationDomain,
     OrganizationSSOConnection,
     User,
     UserOrganization,
 )
-from polar.models.organization_sso_connection import (
+from repalis.models.organization_sso_connection import (
     OIDCAuthMethod,
     OIDCConfiguration,
     OrganizationSSOConnectionType,
 )
-from polar.sso.schemas import RESERVED_AUTHORIZATION_PARAMETERS
-from polar.version import V2026_10, V2027_01
+from repalis.sso.schemas import RESERVED_AUTHORIZATION_PARAMETERS
+from repalis.version import V2026_10, V2027_01
 from tests.fixtures.database import SaveFixture
 
 
@@ -345,13 +345,13 @@ class TestCreateSSOConnection:
                     "client_id": "client-id",
                     "auth_method": "client_secret",
                     "client_secret": "secret",
-                    "authorization_parameters": {"hd": "polar.sh"},
+                    "authorization_parameters": {"hd": "repalis.sh"},
                 }
             },
         )
         assert response.status_code == 201
         assert response.json()["configuration"]["authorization_parameters"] == {
-            "hd": "polar.sh"
+            "hd": "repalis.sh"
         }
 
     @pytest.mark.auth

@@ -1,5 +1,5 @@
 // Generated from webhooks:update_webhook_endpoint (2026-10). Do not edit.
-import type { Polar } from '@polar-sh/sdk/2026-10'
+import type { Repalis } from '@repalis/sdk/2026-10'
 import { Effect, Schema } from 'effect'
 import { Argument, Command, Flag } from 'effect/cli'
 import { ApiRuntime, ApiCommandError } from '../runtime'
@@ -13,7 +13,7 @@ import {
 } from '../inputs'
 
 type Body = NonNullable<
-  Parameters<Polar['webhooks']['updateWebhookEndpoint']>[1]
+  Parameters<Repalis['webhooks']['updateWebhookEndpoint']>[1]
 >
 
 export const command = Command.make(

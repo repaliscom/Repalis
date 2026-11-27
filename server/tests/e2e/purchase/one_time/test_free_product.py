@@ -8,7 +8,7 @@ handle_free_success directly (no payment intent, no webhook).
 import pytest
 from httpx2 import AsyncClient
 
-from polar.models import Organization, Product
+from repalis.models import Organization, Product
 from tests.e2e.conftest import E2E_AUTH
 from tests.e2e.infra import DrainFn, EmailCapture
 from tests.e2e.purchase.conftest import BILLING_ADDRESS, BUYER_EMAIL, BUYER_NAME

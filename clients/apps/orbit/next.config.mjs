@@ -6,9 +6,9 @@ const nextConfig = {
   reactStrictMode: true,
   reactCompiler: true,
   experimental: {
-    optimizePackageImports: ['@polar-sh/orbit/icons'],
+    optimizePackageImports: ['@repalis/orbit/icons'],
   },
-  transpilePackages: ['@polar-sh/orbit', 'shiki'],
+  transpilePackages: ['@repalis/orbit', 'shiki'],
 
   ...(TYPE_CHECKED_IN_CI && {
     typescript: { ignoreBuildErrors: true },

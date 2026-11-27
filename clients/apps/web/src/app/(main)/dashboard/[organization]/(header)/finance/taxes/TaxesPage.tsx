@@ -7,18 +7,18 @@ import { useDataTableQueryState } from '@/hooks/useDataTableQueryState'
 import { useDismissed } from '@/hooks/useDismissed'
 import { getAPIParams } from '@/utils/datatable'
 import { fromISODate, toISODate, parseAsISODateString } from '@/utils/metrics'
-import { CloseOutlined } from '@polar-sh/orbit/icons'
-import { schemas } from '@polar-sh/client'
-import { formatCurrency } from '@polar-sh/currency'
-import { Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import { Status } from '@polar-sh/orbit'
+import { CloseOutlined } from '@repalis/orbit/icons'
+import { schemas } from '@repalis/client'
+import { formatCurrency } from '@repalis/currency'
+import { Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import { Status } from '@repalis/orbit'
 import {
   DataTable,
   DataTableColumnDef,
   DataTableColumnHeader,
   Button,
-} from '@polar-sh/orbit'
+} from '@repalis/orbit'
 import { endOfDay, endOfMonth, endOfToday, startOfMonth } from 'date-fns'
 import { useQueryStates } from 'nuqs'
 import { useMemo } from 'react'
@@ -187,14 +187,14 @@ export default function TaxesPage({
                 Merchant of Record
               </Text>
               <Text variant="body" color="muted">
-                Polar collects and remits sales taxes for you automatically. No
+                Repalis collects and remits sales taxes for you automatically. No
                 need for you to register or file in any jurisdictions.
               </Text>
             </Box>
 
             <Button variant="default" asChild>
               <a
-                href="https://polar.sh/docs/merchant-of-record/introduction"
+                href="/docs/merchant-of-record/introduction"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -206,7 +206,7 @@ export default function TaxesPage({
               type="button"
               onClick={dismissMoR}
               aria-label="Dismiss"
-              className="dark:text-polar-500 dark:hover:text-polar-300 absolute top-6 right-6 cursor-pointer text-gray-400 transition-colors hover:text-gray-600"
+              className="dark:text-repalis-500 dark:hover:text-repalis-300 absolute top-6 right-6 cursor-pointer text-gray-400 transition-colors hover:text-gray-600"
             >
               <CloseOutlined fontSize="small" />
             </button>
@@ -218,7 +218,7 @@ export default function TaxesPage({
           flexWrap="wrap"
         >
           <SummaryCard
-            label="Tax remitted by Polar"
+            label="Tax remitted by Repalis"
             value={formatCurrency('accounting')(
               summary?.tax_amount ?? 0,
               summary?.currency ?? 'usd',

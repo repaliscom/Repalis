@@ -15,17 +15,17 @@ def test_renders_code_samples(
     }
 
     assert sources['$["paths"]["/health"]["get"]'] == (
-        'import { createPolar } from "@polar-sh/sdk/2026-04";\n'
+        'import { createRepalis } from "@repalis/sdk/2026-04";\n'
         "\n"
-        "const polar = createPolar({\n"
-        '  accessToken: "polar_oat_xxx",\n'
+        "const repalis = createRepalis({\n"
+        '  accessToken: "repalis_oat_xxx",\n'
         "});\n"
         "\n"
-        "await polar.health.get();\n"
+        "await repalis.health.get();\n"
     )
     pagination = sources['$["paths"]["/accounts/{account_id}/payment-methods"]["get"]']
     assert (
-        "for await (const item of polar.accounts.paymentMethods.iterList(" in pagination
+        "for await (const item of repalis.accounts.paymentMethods.iterList(" in pagination
     )
     assert '"label": "primary"' in pagination
     assert "process.env" not in pagination

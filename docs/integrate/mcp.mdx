@@ -1,64 +1,64 @@
 ---
 title: Model Context Protocol (MCP)
-description: Connect AI agents to Polar to manage products, customers, subscriptions, orders, and more.
+description: Connect AI agents to Repalis to manage products, customers, subscriptions, orders, and more.
 sidebarTitle: MCP
 ---
 
-Use Polar's remote Model Context Protocol (MCP) server to give AI agents secure access to your Polar organization. Agents can look up data and take actions across your products, customers, subscriptions, orders, benefits, and more.
+Use Repalis's remote Model Context Protocol (MCP) server to give AI agents secure access to your Repalis organization. Agents can look up data and take actions across your products, customers, subscriptions, orders, benefits, and more.
 
 <Info>
-  Polar MCP uses OAuth. When you connect a client, your browser opens so you can sign in and authorize access to your organization. You never need to copy an API key into your agent.
+  Repalis MCP uses OAuth. When you connect a client, your browser opens so you can sign in and authorize access to your organization. You never need to copy an API key into your agent.
 </Info>
 
-## Set up with the Polar CLI
+## Set up with the Repalis CLI
 
-The recommended way to connect your agent: the [Polar CLI](/integrate/cli/introduction) detects Claude Code, Codex and Cursor and sets each one up for you. Claude Code and Codex get the [Polar plugin](https://github.com/polarsource/agent-toolkit), which bundles the MCP servers and skills. Run it again with `--force` to update them.
+The recommended way to connect your agent: the [Repalis CLI](/integrate/cli/introduction) detects Claude Code, Codex and Cursor and sets each one up for you. Claude Code and Codex get the [Repalis plugin](https://github.com/repaliscom/agent-toolkit), which bundles the MCP servers and skills. Run it again with `--force` to update them.
 
 ```bash Terminal
-curl -fsSL https://polar.sh/install.sh | bash
-polar agent setup
+curl -fsSL https://repalis.com/install.sh | bash
+repalis agent setup
 ```
 
-Run `polar agent setup --status` to see what is set up. For other agents, `polar agent setup --skills project` installs the Polar skills into `.agents/skills`; then connect the MCP server as described below.
+Run `repalis agent setup --status` to see what is set up. For other agents, `repalis agent setup --skills project` installs the Repalis skills into `.agents/skills`; then connect the MCP server as described below.
 
 ## Connect your agent
 
-To connect a client yourself, use the production server at `https://mcp.polar.sh/mcp/polar-mcp` for your live organization. While building or testing, use the sandbox server at `https://mcp.polar.sh/mcp/polar-sandbox` and give it a distinct name such as `polar-sandbox`.
+To connect a client yourself, use the production server at `https://mcp.repalis.com/mcp/repalis-mcp` for your live organization. While building or testing, use the sandbox server at `https://mcp.repalis.com/mcp/repalis-sandbox` and give it a distinct name such as `repalis-sandbox`.
 
 Choose your client and add the appropriate server.
 
 <Tabs>
   <Tab title="Cursor">
-    Add the following to `.cursor/mcp.json` in your project, or to `~/.cursor/mcp.json` to make Polar available in every project:
+    Add the following to `.cursor/mcp.json` in your project, or to `~/.cursor/mcp.json` to make Repalis available in every project:
 
     ```json
     {
       "mcpServers": {
-        "polar": {
-          "url": "https://mcp.polar.sh/mcp/polar-mcp"
+        "repalis": {
+          "url": "https://mcp.repalis.com/mcp/repalis-mcp"
         }
       }
     }
     ```
 
-    Open Cursor's MCP settings and connect to `polar` to complete authorization.
+    Open Cursor's MCP settings and connect to `repalis` to complete authorization.
   </Tab>
 
   <Tab title="Claude Code">
     Run:
 
     ```bash
-    claude mcp add --transport http polar https://mcp.polar.sh/mcp/polar-mcp
+    claude mcp add --transport http repalis https://mcp.repalis.com/mcp/repalis-mcp
     ```
 
-    Then open `/mcp` in Claude Code and authenticate `polar` with OAuth.
+    Then open `/mcp` in Claude Code and authenticate `repalis` with OAuth.
   </Tab>
 
   <Tab title="ChatGPT">
     In ChatGPT, open **Settings** → **Connectors**, enable developer mode if prompted, and add a custom connector with:
 
-    - **Name:** `Polar`
-    - **MCP server URL:** `https://mcp.polar.sh/mcp/polar-mcp`
+    - **Name:** `Repalis`
+    - **MCP server URL:** `https://mcp.repalis.com/mcp/repalis-mcp`
 
     Save the connector, select **Connect**, and complete authorization in the browser.
   </Tab>
@@ -66,8 +66,8 @@ Choose your client and add the appropriate server.
   <Tab title="Claude Desktop">
     Open **Settings** → **Connectors**, select **Add custom connector**, and enter:
 
-    - **Name:** `Polar`
-    - **MCP server URL:** `https://mcp.polar.sh/mcp/polar-mcp`
+    - **Name:** `Repalis`
+    - **MCP server URL:** `https://mcp.repalis.com/mcp/repalis-mcp`
 
     Save the connector, select **Connect**, and complete authorization in the browser.
   </Tab>
@@ -76,7 +76,7 @@ Choose your client and add the appropriate server.
     Run:
 
     ```bash
-    codex mcp add "polar" --url "https://mcp.polar.sh/mcp/polar-mcp"
+    codex mcp add "repalis" --url "https://mcp.repalis.com/mcp/repalis-mcp"
     ```
 
     Complete the OAuth authorization when prompted.
@@ -86,7 +86,7 @@ Choose your client and add the appropriate server.
     Run:
 
     ```bash
-    opencode mcp add polar --url https://mcp.polar.sh/mcp/polar-mcp
+    opencode mcp add repalis --url https://mcp.repalis.com/mcp/repalis-mcp
     ```
 
     Complete the OAuth authorization when prompted.
@@ -96,7 +96,7 @@ Choose your client and add the appropriate server.
     If your client accepts a remote MCP URL, add:
 
     ```text
-    https://mcp.polar.sh/mcp/polar-mcp
+    https://mcp.repalis.com/mcp/repalis-mcp
     ```
 
     If it only supports local commands, use the `mcp-remote` bridge:
@@ -104,11 +104,11 @@ Choose your client and add the appropriate server.
     ```json
     {
       "mcpServers": {
-        "polar": {
+        "repalis": {
           "command": "npx",
           "args": [
             "mcp-remote",
-            "https://mcp.polar.sh/mcp/polar-mcp"
+            "https://mcp.repalis.com/mcp/repalis-mcp"
           ]
         }
       }
@@ -119,15 +119,15 @@ Choose your client and add the appropriate server.
 
 ## How the tools work
 
-Polar exposes more than a hundred API operations. Instead of sending every operation and its input schema to your agent at the start of every conversation, the server gives it a few tools and lets it write short JavaScript snippets to find and call what it needs:
+Repalis exposes more than a hundred API operations. Instead of sending every operation and its input schema to your agent at the start of every conversation, the server gives it a few tools and lets it write short JavaScript snippets to find and call what it needs:
 
 | Tool | What it does |
 | --- | --- |
-| `search` | Searches Polar's API specification for operations, parameters and response schemas. |
-| `execute` | Calls the Polar API with `polar.request`. The agent can chain calls, page through results and return only the fields it needs. |
-| `search_docs` | Searches the Polar documentation. |
-| `read_docs_page` | Reads a Polar documentation page as Markdown. |
-| `feedback` | Sends your agent's feedback about Polar, these tools or the docs to Polar. Available while telemetry is on. |
+| `search` | Searches Repalis's API specification for operations, parameters and response schemas. |
+| `execute` | Calls the Repalis API with `repalis.request`. The agent can chain calls, page through results and return only the fields it needs. |
+| `search_docs` | Searches the Repalis documentation. |
+| `read_docs_page` | Reads a Repalis documentation page as Markdown. |
+| `feedback` | Sends your agent's feedback about Repalis, these tools or the docs to Repalis. Available while telemetry is on. |
 
 <Steps>
   <Step title="Search">
@@ -138,11 +138,11 @@ Polar exposes more than a hundred API operations. Instead of sending every opera
   </Step>
 </Steps>
 
-Code runs in an isolated sandbox without access to other hosts. Your agent can use `search` to discover the operations available on the connected server. Calls are limited to Polar's MCP operations and the access you granted when you authorized the client.
+Code runs in an isolated sandbox without access to other hosts. Your agent can use `search` to discover the operations available on the connected server. Calls are limited to Repalis's MCP operations and the access you granted when you authorized the client.
 
 ## Read-only mode
 
-For agents that should look up data but never change it, add `?readonly=true` to the server URL, for example `https://mcp.polar.sh/mcp/polar-mcp?readonly=true`. Only read operations are available, and the agent asks for read-only access when you authorize it.
+For agents that should look up data but never change it, add `?readonly=true` to the server URL, for example `https://mcp.repalis.com/mcp/repalis-mcp?readonly=true`. Only read operations are available, and the agent asks for read-only access when you authorize it.
 
 ## Telemetry
 
@@ -162,7 +162,7 @@ Never sent: the ID itself, access tokens, every other tool argument (including t
 
 `intent` and `feedback` are the only text your agent writes that the server sends. Every tool asks the agent to write them without customer names, emails or IDs, and before they are sent or logged the server redacts anything that looks like an identifier or a secret, such as emails, IDs, card numbers and API keys. Redaction matches shapes, not meaning, so a name written in plain words can still pass. If your agent handles data you don't want to share with us at all, opt out.
 
-To opt out, add `?telemetry=false` (or `0`, `no`, `off`) to the server URL, for example `https://mcp.polar.sh/mcp/polar-mcp?telemetry=false`. The server then ignores `intent`, which is neither sent nor written to its request logs, and removes the `feedback` tool. It combines with read-only mode: `?readonly=true&telemetry=false`. The server still keeps request logs to operate and secure the service, as the Polar API does.
+To opt out, add `?telemetry=false` (or `0`, `no`, `off`) to the server URL, for example `https://mcp.repalis.com/mcp/repalis-mcp?telemetry=false`. The server then ignores `intent`, which is neither sent nor written to its request logs, and removes the `feedback` tool. It combines with read-only mode: `?readonly=true&telemetry=false`. The server still keeps request logs to operate and secure the service, as the Repalis API does.
 
 ## Available operations
 

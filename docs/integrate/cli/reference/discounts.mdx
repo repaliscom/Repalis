@@ -1,28 +1,28 @@
 ---
-title: "polar discounts"
+title: "repalis discounts"
 sidebarTitle: "discounts"
 ---
 
-{/* Generated from the CLI by `pnpm --filter @polar-sh/cli docs:generate`. Do not edit by hand. */}
+{/* Generated from the CLI by `pnpm --filter @repalis/cli docs:generate`. Do not edit by hand. */}
 
 ```bash
-polar discounts <subcommand> [flags]
+repalis discounts <subcommand> [flags]
 ```
 
 **Subcommands**
 
-- [`polar discounts create`](#polar-discounts-create) Create a discount.
-- [`polar discounts delete`](#polar-discounts-delete) Delete a discount.
-- [`polar discounts get`](#polar-discounts-get) Get a discount by ID.
-- [`polar discounts list`](#polar-discounts-list) List discounts.
-- [`polar discounts update`](#polar-discounts-update) Update a discount.
+- [`repalis discounts create`](#repalis-discounts-create) Create a discount.
+- [`repalis discounts delete`](#repalis-discounts-delete) Delete a discount.
+- [`repalis discounts get`](#repalis-discounts-get) Get a discount by ID.
+- [`repalis discounts list`](#repalis-discounts-list) List discounts.
+- [`repalis discounts update`](#repalis-discounts-update) Update a discount.
 
-## polar discounts create
+## repalis discounts create
 
 Create a discount.
 
 ```bash
-polar discounts create [flags]
+repalis discounts create [flags]
 ```
 
 **Flags**
@@ -48,12 +48,12 @@ polar discounts create [flags]
 | `--amounts` | `string` | amounts JSON: &#123;"&lt;key&gt;": integer&#125; |
 | `--basis-points` | `integer` | Discount percentage in basis points. |
 
-## polar discounts delete
+## repalis discounts delete
 
 Delete a discount.
 
 ```bash
-polar discounts delete [flags] <id>
+repalis discounts delete [flags] <id>
 ```
 
 **Arguments**
@@ -69,12 +69,12 @@ polar discounts delete [flags] <id>
 | `--confirm`, `-c` | `boolean` | Skip the confirmation prompt for destructive requests |
 | `--org` | `string` | Organization ID or slug for this invocation only |
 
-## polar discounts get
+## repalis discounts get
 
 Get a discount by ID.
 
 ```bash
-polar discounts get [flags] <id>
+repalis discounts get [flags] <id>
 ```
 
 **Arguments**
@@ -90,12 +90,12 @@ polar discounts get [flags] <id>
 | `--fields` | `string` | Only print these fields, comma-separated; use dots for nested ones, e.g. id,name,prices.price_amount |
 | `--org` | `string` | Organization ID or slug for this invocation only |
 
-## polar discounts list
+## repalis discounts list
 
 List discounts.
 
 ```bash
-polar discounts list [flags]
+repalis discounts list [flags]
 ```
 
 **Flags**
@@ -110,12 +110,12 @@ polar discounts list [flags]
 | `--limit` | `integer` | Size of a page, defaults to 10. Maximum is 100. |
 | `--sorting` | `choice` | Sorting criterion. Several criteria can be used simultaneously and will be applied in order. Add a minus sign `-` before the criteria name to sort by descending order. (choices: created_at, -created_at, name, -name, code, -code, redemptions_count, -redemptions_count, ends_at, -ends_at) |
 
-## polar discounts update
+## repalis discounts update
 
 Update a discount.
 
 ```bash
-polar discounts update [flags] <id>
+repalis discounts update [flags] <id>
 ```
 
 **Arguments**

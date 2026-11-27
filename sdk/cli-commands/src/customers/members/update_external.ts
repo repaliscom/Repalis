@@ -1,5 +1,5 @@
 // Generated from customers:members:update_external (2026-10). Do not edit.
-import type { Polar } from '@polar-sh/sdk/2026-10'
+import type { Repalis } from '@repalis/sdk/2026-10'
 import { Effect } from 'effect'
 import { Argument, Command, Flag } from 'effect/cli'
 import { ApiRuntime } from '../../runtime'
@@ -13,7 +13,7 @@ import {
 } from '../../inputs'
 
 type Body = NonNullable<
-  Parameters<Polar['customers']['members']['updateExternal']>[2]
+  Parameters<Repalis['customers']['members']['updateExternal']>[2]
 >
 
 export const command = Command.make(

@@ -4,43 +4,43 @@ description: "Payments and Checkouts made dead simple with Remix"
 ---
 
 <Warning>
-  **`@polar-sh/remix` is deprecated** and no longer maintained. Integrate with
+  **`@repalis/remix` is deprecated** and no longer maintained. Integrate with
   the [TypeScript SDK](/integrate/sdk/typescript) directly instead. The
-  [`polar-integration` skill](https://github.com/polarsource/agent-toolkit/tree/main/skills/polar-integration)
+  [`repalis-integration` skill](https://github.com/repaliscom/agent-toolkit/tree/main/skills/repalis-integration)
   can help you migrate:
 
   ```bash
-  npx skills add https://github.com/polarsource/agent-toolkit --skill polar-integration
+  npx skills add https://github.com/repaliscom/agent-toolkit --skill repalis-integration
   ```
 </Warning>
 
 ## Examples
 
-- [With Remix](https://github.com/polarsource/examples/tree/main/with-remix)
+- [With Remix](https://github.com/repaliscom/examples/tree/main/with-remix)
 
 ## Installation
 
-Install the required Polar packages using the following command:
+Install the required Repalis packages using the following command:
 
 <Tabs>
   <Tab title="npm">
     ```bash Terminal
-    npm install zod @polar-sh/remix
+    npm install zod @repalis/remix
     ```
   </Tab>
   <Tab title="yarn">
     ```bash Terminal
-    yarn add zod @polar-sh/remix
+    yarn add zod @repalis/remix
     ```
   </Tab>
   <Tab title="pnpm">
     ```bash Terminal
-    pnpm add zod @polar-sh/remix
+    pnpm add zod @repalis/remix
     ```
   </Tab>
   <Tab title="bun">
     ```bash Terminal
-    bun add zod @polar-sh/remix
+    bun add zod @repalis/remix
     ```
   </Tab>
 </Tabs>
@@ -51,13 +51,13 @@ Install the required Polar packages using the following command:
 Create a Checkout handler which takes care of redirections.
 
 ```typescript icon="square-js" app/routes/checkout.tsx
-import { Checkout } from "@polar-sh/remix";
+import { Checkout } from "@repalis/remix";
 
 export const loader = Checkout({
-  accessToken: "xxx", // Or set an environment variable to POLAR_ACCESS_TOKEN
+  accessToken: "xxx", // Or set an environment variable to REPALIS_ACCESS_TOKEN
   successUrl: process.env.SUCCESS_URL,
   returnUrl: "https://myapp.com", // An optional URL which renders a back-button in the Checkout
-  server: "sandbox", // Use sandbox if you're testing Polar - omit the parameter or pass 'production' otherwise
+  server: "sandbox", // Use sandbox if you're testing Repalis - omit the parameter or pass 'production' otherwise
   theme: "dark", // Enforces the theme - System-preferred theme will be set if left omitted
 });
 ```
@@ -78,13 +78,13 @@ Pass query params to this route.
 Create a customer portal where your customer can view orders and subscriptions.
 
 ```typescript icon="square-js" app/routes/customer-portal.tsx
-import { CustomerPortal } from "@polar-sh/remix";
+import { CustomerPortal } from "@repalis/remix";
 
 export const loader = CustomerPortal({
-  accessToken: "xxx", // Or set an environment variable to POLAR_ACCESS_TOKEN
-  getCustomerId: (event) => "", // Function to resolve a Polar Customer ID
+  accessToken: "xxx", // Or set an environment variable to REPALIS_ACCESS_TOKEN
+  getCustomerId: (event) => "", // Function to resolve a Repalis Customer ID
   returnUrl: "https://myapp.com", // An optional URL which renders a back-button in the Customer Portal
-  server: "sandbox", // Use sandbox if you're testing Polar - omit the parameter or pass 'production' otherwise
+  server: "sandbox", // Use sandbox if you're testing Repalis - omit the parameter or pass 'production' otherwise
 });
 ```
 
@@ -93,10 +93,10 @@ export const loader = CustomerPortal({
 A simple utility which resolves incoming webhook payloads by signing the webhook secret properly.
 
 ```typescript icon="square-js" app/routes/webhook.tsx
-import { Webhooks } from "@polar-sh/remix";
+import { Webhooks } from "@repalis/remix";
 
 export const action = Webhooks({
-  webhookSecret: process.env.POLAR_WEBHOOK_SECRET!,
+  webhookSecret: process.env.REPALIS_WEBHOOK_SECRET!,
   onPayload: async (payload) => /** Handle payload */,
 })
 ```

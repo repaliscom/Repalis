@@ -5,25 +5,25 @@ import stripe as stripe_lib
 from pydantic import ValidationError
 from pytest_mock import MockerFixture
 
-from polar.customer_portal.schemas.customer import (
+from repalis.customer_portal.schemas.customer import (
     CustomerPaymentMethodCreate,
     CustomerPortalCustomerUpdate,
 )
-from polar.customer_portal.service.customer import (
+from repalis.customer_portal.service.customer import (
     PaymentMethodSetupFailed,
 )
-from polar.customer_portal.service.customer import (
+from repalis.customer_portal.service.customer import (
     customer as customer_service,
 )
-from polar.event.system import SystemEvent
-from polar.exceptions import PolarRequestValidationError
-from polar.integrations.stripe.service import StripeService
-from polar.kit.address import Address, AddressInput, CountryAlpha2, CountryAlpha2Input
-from polar.models import Customer, Organization, PaymentMethod, Product
-from polar.models.checkout import CheckoutStatus
-from polar.models.webhook_endpoint import WebhookEventType
-from polar.postgres import AsyncSession
-from polar.tax.tax_id import TaxIDFormat
+from repalis.event.system import SystemEvent
+from repalis.exceptions import RepalisRequestValidationError
+from repalis.integrations.stripe.service import StripeService
+from repalis.kit.address import Address, AddressInput, CountryAlpha2, CountryAlpha2Input
+from repalis.models import Customer, Organization, PaymentMethod, Product
+from repalis.models.checkout import CheckoutStatus
+from repalis.models.webhook_endpoint import WebhookEventType
+from repalis.postgres import AsyncSession
+from repalis.tax.tax_id import TaxIDFormat
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (
     create_active_subscription,
@@ -37,7 +37,7 @@ from tests.fixtures.stripe import build_stripe_payment_method
 @pytest.fixture(autouse=True)
 def stripe_service_mock(mocker: MockerFixture) -> MagicMock:
     mock = MagicMock(spec=StripeService)
-    mocker.patch("polar.customer_portal.service.customer.stripe_service", new=mock)
+    mocker.patch("repalis.customer_portal.service.customer.stripe_service", new=mock)
     return mock
 
 
@@ -119,7 +119,7 @@ class TestAddPaymentMethod:
         )
         stripe_service_mock.create_setup_intent.return_value = setup_intent
         stripe_service_mock.confirm_setup_intent.return_value = setup_intent
-        enqueue_job_mock = mocker.patch("polar.customer.repository.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.customer.repository.enqueue_job")
 
         result = await customer_service.add_payment_method(
             session,
@@ -168,7 +168,7 @@ class TestAddPaymentMethod:
         )
         stripe_service_mock.create_setup_intent.return_value = setup_intent
         stripe_service_mock.confirm_setup_intent.return_value = setup_intent
-        enqueue_job_mock = mocker.patch("polar.customer.repository.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.customer.repository.enqueue_job")
 
         result = await customer_service.add_payment_method(
             session,
@@ -215,11 +215,11 @@ class TestAddPaymentMethod:
         stripe_service_mock.create_setup_intent.return_value = intent
         stripe_service_mock.confirm_setup_intent.return_value = intent
         mocker.patch(
-            "polar.payment_method.service.stripe_service.get_setup_intent",
+            "repalis.payment_method.service.stripe_service.get_setup_intent",
             return_value=intent,
         )
         mocker.patch(
-            "polar.payment_method.service.stripe_service.get_payment_method",
+            "repalis.payment_method.service.stripe_service.get_payment_method",
             return_value=generated,
         )
 
@@ -253,9 +253,9 @@ class TestDeletePaymentMethod:
         customer.default_payment_method = payment_method
         await save_fixture(customer)
         mocker.patch(
-            "polar.payment_method.service.stripe_service", new=stripe_service_mock
+            "repalis.payment_method.service.stripe_service", new=stripe_service_mock
         )
-        enqueue_job_mock = mocker.patch("polar.customer.repository.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.customer.repository.enqueue_job")
 
         await customer_service.delete_payment_method(session, payment_method)
 
@@ -281,9 +281,9 @@ class TestDeletePaymentMethod:
         customer.default_payment_method = default_payment_method
         await save_fixture(customer)
         mocker.patch(
-            "polar.payment_method.service.stripe_service", new=stripe_service_mock
+            "repalis.payment_method.service.stripe_service", new=stripe_service_mock
         )
-        enqueue_job_mock = mocker.patch("polar.customer.repository.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.customer.repository.enqueue_job")
 
         await customer_service.delete_payment_method(session, payment_method)
 
@@ -307,7 +307,7 @@ class TestUpdate:
             billing_address=None,
             tax_id=None,
         )
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await customer_service.update(
                 session,
                 customer,
@@ -328,7 +328,7 @@ class TestUpdate:
             billing_address=Address(country=CountryAlpha2("GB")),
             tax_id=None,
         )
-        with pytest.raises(PolarRequestValidationError) as exc_info:
+        with pytest.raises(RepalisRequestValidationError) as exc_info:
             await customer_service.update(
                 session,
                 customer,
@@ -352,7 +352,7 @@ class TestUpdate:
             billing_address=Address(country=CountryAlpha2("FR")),
             tax_id=("FR61954506077", TaxIDFormat.eu_vat),
         )
-        with pytest.raises(PolarRequestValidationError) as exc_info:
+        with pytest.raises(RepalisRequestValidationError) as exc_info:
             await customer_service.update(
                 session,
                 customer,
@@ -383,11 +383,11 @@ class TestUpdate:
             session,
             customer,
             CustomerPortalCustomerUpdate(
-                billing_name="Polar Software Inc.",
+                billing_name="Repalis Software Inc.",
             ),
         )
 
-        assert updated_customer.billing_name == "Polar Software Inc."
+        assert updated_customer.billing_name == "Repalis Software Inc."
 
     async def test_valid(
         self,
@@ -402,13 +402,13 @@ class TestUpdate:
             session,
             customer,
             CustomerPortalCustomerUpdate(
-                billing_name="Polar Software Inc.",
+                billing_name="Repalis Software Inc.",
                 billing_address=AddressInput(country=CountryAlpha2Input("FR")),
                 tax_id="FR61954506077",
             ),
         )
 
-        assert updated_customer.billing_name == "Polar Software Inc."
+        assert updated_customer.billing_name == "Repalis Software Inc."
         assert updated_customer.billing_address is not None
         assert updated_customer.billing_address.country == "FR"
         assert updated_customer.tax_id is not None
@@ -481,7 +481,7 @@ class TestUpdate:
         )
 
         mock_validate = mocker.patch(
-            "polar.customer_portal.service.customer.validate_tax_id"
+            "repalis.customer_portal.service.customer.validate_tax_id"
         )
         mock_validate.return_value = ("FR61954506077", TaxIDFormat.eu_vat)
 
@@ -565,7 +565,7 @@ class TestUpdate:
         )
 
         mock_validate = mocker.patch(
-            "polar.customer_portal.service.customer.validate_tax_id"
+            "repalis.customer_portal.service.customer.validate_tax_id"
         )
         mock_validate.return_value = ("FR61954506077", TaxIDFormat.eu_vat)
 
@@ -634,7 +634,7 @@ class TestUpdate:
         organization: Organization,
         product: Product,
     ) -> None:
-        log_mock = mocker.patch("polar.customer_portal.service.customer.log")
+        log_mock = mocker.patch("repalis.customer_portal.service.customer.log")
         customer = await create_customer(
             save_fixture,
             organization=organization,
@@ -681,7 +681,7 @@ class TestUpdate:
         organization: Organization,
         product: Product,
     ) -> None:
-        log_mock = mocker.patch("polar.customer_portal.service.customer.log")
+        log_mock = mocker.patch("repalis.customer_portal.service.customer.log")
         customer = await create_customer(
             save_fixture,
             organization=organization,
@@ -718,7 +718,7 @@ class TestUpdate:
         organization: Organization,
         product: Product,
     ) -> None:
-        log_mock = mocker.patch("polar.customer_portal.service.customer.log")
+        log_mock = mocker.patch("repalis.customer_portal.service.customer.log")
         customer = await create_customer(
             save_fixture,
             organization=organization,

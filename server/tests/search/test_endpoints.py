@@ -3,13 +3,13 @@ import uuid
 import pytest
 from httpx2 import AsyncClient
 
-from polar.auth.scope import Scope
-from polar.enums import SubscriptionRecurringInterval, TaxBehavior
-from polar.models import (
+from repalis.auth.scope import Scope
+from repalis.enums import SubscriptionRecurringInterval, TaxBehavior
+from repalis.models import (
     Organization,
     UserOrganization,
 )
-from polar.postgres import AsyncSession
+from repalis.postgres import AsyncSession
 from tests.fixtures.auth import AuthSubjectFixture
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (

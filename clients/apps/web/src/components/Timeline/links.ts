@@ -1,6 +1,6 @@
 import { buildCustomerDashboardPath } from '@/utils/customer'
 import { buildEventDashboardPath } from '@/utils/event'
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 
 const asId = (value: unknown): string | undefined =>
   typeof value === 'string' && value.length > 0 ? value : undefined

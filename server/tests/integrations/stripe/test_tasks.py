@@ -7,27 +7,27 @@ from dramatiq import Retry
 from pytest_mock import MockerFixture
 from sqlalchemy.orm import selectinload
 
-from polar.customer.repository import CustomerRepository
-from polar.enums import PaymentProcessor, SubscriptionRecurringInterval
-from polar.integrations.stripe.account_risk import UnknownAccountRiskEvaluation
-from polar.integrations.stripe.tasks import (
+from repalis.customer.repository import CustomerRepository
+from repalis.enums import PaymentProcessor, SubscriptionRecurringInterval
+from repalis.integrations.stripe.account_risk import UnknownAccountRiskEvaluation
+from repalis.integrations.stripe.tasks import (
     account_risk_signal,
     payment_intent_succeeded,
     payment_method_automatically_updated,
     payment_method_detached,
 )
-from polar.models import (
+from repalis.models import (
     Customer,
     Organization,
     OrganizationRiskSignal,
     PaymentMethod,
     User,
 )
-from polar.models.organization import OrganizationStatus
-from polar.organization.repository import OrganizationRepository
-from polar.payment_method.repository import PaymentMethodRepository
-from polar.postgres import AsyncSession
-from polar.subscription.repository import SubscriptionRepository
+from repalis.models.organization import OrganizationStatus
+from repalis.organization.repository import OrganizationRepository
+from repalis.payment_method.repository import PaymentMethodRepository
+from repalis.postgres import AsyncSession
+from repalis.subscription.repository import SubscriptionRepository
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (
     create_active_subscription,
@@ -75,7 +75,7 @@ class TestAccountRiskSignal:
         event_mock = mocker.MagicMock()
         event_mock.data = data
         context_mock = mocker.patch(
-            "polar.integrations.stripe.tasks.external_event_service.handle_stripe"
+            "repalis.integrations.stripe.tasks.external_event_service.handle_stripe"
         )
         context_mock.return_value.__aenter__ = AsyncMock(return_value=event_mock)
         context_mock.return_value.__aexit__ = AsyncMock(return_value=None)
@@ -90,7 +90,7 @@ class TestAccountRiskSignal:
             },
         )
         mocker.patch(
-            "polar.integrations.stripe.tasks.stripe_service.get_account_signal",
+            "repalis.integrations.stripe.tasks.stripe_service.get_account_signal",
             new=AsyncMock(
                 return_value={
                     "id": "acctsig_789",
@@ -132,7 +132,7 @@ class TestAccountRiskSignal:
             },
         )
         mocker.patch(
-            "polar.integrations.stripe.tasks.stripe_service.get_account_signal",
+            "repalis.integrations.stripe.tasks.stripe_service.get_account_signal",
             new=AsyncMock(
                 return_value={
                     "id": "acctsig_789",
@@ -182,7 +182,7 @@ class TestAccountRiskSignal:
             },
         )
         mocker.patch(
-            "polar.integrations.stripe.tasks.stripe_service.get_account_signal",
+            "repalis.integrations.stripe.tasks.stripe_service.get_account_signal",
             new=AsyncMock(
                 return_value={
                     "id": "acctsig_123",
@@ -209,7 +209,7 @@ class TestAccountRiskSignal:
         mocker: MockerFixture,
     ) -> None:
         self._mock_unmatched_website_signal(mocker)
-        mocker.patch("polar.integrations.stripe.tasks.can_retry", return_value=True)
+        mocker.patch("repalis.integrations.stripe.tasks.can_retry", return_value=True)
 
         with pytest.raises(Retry):
             await account_risk_signal(uuid.uuid4())
@@ -219,7 +219,7 @@ class TestAccountRiskSignal:
         mocker: MockerFixture,
     ) -> None:
         self._mock_unmatched_website_signal(mocker)
-        mocker.patch("polar.integrations.stripe.tasks.can_retry", return_value=False)
+        mocker.patch("repalis.integrations.stripe.tasks.can_retry", return_value=False)
 
         with pytest.raises(UnknownAccountRiskEvaluation):
             await account_risk_signal(uuid.uuid4())
@@ -275,14 +275,15 @@ class TestPaymentIntentSucceeded:
         event_mock.stripe_data.data.object = payment_intent
 
         context_mock = mocker.patch(
-            "polar.integrations.stripe.tasks.external_event_service.handle_stripe"
+            "repalis.integrations.stripe.tasks.external_event_service.handle_stripe"
         )
         context_mock.return_value.__aenter__ = AsyncMock(return_value=event_mock)
         context_mock.return_value.__aexit__ = AsyncMock(return_value=None)
 
         # Mock Stripe API calls
         mocker.patch(
-            "polar.integrations.stripe.tasks.payment.resolve_order", return_value=order
+            "repalis.integrations.stripe.tasks.payment.resolve_order",
+            return_value=order,
         )
 
         stripe_payment_method = stripe_lib.PaymentMethod.construct_from(
@@ -301,7 +302,7 @@ class TestPaymentIntentSucceeded:
             stripe_lib.api_key,
         )
         mocker.patch(
-            "polar.integrations.stripe.service.stripe.get_payment_method",
+            "repalis.integrations.stripe.service.stripe.get_payment_method",
             return_value=stripe_payment_method,
         )
 
@@ -351,17 +352,18 @@ class TestPaymentIntentSucceeded:
         event_mock.stripe_data.data.object = payment_intent
 
         context_mock = mocker.patch(
-            "polar.integrations.stripe.tasks.external_event_service.handle_stripe"
+            "repalis.integrations.stripe.tasks.external_event_service.handle_stripe"
         )
         context_mock.return_value.__aenter__ = AsyncMock(return_value=event_mock)
         context_mock.return_value.__aexit__ = AsyncMock(return_value=None)
 
         mocker.patch(
-            "polar.integrations.stripe.tasks.payment.resolve_order", return_value=order
+            "repalis.integrations.stripe.tasks.payment.resolve_order",
+            return_value=order,
         )
 
         subscription_service_mock = mocker.patch(
-            "polar.integrations.stripe.tasks.subscription_service.update_payment_method_from_retry"
+            "repalis.integrations.stripe.tasks.subscription_service.update_payment_method_from_retry"
         )
 
         # When: Process webhook
@@ -382,13 +384,13 @@ class TestPaymentIntentSucceeded:
         event_mock.stripe_data.data.object = payment_intent
 
         context_mock = mocker.patch(
-            "polar.integrations.stripe.tasks.external_event_service.handle_stripe"
+            "repalis.integrations.stripe.tasks.external_event_service.handle_stripe"
         )
         context_mock.return_value.__aenter__ = AsyncMock(return_value=event_mock)
         context_mock.return_value.__aexit__ = AsyncMock(return_value=None)
 
         payment_method_service_mock = mocker.patch(
-            "polar.integrations.stripe.tasks.payment_method_service.upsert_from_stripe_payment_intent_for_order"
+            "repalis.integrations.stripe.tasks.payment_method_service.upsert_from_stripe_payment_intent_for_order"
         )
 
         # When: Process webhook
@@ -432,7 +434,7 @@ def patch_stripe_event(
     event_mock.stripe_data.data.object = stripe_object
 
     context_mock = mocker.patch(
-        "polar.integrations.stripe.tasks.external_event_service.handle_stripe"
+        "repalis.integrations.stripe.tasks.external_event_service.handle_stripe"
     )
     context_mock.return_value.__aenter__ = AsyncMock(return_value=event_mock)
     context_mock.return_value.__aexit__ = AsyncMock(return_value=None)
@@ -464,7 +466,7 @@ class TestPaymentMethodDetached:
         # Stripe already detached on their side; our delete_payment_method call
         # would fail — swallow it.
         mocker.patch(
-            "polar.payment_method.service.stripe_service.delete_payment_method",
+            "repalis.payment_method.service.stripe_service.delete_payment_method",
             side_effect=stripe_lib.InvalidRequestError("already detached", param=None),
         )
 
@@ -493,7 +495,7 @@ class TestPaymentMethodDetached:
             build_stripe_card_payment_method(payment_method_id="pm_unknown"),
         )
         delete_mock = mocker.patch(
-            "polar.integrations.stripe.tasks.payment_method_service.delete"
+            "repalis.integrations.stripe.tasks.payment_method_service.delete"
         )
 
         # When: Process webhook
@@ -561,7 +563,7 @@ class TestPaymentMethodAutomaticallyUpdated:
             build_stripe_card_payment_method(payment_method_id="pm_unknown"),
         )
         upsert_mock = mocker.patch(
-            "polar.integrations.stripe.tasks.payment_method_service.upsert_from_stripe"
+            "repalis.integrations.stripe.tasks.payment_method_service.upsert_from_stripe"
         )
 
         await payment_method_automatically_updated(uuid.uuid4())

@@ -1,7 +1,7 @@
 'use client'
 
-import { Client, schemas } from '@polar-sh/client'
-import { Box } from '@polar-sh/orbit/Box'
+import { Client, schemas } from '@repalis/client'
+import { Box } from '@repalis/orbit/Box'
 import { BenefitGrant } from '../Benefit/BenefitGrant'
 import { PortalCard, PortalCardList, PortalSection } from './PortalPrimitives'
 

@@ -1,5 +1,5 @@
-import { Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import { withOffsets } from '@/utils/lines'
 
 const isComment = (line: string) => /^\s*(\/\/|#)/.test(line)

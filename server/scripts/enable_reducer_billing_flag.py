@@ -4,14 +4,14 @@ import typer
 from sqlalchemy import Select, Update, exists, func, literal, select, update
 from sqlalchemy.dialects.postgresql import JSONB
 
-from polar.kit.db.postgres import AsyncSession, create_async_sessionmaker
-from polar.models import (
+from repalis.kit.db.postgres import AsyncSession, create_async_sessionmaker
+from repalis.models import (
     Organization,
     ProductPrice,
     Subscription,
     SubscriptionProductPrice,
 )
-from polar.postgres import create_async_engine
+from repalis.postgres import create_async_engine
 from scripts.helper import (
     configure_script_logging,
     limit_bindparam,

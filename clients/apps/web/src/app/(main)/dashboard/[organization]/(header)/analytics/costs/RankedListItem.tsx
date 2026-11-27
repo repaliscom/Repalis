@@ -1,7 +1,7 @@
 'use client'
 
-import { Grid, GridItem, List, ListItem, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { Grid, GridItem, List, ListItem, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import { ReactNode } from 'react'
 
 interface RankedListItemProps {

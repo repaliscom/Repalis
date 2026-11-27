@@ -3,10 +3,10 @@ from collections.abc import AsyncGenerator
 import httpx2
 import pytest
 
-from polar.backoffice.app import app as backoffice_app
-from polar.backoffice.dependencies import get_admin
-from polar.models.backoffice_user_session import BackofficeUserSession
-from polar.postgres import AsyncSession, get_db_session
+from repalis.backoffice.app import app as backoffice_app
+from repalis.backoffice.dependencies import get_admin
+from repalis.models.backoffice_user_session import BackofficeUserSession
+from repalis.postgres import AsyncSession, get_db_session
 
 
 @pytest.fixture

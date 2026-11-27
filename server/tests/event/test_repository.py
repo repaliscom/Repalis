@@ -6,13 +6,13 @@ import pytest
 from sqlalchemy import event as sqlalchemy_event
 from sqlalchemy import select
 
-from polar.event.repository import _INSERT_STAGED_EVENTS_COLUMNS, EventRepository
-from polar.event.system import SystemEvent
-from polar.kit.utils import utc_now
-from polar.meter.filter import Filter, FilterClause, FilterConjunction, FilterOperator
-from polar.models import Event, Organization, StagedEvent
-from polar.models.event import EventSource
-from polar.postgres import AsyncSession
+from repalis.event.repository import _INSERT_STAGED_EVENTS_COLUMNS, EventRepository
+from repalis.event.system import SystemEvent
+from repalis.kit.utils import utc_now
+from repalis.meter.filter import Filter, FilterClause, FilterConjunction, FilterOperator
+from repalis.models import Event, Organization, StagedEvent
+from repalis.models.event import EventSource
+from repalis.postgres import AsyncSession
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_customer, create_meter
 
@@ -128,7 +128,7 @@ class TestCustomerFilterClause:
 
 
 @pytest.mark.anyio
-class TestGetLatestPolarSelfIngestionTimestamp:
+class TestGetLatestRepalisSelfIngestionTimestamp:
     async def test_returns_latest_for_organization(
         self,
         save_fixture: SaveFixture,
@@ -153,7 +153,7 @@ class TestGetLatestPolarSelfIngestionTimestamp:
         )
 
         repository = EventRepository.from_session(session)
-        result = await repository.get_latest_polar_self_ingestion_timestamp(
+        result = await repository.get_latest_repalis_self_ingestion_timestamp(
             organization.id
         )
 
@@ -165,7 +165,7 @@ class TestGetLatestPolarSelfIngestionTimestamp:
         organization: Organization,
     ) -> None:
         repository = EventRepository.from_session(session)
-        result = await repository.get_latest_polar_self_ingestion_timestamp(
+        result = await repository.get_latest_repalis_self_ingestion_timestamp(
             organization.id
         )
 
@@ -188,7 +188,7 @@ class TestGetLatestPolarSelfIngestionTimestamp:
         )
 
         repository = EventRepository.from_session(session)
-        result = await repository.get_latest_polar_self_ingestion_timestamp(
+        result = await repository.get_latest_repalis_self_ingestion_timestamp(
             organization.id
         )
 
@@ -210,7 +210,7 @@ class TestGetLatestPolarSelfIngestionTimestamp:
         )
 
         repository = EventRepository.from_session(session)
-        result = await repository.get_latest_polar_self_ingestion_timestamp(
+        result = await repository.get_latest_repalis_self_ingestion_timestamp(
             organization.id
         )
 
@@ -573,7 +573,7 @@ class TestGetMetersMatchingCustomers:
         organization: Organization,
         monkeypatch: pytest.MonkeyPatch,
     ) -> None:
-        monkeypatch.setattr("polar.event.repository._METER_MATCH_CHUNK_SIZE", 2)
+        monkeypatch.setattr("repalis.event.repository._METER_MATCH_CHUNK_SIZE", 2)
         customer = await create_customer(save_fixture, organization=organization)
         event = await _create_event(
             save_fixture,

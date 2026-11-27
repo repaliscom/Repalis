@@ -9,9 +9,9 @@ import {
 import { CheckoutStatusDisplayTitle } from '@/utils/checkout'
 import { CheckoutStatus } from './CheckoutStatus'
 import { type DataTableSortingState } from '@/utils/datatable'
-import { schemas } from '@polar-sh/client'
-import { Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { schemas } from '@repalis/client'
+import { Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import { type OnChangeFn } from '@tanstack/react-table'
 import { format } from 'date-fns'
 

@@ -14,11 +14,11 @@ import freezegun
 import pytest
 from httpx2 import AsyncClient
 
-from polar.auth.scope import Scope
-from polar.enums import SubscriptionRecurringInterval
-from polar.kit.db.postgres import AsyncSession
-from polar.models import Organization
-from polar.worker import JobQueueManager
+from repalis.auth.scope import Scope
+from repalis.enums import SubscriptionRecurringInterval
+from repalis.kit.db.postgres import AsyncSession
+from repalis.models import Organization
+from repalis.worker import JobQueueManager
 from tests.e2e.infra import DrainFn, SchedulerSimulator, StripeSimulator
 from tests.e2e.purchase.conftest import complete_purchase
 from tests.fixtures.auth import AuthSubjectFixture

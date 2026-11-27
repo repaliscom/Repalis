@@ -4,41 +4,41 @@ from unittest.mock import AsyncMock, MagicMock
 import pytest
 from pytest_mock import MockerFixture
 
-from polar.auth.models import AuthSubject
-from polar.benefit.grant.service import BenefitGrantService
-from polar.benefit.service import benefit as benefit_service
-from polar.benefit.service import (  # type: ignore[attr-defined]
+from repalis.auth.models import AuthSubject
+from repalis.benefit.grant.service import BenefitGrantService
+from repalis.benefit.service import benefit as benefit_service
+from repalis.benefit.service import (  # type: ignore[attr-defined]
     benefit_grant_service,
 )
-from polar.benefit.strategies import (
+from repalis.benefit.strategies import (
     BenefitPropertiesValidationError,
     BenefitServiceProtocol,
 )
-from polar.benefit.strategies.custom.schemas import (
+from repalis.benefit.strategies.custom.schemas import (
     BenefitCustomCreate,
     BenefitCustomCreateProperties,
     BenefitCustomUpdate,
 )
-from polar.benefit.strategies.discord.schemas import BenefitDiscordUpdate
-from polar.benefit.strategies.downloadables.schemas import (
+from repalis.benefit.strategies.discord.schemas import BenefitDiscordUpdate
+from repalis.benefit.strategies.downloadables.schemas import (
     BenefitDownloadablesCreate,
     BenefitDownloadablesCreateProperties,
     BenefitDownloadablesUpdate,
 )
-from polar.benefit.strategies.feature_flag.schemas import BenefitFeatureFlagUpdate
-from polar.benefit.strategies.github_repository.schemas import (
+from repalis.benefit.strategies.feature_flag.schemas import BenefitFeatureFlagUpdate
+from repalis.benefit.strategies.github_repository.schemas import (
     BenefitGitHubRepositoryUpdate,
 )
-from polar.benefit.strategies.slack_shared_channel.schemas import (
+from repalis.benefit.strategies.slack_shared_channel.schemas import (
     BenefitSlackSharedChannelCreate,
     BenefitSlackSharedChannelCreateProperties,
     BenefitSlackSharedChannelUpdate,
 )
-from polar.exceptions import NotPermitted, PolarRequestValidationError
-from polar.kit.pagination import PaginationParams
-from polar.kit.schemas import Schema
-from polar.kit.visibility import Visibility
-from polar.models import (
+from repalis.exceptions import NotPermitted, RepalisRequestValidationError
+from repalis.kit.pagination import PaginationParams
+from repalis.kit.schemas import Schema
+from repalis.kit.visibility import Visibility
+from repalis.models import (
     Benefit,
     Catalog,
     CatalogBenefit,
@@ -47,10 +47,10 @@ from polar.models import (
     User,
     UserOrganization,
 )
-from polar.models.benefit import BenefitType
-from polar.models.catalog import CatalogStatus
-from polar.postgres import AsyncSession
-from polar.redis import Redis
+from repalis.models.benefit import BenefitType
+from repalis.models.catalog import CatalogStatus
+from repalis.postgres import AsyncSession
+from repalis.redis import Redis
 from tests.fixtures.auth import AuthSubjectFixture
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_benefit
@@ -89,7 +89,7 @@ async def create_slack_integration(
 
 @pytest.fixture
 def enqueue_job_mock(mocker: MockerFixture) -> AsyncMock:
-    return mocker.patch("polar.benefit.service.enqueue_job")
+    return mocker.patch("repalis.benefit.service.enqueue_job")
 
 
 @pytest.mark.anyio
@@ -369,7 +369,7 @@ class TestUserCreate:
         # then
         session.expunge_all()
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await benefit_service.user_create(
                 session, redis, create_schema, auth_subject
             )
@@ -388,7 +388,7 @@ class TestUserCreate:
         # then
         session.expunge_all()
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await benefit_service.user_create(
                 session, redis, create_schema, auth_subject
             )
@@ -411,7 +411,7 @@ class TestUserCreate:
         # then
         session.expunge_all()
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await benefit_service.user_create(
                 session, redis, create_schema, auth_subject
             )
@@ -466,7 +466,7 @@ class TestUserCreate:
 
         session.expunge_all()
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await benefit_service.user_create(
                 session, redis, create_schema, auth_subject
             )
@@ -528,7 +528,7 @@ class TestUserCreate:
         # then
         session.expunge_all()
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await benefit_service.user_create(
                 session, redis, create_schema, auth_subject
             )
@@ -554,7 +554,7 @@ class TestUserCreate:
                 }
             ]
         )
-        mock = mocker.patch("polar.benefit.service.get_benefit_strategy")
+        mock = mocker.patch("repalis.benefit.service.get_benefit_strategy")
         mock.return_value = service_mock
 
         create_schema = BenefitCustomCreate(
@@ -585,7 +585,7 @@ class TestUserCreate:
         service_mock = MagicMock(spec=BenefitServiceProtocol)
         service_mock.validate_properties.return_value = {"note": None}
         mocker.patch(
-            "polar.benefit.service.get_benefit_strategy", return_value=service_mock
+            "repalis.benefit.service.get_benefit_strategy", return_value=service_mock
         )
 
         create_schema = BenefitCustomCreate(
@@ -614,7 +614,7 @@ class TestUserCreate:
         service_mock = MagicMock(spec=BenefitServiceProtocol)
         service_mock.validate_properties.return_value = {"note": None}
         mocker.patch(
-            "polar.benefit.service.get_benefit_strategy", return_value=service_mock
+            "repalis.benefit.service.get_benefit_strategy", return_value=service_mock
         )
 
         create_schema = BenefitCustomCreate(
@@ -646,7 +646,7 @@ class TestUserCreate:
         service_mock = MagicMock(spec=BenefitServiceProtocol)
         service_mock.validate_properties.return_value = {}
         mocker.patch(
-            "polar.benefit.service.get_benefit_strategy", return_value=service_mock
+            "repalis.benefit.service.get_benefit_strategy", return_value=service_mock
         )
 
         create_schema = BenefitDownloadablesCreate(
@@ -657,7 +657,7 @@ class TestUserCreate:
             visibility=visibility,
         )
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await benefit_service.user_create(
                 session, redis, create_schema, auth_subject
             )
@@ -675,7 +675,7 @@ class TestUserCreate:
         service_mock = MagicMock(spec=BenefitServiceProtocol)
         service_mock.validate_properties.return_value = {}
         mocker.patch(
-            "polar.benefit.service.get_benefit_strategy", return_value=service_mock
+            "repalis.benefit.service.get_benefit_strategy", return_value=service_mock
         )
 
         file_id = uuid.uuid4()
@@ -710,7 +710,7 @@ class TestUserCreate:
             save_fixture, organization=organization, external_id="ext_1337"
         )
 
-        with pytest.raises(PolarRequestValidationError) as e:
+        with pytest.raises(RepalisRequestValidationError) as e:
             await benefit_service.user_create(
                 session,
                 redis,
@@ -940,7 +940,7 @@ class TestUpdate:
             save_fixture, organization=organization, external_id="ext_1337"
         )
 
-        with pytest.raises(PolarRequestValidationError) as e:
+        with pytest.raises(RepalisRequestValidationError) as e:
             await benefit_service.update(
                 session,
                 redis,

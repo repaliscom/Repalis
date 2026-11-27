@@ -5,13 +5,13 @@ from httpx2 import AsyncClient
 from pytest_mock import MockerFixture
 from redis.exceptions import RedisError
 
-from polar.auth.scope import Scope
-from polar.enums import SubscriptionRecurringInterval
-from polar.kit.time_queries import TimeInterval
-from polar.metrics.service import metrics as metrics_service
-from polar.models import Customer, Organization, Product, UserOrganization
-from polar.redis import Redis
-from polar.version import V2027_01
+from repalis.auth.scope import Scope
+from repalis.enums import SubscriptionRecurringInterval
+from repalis.kit.time_queries import TimeInterval
+from repalis.metrics.service import metrics as metrics_service
+from repalis.models import Customer, Organization, Product, UserOrganization
+from repalis.redis import Redis
+from repalis.version import V2027_01
 from tests.fixtures.auth import AuthSubjectFixture
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_active_subscription, create_product

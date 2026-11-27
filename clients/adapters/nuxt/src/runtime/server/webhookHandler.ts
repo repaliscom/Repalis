@@ -1,6 +1,6 @@
-import { handleWebhookPayload } from '@polar-sh/adapter-utils'
-import type { WebhooksConfig } from '@polar-sh/adapter-utils'
-import { webhooks } from '@polar-sh/sdk/2026-10'
+import { handleWebhookPayload } from '@repalis/adapter-utils'
+import type { WebhooksConfig } from '@repalis/adapter-utils'
+import { webhooks } from '@repalis/sdk/2026-10'
 import type { H3Event } from 'h3'
 import { getHeader, readRawBody, setResponseStatus } from 'h3'
 
@@ -28,18 +28,18 @@ export const Webhooks = ({
         webhookSecret,
       )
     } catch (error) {
-      if (error instanceof webhooks.PolarWebhookVerificationError) {
+      if (error instanceof webhooks.RepalisWebhookVerificationError) {
         setResponseStatus(event, 403)
         return { received: false }
       }
 
-      if (error instanceof webhooks.PolarWebhookUnknownTypeError) {
+      if (error instanceof webhooks.RepalisWebhookUnknownTypeError) {
         const received = error.eventType !== null
         setResponseStatus(event, received ? 200 : 400)
         return { received }
       }
 
-      if (error instanceof webhooks.PolarWebhookError) {
+      if (error instanceof webhooks.RepalisWebhookError) {
         setResponseStatus(event, 400)
         return { received: false }
       }

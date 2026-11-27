@@ -21,12 +21,12 @@ import {
   isEarlyMember,
   pickBestPlanSavings,
 } from '@/utils/planSavings'
-import { CheckOutlined, CloseOutlined } from '@polar-sh/orbit/icons'
-import { schemas } from '@polar-sh/client'
-import { formatCurrency } from '@polar-sh/currency'
-import { Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import { Button } from '@polar-sh/orbit'
+import { CheckOutlined, CloseOutlined } from '@repalis/orbit/icons'
+import { schemas } from '@repalis/client'
+import { formatCurrency } from '@repalis/currency'
+import { Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import { Button } from '@repalis/orbit'
 import { subDays } from 'date-fns'
 import Link from 'next/link'
 import { useMemo } from 'react'
@@ -314,7 +314,7 @@ export const PlanUpsell = ({ organization }: PlanUpsellProps) => {
         type="button"
         onClick={dismiss}
         aria-label="Dismiss"
-        className="dark:text-polar-500 dark:hover:text-polar-300 absolute top-6 right-6 cursor-pointer text-gray-400 transition-colors hover:text-gray-600"
+        className="dark:text-repalis-500 dark:hover:text-repalis-300 absolute top-6 right-6 cursor-pointer text-gray-400 transition-colors hover:text-gray-600"
       >
         <CloseOutlined fontSize="small" />
       </button>

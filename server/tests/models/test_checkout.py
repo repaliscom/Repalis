@@ -6,20 +6,20 @@ from decimal import Decimal
 import pytest
 from sqlalchemy.orm import selectinload
 
-from polar.checkout.repository import CheckoutRepository
-from polar.config import Environment, settings
-from polar.enums import SubscriptionRecurringInterval
-from polar.kit.address import Address, CountryAlpha2
-from polar.kit.trial import TrialInterval
-from polar.models import Checkout, CheckoutProduct, Meter, Organization, Product
-from polar.models.checkout import BillingAddressFieldMode, CheckoutStatus
-from polar.models.product_price import (
+from repalis.checkout.repository import CheckoutRepository
+from repalis.config import Environment, settings
+from repalis.enums import SubscriptionRecurringInterval
+from repalis.kit.address import Address, CountryAlpha2
+from repalis.kit.trial import TrialInterval
+from repalis.models import Checkout, CheckoutProduct, Meter, Organization, Product
+from repalis.models.checkout import BillingAddressFieldMode, CheckoutStatus
+from repalis.models.product_price import (
     ProductPriceMeteredUnit,
     ProductPriceSeatUnit,
     ProductPriceSource,
 )
-from polar.postgres import AsyncSession
-from polar.product.price_set import PriceSet
+from repalis.postgres import AsyncSession
+from repalis.product.price_set import PriceSet
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_checkout, create_product
 

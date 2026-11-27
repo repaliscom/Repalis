@@ -2,17 +2,17 @@
 
 import { useDiscount, useDiscounts } from '@/hooks/queries'
 import { getDiscountDisplay } from '@/utils/discount'
-import { schemas } from '@polar-sh/client'
-import { Button } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import { X as XIcon } from '@polar-sh/orbit/icons'
-import { Combobox } from '@polar-sh/ui/components/atoms/Combobox'
+import { schemas } from '@repalis/client'
+import { Button } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import { X as XIcon } from '@repalis/orbit/icons'
+import { Combobox } from '@repalis/ui/components/atoms/Combobox'
 import {
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-} from '@polar-sh/ui/components/ui/form'
+} from '@repalis/ui/components/ui/form'
 import { useState } from 'react'
 import { Control, useWatch } from 'react-hook-form'
 import { isDiscountApplicableToProduct } from './utils'

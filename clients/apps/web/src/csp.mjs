@@ -15,7 +15,7 @@ const baseCSP = () => `
     frame-src 'self' https://challenges.cloudflare.com https://*.js.stripe.com https://js.stripe.com https://hooks.stripe.com https://customer-wl21dabnj6qtvcai.cloudflarestream.com videodelivery.net *.cloudflarestream.com;
     script-src 'self' 'unsafe-eval' 'unsafe-inline' https://challenges.cloudflare.com https://*.js.stripe.com https://js.stripe.com https://maps.googleapis.com https://www.googletagmanager.com https://chat.cdn-plain.com https://embed.cloudflarestream.com;
     style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
-    img-src 'self' blob: data: https://www.gravatar.com https://img.logo.dev https://lh3.googleusercontent.com https://avatars.githubusercontent.com https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com ${S3_PUBLIC_IMAGES_BUCKET_ORIGIN} https://uploads.polar.sh https://prod-uk-services-workspac-workspacefilespublicbuck-vs4gjqpqjkh6.s3.amazonaws.com https://prod-uk-services-attachm-attachmentsbucket28b3ccf-uwfssb4vt2us.s3.eu-west-2.amazonaws.com https://i0.wp.com;
+    img-src 'self' blob: data: https://www.gravatar.com https://img.logo.dev https://lh3.googleusercontent.com https://avatars.githubusercontent.com https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com ${S3_PUBLIC_IMAGES_BUCKET_ORIGIN} https://uploads.repalis.com https://prod-uk-services-workspac-workspacefilespublicbuck-vs4gjqpqjkh6.s3.amazonaws.com https://prod-uk-services-attachm-attachmentsbucket28b3ccf-uwfssb4vt2us.s3.eu-west-2.amazonaws.com https://i0.wp.com;
     font-src 'self';
     object-src 'none';
     base-uri 'self';
@@ -24,7 +24,7 @@ const baseCSP = () => `
 export const nonEmbeddedCSP = () =>
   flatten(`
   ${baseCSP()}
-  form-action 'self' ${process.env.NEXT_PUBLIC_API_URL} polar:;
+  form-action 'self' ${process.env.NEXT_PUBLIC_API_URL} repalis:;
   frame-ancestors 'none';
 `)
 // Don't add form-action to the OAuth2 authorize page, as it blocks the OAuth2 redirection
@@ -35,7 +35,7 @@ export const oauth2CSP = () =>
   frame-ancestors 'none';
 `)
 
-// We rewrite Mintlify docs to polar.sh/docs, so we need a specific CSP for them
+// We rewrite Mintlify docs to repalis.com/docs, so we need a specific CSP for them
 // Ref: https://www.mintlify.com/docs/guides/csp-configuration#content-security-policy-csp-configuration
 export const docsCSP = () =>
   flatten(`
@@ -48,12 +48,12 @@ export const docsCSP = () =>
   img-src 'self' data: blob: d3gk2c5xim1je2.cloudfront.net mintcdn.com *.mintcdn.com cdn.jsdelivr.net mintlify.s3.us-west-1.amazonaws.com https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com;
   connect-src 'self' *.mintlify.dev *.mintlify.com d1ctpt7j8wusba.cloudfront.net mintcdn.com *.mintcdn.com
   api.mintlifytrieve.com www.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com cdn.segment.com plausible.io us.posthog.com browser.sentry-cdn.com;
-  frame-src 'self' *.mintlify.dev https://polar-public-assets.s3.us-east-2.amazonaws.com;
+  frame-src 'self' *.mintlify.dev https://repalis-public-assets.s3.us-east-2.amazonaws.com;
 `)
 
 export const frameAncestorsCSP = (frameAncestors) =>
   flatten(`
   ${baseCSP()}
-  form-action 'self' ${process.env.NEXT_PUBLIC_API_URL} polar:;
+  form-action 'self' ${process.env.NEXT_PUBLIC_API_URL} repalis:;
   frame-ancestors ${frameAncestors};
 `)

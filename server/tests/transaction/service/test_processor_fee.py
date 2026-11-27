@@ -6,14 +6,14 @@ import pytest
 import stripe as stripe_lib
 from pytest_mock import MockerFixture
 
-from polar.integrations.stripe.service import StripeService
-from polar.models import Customer, Order, Organization, Payment, Product, Transaction
-from polar.models.transaction import Processor, ProcessorFeeType, TransactionType
-from polar.postgres import AsyncSession
-from polar.transaction.service.processor_fee import (
+from repalis.integrations.stripe.service import StripeService
+from repalis.models import Customer, Order, Organization, Payment, Product, Transaction
+from repalis.models.transaction import Processor, ProcessorFeeType, TransactionType
+from repalis.postgres import AsyncSession
+from repalis.transaction.service.processor_fee import (
     BalanceTransactionNotFound,
 )
-from polar.transaction.service.processor_fee import (
+from repalis.transaction.service.processor_fee import (
     processor_fee_transaction as processor_fee_transaction_service,
 )
 from tests.fixtures.database import SaveFixture
@@ -32,7 +32,7 @@ from tests.transaction.conftest import create_async_iterator
 @pytest.fixture(autouse=True)
 def stripe_service_mock(mocker: MockerFixture) -> MagicMock:
     mock = MagicMock(spec=StripeService)
-    mocker.patch("polar.transaction.service.processor_fee.stripe_service", new=mock)
+    mocker.patch("repalis.transaction.service.processor_fee.stripe_service", new=mock)
     return mock
 
 

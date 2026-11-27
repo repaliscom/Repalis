@@ -7,24 +7,24 @@ import pytest
 from pydantic import ValidationError
 from pytest_mock import MockerFixture
 
-from polar.auth.models import AuthSubject
-from polar.benefit.strategies import (
+from repalis.auth.models import AuthSubject
+from repalis.benefit.strategies import (
     BenefitActionRequiredError,
     BenefitPropertiesValidationError,
     BenefitRetriableError,
 )
-from polar.benefit.strategies.slack_shared_channel.properties import (
+from repalis.benefit.strategies.slack_shared_channel.properties import (
     BenefitGrantSlackSharedChannelProperties,
     BenefitSlackSharedChannelProperties,
 )
-from polar.benefit.strategies.slack_shared_channel.schemas import (
+from repalis.benefit.strategies.slack_shared_channel.schemas import (
     BenefitSlackSharedChannelCreateProperties,
 )
-from polar.benefit.strategies.slack_shared_channel.service import (
+from repalis.benefit.strategies.slack_shared_channel.service import (
     BenefitSlackSharedChannelService,
 )
-from polar.locker import Locker
-from polar.models import (
+from repalis.locker import Locker
+from repalis.models import (
     Benefit,
     Customer,
     Organization,
@@ -32,9 +32,9 @@ from polar.models import (
     User,
     UserOrganization,
 )
-from polar.models.benefit import BenefitType
-from polar.postgres import AsyncSession
-from polar.redis import Redis
+from repalis.models.benefit import BenefitType
+from repalis.postgres import AsyncSession
+from repalis.redis import Redis
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (
     create_benefit,

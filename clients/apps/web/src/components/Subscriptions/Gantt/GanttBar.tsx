@@ -5,8 +5,8 @@ import {
   type TimelineSegment,
   type TimelineSegmentKind,
 } from '@/utils/subscriptionTimeline'
-import { Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import {
   BAR_HEIGHT,
   BAR_RADIUS,

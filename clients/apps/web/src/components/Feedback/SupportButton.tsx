@@ -1,6 +1,6 @@
-import { Support as SupportIcon } from '@polar-sh/orbit/icons'
-import { schemas } from '@polar-sh/client'
-import { useSidebar } from '@polar-sh/ui/components/atoms/Sidebar'
+import { Support as SupportIcon } from '@repalis/orbit/icons'
+import { schemas } from '@repalis/client'
+import { useSidebar } from '@repalis/ui/components/atoms/Sidebar'
 import { twMerge } from 'tailwind-merge'
 
 import { FeedbackModal } from './FeedbackModal'
@@ -22,7 +22,7 @@ export const SupportButton = ({
         onClick={open}
         className={twMerge(
           'flex cursor-pointer flex-row items-center rounded-lg border border-transparent px-2 text-sm transition-colors dark:border-transparent',
-          'dark:text-polar-500 dark:hover:text-polar-200 text-gray-500 hover:text-black',
+          'dark:text-repalis-500 dark:hover:text-repalis-200 text-gray-500 hover:text-black',
         )}
       >
         <SupportIcon fontSize="inherit" />

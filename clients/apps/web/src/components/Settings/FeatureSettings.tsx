@@ -3,9 +3,9 @@
 import { useUpdateOrganization } from '@/hooks/queries'
 import { useAutoSave } from '@/hooks/useAutoSave'
 import { extractApiErrorMessage, setValidationErrors } from '@/utils/api/errors'
-import { isValidationError, schemas } from '@polar-sh/client'
-import { Switch } from '@polar-sh/orbit'
-import { Form, FormField } from '@polar-sh/ui/components/ui/form'
+import { isValidationError, schemas } from '@repalis/client'
+import { Switch } from '@repalis/orbit'
+import { Form, FormField } from '@repalis/ui/components/ui/form'
 import { useForm } from 'react-hook-form'
 import { toast } from '../Toast/use-toast'
 import { SettingsGroup, SettingsGroupItem } from './SettingsGroup'
@@ -83,7 +83,7 @@ export default function FeatureSettings({
               <>
                 Show{' '}
                 <a
-                  href="https://polar.sh/docs/features/checkout/localization"
+                  href="https://repalis.com/docs/features/checkout/localization"
                   target="_blank"
                   className="underline"
                   rel="noreferrer noopener"

@@ -18,9 +18,9 @@ import freezegun
 import pytest
 from httpx2 import AsyncClient
 
-from polar.kit.db.postgres import AsyncSession
-from polar.models import Organization, Product
-from polar.models.billing_entry import (
+from repalis.kit.db.postgres import AsyncSession
+from repalis.models import Organization, Product
+from repalis.models.billing_entry import (
     BillingEntryDirection,
     BillingEntryType,
 )

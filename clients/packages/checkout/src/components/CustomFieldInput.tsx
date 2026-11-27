@@ -1,4 +1,4 @@
-import type { schemas } from '@polar-sh/client'
+import type { schemas } from '@repalis/client'
 
 import { Input } from './ui/Input'
 import {
@@ -16,7 +16,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@polar-sh/ui/components/ui/form'
+} from '@repalis/ui/components/ui/form'
 import type { MarkdownToJSX } from 'markdown-to-jsx'
 import Markdown from 'markdown-to-jsx'
 import type { ControllerRenderProps } from 'react-hook-form'

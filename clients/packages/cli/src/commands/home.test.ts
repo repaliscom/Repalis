@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest'
 import { Effect } from 'effect'
-import { polar } from '@/commands/home'
+import { repalis } from '@/commands/home'
 import { AuthError, type ActiveOrganization } from '@/schemas/Auth'
 import { Auth } from '@/services/auth'
 import { Organizations } from '@/services/organizations'
@@ -23,7 +23,7 @@ const render = (
   auth: ReturnType<typeof fakeAuth>,
   organizations: ReturnType<typeof fakeOrganizations>,
 ) => {
-  const cli = runCli(polar, [])
+  const cli = runCli(repalis, [])
   return Effect.runPromise(
     cli.effect.pipe(
       Effect.provideService(Auth, auth.auth),
@@ -36,13 +36,13 @@ describe('home', () => {
   test('points a new user at login', async () => {
     const output = await render(fakeAuth({ sessions: [] }), fakeOrganizations())
 
-    expect(output).toContain(`Polar CLI ${VERSION}`)
-    expect(output).toMatch(/^ {2}▄▄▄▄▄████ {2}██ {5}Polar CLI /m)
+    expect(output).toContain(`Repalis CLI ${VERSION}`)
+    expect(output).toMatch(/^ {2}▄▄▄▄▄████ {2}██ {5}Repalis CLI /m)
     expect(output).toContain('Not logged in')
-    expect(output).toContain('polar auth login --sandbox')
-    expect(output).toContain('Or set POLAR_ACCESS_TOKEN')
+    expect(output).toContain('repalis auth login --sandbox')
+    expect(output).toContain('Or set REPALIS_ACCESS_TOKEN')
     expect(output).not.toContain('Try next')
-    expect(output).toContain('polar --help')
+    expect(output).toContain('repalis --help')
   })
 
   test('shows the session, the active organization and what to try next', async () => {
@@ -56,9 +56,9 @@ describe('home', () => {
 
     expect(output).toContain('Logged in     sandbox')
     expect(output).toContain('Organization  Acme sandbox')
-    expect(output).toContain('polar webhook listen 3000')
-    expect(output).toContain('polar webhook trigger order.paid')
-    expect(output).toContain('polar auth org')
+    expect(output).toContain('repalis webhook listen 3000')
+    expect(output).toContain('repalis webhook trigger order.paid')
+    expect(output).toContain('repalis auth org')
   })
 
   test('asks for an organization when none is active', async () => {
@@ -68,7 +68,7 @@ describe('home', () => {
     )
 
     expect(output).toContain('No active organization')
-    expect(output).toContain('Run polar auth org to choose one')
+    expect(output).toContain('Run repalis auth org to choose one')
   })
 
   test('describes a token override without suggesting a session switch', async () => {
@@ -77,7 +77,7 @@ describe('home', () => {
       fakeOrganizations({ items: [acme] }),
     )
 
-    expect(output).toContain('POLAR_ACCESS_TOKEN')
+    expect(output).toContain('REPALIS_ACCESS_TOKEN')
     expect(output).toContain('Organization  Acme sandbox')
     expect(output).not.toContain('Switch organization')
   })
@@ -101,7 +101,7 @@ describe('home', () => {
     )
 
     expect(output).toContain('Could not read your saved session')
-    expect(output).toContain('polar auth whoami')
-    expect(output).toContain('polar --help')
+    expect(output).toContain('repalis auth whoami')
+    expect(output).toContain('repalis --help')
   })
 })

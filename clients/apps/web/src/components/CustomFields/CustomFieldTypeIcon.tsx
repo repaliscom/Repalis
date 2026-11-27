@@ -4,8 +4,8 @@ import {
   List,
   Numbers,
   TextSnippet,
-} from '@polar-sh/orbit/icons'
-import { schemas } from '@polar-sh/client'
+} from '@repalis/orbit/icons'
+import { schemas } from '@repalis/client'
 
 const iconMap: Record<schemas['CustomFieldType'], typeof TextSnippet> = {
   text: TextSnippet,

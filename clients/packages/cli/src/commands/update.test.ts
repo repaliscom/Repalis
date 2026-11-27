@@ -38,7 +38,7 @@ describe('update command', () => {
       },
     })
   const releases =
-    'https://api.github.com/repos/polarsource/polar/releases?per_page=100&page=1'
+    'https://api.github.com/repos/repaliscom/Repalis/releases?per_page=100&page=1'
   const runUpdate = (
     args: string[],
     updater: ReturnType<typeof fakeUpdater>,
@@ -62,7 +62,7 @@ describe('update command', () => {
     const http = fakeHttp({
       [releases]: Response.json([
         {
-          tag_name: `@polar-sh/cli@${VERSION.slice(1)}`,
+          tag_name: `@repalis/cli@${VERSION.slice(1)}`,
           draft: false,
           prerelease: false,
           assets: [],
@@ -113,7 +113,7 @@ describe('update command', () => {
 
   test('surfaces package manager failures', async () => {
     const failure = new UpdaterError({
-      message: 'npm install --global @polar-sh/cli@9.9.9 exited with code 1',
+      message: 'npm install --global @repalis/cli@9.9.9 exited with code 1',
     })
     const { promise } = runUpdate([], fakeUpdater('yarn', 'v9.9.9', failure))
 
@@ -140,11 +140,11 @@ describe('downloadAndUpdate', () => {
   let binaryPath: string
 
   beforeEach(async () => {
-    dir = await mkdtemp(join(tmpdir(), 'polar-test-'))
-    binaryPath = join(dir, 'polar')
+    dir = await mkdtemp(join(tmpdir(), 'repalis-test-'))
+    binaryPath = join(dir, 'repalis')
     await writeFile(binaryPath, 'old binary')
     vi.spyOn(Bun, 'spawn').mockImplementation(((command: string[]) => {
-      writeFileSync(join(command.at(-1)!, 'polar'), 'new binary')
+      writeFileSync(join(command.at(-1)!, 'repalis'), 'new binary')
       return { exited: Promise.resolve(0), stderr: '' }
     }) as unknown as typeof Bun.spawn)
   })
@@ -165,7 +165,7 @@ describe('downloadAndUpdate', () => {
     await Effect.runPromise(
       downloadAndUpdate(
         {
-          tag_name: '@polar-sh/cli@9.9.9',
+          tag_name: '@repalis/cli@9.9.9',
           draft: false,
           prerelease: false,
           version: 'v9.9.9',

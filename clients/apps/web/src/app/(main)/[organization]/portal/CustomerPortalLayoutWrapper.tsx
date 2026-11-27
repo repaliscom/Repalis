@@ -1,8 +1,8 @@
 'use client'
 
 import { CustomerPortalProvider } from '@/components/CustomerPortal/CustomerPortalProvider'
-import { schemas } from '@polar-sh/client'
-import { TooltipProvider } from '@polar-sh/orbit'
+import { schemas } from '@repalis/client'
+import { TooltipProvider } from '@repalis/orbit'
 import { useSearchParams } from 'next/navigation'
 
 interface CustomerPortalLayoutWrapperProps {

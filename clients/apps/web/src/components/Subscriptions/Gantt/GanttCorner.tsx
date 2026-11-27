@@ -1,5 +1,5 @@
-import { Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import { twMerge } from 'tailwind-merge'
 import { HEADER_HEIGHT, SURFACE_CLASS } from './scale'
 

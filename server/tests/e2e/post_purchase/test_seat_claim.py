@@ -9,8 +9,8 @@ invitation token, which triggers benefit grants.
 import pytest
 from httpx2 import AsyncClient
 
-from polar.kit.db.postgres import AsyncSession
-from polar.models import Organization, Product, User, UserOrganization
+from repalis.kit.db.postgres import AsyncSession
+from repalis.models import Organization, Product, User, UserOrganization
 from tests.e2e.infra import DrainFn, StripeSimulator
 from tests.e2e.post_purchase.conftest import E2E_SEAT_AUTH
 from tests.e2e.purchase.conftest import complete_purchase
@@ -86,7 +86,7 @@ class TestSeatClaim:
         await drain()
 
         # Retrieve invitation token from DB (not exposed in API for security)
-        from polar.customer_seat.repository import CustomerSeatRepository
+        from repalis.customer_seat.repository import CustomerSeatRepository
 
         seat_repo = CustomerSeatRepository.from_session(session)
         seat_model = await seat_repo.get_by_id(seat_id)

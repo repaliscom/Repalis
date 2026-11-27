@@ -6,23 +6,23 @@ import pytest
 from pytest_mock import MockerFixture
 from redis import RedisError
 
-from polar.auth.models import AuthSubject
-from polar.config import settings
-from polar.customer.service import customer as customer_service
-from polar.customer_meter.repository import CustomerMeterRepository
-from polar.customer_meter.service import customer_meter as customer_meter_service
-from polar.enums import SubscriptionRecurringInterval
-from polar.event.repository import EventRepository
-from polar.event.system import SystemEvent
-from polar.kit.pagination import PaginationParams
-from polar.kit.utils import generate_uuid, utc_now
-from polar.meter.aggregation import (
+from repalis.auth.models import AuthSubject
+from repalis.config import settings
+from repalis.customer.service import customer as customer_service
+from repalis.customer_meter.repository import CustomerMeterRepository
+from repalis.customer_meter.service import customer_meter as customer_meter_service
+from repalis.enums import SubscriptionRecurringInterval
+from repalis.event.repository import EventRepository
+from repalis.event.system import SystemEvent
+from repalis.kit.pagination import PaginationParams
+from repalis.kit.utils import generate_uuid, utc_now
+from repalis.meter.aggregation import (
     AggregationFunction,
     CountAggregation,
     PropertyAggregation,
 )
-from polar.meter.filter import Filter, FilterClause, FilterConjunction, FilterOperator
-from polar.models import (
+from repalis.meter.filter import Filter, FilterClause, FilterConjunction, FilterOperator
+from repalis.models import (
     Customer,
     CustomerMeter,
     Event,
@@ -31,11 +31,11 @@ from polar.models import (
     User,
     UserOrganization,
 )
-from polar.models.event import EventSource
-from polar.postgres import AsyncSession
-from polar.redis import Redis
-from polar.reducer.service import reducer as reducer_service
-from polar.reducer.types import UsageSummary
+from repalis.models.event import EventSource
+from repalis.postgres import AsyncSession
+from repalis.redis import Redis
+from repalis.reducer.service import reducer as reducer_service
+from repalis.reducer.types import UsageSummary
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (
     METER_TEST_EVENT,
@@ -830,7 +830,7 @@ class TestUpdateCustomerMeter:
         customer_with_external_id: Customer,
         organization: Organization,
     ) -> None:
-        from polar.meter.aggregation import UniqueAggregation
+        from repalis.meter.aggregation import UniqueAggregation
 
         meter = await create_meter(
             save_fixture,
@@ -1514,7 +1514,7 @@ class TestUpdateCustomer:
         await customer_meter_service.update_customer(session, redis, customer)
 
         # Check that no customer meter was created
-        from polar.customer_meter.repository import CustomerMeterRepository
+        from repalis.customer_meter.repository import CustomerMeterRepository
 
         repository = CustomerMeterRepository.from_session(session)
         customer_meter = await repository.get_by_customer_and_meter(
@@ -1539,7 +1539,7 @@ class TestUpdateCustomer:
         await customer_meter_service.update_customer(session, redis, customer)
 
         # Check that customer meter was created
-        from polar.customer_meter.repository import CustomerMeterRepository
+        from repalis.customer_meter.repository import CustomerMeterRepository
 
         repository = CustomerMeterRepository.from_session(session)
         customer_meter = await repository.get_by_customer_and_meter(
@@ -1604,7 +1604,7 @@ async def late_usage(
 ) -> tuple[Customer, Meter]:
     """A reset 30 minutes ago, 3 tokens timestamped after it, and 5 tokens timestamped
     before it but ingested after it."""
-    mocker.patch("polar.reducer.service.enqueue_job")
+    mocker.patch("repalis.reducer.service.enqueue_job")
     meter = await create_meter(
         save_fixture,
         organization=organization,
@@ -1676,7 +1676,7 @@ class TestUpdateCustomerMeterFromReducer:
     ) -> None:
         customer, meter = late_usage
         mocker.patch(
-            "polar.reducer.redis_store.get_many_bucket_totals", side_effect=RedisError
+            "repalis.reducer.redis_store.get_many_bucket_totals", side_effect=RedisError
         )
 
         customer_meter, updated = await customer_meter_service.update_customer_meter(
@@ -1784,7 +1784,7 @@ class TestUpdateCustomerOnReducerBilling:
         subscription = await create_active_subscription(
             save_fixture, product=product, customer=customer
         )
-        enqueue_job = mocker.patch("polar.customer_meter.service.enqueue_job")
+        enqueue_job = mocker.patch("repalis.customer_meter.service.enqueue_job")
 
         await customer_meter_service.update_customer_meter(
             session, redis, customer, meter, activate_meter=True
@@ -1822,7 +1822,7 @@ class TestUpdateCustomerOnReducerBilling:
             ),
         )
         await reducer_service.sync_meter(session, other_meter)
-        enqueue_job = mocker.patch("polar.customer_meter.service.enqueue_job")
+        enqueue_job = mocker.patch("repalis.customer_meter.service.enqueue_job")
 
         await customer_meter_service.update_customer(session, redis, customer)
 
@@ -1916,7 +1916,7 @@ class TestGetReducerUnits:
         await save_fixture(organization)
         session.expunge_all()
         mocker.patch(
-            "polar.reducer.redis_store.get_many_bucket_totals", side_effect=RedisError
+            "repalis.reducer.redis_store.get_many_bucket_totals", side_effect=RedisError
         )
 
         results, _ = await customer_meter_service.list(
@@ -1943,7 +1943,7 @@ class TestCustomerStateReducerUnits:
         state = await customer_service.get_state(session, redis, customer)
 
         assert [meter.consumed_units for meter in state.active_meters] == [3]
-        assert await redis.get(f"polar:customer_state:v8:{customer.id}") is None
+        assert await redis.get(f"repalis:customer_state:v8:{customer.id}") is None
 
     async def test_caches_the_stored_units_without_reducer_billing(
         self,
@@ -1956,7 +1956,7 @@ class TestCustomerStateReducerUnits:
         state = await customer_service.get_state(session, redis, customer)
 
         assert [meter.consumed_units for meter in state.active_meters] == [0]
-        assert await redis.get(f"polar:customer_state:v8:{customer.id}") is not None
+        assert await redis.get(f"repalis:customer_state:v8:{customer.id}") is not None
 
     async def test_skips_a_state_cached_before_reducer_billing(
         self,

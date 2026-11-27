@@ -8,7 +8,7 @@ import boto3
 table = boto3.resource("dynamodb").Table(os.environ["TABLE_NAME"])
 
 ACCOUNT_ID_RE = re.compile(r":\d{12}:")
-ENV_PREFIX_RE = re.compile(r"\bpolar-(?:production|sandbox|test)-")
+ENV_PREFIX_RE = re.compile(r"\brepalis-(?:production|sandbox|test)-")
 
 
 def post_to_slack(text):
@@ -28,7 +28,7 @@ def post_to_slack(text):
 
 def normalize_resource_name(value):
     value = ACCOUNT_ID_RE.sub(":*:", value)
-    return ENV_PREFIX_RE.sub("polar-", value)
+    return ENV_PREFIX_RE.sub("repalis-", value)
 
 
 def dedup_key(finding):

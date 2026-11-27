@@ -1,11 +1,11 @@
 import pytest
 from pydantic import TypeAdapter
 
-from polar.benefit.schemas import BenefitPublic
-from polar.kit.visibility import Visibility
-from polar.models import Meter, Organization
-from polar.models.benefit import BenefitType
-from polar.product.schemas import BenefitPublicList
+from repalis.benefit.schemas import BenefitPublic
+from repalis.kit.visibility import Visibility
+from repalis.models import Meter, Organization
+from repalis.models.benefit import BenefitType
+from repalis.product.schemas import BenefitPublicList
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_benefit
 

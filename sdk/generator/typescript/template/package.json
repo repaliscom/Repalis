@@ -1,7 +1,7 @@
 {
-  "name": "@polar-sh/sdk",
+  "name": "@repalis/sdk",
   "version": "{{ version }}",
-  "description": "Polar SDK — A billing platform for the intelligence era",
+  "description": "Repalis SDK — A billing platform for the intelligence era",
   "type": "module",
   "sideEffects": false,
   "files": [
@@ -96,16 +96,16 @@
   },
   "packageManager": "pnpm@12.8.0",
   "keywords": [
-    "polar",
+    "repalis",
     "sdk",
     "api",
     "typescript"
   ],
-  "author": "Polar",
+  "author": "Repalis",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/polarsource/polar.git",
+    "url": "git+https://github.com/repaliscom/Repalis.git",
     "directory": "sdk/typescript"
   }
 }

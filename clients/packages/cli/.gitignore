@@ -7,8 +7,8 @@ bin
 .idea/
 .DS_STORE
 
-polar
+repalis
 *.bun-build
 coverage
 
-polar.config.ts
+repalis.config.ts

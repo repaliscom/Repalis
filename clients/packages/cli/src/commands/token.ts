@@ -33,23 +33,23 @@ export const token = Command.make('token', { scope, org }).pipe(
   ),
   Command.withExamples([
     {
-      command: 'echo "POLAR_ACCESS_TOKEN=$(polar auth token)" >> .env.local',
+      command: 'echo "REPALIS_ACCESS_TOKEN=$(repalis auth token)" >> .env.local',
       description: 'Add a token for the active organization to .env.local',
     },
     {
       command:
-        'polar auth token --scope products:read --scope checkouts:write | gh secret set POLAR_ACCESS_TOKEN',
+        'repalis auth token --scope products:read --scope checkouts:write | gh secret set REPALIS_ACCESS_TOKEN',
       description:
         'Preselect scopes and store the token as a GitHub Actions secret without writing it to disk',
     },
     {
       command:
-        'POLAR_ACCESS_TOKEN=<your access token> polar auth token --org <org id> --scope events:write',
+        'REPALIS_ACCESS_TOKEN=<your access token> repalis auth token --org <org id> --scope events:write',
       description:
         'As an agent without a saved session, use your own access token; a human still approves the app token',
     },
     {
-      command: 'polar auth token --org acme --scope events:write',
+      command: 'repalis auth token --org acme --scope events:write',
       description: 'Create a token for a specific organization',
     },
   ]),

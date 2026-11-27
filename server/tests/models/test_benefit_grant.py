@@ -1,10 +1,17 @@
 import pytest
 from sqlalchemy.exc import IntegrityError
 
-from polar.kit.utils import utc_now
-from polar.models import Benefit, BenefitGrant, Customer, Member, Product, Subscription
-from polar.models.benefit_grant import BenefitGrantScope
-from polar.postgres import AsyncSession
+from repalis.kit.utils import utc_now
+from repalis.models import (
+    Benefit,
+    BenefitGrant,
+    Customer,
+    Member,
+    Product,
+    Subscription,
+)
+from repalis.models.benefit_grant import BenefitGrantScope
+from repalis.postgres import AsyncSession
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_order
 

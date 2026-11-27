@@ -4,13 +4,13 @@ from decimal import Decimal
 import pytest
 from sqlalchemy import select
 
-from polar.event.system import SystemEvent
-from polar.kit.db.postgres import AsyncSession
-from polar.kit.utils import utc_now
-from polar.models import Customer, CustomerMeter, Event, Meter, Organization
-from polar.models.event import EventSource
-from polar.redis import Redis
-from polar.reducer.service import reducer as reducer_service
+from repalis.event.system import SystemEvent
+from repalis.kit.db.postgres import AsyncSession
+from repalis.kit.utils import utc_now
+from repalis.models import Customer, CustomerMeter, Event, Meter, Organization
+from repalis.models.event import EventSource
+from repalis.redis import Redis
+from repalis.reducer.service import reducer as reducer_service
 from scripts.compensate_meter_credit_clawbacks import CompensationMismatch, compensate
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_event

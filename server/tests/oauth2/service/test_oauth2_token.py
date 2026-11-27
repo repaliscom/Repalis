@@ -4,9 +4,9 @@ from unittest.mock import MagicMock
 import pytest
 from pytest_mock import MockerFixture
 
-from polar.email.schemas import OAuth2LeakedTokenEmail
-from polar.enums import TokenType
-from polar.models import (
+from repalis.email.schemas import OAuth2LeakedTokenEmail
+from repalis.enums import TokenType
+from repalis.models import (
     Agent,
     OAuth2Client,
     OAuth2Token,
@@ -14,8 +14,8 @@ from polar.models import (
     User,
     UserOrganization,
 )
-from polar.oauth2.service.oauth2_token import oauth2_token as oauth2_token_service
-from polar.postgres import AsyncSession
+from repalis.oauth2.service.oauth2_token import oauth2_token as oauth2_token_service
+from repalis.postgres import AsyncSession
 from tests.fixtures.database import SaveFixture
 
 from ..conftest import create_oauth2_token
@@ -24,7 +24,7 @@ from ..conftest import create_oauth2_token
 @pytest.fixture(autouse=True)
 def enqueue_email_mock(mocker: MockerFixture) -> MagicMock:
     return mocker.patch(
-        "polar.oauth2.service.oauth2_token.enqueue_email_template", autospec=True
+        "repalis.oauth2.service.oauth2_token.enqueue_email_template", autospec=True
     )
 
 
@@ -33,10 +33,10 @@ class TestRevokeLeaked:
     @pytest.mark.parametrize(
         ("token", "token_type"),
         [
-            ("polar_at_u_123", TokenType.access_token),
-            ("polar_rt_u_123", TokenType.refresh_token),
-            ("polar_at_o_123", TokenType.access_token),
-            ("polar_rt_o_123", TokenType.refresh_token),
+            ("repalis_at_u_123", TokenType.access_token),
+            ("repalis_rt_u_123", TokenType.refresh_token),
+            ("repalis_at_o_123", TokenType.access_token),
+            ("repalis_rt_o_123", TokenType.refresh_token),
         ],
     )
     async def test_false_positive(
@@ -56,8 +56,8 @@ class TestRevokeLeaked:
     @pytest.mark.parametrize(
         ("token", "token_type"),
         [
-            ("polar_at_u_123", TokenType.access_token),
-            ("polar_rt_u_123", TokenType.refresh_token),
+            ("repalis_at_u_123", TokenType.access_token),
+            ("repalis_rt_u_123", TokenType.refresh_token),
         ],
     )
     async def test_true_positive_user(
@@ -73,8 +73,8 @@ class TestRevokeLeaked:
         oauth2_token = await create_oauth2_token(
             save_fixture,
             client=oauth2_client,
-            access_token="polar_at_u_123",
-            refresh_token="polar_rt_u_123",
+            access_token="repalis_at_u_123",
+            refresh_token="repalis_rt_u_123",
             scopes=["openid"],
             user=user,
         )
@@ -93,8 +93,8 @@ class TestRevokeLeaked:
     @pytest.mark.parametrize(
         ("token", "token_type"),
         [
-            ("polar_at_o_123", TokenType.access_token),
-            ("polar_rt_o_123", TokenType.refresh_token),
+            ("repalis_at_o_123", TokenType.access_token),
+            ("repalis_rt_o_123", TokenType.refresh_token),
         ],
     )
     async def test_true_positive_organization(
@@ -111,8 +111,8 @@ class TestRevokeLeaked:
         oauth2_token = await create_oauth2_token(
             save_fixture,
             client=oauth2_client,
-            access_token="polar_at_o_123",
-            refresh_token="polar_rt_o_123",
+            access_token="repalis_at_o_123",
+            refresh_token="repalis_rt_o_123",
             scopes=["openid"],
             organization=organization,
         )
@@ -138,7 +138,7 @@ class TestRevokeLeaked:
         oauth2_token = await create_oauth2_token(
             save_fixture,
             client=agent.oauth2_client,
-            access_token="polar_at_a_123",
+            access_token="repalis_at_a_123",
             refresh_token=None,
             scopes=["products:write"],
             agent=agent,
@@ -146,7 +146,7 @@ class TestRevokeLeaked:
 
         result = await oauth2_token_service.revoke_leaked(
             session,
-            "polar_at_a_123",
+            "repalis_at_a_123",
             TokenType.access_token,
             notifier="github",
             url="https://github.com",
@@ -168,8 +168,8 @@ class TestRevokeLeaked:
         await create_oauth2_token(
             save_fixture,
             client=oauth2_client,
-            access_token="polar_at_u_123",
-            refresh_token="polar_rt_u_123",
+            access_token="repalis_at_u_123",
+            refresh_token="repalis_rt_u_123",
             scopes=["openid"],
             user=user,
             access_token_revoked_at=1,
@@ -177,7 +177,7 @@ class TestRevokeLeaked:
         )
 
         result = await oauth2_token_service.revoke_leaked(
-            session, "polar_at_u_123", TokenType.access_token, notifier="github"
+            session, "repalis_at_u_123", TokenType.access_token, notifier="github"
         )
         assert result is True
 
@@ -188,7 +188,7 @@ class TestRevokeLeaked:
 class TestGetByAccessToken:
     async def test_unknown_token(self, session: AsyncSession) -> None:
         result = await oauth2_token_service.get_by_access_token(
-            session, "polar_at_u_unknown"
+            session, "repalis_at_u_unknown"
         )
         assert result is None
 
@@ -202,8 +202,8 @@ class TestGetByAccessToken:
         await create_oauth2_token(
             save_fixture,
             client=oauth2_client,
-            access_token="polar_at_u_123",
-            refresh_token="polar_rt_u_123",
+            access_token="repalis_at_u_123",
+            refresh_token="repalis_rt_u_123",
             scopes=["openid"],
             user=user,
             issued_at=int(time.time()),
@@ -211,7 +211,7 @@ class TestGetByAccessToken:
         )
 
         result = await oauth2_token_service.get_by_access_token(
-            session, "polar_at_u_123"
+            session, "repalis_at_u_123"
         )
         assert result is not None
         assert result.client_id == oauth2_client.client_id
@@ -226,8 +226,8 @@ class TestGetByAccessToken:
         await create_oauth2_token(
             save_fixture,
             client=oauth2_client,
-            access_token="polar_at_u_123",
-            refresh_token="polar_rt_u_123",
+            access_token="repalis_at_u_123",
+            refresh_token="repalis_rt_u_123",
             scopes=["openid"],
             user=user,
             issued_at=int(time.time()),
@@ -237,7 +237,7 @@ class TestGetByAccessToken:
         await save_fixture(oauth2_client)
 
         result = await oauth2_token_service.get_by_access_token(
-            session, "polar_at_u_123"
+            session, "repalis_at_u_123"
         )
 
         assert result is None
@@ -252,8 +252,8 @@ class TestGetByAccessToken:
         await create_oauth2_token(
             save_fixture,
             client=oauth2_client,
-            access_token="polar_at_u_123",
-            refresh_token="polar_rt_u_123",
+            access_token="repalis_at_u_123",
+            refresh_token="repalis_rt_u_123",
             scopes=["openid"],
             user=user,
             access_token_revoked_at=int(time.time()),
@@ -263,7 +263,7 @@ class TestGetByAccessToken:
         )
 
         result = await oauth2_token_service.get_by_access_token(
-            session, "polar_at_u_123"
+            session, "repalis_at_u_123"
         )
         assert result is None
 
@@ -277,8 +277,8 @@ class TestGetByAccessToken:
         await create_oauth2_token(
             save_fixture,
             client=oauth2_client,
-            access_token="polar_at_u_123",
-            refresh_token="polar_rt_u_123",
+            access_token="repalis_at_u_123",
+            refresh_token="repalis_rt_u_123",
             scopes=["openid"],
             user=user,
             issued_at=int(time.time()) - 7200,
@@ -286,7 +286,7 @@ class TestGetByAccessToken:
         )
 
         result = await oauth2_token_service.get_by_access_token(
-            session, "polar_at_u_123"
+            session, "repalis_at_u_123"
         )
         assert result is None
 
@@ -303,8 +303,8 @@ class TestDeleteExpired:
         expired = await create_oauth2_token(
             save_fixture,
             client=oauth2_client,
-            access_token="polar_at_u_expired",
-            refresh_token="polar_rt_u_expired",
+            access_token="repalis_at_u_expired",
+            refresh_token="repalis_rt_u_expired",
             scopes=["openid"],
             user=user,
             issued_at=int(time.time()) - 7200,
@@ -329,8 +329,8 @@ class TestDeleteExpired:
         expired = await create_oauth2_token(
             save_fixture,
             client=oauth2_client,
-            access_token="polar_at_u_revoked",
-            refresh_token="polar_rt_u_revoked",
+            access_token="repalis_at_u_revoked",
+            refresh_token="repalis_rt_u_revoked",
             scopes=["openid"],
             user=user,
             issued_at=int(time.time()) - 7200,
@@ -353,8 +353,8 @@ class TestDeleteExpired:
         expired = await create_oauth2_token(
             save_fixture,
             client=oauth2_client,
-            access_token="polar_at_u_refreshable",
-            refresh_token="polar_rt_u_refreshable",
+            access_token="repalis_at_u_refreshable",
+            refresh_token="repalis_rt_u_refreshable",
             scopes=["openid"],
             user=user,
             issued_at=int(time.time()) - 7200,
@@ -376,8 +376,8 @@ class TestDeleteExpired:
         valid = await create_oauth2_token(
             save_fixture,
             client=oauth2_client,
-            access_token="polar_at_u_valid",
-            refresh_token="polar_rt_u_valid",
+            access_token="repalis_at_u_valid",
+            refresh_token="repalis_rt_u_valid",
             scopes=["openid"],
             user=user,
             issued_at=int(time.time()),
@@ -405,8 +405,8 @@ class TestRevokeForSSOEnforcement:
         token = await create_oauth2_token(
             save_fixture,
             client=oauth2_client,
-            access_token="polar_at_u_sso1",
-            refresh_token="polar_rt_u_sso1",
+            access_token="repalis_at_u_sso1",
+            refresh_token="repalis_rt_u_sso1",
             scopes=["openid"],
             user=user,
             organizations=[organization],
@@ -431,8 +431,8 @@ class TestRevokeForSSOEnforcement:
         token = await create_oauth2_token(
             save_fixture,
             client=oauth2_client,
-            access_token="polar_at_u_sso2",
-            refresh_token="polar_rt_u_sso2",
+            access_token="repalis_at_u_sso2",
+            refresh_token="repalis_rt_u_sso2",
             scopes=["openid"],
             user=user,
             organizations=[organization, organization_second],
@@ -455,8 +455,8 @@ class TestRevokeForSSOEnforcement:
         token = await create_oauth2_token(
             save_fixture,
             client=oauth2_client,
-            access_token="polar_at_u_sso4",
-            refresh_token="polar_rt_u_sso4",
+            access_token="repalis_at_u_sso4",
+            refresh_token="repalis_rt_u_sso4",
             scopes=["openid"],
             user=user,
             organizations=[organization_second],
@@ -479,8 +479,8 @@ class TestRevokeForSSOEnforcement:
         token = await create_oauth2_token(
             save_fixture,
             client=oauth2_client,
-            access_token="polar_at_u_sso5",
-            refresh_token="polar_rt_u_sso5",
+            access_token="repalis_at_u_sso5",
+            refresh_token="repalis_rt_u_sso5",
             scopes=["openid"],
             user=user,
         )
@@ -501,8 +501,8 @@ class TestRevokeForSSOEnforcement:
         token = await create_oauth2_token(
             save_fixture,
             client=oauth2_client,
-            access_token="polar_at_u_sso6",
-            refresh_token="polar_rt_u_sso6",
+            access_token="repalis_at_u_sso6",
+            refresh_token="repalis_rt_u_sso6",
             scopes=["openid"],
             user=user,
             organizations=[organization],

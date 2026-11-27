@@ -2,20 +2,20 @@
 
 import CreateMeterModalContent from '@/components/Meter/CreateMeterModalContent'
 import MeterSelector from '@/components/Meter/MeterSelector'
-import { InlineModal } from '@polar-sh/orbit'
+import { InlineModal } from '@repalis/orbit'
 import { useModal } from '@/components/Modal/useModal'
-import { SpinnerNoMargin } from '@polar-sh/orbit'
+import { SpinnerNoMargin } from '@repalis/orbit'
 import { useMeters } from '@/hooks/queries/meters'
-import { schemas } from '@polar-sh/client'
-import { Button } from '@polar-sh/orbit'
+import { schemas } from '@repalis/client'
+import { Button } from '@repalis/orbit'
 import {
   FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-} from '@polar-sh/ui/components/ui/form'
-import { Plus as PlusIcon } from '@polar-sh/orbit/icons'
+} from '@repalis/ui/components/ui/form'
+import { Plus as PlusIcon } from '@repalis/orbit/icons'
 import React, { useCallback } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { ProductFormType } from '../ProductForm'

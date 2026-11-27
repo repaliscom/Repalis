@@ -4,11 +4,11 @@ from typing import Any
 
 from pytest_mock import MockerFixture
 
-from polar.enums import TaxBehavior
-from polar.kit.encryption import EncryptedString
-from polar.kit.utils import utc_now
-from polar.merchant_migration import pan_transfer
-from polar.merchant_migration.canonical import (
+from repalis.enums import TaxBehavior
+from repalis.kit.encryption import EncryptedString
+from repalis.kit.utils import utc_now
+from repalis.merchant_migration import pan_transfer
+from repalis.merchant_migration.canonical import (
     CanonicalCollectionMethod,
     CanonicalDiscount,
     CanonicalDiscountDuration,
@@ -20,37 +20,37 @@ from polar.merchant_migration.canonical import (
     CanonicalSubscriptionStatus,
     serialize,
 )
-from polar.merchant_migration.pan_transfer import (
+from repalis.merchant_migration.pan_transfer import (
     PanStepActor,
     PanStepOwner,
     PanStepTemplate,
     PanTransferMethod,
     PanTransferStep,
 )
-from polar.merchant_migration.repository import (
+from repalis.merchant_migration.repository import (
     MerchantMigrationRecordRepository,
     MerchantMigrationRepository,
 )
-from polar.merchant_migration.service import (
+from repalis.merchant_migration.service import (
     SOURCE_CREDENTIALS_ENCRYPTION_CONTEXT,
     StripeSourceCredentials,
 )
-from polar.models import (
+from repalis.models import (
     MerchantMigration,
     MerchantMigrationRecord,
     Organization,
     Subscription,
 )
-from polar.models.merchant_migration import (
+from repalis.models.merchant_migration import (
     MerchantMigrationSourcePlatform,
     MerchantMigrationStep,
 )
-from polar.models.merchant_migration_record import (
+from repalis.models.merchant_migration_record import (
     MerchantMigrationCutoverStatus,
     MerchantMigrationRecordStatus,
     MerchantMigrationRecordType,
 )
-from polar.postgres import AsyncSession
+from repalis.postgres import AsyncSession
 from tests.fixtures.database import SaveFixture
 
 
@@ -116,10 +116,10 @@ async def build_connected_migration(
 
 _STEP_ACTORS = {
     PanStepOwner.merchant: PanStepActor.merchant,
-    PanStepOwner.polar_ops: PanStepActor.ops,
+    PanStepOwner.repalis_ops: PanStepActor.ops,
     PanStepOwner.stripe: PanStepActor.ops,
     PanStepOwner.provider: PanStepActor.ops,
-    PanStepOwner.polar_app: PanStepActor.system,
+    PanStepOwner.repalis_app: PanStepActor.system,
 }
 
 
@@ -314,13 +314,13 @@ async def stage_subscription_record(
 
 
 def copied_cards(mocker: MockerFixture, *cards: Any) -> None:
-    """What `list_payment_methods` finds on Polar's Stripe account."""
+    """What `list_payment_methods` finds on Repalis's Stripe account."""
 
     async def listed(customer: str) -> AsyncIterator[Any]:
         for card in cards:
             yield card
 
     mocker.patch(
-        "polar.merchant_migration.cards.stripe_service.list_payment_methods",
+        "repalis.merchant_migration.cards.stripe_service.list_payment_methods",
         new=listed,
     )

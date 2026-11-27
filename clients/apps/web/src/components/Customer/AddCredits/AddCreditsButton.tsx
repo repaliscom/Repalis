@@ -2,8 +2,8 @@
 
 import { useModal } from '@/components/Modal/useModal'
 import { useHasPermission } from '@/hooks/permissions'
-import { schemas } from '@polar-sh/client'
-import { Button, type ButtonProps, InlineModal } from '@polar-sh/orbit'
+import { schemas } from '@repalis/client'
+import { Button, type ButtonProps, InlineModal } from '@repalis/orbit'
 import { AddCreditsModal } from './AddCreditsModal'
 
 export const AddCreditsButton = ({

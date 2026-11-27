@@ -4,16 +4,16 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 const mockCheckoutCreate = vi.fn()
 const mockCheckoutUpdate = vi.fn()
 
-vi.mock('@polar-sh/sdk/2026-10', () => ({
-  createPolarCore: vi.fn(() => ({})),
+vi.mock('@repalis/sdk/2026-10', () => ({
+  createRepalisCore: vi.fn(() => ({})),
 }))
 
-vi.mock('@polar-sh/sdk/2026-10/services/checkouts', () => ({
+vi.mock('@repalis/sdk/2026-10/services/checkouts', () => ({
   createCheckouts: vi.fn(() => mockCheckoutCreate),
   clientUpdateCheckouts: () => mockCheckoutUpdate,
 }))
 
-import { createPolarCore } from '@polar-sh/sdk/2026-10'
+import { createRepalisCore } from '@repalis/sdk/2026-10'
 import { Checkout } from './checkout'
 
 describe('Checkout', () => {
@@ -30,7 +30,7 @@ describe('Checkout', () => {
 
       expect(checkout).toBeDefined()
       expect(typeof checkout).toBe('function')
-      expect(createPolarCore).toHaveBeenCalledWith({
+      expect(createRepalisCore).toHaveBeenCalledWith({
         accessToken: 'test-token',
         environment: 'sandbox',
       })
@@ -52,7 +52,7 @@ describe('Checkout', () => {
       ['discount_code=', undefined, undefined],
     ])('handles discount prefill for %s', async (query, code, discountId) => {
       mockCheckoutCreate.mockResolvedValue({
-        url: 'https://polar.sh/checkout/123',
+        url: 'https://repalis.com/checkout/123',
         client_secret: 'checkout_secret',
       })
       const checkout = Checkout({ accessToken: 'test-token', theme: 'dark' })
@@ -74,13 +74,13 @@ describe('Checkout', () => {
         expect(mockCheckoutUpdate).not.toHaveBeenCalled()
       }
       expect(response.headers.get('location')).toBe(
-        'https://polar.sh/checkout/123?theme=dark',
+        'https://repalis.com/checkout/123?theme=dark',
       )
     })
 
     it('does not redirect when applying a discount code fails', async () => {
       mockCheckoutCreate.mockResolvedValue({
-        url: 'https://polar.sh/checkout/123',
+        url: 'https://repalis.com/checkout/123',
         client_secret: 'checkout_secret',
       })
       mockCheckoutUpdate.mockRejectedValueOnce(
@@ -111,7 +111,7 @@ describe('Checkout', () => {
 
     it('should create checkout with single product', async () => {
       mockCheckoutCreate.mockResolvedValue({
-        url: 'https://polar.sh/checkout/123',
+        url: 'https://repalis.com/checkout/123',
       })
 
       const checkout = Checkout({ accessToken: 'test-token' })
@@ -143,7 +143,7 @@ describe('Checkout', () => {
 
     it('should create checkout with multiple products', async () => {
       mockCheckoutCreate.mockResolvedValue({
-        url: 'https://polar.sh/checkout/123',
+        url: 'https://repalis.com/checkout/123',
       })
 
       const checkout = Checkout({ accessToken: 'test-token' })
@@ -162,7 +162,7 @@ describe('Checkout', () => {
 
     it('should include successUrl with checkout_id when configured', async () => {
       mockCheckoutCreate.mockResolvedValue({
-        url: 'https://polar.sh/checkout/123',
+        url: 'https://repalis.com/checkout/123',
       })
 
       const checkout = Checkout({
@@ -185,7 +185,7 @@ describe('Checkout', () => {
 
     it('should include successUrl without checkout_id when disabled', async () => {
       mockCheckoutCreate.mockResolvedValue({
-        url: 'https://polar.sh/checkout/123',
+        url: 'https://repalis.com/checkout/123',
       })
 
       const checkout = Checkout({
@@ -208,7 +208,7 @@ describe('Checkout', () => {
 
     it('should add theme parameter to redirect URL', async () => {
       mockCheckoutCreate.mockResolvedValue({
-        url: 'https://polar.sh/checkout/123',
+        url: 'https://repalis.com/checkout/123',
       })
 
       const checkout = Checkout({
@@ -222,13 +222,13 @@ describe('Checkout', () => {
       const response = await checkout(request)
 
       expect(response.headers.get('location')).toBe(
-        'https://polar.sh/checkout/123?theme=dark',
+        'https://repalis.com/checkout/123?theme=dark',
       )
     })
 
     it('should parse customer parameters correctly', async () => {
       mockCheckoutCreate.mockResolvedValue({
-        url: 'https://polar.sh/checkout/123',
+        url: 'https://repalis.com/checkout/123',
       })
 
       const checkout = Checkout({ accessToken: 'test-token' })
@@ -278,7 +278,7 @@ describe('Checkout', () => {
 
     it('should handle allow_discount_codes as false', async () => {
       mockCheckoutCreate.mockResolvedValue({
-        url: 'https://polar.sh/checkout/123',
+        url: 'https://repalis.com/checkout/123',
       })
 
       const checkout = Checkout({ accessToken: 'test-token' })
@@ -297,7 +297,7 @@ describe('Checkout', () => {
 
     it('should handle seats parameter', async () => {
       mockCheckoutCreate.mockResolvedValue({
-        url: 'https://polar.sh/checkout/123',
+        url: 'https://repalis.com/checkout/123',
       })
 
       const checkout = Checkout({ accessToken: 'test-token' })
@@ -339,7 +339,7 @@ describe('Checkout', () => {
     ['', { customerIpAddress: false as const }, undefined],
   ])('sends customer IP address for %j %j', async (query, config, expected) => {
     mockCheckoutCreate.mockResolvedValue({
-      url: 'https://polar.sh/checkout/123',
+      url: 'https://repalis.com/checkout/123',
       client_secret: 'checkout_secret',
     })
     const headers = { 'x-forwarded-for': '203.0.113.7' }

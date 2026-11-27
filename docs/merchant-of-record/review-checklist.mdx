@@ -4,7 +4,7 @@ sidebarTitle: "Checklist"
 description: "Everything you need to complete before you can submit your account for review and start accepting payments"
 ---
 
-Before your organization can accept payments, you submit it for our [account review](/merchant-of-record/account-reviews). You do this from [**Finance → Account**](https://polar.sh/to/dashboard/finance/account), which shows a checklist of everything we need first.
+Before your organization can accept payments, you submit it for our [account review](/merchant-of-record/account-reviews). You do this from [**Finance → Account**](https://repalis.com/to/dashboard/finance/account), which shows a checklist of everything we need first.
 
 The **Submit for review** button stays disabled until every required item is complete. Items that only show a warning don't block you.
 
@@ -15,7 +15,7 @@ The **Submit for review** button stays disabled until every required item is com
 | [Verify your identity](#verify-your-identity) | Yes | The organization owner passed Stripe Identity verification |
 | [Connect a payout account](#connect-a-payout-account) | Yes | Your Stripe account can receive payouts |
 | [Describe what you sell](#describe-what-you-sell) | Yes | Your product description is at least 30 characters |
-| [Add your product website](#add-your-product-website) | Yes | Polar can load your website |
+| [Add your product website](#add-your-product-website) | Yes | Repalis can load your website |
 | [Add a support email](#add-a-support-email) | Yes | You verified your support email with the code we send to it |
 | [Add social links](#add-social-links) | No | You added at least one public profile |
 
@@ -23,7 +23,7 @@ Once you submit, the checklist is locked and we review your account. You can sta
 
 ## Create your first product
 
-Create at least one [product](/features/products) that isn't archived. This is what your customers buy, and what we review against our [Acceptable Use Policy](https://polar.sh/legal/acceptable-use-policy).
+Create at least one [product](/features/products) that isn't archived. This is what your customers buy, and what we review against our [Acceptable Use Policy](https://repalis.com/legal/acceptable-use-policy).
 
 ## Set up checkout
 
@@ -31,12 +31,12 @@ We need to see how customers pay you and how they get what they paid for. You ca
 
 - **Checkout link (no code).** Create a [checkout link](/features/checkout/links). Every checkout link must be able to deliver something to the customer, so each one needs either:
   - a **success URL**, so you handle delivery after the redirect, or
-  - a [benefit](/features/benefits/introduction) on every product in the link that Polar delivers on its own, such as a license key, file download, GitHub repository access, Discord or Slack invite, or custom note.
+  - a [benefit](/features/benefits/introduction) on every product in the link that Repalis delivers on its own, such as a license key, file download, GitHub repository access, Discord or Slack invite, or custom note.
 - **API integration.** Create an organization access token (API key). We also recommend a [webhook endpoint](/integrate/webhooks/endpoints); without one, the item shows a warning but doesn't block submission.
 
 <AccordionGroup>
   <Accordion title="I created a checkout link, but the item is still incomplete">
-    At least one of your checkout links has no success URL and contains a product with no benefit that Polar can deliver. A customer could pay and receive nothing.
+    At least one of your checkout links has no success URL and contains a product with no benefit that Repalis can deliver. A customer could pay and receive nothing.
 
     Add a success URL to the link, or add a benefit to the product. Feature flag and meter credit benefits don't count: they deliver nothing unless your app integrates with the API. Archive any checkout link you no longer use, since every link is checked.
   </Accordion>
@@ -57,7 +57,7 @@ The organization **owner** verifies their identity through Stripe Identity, with
     Stripe is still processing your verification. This usually takes a few minutes. The checklist updates on its own once Stripe is done.
   </Accordion>
   <Accordion title="My identity verification was rejected">
-    Stripe couldn't verify your document or selfie. Common causes are an expired document, a blurry or cropped photo, or a name that doesn't match. Click **Try again** in the checklist to start a new verification. If it keeps failing, contact [support@polar.sh](mailto:support@polar.sh).
+    Stripe couldn't verify your document or selfie. Common causes are an expired document, a blurry or cropped photo, or a name that doesn't match. Click **Try again** in the checklist to start a new verification. If it keeps failing, contact [support@repalis.com](mailto:support@repalis.com).
   </Accordion>
 </AccordionGroup>
 
@@ -80,13 +80,13 @@ Tell us what you sell, who it's for and how you price it, in at least 30 charact
 
 ## Add your product website
 
-Add the website where customers learn about your product. It must start with `https://`. When you load the checklist, Polar requests the page and expects a successful response within 5 seconds.
+Add the website where customers learn about your product. It must start with `https://`. When you load the checklist, Repalis requests the page and expects a successful response within 5 seconds.
 
 You can also verify that you own the domain by adding a DNS TXT record. This is optional, but it helps your review.
 
 <AccordionGroup>
   <Accordion title="It says &quot;We could not reach this URL&quot;">
-    Polar couldn't load your website. Check that:
+    Repalis couldn't load your website. Check that:
 
     - The site is live and public. A page behind a login, password, "coming soon" gate or IP allowlist can't be reached.
     - It responds within 5 seconds.
@@ -96,7 +96,7 @@ You can also verify that you own the domain by adding a DNS TXT record. This is 
     **Bot protection is the most common cause.** If your site sits behind Cloudflare, Vercel, Netlify, AWS WAF or a similar service with bot protection, attack mode or a firewall, our request may get a challenge page or a `403` instead of your site. Allow requests with this user agent:
 
     ```
-    Polar/1.0 (+https://polar.sh)
+    Repalis/1.0 (+https://repalis.com)
     ```
 
     In Cloudflare, add a [WAF custom rule](https://developers.cloudflare.com/waf/custom-rules/skip/) that skips bot protection for that user agent. In Vercel, add a [firewall bypass rule](https://vercel.com/docs/vercel-firewall/vercel-waf/custom-rules) for it, and make sure Vercel Authentication or Password Protection is off for your production domain.

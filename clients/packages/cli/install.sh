@@ -1,10 +1,10 @@
 #!/bin/bash
 set -euo pipefail
 
-REPO="polarsource/polar"
-TAG_PREFIX="@polar-sh/cli@"
+REPO="repaliscom/Repalis"
+TAG_PREFIX="@repalis/cli@"
 INSTALL_DIR="/usr/local/bin"
-BINARY_NAME="polar"
+BINARY_NAME="repalis"
 
 # Colors
 RED='\033[0;31m'
@@ -90,7 +90,7 @@ get_latest_tag() {
 
   version="$(printf '%s' "$all_releases" | select_latest_cli_version)"
   if [ -z "$version" ]; then
-    error "No Polar CLI release found in ${REPO}"
+    error "No Repalis CLI release found in ${REPO}"
   fi
   echo "${TAG_PREFIX}${version}"
 }
@@ -164,14 +164,14 @@ main() {
   fi
   chmod +x "${INSTALL_DIR}/${BINARY_NAME}"
 
-  local tokens_file="${HOME}/.polar/tokens.json"
+  local tokens_file="${HOME}/.config/repalis-cli/config.json"
   if [ -f "$tokens_file" ]; then
     rm -f "$tokens_file"
   fi
 
-  info "Polar CLI ${version} installed successfully!"
+  info "Repalis CLI ${version} installed successfully!"
   echo ""
-  echo "  Run 'polar --help' to get started."
+  echo "  Run 'repalis --help' to get started."
   echo ""
 }
 

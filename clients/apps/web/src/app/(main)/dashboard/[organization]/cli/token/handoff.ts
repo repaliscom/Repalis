@@ -1,4 +1,4 @@
-import { enums, type schemas } from '@polar-sh/client'
+import { enums, type schemas } from '@repalis/client'
 
 const CLI_CALLBACK_URL = 'http://127.0.0.1:3333/token/callback'
 

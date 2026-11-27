@@ -12,9 +12,9 @@ import SubscriptionOrdersSection from '@/components/Subscriptions/SubscriptionOr
 import { SubscriptionSecondaryDetails } from '@/components/Subscriptions/SubscriptionSecondaryDetails'
 import UpdateSubscriptionModal from '@/components/Subscriptions/UpdateSubscriptionModal'
 import { useProduct, useSubscription } from '@/hooks/queries'
-import { schemas } from '@polar-sh/client'
-import { Button, InlineModal, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { schemas } from '@repalis/client'
+import { Button, InlineModal, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import React from 'react'
 
 interface ClientPageProps {

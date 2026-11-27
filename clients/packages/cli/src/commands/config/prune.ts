@@ -98,7 +98,7 @@ const confirm =
       yield* say([ui.blank])
       const accepted = yield* Prompt.run(
         Prompt.Confirm({
-          message: `Remove ${plural(entries.filter(removable).length, 'entry', 'entries')} from ${config.file}? Nothing on Polar changes.`,
+          message: `Remove ${plural(entries.filter(removable).length, 'entry', 'entries')} from ${config.file}? Nothing on Repalis changes.`,
         }),
       ).pipe(Effect.orElseSucceed(() => false))
       if (!accepted) {
@@ -119,7 +119,7 @@ const render = (
     ? [
         ui.blank,
         ui.success(
-          `${config.file}: ${plural(entries.filter(removable).length, 'entry', 'entries')} removed, nothing changed on Polar`,
+          `${config.file}: ${plural(entries.filter(removable).length, 'entry', 'entries')} removed, nothing changed on Repalis`,
         ),
       ]
     : [
@@ -134,24 +134,24 @@ const render = (
 
 export const prune = Command.make('prune', { file, org, confirmed }).pipe(
   Command.withDescription(
-    'Remove unused deprecated entries from a billing config file, without changing anything on Polar',
+    'Remove unused deprecated entries from a billing config file, without changing anything on Repalis',
   ),
   Command.withExamples([
     {
-      command: 'polar config prune',
+      command: 'repalis config prune',
       description:
-        'List the deprecated entries in polar.config.ts and remove the unused ones after confirmation',
+        'List the deprecated entries in repalis.config.ts and remove the unused ones after confirmation',
     },
     {
-      command: 'polar config prune billing/polar.json',
+      command: 'repalis config prune billing/repalis.json',
       description: 'Prune a specific file',
     },
     {
-      command: 'polar config prune --org acme',
+      command: 'repalis config prune --org acme',
       description: 'Check usage in another organization, by slug or ID',
     },
     {
-      command: 'polar config prune --confirm --json',
+      command: 'repalis config prune --confirm --json',
       description: 'Remove without asking and print the result as JSON',
     },
   ]),

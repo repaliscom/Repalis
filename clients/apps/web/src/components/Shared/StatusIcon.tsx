@@ -1,5 +1,5 @@
-import { Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import { useId } from 'react'
 
 // A ring that fills up as something moves along: an outline for not started,
@@ -34,7 +34,7 @@ export interface StatusIconProps {
 }
 
 const TONE_CLASS: Record<StatusIconTone, string> = {
-  neutral: 'dark:text-polar-400 text-gray-400',
+  neutral: 'dark:text-repalis-400 text-gray-400',
   yellow: 'text-amber-500',
   green: 'text-emerald-500',
   red: 'text-red-500',

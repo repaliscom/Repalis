@@ -1,12 +1,12 @@
 import type { Organization } from 'better-auth/plugins/organization'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { errors, type models } from '@polar-sh/sdk/2026-10'
+import { errors, type models } from '@repalis/sdk/2026-10'
 import {
-  PolarOrganizationCustomerTypeError,
+  RepalisOrganizationCustomerTypeError,
   ensureTeamCustomer,
   updateTeamCustomer,
 } from '../../organization/sync'
-import { createMockPolarClient, createMockUser } from '../utils/mocks'
+import { createMockRepalisClient, createMockUser } from '../utils/mocks'
 
 type CustomerIndividual = models.CustomerIndividual
 type CustomerTeam = models.CustomerTeam
@@ -35,7 +35,7 @@ const createTeamCustomer = (
   billing_name: null,
   billing_address: null,
   tax_id: null,
-  organization_id: 'polar-organization-123',
+  organization_id: 'repalis-organization-123',
   deleted_at: null,
   first_user_event_at: null,
   avatar_url: null,
@@ -55,7 +55,7 @@ const createIndividualCustomer = (): CustomerIndividual => ({
   billing_name: null,
   billing_address: null,
   tax_id: null,
-  organization_id: 'polar-organization-123',
+  organization_id: 'repalis-organization-123',
   deleted_at: null,
   first_user_event_at: null,
   avatar_url: null,
@@ -91,10 +91,10 @@ describe('organization customer synchronization', () => {
     email: 'owner@example.com',
     name: 'Owner',
   })
-  let client: ReturnType<typeof createMockPolarClient>
+  let client: ReturnType<typeof createMockRepalisClient>
 
   beforeEach(() => {
-    client = createMockPolarClient()
+    client = createMockRepalisClient()
     vi.clearAllMocks()
   })
 
@@ -125,7 +125,7 @@ describe('organization customer synchronization', () => {
 
   it('returns an existing team customer without updating it', async () => {
     vi.mocked(client.customers.getExternal).mockResolvedValue(
-      createTeamCustomer({ name: 'Existing Polar name' }),
+      createTeamCustomer({ name: 'Existing Repalis name' }),
     )
 
     await ensureTeamCustomer(
@@ -232,7 +232,7 @@ describe('organization customer synchronization', () => {
           owner,
         },
       ),
-    ).rejects.toBeInstanceOf(PolarOrganizationCustomerTypeError)
+    ).rejects.toBeInstanceOf(RepalisOrganizationCustomerTypeError)
   })
 
   it('does not treat network and unrelated validation errors as absence', async () => {

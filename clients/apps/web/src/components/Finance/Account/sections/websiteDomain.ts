@@ -1,4 +1,4 @@
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 
 export const websiteHost = (website: string): string | null => {
   try {

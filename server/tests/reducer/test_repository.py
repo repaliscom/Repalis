@@ -3,11 +3,11 @@ from datetime import UTC, datetime, timedelta
 
 import pytest
 
-from polar.models import Organization, Reducer, StagedEvent, User
-from polar.models.event import EventSource
-from polar.models.reducer import ReducerKind
-from polar.postgres import AsyncSession
-from polar.reducer.repository import ReducerRepository
+from repalis.models import Organization, Reducer, StagedEvent, User
+from repalis.models.event import EventSource
+from repalis.models.reducer import ReducerKind
+from repalis.postgres import AsyncSession
+from repalis.reducer.repository import ReducerRepository
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (
     METER_TEST_EVENT,

@@ -38,7 +38,7 @@ afterAll(async () => {
   await redisServer.stop();
 });
 
-// What a snapshot costs once Polar confirmed the newest bucket's pending events: CONFIRM then
+// What a snapshot costs once Repalis confirmed the newest bucket's pending events: CONFIRM then
 // APPLY_SNAPSHOT in one transaction, as the client runs them.
 describe("CONFIRM then APPLY_SNAPSHOT", () => {
   for (const buckets of BUCKET_COUNTS) {

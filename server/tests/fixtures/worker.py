@@ -8,13 +8,13 @@ import pytest
 from dramatiq.middleware.current_message import CurrentMessage
 from pytest_mock import MockerFixture
 
-from polar.config import settings
-from polar.kit.db.postgres import AsyncSession
-from polar.redis import Redis
-from polar.worker import JobQueueManager, RedisMiddleware
-from polar.worker._enqueue import _job_queue_manager
-from polar.worker._httpx import HTTPXMiddleware
-from polar.worker._sqlalchemy import SQLAlchemyMiddleware
+from repalis.config import settings
+from repalis.kit.db.postgres import AsyncSession
+from repalis.redis import Redis
+from repalis.worker import JobQueueManager, RedisMiddleware
+from repalis.worker._enqueue import _job_queue_manager
+from repalis.worker._httpx import HTTPXMiddleware
+from repalis.worker._sqlalchemy import SQLAlchemyMiddleware
 
 
 @pytest.fixture(autouse=True)

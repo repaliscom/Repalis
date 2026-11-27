@@ -5,7 +5,7 @@ import CancellationsDistributionChart from '@/components/Metrics/CancellationsDi
 import CancellationsStackedChart from '@/components/Metrics/CancellationsStackedChart'
 import MetricChartBox from '@/components/Metrics/MetricChartBox'
 import { ParsedMetricsResponse } from '@/hooks/queries'
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 import { CANCELLATION_CHART_METRICS } from './metrics-config'
 
 interface CancellationsContentProps {
@@ -27,9 +27,9 @@ export function CancellationsContent({
 }: CancellationsContentProps) {
   return (
     <div className="flex flex-col gap-y-6">
-      <div className="dark:border-polar-700 flex flex-col overflow-hidden rounded-2xl border border-gray-200">
+      <div className="dark:border-repalis-700 flex flex-col overflow-hidden rounded-2xl border border-gray-200">
         <div className="grid grid-cols-1 flex-col [clip-path:inset(1px_1px_1px_1px)] lg:grid-cols-2 2xl:grid-cols-3">
-          <div className="dark:border-polar-700 border-t-0 border-r border-b border-l-0 border-gray-200 p-4 lg:col-span-2">
+          <div className="dark:border-repalis-700 border-t-0 border-r border-b border-l-0 border-gray-200 p-4 lg:col-span-2">
             <CancellationsStackedChart
               data={data}
               interval={interval}
@@ -40,7 +40,7 @@ export function CancellationsContent({
               productFilter={productFilter}
             />
           </div>
-          <div className="dark:border-polar-700 border-t-0 border-r border-b border-l-0 border-gray-200 p-4">
+          <div className="dark:border-repalis-700 border-t-0 border-r border-b border-l-0 border-gray-200 p-4">
             <CancellationsDistributionChart
               data={data}
               height={20}
@@ -58,7 +58,7 @@ export function CancellationsContent({
               metric={metricKey}
               height={200}
               chartType="line"
-              className="dark:border-polar-700 rounded-none! border-t-0 border-r border-b border-l-0 border-gray-200 bg-transparent shadow-none dark:bg-transparent"
+              className="dark:border-repalis-700 rounded-none! border-t-0 border-r border-b border-l-0 border-gray-200 bg-transparent shadow-none dark:bg-transparent"
             />
           ))}
         </div>

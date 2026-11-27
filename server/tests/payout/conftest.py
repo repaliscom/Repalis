@@ -1,6 +1,6 @@
 import pytest
 
-from polar.models import Organization
+from repalis.models import Organization
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_verified_organization_email
 

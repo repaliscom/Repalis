@@ -8,34 +8,34 @@ from httpx2 import AsyncClient
 from pytest_mock import MockerFixture
 from sqlalchemy.orm import joinedload
 
-from polar.agent.identity_assertion import (
+from repalis.agent.identity_assertion import (
     IDENTITY_ASSERTION_TTL,
     decode_identity_assertion,
 )
-from polar.agent.repository import AgentRepository
-from polar.agent.service import CLAIM_TOKEN_TTL, CLAIM_TTL
-from polar.agent.words import WORDS
-from polar.auth.models import AuthSubject
-from polar.auth.scope import CLAIMED_AGENT_SCOPES, UNCLAIMED_AGENT_SCOPES
-from polar.config import settings
-from polar.kit.crypto import get_token_hash
-from polar.kit.email import mask_email
-from polar.kit.utils import utc_now
-from polar.models import Agent, OAuth2Token, Organization, Product, User
-from polar.models.agent import AgentStatus
-from polar.models.user_organization import OrganizationRole
-from polar.oauth2.constants import CLAIM_GRANT_TYPE
-from polar.oauth2.sub_type import SubType
-from polar.postgres import AsyncSession
-from polar.user_organization.service import (
+from repalis.agent.repository import AgentRepository
+from repalis.agent.service import CLAIM_TOKEN_TTL, CLAIM_TTL
+from repalis.agent.words import WORDS
+from repalis.auth.models import AuthSubject
+from repalis.auth.scope import CLAIMED_AGENT_SCOPES, UNCLAIMED_AGENT_SCOPES
+from repalis.config import settings
+from repalis.kit.crypto import get_token_hash
+from repalis.kit.email import mask_email
+from repalis.kit.utils import utc_now
+from repalis.models import Agent, OAuth2Token, Organization, Product, User
+from repalis.models.agent import AgentStatus
+from repalis.models.user_organization import OrganizationRole
+from repalis.oauth2.constants import CLAIM_GRANT_TYPE
+from repalis.oauth2.sub_type import SubType
+from repalis.postgres import AsyncSession
+from repalis.user_organization.service import (
     user_organization as user_organization_service,
 )
 from tests.fixtures.auth import make_session_stale
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_agent
 
-CLAIM_TOKEN = "polar_act_claim"
-LINK_TOKEN = "polar_acl_link"
+CLAIM_TOKEN = "repalis_act_claim"
+LINK_TOKEN = "repalis_acl_link"
 CODE = "amber-river-lemon"
 
 
@@ -199,7 +199,7 @@ class TestStartClaim:
         link_token = claim_attempt["verification_uri"].removeprefix(
             f"{settings.FRONTEND_BASE_URL}/agent/claim?token="
         )
-        assert link_token.startswith("polar_acl_")
+        assert link_token.startswith("repalis_acl_")
 
         agent = await AgentRepository.from_session(session).get_by_id(claim_agent.id)
         assert agent is not None
@@ -234,7 +234,7 @@ class TestPreviewClaim:
         assert json["organization"]["slug"] == organization.slug
 
     async def test_unknown_link(self, client: AsyncClient) -> None:
-        response = await client.get("/v1/agent/claim/polar_acl_unknown/preview")
+        response = await client.get("/v1/agent/claim/repalis_acl_unknown/preview")
 
         assert response.status_code == 404
 
@@ -292,15 +292,15 @@ class TestConfirmClaim:
         organization: Organization,
         auth_subject: AuthSubject[User],
     ) -> None:
-        posthog_mock = mocker.patch("polar.agent.service.posthog")
-        enqueue_job_mock = mocker.patch("polar.organization.service.enqueue_job")
+        posthog_mock = mocker.patch("repalis.agent.service.posthog")
+        enqueue_job_mock = mocker.patch("repalis.organization.service.enqueue_job")
         create_customer_mock = mocker.patch(
-            "polar.organization.service.polar_self_service.enqueue_create_customer"
+            "repalis.organization.service.repalis_self_service.enqueue_create_customer"
         )
         pre_claim_token = OAuth2Token(
             client_id=claim_agent.oauth2_client.client_id,
             token_type="bearer",
-            access_token=get_token_hash("polar_at_a_pre_claim"),
+            access_token=get_token_hash("repalis_at_a_pre_claim"),
             scope="products:write",
             sub_type=SubType.agent,
             agent=claim_agent,

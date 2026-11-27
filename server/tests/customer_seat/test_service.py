@@ -5,9 +5,9 @@ from unittest.mock import patch
 
 import pytest
 
-from polar.auth.models import AuthSubject
-from polar.customer.repository import CustomerRepository
-from polar.customer_seat.service import (
+from repalis.auth.models import AuthSubject
+from repalis.customer.repository import CustomerRepository
+from repalis.customer_seat.service import (
     InvalidInvitationToken,
     InvalidSeatAssignmentRequest,
     MemberEmailMismatch,
@@ -17,14 +17,14 @@ from polar.customer_seat.service import (
     SeatNotPending,
     seat_service,
 )
-from polar.enums import SubscriptionRecurringInterval
-from polar.kit.db.postgres import (
+from repalis.enums import SubscriptionRecurringInterval
+from repalis.kit.db.postgres import (
     AsyncSessionMaker,
     create_async_engine,
     create_async_sessionmaker,
 )
-from polar.kit.utils import utc_now
-from polar.models import (
+from repalis.kit.utils import utc_now
+from repalis.models import (
     Account,
     Customer,
     Order,
@@ -34,14 +34,14 @@ from polar.models import (
     User,
     UserOrganization,
 )
-from polar.models.customer_seat import CustomerSeat, SeatStatus
-from polar.models.dispute import DisputeStatus
-from polar.models.order import OrderStatus
-from polar.models.organization import OrganizationStatus
-from polar.models.subscription import SubscriptionStatus
-from polar.models.webhook_endpoint import WebhookEventType
-from polar.order.repository import OrderRepository
-from polar.postgres import AsyncSession
+from repalis.models.customer_seat import CustomerSeat, SeatStatus
+from repalis.models.dispute import DisputeStatus
+from repalis.models.order import OrderStatus
+from repalis.models.organization import OrganizationStatus
+from repalis.models.subscription import SubscriptionStatus
+from repalis.models.webhook_endpoint import WebhookEventType
+from repalis.order.repository import OrderRepository
+from repalis.postgres import AsyncSession
 from tests.fixtures.database import SaveFixture, get_database_url, save_fixture_factory
 from tests.fixtures.random_objects import (
     create_account,
@@ -289,7 +289,7 @@ class TestAssignSeat:
             email="test@example.com",
         )
 
-        with patch("polar.webhook.service.webhook.send") as mock_send:
+        with patch("repalis.webhook.service.webhook.send") as mock_send:
             mock_send.return_value = []
             seat = await seat_service.assign_seat(
                 session, subscription_with_seats, email="test@example.com"
@@ -342,7 +342,7 @@ class TestAssignSeat:
         )
 
         with patch(
-            "polar.customer_seat.service.send_seat_invitation_email"
+            "repalis.customer_seat.service.send_seat_invitation_email"
         ) as mock_email:
             await seat_service.assign_seat(
                 session,
@@ -366,7 +366,7 @@ class TestAssignSeat:
             email="test@example.com",
         )
 
-        with patch("polar.webhook.service.webhook.send") as mock_send:
+        with patch("repalis.webhook.service.webhook.send") as mock_send:
             mock_send.return_value = []
             seat = await seat_service.assign_seat(
                 session,
@@ -394,7 +394,7 @@ class TestAssignSeat:
             email="test@example.com",
         )
 
-        with patch("polar.customer_seat.service.enqueue_job") as mock_enqueue:
+        with patch("repalis.customer_seat.service.enqueue_job") as mock_enqueue:
             seat = await seat_service.assign_seat(
                 session,
                 subscription_with_seats,
@@ -505,7 +505,7 @@ class TestAssignSeat:
             email="test@example.com",
         )
 
-        with patch("polar.customer_seat.service.eventstream_publish") as mock_publish:
+        with patch("repalis.customer_seat.service.eventstream_publish") as mock_publish:
             seat = await seat_service.assign_seat(
                 session,
                 subscription_with_seats,
@@ -600,7 +600,7 @@ class TestAssignSeat:
             save_fixture, product=product, customer=billing_customer, seats=5
         )
 
-        with patch("polar.customer_seat.service.send_seat_invitation_email"):
+        with patch("repalis.customer_seat.service.send_seat_invitation_email"):
             seat = await seat_service.assign_seat(
                 session, subscription, email="seat@example.com"
             )
@@ -790,7 +790,7 @@ class TestAssignSeat:
         not when assigning seats. This test verifies seat assignment preserves the
         existing customer type.
         """
-        from polar.models.customer import CustomerType
+        from repalis.models.customer import CustomerType
 
         organization = await create_organization(
             save_fixture,
@@ -817,7 +817,7 @@ class TestAssignSeat:
         )
 
         # Assign a seat (mock email sending)
-        with patch("polar.customer_seat.service.send_seat_invitation_email"):
+        with patch("repalis.customer_seat.service.send_seat_invitation_email"):
             await seat_service.assign_seat(
                 session, subscription, email="seat@example.com"
             )
@@ -1574,7 +1574,7 @@ class TestClaimSeat:
 
         assert seat_pending.invitation_token is not None
 
-        with patch("polar.webhook.service.webhook.send") as mock_send:
+        with patch("repalis.webhook.service.webhook.send") as mock_send:
             mock_send.return_value = []
             seat, _ = await seat_service.claim_seat(
                 session, seat_pending.invitation_token
@@ -1634,7 +1634,7 @@ class TestClaimSeat:
         assert claimed_seat.invitation_token is None
         assert session_token is not None
         assert len(session_token) > 0
-        assert session_token.startswith("polar_mst_")
+        assert session_token.startswith("repalis_mst_")
 
     @pytest.mark.anyio
     async def test_claim_seat_member_model_soft_deleted_member_rejects(
@@ -1648,11 +1648,11 @@ class TestClaimSeat:
         customer session.
 
         Regression test for a privilege-escalation bug where the fallback
-        minted a `polar_cst_` for the billing (purchaser) customer when the
+        minted a `repalis_cst_` for the billing (purchaser) customer when the
         seat's linked member was missing, granting the seat-claimer full
         portal-write access as the purchaser.
         """
-        from polar.member.repository import MemberRepository
+        from repalis.member.repository import MemberRepository
 
         organization = await create_organization(
             save_fixture,
@@ -1697,7 +1697,7 @@ class TestClaimSeat:
         await session.flush()
 
         with patch(
-            "polar.customer_seat.service.member_session_service.create_member_session"
+            "repalis.customer_seat.service.member_session_service.create_member_session"
         ) as mock_create_member_session:
             with pytest.raises(InvalidInvitationToken):
                 await seat_service.claim_seat(session, invitation_token)
@@ -1730,7 +1730,7 @@ class TestClaimSeat:
     async def test_revoke_seat_sends_webhook(
         self, session: AsyncSession, customer_seat_claimed: CustomerSeat
     ) -> None:
-        with patch("polar.webhook.service.webhook.send") as mock_send:
+        with patch("repalis.webhook.service.webhook.send") as mock_send:
             mock_send.return_value = []
             seat = await seat_service.revoke_seat(session, customer_seat_claimed)
 
@@ -1748,7 +1748,7 @@ class TestClaimSeat:
     async def test_revoke_seat_is_idempotent(
         self, session: AsyncSession, customer_seat_claimed: CustomerSeat
     ) -> None:
-        with patch("polar.webhook.service.webhook.send") as mock_send:
+        with patch("repalis.webhook.service.webhook.send") as mock_send:
             mock_send.return_value = []
             seat = await seat_service.revoke_seat(session, customer_seat_claimed)
             first_revoked_at = seat.revoked_at
@@ -1937,7 +1937,7 @@ class TestResendInvitation:
         original_token = seat.invitation_token
 
         with patch(
-            "polar.customer_seat.service.send_seat_invitation_email"
+            "repalis.customer_seat.service.send_seat_invitation_email"
         ) as mock_send_email:
             result_seat = await seat_service.resend_invitation(session, seat)
 
@@ -2090,7 +2090,7 @@ class TestResendInvitation:
         await session.refresh(seat.subscription.product, ["organization"])
 
         with patch(
-            "polar.customer_seat.service.send_seat_invitation_email"
+            "repalis.customer_seat.service.send_seat_invitation_email"
         ) as mock_send_email:
             result_seat = await seat_service.resend_invitation(session, seat)
 
@@ -2127,7 +2127,7 @@ class TestBenefitGranting:
 
         assert seat.invitation_token is not None
 
-        with patch("polar.customer_seat.service.enqueue_job") as mock_enqueue_job:
+        with patch("repalis.customer_seat.service.enqueue_job") as mock_enqueue_job:
             claimed_seat, _ = await seat_service.claim_seat(
                 session, seat.invitation_token
             )
@@ -2151,7 +2151,7 @@ class TestBenefitGranting:
         original_member_id = customer_seat_claimed.member_id
         assert original_customer_id is not None
 
-        with patch("polar.customer_seat.service.enqueue_job") as mock_enqueue_job:
+        with patch("repalis.customer_seat.service.enqueue_job") as mock_enqueue_job:
             seat = await seat_service.revoke_seat(session, customer_seat_claimed)
             assert seat.subscription is not None
 
@@ -2175,7 +2175,7 @@ class TestBenefitGranting:
         assert billing_customer_id is not None
         assert member_id is not None
 
-        with patch("polar.customer_seat.service.enqueue_job") as mock_enqueue_job:
+        with patch("repalis.customer_seat.service.enqueue_job") as mock_enqueue_job:
             await seat_service.revoke_seat(session, customer_seat_pending)
 
             mock_enqueue_job.assert_called_once()
@@ -2207,7 +2207,7 @@ class TestBenefitGranting:
 
         assert seat.invitation_token is not None
 
-        with patch("polar.customer_seat.service.eventstream_publish") as mock_publish:
+        with patch("repalis.customer_seat.service.eventstream_publish") as mock_publish:
             claimed_seat, _ = await seat_service.claim_seat(
                 session, seat.invitation_token
             )
@@ -2404,7 +2404,7 @@ class TestRevokeAllSeatsForSubscription:
         await session.refresh(subscription_with_seats, ["product"])
         await session.refresh(subscription_with_seats.product, ["organization"])
 
-        with patch("polar.customer_seat.service.enqueue_job") as mock_enqueue_job:
+        with patch("repalis.customer_seat.service.enqueue_job") as mock_enqueue_job:
             revoked_count = await seat_service.revoke_all_seats_for_subscription(
                 session, subscription_with_seats
             )
@@ -2530,7 +2530,7 @@ class TestAssignSeatToDeletedMember:
         await seat_service.revoke_seat(session, seat)
 
         # Step 3: Soft delete the member
-        from polar.member.repository import MemberRepository
+        from repalis.member.repository import MemberRepository
 
         member_repository = MemberRepository.from_session(session)
         member = await member_repository.get_by_id(original_member_id)
@@ -2612,7 +2612,7 @@ class TestUpdateProductBenefitsGrants:
 
         session.expunge_all()
 
-        with patch("polar.customer_seat.service.enqueue_job") as enqueue_job_mock:
+        with patch("repalis.customer_seat.service.enqueue_job") as enqueue_job_mock:
             await seat_service.update_product_benefits_grants(session, product)
 
             assert enqueue_job_mock.call_count == 2
@@ -2636,7 +2636,7 @@ class TestUpdateProductBenefitsGrants:
     ) -> None:
         """When product benefits are updated, claimed seat members
         on orders should get benefit grant jobs enqueued."""
-        from polar.models.order import OrderStatus
+        from repalis.models.order import OrderStatus
 
         product = await create_product(
             save_fixture,
@@ -2667,7 +2667,7 @@ class TestUpdateProductBenefitsGrants:
 
         session.expunge_all()
 
-        with patch("polar.customer_seat.service.enqueue_job") as enqueue_job_mock:
+        with patch("repalis.customer_seat.service.enqueue_job") as enqueue_job_mock:
             await seat_service.update_product_benefits_grants(session, product)
 
             assert enqueue_job_mock.call_count == 1
@@ -2716,7 +2716,7 @@ class TestUpdateProductBenefitsGrants:
 
         session.expunge_all()
 
-        with patch("polar.customer_seat.service.enqueue_job") as enqueue_job_mock:
+        with patch("repalis.customer_seat.service.enqueue_job") as enqueue_job_mock:
             await seat_service.update_product_benefits_grants(session, product)
 
             enqueue_job_mock.assert_not_called()
@@ -2770,7 +2770,7 @@ class TestUpdateProductBenefitsGrants:
 
         session.expunge_all()
 
-        with patch("polar.customer_seat.service.enqueue_job") as enqueue_job_mock:
+        with patch("repalis.customer_seat.service.enqueue_job") as enqueue_job_mock:
             await seat_service.update_product_benefits_grants(session, product)
 
             assert enqueue_job_mock.call_count == 1
@@ -2796,8 +2796,8 @@ async def _attempt_assign_seat(
     attribute, which would leave a mock in place and break unrelated tests.
     """
 
-    from polar.models import Subscription
-    from polar.subscription.repository import SubscriptionRepository
+    from repalis.models import Subscription
+    from repalis.subscription.repository import SubscriptionRepository
 
     async with sessionmaker() as session:
         repository = SubscriptionRepository.from_session(session)
@@ -2839,7 +2839,7 @@ class TestAssignSeatConcurrency:
         produce exactly one assigned seat and four SeatNotAvailable failures."""
         from sqlalchemy import delete, func, select
 
-        from polar.config import settings
+        from repalis.config import settings
 
         engine = create_async_engine(
             dsn=get_database_url(worker_id),
@@ -2875,9 +2875,9 @@ class TestAssignSeatConcurrency:
 
         try:
             with (
-                patch("polar.customer_seat.service.enqueue_job"),
-                patch("polar.customer_seat.service.send_seat_invitation_email"),
-                patch("polar.customer_seat.service.webhook_service.send"),
+                patch("repalis.customer_seat.service.enqueue_job"),
+                patch("repalis.customer_seat.service.send_seat_invitation_email"),
+                patch("repalis.customer_seat.service.webhook_service.send"),
             ):
                 results = await asyncio.gather(
                     *(
@@ -2921,7 +2921,7 @@ class TestAssignSeatConcurrency:
                         CustomerSeat.subscription_id == subscription.id
                     )
                 )
-                from polar.models import Member
+                from repalis.models import Member
 
                 await cleanup_session.execute(
                     delete(Member).where(Member.organization_id == organization.id)
@@ -2993,7 +2993,7 @@ class TestRevokeAllSeatsForOrder:
         )
         order = await _load_order(session, order_with_seats)
 
-        with patch("polar.customer_seat.service.enqueue_job") as enqueue_job_mock:
+        with patch("repalis.customer_seat.service.enqueue_job") as enqueue_job_mock:
             revoked_count = await seat_service.revoke_all_seats_for_order(
                 session, order
             )
@@ -3089,7 +3089,7 @@ class TestAssignSeatOnRevokedOrder:
         await save_fixture(order_with_seats)
         order = await _load_order(session, order_with_seats)
 
-        with patch("polar.customer_seat.service.send_seat_invitation_email"):
+        with patch("repalis.customer_seat.service.send_seat_invitation_email"):
             seat = await seat_service.assign_seat(
                 session, order, email="new-holder@example.com"
             )

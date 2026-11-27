@@ -1,4 +1,4 @@
-import { Box } from '@polar-sh/orbit/Box'
+import { Box } from '@repalis/orbit/Box'
 import {
   PageHeader,
   Section,
@@ -7,7 +7,7 @@ import {
   PropsTable,
 } from '@/components/docs'
 import type { PropRow } from '@/components/docs'
-import { Text } from '@polar-sh/orbit'
+import { Text } from '@repalis/orbit'
 
 const DURATIONS: PropRow[] = [
   {

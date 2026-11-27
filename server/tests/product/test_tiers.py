@@ -4,7 +4,7 @@ from typing import Any
 import pytest
 from pydantic import ValidationError
 
-from polar.product.tiers import (
+from repalis.product.tiers import (
     BIGINT_MAX,
     InvalidQuantityError,
     NonContiguousTiersError,

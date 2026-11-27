@@ -1,11 +1,11 @@
 import pytest
 from pytest_mock import MockerFixture
 
-from polar.feedback.repository import FeedbackRepository
-from polar.feedback.tasks import feedback_reply_in_plain
-from polar.models import Feedback, Organization, User
-from polar.models.feedback import FeedbackStatus, FeedbackType
-from polar.postgres import AsyncSession
+from repalis.feedback.repository import FeedbackRepository
+from repalis.feedback.tasks import feedback_reply_in_plain
+from repalis.models import Feedback, Organization, User
+from repalis.models.feedback import FeedbackStatus, FeedbackType
+from repalis.postgres import AsyncSession
 from tests.fixtures.database import SaveFixture
 
 
@@ -36,9 +36,9 @@ class TestFeedbackReplyInPlain:
         organization: Organization,
     ) -> None:
         feedback = await _create_question(save_fixture, user, organization)
-        mocker.patch("polar.feedback.tasks.plain_service.enabled", new=True)
+        mocker.patch("repalis.feedback.tasks.plain_service.enabled", new=True)
         create_thread_mock = mocker.patch(
-            "polar.feedback.tasks.plain_service.create_feedback_thread",
+            "repalis.feedback.tasks.plain_service.create_feedback_thread",
             return_value="https://app.plain.com/workspace/w/thread/th_123",
         )
 
@@ -67,9 +67,9 @@ class TestFeedbackReplyInPlain:
         feedback.support_thread_url = "https://app.plain.com/workspace/w/thread/th_old"
         await save_fixture(feedback)
 
-        mocker.patch("polar.feedback.tasks.plain_service.enabled", new=True)
+        mocker.patch("repalis.feedback.tasks.plain_service.enabled", new=True)
         create_thread_mock = mocker.patch(
-            "polar.feedback.tasks.plain_service.create_feedback_thread",
+            "repalis.feedback.tasks.plain_service.create_feedback_thread",
         )
 
         await feedback_reply_in_plain(feedback.id)

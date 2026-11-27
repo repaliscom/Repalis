@@ -1,11 +1,11 @@
 'use client'
 
-import { type schemas } from '@polar-sh/client'
+import { type schemas } from '@repalis/client'
 import {
   DEFAULT_LOCALE,
   useTranslations,
   type AcceptedLocale,
-} from '@polar-sh/i18n'
+} from '@repalis/i18n'
 import { Input } from './ui/Input'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { getSeatPrice, type ProductCheckoutPublic } from '../guards'
@@ -35,7 +35,7 @@ const CheckoutSeatSelector = ({
 
   const getErrorMessage = useCallback(
     (error: ErrorResponse<'checkouts:client_update'> | null): string => {
-      if (error && error.error === 'PolarRequestValidationError') {
+      if (error && error.error === 'RepalisRequestValidationError') {
         return error.detail[0]?.msg
       }
 
@@ -178,12 +178,12 @@ const CheckoutSeatSelector = ({
             {displaySeats}
           </span>
         ) : (
-          <div className="dark:border-polar-700 flex items-center gap-0 rounded-lg border border-gray-200">
+          <div className="dark:border-repalis-700 flex items-center gap-0 rounded-lg border border-gray-200">
             <button
               type="button"
               onClick={() => handleUpdateSeats(displaySeats - 1)}
               disabled={displaySeats <= minimumSeats || isUpdating || isEditing}
-              className="dark:text-polar-400 dark:hover:bg-polar-800 flex h-7 w-7 cursor-pointer items-center justify-center rounded-s-lg leading-none text-gray-500 transition-colors hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-40"
+              className="dark:text-repalis-400 dark:hover:bg-repalis-800 flex h-7 w-7 cursor-pointer items-center justify-center rounded-s-lg leading-none text-gray-500 transition-colors hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-40"
               aria-label="Decrease seats"
             >
               <MinusIcon className="h-3 w-3" />
@@ -206,7 +206,7 @@ const CheckoutSeatSelector = ({
                 type="button"
                 onClick={handleSeatClick}
                 disabled={isUpdating}
-                className="dark:border-polar-700 dark:hover:bg-polar-800 h-7 w-10 cursor-pointer border-x border-gray-200 text-center text-sm font-medium tabular-nums transition-colors hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50"
+                className="dark:border-repalis-700 dark:hover:bg-repalis-800 h-7 w-10 cursor-pointer border-x border-gray-200 text-center text-sm font-medium tabular-nums transition-colors hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50"
                 aria-label="Click to edit seat count"
                 title="Click to edit"
               >
@@ -221,7 +221,7 @@ const CheckoutSeatSelector = ({
                 isUpdating ||
                 isEditing
               }
-              className="dark:text-polar-400 dark:hover:bg-polar-800 flex h-7 w-7 cursor-pointer items-center justify-center rounded-e-lg leading-none text-gray-500 transition-colors hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-40"
+              className="dark:text-repalis-400 dark:hover:bg-repalis-800 flex h-7 w-7 cursor-pointer items-center justify-center rounded-e-lg leading-none text-gray-500 transition-colors hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-40"
               aria-label="Increase seats"
             >
               <PlusIcon className="h-3 w-3" />
@@ -230,7 +230,7 @@ const CheckoutSeatSelector = ({
         )}
       </div>
       {!isFixedSeats && seatLimitText && (
-        <p className="dark:text-polar-400 text-xs text-gray-500">
+        <p className="dark:text-repalis-400 text-xs text-gray-500">
           {seatLimitText}
         </p>
       )}

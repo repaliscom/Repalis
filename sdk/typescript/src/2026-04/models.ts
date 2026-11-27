@@ -2240,7 +2240,7 @@ export interface BadRequest {
 }
 
 /**
- * An event created by Polar when an order is paid via customer balance.
+ * An event created by Repalis when an order is paid via customer balance.
  */
 export interface BalanceCreditOrderEvent {
   /**
@@ -2256,7 +2256,7 @@ export interface BalanceCreditOrderEvent {
    */
   organization_id: string;
   /**
-   * ID of the customer in your Polar organization associated with the event.
+   * ID of the customer in your Repalis organization associated with the event.
    */
   customer_id: string | null;
   /**
@@ -2288,7 +2288,7 @@ export interface BalanceCreditOrderEvent {
    */
   label: string;
   /**
-   * The source of the event. `system` events are created by Polar. `user` events are the one you create through our ingestion API.
+   * The source of the event. `system` events are created by Repalis. `user` events are the one you create through our ingestion API.
    */
   source: "system";
   /**
@@ -2348,7 +2348,7 @@ export interface BalanceCreditOrderMetadata {
 }
 
 /**
- * An event created by Polar when an order is disputed.
+ * An event created by Repalis when an order is disputed.
  */
 export interface BalanceDisputeEvent {
   /**
@@ -2364,7 +2364,7 @@ export interface BalanceDisputeEvent {
    */
   organization_id: string;
   /**
-   * ID of the customer in your Polar organization associated with the event.
+   * ID of the customer in your Repalis organization associated with the event.
    */
   customer_id: string | null;
   /**
@@ -2396,7 +2396,7 @@ export interface BalanceDisputeEvent {
    */
   label: string;
   /**
-   * The source of the event. `system` events are created by Polar. `user` events are the one you create through our ingestion API.
+   * The source of the event. `system` events are created by Repalis. `user` events are the one you create through our ingestion API.
    */
   source: "system";
   /**
@@ -2476,7 +2476,7 @@ export interface BalanceDisputeMetadata {
 }
 
 /**
- * An event created by Polar when a dispute is won and funds are reinstated.
+ * An event created by Repalis when a dispute is won and funds are reinstated.
  */
 export interface BalanceDisputeReversalEvent {
   /**
@@ -2492,7 +2492,7 @@ export interface BalanceDisputeReversalEvent {
    */
   organization_id: string;
   /**
-   * ID of the customer in your Polar organization associated with the event.
+   * ID of the customer in your Repalis organization associated with the event.
    */
   customer_id: string | null;
   /**
@@ -2524,7 +2524,7 @@ export interface BalanceDisputeReversalEvent {
    */
   label: string;
   /**
-   * The source of the event. `system` events are created by Polar. `user` events are the one you create through our ingestion API.
+   * The source of the event. `system` events are created by Repalis. `user` events are the one you create through our ingestion API.
    */
   source: "system";
   /**
@@ -2538,7 +2538,7 @@ export interface BalanceDisputeReversalEvent {
 }
 
 /**
- * An event created by Polar when an order is paid.
+ * An event created by Repalis when an order is paid.
  */
 export interface BalanceOrderEvent {
   /**
@@ -2554,7 +2554,7 @@ export interface BalanceOrderEvent {
    */
   organization_id: string;
   /**
-   * ID of the customer in your Polar organization associated with the event.
+   * ID of the customer in your Repalis organization associated with the event.
    */
   customer_id: string | null;
   /**
@@ -2586,7 +2586,7 @@ export interface BalanceOrderEvent {
    */
   label: string;
   /**
-   * The source of the event. `system` events are created by Polar. `user` events are the one you create through our ingestion API.
+   * The source of the event. `system` events are created by Repalis. `user` events are the one you create through our ingestion API.
    */
   source: "system";
   /**
@@ -2662,7 +2662,7 @@ export interface BalanceOrderMetadata {
 }
 
 /**
- * An event created by Polar when an order is refunded.
+ * An event created by Repalis when an order is refunded.
  */
 export interface BalanceRefundEvent {
   /**
@@ -2678,7 +2678,7 @@ export interface BalanceRefundEvent {
    */
   organization_id: string;
   /**
-   * ID of the customer in your Polar organization associated with the event.
+   * ID of the customer in your Repalis organization associated with the event.
    */
   customer_id: string | null;
   /**
@@ -2710,7 +2710,7 @@ export interface BalanceRefundEvent {
    */
   label: string;
   /**
-   * The source of the event. `system` events are created by Polar. `user` events are the one you create through our ingestion API.
+   * The source of the event. `system` events are created by Repalis. `user` events are the one you create through our ingestion API.
    */
   source: "system";
   /**
@@ -2794,7 +2794,7 @@ export interface BalanceRefundMetadata {
 }
 
 /**
- * An event created by Polar when a refund is reverted.
+ * An event created by Repalis when a refund is reverted.
  */
 export interface BalanceRefundReversalEvent {
   /**
@@ -2810,7 +2810,7 @@ export interface BalanceRefundReversalEvent {
    */
   organization_id: string;
   /**
-   * ID of the customer in your Polar organization associated with the event.
+   * ID of the customer in your Repalis organization associated with the event.
    */
   customer_id: string | null;
   /**
@@ -2842,7 +2842,7 @@ export interface BalanceRefundReversalEvent {
    */
   label: string;
   /**
-   * The source of the event. `system` events are created by Polar. `user` events are the one you create through our ingestion API.
+   * The source of the event. `system` events are created by Repalis. `user` events are the one you create through our ingestion API.
    */
   source: "system";
   /**
@@ -3114,7 +3114,7 @@ You can store up to **50 key-value pairs**.
 }
 
 /**
- * An event created by Polar when a benefit is cycled.
+ * An event created by Repalis when a benefit is cycled.
  */
 export interface BenefitCycledEvent {
   /**
@@ -3130,7 +3130,7 @@ export interface BenefitCycledEvent {
    */
   organization_id: string;
   /**
-   * ID of the customer in your Polar organization associated with the event.
+   * ID of the customer in your Repalis organization associated with the event.
    */
   customer_id: string | null;
   /**
@@ -3162,7 +3162,7 @@ export interface BenefitCycledEvent {
    */
   label: string;
   /**
-   * The source of the event. `system` events are created by Polar. `user` events are the one you create through our ingestion API.
+   * The source of the event. `system` events are created by Repalis. `user` events are the one you create through our ingestion API.
    */
   source: "system";
   /**
@@ -5185,7 +5185,7 @@ export interface BenefitGrantSlackSharedChannelWebhook {
 }
 
 /**
- * An event created by Polar when a benefit is granted to a customer.
+ * An event created by Repalis when a benefit is granted to a customer.
  */
 export interface BenefitGrantedEvent {
   /**
@@ -5201,7 +5201,7 @@ export interface BenefitGrantedEvent {
    */
   organization_id: string;
   /**
-   * ID of the customer in your Polar organization associated with the event.
+   * ID of the customer in your Repalis organization associated with the event.
    */
   customer_id: string | null;
   /**
@@ -5233,7 +5233,7 @@ export interface BenefitGrantedEvent {
    */
   label: string;
   /**
-   * The source of the event. `system` events are created by Polar. `user` events are the one you create through our ingestion API.
+   * The source of the event. `system` events are created by Repalis. `user` events are the one you create through our ingestion API.
    */
   source: "system";
   /**
@@ -5883,7 +5883,7 @@ You can store up to **50 key-value pairs**.
 }
 
 /**
- * An event created by Polar when a benefit is revoked from a customer.
+ * An event created by Repalis when a benefit is revoked from a customer.
  */
 export interface BenefitRevokedEvent {
   /**
@@ -5899,7 +5899,7 @@ export interface BenefitRevokedEvent {
    */
   organization_id: string;
   /**
-   * ID of the customer in your Polar organization associated with the event.
+   * ID of the customer in your Repalis organization associated with the event.
    */
   customer_id: string | null;
   /**
@@ -5931,7 +5931,7 @@ export interface BenefitRevokedEvent {
    */
   label: string;
   /**
-   * The source of the event. `system` events are created by Polar. `user` events are the one you create through our ingestion API.
+   * The source of the event. `system` events are created by Repalis. `user` events are the one you create through our ingestion API.
    */
   source: "system";
   /**
@@ -6047,7 +6047,7 @@ You can store up to **50 key-value pairs**.
  */
 export interface BenefitSlackSharedChannelCreateProperties {
   /**
-   * Polar Slack integration to use for this benefit.
+   * Repalis Slack integration to use for this benefit.
    */
   slack_integration_id: string;
   /**
@@ -6077,7 +6077,7 @@ export interface BenefitSlackSharedChannelCreateProperties {
  */
 export interface BenefitSlackSharedChannelProperties {
   /**
-   * Polar Slack integration linked to this benefit.
+   * Repalis Slack integration linked to this benefit.
    */
   slack_integration_id: string;
   /**
@@ -6270,7 +6270,7 @@ export interface BenefitSubscriberOrganization {
 }
 
 /**
- * An event created by Polar when a benefit is updated.
+ * An event created by Repalis when a benefit is updated.
  */
 export interface BenefitUpdatedEvent {
   /**
@@ -6286,7 +6286,7 @@ export interface BenefitUpdatedEvent {
    */
   organization_id: string;
   /**
-   * ID of the customer in your Polar organization associated with the event.
+   * ID of the customer in your Repalis organization associated with the event.
    */
   customer_id: string | null;
   /**
@@ -6318,7 +6318,7 @@ export interface BenefitUpdatedEvent {
    */
   label: string;
   /**
-   * The source of the event. `system` events are created by Polar. `user` events are the one you create through our ingestion API.
+   * The source of the event. `system` events are created by Repalis. `user` events are the one you create through our ingestion API.
    */
   source: "system";
   /**
@@ -6662,7 +6662,7 @@ export interface Checkout {
    */
   metadata: MetadataOutputType;
   /**
-   * ID of the customer in your system. If a matching customer exists on Polar, the resulting order will be linked to this customer. Otherwise, a new customer will be created with this external ID set.
+   * ID of the customer in your system. If a matching customer exists on Repalis, the resulting order will be linked to this customer. Otherwise, a new customer will be created with this external ID set.
    */
   external_customer_id: string | null;
   /**
@@ -6897,7 +6897,7 @@ You can store up to **50 key-value pairs**.
    */
   is_business_customer?: boolean;
   /**
-   * ID of the customer in your system. If a matching customer exists on Polar, the resulting order will be linked to this customer. Otherwise, a new customer will be created with this external ID set.
+   * ID of the customer in your system. If a matching customer exists on Repalis, the resulting order will be linked to this customer. Otherwise, a new customer will be created with this external ID set.
    */
   external_customer_id?: string | null;
   /**
@@ -6951,7 +6951,7 @@ You can store up to **50 key-value pairs**.
    */
   return_url?: string | null;
   /**
-   * If you plan to embed the checkout session, set this to the Origin of the embedding page. It'll allow the Polar iframe to communicate with the parent page.
+   * If you plan to embed the checkout session, set this to the Origin of the embedding page. It'll allow the Repalis iframe to communicate with the parent page.
    */
   embed_origin?: string | null;
   /**
@@ -6983,7 +6983,7 @@ You can store up to **50 key-value pairs**.
 }
 
 /**
- * An event created by Polar when a checkout is created.
+ * An event created by Repalis when a checkout is created.
  */
 export interface CheckoutCreatedEvent {
   /**
@@ -6999,7 +6999,7 @@ export interface CheckoutCreatedEvent {
    */
   organization_id: string;
   /**
-   * ID of the customer in your Polar organization associated with the event.
+   * ID of the customer in your Repalis organization associated with the event.
    */
   customer_id: string | null;
   /**
@@ -7031,7 +7031,7 @@ export interface CheckoutCreatedEvent {
    */
   label: string;
   /**
-   * The source of the event. `system` events are created by Polar. `user` events are the one you create through our ingestion API.
+   * The source of the event. `system` events are created by Repalis. `user` events are the one you create through our ingestion API.
    */
   source: "system";
   /**
@@ -8419,7 +8419,7 @@ You can store up to **50 key-value pairs**.
    */
   return_url?: string | null;
   /**
-   * If you plan to embed the checkout session, set this to the Origin of the embedding page. It'll allow the Polar iframe to communicate with the parent page.
+   * If you plan to embed the checkout session, set this to the Origin of the embedding page. It'll allow the Repalis iframe to communicate with the parent page.
    */
   embed_origin?: string | null;
   /**
@@ -9982,7 +9982,7 @@ export interface CustomerBenefitGrantSlackSharedChannelUpdate {
 }
 
 /**
- * An event created by Polar when a customer is created.
+ * An event created by Repalis when a customer is created.
  */
 export interface CustomerCreatedEvent {
   /**
@@ -9998,7 +9998,7 @@ export interface CustomerCreatedEvent {
    */
   organization_id: string;
   /**
-   * ID of the customer in your Polar organization associated with the event.
+   * ID of the customer in your Repalis organization associated with the event.
    */
   customer_id: string | null;
   /**
@@ -10030,7 +10030,7 @@ export interface CustomerCreatedEvent {
    */
   label: string;
   /**
-   * The source of the event. `system` events are created by Polar. `user` events are the one you create through our ingestion API.
+   * The source of the event. `system` events are created by Repalis. `user` events are the one you create through our ingestion API.
    */
   source: "system";
   /**
@@ -10144,7 +10144,7 @@ export interface CustomerCustomerSession {
 }
 
 /**
- * An event created by Polar when a customer is deleted.
+ * An event created by Repalis when a customer is deleted.
  */
 export interface CustomerDeletedEvent {
   /**
@@ -10160,7 +10160,7 @@ export interface CustomerDeletedEvent {
    */
   organization_id: string;
   /**
-   * ID of the customer in your Polar organization associated with the event.
+   * ID of the customer in your Repalis organization associated with the event.
    */
   customer_id: string | null;
   /**
@@ -10192,7 +10192,7 @@ export interface CustomerDeletedEvent {
    */
   label: string;
   /**
-   * The source of the event. `system` events are created by Polar. `user` events are the one you create through our ingestion API.
+   * The source of the event. `system` events are created by Repalis. `user` events are the one you create through our ingestion API.
    */
   source: "system";
   /**
@@ -12577,7 +12577,7 @@ You can store up to **50 key-value pairs**.
 }
 
 /**
- * An event created by Polar when a customer is updated.
+ * An event created by Repalis when a customer is updated.
  */
 export interface CustomerUpdatedEvent {
   /**
@@ -12593,7 +12593,7 @@ export interface CustomerUpdatedEvent {
    */
   organization_id: string;
   /**
-   * ID of the customer in your Polar organization associated with the event.
+   * ID of the customer in your Repalis organization associated with the event.
    */
   customer_id: string | null;
   /**
@@ -12625,7 +12625,7 @@ export interface CustomerUpdatedEvent {
    */
   label: string;
   /**
-   * The source of the event. `system` events are created by Polar. `user` events are the one you create through our ingestion API.
+   * The source of the event. `system` events are created by Repalis. `user` events are the one you create through our ingestion API.
    */
   source: "system";
   /**
@@ -13934,11 +13934,11 @@ export interface EventCreateCustomer {
    */
   external_id?: string | null;
   /**
-   * The ID of the parent event. Can be either a Polar event ID (UUID) or an external event ID.
+   * The ID of the parent event. Can be either a Repalis event ID (UUID) or an external event ID.
    */
   parent_id?: string | null;
   /**
-   * Key-value object allowing you to store additional information about the event. Some keys like `_llm` are structured data that are handled specially by Polar.
+   * Key-value object allowing you to store additional information about the event. Some keys like `_llm` are structured data that are handled specially by Repalis.
 
 The key must be a string with a maximum length of **40 characters**.
 The value must be either:
@@ -13952,7 +13952,7 @@ You can store up to **50 key-value pairs**.
    */
   metadata?: EventMetadataInput;
   /**
-   * ID of the customer in your Polar organization associated with the event.
+   * ID of the customer in your Repalis organization associated with the event.
    */
   customer_id: string;
   /**
@@ -13982,11 +13982,11 @@ export interface EventCreateExternalCustomer {
    */
   external_id?: string | null;
   /**
-   * The ID of the parent event. Can be either a Polar event ID (UUID) or an external event ID.
+   * The ID of the parent event. Can be either a Repalis event ID (UUID) or an external event ID.
    */
   parent_id?: string | null;
   /**
-   * Key-value object allowing you to store additional information about the event. Some keys like `_llm` are structured data that are handled specially by Polar.
+   * Key-value object allowing you to store additional information about the event. Some keys like `_llm` are structured data that are handled specially by Repalis.
 
 The key must be a string with a maximum length of **40 characters**.
 The value must be either:
@@ -14052,7 +14052,7 @@ export interface EventName {
    */
   label: string;
   /**
-   * The source of the event. `system` events are created by Polar. `user` events are the one you create through our ingestion API.
+   * The source of the event. `system` events are created by Repalis. `user` events are the one you create through our ingestion API.
    */
   source: EventSource;
   /**
@@ -16017,7 +16017,7 @@ You can store up to **50 key-value pairs**.
 }
 
 /**
- * An event created by Polar when credits are added to a customer meter.
+ * An event created by Repalis when credits are added to a customer meter.
  */
 export interface MeterCreditEvent {
   /**
@@ -16033,7 +16033,7 @@ export interface MeterCreditEvent {
    */
   organization_id: string;
   /**
-   * ID of the customer in your Polar organization associated with the event.
+   * ID of the customer in your Repalis organization associated with the event.
    */
   customer_id: string | null;
   /**
@@ -16065,7 +16065,7 @@ export interface MeterCreditEvent {
    */
   label: string;
   /**
-   * The source of the event. `system` events are created by Polar. `user` events are the one you create through our ingestion API.
+   * The source of the event. `system` events are created by Repalis. `user` events are the one you create through our ingestion API.
    */
   source: "system";
   /**
@@ -16125,7 +16125,7 @@ export interface MeterQuantity {
 }
 
 /**
- * An event created by Polar when a customer meter is reset.
+ * An event created by Repalis when a customer meter is reset.
  */
 export interface MeterResetEvent {
   /**
@@ -16141,7 +16141,7 @@ export interface MeterResetEvent {
    */
   organization_id: string;
   /**
-   * ID of the customer in your Polar organization associated with the event.
+   * ID of the customer in your Repalis organization associated with the event.
    */
   customer_id: string | null;
   /**
@@ -16173,7 +16173,7 @@ export interface MeterResetEvent {
    */
   label: string;
   /**
-   * The source of the event. `system` events are created by Polar. `user` events are the one you create through our ingestion API.
+   * The source of the event. `system` events are created by Repalis. `user` events are the one you create through our ingestion API.
    */
   source: "system";
   /**
@@ -17616,7 +17616,7 @@ export interface OrderNotEligibleForInvoice {
 }
 
 /**
- * An event created by Polar when an order is paid.
+ * An event created by Repalis when an order is paid.
  */
 export interface OrderPaidEvent {
   /**
@@ -17632,7 +17632,7 @@ export interface OrderPaidEvent {
    */
   organization_id: string;
   /**
-   * ID of the customer in your Polar organization associated with the event.
+   * ID of the customer in your Repalis organization associated with the event.
    */
   customer_id: string | null;
   /**
@@ -17664,7 +17664,7 @@ export interface OrderPaidEvent {
    */
   label: string;
   /**
-   * The source of the event. `system` events are created by Polar. `user` events are the one you create through our ingestion API.
+   * The source of the event. `system` events are created by Repalis. `user` events are the one you create through our ingestion API.
    */
   source: "system";
   /**
@@ -17820,7 +17820,7 @@ export interface OrderReceipt {
 }
 
 /**
- * An event created by Polar when an order is refunded.
+ * An event created by Repalis when an order is refunded.
  */
 export interface OrderRefundedEvent {
   /**
@@ -17836,7 +17836,7 @@ export interface OrderRefundedEvent {
    */
   organization_id: string;
   /**
-   * ID of the customer in your Polar organization associated with the event.
+   * ID of the customer in your Repalis organization associated with the event.
    */
   customer_id: string | null;
   /**
@@ -17868,7 +17868,7 @@ export interface OrderRefundedEvent {
    */
   label: string;
   /**
-   * The source of the event. `system` events are created by Polar. `user` events are the one you create through our ingestion API.
+   * The source of the event. `system` events are created by Repalis. `user` events are the one you create through our ingestion API.
    */
   source: "system";
   /**
@@ -18034,7 +18034,7 @@ export interface OrderSubscription {
 }
 
 /**
- * An event created by Polar when an order is unvoided.
+ * An event created by Repalis when an order is unvoided.
  */
 export interface OrderUnvoidedEvent {
   /**
@@ -18050,7 +18050,7 @@ export interface OrderUnvoidedEvent {
    */
   organization_id: string;
   /**
-   * ID of the customer in your Polar organization associated with the event.
+   * ID of the customer in your Repalis organization associated with the event.
    */
   customer_id: string | null;
   /**
@@ -18082,7 +18082,7 @@ export interface OrderUnvoidedEvent {
    */
   label: string;
   /**
-   * The source of the event. `system` events are created by Polar. `user` events are the one you create through our ingestion API.
+   * The source of the event. `system` events are created by Repalis. `user` events are the one you create through our ingestion API.
    */
   source: "system";
   /**
@@ -18128,7 +18128,7 @@ export interface OrderUpdate {
 }
 
 /**
- * An event created by Polar when an order is voided.
+ * An event created by Repalis when an order is voided.
  */
 export interface OrderVoidedEvent {
   /**
@@ -18144,7 +18144,7 @@ export interface OrderVoidedEvent {
    */
   organization_id: string;
   /**
-   * ID of the customer in your Polar organization associated with the event.
+   * ID of the customer in your Repalis organization associated with the event.
    */
   customer_id: string | null;
   /**
@@ -18176,7 +18176,7 @@ export interface OrderVoidedEvent {
    */
   label: string;
   /**
-   * The source of the event. `system` events are created by Polar. `user` events are the one you create through our ingestion API.
+   * The source of the event. `system` events are created by Repalis. `user` events are the one you create through our ingestion API.
    */
   source: "system";
   /**
@@ -18264,7 +18264,7 @@ export interface Organization {
    */
   details_submitted_at: string | null;
   /**
-   * When Polar requested that the organization review and resubmit its onboarding information, if applicable.
+   * When Repalis requested that the organization review and resubmit its onboarding information, if applicable.
    */
   onboarding_resubmission_requested_at: string | null;
   /**
@@ -18512,7 +18512,7 @@ export interface OrganizationCreate {
    */
   socials?: OrganizationSocialLink[] | null;
   /**
-   * Additional, private, business details Polar needs about active organizations for compliance (KYC).
+   * Additional, private, business details Repalis needs about active organizations for compliance (KYC).
    */
   details?: OrganizationDetails | null;
   /**
@@ -18654,7 +18654,7 @@ export interface OrganizationDetails {
    */
   about?: string | null;
   /**
-   * How the organization will integrate and use Polar.
+   * How the organization will integrate and use Repalis.
    */
   intended_use?: string | null;
   /**
@@ -18672,7 +18672,7 @@ export interface OrganizationDetails {
 }
 
 /**
- * `auto_accept_below_amount` is in Polar's settlement currency (USD).
+ * `auto_accept_below_amount` is in Repalis's settlement currency (USD).
  */
 export interface OrganizationDisputeSettings {
   /**
@@ -18744,7 +18744,7 @@ export interface OrganizationFeatureSettings {
    */
   sso_enabled?: boolean;
   /**
-   * If this organization can set a threshold below which Polar concedes disputes on its behalf. Requires `disputes_enabled`.
+   * If this organization can set a threshold below which Repalis concedes disputes on its behalf. Requires `disputes_enabled`.
    */
   dispute_auto_accept_enabled?: boolean;
   /**
@@ -18752,7 +18752,7 @@ export interface OrganizationFeatureSettings {
    */
   compass_enabled?: boolean;
   /**
-   * If this organization can migrate its billing from another provider (e.g. Stripe) to Polar.
+   * If this organization can migrate its billing from another provider (e.g. Stripe) to Repalis.
    */
   merchant_migration_enabled?: boolean;
 }
@@ -18760,7 +18760,7 @@ export interface OrganizationFeatureSettings {
 /**
  * Feature settings that organizations can update themselves.
 
-Other feature settings are managed by Polar staff: they're ignored if
+Other feature settings are managed by Repalis staff: they're ignored if
 provided and keep their current value.
  */
 export interface OrganizationFeatureSettingsUpdate {
@@ -18867,7 +18867,7 @@ export interface OrganizationUpdate {
    */
   socials?: OrganizationSocialLink[] | null;
   /**
-   * Additional, private, business details Polar needs about active organizations for compliance (KYC).
+   * Additional, private, business details Repalis needs about active organizations for compliance (KYC).
    */
   details?: OrganizationDetails | null;
   /**
@@ -21380,7 +21380,7 @@ export interface Subscription {
 }
 
 /**
- * An event created by Polar when a subscription billing period is updated.
+ * An event created by Repalis when a subscription billing period is updated.
  */
 export interface SubscriptionBillingPeriodUpdatedEvent {
   /**
@@ -21396,7 +21396,7 @@ export interface SubscriptionBillingPeriodUpdatedEvent {
    */
   organization_id: string;
   /**
-   * ID of the customer in your Polar organization associated with the event.
+   * ID of the customer in your Repalis organization associated with the event.
    */
   customer_id: string | null;
   /**
@@ -21428,7 +21428,7 @@ export interface SubscriptionBillingPeriodUpdatedEvent {
    */
   label: string;
   /**
-   * The source of the event. `system` events are created by Polar. `user` events are the one you create through our ingestion API.
+   * The source of the event. `system` events are created by Repalis. `user` events are the one you create through our ingestion API.
    */
   source: "system";
   /**
@@ -21487,7 +21487,7 @@ the customer.
 
 **IMPORTANT:**
 Do not use this to store internal notes! It's intended to be input
-from the customer and is therefore also available in their Polar
+from the customer and is therefore also available in their Repalis
 purchases library.
 
 Only set this in case your own service is requesting the reason from the
@@ -21504,7 +21504,7 @@ Or uncancel a subscription currently set to be revoked at period end.
 }
 
 /**
- * An event created by Polar when a subscription is canceled.
+ * An event created by Repalis when a subscription is canceled.
  */
 export interface SubscriptionCanceledEvent {
   /**
@@ -21520,7 +21520,7 @@ export interface SubscriptionCanceledEvent {
    */
   organization_id: string;
   /**
-   * ID of the customer in your Polar organization associated with the event.
+   * ID of the customer in your Repalis organization associated with the event.
    */
   customer_id: string | null;
   /**
@@ -21552,7 +21552,7 @@ export interface SubscriptionCanceledEvent {
    */
   label: string;
   /**
-   * The source of the event. `system` events are created by Polar. `user` events are the one you create through our ingestion API.
+   * The source of the event. `system` events are created by Repalis. `user` events are the one you create through our ingestion API.
    */
   source: "system";
   /**
@@ -21666,13 +21666,13 @@ You can store up to **50 key-value pairs**.
    */
   product_id: string;
   /**
-   * The ID of the customer in your system to create the subscription for. It must already exist in Polar.
+   * The ID of the customer in your system to create the subscription for. It must already exist in Repalis.
    */
   external_customer_id: string;
 }
 
 /**
- * An event created by Polar when a subscription is created.
+ * An event created by Repalis when a subscription is created.
  */
 export interface SubscriptionCreatedEvent {
   /**
@@ -21688,7 +21688,7 @@ export interface SubscriptionCreatedEvent {
    */
   organization_id: string;
   /**
-   * ID of the customer in your Polar organization associated with the event.
+   * ID of the customer in your Repalis organization associated with the event.
    */
   customer_id: string | null;
   /**
@@ -21720,7 +21720,7 @@ export interface SubscriptionCreatedEvent {
    */
   label: string;
   /**
-   * The source of the event. `system` events are created by Polar. `user` events are the one you create through our ingestion API.
+   * The source of the event. `system` events are created by Repalis. `user` events are the one you create through our ingestion API.
    */
   source: "system";
   /**
@@ -21846,7 +21846,7 @@ export interface SubscriptionCustomer {
 }
 
 /**
- * An event created by Polar when a subscription is cycled.
+ * An event created by Repalis when a subscription is cycled.
  */
 export interface SubscriptionCycledEvent {
   /**
@@ -21862,7 +21862,7 @@ export interface SubscriptionCycledEvent {
    */
   organization_id: string;
   /**
-   * ID of the customer in your Polar organization associated with the event.
+   * ID of the customer in your Repalis organization associated with the event.
    */
   customer_id: string | null;
   /**
@@ -21894,7 +21894,7 @@ export interface SubscriptionCycledEvent {
    */
   label: string;
   /**
-   * The source of the event. `system` events are created by Polar. `user` events are the one you create through our ingestion API.
+   * The source of the event. `system` events are created by Repalis. `user` events are the one you create through our ingestion API.
    */
   source: "system";
   /**
@@ -21990,7 +21990,7 @@ export interface SubscriptionMeter {
 }
 
 /**
- * An event created by Polar when a subscription is migrated to Polar.
+ * An event created by Repalis when a subscription is migrated to Repalis.
  */
 export interface SubscriptionMigratedEvent {
   /**
@@ -22006,7 +22006,7 @@ export interface SubscriptionMigratedEvent {
    */
   organization_id: string;
   /**
-   * ID of the customer in your Polar organization associated with the event.
+   * ID of the customer in your Repalis organization associated with the event.
    */
   customer_id: string | null;
   /**
@@ -22038,7 +22038,7 @@ export interface SubscriptionMigratedEvent {
    */
   label: string;
   /**
-   * The source of the event. `system` events are created by Polar. `user` events are the one you create through our ingestion API.
+   * The source of the event. `system` events are created by Repalis. `user` events are the one you create through our ingestion API.
    */
   source: "system";
   /**
@@ -22088,7 +22088,7 @@ export interface SubscriptionNotScheduledToCancel {
 }
 
 /**
- * An event created by Polar when a subscription becomes past due.
+ * An event created by Repalis when a subscription becomes past due.
  */
 export interface SubscriptionPastDueEvent {
   /**
@@ -22104,7 +22104,7 @@ export interface SubscriptionPastDueEvent {
    */
   organization_id: string;
   /**
-   * ID of the customer in your Polar organization associated with the event.
+   * ID of the customer in your Repalis organization associated with the event.
    */
   customer_id: string | null;
   /**
@@ -22136,7 +22136,7 @@ export interface SubscriptionPastDueEvent {
    */
   label: string;
   /**
-   * The source of the event. `system` events are created by Polar. `user` events are the one you create through our ingestion API.
+   * The source of the event. `system` events are created by Repalis. `user` events are the one you create through our ingestion API.
    */
   source: "system";
   /**
@@ -22204,7 +22204,7 @@ Must be after the current period end.
 }
 
 /**
- * An event created by Polar when a subscription is paused.
+ * An event created by Repalis when a subscription is paused.
  */
 export interface SubscriptionPausedEvent {
   /**
@@ -22220,7 +22220,7 @@ export interface SubscriptionPausedEvent {
    */
   organization_id: string;
   /**
-   * ID of the customer in your Polar organization associated with the event.
+   * ID of the customer in your Repalis organization associated with the event.
    */
   customer_id: string | null;
   /**
@@ -22252,7 +22252,7 @@ export interface SubscriptionPausedEvent {
    */
   label: string;
   /**
-   * The source of the event. `system` events are created by Polar. `user` events are the one you create through our ingestion API.
+   * The source of the event. `system` events are created by Repalis. `user` events are the one you create through our ingestion API.
    */
   source: "system";
   /**
@@ -22304,7 +22304,7 @@ export interface SubscriptionPausedMetadata {
 }
 
 /**
- * An event created by Polar when a subscription changes the product.
+ * An event created by Repalis when a subscription changes the product.
  */
 export interface SubscriptionProductUpdatedEvent {
   /**
@@ -22320,7 +22320,7 @@ export interface SubscriptionProductUpdatedEvent {
    */
   organization_id: string;
   /**
-   * ID of the customer in your Polar organization associated with the event.
+   * ID of the customer in your Repalis organization associated with the event.
    */
   customer_id: string | null;
   /**
@@ -22352,7 +22352,7 @@ export interface SubscriptionProductUpdatedEvent {
    */
   label: string;
   /**
-   * The source of the event. `system` events are created by Polar. `user` events are the one you create through our ingestion API.
+   * The source of the event. `system` events are created by Repalis. `user` events are the one you create through our ingestion API.
    */
   source: "system";
   /**
@@ -22384,7 +22384,7 @@ export interface SubscriptionProductUpdatedMetadata {
 }
 
 /**
- * An event created by Polar when a past due subscription is recovered.
+ * An event created by Repalis when a past due subscription is recovered.
  */
 export interface SubscriptionReactivatedEvent {
   /**
@@ -22400,7 +22400,7 @@ export interface SubscriptionReactivatedEvent {
    */
   organization_id: string;
   /**
-   * ID of the customer in your Polar organization associated with the event.
+   * ID of the customer in your Repalis organization associated with the event.
    */
   customer_id: string | null;
   /**
@@ -22432,7 +22432,7 @@ export interface SubscriptionReactivatedEvent {
    */
   label: string;
   /**
-   * The source of the event. `system` events are created by Polar. `user` events are the one you create through our ingestion API.
+   * The source of the event. `system` events are created by Repalis. `user` events are the one you create through our ingestion API.
    */
   source: "system";
   /**
@@ -22476,7 +22476,7 @@ export interface SubscriptionReactivatedMetadata {
 }
 
 /**
- * An event created by Polar when a canceled subscription is reinstated.
+ * An event created by Repalis when a canceled subscription is reinstated.
  */
 export interface SubscriptionReinstatedEvent {
   /**
@@ -22492,7 +22492,7 @@ export interface SubscriptionReinstatedEvent {
    */
   organization_id: string;
   /**
-   * ID of the customer in your Polar organization associated with the event.
+   * ID of the customer in your Repalis organization associated with the event.
    */
   customer_id: string | null;
   /**
@@ -22524,7 +22524,7 @@ export interface SubscriptionReinstatedEvent {
    */
   label: string;
   /**
-   * The source of the event. `system` events are created by Polar. `user` events are the one you create through our ingestion API.
+   * The source of the event. `system` events are created by Repalis. `user` events are the one you create through our ingestion API.
    */
   source: "system";
   /**
@@ -22578,7 +22578,7 @@ export interface SubscriptionResume {
 }
 
 /**
- * An event created by Polar when a paused subscription is resumed.
+ * An event created by Repalis when a paused subscription is resumed.
  */
 export interface SubscriptionResumedEvent {
   /**
@@ -22594,7 +22594,7 @@ export interface SubscriptionResumedEvent {
    */
   organization_id: string;
   /**
-   * ID of the customer in your Polar organization associated with the event.
+   * ID of the customer in your Repalis organization associated with the event.
    */
   customer_id: string | null;
   /**
@@ -22626,7 +22626,7 @@ export interface SubscriptionResumedEvent {
    */
   label: string;
   /**
-   * The source of the event. `system` events are created by Polar. `user` events are the one you create through our ingestion API.
+   * The source of the event. `system` events are created by Repalis. `user` events are the one you create through our ingestion API.
    */
   source: "system";
   /**
@@ -22697,7 +22697,7 @@ the customer.
 
 **IMPORTANT:**
 Do not use this to store internal notes! It's intended to be input
-from the customer and is therefore also available in their Polar
+from the customer and is therefore also available in their Repalis
 purchases library.
 
 Only set this in case your own service is requesting the reason from the
@@ -22712,7 +22712,7 @@ conversation, i.e support.
 }
 
 /**
- * An event created by Polar when a subscription is revoked from a customer.
+ * An event created by Repalis when a subscription is revoked from a customer.
  */
 export interface SubscriptionRevokedEvent {
   /**
@@ -22728,7 +22728,7 @@ export interface SubscriptionRevokedEvent {
    */
   organization_id: string;
   /**
-   * ID of the customer in your Polar organization associated with the event.
+   * ID of the customer in your Repalis organization associated with the event.
    */
   customer_id: string | null;
   /**
@@ -22760,7 +22760,7 @@ export interface SubscriptionRevokedEvent {
    */
   label: string;
   /**
-   * The source of the event. `system` events are created by Polar. `user` events are the one you create through our ingestion API.
+   * The source of the event. `system` events are created by Repalis. `user` events are the one you create through our ingestion API.
    */
   source: "system";
   /**
@@ -22804,7 +22804,7 @@ export interface SubscriptionRevokedMetadata {
 }
 
 /**
- * An event created by Polar when a the seats on a subscription is changed.
+ * An event created by Repalis when a the seats on a subscription is changed.
  */
 export interface SubscriptionSeatsUpdatedEvent {
   /**
@@ -22820,7 +22820,7 @@ export interface SubscriptionSeatsUpdatedEvent {
    */
   organization_id: string;
   /**
-   * ID of the customer in your Polar organization associated with the event.
+   * ID of the customer in your Repalis organization associated with the event.
    */
   customer_id: string | null;
   /**
@@ -22852,7 +22852,7 @@ export interface SubscriptionSeatsUpdatedEvent {
    */
   label: string;
   /**
-   * The source of the event. `system` events are created by Polar. `user` events are the one you create through our ingestion API.
+   * The source of the event. `system` events are created by Repalis. `user` events are the one you create through our ingestion API.
    */
   source: "system";
   /**
@@ -22888,7 +22888,7 @@ export interface SubscriptionSeatsUpdatedMetadata {
 }
 
 /**
- * An event created by Polar when a subscription cancellation is reversed.
+ * An event created by Repalis when a subscription cancellation is reversed.
  */
 export interface SubscriptionUncanceledEvent {
   /**
@@ -22904,7 +22904,7 @@ export interface SubscriptionUncanceledEvent {
    */
   organization_id: string;
   /**
-   * ID of the customer in your Polar organization associated with the event.
+   * ID of the customer in your Repalis organization associated with the event.
    */
   customer_id: string | null;
   /**
@@ -22936,7 +22936,7 @@ export interface SubscriptionUncanceledEvent {
    */
   label: string;
   /**
-   * The source of the event. `system` events are created by Polar. `user` events are the one you create through our ingestion API.
+   * The source of the event. `system` events are created by Repalis. `user` events are the one you create through our ingestion API.
    */
   source: "system";
   /**
@@ -22980,7 +22980,7 @@ export interface SubscriptionUncanceledMetadata {
 }
 
 /**
- * An event created by Polar when the units on a subscription are changed.
+ * An event created by Repalis when the units on a subscription are changed.
  */
 export interface SubscriptionUnitsUpdatedEvent {
   /**
@@ -22996,7 +22996,7 @@ export interface SubscriptionUnitsUpdatedEvent {
    */
   organization_id: string;
   /**
-   * ID of the customer in your Polar organization associated with the event.
+   * ID of the customer in your Repalis organization associated with the event.
    */
   customer_id: string | null;
   /**
@@ -23028,7 +23028,7 @@ export interface SubscriptionUnitsUpdatedEvent {
    */
   label: string;
   /**
-   * The source of the event. `system` events are created by Polar. `user` events are the one you create through our ingestion API.
+   * The source of the event. `system` events are created by Repalis. `user` events are the one you create through our ingestion API.
    */
   source: "system";
   /**
@@ -23124,7 +23124,7 @@ export interface SubscriptionUpdateClear {
 }
 
 /**
- * An event created by Polar when a pending subscription update is cleared without being applied.
+ * An event created by Repalis when a pending subscription update is cleared without being applied.
  */
 export interface SubscriptionUpdateClearedEvent {
   /**
@@ -23140,7 +23140,7 @@ export interface SubscriptionUpdateClearedEvent {
    */
   organization_id: string;
   /**
-   * ID of the customer in your Polar organization associated with the event.
+   * ID of the customer in your Repalis organization associated with the event.
    */
   customer_id: string | null;
   /**
@@ -23172,7 +23172,7 @@ export interface SubscriptionUpdateClearedEvent {
    */
   label: string;
   /**
-   * The source of the event. `system` events are created by Polar. `user` events are the one you create through our ingestion API.
+   * The source of the event. `system` events are created by Repalis. `user` events are the one you create through our ingestion API.
    */
   source: "system";
   /**
@@ -23224,7 +23224,7 @@ export interface SubscriptionUpdateUnits {
 }
 
 /**
- * An event created by Polar when a subscription is updated.
+ * An event created by Repalis when a subscription is updated.
  */
 export interface SubscriptionUpdatedEvent {
   /**
@@ -23240,7 +23240,7 @@ export interface SubscriptionUpdatedEvent {
    */
   organization_id: string;
   /**
-   * ID of the customer in your Polar organization associated with the event.
+   * ID of the customer in your Repalis organization associated with the event.
    */
   customer_id: string | null;
   /**
@@ -23272,7 +23272,7 @@ export interface SubscriptionUpdatedEvent {
    */
   label: string;
   /**
-   * The source of the event. `system` events are created by Polar. `user` events are the one you create through our ingestion API.
+   * The source of the event. `system` events are created by Repalis. `user` events are the one you create through our ingestion API.
    */
   source: "system";
   /**
@@ -23630,7 +23630,7 @@ export interface UserEvent {
    */
   organization_id: string;
   /**
-   * ID of the customer in your Polar organization associated with the event.
+   * ID of the customer in your Repalis organization associated with the event.
    */
   customer_id: string | null;
   /**
@@ -23666,7 +23666,7 @@ export interface UserEvent {
    */
   name: string;
   /**
-   * The source of the event. `system` events are created by Polar. `user` events are the one you create through our ingestion API.
+   * The source of the event. `system` events are created by Repalis. `user` events are the one you create through our ingestion API.
    */
   source: "user";
   /**
@@ -23894,7 +23894,7 @@ export interface WebhookEndpoint {
    */
   enabled: boolean;
   /**
-   * Whether Polar signs deliveries to this endpoint with Standard Webhooks. False means Polar's original HMAC over the UTF-8 bytes of the full secret.
+   * Whether Repalis signs deliveries to this endpoint with Standard Webhooks. False means Repalis's original HMAC over the UTF-8 bytes of the full secret.
    */
   uses_standard_webhook_signature: boolean;
 }

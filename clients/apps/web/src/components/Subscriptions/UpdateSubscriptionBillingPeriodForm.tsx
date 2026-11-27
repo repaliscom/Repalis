@@ -2,10 +2,10 @@
 
 import { useUpdateSubscription } from '@/hooks/queries/subscriptions'
 import { extractApiErrorMessage, setValidationErrors } from '@/utils/api/errors'
-import { isValidationError, schemas } from '@polar-sh/client'
-import { Button } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import DateTimePicker from '@polar-sh/ui/components/atoms/DateTimePicker'
+import { isValidationError, schemas } from '@repalis/client'
+import { Button } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import DateTimePicker from '@repalis/ui/components/atoms/DateTimePicker'
 import {
   Form,
   FormDescription,
@@ -13,7 +13,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@polar-sh/ui/components/ui/form'
+} from '@repalis/ui/components/ui/form'
 import { useCallback, useMemo } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from '../Toast/use-toast'
@@ -75,7 +75,7 @@ export const UpdateSubscriptionBillingPeriodForm = ({
 
   return (
     <Box flexDirection="column" rowGap="l">
-      <p className="dark:text-polar-500 text-sm text-gray-500">
+      <p className="dark:text-repalis-500 text-sm text-gray-500">
         Extend the current billing period by setting a new end date in the
         future. This is useful for providing additional free subscription time
         to a customer.

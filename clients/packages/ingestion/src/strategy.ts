@@ -1,5 +1,5 @@
-import type { models } from '@polar-sh/sdk/2027-01'
-import { type IngestionContext, PolarIngestion } from './ingestion'
+import type { models } from '@repalis/sdk/2027-01'
+import { type IngestionContext, RepalisIngestion } from './ingestion'
 
 export type IngestionStrategyCustomer =
   | { customerId: string }
@@ -22,7 +22,7 @@ export type IngestionStrategyContext = IngestionContext & {
 export abstract class IngestionStrategy<
   TUsageContext extends IngestionStrategyContext,
   TStrategyClient,
-> extends PolarIngestion<TUsageContext> {
+> extends RepalisIngestion<TUsageContext> {
   public createExecutionHandler(): IngestionExecutionHandler<TUsageContext> {
     return async (
       context: TUsageContext,
@@ -32,7 +32,7 @@ export abstract class IngestionStrategy<
         await this.execute(context, customer)
       } catch (error) {
         // The metered work is already done and most callers don't await this
-        console.error('[@polar-sh/ingestion] Failed to ingest event', error)
+        console.error('[@repalis/ingestion] Failed to ingest event', error)
       }
     }
   }

@@ -4,11 +4,11 @@ from typing import Any
 
 import pytest
 
-from polar.event.system import SystemEvent
-from polar.integrations.tinybird.client import TinybirdClient
-from polar.integrations.tinybird.service import DATASOURCE_EVENTS, _event_to_tinybird
-from polar.models import Customer, Event, Order, Organization, Product, Subscription
-from polar.models.event import EventSource
+from repalis.event.system import SystemEvent
+from repalis.integrations.tinybird.client import TinybirdClient
+from repalis.integrations.tinybird.service import DATASOURCE_EVENTS, _event_to_tinybird
+from repalis.models import Customer, Event, Order, Organization, Product, Subscription
+from repalis.models.event import EventSource
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_event
 

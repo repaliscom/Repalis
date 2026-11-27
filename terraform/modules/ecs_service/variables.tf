@@ -9,7 +9,7 @@ variable "environment" {
 }
 
 variable "name" {
-  description = "Short service name, combined into polar-{environment}-{name}."
+  description = "Short service name, combined into repalis-{environment}-{name}."
   type        = string
 
   validation {

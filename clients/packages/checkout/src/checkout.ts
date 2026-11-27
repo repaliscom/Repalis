@@ -1,4 +1,4 @@
-const POLAR_CHECKOUT_EVENT = 'POLAR_CHECKOUT'
+const REPALIS_CHECKOUT_EVENT = 'REPALIS_CHECKOUT'
 
 /**
  * Message sent to the parent window when the embedded checkout is fully loaded.
@@ -47,7 +47,7 @@ const isEmbedCheckoutMessage = (
   // oxlint-disable-next-line typescript/no-explicit-any
   message: any,
 ): message is EmbedCheckoutMessage => {
-  return message.type === POLAR_CHECKOUT_EVENT
+  return message.type === REPALIS_CHECKOUT_EVENT
 }
 
 /**
@@ -81,7 +81,7 @@ class EmbedCheckout {
     targetOrigin: string,
   ): void {
     window.parent.postMessage(
-      { ...message, type: POLAR_CHECKOUT_EVENT },
+      { ...message, type: REPALIS_CHECKOUT_EVENT },
       targetOrigin,
     )
   }
@@ -127,18 +127,18 @@ class EmbedCheckout {
 
     const styleSheet = document.createElement('style')
     styleSheet.innerText = `
-      .polar-loader-spinner {
+      .repalis-loader-spinner {
         width: 20px;
         aspect-ratio: 1;
         border-radius: 50%;
         background: ${theme === 'dark' ? '#000' : '#fff'};
         box-shadow: 0 0 0 0 ${theme === 'dark' ? '#fff' : '#000'};
-        animation: polar-loader-spinner-animation 1s infinite;
+        animation: repalis-loader-spinner-animation 1s infinite;
       }
-      @keyframes polar-loader-spinner-animation {
+      @keyframes repalis-loader-spinner-animation {
         100% {box-shadow: 0 0 0 30px #0000}
       }
-      body.polar-no-scroll {
+      body.repalis-no-scroll {
         overflow: hidden;
       }
     `
@@ -155,11 +155,11 @@ class EmbedCheckout {
 
     // Create spinning icon
     const spinner = document.createElement('div')
-    spinner.className = 'polar-loader-spinner'
+    spinner.className = 'repalis-loader-spinner'
     loader.appendChild(spinner)
 
     // Insert into the DOM
-    document.body.classList.add('polar-no-scroll')
+    document.body.classList.add('repalis-no-scroll')
     document.body.appendChild(loader)
 
     // Create iframe
@@ -181,7 +181,7 @@ class EmbedCheckout {
 
     // oxlint-disable-next-line typescript/ban-ts-comment
     // @ts-ignore
-    const origins = __POLAR_CHECKOUT_EMBED_SCRIPT_ALLOWED_ORIGINS__
+    const origins = __REPALIS_CHECKOUT_EMBED_SCRIPT_ALLOWED_ORIGINS__
       .split(',')
       .join(' ')
     iframe.allow = `payment 'self' ${origins}; publickey-credentials-get 'self' ${origins};`
@@ -204,18 +204,20 @@ class EmbedCheckout {
   /**
    * Initialize embedded checkout triggers.
    *
-   * This method will add a click event listener to all elements with the `data-polar-checkout` attribute.
-   * The Checkout Link is either the `href` attribute for a link element or the value of `data-polar-checkout` attribute.
+   * This method will add a click event listener to all elements with the `data-repalis-checkout` attribute.
+   * The Checkout Link is either the `href` attribute for a link element or the value of `data-repalis-checkout` attribute.
    *
-   * The theme can be optionally set using the `data-polar-checkout-theme` attribute.
+   * The theme can be optionally set using the `data-repalis-checkout-theme` attribute.
    *
    * @example
    * ```html
-   * <a href="https://buy.polar.sh/polar_cl_123" data-polar-checkout data-polar-checkout-theme="dark">Checkout</a>
+   * <a href="https://buy.repalis.com/repalis_cl_123" data-repalis-checkout data-repalis-checkout-theme="dark">Checkout</a>
    * ```
    */
   public static init(): void {
-    const checkoutElements = document.querySelectorAll('[data-polar-checkout]')
+    const checkoutElements = document.querySelectorAll(
+      '[data-repalis-checkout], [data-repalis-checkout]',
+    )
     checkoutElements.forEach((checkoutElement) => {
       checkoutElement.removeEventListener(
         'click',
@@ -235,7 +237,7 @@ class EmbedCheckout {
     window.removeEventListener('message', this.windowMessageListener)
     if (document.body.contains(this.iframe))
       document.body.removeChild(this.iframe)
-    document.body.classList.remove('polar-no-scroll')
+    document.body.classList.remove('repalis-no-scroll')
   }
 
   /**
@@ -304,9 +306,12 @@ class EmbedCheckout {
     e.preventDefault()
     let checkoutElement = e.target as HTMLElement
 
-    // Find the closest parent element with the `data-polar-checkout` attribute,
+    // Find the closest parent element with the `data-repalis-checkout` or `data-repalis-checkout` attribute,
     // in case the checkout element has children triggering the event.
-    while (!checkoutElement.hasAttribute('data-polar-checkout')) {
+    while (
+      !checkoutElement.hasAttribute('data-repalis-checkout') &&
+      !checkoutElement.hasAttribute('data-repalis-checkout')
+    ) {
       if (!checkoutElement.parentElement) {
         return
       }
@@ -315,8 +320,11 @@ class EmbedCheckout {
 
     const url =
       checkoutElement.getAttribute('href') ||
-      (checkoutElement.getAttribute('data-polar-checkout') as string)
-    const theme = checkoutElement.getAttribute('data-polar-checkout-theme') as
+      (checkoutElement.getAttribute('data-repalis-checkout') as string) ||
+      (checkoutElement.getAttribute('data-repalis-checkout') as string)
+    const theme = (checkoutElement.getAttribute(
+      'data-repalis-checkout-theme',
+    ) || checkoutElement.getAttribute('data-repalis-checkout-theme')) as
       | 'light'
       | 'dark'
       | undefined
@@ -373,7 +381,7 @@ class EmbedCheckout {
     if (
       // oxlint-disable-next-line typescript/ban-ts-comment
       // @ts-ignore
-      !__POLAR_CHECKOUT_EMBED_SCRIPT_ALLOWED_ORIGINS__
+      !__REPALIS_CHECKOUT_EMBED_SCRIPT_ALLOWED_ORIGINS__
         .split(',')
         .includes(origin)
     ) {
@@ -408,19 +416,23 @@ class EmbedCheckout {
 }
 
 declare global {
-  interface PolarWindow {
+  interface RepalisWindow {
     EmbedCheckout: typeof EmbedCheckout
   }
   interface Window {
-    Polar: Partial<PolarWindow>
+    Repalis: Partial<RepalisWindow>
+    Repalis: Partial<RepalisWindow>
   }
 }
 
 if (typeof window !== 'undefined') {
-  window.Polar = {
-    ...(window.Polar ?? {}),
+  const repalisObj = {
+    ...(window.Repalis ?? {}),
+    ...(window.Repalis ?? {}),
     EmbedCheckout,
   }
+  window.Repalis = repalisObj
+  window.Repalis = repalisObj
 }
 
 if (typeof document !== 'undefined') {
@@ -432,4 +444,7 @@ if (typeof document !== 'undefined') {
   }
 }
 
-export { EmbedCheckout as PolarEmbedCheckout }
+export {
+  EmbedCheckout as RepalisEmbedCheckout,
+  EmbedCheckout as RepalisEmbedCheckout,
+}

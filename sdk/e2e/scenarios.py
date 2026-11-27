@@ -1,7 +1,7 @@
 import itertools
 
-from polar.outpost.client import Snapshot
-from polar.outpost.reducer import BUCKET_SIZE, Reducer
+from repalis.outpost.client import Snapshot
+from repalis.outpost.reducer import BUCKET_SIZE, Reducer
 
 from harness import (
     DisconnectStep,
@@ -103,7 +103,7 @@ def emit(
     )
 
 
-# Polar stored the events of these steps: it confirms them to a client applying a snapshot.
+# Repalis stored the events of these steps: it confirms them to a client applying a snapshot.
 def ingested(at: float, *steps: IngestStep) -> IngestedStep:
     events = [event for step in steps for event in step.arguments["events"]]
     return IngestedStep(at, {"events": events})
@@ -208,7 +208,7 @@ SCENARIOS = [
             ),
             expect(0.7, "writer", 11),
             expect(0.7, "reader", 11),
-            # A late event in a cold bucket counts until Polar confirms it.
+            # A late event in a cold bucket counts until Repalis confirms it.
             emit(0.9, "writer", 7),
             expect(1, "writer", 18, within=0),
             expect(1, "reader", 18),
@@ -223,12 +223,12 @@ SCENARIOS = [
             expect(0, "reader", 0),
             seven := emit(0.2, "writer", 7),
             expect(0.3, "reader", 7),
-            # Polar stored the event: sealing the bucket settles it, counted once.
+            # Repalis stored the event: sealing the bucket settles it, counted once.
             ingested(0.4, seven),
             SnapshotStep(0.5, sealed(1, 1, 7)),
             expect(0.7, "writer", 7),
             expect(0.7, "reader", 7),
-            # A late event Polar has not stored stays pending through a snapshot.
+            # A late event Repalis has not stored stays pending through a snapshot.
             late := emit(0.9, "writer", 7),
             expect(1, "writer", 14, within=0),
             SnapshotStep(1.1, sealed(2, 1, 7)),
@@ -379,7 +379,7 @@ SCENARIOS = [
         ],
     ),
     Scenario(
-        "reconnect after Polar drops the connection",
+        "reconnect after Repalis drops the connection",
         CONFIGURATION,
         [INITIAL, CREDITS],
         [

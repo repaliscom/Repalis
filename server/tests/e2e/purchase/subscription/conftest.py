@@ -2,8 +2,8 @@ import pytest
 
 """Fixtures for subscription purchase E2E tests."""
 
-from polar.enums import SubscriptionRecurringInterval
-from polar.models import Organization, Product
+from repalis.enums import SubscriptionRecurringInterval
+from repalis.models import Organization, Product
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_product
 

@@ -1,14 +1,14 @@
 import { beforeEach, expect, test } from 'vitest'
 import { Effect, Layer } from 'effect'
-import type { ActiveOrganization, PolarEnvironment } from '@/schemas/Auth'
+import type { ActiveOrganization, RepalisEnvironment } from '@/schemas/Auth'
 import { Auth } from '@/services/auth'
 import { Organizations, layer } from '@/services/organizations'
-import { Polar } from '@/services/polar'
+import { Repalis } from '@/services/repalis'
 import { CLIConfig } from '@/services/config'
 import {
   fakeAuth,
   fakeConfig,
-  fakePolar,
+  fakeRepalis,
   overrideCredential,
 } from '@/utils/test-utils/services'
 
@@ -30,17 +30,17 @@ const second = {
 }
 let auth: ReturnType<typeof fakeAuth>
 let config: ReturnType<typeof fakeConfig>
-let pages: Partial<Record<PolarEnvironment, ActiveOrganization[][]>>
+let pages: Partial<Record<RepalisEnvironment, ActiveOrganization[][]>>
 let requests: Array<{
   page?: number
   id?: string
   slug?: string
-  environment: PolarEnvironment
+  environment: RepalisEnvironment
 }>
 let denied: boolean
 
-const environmentOf = () => polar.state.requests.at(-1)!.environment
-const polar = fakePolar({
+const environmentOf = () => repalis.state.requests.at(-1)!.environment
+const repalis = fakeRepalis({
   organizations: {
     list: ({ page = 1, slug }: { page?: number; slug?: string }) => {
       const environment = environmentOf()
@@ -76,7 +76,7 @@ const service = () =>
           Layer.provide(
             Layer.mergeAll(
               Layer.succeed(Auth, auth.auth),
-              Layer.succeed(Polar, polar.polar),
+              Layer.succeed(Repalis, repalis.repalis),
               Layer.succeed(CLIConfig, config.config),
             ),
           ),
@@ -91,7 +91,7 @@ beforeEach(() => {
   pages = { sandbox: [[first]], production: [[second]] }
   requests = []
   denied = false
-  polar.state.requests.length = 0
+  repalis.state.requests.length = 0
 })
 
 test('selection stores the organization with its environment', async () => {
@@ -128,7 +128,7 @@ test('token overrides ignore saved selection and cannot change it', async () => 
     Effect.runPromise(
       organizations.select({ id: second.id, environment: 'production' }),
     ),
-  ).rejects.toThrow('Unset POLAR_ACCESS_TOKEN')
+  ).rejects.toThrow('Unset REPALIS_ACCESS_TOKEN')
   expect(config.state.activeOrganization?.id).toBe(first.id)
   expect(config.state.writes).toBe(0)
 })
@@ -180,7 +180,7 @@ test('an explicit slug is looked up by listing instead of fetching by id', async
     { page: 1, slug: 'second', environment: 'production' },
   ])
   expect(
-    polar.state.requests.every(
+    repalis.state.requests.every(
       (request) => request.organizationId === undefined,
     ),
   ).toBe(true)
@@ -237,7 +237,7 @@ test('lookups are scoped to the organization while listing is not', async () => 
   await Effect.runPromise(organizations.resolve())
   await Effect.runPromise(organizations.resolve(second.id))
   await Effect.runPromise(organizations.listAll)
-  expect(polar.state.requests).toEqual([
+  expect(repalis.state.requests).toEqual([
     { environment: 'sandbox', organizationId: first.id },
     { environment: 'sandbox', organizationId: second.id },
     { environment: 'production', organizationId: second.id },
@@ -259,7 +259,7 @@ test('no selection fails with guidance instead of choosing an organization', asy
   config = fakeConfig()
   const organizations = await service()
   await expect(Effect.runPromise(organizations.resolve())).rejects.toThrow(
-    'polar auth org',
+    'repalis auth org',
   )
   expect(requests).toEqual([])
 })

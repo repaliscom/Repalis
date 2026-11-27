@@ -32,9 +32,9 @@ export const listBenefits = (client: ClientBase) => {
    * @param query - Query parameters
    * @param requestOptions - Request options
    * @returns {ListResourceBenefit}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    * @throws {HTTPValidationError} Validation Error
    */
   return async (
@@ -84,9 +84,9 @@ export const listBenefits = (client: ClientBase) => {
  * @param query - Query parameters
  * @param requestOptions - Request options
  * @returns {AsyncGenerator<Benefit>} A generator that yields items of type Benefit.
- * @throws {PolarNetworkError} When a network error occurs
- * @throws {PolarRateLimitError} When the rate limit is exceeded
- * @throws {PolarServerError} When the server returns a 5xx error
+ * @throws {RepalisNetworkError} When a network error occurs
+ * @throws {RepalisRateLimitError} When the rate limit is exceeded
+ * @throws {RepalisServerError} When the server returns a 5xx error
  * @throws {HTTPValidationError} Validation Error
  */
 export const iterListBenefits = (client: ClientBase) => {
@@ -133,9 +133,9 @@ export const createBenefits = (client: ClientBase) => {
    * @param body - Request body
    * @param requestOptions - Request options
    * @returns {Benefit}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    * @throws {NotPermitted} Organization benefit limit reached.
    * @throws {HTTPValidationError} Validation Error
    */
@@ -159,9 +159,9 @@ export const getBenefits = (client: ClientBase) => {
    * @param id
    * @param requestOptions - Request options
    * @returns {Benefit}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    * @throws {ResourceNotFound} Benefit not found.
    * @throws {HTTPValidationError} Validation Error
    */
@@ -197,9 +197,9 @@ export const deleteBenefits = (client: ClientBase) => {
    * @param id
    * @param requestOptions - Request options
    * @returns {void}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    * @throws {NotPermitted} This benefit is not deletable.
    * @throws {ResourceNotFound} Benefit not found.
    * @throws {HTTPValidationError} Validation Error
@@ -234,9 +234,9 @@ export const updateBenefits = (client: ClientBase) => {
    * @param body - Request body
    * @param requestOptions - Request options
    * @returns {Benefit}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    * @throws {ResourceNotFound} Benefit not found.
    * @throws {HTTPValidationError} Validation Error
    */
@@ -281,9 +281,9 @@ export const filesBenefits = (client: ClientBase) => {
    * @param query - Query parameters
    * @param requestOptions - Request options
    * @returns {ListResourceBenefitDownloadableFile}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    * @throws {ResourceNotFound} Benefit not found.
    * @throws {HTTPValidationError} Validation Error
    */
@@ -325,9 +325,9 @@ export const filesBenefits = (client: ClientBase) => {
  * @param query - Query parameters
  * @param requestOptions - Request options
  * @returns {AsyncGenerator<BenefitDownloadableFile>} A generator that yields items of type BenefitDownloadableFile.
- * @throws {PolarNetworkError} When a network error occurs
- * @throws {PolarRateLimitError} When the rate limit is exceeded
- * @throws {PolarServerError} When the server returns a 5xx error
+ * @throws {RepalisNetworkError} When a network error occurs
+ * @throws {RepalisRateLimitError} When the rate limit is exceeded
+ * @throws {RepalisServerError} When the server returns a 5xx error
  * @throws {ResourceNotFound} Benefit not found.
  * @throws {HTTPValidationError} Validation Error
  */
@@ -369,9 +369,9 @@ export const grantsBenefits = (client: ClientBase) => {
    * @param query - Query parameters
    * @param requestOptions - Request options
    * @returns {ListResourceBenefitGrant}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    * @throws {ResourceNotFound} Benefit not found.
    * @throws {HTTPValidationError} Validation Error
    */
@@ -421,9 +421,9 @@ export const grantsBenefits = (client: ClientBase) => {
  * @param query - Query parameters
  * @param requestOptions - Request options
  * @returns {AsyncGenerator<BenefitGrant>} A generator that yields items of type BenefitGrant.
- * @throws {PolarNetworkError} When a network error occurs
- * @throws {PolarRateLimitError} When the rate limit is exceeded
- * @throws {PolarServerError} When the server returns a 5xx error
+ * @throws {RepalisNetworkError} When a network error occurs
+ * @throws {RepalisRateLimitError} When the rate limit is exceeded
+ * @throws {RepalisServerError} When the server returns a 5xx error
  * @throws {ResourceNotFound} Benefit not found.
  * @throws {HTTPValidationError} Validation Error
  */

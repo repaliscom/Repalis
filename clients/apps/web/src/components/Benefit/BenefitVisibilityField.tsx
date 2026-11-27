@@ -1,19 +1,19 @@
 'use client'
 
-import { schemas } from '@polar-sh/client'
-import { Box } from '@polar-sh/orbit/Box'
-import { Text } from '@polar-sh/orbit'
+import { schemas } from '@repalis/client'
+import { Box } from '@repalis/orbit/Box'
+import { Text } from '@repalis/orbit'
 import {
   FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-} from '@polar-sh/ui/components/ui/form'
+} from '@repalis/ui/components/ui/form'
 import {
   RadioGroup,
   RadioGroupItem,
-} from '@polar-sh/ui/components/ui/radio-group'
+} from '@repalis/ui/components/ui/radio-group'
 import { useFormContext } from 'react-hook-form'
 
 type BenefitVisibilityFormValues = {

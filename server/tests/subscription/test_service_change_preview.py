@@ -5,13 +5,13 @@ import pytest
 from pytest_mock import MockerFixture
 from sqlalchemy import func, select
 
-from polar.enums import (
+from repalis.enums import (
     SubscriptionProrationBehavior,
     SubscriptionRecurringInterval,
 )
-from polar.exceptions import PolarRequestValidationError
-from polar.kit.trial import TrialInterval
-from polar.models import (
+from repalis.exceptions import RepalisRequestValidationError
+from repalis.kit.trial import TrialInterval
+from repalis.models import (
     BillingEntry,
     Customer,
     Event,
@@ -20,9 +20,9 @@ from polar.models import (
     Product,
     Subscription,
 )
-from polar.models.discount import DiscountDuration, DiscountType
-from polar.postgres import AsyncSession
-from polar.subscription.service import subscription as subscription_service
+from repalis.models.discount import DiscountDuration, DiscountType
+from repalis.postgres import AsyncSession
+from repalis.subscription.service import subscription as subscription_service
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (
     create_active_subscription,
@@ -231,7 +231,7 @@ class TestCalculateChangePreview:
             products=[product],
         )
 
-        with pytest.raises(PolarRequestValidationError) as exc_info:
+        with pytest.raises(RepalisRequestValidationError) as exc_info:
             await subscription_service.calculate_change_preview(
                 session,
                 subscription,
@@ -354,7 +354,7 @@ class TestCalculateChangePreview:
             save_fixture, product=product, customer=customer
         )
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await subscription_service.calculate_change_preview(
                 session,
                 subscription,
@@ -539,7 +539,7 @@ class TestCalculateChangePreview:
         customer: Customer,
     ) -> None:
         # A queued event would outlive the rollback.
-        enqueue_events_mock = mocker.patch("polar.event.service.enqueue_events")
+        enqueue_events_mock = mocker.patch("repalis.event.service.enqueue_events")
         subscription = await create_active_subscription(
             save_fixture, product=product, customer=customer
         )

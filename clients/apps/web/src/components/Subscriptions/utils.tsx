@@ -1,6 +1,6 @@
 import { StatusIcon } from '@/components/Shared/StatusIcon'
-import { schemas } from '@polar-sh/client'
-import { formatCurrency } from '@polar-sh/currency'
+import { schemas } from '@repalis/client'
+import { formatCurrency } from '@repalis/currency'
 import { twMerge } from 'tailwind-merge'
 import { getSubscriptionStatusIcon } from './SubscriptionStatusIcon'
 

@@ -2,9 +2,9 @@
 set -euo pipefail
 umask 077
 
-: "${POLAR_BACKOFFICE_HOST:?Set the private backoffice hostname}"
+: "${REPALIS_BACKOFFICE_HOST:?Set the private backoffice hostname}"
 tailscale_oauth_secret="${TS_AUTHKEY:?Set the Tailscale OAuth client secret}"
-cloudflare_api_token="${CLOUDFLARE_API_TOKEN:?Set a DNS token scoped to the polar.sh zone}"
+cloudflare_api_token="${CLOUDFLARE_API_TOKEN:?Set a DNS token scoped to the repalis.com zone}"
 unset TS_AUTHKEY CLOUDFLARE_API_TOKEN
 
 children=()
@@ -23,7 +23,7 @@ trap 'exit 0' TERM INT
 
 TS_KUBE_SECRET="" TS_AUTHKEY="$tailscale_oauth_secret" start containerboot
 
-start uv run uvicorn polar.app:app \
+start uv run uvicorn repalis.app:app \
   --host 127.0.0.1 --port 10000 --workers 1 \
   --proxy-headers --forwarded-allow-ips=127.0.0.1 \
   --no-access-log --timeout-graceful-shutdown 30

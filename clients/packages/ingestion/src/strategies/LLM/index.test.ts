@@ -4,9 +4,9 @@ import { LLMStrategy, LLMStrategyContext } from '.'
 const mockEventsIngest = vi.fn()
 
 // Mock the module before any imports
-vi.mock('@polar-sh/sdk/2027-01', async (importOriginal) => ({
+vi.mock('@repalis/sdk/2027-01', async (importOriginal) => ({
   ...(await importOriginal()),
-  createPolar: () => ({ events: { ingest: mockEventsIngest } }),
+  createRepalis: () => ({ events: { ingest: mockEventsIngest } }),
 }))
 
 import { Ingestion } from '../../ingestion'
@@ -146,7 +146,7 @@ describe('LLMStrategy', () => {
   })
 
   it('should return the model result and log when ingest fails', async () => {
-    mockEventsIngest.mockRejectedValueOnce(new Error('Polar is down'))
+    mockEventsIngest.mockRejectedValueOnce(new Error('Repalis is down'))
     const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {})
 
     const llm = Ingestion()
@@ -162,7 +162,7 @@ describe('LLMStrategy', () => {
   })
 
   it('should finish the stream and log when ingest fails', async () => {
-    mockEventsIngest.mockRejectedValueOnce(new Error('Polar is down'))
+    mockEventsIngest.mockRejectedValueOnce(new Error('Repalis is down'))
     const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {})
     mockLLMClient.doStream.mockResolvedValueOnce({
       stream: new ReadableStream({

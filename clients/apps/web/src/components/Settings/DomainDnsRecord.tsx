@@ -1,8 +1,8 @@
 import { toast } from '@/components/Toast/use-toast'
-import { schemas } from '@polar-sh/client'
-import { Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import CopyToClipboardInput from '@polar-sh/ui/components/atoms/CopyToClipboardInput'
+import { schemas } from '@repalis/client'
+import { Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import CopyToClipboardInput from '@repalis/ui/components/atoms/CopyToClipboardInput'
 
 export const DomainDnsRecord = ({
   domain,

@@ -4,14 +4,14 @@ from typing import Any
 import httpx2
 import pytest
 
-from polar.enums import TaxBehavior
-from polar.merchant_migration.adapters.lemon_squeezy import (
+from repalis.enums import TaxBehavior
+from repalis.merchant_migration.adapters.lemon_squeezy import (
     API_BASE_URL,
     LemonSqueezyAdapter,
     LemonSqueezyStoreNotFound,
     LemonSqueezyStoreRequired,
 )
-from polar.merchant_migration.canonical import (
+from repalis.merchant_migration.canonical import (
     CanonicalCustomer,
     CanonicalDiscount,
     CanonicalDiscountDuration,

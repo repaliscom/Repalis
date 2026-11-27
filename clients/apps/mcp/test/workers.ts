@@ -18,9 +18,9 @@ export const get = vi.fn<
   ) => { getEntrypoint: () => { evaluate: typeof evaluate } }
 >(() => ({ getEntrypoint: () => ({ evaluate }) }))
 export const env = {
-  POLAR_SERVERS: {
-    'polar-mcp': 'https://api.polar.test',
-    'polar-sandbox': 'https://sandbox-api.polar.test',
+  REPALIS_SERVERS: {
+    'repalis-mcp': 'https://api.repalis.test',
+    'repalis-sandbox': 'https://sandbox-api.repalis.test',
   },
   LOADER: { get },
   MINTLIFY_SEARCH_KEY: 'mint_dsc_test',
@@ -29,7 +29,7 @@ export const env = {
 }
 export const waitUntil = vi.fn<(promise: Promise<unknown>) => void>()
 export const exports = {
-  PolarApiOutbound: vi.fn(() => ({ fetch: vi.fn() })),
+  RepalisApiOutbound: vi.fn(() => ({ fetch: vi.fn() })),
 }
 export class WorkerEntrypoint {
   constructor(public ctx: { props: unknown }) {}

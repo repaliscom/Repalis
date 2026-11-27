@@ -1,5 +1,5 @@
-import { Alert } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { Alert } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import { RowPaymentMethod } from './paymentMethod'
 
 export function PaymentMethodNotice({ method }: { method: RowPaymentMethod }) {

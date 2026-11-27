@@ -2,13 +2,13 @@ from typing import Any
 
 import pytest
 
-from polar.merchant_migration import pan_transfer
-from polar.merchant_migration.pan_transfer import (
+from repalis.merchant_migration import pan_transfer
+from repalis.merchant_migration.pan_transfer import (
     STEP_STRIPE_COPY,
     PanStepStatus,
     PanTransferMethod,
 )
-from polar.models import (
+from repalis.models import (
     MerchantMigration,
     MerchantMigrationSourcePlatform,
     MerchantMigrationStep,

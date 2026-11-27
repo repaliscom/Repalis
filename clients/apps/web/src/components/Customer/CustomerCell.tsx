@@ -1,5 +1,5 @@
-import { Avatar, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { Avatar, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 
 interface CustomerCellProps {
   name?: string | null

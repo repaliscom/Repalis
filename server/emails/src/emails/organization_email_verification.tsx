@@ -3,7 +3,7 @@ import {
   Footer,
   Intro,
   Text,
-  WrapperPolar,
+  WrapperRepalis,
 } from '../components/foundation'
 import OTPCode from '../components/OTPCode'
 import type { schemas } from '../types'
@@ -15,7 +15,7 @@ export function OrganizationEmailVerification({
   organization_name,
 }: schemas['OrganizationEmailVerificationProps']) {
   return (
-    <WrapperPolar
+    <WrapperRepalis
       preview={`Your code to verify the support email of ${organization_name} is ${code}. It is valid for the next ${code_lifetime_minutes.toFixed()} minutes.`}
     >
       <Intro>
@@ -23,18 +23,18 @@ export function OrganizationEmailVerification({
         <Text as="span" weight="bold">
           {organization_name}
         </Text>{' '}
-        on Polar.{' '}
+        on Repalis.{' '}
         <Text as="span" weight="bold">
           This code is only valid for the next {code_lifetime_minutes} minutes.
         </Text>
       </Intro>
-      <OTPCode code={code} domain="polar.sh" />
+      <OTPCode code={code} domain="repalis.com" />
       <Text variant="caption">
         If you didn't request this code, please contact{' '}
-        <EmailLink href="mailto:support@polar.sh">support@polar.sh</EmailLink>.
+        <EmailLink href="mailto:support@repalis.com">support@repalis.com</EmailLink>.
       </Text>
       <Footer email={email} />
-    </WrapperPolar>
+    </WrapperRepalis>
   )
 }
 

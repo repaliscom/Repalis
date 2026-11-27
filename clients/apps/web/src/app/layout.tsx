@@ -10,14 +10,14 @@ import { UserContextProvider } from '@/providers/auth'
 import { CONFIG } from '@/utils/config'
 import { GOOGLE_ANALYTICS_CONSENT_DEFAULT_SCRIPT } from '@/utils/googleAnalyticsConsent'
 import { getAuthenticatedUser, getUserOrganizations } from '@/utils/user'
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 import { PHASE_PRODUCTION_BUILD } from 'next/constants'
 import { Viewport } from 'next/types'
 import {
-  PolarMotionProvider,
-  PolarNuqsProvider,
-  PolarPostHogProvider,
-  PolarQueryClientProvider,
+  RepalisMotionProvider,
+  RepalisNuqsProvider,
+  RepalisPostHogProvider,
+  RepalisQueryClientProvider,
 } from './providers'
 
 export const viewport: Viewport = {
@@ -63,6 +63,7 @@ export default async function RootLayout({
             }}
           />
         )}
+        <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
         {CONFIG.ENVIRONMENT === 'development' ? (
           <link href="/favicon-dev.png" rel="icon" />
         ) : (
@@ -75,17 +76,17 @@ export default async function RootLayout({
             user={authenticatedUser}
             userOrganizations={userOrganizations}
           >
-            <PolarPostHogProvider>
-              <PolarQueryClientProvider>
-                <PolarNuqsProvider>
-                  <PolarMotionProvider>
+            <RepalisPostHogProvider>
+              <RepalisQueryClientProvider>
+                <RepalisNuqsProvider>
+                  <RepalisMotionProvider>
                     {CONFIG.IS_SANDBOX && <SandboxBanner />}
                     <SessionRefreshModal />
                     {children}
-                  </PolarMotionProvider>
-                </PolarNuqsProvider>
-              </PolarQueryClientProvider>
-            </PolarPostHogProvider>
+                  </RepalisMotionProvider>
+                </RepalisNuqsProvider>
+              </RepalisQueryClientProvider>
+            </RepalisPostHogProvider>
           </UserContextProvider>
         </ExperimentProvider>
       </body>

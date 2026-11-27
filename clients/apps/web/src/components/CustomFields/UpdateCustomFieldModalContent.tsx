@@ -1,9 +1,9 @@
 import { useUpdateCustomField } from '@/hooks/queries'
 import { setValidationErrors } from '@/utils/api/errors'
 import { stripEmptyProperties } from '@/utils/object'
-import { isValidationError, schemas } from '@polar-sh/client'
-import { Button, InlineModalHeader, Text } from '@polar-sh/orbit'
-import { Form } from '@polar-sh/ui/components/ui/form'
+import { isValidationError, schemas } from '@repalis/client'
+import { Button, InlineModalHeader, Text } from '@repalis/orbit'
+import { Form } from '@repalis/ui/components/ui/form'
 import { useCallback } from 'react'
 import { useForm, useFormState } from 'react-hook-form'
 import { toast } from '../Toast/use-toast'
@@ -66,7 +66,7 @@ const UpdateCustomFieldModalContent = ({
           <Text variant="heading-xxs" as="h2">
             Update Custom Field
           </Text>
-          <p className="dark:text-polar-500 text-sm font-normal text-gray-500">
+          <p className="dark:text-repalis-500 text-sm font-normal text-gray-500">
             Type cannot be changed.
           </p>
         </div>

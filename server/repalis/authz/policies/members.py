@@ -1,0 +1,35 @@
+from repalis.auth.models import Agent, AuthSubject, Organization, User
+from repalis.auth.permission import OrganizationPermission
+from repalis.authz.types import PolicyResult
+from repalis.models import Organization as OrganizationModel
+from repalis.postgres import AsyncReadSession
+
+from . import _require_permission
+
+
+async def can_read(
+    session: AsyncReadSession,
+    auth_subject: AuthSubject[User | Organization | Agent],
+    organization: OrganizationModel,
+) -> PolicyResult:
+    """Can the subject view the members of this organization?"""
+    return await _require_permission(
+        session,
+        auth_subject,
+        organization,
+        permission=OrganizationPermission.members_read,
+    )
+
+
+async def can_manage(
+    session: AsyncReadSession,
+    auth_subject: AuthSubject[User | Organization | Agent],
+    organization: OrganizationModel,
+) -> PolicyResult:
+    """Can the subject invite, remove, or change the role of members?"""
+    return await _require_permission(
+        session,
+        auth_subject,
+        organization,
+        permission=OrganizationPermission.members_manage,
+    )

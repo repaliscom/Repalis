@@ -1,8 +1,8 @@
 import pytest
 from sqlalchemy.exc import IntegrityError
 
-from polar.models import BackofficeUser
-from polar.postgres import AsyncSession
+from repalis.models import BackofficeUser
+from repalis.postgres import AsyncSession
 
 
 @pytest.mark.anyio

@@ -1,10 +1,10 @@
 import { describe, expect, it } from 'vitest'
-import { mapBetterAuthRoleToPolar } from '../../organization/roles'
+import { mapBetterAuthRoleToRepalis } from '../../organization/roles'
 
-describe('mapBetterAuthRoleToPolar', () => {
+describe('mapBetterAuthRoleToRepalis', () => {
   it('maps the canonical owner to owner', () => {
     expect(
-      mapBetterAuthRoleToPolar({
+      mapBetterAuthRoleToRepalis({
         role: 'member',
         isCanonicalOwner: true,
       }),
@@ -13,7 +13,7 @@ describe('mapBetterAuthRoleToPolar', () => {
 
   it('maps an additional Better Auth owner to billing manager', () => {
     expect(
-      mapBetterAuthRoleToPolar({
+      mapBetterAuthRoleToRepalis({
         role: 'owner',
         isCanonicalOwner: false,
       }),
@@ -22,7 +22,7 @@ describe('mapBetterAuthRoleToPolar', () => {
 
   it('maps an admin or multi-role admin to billing manager', () => {
     expect(
-      mapBetterAuthRoleToPolar({
+      mapBetterAuthRoleToRepalis({
         role: 'member, admin',
         isCanonicalOwner: false,
       }),
@@ -31,7 +31,7 @@ describe('mapBetterAuthRoleToPolar', () => {
 
   it('maps ordinary and unknown roles to member', () => {
     expect(
-      mapBetterAuthRoleToPolar({
+      mapBetterAuthRoleToRepalis({
         role: 'developer',
         isCanonicalOwner: false,
       }),
@@ -40,14 +40,14 @@ describe('mapBetterAuthRoleToPolar', () => {
 
   it('supports custom creator and billing manager roles', () => {
     expect(
-      mapBetterAuthRoleToPolar(
+      mapBetterAuthRoleToRepalis(
         { role: 'founder', isCanonicalOwner: false },
         { creatorRole: 'founder' },
       ),
     ).toBe('billing_manager')
 
     expect(
-      mapBetterAuthRoleToPolar(
+      mapBetterAuthRoleToRepalis(
         { role: 'finance', isCanonicalOwner: false },
         { billingManagerRoles: ['finance'] },
       ),

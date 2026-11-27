@@ -19,10 +19,10 @@ import typer
 from sqlalchemy import Select, Update, func, select, update
 from sqlalchemy.orm import aliased
 
-from polar.kit.db.postgres import create_async_sessionmaker
-from polar.models import Order, Payment
-from polar.models.payment import PaymentStatus
-from polar.postgres import create_async_engine
+from repalis.kit.db.postgres import create_async_sessionmaker
+from repalis.models import Order, Payment
+from repalis.models.payment import PaymentStatus
+from repalis.postgres import create_async_engine
 from scripts.helper import (
     configure_script_logging,
     limit_bindparam,

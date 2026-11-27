@@ -1,0 +1,104 @@
+import { useRepalisClient } from '@/providers/RepalisClientProvider'
+import { queryClient } from '@/utils/query'
+import { operations, schemas, unwrap } from '@repalis/client'
+import { useInfiniteQuery, useMutation, useQuery } from '@tanstack/react-query'
+
+export const useCheckoutLink = (
+  organizationId: string | undefined,
+  id: string | undefined,
+) => {
+  const { repalis } = useRepalisClient()
+
+  return useQuery({
+    queryKey: ['checkout_link', organizationId, { id }],
+    queryFn: () =>
+      unwrap(
+        repalis.GET('/v1/checkout-links/{id}', {
+          params: { path: { id: id ?? '' } },
+        }),
+      ),
+    enabled: !!organizationId && !!id,
+  })
+}
+
+export const useInfiniteCheckoutLinks = (
+  organizationId: string | undefined,
+  params?: Omit<
+    operations['checkout-links:list']['parameters']['query'],
+    'organization_id'
+  >,
+) => {
+  const { repalis } = useRepalisClient()
+
+  return useInfiniteQuery({
+    queryKey: ['infinite', 'checkout_links', organizationId, { ...params }],
+    queryFn: ({ pageParam = 1 }) =>
+      unwrap(
+        repalis.GET('/v1/checkout-links/', {
+          params: {
+            query: {
+              organization_id: organizationId,
+              ...params,
+              page: pageParam,
+            },
+          },
+        }),
+      ),
+    enabled: !!organizationId,
+    initialPageParam: 1,
+    getNextPageParam: (lastPage, pages) => {
+      if (lastPage.items.length === 0) return undefined
+      return pages.length + 1
+    },
+  })
+}
+
+export const useCheckoutLinkCreate = (organizationId: string | undefined) => {
+  const { repalis } = useRepalisClient()
+
+  return useMutation({
+    mutationFn: (data: schemas['CheckoutLinkCreateProducts']) =>
+      unwrap(
+        repalis.POST('/v1/checkout-links/', {
+          body: data,
+        }),
+      ),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ['checkout_links', organizationId],
+      })
+
+      queryClient.invalidateQueries({
+        queryKey: ['infinite', 'checkout_links', organizationId],
+      })
+    },
+  })
+}
+
+export const useCheckoutLinkUpdate = (
+  organizationId: string | undefined,
+  id: string,
+) => {
+  const { repalis } = useRepalisClient()
+
+  return useMutation({
+    mutationFn: (data: schemas['CheckoutLinkUpdate']) =>
+      unwrap(
+        repalis.PATCH('/v1/checkout-links/{id}', {
+          params: { path: { id } },
+          body: data,
+        }),
+      ),
+    onSuccess: (data) => {
+      queryClient.setQueryData(['checkout_link', organizationId, { id }], data)
+
+      queryClient.invalidateQueries({
+        queryKey: ['checkout_links', organizationId],
+      })
+
+      queryClient.invalidateQueries({
+        queryKey: ['infinite', 'checkout_links', organizationId],
+      })
+    },
+  })
+}

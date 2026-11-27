@@ -3,11 +3,11 @@ from unittest.mock import MagicMock
 import pytest
 from pytest_mock import MockerFixture
 
-from polar.integrations.stripe.service import StripeService
-from polar.models import Customer, Transaction
-from polar.models.transaction import Processor, TransactionType
-from polar.postgres import AsyncSession
-from polar.transaction.service.payment import (
+from repalis.integrations.stripe.service import StripeService
+from repalis.models import Customer, Transaction
+from repalis.models.transaction import Processor, TransactionType
+from repalis.postgres import AsyncSession
+from repalis.transaction.service.payment import (
     payment_transaction as payment_transaction_service,
 )
 from tests.fixtures.database import SaveFixture
@@ -17,13 +17,13 @@ from tests.fixtures.stripe import build_stripe_balance_transaction, build_stripe
 @pytest.fixture(autouse=True)
 def stripe_service_mock(mocker: MockerFixture) -> MagicMock:
     mock = MagicMock(spec=StripeService)
-    mocker.patch("polar.transaction.service.payment.stripe_service", new=mock)
+    mocker.patch("repalis.transaction.service.payment.stripe_service", new=mock)
     return mock
 
 
 @pytest.fixture
 def enqueue_job_mock(mocker: MockerFixture) -> MagicMock:
-    return mocker.patch("polar.transaction.service.payment.enqueue_job")
+    return mocker.patch("repalis.transaction.service.payment.enqueue_job")
 
 
 @pytest.mark.anyio

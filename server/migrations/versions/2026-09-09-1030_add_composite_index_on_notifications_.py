@@ -8,7 +8,7 @@ Create Date: 2026-09-09 10:30:00.000000
 
 from alembic import op
 
-# Polar Custom Imports
+# Repalis Custom Imports
 
 # revision identifiers, used by Alembic.
 revision = "a0bc64d272f1"

@@ -2,7 +2,7 @@
 
 import { useLogout } from '@/hooks/auth'
 import { useDeleteUser } from '@/hooks/queries'
-import { Button } from '@polar-sh/orbit'
+import { Button } from '@repalis/orbit'
 import { useCallback, useState } from 'react'
 import { ConfirmModal } from '../Modal/ConfirmModal'
 import { toast } from '../Toast/use-toast'
@@ -72,7 +72,7 @@ export default function UserDeleteSettings() {
         title="Delete Account"
         description="Are you sure you want to delete your account? This action cannot be undone."
         body={
-          <div className="dark:text-polar-400 text-sm text-gray-600">
+          <div className="dark:text-repalis-400 text-sm text-gray-600">
             <p className="mb-2">When you delete your account:</p>
             <ul className="list-inside list-disc space-y-1">
               <li>Your email and personal data will be anonymized</li>

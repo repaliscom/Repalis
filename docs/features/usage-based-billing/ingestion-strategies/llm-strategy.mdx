@@ -10,17 +10,17 @@ description: "Ingestion strategy for LLM Usage"
 Wrap any LLM model from the `@ai-sdk/*` library, to automatically fire prompt- & completion tokens used by every model call.
 
 ```
-pnpm add @polar-sh/ingestion ai @ai-sdk/openai
+pnpm add @repalis/ingestion ai @ai-sdk/openai
 ```
 
 ```typescript
-import { Ingestion } from "@polar-sh/ingestion";
-import { LLMStrategy } from "@polar-sh/ingestion/strategies/LLM";
+import { Ingestion } from "@repalis/ingestion";
+import { LLMStrategy } from "@repalis/ingestion/strategies/LLM";
 import { generateText } from "ai";
 import { openai } from "@ai-sdk/openai";
 
 // Setup the LLM Ingestion Strategy
-const llmIngestion = Ingestion({ accessToken: process.env.POLAR_ACCESS_TOKEN })
+const llmIngestion = Ingestion({ accessToken: process.env.REPALIS_ACCESS_TOKEN })
   .strategy(new LLMStrategy(openai("gpt-4o")))
   .cost((ctx) => ({ amount: 123, currency: "usd" })) // Optional: Set the cost of the LLM usage
   .ingest("openai-usage");
@@ -71,16 +71,16 @@ export async function POST(req: Request) {
 
 ## Python SDK
 
-The Python SDK has no ingestion helper or strategies. Send usage events with `polar.events.ingest` from the [Python SDK](/integrate/sdk/python) instead.
+The Python SDK has no ingestion helper or strategies. Send usage events with `repalis.events.ingest` from the [Python SDK](/integrate/sdk/python) instead.
 
 <CodeGroup>
 
 ```bash pip
-pip install polar-sdk
+pip install repalis-sdk
 ```
 
 ```bash uv
-uv add polar-sdk
+uv add repalis-sdk
 ```
 
 </CodeGroup>
@@ -90,11 +90,11 @@ uv add polar-sdk
 ```python
 import os
 
-from polar.v2026_10 import Polar
+from repalis.v2026_10 import Repalis
 
-polar = Polar(os.environ["POLAR_ACCESS_TOKEN"])
+repalis = Repalis(os.environ["REPALIS_ACCESS_TOKEN"])
 
-polar.events.ingest(
+repalis.events.ingest(
     events=[
         {
             "name": "my-event",
@@ -107,7 +107,7 @@ polar.events.ingest(
 )
 ```
 
-`events.ingest` sends the request synchronously. To avoid blocking your request path, batch events and send them from a background task, or use `PolarAsync` in asynchronous applications.
+`events.ingest` sends the request synchronously. To avoid blocking your request path, batch events and send them from a background task, or use `RepalisAsync` in asynchronous applications.
 
 ### PydanticAI
 
@@ -118,11 +118,11 @@ Read the token usage from the agent run and ingest it as an event:
 ```python
 import os
 
-from polar.v2026_10 import Polar
+from repalis.v2026_10 import Repalis
 from pydantic import BaseModel
 from pydantic_ai import Agent
 
-polar = Polar(os.environ["POLAR_ACCESS_TOKEN"])
+repalis = Repalis(os.environ["REPALIS_ACCESS_TOKEN"])
 
 
 class MyModel(BaseModel):
@@ -137,7 +137,7 @@ if __name__ == "__main__":
     print(result.output)
 
     usage = result.usage
-    polar.events.ingest(
+    repalis.events.ingest(
         events=[
             {
                 "name": "ai_usage",

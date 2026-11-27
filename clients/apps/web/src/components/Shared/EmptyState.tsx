@@ -1,6 +1,6 @@
-import { Button, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import { ButtonProps } from '@polar-sh/orbit/ui/button'
+import { Button, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import { ButtonProps } from '@repalis/orbit/ui/button'
 import { ReactNode } from 'react'
 
 interface EmptyStateProps {

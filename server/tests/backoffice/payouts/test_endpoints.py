@@ -5,15 +5,15 @@ import httpx2
 import pytest
 from pytest_mock import MockerFixture
 
-from polar.backoffice.app import app as backoffice_app
-from polar.backoffice.dependencies import get_admin
-from polar.enums import PayoutAccountType
-from polar.models import Account, Organization, User
-from polar.models.backoffice_user_session import BackofficeUserSession
-from polar.models.organization import OrganizationStatus
-from polar.models.payout import PayoutStatus
-from polar.models.payout_attempt import PayoutAttemptStatus
-from polar.postgres import AsyncSession, get_db_read_session, get_db_session
+from repalis.backoffice.app import app as backoffice_app
+from repalis.backoffice.dependencies import get_admin
+from repalis.enums import PayoutAccountType
+from repalis.models import Account, Organization, User
+from repalis.models.backoffice_user_session import BackofficeUserSession
+from repalis.models.organization import OrganizationStatus
+from repalis.models.payout import PayoutStatus
+from repalis.models.payout_attempt import PayoutAttemptStatus
+from repalis.postgres import AsyncSession, get_db_read_session, get_db_session
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_payout, create_payout_account
 
@@ -239,7 +239,7 @@ class TestRetry:
             attempts=[],
         )
         enqueue_job_mock = mocker.patch(
-            "polar.backoffice.payouts.endpoints.enqueue_job"
+            "repalis.backoffice.payouts.endpoints.enqueue_job"
         )
 
         response = await backoffice_client.post(f"/payouts/{payout.id}/retry", data={})
@@ -291,7 +291,7 @@ class TestRetry:
             attempts=[],
         )
         enqueue_job_mock = mocker.patch(
-            "polar.backoffice.payouts.endpoints.enqueue_job"
+            "repalis.backoffice.payouts.endpoints.enqueue_job"
         )
 
         response = await backoffice_client.post(f"/payouts/{payout.id}/retry", data={})
@@ -427,7 +427,7 @@ class TestReleaseHeldPayout:
             status=PayoutStatus.held,
             attempts=[],
         )
-        enqueue_job_mock = mocker.patch("polar.payout.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.payout.service.enqueue_job")
 
         response = await backoffice_client.post(
             f"/payouts/{held.id}/release-held-payout"
@@ -463,7 +463,7 @@ class TestReleaseHeldPayout:
             status=PayoutStatus.pending,
             attempts=[],
         )
-        enqueue_job_mock = mocker.patch("polar.payout.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.payout.service.enqueue_job")
 
         response = await backoffice_client.post(
             f"/payouts/{payout.id}/release-held-payout"

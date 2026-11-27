@@ -1,4 +1,4 @@
-from polar.integrations.aws.s3.schemas import (
+from repalis.integrations.aws.s3.schemas import (
     S3FileUploadCompleted,
     S3FileUploadCompletedPart,
 )

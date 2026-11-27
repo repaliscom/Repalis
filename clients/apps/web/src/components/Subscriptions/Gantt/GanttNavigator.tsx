@@ -13,14 +13,14 @@ import {
 
 // The strip holds the pointer during a drag, so it carries the drag's cursor.
 const TRACK_CLASS =
-  'dark:bg-polar-800 relative h-3 grow cursor-pointer touch-none rounded-full bg-gray-100 data-[drag=end]:cursor-ew-resize data-[drag=pan]:cursor-grabbing data-[drag=start]:cursor-ew-resize'
+  'dark:bg-repalis-800 relative h-3 grow cursor-pointer touch-none rounded-full bg-gray-100 data-[drag=end]:cursor-ew-resize data-[drag=pan]:cursor-grabbing data-[drag=start]:cursor-ew-resize'
 const THUMB_CLASS =
-  'dark:bg-polar-600 dark:hover:bg-polar-500/30 absolute inset-y-0 min-w-6 cursor-grab rounded-full transition-colors duration-[120ms] bg-gray-300 hover:bg-gray-400/60 active:cursor-grabbing'
+  'dark:bg-repalis-600 dark:hover:bg-repalis-500/30 absolute inset-y-0 min-w-6 cursor-grab rounded-full transition-colors duration-[120ms] bg-gray-300 hover:bg-gray-400/60 active:cursor-grabbing'
 // Each end of the thumb is a grip, marked by a dot.
 const GRIP_CLASS =
-  'absolute inset-y-0 w-3 cursor-ew-resize after:absolute after:top-1/2 after:left-1/2 after:size-1 after:-translate-1/2 after:rounded-full after:bg-gray-600 dark:after:bg-polar-200'
+  'absolute inset-y-0 w-3 cursor-ew-resize after:absolute after:top-1/2 after:left-1/2 after:size-1 after:-translate-1/2 after:rounded-full after:bg-gray-600 dark:after:bg-repalis-200'
 const TODAY_CLASS =
-  'dark:bg-polar-400 pointer-events-none absolute inset-y-[3px] w-0.5 -translate-x-1/2 rounded-full bg-gray-500'
+  'dark:bg-repalis-400 pointer-events-none absolute inset-y-[3px] w-0.5 -translate-x-1/2 rounded-full bg-gray-500'
 
 type DragMode = 'pan' | 'start' | 'end'
 

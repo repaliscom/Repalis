@@ -70,7 +70,7 @@ describe('isSwitchable', () => {
         row({
           cutover_status: 'skipped',
           cutover_error:
-            "It's set to cancel at the end of the period on the source, so there is no renewal for Polar to take over. It stays there until it ends.",
+            "It's set to cancel at the end of the period on the source, so there is no renewal for Repalis to take over. It stays there until it ends.",
         }),
       ),
     ).toBe(true)

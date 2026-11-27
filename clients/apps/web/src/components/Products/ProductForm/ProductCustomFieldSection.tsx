@@ -2,23 +2,23 @@
 
 import CustomFieldTypeIcon from '@/components/CustomFields/CustomFieldTypeIcon'
 import { useCustomFields } from '@/hooks/queries'
-import { ClearOutlined } from '@polar-sh/orbit/icons'
-import { schemas } from '@polar-sh/client'
-import { Button } from '@polar-sh/orbit'
-import { List, ListItem } from '@polar-sh/orbit'
+import { ClearOutlined } from '@repalis/orbit/icons'
+import { schemas } from '@repalis/client'
+import { Button } from '@repalis/orbit'
+import { List, ListItem } from '@repalis/orbit'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@polar-sh/orbit'
-import { Switch } from '@polar-sh/orbit'
+} from '@repalis/orbit'
+import { Switch } from '@repalis/orbit'
 import {
   FormControl,
   FormField,
   FormLabel,
-} from '@polar-sh/ui/components/ui/form'
+} from '@repalis/ui/components/ui/form'
 import { useMemo, useState } from 'react'
 import { useFieldArray, useFormContext } from 'react-hook-form'
 import { twMerge } from 'tailwind-merge'
@@ -103,7 +103,7 @@ export const ProductCustomFieldSection = ({
                                 'text-sm',
                                 field.value
                                   ? ''
-                                  : 'dark:text-polar-500 text-gray-500',
+                                  : 'dark:text-repalis-500 text-gray-500',
                               )}
                             >
                               Required

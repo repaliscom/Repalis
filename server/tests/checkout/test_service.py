@@ -12,11 +12,11 @@ from pytest_mock import MockerFixture
 from sqlalchemy import inspect as orm_inspect
 from sqlalchemy.orm import joinedload
 
-from polar.auth.models import Anonymous, AuthSubject
-from polar.checkout import legacy_schemas
-from polar.checkout.guard import has_product_checkout
-from polar.checkout.repository import CheckoutRepository
-from polar.checkout.schemas import (
+from repalis.auth.models import Anonymous, AuthSubject
+from repalis.checkout import legacy_schemas
+from repalis.checkout.guard import has_product_checkout
+from repalis.checkout.repository import CheckoutRepository
+from repalis.checkout.schemas import (
     CheckoutConfirm,
     CheckoutConfirmSharedPaymentToken,
     CheckoutConfirmStripe,
@@ -26,7 +26,7 @@ from polar.checkout.schemas import (
     CheckoutUpdate,
     CheckoutUpdatePublic,
 )
-from polar.checkout.service import (
+from repalis.checkout.service import (
     AlreadyActiveSubscriptionError,
     CheckoutCustomerDeleted,
     CheckoutCustomerExternalIdMismatch,
@@ -39,26 +39,26 @@ from polar.checkout.service import (
     SharedPaymentTokenError,
     TrialAlreadyRedeemed,
 )
-from polar.checkout.service import checkout as checkout_service
-from polar.config import Environment, settings
-from polar.customer_seat.service import SeatService
-from polar.customer_session.service import customer_session as customer_session_service
-from polar.discount.repository import DiscountRedemptionRepository
-from polar.discount.service import discount as discount_service
-from polar.enums import (
+from repalis.checkout.service import checkout as checkout_service
+from repalis.config import Environment, settings
+from repalis.customer_seat.service import SeatService
+from repalis.customer_session.service import customer_session as customer_session_service
+from repalis.discount.repository import DiscountRedemptionRepository
+from repalis.discount.service import discount as discount_service
+from repalis.enums import (
     PaymentProcessor,
     SubscriptionRecurringInterval,
     TaxBehavior,
     TaxProcessor,
 )
-from polar.event.system import SystemEvent
-from polar.exceptions import NotPermitted, PaymentNotReady, PolarRequestValidationError
-from polar.integrations.stripe.service import StripeService
-from polar.kit.address import Address, AddressInput, CountryAlpha2
-from polar.kit.currency import PresentmentCurrency
-from polar.kit.trial import TrialInterval
-from polar.kit.utils import utc_now
-from polar.models import (
+from repalis.event.system import SystemEvent
+from repalis.exceptions import NotPermitted, PaymentNotReady, RepalisRequestValidationError
+from repalis.integrations.stripe.service import StripeService
+from repalis.kit.address import Address, AddressInput, CountryAlpha2
+from repalis.kit.currency import PresentmentCurrency
+from repalis.kit.trial import TrialInterval
+from repalis.kit.utils import utc_now
+from repalis.models import (
     Account,
     Checkout,
     CheckoutProduct,
@@ -74,48 +74,48 @@ from polar.models import (
     User,
     UserOrganization,
 )
-from polar.models.checkout import BillingAddressFieldMode, CheckoutStatus
-from polar.models.custom_field import CustomFieldType
-from polar.models.customer import CustomerType
-from polar.models.customer_seat import SeatStatus
-from polar.models.discount import DiscountDuration, DiscountType
-from polar.models.member import MemberRole
-from polar.models.order import OrderBillingReasonInternal, OrderStatus
-from polar.models.organization import (
+from repalis.models.checkout import BillingAddressFieldMode, CheckoutStatus
+from repalis.models.custom_field import CustomFieldType
+from repalis.models.customer import CustomerType
+from repalis.models.customer_seat import SeatStatus
+from repalis.models.discount import DiscountDuration, DiscountType
+from repalis.models.member import MemberRole
+from repalis.models.order import OrderBillingReasonInternal, OrderStatus
+from repalis.models.organization import (
     OrganizationStatus,
 )
-from polar.models.product_price import (
+from repalis.models.product_price import (
     ProductPriceAmountType,
     ProductPriceCustom,
     ProductPriceFixed,
     ProductPriceSeatUnit,
     ProductPriceUnit,
 )
-from polar.models.subscription import SubscriptionStatus
-from polar.models.user import IdentityVerificationStatus
-from polar.models.webhook_endpoint import WebhookEventType
-from polar.order.service import OrderService
-from polar.postgres import AsyncSession
-from polar.product.guard import (
+from repalis.models.subscription import SubscriptionStatus
+from repalis.models.user import IdentityVerificationStatus
+from repalis.models.webhook_endpoint import WebhookEventType
+from repalis.order.service import OrderService
+from repalis.postgres import AsyncSession
+from repalis.product.guard import (
     is_fixed_price,
     is_metered_price,
     is_seat_price,
 )
-from polar.product.price_set import PriceSet
-from polar.product.schemas import (
+from repalis.product.price_set import PriceSet
+from repalis.product.schemas import (
     ProductPriceFixedCreate,
     ProductPriceMeteredUnitCreate,
     ProductPriceSeatBasedCreate,
 )
-from polar.product.tiers import Tiers, TiersInput, TierType
-from polar.subscription.service import SubscriptionService
-from polar.tax.calculation import (
+from repalis.product.tiers import Tiers, TiersInput, TierType
+from repalis.subscription.service import SubscriptionService
+from repalis.tax.calculation import (
     TaxabilityReason,
     TaxCalculationLogicalError,
     TaxCalculationService,
 )
-from polar.tax.tax_id import TaxIDFormat
-from polar.trial_redemption.repository import TrialRedemptionRepository
+from repalis.tax.tax_id import TaxIDFormat
+from repalis.trial_redemption.repository import TrialRedemptionRepository
 from tests.fixtures.auth import AuthSubjectFixture
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.events import get_all_by_name
@@ -151,35 +151,35 @@ def stripe_service_mock(mocker: MockerFixture) -> MagicMock:
     mock.get_confirmation_token.return_value = SimpleNamespace(
         payment_method_preview=None
     )
-    mocker.patch("polar.checkout.service.stripe_service", new=mock)
+    mocker.patch("repalis.checkout.service.stripe_service", new=mock)
     return mock
 
 
 @pytest.fixture(autouse=True)
 def subscription_service_mock(mocker: MockerFixture) -> MagicMock:
     mock = MagicMock(spec=SubscriptionService)
-    mocker.patch("polar.checkout.service.subscription_service", new=mock)
+    mocker.patch("repalis.checkout.service.subscription_service", new=mock)
     return mock
 
 
 @pytest.fixture(autouse=True)
 def order_service_mock(mocker: MockerFixture) -> MagicMock:
     mock = MagicMock(spec=OrderService)
-    mocker.patch("polar.checkout.service.order_service", new=mock)
+    mocker.patch("repalis.checkout.service.order_service", new=mock)
     return mock
 
 
 @pytest.fixture(autouse=True)
 def seat_service_mock(mocker: MockerFixture) -> MagicMock:
     mock = MagicMock(spec=SeatService)
-    mocker.patch("polar.checkout.service.seat_service", new=mock)
+    mocker.patch("repalis.checkout.service.seat_service", new=mock)
     return mock
 
 
 @pytest.fixture(autouse=True)
 def calculate_tax_mock(mocker: MockerFixture) -> AsyncMock:
     mock = mocker.patch(
-        "polar.checkout.service.tax_calculation_service", spec=TaxCalculationService
+        "repalis.checkout.service.tax_calculation_service", spec=TaxCalculationService
     )
     mock.calculate.return_value = (
         {
@@ -569,7 +569,7 @@ class TestCreate:
     async def test_not_existing_price(
         self, session: AsyncSession, auth_subject: AuthSubject[User]
     ) -> None:
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await checkout_service.create(
                 session,
                 CheckoutPriceCreate(
@@ -588,7 +588,7 @@ class TestCreate:
         auth_subject: AuthSubject[User | Organization],
         product_one_time: Product,
     ) -> None:
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await checkout_service.create(
                 session,
                 CheckoutPriceCreate(
@@ -614,7 +614,7 @@ class TestCreate:
             product=product_one_time,
             is_archived=True,
         )
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await checkout_service.create(
                 session,
                 CheckoutPriceCreate(product_price_id=price.id),
@@ -640,7 +640,7 @@ class TestCreate:
     ) -> None:
         setattr(product_one_time, field, value)
         await save_fixture(product_one_time)
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await checkout_service.create(
                 session,
                 CheckoutPriceCreate(
@@ -661,7 +661,7 @@ class TestCreate:
         product_fixed_seat: Product,
     ) -> None:
         for price in product_fixed_seat.prices:
-            with pytest.raises(PolarRequestValidationError):
+            with pytest.raises(RepalisRequestValidationError):
                 await checkout_service.create(
                     session,
                     CheckoutPriceCreate(product_price_id=price.id),
@@ -688,7 +688,7 @@ class TestCreate:
         price.maximum_amount = 5000
         await save_fixture(price)
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await checkout_service.create(
                 session,
                 CheckoutPriceCreate(
@@ -720,7 +720,7 @@ class TestCreate:
         price = product_one_time.prices[0]
         assert isinstance(price, ProductPriceFixed)
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await checkout_service.create(
                 session,
                 CheckoutPriceCreate.model_validate(
@@ -747,7 +747,7 @@ class TestCreate:
         price = product.prices[0]
         assert isinstance(price, ProductPriceFixed)
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await checkout_service.create(
                 session,
                 CheckoutPriceCreate(
@@ -772,7 +772,7 @@ class TestCreate:
         price = product.prices[0]
         assert isinstance(price, ProductPriceFixed)
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await checkout_service.create(
                 session,
                 CheckoutPriceCreate(
@@ -798,7 +798,7 @@ class TestCreate:
         assert isinstance(price, ProductPriceFixed)
         assert price.is_free
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await checkout_service.create(
                 session,
                 CheckoutPriceCreate(
@@ -826,7 +826,7 @@ class TestCreate:
             save_fixture, product=product, customer=customer
         )
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await checkout_service.create(
                 session,
                 CheckoutProductsCreate(
@@ -1278,7 +1278,7 @@ class TestCreate:
         price = product_custom_fields.prices[0]
         assert isinstance(price, ProductPriceFixed)
 
-        with pytest.raises(PolarRequestValidationError) as e:
+        with pytest.raises(RepalisRequestValidationError) as e:
             await checkout_service.create(
                 session,
                 CheckoutPriceCreate(
@@ -1421,7 +1421,7 @@ class TestCreate:
     async def test_product_not_existing(
         self, session: AsyncSession, auth_subject: AuthSubject[User]
     ) -> None:
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await checkout_service.create(
                 session,
                 CheckoutProductCreate(
@@ -1440,7 +1440,7 @@ class TestCreate:
         auth_subject: AuthSubject[User | Organization],
         product_one_time: Product,
     ) -> None:
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await checkout_service.create(
                 session,
                 CheckoutProductCreate(
@@ -1462,7 +1462,7 @@ class TestCreate:
     ) -> None:
         product_one_time.is_archived = True
         await save_fixture(product_one_time)
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await checkout_service.create(
                 session,
                 CheckoutProductCreate(
@@ -1590,7 +1590,7 @@ class TestCreate:
         product_one_time_multiple_currencies: Product,
         user_organization: UserOrganization,
     ) -> None:
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await checkout_service.create(
                 session,
                 CheckoutProductCreate(
@@ -1615,7 +1615,7 @@ class TestCreate:
     ) -> None:
         product_one_time.is_archived = True
         await save_fixture(product_one_time)
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await checkout_service.create(
                 session,
                 CheckoutProductsCreate(products=[product_one_time.id, product.id]),
@@ -1641,7 +1641,7 @@ class TestCreate:
         )
         await save_fixture(user_organization)
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await checkout_service.create(
                 session,
                 CheckoutProductsCreate(
@@ -1698,7 +1698,7 @@ class TestCreate:
         price = product_one_time.prices[0]
         assert isinstance(price, ProductPriceFixed)
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await checkout_service.create(
                 session,
                 CheckoutPriceCreate(
@@ -2372,7 +2372,7 @@ class TestCreate:
     ) -> None:
         price = product_one_time.prices[0]
 
-        with pytest.raises(PolarRequestValidationError) as e:
+        with pytest.raises(RepalisRequestValidationError) as e:
             await checkout_service.create(
                 session,
                 CheckoutPriceCreate(
@@ -2431,7 +2431,7 @@ class TestCreate:
         assert isinstance(price, ProductPriceSeatUnit)
         assert price.get_minimum_seats() == 3
 
-        with pytest.raises(PolarRequestValidationError) as e:
+        with pytest.raises(RepalisRequestValidationError) as e:
             await checkout_service.create(
                 session,
                 CheckoutPriceCreate(
@@ -2489,7 +2489,7 @@ class TestCreate:
         assert isinstance(price, ProductPriceSeatUnit)
         assert price.get_maximum_seats() == 10
 
-        with pytest.raises(PolarRequestValidationError) as e:
+        with pytest.raises(RepalisRequestValidationError) as e:
             await checkout_service.create(
                 session,
                 CheckoutPriceCreate(
@@ -2648,7 +2648,7 @@ class TestCreate:
         """Tier has min=2, max=20."""
         price_id = product_seat_based_with_min_max.prices[0].id
 
-        with pytest.raises(PolarRequestValidationError) as e:
+        with pytest.raises(RepalisRequestValidationError) as e:
             await checkout_service.create(
                 session,
                 CheckoutPriceCreate(product_price_id=price_id, min_seats=1),
@@ -2656,7 +2656,7 @@ class TestCreate:
             )
         assert e.value.errors()[0]["loc"] == ("body", "min_seats")
 
-        with pytest.raises(PolarRequestValidationError) as e:
+        with pytest.raises(RepalisRequestValidationError) as e:
             await checkout_service.create(
                 session,
                 CheckoutPriceCreate(product_price_id=price_id, max_seats=50),
@@ -2676,7 +2676,7 @@ class TestCreate:
         product: Product,
         product_one_time: Product,
     ) -> None:
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await checkout_service.create(
                 session,
                 CheckoutProductsCreate(
@@ -2803,11 +2803,11 @@ class TestCreate:
         product: Product,
     ) -> None:
         mocker.patch(
-            "polar.checkout.service.utc_now",
+            "repalis.checkout.service.utc_now",
             return_value=datetime(2026, 1, 1, tzinfo=UTC),
         )
         price_ids = sorted((uuid.uuid4() for _ in range(3)), reverse=True)
-        mocker.patch("polar.checkout.service.generate_uuid", side_effect=price_ids)
+        mocker.patch("repalis.checkout.service.generate_uuid", side_effect=price_ids)
         meters = [
             await create_meter(save_fixture, organization=organization, id=uuid.uuid4())
             for _ in range(3)
@@ -2871,7 +2871,7 @@ class TestCheckoutLinkCreate:
             user_metadata={"key": "value"},
         )
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await checkout_service.checkout_link_create(session, checkout_link)
 
     async def test_some_archived_products(
@@ -3510,7 +3510,7 @@ class TestUpdate:
         session: AsyncSession,
         checkout_one_time_fixed: Checkout,
     ) -> None:
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await checkout_service.update(
                 session,
                 checkout_one_time_fixed,
@@ -3525,7 +3525,7 @@ class TestUpdate:
         product_one_time_custom_price: Product,
         checkout_one_time_fixed: Checkout,
     ) -> None:
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await checkout_service.update(
                 session,
                 checkout_one_time_fixed,
@@ -3542,7 +3542,7 @@ class TestUpdate:
             save_fixture, products=[product_fixed_seat], seats=5
         )
         for price in product_fixed_seat.prices:
-            with pytest.raises(PolarRequestValidationError):
+            with pytest.raises(RepalisRequestValidationError):
                 await checkout_service.update(
                     session,
                     checkout,
@@ -3559,7 +3559,7 @@ class TestUpdate:
         checkout_one_time_custom: Checkout,
     ) -> None:
         # Amounts 1-49 are in the "Stripe gap" - too low for Stripe but not free
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await checkout_service.update(
                 session,
                 checkout_one_time_custom,
@@ -3583,7 +3583,7 @@ class TestUpdate:
         price.maximum_amount = 5000
         await save_fixture(price)
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await checkout_service.update(
                 session,
                 checkout_one_time_custom,
@@ -3638,7 +3638,7 @@ class TestUpdate:
             setattr(checkout_recurring_fixed, key, value)
         await save_fixture(checkout_recurring_fixed)
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await checkout_service.update(
                 session,
                 checkout_recurring_fixed,
@@ -3650,7 +3650,7 @@ class TestUpdate:
         session: AsyncSession,
         checkout_one_time_fixed: Checkout,
     ) -> None:
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await checkout_service.update(
                 session,
                 checkout_one_time_fixed,
@@ -3664,7 +3664,7 @@ class TestUpdate:
         session: AsyncSession,
         checkout_one_time_fixed: Checkout,
     ) -> None:
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await checkout_service.update(
                 session,
                 checkout_one_time_fixed,
@@ -3721,7 +3721,7 @@ class TestUpdate:
         checkout_one_time_free: Checkout,
         discount_fixed_once: Discount,
     ) -> None:
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await checkout_service.update(
                 session,
                 checkout_one_time_free,
@@ -3734,7 +3734,7 @@ class TestUpdate:
         checkout_one_time_free: Checkout,
         discount_fixed_once: Discount,
     ) -> None:
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await checkout_service.update(
                 session,
                 checkout_one_time_free,
@@ -4187,7 +4187,7 @@ class TestUpdate:
         session: AsyncSession,
         checkout_custom_fields: Checkout,
     ) -> None:
-        with pytest.raises(PolarRequestValidationError) as e:
+        with pytest.raises(RepalisRequestValidationError) as e:
             await checkout_service.update(
                 session,
                 checkout_custom_fields,
@@ -4679,7 +4679,7 @@ class TestUpdate:
         session: AsyncSession,
         checkout_one_time_fixed: Checkout,
     ) -> None:
-        with pytest.raises(PolarRequestValidationError) as e:
+        with pytest.raises(RepalisRequestValidationError) as e:
             await checkout_service.update(
                 session,
                 checkout_one_time_fixed,
@@ -4852,7 +4852,7 @@ class TestUpdate:
             max_seats=5,
         )
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await checkout_service.update(
                 session,
                 checkout,
@@ -4956,7 +4956,7 @@ class TestUpdate:
             seats=5,  # Start with valid seat count
         )
 
-        with pytest.raises(PolarRequestValidationError) as e:
+        with pytest.raises(RepalisRequestValidationError) as e:
             await checkout_service.update(
                 session,
                 checkout,
@@ -4984,7 +4984,7 @@ class TestUpdate:
             seats=5,  # Start with valid seat count
         )
 
-        with pytest.raises(PolarRequestValidationError) as e:
+        with pytest.raises(RepalisRequestValidationError) as e:
             await checkout_service.update(
                 session,
                 checkout,
@@ -5035,10 +5035,10 @@ class TestUpdate:
             max_seats=8,
         )
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await checkout_service.update(session, checkout, CheckoutUpdate(seats=2))
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await checkout_service.update(session, checkout, CheckoutUpdate(seats=10))
 
     async def test_update_seats_within_checkout_min_max(
@@ -5252,7 +5252,7 @@ class TestUpdate:
             currency="usd",
         )
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await checkout_service.update(
                 session,
                 checkout,
@@ -5347,7 +5347,7 @@ class TestConfirm:
         confirmation_token.payment_method_preview.card = None
         stripe_service_mock.get_confirmation_token.return_value = confirmation_token
 
-        with pytest.raises(PolarRequestValidationError) as e:
+        with pytest.raises(RepalisRequestValidationError) as e:
             await checkout_service.confirm(
                 session,
                 auth_subject,
@@ -5371,7 +5371,7 @@ class TestConfirm:
         _, pro_v2 = pro_versions
         checkout = await create_checkout(save_fixture, products=[pro_v2])
 
-        with pytest.raises(PolarRequestValidationError) as e:
+        with pytest.raises(RepalisRequestValidationError) as e:
             await checkout_service.confirm(
                 session,
                 auth_subject,
@@ -5399,7 +5399,7 @@ class TestConfirm:
         confirmation_token.payment_method_preview.card = None
         stripe_service_mock.get_confirmation_token.return_value = confirmation_token
 
-        with pytest.raises(PolarRequestValidationError) as e:
+        with pytest.raises(RepalisRequestValidationError) as e:
             await checkout_service.confirm(
                 session,
                 auth_subject,
@@ -5637,7 +5637,7 @@ class TestConfirm:
         checkout_one_time_fixed.product_price = archived_price
         await save_fixture(checkout_one_time_fixed)
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await checkout_service.confirm(
                 session,
                 auth_subject,
@@ -5658,7 +5658,7 @@ class TestConfirm:
         auth_subject: AuthSubject[Anonymous],
         checkout_custom_fields: Checkout,
     ) -> None:
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await checkout_service.confirm(
                 session,
                 auth_subject,
@@ -5684,7 +5684,7 @@ class TestConfirm:
         We had a bug where the custom fields validation was actually bypassed
         if the data was unset.
         """
-        with pytest.raises(PolarRequestValidationError) as e:
+        with pytest.raises(RepalisRequestValidationError) as e:
             await checkout_service.confirm(
                 session,
                 auth_subject,
@@ -5708,7 +5708,7 @@ class TestConfirm:
     ) -> None:
         calculate_tax_mock.side_effect = TaxCalculationLogicalError("ERROR")
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await checkout_service.confirm(
                 session,
                 auth_subject,
@@ -5758,7 +5758,7 @@ class TestConfirm:
         checkout_one_time_fixed.is_business_customer = True
         await save_fixture(checkout_one_time_fixed)
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await checkout_service.confirm(
                 session,
                 auth_subject,
@@ -5996,7 +5996,7 @@ class TestConfirm:
         auth_subject: AuthSubject[Anonymous],
         checkout_one_time_fixed: Checkout,
     ) -> None:
-        log_mock = mocker.patch("polar.checkout.service.log")
+        log_mock = mocker.patch("repalis.checkout.service.log")
         stripe_service_mock.create_customer.return_value = SimpleNamespace(
             id="STRIPE_CUSTOMER_ID"
         )
@@ -6184,7 +6184,7 @@ class TestConfirm:
         checkout_discount_percentage_100_forever: Checkout,
         discount_percentage_100_forever: Discount,
     ) -> None:
-        enqueue_job_mock = mocker.patch("polar.checkout.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.checkout.service.enqueue_job")
 
         stripe_service_mock.create_customer.return_value = SimpleNamespace(
             id="STRIPE_CUSTOMER_ID"
@@ -6243,7 +6243,7 @@ class TestConfirm:
         checkout_one_time_fixed: Checkout,
         discount_percentage_100: Discount,
     ) -> None:
-        enqueue_job_mock = mocker.patch("polar.checkout.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.checkout.service.enqueue_job")
 
         checkout_one_time_fixed.payment_method_type = "upi"
         await save_fixture(checkout_one_time_fixed)
@@ -6288,7 +6288,7 @@ class TestConfirm:
         checkout_one_time_fixed: Checkout,
         discount_percentage_100: Discount,
     ) -> None:
-        mocker.patch("polar.checkout.service.enqueue_job")
+        mocker.patch("repalis.checkout.service.enqueue_job")
 
         checkout_one_time_fixed.is_business_customer = True
         await save_fixture(checkout_one_time_fixed)
@@ -6379,7 +6379,7 @@ class TestConfirm:
         auth_subject: AuthSubject[Anonymous],
         checkout_one_time_free: Checkout,
     ) -> None:
-        enqueue_job_mock = mocker.patch("polar.checkout.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.checkout.service.enqueue_job")
 
         stripe_service_mock.create_customer.return_value = SimpleNamespace(
             id="STRIPE_CUSTOMER_ID"
@@ -6493,7 +6493,7 @@ class TestConfirm:
         assert checkout.customer.name == "ACME Corp Inc."
 
         # Stripe still receives the checkout-provided name (which may be the
-        # cardholder name); only Polar's customer.name is protected.
+        # cardholder name); only Repalis's customer.name is protected.
         update_call = stripe_service_mock.update_customer.call_args
         assert update_call.kwargs.get("name") == "John Smith"
 
@@ -6846,7 +6846,7 @@ class TestConfirm:
             id="STRIPE_CUSTOMER_ID"
         )
 
-        with pytest.raises(PolarRequestValidationError) as e:
+        with pytest.raises(RepalisRequestValidationError) as e:
             await checkout_service.confirm(
                 session,
                 auth_subject,
@@ -6876,7 +6876,7 @@ class TestConfirm:
         product: Product,
         checkout_recurring_fixed: Checkout,
     ) -> None:
-        enqueue_job_mock = mocker.patch("polar.checkout.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.checkout.service.enqueue_job")
 
         organization.subscription_settings["prevent_trial_abuse"] = True
         await save_fixture(organization)
@@ -7292,7 +7292,7 @@ class TestConfirm:
         assert checkout_discount_percentage_100.is_payment_setup_required is True
         assert checkout_discount_percentage_100.is_payment_form_required is True
 
-        with pytest.raises(PolarRequestValidationError) as e:
+        with pytest.raises(RepalisRequestValidationError) as e:
             await checkout_service.confirm(
                 session,
                 auth_subject,
@@ -7384,7 +7384,7 @@ class TestConfirm:
         await save_fixture(organization)
 
         # Mock environment to be sandbox
-        mocker.patch("polar.checkout.service.settings.ENV", Environment.sandbox)
+        mocker.patch("repalis.checkout.service.settings.ENV", Environment.sandbox)
 
         # Setup Stripe mocks
         confirmation_token = MagicMock(spec=stripe_lib.ConfirmationToken)
@@ -7439,13 +7439,13 @@ class TestConfirm:
         await save_fixture(organization)
 
         # Mock Stripe service for customer creation
-        stripe_service_mock = mocker.patch("polar.checkout.service.stripe_service")
+        stripe_service_mock = mocker.patch("repalis.checkout.service.stripe_service")
         stripe_service_mock.create_customer = AsyncMock(
             return_value=SimpleNamespace(id="STRIPE_CUSTOMER_ID")
         )
 
         # Mock the free checkout success flow
-        mocker.patch("polar.checkout.service.enqueue_job")
+        mocker.patch("repalis.checkout.service.enqueue_job")
 
         # Free products should be allowed even when payment not ready
         confirmed_checkout = await checkout_service.confirm(
@@ -7750,13 +7750,13 @@ class TestConfirm:
         assert checkout.is_payment_setup_required is False
 
         # Mock Stripe service for customer creation
-        stripe_service_mock = mocker.patch("polar.checkout.service.stripe_service")
+        stripe_service_mock = mocker.patch("repalis.checkout.service.stripe_service")
         stripe_service_mock.create_customer = AsyncMock(
             return_value=SimpleNamespace(id="STRIPE_CUSTOMER_ID")
         )
 
         # Mock the free checkout success flow
-        mocker.patch("polar.checkout.service.enqueue_job")
+        mocker.patch("repalis.checkout.service.enqueue_job")
 
         # Should be allowed: one-time products have no future charges
         confirmed_checkout = await checkout_service.confirm(
@@ -8065,7 +8065,7 @@ class TestConfirm:
         auth_subject: AuthSubject[Anonymous],
         checkout_one_time_fixed: Checkout,
     ) -> None:
-        with pytest.raises(PolarRequestValidationError) as e:
+        with pytest.raises(RepalisRequestValidationError) as e:
             await checkout_service.confirm(
                 session,
                 auth_subject,
@@ -8791,7 +8791,7 @@ class TestUSShortBillingAddressExposure:
         checkout_one_time_fixed: Checkout,
     ) -> None:
         monkeypatch.setattr(settings, "ENV", Environment.production)
-        posthog_mock = mocker.patch("polar.checkout.service.posthog")
+        posthog_mock = mocker.patch("repalis.checkout.service.posthog")
         checkout_one_time_fixed.customer_billing_address = Address(
             country=CountryAlpha2(country)
         )
@@ -8827,7 +8827,7 @@ class TestMarkOpened:
         session: AsyncSession,
         checkout_one_time_fixed: Checkout,
     ) -> None:
-        posthog_mock = mocker.patch("polar.checkout.service.posthog")
+        posthog_mock = mocker.patch("repalis.checkout.service.posthog")
 
         assert checkout_one_time_fixed.analytics_metadata is None
 
@@ -8842,7 +8842,7 @@ class TestMarkOpened:
         session: AsyncSession,
         checkout_one_time_fixed: Checkout,
     ) -> None:
-        posthog_mock = mocker.patch("polar.checkout.service.posthog")
+        posthog_mock = mocker.patch("repalis.checkout.service.posthog")
 
         checkout_one_time_fixed.customer_email = "test@example.com"
 
@@ -8863,7 +8863,7 @@ class TestMarkOpened:
         session: AsyncSession,
         checkout_one_time_fixed: Checkout,
     ) -> None:
-        posthog_mock = mocker.patch("polar.checkout.service.posthog")
+        posthog_mock = mocker.patch("repalis.checkout.service.posthog")
 
         original_opened_at = utc_now().isoformat()
         checkout_one_time_fixed.analytics_metadata = {"opened_at": original_opened_at}
@@ -8882,7 +8882,7 @@ class TestMarkOpened:
         checkout_one_time_fixed: Checkout,
     ) -> None:
         """When no distinct_id or email, falls back to checkout:{id} for A/B test consistency."""
-        posthog_mock = mocker.patch("polar.checkout.service.posthog")
+        posthog_mock = mocker.patch("repalis.checkout.service.posthog")
 
         checkout_one_time_fixed.customer_email = None
 
@@ -8899,9 +8899,9 @@ class TestMarkOpened:
         checkout_one_time_fixed: Checkout,
     ) -> None:
         """PostHog failures should be caught and logged, not break the checkout flow."""
-        posthog_mock = mocker.patch("polar.checkout.service.posthog")
+        posthog_mock = mocker.patch("repalis.checkout.service.posthog")
         posthog_mock.capture.side_effect = Exception("PostHog is down")
-        log_mock = mocker.patch("polar.checkout.service.log")
+        log_mock = mocker.patch("repalis.checkout.service.log")
 
         assert checkout_one_time_fixed.analytics_metadata is None
 
@@ -8922,7 +8922,7 @@ class TestHandleSuccessPostHogTracking:
         checkout_confirmed_one_time: Checkout,
         payment: Payment,
     ) -> None:
-        posthog_mock = mocker.patch("polar.checkout.service.posthog")
+        posthog_mock = mocker.patch("repalis.checkout.service.posthog")
         checkout_confirmed_one_time.customer_email = "customer@example.com"
 
         checkout = await checkout_service.handle_success(
@@ -8946,7 +8946,7 @@ class TestHandleSuccessPostHogTracking:
         payment: Payment,
     ) -> None:
         """When no distinct_id or email, falls back to checkout:{id} for A/B test consistency."""
-        posthog_mock = mocker.patch("polar.checkout.service.posthog")
+        posthog_mock = mocker.patch("repalis.checkout.service.posthog")
         checkout_confirmed_one_time.customer_email = None
 
         await checkout_service.handle_success(
@@ -8969,9 +8969,9 @@ class TestHandleSuccessPostHogTracking:
         payment: Payment,
     ) -> None:
         """PostHog failures should be caught and logged, not break the checkout flow."""
-        posthog_mock = mocker.patch("polar.checkout.service.posthog")
+        posthog_mock = mocker.patch("repalis.checkout.service.posthog")
         posthog_mock.capture.side_effect = Exception("PostHog is down")
-        log_mock = mocker.patch("polar.checkout.service.log")
+        log_mock = mocker.patch("repalis.checkout.service.log")
 
         checkout = await checkout_service.handle_success(
             session, checkout_confirmed_one_time, payment
@@ -8995,7 +8995,7 @@ async def test_send_expiration_events(
         expires_at=utc_now() - timedelta(days=1),
     )
 
-    mock_send = mocker.patch("polar.checkout.service.webhook_service.send")
+    mock_send = mocker.patch("repalis.checkout.service.webhook_service.send")
 
     await checkout_service.send_expiration_events(session, checkout)
 
@@ -9096,7 +9096,7 @@ class TestCreateUnitBasedCheckout:
         user_organization: UserOrganization,
         product_unit_based_with_min: Product,
     ) -> None:
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await checkout_service.create(
                 session,
                 CheckoutProductCreate(
@@ -9113,7 +9113,7 @@ class TestCreateUnitBasedCheckout:
         user_organization: UserOrganization,
         product_unit_based_with_min: Product,
     ) -> None:
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await checkout_service.create(
                 session,
                 CheckoutProductCreate(
@@ -9130,7 +9130,7 @@ class TestCreateUnitBasedCheckout:
         user_organization: UserOrganization,
         product: Product,
     ) -> None:
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await checkout_service.create(
                 session,
                 CheckoutProductCreate(product_id=product.id, units=3),
@@ -9156,7 +9156,7 @@ class TestCreateUnitBasedCheckout:
         assert checkout.min_units == 20
         assert checkout.max_units == 50
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await checkout_service.update(session, checkout, CheckoutUpdate(units=51))
 
     @pytest.mark.auth
@@ -9167,7 +9167,7 @@ class TestCreateUnitBasedCheckout:
         user_organization: UserOrganization,
         product: Product,
     ) -> None:
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await checkout_service.create(
                 session,
                 CheckoutProductCreate(product_id=product.id, min_units=2),
@@ -9213,5 +9213,5 @@ class TestCreateUnitBasedCheckout:
             auth_subject,
         )
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await checkout_service.update(session, checkout, CheckoutUpdate(units=3))

@@ -1,19 +1,19 @@
 locals {
   production_legacy_sso_user_assignments = {
-    "francois@polar.sh-cloudfront_admin" = { email = "francois@polar.sh", permission_set = "cloudfront_admin" }
-    "francois@polar.sh-s3_full_access"   = { email = "francois@polar.sh", permission_set = "s3_full_access" }
-    "jesper@polar.sh-admin"              = { email = "jesper@polar.sh", permission_set = "admin" }
-    "jesper@polar.sh-cloudfront_admin"   = { email = "jesper@polar.sh", permission_set = "cloudfront_admin" }
-    "jesper@polar.sh-s3_full_access"     = { email = "jesper@polar.sh", permission_set = "s3_full_access" }
-    "petru@polar.sh-cloudfront_admin"    = { email = "petru@polar.sh", permission_set = "cloudfront_admin" }
-    "petru@polar.sh-s3_full_access"      = { email = "petru@polar.sh", permission_set = "s3_full_access" }
-    "pieter@polar.sh-cloudfront_admin"   = { email = "pieter@polar.sh", permission_set = "cloudfront_admin" }
-    "pieter@polar.sh-s3_full_access"     = { email = "pieter@polar.sh", permission_set = "s3_full_access" }
-    "sebastian@polar.sh-cloudfront_admin" = {
-      email          = "sebastian@polar.sh"
+    "francois@repalis.com-cloudfront_admin" = { email = "francois@repalis.com", permission_set = "cloudfront_admin" }
+    "francois@repalis.com-s3_full_access"   = { email = "francois@repalis.com", permission_set = "s3_full_access" }
+    "jesper@repalis.com-admin"              = { email = "jesper@repalis.com", permission_set = "admin" }
+    "jesper@repalis.com-cloudfront_admin"   = { email = "jesper@repalis.com", permission_set = "cloudfront_admin" }
+    "jesper@repalis.com-s3_full_access"     = { email = "jesper@repalis.com", permission_set = "s3_full_access" }
+    "petru@repalis.com-cloudfront_admin"    = { email = "petru@repalis.com", permission_set = "cloudfront_admin" }
+    "petru@repalis.com-s3_full_access"      = { email = "petru@repalis.com", permission_set = "s3_full_access" }
+    "pieter@repalis.com-cloudfront_admin"   = { email = "pieter@repalis.com", permission_set = "cloudfront_admin" }
+    "pieter@repalis.com-s3_full_access"     = { email = "pieter@repalis.com", permission_set = "s3_full_access" }
+    "sebastian@repalis.com-cloudfront_admin" = {
+      email          = "sebastian@repalis.com"
       permission_set = "cloudfront_admin"
     }
-    "sebastian@polar.sh-s3_full_access" = { email = "sebastian@polar.sh", permission_set = "s3_full_access" }
+    "sebastian@repalis.com-s3_full_access" = { email = "sebastian@repalis.com", permission_set = "s3_full_access" }
   }
 
   production_legacy_sso_permission_set_arns = {
@@ -171,7 +171,7 @@ module "production_s3_buckets" {
   }
 
   environment                 = "production"
-  allowed_origins             = ["https://polar.sh"]
+  allowed_origins             = ["https://repalis.com"]
   malware_protection_enabled  = true
   malware_protection_role_arn = module.production_malware_protection.role_arn
   app_access_account_id       = local.workload_accounts.production.id
@@ -192,7 +192,7 @@ module "production_malware_protection" {
 }
 
 resource "aws_s3_bucket" "production_lambda_artifacts" {
-  bucket = "polar-lambda-artifacts"
+  bucket = "repalis-lambda-artifacts"
 }
 
 resource "aws_s3_bucket_server_side_encryption_configuration" "production_lambda_artifacts" {
@@ -223,7 +223,7 @@ module "production_image_resizer" {
     aws = aws
   }
 
-  function_name            = "polar-image-resizer"
+  function_name            = "repalis-image-resizer"
   s3_bucket                = aws_s3_bucket.production_lambda_artifacts.id
   s3_key                   = data.aws_s3_object.production_image_resizer_package.key
   s3_object_version        = data.aws_s3_object.production_image_resizer_package.version_id
@@ -238,13 +238,13 @@ module "production_cloudfront_public_assets" {
     aws.us_east_1 = aws
   }
 
-  name                           = "polar-public-files"
-  domain                         = "uploads.polar.sh"
+  name                           = "repalis-public-files"
+  domain                         = "uploads.repalis.com"
   cloudflare_zone_id             = "22bcd1b07ec25452aab472486bc8df94"
   s3_bucket_id                   = module.production_s3_buckets.public_files_bucket_id
   s3_bucket_regional_domain_name = module.production_s3_buckets.public_files_bucket_regional_domain_name
   s3_bucket_arn                  = module.production_s3_buckets.public_files_bucket_arn
-  cors_allowed_origins           = ["https://polar.sh", "https://trace.playwright.dev"]
+  cors_allowed_origins           = ["https://repalis.com", "https://trace.playwright.dev"]
   content_security_policy        = "default-src 'none'; style-src 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; form-action 'none'; sandbox"
 
   lambda_function_associations = [
@@ -262,13 +262,13 @@ module "production_cloudfront_cdn" {
     aws.us_east_1 = aws
   }
 
-  name                           = "polar-cdn"
-  domain                         = "cdn.polar.sh"
+  name                           = "repalis-cdn"
+  domain                         = "cdn.repalis.com"
   cloudflare_zone_id             = "22bcd1b07ec25452aab472486bc8df94"
   s3_bucket_id                   = module.production_s3_buckets.public_assets_bucket_id
   s3_bucket_regional_domain_name = module.production_s3_buckets.public_assets_bucket_regional_domain_name
   s3_bucket_arn                  = module.production_s3_buckets.public_assets_bucket_arn
-  cors_allowed_origins           = ["https://polar.sh"]
+  cors_allowed_origins           = ["https://repalis.com"]
 }
 
 resource "aws_iam_policy" "production_lambda_artifacts_upload" {
@@ -321,8 +321,8 @@ module "production_github_oidc_backup" {
   }
 
   role_name   = "github-actions-backup"
-  github_org  = "polarsource"
-  github_repo = "polar"
+  github_org  = "repaliscom"
+  github_repo = "repalis"
   github_subjects = [
     "ref:refs/heads/main",
     "pull_request",
@@ -349,7 +349,7 @@ data "aws_iam_policy_document" "github_actions_image_resizer_assume" {
     condition {
       test     = "StringEquals"
       variable = "token.actions.githubusercontent.com:sub"
-      values   = ["repo:polarsource/polar:ref:refs/heads/main"]
+      values   = ["repo:repaliscom/Repalis:ref:refs/heads/main"]
     }
   }
 }
@@ -411,5 +411,5 @@ module "production_athena_spans" {
   }
 
   environment      = "production"
-  logs_bucket_name = "polar-production-logs"
+  logs_bucket_name = "repalis-production-logs"
 }

@@ -4,10 +4,10 @@ import uuid
 import dramatiq
 import typer
 
-import polar.tasks  # noqa: F401
-from polar.config import settings
-from polar.redis import create_redis
-from polar.worker import JobQueueManager, enqueue_job
+import repalis.tasks  # noqa: F401
+from repalis.config import settings
+from repalis.redis import create_redis
+from repalis.worker import JobQueueManager, enqueue_job
 
 
 async def _enqueue(count: int, redis_key: str, failure: bool) -> None:

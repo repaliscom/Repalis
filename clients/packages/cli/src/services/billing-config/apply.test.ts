@@ -12,7 +12,7 @@ import { authenticatedClient } from '@/services/client'
 import { fakeHttp } from '@/utils/test-utils/http'
 import { fakeAuth } from '@/utils/test-utils/services'
 
-const applyUrl = 'https://sandbox-api.polar.sh/v1/config/apply?publish=false'
+const applyUrl = 'https://sandbox-api.repalis.com/v1/config/apply?publish=false'
 
 const acme: ActiveOrganization = {
   id: 'org-1',
@@ -54,14 +54,14 @@ let directory: string
 
 beforeEach(async () => {
   api = fakeHttp()
-  directory = await mkdtemp(join(tmpdir(), 'polar-config-'))
+  directory = await mkdtemp(join(tmpdir(), 'repalis-config-'))
 })
 
 afterEach(async () => {
   await rm(directory, { recursive: true, force: true })
 })
 
-const write = async (content: string, name = 'polar.json') => {
+const write = async (content: string, name = 'repalis.json') => {
   const file = join(directory, name)
   await writeFile(file, content)
   return file
@@ -88,7 +88,7 @@ describe('apply', () => {
     const result = await run(await write(source))
 
     const [request] = api.requests
-    expect(request?.headers.get('Polar-Organization')).toBe('org-1')
+    expect(request?.headers.get('Repalis-Organization')).toBe('org-1')
     expect(await request?.json()).toEqual(JSON.parse(source))
     expect(result).toEqual({
       status: 'applied',
@@ -246,7 +246,7 @@ describe('apply', () => {
     const error = await failure(run(await write(source)))
 
     expect(error.message).toBe('Config is not enabled for Acme')
-    expect(error.hint).toContain('run polar config init')
+    expect(error.hint).toContain('run repalis config init')
   })
 
   test('keeps the generic message for other 403s', async () => {

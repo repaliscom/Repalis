@@ -1,4 +1,4 @@
-from polar.tax.schemas import TaxJurisdiction
+from repalis.tax.schemas import TaxJurisdiction
 
 
 class TestTaxJurisdictionFromAggregate:

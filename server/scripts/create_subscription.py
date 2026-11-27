@@ -11,34 +11,34 @@ import typer
 from sqlalchemy import select
 from sqlalchemy.orm import joinedload
 
-from polar import tasks  # noqa: F401
-from polar.billing_entry.repository import BillingEntryRepository
-from polar.event.service import event as event_service
-from polar.event.system import (
+from repalis import tasks  # noqa: F401
+from repalis.billing_entry.repository import BillingEntryRepository
+from repalis.event.service import event as event_service
+from repalis.event.system import (
     SubscriptionCycledMetadata,
     SystemEvent,
     build_system_event,
 )
-from polar.kit.db.postgres import create_async_sessionmaker  # lint-skip: dry-run
-from polar.kit.utils import utc_now
-from polar.models import Customer, Subscription
-from polar.models.billing_entry import (
+from repalis.kit.db.postgres import create_async_sessionmaker  # lint-skip: dry-run
+from repalis.kit.utils import utc_now
+from repalis.models import Customer, Subscription
+from repalis.models.billing_entry import (
     BillingEntry,
     BillingEntryDirection,
     BillingEntryType,
 )
-from polar.models.order import OrderBillingReasonInternal
-from polar.models.subscription import SubscriptionStatus
-from polar.models.subscription_product_price import SubscriptionProductPrice
-from polar.payment_method.repository import PaymentMethodRepository
-from polar.postgres import create_async_engine
-from polar.product.guard import is_recurring_product, is_seat_price, is_static_price
-from polar.product.price_set import PriceSet
-from polar.product.repository import ProductRepository
-from polar.redis import create_redis
-from polar.subscription.repository import SubscriptionRepository
-from polar.subscription.service import subscription as subscription_service
-from polar.worker import JobQueueManager, enqueue_job
+from repalis.models.order import OrderBillingReasonInternal
+from repalis.models.subscription import SubscriptionStatus
+from repalis.models.subscription_product_price import SubscriptionProductPrice
+from repalis.payment_method.repository import PaymentMethodRepository
+from repalis.postgres import create_async_engine
+from repalis.product.guard import is_recurring_product, is_seat_price, is_static_price
+from repalis.product.price_set import PriceSet
+from repalis.product.repository import ProductRepository
+from repalis.redis import create_redis
+from repalis.subscription.repository import SubscriptionRepository
+from repalis.subscription.service import subscription as subscription_service
+from repalis.worker import JobQueueManager, enqueue_job
 
 cli = typer.Typer()
 

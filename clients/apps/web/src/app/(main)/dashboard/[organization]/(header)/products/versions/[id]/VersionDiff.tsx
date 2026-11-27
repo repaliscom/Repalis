@@ -1,7 +1,7 @@
-import { schemas } from '@polar-sh/client'
-import { Grid, Status, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import { ChevronDown } from '@polar-sh/orbit/icons'
+import { schemas } from '@repalis/client'
+import { Grid, Status, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import { ChevronDown } from '@repalis/orbit/icons'
 import Link from 'next/link'
 import { useId, useState } from 'react'
 import {

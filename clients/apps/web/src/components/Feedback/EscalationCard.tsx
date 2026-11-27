@@ -1,17 +1,17 @@
 'use client'
 
 import { useAuth } from '@/hooks/auth'
-import { schemas } from '@polar-sh/client'
-import { Box } from '@polar-sh/orbit/Box'
-import { Button } from '@polar-sh/orbit'
+import { schemas } from '@repalis/client'
+import { Box } from '@repalis/orbit/Box'
+import { Button } from '@repalis/orbit'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@polar-sh/orbit'
-import { TextArea } from '@polar-sh/orbit'
+} from '@repalis/orbit'
+import { TextArea } from '@repalis/orbit'
 import { useState } from 'react'
 
 interface EscalationCardProps {
@@ -48,8 +48,8 @@ export const EscalationCard = ({
       borderColor="border-primary"
     >
       <Box flexDirection="column" rowGap="xs">
-        <h3 className="text-sm font-medium">Send to the Polar team</h3>
-        <p className="dark:text-polar-500 text-sm text-gray-500">
+        <h3 className="text-sm font-medium">Send to the Repalis team</h3>
+        <p className="dark:text-repalis-500 text-sm text-gray-500">
           The full transcript is included automatically. Add anything else
           you&apos;d like to share below.
           {currentUser?.email && (

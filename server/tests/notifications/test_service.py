@@ -1,8 +1,8 @@
 import pytest
 from pytest_mock import MockerFixture
 
-from polar.models import Organization, UserOrganization
-from polar.notifications.notification import (
+from repalis.models import Organization, UserOrganization
+from repalis.notifications.notification import (
     MaintainerAccountCreditsGrantedNotificationPayload,
     MaintainerNewPaidSubscriptionNotificationPayload,
     MaintainerNewProductSaleNotificationPayload,
@@ -10,9 +10,9 @@ from polar.notifications.notification import (
     MaintainerSubscriptionCancellationNotificationPayload,
     NotificationType,
 )
-from polar.notifications.service import PartialNotification
-from polar.notifications.service import notifications as notifications_service
-from polar.postgres import AsyncSession
+from repalis.notifications.service import PartialNotification
+from repalis.notifications.service import notifications as notifications_service
+from repalis.postgres import AsyncSession
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_user
 
@@ -95,7 +95,7 @@ class TestSendToOrgMembers:
     ) -> None:
         """Only members who enabled the setting are notified."""
         send_to_user_mock = mocker.patch(
-            "polar.notifications.service.NotificationsService.send_to_user"
+            "repalis.notifications.service.NotificationsService.send_to_user"
         )
 
         member_on = await create_user(save_fixture)
@@ -133,7 +133,7 @@ class TestSendToOrgMembers:
         `new_order`. The two flags are set to opposite values so reading the wrong
         key would notify the wrong member."""
         send_to_user_mock = mocker.patch(
-            "polar.notifications.service.NotificationsService.send_to_user"
+            "repalis.notifications.service.NotificationsService.send_to_user"
         )
 
         member_on = await create_user(save_fixture)
@@ -172,7 +172,7 @@ class TestSendToOrgMembers:
         preserving today's behavior for e.g. account-credit notifications.
         """
         send_to_user_mock = mocker.patch(
-            "polar.notifications.service.NotificationsService.send_to_user"
+            "repalis.notifications.service.NotificationsService.send_to_user"
         )
 
         member_a = await create_user(save_fixture)
@@ -208,7 +208,7 @@ class TestSendToOrgMembers:
         organization: Organization,
     ) -> None:
         send_to_user_mock = mocker.patch(
-            "polar.notifications.service.NotificationsService.send_to_user"
+            "repalis.notifications.service.NotificationsService.send_to_user"
         )
 
         member_excluding = await create_user(save_fixture)
@@ -259,7 +259,7 @@ class TestSendToOrgMembers:
         organization: Organization,
     ) -> None:
         send_to_user_mock = mocker.patch(
-            "polar.notifications.service.NotificationsService.send_to_user"
+            "repalis.notifications.service.NotificationsService.send_to_user"
         )
 
         trial_on = await create_user(save_fixture)
@@ -295,7 +295,7 @@ class TestSendToOrgMembers:
         organization: Organization,
     ) -> None:
         send_to_user_mock = mocker.patch(
-            "polar.notifications.service.NotificationsService.send_to_user"
+            "repalis.notifications.service.NotificationsService.send_to_user"
         )
 
         cancellation_on = await create_user(save_fixture)

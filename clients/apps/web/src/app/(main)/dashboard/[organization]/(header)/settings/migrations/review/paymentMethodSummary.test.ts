@@ -26,7 +26,7 @@ describe('paymentMethodSummaryText', () => {
     expect(
       paymentMethodSummaryText([{ assessment: 'not_copyable', count: 1 }]),
     ).toContain(
-      "1 subscription may need a new payment method on Polar: 1 on a method that can't be copied.",
+      "1 subscription may need a new payment method on Repalis: 1 on a method that can't be copied.",
     )
   })
 })

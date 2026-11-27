@@ -1,7 +1,7 @@
 resource "aws_s3_bucket" "replica" {
   provider = aws.replica
 
-  bucket              = "polar-sh-backups-us-west-2"
+  bucket              = "repalis-backups-us-west-2"
   object_lock_enabled = true
 }
 
@@ -79,7 +79,7 @@ resource "aws_s3_bucket_lifecycle_configuration" "replica" {
 }
 
 resource "aws_iam_role" "replication" {
-  name                 = "polar-backups-replication"
+  name                 = "repalis-backups-replication"
   permissions_boundary = var.permissions_boundary_arn
 
   assume_role_policy = jsonencode({

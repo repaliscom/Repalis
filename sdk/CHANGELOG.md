@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to the Polar SDKs will be documented in this file.
+All notable changes to the Repalis SDKs will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
@@ -41,16 +41,16 @@ History up to [1.0.0-alpha.22] is available in the existing GitHub releases.
 
 ### Added
 
-- Send a `User-Agent` header with the SDK language and version, such as `polar-sdk-python/1.0.3` or `polar-sdk-typescript/1.0.3`.
+- Send a `User-Agent` header with the SDK language and version, such as `repalis-sdk-python/1.0.3` or `repalis-sdk-typescript/1.0.3`.
 
 ### Changed
 
-- Rename the metering helper, actor, and strategy event method from `ingest()` to `track()` in both SDKs. The HTTP API remains `polar.events.ingest()`.
+- Rename the metering helper, actor, and strategy event method from `ingest()` to `track()` in both SDKs. The HTTP API remains `repalis.events.ingest()`.
 
 ### Fixed
 
 - Return `undefined` (`None` in Python) instead of throwing on empty-body success responses, such as the `202` returned by order receipt endpoints while the receipt is being generated.
-- TypeScript: export `ClientBase` from each API version entry point, so wrapping `createPolarCore()` in an exported function compiles when emitting declarations.
+- TypeScript: export `ClientBase` from each API version entry point, so wrapping `createRepalisCore()` in an exported function compiles when emitting declarations.
 
 ## [1.0.2] - 2026-10-02
 
@@ -60,13 +60,13 @@ History up to [1.0.0-alpha.22] is available in the existing GitHub releases.
 
 ### Fixed
 
-- TypeScript: expose the HTTP `statusCode` on `PolarServerError` so server errors can be distinguished from network failures.
+- TypeScript: expose the HTTP `statusCode` on `RepalisServerError` so server errors can be distinguished from network failures.
 
 ## [1.0.1] - 2026-09-30
 
 ### Added
 
-- Add an `organizationId` option (`organization_id` in Python) to send the `Polar-Organization` header, so a client acts on a single organization when used with a user access token.
+- Add an `organizationId` option (`organization_id` in Python) to send the `Repalis-Organization` header, so a client acts on a single organization when used with a user access token.
 - 2027-01: license keys include `subscription_id`, `subscription`, `order_id` and `order`.
 
 ### Fixed
@@ -83,14 +83,14 @@ History up to [1.0.0-alpha.22] is available in the existing GitHub releases.
 
 - Generate next 2027-01 version.
 
-[Unreleased]: https://github.com/polarsource/polar/compare/sdk%2F1.3.3...HEAD
-[1.3.3]: https://github.com/polarsource/polar/compare/sdk%2F1.3.2...sdk%2F1.3.3
-[1.3.2]: https://github.com/polarsource/polar/compare/sdk%2F1.3.1...sdk%2F1.3.2
-[1.3.1]: https://github.com/polarsource/polar/compare/sdk%2F1.3.0...sdk%2F1.3.1
-[1.3.0]: https://github.com/polarsource/polar/compare/sdk%2F1.2.0...sdk%2F1.3.0
-[1.2.0]: https://github.com/polarsource/polar/compare/sdk%2F1.1.0...sdk%2F1.2.0
-[1.1.0]: https://github.com/polarsource/polar/compare/sdk%2F1.0.2...sdk%2F1.1.0
-[1.0.2]: https://github.com/polarsource/polar/compare/sdk%2F1.0.1...sdk%2F1.0.2
-[1.0.1]: https://github.com/polarsource/polar/compare/sdk%2F1.0.0...sdk%2F1.0.1
-[1.0.0]: https://github.com/polarsource/polar/compare/sdk%2F1.0.0-alpha.22...sdk%2F1.0.0
-[1.0.0-alpha.22]: https://github.com/polarsource/polar/releases/tag/sdk%2F1.0.0-alpha.22
+[Unreleased]: https://github.com/repaliscom/Repalis/compare/sdk%2F1.3.3...HEAD
+[1.3.3]: https://github.com/repaliscom/Repalis/compare/sdk%2F1.3.2...sdk%2F1.3.3
+[1.3.2]: https://github.com/repaliscom/Repalis/compare/sdk%2F1.3.1...sdk%2F1.3.2
+[1.3.1]: https://github.com/repaliscom/Repalis/compare/sdk%2F1.3.0...sdk%2F1.3.1
+[1.3.0]: https://github.com/repaliscom/Repalis/compare/sdk%2F1.2.0...sdk%2F1.3.0
+[1.2.0]: https://github.com/repaliscom/Repalis/compare/sdk%2F1.1.0...sdk%2F1.2.0
+[1.1.0]: https://github.com/repaliscom/Repalis/compare/sdk%2F1.0.2...sdk%2F1.1.0
+[1.0.2]: https://github.com/repaliscom/Repalis/compare/sdk%2F1.0.1...sdk%2F1.0.2
+[1.0.1]: https://github.com/repaliscom/Repalis/compare/sdk%2F1.0.0...sdk%2F1.0.1
+[1.0.0]: https://github.com/repaliscom/Repalis/compare/sdk%2F1.0.0-alpha.22...sdk%2F1.0.0
+[1.0.0-alpha.22]: https://github.com/repaliscom/Repalis/releases/tag/sdk%2F1.0.0-alpha.22

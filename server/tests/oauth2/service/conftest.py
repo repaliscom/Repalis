@@ -1,7 +1,7 @@
 import pytest
 
-from polar.kit.db.postgres import AsyncSession
-from polar.models import OAuth2Client, User
+from repalis.kit.db.postgres import AsyncSession
+from repalis.models import OAuth2Client, User
 from tests.fixtures.database import SaveFixture, save_fixture_factory
 
 
@@ -12,9 +12,9 @@ def save_fixture(session: AsyncSession) -> SaveFixture:
 
 @pytest.fixture
 async def oauth2_client(save_fixture: SaveFixture, user: User) -> OAuth2Client:
-    oauth2_client = OAuth2Client(client_id="polar_ci_123", user=user)
-    await oauth2_client.set_client_secret("polar_cs_123")
-    await oauth2_client.set_registration_access_token("polar_crt_123")
+    oauth2_client = OAuth2Client(client_id="repalis_ci_123", user=user)
+    await oauth2_client.set_client_secret("repalis_cs_123")
+    await oauth2_client.set_registration_access_token("repalis_crt_123")
     oauth2_client.set_client_metadata(
         {
             "client_name": "Test Client",

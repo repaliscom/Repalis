@@ -3,16 +3,16 @@
 import { toast } from '@/components/Toast/use-toast'
 import { useEnableOrganizationPreviewAccess } from '@/hooks/queries'
 import { extractApiErrorMessage } from '@/utils/api/errors'
-import { schemas } from '@polar-sh/client'
-import { Button, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import { CheckOutlined } from '@polar-sh/orbit/icons'
+import { schemas } from '@repalis/client'
+import { Button, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import { CheckOutlined } from '@repalis/orbit/icons'
 import { useRouter } from 'next/navigation'
 
 /**
  * Sandbox replacement for the billing page.
  *
- * There's no real billing on Sandbox: Polar paid plans exist to give preview
+ * There's no real billing on Sandbox: Repalis paid plans exist to give preview
  * access to features that aren't generally available yet. Instead of the full
  * billing UI, we surface a single notice that lets the organization opt into
  * those preview features for testing.
@@ -59,7 +59,7 @@ export const SandboxPreviewAccessNotice = ({
           Preview access on Sandbox
         </Text>
         <Text color="muted">
-          Polar paid plans give preview access to certain features. By default
+          Repalis paid plans give preview access to certain features. By default
           these aren&apos;t enabled on Sandbox, but you can opt into them. Be
           aware that if you rely on those features, you&apos;ll have to upgrade
           to a paid plan or wait until they are generally available before

@@ -1,4 +1,4 @@
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 import { startOfMonth, subMonths } from 'date-fns'
 
 export const DAY_MS = 24 * 60 * 60 * 1000

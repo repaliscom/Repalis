@@ -1,4 +1,4 @@
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 
 export const ENTITY_LABELS: Record<schemas['PrecheckEntity'], string> = {
   subscriptions: 'Subscriptions',

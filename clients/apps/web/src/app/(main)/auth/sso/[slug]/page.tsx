@@ -6,12 +6,12 @@ import {
   getAuthenticationSessionRedirectPath,
 } from '@/utils/auth'
 import { getServerSideAPI } from '@/utils/client/serverside'
-import { Box } from '@polar-sh/orbit/Box'
+import { Box } from '@repalis/orbit/Box'
 import { Metadata } from 'next'
 import { redirect } from 'next/navigation'
 
 export const metadata: Metadata = {
-  title: 'Sign in with SSO to Polar',
+  title: 'Sign in with SSO to Repalis',
 }
 
 export default async function Page(props: {

@@ -1,17 +1,17 @@
 import { beforeEach, describe, expect, it, vi, type Mock } from 'vitest'
 import { webhooks } from '../../plugins/webhooks'
-import { createMockPolarClient } from '../utils/mocks'
+import { createMockRepalisClient } from '../utils/mocks'
 
-vi.mock('@polar-sh/adapter-utils', () => ({
+vi.mock('@repalis/adapter-utils', () => ({
   handleWebhookPayload: vi.fn(),
 }))
 
-vi.mock('@polar-sh/sdk/2026-10', async (importOriginal) => {
+vi.mock('@repalis/sdk/2026-10', async (importOriginal) => {
   const original =
-    await importOriginal<typeof import('@polar-sh/sdk/2026-10')>()
-  class PolarWebhookError extends Error {}
-  class PolarWebhookVerificationError extends PolarWebhookError {}
-  class PolarWebhookUnknownTypeError extends PolarWebhookError {
+    await importOriginal<typeof import('@repalis/sdk/2026-10')>()
+  class RepalisWebhookError extends Error {}
+  class RepalisWebhookVerificationError extends RepalisWebhookError {}
+  class RepalisWebhookUnknownTypeError extends RepalisWebhookError {
     constructor(public readonly eventType: string | null) {
       super(`Unknown webhook event type: ${JSON.stringify(eventType)}`)
     }
@@ -21,9 +21,9 @@ vi.mock('@polar-sh/sdk/2026-10', async (importOriginal) => {
     ...original,
     webhooks: {
       validateEvent: vi.fn(),
-      PolarWebhookError,
-      PolarWebhookVerificationError,
-      PolarWebhookUnknownTypeError,
+      RepalisWebhookError,
+      RepalisWebhookVerificationError,
+      RepalisWebhookUnknownTypeError,
     },
   }
 })
@@ -45,17 +45,17 @@ vi.mock('better-auth/api', () => ({
 }))
 
 const { handleWebhookPayload } = (await vi.importMock(
-  '@polar-sh/adapter-utils',
+  '@repalis/adapter-utils',
 )) as any
-import { webhooks as sdkWebhooks } from '@polar-sh/sdk/2026-10'
+import { webhooks as sdkWebhooks } from '@repalis/sdk/2026-10'
 const validateEvent = sdkWebhooks.validateEvent as Mock
 const { createAuthEndpoint } = (await vi.importMock('better-auth/api')) as any
 
 describe('webhooks plugin', () => {
-  let mockClient: ReturnType<typeof createMockPolarClient>
+  let mockClient: ReturnType<typeof createMockRepalisClient>
 
   beforeEach(() => {
-    mockClient = createMockPolarClient()
+    mockClient = createMockRepalisClient()
     vi.clearAllMocks()
   })
 
@@ -68,7 +68,7 @@ describe('webhooks plugin', () => {
       const plugin = webhooks(options)
       const endpoints = plugin(mockClient)
 
-      expect(endpoints).toHaveProperty('polarWebhooks')
+      expect(endpoints).toHaveProperty('repalisWebhooks')
     })
 
     it('should create webhooks plugin with all handlers', () => {
@@ -97,7 +97,7 @@ describe('webhooks plugin', () => {
       const plugin = webhooks(options)
       const endpoints = plugin(mockClient)
 
-      expect(endpoints).toHaveProperty('polarWebhooks')
+      expect(endpoints).toHaveProperty('repalisWebhooks')
     })
 
     it('should configure endpoint with correct path and options', () => {
@@ -106,7 +106,7 @@ describe('webhooks plugin', () => {
       plugin(mockClient)
 
       expect(createAuthEndpoint).toHaveBeenCalledWith(
-        '/polar/webhooks',
+        '/repalis/webhooks',
         expect.objectContaining({
           method: 'POST',
           metadata: { isAction: false },
@@ -130,7 +130,7 @@ describe('webhooks plugin', () => {
 
       const plugin = webhooks(options)
       const endpoints = plugin(mockClient) as any
-      handler = endpoints.polarWebhooks.handler
+      handler = endpoints.repalisWebhooks.handler
 
       // Create a mock request with proper headers
       const headers = new Headers({
@@ -200,7 +200,7 @@ describe('webhooks plugin', () => {
       const options = { secret: '' }
       const plugin = webhooks(options)
       const endpoints = plugin(mockClient) as any
-      const noSecretHandler = endpoints.polarWebhooks.handler
+      const noSecretHandler = endpoints.repalisWebhooks.handler
 
       const ctx = {
         request: mockRequest,
@@ -208,13 +208,13 @@ describe('webhooks plugin', () => {
       }
 
       await expect(noSecretHandler(ctx)).rejects.toThrow(
-        'Polar webhook secret not found',
+        'Repalis webhook secret not found',
       )
     })
 
     it('should handle invalid webhook signature', async () => {
       vi.mocked(validateEvent).mockImplementation(() => {
-        throw new sdkWebhooks.PolarWebhookVerificationError('Invalid signature')
+        throw new sdkWebhooks.RepalisWebhookVerificationError('Invalid signature')
       })
 
       const ctx = {
@@ -231,7 +231,7 @@ describe('webhooks plugin', () => {
 
     it('should acknowledge unknown event types', async () => {
       vi.mocked(validateEvent).mockRejectedValue(
-        new sdkWebhooks.PolarWebhookUnknownTypeError('future.event'),
+        new sdkWebhooks.RepalisWebhookUnknownTypeError('future.event'),
       )
 
       const ctx = {
@@ -247,7 +247,7 @@ describe('webhooks plugin', () => {
 
     it('should reject webhook events without a type', async () => {
       vi.mocked(validateEvent).mockRejectedValue(
-        new sdkWebhooks.PolarWebhookUnknownTypeError(null),
+        new sdkWebhooks.RepalisWebhookUnknownTypeError(null),
       )
 
       const ctx = {
@@ -265,7 +265,7 @@ describe('webhooks plugin', () => {
 
     it('should reject invalid known payloads', async () => {
       vi.mocked(validateEvent).mockRejectedValue(
-        new sdkWebhooks.PolarWebhookError('Invalid payload'),
+        new sdkWebhooks.RepalisWebhookError('Invalid payload'),
       )
 
       const ctx = {
@@ -287,7 +287,7 @@ describe('webhooks plugin', () => {
       } as any
 
       vi.mocked(validateEvent).mockImplementation(() => {
-        throw new sdkWebhooks.PolarWebhookVerificationError(
+        throw new sdkWebhooks.RepalisWebhookVerificationError(
           'Missing required headers',
         )
       })
@@ -318,7 +318,7 @@ describe('webhooks plugin', () => {
         'Webhook error: See server logs for more information.',
       )
       expect(ctx.context.logger.error).toHaveBeenCalledWith(
-        'Polar webhook failed. Error: Handler processing failed',
+        'Repalis webhook failed. Error: Handler processing failed',
       )
     })
 
@@ -336,7 +336,7 @@ describe('webhooks plugin', () => {
         'Webhook error: See server logs for more information.',
       )
       expect(ctx.context.logger.error).toHaveBeenCalledWith(
-        'Polar webhook failed. Error: Unknown error',
+        'Repalis webhook failed. Error: Unknown error',
       )
     })
 
@@ -372,7 +372,7 @@ describe('webhooks plugin', () => {
 
       const plugin = webhooks(mockHandlers)
       const endpoints = plugin(mockClient) as any
-      const handlerWithAllOptions = endpoints.polarWebhooks.handler
+      const handlerWithAllOptions = endpoints.repalisWebhooks.handler
 
       const mockEvent = { type: 'checkout.created', data: {} }
       vi.mocked(validateEvent).mockReturnValue(mockEvent)

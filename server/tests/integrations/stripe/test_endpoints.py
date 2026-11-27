@@ -7,11 +7,11 @@ from httpx2 import AsyncClient
 from pytest_mock import MockerFixture
 from starlette.requests import Request
 
-from polar.config import settings
-from polar.integrations.stripe.endpoints import WebhookEventGetter
-from polar.integrations.stripe.service import StripeService
-from polar.models import Organization, User
-from polar.payout_account.service import PayoutAccountRejected
+from repalis.config import settings
+from repalis.integrations.stripe.endpoints import WebhookEventGetter
+from repalis.integrations.stripe.service import StripeService
+from repalis.models import Organization, User
+from repalis.payout_account.service import PayoutAccountRejected
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_payout_account
 
@@ -19,7 +19,7 @@ from tests.fixtures.random_objects import create_payout_account
 @pytest.fixture
 def stripe_service_mock(mocker: MockerFixture) -> StripeService:
     mock = mocker.MagicMock(spec=StripeService)
-    mocker.patch("polar.payout_account.service.stripe", new=mock)
+    mocker.patch("repalis.payout_account.service.stripe", new=mock)
     return mock
 
 

@@ -1,4 +1,4 @@
-import type { PolarCore } from '@polar-sh/sdk/2026-10'
+import type { RepalisCore } from '@repalis/sdk/2026-10'
 import type { AuthContext, BetterAuthPlugin, User } from 'better-auth'
 import { APIError, createAuthMiddleware } from 'better-auth/api'
 import type {
@@ -6,11 +6,11 @@ import type {
   OrganizationOptions,
 } from 'better-auth/plugins/organization'
 import * as z from 'zod/v4'
-import type { PolarOptions } from '../types'
+import type { RepalisOptions } from '../types'
 import { getBetterAuthCreatorRole, hasBetterAuthCreatorRole } from './roles'
 import { synchronizeOrganizationSeats } from './seats'
 import {
-  PolarOrganizationOwnerInvariantError,
+  RepalisOrganizationOwnerInvariantError,
   byEarliestMembership,
   isTeamCustomerSynchronized,
   promoteMemberMirrorToOwner,
@@ -18,8 +18,8 @@ import {
   updateMemberMirror,
 } from './sync'
 import type {
-  PolarOrganizationOptions,
-  PolarOrganizationRoleSyncOptions,
+  RepalisOrganizationOptions,
+  RepalisOrganizationRoleSyncOptions,
 } from './types'
 
 export const ORGANIZATION_LEAVE_PATH = '/organization/leave'
@@ -43,7 +43,7 @@ const ORGANIZATION_SYNC_CONCURRENCY = 5
 
 /**
  * Run every synchronization while limiting the number of organizations that
- * can issue Polar requests at once. Like Promise.allSettled, a failure does not
+ * can issue Repalis requests at once. Like Promise.allSettled, a failure does not
  * prevent the remaining synchronizations from being attempted.
  */
 const synchronizeWithConcurrency = async <T>(
@@ -139,9 +139,9 @@ export const listBetterAuthMembershipsForUser = (
 
 export const synchronizeUserOrganizationProfiles = async (
   authContext: AuthContext,
-  client: PolarCore,
+  client: RepalisCore,
   user: User,
-  organizationOptions: PolarOrganizationOptions,
+  organizationOptions: RepalisOrganizationOptions,
 ) => {
   const memberships = await listBetterAuthMembershipsForUser(
     authContext,
@@ -174,12 +174,12 @@ export const synchronizeUserOrganizationProfiles = async (
  */
 export const removeOrganizationMemberMirror = async (input: {
   authContext: AuthContext
-  client: PolarCore
+  client: RepalisCore
   organizationId: string
   userId: string
   role: string
-  roleOptions?: PolarOrganizationRoleSyncOptions
-  organizationOptions: PolarOrganizationOptions
+  roleOptions?: RepalisOrganizationRoleSyncOptions
+  organizationOptions: RepalisOrganizationOptions
   betterAuthOrganizationOptions?: OrganizationOptions
 }) => {
   if (!(await isTeamCustomerSynchronized(input.client, input.organizationId))) {
@@ -198,7 +198,7 @@ export const removeOrganizationMemberMirror = async (input: {
       input.userId,
     )
     if (!successor) {
-      throw new PolarOrganizationOwnerInvariantError(
+      throw new RepalisOrganizationOwnerInvariantError(
         input.organizationId,
         `Better Auth has no member with creator role "${creatorRole}"`,
       )
@@ -266,7 +266,7 @@ const readLeaveMembership = async (returned: unknown) => {
 }
 
 export const synchronizeOrganizationLeave = async (
-  options: PolarOptions,
+  options: RepalisOptions,
   context: { context: AuthContext & { returned?: unknown } },
 ) => {
   const membership = await readLeaveMembership(context.context['returned'])
@@ -284,15 +284,15 @@ export const synchronizeOrganizationLeave = async (
     client: options.client,
     ...membership,
     roleOptions: {
-      mapBetterAuthRoleToPolarRole:
-        organizationOptions.mapBetterAuthRoleToPolarRole,
+      mapBetterAuthRoleToRepalisRole:
+        organizationOptions.mapBetterAuthRoleToRepalisRole,
     },
     organizationOptions,
   })
 }
 
 export const createOrganizationLifecycleHooks = (
-  options: PolarOptions,
+  options: RepalisOptions,
 ): BetterAuthPlugin['hooks'] | undefined => {
   if (!options.experimental_organizationSync?.enabled) {
     return undefined
@@ -311,9 +311,9 @@ export const createOrganizationLifecycleHooks = (
 
 export const synchronizeUserDeletionMemberships = async (
   authContext: AuthContext,
-  client: PolarCore,
+  client: RepalisCore,
   user: User,
-  options: PolarOrganizationOptions,
+  options: RepalisOrganizationOptions,
 ) => {
   const memberships = await listBetterAuthMembershipsForUser(
     authContext,
@@ -328,7 +328,7 @@ export const synchronizeUserDeletionMemberships = async (
       userId: user.id,
       role: membership.role,
       roleOptions: {
-        mapBetterAuthRoleToPolarRole: options.mapBetterAuthRoleToPolarRole,
+        mapBetterAuthRoleToRepalisRole: options.mapBetterAuthRoleToRepalisRole,
       },
       organizationOptions: options,
     }),

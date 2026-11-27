@@ -1,7 +1,7 @@
 import { toast } from '@/components/Toast/use-toast'
 import { useUnrevokeBenefitGrant } from '@/hooks/queries/benefits'
 import { extractApiErrorMessage } from '@/utils/api/errors'
-import { Button } from '@polar-sh/orbit'
+import { Button } from '@repalis/orbit'
 
 export const UnrevokeBenefitGrantButton = ({
   grantId,

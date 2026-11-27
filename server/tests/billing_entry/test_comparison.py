@@ -5,12 +5,12 @@ import pytest
 from pytest_mock import MockerFixture
 from sqlalchemy import func, select
 
-from polar.billing_entry.comparison import Adjustment, Quantities, compare, explain
-from polar.enums import SubscriptionRecurringInterval
-from polar.kit.utils import utc_now
-from polar.meter.aggregation import AggregationFunction, PropertyAggregation
-from polar.meter.filter import Filter, FilterConjunction
-from polar.models import (
+from repalis.billing_entry.comparison import Adjustment, Quantities, compare, explain
+from repalis.enums import SubscriptionRecurringInterval
+from repalis.kit.utils import utc_now
+from repalis.meter.aggregation import AggregationFunction, PropertyAggregation
+from repalis.meter.filter import Filter, FilterConjunction
+from repalis.models import (
     BillingEntry,
     Customer,
     OrderItem,
@@ -19,8 +19,8 @@ from polar.models import (
     ReducerBucket,
     Subscription,
 )
-from polar.models.billing_entry import BillingEntryDirection, BillingEntryType
-from polar.postgres import AsyncSession
+from repalis.models.billing_entry import BillingEntryDirection, BillingEntryType
+from repalis.postgres import AsyncSession
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (
     create_active_subscription,
@@ -184,7 +184,7 @@ class TestCompare:
                 )
             )
         mocker.patch(
-            "polar.billing_entry.comparison.billing_interval_service.get_usage_windows",
+            "repalis.billing_entry.comparison.billing_interval_service.get_usage_windows",
             return_value=(),
         )
 
@@ -231,7 +231,7 @@ class TestCompare:
         )
         order = await create_order(save_fixture, customer=customer)
         mocker.patch(
-            "polar.billing_entry.comparison.EXPLAIN_STATEMENT_TIMEOUT", "100ms"
+            "repalis.billing_entry.comparison.EXPLAIN_STATEMENT_TIMEOUT", "100ms"
         )
 
         async def sleep(
@@ -241,9 +241,9 @@ class TestCompare:
             return {}
 
         mocker.patch(
-            "polar.billing_entry.comparison._get_usage_adjustments", side_effect=sleep
+            "repalis.billing_entry.comparison._get_usage_adjustments", side_effect=sleep
         )
-        log_exception = mocker.patch("polar.billing_entry.comparison.log.exception")
+        log_exception = mocker.patch("repalis.billing_entry.comparison.log.exception")
 
         comparison = await compare(
             session,

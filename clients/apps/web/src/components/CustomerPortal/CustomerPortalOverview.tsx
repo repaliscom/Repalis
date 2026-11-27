@@ -3,7 +3,7 @@
 import { usePortalAuthenticatedUser } from '@/hooks/queries/customerPortal'
 import { createClientSideAPI } from '@/utils/client'
 import { hasBillingPermission } from '@/utils/customerPortal'
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 import { CustomerPortalGrants } from './CustomerPortalGrants'
 import { CustomerPortalOrders } from './CustomerPortalOrders'
 import {

@@ -2,9 +2,9 @@
 
 import { MasterDetailLayoutContent } from '@/components/Layout/MasterDetailLayout'
 import { CHART_RANGES, ChartRange } from '@/utils/metrics'
-import { schemas } from '@polar-sh/client'
-import { SegmentedControl, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { schemas } from '@repalis/client'
+import { SegmentedControl, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import { PropsWithChildren } from 'react'
 import { CustomersSubnav } from './CustomersSubnav'
 

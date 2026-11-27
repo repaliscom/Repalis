@@ -8,7 +8,7 @@ import {
   type Client,
   type operations,
   type schemas,
-} from '@polar-sh/client'
+} from '@repalis/client'
 
 import {
   createContext,
@@ -54,7 +54,7 @@ type APIError<T extends keyof operations> = {
 }
 
 type ValidationError = {
-  error: 'PolarRequestValidationError' | 'RequestValidationError'
+  error: 'RepalisRequestValidationError' | 'RequestValidationError'
   detail: { input: unknown; loc: string[]; msg: string; type: string }[]
 }
 
@@ -225,12 +225,12 @@ export const CheckoutProvider = ({
 
       switch (server) {
         case 'sandbox': {
-          return 'https://sandbox-api.polar.sh'
+          return 'https://sandbox-api.repalis.com'
         }
 
         case 'production':
         case undefined: {
-          return 'https://api.polar.sh'
+          return 'https://api.repalis.com'
         }
 
         default:
@@ -238,7 +238,7 @@ export const CheckoutProvider = ({
       }
     })()
 
-    return createClient(baseUrl, undefined, { 'Polar-Version': API_VERSION })
+    return createClient(baseUrl, undefined, { 'Repalis-Version': API_VERSION })
   }, [server, serverURL])
 
   const [checkout, setCheckout] = useState<schemas['CheckoutPublic'] | null>(

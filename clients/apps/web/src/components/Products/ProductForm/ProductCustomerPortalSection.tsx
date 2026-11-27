@@ -7,12 +7,12 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@polar-sh/ui/components/ui/form'
-import { Label } from '@polar-sh/ui/components/ui/label'
+} from '@repalis/ui/components/ui/form'
+import { Label } from '@repalis/ui/components/ui/label'
 import {
   RadioGroup,
   RadioGroupItem,
-} from '@polar-sh/ui/components/ui/radio-group'
+} from '@repalis/ui/components/ui/radio-group'
 import { useFormContext } from 'react-hook-form'
 import { ProductFormType } from './ProductForm'
 
@@ -47,15 +47,15 @@ export const ProductCustomerPortalSection = ({
                       htmlFor="visibility-public"
                       className={`flex cursor-pointer flex-col gap-2 rounded-2xl border p-4 transition-colors ${
                         field.value === 'public' || !field.value
-                          ? 'dark:bg-polar-800 bg-gray-50'
-                          : 'dark:border-polar-700 dark:hover:border-polar-700 dark:text-polar-500 dark:hover:bg-polar-700 dark:bg-polar-900 border-gray-100 text-gray-500 hover:border-gray-200'
+                          ? 'dark:bg-repalis-800 bg-gray-50'
+                          : 'dark:border-repalis-700 dark:hover:border-repalis-700 dark:text-repalis-500 dark:hover:bg-repalis-700 dark:bg-repalis-900 border-gray-100 text-gray-500 hover:border-gray-200'
                       }`}
                     >
                       <div className="flex items-center gap-2.5 font-medium">
                         <RadioGroupItem value="public" id="visibility-public" />
                         Public
                       </div>
-                      <p className="dark:text-polar-500 text-sm text-gray-500">
+                      <p className="dark:text-repalis-500 text-sm text-gray-500">
                         Shown in the Customer Portal
                       </p>
                     </Label>
@@ -63,8 +63,8 @@ export const ProductCustomerPortalSection = ({
                       htmlFor="visibility-private"
                       className={`flex cursor-pointer flex-col gap-2 rounded-2xl border p-4 transition-colors ${
                         field.value === 'private'
-                          ? 'dark:bg-polar-800 bg-gray-50'
-                          : 'dark:border-polar-700 dark:hover:border-polar-700 dark:text-polar-500 dark:hover:bg-polar-700 dark:bg-polar-900 border-gray-100 text-gray-500 hover:border-gray-200'
+                          ? 'dark:bg-repalis-800 bg-gray-50'
+                          : 'dark:border-repalis-700 dark:hover:border-repalis-700 dark:text-repalis-500 dark:hover:bg-repalis-700 dark:bg-repalis-900 border-gray-100 text-gray-500 hover:border-gray-200'
                       }`}
                     >
                       <div className="flex items-center gap-2.5 font-medium">
@@ -74,7 +74,7 @@ export const ProductCustomerPortalSection = ({
                         />
                         Private
                       </div>
-                      <p className="dark:text-polar-500 text-sm text-gray-500">
+                      <p className="dark:text-repalis-500 text-sm text-gray-500">
                         Only purchasable via a direct checkout link
                       </p>
                     </Label>

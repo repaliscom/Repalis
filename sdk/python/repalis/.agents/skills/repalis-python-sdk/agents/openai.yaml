@@ -1,0 +1,4 @@
+interface:
+  display_name: "Repalis Python SDK"
+  short_description: "Build reliable Repalis billing integrations"
+  default_prompt: "Use $repalis-python-sdk to implement a secure Repalis billing integration in my Python application."

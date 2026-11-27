@@ -1,13 +1,13 @@
-import { schemas } from '@polar-sh/client'
-import { Input } from '@polar-sh/orbit'
-import { Switch } from '@polar-sh/orbit'
+import { schemas } from '@repalis/client'
+import { Input } from '@repalis/orbit'
+import { Switch } from '@repalis/orbit'
 import {
   FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-} from '@polar-sh/ui/components/ui/form'
+} from '@repalis/ui/components/ui/form'
 import { useEffect } from 'react'
 import { useFormContext } from 'react-hook-form'
 

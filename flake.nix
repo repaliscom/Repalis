@@ -1,5 +1,5 @@
 {
-  description = "Polar development shell";
+  description = "Repalis development shell";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
@@ -19,9 +19,9 @@
             else pkgs.stripe-cli;
 
           # Same lookup as dev/cli/install's alias, so it works from any subdirectory or worktree
-          polar-dev = pkgs.writeShellScriptBin "dev" ''
+          repalis-dev = pkgs.writeShellScriptBin "dev" ''
             root="$(git rev-parse --show-toplevel 2>/dev/null)" || {
-              echo "dev: run this inside the Polar repository" >&2
+              echo "dev: run this inside the Repalis repository" >&2
               exit 1
             }
             exec ${pkgs.runtimeShell} "$root/dev/cli/dev" "$@"
@@ -46,7 +46,7 @@
           # Nix's glibc loader.
           workerd = pkgs.writeShellScriptBin "workerd" ''
             root="$(git rev-parse --show-toplevel 2>/dev/null)" || {
-              echo "workerd: run this inside the Polar repository" >&2
+              echo "workerd: run this inside the Repalis repository" >&2
               exit 1
             }
             bin="$(printf '%s\n' "$root"/clients/node_modules/.pnpm/@cloudflare+workerd-linux-*/node_modules/@cloudflare/workerd-linux-*/bin/workerd | sort -V | tail -n1)"
@@ -76,7 +76,7 @@
               postgresql_18
 
               stripe-cli
-              polar-dev
+              repalis-dev
             ];
 
             # uv's own portable Python builds are generic-linux binaries that can't

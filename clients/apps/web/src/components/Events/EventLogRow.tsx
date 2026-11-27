@@ -1,8 +1,8 @@
 import { type CondensedTableColumn } from '@/components/Shared/CondensedTable'
-import { schemas } from '@polar-sh/client'
-import { formatCurrency } from '@polar-sh/currency'
-import { Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { schemas } from '@repalis/client'
+import { formatCurrency } from '@repalis/currency'
+import { Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import { EventTimestamp } from './EventTimestamp'
 
 export const formatEventTimestamp = (timestamp: string) =>

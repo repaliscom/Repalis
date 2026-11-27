@@ -9,11 +9,11 @@ import { ReactNode } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 
-vi.mock('@polar-sh/orbit/Box', () => ({
+vi.mock('@repalis/orbit/Box', () => ({
   Box: ({ children }: { children: ReactNode }) => <div>{children}</div>,
 }))
 
-vi.mock('@polar-sh/orbit', () => ({
+vi.mock('@repalis/orbit', () => ({
   Input: (props: React.InputHTMLAttributes<HTMLInputElement>) => (
     <input {...props} />
   ),

@@ -4,7 +4,7 @@ variable "tailscale_version" {
 }
 
 resource "aws_secretsmanager_secret" "ec2_tailscale" {
-  name = "polar-production-ec2-tailscale"
+  name = "repalis-production-ec2-tailscale"
 
   tags = {
     Environment = "production"
@@ -20,7 +20,7 @@ resource "aws_secretsmanager_secret_version" "ec2_tailscale" {
 module "ec2_tailscale" {
   source = "../modules/ec2_tailscale"
 
-  name                        = "polar-production-aws-router"
+  name                        = "repalis-production-aws-router"
   subnet_id                   = module.vpc.public_subnet_ids[0]
   associate_public_ip_address = true
   advertise_routes            = module.vpc.private_subnet_cidr_blocks

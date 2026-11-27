@@ -2,10 +2,10 @@ import pytest
 from cryptography.exceptions import InvalidTag
 from sqlalchemy import select
 
-from polar.kit.encryption import EncryptedString
-from polar.models import User
-from polar.models.user import OAuthAccount, OAuthPlatform
-from polar.postgres import AsyncSession
+from repalis.kit.encryption import EncryptedString
+from repalis.models import User
+from repalis.models.user import OAuthAccount, OAuthPlatform
+from repalis.postgres import AsyncSession
 from tests.fixtures.database import SaveFixture
 
 

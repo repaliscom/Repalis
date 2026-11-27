@@ -6,14 +6,14 @@ module "egress_ip" {
   count  = local.test_enabled ? 1 : 0
   source = "../modules/static_egress_ip"
 
-  name = "polar-test-egress"
+  name = "repalis-test-egress"
 }
 
 module "vpc" {
   count  = local.test_enabled ? 1 : 0
   source = "../modules/vpc"
 
-  name                            = "polar-test"
+  name                            = "repalis-test"
   secondary_cidr_block            = "10.22.0.0/16"
   primary_private_subnets_enabled = false
   availability_zones              = ["us-east-2a", "us-east-2b", "us-east-2c"]
@@ -22,7 +22,7 @@ module "vpc" {
 
 resource "aws_security_group" "lambda" {
   count       = local.test_enabled ? 1 : 0
-  name        = "polar-test-lambda"
+  name        = "repalis-test-lambda"
   description = "Shared egress security group for test Lambdas."
   vpc_id      = module.vpc[0].vpc_id
 

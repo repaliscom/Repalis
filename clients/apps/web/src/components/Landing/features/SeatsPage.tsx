@@ -25,7 +25,7 @@ export const SeatsPage = () => {
 
       <FeaturePageIntro>
         Sell a product where one customer pays for a team. Invitations, claims,
-        and proration are handled by Polar so you don&apos;t have to build seat
+        and proration are handled by Repalis so you don&apos;t have to build seat
         management yourself.
       </FeaturePageIntro>
 
@@ -102,7 +102,7 @@ export const SeatsPage = () => {
 
       <FeatureRichList
         title="Seat statuses"
-        description="Polar separates the act of paying for a seat from the act of using one. Three statuses describe where any seat is in that process."
+        description="Repalis separates the act of paying for a seat from the act of using one. Three statuses describe where any seat is in that process."
         items={[
           {
             title: 'Pending',
@@ -122,7 +122,7 @@ export const SeatsPage = () => {
           {
             title: 'Reduce vs revoke',
             description:
-              'Revoking frees a slot for reassignment. Reducing the seat count is what actually lowers the bill, and Polar issues a prorated credit for the unused remainder of the cycle.',
+              'Revoking frees a slot for reassignment. Reducing the seat count is what actually lowers the bill, and Repalis issues a prorated credit for the unused remainder of the cycle.',
           },
         ]}
       />
@@ -151,7 +151,7 @@ export const SeatsPage = () => {
 
       <FeatureCTA
         title="Sell to teams"
-        description="Create a seat-based product and Polar handles assignment, claim, and proration."
+        description="Create a seat-based product and Repalis handles assignment, claim, and proration."
       />
     </FeaturePageLayout>
   )

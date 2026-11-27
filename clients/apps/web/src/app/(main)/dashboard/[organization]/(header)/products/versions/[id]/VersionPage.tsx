@@ -3,9 +3,9 @@
 import { DashboardBody } from '@/components/Layout/DashboardLayout'
 import { PublishDraftButton } from '@/components/Products/PublishDraftButton'
 import { useCatalog, useCatalogConfig } from '@/hooks/queries/catalogs'
-import { schemas } from '@polar-sh/client'
-import { Grid, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { schemas } from '@repalis/client'
+import { Grid, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import {
   Archive,
   ArrowBackOutlined,
@@ -13,7 +13,7 @@ import {
   CircleCheck,
   History,
   Pencil,
-} from '@polar-sh/orbit/icons'
+} from '@repalis/orbit/icons'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { Fragment } from 'react'

@@ -145,7 +145,7 @@ describe('probeTarget', () => {
   test('sees a host that does not exist', async () => {
     expect(
       await Effect.runPromise(
-        probeTarget(new URL('http://polar-cli-test.invalid/')),
+        probeTarget(new URL('http://repalis-cli-test.invalid/')),
       ),
     ).toBe('unknownHost')
   })
@@ -181,14 +181,14 @@ describe('listen command', () => {
 
   test('stops at a host that does not exist', async () => {
     await expect(run(['qweqe.invalid']).promise).rejects.toThrow(
-      'Can\'t find a host named "qweqe.invalid". To forward to a server on this machine, pass its port, e.g. polar webhook listen 3000.',
+      'Can\'t find a host named "qweqe.invalid". To forward to a server on this machine, pass its port, e.g. repalis webhook listen 3000.',
     )
   })
 
   test('shows examples in its help', async () => {
     const { promise, output } = run(['--help'])
     await promise
-    expect(stripAnsi(output())).toContain('polar webhook listen 3000')
+    expect(stripAnsi(output())).toContain('repalis webhook listen 3000')
   })
 
   test('prints the signing secret of the active organization', async () => {
@@ -199,7 +199,7 @@ describe('listen command', () => {
 
   test('asks for a forward target', async () => {
     await expect(run([]).promise).rejects.toThrow(
-      'Pass a port or URL to forward events to, e.g. polar webhook listen 3000.',
+      'Pass a port or URL to forward events to, e.g. repalis webhook listen 3000.',
     )
   })
 

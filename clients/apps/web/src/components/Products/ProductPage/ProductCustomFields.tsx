@@ -1,8 +1,8 @@
 import CustomFieldTypeIcon from '@/components/CustomFields/CustomFieldTypeIcon'
-import { schemas } from '@polar-sh/client'
-import { List, ListItem, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import { ChevronRight } from '@polar-sh/orbit/icons'
+import { schemas } from '@repalis/client'
+import { List, ListItem, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import { ChevronRight } from '@repalis/orbit/icons'
 import Link from 'next/link'
 
 export interface ProductCustomFieldsProps {

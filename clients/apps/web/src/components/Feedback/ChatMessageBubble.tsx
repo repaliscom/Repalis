@@ -1,12 +1,12 @@
 'use client'
 
 import { MemoizedMarkdown } from '@/components/Markdown/MemoizedMarkdown'
-import { Box } from '@polar-sh/orbit/Box'
+import { Box } from '@repalis/orbit/Box'
 import type { UIMessage } from 'ai'
 
 import { extractText } from './messages'
 
-const POLAR_DOCS_BASE = 'https://polar.sh/docs/'
+const REPALIS_DOCS_BASE = '/docs/'
 
 const normalizeAssistantLinks = (text: string): string =>
   text.replace(
@@ -26,8 +26,8 @@ const normalizeAssistantLinks = (text: string): string =>
         return `](/${trimmed}${title})`
       }
       // Everything else is assumed to be a docs path — make it absolute
-      // since docs always live at polar.sh/docs regardless of environment.
-      return `](${POLAR_DOCS_BASE}${trimmed}${title})`
+      // since docs always live at repalis.com/docs regardless of environment.
+      return `](${REPALIS_DOCS_BASE}${trimmed}${title})`
     },
   )
 

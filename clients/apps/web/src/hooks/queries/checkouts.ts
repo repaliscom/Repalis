@@ -1,6 +1,6 @@
 import { getServerURL } from '@/utils/api'
 import { api } from '@/utils/client'
-import { operations, schemas, unwrap } from '@polar-sh/client'
+import { operations, schemas, unwrap } from '@repalis/client'
 import {
   keepPreviousData,
   useInfiniteQuery,

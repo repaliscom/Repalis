@@ -2,16 +2,16 @@ import { getPaymentMethodTypeLabel } from '@/components/PaymentMethodDisplay'
 import { ReviewRow } from './reviewRows'
 
 const NO_CARD_CONSEQUENCE =
-  'The subscription still moves, but its first renewal on Polar fails and goes to dunning until the customer adds a card. Ask them to add one before it renews.'
+  'The subscription still moves, but its first renewal on Repalis fails and goes to dunning until the customer adds a card. Ask them to add one before it renews.'
 
 const PAYMENT_METHOD_COPY = {
   noCardTitle: 'Moves without a payment method',
   notCopiedTitle: "Payment method can't be copied",
   notCopied: (label: string) =>
-    `${label} can't be copied to Polar. The subscription still moves, and renews with another card copied for this customer if there is one. Otherwise its first renewal on Polar fails and goes to dunning until the customer adds a card.`,
+    `${label} can't be copied to Repalis. The subscription still moves, and renews with another card copied for this customer if there is one. Otherwise its first renewal on Repalis fails and goes to dunning until the customer adds a card.`,
   indiaCardTitle: 'Likely an India-issued card',
   indiaCard:
-    "This looks like an India-issued card. India requires a mandate for recurring charges, and it doesn't move with the card. The subscription still moves, but its first renewal on Polar is likely to fail and go to dunning until the customer adds another payment method.",
+    "This looks like an India-issued card. India requires a mandate for recurring charges, and it doesn't move with the card. The subscription still moves, but its first renewal on Repalis is likely to fail and go to dunning until the customer adds another payment method.",
   none: `This customer has no saved payment method at your current provider. ${NO_CARD_CONSEQUENCE}`,
 }
 

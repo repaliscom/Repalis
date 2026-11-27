@@ -1,23 +1,23 @@
 'use client'
 
-import { type schemas } from '@polar-sh/client'
-import { Alert, Input } from '@polar-sh/orbit'
+import { type schemas } from '@repalis/client'
+import { Alert, Input } from '@repalis/orbit'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import MoneyInput from '@polar-sh/ui/components/atoms/MoneyInput'
+} from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import MoneyInput from '@repalis/ui/components/atoms/MoneyInput'
 import {
   FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-} from '@polar-sh/ui/components/ui/form'
+} from '@repalis/ui/components/ui/form'
 import React, { useCallback, useState } from 'react'
 import { useFormContext, useWatch } from 'react-hook-form'
 import { getUnitLabels } from '@/utils/product'

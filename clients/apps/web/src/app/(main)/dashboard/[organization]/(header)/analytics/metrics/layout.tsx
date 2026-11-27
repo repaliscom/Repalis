@@ -3,7 +3,7 @@ import { DashboardViewActions } from '@/components/Metrics/dashboards/DashboardV
 import { MetricsHeader } from '@/components/Metrics/dashboards/MetricsHeader'
 import { getServerSideAPI } from '@/utils/client/serverside'
 import { getOrganizationBySlugOrNotFound } from '@/utils/organization'
-import { unwrap } from '@polar-sh/client'
+import { unwrap } from '@repalis/client'
 
 export default async function Layout(props: {
   params: Promise<{ organization: string }>

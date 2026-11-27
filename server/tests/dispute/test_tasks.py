@@ -6,19 +6,23 @@ from unittest.mock import AsyncMock
 import pytest
 from pytest_mock import MockerFixture
 
-from polar.dispute.dispute_case import DISPUTE_GREETING
-from polar.dispute.tasks import auto_accept, enqueue_auto_accepts, post_dispute_greeting
-from polar.kit.utils import utc_now
-from polar.models import Customer, Dispute, Organization, Product
-from polar.models.support_case import (
+from repalis.dispute.dispute_case import DISPUTE_GREETING
+from repalis.dispute.tasks import (
+    auto_accept,
+    enqueue_auto_accepts,
+    post_dispute_greeting,
+)
+from repalis.kit.utils import utc_now
+from repalis.models import Customer, Dispute, Organization, Product
+from repalis.models.support_case import (
     DisputeSupportCase,
     SupportCaseAudience,
     SupportCaseMessage,
     SupportCaseMessageAuthorKind,
     SupportCaseMessageType,
 )
-from polar.postgres import AsyncSession
-from polar.support_case.repository import SupportCaseMessageRepository
+from repalis.postgres import AsyncSession
+from repalis.support_case.repository import SupportCaseMessageRepository
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (
     create_dispute,
@@ -78,7 +82,7 @@ class TestPostDisputeGreeting:
     ) -> None:
         case = await create_dispute_case(save_fixture, organization, customer, product)
         mocker.patch(
-            "polar.dispute.tasks.AsyncSessionMaker",
+            "repalis.dispute.tasks.AsyncSessionMaker",
             side_effect=lambda: _session_maker(session),
         )
 
@@ -105,7 +109,7 @@ class TestPostDisputeGreeting:
     ) -> None:
         case = await create_dispute_case(save_fixture, organization, customer, product)
         mocker.patch(
-            "polar.dispute.tasks.AsyncSessionMaker",
+            "repalis.dispute.tasks.AsyncSessionMaker",
             side_effect=lambda: _session_maker(session),
         )
 
@@ -152,10 +156,10 @@ class TestEnqueueAutoAccepts:
         )
 
         mocker.patch(
-            "polar.dispute.tasks.AsyncSessionMaker",
+            "repalis.dispute.tasks.AsyncSessionMaker",
             side_effect=lambda: _session_maker(session),
         )
-        enqueue_mock = mocker.patch("polar.dispute.tasks.enqueue_job")
+        enqueue_mock = mocker.patch("repalis.dispute.tasks.enqueue_job")
 
         await _enqueue_auto_accepts()
 
@@ -185,10 +189,10 @@ class TestEnqueueAutoAccepts:
         )
 
         mocker.patch(
-            "polar.dispute.tasks.AsyncSessionMaker",
+            "repalis.dispute.tasks.AsyncSessionMaker",
             side_effect=lambda: _session_maker(session),
         )
-        enqueue_mock = mocker.patch("polar.dispute.tasks.enqueue_job")
+        enqueue_mock = mocker.patch("repalis.dispute.tasks.enqueue_job")
 
         await _enqueue_auto_accepts()
 
@@ -212,10 +216,10 @@ class TestEnqueueAutoAccepts:
         await _dispute(save_fixture, organization, customer, product)
 
         mocker.patch(
-            "polar.dispute.tasks.AsyncSessionMaker",
+            "repalis.dispute.tasks.AsyncSessionMaker",
             side_effect=lambda: _session_maker(session),
         )
-        enqueue_mock = mocker.patch("polar.dispute.tasks.enqueue_job")
+        enqueue_mock = mocker.patch("repalis.dispute.tasks.enqueue_job")
 
         await _enqueue_auto_accepts()
 
@@ -235,11 +239,11 @@ class TestAutoAccept:
     ) -> None:
         dispute = await _dispute(save_fixture, organization, customer, product)
         mocker.patch(
-            "polar.dispute.tasks.AsyncSessionMaker",
+            "repalis.dispute.tasks.AsyncSessionMaker",
             side_effect=lambda: _session_maker(session),
         )
         accept_mock = mocker.patch(
-            "polar.dispute.tasks.dispute_service.accept", new_callable=AsyncMock
+            "repalis.dispute.tasks.dispute_service.accept", new_callable=AsyncMock
         )
 
         await _auto_accept(dispute.id)

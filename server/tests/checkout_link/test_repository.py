@@ -5,15 +5,15 @@ import pytest
 from sqlalchemy import delete
 from sqlalchemy.orm import selectinload
 
-from polar.checkout_link.repository import CheckoutLinkRepository
-from polar.config import settings
-from polar.kit.db.postgres import (
+from repalis.checkout_link.repository import CheckoutLinkRepository
+from repalis.config import settings
+from repalis.kit.db.postgres import (
     AsyncSessionMaker,
     create_async_engine,
     create_async_sessionmaker,
 )
-from polar.models import Account, CheckoutLink, Organization, Product, User
-from polar.postgres import AsyncSession
+from repalis.models import Account, CheckoutLink, Organization, Product, User
+from repalis.postgres import AsyncSession
 from tests.fixtures.database import (
     SaveFixture,
     get_database_url,

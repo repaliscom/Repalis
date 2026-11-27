@@ -1,16 +1,16 @@
 {% for version in apis %}
-import type * as {{ version.version | sdk_namespace }} from '@polar-sh/sdk/{{ version.version }}'
+import type * as {{ version.version | sdk_namespace }} from '@repalis/sdk/{{ version.version }}'
 {% endfor %}
 import { Context, Data, type Effect, type Option, type Stdio } from 'effect'
 import type { Prompt } from 'effect/cli'
 
-export type { Environment } from '@polar-sh/sdk/{{ api.version }}'
+export type { Environment } from '@repalis/sdk/{{ api.version }}'
 
 export interface ApiClients {
 {% for version in apis %}
   {{ version.version | quote }}: {
-    client: {{ version.version | sdk_namespace }}.Polar
-    core: {{ version.version | sdk_namespace }}.PolarCore
+    client: {{ version.version | sdk_namespace }}.Repalis
+    core: {{ version.version | sdk_namespace }}.RepalisCore
   }
 {% endfor %}
 }
@@ -77,4 +77,4 @@ export class ApiRuntime extends Context.Service<
       operation: ApiOperation<A, V>,
     ) => Effect.Effect<void, ApiCommandError, Stdio.Stdio | Prompt.Environment>
   }
->()('@polar-sh/cli-commands/ApiRuntime') {}
+>()('@repalis/cli-commands/ApiRuntime') {}

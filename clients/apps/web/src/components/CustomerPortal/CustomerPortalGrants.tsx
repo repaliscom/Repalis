@@ -1,5 +1,5 @@
 import { useCustomerBenefitGrants } from '@/hooks/queries/customerPortal'
-import { Client } from '@polar-sh/client'
+import { Client } from '@repalis/client'
 import { CustomerPortalGrantsComplex } from './CustomerPortalGrantsComplex'
 import { CustomerPortalGrantsSimple } from './CustomerPortalGrantsSimple'
 

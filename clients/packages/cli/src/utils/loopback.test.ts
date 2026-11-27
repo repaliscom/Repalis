@@ -52,7 +52,7 @@ test('ignores callbacks with the wrong state and keeps waiting', async () => {
     awaitCallback({
       path: '/callback',
       state: 'expected',
-      target: new URL('https://polar.sh/authorize'),
+      target: new URL('https://repalis.com/authorize'),
       parse: (url) => ({
         outcome: 'success',
         value: url.searchParams.get('code')!,
@@ -95,7 +95,7 @@ test('keeps waiting when the browser launcher exits non-zero', async () => {
     awaitCallback({
       path: '/callback',
       state: 'expected',
-      target: new URL('https://polar.sh/authorize'),
+      target: new URL('https://repalis.com/authorize'),
       parse: (url) => ({
         outcome: 'success',
         value: url.searchParams.get('code')!,

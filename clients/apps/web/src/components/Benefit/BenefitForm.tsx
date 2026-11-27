@@ -1,7 +1,7 @@
 import { MetadataForm } from '@/components/Metadata/MetadataForm'
 import { useDiscordGuild } from '@/hooks/queries'
 import { getBotDiscordAuthorizeURL } from '@/utils/auth'
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 import {
   Button,
   Checkbox,
@@ -15,7 +15,7 @@ import {
   SelectTrigger,
   SelectValue,
   TextArea,
-} from '@polar-sh/orbit'
+} from '@repalis/orbit'
 import {
   FormControl,
   FormDescription,
@@ -23,7 +23,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@polar-sh/ui/components/ui/form'
+} from '@repalis/ui/components/ui/form'
 import { usePathname } from 'next/navigation'
 import React, { useMemo } from 'react'
 import { useFormContext, useWatch } from 'react-hook-form'
@@ -113,7 +113,7 @@ const BenefitForm = ({
             <FormItem>
               <div className="flex flex-row items-center justify-between">
                 <FormLabel>Description</FormLabel>
-                <span className="dark:text-polar-400 text-sm text-gray-400">
+                <span className="dark:text-repalis-400 text-sm text-gray-400">
                   {field.value?.length ?? 0} / 42
                 </span>
               </div>
@@ -178,7 +178,7 @@ const CustomBenefitForm = ({}: CustomBenefitFormProps) => {
           <FormItem>
             <div className="flex flex-row items-center justify-between">
               <FormLabel>Private note</FormLabel>
-              <span className="dark:text-polar-500 text-sm text-gray-500">
+              <span className="dark:text-repalis-500 text-sm text-gray-500">
                 Markdown Format
               </span>
             </div>
@@ -223,11 +223,11 @@ const DiscordBenefitForm = ({
     organization.id,
     guildId ?? undefined,
   )
-  const polarBotRolePosition = useMemo(() => {
+  const repalisBotRolePosition = useMemo(() => {
     if (!discordGuild) {
       return undefined
     }
-    return discordGuild.roles.find(({ is_polar_bot }) => is_polar_bot)?.position
+    return discordGuild.roles.find(({ is_repalis_bot }) => is_repalis_bot)?.position
   }, [discordGuild])
 
   return (
@@ -275,9 +275,9 @@ const DiscordBenefitForm = ({
                       </SelectTrigger>
                       <SelectContent>
                         <SelectGroup>
-                          {polarBotRolePosition &&
+                          {repalisBotRolePosition &&
                             discordGuild.roles.map((role, index) =>
-                              role.is_polar_bot ? (
+                              role.is_repalis_bot ? (
                                 <React.Fragment key={role.id}>
                                   {index > 0 && ( // Don't show it if it's already first
                                     <>
@@ -298,7 +298,7 @@ const DiscordBenefitForm = ({
                                   key={role.id}
                                   value={role.id}
                                   disabled={
-                                    role.position > polarBotRolePosition
+                                    role.position > repalisBotRolePosition
                                   }
                                 >
                                   <div className="flex items-center gap-2">
@@ -316,7 +316,7 @@ const DiscordBenefitForm = ({
                     </Select>
                   </FormControl>
                   <FormDescription>
-                    To grant a specific role, our Polar bot role should be above
+                    To grant a specific role, our Repalis bot role should be above
                     it in the hierarchy list. You can do so from{' '}
                     <span className="font-medium">Server Settings</span> →{' '}
                     <span className="font-medium">Roles</span> in Discord.

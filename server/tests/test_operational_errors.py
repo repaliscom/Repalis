@@ -3,7 +3,7 @@ import psycopg.errors
 import pytest
 from sqlalchemy.exc import DBAPIError
 
-from polar.operational_errors import handle_operational_error
+from repalis.operational_errors import handle_operational_error
 
 
 @pytest.mark.parametrize(

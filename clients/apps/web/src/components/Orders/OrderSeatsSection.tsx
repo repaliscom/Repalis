@@ -2,8 +2,8 @@
 
 import { SeatViewOnlyTable } from '@/components/Seats/SeatViewOnlyTable'
 import { useOrganizationSeats } from '@/hooks/queries/seats'
-import { schemas } from '@polar-sh/client'
-import { Text } from '@polar-sh/orbit'
+import { schemas } from '@repalis/client'
+import { Text } from '@repalis/orbit'
 import { OrderSection } from './OrderSection'
 
 export const OrderSeatsSection = ({ order }: { order: schemas['Order'] }) => {

@@ -3,7 +3,7 @@ import { HttpClientRequest, HttpClientResponse } from 'effect/http'
 import type {
   ActiveOrganization,
   AuthError,
-  PolarEnvironment,
+  RepalisEnvironment,
 } from '@/schemas/Auth'
 import { apiUrl, describeApiFailure, withOrganization } from '@/services/api'
 import { type ApiClient, authenticatedClient } from '@/services/client'
@@ -99,7 +99,7 @@ const isUnknownEventError = (detail: unknown) =>
       Array.isArray(error.loc) && error.loc.join('.') === 'body.event',
   )
 
-const apiFailure = (status: number, environment: PolarEnvironment) => {
+const apiFailure = (status: number, environment: RepalisEnvironment) => {
   const { message, hint } = describeApiFailure(status, environment)
   return hint
     ? new TriggerError({ message, hint })
@@ -108,7 +108,7 @@ const apiFailure = (status: number, environment: PolarEnvironment) => {
 
 const unreachable = (error: { message: string }) =>
   new TriggerError({
-    message: 'Could not reach the Polar API',
+    message: 'Could not reach the Repalis API',
     hint: error.message,
   })
 
@@ -116,7 +116,7 @@ const unexpectedResponse = () =>
   new TriggerError({ message: 'Unexpected response from the API' })
 
 export const make = Effect.gen(function* () {
-  const clients: Record<PolarEnvironment, ApiClient> = {
+  const clients: Record<RepalisEnvironment, ApiClient> = {
     sandbox: yield* authenticatedClient('sandbox'),
     production: yield* authenticatedClient('production'),
     local: yield* authenticatedClient('local'),

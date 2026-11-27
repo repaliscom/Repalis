@@ -2,7 +2,7 @@ import typer
 from sqlalchemy import Update, func, literal, select, update
 from sqlalchemy.dialects.postgresql import JSONB
 
-from polar.models import Organization
+from repalis.models import Organization
 from scripts.helper import (  # lint-skip: dry-run
     configure_script_logging,
     limit_bindparam,

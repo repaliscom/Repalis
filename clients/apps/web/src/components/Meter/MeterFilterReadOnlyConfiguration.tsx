@@ -1,8 +1,8 @@
 'use client'
 
 import { keyByContent } from '@/utils/keys'
-import { schemas } from '@polar-sh/client'
-import ShadowBox from '@polar-sh/ui/components/atoms/ShadowBox'
+import { schemas } from '@repalis/client'
+import ShadowBox from '@repalis/ui/components/atoms/ShadowBox'
 
 export const OPERATOR_DISPLAY_NAMES: Record<schemas['FilterOperator'], string> =
   {

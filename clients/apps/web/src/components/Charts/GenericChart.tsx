@@ -15,7 +15,7 @@ import {
   XAxis,
   YAxis,
   type MouseHandlerDataParam,
-} from '@polar-sh/ui/components/ui/chart'
+} from '@repalis/ui/components/ui/chart'
 import { useTheme } from 'next-themes'
 import React, {
   useCallback,
@@ -120,7 +120,7 @@ const EdgeAlignedTick = ({
       dy={12}
       textAnchor={anchor}
       fill={fill}
-      className="dark:fill-polar-500 fill-gray-500 text-xs"
+      className="dark:fill-repalis-500 fill-gray-500 text-xs"
     >
       {format ? format(value) : String(value ?? '')}
     </text>

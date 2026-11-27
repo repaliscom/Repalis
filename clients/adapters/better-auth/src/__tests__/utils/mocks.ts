@@ -1,22 +1,22 @@
 import {
-  createPolarCore,
+  createRepalisCore,
   type models,
-  type Polar,
-  type PolarCore,
-} from '@polar-sh/sdk/2026-10'
+  type Repalis,
+  type RepalisCore,
+} from '@repalis/sdk/2026-10'
 import type { User } from 'better-auth'
 import { type Mock, vi } from 'vitest'
 
-type PolarClientMocks<T> = T extends (...args: infer Args) => unknown
+type RepalisClientMocks<T> = T extends (...args: infer Args) => unknown
   ? Mock<(...args: Args) => any>
   : T extends object
-    ? { [Key in keyof T]: PolarClientMocks<T[Key]> }
+    ? { [Key in keyof T]: RepalisClientMocks<T[Key]> }
     : T
 
-type MockPolarClient = PolarCore & Polar & PolarClientMocks<Polar>
+type MockRepalisClient = RepalisCore & Repalis & RepalisClientMocks<Repalis>
 
-export const createMockPolarClient = (): MockPolarClient =>
-  Object.assign(createPolarCore({ accessToken: 'test-token' }), {
+export const createMockRepalisClient = (): MockRepalisClient =>
+  Object.assign(createRepalisCore({ accessToken: 'test-token' }), {
     products: {
       get: vi.fn().mockResolvedValue({ is_recurring: false, prices: [] }),
       list: vi.fn(),
@@ -163,7 +163,7 @@ export const createMockProduct = () => ({
 export const createMockCheckout = () => ({
   id: 'checkout-123',
   client_secret: 'checkout_secret',
-  url: 'https://polar.sh/checkout/checkout-123',
+  url: 'https://repalis.com/checkout/checkout-123',
   customer_id: 'customer-123',
   customer_email: 'test@example.com',
   product_id: 'product-123',

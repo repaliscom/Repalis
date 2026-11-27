@@ -3,7 +3,7 @@
 import CustomerPortalSubscription from '@/components/CustomerPortal/CustomerPortalSubscription'
 import { PortalBackLink } from '@/components/CustomerPortal/PortalPrimitives'
 import { createClientSideAPI } from '@/utils/client'
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 import { useParams, useSearchParams } from 'next/navigation'
 
 const ClientPage = ({

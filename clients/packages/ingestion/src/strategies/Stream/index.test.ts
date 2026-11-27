@@ -10,7 +10,7 @@ const trackStream = (stream: Readable) => {
     .strategy(new StreamStrategy<Readable>(stream))
     .ingest('stream-bytes')
   const ingest = vi
-    .spyOn(strategy.polarClient!.events, 'ingest')
+    .spyOn(strategy.repalisClient!.events, 'ingest')
     .mockResolvedValue({ inserted: 1 })
 
   return { strategy, ingest }
@@ -102,7 +102,7 @@ describe('StreamStrategy', () => {
     const { strategy, ingest } = trackStream(
       Readable.from([Buffer.from('hello')]),
     )
-    ingest.mockRejectedValue(new Error('Polar is down'))
+    ingest.mockRejectedValue(new Error('Repalis is down'))
     const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {})
 
     strategy.client({ customerId: 'alice' }).resume()

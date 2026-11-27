@@ -1,6 +1,6 @@
 import GetStartedButton from '@/components/Auth/GetStartedButton'
-import { Button, Grid, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { Button, Grid, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import { BackdropPanel } from './Backdrop'
 import { McpSession } from './McpSession'
 
@@ -26,7 +26,7 @@ export const IntegrateHero = () => (
       >
         <Box flexDirection="column" rowGap="s">
           <Text variant="heading-m" as="h1" wrap="balance">
-            Integrate Polar
+            Integrate Repalis
           </Text>
           <Text variant="heading-m" as="p" color="muted" wrap="balance">
             From one prompt to production billing
@@ -42,7 +42,7 @@ export const IntegrateHero = () => (
         </Box>
       </Box>
       <BackdropPanel
-        src="/assets/landing/company/Polar_Flow_03_No_Logo.jpg"
+        src="/assets/landing/company/Repalis_Flow_03_No_Logo.jpg"
         aside="MCP"
       >
         <McpSession />

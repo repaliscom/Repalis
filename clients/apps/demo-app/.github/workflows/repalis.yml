@@ -1,0 +1,47 @@
+name: Repalis billing config
+
+on:
+  pull_request:
+    paths: [repalis.config.ts]
+  push:
+    branches: [main]
+    paths: [repalis.config.ts]
+
+env:
+  REPALIS_PREVIEW: '1'
+
+jobs:
+  plan:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm }
+      - run: npm ci
+      - run: curl -fsSL https://repalis.com/install.sh | bash
+      - name: Plan and comment on the pull request
+        env:
+          REPALIS_ACCESS_TOKEN: ${{ secrets.REPALIS_READ_TOKEN }}
+          GITHUB_TOKEN: ${{ github.token }}
+        run: repalis config plan --pr-comment
+
+  apply:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    environment: production
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm }
+      - run: npm ci
+      - run: curl -fsSL https://repalis.com/install.sh | bash
+      - name: Apply
+        env:
+          REPALIS_ACCESS_TOKEN: ${{ secrets.REPALIS_WRITE_TOKEN }}
+        run: repalis config apply --confirm

@@ -23,18 +23,18 @@ from rich.progress import Progress, SpinnerColumn, TextColumn
 from rich.table import Table
 from sqlalchemy import Select, func, or_, select
 
-from polar.kit.db.postgres import AsyncSession, create_async_sessionmaker
-from polar.models import (
+from repalis.kit.db.postgres import AsyncSession, create_async_sessionmaker
+from repalis.models import (
     Customer,
     Order,
     Organization,
 )
-from polar.models.organization import OrganizationStatus
-from polar.order.repository import OrderRepository
-from polar.order.service import OrderService
-from polar.postgres import create_async_engine
-from polar.redis import create_redis
-from polar.worker._enqueue import JobQueueManager
+from repalis.models.organization import OrganizationStatus
+from repalis.order.repository import OrderRepository
+from repalis.order.service import OrderService
+from repalis.postgres import create_async_engine
+from repalis.redis import create_redis
+from repalis.worker._enqueue import JobQueueManager
 
 cli = typer.Typer()
 

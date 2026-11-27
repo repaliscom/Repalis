@@ -3,10 +3,10 @@ import { afterEach, expect, it, vi } from "vitest";
 import type { EventInput } from "./event";
 
 import {
-  PolarClientError,
-  PolarNetworkError,
-  PolarRateLimitError,
-  PolarServerError,
+  RepalisClientError,
+  RepalisNetworkError,
+  RepalisRateLimitError,
+  RepalisServerError,
   type RequestOptions,
 } from "../base";
 import { BufferedMeteringStrategy } from "./buffered";
@@ -257,7 +257,7 @@ it("honors Retry-After and preserves the batch through retries", async () => {
   const onDropped = vi.fn();
   const ingest = vi
     .fn()
-    .mockRejectedValueOnce(new PolarRateLimitError(429, 0.001))
+    .mockRejectedValueOnce(new RepalisRateLimitError(429, 0.001))
     .mockResolvedValue(undefined);
   const strategy = await new BufferedMeteringStrategy(
     { events: { ingest } },
@@ -279,7 +279,7 @@ it("waits at least a second on Retry-After without spending attempts", async () 
   const calls: number[] = [];
   const ingest = vi.fn(async () => {
     calls.push(performance.now());
-    if (calls.length === 1) throw new PolarRateLimitError(429, 0);
+    if (calls.length === 1) throw new RepalisRateLimitError(429, 0);
   });
   const strategy = await new BufferedMeteringStrategy(
     { events: { ingest } },
@@ -299,7 +299,7 @@ it("waits at least a second on Retry-After without spending attempts", async () 
 it("drops the batch when Retry-After exceeds the wait budget", async () => {
   vi.spyOn(console, "warn").mockImplementation(() => {});
   const onDropped = vi.fn();
-  const ingest = vi.fn().mockRejectedValue(new PolarRateLimitError(429, 301));
+  const ingest = vi.fn().mockRejectedValue(new RepalisRateLimitError(429, 301));
   const strategy = await new BufferedMeteringStrategy(
     { events: { ingest } },
     { onDropped },
@@ -315,10 +315,10 @@ it("drops the batch when Retry-After exceeds the wait budget", async () => {
 }, 500);
 
 it.each([
-  [new PolarNetworkError("offline"), "retry_exhausted"],
-  [new PolarRateLimitError(429), "retry_exhausted"],
-  [new PolarServerError(503, "unavailable"), "retry_exhausted"],
-  [new PolarClientError(422, "invalid"), "permanent_error"],
+  [new RepalisNetworkError("offline"), "retry_exhausted"],
+  [new RepalisRateLimitError(429), "retry_exhausted"],
+  [new RepalisServerError(503, "unavailable"), "retry_exhausted"],
+  [new RepalisClientError(422, "invalid"), "permanent_error"],
 ] as const)("reports delivery failure: %s", async (error, reason) => {
   vi.spyOn(console, "warn").mockImplementation(() => {});
   const ingest = vi.fn().mockRejectedValue(error);
@@ -362,7 +362,7 @@ it.each([false, true])(
     const ingest = vi.fn(
       async ({ events: batch }: { events: EventInput[] }, options?: RequestOptions) => {
         if (batch[0] === events[0]) {
-          if (dropFirst) throw new PolarClientError(422, "invalid");
+          if (dropFirst) throw new RepalisClientError(422, "invalid");
           return;
         }
         await new Promise<void>((_, reject) => {
@@ -395,7 +395,7 @@ it.each([false, true])(
 
 it("cancels a retry wait at the shutdown deadline", async () => {
   vi.spyOn(console, "warn").mockImplementation(() => {});
-  const ingest = vi.fn().mockRejectedValue(new PolarNetworkError("offline"));
+  const ingest = vi.fn().mockRejectedValue(new RepalisNetworkError("offline"));
   const onDropped = vi.fn();
   const strategy = await new BufferedMeteringStrategy(
     { events: { ingest } },
@@ -415,7 +415,7 @@ it("cancels a retry wait at the shutdown deadline", async () => {
 
 it("keeps a failing onDelivered out of the delivery retries", async () => {
   const ingest = vi.fn().mockResolvedValue(undefined);
-  const error = new PolarNetworkError("callback failed");
+  const error = new RepalisNetworkError("callback failed");
   const onDelivered = vi.fn().mockRejectedValue(error);
   const onDropped = vi.fn();
   const strategy = await new BufferedMeteringStrategy(
@@ -435,7 +435,7 @@ it("keeps a failing onDelivered out of the delivery retries", async () => {
 
 it("reports background drops to the newest overlapping flush, then recovers", async () => {
   vi.spyOn(console, "warn").mockImplementation(() => {});
-  const cause = new PolarClientError(422, "invalid");
+  const cause = new RepalisClientError(422, "invalid");
   const ingest = vi.fn().mockRejectedValueOnce(cause).mockResolvedValue(undefined);
   const onDropped = vi.fn();
   const strategy = await new BufferedMeteringStrategy(
@@ -472,7 +472,7 @@ it("does not include later failed events in an earlier flush boundary", async ()
   const ingest = vi
     .fn()
     .mockImplementationOnce(() => gate)
-    .mockRejectedValue(new PolarClientError(422, "invalid"));
+    .mockRejectedValue(new RepalisClientError(422, "invalid"));
   const strategy = await new BufferedMeteringStrategy(
     { events: { ingest } },
     { batchSize: 1 },
@@ -497,7 +497,7 @@ it("releases an older flush when a newer one starts, and reports both boundaries
   const gate = new Promise<void>((resolve) => {
     release = resolve;
   });
-  const cause = new PolarClientError(422, "invalid");
+  const cause = new RepalisClientError(422, "invalid");
   const ingest = vi.fn(async () => {
     await gate;
     throw cause;
@@ -552,7 +552,7 @@ it("a flush timeout does not cancel delivery or acknowledge unseen drops", async
     release = resolve;
   });
   let signal: AbortSignal | undefined;
-  const cause = new PolarClientError(422, "invalid");
+  const cause = new RepalisClientError(422, "invalid");
   const ingest = vi.fn(async (_body: unknown, options?: RequestOptions) => {
     signal = options?.signal;
     await gate;
@@ -586,7 +586,7 @@ it("an abandoned flush leaves its eventual failure observable", async () => {
     release = resolve;
   });
   const onDropped = vi.fn();
-  const cause = new PolarClientError(422, "invalid");
+  const cause = new RepalisClientError(422, "invalid");
   const strategy = await new BufferedMeteringStrategy(
     {
       events: {
@@ -660,7 +660,7 @@ it.each(["delivered", "dropped", "shutdown"] as const)(
       callbackStarted();
       return gate;
     });
-    const cause = new PolarClientError(422, "invalid");
+    const cause = new RepalisClientError(422, "invalid");
     const ingest = vi.fn(async (_body: unknown, options?: RequestOptions) => {
       if (phase === "dropped") throw cause;
       if (phase === "shutdown")

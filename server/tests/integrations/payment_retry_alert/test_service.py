@@ -6,27 +6,27 @@ import pytest
 import stripe as stripe_lib
 from pytest_mock import MockerFixture
 
-from polar.integrations.payment_retry_alert.service import (
+from repalis.integrations.payment_retry_alert.service import (
     STRIPE_METADATA_PAYMENT_RETRY_ALERT_ID,
     DeclinedPaymentNotFound,
     MissingNetworkTransactionId,
     SkipReason,
 )
-from polar.integrations.payment_retry_alert.service import (
+from repalis.integrations.payment_retry_alert.service import (
     payment_retry_alert as payment_retry_alert_service,
 )
-from polar.integrations.payment_retry_alert.types import (
+from repalis.integrations.payment_retry_alert.types import (
     PaymentRetryAlert,
     RetryOutcome,
 )
-from polar.integrations.stripe.service import StripeService
-from polar.kit.utils import utc_now
-from polar.models import Customer, Order, Organization, Payment, Product
-from polar.models.order import OrderStatus
-from polar.models.payment import PaymentStatus, PaymentTrigger
-from polar.models.subscription import SubscriptionStatus
-from polar.order.service import PaymentFailed, PaymentFailedReason
-from polar.postgres import AsyncSession
+from repalis.integrations.stripe.service import StripeService
+from repalis.kit.utils import utc_now
+from repalis.models import Customer, Order, Organization, Payment, Product
+from repalis.models.order import OrderStatus
+from repalis.models.payment import PaymentStatus, PaymentTrigger
+from repalis.models.subscription import SubscriptionStatus
+from repalis.order.service import PaymentFailed, PaymentFailedReason
+from repalis.postgres import AsyncSession
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (
     create_order,
@@ -55,18 +55,18 @@ def build_alert(network_transaction_id: str = BANKNET_REFERENCE) -> PaymentRetry
 @pytest.fixture
 def stripe_service_mock(mocker: MockerFixture) -> MagicMock:
     mock = MagicMock(spec=StripeService)
-    mocker.patch("polar.order.service.stripe_service", new=mock)
+    mocker.patch("repalis.order.service.stripe_service", new=mock)
     return mock
 
 
 @pytest.fixture
 def enqueue_job_mock(mocker: MockerFixture) -> MagicMock:
-    return mocker.patch("polar.integrations.payment_retry_alert.service.enqueue_job")
+    return mocker.patch("repalis.integrations.payment_retry_alert.service.enqueue_job")
 
 
 @pytest.fixture
 def log_mock(mocker: MockerFixture) -> MagicMock:
-    return mocker.patch("polar.integrations.payment_retry_alert.service.log")
+    return mocker.patch("repalis.integrations.payment_retry_alert.service.log")
 
 
 @pytest.fixture
@@ -234,7 +234,7 @@ class TestHandleAlert:
         failure = PaymentFailed(PaymentFailedReason.card_error)
         failure.__cause__ = cause
         mocker.patch(
-            "polar.integrations.payment_retry_alert.service.order_service.trigger_payment",
+            "repalis.integrations.payment_retry_alert.service.order_service.trigger_payment",
             side_effect=failure,
         )
 

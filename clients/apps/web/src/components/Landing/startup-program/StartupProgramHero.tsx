@@ -1,8 +1,8 @@
 'use client'
 
-import { ArrowForward, CheckOutlined } from '@polar-sh/orbit/icons'
-import { Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { ArrowForward, CheckOutlined } from '@repalis/orbit/icons'
+import { Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import Link from 'next/link'
 import { TIERS } from '../Pricing'
 

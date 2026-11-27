@@ -1,9 +1,9 @@
-import { ArrowOutwardOutlined } from '@polar-sh/orbit/icons'
-import { Grid, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { ArrowOutwardOutlined } from '@repalis/orbit/icons'
+import { Grid, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import Link from 'next/link'
 import { PropsWithChildren } from 'react'
-import { PolarLogotype } from '../Layout/Public/PolarLogotype'
+import { RepalisLogotype } from '../Layout/Public/RepalisLogotype'
 import { CookiePreferencesButton } from '../Privacy/CookiePreferencesButton'
 
 const Footer = () => {
@@ -31,7 +31,7 @@ const Footer = () => {
           alignItems="start"
           rowGap="3xl"
         >
-          <PolarLogotype
+          <RepalisLogotype
             className="ml-2 md:ml-0"
             logoVariant="logotype"
             size={120}
@@ -55,7 +55,7 @@ const Footer = () => {
               </Box>
             </Link>
             <Text variant="body" color="muted">
-              &copy; Polar Software, Inc. {new Date().getFullYear()}
+              &copy; Repalis {new Date().getFullYear()}
             </Text>
           </Box>
         </Box>
@@ -87,7 +87,7 @@ const Footer = () => {
 
           <FooterSection title="Resources">
             <FooterLink href="/integrate">Integrate</FooterLink>
-            <FooterLink href="/resources/why">Why Polar</FooterLink>
+            <FooterLink href="/resources/why">Why Repalis</FooterLink>
             <FooterLink href="/resources/merchant-of-record">
               Merchant of Record
             </FooterLink>
@@ -96,22 +96,22 @@ const Footer = () => {
           </FooterSection>
 
           <FooterSection title="Company">
-            <FooterLink href="/company">About Polar</FooterLink>
-            <FooterLink href="https://github.com/polarsource">
+            <FooterLink href="/company">About Repalis</FooterLink>
+            <FooterLink href="https://github.com/repaliscom/Repalis">
               GitHub
             </FooterLink>
-            <FooterLink href="https://x.com/polar_sh">X / Twitter</FooterLink>
-            <FooterLink href="https://polar.sh/assets/brand/polar_brand.zip">
+            <FooterLink href="https://x.com/repalis">X / Twitter</FooterLink>
+            <FooterLink href="/brand">
               Brand Assets
             </FooterLink>
-            <FooterLink href="https://polar.sh/legal">Legal</FooterLink>
+            <FooterLink href="/legal">Legal</FooterLink>
             <CookiePreferencesButton />
           </FooterSection>
 
           <FooterSection title="Support">
-            <FooterLink href="https://polar.sh/docs">Docs</FooterLink>
-            <FooterLink href="mailto:support@polar.sh">Contact</FooterLink>
-            <FooterLink href="https://status.polar.sh">
+            <FooterLink href="/docs">Docs</FooterLink>
+            <FooterLink href="mailto:contact@repalis.com">Contact</FooterLink>
+            <FooterLink href="https://status.repalis.com">
               Service Status
             </FooterLink>
           </FooterSection>

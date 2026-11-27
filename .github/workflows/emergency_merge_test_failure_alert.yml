@@ -35,7 +35,7 @@ jobs:
         env:
           SLACK_BOT_TOKEN: ${{ secrets.E2E_SLACK_BOT_TOKEN }}
           SLACK_CHANNEL: C093CJXJXPT
-          EMERGENCY_MERGE_BOT: polar-merge-bot
+          EMERGENCY_MERGE_BOT: repalis-merge-bot
           WORKFLOW_NAME: ${{ github.event.workflow_run.name }}
           RUN_URL: ${{ github.event.workflow_run.html_url }}
           HEAD_SHA: ${{ github.event.workflow_run.head_sha }}

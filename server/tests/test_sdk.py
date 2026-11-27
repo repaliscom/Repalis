@@ -3,11 +3,11 @@ from collections.abc import AsyncGenerator
 import pytest
 from fastapi import FastAPI
 from httpx2 import ASGITransport, AsyncClient
-from polar.v2026_04 import PolarAsync
+from repalis.v2026_04 import RepalisAsync
 
-from polar.auth.scope import Scope
-from polar.kit.utils import utc_now
-from polar.models import Benefit, Customer, Organization, Product, UserOrganization
+from repalis.auth.scope import Scope
+from repalis.kit.utils import utc_now
+from repalis.models import Benefit, Customer, Organization, Product, UserOrganization
 from tests.fixtures.auth import AuthSubjectFixture
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (
@@ -19,12 +19,12 @@ from tests.fixtures.random_objects import (
 
 
 @pytest.fixture
-async def polar(app: FastAPI) -> AsyncGenerator[PolarAsync]:
-    sdk = PolarAsync("", base_url="http://test")
+async def repalis_sdk(app: FastAPI) -> AsyncGenerator[RepalisAsync]:
+    sdk = RepalisAsync("", base_url="http://test")
     async with AsyncClient(
         transport=ASGITransport(app=app),
         base_url="http://test",
-        headers={"Authorization": "Bearer ", "Polar-Version": sdk.version},
+        headers={"Authorization": "Bearer ", "Repalis-Version": sdk.version},
     ) as client:
         await sdk._client._client.aclose()
         sdk._client._client = client
@@ -42,40 +42,40 @@ class TestSDK:
 
     async def test_get_organization(
         self,
-        polar: PolarAsync,
+        repalis: RepalisAsync,
         organization: Organization,
         user_organization: UserOrganization,
     ) -> None:
-        response = await polar.organizations.get(str(organization.id))
+        response = await repalis_sdk.organizations.get(str(organization.id))
         assert response is not None
 
     async def test_list_products(
         self,
-        polar: PolarAsync,
+        repalis: RepalisAsync,
         product: Product,
         product_second: Product,
         user_organization: UserOrganization,
     ) -> None:
         products = [product, product_second]
 
-        response = await polar.products.list()
+        response = await repalis_sdk.products.list()
 
         assert len(response.items) == len(products)
 
     async def test_list_benefits(
         self,
-        polar: PolarAsync,
+        repalis: RepalisAsync,
         benefits: list[Benefit],
         user_organization: UserOrganization,
     ) -> None:
-        response = await polar.benefits.list()
+        response = await repalis_sdk.benefits.list()
 
         assert len(response.items) == len(benefits)
 
     async def test_list_orders(
         self,
         save_fixture: SaveFixture,
-        polar: PolarAsync,
+        repalis: RepalisAsync,
         product: Product,
         product_one_time: Product,
         customer: Customer,
@@ -98,14 +98,14 @@ class TestSDK:
             ),
         ]
 
-        response = await polar.orders.list()
+        response = await repalis_sdk.orders.list()
 
         assert len(response.items) == len(orders)
 
     async def test_list_subscriptions(
         self,
         save_fixture: SaveFixture,
-        polar: PolarAsync,
+        repalis: RepalisAsync,
         product: Product,
         customer: Customer,
         user_organization: UserOrganization,
@@ -119,14 +119,14 @@ class TestSDK:
             ),
         ]
 
-        response = await polar.subscriptions.list()
+        response = await repalis_sdk.subscriptions.list()
 
         assert len(response.items) == len(subscriptions)
 
     async def test_cancel_subscription(
         self,
         save_fixture: SaveFixture,
-        polar: PolarAsync,
+        repalis: RepalisAsync,
         product: Product,
         customer: Customer,
         user_organization: UserOrganization,
@@ -135,7 +135,7 @@ class TestSDK:
             save_fixture, product=product, customer=customer
         )
 
-        response = await polar.subscriptions.update(
+        response = await repalis_sdk.subscriptions.update(
             str(subscription.id),
             cancel_at_period_end=True,
         )
@@ -148,12 +148,12 @@ class TestSDK:
     async def test_create_checkout(
         self,
         save_fixture: SaveFixture,
-        polar: PolarAsync,
+        repalis: RepalisAsync,
         product: Product,
         customer: Customer,
         user_organization: UserOrganization,
     ) -> None:
-        response = await polar.checkouts.create(
+        response = await repalis_sdk.checkouts.create(
             products=[str(product.id)],
             external_customer_id="EXTERNAL_CUSTOMER_ID",
         )
@@ -165,12 +165,12 @@ class TestSDK:
     async def test_create_checkout_link(
         self,
         save_fixture: SaveFixture,
-        polar: PolarAsync,
+        repalis: RepalisAsync,
         product: Product,
         customer: Customer,
         user_organization: UserOrganization,
     ) -> None:
-        response = await polar.checkout_links.create(
+        response = await repalis_sdk.checkout_links.create(
             payment_processor="stripe",
             product_id=str(product.id),
         )
@@ -181,13 +181,13 @@ class TestSDK:
     async def test_client_get_checkout(
         self,
         save_fixture: SaveFixture,
-        polar: PolarAsync,
+        repalis: RepalisAsync,
         product: Product,
         customer: Customer,
         user_organization: UserOrganization,
     ) -> None:
         checkout = await create_checkout(save_fixture, products=[product])
-        response = await polar.checkouts.client_get(checkout.client_secret)
+        response = await repalis_sdk.checkouts.client_get(checkout.client_secret)
         assert response is not None
 
         assert response.product_id == str(product.id)

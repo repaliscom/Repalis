@@ -3,7 +3,7 @@ from typing import Any, cast
 
 import pytest
 
-from polar.sentry import before_breadcrumb, before_send
+from repalis.sentry import before_breadcrumb, before_send
 
 # before_send does not touch Postgres or the worker.
 # Override the suite's autouse fixtures so this module can run without them.
@@ -33,7 +33,7 @@ class TestBeforeSend:
     def test_removes_personal_fields_and_keeps_the_rest(self) -> None:
         event = {
             "request": {
-                "url": "https://api.polar.sh/v1/checkouts/client/secret/confirm?customer_email=buyer@example.com",
+                "url": "https://api.repalis.com/v1/checkouts/client/secret/confirm?customer_email=buyer@example.com",
                 "method": "POST",
                 "query_string": "customer_email=buyer@example.com",
                 "data": {
@@ -86,26 +86,26 @@ class TestBeforeSend:
         event = {
             "request": {
                 "data": {
-                    "access_token": "polar_at_xxx",
+                    "access_token": "repalis_at_xxx",
                     "api_key": "sk_test_xxx",
                     "assertion": "eyJ.xxx.yyy",
-                    "client_secret": "polar_cs_xxx",
+                    "client_secret": "repalis_cs_xxx",
                     "cf-turnstile-response": "cf_xxx",
-                    "claim_token": "polar_act_xxx",
+                    "claim_token": "repalis_act_xxx",
                     "code": "123456",
                     "customer_external_id": "buyer@example.com",
                     "customer_metadata": {"crm_contact": "buyer@example.com"},
                     "expo_push_token": "ExponentPushToken[xxx]",
                     "external_customer_id": "buyer@example.com",
                     "external_id": "buyer@example.com",
-                    "invitation_token": "polar_it_xxx",
-                    "link_token": "polar_acl_xxx",
+                    "invitation_token": "repalis_it_xxx",
+                    "link_token": "repalis_acl_xxx",
                     "metadata": {"crm_contact": "buyer@example.com"},
-                    "refresh_token": "polar_rt_xxx",
+                    "refresh_token": "repalis_rt_xxx",
                     "secret": "whsec_xxx",
-                    "session_token": "polar_st_xxx",
+                    "session_token": "repalis_st_xxx",
                     "signing_secret": "slack_signing_xxx",
-                    "token": "polar_oat_xxx",
+                    "token": "repalis_oat_xxx",
                     "turnstile_token": "cf_xxx",
                     "product_id": "prod_123",
                     "grant_type": "authorization_code",
@@ -215,7 +215,7 @@ class TestBeforeSend:
 
 
 def _log_record(msg: object) -> logging.LogRecord:
-    return logging.LogRecord("polar.test", logging.INFO, __file__, 1, msg, (), None)
+    return logging.LogRecord("repalis.test", logging.INFO, __file__, 1, msg, (), None)
 
 
 class TestBeforeBreadcrumb:
@@ -226,7 +226,7 @@ class TestBeforeBreadcrumb:
                 "email": "buyer@example.com",
                 "customer_id": "cus_123",
                 "level": "info",
-                "logger": "polar.test",
+                "logger": "repalis.test",
                 "timestamp": "2026-10-15T00:00:00Z",
                 "exc_info": True,
             }

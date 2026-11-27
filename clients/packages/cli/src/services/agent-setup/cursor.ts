@@ -4,8 +4,8 @@ import { type ParseError, applyEdits, modify, parse } from 'jsonc-parser'
 import { AgentSetupError, type ClientStatus } from '@/schemas/AgentSetup'
 
 export const MCP_SERVERS = {
-  polar: 'https://mcp.polar.sh/mcp/polar-mcp',
-  'polar-sandbox': 'https://mcp.polar.sh/mcp/polar-sandbox',
+  repalis: 'https://mcp.repalis.com/mcp/repalis-mcp',
+  'repalis-sandbox': 'https://mcp.repalis.com/mcp/repalis-sandbox',
 } as const
 
 const cursorDirectory = (home: string) => path.join(home, '.cursor')
@@ -71,7 +71,7 @@ export const configureCursorMcp = (home: string) =>
     if (Option.isNone(configured)) {
       return yield* new AgentSetupError({
         message: `${file} is not valid JSON`,
-        hint: 'Fix it, then run polar agent setup again.',
+        hint: 'Fix it, then run repalis agent setup again.',
       })
     }
     const existing = configured.value
@@ -96,7 +96,7 @@ export const configureCursorMcp = (home: string) =>
     Effect.catchTag('PlatformError', (cause) =>
       Effect.fail(
         new AgentSetupError({
-          message: `Could not add the Polar MCP servers to ${mcpFile(home)}`,
+          message: `Could not add the Repalis MCP servers to ${mcpFile(home)}`,
           hint: cause.message,
         }),
       ),

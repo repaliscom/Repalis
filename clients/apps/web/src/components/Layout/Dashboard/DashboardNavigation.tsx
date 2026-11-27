@@ -1,13 +1,13 @@
 'use client'
 
-import { ArrowBack } from '@polar-sh/orbit/icons'
-import { schemas } from '@polar-sh/client'
+import { ArrowBack } from '@repalis/orbit/icons'
+import { schemas } from '@repalis/client'
 import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
   useSidebar,
-} from '@polar-sh/ui/components/atoms/Sidebar'
+} from '@repalis/ui/components/atoms/Sidebar'
 import Link from 'next/link'
 import { twMerge } from 'tailwind-merge'
 import { usePathname } from 'next/navigation'
@@ -84,7 +84,7 @@ const BackLink = ({
       <SidebarMenuButton tooltip="Back to Dashboard" asChild>
         <Link
           href={href}
-          className="dark:hover:bg-polar-900! flex flex-row items-center gap-4 rounded-lg px-2 text-black transition-colors duration-75 hover:bg-white! dark:text-white"
+          className="dark:hover:bg-repalis-900! flex flex-row items-center gap-4 rounded-lg px-2 text-black transition-colors duration-75 hover:bg-white! dark:text-white"
           onClick={() => {
             if (isMobile) setOpenMobile(false)
           }}
@@ -111,7 +111,7 @@ const SettingsNavigation = ({
       {groups.map((group, index) => (
         <div key={group.title} className="flex w-full flex-col gap-2">
           {index > 0 && (
-            <span className="dark:text-polar-500 px-2 text-xs font-medium text-gray-400">
+            <span className="dark:text-repalis-500 px-2 text-xs font-medium text-gray-400">
               {group.title}
             </span>
           )}

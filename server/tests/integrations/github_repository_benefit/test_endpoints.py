@@ -7,15 +7,15 @@ from httpx_oauth.oauth2 import OAuth2Token
 from pytest_mock import MockerFixture
 from sqlalchemy import select
 
-from polar.exceptions import Unauthorized
-from polar.integrations.github_repository_benefit.endpoints import (
+from repalis.exceptions import Unauthorized
+from repalis.integrations.github_repository_benefit.endpoints import (
     get_decoded_token_state,
 )
-from polar.integrations.github_repository_benefit.service import github_oauth_client
-from polar.kit import jwt
-from polar.kit.utils import utc_now
-from polar.models import OAuthAccount, User
-from polar.postgres import AsyncSession
+from repalis.integrations.github_repository_benefit.service import github_oauth_client
+from repalis.kit import jwt
+from repalis.kit.utils import utc_now
+from repalis.models import OAuthAccount, User
+from repalis.postgres import AsyncSession
 
 
 @pytest.mark.anyio

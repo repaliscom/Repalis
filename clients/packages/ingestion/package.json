@@ -1,10 +1,10 @@
 {
-  "name": "@polar-sh/ingestion",
+  "name": "@repalis/ingestion",
   "version": "0.4.2",
-  "description": "Core package for Polar ingestion",
+  "description": "Core package for Repalis ingestion",
   "repository": {
     "type": "git",
-    "url": "https://github.com/polarsource/polar.git",
+    "url": "https://github.com/repaliscom/Repalis.git",
     "directory": "clients/packages/ingestion"
   },
   "main": "./dist/index.cjs",
@@ -99,14 +99,14 @@
   },
   "peerDependencies": {
     "@aws-sdk/client-s3": "^3.744.0",
-    "@polar-sh/sdk": "^1.3.1"
+    "@repalis/sdk": "^1.3.1"
   },
   "devDependencies": {
     "@aws-sdk/client-s3": "^3.800.0",
     "@opentelemetry/api": "^1.9.0",
     "@opentelemetry/sdk-trace-node": "^2.2.0",
-    "@polar-sh/sdk": "1.3.1",
-    "@polar-sh/typescript-config": "workspace:*",
+    "@repalis/sdk": "1.3.1",
+    "@repalis/typescript-config": "workspace:*",
     "@tanstack/ai": "1.8.0",
     "@types/node": "catalog:",
     "@typescript/native": "catalog:",

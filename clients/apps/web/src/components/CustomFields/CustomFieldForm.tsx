@@ -8,23 +8,23 @@ import {
   useSensors,
 } from '@dnd-kit/core'
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
-import { enums, schemas } from '@polar-sh/client'
+import { enums, schemas } from '@repalis/client'
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from '@polar-sh/ui/components/atoms/Accordion'
-import { Button } from '@polar-sh/orbit'
-import { Input } from '@polar-sh/orbit'
+} from '@repalis/ui/components/atoms/Accordion'
+import { Button } from '@repalis/orbit'
+import { Input } from '@repalis/orbit'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@polar-sh/orbit'
-import { Switch } from '@polar-sh/orbit'
+} from '@repalis/orbit'
+import { Switch } from '@repalis/orbit'
 import {
   FormControl,
   FormDescription,
@@ -32,7 +32,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@polar-sh/ui/components/ui/form'
+} from '@repalis/ui/components/ui/form'
 import React from 'react'
 import { useFieldArray, useFormContext, useWatch } from 'react-hook-form'
 import CustomFieldTypeLabel from './CustomFieldTypeLabel'
@@ -358,7 +358,7 @@ const CustomFieldForm: React.FC<CustomFieldFormBaseProps> = ({ update }) => {
       <Accordion type="single" collapsible className="flex flex-col gap-y-6">
         <AccordionItem
           value="form-input-options"
-          className="dark:border-polar-700 rounded-xl border border-gray-200 px-4"
+          className="dark:border-repalis-700 rounded-xl border border-gray-200 px-4"
         >
           <AccordionTrigger className="hover:no-underline">
             Form input options
@@ -444,7 +444,7 @@ const CustomFieldForm: React.FC<CustomFieldFormBaseProps> = ({ update }) => {
         {(type === 'text' || type === 'number' || type === 'date') && (
           <AccordionItem
             value="validation-constraints"
-            className="dark:border-polar-700 rounded-xl border border-gray-200 px-4"
+            className="dark:border-repalis-700 rounded-xl border border-gray-200 px-4"
           >
             <AccordionTrigger className="hover:no-underline">
               Validation constraints

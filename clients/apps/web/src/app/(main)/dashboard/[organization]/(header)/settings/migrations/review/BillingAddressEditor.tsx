@@ -1,11 +1,11 @@
 'use client'
 
 import { useUpdateMigrationRecord } from '@/hooks/queries/merchantMigrations'
-import { enums, schemas } from '@polar-sh/client'
-import { Grid, Input, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import CountryPicker from '@polar-sh/ui/components/atoms/CountryPicker'
-import CountryStatePicker from '@polar-sh/ui/components/atoms/CountryStatePicker'
+import { enums, schemas } from '@repalis/client'
+import { Grid, Input, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import CountryPicker from '@repalis/ui/components/atoms/CountryPicker'
+import CountryStatePicker from '@repalis/ui/components/atoms/CountryStatePicker'
 import { useState } from 'react'
 
 type AddressForm = {
@@ -131,7 +131,7 @@ export function BillingAddressEditor({
         />
       ) : null}
       <Text variant="caption" color="muted">
-        Used for Polar tax. Changes save automatically and do not block the
+        Used for Repalis tax. Changes save automatically and do not block the
         migration.
       </Text>
       {updateRecord.isError ? (

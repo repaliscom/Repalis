@@ -1,8 +1,8 @@
 import { useHasPermission } from '@/hooks/permissions'
-import { schemas } from '@polar-sh/client'
-import { Button, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import { ClipboardCheck as ClipboardCheckIcon } from '@polar-sh/orbit/icons'
+import { schemas } from '@repalis/client'
+import { Button, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import { ClipboardCheck as ClipboardCheckIcon } from '@repalis/orbit/icons'
 import Link from 'next/link'
 
 interface ResubmissionBannerProps {
@@ -35,8 +35,8 @@ export const ResubmissionBanner = ({
           <Text color="muted">
             Since your last visit, our onboarding requirements have changed.
             {canManageOrganization
-              ? ' Please review and resubmit your organization information to continue using Polar.'
-              : ' An admin needs to review and resubmit the organization information to continue using Polar.'}
+              ? ' Please review and resubmit your organization information to continue using Repalis.'
+              : ' An admin needs to review and resubmit the organization information to continue using Repalis.'}
           </Text>
           <Text color="muted">
             Payments are unavailable until your organization is approved again.

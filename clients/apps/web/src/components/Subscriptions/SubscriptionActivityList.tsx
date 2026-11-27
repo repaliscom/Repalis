@@ -2,8 +2,8 @@ import {
   type SubscriptionActivityItem,
   type SubscriptionActivityKind,
 } from '@/utils/subscriptionSummary'
-import { Text, Tooltip, TooltipContent, TooltipTrigger } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { Text, Tooltip, TooltipContent, TooltipTrigger } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import {
   CircleAlert,
   CircleCheck,
@@ -13,7 +13,7 @@ import {
   FlaskConical,
   Plus,
   RefreshCw,
-} from '@polar-sh/orbit/icons'
+} from '@repalis/orbit/icons'
 import { format } from 'date-fns'
 
 const ACTIVITY_ICONS: Record<SubscriptionActivityKind, typeof Clock> = {
@@ -34,7 +34,7 @@ const NEGATIVE_KINDS = new Set<SubscriptionActivityKind>([
   'canceled',
   'ended',
 ])
-const ICON_CLASS = 'dark:text-polar-500 h-3.5 w-3.5 text-gray-400'
+const ICON_CLASS = 'dark:text-repalis-500 h-3.5 w-3.5 text-gray-400'
 const ICON_NEGATIVE_CLASS = 'h-3.5 w-3.5 text-red-500'
 const ICON_POSITIVE_CLASS = 'h-3.5 w-3.5 text-emerald-500'
 

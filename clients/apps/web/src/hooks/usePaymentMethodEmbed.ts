@@ -1,4 +1,4 @@
-import { PolarEmbedPaymentMethod } from '@polar-sh/checkout/payment-method'
+import { RepalisEmbedPaymentMethod } from '@repalis/checkout/payment-method'
 import { useTheme } from 'next-themes'
 import { useCallback, useEffect, useRef } from 'react'
 
@@ -6,7 +6,7 @@ export const usePaymentMethodEmbed = () => {
   const theme = useTheme()
   const isMountedRef = useRef(false)
   const isOpeningRef = useRef(false)
-  const embedRef = useRef<PolarEmbedPaymentMethod | null>(null)
+  const embedRef = useRef<RepalisEmbedPaymentMethod | null>(null)
 
   useEffect(() => {
     isMountedRef.current = true
@@ -23,9 +23,9 @@ export const usePaymentMethodEmbed = () => {
       isOpeningRef.current = true
       embedRef.current?.close()
       embedRef.current = null
-      let embed: PolarEmbedPaymentMethod
+      let embed: RepalisEmbedPaymentMethod
       try {
-        embed = await PolarEmbedPaymentMethod.create({
+        embed = await RepalisEmbedPaymentMethod.create({
           sessionToken,
           theme: theme.resolvedTheme === 'dark' ? 'dark' : 'light',
         })

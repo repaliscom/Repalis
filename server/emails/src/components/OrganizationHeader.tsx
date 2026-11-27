@@ -3,8 +3,8 @@ import type { schemas } from '../types'
 import { Text } from './foundation'
 
 const S3_TO_CDN: Record<string, string> = {
-  'polar-public-files.s3.amazonaws.com': 'uploads.polar.sh',
-  'polar-public-sandbox-files.s3.amazonaws.com': 'sandbox-uploads.polar.sh',
+  'repalis-public-files.s3.amazonaws.com': 'uploads.repalis.com',
+  'repalis-public-sandbox-files.s3.amazonaws.com': 'sandbox-uploads.repalis.com',
 }
 
 const getResizedAvatarUrl = (url: string): string => {

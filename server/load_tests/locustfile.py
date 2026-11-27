@@ -1,7 +1,7 @@
 """
-Main Locust load test file for Polar API.
+Main Locust load test file for Repalis API.
 
-This file imports load test scenarios for testing the Polar payment infrastructure.
+This file imports load test scenarios for testing the Repalis payment infrastructure.
 
 Usage:
     # Interactive mode with web UI

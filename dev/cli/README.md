@@ -1,6 +1,6 @@
-# The Polar Development CLI
+# The Repalis Development CLI
 
-A CLI tool to streamline Polar development environment setup and management.
+A CLI tool to streamline Repalis development environment setup and management.
 
 ## Installation
 
@@ -23,7 +23,7 @@ The CLI collects anonymous usage analytics to help improve the tool. This includ
 
 To disable analytics, set either environment variable:
 
-- `DEV_CLI_NO_ANALYTICS=1` — Polar-specific opt-out
+- `DEV_CLI_NO_ANALYTICS=1` — Repalis-specific opt-out
 - `DO_NOT_TRACK=1` — Standard privacy flag
 
 ## Commands
@@ -95,22 +95,22 @@ dev snap --interactive              # Show browser (headed mode)
 
 Captures before/after screenshots across branches and generates a visual diff report.
 
-### Polar CLI from source
+### Repalis CLI from source
 
 ```bash
-dev polar auth login --local        # Any `polar` command, run from clients/packages/cli/src
-dev polar config plan               # Runs in your current directory, e.g. clients/apps/demo-app
-dev polar --link                    # Make `dev polar` work in any directory
-dev polar --unlink                  # Make `dev` work inside the Polar repo only
+dev repalis auth login --local        # Any `repalis` command, run from clients/packages/cli/src
+dev repalis config plan               # Runs in your current directory, e.g. clients/apps/demo-app
+dev repalis --link                    # Make `dev repalis` work in any directory
+dev repalis --unlink                  # Make `dev` work inside the Repalis repo only
 ```
 
-`--link` updates the `dev` alias in your shell config so that `dev polar` runs this
+`--link` updates the `dev` alias in your shell config so that `dev repalis` runs this
 repo's CLI in projects outside it; every other `dev` command stops there.
 `--unlink` puts the repo-only alias back. The path to this repo is saved in
-`~/.config/polar/dev_cli_path`.
+`~/.config/repalis/dev_cli_path`.
 
 Arguments pass straight through. Like the released binary, it ignores `.env` files in the
-current directory, so a `POLAR_ACCESS_TOKEN` in an app's `.env.local` doesn't override your
+current directory, so a `REPALIS_ACCESS_TOKEN` in an app's `.env.local` doesn't override your
 saved session.
 
 ## Docker dev environment
@@ -120,7 +120,7 @@ One shared infra stack (postgres, redis, minio, tinybird) plus one app stack (ap
 ```bash
 dev docker up                           # shared infra (if needed) + this instance's app stack
 dev docker logs api                     # follow logs (auto-routes to the right project)
-dev docker exec db psql -U polar -l     # one-off command in any container
+dev docker exec db psql -U repalis -l     # one-off command in any container
 dev docker down                         # stop this instance (--all to also stop shared)
 ```
 

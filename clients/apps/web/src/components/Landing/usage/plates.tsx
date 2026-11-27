@@ -650,7 +650,7 @@ export function Printed() {
   }
   const E = 34,
     TK = 52
-  rows.push(line(['POLAR SOFTWARE, INC.'], ['USAGE STATEMENT', C]))
+  rows.push(line(['REPALIS SOFTWARE, INC.'], ['USAGE STATEMENT', C]))
   rows.push(line(['PAGE 0001', C]))
   rows.push('')
   rows.push(line(['CUSTOMER   cus_4410'], ['PERIOD  2026-11-13', C]))

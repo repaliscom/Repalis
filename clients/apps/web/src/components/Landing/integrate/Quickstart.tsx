@@ -1,6 +1,6 @@
-import { Grid, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import { ArrowRight } from '@polar-sh/orbit/icons'
+import { Grid, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import { ArrowRight } from '@repalis/orbit/icons'
 import { withOffsets } from '@/utils/lines'
 import { Chapter } from '../Chapter'
 import { WindowFrame } from '../story/Frame'
@@ -11,20 +11,20 @@ const AGENT_DOCS = '/docs/integrate/mcp'
 
 /** From nothing to billing in three commands: the CLI, the agent skills, and one prompt. */
 const LINES = [
-  '# Install Polar CLI',
-  'curl -fsSL https://polar.sh/install.sh | bash',
+  '# Install Repalis CLI',
+  'curl -fsSL https://repalis.com/install.sh | bash',
   '',
-  '# Install Agentic Polar Skills',
-  'polar agent setup',
+  '# Install Agentic Repalis Skills',
+  'repalis agent setup',
   '',
-  '# Implement Polar for Billing',
-  'claude "Sign up for Polar following https://polar.sh/auth.md and then, add Polar billing to this project: create products, add a checkout flow, handle webhooks, and gate paid features by subscription."',
+  '# Implement Repalis for Billing',
+  'claude "Sign up for Repalis following https://repalis.com/auth.md and then, add Repalis billing to this project: create products, add a checkout flow, handle webhooks, and gate paid features by subscription."',
 ]
 
 /** Shell set in one ink at three weights: commands brightest, their arguments a step back, comments furthest. */
 const COMMAND = 'text-black dark:text-white'
-const ARGUMENT = 'text-gray-600 dark:text-polar-300'
-const COMMENT = 'text-gray-400 dark:text-polar-500'
+const ARGUMENT = 'text-gray-600 dark:text-repalis-300'
+const COMMENT = 'text-gray-400 dark:text-repalis-500'
 
 /**
  * Highlights one line of the snippet: a comment whole, otherwise each piped
@@ -70,8 +70,8 @@ const STEPS: Step[] = [
   {
     surface: 'MCP',
     href: '#mcp',
-    title: 'Give your agent Polar',
-    desc: 'Finds Claude Code, Codex or Cursor and installs the Polar MCP servers and skills into each.',
+    title: 'Give your agent Repalis',
+    desc: 'Finds Claude Code, Codex or Cursor and installs the Repalis MCP servers and skills into each.',
   },
   {
     surface: 'SDK',
@@ -88,7 +88,7 @@ const STEPS: Step[] = [
 export const QuickstartFigure = ({ base = '' }: { base?: string }) => (
   <Box flexDirection="column" rowGap={{ base: '3xl', md: '4xl' }}>
     <ImageBand
-      src="/assets/landing/company/Polar_Flow_01_No_Logo.jpg"
+      src="/assets/landing/company/Repalis_Flow_01_No_Logo.jpg"
       className="min-h-[20rem] md:min-h-[28rem]"
     >
       <WindowFrame aside="zsh" className="max-w-[48rem]">
@@ -96,7 +96,7 @@ export const QuickstartFigure = ({ base = '' }: { base?: string }) => (
           <ol className="flex flex-col font-mono text-[13px] leading-6">
             {withOffsets(LINES).map(({ line, offset }, k) => (
               <li key={offset} className="flex gap-4">
-                <span className="text-polar-600 w-4 shrink-0 text-right tabular-nums select-none">
+                <span className="text-repalis-600 w-4 shrink-0 text-right tabular-nums select-none">
                   {k + 1}
                 </span>
                 <span className="min-w-0 flex-1 wrap-break-word whitespace-pre-wrap">

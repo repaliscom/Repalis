@@ -11,7 +11,7 @@ export const AuthModal = ({ returnTo, signup }: AuthModalProps) => {
 
   const lastLoginMethod =
     typeof document !== 'undefined'
-      ? ((document.cookie.match(/polar_last_login_method=(\w+)/)?.[1] ??
+      ? ((document.cookie.match(/repalis_last_login_method=(\w+)/)?.[1] ??
           null) as LoginMethod)
       : null
 
@@ -20,8 +20,8 @@ export const AuthModal = ({ returnTo, signup }: AuthModalProps) => {
       <div className="flex flex-col justify-between gap-y-12">
         {isSignup && (
           <div className="flex flex-col gap-y-1">
-            <h1 className="text-xl font-medium">Welcome to Polar</h1>
-            <p className="dark:text-polar-500 text-sm text-gray-500">
+            <h1 className="text-xl font-medium">Welcome to Repalis</h1>
+            <p className="dark:text-repalis-500 text-sm text-gray-500">
               A billing platform for the intelligence era.
             </p>
           </div>

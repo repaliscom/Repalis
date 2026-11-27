@@ -5,20 +5,20 @@
 module "egress_ip" {
   source = "../modules/static_egress_ip"
 
-  name = "polar-sandbox-egress"
+  name = "repalis-sandbox-egress"
 }
 
 module "vpc" {
   source = "../modules/vpc"
 
-  name                 = "polar-sandbox"
+  name                 = "repalis-sandbox"
   availability_zones   = ["us-east-2a", "us-east-2b", "us-east-2c"]
   eip_allocation_id    = module.egress_ip.allocation_id
   secondary_cidr_block = "10.21.0.0/16"
 }
 
 resource "aws_security_group" "lambda" {
-  name        = "polar-sandbox-lambda"
+  name        = "repalis-sandbox-lambda"
   description = "Shared egress security group for sandbox Lambdas."
   vpc_id      = module.vpc.vpc_id
 

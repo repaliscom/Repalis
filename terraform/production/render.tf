@@ -15,7 +15,7 @@ resource "render_registry_credential" "ghcr" {
 # =============================================================================
 
 locals {
-  private_backoffice_hostname = "backoffice.polar.sh"
+  private_backoffice_hostname = "backoffice.repalis.com"
 
   # Redis connection info
   redis_host = var.redis_private_link_host
@@ -30,8 +30,8 @@ locals {
 # Project and Environments
 # ============================================================================
 
-resource "render_project" "polar" {
-  name = "Polar"
+resource "render_project" "repalis" {
+  name = "Repalis"
   environments = {
     "Production" : {
       id               = "evm-cj3pgodiuie55pmjh2l0"
@@ -73,16 +73,16 @@ module "production" {
     oauth_client_secret  = var.private_backoffice_tailscale_oauth_client_secret
     cloudflare_api_token = var.private_backoffice_cloudflare_api_token
   } : null
-  render_environment_id  = render_project.polar.environments["Production"].id
+  render_environment_id  = render_project.repalis.environments["Production"].id
   registry_credential_id = render_registry_credential.ghcr.id
 
   api_service_config = {
     postgres_database      = module.planetscale.database_name
     postgres_read_database = module.planetscale.database_name
-    pre_deploy_command     = "env POLAR_POSTGRES_USER=${module.planetscale.app_role_username} POLAR_POSTGRES_PORT=5432 uv run task pre_deploy"
-    allowed_hosts          = jsonencode(["polar.sh", local.private_backoffice_hostname])
-    cors_origins           = "[\"https://polar.sh\", \"https://github.com\", \"https://docs.polar.sh\"]"
-    custom_domains         = [{ name = "api.polar.sh" }, { name = "buy.polar.sh" }]
+    pre_deploy_command     = "env REPALIS_POSTGRES_USER=${module.planetscale.app_role_username} REPALIS_POSTGRES_PORT=5432 uv run task pre_deploy"
+    allowed_hosts          = jsonencode(["repalis.com", local.private_backoffice_hostname])
+    cors_origins           = "[\"https://repalis.com\", \"https://github.com\", \"https://docs.repalis.com\"]"
+    custom_domains         = [{ name = "api.repalis.com" }, { name = "buy.repalis.com" }]
     plan                   = "pro_plus"
     web_concurrency        = "6"
     forwarded_allow_ips    = local.forwarded_allow_ips
@@ -104,41 +104,41 @@ module "production" {
 
   workers = {
     "scheduler" = {
-      start_command      = "uv run python -m polar.worker.scheduler"
+      start_command      = "uv run python -m repalis.worker.scheduler"
       plan               = "standard"
-      custom_domains     = [{ name = "scheduler.polar.sh" }]
+      custom_domains     = [{ name = "scheduler.repalis.com" }]
       dramatiq_prom_port = "10000"
     }
     "worker" = {
-      start_command      = "uv run dramatiq polar.worker.run -p 2 -t 8 --queues low_priority"
-      custom_domains     = [{ name = "worker.polar.sh" }]
+      start_command      = "uv run dramatiq repalis.worker.run -p 2 -t 8 --queues low_priority"
+      custom_domains     = [{ name = "worker.repalis.com" }]
       dramatiq_prom_port = "10000"
     }
     "worker-medium-priority" = {
-      start_command      = "uv run dramatiq polar.worker.run -p 2 -t 4 --queues medium_priority"
-      custom_domains     = [{ name = "worker-medium-priority.polar.sh" }]
+      start_command      = "uv run dramatiq repalis.worker.run -p 2 -t 4 --queues medium_priority"
+      custom_domains     = [{ name = "worker-medium-priority.repalis.com" }]
       dramatiq_prom_port = "10001"
     }
     "worker-high-priority" = {
-      start_command      = "uv run dramatiq polar.worker.run -p 2 -t 4 --queues high_priority"
-      custom_domains     = [{ name = "worker-high-priority.polar.sh" }]
+      start_command      = "uv run dramatiq repalis.worker.run -p 2 -t 4 --queues high_priority"
+      custom_domains     = [{ name = "worker-high-priority.repalis.com" }]
       dramatiq_prom_port = "10001"
     }
     "worker-webhook" = {
-      start_command      = "uv run dramatiq polar.worker.run -p 1 -t 16 --queues webhooks"
-      custom_domains     = [{ name = "worker-webhook.polar.sh" }]
+      start_command      = "uv run dramatiq repalis.worker.run -p 1 -t 16 --queues webhooks"
+      custom_domains     = [{ name = "worker-webhook.repalis.com" }]
       dramatiq_prom_port = "10001"
       database_pool_size = "16"
     }
     worker-tinybird = {
-      start_command      = "uv run dramatiq polar.worker.run_without_db -p 4 -t 32 --queues tinybird"
-      custom_domains     = [{ name = "worker-tinybird.polar.sh" }]
+      start_command      = "uv run dramatiq repalis.worker.run_without_db -p 4 -t 32 --queues tinybird"
+      custom_domains     = [{ name = "worker-tinybird.repalis.com" }]
       dramatiq_prom_port = "10002"
     }
     worker-invoices-receipts = {
-      start_command      = "uv run dramatiq polar.worker.run -p 1 -t 3 --queues invoices_and_receipts"
+      start_command      = "uv run dramatiq repalis.worker.run -p 1 -t 3 --queues invoices_and_receipts"
       plan               = "standard"
-      custom_domains     = [{ name = "worker-invoices-receipts.polar.sh" }]
+      custom_domains     = [{ name = "worker-invoices-receipts.repalis.com" }]
       dramatiq_prom_port = "10003"
     }
   }
@@ -146,7 +146,7 @@ module "production" {
   environment_groups = module.backend_environment.environment_groups
   email_from_domain  = local.backend_config.email_from_domain
 
-  depends_on = [render_registry_credential.ghcr, render_project.polar]
+  depends_on = [render_registry_credential.ghcr, render_project.repalis]
 }
 
 # =============================================================================
@@ -157,13 +157,13 @@ module "tailscale_router" {
   source = "../modules/tailscale_router"
 
   environment            = "production"
-  render_environment_id  = render_project.polar.environments["Production"].id
+  render_environment_id  = render_project.repalis.environments["Production"].id
   registry_credential_id = render_registry_credential.ghcr.id
   tailscale_authkey      = var.tailscale_authkey
   advertise_routes       = var.tailscale_advertise_routes
   advertise_exit_node    = true
 
-  depends_on = [render_registry_credential.ghcr, render_project.polar]
+  depends_on = [render_registry_credential.ghcr, render_project.repalis]
 }
 
 # =============================================================================
@@ -172,7 +172,7 @@ module "tailscale_router" {
 
 resource "cloudflare_dns_record" "api" {
   zone_id = "22bcd1b07ec25452aab472486bc8df94"
-  name    = "api.polar.sh"
+  name    = "api.repalis.com"
   type    = "CNAME"
   content = replace(module.production.api_service_url, "https://", "")
   proxied = true
@@ -181,7 +181,7 @@ resource "cloudflare_dns_record" "api" {
 
 resource "cloudflare_dns_record" "buy" {
   zone_id = "22bcd1b07ec25452aab472486bc8df94"
-  name    = "buy.polar.sh"
+  name    = "buy.repalis.com"
   type    = "CNAME"
   content = replace(module.production.api_service_url, "https://", "")
   proxied = true
@@ -203,7 +203,7 @@ resource "cloudflare_dns_record" "worker" {
   for_each = module.production.worker_urls
 
   zone_id = "22bcd1b07ec25452aab472486bc8df94"
-  name    = "${each.key}.polar.sh"
+  name    = "${each.key}.repalis.com"
   type    = "CNAME"
   content = replace(each.value, "https://", "")
   proxied = true

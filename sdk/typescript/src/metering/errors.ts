@@ -1,12 +1,12 @@
 import type { EventInput } from "./event";
 
-import { PolarError, PolarRateLimitError } from "../base";
+import { RepalisError, RepalisRateLimitError } from "../base";
 
-export class MeteringError extends PolarError {}
+export class MeteringError extends RepalisError {}
 
-/** How long Polar asked to wait before the next delivery, in milliseconds: a second at least. */
+/** How long Repalis asked to wait before the next delivery, in milliseconds: a second at least. */
 export const retryAfterMs = (error: unknown): number | null =>
-  error instanceof PolarRateLimitError &&
+  error instanceof RepalisRateLimitError &&
   error.retryAfter !== null &&
   Number.isFinite(error.retryAfter) &&
   error.retryAfter >= 0

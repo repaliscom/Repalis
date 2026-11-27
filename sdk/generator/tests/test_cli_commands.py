@@ -31,7 +31,7 @@ def cli_spec() -> dict:
                     "operationId": "widgets:get",
                     "tags": ["cli"],
                     "x-tool-annotations": ["read_only", "idempotent"],
-                    "x-polar-cli-preview": {
+                    "x-repalis-cli-preview": {
                         "fields": [
                             {"key": "id", "label": "ID"},
                             {"key": "name", "label": "Name"},
@@ -326,7 +326,7 @@ def test_preview_get_must_be_cli_eligible(
 def test_invalid_preview_fields_fail_before_writing(
     cli_spec: dict, tmp_path: pathlib.Path, keys: list[str]
 ) -> None:
-    cli_spec["paths"]["/widgets/{id}"]["get"]["x-polar-cli-preview"] = {
+    cli_spec["paths"]["/widgets/{id}"]["get"]["x-repalis-cli-preview"] = {
         "fields": [{"key": key, "label": key} for key in keys],
     }
     with pytest.raises(ValueError, match="preview field"):
@@ -343,7 +343,7 @@ def test_invalid_preview_fields_fail_before_writing(
 def test_unannotated_preview_does_not_guess_fields(
     cli_spec: dict, tmp_path: pathlib.Path
 ) -> None:
-    del cli_spec["paths"]["/widgets/{id}"]["get"]["x-polar-cli-preview"]
+    del cli_spec["paths"]["/widgets/{id}"]["get"]["x-repalis-cli-preview"]
     CLICommandsEmitter(
         generate_ir(
             op.OpenAPI.model_validate(cli_spec),
@@ -669,7 +669,7 @@ def test_missing_required_flags_fail_locally_with_an_example(
     source = (tmp_path / "src/widgets/create.ts").read_text()
     assert 'const missing = missingFlags(body, ["name", "prices"])' in source
     assert (
-        "hint: \"Example: polar widgets create --name <name> --prices '"
+        "hint: \"Example: repalis widgets create --name <name> --prices '"
         '[{\\"amount_type\\":\\"fixed\\",\\"amount\\":<amount>,\\"currency\\":\\"usd\\"}]\'"'
     ) in source
 
@@ -824,7 +824,7 @@ def test_next_only_operations_join_the_current_commands(
     assert "./get_external'" in service
 
     runtime = (tmp_path / "src/runtime.ts").read_text()
-    assert "from '@polar-sh/sdk/2027-01'" in runtime
+    assert "from '@repalis/sdk/2027-01'" in runtime
     assert 'export const CURRENT_API_VERSION = "2026-10"' in runtime
 
 

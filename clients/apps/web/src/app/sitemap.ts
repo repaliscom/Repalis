@@ -4,7 +4,7 @@ import fs from 'fs'
 import { MetadataRoute } from 'next'
 import path from 'path'
 
-const baseUrl = 'https://polar.sh'
+const baseUrl = 'https://repalis.com'
 
 const LANDING_DIR = path.join(
   process.cwd(),

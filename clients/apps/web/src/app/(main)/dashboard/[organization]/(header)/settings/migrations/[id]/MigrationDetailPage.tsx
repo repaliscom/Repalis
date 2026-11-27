@@ -5,9 +5,9 @@ import {
   useMerchantMigration,
   usePanTransfer,
 } from '@/hooks/queries/merchantMigrations'
-import { schemas } from '@polar-sh/client'
-import { Alert, Spinner, Status, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { schemas } from '@repalis/client'
+import { Alert, Spinner, Status, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import { PanTransferPanel } from '../cards/PanTransferPanel'
 import { ImportedStep } from '../ImportedStep'
 import { MigrationStepper } from '../MigrationStepper'
@@ -166,7 +166,7 @@ function StepContent({
       return (
         <Box flexDirection="column" rowGap="l">
           <Text variant="caption" color="muted">
-            This migration is complete, and Polar deleted your API key.
+            This migration is complete, and Repalis deleted your API key.
             Subscriptions that didn&apos;t switch stay with your current
             provider. To move them, start a new migration.
           </Text>

@@ -1,13 +1,13 @@
 'use client'
 
 import { useAuth, useLogout } from '@/hooks'
-import { Button } from '@polar-sh/orbit'
+import { Button } from '@repalis/orbit'
 import { OnboardingLayout } from '../Layout/OnboardingLayout'
-import { Box } from '@polar-sh/orbit/Box'
+import { Box } from '@repalis/orbit/Box'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useState, type ReactNode } from 'react'
-import { PolarLogotype } from '../Layout/Public/PolarLogotype'
+import { RepalisLogotype } from '../Layout/Public/RepalisLogotype'
 import { ONBOARDING_STEPS, type OnboardingStepId } from './OnboardingStepper'
 
 interface OnboardingShellProps {
@@ -19,7 +19,7 @@ interface OnboardingShellProps {
 }
 
 const footerLinkClassName =
-  'dark:hover:text-polar-200 text-sm hover:text-gray-900'
+  'dark:hover:text-repalis-200 text-sm hover:text-gray-900'
 
 function FooterLinks({ hadOrgs }: { hadOrgs: boolean }) {
   const logout = useLogout()
@@ -66,7 +66,7 @@ export function OnboardingShell({
     <OnboardingLayout
       branding={
         <Box color="text-primary">
-          <PolarLogotype
+          <RepalisLogotype
             logoVariant="logotype"
             logoClassName="ml-0"
             size={80}

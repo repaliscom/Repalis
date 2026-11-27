@@ -1,7 +1,7 @@
 // Agent claim link tokens are live secrets carried in the claim page URL, in
 // return_to (URL-encoded) and in the claim summary API path (ADR-0013). Their
 // characters are URL-safe, so encoding never hides the prefix.
-const CLAIM_LINK_TOKEN = /polar_acl_[A-Za-z0-9]+/g
+const CLAIM_LINK_TOKEN = /repalis_acl_[A-Za-z0-9]+/g
 
 const isPlainObject = (value: object): value is Record<string, unknown> => {
   const prototype = Object.getPrototypeOf(value)

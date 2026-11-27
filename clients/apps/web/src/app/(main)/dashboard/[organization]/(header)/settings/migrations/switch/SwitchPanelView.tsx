@@ -1,9 +1,9 @@
 'use client'
 
 import { ConfirmModal } from '@/components/Modal/ConfirmModal'
-import { schemas } from '@polar-sh/client'
-import { Alert, Button, DataTable, InlineModal, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { schemas } from '@repalis/client'
+import { Alert, Button, DataTable, InlineModal, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import { OnChangeFn, PaginationState } from '@tanstack/react-table'
 import { useMemo, useState } from 'react'
 import { headerCheckState, isRowSelected, SelectionState } from '../selection'

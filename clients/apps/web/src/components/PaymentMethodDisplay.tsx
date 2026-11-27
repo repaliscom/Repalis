@@ -1,7 +1,7 @@
-import type { schemas } from '@polar-sh/client'
-import { Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import { Wallet } from '@polar-sh/orbit/icons'
+import type { schemas } from '@repalis/client'
+import { Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import { Wallet } from '@repalis/orbit/icons'
 import CreditCardBrandIcon from './CreditCardBrandIcon'
 
 export interface PaymentMethodCardInfo {
@@ -74,7 +74,7 @@ export const PaymentMethodDisplay = ({
         <CreditCardBrandIcon
           width="3.5em"
           brand={card.brand ?? 'unknown'}
-          className="dark:border-polar-700 rounded-lg border border-gray-200"
+          className="dark:border-repalis-700 rounded-lg border border-gray-200"
         />
         <Box flexDirection="column">
           <Text>{`${label}${card.last4 ? ` •••• ${card.last4}` : ''}`}</Text>

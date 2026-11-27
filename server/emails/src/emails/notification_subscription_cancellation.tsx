@@ -3,7 +3,7 @@ import {
   Footer,
   Intro,
   Text,
-  WrapperPolar,
+  WrapperRepalis,
 } from '../components/foundation'
 import { formatDate } from '../utils/formatters'
 import CustomerIdentity from '../components/CustomerIdentity'
@@ -27,7 +27,7 @@ export function NotificationSubscriptionCancellation({
     cancel_at_period_end && ends_at ? formatDate(ends_at) : null
 
   return (
-    <WrapperPolar
+    <WrapperRepalis
       preview={`${subscriber_name} canceled their ${product_name} subscription`}
     >
       <Intro headline="Subscription canceled">
@@ -60,7 +60,7 @@ export function NotificationSubscriptionCancellation({
         <Button href={subscription_url}>View subscription</Button>
       )}
       <Footer email={null} />
-    </WrapperPolar>
+    </WrapperRepalis>
   )
 }
 
@@ -77,7 +77,7 @@ NotificationSubscriptionCancellation.PreviewProps = {
   cancel_at_period_end: true,
   ends_at: '2026-10-12T00:00:00Z',
   subscription_url:
-    'https://polar.sh/dashboard/acme-inc/sales/subscriptions/7e4b1c3a-0f5d-4d2e-9b8a-1c2d3e4f5a6b',
+    'https://repalis.com/dashboard/acme-inc/sales/subscriptions/7e4b1c3a-0f5d-4d2e-9b8a-1c2d3e4f5a6b',
 }
 
 export default NotificationSubscriptionCancellation

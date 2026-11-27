@@ -6,11 +6,11 @@ from uuid import uuid4
 import pytest
 from httpx2 import AsyncClient
 
-from polar.integrations.tinybird.client import TinybirdClient
-from polar.kit.utils import utc_now
-from polar.meter.filter import Filter, FilterClause, FilterConjunction, FilterOperator
-from polar.models import Event, Organization, UserOrganization
-from polar.version import V2026_10, V2027_01
+from repalis.integrations.tinybird.client import TinybirdClient
+from repalis.kit.utils import utc_now
+from repalis.meter.filter import Filter, FilterClause, FilterConjunction, FilterOperator
+from repalis.models import Event, Organization, UserOrganization
+from repalis.version import V2026_10, V2027_01
 from tests.fixtures.auth import AuthSubjectFixture
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_event, create_event_type

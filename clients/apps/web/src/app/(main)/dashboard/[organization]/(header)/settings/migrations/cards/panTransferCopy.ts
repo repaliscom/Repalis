@@ -54,13 +54,13 @@ const STRIPE_MIGRATION_ID_INPUT: StepInputField = {
 
 export const STEP_COPY: Record<string, StepCopy> = {
   share_destination_account: {
-    title: 'Get the Polar account ID',
+    title: 'Get the Repalis account ID',
     description:
       'This is the Stripe account your cards move into. You need it for the next step.',
   },
   start_copy: {
     title: 'Start the copy in Stripe',
-    description: 'Copy saved cards from your Stripe account to Polar.',
+    description: 'Copy saved cards from your Stripe account to Repalis.',
     warning: 'Only the Stripe account owner can start a copy.',
     inputs: [
       {
@@ -71,7 +71,7 @@ export const STEP_COPY: Record<string, StepCopy> = {
     action: 'Mark copy started',
   },
   authorize_copy: {
-    title: 'Polar accepts the copy',
+    title: 'Repalis accepts the copy',
     description:
       'We accept the incoming copy on our Stripe account. This usually takes one business day.',
   },
@@ -81,7 +81,7 @@ export const STEP_COPY: Record<string, StepCopy> = {
       'Stripe moves the card data. This takes a few hours, and up to 72 hours.',
   },
   open_stripe_request: {
-    title: 'Polar opens the Stripe request',
+    title: 'Repalis opens the Stripe request',
     description:
       'We open a migration request with Stripe and share our PCI documents.',
     // Ops fills this in, but the merchant is the one who has to quote it to
@@ -121,7 +121,7 @@ export const STEP_COPY: Record<string, StepCopy> = {
       'This takes around two weeks. Your provider sends the encrypted file straight to Stripe.',
   },
   map_customers: {
-    title: 'Polar maps your customers',
+    title: 'Repalis maps your customers',
     description:
       'We send Stripe a map of your old customer IDs, so every card lands on the right customer.',
   },
@@ -131,7 +131,7 @@ export const STEP_COPY: Record<string, StepCopy> = {
       'Stripe checks the file and sends back a summary. Errors come back here if something needs fixing.',
   },
   approve_import: {
-    title: 'Polar approves the import',
+    title: 'Repalis approves the import',
     description: 'We review the summary from Stripe and approve it.',
   },
   stripe_import: {
@@ -140,19 +140,19 @@ export const STEP_COPY: Record<string, StepCopy> = {
       'This takes around ten business days once Stripe has correct data.',
   },
   verify_cards: {
-    title: 'Polar checks the cards',
+    title: 'Repalis checks the cards',
     description:
       'We check that every imported subscription has a card it can charge.',
   },
   cutover: {
-    title: 'Switch billing to Polar',
+    title: 'Switch billing to Repalis',
     description:
-      'Pick the subscriptions to switch. Polar starts billing them and stops them at your current provider.',
-    warning: 'You cannot undo this. Charges start on Polar from now on.',
+      'Pick the subscriptions to switch. Repalis starts billing them and stops them at your current provider.',
+    warning: 'You cannot undo this. Charges start on Repalis from now on.',
     action: 'Switch subscriptions',
   },
   move_subscriptions: {
-    title: 'Polar switches your subscriptions',
+    title: 'Repalis switches your subscriptions',
     description:
       'We start billing the subscriptions you picked. They are charged on their next renewal date.',
   },
@@ -176,7 +176,7 @@ const LEMON_SQUEEZY_STEP_COPY: Record<string, StepCopy> = {
   request_copy: {
     title: 'Request the copy in Lemon Squeezy',
     description:
-      "Lemon Squeezy copies your customers and their saved cards to Polar's Stripe account.",
+      "Lemon Squeezy copies your customers and their saved cards to Repalis's Stripe account.",
     action: "I've requested the copy",
   },
   start_copy: {
@@ -186,7 +186,7 @@ const LEMON_SQUEEZY_STEP_COPY: Record<string, StepCopy> = {
     inputs: [
       {
         ...STRIPE_MIGRATION_ID_INPUT,
-        hint: 'Starts with migreq_. If Lemon Squeezy sends it to Polar, we fill it in for you.',
+        hint: 'Starts with migreq_. If Lemon Squeezy sends it to Repalis, we fill it in for you.',
       },
     ],
     action: 'Save migration ID',

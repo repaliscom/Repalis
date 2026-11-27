@@ -4,9 +4,9 @@ import typing
 import pytest
 from pytest_codspeed import BenchmarkFixture
 
-from polar.metering import CustomerMeter
-from polar.outpost.client import Outpost
-from polar.outpost.reducer import Reducer
+from repalis.metering import CustomerMeter
+from repalis.outpost.client import Outpost
+from repalis.outpost.reducer import Reducer
 from tests.benchmarks import CREDIT_REDUCER, REDUCER, SNAPSHOT
 
 pytestmark = pytest.mark.benchmark

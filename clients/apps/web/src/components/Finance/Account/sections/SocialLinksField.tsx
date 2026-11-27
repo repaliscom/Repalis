@@ -1,10 +1,10 @@
 'use client'
 
-import { AddOutlined, CloseOutlined } from '@polar-sh/orbit/icons'
-import { schemas } from '@polar-sh/client'
-import { Button } from '@polar-sh/orbit'
-import { Input } from '@polar-sh/orbit'
-import { FormField } from '@polar-sh/ui/components/ui/form'
+import { AddOutlined, CloseOutlined } from '@repalis/orbit/icons'
+import { schemas } from '@repalis/client'
+import { Button } from '@repalis/orbit'
+import { Input } from '@repalis/orbit'
+import { FormField } from '@repalis/ui/components/ui/form'
 import { useListKeys } from '@/hooks/useListKeys'
 import { useFormContext, useWatch, useFormState } from 'react-hook-form'
 
@@ -128,7 +128,7 @@ export const SocialLinksField = ({ required }: Props) => {
                         rowKeys.remove(index)
                         field.onChange(socials.filter((_, i) => i !== index))
                       }}
-                      className="dark:text-polar-400 text-gray-400 hover:text-gray-600"
+                      className="dark:text-repalis-400 text-gray-400 hover:text-gray-600"
                     >
                       <CloseOutlined fontSize="small" />
                     </Button>

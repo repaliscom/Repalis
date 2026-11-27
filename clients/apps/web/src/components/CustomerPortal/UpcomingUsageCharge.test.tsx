@@ -1,5 +1,5 @@
 import { useCustomerSubscriptionMeterChargePreview } from '@/hooks/queries/customerPortal'
-import { Client, schemas } from '@polar-sh/client'
+import { Client, schemas } from '@repalis/client'
 import { render } from '@testing-library/react'
 import { describe, expect, it, vi } from 'vitest'
 import { UpcomingUsageCharge } from './UpcomingUsageCharge'

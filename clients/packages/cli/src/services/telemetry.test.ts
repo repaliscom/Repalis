@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, test } from 'vitest'
 import { Cause, Effect, Exit, FileSystem, Layer, PlatformError } from 'effect'
 import { CliError, Command } from 'effect/cli'
 import { createColors } from 'picocolors'
-import { AuthError, type PolarEnvironment } from '@/schemas/Auth'
+import { AuthError, type RepalisEnvironment } from '@/schemas/Auth'
 import { UsedEnvironments } from '@/services/api'
 import {
   Build,
@@ -27,7 +27,7 @@ import {
 import { fakeHttp } from '@/utils/test-utils/http'
 
 const outcome: CommandOutcome = {
-  command: ['polar', 'auth', 'login'],
+  command: ['repalis', 'auth', 'login'],
   flags: ['production'],
   outcome: 'success',
   durationMs: 42.6,
@@ -36,9 +36,9 @@ const outcome: CommandOutcome = {
 type Env = Record<string, string>
 
 const telemetry = (
-  env: Env = { POLAR_CLI_POSTHOG_KEY: 'phc_test' },
+  env: Env = { REPALIS_CLI_POSTHOG_KEY: 'phc_test' },
   build: BuildKind = 'release',
-  { writable = true, used = new Set<PolarEnvironment>() } = {},
+  { writable = true, used = new Set<RepalisEnvironment>() } = {},
 ) => {
   const files = new Map<string, string>()
   const events: TelemetryEvent[] = []
@@ -91,34 +91,34 @@ const telemetry = (
 
 describe('opt out', () => {
   test.each(['1', 'true', 'YES'])(
-    'honours POLAR_CLI_TELEMETRY_OPTOUT=%s',
+    'honours REPALIS_CLI_TELEMETRY_OPTOUT=%s',
     (value) => {
-      expect(isOptedOut({ POLAR_CLI_TELEMETRY_OPTOUT: value })).toBe(true)
+      expect(isOptedOut({ REPALIS_CLI_TELEMETRY_OPTOUT: value })).toBe(true)
     },
   )
 
   test('honours DO_NOT_TRACK and ignores other values', () => {
     expect(isOptedOut({ DO_NOT_TRACK: '1' })).toBe(true)
-    expect(isOptedOut({ POLAR_CLI_TELEMETRY_OPTOUT: '0' })).toBe(false)
+    expect(isOptedOut({ REPALIS_CLI_TELEMETRY_OPTOUT: '0' })).toBe(false)
     expect(isOptedOut({})).toBe(false)
   })
 
   test('records nothing when opted out', async () => {
     const { record, events } = telemetry({
-      POLAR_CLI_POSTHOG_KEY: 'phc_test',
-      POLAR_CLI_TELEMETRY_OPTOUT: '1',
+      REPALIS_CLI_POSTHOG_KEY: 'phc_test',
+      REPALIS_CLI_TELEMETRY_OPTOUT: '1',
     })
     await record()
     expect(events).toHaveLength(0)
   })
 
   test('records nothing from development builds unless forced', async () => {
-    const dev = telemetry({ POLAR_CLI_POSTHOG_KEY: 'phc_test' }, 'development')
+    const dev = telemetry({ REPALIS_CLI_POSTHOG_KEY: 'phc_test' }, 'development')
     await dev.record()
     expect(dev.events).toHaveLength(0)
 
     const forced = telemetry(
-      { POLAR_CLI_POSTHOG_KEY: 'phc_test', POLAR_CLI_TELEMETRY_FORCE: '1' },
+      { REPALIS_CLI_POSTHOG_KEY: 'phc_test', REPALIS_CLI_TELEMETRY_FORCE: '1' },
       'development',
     )
     await forced.record()
@@ -126,8 +126,8 @@ describe('opt out', () => {
 
     const redirected = telemetry(
       {
-        POLAR_CLI_POSTHOG_KEY: 'phc_test',
-        POLAR_CLI_TELEMETRY_URL: 'http://x',
+        REPALIS_CLI_POSTHOG_KEY: 'phc_test',
+        REPALIS_CLI_TELEMETRY_URL: 'http://x',
       },
       'development',
     )
@@ -136,9 +136,9 @@ describe('opt out', () => {
   })
 
   test('recognises compiled binaries', () => {
-    expect(isCompiledBinary('/$bunfs/root/polar')).toBe(true)
-    expect(isCompiledBinary('B:\\~BUN\\root\\polar.exe')).toBe(true)
-    expect(isCompiledBinary('/Users/dev/polar/src/cli.ts')).toBe(false)
+    expect(isCompiledBinary('/$bunfs/root/repalis')).toBe(true)
+    expect(isCompiledBinary('B:\\~BUN\\root\\repalis.exe')).toBe(true)
+    expect(isCompiledBinary('/Users/dev/repalis/src/cli.ts')).toBe(false)
     expect(isCompiledBinary()).toBe(false)
   })
 })
@@ -167,7 +167,7 @@ describe('environment detection', () => {
 })
 
 describe('command identification', () => {
-  const tree = Command.make('polar').pipe(
+  const tree = Command.make('repalis').pipe(
     Command.withSubcommands([
       Command.make('auth').pipe(
         Command.withSubcommands([Command.make('login'), Command.make('org')]),
@@ -178,15 +178,15 @@ describe('command identification', () => {
 
   test('walks the command tree past flags', () => {
     expect(commandPath(tree, ['auth', 'login', '--production'])).toEqual([
-      'polar',
+      'repalis',
       'auth',
       'login',
     ])
     expect(
       commandPath(tree, ['--log-level', 'debug', 'listen', 'http://x']),
-    ).toEqual(['polar', 'listen'])
-    expect(commandPath(tree, ['--help'])).toEqual(['polar'])
-    expect(commandPath(tree, ['bogus'])).toEqual(['polar'])
+    ).toEqual(['repalis', 'listen'])
+    expect(commandPath(tree, ['--help'])).toEqual(['repalis'])
+    expect(commandPath(tree, ['bogus'])).toEqual(['repalis'])
   })
 
   test('records flag names but never values', () => {
@@ -231,7 +231,7 @@ describe('outcomes', () => {
     expect(
       outcomeOf(
         Exit.fail(
-          new CliError.ShowHelp({ commandPath: ['polar'], errors: [] }),
+          new CliError.ShowHelp({ commandPath: ['repalis'], errors: [] }),
         ),
       ),
     ).toEqual({ outcome: 'help' })
@@ -239,11 +239,11 @@ describe('outcomes', () => {
       outcomeOf(
         Exit.fail(
           new CliError.ShowHelp({
-            commandPath: ['polar'],
+            commandPath: ['repalis'],
             errors: [
               new CliError.UnknownSubcommand({
                 subcommand: 'bogus',
-                parent: ['polar'],
+                parent: ['repalis'],
                 suggestions: [],
               }),
             ],
@@ -328,7 +328,7 @@ describe('outcomes', () => {
   test('names the flag, argument or subcommand behind a usage mistake, never a value', () => {
     const usage = (error: CliError.ShowHelp['errors'][number]) =>
       describeFailure(
-        new CliError.ShowHelp({ commandPath: ['polar'], errors: [error] }),
+        new CliError.ShowHelp({ commandPath: ['repalis'], errors: [error] }),
       )
     expect(
       usage(
@@ -353,7 +353,7 @@ describe('outcomes', () => {
       usage(
         new CliError.UnknownSubcommand({
           subcommand,
-          parent: ['polar'],
+          parent: ['repalis'],
           suggestions: [],
         }),
       )
@@ -361,7 +361,7 @@ describe('outcomes', () => {
       error: 'ShowHelp:UnknownSubcommand',
       errorMessage: 'status',
     })
-    expect(unknown('polar_oat_short')).toEqual({
+    expect(unknown('repalis_oat_short')).toEqual({
       error: 'ShowHelp:UnknownSubcommand',
       errorMessage: '<redacted>',
     })
@@ -392,8 +392,8 @@ describe('redact', () => {
       'id <redacted>',
     ],
     [
-      'Polar tokens of every kind',
-      'polar_oat_AbC123 polar_pat_x-y.z polar_at_q polar_ci_gBnJ',
+      'Repalis tokens of every kind',
+      'repalis_oat_AbC123 repalis_pat_x-y.z repalis_at_q repalis_ci_gBnJ',
       '<redacted> <redacted> <redacted> <redacted>',
     ],
     [
@@ -423,7 +423,7 @@ describe('redact', () => {
     ],
     [
       'URLs including localhost and query strings',
-      'see https://api.polar.sh/v1/x?token=abc then http://localhost:3000/hook.',
+      'see https://api.repalis.com/v1/x?token=abc then http://localhost:3000/hook.',
       'see <redacted> then <redacted>',
     ],
     [
@@ -433,20 +433,20 @@ describe('redact', () => {
     ],
     [
       'home directories',
-      '/Users/seb/.config/polar-cli/config.json and /home/seb/x and /root/y',
+      '/Users/seb/.config/repalis-cli/config.json and /home/seb/x and /root/y',
       '<redacted> and <redacted> and <redacted>',
     ],
     [
       'temporary directories',
-      'tar: /var/folders/ab/T/polar-update-x/polar: Cannot open, see /tmp/log and /private/var/x',
+      'tar: /var/folders/ab/T/repalis-update-x/repalis: Cannot open, see /tmp/log and /private/var/x',
       'tar: <redacted> Cannot open, see <redacted> and <redacted>',
     ],
     [
       'Windows home directories',
-      'Unable to read C:\\Users\\seb\\AppData\\Roaming\\polar-cli\\config.json.',
+      'Unable to read C:\\Users\\seb\\AppData\\Roaming\\repalis-cli\\config.json.',
       'Unable to read <redacted>',
     ],
-    ['email addresses', 'user me@polar.sh failed', 'user <redacted> failed'],
+    ['email addresses', 'user me@repalis.com failed', 'user <redacted> failed'],
     [
       'long hashes and opaque tokens',
       'sha 9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08 ok',
@@ -459,12 +459,12 @@ describe('redact', () => {
     ],
     [
       'tokens wrapped in punctuation',
-      '(polar_oat_abc) token=polar_oat_def, "ghp_x".',
+      '(repalis_oat_abc) token=repalis_oat_def, "ghp_x".',
       '(<redacted>) token=<redacted>, "<redacted>".',
     ],
     [
       'several categories in one message',
-      'Org 342c8722-fcad-416b-8232-8877dcf8f90e rejected polar_oat_A at https://api.polar.sh/v1 for me@polar.sh in /Users/seb/.config',
+      'Org 342c8722-fcad-416b-8232-8877dcf8f90e rejected repalis_oat_A at https://api.repalis.com/v1 for me@repalis.com in /Users/seb/.config',
       'Org <redacted> rejected <redacted> at <redacted> for <redacted> in <redacted>',
     ],
   ])('redacts %s', (_label, input, expected) => {
@@ -472,26 +472,26 @@ describe('redact', () => {
   })
 
   test.each([
-    'Not logged in to sandbox. Run polar auth login --sandbox.',
+    'Not logged in to sandbox. Run repalis auth login --sandbox.',
     'Organization org_123 is missing or inaccessible. Check --org.',
     'Received unknown argument: --production',
-    '/opt/homebrew/bin/polar: permission denied',
+    '/opt/homebrew/bin/repalis: permission denied',
     'ENOENT /rootfs/etc/x',
     'ASIA-Pacific region unsupported',
     'Event stream error (403)',
     'Checksum mismatch! Expected: a1b2 Got: c3d4',
     'page 2 of 4, retry in 30s',
-    'polar update',
+    'repalis update',
     '',
   ])('leaves ordinary messages untouched: %s', (message) => {
     expect(redact(message)).toBe(message)
   })
 
   test('truncates to 200 characters after redacting', () => {
-    const long = `${'try again '.repeat(30)}polar_oat_secret ${'x '.repeat(50)}`
+    const long = `${'try again '.repeat(30)}repalis_oat_secret ${'x '.repeat(50)}`
     const result = redact(long)
     expect(result).toHaveLength(200)
-    expect(result).not.toContain('polar_oat')
+    expect(result).not.toContain('repalis_oat')
   })
 
   test('stays fast on very long messages', () => {
@@ -501,13 +501,13 @@ describe('redact', () => {
   })
 
   test('is idempotent', () => {
-    const once = redact('me@polar.sh at https://x.y/z with polar_oat_a')
+    const once = redact('me@repalis.com at https://x.y/z with repalis_oat_a')
     expect(redact(once)).toBe(once)
   })
 
   test('never lets a secret survive inside a URL or path', () => {
-    expect(redact('https://polar.sh/?t=polar_oat_a')).toBe('<redacted>')
-    expect(redact('/Users/seb/polar_oat_a')).toBe('<redacted>')
+    expect(redact('https://repalis.com/?t=repalis_oat_a')).toBe('<redacted>')
+    expect(redact('/Users/seb/repalis_oat_a')).toBe('<redacted>')
   })
 
   test('applies to failure messages and ignores non-numeric codes', () => {
@@ -523,7 +523,7 @@ describe('redact', () => {
       errorMessage: 'Organization <redacted> is missing.',
     })
     const notFound = Object.assign(
-      new Error("ENOENT: no such file '/Users/seb/.polar/x'"),
+      new Error("ENOENT: no such file '/Users/seb/.repalis/x'"),
       { code: 'ENOENT' },
     )
     expect(describeFailure(notFound)).toEqual({
@@ -536,7 +536,7 @@ describe('redact', () => {
 describe('Telemetry.record', () => {
   test('dispatches one event with a stable install id and no secrets', async () => {
     const { record, events, files } = telemetry({
-      POLAR_CLI_POSTHOG_KEY: 'phc_test',
+      REPALIS_CLI_POSTHOG_KEY: 'phc_test',
       CLAUDECODE: '1',
       CI: 'true',
     })
@@ -549,7 +549,7 @@ describe('Telemetry.record', () => {
       api_key: 'phc_test',
       event: 'cli_command',
       properties: {
-        command: 'polar auth login',
+        command: 'repalis auth login',
         flags: ['production'],
         outcome: 'failure',
         error: 'AuthError',
@@ -576,7 +576,7 @@ describe('Telemetry.record', () => {
   })
 
   test('reports the environments the command talked to', async () => {
-    const used = new Set<PolarEnvironment>()
+    const used = new Set<RepalisEnvironment>()
     const { record, events } = telemetry(undefined, 'release', { used })
     await record()
     used.add('sandbox')
@@ -591,7 +591,7 @@ describe('Telemetry.record', () => {
   })
 
   test('reports no agent outside an AI coding tool', async () => {
-    const { record, events } = telemetry({ POLAR_CLI_POSTHOG_KEY: 'phc_test' })
+    const { record, events } = telemetry({ REPALIS_CLI_POSTHOG_KEY: 'phc_test' })
     await record()
     expect(events[0]!.properties['agent']).toBeNull()
     expect(events[0]!.properties['ci']).toBe(false)
@@ -643,7 +643,7 @@ describe('Telemetry.record', () => {
             Sender,
             Sender.of({ dispatch: () => Effect.die(new Error('boom')) }),
           ),
-          Layer.succeed(Environment, { POLAR_CLI_POSTHOG_KEY: 'phc_test' }),
+          Layer.succeed(Environment, { REPALIS_CLI_POSTHOG_KEY: 'phc_test' }),
           Layer.succeed(Build, 'release' as const),
         ),
       ),
@@ -664,7 +664,7 @@ describe('send', () => {
     event: 'cli_command',
     distinct_id: 'cli:x',
     timestamp: '2026-09-10T00:00:00.000Z',
-    properties: { command: 'polar' },
+    properties: { command: 'repalis' },
   }
   const posthog = 'https://us.i.posthog.com/capture/'
   let http: ReturnType<typeof fakeHttp>
@@ -687,10 +687,10 @@ describe('send', () => {
     expect(JSON.parse(await http.requests[0]!.text())).toEqual(event)
   })
 
-  test('honours POLAR_CLI_TELEMETRY_URL', async () => {
+  test('honours REPALIS_CLI_TELEMETRY_URL', async () => {
     const local = 'http://127.0.0.1:9/capture/'
     http.routes[`POST ${local}`] = () => new Response(null, { status: 202 })
-    await run({ POLAR_CLI_TELEMETRY_URL: local })
+    await run({ REPALIS_CLI_TELEMETRY_URL: local })
     expect(http.urls()).toEqual([local])
   })
 

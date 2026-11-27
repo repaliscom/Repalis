@@ -1,4 +1,4 @@
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 import { joinList, plural } from './importSummary'
 
 export type PaymentMethodCount = schemas['MerchantMigrationPaymentMethodCount']
@@ -26,5 +26,5 @@ export function paymentMethodSummaryText(
       NEEDS_NEW_METHOD[assessment] ? sum + count : sum,
     0,
   )
-  return `${plural(affected, 'subscription')} may need a new payment method on Polar: ${joinList(parts)}. They still move, but a renewal may fail and go to dunning unless another usable card is already on Polar or the customer adds one before renewal.`
+  return `${plural(affected, 'subscription')} may need a new payment method on Repalis: ${joinList(parts)}. They still move, but a renewal may fail and go to dunning unless another usable card is already on Repalis or the customer adds one before renewal.`
 }

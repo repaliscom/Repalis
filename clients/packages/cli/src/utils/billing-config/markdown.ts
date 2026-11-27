@@ -164,7 +164,7 @@ export const planMarkdown = (
   unchanged(result.entries) && errors(result.issues) === 0
     ? undefined
     : [
-        '## Polar billing plan updated',
+        '## Repalis billing plan updated',
         callout(config, organization, result),
         metadata(config, organization, result),
         ...[

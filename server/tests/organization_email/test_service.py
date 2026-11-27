@@ -4,18 +4,18 @@ from unittest.mock import MagicMock
 import pytest
 from pytest_mock import MockerFixture
 
-from polar.email.schemas import OrganizationEmailVerificationEmail
-from polar.kit.utils import utc_now
-from polar.models import Organization, OrganizationEmail
-from polar.organization_email.repository import OrganizationEmailRepository
-from polar.organization_email.service import (
+from repalis.email.schemas import OrganizationEmailVerificationEmail
+from repalis.kit.utils import utc_now
+from repalis.models import Organization, OrganizationEmail
+from repalis.organization_email.repository import OrganizationEmailRepository
+from repalis.organization_email.service import (
     InvalidVerificationCode,
     OrganizationEmailMissing,
 )
-from polar.organization_email.service import (
+from repalis.organization_email.service import (
     organization_email as organization_email_service,
 )
-from polar.postgres import AsyncSession
+from repalis.postgres import AsyncSession
 from tests.fixtures.database import SaveFixture
 
 SUPPORT_EMAIL = "support@acme.com"
@@ -32,7 +32,7 @@ async def organization_with_email(
 
 @pytest.fixture
 def enqueue_email_mock(mocker: MockerFixture) -> MagicMock:
-    return mocker.patch("polar.organization_email.service.enqueue_email_template")
+    return mocker.patch("repalis.organization_email.service.enqueue_email_template")
 
 
 def sent_code(enqueue_email_mock: MagicMock) -> str:

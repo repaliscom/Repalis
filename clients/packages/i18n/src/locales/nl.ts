@@ -3,18 +3,18 @@ export default {
     footer: {
       poweredBy: 'Mogelijk gemaakt door',
       merchantOfRecord:
-        'Deze bestelling wordt verwerkt door onze online wederverkoper & Merchant of Record, Polar, die ook bestelgerelateerde vragen en terugbetalingen afhandelt.',
+        'Deze bestelling wordt verwerkt door onze online wederverkoper & Merchant of Record, Repalis, die ook bestelgerelateerde vragen en terugbetalingen afhandelt.',
       mandateSubscriptionTrial:
-        'Door op "{buttonLabel}" te klikken, machtig je Polar Software, Inc., onze online wederverkoper en geregistreerde verkoper, om het hierboven getoonde bedrag aan het einde van je proefperiode en op elke volgende factuurdatum af te schrijven van je gekozen betaalmethode totdat je annuleert, en ga je akkoord met de {buyerTermsLink}. Je kunt op elk moment voor het einde van je proefperiode annuleren om te voorkomen dat er kosten in rekening worden gebracht.',
+        'Door op "{buttonLabel}" te klikken, machtig je Repalis Software, Inc., onze online wederverkoper en geregistreerde verkoper, om het hierboven getoonde bedrag aan het einde van je proefperiode en op elke volgende factuurdatum af te schrijven van je gekozen betaalmethode totdat je annuleert, en ga je akkoord met de {buyerTermsLink}. Je kunt op elk moment voor het einde van je proefperiode annuleren om te voorkomen dat er kosten in rekening worden gebracht.',
       mandateSubscription:
-        'Door op "{buttonLabel}" te klikken, machtig je Polar Software, Inc., onze online wederverkoper en geregistreerde verkoper, om het hierboven getoonde bedrag onmiddellijk af te schrijven van je gekozen betaalmethode en ditzelfde bedrag op elke volgende factuurdatum af te schrijven totdat je annuleert, en ga je akkoord met de {buyerTermsLink}.',
+        'Door op "{buttonLabel}" te klikken, machtig je Repalis Software, Inc., onze online wederverkoper en geregistreerde verkoper, om het hierboven getoonde bedrag onmiddellijk af te schrijven van je gekozen betaalmethode en ditzelfde bedrag op elke volgende factuurdatum af te schrijven totdat je annuleert, en ga je akkoord met de {buyerTermsLink}.',
       buyerTermsLink: 'Kopersvoorwaarden',
       mandateOneTime:
-        'Door op "{buttonLabel}" te klikken, machtig je Polar Software, Inc., onze online wederverkoper en officiële verkoper, om het hierboven getoonde bedrag via je gekozen betaalmethode in rekening te brengen, en ga je akkoord met de {buyerTermsLink}. Dit is een eenmalige betaling.',
+        'Door op "{buttonLabel}" te klikken, machtig je Repalis Software, Inc., onze online wederverkoper en officiële verkoper, om het hierboven getoonde bedrag via je gekozen betaalmethode in rekening te brengen, en ga je akkoord met de {buyerTermsLink}. Dit is een eenmalige betaling.',
       mandateSubscriptionTrialDiscounted:
-        'Door op "{buttonLabel}" te klikken, machtigt u Polar Software, Inc., onze online reseller en merchant of record, om het hierboven getoonde kortingsbedrag aan het einde van uw proefperiode in rekening te brengen op uw geselecteerde betaalmethode, en vervolgens de reguliere prijs op elke factureringsdatum nadat uw korting is afgelopen, totdat u opzegt, en gaat u akkoord met de {buyerTermsLink}. U kunt op elk moment vóór het einde van uw proefperiode opzeggen om te voorkomen dat er kosten in rekening worden gebracht.',
+        'Door op "{buttonLabel}" te klikken, machtigt u Repalis Software, Inc., onze online reseller en merchant of record, om het hierboven getoonde kortingsbedrag aan het einde van uw proefperiode in rekening te brengen op uw geselecteerde betaalmethode, en vervolgens de reguliere prijs op elke factureringsdatum nadat uw korting is afgelopen, totdat u opzegt, en gaat u akkoord met de {buyerTermsLink}. U kunt op elk moment vóór het einde van uw proefperiode opzeggen om te voorkomen dat er kosten in rekening worden gebracht.',
       mandateSubscriptionDiscounted:
-        'Door op "{buttonLabel}" te klikken, machtigt u Polar Software, Inc., onze online reseller en merchant of record, om het hierboven getoonde kortingsbedrag direct in rekening te brengen op uw geselecteerde betaalmethode, en vervolgens de reguliere prijs op elke factureringsdatum nadat uw korting is afgelopen, totdat u opzegt, en gaat u akkoord met de {buyerTermsLink}.',
+        'Door op "{buttonLabel}" te klikken, machtigt u Repalis Software, Inc., onze online reseller en merchant of record, om het hierboven getoonde kortingsbedrag direct in rekening te brengen op uw geselecteerde betaalmethode, en vervolgens de reguliere prijs op elke factureringsdatum nadat uw korting is afgelopen, totdat u opzegt, en gaat u akkoord met de {buyerTermsLink}.',
     },
     form: {
       email: 'E-mailadres',

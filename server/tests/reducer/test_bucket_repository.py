@@ -4,14 +4,14 @@ from decimal import Decimal
 
 import pytest
 
-from polar.event.system import SystemEvent
-from polar.models import Customer, Meter, Organization, ReducerBucket, StagedEvent
-from polar.models.event import EventSource
-from polar.models.reducer import ReducerKind
-from polar.postgres import AsyncSession
-from polar.reducer.bucket_repository import ReducerBucketRepository
-from polar.reducer.repository import ReducerRepository
-from polar.reducer.service import reducer as reducer_service
+from repalis.event.system import SystemEvent
+from repalis.models import Customer, Meter, Organization, ReducerBucket, StagedEvent
+from repalis.models.event import EventSource
+from repalis.models.reducer import ReducerKind
+from repalis.postgres import AsyncSession
+from repalis.reducer.bucket_repository import ReducerBucketRepository
+from repalis.reducer.repository import ReducerRepository
+from repalis.reducer.service import reducer as reducer_service
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (
     METER_TEST_EVENT,

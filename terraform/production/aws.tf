@@ -1,5 +1,5 @@
 data "aws_iam_policy" "permission_boundary" {
-  name = "PolarPermissionBoundary"
+  name = "RepalisPermissionBoundary"
 }
 
 module "secrets_kms" {
@@ -7,7 +7,7 @@ module "secrets_kms" {
 
   environment              = "production"
   render_owner_id          = "tea-ch0f74hjvhtkjjvvhnr0"
-  render_environment_id    = render_project.polar.environments["Production"].id
+  render_environment_id    = render_project.repalis.environments["Production"].id
   permissions_boundary_arn = data.aws_iam_policy.permission_boundary.arn
 }
 
@@ -30,13 +30,13 @@ module "hash_secret" {
 module "lambda_worker_ecr" {
   source = "../modules/ecr_repository"
 
-  name = "polar-production-lambda-worker"
+  name = "repalis-production-lambda-worker"
 }
 
 module "redis" {
   source = "../modules/aws_redis"
 
-  name       = "polar-production-worker"
+  name       = "repalis-production-worker"
   vpc_id     = module.vpc.vpc_id
   subnet_ids = module.vpc.private_subnet_ids
   node_type  = "cache.t4g.small"
@@ -63,7 +63,7 @@ resource "aws_vpc_security_group_ingress_rule" "redis_tailscale" {
 module "redis_private_link" {
   source = "../modules/redis_private_link"
 
-  name                     = "polar-production-worker-redis"
+  name                     = "repalis-production-worker-redis"
   vpc_id                   = module.vpc.vpc_id
   subnet_ids               = module.vpc.private_subnet_ids
   redis_host               = module.redis.host
@@ -82,25 +82,25 @@ resource "aws_vpc_security_group_ingress_rule" "redis_nlb" {
 }
 
 locals {
-  files_bucket_name        = "polar-production-files"
-  files_public_bucket_name = "polar-public-files"
-  diagnostics_bucket_name  = "polar-production-diagnostics"
+  files_bucket_name        = "repalis-production-files"
+  files_public_bucket_name = "repalis-public-files"
+  diagnostics_bucket_name  = "repalis-production-diagnostics"
 
-  worker_sqs_queue_prefix = "polar-production-tasks"
+  worker_sqs_queue_prefix = "repalis-production-tasks"
 
   lambda_worker_secrets = merge(
     module.backend_environment.environment_variables,
     module.backend_environment.secret_environment_variables,
     {
-      POLAR_POSTGRES_DATABASE = module.planetscale.database_name
-      POLAR_POSTGRES_HOST     = local.planetscale_postgres_config.host
-      POLAR_POSTGRES_PORT     = local.planetscale_postgres_config.port
-      POLAR_POSTGRES_USER     = local.planetscale_postgres_config.user
-      POLAR_POSTGRES_SSL      = "false"
+      REPALIS_POSTGRES_DATABASE = module.planetscale.database_name
+      REPALIS_POSTGRES_HOST     = local.planetscale_postgres_config.host
+      REPALIS_POSTGRES_PORT     = local.planetscale_postgres_config.port
+      REPALIS_POSTGRES_USER     = local.planetscale_postgres_config.user
+      REPALIS_POSTGRES_SSL      = "false"
       PGSSLMODE               = local.planetscale_postgres_config.sslmode
       PGSSLROOTCERT           = "/etc/pki/tls/certs/ca-bundle.crt"
-      POLAR_REDIS_URL         = "rediss://${module.redis.host}:${tostring(module.redis.port)}/1"
-      POLAR_POSTGRES_PWD      = local.planetscale_postgres_config.password
+      REPALIS_REDIS_URL         = "rediss://${module.redis.host}:${tostring(module.redis.port)}/1"
+      REPALIS_POSTGRES_PWD      = local.planetscale_postgres_config.password
       TAILSCALE_AUTHKEY       = var.lambda_worker_tailscale_token
     },
   )
@@ -124,7 +124,7 @@ locals {
 }
 
 resource "aws_secretsmanager_secret" "lambda_worker" {
-  name = "polar-production-worker-lambda"
+  name = "repalis-production-worker-lambda"
   tags = local.lambda_worker_tags
 }
 
@@ -243,7 +243,7 @@ data "aws_iam_policy_document" "s3_access" {
 }
 
 resource "aws_iam_role_policy" "s3_access" {
-  name   = "polar-production-s3-access"
+  name   = "repalis-production-s3-access"
   role   = module.secrets_kms.role_name
   policy = data.aws_iam_policy_document.s3_access.json
 }
@@ -267,7 +267,7 @@ data "aws_iam_policy_document" "tasks_producer" {
 }
 
 resource "aws_iam_role_policy" "tasks_producer" {
-  name   = "polar-production-tasks-producer"
+  name   = "repalis-production-tasks-producer"
   role   = module.secrets_kms.role_name
   policy = data.aws_iam_policy_document.tasks_producer.json
 }
@@ -321,8 +321,8 @@ module "github_oidc_lambda_worker" {
   source = "../modules/github_oidc"
 
   role_name       = "github-actions-lambda-worker-production"
-  github_org      = "polarsource"
-  github_repo     = "polar"
+  github_org      = "repaliscom"
+  github_repo     = "repalis"
   github_subjects = ["ref:refs/heads/main"]
   policy_arns = {
     deploy = aws_iam_policy.lambda_worker_deploy.arn
@@ -349,7 +349,7 @@ module "guardduty_scan_events" {
 module "grafana_cloudwatch_role" {
   source = "../modules/grafana_cloudwatch_role"
 
-  name                     = "polar-production-grafana-cloudwatch"
+  name                     = "repalis-production-grafana-cloudwatch"
   external_id              = var.grafana_cloud_aws_external_id
   permissions_boundary_arn = data.aws_iam_policy.permission_boundary.arn
   tags                     = local.lambda_worker_tags

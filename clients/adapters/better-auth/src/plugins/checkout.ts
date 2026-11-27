@@ -1,8 +1,8 @@
 import {
   clientUpdateCheckouts,
   createCheckouts,
-} from '@polar-sh/sdk/2026-10/services/checkouts'
-import type { PolarCore } from '@polar-sh/sdk/2026-10'
+} from '@repalis/sdk/2026-10/services/checkouts'
+import type { RepalisCore } from '@repalis/sdk/2026-10'
 import {
   APIError,
   createAuthEndpoint,
@@ -13,7 +13,7 @@ import * as z from 'zod/v4'
 import {
   type CustomerIpAddressOption,
   resolveCustomerIpAddress,
-} from '@polar-sh/adapter-utils'
+} from '@repalis/adapter-utils'
 import { getBetterAuthCreatorRole } from '../organization/roles'
 import {
   getBetterAuthOrganizationOptions,
@@ -24,7 +24,7 @@ import {
 } from '../organization/seats'
 import { isTeamCustomerSynchronized } from '../organization/sync'
 import { resolveBillingPrincipal } from '../principal'
-import type { PolarOptions, Product } from '../types'
+import type { RepalisOptions, Product } from '../types'
 
 export interface CheckoutOptions {
   /**
@@ -48,7 +48,7 @@ export interface CheckoutOptions {
    */
   theme?: 'light' | 'dark'
   /**
-   * Customer IP address sent to Polar to pick the presentment currency.
+   * Customer IP address sent to Repalis to pick the presentment currency.
    * Pass a function to resolve it yourself, or `false` to not send it.
    */
   customerIpAddress?: CustomerIpAddressOption<Headers>
@@ -101,8 +101,8 @@ export type CheckoutParams = z.infer<typeof CheckoutParams>
 export const checkout =
   (checkoutOptions: CheckoutOptions = {}) =>
   (
-    polar: PolarCore,
-    rootOptions?: Pick<PolarOptions, 'experimental_organizationSync'>,
+    repalis: RepalisCore,
+    rootOptions?: Pick<RepalisOptions, 'experimental_organizationSync'>,
   ) => {
     return {
       checkout: createAuthEndpoint(
@@ -163,22 +163,22 @@ export const checkout =
                 authorization: 'billing',
                 roleMapping: {
                   creatorRole: getBetterAuthCreatorRole(ctx.context),
-                  mapBetterAuthRoleToPolarRole:
+                  mapBetterAuthRoleToRepalisRole:
                     rootOptions?.experimental_organizationSync
-                      ?.mapBetterAuthRoleToPolarRole,
+                      ?.mapBetterAuthRoleToRepalisRole,
                 },
               })
             : undefined
           if (
             principal?.kind === 'team' &&
             !(await isTeamCustomerSynchronized(
-              polar,
+              repalis,
               principal.externalCustomerId,
             ))
           ) {
             throw new APIError('BAD_REQUEST', {
               message:
-                'Polar team customer was not found for this Better Auth organization. Use reference_id for an existing unsynchronized organization.',
+                'Repalis team customer was not found for this Better Auth organization. Use reference_id for an existing unsynchronized organization.',
             })
           }
 
@@ -191,7 +191,7 @@ export const checkout =
             organizationOptions?.enabled &&
             organizationOptions.syncSeats
           ) {
-            const products = await getCheckoutSeatProducts(polar, productIds)
+            const products = await getCheckoutSeatProducts(repalis, productIds)
             if (products.length > 0) {
               const betterAuthOrganizationOptions =
                 getBetterAuthOrganizationOptions(ctx.context)
@@ -250,7 +250,7 @@ export const checkout =
           const headers = ctx.request?.headers ?? ctx.headers
 
           try {
-            const checkout = await createCheckouts(polar)({
+            const checkout = await createCheckouts(repalis)({
               external_customer_id:
                 principal?.externalCustomerId ?? session?.user.id,
               products: productIds,
@@ -292,7 +292,7 @@ export const checkout =
             })
 
             if (ctx.body.discount_code && !ctx.body.discount_id) {
-              await clientUpdateCheckouts(polar)(checkout.client_secret, {
+              await clientUpdateCheckouts(repalis)(checkout.client_secret, {
                 discount_code: ctx.body.discount_code,
               })
             }
@@ -310,7 +310,7 @@ export const checkout =
           } catch (e: unknown) {
             if (e instanceof Error) {
               ctx.context.logger.error(
-                `Polar checkout creation failed. Error: ${e.message}`,
+                `Repalis checkout creation failed. Error: ${e.message}`,
               )
             }
 

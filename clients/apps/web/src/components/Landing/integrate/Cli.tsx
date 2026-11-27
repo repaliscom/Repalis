@@ -1,5 +1,5 @@
-import { Grid, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { Grid, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import { withOffsets } from '@/utils/lines'
 import { Chapter } from '../Chapter'
 import { WindowFrame } from '../story/Frame'
@@ -9,19 +9,19 @@ import { DocsLink } from './DocsLink'
 const CLI_DOCS = '/docs/integrate/webhooks/locally'
 
 const TRANSCRIPT = [
-  '% curl -fsSL https://polar.sh/install.sh | bash',
+  '% curl -fsSL https://repalis.com/install.sh | bash',
   '',
-  '% polar webhook listen http://localhost:3000/api/webhooks',
+  '% repalis webhook listen http://localhost:3000/api/webhooks',
   '',
   '  ● Connected  Acme',
   '  Forwarding  http://localhost:3000/api/webhooks',
   '  Waiting for events...',
   '',
-  '% polar webhook trigger order.paid --seed 7',
+  '% repalis webhook trigger order.paid --seed 7',
   '',
   '  order.paid               200  12ms',
   '',
-  '% polar auth whoami --json',
+  '% repalis auth whoami --json',
   '',
   '  { "source": "session", "organization": { "slug": "acme", ... } }',
 ]
@@ -66,7 +66,7 @@ export const Cli = () => (
   >
     <Box flexDirection="column" rowGap={{ base: '3xl', md: '4xl' }}>
       <ImageBand
-        src="/assets/landing/company/Polar_Flow_02_No_Logo.jpg"
+        src="/assets/landing/company/Repalis_Flow_02_No_Logo.jpg"
         className="min-h-[20rem] md:min-h-[28rem]"
       >
         <WindowFrame aside="zsh" className="max-w-[42rem]">
@@ -75,11 +75,11 @@ export const Cli = () => (
               {withOffsets(TRANSCRIPT).map(({ line, offset }) =>
                 line.startsWith('% ') ? (
                   <div key={offset} className="text-white">
-                    <span className="text-polar-500">% </span>
+                    <span className="text-repalis-500">% </span>
                     {line.slice(2)}
                   </div>
                 ) : (
-                  <div key={offset} className="text-polar-300">
+                  <div key={offset} className="text-repalis-300">
                     {line || <br />}
                   </div>
                 ),

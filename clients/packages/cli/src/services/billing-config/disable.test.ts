@@ -7,7 +7,7 @@ import { authenticatedClient } from '@/services/client'
 import { fakeHttp } from '@/utils/test-utils/http'
 import { fakeAuth } from '@/utils/test-utils/services'
 
-const disableUrl = 'https://sandbox-api.polar.sh/v1/config/disable'
+const disableUrl = 'https://sandbox-api.repalis.com/v1/config/disable'
 
 const acme: ActiveOrganization = {
   id: 'org-1',
@@ -51,7 +51,7 @@ describe('disable', () => {
 
     await run()
 
-    expect(api.requests[0]?.headers.get('Polar-Organization')).toBe('org-1')
+    expect(api.requests[0]?.headers.get('Repalis-Organization')).toBe('org-1')
   })
 
   test('explains why config cannot be disabled after a second publish', async () => {

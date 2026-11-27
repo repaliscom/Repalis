@@ -5,27 +5,27 @@ from pydantic import ValidationError
 from pytest_mock import MockerFixture
 from sqlalchemy.exc import IntegrityError
 
-from polar.auth.models import AuthSubject, is_user
-from polar.customer.repository import CustomerRepository
-from polar.customer.schemas.customer import (
+from repalis.auth.models import AuthSubject, is_user
+from repalis.customer.repository import CustomerRepository
+from repalis.customer.schemas.customer import (
     CustomerIndividualCreate,
     CustomerUpdate,
 )
-from polar.customer.service import customer as customer_service
-from polar.event.system import SystemEvent
-from polar.exceptions import PolarRequestValidationError
-from polar.kit.address import Address, AddressInput, CountryAlpha2, CountryAlpha2Input
-from polar.kit.pagination import PaginationParams
-from polar.kit.versioning import APIVersion, api_version_context
-from polar.member.repository import MemberRepository
-from polar.models import Customer, Organization, User, UserOrganization
-from polar.models.customer import CustomerType
-from polar.models.member import Member, MemberRole
-from polar.models.webhook_endpoint import CustomerWebhookEventType, WebhookEventType
-from polar.postgres import AsyncSession
-from polar.redis import Redis
-from polar.tax.tax_id import TaxIDFormat
-from polar.version import V2026_04, V2026_10
+from repalis.customer.service import customer as customer_service
+from repalis.event.system import SystemEvent
+from repalis.exceptions import RepalisRequestValidationError
+from repalis.kit.address import Address, AddressInput, CountryAlpha2, CountryAlpha2Input
+from repalis.kit.pagination import PaginationParams
+from repalis.kit.versioning import APIVersion, api_version_context
+from repalis.member.repository import MemberRepository
+from repalis.models import Customer, Organization, User, UserOrganization
+from repalis.models.customer import CustomerType
+from repalis.models.member import Member, MemberRole
+from repalis.models.webhook_endpoint import CustomerWebhookEventType, WebhookEventType
+from repalis.postgres import AsyncSession
+from repalis.redis import Redis
+from repalis.tax.tax_id import TaxIDFormat
+from repalis.version import V2026_04, V2026_10
 from tests.fixtures.auth import AuthSubjectFixture
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_customer, create_member
@@ -219,7 +219,7 @@ class TestCreate:
         auth_subject: AuthSubject[User],
         organization: Organization,
     ) -> None:
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await customer_service.create(
                 session,
                 CustomerIndividualCreate(
@@ -246,7 +246,7 @@ class TestCreate:
         if is_user(auth_subject):
             payload["organization_id"] = str(organization.id)
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await customer_service.create(
                 session, CustomerIndividualCreate.model_validate(payload), auth_subject
             )
@@ -270,7 +270,7 @@ class TestCreate:
         if is_user(auth_subject):
             payload["organization_id"] = str(organization.id)
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await customer_service.create(
                 session, CustomerIndividualCreate.model_validate(payload), auth_subject
             )
@@ -356,11 +356,11 @@ class TestCreate:
         await save_fixture(organization)
 
         payload: dict[str, Any] = {
-            "email": "customer@polar.sh",
+            "email": "customer@repalis.com",
             "name": "Customer Name",
             "external_id": "customer_ext_123",
             "owner": {
-                "email": "owner@polar.sh",
+                "email": "owner@repalis.com",
                 "name": "Owner Name",
                 "external_id": "owner_ext_456",
             },
@@ -373,7 +373,7 @@ class TestCreate:
         )
         await session.flush()
 
-        assert customer.email == "customer@polar.sh"
+        assert customer.email == "customer@repalis.com"
         assert customer.name == "Customer Name"
         assert customer.external_id == "customer_ext_123"
 
@@ -381,7 +381,7 @@ class TestCreate:
         member = await member_repository.get_owner_by_customer_id(customer.id)
         assert member is not None
         assert member.customer_id == customer.id
-        assert member.email == "owner@polar.sh"
+        assert member.email == "owner@repalis.com"
         assert member.name == "Owner Name"
         assert member.external_id == "owner_ext_456"
         assert member.role == MemberRole.owner
@@ -415,7 +415,7 @@ class TestCreate:
         if is_user(auth_subject):
             payload["organization_id"] = str(organization.id)
 
-        with pytest.raises(PolarRequestValidationError) as exc_info:
+        with pytest.raises(RepalisRequestValidationError) as exc_info:
             await customer_service.create(
                 session, CustomerIndividualCreate.model_validate(payload), auth_subject
             )
@@ -456,7 +456,7 @@ class TestCreate:
         if is_user(auth_subject):
             payload["organization_id"] = str(organization.id)
 
-        with pytest.raises(PolarRequestValidationError) as exc_info:
+        with pytest.raises(RepalisRequestValidationError) as exc_info:
             await customer_service.create(
                 session, CustomerIndividualCreate.model_validate(payload), auth_subject
             )
@@ -480,7 +480,7 @@ class TestCreate:
         if is_user(auth_subject):
             payload["organization_id"] = str(organization.id)
 
-        with pytest.raises(PolarRequestValidationError) as exc_info:
+        with pytest.raises(RepalisRequestValidationError) as exc_info:
             await customer_service.create(
                 session, CustomerIndividualCreate.model_validate(payload), auth_subject
             )
@@ -505,7 +505,7 @@ class TestCreate:
         if is_user(auth_subject):
             payload["organization_id"] = str(organization.id)
 
-        with pytest.raises(PolarRequestValidationError) as exc_info:
+        with pytest.raises(RepalisRequestValidationError) as exc_info:
             await customer_service.create(
                 session, CustomerIndividualCreate.model_validate(payload), auth_subject
             )
@@ -553,7 +553,7 @@ class TestCreateForOrganization:
     ) -> None:
         organization.feature_settings = {"member_model_enabled": True}
         await save_fixture(organization)
-        webhook_send_mock = mocker.patch("polar.member.service.webhook_service.send")
+        webhook_send_mock = mocker.patch("repalis.member.service.webhook_service.send")
 
         customer = await customer_service.create_for_organization(
             session,
@@ -577,7 +577,7 @@ class TestUpdate:
         self, session: AsyncSession, customer: Customer, customer_external_id: Customer
     ) -> None:
         assert customer_external_id.external_id is not None
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await customer_service.update(
                 session,
                 customer,
@@ -602,7 +602,7 @@ class TestUpdate:
             with pytest.raises(ValidationError):
                 CustomerUpdate.model_validate({"external_id": None})
             return
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await customer_service.update(
                 session,
                 customer_external_id,
@@ -645,7 +645,7 @@ class TestUpdate:
         self, session: AsyncSession, customer: Customer, customer_second: Customer
     ) -> None:
         assert customer_second.email is not None
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await customer_service.update(
                 session,
                 customer,
@@ -772,7 +772,7 @@ class TestUpdate:
         customer.type = CustomerType.team
         await save_fixture(customer)
 
-        with pytest.raises(PolarRequestValidationError) as exc_info:
+        with pytest.raises(RepalisRequestValidationError) as exc_info:
             await customer_service.update(
                 session,
                 customer,
@@ -836,7 +836,7 @@ class TestUpdate:
         customer: Customer,
     ) -> None:
         """Updating a customer with tax_id but no billing_address should fail."""
-        with pytest.raises(PolarRequestValidationError) as exc_info:
+        with pytest.raises(RepalisRequestValidationError) as exc_info:
             await customer_service.update(
                 session,
                 customer,
@@ -857,7 +857,7 @@ class TestUpdate:
             email="invalid-taxid-update@example.com",
             billing_address=Address(country=CountryAlpha2("FR")),
         )
-        with pytest.raises(PolarRequestValidationError) as exc_info:
+        with pytest.raises(RepalisRequestValidationError) as exc_info:
             await customer_service.update(
                 session,
                 customer,
@@ -906,7 +906,7 @@ class TestUpdate:
             tax_id=("FR61954506077", TaxIDFormat.eu_vat),
         )
         # Changing country to US should fail because FR VAT is not valid in US
-        with pytest.raises(PolarRequestValidationError) as exc_info:
+        with pytest.raises(RepalisRequestValidationError) as exc_info:
             await customer_service.update(
                 session,
                 customer,
@@ -984,7 +984,7 @@ class TestUpdate:
             tax_id=("FR61954506077", TaxIDFormat.eu_vat),
         )
 
-        mock_validate = mocker.patch("polar.customer.service.validate_tax_id")
+        mock_validate = mocker.patch("repalis.customer.service.validate_tax_id")
         mock_validate.return_value = ("FR61954506077", TaxIDFormat.eu_vat)
 
         updated_customer = await customer_service.update(
@@ -1103,7 +1103,7 @@ class TestUpdate:
             tax_id=("FR61954506077", TaxIDFormat.eu_vat),
         )
 
-        mock_validate = mocker.patch("polar.customer.service.validate_tax_id")
+        mock_validate = mocker.patch("repalis.customer.service.validate_tax_id")
         mock_validate.return_value = ("FR61954506077", TaxIDFormat.eu_vat)
 
         # Update only email — tax_id and billing_address both omitted
@@ -1434,7 +1434,7 @@ class TestDelete:
         deleted = await customer_service.delete(session, customer, anonymize=True)
         assert deleted.deleted_at is not None
         assert deleted.email is not None
-        assert deleted.email.endswith("@anonymized.polar.sh")
+        assert deleted.email.endswith("@anonymized.repalis.com")
         assert deleted.name is not None
         assert deleted.name != "Delete Anon User"
         assert len(deleted.name) == 64  # SHA-256 hex
@@ -1522,7 +1522,7 @@ class TestDelete:
             email="deleted-webhook@example.com",
             name="Deleted Webhook User",
         )
-        enqueue_job_mock = mocker.patch("polar.customer.repository.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.customer.repository.enqueue_job")
 
         await customer_service.delete(session, customer, anonymize=anonymize)
 
@@ -1692,7 +1692,7 @@ class TestAnonymize:
 
         # Email should be hashed
         assert anonymized.email is not None
-        assert anonymized.email.endswith("@anonymized.polar.sh")
+        assert anonymized.email.endswith("@anonymized.repalis.com")
         assert anonymized.email != "individual@example.com"
         assert anonymized.email_verified is False
 
@@ -1728,7 +1728,7 @@ class TestAnonymize:
 
         # Email should be hashed
         assert anonymized.email is not None
-        assert anonymized.email.endswith("@anonymized.polar.sh")
+        assert anonymized.email.endswith("@anonymized.repalis.com")
         assert anonymized.email_verified is False
 
         # Name should be PRESERVED for businesses
@@ -1876,7 +1876,7 @@ class TestAnonymize:
         anonymized = await customer_service.anonymize(session, customer)
 
         assert anonymized.email is not None
-        assert anonymized.email.endswith("@anonymized.polar.sh")
+        assert anonymized.email.endswith("@anonymized.repalis.com")
         assert anonymized.deleted_at is not None
 
 
@@ -1898,7 +1898,7 @@ class TestWebhook:
         redis: Redis,
         customer: Customer,
     ) -> None:
-        send_mock = mocker.patch("polar.webhook.service.webhook.send")
+        send_mock = mocker.patch("repalis.webhook.service.webhook.send")
 
         await customer_service.webhook(session, redis, event_type, customer)
 
@@ -1911,7 +1911,7 @@ class TestWebhook:
         redis: Redis,
         customer: Customer,
     ) -> None:
-        send_mock = mocker.patch("polar.webhook.service.webhook.send")
+        send_mock = mocker.patch("repalis.webhook.service.webhook.send")
 
         await customer_service.webhook(
             session, redis, WebhookEventType.customer_state_changed, customer
@@ -1979,7 +1979,7 @@ class TestGetEmailRecipients:
         customer: Customer,
         user_organization: UserOrganization,
     ) -> None:
-        mocker.patch("polar.customer.service.settings.is_sandbox", return_value=True)
+        mocker.patch("repalis.customer.service.settings.is_sandbox", return_value=True)
 
         # The customer's email doesn't match any user in the org -> filtered out.
         recipients = await customer_service.get_email_recipients(session, customer)
@@ -1994,7 +1994,7 @@ class TestGetEmailRecipients:
         user: User,
         user_organization: UserOrganization,
     ) -> None:
-        mocker.patch("polar.customer.service.settings.is_sandbox", return_value=True)
+        mocker.patch("repalis.customer.service.settings.is_sandbox", return_value=True)
 
         member_customer = await create_customer(
             save_fixture,
@@ -2016,7 +2016,7 @@ class TestGetEmailRecipients:
         user: User,
         user_organization: UserOrganization,
     ) -> None:
-        mocker.patch("polar.customer.service.settings.is_sandbox", return_value=True)
+        mocker.patch("repalis.customer.service.settings.is_sandbox", return_value=True)
 
         # The customer email uses a `+alias` suffix that should be unaliased
         # before comparing against organization members.

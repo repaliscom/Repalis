@@ -1,4 +1,4 @@
-import { commands, CURRENT_API_VERSION, products } from '@polar-sh/cli-commands'
+import { commands, CURRENT_API_VERSION, products } from '@repalis/cli-commands'
 import { Effect, Layer } from 'effect'
 import { Command, Prompt } from 'effect/cli'
 import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest'
@@ -7,7 +7,7 @@ import type { ActiveOrganization } from '@/schemas/Auth'
 import { Auth } from '@/services/auth'
 import { CLIConfig } from '@/services/config'
 import * as OrganizationsService from '@/services/organizations'
-import * as Polar from '@/services/polar'
+import * as Repalis from '@/services/repalis'
 import { type RunCliOptions, runCli } from '@/utils/test-utils/cli'
 import {
   fakeAuth,
@@ -22,7 +22,7 @@ vi.mock('effect/cli', async (importOriginal) => {
 })
 
 describe('generated commands', () => {
-  const root = Command.make('polar').pipe(Command.withSubcommands(commands))
+  const root = Command.make('repalis').pipe(Command.withSubcommands(commands))
   let requests: Request[]
   let auth: ReturnType<typeof fakeAuth>
 
@@ -58,7 +58,7 @@ describe('generated commands', () => {
           }).organizations,
         ),
       ),
-      Layer.provide(Polar.layer),
+      Layer.provide(Repalis.layer),
       Layer.provide(Layer.succeed(Auth, auth.auth)),
     )
     return {
@@ -241,7 +241,7 @@ describe('generated commands', () => {
       ).rejects.toMatchObject({
         message: 'Missing required flag --prices',
         hint: expect.stringContaining(
-          "polar products create --name <name> --prices '[{",
+          "repalis products create --name <name> --prices '[{",
         ),
       })
       expect(requests).toHaveLength(0)
@@ -325,9 +325,9 @@ describe('generated commands', () => {
     test.each([
       { args: ['meters', 'get', 'meter-1'], version: CURRENT_API_VERSION },
       { args: ['meters', 'get_external', 'meter-1'], version: '2027-01' },
-    ])('$args sends Polar-Version $version', async ({ args, version }) => {
+    ])('$args sends Repalis-Version $version', async ({ args, version }) => {
       await run(args).promise
-      expect(requests[0]!.headers.get('Polar-Version')).toBe(version)
+      expect(requests[0]!.headers.get('Repalis-Version')).toBe(version)
     })
 
     test('nested member creation keeps path and body external IDs separate', async () => {
@@ -365,7 +365,7 @@ describe('generated commands', () => {
           description: 'A custom benefit',
           properties: {},
         })
-        expect(requests[0]!.headers.get('Polar-Organization')).toBe('org-1')
+        expect(requests[0]!.headers.get('Repalis-Organization')).toBe('org-1')
       },
     )
 
@@ -376,7 +376,7 @@ describe('generated commands', () => {
         '/v1/customer-seats/claim/invitation-1',
       )
       expect(requests[0]!.headers.get('Authorization')).toBeNull()
-      expect(requests[0]!.headers.get('Polar-Organization')).toBeNull()
+      expect(requests[0]!.headers.get('Repalis-Organization')).toBeNull()
       expect(auth.state.resolutions).toHaveLength(0)
     })
 
@@ -519,7 +519,7 @@ describe('destructive flags', () => {
           }).organizations,
         ),
       ),
-      Layer.provide(Polar.layer),
+      Layer.provide(Repalis.layer),
       Layer.provide(Layer.succeed(Auth, auth.auth)),
     )
     return {
@@ -591,7 +591,7 @@ describe('destructive flags', () => {
 })
 
 describe('organization resolution', () => {
-  const root = Command.make('polar').pipe(Command.withSubcommands(commands))
+  const root = Command.make('repalis').pipe(Command.withSubcommands(commands))
   const production = {
     id: '00000000-0000-4000-8000-00000000aa01',
     name: 'Production',
@@ -619,7 +619,7 @@ describe('organization resolution', () => {
       requests.push(request)
       const url = new URL(request.url)
       const environment =
-        url.hostname === 'sandbox-api.polar.sh' ? 'sandbox' : 'production'
+        url.hostname === 'sandbox-api.repalis.com' ? 'sandbox' : 'production'
       const available = organizations.filter(
         (org) => org.environment === environment,
       )
@@ -651,7 +651,7 @@ describe('organization resolution', () => {
     vi.resetAllMocks()
   })
 
-  const scope = (request: Request) => request.headers.get('Polar-Organization')
+  const scope = (request: Request) => request.headers.get('Repalis-Organization')
 
   const run = (args: string[], interactive = false) => {
     const cli = runCli(root, args, { interactive })
@@ -659,12 +659,12 @@ describe('organization resolution', () => {
       Layer.succeed(Auth, auth.auth),
       Layer.succeed(CLIConfig, config.config),
     )
-    const polar = Polar.layer.pipe(Layer.provide(dependencies))
+    const repalis = Repalis.layer.pipe(Layer.provide(dependencies))
     const organizations = OrganizationsService.layer.pipe(
-      Layer.provide(Layer.mergeAll(polar, dependencies)),
+      Layer.provide(Layer.mergeAll(repalis, dependencies)),
     )
     const runtime = ApiRuntime.layer.pipe(
-      Layer.provide(Layer.mergeAll(polar, organizations)),
+      Layer.provide(Layer.mergeAll(repalis, organizations)),
     )
     return {
       ...cli,
@@ -690,8 +690,8 @@ describe('organization resolution', () => {
           (request) =>
             new URL(request.url).hostname ===
             (organization.environment === 'sandbox'
-              ? 'sandbox-api.polar.sh'
-              : 'api.polar.sh'),
+              ? 'sandbox-api.repalis.com'
+              : 'api.repalis.com'),
         ),
       ).toBe(true)
       expect(
@@ -728,7 +728,7 @@ describe('organization resolution', () => {
       config.state.activeOrganization = selection
       await run(['products', 'list', ...args]).promise
       const url = new URL(requests.at(-1)!.url)
-      expect(url.hostname).toBe('sandbox-api.polar.sh')
+      expect(url.hostname).toBe('sandbox-api.repalis.com')
       expect(url.searchParams.getAll('organization_id')).toEqual([sandbox.id])
       expect(requests).toHaveLength(2)
       expect(new URL(requests[0]!.url).pathname).toBe(
@@ -743,7 +743,7 @@ describe('organization resolution', () => {
   test('--org selects the organization on a command without an organization input', async () => {
     await run(['products', 'get', 'product-1', `--org=${sandbox.id}`]).promise
     const url = new URL(requests.at(-1)!.url)
-    expect(url.hostname).toBe('sandbox-api.polar.sh')
+    expect(url.hostname).toBe('sandbox-api.repalis.com')
     expect(url.pathname).toBe('/v1/products/product-1')
     expect(requests.map(scope)).toEqual([sandbox.id, sandbox.id])
     expect(config.state.activeOrganization).toEqual(production)
@@ -761,7 +761,7 @@ describe('organization resolution', () => {
       '--org=00000000-0000-4000-8000-00000000aa03',
     ]).promise
     const url = new URL(requests.at(-1)!.url)
-    expect(url.hostname).toBe('api.polar.sh')
+    expect(url.hostname).toBe('api.repalis.com')
     expect(url.searchParams.getAll('organization_id')).toEqual([
       production.id,
       '00000000-0000-4000-8000-00000000aa03',
@@ -783,7 +783,7 @@ describe('organization resolution', () => {
     },
     { args: ['-d', '{"organization_id":null}'], organization: production },
   ])(
-    'create sends organization input $args only as the Polar-Organization header',
+    'create sends organization input $args only as the Repalis-Organization header',
     async ({ args, organization }) => {
       await run(['customers', 'create', '--email=test@example.com', ...args])
         .promise
@@ -792,8 +792,8 @@ describe('organization resolution', () => {
       })
       expect(new URL(requests.at(-1)!.url).hostname).toBe(
         organization.environment === 'sandbox'
-          ? 'sandbox-api.polar.sh'
-          : 'api.polar.sh',
+          ? 'sandbox-api.repalis.com'
+          : 'api.repalis.com',
       )
       expect(scope(requests.at(-1)!)).toBe(organization.id)
     },
@@ -817,7 +817,7 @@ describe('organization resolution', () => {
     ])
     expect(
       requests.every(
-        (request) => new URL(request.url).hostname === 'api.polar.sh',
+        (request) => new URL(request.url).hostname === 'api.repalis.com',
       ),
     ).toBe(true)
     expect(requests.map(scope)).toEqual([
@@ -832,7 +832,7 @@ describe('organization resolution', () => {
   test('missing selection fails without silently using sandbox credentials', async () => {
     config.state.activeOrganization = undefined
     await expect(run(['products', 'list']).promise).rejects.toThrow(
-      'polar auth org',
+      'repalis auth org',
     )
     expect(requests).toEqual([])
     expect(auth.state.resolutions).toEqual([])
@@ -855,7 +855,7 @@ describe('organization resolution', () => {
     auth.state.environment = 'sandbox'
     await run(['products', 'list']).promise
     const url = new URL(requests.at(-1)!.url)
-    expect(url.hostname).toBe('sandbox-api.polar.sh')
+    expect(url.hostname).toBe('sandbox-api.repalis.com')
     expect(url.searchParams.getAll('organization_id')).toEqual([])
     expect(requests.map(scope)).toEqual([null, sandbox.id])
     expect(requests.at(-1)!.headers.get('authorization')).toBe(

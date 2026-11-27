@@ -12,10 +12,10 @@ from pydantic_ai.exceptions import (
 from pydantic_ai.models.test import TestModel
 from pytest_mock import MockerFixture
 
-from polar.config import settings
-from polar.models import OrganizationRiskSignal
-from polar.organization_review.analyzer import ReviewAnalyzer, _render_scraped_site
-from polar.organization_review.schemas import (
+from repalis.config import settings
+from repalis.models import OrganizationRiskSignal
+from repalis.organization_review.analyzer import ReviewAnalyzer, _render_scraped_site
+from repalis.organization_review.schemas import (
     CheckoutReturnUrlData,
     CheckoutSuccessUrlData,
     DataSnapshot,
@@ -193,7 +193,7 @@ def _stub_analyzer_io(
     """
     mocker.patch.object(review_analyzer, "_build_prompt", return_value="test-prompt")
     mocker.patch(
-        "polar.organization_review.analyzer.fetch_policy_content",
+        "repalis.organization_review.analyzer.fetch_policy_content",
         new=AsyncMock(return_value="test-policy"),
     )
     mocker.patch.object(
@@ -253,7 +253,7 @@ class TestBuildPromptRiskSignals:
                 "risk_signals": RiskSignalData(
                     entries=[
                         RiskSignalEntry(
-                            source=OrganizationRiskSignal.Source.POLAR,
+                            source=OrganizationRiskSignal.Source.REPALIS,
                             type=OrganizationRiskSignal.Type.FRAUDULENT_WEBSITE,
                             risk_level=OrganizationRiskSignal.RiskLevel.NORMAL,
                             created_at=datetime(2026, 7, 2, tzinfo=UTC),
@@ -272,7 +272,7 @@ class TestBuildPromptRiskSignals:
         prompt = review_analyzer._build_prompt(snapshot)
 
         assert prompt.index("stripe: fraudulent_merchant") < prompt.index(
-            "polar: fraudulent_website"
+            "repalis: fraudulent_website"
         )
 
     def test_caps_signals_and_notes_omission(

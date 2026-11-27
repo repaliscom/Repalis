@@ -1,8 +1,8 @@
 import { type Filter } from '@/components/Shared/FilterPopover'
 import { useDiscountsByIds, useInfiniteDiscounts } from '@/hooks/queries'
 import { useDebouncedCallback } from '@/hooks/utils'
-import { schemas } from '@polar-sh/client'
-import { TicketPercent } from '@polar-sh/orbit/icons'
+import { schemas } from '@repalis/client'
+import { TicketPercent } from '@repalis/orbit/icons'
 import { useState } from 'react'
 import { uniqueOptions } from '@/components/Shared/Toolbar/filterOptions'
 

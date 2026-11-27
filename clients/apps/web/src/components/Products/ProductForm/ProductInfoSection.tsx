@@ -1,14 +1,14 @@
 'use client'
 
 import { Section } from '@/components/Layout/Section'
-import { Input, Text } from '@polar-sh/orbit'
+import { Input, Text } from '@repalis/orbit'
 import {
   FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-} from '@polar-sh/ui/components/ui/form'
+} from '@repalis/ui/components/ui/form'
 import { useFormContext } from 'react-hook-form'
 import { ProductFormType } from './ProductForm'
 
@@ -63,7 +63,7 @@ export const ProductInfoSection = ({
                   <strong className="font-semibold">{flaggedCategory}</strong>,
                   which is not permitted under our{' '}
                   <a
-                    href="https://polar.sh/legal/acceptable-use-policy"
+                    href="https://repalis.com/legal/acceptable-use-policy"
                     className="underline"
                     target="_blank"
                     rel="noopener noreferrer"

@@ -3,8 +3,8 @@ from unittest.mock import AsyncMock
 
 import pytest
 
-from polar.eventstream.endpoints import subscribe
-from polar.redis import Redis
+from repalis.eventstream.endpoints import subscribe
+from repalis.redis import Redis
 
 
 def _make_request(disconnect_after: int) -> AsyncMock:

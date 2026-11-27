@@ -4,9 +4,9 @@ from typing import Any
 
 import pytest
 
-from polar.enums import TaxBehavior
-from polar.kit.currency import PresentmentCurrency
-from polar.merchant_migration.canonical import (
+from repalis.enums import TaxBehavior
+from repalis.kit.currency import PresentmentCurrency
+from repalis.merchant_migration.canonical import (
     CanonicalCollectionMethod,
     CanonicalCustomer,
     CanonicalDiscount,
@@ -22,11 +22,11 @@ from polar.merchant_migration.canonical import (
     customer_discount_action,
     deserialize,
     discount_started_at_for,
-    polar_discount_amounts,
-    polar_discount_code,
+    repalis_discount_amounts,
+    repalis_discount_code,
     serialize,
 )
-from polar.models.merchant_migration_record import MerchantMigrationRecordType
+from repalis.models.merchant_migration_record import MerchantMigrationRecordType
 from tests.merchant_migration._helpers import (
     canonical_add_on,
     canonical_discount,
@@ -439,14 +439,14 @@ class TestCustomerDiscount:
         assert result.customer_discount_source_id == "coupon_cust"
 
 
-class TestPolarDiscountHelpers:
+class TestRepalisDiscountHelpers:
     def test_code_strips_dashes_and_rejects_short(self) -> None:
-        assert polar_discount_code("LAUNCH-10") == "LAUNCH10"
-        assert polar_discount_code("AB") is None
+        assert repalis_discount_code("LAUNCH-10") == "LAUNCH10"
+        assert repalis_discount_code("AB") is None
 
-    def test_amounts_drop_values_above_polar_max(self) -> None:
-        assert polar_discount_amounts({"usd": 1_000_000_000_000}) == {}
-        assert polar_discount_amounts({"USD": 100, "xyz": 50}) == {
+    def test_amounts_drop_values_above_repalis_max(self) -> None:
+        assert repalis_discount_amounts({"usd": 1_000_000_000_000}) == {}
+        assert repalis_discount_amounts({"USD": 100, "xyz": 50}) == {
             PresentmentCurrency.usd: 100
         }
 

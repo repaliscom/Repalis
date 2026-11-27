@@ -4,17 +4,17 @@ import pytest
 from httpx2 import AsyncClient
 from pytest_mock import MockerFixture
 
-from polar.customer_email_update.service import TOKEN_PREFIX
-from polar.integrations.stripe.service import StripeService
-from polar.kit.address import Address, CountryAlpha2
-from polar.kit.crypto import generate_token_hash_pair
-from polar.kit.versioning import APIVersion
-from polar.models import Customer, Organization, Product
-from polar.models.customer_email_verification import CustomerEmailVerification
-from polar.models.subscription import SubscriptionStatus
-from polar.postgres import AsyncSession
-from polar.tax.tax_id import TaxIDFormat
-from polar.version import V2026_04, V2026_10, V2027_01
+from repalis.customer_email_update.service import TOKEN_PREFIX
+from repalis.integrations.stripe.service import StripeService
+from repalis.kit.address import Address, CountryAlpha2
+from repalis.kit.crypto import generate_token_hash_pair
+from repalis.kit.versioning import APIVersion
+from repalis.models import Customer, Organization, Product
+from repalis.models.customer_email_verification import CustomerEmailVerification
+from repalis.models.subscription import SubscriptionStatus
+from repalis.postgres import AsyncSession
+from repalis.tax.tax_id import TaxIDFormat
+from repalis.version import V2026_04, V2026_10, V2027_01
 from tests.fixtures.auth import (
     CUSTOMER_AUTH_SUBJECT,
     MEMBER_AUTH_SUBJECT,
@@ -127,9 +127,9 @@ class TestGetEmbedPolicy:
 @pytest.fixture(autouse=True)
 def stripe_service_mock(mocker: MockerFixture) -> MagicMock:
     mock = MagicMock(spec=StripeService)
-    mocker.patch("polar.payment_method.service.stripe_service", new=mock)
-    mocker.patch("polar.customer_email_update.service.stripe_service", new=mock)
-    mocker.patch("polar.customer_portal.service.customer.stripe_service", new=mock)
+    mocker.patch("repalis.payment_method.service.stripe_service", new=mock)
+    mocker.patch("repalis.customer_email_update.service.stripe_service", new=mock)
+    mocker.patch("repalis.customer_portal.service.customer.stripe_service", new=mock)
     return mock
 
 
@@ -509,7 +509,7 @@ class TestRequestEmailUpdate:
         customer: Customer,
         organization_allow_email_change: Organization,
     ) -> None:
-        mocker.patch("polar.customer_email_update.service.enqueue_email_template")
+        mocker.patch("repalis.customer_email_update.service.enqueue_email_template")
         response = await client.post(
             "/v1/customer-portal/customers/me/email-update/request",
             json={"email": "brand-new@example.com"},
@@ -549,7 +549,7 @@ class TestCheckEmailUpdate:
     async def test_invalid_token(self, client: AsyncClient) -> None:
         response = await client.get(
             "/v1/customer-portal/customers/me/email-update/check",
-            params={"token": "polar_cev_bogus"},
+            params={"token": "repalis_cev_bogus"},
         )
         assert response.status_code == 401
 
@@ -559,7 +559,7 @@ class TestVerifyEmailUpdate:
     async def test_invalid_token(self, client: AsyncClient) -> None:
         response = await client.post(
             "/v1/customer-portal/customers/me/email-update/verify",
-            json={"token": "polar_cev_bogus"},
+            json={"token": "repalis_cev_bogus"},
         )
         assert response.status_code == 401
 
@@ -572,7 +572,7 @@ class TestVerifyEmailUpdate:
         customer: Customer,
         mocker: MockerFixture,
     ) -> None:
-        mocker.patch("polar.customer_email_update.service.enqueue_email_template")
+        mocker.patch("repalis.customer_email_update.service.enqueue_email_template")
         _record, token = await _create_verification(
             save_fixture, customer, "verified@example.com"
         )
@@ -595,7 +595,7 @@ class TestVerifyEmailUpdate:
         customer: Customer,
         mocker: MockerFixture,
     ) -> None:
-        mocker.patch("polar.customer_email_update.service.enqueue_email_template")
+        mocker.patch("repalis.customer_email_update.service.enqueue_email_template")
         # Create another customer with the target email
         await create_customer(
             save_fixture,

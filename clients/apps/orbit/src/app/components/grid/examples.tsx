@@ -1,5 +1,5 @@
-import { Box } from '@polar-sh/orbit/Box'
-import { Grid, GridItem, Text } from '@polar-sh/orbit'
+import { Box } from '@repalis/orbit/Box'
+import { Grid, GridItem, Text } from '@repalis/orbit'
 import { type ReactNode } from 'react'
 
 function Cell({ children }: { children: ReactNode }) {

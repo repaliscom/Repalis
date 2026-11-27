@@ -3,17 +3,17 @@ import hashlib
 import pytest
 from pytest_mock import MockerFixture
 
-from polar.credit_note.service import (
+from repalis.credit_note.service import (
     CreditNoteAlreadyExists,
     CreditNoteRefundNotEligible,
     CreditNoteTaxIDMissing,
 )
-from polar.credit_note.service import credit_note as service
-from polar.kit.address import Address, CountryAlpha2
-from polar.models import Customer, Product, Refund
-from polar.models.refund import RefundReason, RefundStatus
-from polar.postgres import AsyncSession
-from polar.tax.tax_id import TaxIDFormat
+from repalis.credit_note.service import credit_note as service
+from repalis.kit.address import Address, CountryAlpha2
+from repalis.models import Customer, Product, Refund
+from repalis.models.refund import RefundReason, RefundStatus
+from repalis.postgres import AsyncSession
+from repalis.tax.tax_id import TaxIDFormat
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_order_and_payment, create_refund
 
@@ -51,9 +51,9 @@ class TestCreateFromRefund:
         with pytest.raises(CreditNoteAlreadyExists):
             await service.create_from_refund(session, refund)
         render = mocker.patch(
-            "polar.credit_note.service.render_credit_note_pdf", return_value=b"pdf"
+            "repalis.credit_note.service.render_credit_note_pdf", return_value=b"pdf"
         )
-        upload = mocker.patch("polar.credit_note.service.S3Service.upload")
+        upload = mocker.patch("repalis.credit_note.service.S3Service.upload")
         await service.generate_pdf(session, note)
         await service.generate_pdf(session, note)
         render.assert_awaited_once()

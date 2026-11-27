@@ -6,34 +6,34 @@ import stripe as stripe_lib
 from httpx2 import AsyncClient, Response
 from pytest_mock import MockerFixture
 
-from polar.customer_seat.service import SeatService
-from polar.enums import TaxProcessor
-from polar.integrations.stripe.service import StripeService
-from polar.kit.address import Address, CountryAlpha2
-from polar.models import (
+from repalis.customer_seat.service import SeatService
+from repalis.enums import TaxProcessor
+from repalis.integrations.stripe.service import StripeService
+from repalis.kit.address import Address, CountryAlpha2
+from repalis.models import (
     Customer,
     Order,
     Organization,
     Product,
     Transaction,
 )
-from polar.models.dispute import DisputeAlertProcessor
-from polar.models.order import OrderStatus
-from polar.models.refund import RefundReason, RefundStatus
-from polar.models.webhook_endpoint import WebhookEventType
-from polar.order.repository import OrderRepository
-from polar.order.service import order as order_service
-from polar.postgres import AsyncSession
-from polar.refund.schemas import RefundCreate
-from polar.refund.service import (
+from repalis.models.dispute import DisputeAlertProcessor
+from repalis.models.order import OrderStatus
+from repalis.models.refund import RefundReason, RefundStatus
+from repalis.models.webhook_endpoint import WebhookEventType
+from repalis.order.repository import OrderRepository
+from repalis.order.service import order as order_service
+from repalis.postgres import AsyncSession
+from repalis.refund.schemas import RefundCreate
+from repalis.refund.service import (
     MissingRelatedDispute,
     RefundedAlready,
     RefundPaymentTransactionNotFound,
 )
-from polar.refund.service import refund as refund_service
-from polar.tax.calculation import TaxCalculationService, tax_calculation
-from polar.tax.calculation.base import AlreadyRevertedError
-from polar.wallet.service import wallet as wallet_service
+from repalis.refund.service import refund as refund_service
+from repalis.tax.calculation import TaxCalculationService, tax_calculation
+from repalis.tax.calculation.base import AlreadyRevertedError
+from repalis.wallet.service import wallet as wallet_service
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (
     create_dispute,
@@ -50,21 +50,21 @@ from tests.fixtures.stripe import build_stripe_refund
 @pytest.fixture(autouse=True)
 def stripe_service_mock(mocker: MockerFixture) -> MagicMock:
     mock = MagicMock(spec=StripeService)
-    mocker.patch("polar.refund.service.stripe_service", new=mock)
+    mocker.patch("repalis.refund.service.stripe_service", new=mock)
     return mock
 
 
 @pytest.fixture(autouse=True)
 def tax_calculation_service_service_mock(mocker: MockerFixture) -> MagicMock:
     mock = MagicMock(spec=TaxCalculationService)
-    mocker.patch("polar.refund.service.tax_calculation_service", new=mock)
+    mocker.patch("repalis.refund.service.tax_calculation_service", new=mock)
     return mock
 
 
 @pytest.fixture(autouse=True)
 def refund_transaction_service_mock(mocker: MockerFixture) -> MagicMock:
     mock = mocker.patch(
-        "polar.refund.service.refund_transaction_service", autospec=True
+        "repalis.refund.service.refund_transaction_service", autospec=True
     )
     return mock
 
@@ -790,10 +790,10 @@ class TestCreateFromDispute:
         customer: Customer,
     ) -> None:
         customer_seat_service_mock = mocker.patch(
-            "polar.refund.service.customer_seat_service", spec=SeatService
+            "repalis.refund.service.customer_seat_service", spec=SeatService
         )
         benefit_grant_service_mock = mocker.patch(
-            "polar.refund.service.benefit_grant_service"
+            "repalis.refund.service.benefit_grant_service"
         )
         product = await create_product(
             save_fixture,
@@ -1021,10 +1021,10 @@ class TestTaxReversals:
         processor: TaxProcessor,
     ) -> None:
         mocker.patch(
-            "polar.refund.service.tax_calculation_service", new=tax_calculation
+            "repalis.refund.service.tax_calculation_service", new=tax_calculation
         )
         provider = mocker.patch(
-            f"polar.tax.calculation.{processor.value}_tax_service.revert",
+            f"repalis.tax.calculation.{processor.value}_tax_service.revert",
             side_effect=["tax_refund_1", "tax_refund_2"],
         )
         order, payment, _ = await create_order_and_payment(
@@ -1198,7 +1198,7 @@ class TestOrganizationRefundsBlocked:
         customer: Customer,
     ) -> None:
         """Test that refunds are blocked when the refunds capability is disabled."""
-        from polar.organization.repository import OrganizationRepository
+        from repalis.organization.repository import OrganizationRepository
 
         org_repository = OrganizationRepository.from_session(session)
         organization = await org_repository.update(
@@ -1219,7 +1219,7 @@ class TestOrganizationRefundsBlocked:
             status=OrderStatus.paid,
         )
 
-        from polar.refund.service import RefundsBlocked
+        from repalis.refund.service import RefundsBlocked
 
         # Should raise RefundsBlocked exception
         with pytest.raises(RefundsBlocked) as exc_info:
@@ -1252,7 +1252,7 @@ class TestOrganizationRefundsBlocked:
         )
 
         # Update order to paid status
-        from polar.order.repository import OrderRepository
+        from repalis.order.repository import OrderRepository
 
         order_repository = OrderRepository.from_session(session)
         order = await order_repository.update(
@@ -1300,7 +1300,7 @@ class TestChargebackPreventionNotice:
         product: Product,
         customer: Customer,
     ) -> None:
-        enqueue_job_mock = mocker.patch("polar.refund.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.refund.service.enqueue_job")
 
         order, payment, _ = await create_order_and_payment(
             save_fixture,
@@ -1329,7 +1329,7 @@ class TestChargebackPreventionNotice:
         product: Product,
         customer: Customer,
     ) -> None:
-        enqueue_job_mock = mocker.patch("polar.refund.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.refund.service.enqueue_job")
 
         order, payment, _ = await create_order_and_payment(
             save_fixture,
@@ -1384,7 +1384,7 @@ class TestChargebackPreventionNotice:
         product: Product,
         customer: Customer,
     ) -> None:
-        enqueue_job_mock = mocker.patch("polar.refund.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.refund.service.enqueue_job")
 
         order, payment, _ = await create_order_and_payment(
             save_fixture,

@@ -4,10 +4,10 @@ import pytest
 from httpx2 import AsyncClient
 from sqlalchemy import select
 
-from polar.auth.scope import READ_ONLY_SCOPES
-from polar.models import Feedback, Organization, User, UserOrganization
-from polar.models.feedback import FeedbackStatus, FeedbackType
-from polar.postgres import AsyncSession
+from repalis.auth.scope import READ_ONLY_SCOPES
+from repalis.models import Feedback, Organization, User, UserOrganization
+from repalis.models.feedback import FeedbackStatus, FeedbackType
+from repalis.postgres import AsyncSession
 from tests.fixtures.auth import AuthSubjectFixture
 
 
@@ -16,7 +16,7 @@ def _payload(organization: Organization, **overrides: object) -> dict[str, objec
         "type": FeedbackType.bug.value,
         "message": "Something is broken in the dashboard.",
         "organization_id": str(organization.id),
-        "client_context": {"url": "https://polar.sh/dashboard"},
+        "client_context": {"url": "https://repalis.com/dashboard"},
     }
     base.update(overrides)
     return base
@@ -99,7 +99,7 @@ class TestSubmitFeedback:
         assert body["status"] == FeedbackStatus.new.value
         assert body["organization_id"] == str(organization.id)
         assert body["user_id"] == str(user.id)
-        assert body["client_context"] == {"url": "https://polar.sh/dashboard"}
+        assert body["client_context"] == {"url": "https://repalis.com/dashboard"}
 
         stored = (
             await session.execute(select(Feedback).where(Feedback.id == body["id"]))

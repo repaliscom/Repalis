@@ -3,9 +3,9 @@ import uuid
 import pytest
 from httpx2 import AsyncClient
 
-from polar.kit.utils import utc_now
-from polar.meter.repository import MeterRepository
-from polar.models import (
+from repalis.kit.utils import utc_now
+from repalis.meter.repository import MeterRepository
+from repalis.models import (
     Catalog,
     CatalogMeter,
     Meter,
@@ -13,9 +13,9 @@ from polar.models import (
     User,
     UserOrganization,
 )
-from polar.models.catalog import CatalogStatus
-from polar.postgres import AsyncSession
-from polar.version import V2026_04, V2026_10, V2027_01
+from repalis.models.catalog import CatalogStatus
+from repalis.postgres import AsyncSession
+from repalis.version import V2026_04, V2026_10, V2027_01
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_meter
 

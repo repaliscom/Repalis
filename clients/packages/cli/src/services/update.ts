@@ -44,7 +44,7 @@ const replaceRunningWindowsBinary = (
     Effect.mapError(
       (cause) =>
         new UpdateError({
-          message: `Could not replace ${binaryPath}. Close other running polar processes, or run the terminal as administrator, and try again.`,
+          message: `Could not replace ${binaryPath}. Close other running repalis processes, or run the terminal as administrator, and try again.`,
           cause,
         }),
     ),
@@ -69,7 +69,7 @@ export const replaceBinary = (
         ),
       )
 
-    const tempPath = join(dirname(binaryPath), `.polar-update-${Date.now()}`)
+    const tempPath = join(dirname(binaryPath), `.repalis-update-${Date.now()}`)
 
     yield* Effect.gen(function* () {
       const newBinary = yield* fs.readFile(newBinaryPath)
@@ -151,12 +151,12 @@ export function getReleaseArchiveName(platform: {
   os: string
   arch: string
 }): string {
-  const baseName = `polar-${platform.os}-${platform.arch}`
+  const baseName = `repalis-${platform.os}-${platform.arch}`
   return platform.os === 'linux' ? `${baseName}.tar.gz` : `${baseName}.zip`
 }
 
 export const binaryNameFor = (os: string) =>
-  os === 'windows' ? 'polar.exe' : 'polar'
+  os === 'windows' ? 'repalis.exe' : 'repalis'
 
 export function getArchiveExtractionCommand(
   archivePath: string,
@@ -222,7 +222,7 @@ export const install = (
       )
 
     const tempDir = yield* fs
-      .makeTempDirectory({ prefix: 'polar-update-' })
+      .makeTempDirectory({ prefix: 'repalis-update-' })
       .pipe(
         Effect.mapError(
           (cause) =>

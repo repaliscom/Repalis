@@ -1,41 +1,41 @@
-export class PolarError extends Error {}
+export class RepalisError extends Error {}
 
-export class PolarNetworkError extends PolarError {
+export class RepalisNetworkError extends RepalisError {
   constructor(message: string) {
-    super(`Polar API network error: ${message}`);
-    this.name = "PolarNetworkError";
+    super(`Repalis API network error: ${message}`);
+    this.name = "RepalisNetworkError";
   }
 }
 
-export class PolarServerError extends PolarError {
+export class RepalisServerError extends RepalisError {
   constructor(
     public readonly statusCode: number,
     message: string,
   ) {
-    super(`Polar API returned a server error: ${statusCode} - ${message}`);
-    this.name = "PolarServerError";
+    super(`Repalis API returned a server error: ${statusCode} - ${message}`);
+    this.name = "RepalisServerError";
   }
 }
 
-export class PolarClientError<T = unknown> extends PolarError {
+export class RepalisClientError<T = unknown> extends RepalisError {
   constructor(
     public readonly statusCode: number,
     public readonly error: T,
   ) {
     super(
-      `Polar API returned an error: ${statusCode} - ${JSON.stringify(error)}`,
+      `Repalis API returned an error: ${statusCode} - ${JSON.stringify(error)}`,
     );
-    this.name = "PolarClientError";
+    this.name = "RepalisClientError";
   }
 }
 
-export class PolarRateLimitError extends PolarClientError {
+export class RepalisRateLimitError extends RepalisClientError {
   constructor(
     public readonly statusCode: 429,
     public readonly retryAfter: number | null = null,
   ) {
     super(statusCode, "Rate limit exceeded");
-    this.name = "PolarRateLimitError";
+    this.name = "RepalisRateLimitError";
   }
 }
 
@@ -53,8 +53,8 @@ interface QueryParams {
   [key: string]: QueryParamValue | QueryParams;
 }
 
-const networkError = (error: unknown): PolarNetworkError =>
-  new PolarNetworkError(error instanceof Error ? error.message : String(error));
+const networkError = (error: unknown): RepalisNetworkError =>
+  new RepalisNetworkError(error instanceof Error ? error.message : String(error));
 
 // The request's timeout and signal still apply while the body arrives.
 const readText = async (response: Response): Promise<string> => {
@@ -124,7 +124,7 @@ export interface ClientOptions {
   accessToken: string;
   /** Default request timeout, in seconds. */
   timeout?: number;
-  /** Organization to act on, sent in the `Polar-Organization` header. */
+  /** Organization to act on, sent in the `Repalis-Organization` header. */
   organizationId?: string | undefined;
 }
 
@@ -179,12 +179,12 @@ export class ClientBase {
     );
     const headers = new Headers({
       "Content-Type": "application/json",
-      "Polar-Version": this.options.version,
+      "Repalis-Version": this.options.version,
       Authorization: `Bearer ${this.options.accessToken}`,
-      "User-Agent": "polar-sdk-typescript/{{ version }}",
+      "User-Agent": "repalis-sdk-typescript/{{ version }}",
     });
     if (this.options.organizationId !== undefined) {
-      headers.set("Polar-Organization", this.options.organizationId);
+      headers.set("Repalis-Organization", this.options.organizationId);
     }
     return [
       fullUrl,
@@ -240,13 +240,13 @@ export class ClientBase {
   public async parseResponse<T>(
     response: Response,
     responseType: "json" | "text" | "none",
-    errors?: Record<number, new (...args: any[]) => PolarClientError>,
+    errors?: Record<number, new (...args: any[]) => RepalisClientError>,
   ): Promise<T> {
     const statusCode = response.status;
 
     if (statusCode >= 500 && statusCode < 600) {
       const text = await response.text().catch(() => "");
-      throw new PolarServerError(statusCode, text || "Server error");
+      throw new RepalisServerError(statusCode, text || "Server error");
     }
 
     if (statusCode >= 400 && statusCode < 500) {
@@ -257,7 +257,7 @@ export class ClientBase {
           const errorData = JSON.parse(await readText(response));
           throw new ErrorClass(statusCode, errorData);
         }
-        throw new PolarRateLimitError(
+        throw new RepalisRateLimitError(
           statusCode,
           retryAfter ? parseInt(retryAfter, 10) : null,
         );
@@ -268,7 +268,7 @@ export class ClientBase {
         throw new ErrorClass(statusCode, errorData);
       } else {
         const text = await response.text().catch(() => "");
-        throw new PolarClientError(statusCode, text || "Client error");
+        throw new RepalisClientError(statusCode, text || "Client error");
       }
     }
 

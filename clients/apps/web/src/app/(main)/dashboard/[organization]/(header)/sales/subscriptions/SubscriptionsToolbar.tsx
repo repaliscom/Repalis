@@ -22,15 +22,15 @@ import {
 import { type SelectableSubscriptionStatus } from '@/components/Subscriptions/selectableStatuses'
 import { type ProductFilter } from '@/components/Products/ProductSelect'
 import { DataTableSortingState } from '@/utils/datatable'
-import { schemas } from '@polar-sh/client'
-import { SegmentedControl } from '@polar-sh/orbit'
+import { schemas } from '@repalis/client'
+import { SegmentedControl } from '@repalis/orbit'
 import {
   ChartNoAxesGantt,
   ChevronsUpDown,
   CircleDashed,
   MessageCircle,
   Rows3,
-} from '@polar-sh/orbit/icons'
+} from '@repalis/orbit/icons'
 import { type ReactNode } from 'react'
 import { type DateRange } from '@/components/Metrics/DateRangePicker'
 import { Toolbar } from '@/components/Shared/Toolbar/Toolbar'

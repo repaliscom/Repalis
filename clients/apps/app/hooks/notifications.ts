@@ -1,4 +1,4 @@
-import { useListNotifications } from './polar/notifications'
+import { useListNotifications } from './repalis/notifications'
 
 export const useNotificationsBadge = () => {
   const { data: notifications } = useListNotifications()

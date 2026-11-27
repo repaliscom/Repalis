@@ -3,17 +3,17 @@ import { Effect } from 'effect'
 import { HttpClient, HttpClientRequest } from 'effect/http'
 import { isAllowedOperation, spec } from './spec'
 
-const USER_AGENT = 'polar-mcp'
+const USER_AGENT = 'repalis-mcp'
 
-export interface PolarApiOutboundProps {
+export interface RepalisApiOutboundProps {
   apiUrl: string
   token: string
   readOnly: boolean
 }
 
-export class PolarApiOutbound extends WorkerEntrypoint<
+export class RepalisApiOutbound extends WorkerEntrypoint<
   Env,
-  PolarApiOutboundProps
+  RepalisApiOutboundProps
 > {
   async fetch(request: Request): Promise<Response> {
     const { apiUrl, token, readOnly } = this.ctx.props
@@ -38,19 +38,19 @@ export class PolarApiOutbound extends WorkerEntrypoint<
     const headers = new Headers(request.headers)
     headers.set('Authorization', `Bearer ${token}`)
     headers.set('User-Agent', USER_AGENT)
-    headers.set('Polar-Version', spec.apiVersion)
+    headers.set('Repalis-Version', spec.apiVersion)
     return fetch(new Request(request, { headers }))
   }
 }
 
-export const polarApiClient = (token: string) =>
+export const repalisApiClient = (token: string) =>
   Effect.map(
     HttpClient.HttpClient,
     HttpClient.mapRequest((request) =>
       request.pipe(
         HttpClientRequest.bearerToken(token),
         HttpClientRequest.setHeader('User-Agent', USER_AGENT),
-        HttpClientRequest.setHeader('Polar-Version', spec.apiVersion),
+        HttpClientRequest.setHeader('Repalis-Version', spec.apiVersion),
       ),
     ),
   )

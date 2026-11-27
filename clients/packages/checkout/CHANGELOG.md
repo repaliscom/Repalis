@@ -1,4 +1,4 @@
-# @polar-sh/checkout
+# @repalis/checkout
 
 ## 0.6.0
 
@@ -14,14 +14,14 @@
 
 ### Minor Changes
 
-- 609943e: Remove legacy recurring price support. `isLegacyRecurringProductPrice` is gone from `@polar-sh/checkout/guards`: every product now carries its own `recurring_interval`, and the product switcher shows one option per product.
+- 609943e: Remove legacy recurring price support. `isLegacyRecurringProductPrice` is gone from `@repalis/checkout/guards`: every product now carries its own `recurring_interval`, and the product switcher shows one option per product.
 - 1ed6d86: Remove `product_price_id` from `ProductCheckoutPublic`, following its removal from API version 2027-01.
 
 ## 0.4.4
 
 ### Patch Changes
 
-- b7efd0b: Fix browser builds that import `@polar-sh/checkout/components`, hooks, providers, or guards. 0.4.3 shipped a `node:module` helper in those entries, which esbuild and webpack cannot resolve and which throws in the browser under Vite.
+- b7efd0b: Fix browser builds that import `@repalis/checkout/components`, hooks, providers, or guards. 0.4.3 shipped a `node:module` helper in those entries, which esbuild and webpack cannot resolve and which throws in the browser under Vite.
 
 ## 0.4.3
 
@@ -39,7 +39,7 @@
 
   The iframe now uses the embed's `theme` — `color-scheme: dark` for `theme: 'dark'`, `color-scheme: light` otherwise — and the embedded page declares the same value, so the overlay stays transparent on every host page. Browser-drawn parts such as scrollbars and autofill now follow the theme too.
 
-  **Upgrade required for `theme: 'dark'`.** Older SDK versions don't set a matching color scheme, so with the dark theme they show a solid dark box on host pages without a color-scheme meta tag. Update `@polar-sh/checkout` to fix it; the embed script loaded from jsDelivr with `@latest` picks up the fix on its own.
+  **Upgrade required for `theme: 'dark'`.** Older SDK versions don't set a matching color scheme, so with the dark theme they show a solid dark box on host pages without a color-scheme meta tag. Update `@repalis/checkout` to fix it; the embed script loaded from jsDelivr with `@latest` picks up the fix on its own.
 
 ## 0.4.1
 
@@ -57,7 +57,7 @@
 
 ### Minor Changes
 
-- b9975a9: Adds an embedded payment method to @polar-sh/checkout. With a modal SDK (PolarEmbedPaymentMethod.create()) and React component (<PolarPaymentMethod />) for attaching a card to a customer/member. The CDN embed.global.js now bundles both checkout and payment-method auto-init in a single script.
+- b9975a9: Adds an embedded payment method to @repalis/checkout. With a modal SDK (RepalisEmbedPaymentMethod.create()) and React component (<RepalisPaymentMethod />) for attaching a card to a customer/member. The CDN embed.global.js now bundles both checkout and payment-method auto-init in a single script.
 - 9b59a1d: Add payment method flow to the SDK
 
 ### Patch Changes
@@ -87,7 +87,7 @@
 
 ### Minor Changes
 
-- b9975a9: Adds an embedded payment method to @polar-sh/checkout. With a modal SDK (PolarEmbedPaymentMethod.create()) and React component (<PolarPaymentMethod />) for attaching a card to a customer/member. The CDN embed.global.js now bundles both checkout and payment-method auto-init in a single script.
+- b9975a9: Adds an embedded payment method to @repalis/checkout. With a modal SDK (RepalisEmbedPaymentMethod.create()) and React component (<RepalisPaymentMethod />) for attaching a card to a customer/member. The CDN embed.global.js now bundles both checkout and payment-method auto-init in a single script.
 
 ## 0.2.1
 
@@ -99,14 +99,14 @@
 
 ### Minor Changes
 
-- f8bc897: Add onLoaded option on `PolarEmbedCheckout.create` to wire a loaded event listener, ensuring it's always executed, even if the checkout loads very quickly.
+- f8bc897: Add onLoaded option on `RepalisEmbedCheckout.create` to wire a loaded event listener, ensuring it's always executed, even if the checkout loads very quickly.
 
   **Breaking change**
 
-  The theme should now be passed in an object when calling `PolarEmbedCheckout.create`:
+  The theme should now be passed in an object when calling `RepalisEmbedCheckout.create`:
 
   ```ts
-  PolarEmbedCheckout.create("__CHECKOUT_LINK__", { theme: "dark" });
+  RepalisEmbedCheckout.create("__CHECKOUT_LINK__", { theme: "dark" });
   ```
 
 ## 0.1.15
@@ -122,13 +122,13 @@
 - d9a45ea: Bump dependencies and setup trusted publishing
 - 258bdb1: Dependency upgrades, including React 19 peer dependency support
 - Updated dependencies [258bdb1]
-  - @polar-sh/ui@0.1.2
+  - @repalis/ui@0.1.2
 
 ## 0.1.13
 
 ### Patch Changes
 
-- f22a0d1: Update Polar SDK
+- f22a0d1: Update Repalis SDK
 
 ## 0.1.12
 
@@ -216,4 +216,4 @@
 
 ### Minor Changes
 
-- Initial release of @polar-sh/checkout
+- Initial release of @repalis/checkout

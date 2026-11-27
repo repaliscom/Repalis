@@ -26,11 +26,11 @@ import {
   monthlyPlanAmount,
   planForInterval,
 } from '@/utils/planIntervals'
-import { ArrowBackOutlined } from '@polar-sh/orbit/icons'
-import { schemas } from '@polar-sh/client'
-import { SegmentedControl, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import { Button } from '@polar-sh/orbit'
+import { ArrowBackOutlined } from '@repalis/orbit/icons'
+import { schemas } from '@repalis/client'
+import { SegmentedControl, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import { Button } from '@repalis/orbit'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useMemo, useState } from 'react'
@@ -332,7 +332,7 @@ export default function ChangePlanPage({
         <Box flexDirection="column" rowGap="l">
           <Link
             href={billingHref}
-            className="dark:text-polar-400 dark:hover:text-polar-200 inline-flex w-fit items-center gap-x-1 text-sm text-gray-500 hover:text-gray-700"
+            className="dark:text-repalis-400 dark:hover:text-repalis-200 inline-flex w-fit items-center gap-x-1 text-sm text-gray-500 hover:text-gray-700"
           >
             <ArrowBackOutlined fontSize="inherit" />
             <span>Back to Billing</span>
@@ -352,7 +352,7 @@ export default function ChangePlanPage({
                 <Text color="muted">
                   {isCurrentPlanCustom
                     ? 'You are on a custom plan. Send an email to support to change plan or discuss terms.'
-                    : 'Pick a new plan for your Polar subscription. You can change again at any time.'}
+                    : 'Pick a new plan for your Repalis subscription. You can change again at any time.'}
                 </Text>
               </Box>
 

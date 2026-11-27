@@ -1,7 +1,7 @@
 'use client'
 
 import * as SelectPrimitive from '@radix-ui/react-select'
-import { cn } from '@polar-sh/ui/lib/utils'
+import { cn } from '@repalis/ui/lib/utils'
 import * as React from 'react'
 
 const ChevronDownIcon = ({ className }: { className?: string }) => (
@@ -63,7 +63,7 @@ const SelectTrigger = ({
   <SelectPrimitive.Trigger
     className={cn(
       'ring-offset-background data-placeholder:text-muted-foreground focus:ring-ring flex h-10 w-full items-center justify-between rounded-md border px-3 py-2 md:text-sm focus:ring-2 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1',
-      'dark:bg-polar-800 dark:hover:bg-polar-700 dark:hover:border-polar-700 dark:border-polar-700 flex cursor-pointer flex-row gap-x-2 rounded-xl border border-gray-200 bg-white px-3 shadow-xs transition-colors hover:border-gray-300 dark:text-white text-black',
+      'dark:bg-repalis-800 dark:hover:bg-repalis-700 dark:hover:border-repalis-700 dark:border-repalis-700 flex cursor-pointer flex-row gap-x-2 rounded-xl border border-gray-200 bg-white px-3 shadow-xs transition-colors hover:border-gray-300 dark:text-white text-black',
       className,
     )}
     // Safari only tabs to form controls with an explicit tabindex, so without
@@ -91,7 +91,7 @@ const SelectContent = ({
         'bg-popover text-popover-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 relative z-50 max-h-96 min-w-32 overflow-hidden rounded-md border shadow-md',
         position === 'popper' &&
           'data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1',
-        'dark:bg-polar-800 rounded-xl border-none',
+        'dark:bg-repalis-800 rounded-xl border-none',
         className,
       )}
       position={position}
@@ -169,7 +169,7 @@ const NativeSelect = ({
     <select
       className={cn(
         'peer ring-offset-background data-placeholder:text-muted-foreground focus:ring-ring h-10 w-full appearance-none rounded-md border bg-none px-3 py-0 pe-9 focus:ring-2 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm',
-        'dark:bg-polar-800 dark:hover:bg-polar-700 dark:hover:border-polar-700 dark:border-polar-700 cursor-pointer rounded-xl border border-gray-200 bg-white text-black shadow-xs transition-colors hover:border-gray-300 dark:text-white',
+        'dark:bg-repalis-800 dark:hover:bg-repalis-700 dark:hover:border-repalis-700 dark:border-repalis-700 cursor-pointer rounded-xl border border-gray-200 bg-white text-black shadow-xs transition-colors hover:border-gray-300 dark:text-white',
         className,
       )}
       value={value ?? ''}

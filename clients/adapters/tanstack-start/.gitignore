@@ -4,6 +4,6 @@ dist
 .env*
 
 app
-polar.ts
+repalis.ts
 
 .idea/

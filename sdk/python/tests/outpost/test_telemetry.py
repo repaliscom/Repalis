@@ -9,7 +9,7 @@ from opentelemetry.sdk.trace import TracerProvider
 from opentelemetry.sdk.trace.export import SimpleSpanProcessor
 from opentelemetry.trace import StatusCode
 
-from polar.outpost.telemetry import (
+from repalis.outpost.telemetry import (
     SAMPLE_RATE_ATTRIBUTE,
     BufferSpanExporter,
     TelemetryBuffer,

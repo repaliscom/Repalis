@@ -1,6 +1,6 @@
 import { getPaymentDeclineMessage } from '@/utils/payment'
-import { schemas } from '@polar-sh/client'
-import { type DataTableColumnDef, Text, Truncated } from '@polar-sh/orbit'
+import { schemas } from '@repalis/client'
+import { type DataTableColumnDef, Text, Truncated } from '@repalis/orbit'
 
 export const paymentDeclineReasonColumns = (
   payments: schemas['Payment'][],

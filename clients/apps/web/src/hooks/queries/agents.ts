@@ -1,5 +1,5 @@
 import { api } from '@/utils/client'
-import { schemas, unwrap } from '@polar-sh/client'
+import { schemas, unwrap } from '@repalis/client'
 import { useMutation, useQuery } from '@tanstack/react-query'
 
 export const useAgentClaimPreview = (linkToken: string, enabled: boolean) =>

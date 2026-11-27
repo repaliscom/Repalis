@@ -1,5 +1,5 @@
 import { act, render, screen, waitFor } from '@testing-library/react'
-import { API_VERSION } from '@polar-sh/client'
+import { API_VERSION } from '@repalis/client'
 import { useEffect } from 'react'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { createCheckout } from '../test-utils/makeCheckout'
@@ -13,9 +13,9 @@ const { mockClient, mockCreateClient } = vi.hoisted(() => ({
   mockCreateClient: vi.fn(),
 }))
 
-vi.mock('@polar-sh/client', async () => {
+vi.mock('@repalis/client', async () => {
   const actual =
-    await vi.importActual<typeof import('@polar-sh/client')>('@polar-sh/client')
+    await vi.importActual<typeof import('@repalis/client')>('@repalis/client')
   return {
     ...actual,
     createClient: mockCreateClient,
@@ -72,12 +72,12 @@ describe('CheckoutProvider', () => {
   })
 
   describe('baseUrl resolution', () => {
-    const versionHeaders = { 'Polar-Version': API_VERSION }
+    const versionHeaders = { 'Repalis-Version': API_VERSION }
 
     it('uses production by default', () => {
       renderProvider({ initialCheckout: createCheckout() })
       expect(mockCreateClient).toHaveBeenCalledWith(
-        'https://api.polar.sh',
+        'https://api.repalis.com',
         undefined,
         versionHeaders,
       )
@@ -86,7 +86,7 @@ describe('CheckoutProvider', () => {
     it('uses sandbox when server=sandbox', () => {
       renderProvider({ server: 'sandbox', initialCheckout: createCheckout() })
       expect(mockCreateClient).toHaveBeenCalledWith(
-        'https://sandbox-api.polar.sh',
+        'https://sandbox-api.repalis.com',
         undefined,
         versionHeaders,
       )
@@ -98,7 +98,7 @@ describe('CheckoutProvider', () => {
         initialCheckout: createCheckout(),
       })
       expect(mockCreateClient).toHaveBeenCalledWith(
-        'https://api.polar.sh',
+        'https://api.repalis.com',
         undefined,
         versionHeaders,
       )
@@ -218,7 +218,7 @@ describe('CheckoutProvider', () => {
       const initialCheckout = createCheckout({ id: 'ch_initial' })
       mockClient.PATCH.mockResolvedValue(
         fail({
-          error: 'PolarRequestValidationError',
+          error: 'RepalisRequestValidationError',
           detail: [
             {
               type: 'value_error',
@@ -236,7 +236,7 @@ describe('CheckoutProvider', () => {
         const result = await getCtx().update({ customer_email: 'bad' })
         expect(result.ok).toBe(false)
         if (!result.ok && result.error) {
-          expect(result.error.error).toBe('PolarRequestValidationError')
+          expect(result.error.error).toBe('RepalisRequestValidationError')
         }
       })
 

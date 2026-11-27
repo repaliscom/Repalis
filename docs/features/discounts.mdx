@@ -10,7 +10,7 @@ Discounts are a way to reduce the price of a product or subscription. They can b
 
 ## Create a discount
 
-Go to the [**Discounts**](https://polar.sh/to/dashboard/products/discounts) page
+Go to the [**Discounts**](https://repalis.com/to/dashboard/products/discounts) page
 
 #### Name
 
@@ -48,13 +48,13 @@ The percentage discount to apply to the product or subscription.
 
 A per-customer limit caps how many times a single buyer can redeem a code, while leaving the code open to everyone else. Share it publicly, set the limit to 1, and each buyer gets one redemption.
 
-Polar identifies a customer by three signals, and a match on any one is enough:
+Repalis identifies a customer by three signals, and a match on any one is enough:
 
 - The (external) customer ID on the checkout or the subscription.
-- The email address (ignoring plus-aliases: `ada+polar@example.com` matches `ada@example.com`)
+- The email address (ignoring plus-aliases: `ada+repalis@example.com` matches `ada@example.com`)
 - The payment card, so a new email address on the same card still counts. Free products and 100% forever subscriptions never ask for a card, so those match on ID and email alone.
 
-Refunding an order frees the customer's slot, and they can use the code again (note: a partial refund doesn't). [Polar-issued refunds as part of chargeback prevention](/features/refunds) also don't free the customer's slot.
+Refunding an order frees the customer's slot, and they can use the code again (note: a partial refund doesn't). [Repalis-issued refunds as part of chargeback prevention](/features/refunds) also don't free the customer's slot.
 
 ## Apply a discount
 

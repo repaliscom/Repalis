@@ -8,7 +8,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@polar-sh/orbit'
+} from '@repalis/orbit'
 
 const CountryPicker = ({
   id,

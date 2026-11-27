@@ -1,5 +1,5 @@
 import { api } from '@/utils/client'
-import { operations, schemas, unwrap } from '@polar-sh/client'
+import { operations, schemas, unwrap } from '@repalis/client'
 import {
   keepPreviousData,
   skipToken,

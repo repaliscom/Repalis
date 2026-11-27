@@ -2,11 +2,11 @@ from decimal import Decimal
 
 import pytest
 
-from polar.enums import SubscriptionRecurringInterval
-from polar.models import Meter, Organization
-from polar.postgres import AsyncSession
-from polar.product.repository import ProductRepository
-from polar.product.tiers import Tiers, TierType
+from repalis.enums import SubscriptionRecurringInterval
+from repalis.models import Meter, Organization
+from repalis.postgres import AsyncSession
+from repalis.product.repository import ProductRepository
+from repalis.product.tiers import Tiers, TierType
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (
     create_product,

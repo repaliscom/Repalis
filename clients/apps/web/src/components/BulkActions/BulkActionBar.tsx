@@ -1,6 +1,6 @@
 'use client'
 
-import { Box } from '@polar-sh/orbit/Box'
+import { Box } from '@repalis/orbit/Box'
 import { BulkSelectionMenu } from './BulkSelectionMenu'
 
 export interface BulkActionBarProps {

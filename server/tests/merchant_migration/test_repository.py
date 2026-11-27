@@ -4,8 +4,8 @@ from uuid import uuid4
 
 import pytest
 
-from polar.enums import TaxBehavior
-from polar.merchant_migration.canonical import (
+from repalis.enums import TaxBehavior
+from repalis.merchant_migration.canonical import (
     CanonicalCollectionMethod,
     CanonicalCustomer,
     CanonicalPaymentMethod,
@@ -17,25 +17,25 @@ from polar.merchant_migration.canonical import (
     CanonicalSubscriptionStatus,
     serialize,
 )
-from polar.merchant_migration.repository import (
+from repalis.merchant_migration.repository import (
     MerchantMigrationRecordRepository,
     MerchantMigrationRepository,
 )
-from polar.models import (
+from repalis.models import (
     MerchantMigration,
     MerchantMigrationRecord,
     Organization,
     Product,
 )
-from polar.models.merchant_migration import (
+from repalis.models.merchant_migration import (
     MerchantMigrationSourcePlatform,
     MerchantMigrationStep,
 )
-from polar.models.merchant_migration_record import (
+from repalis.models.merchant_migration_record import (
     MerchantMigrationRecordStatus,
     MerchantMigrationRecordType,
 )
-from polar.postgres import AsyncSession
+from repalis.postgres import AsyncSession
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_customer, create_payment_method
 from tests.merchant_migration._helpers import canonical_discount, canonical_subscription

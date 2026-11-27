@@ -1,6 +1,6 @@
 import type { AuthContext } from 'better-auth'
 import type { OrganizationOptions } from 'better-auth/plugins/organization'
-import type { PolarOptions } from '../types'
+import type { RepalisOptions } from '../types'
 import {
   BetterAuthOrganizationStateError,
   removeOrganizationMemberMirror,
@@ -17,7 +17,7 @@ import {
   updateMemberRoleMirror,
   updateTeamCustomer,
 } from './sync'
-import type { PolarOrganizationRoleSyncOptions } from './types'
+import type { RepalisOrganizationRoleSyncOptions } from './types'
 
 type OrganizationHooks = NonNullable<OrganizationOptions['organizationHooks']>
 type AfterCreateOrganizationData = Parameters<
@@ -40,13 +40,13 @@ type AfterRemoveMemberData = Parameters<
 >[0]
 
 /**
- * Compose Polar's customer, roster, and single-owner synchronization into
+ * Compose Repalis's customer, roster, and single-owner synchronization into
  * Better Auth's organization lifecycle hooks. Application after-hooks run
- * first; Polar synchronization runs only after they succeed.
+ * first; Repalis synchronization runs only after they succeed.
  */
 export const installOrganizationHooks = (
   ctx: AuthContext,
-  options: PolarOptions,
+  options: RepalisOptions,
 ) => {
   const organizationOptions = options.experimental_organizationSync
   if (!organizationOptions?.enabled) {
@@ -57,7 +57,7 @@ export const installOrganizationHooks = (
 
   if (!organizationPlugin) {
     throw new Error(
-      "Polar organization support requires Better Auth's organization plugin",
+      "Repalis organization support requires Better Auth's organization plugin",
     )
   }
 
@@ -66,12 +66,12 @@ export const installOrganizationHooks = (
 
   const existingHooks = betterAuthOrganizationOptions.organizationHooks ?? {}
 
-  const roleSyncOptions: PolarOrganizationRoleSyncOptions = {
+  const roleSyncOptions: RepalisOrganizationRoleSyncOptions = {
     creatorRole:
       betterAuthOrganizationOptions.creatorRole ??
       DEFAULT_BETTER_AUTH_CREATOR_ROLE,
-    mapBetterAuthRoleToPolarRole:
-      organizationOptions.mapBetterAuthRoleToPolarRole,
+    mapBetterAuthRoleToRepalisRole:
+      organizationOptions.mapBetterAuthRoleToRepalisRole,
   }
 
   const syncCreatedOrganization = async (data: AfterCreateOrganizationData) => {
@@ -132,7 +132,7 @@ export const installOrganizationHooks = (
     const isInitialCreator =
       members.length === 1 && members[0]?.userId === data.member.userId
 
-    // afterCreateOrganization mirrors the creator as the Polar team owner.
+    // afterCreateOrganization mirrors the creator as the Repalis team owner.
     if (isInitialCreator) return
 
     await syncMember(data)

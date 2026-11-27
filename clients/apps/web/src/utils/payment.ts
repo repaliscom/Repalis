@@ -1,5 +1,5 @@
-import { schemas } from '@polar-sh/client'
-import type { StatusColor } from '@polar-sh/orbit'
+import { schemas } from '@repalis/client'
+import type { StatusColor } from '@repalis/orbit'
 
 type PaymentDisplayStatus = schemas['PaymentStatus'] | 'blocked'
 
@@ -38,12 +38,12 @@ export const getPaymentDisplayStatus = (
 ): PaymentDisplayStatus =>
   isBlockedPayment(payment) ? 'blocked' : payment.status
 
-// Radar rules are Polar's, not the merchant's, so Stripe's "One of your rules…" is misleading.
+// Radar rules are Repalis's, not the merchant's, so Stripe's "One of your rules…" is misleading.
 export const getPaymentDeclineMessage = (
   payment: schemas['Payment'],
 ): string | null => {
   if (payment.decline_reason === 'rule') {
-    return 'Polar blocked this payment because of suspicious activity.'
+    return 'Repalis blocked this payment because of suspicious activity.'
   }
   return payment.decline_message || payment.decline_reason
 }

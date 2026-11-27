@@ -3,9 +3,9 @@ from datetime import UTC, datetime
 import pytest
 from pytest_mock import MockerFixture
 
-from polar.enums import TaxBehaviorOption, TaxProcessor
-from polar.kit.address import Address, CountryAlpha2
-from polar.tax.calculation import InvalidAddressError, TaxCode, tax_calculation
+from repalis.enums import TaxBehaviorOption, TaxProcessor
+from repalis.kit.address import Address, CountryAlpha2
+from repalis.tax.calculation import InvalidAddressError, TaxCode, tax_calculation
 
 
 @pytest.mark.anyio
@@ -14,7 +14,7 @@ class TestRecord:
         self, mocker: MockerFixture
     ) -> None:
         backfill = mocker.patch(
-            "polar.tax.calculation.numeral_tax_service.backfill",
+            "repalis.tax.calculation.numeral_tax_service.backfill",
             return_value="numeral_transaction",
         )
         address = Address(country=CountryAlpha2("US"))
@@ -64,9 +64,11 @@ class TestCalculate:
         self, mocker: MockerFixture, address: dict[str, str]
     ) -> None:
         numeral_mock = mocker.patch(
-            "polar.tax.calculation.numeral_tax_service.calculate"
+            "repalis.tax.calculation.numeral_tax_service.calculate"
         )
-        stripe_mock = mocker.patch("polar.tax.calculation.stripe_tax_service.calculate")
+        stripe_mock = mocker.patch(
+            "repalis.tax.calculation.stripe_tax_service.calculate"
+        )
 
         with pytest.raises(InvalidAddressError):
             await tax_calculation.calculate(

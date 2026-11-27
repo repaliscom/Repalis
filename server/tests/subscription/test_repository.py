@@ -4,19 +4,19 @@ from decimal import Decimal
 import pytest
 from sqlalchemy import update
 
-from polar.email.deduplication import (
+from repalis.email.deduplication import (
     subscription_renewal_reminder_key,
     subscription_trial_conversion_reminder_key,
 )
-from polar.enums import EmailSender, SubscriptionRecurringInterval
-from polar.kit.utils import utc_now
-from polar.models import Customer, Meter, Organization, Product
-from polar.models.customer_seat import SeatStatus
-from polar.models.email_log import EmailLog, EmailLogStatus
-from polar.models.subscription import Subscription, SubscriptionStatus
-from polar.postgres import AsyncSession
-from polar.product.guard import is_metered_unit_price
-from polar.subscription.repository import (
+from repalis.enums import EmailSender, SubscriptionRecurringInterval
+from repalis.kit.utils import utc_now
+from repalis.models import Customer, Meter, Organization, Product
+from repalis.models.customer_seat import SeatStatus
+from repalis.models.email_log import EmailLog, EmailLogStatus
+from repalis.models.subscription import Subscription, SubscriptionStatus
+from repalis.postgres import AsyncSession
+from repalis.product.guard import is_metered_unit_price
+from repalis.subscription.repository import (
     SubscriptionProductPriceRepository,
     SubscriptionRepository,
 )
@@ -332,7 +332,7 @@ async def _create_sent_reminder_log(
         status=status,
         processor=EmailSender.resend,
         to_email_addr="customer@example.com",
-        from_email_addr="acme@polar.sh",
+        from_email_addr="acme@repalis.com",
         from_name="Acme",
         subject="Reminder",
         email_template=email_template,

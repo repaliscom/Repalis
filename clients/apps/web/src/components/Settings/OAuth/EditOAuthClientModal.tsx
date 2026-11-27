@@ -1,5 +1,5 @@
 import { ConfirmModal } from '@/components/Modal/ConfirmModal'
-import { InlineModalHeader } from '@polar-sh/orbit'
+import { InlineModalHeader } from '@repalis/orbit'
 import { useModal } from '@/components/Modal/useModal'
 import { toast } from '@/components/Toast/use-toast'
 import {
@@ -8,10 +8,10 @@ import {
   useUpdateOAuth2Client,
 } from '@/hooks/queries/oauth'
 import { extractApiErrorMessage } from '@/utils/api/errors'
-import { schemas } from '@polar-sh/client'
-import { Button } from '@polar-sh/orbit'
-import { ShadowBoxOnMd } from '@polar-sh/ui/components/atoms/ShadowBox'
-import { Form } from '@polar-sh/ui/components/ui/form'
+import { schemas } from '@repalis/client'
+import { Button } from '@repalis/orbit'
+import { ShadowBoxOnMd } from '@repalis/ui/components/atoms/ShadowBox'
+import { Form } from '@repalis/ui/components/ui/form'
 import { useCallback } from 'react'
 import { useForm } from 'react-hook-form'
 import {
@@ -160,7 +160,7 @@ export const EditOAuthClientModal = ({
                   <h3 className="font-medium text-gray-950 dark:text-white">
                     Delete OAuth Application
                   </h3>
-                  <p className="dark:text-polar-500 text-sm text-gray-500">
+                  <p className="dark:text-repalis-500 text-sm text-gray-500">
                     This action will delete the OAuth Application configuration
                     permanently
                   </p>

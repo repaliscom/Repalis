@@ -1,6 +1,6 @@
 """Tests for HTTP metrics middleware.
 
-These tests are isolated from the main Polar infrastructure to avoid
+These tests are isolated from the main Repalis infrastructure to avoid
 database and service connections during unit testing.
 """
 
@@ -35,7 +35,7 @@ class TestMiddlewareASGIBehavior:
 
     async def test_non_http_scope_passthrough(self, prometheus_tmpdir: str) -> None:
         """Test that non-HTTP scopes are passed through without metrics."""
-        from polar.observability.http_middleware import HttpMetricsMiddleware
+        from repalis.observability.http_middleware import HttpMetricsMiddleware
 
         app_called = False
 
@@ -54,7 +54,7 @@ class TestMiddlewareASGIBehavior:
 
     async def test_lifespan_scope_passthrough(self, prometheus_tmpdir: str) -> None:
         """Test that lifespan scopes are passed through without metrics."""
-        from polar.observability.http_middleware import HttpMetricsMiddleware
+        from repalis.observability.http_middleware import HttpMetricsMiddleware
 
         app_called = False
 
@@ -73,7 +73,7 @@ class TestMiddlewareASGIBehavior:
 
     async def test_status_code_capture(self, prometheus_tmpdir: str) -> None:
         """Test that status codes are correctly captured."""
-        from polar.observability.http_middleware import HttpMetricsMiddleware
+        from repalis.observability.http_middleware import HttpMetricsMiddleware
 
         async def mock_app(scope: Scope, receive: Receive, send: Send) -> None:
             await send({"type": "http.response.start", "status": 201})
@@ -104,7 +104,7 @@ class TestMiddlewareASGIBehavior:
         self, prometheus_tmpdir: str
     ) -> None:
         """Test that metrics are recorded even when app raises exception."""
-        from polar.observability.http_middleware import HttpMetricsMiddleware
+        from repalis.observability.http_middleware import HttpMetricsMiddleware
 
         async def mock_app(scope: Scope, receive: Receive, send: Send) -> None:
             raise ValueError("Test exception")
@@ -132,7 +132,7 @@ class TestMiddlewareASGIBehavior:
         self, prometheus_tmpdir: str
     ) -> None:
         """Test that status code defaults to 500 when no response sent."""
-        from polar.observability.http_middleware import HttpMetricsMiddleware
+        from repalis.observability.http_middleware import HttpMetricsMiddleware
 
         # This tests that status_code starts as "500" (line 89 in middleware)
         # and stays that way if app crashes before sending response
@@ -163,7 +163,7 @@ class TestMiddlewareASGIBehavior:
 
     async def test_missing_method_uses_unknown(self, prometheus_tmpdir: str) -> None:
         """Test that missing method in scope results in UNKNOWN."""
-        from polar.observability.http_middleware import HttpMetricsMiddleware
+        from repalis.observability.http_middleware import HttpMetricsMiddleware
 
         async def mock_app(scope: Scope, receive: Receive, send: Send) -> None:
             await send({"type": "http.response.start", "status": 200})
@@ -189,7 +189,7 @@ class TestMiddlewareASGIBehavior:
 
     async def test_various_http_methods(self, prometheus_tmpdir: str) -> None:
         """Test that various HTTP methods are handled correctly."""
-        from polar.observability.http_middleware import HttpMetricsMiddleware
+        from repalis.observability.http_middleware import HttpMetricsMiddleware
 
         async def mock_app(scope: Scope, receive: Receive, send: Send) -> None:
             await send({"type": "http.response.start", "status": 200})
@@ -217,7 +217,7 @@ class TestMiddlewareASGIBehavior:
 
     async def test_various_status_codes(self, prometheus_tmpdir: str) -> None:
         """Test that various status codes are captured correctly."""
-        from polar.observability.http_middleware import HttpMetricsMiddleware
+        from repalis.observability.http_middleware import HttpMetricsMiddleware
 
         status_codes = [200, 201, 204, 301, 400, 401, 403, 404, 500, 502, 503]
 

@@ -20,7 +20,7 @@ export const ImageBand = ({
   children,
 }: PropsWithChildren<ImageBandProps>) => (
   <div
-    className={`dark:border-polar-800 relative flex w-full min-w-0 items-center justify-center overflow-hidden rounded-md border border-gray-200 p-4 md:p-12 ${className}`}
+    className={`dark:border-repalis-800 relative flex w-full min-w-0 items-center justify-center overflow-hidden rounded-md border border-gray-200 p-4 md:p-12 ${className}`}
   >
     <StaticImage
       src={src}
@@ -37,7 +37,7 @@ export const ImageBand = ({
 
 /** The lighter sheet inside a window frame. */
 export const FrameSheet = ({ children }: PropsWithChildren) => (
-  <div className="dark:bg-polar-900 flex min-h-0 w-full min-w-0 flex-1 flex-col overflow-hidden rounded-xl bg-white p-6">
+  <div className="dark:bg-repalis-900 flex min-h-0 w-full min-w-0 flex-1 flex-col overflow-hidden rounded-xl bg-white p-6">
     {children}
   </div>
 )

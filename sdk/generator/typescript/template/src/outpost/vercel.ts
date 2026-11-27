@@ -8,8 +8,8 @@ import { digestOf, jump } from "./jump-hash";
 const AFFINITY_HEADER = "x-vercel-affinity-id";
 const TRUSTED_TOKEN_HEADER = "x-vercel-trusted-oidc-idp-token";
 const OIDC_HEADER = "x-vercel-oidc-token";
-const WARMUP_HEADER = "x-polar-affinity-warmup";
-const NEXT_HEADER = "x-polar-affinity-next";
+const WARMUP_HEADER = "x-repalis-affinity-warmup";
+const NEXT_HEADER = "x-repalis-affinity-next";
 const DEFAULT_SHARDS = 128;
 // A shard moves to a fresh instance this long before Vercel would retire its own.
 const HANDOFF_MS = 60_000;
@@ -31,7 +31,7 @@ export interface VercelAffinityOptions {
   shards?: number;
 }
 
-/** The customer a request is for, by Polar's id or by yours; without one it is not pinned. */
+/** The customer a request is for, by Repalis's id or by yours; without one it is not pinned. */
 export interface VercelAffinityCustomer {
   customerId?: string | null;
   externalCustomerId?: string | null;

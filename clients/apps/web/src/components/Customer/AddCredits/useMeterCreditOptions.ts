@@ -1,7 +1,7 @@
 import { useCustomerMeters } from '@/hooks/queries/customerMeters'
 import { useMeters } from '@/hooks/queries/meters'
 import { useSubscriptions } from '@/hooks/queries/subscriptions'
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 import { getMeterCreditOptions } from './creditPreview'
 
 export const useMeterCreditOptions = (

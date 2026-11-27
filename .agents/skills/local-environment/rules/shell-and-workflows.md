@@ -19,12 +19,12 @@ For one-off commands without an interactive shell, use `exec`:
 
 ```bash
 dev docker exec api uv run alembic current
-dev docker exec db psql -U polar -d polar_dev_<N> -c "SELECT 1"
+dev docker exec db psql -U repalis -d repalis_dev_<N> -c "SELECT 1"
 dev docker exec redis redis-cli -n <N> dbsize
 ```
 
 `exec`/`shell` auto-route by service name: app services hit this instance's
-`polar-app-<N>` project, infra services hit `polar-shared`.
+`repalis-app-<N>` project, infra services hit `repalis-shared`.
 
 ## Useful in-container commands
 
@@ -42,10 +42,10 @@ pnpm test
 pnpm lint
 ```
 
-**db (PostgreSQL):** the database is per-instance, so pass `polar_dev_<N>`, not
-`polar`:
+**db (PostgreSQL):** the database is per-instance, so pass `repalis_dev_<N>`, not
+`repalis`:
 ```bash
-psql -U polar -d polar_dev_<N>
+psql -U repalis -d repalis_dev_<N>
 ```
 
 ## Common workflows
@@ -76,14 +76,14 @@ Backend tests do **not** run in the `dev docker` api container. The suite's
 session-wide `empty_test_bucket` fixture hard-requires S3 at
 `http://127.0.0.1:9000` with `testing`-prefixed buckets, but containers can't
 reach `localhost:9000` on the host — they use `minio:9000` internally with
-per-instance `polar-s3-<N>` buckets. Run backend tests on the host with the
+per-instance `repalis-s3-<N>` buckets. Run backend tests on the host with the
 standard setup in `server/AGENTS.md` (`uv run task test`).
 
 **Database operations:**
 ```bash
 dev docker exec api uv run alembic upgrade head
 dev docker exec api uv run alembic downgrade -1
-dev docker exec db psql -U polar -d polar_dev_<N>
+dev docker exec db psql -U repalis -d repalis_dev_<N>
 ```
 
 Find `<N>` (and the real ports) for the current worktree with `dev docker ports`.

@@ -70,7 +70,7 @@ describe('installPlugin', () => {
   test('adds the marketplace, then installs into Claude Code', async () => {
     const { exec, calls } = fakeExec({
       'claude plugin marketplace list --json': ok([{ name: 'other' }]),
-      'claude plugin marketplace add polarsource/agent-toolkit': ok(),
+      'claude plugin marketplace add repaliscom/agent-toolkit': ok(),
       [`claude plugin install ${claude.plugin}`]: ok(),
       'claude plugin list --json': ok([
         { id: claude.plugin, version: '0.1.0' },
@@ -79,7 +79,7 @@ describe('installPlugin', () => {
     await run(installPlugin(claude, exec, false))
     expect(calls).toEqual([
       'claude plugin marketplace list --json',
-      'claude plugin marketplace add polarsource/agent-toolkit',
+      'claude plugin marketplace add repaliscom/agent-toolkit',
       `claude plugin install ${claude.plugin}`,
       'claude plugin list --json',
     ])
@@ -87,26 +87,26 @@ describe('installPlugin', () => {
 
   test('refreshes the marketplace, then updates an installed plugin', async () => {
     const { exec, calls } = fakeExec({
-      'claude plugin marketplace list --json': ok([{ name: 'polar' }]),
-      'claude plugin marketplace update polar': ok(),
+      'claude plugin marketplace list --json': ok([{ name: 'repalis' }]),
+      'claude plugin marketplace update repalis': ok(),
       [`claude plugin update ${claude.plugin}`]: ok(),
       'claude plugin list --json': ok([{ id: claude.plugin }]),
     })
     await run(installPlugin(claude, exec, true))
-    expect(calls).toContain('claude plugin marketplace update polar')
+    expect(calls).toContain('claude plugin marketplace update repalis')
     expect(calls).toContain(`claude plugin update ${claude.plugin}`)
   })
 
   test('installs into Codex from its official marketplace', async () => {
     const { exec, calls } = fakeExec({
-      'codex plugin add polar@openai-curated-remote': ok(),
+      'codex plugin add repalis@openai-curated-remote': ok(),
       'codex plugin list --json': ok({
-        installed: [{ pluginId: 'polar@openai-curated-remote' }],
+        installed: [{ pluginId: 'repalis@openai-curated-remote' }],
       }),
     })
     await run(installPlugin(codex, exec, false))
     expect(calls).toEqual([
-      'codex plugin add polar@openai-curated-remote',
+      'codex plugin add repalis@openai-curated-remote',
       'codex plugin list --json',
     ])
   })

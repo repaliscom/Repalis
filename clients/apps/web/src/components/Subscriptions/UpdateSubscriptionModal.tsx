@@ -1,8 +1,8 @@
 'use client'
 
-import { schemas } from '@polar-sh/client'
-import { InlineModalHeader } from '@polar-sh/orbit'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@polar-sh/orbit'
+import { schemas } from '@repalis/client'
+import { InlineModalHeader } from '@repalis/orbit'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@repalis/orbit'
 import { UpdateSubscriptionBillingPeriodForm } from './UpdateSubscriptionBillingPeriodForm'
 import { UpdateSubscriptionPlanForm } from './UpdateSubscriptionPlanForm'
 import { UpdateSubscriptionSeatsForm } from './UpdateSubscriptionSeatsForm'

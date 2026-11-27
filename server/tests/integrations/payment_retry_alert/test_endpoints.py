@@ -10,8 +10,8 @@ from pytest_mock import MockerFixture
 from sqlalchemy import select
 from standardwebhooks.webhooks import Webhook as StandardWebhook
 
-from polar.models.external_event import ExternalEvent, ExternalEventSource
-from polar.postgres import AsyncSession
+from repalis.models.external_event import ExternalEvent, ExternalEventSource
+from repalis.postgres import AsyncSession
 
 WEBHOOK_SECRET = base64.b64encode(b"test_payment_retry_alert").decode()
 WEBHOOK_URL = "/v1/integrations/payment-retry-alert/webhook"
@@ -33,7 +33,7 @@ def sign(event: dict[str, Any]) -> tuple[bytes, dict[str, str]]:
 @pytest.fixture(autouse=True)
 def webhook_secret(mocker: MockerFixture) -> None:
     mocker.patch(
-        "polar.integrations.payment_retry_alert.endpoints.settings.PAYMENT_RETRY_ALERT_WEBHOOK_SECRET",
+        "repalis.integrations.payment_retry_alert.endpoints.settings.PAYMENT_RETRY_ALERT_WEBHOOK_SECRET",
         f"whsec_{WEBHOOK_SECRET}",
     )
 

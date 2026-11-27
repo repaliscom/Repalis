@@ -6,10 +6,10 @@ import {
 } from '@/hooks/queries'
 import { CONFIG } from '@/utils/config'
 import useDebounce from '@/utils/useDebounce'
-import { schemas } from '@polar-sh/client'
-import { Button, Input, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import { Label } from '@polar-sh/ui/components/ui/label'
+import { schemas } from '@repalis/client'
+import { Button, Input, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import { Label } from '@repalis/ui/components/ui/label'
 import { useCallback, useEffect, useState } from 'react'
 import { Well } from '../Shared/Well'
 import { SyntaxHighlighterClient } from '../SyntaxHighlighterShiki/SyntaxHighlighterClient'
@@ -233,7 +233,7 @@ const ManifestBlock = ({ manifest }: { manifest: string }) => {
           Copy manifest
         </Button>
       </Box>
-      <Well className="dark:text-polar-500 overflow-x-auto rounded-md p-4 text-xs text-gray-500">
+      <Well className="dark:text-repalis-500 overflow-x-auto rounded-md p-4 text-xs text-gray-500">
         {manifest ? (
           <SyntaxHighlighterClient lang="bash" code={manifest} />
         ) : (

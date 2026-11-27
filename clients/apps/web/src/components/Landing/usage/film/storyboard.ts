@@ -3,7 +3,7 @@ import { SNAP, type Scene } from './scenes'
 
 /**
  * THE STORYBOARD (films/metering-video/src/storyboard.ts, without its soundtrack)
- * Polar Metering, in light, as a loop: warm stone paper, near-black ink, Ether the one accent. The orbit's cloud of
+ * Repalis Metering, in light, as a loop: warm stone paper, near-black ink, Ether the one accent. The orbit's cloud of
  * usage in ink, its event chips riding it, and one square snapping round the frame as a magnifying glass that
  * decodes the chips into what they bill; it grows to half the frame, then the whole, and a curtain comes down over
  * the last two beats with the film's first frame above it, so it loops with no seam.

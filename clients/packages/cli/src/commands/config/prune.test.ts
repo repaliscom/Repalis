@@ -13,7 +13,7 @@ import { keys, runCli, stripAnsi } from '@/utils/test-utils/cli'
 import { fakeAuth, fakeOrganizations } from '@/utils/test-utils/services'
 
 const config: LoadedConfig = {
-  file: 'polar.json',
+  file: 'repalis.json',
   source: '{}',
   input: {
     meters: [{ external_id: 'apples' }],
@@ -55,7 +55,7 @@ const run = async (
   options: Parameters<typeof runCli>[2] = {},
 ) => {
   const removed = vi.fn()
-  const cli = runCli(prune, ['polar.json', ...args], options)
+  const cli = runCli(prune, ['repalis.json', ...args], options)
   const exit = await Effect.runPromiseExit(
     cli.effect.pipe(
       Effect.provideService(
@@ -98,7 +98,7 @@ const message = (exit: Exit.Exit<unknown, unknown>) =>
     ? (Cause.squash(exit.cause) as BillingConfigError).message
     : undefined
 
-describe('polar config prune', () => {
+describe('repalis config prune', () => {
   test('removes only the unused entries with --confirm', async () => {
     const { output, removed, pruned, exit } = await run(
       [apples, beta, legacy],
@@ -119,7 +119,7 @@ describe('polar config prune', () => {
       ),
     )
     expect(output).toContain(
-      'polar.json: 1 entry removed, nothing changed on Polar',
+      'repalis.json: 1 entry removed, nothing changed on Repalis',
     )
   })
 
@@ -128,16 +128,16 @@ describe('polar config prune', () => {
       interactive: true,
       input: [...keys.type('n'), keys.enter],
     })
-    expect(terminal).toContain('Remove 1 entry from polar.json?')
+    expect(terminal).toContain('Remove 1 entry from repalis.json?')
     expect(removed).toBe(0)
-    expect(message(exit)).toBe('Prune cancelled, polar.json unchanged')
+    expect(message(exit)).toBe('Prune cancelled, repalis.json unchanged')
   })
 
   test('needs --confirm when there is no terminal to ask', async () => {
     const { removed, exit } = await run([apples])
     expect(removed).toBe(0)
     expect(message(exit)).toBe(
-      'Confirmation needed to remove entries from polar.json',
+      'Confirmation needed to remove entries from repalis.json',
     )
   })
 
@@ -150,6 +150,6 @@ describe('polar config prune', () => {
 
   test('reports when nothing is deprecated', async () => {
     const { output } = await run([])
-    expect(output).toContain('No deprecated entries in polar.json')
+    expect(output).toContain('No deprecated entries in repalis.json')
   })
 })

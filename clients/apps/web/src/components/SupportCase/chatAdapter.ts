@@ -9,7 +9,7 @@ import {
   getFileMimeType,
 } from '@/components/FileUpload/mimeType'
 import { CONFIG } from '@/utils/config'
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 
 // Mirrors the exact MIME types the backend accepts.
 const ACCEPTED_MIME_TYPES = [

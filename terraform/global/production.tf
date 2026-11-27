@@ -2,13 +2,13 @@
 
 data "tfe_project" "production" {
   name         = "Production"
-  organization = "polar-sh"
+  organization = "repalis"
 }
 
 resource "tfe_variable_set" "production" {
   name              = "Production Settings"
   description       = "Variables specific to the production environment"
-  organization      = "polar-sh"
+  organization      = "repalis"
   parent_project_id = data.tfe_project.production.id
 }
 
@@ -72,7 +72,7 @@ resource "tfe_variable" "backend_chargebackstop_webhook_secret_production" {
   category     = "terraform"
   description  = "ChargebackStop Webhook Secret for production"
   sensitive    = true
-  workspace_id = data.tfe_workspace_ids.aws.ids["polar"]
+  workspace_id = data.tfe_workspace_ids.aws.ids["repalis"]
 
   lifecycle {
     ignore_changes = [value]
@@ -500,10 +500,10 @@ resource "tfe_variable" "tinybird_read_token_production" {
   }
 }
 
-resource "tfe_variable" "polar_access_token_production" {
-  key             = "polar_access_token"
+resource "tfe_variable" "repalis_access_token_production" {
+  key             = "repalis_access_token"
   category        = "terraform"
-  description     = "Polar API access token"
+  description     = "Repalis API access token"
   sensitive       = true
   variable_set_id = tfe_variable_set.production.id
 
@@ -512,10 +512,10 @@ resource "tfe_variable" "polar_access_token_production" {
   }
 }
 
-resource "tfe_variable" "polar_webhook_secret_production" {
-  key             = "polar_webhook_secret"
+resource "tfe_variable" "repalis_webhook_secret_production" {
+  key             = "repalis_webhook_secret"
   category        = "terraform"
-  description     = "Polar webhook secret"
+  description     = "Repalis webhook secret"
   sensitive       = true
   variable_set_id = tfe_variable_set.production.id
 
@@ -524,10 +524,10 @@ resource "tfe_variable" "polar_webhook_secret_production" {
   }
 }
 
-resource "tfe_variable" "polar_organization_id_production" {
-  key             = "polar_organization_id"
+resource "tfe_variable" "repalis_organization_id_production" {
+  key             = "repalis_organization_id"
   category        = "terraform"
-  description     = "Polar organization ID"
+  description     = "Repalis organization ID"
   variable_set_id = tfe_variable_set.production.id
 
   lifecycle {
@@ -535,10 +535,10 @@ resource "tfe_variable" "polar_organization_id_production" {
   }
 }
 
-resource "tfe_variable" "polar_scale_product_id_production" {
-  key             = "polar_scale_product_id"
+resource "tfe_variable" "repalis_scale_product_id_production" {
+  key             = "repalis_scale_product_id"
   category        = "terraform"
-  description     = "Polar Scale-tier product ID for production"
+  description     = "Repalis Scale-tier product ID for production"
   variable_set_id = tfe_variable_set.production.id
 
   lifecycle {
@@ -598,7 +598,7 @@ resource "tfe_variable" "lambda_worker_tailscale_token_production" {
 resource "tfe_variable" "plain_default_tier_external_id_production" {
   key             = "plain_default_tier_external_id"
   category        = "terraform"
-  description     = "Default Plain tier external ID used as a fallback for the polar-self support benefit for production"
+  description     = "Default Plain tier external ID used as a fallback for the repalis-self support benefit for production"
   sensitive       = false
   variable_set_id = tfe_variable_set.production.id
 
@@ -981,7 +981,7 @@ resource "tfe_variable" "redis_private_link_host_production" {
   category     = "terraform"
   description  = "DNS name of the Render private link to the production worker Redis"
   sensitive    = false
-  workspace_id = data.tfe_workspace_ids.aws.ids["polar"]
+  workspace_id = data.tfe_workspace_ids.aws.ids["repalis"]
 
   lifecycle {
     ignore_changes = [value]

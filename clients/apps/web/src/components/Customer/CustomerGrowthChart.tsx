@@ -3,9 +3,9 @@
 import MetricChart from '@/components/Metrics/MetricChart'
 import { ParsedMetricPeriod, useCustomerGrowth } from '@/hooks/queries'
 import { formatHumanFriendlyScalar } from '@/utils/formatters'
-import { schemas } from '@polar-sh/client'
-import { SegmentedControl, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { schemas } from '@repalis/client'
+import { SegmentedControl, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import { useMemo, useState } from 'react'
 
 type GrowthView = 'new_customers' | 'total_customers'

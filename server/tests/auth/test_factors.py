@@ -6,23 +6,23 @@ from reauth.factors.backup_codes import (
     InvalidBackupCodeException,
 )
 
-from polar.auth.factors import BackupCodesFactor, get_org_factors
-from polar.auth.oauth2.state import OAuth2StateService
-from polar.config import settings
-from polar.exceptions import ResourceNotFound
-from polar.kit.crypto import get_token_hash_candidates
-from polar.models import (
+from repalis.auth.factors import BackupCodesFactor, get_org_factors
+from repalis.auth.oauth2.state import OAuth2StateService
+from repalis.config import settings
+from repalis.exceptions import ResourceNotFound
+from repalis.kit.crypto import get_token_hash_candidates
+from repalis.models import (
     BackupCodesEnrollment,
     Organization,
     OrganizationSSOConnection,
     User,
 )
-from polar.models.organization_sso_connection import (
+from repalis.models.organization_sso_connection import (
     OIDCAuthMethod,
     OIDCConfiguration,
     OrganizationSSOConnectionType,
 )
-from polar.postgres import AsyncSession
+from repalis.postgres import AsyncSession
 from tests.fixtures.database import SaveFixture
 
 

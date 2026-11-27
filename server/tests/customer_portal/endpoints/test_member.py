@@ -3,10 +3,10 @@ import uuid
 import pytest
 from httpx2 import AsyncClient
 
-from polar.models import Customer, Member, Organization
-from polar.models.customer import CustomerType
-from polar.models.member import MemberRole
-from polar.postgres import AsyncSession
+from repalis.models import Customer, Member, Organization
+from repalis.models.customer import CustomerType
+from repalis.models.member import MemberRole
+from repalis.postgres import AsyncSession
 from tests.fixtures.auth import (
     CUSTOMER_AUTH_SUBJECT,
     MEMBER_AUTH_SUBJECT,

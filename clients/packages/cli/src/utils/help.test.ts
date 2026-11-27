@@ -19,8 +19,8 @@ const widgets = Command.make('widgets').pipe(
   Command.annotate(EnvironmentVariables, [token]),
   Command.withSubcommands([create, list]),
 )
-const root = Command.make('polar').pipe(
-  Command.withDescription('Polar CLI'),
+const root = Command.make('repalis').pipe(
+  Command.withDescription('Repalis CLI'),
   Command.annotate(EnvironmentVariables, [
     token,
     { name: 'WIDGET_OPTOUT', description: 'Turn off telemetry' },
@@ -46,16 +46,16 @@ describe('--help', () => {
     const output = await help(['--help'])
     expect(output).toContain('USAGE')
     expect(output).toContain('API RESOURCES')
-    expect(output).toMatch(/polar widgets create\s+Create a widget/)
-    expect(output).toMatch(/polar widgets list\s+List widgets/)
+    expect(output).toMatch(/repalis widgets create\s+Create a widget/)
+    expect(output).toMatch(/repalis widgets list\s+List widgets/)
     expect(output).not.toContain('--name')
   })
 
   test('shows the flags of every command under a group, with the global flags once', async () => {
     const output = await help(['widgets', '-h'])
-    expect(output).toContain('polar widgets create')
+    expect(output).toContain('repalis widgets create')
     expect(output).toMatch(/--name string\s+Name of the widget/)
-    expect(output).toContain('polar widgets list')
+    expect(output).toContain('repalis widgets list')
     expect(occurrences(output, 'GLOBAL FLAGS')).toBe(1)
   })
 

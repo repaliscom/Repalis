@@ -71,7 +71,7 @@ PaymentMethodExpirationReminder.PreviewProps = {
   },
   product_names: ['Premium'],
   expiration_date: 'April 2026',
-  url: 'https://polar.sh/acme-inc/portal/settings',
+  url: 'https://repalis.com/acme-inc/portal/settings',
 }
 
 export default PaymentMethodExpirationReminder

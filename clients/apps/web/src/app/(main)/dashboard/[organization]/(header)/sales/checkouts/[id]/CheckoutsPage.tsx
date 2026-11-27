@@ -8,10 +8,10 @@ import { paymentDeclineReasonColumns } from '@/components/PaymentStatus/paymentD
 import { ProductListItem } from '@/components/Products/ProductListItem'
 import { useCustomer } from '@/hooks/queries/customers'
 import { usePayments } from '@/hooks/queries/payments'
-import { schemas } from '@polar-sh/client'
-import { DataTable } from '@polar-sh/orbit'
-import FormattedDateTime from '@polar-sh/ui/components/atoms/FormattedDateTime'
-import { List } from '@polar-sh/orbit'
+import { schemas } from '@repalis/client'
+import { DataTable } from '@repalis/orbit'
+import FormattedDateTime from '@repalis/ui/components/atoms/FormattedDateTime'
+import { List } from '@repalis/orbit'
 import React from 'react'
 
 interface ClientPageProps {
@@ -34,7 +34,7 @@ const ClientPage: React.FC<ClientPageProps> = ({ organization, checkout }) => {
           <div className="flex flex-row items-center gap-4">
             <h2 className="text-xl">Checkout</h2>
           </div>
-          <span className="dark:text-polar-500 font-mono text-sm text-gray-500">
+          <span className="dark:text-repalis-500 font-mono text-sm text-gray-500">
             {checkout.id}
           </span>
         </div>

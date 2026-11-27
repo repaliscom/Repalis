@@ -16,7 +16,7 @@ import * as Deliveries from '@/services/deliveries'
 import * as Config from '@/services/config'
 import * as Organizations from '@/services/organizations'
 import * as OAuth from '@/services/oauth'
-import * as Polar from '@/services/polar'
+import * as Repalis from '@/services/repalis'
 import * as Telemetry from '@/services/telemetry'
 import * as TokenHandoff from '@/services/token-handoff'
 import * as Trigger from '@/services/trigger'
@@ -26,9 +26,9 @@ import * as Updater from '@/services/updater'
 import * as ui from '@/utils/ui'
 import { VERSION } from '@/version'
 
-const polar = program({ preview: process.env['POLAR_PREVIEW'] === '1' })
+const repalis = program({ preview: process.env['REPALIS_PREVIEW'] === '1' })
 
-const cli = Command.run(polar, {
+const cli = Command.run(repalis, {
   version: VERSION.replace(/^v/, ''),
 })
 
@@ -37,14 +37,14 @@ const oauthLayer = OAuth.layer.pipe(Layer.provide(FetchHttpClient.layer))
 const authLayer = Auth.layer.pipe(
   Layer.provide(Layer.mergeAll(Credentials.layer, oauthLayer, configLayer)),
 )
-const polarLayer = Polar.layer.pipe(Layer.provide(authLayer))
+const repalisLayer = Repalis.layer.pipe(Layer.provide(authLayer))
 const billingConfigLayer = BillingConfig.layer.pipe(
   Layer.provide(
     Layer.mergeAll(BunServices.layer, authLayer, FetchHttpClient.layer),
   ),
 )
 const organizationsLayer = Organizations.layer.pipe(
-  Layer.provide(Layer.mergeAll(authLayer, polarLayer, configLayer)),
+  Layer.provide(Layer.mergeAll(authLayer, repalisLayer, configLayer)),
 )
 const triggerLayer = Trigger.layer.pipe(
   Layer.provide(Layer.mergeAll(authLayer, FetchHttpClient.layer)),
@@ -60,13 +60,13 @@ const telemetryLayer = Telemetry.layer.pipe(
 )
 const services = Layer.mergeAll(
   ApiRuntime.layer.pipe(
-    Layer.provide(Layer.mergeAll(polarLayer, organizationsLayer)),
+    Layer.provide(Layer.mergeAll(repalisLayer, organizationsLayer)),
   ),
   agentSetupLayer,
   authLayer,
   billingConfigLayer,
   Deliveries.layer,
-  polarLayer,
+  repalisLayer,
   organizationsLayer,
   triggerLayer,
   TokenHandoff.layer,
@@ -102,7 +102,7 @@ const instrumented = Effect.gen(function* () {
     Effect.tapCause(reportError),
     Effect.onExit((exit) =>
       telemetry.record({
-        command: Telemetry.commandPath(polar, args),
+        command: Telemetry.commandPath(repalis, args),
         flags,
         ...Telemetry.outcomeOf(exit, flags),
         durationMs: performance.now() - startedAt,

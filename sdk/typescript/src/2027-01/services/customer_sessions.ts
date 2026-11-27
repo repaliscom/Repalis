@@ -19,9 +19,9 @@ export const createCustomerSessions = (client: ClientBase) => {
    * @param body - Request body
    * @param requestOptions - Request options
    * @returns {CustomerSession}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    * @throws {AmbiguousExternalCustomerID} The external customer ID matches customers in several accessible organizations.
    * @throws {HTTPValidationError} Validation Error
    */

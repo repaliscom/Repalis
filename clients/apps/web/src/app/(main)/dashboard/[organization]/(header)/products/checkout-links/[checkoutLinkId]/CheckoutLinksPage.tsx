@@ -10,16 +10,16 @@ import { useDeleteCheckoutLink } from '@/hooks/queries'
 import { extractApiErrorMessage } from '@/utils/api/errors'
 import { permissionDeniedMessage } from '@/utils/permissions'
 import { usePushRouteWithoutCache } from '@/utils/router'
-import { MoreVertOutlined } from '@polar-sh/orbit/icons'
-import { schemas } from '@polar-sh/client'
-import { Button, Text, Truncated } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { MoreVertOutlined } from '@repalis/orbit/icons'
+import { schemas } from '@repalis/client'
+import { Button, Text, Truncated } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@polar-sh/ui/components/ui/dropdown-menu'
+} from '@repalis/ui/components/ui/dropdown-menu'
 import React from 'react'
 
 interface ClientPageProps {
@@ -91,7 +91,7 @@ const ClientPage: React.FC<ClientPageProps> = ({
               </DropdownMenuTrigger>
               <DropdownMenuContent
                 align="end"
-                className="dark:bg-polar-800 bg-gray-50 shadow-lg"
+                className="dark:bg-repalis-800 bg-gray-50 shadow-lg"
               >
                 <DropdownMenuItem
                   destructive

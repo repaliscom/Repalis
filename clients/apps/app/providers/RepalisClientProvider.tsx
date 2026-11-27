@@ -1,0 +1,68 @@
+import { refreshMiddleware } from '@/auth/refreshMiddleware'
+import { Client, createClient } from '@repalis/client'
+import Constants from 'expo-constants'
+import * as Updates from 'expo-updates'
+import {
+  createContext,
+  useContext,
+  useMemo,
+  type PropsWithChildren,
+} from 'react'
+import { useSession } from './SessionProvider'
+
+export const API_VERSION = '2026-10'
+
+// `version` is the human-readable marketing version, but it relies on a
+// developer manually bumping it. `runtimeVersion` (the fingerprint) and
+// `updateId` update automatically on every build/OTA, so they're the reliable
+// signal for "which exact build is calling this endpoint". `updateId` is null
+// on an embedded launch (fresh install before any OTA, or in dev).
+const CLIENT_VERSION_HEADERS = {
+  'X-Repalis-Client-Version': `mobile/${Constants.expoConfig?.version ?? 'unknown'}`,
+  'X-Repalis-Client-Runtime': Updates.runtimeVersion ?? 'unknown',
+  'X-Repalis-Client-Update': Updates.updateId ?? 'embedded',
+  'Repalis-Version': API_VERSION,
+}
+
+const RepalisClientContext = createContext<{
+  repalis: Client
+}>({
+  repalis: createClient(
+    process.env.EXPO_PUBLIC_REPALIS_SERVER_URL ?? 'https://api.repalis.com',
+    undefined,
+    CLIENT_VERSION_HEADERS,
+  ),
+})
+
+export function useRepalisClient() {
+  const value = useContext(RepalisClientContext)
+  if (process.env.NODE_ENV !== 'production') {
+    if (!value) {
+      throw new Error(
+        'useRepalisClient must be wrapped in a <RepalisClientProvider />',
+      )
+    }
+  }
+  return value
+}
+
+export function RepalisClientProvider({ children }: PropsWithChildren) {
+  const { session } = useSession()
+
+  const repalis = useMemo(() => {
+    const client = createClient(
+      process.env.EXPO_PUBLIC_REPALIS_SERVER_URL ?? 'https://api.repalis.com',
+      session ?? '',
+      CLIENT_VERSION_HEADERS,
+    )
+    client.use(refreshMiddleware)
+    return client
+  }, [session])
+
+  return (
+    <RepalisClientContext.Provider value={{ repalis }}>
+      {children}
+    </RepalisClientContext.Provider>
+  )
+}
+

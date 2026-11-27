@@ -4,10 +4,10 @@ import {
   useCustomerOrderConfirmPayment,
   useCustomerOrderPaymentStatus,
 } from '@/hooks/queries/customerPortal'
-import { type Client, schemas } from '@polar-sh/client'
-import { formatCurrency } from '@polar-sh/currency'
-import { Button } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { type Client, schemas } from '@repalis/client'
+import { formatCurrency } from '@repalis/currency'
+import { Button } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import { PortalText } from './PortalPrimitives'
 import { PaymentElement } from '@stripe/react-stripe-js'
 import {
@@ -16,7 +16,7 @@ import {
   StripeElements,
   StripeError,
 } from '@stripe/stripe-js'
-import { LoaderCircle as Loader2 } from '@polar-sh/orbit/icons'
+import { LoaderCircle as Loader2 } from '@repalis/orbit/icons'
 import { useCallback, useEffect, useRef, useState } from 'react'
 
 interface OrderPaymentRetryProps {

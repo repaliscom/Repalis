@@ -22,11 +22,11 @@ import {
 } from '@/hooks/useFlaggedProductName'
 import { api } from '@/utils/client'
 import { usePostHog } from '@/hooks/posthog'
-import { isValidationError, schemas } from '@polar-sh/client'
+import { isValidationError, schemas } from '@repalis/client'
 import * as Sentry from '@sentry/nextjs'
-import { Alert, Button } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import { Form } from '@polar-sh/ui/components/ui/form'
+import { Alert, Button } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import { Form } from '@repalis/ui/components/ui/form'
 import { useRouter } from 'next/navigation'
 import { useCallback, useMemo, useState } from 'react'
 import type { FieldErrors } from 'react-hook-form'
@@ -273,7 +273,7 @@ export const CreateProductPage = ({
         ) : undefined
       }
     >
-      <div className="dark:border-polar-700 dark:divide-polar-700 flex flex-col divide-y divide-gray-200 rounded-4xl border border-gray-200">
+      <div className="dark:border-repalis-700 dark:divide-repalis-700 flex flex-col divide-y divide-gray-200 rounded-4xl border border-gray-200">
         <Form {...form}>
           <form
             onSubmit={handleSubmit(onSubmit, onInvalid)}
@@ -303,7 +303,7 @@ export const CreateProductPage = ({
         {flaggedPhrase && (
           <Alert
             variant="warning"
-            title="This product may not be allowed on Polar"
+            title="This product may not be allowed on Repalis"
             description={
               <>
                 {flaggedPhrase.phrase
@@ -311,14 +311,14 @@ export const CreateProductPage = ({
                   : 'The name suggests'}{' '}
                 {flaggedPhrase.category}, which is not permitted under our{' '}
                 <a
-                  href="https://polar.sh/legal/acceptable-use-policy"
+                  href="https://repalis.com/legal/acceptable-use-policy"
                   className="underline"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
                   Acceptable Use Policy
                 </a>
-                . Polar is a Merchant of Record for digital products only.
+                . Repalis is a Merchant of Record for digital products only.
               </>
             }
           />

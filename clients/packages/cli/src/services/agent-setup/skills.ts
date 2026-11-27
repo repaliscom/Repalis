@@ -7,7 +7,7 @@ import {
   type SkillsStatus,
 } from '@/schemas/AgentSetup'
 
-export const TOOLKIT_REPOSITORY = 'polarsource/agent-toolkit'
+export const TOOLKIT_REPOSITORY = 'repaliscom/agent-toolkit'
 const BRANCH = 'main'
 export const TREE_URL = `https://api.github.com/repos/${TOOLKIT_REPOSITORY}/git/trees/${BRANCH}?recursive=1`
 export const fileUrl = (file: string) =>
@@ -68,7 +68,7 @@ export const fetchSkills = Effect.gen(function* () {
   Effect.mapError(
     (cause) =>
       new AgentSetupError({
-        message: 'Could not fetch the Polar skills from GitHub',
+        message: 'Could not fetch the Repalis skills from GitHub',
         hint: cause.message,
       }),
   ),
@@ -77,7 +77,7 @@ export const fetchSkills = Effect.gen(function* () {
     orElse: () =>
       Effect.fail(
         new AgentSetupError({
-          message: 'Could not fetch the Polar skills from GitHub',
+          message: 'Could not fetch the Repalis skills from GitHub',
           hint: 'GitHub did not respond within 15s.',
         }),
       ),
@@ -205,7 +205,7 @@ export const writeSkills = (directory: string, skills: ReadonlyArray<Skill>) =>
     Effect.mapError(
       (cause) =>
         new AgentSetupError({
-          message: `Could not install the Polar skills into ${directory}`,
+          message: `Could not install the Repalis skills into ${directory}`,
           hint: cause.message,
         }),
     ),

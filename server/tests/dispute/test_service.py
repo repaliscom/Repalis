@@ -5,31 +5,31 @@ from unittest.mock import AsyncMock, MagicMock
 import pytest
 from pytest_mock import MockerFixture
 
-from polar.benefit.grant.service import BenefitGrantService
-from polar.customer_seat.service import SeatService
-from polar.dispute.dispute_case import dispute_case as dispute_case_service
-from polar.dispute.service import (
+from repalis.benefit.grant.service import BenefitGrantService
+from repalis.customer_seat.service import SeatService
+from repalis.dispute.dispute_case import dispute_case as dispute_case_service
+from repalis.dispute.service import (
     DisputeAlertTransactionNotLinkedError,
     DisputeNotOpenError,
     DisputePaymentNotFoundError,
 )
-from polar.dispute.service import dispute as dispute_service
-from polar.enums import PaymentProcessor, TaxProcessor
-from polar.integrations.chargeback_stop.types import ChargebackStopAlert
-from polar.models import Customer, Dispute, Organization, Product, User
-from polar.models.dispute import DisputeAlertProcessor, DisputeStatus
-from polar.models.support_case import (
+from repalis.dispute.service import dispute as dispute_service
+from repalis.enums import PaymentProcessor, TaxProcessor
+from repalis.integrations.chargeback_stop.types import ChargebackStopAlert
+from repalis.models import Customer, Dispute, Organization, Product, User
+from repalis.models.dispute import DisputeAlertProcessor, DisputeStatus
+from repalis.models.support_case import (
     DisputeSupportCase,
     SupportCaseMessageAuthorKind,
     SupportCaseMessageType,
     SupportCaseType,
 )
-from polar.postgres import AsyncSession
-from polar.refund.service import RefundService
-from polar.support_case.repository import SupportCaseMessageRepository
-from polar.support_case.schemas import DisputeSupportCaseMessageCreate
-from polar.tax.calculation.base import AlreadyRevertedError
-from polar.transaction.service.dispute import (
+from repalis.postgres import AsyncSession
+from repalis.refund.service import RefundService
+from repalis.support_case.repository import SupportCaseMessageRepository
+from repalis.support_case.schemas import DisputeSupportCaseMessageCreate
+from repalis.tax.calculation.base import AlreadyRevertedError
+from repalis.transaction.service.dispute import (
     DisputeTransactionAlreadyExistsError,
     DisputeTransactionService,
 )
@@ -55,25 +55,25 @@ from tests.fixtures.stripe import (
 @pytest.fixture
 def dispute_transaction_service_mock(mocker: MockerFixture) -> MagicMock:
     return mocker.patch(
-        "polar.dispute.service.dispute_transaction_service",
+        "repalis.dispute.service.dispute_transaction_service",
         spec=DisputeTransactionService,
     )
 
 
 @pytest.fixture
 def refund_service_mock(mocker: MockerFixture) -> MagicMock:
-    return mocker.patch("polar.dispute.service.refund_service", spec=RefundService)
+    return mocker.patch("repalis.dispute.service.refund_service", spec=RefundService)
 
 
 @pytest.fixture
 def customer_seat_service_mock(mocker: MockerFixture) -> MagicMock:
-    return mocker.patch("polar.dispute.service.customer_seat_service", spec=SeatService)
+    return mocker.patch("repalis.dispute.service.customer_seat_service", spec=SeatService)
 
 
 @pytest.fixture
 def benefit_grant_service_mock(mocker: MockerFixture) -> MagicMock:
     return mocker.patch(
-        "polar.dispute.service.benefit_grant_service", spec=BenefitGrantService
+        "repalis.dispute.service.benefit_grant_service", spec=BenefitGrantService
     )
 
 
@@ -618,7 +618,7 @@ class TestUpsertFromStripe:
         )
 
         mocker.patch(
-            "polar.refund.service.tax_calculation_service.revert",
+            "repalis.refund.service.tax_calculation_service.revert",
             side_effect=AlreadyRevertedError(),
         )
 
@@ -1130,7 +1130,7 @@ class TestUpsertFromChargebackStop:
             id=payment_intent_id, latest_charge=charge_id
         )
         mocker.patch(
-            "polar.dispute.service.stripe_service.get_payment_intent",
+            "repalis.dispute.service.stripe_service.get_payment_intent",
             return_value=payment_intent,
         )
 
@@ -1175,7 +1175,7 @@ class TestUpsertFromChargebackStop:
             id=payment_intent_id, latest_charge=charge_id
         )
         mocker.patch(
-            "polar.dispute.service.stripe_service.get_payment_intent",
+            "repalis.dispute.service.stripe_service.get_payment_intent",
             return_value=payment_intent,
         )
 
@@ -1220,7 +1220,7 @@ class TestUpsertFromChargebackStop:
             id=payment_intent_id, latest_charge=charge_id
         )
         mocker.patch(
-            "polar.dispute.service.stripe_service.get_payment_intent",
+            "repalis.dispute.service.stripe_service.get_payment_intent",
             return_value=payment_intent,
         )
 
@@ -1264,7 +1264,7 @@ class TestUpsertFromChargebackStop:
             id=payment_intent_id, latest_charge=charge_id
         )
         mocker.patch(
-            "polar.dispute.service.stripe_service.get_payment_intent",
+            "repalis.dispute.service.stripe_service.get_payment_intent",
             return_value=payment_intent,
         )
 
@@ -1317,7 +1317,7 @@ class TestUpsertFromChargebackStop:
             id=payment_intent_id, latest_charge=charge_id
         )
         mocker.patch(
-            "polar.dispute.service.stripe_service.get_payment_intent",
+            "repalis.dispute.service.stripe_service.get_payment_intent",
             return_value=payment_intent,
         )
 
@@ -1359,7 +1359,7 @@ class TestUpsertFromChargebackStop:
             id=payment_intent_id, latest_charge=charge_id
         )
         mocker.patch(
-            "polar.dispute.service.stripe_service.get_payment_intent",
+            "repalis.dispute.service.stripe_service.get_payment_intent",
             return_value=payment_intent,
         )
 
@@ -1407,7 +1407,7 @@ class TestUpsertFromChargebackStop:
             id=payment_intent_id, latest_charge=charge_id
         )
         mocker.patch(
-            "polar.dispute.service.stripe_service.get_payment_intent",
+            "repalis.dispute.service.stripe_service.get_payment_intent",
             return_value=payment_intent,
         )
 
@@ -1458,7 +1458,7 @@ class TestUpsertFromChargebackStop:
             id=payment_intent_id, latest_charge=charge_id
         )
         mocker.patch(
-            "polar.dispute.service.stripe_service.get_payment_intent",
+            "repalis.dispute.service.stripe_service.get_payment_intent",
             return_value=payment_intent,
         )
         revoke_mock = mocker.patch.object(
@@ -1499,7 +1499,7 @@ class TestUpsertFromChargebackStop:
             id=payment_intent_id, latest_charge=charge_id
         )
         mocker.patch(
-            "polar.dispute.service.stripe_service.get_payment_intent",
+            "repalis.dispute.service.stripe_service.get_payment_intent",
             return_value=payment_intent,
         )
 
@@ -1548,7 +1548,7 @@ class TestUpsertFromChargebackStop:
             id=payment_intent_id, latest_charge=charge_id
         )
         mocker.patch(
-            "polar.dispute.service.stripe_service.get_payment_intent",
+            "repalis.dispute.service.stripe_service.get_payment_intent",
             return_value=payment_intent,
         )
         alert = build_chargeback_stop_alert(
@@ -1596,7 +1596,7 @@ class TestUpsertFromChargebackStop:
             id=payment_intent_id, latest_charge=charge_id
         )
         mocker.patch(
-            "polar.dispute.service.stripe_service.get_payment_intent",
+            "repalis.dispute.service.stripe_service.get_payment_intent",
             return_value=payment_intent,
         )
         alert = build_chargeback_stop_alert(
@@ -1617,7 +1617,7 @@ class TestUpsertFromChargebackStop:
         self, session: AsyncSession, mocker: MockerFixture
     ) -> None:
         get_payment_intent_mock = mocker.patch(
-            "polar.dispute.service.stripe_service.get_payment_intent"
+            "repalis.dispute.service.stripe_service.get_payment_intent"
         )
         alert = build_chargeback_stop_alert(integration_transaction_id=None)
 
@@ -1647,7 +1647,7 @@ class TestAccept:
             session, dispute, organization=organization
         )
 
-        close_mock = mocker.patch("polar.dispute.service.stripe_service.close_dispute")
+        close_mock = mocker.patch("repalis.dispute.service.stripe_service.close_dispute")
         close_mock.return_value = build_stripe_dispute(
             status="lost", balance_transactions=[]
         )
@@ -1681,7 +1681,7 @@ class TestAccept:
         dispute = await create_dispute(
             save_fixture, order, payment, status=DisputeStatus.under_review
         )
-        close_mock = mocker.patch("polar.dispute.service.stripe_service.close_dispute")
+        close_mock = mocker.patch("repalis.dispute.service.stripe_service.close_dispute")
 
         with pytest.raises(DisputeNotOpenError):
             await dispute_service.accept(session, dispute)
@@ -1736,7 +1736,7 @@ def balance_mock(mocker: MockerFixture) -> MagicMock:
     """Account balance the guard reads, in settlement currency."""
     summary = MagicMock()
     summary.balance.amount = 100_000
-    mock = mocker.patch("polar.dispute.service.transaction_service.get_summary")
+    mock = mocker.patch("repalis.dispute.service.transaction_service.get_summary")
     mock.return_value = summary
     return mock
 
@@ -2029,7 +2029,7 @@ class TestAutoAcceptCancelledByReply:
         product: Product,
         balance_mock: MagicMock,
     ) -> None:
-        mocker.patch("polar.dispute.dispute_case.enqueue_job")
+        mocker.patch("repalis.dispute.dispute_case.enqueue_job")
         dispute = await _eligible_dispute(
             save_fixture, organization_with_account, customer, product
         )
@@ -2067,7 +2067,7 @@ class TestAutoAcceptCancelledByReply:
         product: Product,
         balance_mock: MagicMock,
     ) -> None:
-        mocker.patch("polar.dispute.dispute_case.enqueue_job")
+        mocker.patch("repalis.dispute.dispute_case.enqueue_job")
         dispute = await _eligible_dispute(
             save_fixture, organization_with_account, customer, product, threshold=None
         )

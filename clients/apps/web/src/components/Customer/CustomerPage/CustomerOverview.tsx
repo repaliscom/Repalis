@@ -1,7 +1,7 @@
 'use client'
 
-import { schemas } from '@polar-sh/client'
-import { Box } from '@polar-sh/orbit/Box'
+import { schemas } from '@repalis/client'
+import { Box } from '@repalis/orbit/Box'
 import { CustomerBenefitGrantsTable } from './CustomerBenefitGrantsTable'
 import { CustomerDetailsSection } from './CustomerDetailsSection'
 import { CustomerMetricsOverview } from './CustomerMetricsOverview'

@@ -7,12 +7,12 @@ import type {
   OrganizationOptions,
 } from 'better-auth/plugins/organization'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { errors, type models } from '@polar-sh/sdk/2026-10'
+import { errors, type models } from '@repalis/sdk/2026-10'
 import { installOrganizationHooks } from '../../organization/hooks'
-import { createTestPolarOptions } from '../utils/helpers'
-import { createMockPolarClient, createMockUser } from '../utils/mocks'
+import { createTestRepalisOptions } from '../utils/helpers'
+import { createMockRepalisClient, createMockUser } from '../utils/mocks'
 
-type PolarMember = models.Member
+type RepalisMember = models.Member
 const { ResourceNotFound } = errors
 
 const organization: Organization = {
@@ -50,14 +50,14 @@ const teamCustomer: models.CustomerTeam = {
   billing_name: null,
   billing_address: null,
   tax_id: null,
-  organization_id: 'polar-organization-123',
+  organization_id: 'repalis-organization-123',
   deleted_at: null,
   first_user_event_at: null,
   avatar_url: null,
 }
 
-const polarOwner: PolarMember = {
-  id: 'polar-member-123',
+const repalisOwner: RepalisMember = {
+  id: 'repalis-member-123',
   created_at: new Date().toISOString(),
   modified_at: null,
   customer_id: teamCustomer.id,
@@ -67,7 +67,7 @@ const polarOwner: PolarMember = {
   role: 'owner' as const,
 }
 
-const memberPage = (items: PolarMember[]) => ({
+const memberPage = (items: RepalisMember[]) => ({
   items,
   pagination: { total_count: items.length, max_page: 1 },
 })
@@ -119,10 +119,10 @@ const createContext = (
 }
 
 describe('organization hook installation', () => {
-  let client: ReturnType<typeof createMockPolarClient>
+  let client: ReturnType<typeof createMockRepalisClient>
 
   beforeEach(() => {
-    client = createMockPolarClient()
+    client = createMockRepalisClient()
     vi.clearAllMocks()
   })
 
@@ -131,7 +131,7 @@ describe('organization hook installation', () => {
 
     installOrganizationHooks(
       context.ctx,
-      createTestPolarOptions({
+      createTestRepalisOptions({
         client,
         experimental_organizationSync: { enabled: false },
       }),
@@ -151,15 +151,15 @@ describe('organization hook installation', () => {
       .mockResolvedValue(teamCustomer)
     vi.mocked(client.customers.create).mockResolvedValue(teamCustomer)
     vi.mocked(client.customers.members.listExternal).mockResolvedValue(
-      memberPage([polarOwner]),
+      memberPage([repalisOwner]),
     )
     vi.mocked(client.customers.members.getExternal).mockResolvedValue(
-      polarOwner,
+      repalisOwner,
     )
 
     installOrganizationHooks(
       context.ctx,
-      createTestPolarOptions({
+      createTestRepalisOptions({
         client,
         experimental_organizationSync: { enabled: true },
       }),
@@ -176,11 +176,11 @@ describe('organization hook installation', () => {
     expect(client.customers.create).toHaveBeenCalledOnce()
     expect(client.customers.members.listExternal).not.toHaveBeenCalled()
     const applicationCallOrder = applicationHook.mock.invocationCallOrder[0]
-    const polarCallOrder = vi.mocked(client.customers.create).mock
+    const repalisCallOrder = vi.mocked(client.customers.create).mock
       .invocationCallOrder[0]
     expect(applicationCallOrder).toBeDefined()
-    expect(polarCallOrder).toBeDefined()
-    expect(applicationCallOrder).toBeLessThan(polarCallOrder ?? 0)
+    expect(repalisCallOrder).toBeDefined()
+    expect(applicationCallOrder).toBeLessThan(repalisCallOrder ?? 0)
   })
 
   it('does not synchronize when the application hook fails', async () => {
@@ -193,7 +193,7 @@ describe('organization hook installation', () => {
 
     installOrganizationHooks(
       context.ctx,
-      createTestPolarOptions({
+      createTestRepalisOptions({
         client,
         experimental_organizationSync: { enabled: true },
       }),
@@ -220,7 +220,7 @@ describe('organization hook installation', () => {
 
     installOrganizationHooks(
       context.ctx,
-      createTestPolarOptions({
+      createTestRepalisOptions({
         client,
         experimental_organizationSync: { enabled: true },
       }),
@@ -245,7 +245,7 @@ describe('organization hook installation', () => {
 
     installOrganizationHooks(
       context.ctx,
-      createTestPolarOptions({
+      createTestRepalisOptions({
         client,
         experimental_organizationSync: { enabled: true },
       }),
@@ -270,7 +270,7 @@ describe('organization hook installation', () => {
 
     installOrganizationHooks(
       context.ctx,
-      createTestPolarOptions({
+      createTestRepalisOptions({
         client,
         experimental_organizationSync: { enabled: true },
       }),
@@ -309,9 +309,9 @@ describe('organization hook installation', () => {
         { member: invitedMember, user: invitedUser },
       ],
     )
-    const invitedPolarMember = {
-      ...polarOwner,
-      id: 'polar-invited-member',
+    const invitedRepalisMember = {
+      ...repalisOwner,
+      id: 'repalis-invited-member',
       external_id: invitedUser.id,
       email: invitedUser.email,
       name: invitedUser.name,
@@ -320,25 +320,25 @@ describe('organization hook installation', () => {
     let invitedExists = false
     vi.mocked(client.customers.getExternal).mockResolvedValue(teamCustomer)
     vi.mocked(client.customers.members.listExternal).mockResolvedValue(
-      memberPage([polarOwner]),
+      memberPage([repalisOwner]),
     )
     vi.mocked(client.customers.members.getExternal).mockImplementation(
       async (_organizationId, memberExternalId) => {
-        if (memberExternalId === owner.id) return polarOwner
-        if (invitedExists) return invitedPolarMember
+        if (memberExternalId === owner.id) return repalisOwner
+        if (invitedExists) return invitedRepalisMember
         throw notFound()
       },
     )
     vi.mocked(client.customers.members.createExternal).mockImplementation(
       async () => {
         invitedExists = true
-        return invitedPolarMember
+        return invitedRepalisMember
       },
     )
 
     installOrganizationHooks(
       context.ctx,
-      createTestPolarOptions({
+      createTestRepalisOptions({
         client,
         experimental_organizationSync: { enabled: true },
       }),
@@ -379,19 +379,19 @@ describe('organization hook installation', () => {
     )
   })
 
-  it('runs the application role-update hook before Polar synchronization', async () => {
+  it('runs the application role-update hook before Repalis synchronization', async () => {
     const afterUpdateMemberRole = vi.fn()
     const context = createContext({
       organizationHooks: { afterUpdateMemberRole },
     })
     vi.mocked(client.customers.getExternal).mockResolvedValue(teamCustomer)
     vi.mocked(client.customers.members.listExternal).mockResolvedValue(
-      memberPage([polarOwner]),
+      memberPage([repalisOwner]),
     )
 
     installOrganizationHooks(
       context.ctx,
-      createTestPolarOptions({
+      createTestRepalisOptions({
         client,
         experimental_organizationSync: { enabled: true },
       }),
@@ -411,7 +411,7 @@ describe('organization hook installation', () => {
     )
   })
 
-  it('runs the application removal hook before deleting the Polar member', async () => {
+  it('runs the application removal hook before deleting the Repalis member', async () => {
     const afterRemoveMember = vi.fn()
     const departingUser = createMockUser({ id: 'departing-user' })
     const departingMember: Member = {
@@ -426,7 +426,7 @@ describe('organization hook installation', () => {
     })
     vi.mocked(client.customers.getExternal).mockResolvedValue(teamCustomer)
     vi.mocked(client.customers.members.listExternal).mockResolvedValue(
-      memberPage([polarOwner]),
+      memberPage([repalisOwner]),
     )
     vi.mocked(client.customers.members.deleteExternal).mockResolvedValue(
       undefined,
@@ -434,7 +434,7 @@ describe('organization hook installation', () => {
 
     installOrganizationHooks(
       context.ctx,
-      createTestPolarOptions({
+      createTestRepalisOptions({
         client,
         experimental_organizationSync: { enabled: true },
       }),

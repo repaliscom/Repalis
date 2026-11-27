@@ -1,5 +1,5 @@
-import { schemas } from '@polar-sh/client'
-import { formatDate } from '@polar-sh/i18n/formatters/date'
+import { schemas } from '@repalis/client'
+import { formatDate } from '@repalis/i18n/formatters/date'
 
 type MigrationRecord = schemas['MerchantMigrationRecordItem']
 

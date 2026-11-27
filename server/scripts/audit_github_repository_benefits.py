@@ -7,24 +7,24 @@ from uuid import UUID
 import typer
 from githubkit.exception import GitHubException
 
-from polar.benefit.grant.repository import BenefitGrantRepository
-from polar.benefit.repository import BenefitRepository
-from polar.benefit.strategies.github_repository.properties import (
+from repalis.benefit.grant.repository import BenefitGrantRepository
+from repalis.benefit.repository import BenefitRepository
+from repalis.benefit.strategies.github_repository.properties import (
     BenefitGitHubRepositoryProperties,
 )
-from polar.integrations.github import client as github
-from polar.integrations.github_repository_benefit.service import (
+from repalis.integrations.github import client as github
+from repalis.integrations.github_repository_benefit.service import (
     GitHubRepositoryInstallationError,
     github_repository_benefit_user_service,
 )
-from polar.kit.db.postgres import (  # lint-skip: dry-run
+from repalis.kit.db.postgres import (  # lint-skip: dry-run
     AsyncReadSession,
     create_async_sessionmaker,
 )
-from polar.models import Benefit
-from polar.models.benefit import BenefitType
-from polar.organization.repository import OrganizationRepository
-from polar.postgres import create_async_engine
+from repalis.models import Benefit
+from repalis.models.benefit import BenefitType
+from repalis.organization.repository import OrganizationRepository
+from repalis.postgres import create_async_engine
 
 from .helper import configure_script_logging, typer_async
 
@@ -212,7 +212,7 @@ def print_report(
 @cli.command()
 @typer_async
 async def audit(
-    organization_id: UUID = typer.Argument(..., help="Polar organization UUID"),
+    organization_id: UUID = typer.Argument(..., help="Repalis organization UUID"),
 ) -> None:
     """Audit GitHub collaborators against active repository benefit grants."""
     configure_script_logging()

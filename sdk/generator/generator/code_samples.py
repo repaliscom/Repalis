@@ -306,7 +306,7 @@ def generate_code_samples_overlay(
     return {
         "overlay": "1.1.0",
         "info": {
-            "title": f"Polar {api.version} SDK code samples",
+            "title": f"Repalis {api.version} SDK code samples",
             "version": sdk_version,
         },
         "actions": actions,

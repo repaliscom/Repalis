@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
-vi.mock('@polar-sh/i18n', () => {
+vi.mock('@repalis/i18n', () => {
   const SUPPORTED_LOCALES: readonly string[] = ['en', 'fr', 'nl', 'zh-TW']
   return {
     DEFAULT_LOCALE: 'en',

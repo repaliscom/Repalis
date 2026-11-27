@@ -68,7 +68,7 @@ export const captureToolCall = (entry: RequestLogEntry) => {
     $mcp_client_name: entry.client?.name ?? product?.[1],
     $mcp_client_version: entry.client?.version ?? product?.[2],
     user_agent: entry.userAgent,
-    $mcp_server_name: 'polar',
+    $mcp_server_name: 'repalis',
     $mcp_server_version: version,
     server: entry.server,
     mode: entry.mode,

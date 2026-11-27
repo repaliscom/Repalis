@@ -18,9 +18,9 @@ export const listDiscounts = (client: ClientBase) => {
    * @param query - Query parameters
    * @param requestOptions - Request options
    * @returns {ListResourceDiscount}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    * @throws {HTTPValidationError} Validation Error
    */
   return async (
@@ -64,9 +64,9 @@ export const listDiscounts = (client: ClientBase) => {
  * @param query - Query parameters
  * @param requestOptions - Request options
  * @returns {AsyncGenerator<Discount>} A generator that yields items of type Discount.
- * @throws {PolarNetworkError} When a network error occurs
- * @throws {PolarRateLimitError} When the rate limit is exceeded
- * @throws {PolarServerError} When the server returns a 5xx error
+ * @throws {RepalisNetworkError} When a network error occurs
+ * @throws {RepalisRateLimitError} When the rate limit is exceeded
+ * @throws {RepalisServerError} When the server returns a 5xx error
  * @throws {HTTPValidationError} Validation Error
  */
 export const iterListDiscounts = (client: ClientBase) => {
@@ -107,9 +107,9 @@ export const createDiscounts = (client: ClientBase) => {
    * @param body - Request body
    * @param requestOptions - Request options
    * @returns {Discount}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    * @throws {HTTPValidationError} Validation Error
    */
   return async (body: DiscountCreate, requestOptions?: RequestOptions): Promise<Discount> => {
@@ -131,9 +131,9 @@ export const getDiscounts = (client: ClientBase) => {
    * @param id - The discount ID.
    * @param requestOptions - Request options
    * @returns {Discount}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    * @throws {ResourceNotFound} Discount not found.
    * @throws {HTTPValidationError} Validation Error
    */
@@ -165,9 +165,9 @@ export const deleteDiscounts = (client: ClientBase) => {
    * @param id - The discount ID.
    * @param requestOptions - Request options
    * @returns {void}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    * @throws {ResourceNotFound} Discount not found.
    * @throws {HTTPValidationError} Validation Error
    */
@@ -200,9 +200,9 @@ export const updateDiscounts = (client: ClientBase) => {
    * @param body - Request body
    * @param requestOptions - Request options
    * @returns {Discount}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    * @throws {ResourceNotFound} Discount not found.
    * @throws {HTTPValidationError} Validation Error
    */

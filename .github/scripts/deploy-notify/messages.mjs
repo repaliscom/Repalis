@@ -69,10 +69,10 @@ function environmentJobs(jobs, environment) {
 
 function environmentLines(run, environment, jobs) {
   const { backend, build, promotion, lambda } = environmentJobs(jobs, environment);
-  const logfire = new URL('https://logfire-us.pydantic.dev/polar/polar/');
+  const logfire = new URL('https://logfire-us.pydantic.dev/repalis/repalis/');
   logfire.searchParams.set('q', `deployment_environment = '${environment}'`);
   logfire.searchParams.set('since', run.run_started_at);
-  const sentry = new URL('https://polar-sh.sentry.io/issues/');
+  const sentry = new URL('https://repalis.sentry.io/issues/');
   sentry.searchParams.set('environment', environment);
   return [
     `*${environment}*`,

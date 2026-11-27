@@ -27,7 +27,7 @@ vi.mock('@/hooks/queries/merchantMigrations', () => ({
   }),
 }))
 
-vi.mock('@polar-sh/orbit', () => ({
+vi.mock('@repalis/orbit', () => ({
   Alert: ({
     title,
     description,
@@ -84,7 +84,7 @@ vi.mock('@polar-sh/orbit', () => ({
   Text: ({ children }: { children: ReactNode }) => <span>{children}</span>,
 }))
 
-vi.mock('@polar-sh/orbit/Box', () => ({
+vi.mock('@repalis/orbit/Box', () => ({
   Box: ({
     children,
     as: Tag = 'div',

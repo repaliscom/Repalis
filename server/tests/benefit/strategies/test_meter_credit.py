@@ -3,17 +3,17 @@ from uuid import uuid4
 
 import pytest
 
-from polar.auth.models import AuthSubject
-from polar.benefit.grant.service import benefit_grant as benefit_grant_service
-from polar.benefit.strategies.base.service import BenefitPropertiesValidationError
-from polar.benefit.strategies.meter_credit.service import BenefitMeterCreditService
-from polar.customer_meter.repository import CustomerMeterRepository
-from polar.customer_meter.service import customer_meter as customer_meter_service
-from polar.event.system import SystemEvent
-from polar.kit.utils import utc_now
-from polar.meter.aggregation import AggregationFunction, PropertyAggregation
-from polar.meter.filter import Filter, FilterClause, FilterConjunction, FilterOperator
-from polar.models import (
+from repalis.auth.models import AuthSubject
+from repalis.benefit.grant.service import benefit_grant as benefit_grant_service
+from repalis.benefit.strategies.base.service import BenefitPropertiesValidationError
+from repalis.benefit.strategies.meter_credit.service import BenefitMeterCreditService
+from repalis.customer_meter.repository import CustomerMeterRepository
+from repalis.customer_meter.service import customer_meter as customer_meter_service
+from repalis.event.system import SystemEvent
+from repalis.kit.utils import utc_now
+from repalis.meter.aggregation import AggregationFunction, PropertyAggregation
+from repalis.meter.filter import Filter, FilterClause, FilterConjunction, FilterOperator
+from repalis.models import (
     Customer,
     Meter,
     Organization,
@@ -22,10 +22,10 @@ from polar.models import (
     User,
     UserOrganization,
 )
-from polar.models.benefit import BenefitType
-from polar.models.event import EventSource
-from polar.postgres import AsyncSession
-from polar.redis import Redis
+from repalis.models.benefit import BenefitType
+from repalis.models.event import EventSource
+from repalis.postgres import AsyncSession
+from repalis.redis import Redis
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (
     create_benefit,

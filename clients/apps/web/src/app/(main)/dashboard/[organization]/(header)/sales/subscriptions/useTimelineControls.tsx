@@ -3,7 +3,7 @@ import {
   type GanttZoomHandle,
 } from '@/components/Subscriptions/Gantt/scale'
 import { useDebouncedCallback } from '@/hooks/utils'
-import { CalendarDays, RotateCcw } from '@polar-sh/orbit/icons'
+import { CalendarDays, RotateCcw } from '@repalis/orbit/icons'
 import { useRef, useState } from 'react'
 import { type ToolbarAction } from '@/components/Shared/Toolbar/ToolbarActionsMenu'
 

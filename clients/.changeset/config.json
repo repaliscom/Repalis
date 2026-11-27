@@ -11,5 +11,5 @@
     "version": true,
     "tag": false
   },
-  "ignore": ["web", "@polar-sh/app"]
+  "ignore": ["web", "@repalis/app"]
 }

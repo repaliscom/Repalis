@@ -1,6 +1,6 @@
-import { schemas } from '@polar-sh/client'
-import { Status, type StatusColor } from '@polar-sh/orbit'
-import { Tooltip, TooltipContent, TooltipTrigger } from '@polar-sh/orbit'
+import { schemas } from '@repalis/client'
+import { Status, type StatusColor } from '@repalis/orbit'
+import { Tooltip, TooltipContent, TooltipTrigger } from '@repalis/orbit'
 
 interface BenefitGrantStatusProps {
   grant: schemas['BenefitGrant']

@@ -1,12 +1,12 @@
 'use client'
 
 import { useLiveCatalog } from '@/hooks/queries/catalogs'
-import { schemas } from '@polar-sh/client'
-import { Text, Tooltip, TooltipContent, TooltipTrigger } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import { LockOutlined } from '@polar-sh/orbit/icons'
-import PolarTimeAgo from '@polar-sh/ui/components/atoms/PolarTimeAgo'
-import { useSidebar } from '@polar-sh/ui/components/atoms/Sidebar'
+import { schemas } from '@repalis/client'
+import { Text, Tooltip, TooltipContent, TooltipTrigger } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import { LockOutlined } from '@repalis/orbit/icons'
+import RepalisTimeAgo from '@repalis/ui/components/atoms/RepalisTimeAgo'
+import { useSidebar } from '@repalis/ui/components/atoms/Sidebar'
 import {
   useGeneralRoutes,
   useOrganizationRoutes,
@@ -31,7 +31,7 @@ const LiveCatalogDetails = ({ catalog }: { catalog: schemas['Catalog'] }) => (
     </Text>
     <Text variant="caption" color="muted">
       Published{' '}
-      <PolarTimeAgo
+      <RepalisTimeAgo
         date={new Date(catalog.published_at ?? catalog.created_at)}
       />
     </Text>

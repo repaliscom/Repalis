@@ -1,8 +1,8 @@
 import pytest
 from httpx2 import AsyncClient
 
-from polar.kit.visibility import Visibility
-from polar.models import Organization, Product
+from repalis.kit.visibility import Visibility
+from repalis.models import Organization, Product
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_benefit, set_product_benefits
 

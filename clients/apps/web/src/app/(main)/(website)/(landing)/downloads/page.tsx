@@ -1,23 +1,23 @@
 import { StaticImage } from '@/components/Image/StaticImage'
 import { Chapter } from '@/components/Landing/Chapter'
 import { Apple, Framer, Google, Raycast } from '@/components/Landing/Logos'
-import { Grid, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { Grid, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import { Metadata } from 'next'
 import Link from 'next/link'
 import type { ReactNode } from 'react'
 
 export const metadata: Metadata = {
   title: 'Downloads',
-  description: 'Use Polar in a variety of different environments',
+  description: 'Use Repalis in a variety of different environments',
   keywords:
     'downloads, ios, android, raycast, framer, binaries, saas, digital products, platform, developer, open source, funding, open source, economy',
   openGraph: {
-    siteName: 'Polar',
+    siteName: 'Repalis',
     type: 'website',
     images: [
       {
-        url: 'https://polar.sh/assets/brand/polar_og.jpg',
+        url: 'https://repalis.com/assets/brand/repalis_og.jpg',
         width: 1200,
         height: 630,
       },
@@ -27,10 +27,10 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     images: [
       {
-        url: 'https://polar.sh/assets/brand/polar_og.jpg',
+        url: 'https://repalis.com/assets/brand/repalis_og.jpg',
         width: 1200,
         height: 630,
-        alt: 'Polar',
+        alt: 'Repalis',
       },
     ],
   },
@@ -45,31 +45,31 @@ interface Download {
 
 const APPS: Download[] = [
   {
-    title: 'Polar for iOS',
+    title: 'Repalis for iOS',
     description: 'Your business in the palm of your hand. Built for iPhone.',
-    href: 'https://apps.apple.com/se/app/polar-monetize-your-software/id6746640471',
+    href: 'https://apps.apple.com/se/app/repalis-monetize-your-software/id6746640471',
     icon: <Apple size={28} />,
   },
   {
-    title: 'Polar for Android',
+    title: 'Repalis for Android',
     description:
-      'The companion app for your business on Polar. Built for Android.',
-    href: 'https://play.google.com/store/apps/details?id=com.polarsource.Polar',
+      'The companion app for your business on Repalis. Built for Android.',
+    href: 'https://play.google.com/store/apps/details?id=com.repalis.app',
     icon: <Google size={28} />,
   },
 ]
 
 const PLUGINS: Download[] = [
   {
-    title: 'Polar for Raycast',
+    title: 'Repalis for Raycast',
     description: 'Your latest orders and customers right at your fingertips.',
-    href: 'https://www.raycast.com/emilwidlund/polar',
+    href: 'https://www.raycast.com/repalis/repalis',
     icon: <Raycast size={28} />,
   },
   {
-    title: 'Polar for Framer',
+    title: 'Repalis for Framer',
     description: 'Flexible checkout components for your Framer projects.',
-    href: 'https://www.framer.com/marketplace/plugins/polar',
+    href: 'https://www.framer.com/marketplace/plugins/repalis',
     icon: <Framer size={28} />,
   },
 ]
@@ -132,7 +132,7 @@ export default function Downloads() {
         >
           <Box flexDirection="column">
             <Text variant="heading-s" as="h1" wrap="balance">
-              Polar in your pocket
+              Repalis in your pocket
             </Text>
             <Text variant="heading-s" as="p" color="muted" wrap="balance">
               Apps and plugins for every platform
@@ -140,8 +140,8 @@ export default function Downloads() {
           </Box>
           <Box position="relative" overflow="hidden" aspectRatio="3 / 2">
             <StaticImage
-              src="/assets/landing/company/polar.jpg"
-              alt="Polar graphic"
+              src="/assets/landing/company/repalis.jpg"
+              alt="Repalis graphic"
               fill
               className="object-cover"
               sizes="(min-width: 1024px) 50vw, 100vw"
@@ -161,7 +161,7 @@ export default function Downloads() {
 
       <Chapter
         name="Plugins"
-        title="Polar in your favourite tools"
+        title="Repalis in your favourite tools"
         subtitle="Raycast and Framer"
       >
         <DownloadGrid items={PLUGINS} />

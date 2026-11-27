@@ -1,5 +1,5 @@
 locals {
-  function_name = "polar-${var.environment}-worker-${var.name}"
+  function_name = "repalis-${var.environment}-worker-${var.name}"
   in_vpc        = length(var.subnet_ids) > 0
 }
 
@@ -129,7 +129,7 @@ data "aws_iam_policy_document" "lambda" {
   statement {
     sid       = "ScheduleRetries"
     actions   = ["scheduler:CreateSchedule"]
-    resources = ["arn:aws:scheduler:*:${data.aws_caller_identity.current.account_id}:schedule/default/polar-retry-*"]
+    resources = ["arn:aws:scheduler:*:${data.aws_caller_identity.current.account_id}:schedule/default/repalis-retry-*"]
   }
 
   statement {
@@ -211,11 +211,11 @@ resource "aws_lambda_function" "task" {
   environment {
     variables = merge(
       var.environment_variables,
-      var.secrets_arn != null ? { POLAR_WORKER_SECRETS_ARN = var.secrets_arn } : {},
-      var.secrets_version_id != null ? { POLAR_WORKER_SECRETS_VERSION = var.secrets_version_id } : {},
-      { POLAR_DATABASE_POOL_SIZE = "1" },
+      var.secrets_arn != null ? { REPALIS_WORKER_SECRETS_ARN = var.secrets_arn } : {},
+      var.secrets_version_id != null ? { REPALIS_WORKER_SECRETS_VERSION = var.secrets_version_id } : {},
+      { REPALIS_DATABASE_POOL_SIZE = "1" },
       { SERVICE_NAME = local.function_name },
-      { POLAR_WORKER_SQS_SCHEDULER_ROLE_ARN = aws_iam_role.scheduler.arn },
+      { REPALIS_WORKER_SQS_SCHEDULER_ROLE_ARN = aws_iam_role.scheduler.arn },
     )
   }
 

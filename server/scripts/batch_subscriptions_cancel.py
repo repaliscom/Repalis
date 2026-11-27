@@ -12,16 +12,16 @@ from pydantic import UUID4
 from rich.progress import Progress
 from sqlalchemy import func, select
 
-from polar import tasks  # noqa: F401
-from polar.kit.db.postgres import create_async_sessionmaker  # lint-skip: dry-run
-from polar.models import Customer, Subscription
-from polar.organization.repository import OrganizationRepository
-from polar.postgres import create_async_engine
-from polar.redis import create_redis
-from polar.subscription.repository import SubscriptionRepository
-from polar.subscription.service import SubscriptionUpdateContext
-from polar.subscription.service import subscription as subscription_service
-from polar.worker import JobQueueManager
+from repalis import tasks  # noqa: F401
+from repalis.kit.db.postgres import create_async_sessionmaker  # lint-skip: dry-run
+from repalis.models import Customer, Subscription
+from repalis.organization.repository import OrganizationRepository
+from repalis.postgres import create_async_engine
+from repalis.redis import create_redis
+from repalis.subscription.repository import SubscriptionRepository
+from repalis.subscription.service import SubscriptionUpdateContext
+from repalis.subscription.service import subscription as subscription_service
+from repalis.worker import JobQueueManager
 
 cli = typer.Typer()
 

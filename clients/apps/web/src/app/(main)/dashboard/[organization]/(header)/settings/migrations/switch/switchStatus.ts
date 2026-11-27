@@ -1,4 +1,4 @@
-import { StatusColor } from '@polar-sh/orbit'
+import { StatusColor } from '@repalis/orbit'
 import { SwitchRow } from './switchRows'
 
 export interface SwitchStatus {

@@ -4,14 +4,14 @@ import pytest
 from httpx2 import AsyncClient
 from pytest_mock import MockerFixture
 
-from polar.auth.models import AuthSubject
-from polar.models import User
+from repalis.auth.models import AuthSubject
+from repalis.models import User
 from tests.fixtures.auth import make_session_stale
 
 
 @pytest.fixture(autouse=True)
 def mock_enqueue_email(mocker: MockerFixture) -> MagicMock:
-    return mocker.patch("polar.email_update.service.enqueue_email_template")
+    return mocker.patch("repalis.email_update.service.enqueue_email_template")
 
 
 @pytest.mark.anyio

@@ -1,4 +1,4 @@
-import { Button } from '@polar-sh/orbit/ui/button'
+import { Button } from '@repalis/orbit/ui/button'
 import { Calendar } from '@/components/ui/calendar'
 import { FormControl } from '@/components/ui/form'
 import {
@@ -7,7 +7,7 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover'
 import { format } from 'date-fns'
-import { CalendarDays } from '@polar-sh/orbit/icons'
+import { CalendarDays } from '@repalis/orbit/icons'
 import { useCallback, useMemo } from 'react'
 import { Matcher } from 'react-day-picker'
 import { twMerge } from 'tailwind-merge'
@@ -40,7 +40,7 @@ const DatePicker: React.FC<DatePickerProps> = (props) => {
           <Button
             variant={'outline'}
             className={twMerge(
-              'dark:bg-polar-800 h-10 w-full justify-start rounded-xl bg-white text-left',
+              'dark:bg-repalis-800 h-10 w-full justify-start rounded-xl bg-white text-left',
               !value && 'text-muted-foreground',
             )}
           >

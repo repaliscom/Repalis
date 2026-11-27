@@ -22,7 +22,7 @@ export const STEPS: StepDefinition[] = [
       'Events, meters, benefits and products live in one typed config. The runtime SDK reads it, so every name below is type-checked.',
     files: [
       {
-        name: 'polar.config.ts',
+        name: 'repalis.config.ts',
         code: `export default defineConfig({
   events: {
     tool_call: z.object({
@@ -62,12 +62,12 @@ export const STEPS: StepDefinition[] = [
 })`,
       },
       {
-        name: 'polar.ts',
-        code: `import { RuntimeSDK } from '@polar-sh/polar'
-import config from './polar.config'
+        name: 'repalis.ts',
+        code: `import { RuntimeSDK } from '@repalis/repalis'
+import config from './repalis.config'
 
-export const polar = RuntimeSDK(config, {
-  accessToken: process.env.POLAR_ACCESS_TOKEN,
+export const repalis = RuntimeSDK(config, {
+  accessToken: process.env.REPALIS_ACCESS_TOKEN,
 })`,
       },
     ],
@@ -84,7 +84,7 @@ export const polar = RuntimeSDK(config, {
         code: `export async function getBalance() {
   const userId = await getUserId()
 
-  const customer = polar.actor({ externalCustomerId: userId }) // !
+  const customer = repalis.actor({ externalCustomerId: userId }) // !
 
   return customer.balance('tool_call') // !
   // → { balance: number, pristine: boolean }
@@ -100,8 +100,8 @@ export const polar = RuntimeSDK(config, {
       'Check the meter balance before doing the work, then track one event per call. Metadata is validated against the event schema.',
     files: [
       {
-        name: 'polar.ts',
-        code: `const customer = polar.actor({ externalCustomerId: userId }) // !
+        name: 'repalis.ts',
+        code: `const customer = repalis.actor({ externalCustomerId: userId }) // !
 
 const { balance } = await customer.balance('tool_call') // !
 if (balance < count) { // !
@@ -127,8 +127,8 @@ await customer.track('tool_call', { // !
       'Custom servers are a flag benefit that only Pro grants. One call answers whether this customer has it right now.',
     files: [
       {
-        name: 'polar.ts',
-        code: `const customer = polar.actor({ externalCustomerId: userId }) // !
+        name: 'repalis.ts',
+        code: `const customer = repalis.actor({ externalCustomerId: userId }) // !
 
 const { granted } = await customer.access('custom_servers') // !
 if (!granted) { // !
@@ -154,8 +154,8 @@ await customer.track('tool_call', { // !
       'Reward an action with credits straight from your server. The idempotency key makes it once per customer, however many times it is claimed.',
     files: [
       {
-        name: 'polar.ts',
-        code: `const customer = polar.actor({ externalCustomerId: userId }) // !
+        name: 'repalis.ts',
+        code: `const customer = repalis.actor({ externalCustomerId: userId }) // !
 
 await saveSurveyAnswer(userId, answer)
 

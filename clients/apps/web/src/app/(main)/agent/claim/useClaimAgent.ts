@@ -5,7 +5,7 @@ import { useAuth } from '@/hooks/auth'
 import { usePostHog } from '@/hooks/posthog'
 import { useConfirmAgentClaim } from '@/hooks/queries/agents'
 import { isSessionNotFreshError } from '@/utils/api/errors'
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 import { useCallback, useEffect, useEffectEvent, useRef, useState } from 'react'
 import {
   AGENT_CLAIM_RESUME_PARAM,

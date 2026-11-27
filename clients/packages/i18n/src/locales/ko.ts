@@ -3,18 +3,18 @@ export default {
     footer: {
       poweredBy: 'Powered by',
       merchantOfRecord:
-        '이 주문은 온라인 리셀러이자 Merchant of Record인 Polar가 처리하며, 주문 관련 문의 및 반품도 Polar에서 담당합니다.',
+        '이 주문은 온라인 리셀러이자 Merchant of Record인 Repalis가 처리하며, 주문 관련 문의 및 반품도 Repalis에서 담당합니다.',
       mandateSubscriptionTrial:
-        '"{buttonLabel}"을(를) 클릭하면 당사의 온라인 리셀러이자 공식 판매자인 Polar Software, Inc.가 체험 기간 종료 시 및 취소할 때까지 이후 매 결제일마다 선택한 결제 수단으로 위에 표시된 금액을 청구하는 것에 동의하며, {buyerTermsLink}에 동의하게 됩니다. 결제가 진행되지 않도록 체험 기간 종료 전에 언제든지 취소할 수 있습니다.',
+        '"{buttonLabel}"을(를) 클릭하면 당사의 온라인 리셀러이자 공식 판매자인 Repalis Software, Inc.가 체험 기간 종료 시 및 취소할 때까지 이후 매 결제일마다 선택한 결제 수단으로 위에 표시된 금액을 청구하는 것에 동의하며, {buyerTermsLink}에 동의하게 됩니다. 결제가 진행되지 않도록 체험 기간 종료 전에 언제든지 취소할 수 있습니다.',
       mandateSubscription:
-        '"{buttonLabel}"을(를) 클릭하면 당사의 온라인 리셀러이자 공식 판매자인 Polar Software, Inc.가 선택한 결제 수단으로 위에 표시된 금액을 즉시 청구하고 취소할 때까지 이후 매 결제일마다 동일한 금액을 청구하는 것에 동의하며, {buyerTermsLink}에 동의하게 됩니다.',
+        '"{buttonLabel}"을(를) 클릭하면 당사의 온라인 리셀러이자 공식 판매자인 Repalis Software, Inc.가 선택한 결제 수단으로 위에 표시된 금액을 즉시 청구하고 취소할 때까지 이후 매 결제일마다 동일한 금액을 청구하는 것에 동의하며, {buyerTermsLink}에 동의하게 됩니다.',
       buyerTermsLink: '구매자 약관',
       mandateOneTime:
-        '"{buttonLabel}"을(를) 클릭하면 당사의 온라인 리셀러이자 공식 판매자인 Polar Software, Inc.가 선택하신 결제 수단으로 위에 표시된 금액을 청구하는 것을 승인하며, {buyerTermsLink}에 동의하게 됩니다. 이는 일회성 결제입니다.',
+        '"{buttonLabel}"을(를) 클릭하면 당사의 온라인 리셀러이자 공식 판매자인 Repalis Software, Inc.가 선택하신 결제 수단으로 위에 표시된 금액을 청구하는 것을 승인하며, {buyerTermsLink}에 동의하게 됩니다. 이는 일회성 결제입니다.',
       mandateSubscriptionTrialDiscounted:
-        '"{buttonLabel}"을(를) 클릭하면 귀하는 Polar Software, Inc., 당사의 온라인 리셀러이자 기록상 판매자에게, 체험 기간 종료 시 위에 표시된 할인 금액을 선택한 결제 수단으로 청구하고, 할인 기간 종료 후에는 취소할 때까지 각 결제일마다 정가를 청구하는 것에 동의하며, {buyerTermsLink}에 동의하게 됩니다. 요금이 청구되지 않도록 하려면 체험 기간 종료 전 언제든지 취소할 수 있습니다.',
+        '"{buttonLabel}"을(를) 클릭하면 귀하는 Repalis Software, Inc., 당사의 온라인 리셀러이자 기록상 판매자에게, 체험 기간 종료 시 위에 표시된 할인 금액을 선택한 결제 수단으로 청구하고, 할인 기간 종료 후에는 취소할 때까지 각 결제일마다 정가를 청구하는 것에 동의하며, {buyerTermsLink}에 동의하게 됩니다. 요금이 청구되지 않도록 하려면 체험 기간 종료 전 언제든지 취소할 수 있습니다.',
       mandateSubscriptionDiscounted:
-        '"{buttonLabel}"을(를) 클릭하면 귀하는 Polar Software, Inc., 당사의 온라인 리셀러이자 기록상 판매자에게, 위에 표시된 할인 금액을 선택한 결제 수단으로 즉시 청구하고, 할인 기간 종료 후에는 취소할 때까지 각 결제일마다 정가를 청구하는 것에 동의하며, {buyerTermsLink}에 동의하게 됩니다.',
+        '"{buttonLabel}"을(를) 클릭하면 귀하는 Repalis Software, Inc., 당사의 온라인 리셀러이자 기록상 판매자에게, 위에 표시된 할인 금액을 선택한 결제 수단으로 즉시 청구하고, 할인 기간 종료 후에는 취소할 때까지 각 결제일마다 정가를 청구하는 것에 동의하며, {buyerTermsLink}에 동의하게 됩니다.',
     },
     form: {
       email: '이메일',

@@ -1,5 +1,5 @@
-import { schemas } from '@polar-sh/client'
-import { type StatusColor } from '@polar-sh/orbit'
+import { schemas } from '@repalis/client'
+import { type StatusColor } from '@repalis/orbit'
 
 export const seatStatusDisplayConfig: Record<
   schemas['SeatStatus'],

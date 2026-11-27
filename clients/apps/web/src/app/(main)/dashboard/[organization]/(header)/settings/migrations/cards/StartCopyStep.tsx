@@ -1,10 +1,10 @@
 'use client'
 
 import { getServerURL } from '@/utils/api'
-import { schemas } from '@polar-sh/client'
-import { Alert, Button, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import CopyToClipboardInput from '@polar-sh/ui/components/atoms/CopyToClipboardInput'
+import { schemas } from '@repalis/client'
+import { Alert, Button, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import CopyToClipboardInput from '@repalis/ui/components/atoms/CopyToClipboardInput'
 import type { ReactNode } from 'react'
 import { OpsUpdate } from './OpsUpdate'
 import { StepCopy, stripeCopyStatusUrl } from './panTransferCopy'
@@ -56,7 +56,7 @@ export function StartCopyStep({
         </TaskRow>
 
         <TaskRow
-          title="Paste the Polar account ID as the recipient"
+          title="Paste the Repalis account ID as the recipient"
           description={
             copy.warning
               ? `On that same page, then start the copy. ${copy.warning}`
@@ -68,13 +68,13 @@ export function StartCopyStep({
               <CopyToClipboardInput
                 value={destinationAccountId}
                 variant="mono"
-                ariaLabel="Polar account ID"
+                ariaLabel="Repalis account ID"
               />
             </Box>
           ) : (
             <Alert
               variant="danger"
-              title="We can't show the Polar account ID right now"
+              title="We can't show the Repalis account ID right now"
               description="Please contact support before you start the copy in Stripe."
             />
           )}

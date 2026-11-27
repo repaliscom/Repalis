@@ -3,8 +3,8 @@ import uuid
 import pytest
 from httpx2 import AsyncClient
 
-from polar.models import Customer, Wallet
-from polar.models.wallet import WalletType
+from repalis.models import Customer, Wallet
+from repalis.models.wallet import WalletType
 from tests.fixtures.auth import CUSTOMER_AUTH_SUBJECT
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_wallet

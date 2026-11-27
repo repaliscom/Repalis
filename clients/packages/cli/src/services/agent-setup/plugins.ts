@@ -51,8 +51,8 @@ export const claude: PluginClient = {
   client: 'claude-code',
   name: 'Claude Code',
   binary: 'claude',
-  plugin: 'polar@polar',
-  marketplace: 'polar',
+  plugin: 'repalis@repalis',
+  marketplace: 'repalis',
   plugins: Plugins,
   install: (installed) => (installed ? 'update' : 'install'),
 }
@@ -61,7 +61,7 @@ export const codex: PluginClient = {
   client: 'codex',
   name: 'Codex',
   binary: 'codex',
-  plugin: 'polar@openai-curated-remote',
+  plugin: 'repalis@openai-curated-remote',
   plugins: CodexPlugins,
   install: () => 'add',
 }

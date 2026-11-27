@@ -1,6 +1,6 @@
 import * as ToastPrimitives from '@radix-ui/react-toast'
 import { cva, VariantProps } from 'class-variance-authority'
-import { X as XIcon } from '@polar-sh/orbit/icons'
+import { X as XIcon } from '@repalis/orbit/icons'
 import * as React from 'react'
 
 const ToastProvider = ToastPrimitives.Provider
@@ -23,11 +23,11 @@ const toastVariants = cva(
     variants: {
       variant: {
         default:
-          'bg-white dark:bg-polar-900 border border-transparent dark:border-polar-700',
+          'bg-white dark:bg-repalis-900 border border-transparent dark:border-repalis-700',
         error:
-          'bg-white dark:bg-polar-900 border border-transparent dark:border-polar-700',
+          'bg-white dark:bg-repalis-900 border border-transparent dark:border-repalis-700',
         success:
-          'bg-white dark:bg-polar-900 border border-transparent dark:border-polar-700',
+          'bg-white dark:bg-repalis-900 border border-transparent dark:border-repalis-700',
       },
     },
     defaultVariants: {

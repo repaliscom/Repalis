@@ -1,11 +1,11 @@
-import { commands } from '@polar-sh/cli-commands'
+import { commands } from '@repalis/cli-commands'
 import { Command, GlobalFlag } from 'effect/cli'
 import { Help } from '@/utils/help'
 import { Output } from '@/utils/output'
 import { agent } from '@/commands/agent'
 import { auth } from '@/commands/auth'
 import { config } from '@/commands/config'
-import { polar } from '@/commands/home'
+import { repalis } from '@/commands/home'
 import { update } from '@/commands/update'
 import { webhook } from '@/commands/webhook'
 
@@ -19,7 +19,7 @@ interface ProgramOptions {
 }
 
 export const program = ({ preview }: ProgramOptions) =>
-  polar.pipe(
+  repalis.pipe(
     Command.withSubcommands([
       {
         group: 'CLI COMMANDS',

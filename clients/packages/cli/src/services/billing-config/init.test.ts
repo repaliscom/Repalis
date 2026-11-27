@@ -22,8 +22,8 @@ import { authenticatedClient } from '@/services/client'
 import { fakeHttp } from '@/utils/test-utils/http'
 import { fakeAuth } from '@/utils/test-utils/services'
 
-const exportUrl = 'https://sandbox-api.polar.sh/v1/config/'
-const initUrl = 'https://sandbox-api.polar.sh/v1/config/init'
+const exportUrl = 'https://sandbox-api.repalis.com/v1/config/'
+const initUrl = 'https://sandbox-api.repalis.com/v1/config/init'
 
 const acme: ActiveOrganization = {
   id: 'org-1',
@@ -63,7 +63,7 @@ beforeEach(async () => {
       return new Response(null, { status: 204 })
     },
   })
-  directory = await realpath(await mkdtemp(join(tmpdir(), 'polar-init-')))
+  directory = await realpath(await mkdtemp(join(tmpdir(), 'repalis-init-')))
   cwd = process.cwd()
   process.chdir(directory)
 })
@@ -121,19 +121,19 @@ describe('init', () => {
     const result = await run()
 
     expect(result).toEqual({
-      file: 'polar.config.ts',
+      file: 'repalis.config.ts',
       format: 'ts',
       imported: { meters: 0, benefits: 0, products: 0 },
       keyed: [],
       skipped: [],
-      install: ['npm', 'install', '@polar-sh/polar'],
+      install: ['npm', 'install', '@repalis/repalis'],
       installDirectory: directory,
       already_enabled: false,
     })
-    expect(await read('polar.config.ts')).toContain(
-      "import { defineConfig } from '@polar-sh/polar'",
+    expect(await read('repalis.config.ts')).toContain(
+      "import { defineConfig } from '@repalis/repalis'",
     )
-    expect(api.requests[0]!.headers.get('Polar-Organization')).toBe('org-1')
+    expect(api.requests[0]!.headers.get('Repalis-Organization')).toBe('org-1')
   })
 
   test('enables config for the organization before writing the file', async () => {
@@ -141,7 +141,7 @@ describe('init', () => {
 
     const enable = api.requests.find((request) => request.url === initUrl)!
     expect(enable.method).toBe('POST')
-    expect(enable.headers.get('Polar-Organization')).toBe('org-1')
+    expect(enable.headers.get('Repalis-Organization')).toBe('org-1')
   })
 
   test('does not enable an organization that already manages its catalog as code', async () => {
@@ -151,7 +151,7 @@ describe('init', () => {
 
     expect(result.already_enabled).toBe(true)
     expect(api.urls()).not.toContain(initUrl)
-    expect(await read('polar.config.json')).toBeDefined()
+    expect(await read('repalis.config.json')).toBeDefined()
   })
 
   test('writes nothing when config cannot be enabled', async () => {
@@ -164,7 +164,7 @@ describe('init', () => {
 
     expect(error.message).toBe('You do not have access to Acme')
     expect(error.hint).toBe('The token needs the organizations:write scope.')
-    await expect(read('polar.config.json')).rejects.toThrow()
+    await expect(read('repalis.config.json')).rejects.toThrow()
   })
 
   test('writes nothing when the organization has benefits or products config cannot manage', async () => {
@@ -180,7 +180,7 @@ describe('init', () => {
     expect(error.message).toBe('Config cannot manage everything in Acme yet')
     expect(error.hint).toBe(detail)
     expect(api.urls()).not.toContain(initUrl)
-    await expect(read('polar.config.json')).rejects.toThrow()
+    await expect(read('repalis.config.json')).rejects.toThrow()
   })
 
   test('writes into the project directory and shows the path from the current one', async () => {
@@ -190,15 +190,15 @@ describe('init', () => {
 
     const result = await run()
 
-    expect(result.file).toBe('../polar.config.ts')
-    expect(await read('polar.config.ts')).toContain('defineConfig')
+    expect(result.file).toBe('../repalis.config.ts')
+    expect(await read('repalis.config.ts')).toContain('defineConfig')
   })
 
   test('writes an empty JSON config with nothing to install without a package.json', async () => {
     const result = await run()
 
     expect(result).toEqual({
-      file: 'polar.config.json',
+      file: 'repalis.config.json',
       format: 'json',
       imported: { meters: 0, benefits: 0, products: 0 },
       keyed: [],
@@ -207,7 +207,7 @@ describe('init', () => {
       installDirectory: undefined,
       already_enabled: false,
     })
-    expect(JSON.parse(await read('polar.config.json'))).toEqual({
+    expect(JSON.parse(await read('repalis.config.json'))).toEqual({
       meters: [],
       benefits: [],
       products: [],
@@ -219,35 +219,35 @@ describe('init', () => {
     expect((await run({ file: 'a.ts' })).install).toEqual([
       'yarn',
       'add',
-      '@polar-sh/polar',
+      '@repalis/repalis',
     ])
 
     await writeFile(join(directory, 'pnpm-lock.yaml'), '')
     expect((await run({ file: 'b.ts' })).install).toEqual([
       'pnpm',
       'add',
-      '@polar-sh/polar',
+      '@repalis/repalis',
     ])
   })
 
   test('has nothing to install once package.json declares the package, or without a package.json', async () => {
     expect((await run({ file: 'a.ts' })).install).toBeUndefined()
 
-    await project('{"devDependencies":{"@polar-sh/polar":"^1.0.0"}}')
+    await project('{"devDependencies":{"@repalis/repalis":"^1.0.0"}}')
     expect((await run({ file: 'b.ts' })).install).toBeUndefined()
   })
 
   test('installs when the package is only left over in node_modules', async () => {
     await project()
-    await mkdir(join(directory, 'node_modules/@polar-sh/polar'), {
+    await mkdir(join(directory, 'node_modules/@repalis/repalis'), {
       recursive: true,
     })
     await writeFile(
-      join(directory, 'node_modules/@polar-sh/polar/package.json'),
+      join(directory, 'node_modules/@repalis/repalis/package.json'),
       '{}',
     )
 
-    expect((await run()).install).toEqual(['npm', 'install', '@polar-sh/polar'])
+    expect((await run()).install).toEqual(['npm', 'install', '@repalis/repalis'])
   })
 
   test('installs into the project root for a path given from a subdirectory', async () => {
@@ -257,7 +257,7 @@ describe('init', () => {
 
     const result = await run({ directory: process.cwd(), file: 'a.ts' })
 
-    expect(result.install).toEqual(['npm', 'install', '@polar-sh/polar'])
+    expect(result.install).toEqual(['npm', 'install', '@repalis/repalis'])
     expect(result.installDirectory).toBe(directory)
   })
 
@@ -269,43 +269,43 @@ describe('init', () => {
 
     const result = await run({ directory: workspacePackage })
 
-    expect(result.install).toEqual(['pnpm', 'add', '@polar-sh/polar'])
+    expect(result.install).toEqual(['pnpm', 'add', '@repalis/repalis'])
     expect(result.installDirectory).toBe(workspacePackage)
   })
 
   test('uses --format for the default file name', async () => {
-    expect((await run({ format: 'json' })).file).toBe('polar.config.json')
+    expect((await run({ format: 'json' })).file).toBe('repalis.config.json')
   })
 
   test('refuses when the directory already has a config file', async () => {
-    await writeFile(join(directory, 'polar.json'), '{}')
+    await writeFile(join(directory, 'repalis.json'), '{}')
 
     const error = await failure(run())
 
-    expect(error.message).toBe('polar.json already exists')
+    expect(error.message).toBe('repalis.json already exists')
     expect(error.hint).toBe(
-      "Move your config file aside and run polar config init to import Acme's catalog into a new file, then bring your changes over.",
+      "Move your config file aside and run repalis config init to import Acme's catalog into a new file, then bring your changes over.",
     )
     expect(api.requests).toHaveLength(0)
   })
 
   test('refuses to overwrite the given file', async () => {
-    await writeFile(join(directory, 'polar.config.ts'), 'keep')
+    await writeFile(join(directory, 'repalis.config.ts'), 'keep')
 
-    const error = await failure(run({ file: 'polar.config.ts' }))
+    const error = await failure(run({ file: 'repalis.config.ts' }))
 
-    expect(error.message).toBe('polar.config.ts already exists')
-    expect(await read('polar.config.ts')).toBe('keep')
+    expect(error.message).toBe('repalis.config.ts already exists')
+    expect(await read('repalis.config.ts')).toBe('keep')
     expect(api.requests).toHaveLength(0)
   })
 
   test('refuses file types it cannot write and a mismatched --format', async () => {
-    expect((await failure(run({ file: 'polar.config.mjs' }))).message).toBe(
-      'polar.config.mjs is not a file init can write',
+    expect((await failure(run({ file: 'repalis.config.mjs' }))).message).toBe(
+      'repalis.config.mjs is not a file init can write',
     )
     expect(
-      (await failure(run({ file: 'polar.json', format: 'ts' }))).message,
-    ).toBe('polar.json is a .json file, but --format is ts')
+      (await failure(run({ file: 'repalis.json', format: 'ts' }))).message,
+    ).toBe('repalis.json is a .json file, but --format is ts')
   })
 
   test('names the scopes when the token cannot export the config', async () => {
@@ -402,7 +402,7 @@ describe('init', () => {
         'cafe_plan',
       ])
       expect(result.skipped).toEqual([unkeyed[3]])
-      const written = JSON.parse(await read('polar.config.json'))
+      const written = JSON.parse(await read('repalis.config.json'))
       expect(
         written.products.map((p: { external_id: string }) => p.external_id),
       ).toEqual(['pro', 'pro_2', 'cafe_plan'])
@@ -417,13 +417,13 @@ describe('init', () => {
 
       expect(error.message).toBe('cancelled')
       expect(api.urls()).not.toContain(initUrl)
-      await expect(read('polar.config.json')).rejects.toThrow()
+      await expect(read('repalis.config.json')).rejects.toThrow()
     })
 
     test('renders the imported products as TypeScript', async () => {
       await run({ format: 'ts' })
 
-      expect(await read('polar.config.ts')).toContain('cafe_plan: product(')
+      expect(await read('repalis.config.ts')).toContain('cafe_plan: product(')
     })
 
     test('reports why the external IDs were rejected and writes nothing', async () => {
@@ -446,7 +446,7 @@ describe('init', () => {
       expect(error.hint).toBe(
         'cafe_plan (product Café Plan!): Another product already has this external ID.',
       )
-      await expect(read('polar.config.json')).rejects.toThrow()
+      await expect(read('repalis.config.json')).rejects.toThrow()
     })
   })
 })

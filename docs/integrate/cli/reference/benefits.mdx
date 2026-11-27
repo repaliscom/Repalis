@@ -1,30 +1,30 @@
 ---
-title: "polar benefits"
+title: "repalis benefits"
 sidebarTitle: "benefits"
 ---
 
-{/* Generated from the CLI by `pnpm --filter @polar-sh/cli docs:generate`. Do not edit by hand. */}
+{/* Generated from the CLI by `pnpm --filter @repalis/cli docs:generate`. Do not edit by hand. */}
 
 ```bash
-polar benefits <subcommand> [flags]
+repalis benefits <subcommand> [flags]
 ```
 
 **Subcommands**
 
-- [`polar benefits create`](#polar-benefits-create) Create a benefit, for example license keys, file downloads or Discord access.
-- [`polar benefits delete`](#polar-benefits-delete) Delete a benefit.
-- [`polar benefits files`](#polar-benefits-files) List the downloadable files for a benefit with their download statistics.
-- [`polar benefits get`](#polar-benefits-get) Get a benefit by ID.
-- [`polar benefits grants`](#polar-benefits-grants) List the individual grants for a benefit.
-- [`polar benefits list`](#polar-benefits-list) List benefits.
-- [`polar benefits update`](#polar-benefits-update) Update a benefit.
+- [`repalis benefits create`](#repalis-benefits-create) Create a benefit, for example license keys, file downloads or Discord access.
+- [`repalis benefits delete`](#repalis-benefits-delete) Delete a benefit.
+- [`repalis benefits files`](#repalis-benefits-files) List the downloadable files for a benefit with their download statistics.
+- [`repalis benefits get`](#repalis-benefits-get) Get a benefit by ID.
+- [`repalis benefits grants`](#repalis-benefits-grants) List the individual grants for a benefit.
+- [`repalis benefits list`](#repalis-benefits-list) List benefits.
+- [`repalis benefits update`](#repalis-benefits-update) Update a benefit.
 
-## polar benefits create
+## repalis benefits create
 
 Create a benefit, for example license keys, file downloads or Discord access.
 
 ```bash
-polar benefits create [flags]
+repalis benefits create [flags]
 ```
 
 **Flags**
@@ -40,12 +40,12 @@ polar benefits create [flags]
 | `--visibility` | `choice` | The visibility of the benefit in the customer portal. (choices: draft, private, public) |
 | `--properties` | `string` | Required. properties JSON: &#123;...&#125; \| &#123;"guild_id": string, "role_id": string, "kick_member": boolean&#125; \| &#123;"repository_owner": string, "repository_name": string, "permission": "pull" \| "triage" \| "push" \| "maintain" \| "admin"&#125; \| &#123;"files": array of string, ...&#125; \| &#123;"units": integer, "rollover": boolean, "meter_id": string&#125; \| &#123;&#125; \| &#123;"slack_integration_id": string, "channel_name_template": string, ...&#125; |
 
-## polar benefits delete
+## repalis benefits delete
 
 Delete a benefit.
 
 ```bash
-polar benefits delete [flags] <id>
+repalis benefits delete [flags] <id>
 ```
 
 **Arguments**
@@ -61,12 +61,12 @@ polar benefits delete [flags] <id>
 | `--confirm`, `-c` | `boolean` | Skip the confirmation prompt for destructive requests |
 | `--org` | `string` | Organization ID or slug for this invocation only |
 
-## polar benefits files
+## repalis benefits files
 
 List the downloadable files for a benefit with their download statistics.
 
 ```bash
-polar benefits files [flags] <id>
+repalis benefits files [flags] <id>
 ```
 
 **Arguments**
@@ -85,12 +85,12 @@ polar benefits files [flags] <id>
 | `--page` | `integer` | Page number, defaults to 1. |
 | `--limit` | `integer` | Size of a page, defaults to 10. Maximum is 100. |
 
-## polar benefits get
+## repalis benefits get
 
 Get a benefit by ID.
 
 ```bash
-polar benefits get [flags] <id>
+repalis benefits get [flags] <id>
 ```
 
 **Arguments**
@@ -106,12 +106,12 @@ polar benefits get [flags] <id>
 | `--fields` | `string` | Only print these fields, comma-separated; use dots for nested ones, e.g. id,name,prices.price_amount |
 | `--org` | `string` | Organization ID or slug for this invocation only |
 
-## polar benefits grants
+## repalis benefits grants
 
 List the individual grants for a benefit.
 
 ```bash
-polar benefits grants [flags] <id>
+repalis benefits grants [flags] <id>
 ```
 
 **Arguments**
@@ -133,12 +133,12 @@ polar benefits grants [flags] <id>
 | `--page` | `integer` | Page number, defaults to 1. |
 | `--limit` | `integer` | Size of a page, defaults to 10. Maximum is 100. |
 
-## polar benefits list
+## repalis benefits list
 
 List benefits.
 
 ```bash
-polar benefits list [flags]
+repalis benefits list [flags]
 ```
 
 **Flags**
@@ -157,12 +157,12 @@ polar benefits list [flags]
 | `--sorting` | `choice` | Sorting criterion. Several criteria can be used simultaneously and will be applied in order. Add a minus sign `-` before the criteria name to sort by descending order. (choices: created_at, -created_at, description, -description, type, -type, user_order, -user_order) |
 | `--metadata` | `string` | Filter by metadata key-value pairs. JSON: &#123;"&lt;key&gt;": string \| integer \| boolean \| array of string \| array of integer \| array of boolean&#125; |
 
-## polar benefits update
+## repalis benefits update
 
 Update a benefit.
 
 ```bash
-polar benefits update [flags] <id>
+repalis benefits update [flags] <id>
 ```
 
 **Arguments**

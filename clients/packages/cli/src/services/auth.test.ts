@@ -133,7 +133,7 @@ describe('saved sessions', () => {
     delete credentials.state.sessions.production
     const auth = await Effect.runPromise(authEffect())
     await expect(Effect.runPromise(auth.resolve('production'))).rejects.toThrow(
-      'polar auth login --production',
+      'repalis auth login --production',
     )
     expect(oauth.state.logins).toBe(0)
   })
@@ -217,7 +217,7 @@ describe('token override', () => {
     expect(activity()).toBe(0)
   })
 
-  test('targets production unless POLAR_ENVIRONMENT says otherwise', async () => {
+  test('targets production unless REPALIS_ENVIRONMENT says otherwise', async () => {
     override = 'ci-secret'
     const auth = await Effect.runPromise(authEffect())
     expect(await Effect.runPromise(auth.environments)).toEqual(['production'])
@@ -225,7 +225,7 @@ describe('token override', () => {
     expect(await Effect.runPromise(auth.environments)).toEqual(['sandbox'])
     environment = 'staging'
     await expect(Effect.runPromise(auth.environments)).rejects.toThrow(
-      'POLAR_ENVIRONMENT must be "sandbox", "production" or "local"',
+      'REPALIS_ENVIRONMENT must be "sandbox", "production" or "local"',
     )
     expect(credentials.state.reads).toBe(0)
   })
@@ -248,7 +248,7 @@ describe('token override', () => {
     const auth = await Effect.runPromise(authEffect())
     await expect(
       Effect.runPromise(auth.login('sandbox', true, () => Effect.void)),
-    ).rejects.toThrow('Unset POLAR_ACCESS_TOKEN')
+    ).rejects.toThrow('Unset REPALIS_ACCESS_TOKEN')
     expect(
       await Effect.runPromise(auth.logout(['sandbox', 'production'])),
     ).toEqual(['sandbox', 'production'])

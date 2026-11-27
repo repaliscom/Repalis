@@ -2,16 +2,16 @@
 
 import { useCustomerMeters } from '@/hooks/queries/customerMeters'
 import { getAPIParams } from '@/utils/datatable'
-import { schemas } from '@polar-sh/client'
-import { Avatar, Truncated } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { schemas } from '@repalis/client'
+import { Avatar, Truncated } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import {
   DataTable,
   DataTableColumnHeader,
   DataTablePaginationState,
   DataTableSortingState,
-} from '@polar-sh/orbit'
-import FormattedDateTime from '@polar-sh/ui/components/atoms/FormattedDateTime'
+} from '@repalis/orbit'
+import FormattedDateTime from '@repalis/ui/components/atoms/FormattedDateTime'
 import Link from 'next/link'
 import { useState } from 'react'
 import FormattedUnits from './FormattedUnits'
@@ -68,7 +68,7 @@ const MeterCustomersTab = ({
               className="flex min-w-0 items-center gap-x-3"
             >
               <Avatar
-                className="dark:bg-polar-900 text-xxs h-8 w-8 bg-white"
+                className="dark:bg-repalis-900 text-xxs h-8 w-8 bg-white"
                 name={customer.name ?? customer.email ?? '—'}
                 avatar_url={customer.avatar_url ?? null}
               />
@@ -78,7 +78,7 @@ const MeterCustomersTab = ({
                 </Truncated>
                 {(customer.email || customer.type === 'individual') && (
                   <Truncated>
-                    <span className="dark:text-polar-500 text-xxs text-gray-500">
+                    <span className="dark:text-repalis-500 text-xxs text-gray-500">
                       {customer.email ?? '—'}
                     </span>
                   </Truncated>

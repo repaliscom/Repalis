@@ -10,9 +10,9 @@ from apscheduler.triggers.cron import CronTrigger
 from pytest_mock import MockerFixture
 from sqlalchemy import Engine, create_engine, delete
 
-from polar.kit.utils import utc_now
-from polar.models import ScheduledCron
-from polar.worker._cron import RETRY_DELAY, CronJobStore
+from repalis.kit.utils import utc_now
+from repalis.models import ScheduledCron
+from repalis.worker._cron import RETRY_DELAY, CronJobStore
 from tests.fixtures.database import get_database_url
 
 NOW = datetime(2026, 11, 10, 13, 30, tzinfo=UTC)
@@ -31,14 +31,14 @@ def engine(worker_id: str) -> Iterator[Engine]:
 
 @pytest.fixture
 def send(mocker: MockerFixture) -> MagicMock:
-    get_broker = mocker.patch("polar.worker._cron.dramatiq.get_broker")
+    get_broker = mocker.patch("repalis.worker._cron.dramatiq.get_broker")
     send: MagicMock = get_broker.return_value.get_actor.return_value.send
     return send
 
 
 @pytest.fixture
 def store(engine: Engine, mocker: MockerFixture) -> CronJobStore:
-    mocker.patch("polar.worker._cron.utc_now", return_value=NOW)
+    mocker.patch("repalis.worker._cron.utc_now", return_value=NOW)
     store = CronJobStore(engine, TRIGGERS)
     store.start(BackgroundScheduler(), "cron")
     return store
@@ -49,7 +49,7 @@ class TestStart:
         self, store: CronJobStore, engine: Engine, mocker: MockerFixture
     ) -> None:
         later = NOW + timedelta(minutes=3)
-        mocker.patch("polar.worker._cron.utc_now", return_value=later)
+        mocker.patch("repalis.worker._cron.utc_now", return_value=later)
         successor = CronJobStore(engine, TRIGGERS)
         successor.start(BackgroundScheduler(), "cron")
 
@@ -61,7 +61,7 @@ class TestStart:
         self, store: CronJobStore, engine: Engine, mocker: MockerFixture
     ) -> None:
         later = NOW + timedelta(minutes=3)
-        mocker.patch("polar.worker._cron.utc_now", return_value=later)
+        mocker.patch("repalis.worker._cron.utc_now", return_value=later)
         successor = CronJobStore(
             engine, [(JOB_NAME, CronTrigger(hour=4, minute=0, timezone=UTC))]
         )
@@ -119,7 +119,7 @@ class TestUpdateJob:
         self, store: CronJobStore, send: MagicMock, mocker: MockerFixture
     ) -> None:
         capture_exception = mocker.patch(
-            "polar.worker._cron.sentry_sdk.capture_exception"
+            "repalis.worker._cron.sentry_sdk.capture_exception"
         )
         send.side_effect = RuntimeError("queue unavailable")
         job = store.get_due_jobs(NOW)[0]
@@ -142,7 +142,7 @@ class TestScheduler:
     ) -> None:
         started_at = utc_now()
         mocker.patch(
-            "polar.worker._cron.utc_now",
+            "repalis.worker._cron.utc_now",
             return_value=started_at - timedelta(minutes=2),
         )
         fired = Event()

@@ -1,5 +1,5 @@
 import { Section } from '@/components/Layout/Section'
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 import { MetadataForm } from '@/components/Metadata/MetadataForm'
 import { MetadataFormValues } from '@/components/Metadata/utils'
 import { ProductCheckoutSection } from './ProductCheckoutSection'
@@ -61,7 +61,7 @@ const ProductForm = ({
   flaggedCategory?: string
 }) => {
   return (
-    <div className="dark:divide-polar-700 flex flex-col divide-y">
+    <div className="dark:divide-repalis-700 flex flex-col divide-y">
       <ProductInfoSection flaggedCategory={flaggedCategory} />
 
       <ProductPricingSection

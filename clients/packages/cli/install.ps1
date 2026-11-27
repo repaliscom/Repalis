@@ -2,16 +2,16 @@
 $ErrorActionPreference = "Stop"
 [Net.ServicePointManager]::SecurityProtocol = [Net.ServicePointManager]::SecurityProtocol -bor [Net.SecurityProtocolType]::Tls12
 
-$Repo = "polarsource/polar"
-$TagPrefix = "@polar-sh/cli@"
-$BinaryName = "polar.exe"
-$Archive = "polar-windows-x64.zip"
-$InstallDir = Join-Path $HOME ".polar\bin"
-$Headers = @{ "User-Agent" = "polar-cli-installer" }
+$Repo = "repaliscom/Repalis"
+$TagPrefix = "@repalis/cli@"
+$BinaryName = "repalis.exe"
+$Archive = "repalis-windows-x64.zip"
+$InstallDir = Join-Path $HOME ".repalis\bin"
+$Headers = @{ "User-Agent" = "repalis-cli-installer" }
 
 function Write-Info { param($Message) Write-Host "==> $Message" -ForegroundColor Green }
 function Write-Warn { param($Message) Write-Host "warning: $Message" -ForegroundColor Yellow }
-function Stop-Install { param($Message) throw "Polar CLI install failed: $Message" }
+function Stop-Install { param($Message) throw "Repalis CLI install failed: $Message" }
 
 function Get-LatestRelease {
     $Latest = $null
@@ -38,19 +38,19 @@ if ($Architecture -ne "AMD64") {
     Stop-Install "Unsupported architecture: $Architecture. Only x64 is supported."
 }
 
-Write-Info "Finding the latest Polar CLI release..."
+Write-Info "Finding the latest Repalis CLI release..."
 try {
     $Release = Get-LatestRelease
 } catch {
     Stop-Install "Could not reach GitHub. Check your network connection."
 }
 if ($null -eq $Release) {
-    Stop-Install "No Polar CLI release found."
+    Stop-Install "No Repalis CLI release found."
 }
 Write-Info "Version: $($Release.Version)"
 
 $BaseUrl = "https://github.com/$Repo/releases/download/$([uri]::EscapeDataString($Release.Tag))"
-$TempDir = Join-Path $env:TEMP "polar-install-$([guid]::NewGuid())"
+$TempDir = Join-Path $env:TEMP "repalis-install-$([guid]::NewGuid())"
 New-Item -ItemType Directory -Force -Path $TempDir | Out-Null
 
 try {
@@ -84,7 +84,7 @@ try {
     try {
         Copy-Item -Path (Join-Path $TempDir $BinaryName) -Destination (Join-Path $InstallDir $BinaryName) -Force
     } catch {
-        Stop-Install "Could not write $BinaryName. If polar is running, close it and try again."
+        Stop-Install "Could not write $BinaryName. If repalis is running, close it and try again."
     }
 
     $UserPath = [Environment]::GetEnvironmentVariable("PATH", "User")
@@ -94,9 +94,9 @@ try {
         $env:PATH = "$InstallDir;$env:PATH"
     }
 
-    Write-Info "Polar CLI $($Release.Version) installed."
+    Write-Info "Repalis CLI $($Release.Version) installed."
     Write-Host ""
-    Write-Host "  Run 'polar --help' to get started."
+    Write-Host "  Run 'repalis --help' to get started."
     Write-Host ""
     if (-not $OnPath) {
         Write-Warn "Restart other open terminals so they pick up the new PATH."

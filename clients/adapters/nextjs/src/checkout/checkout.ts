@@ -1,13 +1,13 @@
 import {
   clientUpdateCheckouts,
   createCheckouts,
-} from '@polar-sh/sdk/2026-10/services/checkouts'
-import { createPolarCore, type Environment } from '@polar-sh/sdk/2026-10'
+} from '@repalis/sdk/2026-10/services/checkouts'
+import { createRepalisCore, type Environment } from '@repalis/sdk/2026-10'
 import {
   type CustomerIpAddressOption,
   getCustomerIpAddress,
   resolveCustomerIpAddress,
-} from '@polar-sh/adapter-utils'
+} from '@repalis/adapter-utils'
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
@@ -19,7 +19,7 @@ export interface CheckoutConfig {
   environment?: Environment
   theme?: 'light' | 'dark'
   /**
-   * Customer IP address sent to Polar to pick the presentment currency.
+   * Customer IP address sent to Repalis to pick the presentment currency.
    * Pass a function to resolve it yourself, or `false` to not send it.
    */
   customerIpAddress?: CustomerIpAddressOption<NextRequest>
@@ -34,7 +34,7 @@ export const Checkout = ({
   includeCheckoutId = true,
   customerIpAddress,
 }: CheckoutConfig) => {
-  const polar = createPolarCore({
+  const repalis = createRepalisCore({
     accessToken,
     environment,
   })
@@ -59,7 +59,7 @@ export const Checkout = ({
     const retUrl = returnUrl ? new URL(returnUrl) : undefined
 
     try {
-      const result = await createCheckouts(polar)({
+      const result = await createCheckouts(repalis)({
         products,
         success_url: success
           ? success.toString().replaceAll('%7BCHECKOUT_ID%7D', '{CHECKOUT_ID}')
@@ -100,7 +100,7 @@ export const Checkout = ({
 
       const discountCode = url.searchParams.get('discount_code')
       if (discountCode && !url.searchParams.get('discount_id')) {
-        await clientUpdateCheckouts(polar)(result.client_secret, {
+        await clientUpdateCheckouts(repalis)(result.client_secret, {
           discount_code: discountCode,
         })
       }

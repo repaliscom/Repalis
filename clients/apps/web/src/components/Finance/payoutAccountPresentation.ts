@@ -1,4 +1,4 @@
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 import {
   Banknote as BanknoteIcon,
   Check as CheckIcon,
@@ -6,7 +6,7 @@ import {
   Clock as ClockIcon,
   type LucideIcon,
   Users as UsersIcon,
-} from '@polar-sh/orbit/icons'
+} from '@repalis/orbit/icons'
 export type PayoutAccountState =
   | 'not_connected'
   | 'managed_by_another_member'

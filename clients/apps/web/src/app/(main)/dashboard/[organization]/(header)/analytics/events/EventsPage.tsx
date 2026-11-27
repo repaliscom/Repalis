@@ -28,10 +28,10 @@ import {
 import { useInViewport } from '@/hooks/utils'
 import { buildEventsFilter, formatEventCount } from '@/utils/event'
 import useDebounce from '@/utils/useDebounce'
-import { schemas } from '@polar-sh/client'
-import { Spinner, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import { Search } from '@polar-sh/orbit/icons'
+import { schemas } from '@repalis/client'
+import { Spinner, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import { Search } from '@repalis/orbit/icons'
 import {
   parseAsArrayOf,
   parseAsBoolean,

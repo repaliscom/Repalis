@@ -12,23 +12,23 @@ import { getServerURL } from '@/utils/api'
 import { useDataTableQueryState } from '@/hooks/useDataTableQueryState'
 import { getAPIParams } from '@/utils/datatable'
 import { platformFeesDisplayNames } from '@/utils/transaction'
-import { schemas } from '@polar-sh/client'
-import { formatCurrency } from '@polar-sh/currency'
-import { Button } from '@polar-sh/orbit'
+import { schemas } from '@repalis/client'
+import { formatCurrency } from '@repalis/currency'
+import { Button } from '@repalis/orbit'
 import {
   DataTable,
   DataTableColumnDef,
   DataTableColumnHeader,
-} from '@polar-sh/orbit'
-import FormattedDateTime from '@polar-sh/ui/components/atoms/FormattedDateTime'
+} from '@repalis/orbit'
+import FormattedDateTime from '@repalis/ui/components/atoms/FormattedDateTime'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@polar-sh/ui/components/ui/dropdown-menu'
-import { Tooltip, TooltipContent, TooltipTrigger } from '@polar-sh/orbit'
-import { EllipsisVertical } from '@polar-sh/orbit/icons'
+} from '@repalis/ui/components/ui/dropdown-menu'
+import { Tooltip, TooltipContent, TooltipTrigger } from '@repalis/orbit'
+import { EllipsisVertical } from '@repalis/orbit/icons'
 import Link from 'next/link'
 
 const isPayout = (
@@ -208,7 +208,7 @@ export default function ClientPage({
               </DropdownMenuTrigger>
               <DropdownMenuContent
                 align="end"
-                className="dark:bg-polar-800 bg-gray-50 shadow-lg"
+                className="dark:bg-repalis-800 bg-gray-50 shadow-lg"
               >
                 {original.status === 'succeeded' && account && (
                   <DownloadInvoice

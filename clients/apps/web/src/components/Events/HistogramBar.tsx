@@ -1,5 +1,5 @@
-import { Text, Tooltip, TooltipContent, TooltipTrigger } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { Text, Tooltip, TooltipContent, TooltipTrigger } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 
 const BAR_STAGGER_MS = 250
 

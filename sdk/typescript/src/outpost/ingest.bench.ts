@@ -6,7 +6,12 @@ import { BUCKET_COUNTS, COLD_UNTIL, encodeState } from "./benchmark";
 import benchmark from "./benchmark.json";
 import { Outpost } from "./client";
 import { BUCKET_SIZE, type Reducer } from "./reducer";
-import { startPolarServer, startRedisServer, type PolarServer, type RedisServer } from "./testing";
+import {
+  startRepalisServer,
+  startRedisServer,
+  type RepalisServer,
+  type RedisServer,
+} from "./testing";
 
 const OPTIONS = { warmupTime: 500, time: 2_000 };
 // encodeState seeds every bucket with 10 events.
@@ -49,7 +54,7 @@ const stateKey = (scenario: Scenario, reducer: string) =>
 
 let redisServer: RedisServer;
 let redis: Redis;
-let polar: PolarServer;
+let repalis: RepalisServer;
 let outpost: Outpost;
 
 beforeAll(async () => {
@@ -60,8 +65,8 @@ beforeAll(async () => {
   for (const scenario of SCENARIOS)
     for (const reducer of REDUCERS)
       await redis.hset(stateKey(scenario, reducer.id), ...encodeState(scenario.buckets));
-  polar = await startPolarServer(REDUCERS);
-  outpost = await new Outpost(redisServer.socket, { client: polar.client }).start();
+  repalis = await startRepalisServer(REDUCERS);
+  outpost = await new Outpost(redisServer.socket, { client: repalis.client }).start();
 });
 
 // Vitest runs no hook nested in a describe during benchmarks.
@@ -77,7 +82,7 @@ afterAll(async () => {
     }
   } finally {
     await outpost?.close();
-    await polar?.stop();
+    await repalis?.stop();
     redis?.disconnect();
     await redisServer?.stop();
   }

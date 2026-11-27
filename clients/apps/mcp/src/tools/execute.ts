@@ -2,14 +2,14 @@ import type { McpServer } from '@modelcontextprotocol/server'
 import { exports } from 'cloudflare:workers'
 import { Effect, Schema } from 'effect'
 import { intentField } from '../intent'
-import type { PolarApiOutboundProps } from '../outbound'
+import type { RepalisApiOutboundProps } from '../outbound'
 import { makeToolRunner, ToolError } from '../results'
 import { Sandbox } from '../sandbox'
 
 const EXECUTE_LIMITS = { cpuMs: 10_000, subRequests: 50 }
 
-const polarClient = (apiUrl: string) => `
-const polar = {
+const repalisClient = (apiUrl: string) => `
+const repalis = {
   async request({ method = 'GET', path, query, body }) {
     const url = new URL(path, ${JSON.stringify(apiUrl)})
     const append = (name, value) => {
@@ -42,7 +42,7 @@ const polar = {
     }
     if (!response.ok) {
       throw Object.assign(
-        new Error('Polar API ' + response.status + ': ' + (typeof data === 'string' ? data : JSON.stringify(data))),
+        new Error('Repalis API ' + response.status + ': ' + (typeof data === 'string' ? data : JSON.stringify(data))),
         { status: response.status, body: data },
       )
     }
@@ -53,11 +53,11 @@ const polar = {
 
 const description = (
   readOnly: boolean,
-) => `Call the Polar API by writing JavaScript. Use the search tool first to find operations and their parameters and schemas.${readOnly ? '\n\nThis connection is read-only: only GET requests are allowed.' : ''}
+) => `Call the Repalis API by writing JavaScript. Use the search tool first to find operations and their parameters and schemas.${readOnly ? '\n\nThis connection is read-only: only GET requests are allowed.' : ''}
 
 Available in your code:
 
-declare const polar: {
+declare const repalis: {
   request<T = unknown>(options: {
     method?: 'GET' | 'POST' | 'PATCH' | 'DELETE' // defaults to GET
     path: string // a spec path with its parameters filled in, e.g. \`/v1/products/\${productId}\`
@@ -75,30 +75,30 @@ type QueryValue = string | number | boolean
 Example:
 
 async () => {
-  const { items } = await polar.request({ path: '/v1/products/', query: { is_archived: false, limit: 100 } })
+  const { items } = await repalis.request({ path: '/v1/products/', query: { is_archived: false, limit: 100 } })
   return items.map(({ id, name, prices }) => ({ id, name, prices: prices.map((price) => price.amount_type) }))
 }`
 
 export const registerExecuteTool = Effect.fn('registerExecuteTool')(function* (
   server: McpServer,
-  props: PolarApiOutboundProps,
+  props: RepalisApiOutboundProps,
 ) {
   const runTool = yield* makeToolRunner
   const sandbox = yield* Sandbox
   server.registerTool(
     'execute',
     {
-      title: 'Call the Polar API',
+      title: 'Call the Repalis API',
       description: description(props.readOnly),
       inputSchema: Schema.Struct({
         code: Schema.String.annotate({
           description:
-            'JavaScript async arrow function that calls the API with `polar.request`',
+            'JavaScript async arrow function that calls the API with `repalis.request`',
         }),
         ...intentField,
       }).pipe(Schema.toStandardSchemaV1, Schema.toStandardJSONSchemaV1),
       annotations: {
-        title: 'Call the Polar API',
+        title: 'Call the Repalis API',
         readOnlyHint: props.readOnly,
         destructiveHint: !props.readOnly,
         openWorldHint: false,
@@ -108,12 +108,12 @@ export const registerExecuteTool = Effect.fn('registerExecuteTool')(function* (
       runTool(
         Effect.gen(function* () {
           const globalOutbound = yield* Effect.try({
-            try: () => exports.PolarApiOutbound({ props }),
+            try: () => exports.RepalisApiOutbound({ props }),
             catch: ToolError.fromCause,
           })
           return yield* sandbox.run({
             code,
-            prelude: polarClient(props.apiUrl),
+            prelude: repalisClient(props.apiUrl),
             globalOutbound,
             limits: EXECUTE_LIMITS,
           })

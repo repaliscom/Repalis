@@ -21,12 +21,12 @@ const noRawHtmlLayout = {
     type: 'problem',
     docs: {
       description:
-        'Disallow raw HTML layout elements in favor of <Box /> from @polar-sh/orbit',
+        'Disallow raw HTML layout elements in favor of <Box /> from @repalis/orbit',
     },
     schema: [],
     messages: {
       noRawElement:
-        'Use <Box /> from @polar-sh/orbit instead of <{{ element }} />. This ensures we follow the Orbit design system.',
+        'Use <Box /> from @repalis/orbit instead of <{{ element }} />. This ensures we follow the Orbit design system.',
     },
   },
   create(context) {

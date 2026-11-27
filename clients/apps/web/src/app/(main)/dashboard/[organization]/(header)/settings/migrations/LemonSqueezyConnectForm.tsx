@@ -1,9 +1,9 @@
 import { useCreateMerchantMigration } from '@/hooks/queries/merchantMigrations'
 import { extractApiErrorMessage } from '@/utils/api/errors'
-import { schemas } from '@polar-sh/client'
-import { Alert, Button, Input, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import { ArrowUpRight } from '@polar-sh/orbit/icons'
+import { schemas } from '@repalis/client'
+import { Alert, Button, Input, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import { ArrowUpRight } from '@repalis/orbit/icons'
 import { useState } from 'react'
 
 const CONNECT_FALLBACK = 'Please check the API key and try again.'
@@ -50,7 +50,7 @@ export function LemonSqueezyConnectForm({
   return (
     <Box as="form" onSubmit={handleSubmit} flexDirection="column" rowGap="xl">
       <Text color="muted">
-        Connect Lemon Squeezy with an API key so Polar can read your products,
+        Connect Lemon Squeezy with an API key so Repalis can read your products,
         discounts, customers and subscriptions. Nothing in Lemon Squeezy changes
         until you approve each step.
       </Text>

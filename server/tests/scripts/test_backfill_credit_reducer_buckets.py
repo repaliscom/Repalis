@@ -4,10 +4,10 @@ from decimal import Decimal
 import pytest
 from pytest_mock import MockerFixture
 
-from polar.kit.db.postgres import AsyncSession
-from polar.kit.utils import utc_now
-from polar.models import Customer, CustomerMeter, Meter, Organization, ReducerBucket
-from polar.models.reducer import ReducerKind
+from repalis.kit.db.postgres import AsyncSession
+from repalis.kit.utils import utc_now
+from repalis.models import Customer, CustomerMeter, Meter, Organization, ReducerBucket
+from repalis.models.reducer import ReducerKind
 from scripts.backfill_credit_reducer_buckets import backfill_batch
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_reducer

@@ -3,9 +3,9 @@
 import { useModal } from '@/components/Modal/useModal'
 import ExportTransactionsModal from '@/components/Transactions/ExportTransactionsModal'
 import { useOrganizationAccount } from '@/hooks/queries'
-import { schemas } from '@polar-sh/client'
-import { Button, Text } from '@polar-sh/orbit'
-import { FileDownloadOutlined } from '@polar-sh/orbit/icons'
+import { schemas } from '@repalis/client'
+import { Button, Text } from '@repalis/orbit'
+import { FileDownloadOutlined } from '@repalis/orbit/icons'
 import { twMerge } from 'tailwind-merge'
 
 export function IncomePageHeader({

@@ -2,14 +2,14 @@ from typing import Any
 
 from pytest_mock import MockerFixture
 
-from polar.config import Environment, settings
-from polar.integrations.aws.s3 import client
+from repalis.config import Environment, settings
+from repalis.integrations.aws.s3 import client
 
 
 def get_boto3_client_kwargs(
     mocker: MockerFixture, *, endpoint_url: str | None
 ) -> dict[str, Any]:
-    boto3_client = mocker.patch("polar.integrations.aws.s3.client.boto3.client")
+    boto3_client = mocker.patch("repalis.integrations.aws.s3.client.boto3.client")
 
     client.get_client(endpoint_url=endpoint_url)
 

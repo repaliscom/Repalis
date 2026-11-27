@@ -8,7 +8,7 @@ const input = {
 };
 const reply = {
   user: 'BOT', ts: '2', thread_ts: '1',
-  metadata: { event_type: 'polar_deployment_reply', event_payload: { id: input.replyId } },
+  metadata: { event_type: 'repalis_deployment_reply', event_payload: { id: input.replyId } },
 };
 
 test('finds an existing reply on a later page without trusting another user or run attempt', async () => {

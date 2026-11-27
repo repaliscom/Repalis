@@ -1,5 +1,5 @@
 import GetStartedButton from '@/components/Auth/GetStartedButton'
-import { Button, Text } from '@polar-sh/orbit'
+import { Button, Text } from '@repalis/orbit'
 import { StaticImage } from '@/components/Image/StaticImage'
 import { ReactNode } from 'react'
 import { Defined, Printed, Read } from '../usage/plates'
@@ -23,7 +23,7 @@ const Section = ({
 }) => (
   <section
     id={id}
-    className={`dark:border-polar-800 w-full scroll-mt-20 border-t border-gray-200 py-16 md:py-32 ${className}`}
+    className={`dark:border-repalis-800 w-full scroll-mt-20 border-t border-gray-200 py-16 md:py-32 ${className}`}
   >
     {children}
   </section>
@@ -31,7 +31,7 @@ const Section = ({
 
 /** A short note: a name, and one line about it; numbered notes carry the plate's Ether markers. */
 const Note = ({ k, v, n }: { k: string; v: string; n?: number }) => (
-  <div className="dark:border-polar-800 flex flex-col gap-0.5 border-t border-gray-200 pt-3">
+  <div className="dark:border-repalis-800 flex flex-col gap-0.5 border-t border-gray-200 pt-3">
     <span className="flex items-center gap-2 text-base">
       {n ? (
         <span className="inline-flex size-5 items-center justify-center bg-[#6b79ea] text-xs text-black tabular-nums">
@@ -116,10 +116,10 @@ export const UsageBillingPage = () => {
 
             {/* the call, ruled like a listing, its read lines marked */}
             <div className="flex flex-col gap-8">
-              <ol className="dark:border-polar-800 border-y border-gray-200 py-5 font-mono text-sm leading-7">
+              <ol className="dark:border-repalis-800 border-y border-gray-200 py-5 font-mono text-sm leading-7">
                 {EVENT.map(([line, n], k) => (
                   <li key={k} className="flex items-center gap-4">
-                    <span className="dark:text-polar-600 w-5 shrink-0 text-right text-gray-400 tabular-nums select-none">
+                    <span className="dark:text-repalis-600 w-5 shrink-0 text-right text-gray-400 tabular-nums select-none">
                       {k + 1}
                     </span>
                     <span className="flex-1 whitespace-pre">{line}</span>
@@ -132,7 +132,7 @@ export const UsageBillingPage = () => {
                   <div key={k} className="flex items-baseline gap-3">
                     <Marker n={n} />
                     <dt className="font-mono text-sm">{k}</dt>
-                    <dd className="dark:text-polar-500 text-base text-gray-500">
+                    <dd className="dark:text-repalis-500 text-base text-gray-500">
                       {v}
                     </dd>
                   </div>
@@ -262,10 +262,10 @@ export const UsageBillingPage = () => {
               ).map(([k, v]) => (
                 <div
                   key={k}
-                  className="dark:border-polar-800 flex flex-col gap-1 border-t border-gray-200 py-5 last:border-b"
+                  className="dark:border-repalis-800 flex flex-col gap-1 border-t border-gray-200 py-5 last:border-b"
                 >
                   <dt className="text-base">{k}</dt>
-                  <dd className="dark:text-polar-500 text-base text-gray-500">
+                  <dd className="dark:text-repalis-500 text-base text-gray-500">
                     {v}
                   </dd>
                 </div>

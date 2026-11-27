@@ -1,8 +1,8 @@
 import { type AggregateRow } from '@/utils/subscriptionAggregate'
 import { DAY_MS } from '@/utils/subscriptionTimeline'
-import { formatCurrency } from '@polar-sh/currency'
-import { Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { formatCurrency } from '@repalis/currency'
+import { Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import { type GanttScale } from './scale'
 import { GanttFill } from './GanttFill'
 
@@ -48,7 +48,7 @@ export const AggregateCells = ({
             key={bucket.start}
             className={
               bucket.start === hoveredStart
-                ? 'dark:bg-polar-800/50 absolute inset-y-0 cursor-pointer bg-gray-50'
+                ? 'dark:bg-repalis-800/50 absolute inset-y-0 cursor-pointer bg-gray-50'
                 : 'absolute inset-y-0 cursor-pointer'
             }
             style={{

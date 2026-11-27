@@ -4,11 +4,11 @@
 
 locals {
   events_api_name     = "api-events-test"
-  events_api_hostname = "test-api-events.polar.sh"
+  events_api_hostname = "test-api-events.repalis.com"
   events_api_port     = 10000
 
   events_name     = "events-test"
-  events_hostname = "test-events.polar.sh"
+  events_hostname = "test-events.repalis.com"
 
   events_api_tags = {
     Environment = "test"
@@ -23,37 +23,37 @@ locals {
         SERVICE_NAME                  = local.events_api_name
         WEB_CONCURRENCY               = "4"
         FORWARDED_ALLOW_IPS           = local.forwarded_allow_ips
-        POLAR_BACKOFFICE_ENABLED      = "false"
-        POLAR_ALLOWED_HOSTS           = local.api_allowed_hosts
-        POLAR_CORS_ORIGINS            = local.api_cors_origins
-        POLAR_DATABASE_POOL_SIZE      = "20"
-        POLAR_LOGFIRE_ROOT_SPANS_ONLY = "true"
+        REPALIS_BACKOFFICE_ENABLED      = "false"
+        REPALIS_ALLOWED_HOSTS           = local.api_allowed_hosts
+        REPALIS_CORS_ORIGINS            = local.api_cors_origins
+        REPALIS_DATABASE_POOL_SIZE      = "20"
+        REPALIS_LOGFIRE_ROOT_SPANS_ONLY = "true"
 
-        POLAR_POSTGRES_DATABASE      = module.planetscale.database_name
-        POLAR_POSTGRES_HOST          = local.planetscale_postgres_config.host
-        POLAR_POSTGRES_PORT          = local.planetscale_postgres_config.port
-        POLAR_POSTGRES_USER          = local.planetscale_postgres_config.user
-        POLAR_POSTGRES_PWD           = local.planetscale_postgres_config.password
-        POLAR_POSTGRES_READ_DATABASE = module.planetscale.database_name
-        POLAR_POSTGRES_READ_HOST     = local.planetscale_postgres_config.read_host
-        POLAR_POSTGRES_READ_PORT     = local.planetscale_postgres_config.read_port
-        POLAR_POSTGRES_READ_USER     = local.planetscale_postgres_config.read_user
-        POLAR_POSTGRES_READ_PWD      = local.planetscale_postgres_config.read_password
-        POLAR_POSTGRES_SSL           = "false"
+        REPALIS_POSTGRES_DATABASE      = module.planetscale.database_name
+        REPALIS_POSTGRES_HOST          = local.planetscale_postgres_config.host
+        REPALIS_POSTGRES_PORT          = local.planetscale_postgres_config.port
+        REPALIS_POSTGRES_USER          = local.planetscale_postgres_config.user
+        REPALIS_POSTGRES_PWD           = local.planetscale_postgres_config.password
+        REPALIS_POSTGRES_READ_DATABASE = module.planetscale.database_name
+        REPALIS_POSTGRES_READ_HOST     = local.planetscale_postgres_config.read_host
+        REPALIS_POSTGRES_READ_PORT     = local.planetscale_postgres_config.read_port
+        REPALIS_POSTGRES_READ_USER     = local.planetscale_postgres_config.read_user
+        REPALIS_POSTGRES_READ_PWD      = local.planetscale_postgres_config.read_password
+        REPALIS_POSTGRES_SSL           = "false"
         PGSSLMODE                    = local.planetscale_postgres_config.sslmode
         PGSSLROOTCERT                = local.planetscale_postgres_config.sslrootcert
 
-        POLAR_REDIS_URL = "rediss://${module.redis[0].host}:${module.redis[0].port}/1"
+        REPALIS_REDIS_URL = "rediss://${module.redis[0].host}:${module.redis[0].port}/1"
       },
     ) : key => value
     # The S3 span exporter stays off to measure its CPU cost under load.
-    if value != null && key != "POLAR_S3_LOGS_BUCKET_NAME"
+    if value != null && key != "REPALIS_S3_LOGS_BUCKET_NAME"
   } : {}
 }
 
 resource "aws_secretsmanager_secret" "events_api" {
   count                   = local.test_enabled ? 1 : 0
-  name                    = "polar-test-${local.events_api_name}"
+  name                    = "repalis-test-${local.events_api_name}"
   recovery_window_in_days = 7
   tags                    = local.events_api_tags
 }
@@ -66,7 +66,7 @@ resource "aws_secretsmanager_secret_version" "events_api" {
 
 resource "aws_secretsmanager_secret" "ghcr" {
   count                   = local.test_enabled ? 1 : 0
-  name                    = "polar-test-ghcr-credentials"
+  name                    = "repalis-test-ghcr-credentials"
   recovery_window_in_days = 7
   tags                    = local.events_api_tags
 }
@@ -101,7 +101,7 @@ data "aws_iam_policy_document" "events_api_assume" {
 
 resource "aws_iam_role" "events_api_task" {
   count                = local.test_enabled ? 1 : 0
-  name                 = "polar-test-${local.events_api_name}-task"
+  name                 = "repalis-test-${local.events_api_name}-task"
   assume_role_policy   = data.aws_iam_policy_document.events_api_assume.json
   permissions_boundary = data.aws_iam_policy.permission_boundary.arn
   tags                 = local.events_api_tags
@@ -118,7 +118,7 @@ data "aws_iam_policy_document" "events_api_task" {
 
 resource "aws_iam_role_policy" "events_api_task" {
   count  = local.test_enabled ? 1 : 0
-  name   = "polar-test-${local.events_api_name}-task"
+  name   = "repalis-test-${local.events_api_name}-task"
   role   = aws_iam_role.events_api_task[0].id
   policy = data.aws_iam_policy_document.events_api_task[0].json
 }
@@ -127,7 +127,7 @@ resource "aws_iam_role_policy" "events_api_task" {
 
 resource "aws_security_group" "events_api_alb" {
   count       = local.test_enabled ? 1 : 0
-  name        = "polar-test-${local.events_api_name}-alb"
+  name        = "repalis-test-${local.events_api_name}-alb"
   description = "HTTPS from Cloudflare to the event ingestion API load balancer."
   vpc_id      = module.vpc[0].vpc_id
   tags        = local.events_api_tags
@@ -168,7 +168,7 @@ resource "aws_vpc_security_group_egress_rule" "events_api_alb_tasks" {
 
 resource "aws_security_group" "events_api" {
   count       = local.test_enabled ? 1 : 0
-  name        = "polar-test-${local.events_api_name}"
+  name        = "repalis-test-${local.events_api_name}"
   description = "Event ingestion API tasks."
   vpc_id      = module.vpc[0].vpc_id
   tags        = local.events_api_tags
@@ -234,7 +234,7 @@ resource "aws_acm_certificate_validation" "events_api" {
 
 resource "aws_lb" "events_api" {
   count              = local.test_enabled ? 1 : 0
-  name               = "polar-test-${local.events_api_name}"
+  name               = "repalis-test-${local.events_api_name}"
   load_balancer_type = "application"
   subnets            = module.vpc[0].public_subnet_ids
   security_groups    = [aws_security_group.events_api_alb[0].id]
@@ -243,7 +243,7 @@ resource "aws_lb" "events_api" {
 
 resource "aws_lb_target_group" "events_api" {
   count                = local.test_enabled ? 1 : 0
-  name                 = "polar-test-${local.events_api_name}"
+  name                 = "repalis-test-${local.events_api_name}"
   port                 = local.events_api_port
   protocol             = "HTTP"
   target_type          = "ip"
@@ -299,7 +299,7 @@ resource "aws_lb_listener_rule" "events_api_host" {
 
 resource "aws_lb_target_group" "events" {
   count                = local.test_enabled ? 1 : 0
-  name                 = "polar-test-${local.events_name}"
+  name                 = "repalis-test-${local.events_name}"
   port                 = local.events_api_port
   protocol             = "HTTP"
   target_type          = "ip"
@@ -343,9 +343,9 @@ module "events_api" {
   name        = local.events_api_name
   cluster_arn = module.ecs_cluster[0].cluster_arn
   # Tracks :latest; the deploy-ecs-test job in deploy.yml rolls it after each build.
-  image = "ghcr.io/polarsource/polar:latest"
+  image = "ghcr.io/repaliscom/Repalis:latest"
   command = [
-    "uv", "run", "uvicorn", "polar.event_ingestion_api_app:app",
+    "uv", "run", "uvicorn", "repalis.event_ingestion_api_app:app",
     "--host", "0.0.0.0", "--port", tostring(local.events_api_port),
     "--limit-max-requests", "50000", "--limit-max-requests-jitter", "10000",
     "--timeout-graceful-shutdown", "30",
@@ -390,7 +390,7 @@ module "events" {
   environment    = "test"
   name           = local.events_name
   cluster_arn    = module.ecs_cluster[0].cluster_arn
-  image          = "ghcr.io/polarsource/polar-events:latest"
+  image          = "ghcr.io/repaliscom/Repalis-events:latest"
   profile        = "small"
   container_port = local.events_api_port
 

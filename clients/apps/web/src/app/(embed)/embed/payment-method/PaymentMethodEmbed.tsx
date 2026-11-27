@@ -2,16 +2,16 @@
 
 import {
   EMBED_PAYMENT_METHOD_REDIRECT_STATUS_PARAM,
-  PolarEmbedPaymentMethod,
-} from '@polar-sh/checkout/payment-method'
-import { createClient, schemas } from '@polar-sh/client'
+  RepalisEmbedPaymentMethod,
+} from '@repalis/checkout/payment-method'
+import { createClient, schemas } from '@repalis/client'
 import {
   DEFAULT_LOCALE,
   useTranslations,
   type AcceptedLocale,
-} from '@polar-sh/i18n'
-import { getThemePreset } from '@polar-sh/ui/hooks/theming'
-import { X } from '@polar-sh/orbit/icons'
+} from '@repalis/i18n'
+import { getThemePreset } from '@repalis/ui/hooks/theming'
+import { X } from '@repalis/orbit/icons'
 import { useCallback, useEffect, useEffectEvent, useMemo } from 'react'
 import {
   PaymentMethodForm,
@@ -56,7 +56,7 @@ export const PaymentMethodEmbed = ({
   )
 
   useEffect(() => {
-    PolarEmbedPaymentMethod.postMessage({ event: 'loaded' }, embedOrigin)
+    RepalisEmbedPaymentMethod.postMessage({ event: 'loaded' }, embedOrigin)
   }, [embedOrigin])
 
   useEffect(() => {
@@ -64,7 +64,7 @@ export const PaymentMethodEmbed = ({
 
     const observer = new ResizeObserver((entries) => {
       const height = entries[0]?.contentRect.height ?? 0
-      PolarEmbedPaymentMethod.postMessage(
+      RepalisEmbedPaymentMethod.postMessage(
         { event: 'resize', height },
         embedOrigin,
       )
@@ -74,11 +74,11 @@ export const PaymentMethodEmbed = ({
   }, [mode, embedOrigin])
 
   const handleClose = useCallback(() => {
-    PolarEmbedPaymentMethod.postMessage({ event: 'close' }, embedOrigin)
+    RepalisEmbedPaymentMethod.postMessage({ event: 'close' }, embedOrigin)
   }, [embedOrigin])
 
   const handleProcessingStart = useCallback(() => {
-    PolarEmbedPaymentMethod.postMessage({ event: 'confirmed' }, embedOrigin)
+    RepalisEmbedPaymentMethod.postMessage({ event: 'confirmed' }, embedOrigin)
   }, [embedOrigin])
 
   const navigateBackIfStandalone = useCallback(
@@ -93,7 +93,7 @@ export const PaymentMethodEmbed = ({
 
   const handleSuccess = useCallback(
     (paymentMethod: schemas['CustomerPaymentMethod']) => {
-      PolarEmbedPaymentMethod.postMessage(
+      RepalisEmbedPaymentMethod.postMessage(
         { event: 'success', paymentMethodId: paymentMethod.id },
         embedOrigin,
       )
@@ -103,7 +103,7 @@ export const PaymentMethodEmbed = ({
   )
 
   const handleProcessingError = useCallback(() => {
-    PolarEmbedPaymentMethod.postMessage(
+    RepalisEmbedPaymentMethod.postMessage(
       { event: 'error', code: 'processing_failed' },
       embedOrigin,
     )
@@ -116,12 +116,12 @@ export const PaymentMethodEmbed = ({
     if (mode !== 'modal') return
 
     const handleOutsideClick = (event: MouseEvent) => {
-      const content = document.getElementById('polar-embed-content')
+      const content = document.getElementById('repalis-embed-content')
       if (content && !content.contains(event.target as Node)) {
         onOutsideClick()
       }
     }
-    const layout = document.getElementById('polar-embed-layout')
+    const layout = document.getElementById('repalis-embed-layout')
     layout?.addEventListener('click', handleOutsideClick)
     return () => layout?.removeEventListener('click', handleOutsideClick)
   }, [mode])
@@ -144,7 +144,7 @@ export const PaymentMethodEmbed = ({
 
   if (redirectStatus) {
     return (
-      <div className={colorScheme} data-polar-embed-theme={colorScheme}>
+      <div className={colorScheme} data-repalis-embed-theme={colorScheme}>
         <div className="flex h-screen w-full items-center justify-center dark:text-white">
           {form}
         </div>
@@ -154,7 +154,7 @@ export const PaymentMethodEmbed = ({
 
   if (mode === 'inline') {
     return (
-      <div className={colorScheme} data-polar-embed-theme={colorScheme}>
+      <div className={colorScheme} data-repalis-embed-theme={colorScheme}>
         {form}
       </div>
     )
@@ -163,13 +163,13 @@ export const PaymentMethodEmbed = ({
   return (
     <div
       className={colorScheme}
-      id="polar-embed-layout"
-      data-polar-embed-theme={colorScheme}
+      id="repalis-embed-layout"
+      data-repalis-embed-theme={colorScheme}
     >
       <div className="flex h-full w-full items-center justify-center p-0 md:p-12 dark:text-white">
         <div
-          className="dark:bg-polar-900 h-full w-full max-w-lg overflow-y-auto rounded-none bg-white p-8 md:h-auto md:rounded-2xl"
-          id="polar-embed-content"
+          className="dark:bg-repalis-900 h-full w-full max-w-lg overflow-y-auto rounded-none bg-white p-8 md:h-auto md:rounded-2xl"
+          id="repalis-embed-content"
         >
           <div className="mb-6 flex items-center justify-between">
             <h2 className="text-lg font-medium">
@@ -181,7 +181,7 @@ export const PaymentMethodEmbed = ({
       </div>
       <button
         type="button"
-        className="dark:bg-polar-950 fixed top-2 right-2 cursor-pointer rounded-full bg-white p-2 shadow-xl md:top-4 md:right-4 dark:text-white"
+        className="dark:bg-repalis-950 fixed top-2 right-2 cursor-pointer rounded-full bg-white p-2 shadow-xl md:top-4 md:right-4 dark:text-white"
         onClick={handleClose}
         aria-label={t('embedPaymentMethod.close')}
       >

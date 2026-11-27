@@ -6,8 +6,8 @@ import { twMerge } from 'tailwind-merge'
 
 import { FileObject } from '@/components/FileUpload'
 import { toast } from '@/components/Toast/use-toast'
-import { ClearOutlined } from '@polar-sh/orbit/icons'
-import { schemas } from '@polar-sh/client'
+import { ClearOutlined } from '@repalis/orbit/icons'
+import { schemas } from '@repalis/client'
 import { useCallback, useEffect, useMemo, useRef } from 'react'
 
 type ProductMediaFileObject = FileObject<schemas['ProductMediaFileRead']>

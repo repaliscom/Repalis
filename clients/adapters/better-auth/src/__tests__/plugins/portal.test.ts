@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { portal } from '../../plugins/portal'
 import { resolveBillingPrincipal } from '../../principal'
 import { mockApiError } from '../utils/helpers'
-import { createMockPolarClient } from '../utils/mocks'
+import { createMockRepalisClient } from '../utils/mocks'
 
 vi.mock('../../principal', () => ({
   resolveBillingPrincipal: vi.fn(),
@@ -29,10 +29,10 @@ const { APIError, sessionMiddleware, createAuthEndpoint } =
   (await vi.importMock('better-auth/api')) as any
 
 describe('portal plugin', () => {
-  let mockClient: ReturnType<typeof createMockPolarClient>
+  let mockClient: ReturnType<typeof createMockRepalisClient>
 
   beforeEach(() => {
-    mockClient = createMockPolarClient()
+    mockClient = createMockRepalisClient()
     vi.clearAllMocks()
   })
 
@@ -94,7 +94,7 @@ describe('portal plugin', () => {
     it('should create customer portal session and return URL', async () => {
       const mockSession = {
         token: 'session-token-123',
-        customer_portal_url: 'https://polar.sh/portal/session-123',
+        customer_portal_url: 'https://repalis.com/portal/session-123',
       }
 
       vi.mocked(mockClient.customerSessions.create).mockResolvedValue(
@@ -115,7 +115,7 @@ describe('portal plugin', () => {
       })
 
       expect(ctx.json).toHaveBeenCalledWith({
-        url: 'https://polar.sh/portal/session-123',
+        url: 'https://repalis.com/portal/session-123',
         redirect: true,
       })
     })
@@ -133,7 +133,7 @@ describe('portal plugin', () => {
     it('should return redirect: false when body param is false (POST)', async () => {
       const mockSession = {
         token: 'session-token-123',
-        customer_portal_url: 'https://polar.sh/portal/session-123',
+        customer_portal_url: 'https://repalis.com/portal/session-123',
       }
 
       vi.mocked(mockClient.customerSessions.create).mockResolvedValue(
@@ -151,7 +151,7 @@ describe('portal plugin', () => {
       await handler(ctx)
 
       expect(ctx.json).toHaveBeenCalledWith({
-        url: 'https://polar.sh/portal/session-123',
+        url: 'https://repalis.com/portal/session-123',
         redirect: false,
       })
     })
@@ -159,7 +159,7 @@ describe('portal plugin', () => {
     it('should return redirect: true when body param is true (POST)', async () => {
       const mockSession = {
         token: 'session-token-123',
-        customer_portal_url: 'https://polar.sh/portal/session-123',
+        customer_portal_url: 'https://repalis.com/portal/session-123',
       }
 
       vi.mocked(mockClient.customerSessions.create).mockResolvedValue(
@@ -177,7 +177,7 @@ describe('portal plugin', () => {
       await handler(ctx)
 
       expect(ctx.json).toHaveBeenCalledWith({
-        url: 'https://polar.sh/portal/session-123',
+        url: 'https://repalis.com/portal/session-123',
         redirect: true,
       })
     })
@@ -198,7 +198,7 @@ describe('portal plugin', () => {
         'Customer portal creation failed',
       )
       expect(ctx.context.logger.error).toHaveBeenCalledWith(
-        expect.stringContaining('Polar customer portal creation failed'),
+        expect.stringContaining('Repalis customer portal creation failed'),
       )
     })
 
@@ -209,7 +209,7 @@ describe('portal plugin', () => {
 
       const mockSession = {
         token: 'session-token-123',
-        customer_portal_url: 'https://polar.sh/portal/session-123',
+        customer_portal_url: 'https://repalis.com/portal/session-123',
       }
 
       vi.mocked(mockClient.customerSessions.create).mockResolvedValue(
@@ -226,7 +226,7 @@ describe('portal plugin', () => {
       await themeHandler(ctx)
 
       expect(ctx.json).toHaveBeenCalledWith({
-        url: 'https://polar.sh/portal/session-123?theme=dark',
+        url: 'https://repalis.com/portal/session-123?theme=dark',
         redirect: true,
       })
     })
@@ -238,7 +238,7 @@ describe('portal plugin', () => {
 
       const mockSession = {
         token: 'session-token-123',
-        customer_portal_url: 'https://polar.sh/portal/session-123',
+        customer_portal_url: 'https://repalis.com/portal/session-123',
       }
 
       vi.mocked(mockClient.customerSessions.create).mockResolvedValue(
@@ -255,7 +255,7 @@ describe('portal plugin', () => {
       await themeHandler(ctx)
 
       expect(ctx.json).toHaveBeenCalledWith({
-        url: 'https://polar.sh/portal/session-123?theme=light',
+        url: 'https://repalis.com/portal/session-123?theme=light',
         redirect: true,
       })
     })
@@ -267,7 +267,7 @@ describe('portal plugin', () => {
 
       const mockSession = {
         token: 'session-token-123',
-        customer_portal_url: 'https://polar.sh/portal/session-123',
+        customer_portal_url: 'https://repalis.com/portal/session-123',
       }
 
       vi.mocked(mockClient.customerSessions.create).mockResolvedValue(
@@ -284,7 +284,7 @@ describe('portal plugin', () => {
       await noThemeHandler(ctx)
 
       expect(ctx.json).toHaveBeenCalledWith({
-        url: 'https://polar.sh/portal/session-123',
+        url: 'https://repalis.com/portal/session-123',
         redirect: true,
       })
     })
@@ -296,7 +296,7 @@ describe('portal plugin', () => {
 
       const mockSession = {
         token: 'session-token-123',
-        customer_portal_url: 'https://polar.sh/portal/session-123?foo=bar',
+        customer_portal_url: 'https://repalis.com/portal/session-123?foo=bar',
       }
 
       vi.mocked(mockClient.customerSessions.create).mockResolvedValue(
@@ -313,7 +313,7 @@ describe('portal plugin', () => {
       await themeHandler(ctx)
 
       expect(ctx.json).toHaveBeenCalledWith({
-        url: 'https://polar.sh/portal/session-123?foo=bar&theme=dark',
+        url: 'https://repalis.com/portal/session-123?foo=bar&theme=dark',
         redirect: true,
       })
     })
@@ -379,7 +379,7 @@ describe('portal plugin', () => {
 
       await expect(handler(ctx)).rejects.toThrow('Subscriptions list failed')
       expect(ctx.context.logger.error).toHaveBeenCalledWith(
-        expect.stringContaining('Polar subscriptions list failed'),
+        expect.stringContaining('Repalis subscriptions list failed'),
       )
     })
   })
@@ -578,7 +578,7 @@ describe('portal plugin', () => {
       }
 
       await expect(handler(ctx)).rejects.toThrow(
-        'Polar subscriptions list failed',
+        'Repalis subscriptions list failed',
       )
     })
   })
@@ -792,7 +792,7 @@ describe('portal plugin', () => {
 
       await expect(handler(ctx)).rejects.toThrow('Meters list failed')
       expect(ctx.context.logger.error).toHaveBeenCalledWith(
-        expect.stringContaining('Polar meters list failed'),
+        expect.stringContaining('Repalis meters list failed'),
       )
     })
 
@@ -828,7 +828,7 @@ describe('portal plugin', () => {
       vi.mocked(resolveBillingPrincipal).mockResolvedValue(teamPrincipal)
       vi.mocked(mockClient.customerSessions.create).mockResolvedValue({
         token: 'session-token-123',
-        customer_portal_url: 'https://polar.sh/portal/session-123',
+        customer_portal_url: 'https://repalis.com/portal/session-123',
       })
     })
 
@@ -911,7 +911,7 @@ describe('portal plugin', () => {
       expect(mockClient.customerSessions.create).not.toHaveBeenCalled()
     })
 
-    it('rejects a non-member before calling Polar', async () => {
+    it('rejects a non-member before calling Repalis', async () => {
       const endpoints = portal()(mockClient) as any
       vi.mocked(resolveBillingPrincipal).mockRejectedValue(
         new APIError('FORBIDDEN', { message: 'Not a member' }),

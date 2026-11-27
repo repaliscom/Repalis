@@ -1,4 +1,4 @@
-import type { schemas } from '@polar-sh/client'
+import type { schemas } from '@repalis/client'
 import { useEffect, useRef } from 'react'
 import type { FieldErrors, UseFormReturn } from 'react-hook-form'
 import {

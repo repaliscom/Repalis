@@ -1,5 +1,5 @@
-import { Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import {
   PosterFrame,
   PosterHeader,
@@ -47,13 +47,13 @@ export const FigurePoster = () => (
           leading="tight"
         >
           <Box as="span" opacity={0.5}>
-            Polar already invoiced for it
+            Repalis already invoiced for it
           </Box>
         </Text>
       </Box>
       <Box flexDirection="column" rowGap="m">
         <PosterRule />
-        <Meta left="FIG. 04" right="polar.sh" />
+        <Meta left="FIG. 04" right="repalis.com" />
       </Box>
     </Box>
   </PosterFrame>

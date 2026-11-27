@@ -1,6 +1,6 @@
 'use client'
 
-import { Spinner } from '@polar-sh/orbit'
+import { Spinner } from '@repalis/orbit'
 import { ParsedMetricsResponse } from '@/hooks/queries'
 import { getFormattedMetricValue } from '@/utils/metrics'
 import {
@@ -8,23 +8,23 @@ import {
   ArrowOutwardOutlined,
   ArrowUpRight,
   MoreVertOutlined,
-} from '@polar-sh/orbit/icons'
-import { schemas } from '@polar-sh/client'
-import { Button, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import FormattedDateTime from '@polar-sh/ui/components/atoms/FormattedDateTime'
-import FormattedInterval from '@polar-sh/ui/components/atoms/FormattedInterval'
-import { Status } from '@polar-sh/orbit'
+} from '@repalis/orbit/icons'
+import { schemas } from '@repalis/client'
+import { Button, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import FormattedDateTime from '@repalis/ui/components/atoms/FormattedDateTime'
+import FormattedInterval from '@repalis/ui/components/atoms/FormattedInterval'
+import { Status } from '@repalis/orbit'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@polar-sh/ui/components/ui/dropdown-menu'
-import { Tooltip, TooltipContent, TooltipTrigger } from '@polar-sh/orbit'
+} from '@repalis/ui/components/ui/dropdown-menu'
+import { Tooltip, TooltipContent, TooltipTrigger } from '@repalis/orbit'
 import React, { useCallback, useMemo } from 'react'
 import { twMerge } from 'tailwind-merge'
-import { Modal } from '@polar-sh/orbit'
+import { Modal } from '@repalis/orbit'
 import { useModal } from '../Modal/useModal'
 import MetricChart from './MetricChart'
 import { ShareChartModal } from './ShareChartModal'
@@ -135,7 +135,7 @@ const MetricChartBox = ({
     const url = URL.createObjectURL(blob)
     const a = document.createElement('a')
     a.href = url
-    a.download = `polar-${metric}.csv`
+    a.download = `repalis-${metric}.csv`
     a.click()
     URL.revokeObjectURL(url)
   }, [data, metric, selectedMetric])
@@ -206,7 +206,7 @@ const MetricChartBox = ({
             <h3 className={compact ? 'text-base' : 'text-lg'}>
               {selectedMetric?.display_name}
               {context && !shareable && (
-                <span className="dark:text-polar-500 ml-3 text-gray-500">
+                <span className="dark:text-repalis-500 ml-3 text-gray-500">
                   {context}
                 </span>
               )}
@@ -241,7 +241,7 @@ const MetricChartBox = ({
                     dateStyle="medium"
                   />
                 ) : (
-                  <span className="dark:text-polar-500 text-gray-500">
+                  <span className="dark:text-repalis-500 text-gray-500">
                     {startDate && endDate && (
                       <FormattedInterval
                         startDatetime={startDate}
@@ -254,14 +254,14 @@ const MetricChartBox = ({
               </div>
               {previousData && (
                 <div className="flex flex-row items-center gap-x-2 text-sm">
-                  <span className="dark:bg-polar-600 h-0.5 w-3 bg-gray-300" />
+                  <span className="dark:bg-repalis-600 h-0.5 w-3 bg-gray-300" />
                   {hoveredPreviousPeriod ? (
                     <FormattedDateTime
                       datetime={hoveredPreviousPeriod.timestamp}
                       dateStyle="medium"
                     />
                   ) : (
-                    <span className="dark:text-polar-500 text-gray-500">
+                    <span className="dark:text-repalis-500 text-gray-500">
                       {previousStartDate && previousEndDate && (
                         <FormattedInterval
                           startDatetime={previousStartDate}

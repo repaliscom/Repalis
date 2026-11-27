@@ -83,8 +83,8 @@ stay as they are.
 
 ## References
 
-- Agent sign-up design document: [#15460](https://github.com/polarsource/polar/pull/15460).
+- Agent sign-up design document: [#15460](https://github.com/repaliscom/Repalis/pull/15460).
 - [ADR-0005](0005-auth-subject-and-scopes.md): the subject and scope model this
   extends.
-- `server/polar/auth/models.py` (`Subject`), `server/polar/auth/permission.py` (`ROLE_PERMISSIONS`),
-  `server/polar/oauth2/sub_type.py` (`SubType`), `server/polar/authz/`.
+- `server/repalis/auth/models.py` (`Subject`), `server/repalis/auth/permission.py` (`ROLE_PERMISSIONS`),
+  `server/repalis/oauth2/sub_type.py` (`SubType`), `server/repalis/authz/`.

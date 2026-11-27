@@ -1,9 +1,9 @@
 import { useCurrentProductIds, useUpdateDiscount } from '@/hooks/queries'
 import { setValidationErrors } from '@/utils/api/errors'
 import { isDiscountFixed } from '@/utils/discount'
-import { isValidationError, schemas } from '@polar-sh/client'
-import { Button, InlineModalHeader, Text } from '@polar-sh/orbit'
-import { Form } from '@polar-sh/ui/components/ui/form'
+import { isValidationError, schemas } from '@repalis/client'
+import { Button, InlineModalHeader, Text } from '@repalis/orbit'
+import { Form } from '@repalis/ui/components/ui/form'
 import { useCallback } from 'react'
 import { useForm, useFormState } from 'react-hook-form'
 import { toast } from '../Toast/use-toast'
@@ -104,7 +104,7 @@ const UpdateDiscountForm = ({
           <Text variant="heading-xxs" as="h2">
             Update Discount
           </Text>
-          <p className="dark:text-polar-500 text-sm font-normal text-gray-500">
+          <p className="dark:text-repalis-500 text-sm font-normal text-gray-500">
             Amount and options cannot be changed.
           </p>
         </div>

@@ -1,8 +1,8 @@
 {
-  "name": "@polar-sh/orbit",
+  "name": "@repalis/orbit",
   "version": "0.1.0",
-  "description": "Orbit — Design system for Polar",
-  "author": "Polar",
+  "description": "Orbit — Design system for Repalis",
+  "author": "Repalis",
   "license": "Apache-2.0",
   "type": "module",
   "private": true,
@@ -11,7 +11,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/polarsource/polar.git",
+    "url": "https://github.com/repaliscom/Repalis.git",
     "directory": "clients/packages/orbit"
   },
   "main": "./dist/index.cjs",
@@ -64,7 +64,7 @@
     "tailwind-merge": "catalog:"
   },
   "devDependencies": {
-    "@polar-sh/typescript-config": "workspace:*",
+    "@repalis/typescript-config": "workspace:*",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
     "@typescript/native": "catalog:",

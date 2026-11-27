@@ -27,7 +27,7 @@ const source = [
 ].join('\n')
 
 const config: LoadedConfig = {
-  file: 'polar.json',
+  file: 'repalis.json',
   source,
   input: JSON.parse(source),
   generated: false,
@@ -148,7 +148,7 @@ const run = async (
       _options?: CatalogOptions,
     ) => Effect.succeed(result),
   )
-  const cli = runCli(apply, ['polar.json', ...args], options)
+  const cli = runCli(apply, ['repalis.json', ...args], options)
   const exit = await Effect.runPromiseExit(
     cli.effect.pipe(
       Effect.provideService(
@@ -203,7 +203,7 @@ const message = (exit: Exit.Exit<unknown, unknown>) =>
       : String(Cause.squash(exit.cause))
     : undefined
 
-describe('polar config apply', () => {
+describe('repalis config apply', () => {
   test('applies with --confirm and reports what was applied', async () => {
     const { output, failed, applied } = await run(
       { entries: [created, kept], issues: [] },
@@ -213,16 +213,16 @@ describe('polar config apply', () => {
     expect(failed).toBe(false)
     expect(applied).toBe(1)
     expect(output).toMatch(
-      /╯\n\n {2}Summary\n {2}╭─+╮\n *│ {2}Organization {2}Acme *│\n *│ {2}Environment {3}sandbox *│\n *│ {2}File {10}polar\.json *│\n *│ {2}Changes {7}0 to change, 1 to add, 1 unchanged *│\n *│ {2}Issues {8}none *│\n {2}╰─+╯\n\n {2}Apply\n/,
+      /╯\n\n {2}Summary\n {2}╭─+╮\n *│ {2}Organization {2}Acme *│\n *│ {2}Environment {3}sandbox *│\n *│ {2}File {10}repalis\.json *│\n *│ {2}Changes {7}0 to change, 1 to add, 1 unchanged *│\n *│ {2}Issues {8}none *│\n {2}╰─+╯\n\n {2}Apply\n/,
     )
     expect(output).toMatch(
       /│ {2}\+ tool-calls *│\n *│ {6}events {7}all events *│\n *│ {6}aggregation {2}count *│/,
     )
     expect(output).toContain(
-      'polar.json applied to Acme (sandbox): 2 entries (1 created, 0 updated, 1 unchanged)',
+      'repalis.json applied to Acme (sandbox): 2 entries (1 created, 0 updated, 1 unchanged)',
     )
     expect(output).toMatch(
-      /╯\n\n {2}Apply\n {2}╭─+╮\n {2}│ {2}Applying 1 change \(\d+ms\) *│\n {2}╰─+╯\n {2}polar\.json applied to Acme/,
+      /╯\n\n {2}Apply\n {2}╭─+╮\n {2}│ {2}Applying 1 change \(\d+ms\) *│\n {2}╰─+╯\n {2}repalis\.json applied to Acme/,
     )
   })
 
@@ -239,7 +239,7 @@ describe('polar config apply', () => {
     expect(output).toContain(
       'Products, benefits, meters and settings are saved to the draft catalog.',
     )
-    expect(output).toContain('Run polar config publish to make it live.')
+    expect(output).toContain('Run repalis config publish to make it live.')
   })
 
   test('does not point at publish when only meters changed', async () => {
@@ -248,7 +248,7 @@ describe('polar config apply', () => {
       { status: 'applied', entries: [created] },
       ['--confirm'],
     )
-    expect(output).not.toContain('polar config publish')
+    expect(output).not.toContain('repalis config publish')
   })
 
   test('plans and applies with --name as the catalog version name', async () => {
@@ -298,7 +298,7 @@ describe('polar config apply', () => {
     )
     expect(failed).toBe(false)
     expect(applied).toBe(1)
-    expect(output).toContain('polar.json applied to Acme (sandbox): 1 entry')
+    expect(output).toContain('repalis.json applied to Acme (sandbox): 1 entry')
   })
 
   test('needs --confirm when there is no terminal to ask', async () => {
@@ -344,7 +344,7 @@ describe('polar config apply', () => {
     expect(output).toContain('~ tool-calls')
     expect(output).toContain('"Calls" → "Tool calls"')
     expect(output).toContain(
-      'Changes that are no longer in polar.json were removed from the draft of Acme (sandbox)',
+      'Changes that are no longer in repalis.json were removed from the draft of Acme (sandbox)',
     )
     expect(output).not.toContain('nothing to apply')
   })
@@ -419,7 +419,7 @@ describe('polar config apply', () => {
       )
       expect(failed).toBe(false)
       expect(JSON.parse(output)).toMatchObject({
-        file: 'polar.json',
+        file: 'repalis.json',
         status: 'applied',
         issues: [{ severity: 'warning', code: 'unknown_event' }],
       })

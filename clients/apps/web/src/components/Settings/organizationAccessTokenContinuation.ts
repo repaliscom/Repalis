@@ -1,5 +1,5 @@
 import { createPendingActionStore } from '@/utils/pendingAction'
-import { enums, type schemas } from '@polar-sh/client'
+import { enums, type schemas } from '@repalis/client'
 import { z } from 'zod'
 
 export const ORGANIZATION_ACCESS_TOKEN_RESUME_PARAM =
@@ -17,7 +17,7 @@ const organizationAccessTokenCreateBodySchema = z.object({
 })
 
 const pendingOrganizationAccessTokenCreations = createPendingActionStore({
-  keyPrefix: 'polar:organization-access-token:create:v2:',
+  keyPrefix: 'repalis:organization-access-token:create:v2:',
   resumeParam: ORGANIZATION_ACCESS_TOKEN_RESUME_PARAM,
   payloadSchema: organizationAccessTokenCreateBodySchema,
 })

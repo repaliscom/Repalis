@@ -1,6 +1,6 @@
 import GetStartedButton from '@/components/Auth/GetStartedButton'
-import { Grid, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { Grid, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 
 export const Hero = () => {
   return (
@@ -19,7 +19,7 @@ export const Hero = () => {
         <Box flexDirection="column" alignItems="start" rowGap="3xl">
           <Box flexDirection="column">
             <Text variant="heading-m" as="h1" wrap="balance">
-              Meet Polar
+              Meet Repalis
             </Text>
             <Text variant="heading-m" as="p" color="muted" wrap="balance">
               Modern billing for AI companies

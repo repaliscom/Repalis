@@ -4,13 +4,13 @@ import pytest
 import stripe as stripe_lib
 from pytest_mock import MockerFixture
 
-from polar.enums import PaymentMode
-from polar.kit.utils import utc_now
-from polar.models import Customer, Product
-from polar.models.order import OrderStatus
-from polar.models.payment import PaymentTrigger
-from polar.payment_method.repository import PaymentMethodRepository
-from polar.postgres import AsyncSession
+from repalis.enums import PaymentMode
+from repalis.kit.utils import utc_now
+from repalis.models import Customer, Product
+from repalis.models.order import OrderStatus
+from repalis.models.payment import PaymentTrigger
+from repalis.payment_method.repository import PaymentMethodRepository
+from repalis.postgres import AsyncSession
 from scripts.backfill_generated_sepa import backfill_method, recover_order
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (

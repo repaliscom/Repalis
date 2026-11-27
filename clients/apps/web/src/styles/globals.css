@@ -146,17 +146,17 @@
   --color-gray-900: oklch(0.21 0.034 264.665);
   --color-gray-950: oklch(0.13 0.028 261.692);
 
-  --color-polar-50: hsl(0, 0%, 85%);
-  --color-polar-100: hsl(0, 0%, 79%);
-  --color-polar-200: hsl(0, 0%, 68%);
-  --color-polar-300: hsl(0, 0%, 62%);
-  --color-polar-400: hsl(0, 0%, 52%);
-  --color-polar-500: hsl(0, 0%, 46%);
-  --color-polar-600: hsl(0, 0%, 16%);
-  --color-polar-700: hsl(0, 0%, 13%);
-  --color-polar-800: hsl(0, 0%, 9.5%);
-  --color-polar-900: hsl(0, 0%, 6.5%);
-  --color-polar-950: hsl(0, 0%, 3.5%);
+  --color-repalis-50: hsl(0, 0%, 85%);
+  --color-repalis-100: hsl(0, 0%, 79%);
+  --color-repalis-200: hsl(0, 0%, 68%);
+  --color-repalis-300: hsl(0, 0%, 62%);
+  --color-repalis-400: hsl(0, 0%, 52%);
+  --color-repalis-500: hsl(0, 0%, 46%);
+  --color-repalis-600: hsl(0, 0%, 16%);
+  --color-repalis-700: hsl(0, 0%, 13%);
+  --color-repalis-800: hsl(0, 0%, 9.5%);
+  --color-repalis-900: hsl(0, 0%, 6.5%);
+  --color-repalis-950: hsl(0, 0%, 3.5%);
 
   /* shadcn */
   --color-border: var(--border);
@@ -261,11 +261,11 @@
     @apply text-gray-200;
   }
 
-  html:has([data-polar-embed-theme='light']) {
+  html:has([data-repalis-embed-theme='light']) {
     color-scheme: light;
   }
 
-  html:has([data-polar-embed-theme='dark']) {
+  html:has([data-repalis-embed-theme='dark']) {
     color-scheme: dark;
   }
 
@@ -392,39 +392,39 @@
   }
 
   :root.dark {
-    --background: var(--color-polar-800);
-    --foreground: var(--color-polar-500);
+    --background: var(--color-repalis-800);
+    --foreground: var(--color-repalis-500);
 
-    --card: var(--color-polar-800);
-    --card-foreground: var(--color-polar-50);
+    --card: var(--color-repalis-800);
+    --card-foreground: var(--color-repalis-50);
 
-    --popover: var(--color-polar-900);
-    --popover-foreground: var(--color-polar-50);
+    --popover: var(--color-repalis-900);
+    --popover-foreground: var(--color-repalis-50);
 
-    --sidebar-background: var(--color-polar-950);
-    --sidebar-foreground: var(--color-polar-50);
+    --sidebar-background: var(--color-repalis-950);
+    --sidebar-foreground: var(--color-repalis-50);
     --sidebar-primary: var(--color-blue);
-    --sidebar-primary-foreground: var(--color-polar-50);
-    --sidebar-border: var(--color-polar-700);
+    --sidebar-primary-foreground: var(--color-repalis-50);
+    --sidebar-border: var(--color-repalis-700);
 
     --primary: var(--color-blue);
-    --primary-foreground: var(--color-polar-50);
+    --primary-foreground: var(--color-repalis-50);
 
-    --secondary: var(--color-polar-900);
-    --secondary-foreground: var(--color-polar-50);
+    --secondary: var(--color-repalis-900);
+    --secondary-foreground: var(--color-repalis-50);
 
-    --muted: var(--color-polar-700);
-    --muted-foreground: var(--color-polar-500);
+    --muted: var(--color-repalis-700);
+    --muted-foreground: var(--color-repalis-500);
 
     --accent: var(--color-blue);
-    --accent-foreground: var(--color-polar-50);
+    --accent-foreground: var(--color-repalis-50);
 
     --destructive: var(--color-red-500);
     --destructive-foreground: var(--color-red-500);
 
-    --border: var(--color-polar-700);
-    --input: var(--color-polar-700);
-    --ring: var(--color-polar-700);
+    --border: var(--color-repalis-700);
+    --input: var(--color-repalis-700);
+    --ring: var(--color-repalis-700);
   }
 }
 
@@ -436,8 +436,8 @@ pre.shiki {
     background-color: var(--color-gray-100) !important;
   }
 
-  .dark .dark\:prose-pre\:bg-polar-800 & {
-    background-color: var(--color-polar-800) !important;
+  .dark .dark\:prose-pre\:bg-repalis-800 & {
+    background-color: var(--color-repalis-800) !important;
   }
 }
 

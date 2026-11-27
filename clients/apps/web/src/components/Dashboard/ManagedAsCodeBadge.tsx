@@ -1,5 +1,5 @@
-import { LockOutlined } from '@polar-sh/orbit/icons'
-import { Pill } from '@polar-sh/orbit'
+import { LockOutlined } from '@repalis/orbit/icons'
+import { Pill } from '@repalis/orbit'
 
 export const ManagedAsCodeBadge = () => (
   <Pill color="gray">

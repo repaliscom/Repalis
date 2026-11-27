@@ -74,7 +74,7 @@ const save = (
     }
     if (current !== undefined && !isGenerated(current, generator)) {
       return yield* new BillingConfigError({
-        message: `${target} exists and was not written by polar config generate`,
+        message: `${target} exists and was not written by repalis config generate`,
         hint: 'Pass --out with another path, or remove the file first.',
       })
     }
@@ -118,7 +118,7 @@ export const write =
       if (reason !== undefined) {
         return yield* new BillingConfigError({
           message: `Could not read the names in ${config.file}`,
-          hint: `${reason} Run polar config plan to see what to fix.`,
+          hint: `${reason} Run repalis config plan to see what to fix.`,
         })
       }
       const file = out ?? join(dirname(config.file), generator.file)

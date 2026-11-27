@@ -1,9 +1,9 @@
-import { getSubscriptions } from '@polar-sh/sdk/2026-10/services/subscriptions'
+import { getSubscriptions } from '@repalis/sdk/2026-10/services/subscriptions'
 import {
   handleWebhookPayload,
   type WebhooksConfig,
-} from '@polar-sh/adapter-utils'
-import { type PolarCore, webhooks as sdkWebhooks } from '@polar-sh/sdk/2026-10'
+} from '@repalis/adapter-utils'
+import { type RepalisCore, webhooks as sdkWebhooks } from '@repalis/sdk/2026-10'
 import { APIError, createAuthEndpoint } from 'better-auth/api'
 import { DEFAULT_BETTER_AUTH_CREATOR_ROLE } from '../organization/roles'
 import {
@@ -13,9 +13,9 @@ import {
   synchronizeOrganizationSeats,
 } from '../organization/seats'
 import { ensureMemberMirror } from '../organization/sync'
-import type { PolarOptions } from '../types'
+import type { RepalisOptions } from '../types'
 
-type WebhookRootOptions = Pick<PolarOptions, 'experimental_organizationSync'>
+type WebhookRootOptions = Pick<RepalisOptions, 'experimental_organizationSync'>
 
 export interface WebhooksOptions extends Omit<
   WebhooksConfig,
@@ -29,10 +29,10 @@ export interface WebhooksOptions extends Omit<
 
 export const webhooks =
   (options: WebhooksOptions) =>
-  (polar: PolarCore, rootOptions?: WebhookRootOptions) => {
+  (repalis: RepalisCore, rootOptions?: WebhookRootOptions) => {
     return {
-      polarWebhooks: createAuthEndpoint(
-        '/polar/webhooks',
+      repalisWebhooks: createAuthEndpoint(
+        '/repalis/webhooks',
         {
           method: 'POST',
           metadata: {
@@ -48,7 +48,7 @@ export const webhooks =
           }
           if (!secret) {
             throw new APIError('INTERNAL_SERVER_ERROR', {
-              message: 'Polar webhook secret not found',
+              message: 'Repalis webhook secret not found',
             })
           }
 
@@ -68,7 +68,7 @@ export const webhooks =
             event = await sdkWebhooks.validateEvent(buf, headers, secret)
           } catch (err: unknown) {
             if (
-              err instanceof sdkWebhooks.PolarWebhookUnknownTypeError &&
+              err instanceof sdkWebhooks.RepalisWebhookUnknownTypeError &&
               err.eventType !== null
             ) {
               return ctx.json({ received: true })
@@ -76,12 +76,12 @@ export const webhooks =
             if (err instanceof Error) {
               ctx.context.logger.error(`${err.message}`)
             }
-            if (err instanceof sdkWebhooks.PolarWebhookVerificationError) {
+            if (err instanceof sdkWebhooks.RepalisWebhookVerificationError) {
               throw new APIError('FORBIDDEN', {
                 message: `Webhook Error: ${err.message}`,
               })
             }
-            if (err instanceof sdkWebhooks.PolarWebhookError) {
+            if (err instanceof sdkWebhooks.RepalisWebhookError) {
               throw new APIError('BAD_REQUEST', {
                 message: `Webhook Error: ${err.message}`,
               })
@@ -110,7 +110,7 @@ export const webhooks =
                 where: [{ field: 'id', value: organizationId }],
               })
               if (organization) {
-                const subscription = await getSubscriptions(polar)(
+                const subscription = await getSubscriptions(repalis)(
                   event.data.id,
                 )
                 if (
@@ -130,11 +130,11 @@ export const webhooks =
                     creatorRole:
                       betterAuthOrganizationOptions.creatorRole ??
                       DEFAULT_BETTER_AUTH_CREATOR_ROLE,
-                    mapBetterAuthRoleToPolarRole:
-                      organizationOptions.mapBetterAuthRoleToPolarRole,
+                    mapBetterAuthRoleToRepalisRole:
+                      organizationOptions.mapBetterAuthRoleToRepalisRole,
                   }
                   for (const member of roster) {
-                    await ensureMemberMirror(polar, roleOptions, {
+                    await ensureMemberMirror(repalis, roleOptions, {
                       organizationId,
                       user: member.user,
                       betterAuthRole: member.role,
@@ -142,7 +142,7 @@ export const webhooks =
                   }
                   await synchronizeOrganizationSeats({
                     authContext: ctx.context,
-                    client: polar,
+                    client: repalis,
                     organizationId,
                     organizationOptions,
                     betterAuthOrganizationOptions,
@@ -159,10 +159,10 @@ export const webhooks =
           } catch (e: unknown) {
             if (e instanceof Error) {
               ctx.context.logger.error(
-                `Polar webhook failed. Error: ${e.message}`,
+                `Repalis webhook failed. Error: ${e.message}`,
               )
             } else {
-              ctx.context.logger.error(`Polar webhook failed. Error: ${e}`)
+              ctx.context.logger.error(`Repalis webhook failed. Error: ${e}`)
             }
 
             throw new APIError('INTERNAL_SERVER_ERROR', {

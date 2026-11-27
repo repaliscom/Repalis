@@ -3,16 +3,16 @@
 import { toast } from '@/components/Toast/use-toast'
 import { useDeleteSSOConnection, useUpdateSSOConnection } from '@/hooks/queries'
 import { extractApiErrorMessage } from '@/utils/api/errors'
-import { schemas } from '@polar-sh/client'
-import { Button, InlineModal, Status, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import { EllipsisVertical } from '@polar-sh/orbit/icons'
+import { schemas } from '@repalis/client'
+import { Button, InlineModal, Status, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import { EllipsisVertical } from '@repalis/orbit/icons'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@polar-sh/ui/components/ui/dropdown-menu'
+} from '@repalis/ui/components/ui/dropdown-menu'
 import { ConfirmModal } from '../../Modal/ConfirmModal'
 import { useModal } from '../../Modal/useModal'
 import EditSSOConnectionModal from './EditSSOConnectionModal'

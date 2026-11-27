@@ -5,10 +5,10 @@ import { useOrganization } from '@/hooks/queries'
 import { usePayoutAccountSetup } from '@/hooks/usePayoutAccountSetup'
 import { extractApiErrorMessage } from '@/utils/api/errors'
 import { api } from '@/utils/client'
-import { schemas } from '@polar-sh/client'
-import { Box } from '@polar-sh/orbit/Box'
-import { Button } from '@polar-sh/orbit'
-import { ArrowRight } from '@polar-sh/orbit/icons'
+import { schemas } from '@repalis/client'
+import { Box } from '@repalis/orbit/Box'
+import { Button } from '@repalis/orbit'
+import { ArrowRight } from '@repalis/orbit/icons'
 import { useCallback, useState } from 'react'
 import { CheckPayoutStatusButton } from '../../CheckPayoutStatusButton'
 import { ManualPayoutStatusBlock } from '../../ManualPayoutStatusBlock'
@@ -111,7 +111,7 @@ export const PayoutAccountSection = ({
           <ArrowRight className="ml-2 h-4 w-4" />
         </Button>
       ) : state === 'paused' ? (
-        <Button onClick={() => window.open('mailto:support@polar.sh')}>
+        <Button onClick={() => window.open('mailto:contact@repalis.com')}>
           Contact support
           <ArrowRight className="ml-2 h-4 w-4" />
         </Button>

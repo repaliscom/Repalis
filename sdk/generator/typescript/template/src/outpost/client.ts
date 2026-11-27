@@ -22,12 +22,12 @@ import { type DropReason, MeteringError, UnknownMeterError, retryAfterMs } from 
 import type { EventInput } from "../metering/event";
 import type { CustomerMeter } from "../metering/meter";
 
-import { ClientBase, PolarClientError, PolarError, PolarRateLimitError } from "../base";
+import { ClientBase, RepalisClientError, RepalisError, RepalisRateLimitError } from "../base";
 import { customerKey, parseEvent } from "./event";
 import {
   MissingExternalIdError,
   NotReadyError,
-  PolarOutpostError,
+  RepalisOutpostError,
   RefusedError,
   UnavailableRedisError,
   isRedisConnectionError,
@@ -89,7 +89,7 @@ const DRAIN_INTERVAL = {{ outpost_constants.drain_interval }};
 const OUTBOX_RETRY_DELAY = {{ outpost_constants.outbox_retry_delay }};
 const MAX_OUTBOX_RETRY_DELAY = {{ outpost_constants.max_outbox_retry_delay }};
 // The consumer group the flushers read the outbox through.
-const OUTBOX_GROUP = "polar";
+const OUTBOX_GROUP = "repalis";
 const REPORT_INTERVAL = {{ outpost_constants.report_interval }};
 const SPAN_SAMPLE_RATE = {{ outpost_constants.span_sample_rate }};
 const TELEMETRY_CAP = {{ outpost_constants.telemetry_cap }};
@@ -136,7 +136,7 @@ interface Changes {
   // Seconds.
   next_poll_in: number;
 }
-// What Polar said of the pending events a snapshot seals.
+// What Repalis said of the pending events a snapshot seals.
 interface Confirmation {
   snapshot: Snapshot;
   started: number;
@@ -327,15 +327,15 @@ const reportLocalValue = (
   }
 };
 
-// The reset count of a state whose snapshot Polar did not confirm.
+// The reset count of a state whose snapshot Repalis did not confirm.
 const UNCONFIRMED = -1;
 
-// How many times a batch goes again without the events Polar named, before it is dropped whole.
+// How many times a batch goes again without the events Repalis named, before it is dropped whole.
 const REFUSED_RESENDS = 3;
 
-// The indexes of the events Polar's validation refuses, when each of its errors names one.
+// The indexes of the events Repalis's validation refuses, when each of its errors names one.
 const refusedIndexes = (error: unknown): Set<number> | undefined => {
-  if (!(error instanceof PolarClientError) || error.statusCode !== 422) return undefined;
+  if (!(error instanceof RepalisClientError) || error.statusCode !== 422) return undefined;
   let detail: unknown;
   try {
     // The client keeps the body of an error it has no class for as text.
@@ -391,18 +391,18 @@ const customerArguments = (customer: string): Customer => {
 
 export interface OutpostOptions {
   client: Pick<ClientBase, "buildRequest" | "sendRequest" | "parseResponse">;
-  /** Send Outpost telemetry to Polar. Also disabled by `POLAR_OUTPOST_TELEMETRY=0`. */
+  /** Send Outpost telemetry to Repalis. Also disabled by `REPALIS_OUTPOST_TELEMETRY=0`. */
   telemetry?: boolean;
   /** How long a read of a cold customer waits for its first snapshot, in milliseconds. */
   snapshotTimeout?: number;
   /**
-   * How long a confirm request waits for Polar, in milliseconds. Defaults to 2000; the snapshot
+   * How long a confirm request waits for Repalis, in milliseconds. Defaults to 2000; the snapshot
    * then applies with the events still pending.
    */
   confirmTimeout?: number;
-  /** Called with each batch of events Polar accepted from the outbox; may be async. */
+  /** Called with each batch of events Repalis accepted from the outbox; may be async. */
   onDelivered?: (events: EventInput[]) => void | Promise<void>;
-  /** Called with each batch of events Polar refused, which leave the outbox; may be async. */
+  /** Called with each batch of events Repalis refused, which leave the outbox; may be async. */
   onDropped?: (events: EventInput[], reason: DropReason) => void | Promise<void>;
 }
 export class Outpost {
@@ -439,9 +439,9 @@ export class Outpost {
   private pullRetryAt = 0;
   // The configuration's revision in the pull hash, as of the configuration this instance runs.
   private configurationRevision: number | null = null;
-  // How many times Polar's changes went past their retention, as of the last read of the pull hash.
+  // How many times Repalis's changes went past their retention, as of the last read of the pull hash.
   private resets: number | null = null;
-  private failure?: PolarOutpostError;
+  private failure?: RepalisOutpostError;
   private failedAt = 0;
   private applying: Promise<unknown> = Promise.resolve();
 
@@ -463,7 +463,7 @@ export class Outpost {
   }
 
   async start(): Promise<this> {
-    if (this.redis) throw new PolarError("Outpost is already connected");
+    if (this.redis) throw new RepalisError("Outpost is already connected");
     this.failure = undefined;
     this.pullRetryAt = 0;
     this.configurationRevision = null;
@@ -472,9 +472,9 @@ export class Outpost {
     this.applying = Promise.resolve();
     if (isTelemetryEnabled(this.options.telemetry ?? true)) {
       this.tracerProvider = createTracerProvider(this.telemetryBuffer);
-      this.tracer = this.tracerProvider.getTracer("polar.outpost");
+      this.tracer = this.tracerProvider.getTracer("repalis.outpost");
       this.meterProvider = createMeterProvider(this.telemetryBuffer);
-      const meter = this.meterProvider.getMeter("polar.outpost");
+      const meter = this.meterProvider.getMeter("repalis.outpost");
       this.ingestDuration = meter.createHistogram("outpost.ingest.duration", { unit: "s" });
       this.ingestBuckets = meter.createCounter("outpost.ingest.buckets");
       this.readDuration = meter.createHistogram("outpost.read.duration", { unit: "s" });
@@ -515,7 +515,7 @@ export class Outpost {
       this.redis.on("error", () => {});
       this.redis.on("close", () => {
         if (this.redis !== redis) return;
-        this.event("outpost.redis.disconnect", new PolarError("Redis connection closed"));
+        this.event("outpost.redis.disconnect", new RepalisError("Redis connection closed"));
       });
       // A connection the server closes at once, as under a burst of new ones, is tried again
       // until the timeout.
@@ -603,7 +603,7 @@ export class Outpost {
   }
 
   /**
-   * Reject an event Outpost cannot reconcile with Polar.
+   * Reject an event Outpost cannot reconcile with Repalis.
    *
    * @throws MissingExternalIdError when the event has no external_id.
    */
@@ -621,7 +621,7 @@ export class Outpost {
       const bucketStart = getBucketStart(parsed.timestamp);
       const matches = matchEvent(this.matchers, parsed);
       this.ingestBuckets?.add(matches.length);
-      // Polar dates the event as Outpost bucketed it.
+      // Repalis dates the event as Outpost bucketed it.
       const queued = JSON.stringify({
         ...event,
         timestamp: event.timestamp ?? new Date(Math.floor(parsed.timestamp / 1000)).toISOString(),
@@ -723,14 +723,14 @@ export class Outpost {
 
   readonly [OUTPOST] = true;
 
-  // Hands this instance's telemetry to the shared Redis, where the next pull sends it to Polar.
+  // Hands this instance's telemetry to the shared Redis, where the next pull sends it to Repalis.
   async flushTelemetry(): Promise<void> {
     await Promise.all([this.tracerProvider?.forceFlush(), this.meterProvider?.forceFlush()]);
     await this.pushTelemetry();
   }
 
   private requireRedis(): OutpostRedis {
-    if (!this.redis) throw new PolarError("Call Outpost.start() before using Outpost");
+    if (!this.redis) throw new RepalisError("Call Outpost.start() before using Outpost");
     return this.redis;
   }
 
@@ -751,13 +751,13 @@ export class Outpost {
   }
 
   private failUnlessTransient(error: unknown): void {
-    if (error instanceof RefusedError || !(error instanceof PolarError || isRedisConnectionError(error)))
+    if (error instanceof RefusedError || !(error instanceof RepalisError || isRedisConnectionError(error)))
       this.fail(error);
   }
 
   private fail(error: unknown): void {
     this.failure =
-      error instanceof PolarOutpostError ? error : new PolarOutpostError("Outpost stopped", { cause: error });
+      error instanceof RepalisOutpostError ? error : new RepalisOutpostError("Outpost stopped", { cause: error });
     this.failedAt = Date.now();
   }
 
@@ -777,7 +777,7 @@ export class Outpost {
     return `${this.prefix}:cold:lock`;
   }
 
-  // The events Polar has yet to receive, in the order Outpost tracked them.
+  // The events Repalis has yet to receive, in the order Outpost tracked them.
   private get outboxKey(): string {
     return `${this.prefix}:outbox`;
   }
@@ -787,12 +787,12 @@ export class Outpost {
   }
 
   // The instances of a token share its configuration in Redis, where a new instance reads it
-  // instead of asking Polar. The key hashes the token: Redis never sees it.
+  // instead of asking Repalis. The key hashes the token: Redis never sees it.
   private get configurationKey(): string {
     const [url, { headers }] = this.options.client.buildRequest("GET", "/v1/outpost/configuration");
     const sent = new Headers(headers);
     const identity = createHash("sha256")
-      .update(JSON.stringify([url, sent.get("authorization"), sent.get("polar-organization")]))
+      .update(JSON.stringify([url, sent.get("authorization"), sent.get("repalis-organization")]))
       .digest("hex");
     return `${KEY_VERSION}:configuration:${identity}`;
   }
@@ -820,21 +820,21 @@ export class Outpost {
       timeout === undefined ? undefined : { timeout: timeout / 1000 },
     );
     if (response.status === 401 || response.status === 403) throw new RefusedError();
-    // Only a 2xx carries Polar's answer: a redirect is a failure that may pass.
+    // Only a 2xx carries Repalis's answer: a redirect is a failure that may pass.
     if (response.status >= 300 && response.status < 400)
-      throw new PolarError(`Polar answered ${response.status}`);
+      throw new RepalisError(`Repalis answered ${response.status}`);
     return client.parseResponse<T>(response, "json");
   }
 
   // From "redis", the organization's copy: every token of the organization reloads it once the
   // pull hash says the configuration changed. False when Redis holds none.
-  private async configure(from: "redis" | "polar" | "either" = "either"): Promise<boolean> {
+  private async configure(from: "redis" | "repalis" | "either" = "either"): Promise<boolean> {
     const redis = this.requireRedis();
     const unavailable = (error: unknown) => {
       throw redisUnavailable(error);
     };
     const key = from === "redis" ? `${this.prefix}:configuration` : this.configurationKey;
-    const stored = from === "polar" ? null : await redis.get(key).catch(unavailable);
+    const stored = from === "repalis" ? null : await redis.get(key).catch(unavailable);
     if (!stored && from === "redis") return false;
     const configuration: { organization_id: string; reducers: Reducer[] } = stored
       ? JSON.parse(stored)
@@ -844,7 +844,7 @@ export class Outpost {
       const json = JSON.stringify(configuration);
       await redis.set(this.configurationKey, json).catch(unavailable);
       // Only the pull writes the organization's copy: a fetch at start may be older than it.
-      if (from === "polar")
+      if (from === "repalis")
         await redis
           .set(`${KEY_VERSION}:${organization_id}:configuration`, json)
           .catch(unavailable);
@@ -862,14 +862,14 @@ export class Outpost {
     );
   }
 
-  // Reads the customer's states from Redis. One Polar has no snapshot of yet is asked for once,
+  // Reads the customer's states from Redis. One Repalis has no snapshot of yet is asked for once,
   // then read again once the fleet's fetch of it ends.
   private async read(customer: string, reducers: Reducer[], statistics: string[]): Promise<Read[]> {
     const deadline = Date.now() + (this.options.snapshotTimeout ?? SNAPSHOT_TIMEOUT);
     let reads = await this.load(customer, reducers, statistics);
-    // Polar sends no snapshot without a connection.
+    // Repalis sends no snapshot without a connection.
     if (!this.connected) return reads;
-    // A state confirmed before the last reset serves the read while Polar confirms it again.
+    // A state confirmed before the last reset serves the read while Repalis confirms it again.
     const fetched = Promise.all(
       reducers.map((reducer, index) =>
         isReady(reads[index]) && !this.isStale(reads[index])
@@ -896,7 +896,7 @@ export class Outpost {
     }
   }
 
-  // One command: each reducer's state, with only the statistics the read adds up, unless Polar
+  // One command: each reducer's state, with only the statistics the read adds up, unless Repalis
   // does not know the customer.
   private async load(customer: string, reducers: Reducer[], statistics: string[]): Promise<Read[]> {
     const keys = reducers.flatMap((reducer) => {
@@ -941,7 +941,7 @@ export class Outpost {
     }
   }
 
-  // Queues the identity once. The instance holding the cold lock asks Polar for the fleet's cold
+  // Queues the identity once. The instance holding the cold lock asks Repalis for the fleet's cold
   // customers together and applies their states.
   private fetch(customer: string, reducer: Reducer): Promise<void> {
     const identity = `${customer}:${reducer.id}`;
@@ -961,7 +961,7 @@ export class Outpost {
     const queued = this.queued.splice(0);
     try {
       const redis = this.requireRedis();
-      // A customer already queued or asked for stays out of the queue until Polar answers.
+      // A customer already queued or asked for stays out of the queue until Repalis answers.
       const marking = redis.pipeline();
       for (const { identity } of queued)
         marking.set(this.fetchKey(identity), "1", "PX", TIMEOUT, "NX");
@@ -1041,7 +1041,7 @@ export class Outpost {
           const wait = retryAfterMs(error) ?? delay;
           if (
             error instanceof RefusedError ||
-            (error instanceof PolarClientError && !(error instanceof PolarRateLimitError)) ||
+            (error instanceof RepalisClientError && !(error instanceof RepalisRateLimitError)) ||
             Date.now() + wait >= deadline
           )
             throw error;
@@ -1074,7 +1074,7 @@ export class Outpost {
     await this.relaying;
   }
 
-  // A flusher reads the outbox through the group, which tracks each batch until Polar has it.
+  // A flusher reads the outbox through the group, which tracks each batch until Repalis has it.
   private async createOutboxGroup(): Promise<void> {
     await this.requireRedis()
       .xgroup("CREATE", this.outboxKey, OUTBOX_GROUP, "0", "MKSTREAM")
@@ -1121,7 +1121,7 @@ export class Outpost {
         );
         // The first round also takes back the batches that wait on a failed or frozen flusher.
         if (!length || (round && length === delivering)) return;
-        // Polar failed to take a batch: the fleet waits before sending the outbox again.
+        // Repalis failed to take a batch: the fleet waits before sending the outbox again.
         if (Number(retryAt) > Date.now()) {
           this.undrained = true;
           return;
@@ -1136,7 +1136,7 @@ export class Outpost {
           return;
         }
         if (!outcomes.includes("drained")) return;
-        // Polar takes batches again: the next failure waits the first delay.
+        // Repalis takes batches again: the next failure waits the first delay.
         ended = retryAt ? [retryAt] : [];
       }
     } catch (error) {
@@ -1147,7 +1147,7 @@ export class Outpost {
   }
 
   // A batch whose flusher froze is taken back once idle long enough; one this slot left behind,
-  // as Polar failed, goes before the new events.
+  // as Repalis failed, goes before the new events.
   private async flushSlot(slot: number): Promise<"busy" | "failed" | "drained"> {
     const redis = this.requireRedis();
     const lockKey = `${this.outboxKey}:flusher:${slot}`;
@@ -1189,7 +1189,7 @@ export class Outpost {
     }
   }
 
-  // Sends a batch to Polar, then acknowledges it and settles its events in one script. Polar
+  // Sends a batch to Repalis, then acknowledges it and settles its events in one script. Repalis
   // refusing the batch drops it; failing to take it leaves it for the next flush.
   private async deliver(entries: [string, string[] | null][], delivery: Delivery): Promise<boolean> {
     // An entry that is not JSON can never be sent: it leaves the outbox with the batch.
@@ -1210,7 +1210,7 @@ export class Outpost {
         await this.request("POST", "/v1/events/ingest", { body: { events }, timeout: TIMEOUT });
         break;
       } catch (error) {
-        // Polar refuses a whole request for the events it names: the others go again without
+        // Repalis refuses a whole request for the events it names: the others go again without
         // them, a few times at most.
         const named = refusedIndexes(error);
         if (named?.size && named.size < events.length && resent < REFUSED_RESENDS) {
@@ -1218,12 +1218,12 @@ export class Outpost {
           events = events.filter((_, index) => !named.has(index));
           continue;
         }
-        if (error instanceof PolarClientError && !(error instanceof PolarRateLimitError)) {
+        if (error instanceof RepalisClientError && !(error instanceof RepalisRateLimitError)) {
           refused.push(...events);
           events = [];
           break;
         }
-        // As long as Polar asks, or longer after each failure in a row.
+        // As long as Repalis asks, or longer after each failure in a row.
         const wait = retryAfterMs(error);
         await this.backOff(this.outboxBackoffKey, {
           first: wait ?? OUTBOX_RETRY_DELAY,
@@ -1232,7 +1232,7 @@ export class Outpost {
         return false;
       }
     const redis = this.requireRedis();
-    // Polar will never count a refused event: it settles everywhere, hot bucket or cold.
+    // Repalis will never count a refused event: it settles everywhere, hot bucket or cold.
     if (refused.length && events.length)
       await redis.outpostConfirm(...confirmArguments(this.prefix, false, this.settlements(refused)));
     await redis.outpostConfirm(
@@ -1326,7 +1326,7 @@ export class Outpost {
   private pull(wait = true): Promise<void> {
     this.pulling ??= this.trace("outpost.pull", (span) => this.pullChanges(span, wait))
       .catch(async (error: unknown) => {
-        // Polar or Redis failed: the next pull starts again from the same cursor, later.
+        // Repalis or Redis failed: the next pull starts again from the same cursor, later.
         this.pullRetryAt = await this.backOff(this.pullKey);
         this.failUnlessTransient(error);
       })
@@ -1379,14 +1379,14 @@ export class Outpost {
           query: cursor ? { cursor, limit: PULL_LIMIT } : { limit: PULL_LIMIT },
         }).catch((error: unknown) => {
           // Only a rate limit clears on its own: any other 4xx would repeat forever.
-          if (error instanceof PolarClientError && !(error instanceof PolarRateLimitError))
-            throw new RefusedError("Polar rejected the pull");
+          if (error instanceof RepalisClientError && !(error instanceof RepalisRateLimitError))
+            throw new RefusedError("Repalis rejected the pull");
           throw error;
         });
         pages += 1;
         if (changes.reset) this.resets = await redis.hincrby(this.pullKey, "reset", 1);
         if (changes.configuration_changed) {
-          await this.configure("polar");
+          await this.configure("repalis");
           this.configurationRevision = await redis.hincrby(this.pullKey, "configuration", 1);
         }
         const resets = this.resets;
@@ -1399,7 +1399,7 @@ export class Outpost {
         await this.serial(() =>
           eachAtMost([...customers.values()], PULL_CONCURRENCY, async (snapshots) => {
             for (const snapshot of snapshots)
-              // A confirm waits on Polar: the lock is extended before each one.
+              // A confirm waits on Repalis: the lock is extended before each one.
               if (await this.receiveSnapshot(snapshot, true, resets, extend)) {
                 applied += 1;
                 await renew();
@@ -1446,7 +1446,7 @@ export class Outpost {
     return result;
   }
 
-  // Applies a snapshot of Polar's, unless it was pulled for a customer nobody here reads.
+  // Applies a snapshot of Repalis's, unless it was pulled for a customer nobody here reads.
   // `resets` is the reset count when the snapshot was asked for: one asked for before a reset may
   // have missed changes the pull skipped.
   private async receiveSnapshot(
@@ -1494,7 +1494,7 @@ export class Outpost {
       identity,
       customer,
       confirmation?.snapshot ?? snapshot,
-      // Polar did not say which pending events the snapshot counts: no reset count matches, so
+      // Repalis did not say which pending events the snapshot counts: no reset count matches, so
       // the state asks again at its next read.
       confirmation && !answered ? UNCONFIRMED : resets,
       confirmation,
@@ -1503,7 +1503,7 @@ export class Outpost {
     return true;
   }
 
-  // Asks Polar which of the pending events in the buckets the snapshot seals it counts. A
+  // Asks Repalis which of the pending events in the buckets the snapshot seals it counts. A
   // request that fails leaves its events pending until a later snapshot.
   private async askConfirmation(
     identity: string,
@@ -1558,7 +1558,7 @@ export class Outpost {
   }
 
   // Settles the confirmed events and applies the snapshot in one transaction: a read sees the
-  // bucket either fully local or as Polar's total plus what is still pending.
+  // bucket either fully local or as Repalis's total plus what is still pending.
   private async applySnapshot(
     identity: string,
     customer: string,
@@ -1663,13 +1663,13 @@ export class Outpost {
       ] as const) {
         const key = this.telemetryKey(kind);
         const batch = `${key}:relaying`;
-        // A batch Polar failed goes first; otherwise the list moves aside, and exports written
+        // A batch Repalis failed goes first; otherwise the list moves aside, and exports written
         // meanwhile start a new one.
         if (!(await redis.exists(batch))) await redis.rename(key, batch).catch(() => {});
         const exports = await redis.lrangeBuffer(batch, 0, -1);
         if (!exports.length) continue;
         const status = await relay(this.options.client, path, Buffer.concat(exports));
-        // One Polar refused would be refused again.
+        // One Repalis refused would be refused again.
         if (status < 500 && status !== 429) await redis.del(batch);
       }
     } finally {
@@ -1733,7 +1733,7 @@ export type OutpostFactoryOptions = Omit<OutpostOptions, "client" | "confirmTime
 };
 
 /**
- * Configure Outpost for polar.metering({ outpost: outpost({ redisUrl }) }).
+ * Configure Outpost for repalis.metering({ outpost: outpost({ redisUrl }) }).
  *
  * @throws MeteringError if neither redisUrl nor REDIS_URL is set.
  */

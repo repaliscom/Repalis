@@ -3,11 +3,11 @@ import uuid
 import pytest
 from httpx2 import AsyncClient
 
-from polar.auth.scope import READ_ONLY_SCOPES, Scope
-from polar.models import User
-from polar.models.account import Account
-from polar.models.organization import Organization
-from polar.models.user_organization import UserOrganization
+from repalis.auth.scope import READ_ONLY_SCOPES, Scope
+from repalis.models import User
+from repalis.models.account import Account
+from repalis.models.organization import Organization
+from repalis.models.user_organization import UserOrganization
 from tests.fixtures.auth import AuthSubjectFixture
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_account

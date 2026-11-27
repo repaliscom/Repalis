@@ -66,7 +66,7 @@ const render = (
           : applied(config, organization, result.entries),
         ...(result.draft
           ? next(
-              `${ui.INDENT}Products, benefits, meters and settings are saved to the draft catalog.\n${ui.INDENT}Run ${ui.command('polar config publish')} to make it live.`,
+              `${ui.INDENT}Products, benefits, meters and settings are saved to the draft catalog.\n${ui.INDENT}Run ${ui.command('repalis config publish')} to make it live.`,
             )
           : []),
         ui.blank,
@@ -86,12 +86,12 @@ const approve = (
     if (json || !(yield* interactive)) {
       yield* say(
         next(
-          `${ui.INDENT}Review the plan, then run ${ui.command('polar config apply --confirm')}.`,
+          `${ui.INDENT}Review the plan, then run ${ui.command('repalis config apply --confirm')}.`,
         ),
       )
       return yield* new BillingConfigError({
         message: `Confirmation needed to apply to ${target(organization)}`,
-        hint: 'Pass --confirm to apply without asking, after reviewing polar config plan.',
+        hint: 'Pass --confirm to apply without asking, after reviewing repalis config plan.',
       })
     }
     yield* say(nextOpen())
@@ -226,28 +226,28 @@ export const apply = Command.make('apply', { file, org, confirmed, name }).pipe(
   ),
   Command.withExamples([
     {
-      command: 'polar config apply',
+      command: 'repalis config apply',
       description:
-        'Show what applying polar.config.ts would change, then save it to the draft after confirmation',
+        'Show what applying repalis.config.ts would change, then save it to the draft after confirmation',
     },
     {
-      command: 'polar config apply billing/polar.json',
+      command: 'repalis config apply billing/repalis.json',
       description: 'Apply a specific file',
     },
     {
-      command: 'polar config apply --org acme',
+      command: 'repalis config apply --org acme',
       description: 'Apply to another organization, by slug or ID',
     },
     {
-      command: 'polar config apply --confirm',
+      command: 'repalis config apply --confirm',
       description: 'Apply without asking, for scripts and CI',
     },
     {
-      command: "polar config apply --name 'Spring launch'",
+      command: "repalis config apply --name 'Spring launch'",
       description: 'Name the draft catalog version',
     },
     {
-      command: 'polar config apply --confirm --json',
+      command: 'repalis config apply --confirm --json',
       description: 'Print what was applied as JSON, for scripts and agents',
     },
   ]),

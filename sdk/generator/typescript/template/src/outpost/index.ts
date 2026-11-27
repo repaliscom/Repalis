@@ -2,7 +2,7 @@ export { Outpost, outpost } from "./client";
 export {
   MissingExternalIdError,
   NotReadyError,
-  PolarOutpostError,
+  RepalisOutpostError,
   UnavailableRedisError,
 } from "./errors";
 export type { OutpostFactoryOptions, OutpostOptions } from "./client";

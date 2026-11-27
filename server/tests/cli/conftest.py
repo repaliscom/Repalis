@@ -2,7 +2,7 @@ from unittest.mock import AsyncMock
 
 import pytest
 
-from polar.kit.db.postgres import AsyncSession
+from repalis.kit.db.postgres import AsyncSession
 
 
 @pytest.fixture(scope="session", autouse=True)

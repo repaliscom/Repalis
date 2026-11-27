@@ -1,6 +1,6 @@
 'use client'
 
-import { Input } from '@polar-sh/orbit'
+import { Input } from '@repalis/orbit'
 import { FIXED_STATE_OPTIONS } from '../../lib/states'
 import {
   Select,
@@ -8,7 +8,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@polar-sh/orbit'
+} from '@repalis/orbit'
 
 export {
   COUNTRIES_WITH_FIXED_STATE_OPTIONS,

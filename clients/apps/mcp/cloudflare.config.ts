@@ -1,18 +1,18 @@
 import { bindings, defineConfig } from 'cf/config'
 import * as entrypoint from './src/index.ts' with { type: 'cf-worker' }
 
-const POLAR_SERVERS = {
-  'polar-mcp': 'https://api.polar.sh',
-  'polar-sandbox': 'https://sandbox-api.polar.sh',
+const REPALIS_SERVERS = {
+  'repalis-mcp': 'https://api.repalis.com',
+  'repalis-sandbox': 'https://sandbox-api.repalis.com',
 }
 
-const LOCAL_POLAR_SERVERS = {
-  'polar-local': process.env.POLAR_LOCAL_API_URL ?? 'http://127.0.0.1:8000',
+const LOCAL_REPALIS_SERVERS = {
+  'repalis-local': process.env.REPALIS_LOCAL_API_URL ?? 'http://127.0.0.1:8000',
 }
 
 export default defineConfig(({ mode }) => ({
   worker: {
-    name: 'polar-mcp',
+    name: 'repalis-mcp',
     compatibilityDate: '2026-10-01',
     compatibilityFlags: ['nodejs_compat'],
     entrypoint,
@@ -25,10 +25,10 @@ export default defineConfig(({ mode }) => ({
           ? (process.env.POSTHOG_PROJECT_KEY ?? '')
           : 'phc_H2ajVAY4cy0uQpcgN5fzpv8JC3yP8VZOjx2EXiFBbgz',
       ),
-      POLAR_SERVERS: bindings.json(
+      REPALIS_SERVERS: bindings.json(
         mode === 'development'
-          ? { ...POLAR_SERVERS, ...LOCAL_POLAR_SERVERS }
-          : POLAR_SERVERS,
+          ? { ...REPALIS_SERVERS, ...LOCAL_REPALIS_SERVERS }
+          : REPALIS_SERVERS,
       ),
     },
     observability: {

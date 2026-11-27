@@ -1,5 +1,5 @@
 #!/bin/bash
-# Polar pattern enforcement hook
+# Repalis pattern enforcement hook
 # Runs before Edit/Write tool calls to enforce codebase conventions
 
 # Read JSON from stdin
@@ -13,8 +13,8 @@ if [[ -z "$FILE_PATH" ]] || [[ -z "$CONTENT" ]]; then
   exit 0
 fi
 
-# Skip if not a Python file in server/polar/
-if [[ ! "$FILE_PATH" =~ server/polar/.* ]] || [[ ! "$FILE_PATH" =~ \.py$ ]]; then
+# Skip if not a Python file in server/repalis/
+if [[ ! "$FILE_PATH" =~ server/repalis/.* ]] || [[ ! "$FILE_PATH" =~ \.py$ ]]; then
   echo '{"decision": "approve"}'
   exit 0
 fi

@@ -7,10 +7,10 @@ import {
   useCustomerPortalCustomer,
   useCustomerReactivateSubscription,
 } from '@/hooks/queries/customerPortal'
-import { Client, schemas } from '@polar-sh/client'
-import { Alert, Button } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import { getTaxAddressFields } from '@polar-sh/ui/lib/taxAddressFields'
+import { Client, schemas } from '@repalis/client'
+import { Alert, Button } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import { getTaxAddressFields } from '@repalis/ui/lib/taxAddressFields'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useState } from 'react'

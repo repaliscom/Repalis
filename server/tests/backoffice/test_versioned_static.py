@@ -4,11 +4,11 @@ from pathlib import Path
 import httpx2
 import pytest
 
-from polar.backoffice.app import app as backoffice_app
-from polar.backoffice.versioned_static import get_file_version
+from repalis.backoffice.app import app as backoffice_app
+from repalis.backoffice.versioned_static import get_file_version
 
 STATIC_DIRECTORY = (
-    Path(__file__).parents[2] / "polar" / "backoffice" / "static"
+    Path(__file__).parents[2] / "repalis" / "backoffice" / "static"
 ).resolve()
 
 

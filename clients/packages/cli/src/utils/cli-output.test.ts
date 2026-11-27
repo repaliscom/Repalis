@@ -14,18 +14,18 @@ describe('formatErrors', () => {
   test.each([
     ['listen', 'webhook listen'],
     ['trigger', 'webhook trigger'],
-  ])('suggests the webhook command for polar %s', (subcommand, moved) => {
-    expect(unknown(subcommand, ['polar'])).toContain(
+  ])('suggests the webhook command for repalis %s', (subcommand, moved) => {
+    expect(unknown(subcommand, ['repalis'])).toContain(
       `Did you mean this?\n    ${moved}`,
     )
   })
 
   test.each([
-    [['polar'], 'login', 'auth login'],
-    [['polar'], 'whoami', 'auth whoami'],
-    [['polar', 'auth'], 'status', 'auth whoami'],
-    [['polar', 'webhooks'], 'list', 'webhooks list_webhook_endpoints'],
-    [['polar', 'webhooks'], 'listen', 'webhook listen'],
+    [['repalis'], 'login', 'auth login'],
+    [['repalis'], 'whoami', 'auth whoami'],
+    [['repalis', 'auth'], 'status', 'auth whoami'],
+    [['repalis', 'webhooks'], 'list', 'webhooks list_webhook_endpoints'],
+    [['repalis', 'webhooks'], 'listen', 'webhook listen'],
   ])('suggests the real command for %j %s', (parent, subcommand, intended) => {
     expect(unknown(subcommand, parent)).toContain(
       `Did you mean this?\n    ${intended}`,
@@ -33,7 +33,7 @@ describe('formatErrors', () => {
   })
 
   test('leaves other unknown subcommands alone', () => {
-    expect(unknown('listen', ['polar', 'config'])).not.toContain('Did you mean')
-    expect(unknown('nope', ['polar'])).not.toContain('Did you mean')
+    expect(unknown('listen', ['repalis', 'config'])).not.toContain('Did you mean')
+    expect(unknown('nope', ['repalis'])).not.toContain('Did you mean')
   })
 })

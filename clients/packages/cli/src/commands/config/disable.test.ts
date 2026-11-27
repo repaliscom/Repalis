@@ -62,7 +62,7 @@ const message = (exit: Exit.Exit<unknown, unknown>) =>
     ? (Cause.squash(exit.cause) as BillingConfigError).message
     : undefined
 
-describe('polar config disable', () => {
+describe('repalis config disable', () => {
   test('disables config with --confirm', async () => {
     const { output, disabled, exit } = await run(['--confirm'])
     expect(Exit.isSuccess(exit)).toBe(true)

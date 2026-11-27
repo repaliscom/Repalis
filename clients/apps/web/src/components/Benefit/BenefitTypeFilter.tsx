@@ -1,14 +1,14 @@
 import { benefitsDisplayNames } from '@/components/Benefit/utils'
-import { CheckOutlined, FilterList } from '@polar-sh/orbit/icons'
-import { enums, schemas } from '@polar-sh/client'
-import { Button, Text } from '@polar-sh/orbit'
+import { CheckOutlined, FilterList } from '@repalis/orbit/icons'
+import { enums, schemas } from '@repalis/client'
+import { Button, Text } from '@repalis/orbit'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@polar-sh/ui/components/ui/dropdown-menu'
+} from '@repalis/ui/components/ui/dropdown-menu'
 import { twMerge } from 'tailwind-merge'
 
 export const BenefitTypeFilter = ({

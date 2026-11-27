@@ -1,7 +1,7 @@
 'use client'
 
-import { CloseOutlined } from '@polar-sh/orbit/icons'
-import { Tabs, TabsList, TabsTrigger } from '@polar-sh/orbit'
+import { CloseOutlined } from '@repalis/orbit/icons'
+import { Tabs, TabsList, TabsTrigger } from '@repalis/orbit'
 import React from 'react'
 import { CurrencySelector } from '../../../CurrencySelector'
 
@@ -60,7 +60,7 @@ export const CurrencyTabs: React.FC<CurrencyTabsProps> = ({
                           onRemoveCurrency(currency)
                         }
                       }}
-                      className="dark:text-polar-400 dark:hover:text-polar-200 cursor-pointer items-center justify-center text-gray-400 hover:text-gray-600"
+                      className="dark:text-repalis-400 dark:hover:text-repalis-200 cursor-pointer items-center justify-center text-gray-400 hover:text-gray-600"
                     >
                       <CloseOutlined fontSize="inherit" />
                     </span>

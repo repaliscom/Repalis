@@ -3,16 +3,16 @@ from datetime import timedelta
 import pytest
 from freezegun import freeze_time
 
-from polar.kit.utils import utc_now
-from polar.models import Customer, Product
-from polar.models.order import OrderStatus
-from polar.models.payment import PaymentStatus
-from polar.observability.invariants.rules import INVARIANTS
-from polar.observability.invariants.rules.orders_stuck_after_payment import (
+from repalis.kit.utils import utc_now
+from repalis.models import Customer, Product
+from repalis.models.order import OrderStatus
+from repalis.models.payment import PaymentStatus
+from repalis.observability.invariants.rules import INVARIANTS
+from repalis.observability.invariants.rules.orders_stuck_after_payment import (
     OrdersStuckAfterPaymentInvariant,
     OrdersStuckAfterPaymentInvariantError,
 )
-from polar.postgres import AsyncSession
+from repalis.postgres import AsyncSession
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_order, create_payment
 

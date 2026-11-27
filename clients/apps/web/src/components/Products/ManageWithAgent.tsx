@@ -4,15 +4,15 @@ import { useModal } from '@/components/Modal/useModal'
 import { toast } from '@/components/Toast/use-toast'
 import { useSafeCopy } from '@/hooks/clipboard'
 import { usePostHog } from '@/hooks/posthog'
-import { schemas } from '@polar-sh/client'
-import { Button, Modal, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import { ArrowUpRight, Check, Copy, Sparkles } from '@polar-sh/orbit/icons'
+import { schemas } from '@repalis/client'
+import { Button, Modal, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import { ArrowUpRight, Check, Copy, Sparkles } from '@repalis/orbit/icons'
 import { useEffect, useState } from 'react'
 
 const SETUP_COMMANDS = [
-  'curl -fsSL https://polar.sh/install.sh | bash',
-  'polar agent setup',
+  'curl -fsSL https://repalis.com/install.sh | bash',
+  'repalis agent setup',
 ]
 
 const CommandBlock = () => {
@@ -70,7 +70,7 @@ const CommandBlock = () => {
 const ManageWithAgentContent = () => (
   <Box flexDirection="column" rowGap="2xl" padding="2xl">
     <Box flexDirection="column" rowGap="s">
-      <Text variant="heading-xs">Manage Polar from your agent</Text>
+      <Text variant="heading-xs">Manage Repalis from your agent</Text>
       <Text color="muted">
         Create products, set up pricing and manage customers from the agent you
         already use.
@@ -78,16 +78,16 @@ const ManageWithAgentContent = () => (
     </Box>
     <Box flexDirection="column" rowGap="m">
       <Box flexDirection="column" rowGap="xs">
-        <Text>Set up with the Polar CLI</Text>
+        <Text>Set up with the Repalis CLI</Text>
         <Text variant="caption" color="muted">
-          Detects the agents you have installed and adds the Polar MCP server
+          Detects the agents you have installed and adds the Repalis MCP server
           and skills to them.
         </Text>
       </Box>
       <CommandBlock />
       <Box>
         <a
-          href="https://polar.sh/docs/integrate/mcp"
+          href="/docs/integrate/mcp"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -129,7 +129,7 @@ export const ManageWithAgentButton = ({
         Use your agent
       </Button>
       <Modal
-        title="Polar for agents"
+        title="Repalis for agents"
         className="lg:w-[560px]"
         isShown={isShown}
         hide={hide}

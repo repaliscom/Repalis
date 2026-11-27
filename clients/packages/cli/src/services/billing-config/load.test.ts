@@ -28,14 +28,14 @@ const load = (file?: string) =>
 let directory: string
 
 beforeEach(async () => {
-  directory = await mkdtemp(join(tmpdir(), 'polar-sdk-'))
+  directory = await mkdtemp(join(tmpdir(), 'repalis-sdk-'))
 })
 
 afterEach(async () => {
   await rm(directory, { recursive: true, force: true })
 })
 
-const write = async (content: string, name = 'polar.json') => {
+const write = async (content: string, name = 'repalis.json') => {
   const file = join(directory, name)
   await writeFile(file, content)
   return file
@@ -64,7 +64,7 @@ describe('load', () => {
         "const meter = { external_id: 'tool-calls' as const }",
         'export default { meters: [meter] }',
       ].join('\n'),
-      'polar.config.ts',
+      'repalis.config.ts',
     )
     const config = await load(file)
     expect(config.generated).toBe(true)
@@ -101,21 +101,21 @@ describe('load', () => {
 
   test('requires a default exported object from a script', async () => {
     const error = await failure(
-      load(await write('export const config = {}', 'polar.config.ts')),
+      load(await write('export const config = {}', 'repalis.config.ts')),
     )
     expect(error.message).toContain('does not default export')
   })
 
   test('reports scripts that fail to load', async () => {
     const error = await failure(
-      load(await write('throw new Error("boom")', 'polar.config.js')),
+      load(await write('throw new Error("boom")', 'repalis.config.js')),
     )
     expect(error.message).toContain('Could not load')
     expect(error.hint).toContain('boom')
   })
 
   test('rejects unsupported file types', async () => {
-    const error = await failure(load(await write('meters: []', 'polar.yaml')))
+    const error = await failure(load(await write('meters: []', 'repalis.yaml')))
     expect(error.message).toContain('is not a supported config file')
     expect(error.hint).toBe('Use a .ts, .json or .js file.')
   })
@@ -177,14 +177,14 @@ describe('load', () => {
     const error = await failure(
       load(
         await write(
-          "import { defineConfig } from '@polar-sh/nope'\nexport default defineConfig({})",
-          'polar.config.ts',
+          "import { defineConfig } from '@repalis/nope'\nexport default defineConfig({})",
+          'repalis.config.ts',
         ),
       ),
     )
     expect(error.message).toContain('Could not load')
     expect(error.hint).toBe(
-      'It imports @polar-sh/nope, which is not installed. Run npm install @polar-sh/nope.',
+      'It imports @repalis/nope, which is not installed. Run npm install @repalis/nope.',
     )
   })
 })
@@ -197,20 +197,20 @@ describe('load without a file', () => {
 
   test('picks the first default file name that exists', async () => {
     await write(source)
-    await write("export default { meters: ['ts'] }", 'polar.config.ts')
+    await write("export default { meters: ['ts'] }", 'repalis.config.ts')
     const config = await load()
-    expect(config.file).toBe('polar.config.ts')
+    expect(config.file).toBe('repalis.config.ts')
     expect(config.input).toEqual({ meters: ['ts'] })
   })
 
-  test('falls back to polar.json', async () => {
+  test('falls back to repalis.json', async () => {
     await write(source)
-    expect((await load()).file).toBe('polar.json')
+    expect((await load()).file).toBe('repalis.json')
   })
 
   test('fails when no default file exists', async () => {
     const error = await failure(load())
     expect(error.message).toContain('No billing config file found')
-    expect(error.hint).toContain('polar.config.ts')
+    expect(error.hint).toContain('repalis.config.ts')
   })
 })

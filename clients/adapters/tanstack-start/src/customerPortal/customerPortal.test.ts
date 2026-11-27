@@ -2,11 +2,11 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 const mockCustomerSessionCreate = vi.fn()
 
-vi.mock('@polar-sh/sdk/2026-10', () => ({
-  createPolarCore: vi.fn(() => ({})),
+vi.mock('@repalis/sdk/2026-10', () => ({
+  createRepalisCore: vi.fn(() => ({})),
 }))
 
-vi.mock('@polar-sh/sdk/2026-10/services/customer_sessions', () => ({
+vi.mock('@repalis/sdk/2026-10/services/customer_sessions', () => ({
   createCustomerSessions: () => mockCustomerSessionCreate,
 }))
 
@@ -20,7 +20,7 @@ describe('CustomerPortal', () => {
   it('should create customer session and redirect when customerId is valid', async () => {
     const getCustomerId = vi.fn().mockResolvedValue('cust_123')
     mockCustomerSessionCreate.mockResolvedValue({
-      customer_portal_url: 'https://polar.sh/portal/session_123',
+      customer_portal_url: 'https://repalis.com/portal/session_123',
     })
 
     const portal = CustomerPortal({
@@ -38,7 +38,7 @@ describe('CustomerPortal', () => {
     })
     expect(response.status).toBe(302)
     expect(response.headers.get('location')).toBe(
-      'https://polar.sh/portal/session_123',
+      'https://repalis.com/portal/session_123',
     )
   })
 

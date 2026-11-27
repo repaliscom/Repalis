@@ -50,8 +50,8 @@ jobs:
             migration_heads:
               - 'server/migrations/versions/**'
               - 'server/migrations/env.py'
-              - 'server/polar/models/**'
-              - 'server/polar/kit/db/models/**'
+              - 'server/repalis/models/**'
+              - 'server/repalis/kit/db/models/**'
               - 'server/scripts/check_migrations.py'
               - 'server/tests/scripts/test_check_migrations.py'
               - '.github/workflows/test_server.yaml'
@@ -225,7 +225,7 @@ jobs:
             if [[ "$file" == server/migrations/* ]]; then
               continue
             fi
-            if [[ "$file" == server/polar/models/* ]]; then
+            if [[ "$file" == server/repalis/models/* ]]; then
               continue
             fi
             if [[ "$file" == server/scripts/* ]]; then
@@ -307,7 +307,7 @@ jobs:
         with:
           fetch-depth: 0 # The check ignores variables added to terraform/ in the last 7 days
 
-      - name: Find POLAR_* variables nothing reads
+      - name: Find REPALIS_* variables nothing reads
         id: check
         run: |
           STATUS=0
@@ -326,7 +326,7 @@ jobs:
             echo "$OUTPUT" >> $GITHUB_OUTPUT
             echo "EOF" >> $GITHUB_OUTPUT
 
-            NAMES=$(echo "$OUTPUT" | grep -oE 'POLAR_[A-Z0-9_]+' | paste -sd' ' -)
+            NAMES=$(echo "$OUTPUT" | grep -oE 'REPALIS_[A-Z0-9_]+' | paste -sd' ' -)
             echo "::warning title=Provisioned but never read::$NAMES"
             {
               echo "## 🔑 Env Var Check"
@@ -387,7 +387,7 @@ jobs:
       (github.event_name == 'pull_request' || github.event_name == 'merge_group')
     runs-on: blacksmith-4vcpu-ubuntu-2404
     env:
-      POLAR_EMAIL_RENDERER_BINARY_PATH: "/tmp/email-renderer"
+      REPALIS_EMAIL_RENDERER_BINARY_PATH: "/tmp/email-renderer"
     steps:
       - name: Harden the runner (Audit all outbound calls)
         uses: step-security/harden-runner@1d88384fd173af6ecb012dfd0264a306b711241a # v2.22.4
@@ -435,19 +435,19 @@ jobs:
     runs-on: ${{ matrix.shard == 'tinybird' && 'blacksmith-4vcpu-ubuntu-2404' || 'blacksmith-8vcpu-ubuntu-2404' }}
     timeout-minutes: 15
     env:
-      POLAR_ENV: testing
-      POLAR_EMAIL_RENDERER_BINARY_PATH: ${{ github.workspace }}/server/emails/bin/react-email-pkg
-      POLAR_TEST_DATABASE_TEMPLATE: polar_test
-      POLAR_TEST_XDIST: "true"
-      POLAR_TEST_TINYBIRD_REQUIRED: ${{ matrix.shard == 'tinybird' && 'true' || 'false' }}
+      REPALIS_ENV: testing
+      REPALIS_EMAIL_RENDERER_BINARY_PATH: ${{ github.workspace }}/server/emails/bin/react-email-pkg
+      REPALIS_TEST_DATABASE_TEMPLATE: repalis_test
+      REPALIS_TEST_XDIST: "true"
+      REPALIS_TEST_TINYBIRD_REQUIRED: ${{ matrix.shard == 'tinybird' && 'true' || 'false' }}
 
     services:
       postgres:
         image: postgres:18.6-bookworm
         env:
-          POSTGRES_USER: polar
-          POSTGRES_PASSWORD: polar
-          POSTGRES_DB: polar_test
+          POSTGRES_USER: repalis
+          POSTGRES_PASSWORD: repalis
+          POSTGRES_DB: repalis_test
           POSTGRES_PORT: 5432
         options: >-
           --health-cmd pg_isready
@@ -575,16 +575,16 @@ jobs:
         working-directory: ./server
         run: |
           uv run python -m scripts.pytest_shards --shards 4 --shard ${{ matrix.shard }} > "$RUNNER_TEMP/test-files"
-          POLAR_TEST_FILES="$RUNNER_TEMP/test-files" uv run pytest -m "not tinybird and not benchmark" -n auto --dist=loadgroup --no-cov --durations=0 --store-durations --clean-durations
+          REPALIS_TEST_FILES="$RUNNER_TEMP/test-files" uv run pytest -m "not tinybird and not benchmark" -n auto --dist=loadgroup --no-cov --durations=0 --store-durations --clean-durations
 
       - name: 🐦 Run Tinybird tests (pytest)
         if: matrix.shard == 'tinybird'
         working-directory: ./server
         env:
-          POLAR_TEST_TINYBIRD_TOKEN_FILE: ${{ runner.temp }}/tinybird-token
+          REPALIS_TEST_TINYBIRD_TOKEN_FILE: ${{ runner.temp }}/tinybird-token
         run: |
           uv run python -m scripts.pytest_shards --tinybird > "$RUNNER_TEMP/test-files"
-          POLAR_TEST_FILES="$RUNNER_TEMP/test-files" uv run pytest -m "tinybird and not benchmark" -n 1 --dist=loadgroup --no-cov --durations=0
+          REPALIS_TEST_FILES="$RUNNER_TEMP/test-files" uv run pytest -m "tinybird and not benchmark" -n 1 --dist=loadgroup --no-cov --durations=0
 
       - name: 📊 Upload shard test durations
         if: github.event_name == 'push' && matrix.shard != 'tinybird'

@@ -3,7 +3,7 @@ import { ChildProcess } from 'node:child_process'
 import * as http from 'node:http'
 import { Console, Effect, Layer, Redacted } from 'effect'
 import * as browser from 'open'
-import type { PolarEnvironment } from '@/schemas/Auth'
+import type { RepalisEnvironment } from '@/schemas/Auth'
 import { Environment } from '@/services/api'
 import {
   authorizationUrl,
@@ -23,8 +23,8 @@ vi.mock('node:http', async (importOriginal) => {
 vi.mock('open', () => ({ default: vi.fn() }))
 
 const tokenUrls = {
-  sandbox: 'https://sandbox-api.polar.sh/v1/oauth2/token',
-  production: 'https://api.polar.sh/v1/oauth2/token',
+  sandbox: 'https://sandbox-api.repalis.com/v1/oauth2/token',
+  production: 'https://api.repalis.com/v1/oauth2/token',
 }
 
 let api: ReturnType<typeof fakeHttp>
@@ -227,7 +227,7 @@ test('callback verifies state before accepting codes or OAuth denial', async () 
 describe('authorizationUrl', () => {
   const resolve = (
     env: Record<string, string>,
-    environment: PolarEnvironment = 'sandbox',
+    environment: RepalisEnvironment = 'sandbox',
   ) =>
     Effect.runPromise(
       authorizationUrl(environment).pipe(
@@ -239,7 +239,7 @@ describe('authorizationUrl', () => {
 
   test('uses the environment dashboard by default', async () => {
     expect(await resolve({})).toMatchObject({
-      success: 'https://sandbox.polar.sh/oauth2/authorize',
+      success: 'https://sandbox.repalis.com/oauth2/authorize',
     })
   })
 
@@ -249,20 +249,20 @@ describe('authorizationUrl', () => {
     })
   })
 
-  test('honors POLAR_DASHBOARD_URL', async () => {
+  test('honors REPALIS_DASHBOARD_URL', async () => {
     expect(
       await resolve({
-        POLAR_API_URL: 'http://127.0.0.1:8000',
-        POLAR_DASHBOARD_URL: 'http://127.0.0.1:3000/',
+        REPALIS_API_URL: 'http://127.0.0.1:8000',
+        REPALIS_DASHBOARD_URL: 'http://127.0.0.1:3000/',
       }),
     ).toMatchObject({ success: 'http://127.0.0.1:3000/oauth2/authorize' })
   })
 
   test('refuses to pair a custom API with the hosted dashboard', async () => {
     expect(
-      await resolve({ POLAR_API_URL: 'http://127.0.0.1:8000' }),
+      await resolve({ REPALIS_API_URL: 'http://127.0.0.1:8000' }),
     ).toMatchObject({
-      failure: { message: expect.stringContaining('POLAR_DASHBOARD_URL') },
+      failure: { message: expect.stringContaining('REPALIS_DASHBOARD_URL') },
     })
   })
 })

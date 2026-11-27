@@ -1,4 +1,4 @@
-import { SegmentedControl } from '@polar-sh/orbit'
+import { SegmentedControl } from '@repalis/orbit'
 import { SWITCH_FILTERS, SwitchFilter } from './switchCopy'
 
 const numberFormat = new Intl.NumberFormat('en-US')

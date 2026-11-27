@@ -1,9 +1,9 @@
 import pytest
 
-from polar.auth.models import AuthSubject
-from polar.metrics.service import metrics as metrics_service
-from polar.models import Organization, User, UserOrganization
-from polar.postgres import AsyncSession
+from repalis.auth.models import AuthSubject
+from repalis.metrics.service import metrics as metrics_service
+from repalis.models import Organization, User, UserOrganization
+from repalis.postgres import AsyncSession
 from tests.fixtures.auth import AuthSubjectFixture
 
 

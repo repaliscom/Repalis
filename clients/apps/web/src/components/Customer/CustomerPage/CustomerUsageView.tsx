@@ -9,11 +9,11 @@ import { useHasPermission } from '@/hooks/permissions'
 import { useCustomerMeters } from '@/hooks/queries/customerMeters'
 import { useMultipleMeterQuantities } from '@/hooks/queries/meters'
 import { useSubscriptions } from '@/hooks/queries/subscriptions'
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/navigation'
-import { formatCurrency } from '@polar-sh/currency'
-import ShadowBox from '@polar-sh/ui/components/atoms/ShadowBox'
+import { formatCurrency } from '@repalis/currency'
+import ShadowBox from '@repalis/ui/components/atoms/ShadowBox'
 import {
   Button,
   DataTable,
@@ -21,12 +21,12 @@ import {
   InlineModal,
   Text,
   Truncated,
-} from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+} from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import { Suspense, useMemo, useState } from 'react'
 import FormattedUnits from '../../Meter/FormattedUnits'
 import { EmptyState } from '../../Shared/EmptyState'
-import { CircleGauge as GaugeCircleIcon } from '@polar-sh/orbit/icons'
+import { CircleGauge as GaugeCircleIcon } from '@repalis/orbit/icons'
 import { useCustomerMetricsParams } from './useCustomerMetricsParams'
 
 const StackedMeterChart = dynamic(() => import('../../Meter/StackedMeterChart'))
@@ -167,8 +167,8 @@ export const CustomerUsageView = ({
 
   return (
     <Box flexDirection="column" rowGap="2xl">
-      <ShadowBox className="dark:bg-polar-800 flex flex-col gap-y-4 p-2">
-        <div className="dark:bg-polar-900 rounded-3xl bg-white p-4">
+      <ShadowBox className="dark:bg-repalis-800 flex flex-col gap-y-4 p-2">
+        <div className="dark:bg-repalis-900 rounded-3xl bg-white p-4">
           <Suspense fallback={<div style={{ height: 250 }} />}>
             <StackedMeterChart
               data={chartData}
@@ -265,7 +265,7 @@ export const CustomerUsageView = ({
                   {formatCurrency('compact')(overages.cost, overages.currency)}
                 </span>
               ) : (
-                <span className="dark:text-polar-500 text-gray-500">—</span>
+                <span className="dark:text-repalis-500 text-gray-500">—</span>
               )
             },
           },

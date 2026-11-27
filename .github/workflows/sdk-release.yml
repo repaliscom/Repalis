@@ -141,7 +141,7 @@ jobs:
             tag=latest
           fi
 
-          echo "Publishing @polar-sh/sdk@$version with dist-tag '$tag'"
+          echo "Publishing @repalis/sdk@$version with dist-tag '$tag'"
           echo "tag=$tag" >> "$GITHUB_OUTPUT"
 
       - name: Publish to npm (Trusted Publishing)
@@ -192,18 +192,18 @@ jobs:
           deadline=$((SECONDS + 300))
           attempt=1
           while true; do
-            if npm view "@polar-sh/sdk@$RELEASE_VERSION" version >/dev/null 2>&1; then
-              echo "@polar-sh/sdk@$RELEASE_VERSION is available on npm"
+            if npm view "@repalis/sdk@$RELEASE_VERSION" version >/dev/null 2>&1; then
+              echo "@repalis/sdk@$RELEASE_VERSION is available on npm"
               exit 0
             fi
             if [ "$SECONDS" -ge "$deadline" ]; then
               break
             fi
-            echo "Attempt $attempt: @polar-sh/sdk@$RELEASE_VERSION not yet available, retrying in 15s"
+            echo "Attempt $attempt: @repalis/sdk@$RELEASE_VERSION not yet available, retrying in 15s"
             sleep 15
             attempt=$((attempt + 1))
           done
-          echo "::error::@polar-sh/sdk@$RELEASE_VERSION did not appear on npm within 5 minutes"
+          echo "::error::@repalis/sdk@$RELEASE_VERSION did not appear on npm within 5 minutes"
           exit 1
 
       - name: Update lockfile
@@ -237,9 +237,9 @@ jobs:
 
           body_file="$RUNNER_TEMP/sdk-dependency-update-pr.md"
           printf '%s\n' \
-            "Update all adapters and the CLI to @polar-sh/sdk@$RELEASE_VERSION after its successful npm release." \
+            "Update all adapters and the CLI to @repalis/sdk@$RELEASE_VERSION after its successful npm release." \
             "" \
-            "Includes updated SDK dependencies and peer dependencies, the pnpm lockfile, and a patch changeset for every adapter and polar-cli." \
+            "Includes updated SDK dependencies and peer dependencies, the pnpm lockfile, and a patch changeset for every adapter and repalis-cli." \
             > "$body_file"
           gh pr create --base main --head "$branch" --draft --title "$title" --body-file "$body_file"
 

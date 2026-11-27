@@ -9,7 +9,7 @@ const TYPE_CHECKED_IN_CI = process.env.VERCEL === '1' || Boolean(process.env.CI)
 // Vercel services deployments: deployment URLs change with
 // every deployment, so derive base from the deployment's own URL
 const VERCEL_SERVICES =
-  process.env.NEXT_PUBLIC_POLAR_VERCEL_SERVICES_ENABLED === '1'
+  process.env.NEXT_PUBLIC_REPALIS_VERCEL_SERVICES_ENABLED === '1'
 if (
   VERCEL_SERVICES &&
   !process.env.NEXT_PUBLIC_FRONTEND_BASE_URL &&
@@ -18,11 +18,11 @@ if (
   process.env.NEXT_PUBLIC_FRONTEND_BASE_URL = `https://${process.env.VERCEL_URL}`
 }
 
-const POLAR_AUTH_COOKIE_KEY =
-  process.env.POLAR_AUTH_COOKIE_KEY || 'polar_session'
+const REPALIS_AUTH_COOKIE_KEY =
+  process.env.REPALIS_AUTH_COOKIE_KEY || 'repalis_session'
 const defaultFrontendHostname = process.env.NEXT_PUBLIC_FRONTEND_BASE_URL
   ? new URL(process.env.NEXT_PUBLIC_FRONTEND_BASE_URL).hostname
-  : 'polar.sh'
+  : 'repalis.com'
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -31,9 +31,9 @@ const nextConfig = {
   reactCompiler: true,
   experimental: {
     useTypeScriptCli: false,
-    optimizePackageImports: ['@polar-sh/orbit/icons'],
+    optimizePackageImports: ['@repalis/orbit/icons'],
   },
-  transpilePackages: ['shiki', '@polar-sh/checkout', '@polar-sh/orbit'],
+  transpilePackages: ['shiki', '@repalis/checkout', '@repalis/orbit'],
   pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
 
   ...(TYPE_CHECKED_IN_CI && {
@@ -89,6 +89,14 @@ const nextConfig = {
   },
 
   async rewrites() {
+    const docsUrl = process.env.DOCS_URL || 'http://docs:3333'
+    const isLocalDocs =
+      docsUrl.includes('localhost') ||
+      docsUrl.includes('docs:3333') ||
+      docsUrl.includes('127.0.0.1')
+    const docsTarget = isLocalDocs ? docsUrl : docsUrl.replace(/\/docs\/?$/, '')
+    const docsAssetsOrigin = docsUrl.replace(/\/docs\/?$/, '')
+
     return {
       beforeFiles: [
         {
@@ -102,13 +110,34 @@ const nextConfig = {
             },
           ],
         },
+        // Mintlify Documentation rewrites (local dev & production)
+        {
+          source: '/_mintlify/:path*',
+          destination: `${docsAssetsOrigin}/_mintlify/:path*`,
+        },
+        {
+          source: '/mintlify-assets/:path*',
+          destination: `${docsAssetsOrigin}/mintlify-assets/:path*`,
+        },
+        {
+          source: '/docs',
+          destination: isLocalDocs
+            ? `${docsTarget}/introduction`
+            : `${docsTarget}/docs`,
+        },
+        {
+          source: '/docs/:path*',
+          destination: isLocalDocs
+            ? `${docsTarget}/:path*`
+            : `${docsTarget}/docs/:path*`,
+        },
         {
           source: '/perspectives',
-          destination: 'https://polar.shadowdocument.com/perspectives',
+          destination: 'https://repalis.shadowdocument.com/perspectives',
         },
         {
           source: '/perspectives/:path*',
-          destination: 'https://polar.shadowdocument.com/perspectives/:path*',
+          destination: 'https://repalis.shadowdocument.com/perspectives/:path*',
         },
       ],
       afterFiles: [
@@ -147,32 +176,32 @@ const nextConfig = {
 
   async redirects() {
     return [
-      // dashboard.polar.sh redirections
+      // dashboard.repalis.com redirections
       {
         source: '/',
         destination: '/auth',
         has: [
           {
             type: 'host',
-            value: 'dashboard.polar.sh',
+            value: 'dashboard.repalis.com',
           },
         ],
         permanent: false,
       },
       {
         source: '/:path*',
-        destination: 'https://polar.sh/:path*',
+        destination: 'https://repalis.com/:path*',
         has: [
           {
             type: 'host',
-            value: 'dashboard.polar.sh',
+            value: 'dashboard.repalis.com',
           },
         ],
         permanent: false,
       },
       {
         source: '/careers',
-        destination: 'https://polar.sh/company',
+        destination: 'https://repalis.com/company',
         permanent: false,
       },
       {
@@ -197,33 +226,33 @@ const nextConfig = {
       },
       {
         source: '/legal/terms',
-        destination: 'https://polar.sh/legal/master-services-terms',
+        destination: 'https://repalis.com/legal/master-services-terms',
         permanent: false,
       },
       {
         source: '/legal/privacy',
-        destination: 'https://polar.sh/legal/privacy-policy',
+        destination: 'https://repalis.com/legal/privacy-policy',
         permanent: false,
       },
       {
         source: '/llms.txt',
-        destination: 'https://polar.sh/docs/llms.txt',
+        destination: 'https://repalis.com/docs/llms.txt',
         permanent: true,
         has: [
           {
             type: 'host',
-            value: 'polar.sh',
+            value: 'repalis.com',
           },
         ],
       },
       {
         source: '/llms-full.txt',
-        destination: 'https://polar.sh/docs/llms-full.txt',
+        destination: 'https://repalis.com/docs/llms-full.txt',
         permanent: true,
         has: [
           {
             type: 'host',
-            value: 'polar.sh',
+            value: 'repalis.com',
           },
         ],
       },
@@ -240,7 +269,7 @@ const nextConfig = {
         has: [
           {
             type: 'cookie',
-            key: POLAR_AUTH_COOKIE_KEY,
+            key: REPALIS_AUTH_COOKIE_KEY,
           },
           {
             type: 'host',
@@ -360,12 +389,12 @@ const nextConfig = {
 
       // Old blog redirects
       {
-        source: '/polarsource/posts',
+        source: '/repalis/posts',
         destination: '/blog',
         permanent: false,
       },
       {
-        source: '/polarsource/posts/:path(.*)',
+        source: '/repalis/posts/:path(.*)',
         destination: '/blog/:path*',
         permanent: false,
       },
@@ -373,11 +402,11 @@ const nextConfig = {
       // Fallback blog redirect
       {
         source: '/:path*',
-        destination: 'https://polar.sh/blog',
+        destination: 'https://repalis.com/blog',
         has: [
           {
             type: 'host',
-            value: 'blog.polar.sh',
+            value: 'blog.repalis.com',
           },
         ],
         permanent: false,
@@ -387,13 +416,13 @@ const nextConfig = {
       {
         source: '/install.sh',
         destination:
-          'https://raw.githubusercontent.com/polarsource/polar/main/clients/packages/cli/install.sh',
+          'https://raw.githubusercontent.com/repaliscom/Repalis/main/clients/packages/cli/install.sh',
         permanent: false,
       },
       {
         source: '/install.ps1',
         destination:
-          'https://raw.githubusercontent.com/polarsource/polar/main/clients/packages/cli/install.ps1',
+          'https://raw.githubusercontent.com/repaliscom/Repalis/main/clients/packages/cli/install.ps1',
         permanent: false,
       },
 
@@ -552,7 +581,7 @@ const createConfig = async () => {
     // For all available options, see:
     // https://github.com/getsentry/sentry-webpack-plugin#options
 
-    org: 'polar-sh',
+    org: 'repalis',
     project: 'dashboard',
 
     // Pass the auth token

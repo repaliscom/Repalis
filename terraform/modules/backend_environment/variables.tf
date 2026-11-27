@@ -197,7 +197,7 @@ variable "slo_report_config" {
   sensitive = true
 }
 
-variable "polar_self_config" {
+variable "repalis_self_config" {
   type = object({
     access_token     = string
     webhook_secret   = string

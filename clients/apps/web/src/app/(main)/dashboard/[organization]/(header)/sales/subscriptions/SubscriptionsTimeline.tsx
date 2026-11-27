@@ -5,8 +5,8 @@ import {
   type GanttZoomHandle,
 } from '@/components/Subscriptions/Gantt/scale'
 import { type useAllSubscriptions } from '@/hooks/queries'
-import { schemas } from '@polar-sh/client'
-import { Box } from '@polar-sh/orbit/Box'
+import { schemas } from '@repalis/client'
+import { Box } from '@repalis/orbit/Box'
 import dynamic from 'next/dynamic'
 import { type Ref } from 'react'
 

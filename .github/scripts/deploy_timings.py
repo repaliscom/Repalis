@@ -7,7 +7,7 @@ import urllib.request
 import uuid
 from datetime import datetime
 
-REPO = "polarsource/polar"
+REPO = "repaliscom/Repalis"
 PRODUCTION = "Deploy to Production"
 COMPONENTS = {
     "backend": "/ Backend: Deploy to production",

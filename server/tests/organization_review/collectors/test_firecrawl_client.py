@@ -4,9 +4,9 @@ from unittest.mock import AsyncMock, patch
 
 import pytest
 
-from polar.config import settings
-from polar.organization_review.collectors import firecrawl_client
-from polar.organization_review.collectors.firecrawl_client import (
+from repalis.config import settings
+from repalis.organization_review.collectors import firecrawl_client
+from repalis.organization_review.collectors.firecrawl_client import (
     ScrapeResult,
     scrape_markdown,
 )

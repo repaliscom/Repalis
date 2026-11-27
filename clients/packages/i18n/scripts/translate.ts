@@ -192,7 +192,7 @@ async function translate(
   prompt: string,
   cache: TranslationCache,
 ) {
-  log.header('Polar i18n')
+  log.header('Repalis i18n')
   log.info(
     `Source: ${log.bold(sourceKeys.size.toString())} keys in ${DEFAULT_LOCALE}.ts`,
   )

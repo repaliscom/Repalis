@@ -1,4 +1,4 @@
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 import { describe, expect, it } from 'vitest'
 import { getPaymentDeclineMessage, getPaymentDisplayStatus } from './payment'
 
@@ -38,7 +38,7 @@ describe('getPaymentDisplayStatus', () => {
 })
 
 describe('getPaymentDeclineMessage', () => {
-  it("replaces Stripe's rule message with Polar's", () => {
+  it("replaces Stripe's rule message with Repalis's", () => {
     expect(
       getPaymentDeclineMessage(
         payment({
@@ -46,7 +46,7 @@ describe('getPaymentDeclineMessage', () => {
           decline_message: 'One of your rules blocked this payment.',
         }),
       ),
-    ).toBe('Polar blocked this payment because of suspicious activity.')
+    ).toBe('Repalis blocked this payment because of suspicious activity.')
   })
 
   it('falls back to the decline reason without a message', () => {

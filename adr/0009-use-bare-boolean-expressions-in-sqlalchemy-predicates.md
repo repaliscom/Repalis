@@ -44,6 +44,6 @@ Identity tests remain valid when their three-valued behavior is the requirement.
 
 ## References
 
-- [PR #13687: stop the stale payment lock sweep from scanning every order](https://github.com/polarsource/polar/pull/13687)
-- [Issue #13690: audit `IS TRUE` / `IS FALSE` wrappers](https://github.com/polarsource/polar/issues/13690)
+- [PR #13687: stop the stale payment lock sweep from scanning every order](https://github.com/repaliscom/Repalis/pull/13687)
+- [Issue #13690: audit `IS TRUE` / `IS FALSE` wrappers](https://github.com/repaliscom/Repalis/issues/13690)
 - [PostgreSQL partial indexes](https://www.postgresql.org/docs/current/indexes-partial.html)

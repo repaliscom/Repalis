@@ -1,12 +1,12 @@
 import { useLogout } from '@/hooks/auth'
-import { useDeleteOrganization } from '@/hooks/polar/organizations'
-import { useDeleteUser } from '@/hooks/polar/users'
+import { useDeleteOrganization } from '@/hooks/repalis/organizations'
+import { useDeleteUser } from '@/hooks/repalis/users'
 import { capture } from '@/utils/posthog'
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 import { useCallback, useState } from 'react'
 import { Alert, Linking } from 'react-native'
 
-const SUPPORT_URL = 'https://polar.sh/docs/support'
+const SUPPORT_URL = 'https://repalis.com/docs/support'
 
 interface UseSettingsActionsOptions {
   selectedOrganization: schemas['Organization'] | undefined

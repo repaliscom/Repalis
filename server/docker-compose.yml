@@ -2,7 +2,7 @@ services:
   redis:
     image: redis:alpine
     ports:
-      - "${POLAR_REDIS_PORT:-6379}:6379"
+      - "${REPALIS_REDIS_PORT:-6379}:6379"
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
       interval: 2s
@@ -13,7 +13,7 @@ services:
     image: postgres:15.1-bullseye
     entrypoint: ["/pg15-dump.sh"]
     environment:
-      - POSTGRES_USER=${POLAR_POSTGRES_USER}
+      - POSTGRES_USER=${REPALIS_POSTGRES_USER}
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - postgres15_dump:/dump
@@ -24,12 +24,12 @@ services:
     image: postgres:18.6-bookworm
     command: ["postgres", "-c", "max_locks_per_transaction=256"]
     environment:
-      - POSTGRES_USER=${POLAR_POSTGRES_USER}
-      - POSTGRES_PASSWORD=${POLAR_POSTGRES_PWD}
-      - POSTGRES_DB=${POLAR_POSTGRES_DATABASE}
-      - POSTGRES_PORT=${POLAR_POSTGRES_PORT:-5432}
-      - POLAR_READ_USER=${POLAR_POSTGRES_READ_USER:-polar_read}
-      - POLAR_READ_PASSWORD=${POLAR_POSTGRES_READ_PWD}
+      - POSTGRES_USER=${REPALIS_POSTGRES_USER}
+      - POSTGRES_PASSWORD=${REPALIS_POSTGRES_PWD}
+      - POSTGRES_DB=${REPALIS_POSTGRES_DATABASE}
+      - POSTGRES_PORT=${REPALIS_POSTGRES_PORT:-5432}
+      - REPALIS_READ_USER=${REPALIS_POSTGRES_READ_USER:-repalis_read}
+      - REPALIS_READ_PASSWORD=${REPALIS_POSTGRES_READ_PWD}
     depends_on:
       db-pg15-dump:
         condition: service_completed_successfully
@@ -39,7 +39,7 @@ services:
       - ./init-readonly-user.sql:/docker-entrypoint-initdb.d/init-readonly-user.sql
       - ./docker/pg15-restore.sh:/docker-entrypoint-initdb.d/restore-pg15.sh:ro
     ports:
-      - "${POLAR_POSTGRES_PORT:-5432}:5432"
+      - "${REPALIS_POSTGRES_PORT:-5432}:5432"
     healthcheck:
       test:
         [
@@ -47,9 +47,9 @@ services:
           "pg_isready",
           "-q",
           "-d",
-          "${POLAR_POSTGRES_DATABASE}",
+          "${REPALIS_POSTGRES_DATABASE}",
           "-U",
-          "${POLAR_POSTGRES_USER}",
+          "${REPALIS_POSTGRES_USER}",
         ]
       timeout: 40s
       interval: 2s
@@ -63,8 +63,8 @@ services:
     volumes:
       - "minio_data:/minio"
     environment:
-      - MINIO_ROOT_USER=${POLAR_MINIO_USER}
-      - MINIO_ROOT_PASSWORD=${POLAR_MINIO_PWD}
+      - MINIO_ROOT_USER=${REPALIS_MINIO_USER}
+      - MINIO_ROOT_PASSWORD=${REPALIS_MINIO_PWD}
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
       interval: 5s
@@ -80,13 +80,13 @@ services:
       - ./.minio:/tmp/config:ro
     environment:
       - MINIO_HOST=minio
-      - MINIO_ROOT_USER=${POLAR_MINIO_USER}
-      - MINIO_ROOT_PASSWORD=${POLAR_MINIO_PWD}
-      - BUCKET_NAME=${POLAR_S3_FILES_BUCKET_NAME}
-      - PUBLIC_BUCKET_NAME=${POLAR_S3_FILES_PUBLIC_BUCKET_NAME}
+      - MINIO_ROOT_USER=${REPALIS_MINIO_USER}
+      - MINIO_ROOT_PASSWORD=${REPALIS_MINIO_PWD}
+      - BUCKET_NAME=${REPALIS_S3_FILES_BUCKET_NAME}
+      - PUBLIC_BUCKET_NAME=${REPALIS_S3_FILES_PUBLIC_BUCKET_NAME}
       - POLICY_FILE=/tmp/config/policy.json
-      - ACCESS_KEY=${POLAR_AWS_ACCESS_KEY_ID}
-      - SECRET_ACCESS_KEY=${POLAR_AWS_SECRET_ACCESS_KEY}
+      - ACCESS_KEY=${REPALIS_AWS_ACCESS_KEY_ID}
+      - SECRET_ACCESS_KEY=${REPALIS_AWS_SECRET_ACCESS_KEY}
     entrypoint:
       ["bash", "-c", "bash /tmp/config/local.sh /tmp/config/configure.sh"]
 
@@ -115,8 +115,8 @@ services:
       - ./monitoring/grafana/dashboards:/var/lib/grafana/dashboards:ro
       - grafana_data:/var/lib/grafana
     environment:
-      - GF_SECURITY_ADMIN_USER=polar
-      - GF_SECURITY_ADMIN_PASSWORD=polar
+      - GF_SECURITY_ADMIN_USER=repalis
+      - GF_SECURITY_ADMIN_PASSWORD=repalis
       - GF_USERS_ALLOW_SIGN_UP=false
     depends_on:
       - prometheus
@@ -150,7 +150,7 @@ services:
     environment:
       - SERVICES=sqs,lambda
       - DEBUG=${LOCALSTACK_DEBUG:-0}
-      - AWS_DEFAULT_REGION=${POLAR_AWS_REGION:-us-east-2}
+      - AWS_DEFAULT_REGION=${REPALIS_AWS_REGION:-us-east-2}
       # LocalStack-spawned Lambda containers join this network so they can
       # reach `db` and `redis` by service name. Defaults to this project's
       # network (<project>_default); override if the project name differs.

@@ -1,17 +1,17 @@
 import { vi } from 'vitest'
-import type { PolarOptions } from '../../types'
-import { createMockPolarClient } from './mocks'
+import type { RepalisOptions } from '../../types'
+import { createMockRepalisClient } from './mocks'
 
-export const createTestPolarOptions = (
-  overrides: Partial<PolarOptions> = {},
-): PolarOptions => ({
-  client: createMockPolarClient(),
+export const createTestRepalisOptions = (
+  overrides: Partial<RepalisOptions> = {},
+): RepalisOptions => ({
+  client: createMockRepalisClient(),
   createCustomerOnSignUp: true,
   use: [] as any,
   ...overrides,
 })
 
-export { createMockPolarClient }
+export { createMockRepalisClient }
 
 export const mockApiError = (status: number, message: string) => {
   const error = new Error(message) as any

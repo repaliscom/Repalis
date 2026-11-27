@@ -42,7 +42,7 @@ for (const file of files) {
   const source = readFileSync(resolve(CLIENTS, file), 'utf8')
   for (const [, specifiers, from] of source.matchAll(IMPORT)) {
     const isIcons =
-      from === '@polar-sh/orbit/icons' ||
+      from === '@repalis/orbit/icons' ||
       (file.startsWith('packages/orbit/src/') &&
         resolve(CLIENTS, dirname(file), from) === ICONS)
     if (!isIcons) continue

@@ -1,8 +1,8 @@
 from datetime import UTC, datetime
 
-from polar.kit.utils import utc_now
-from polar.models import Organization, OrganizationEmail
-from polar.organization_review.collectors.organization import (
+from repalis.kit.utils import utc_now
+from repalis.models import Organization, OrganizationEmail
+from repalis.organization_review.collectors.organization import (
     collect_organization_data,
 )
 

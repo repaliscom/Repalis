@@ -4,9 +4,9 @@ import {
 } from '@/components/Metadata/utils'
 import { useCreateBenefit } from '@/hooks/queries'
 import { setValidationErrors } from '@/utils/api/errors'
-import { enums, schemas } from '@polar-sh/client'
-import { Button, InlineModalHeader } from '@polar-sh/orbit'
-import { Form } from '@polar-sh/ui/components/ui/form'
+import { enums, schemas } from '@repalis/client'
+import { Button, InlineModalHeader } from '@repalis/orbit'
+import { Form } from '@repalis/ui/components/ui/form'
 import { useSearchParams } from 'next/navigation'
 import { useCallback, useEffect, useMemo } from 'react'
 import { useForm, useFormState } from 'react-hook-form'
@@ -116,7 +116,7 @@ const CreateBenefitModalContent = ({
         <h2 className="text-lg">Create Benefit</h2>
       </InlineModalHeader>
       <div className="flex flex-col gap-y-6 px-8 pb-10">
-        <p className="dark:text-polar-500 text-sm text-gray-500">
+        <p className="dark:text-repalis-500 text-sm text-gray-500">
           Created benefits will be available for use in all products of your
           organization
         </p>

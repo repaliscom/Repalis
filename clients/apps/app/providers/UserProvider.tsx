@@ -1,7 +1,7 @@
-import { usePolarClient } from '@/providers/PolarClientProvider'
+import { useRepalisClient } from '@/providers/RepalisClientProvider'
 import { useSession } from '@/providers/SessionProvider'
 import { posthog } from '@/utils/posthog'
-import { schemas, unwrap } from '@polar-sh/client'
+import { schemas, unwrap } from '@repalis/client'
 import { useQuery } from '@tanstack/react-query'
 import { createContext, PropsWithChildren, useContext, useEffect } from 'react'
 
@@ -21,12 +21,12 @@ export const useUser = () => useContext(UserContext)
 
 export function UserProvider({ children }: PropsWithChildren) {
   const { session } = useSession()
-  const { polar } = usePolarClient()
+  const { repalis } = useRepalisClient()
 
   const { data: user, isLoading } = useQuery({
     queryKey: ['userinfo'],
     queryFn: async () => {
-      const data = await unwrap(polar.GET('/v1/oauth2/userinfo'))
+      const data = await unwrap(repalis.GET('/v1/oauth2/userinfo'))
       return data as User
     },
     enabled: !!session,

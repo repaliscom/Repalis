@@ -4,15 +4,15 @@ import uuid
 import dramatiq
 import pytest
 
-import polar.tasks  # noqa: F401  (registers actors with the broker)
-from polar.outpost.stream import (
+import repalis.tasks  # noqa: F401  (registers actors with the broker)
+from repalis.outpost.stream import (
     Cursor,
     ReducerBucketOutpostEvent,
     enqueue,
     read_changes,
 )
-from polar.redis import Redis
-from polar.worker import JobQueueManager
+from repalis.redis import Redis
+from repalis.worker import JobQueueManager
 
 
 @pytest.mark.anyio

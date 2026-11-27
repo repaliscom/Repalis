@@ -7,11 +7,11 @@ import {
 } from './hooks/customer'
 import { installOrganizationHooks } from './organization/hooks'
 import { createOrganizationLifecycleHooks } from './organization/lifecycle'
-import type { PolarEndpoints, PolarOptions } from './types'
+import type { RepalisEndpoints, RepalisOptions } from './types'
 
-export interface PolarBetterAuthPlugin {
-  id: 'polar'
-  endpoints: PolarEndpoints
+export interface RepalisBetterAuthPlugin {
+  id: 'repalis'
+  endpoints: RepalisEndpoints
   hooks: ReturnType<typeof createOrganizationLifecycleHooks>
   init: (ctx: AuthContext) => {
     options: {
@@ -33,16 +33,16 @@ export interface PolarBetterAuthPlugin {
   }
 }
 
-export const polar = <O extends PolarOptions>(
+export const repalis = <O extends RepalisOptions>(
   options: O,
-): PolarBetterAuthPlugin => {
-  const plugins = options.use.reduce<PolarEndpoints>((endpoints, use) => {
+): RepalisBetterAuthPlugin => {
+  const plugins = options.use.reduce<RepalisEndpoints>((endpoints, use) => {
     Object.assign(endpoints, use(options.client, options))
     return endpoints
-  }, {} as PolarEndpoints)
+  }, {} as RepalisEndpoints)
 
   return {
-    id: 'polar',
+    id: 'repalis',
     endpoints: plugins,
     hooks: createOrganizationLifecycleHooks(options),
     init(ctx) {

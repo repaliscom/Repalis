@@ -1,9 +1,9 @@
 import pytest
 from httpx2 import AsyncClient
 
-from polar.kit.utils import utc_now
-from polar.kit.versioning import APIVersion
-from polar.models import (
+from repalis.kit.utils import utc_now
+from repalis.kit.versioning import APIVersion
+from repalis.models import (
     Benefit,
     BenefitGrant,
     Customer,
@@ -12,9 +12,9 @@ from polar.models import (
     Subscription,
     UserOrganization,
 )
-from polar.models.event import EventSource
-from polar.postgres import AsyncSession
-from polar.version import V2026_10, V2027_01
+from repalis.models.event import EventSource
+from repalis.postgres import AsyncSession
+from repalis.version import V2026_10, V2027_01
 from tests.fixtures.auth import AuthSubjectFixture
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.events import get_all_by_organization
@@ -53,7 +53,7 @@ class TestListBenefitGrants:
         )
 
         response = await client.get(
-            "/v1/benefit-grants/", headers={"Polar-Version": str(version)}
+            "/v1/benefit-grants/", headers={"Repalis-Version": str(version)}
         )
 
         assert response.status_code == 200

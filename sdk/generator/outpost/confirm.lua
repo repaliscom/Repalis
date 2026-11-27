@@ -11,7 +11,7 @@ end
 local function settle(state, pending_key, start, ids)
     local bucket = 'bucket:' .. start .. ':'
     local pending = 'pending:' .. start .. ':'
-    -- Polar received the events but no snapshot counts them yet: a cold bucket keeps them
+    -- Repalis received the events but no snapshot counts them yet: a cold bucket keeps them
     -- pending for the snapshot that will, a hot one counts them whole either way.
     if ARGV[1] == '1' then
         local cutoff = redis.call('HGET', state, 'cold_until')
@@ -52,7 +52,7 @@ local function settle(state, pending_key, start, ids)
     if count <= 0 then
         redis.call('HDEL', state, pending .. 'count', pending .. 'sum', pending .. 'min', pending .. 'max')
         local cutoff = redis.call('HGET', state, 'cold_until')
-        -- Polar counts the whole bucket once it is cold: the local copy has nothing left to add.
+        -- Repalis counts the whole bucket once it is cold: the local copy has nothing left to add.
         if cutoff and tonumber(start) < tonumber(cutoff) then
             redis.call('HDEL', state, bucket .. 'count', bucket .. 'sum', bucket .. 'min', bucket .. 'max')
         end
@@ -81,7 +81,7 @@ if entries > 0 then
     for i = 5, 4 + entries do table.insert(ids, ARGV[i]) end
     for offset = 1, #ids, BATCH do
         local batch = {unpack(ids, offset, math.min(offset + BATCH - 1, #ids))}
-        redis.call('XACK', KEYS[1], 'polar', unpack(batch))
+        redis.call('XACK', KEYS[1], 'repalis', unpack(batch))
         redis.call('XDEL', KEYS[1], unpack(batch))
     end
     -- The flusher holds its slot through the next batch.

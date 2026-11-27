@@ -7,16 +7,16 @@ import pytest
 from httpx2 import AsyncClient
 from pytest_mock import MockerFixture
 
-from polar.auth.models import AuthSubject
-from polar.auth.scope import Scope
-from polar.checkout.repository import CheckoutRepository
-from polar.checkout.schemas import CheckoutProductCreate
-from polar.checkout.service import checkout as checkout_service
-from polar.enums import SubscriptionRecurringInterval, TaxBehavior, TaxProcessor
-from polar.integrations.stripe.service import StripeService
-from polar.kit.utils import utc_now
-from polar.kit.visibility import Visibility
-from polar.models import (
+from repalis.auth.models import AuthSubject
+from repalis.auth.scope import Scope
+from repalis.checkout.repository import CheckoutRepository
+from repalis.checkout.schemas import CheckoutProductCreate
+from repalis.checkout.service import checkout as checkout_service
+from repalis.enums import SubscriptionRecurringInterval, TaxBehavior, TaxProcessor
+from repalis.integrations.stripe.service import StripeService
+from repalis.kit.utils import utc_now
+from repalis.kit.visibility import Visibility
+from repalis.models import (
     Checkout,
     Customer,
     Discount,
@@ -27,15 +27,15 @@ from polar.models import (
     UserOrganization,
     WebhookEndpoint,
 )
-from polar.models.checkout import CheckoutStatus
-from polar.models.discount import DiscountDuration, DiscountType
-from polar.models.organization import OrganizationStatus
-from polar.models.product_price import ProductPriceSeatUnit
-from polar.models.user_organization import OrganizationRole
-from polar.postgres import AsyncSession
-from polar.tax.calculation import TaxCalculationService
-from polar.tax.calculation.base import TaxabilityReason
-from polar.version import V2027_01
+from repalis.models.checkout import CheckoutStatus
+from repalis.models.discount import DiscountDuration, DiscountType
+from repalis.models.organization import OrganizationStatus
+from repalis.models.product_price import ProductPriceSeatUnit
+from repalis.models.user_organization import OrganizationRole
+from repalis.postgres import AsyncSession
+from repalis.tax.calculation import TaxCalculationService
+from repalis.tax.calculation.base import TaxabilityReason
+from repalis.version import V2027_01
 from tests.fixtures.auth import AuthSubjectFixture
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (
@@ -67,14 +67,14 @@ def stripe_service_mock(mocker: MockerFixture) -> MagicMock:
     mock.get_confirmation_token.return_value = SimpleNamespace(
         payment_method_preview=None
     )
-    mocker.patch("polar.checkout.service.stripe_service", new=mock)
+    mocker.patch("repalis.checkout.service.stripe_service", new=mock)
     return mock
 
 
 @pytest.fixture(autouse=True)
 def calculate_tax_mock(mocker: MockerFixture) -> AsyncMock:
     mock = mocker.patch(
-        "polar.checkout.service.tax_calculation_service", spec=TaxCalculationService
+        "repalis.checkout.service.tax_calculation_service", spec=TaxCalculationService
     )
     mock.calculate.return_value = (
         {

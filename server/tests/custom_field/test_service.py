@@ -1,14 +1,14 @@
 import pytest
 
-from polar.auth.models import AuthSubject
-from polar.custom_field.schemas import CustomFieldCreateText, CustomFieldUpdateText
-from polar.custom_field.service import CustomFieldVersionLocked
-from polar.custom_field.service import custom_field as custom_field_service
-from polar.declarative_config.guard import DeclarativeConfigManaged
-from polar.exceptions import PolarRequestValidationError
-from polar.kit.pagination import PaginationParams
-from polar.kit.utils import utc_now
-from polar.models import (
+from repalis.auth.models import AuthSubject
+from repalis.custom_field.schemas import CustomFieldCreateText, CustomFieldUpdateText
+from repalis.custom_field.service import CustomFieldVersionLocked
+from repalis.custom_field.service import custom_field as custom_field_service
+from repalis.declarative_config.guard import DeclarativeConfigManaged
+from repalis.exceptions import RepalisRequestValidationError
+from repalis.kit.pagination import PaginationParams
+from repalis.kit.utils import utc_now
+from repalis.models import (
     Catalog,
     CatalogCustomField,
     Customer,
@@ -18,10 +18,10 @@ from polar.models import (
     User,
     UserOrganization,
 )
-from polar.models.catalog import CatalogStatus
-from polar.models.custom_field import CustomFieldText, CustomFieldType
-from polar.order.repository import OrderRepository
-from polar.postgres import AsyncSession
+from repalis.models.catalog import CatalogStatus
+from repalis.models.custom_field import CustomFieldText, CustomFieldType
+from repalis.order.repository import OrderRepository
+from repalis.postgres import AsyncSession
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_custom_field, create_order
 
@@ -165,7 +165,7 @@ class TestCreate:
         organization: Organization,
         text_field: CustomFieldText,
     ) -> None:
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await custom_field_service.create(
                 session,
                 CustomFieldCreateText(

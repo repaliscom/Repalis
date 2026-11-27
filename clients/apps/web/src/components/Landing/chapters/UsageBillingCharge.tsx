@@ -1,8 +1,8 @@
 'use client'
 
-import { Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import { CreditCard } from '@polar-sh/orbit/icons'
+import { Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import { CreditCard } from '@repalis/orbit/icons'
 import { useTweened } from './useTweened'
 import { dollars, PLAN_PRICE } from './useUsageStream'
 

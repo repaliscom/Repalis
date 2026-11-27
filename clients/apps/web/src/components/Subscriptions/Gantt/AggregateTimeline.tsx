@@ -7,7 +7,7 @@ import {
   type AggregateUnit,
 } from '@/utils/subscriptionAggregate'
 import { getTimelineStart } from '@/utils/subscriptionTimeline'
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 import { format } from 'date-fns'
 import { useState, type Ref } from 'react'
 import { formatRecurringSchedule } from '../SubscriptionDetailsGrid'

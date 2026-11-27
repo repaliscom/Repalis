@@ -1,15 +1,15 @@
 'use client'
 
 import { StatusBlock } from '@/components/Finance/Account/sections/StatusBlock'
-import { schemas } from '@polar-sh/client'
-import { Button } from '@polar-sh/orbit'
+import { schemas } from '@repalis/client'
+import { Button } from '@repalis/orbit'
 import {
   ArrowRight,
   Check as CheckIcon,
   Clock as ClockIcon,
   Shield as ShieldIcon,
   X as XIcon,
-} from '@polar-sh/orbit/icons'
+} from '@repalis/orbit/icons'
 interface Props {
   status: schemas['IdentityVerificationStatus'] | undefined
   onStart: () => void

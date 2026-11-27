@@ -1,4 +1,4 @@
-import { Box } from '@polar-sh/orbit/Box'
+import { Box } from '@repalis/orbit/Box'
 import Link from 'next/link'
 import { PropsWithChildren } from 'react'
 

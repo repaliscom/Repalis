@@ -1,11 +1,11 @@
 'use client'
 
-import { schemas } from '@polar-sh/client'
-import { Box } from '@polar-sh/orbit/Box'
+import { schemas } from '@repalis/client'
+import { Box } from '@repalis/orbit/Box'
 import type {
   BackgroundColorToken,
   TextColorToken,
-} from '@polar-sh/orbit/theme'
+} from '@repalis/orbit/theme'
 import { AnimatePresence, m } from 'motion/react'
 import {
   Check as CheckIcon,
@@ -14,7 +14,7 @@ import {
   type LucideIcon,
   Minus as MinusIcon,
   X as XIcon,
-} from '@polar-sh/orbit/icons'
+} from '@repalis/orbit/icons'
 const WAITING_REASONS: ReadonlySet<schemas['OrganizationReviewCheckReason']> =
   new Set(['external_pending', 'not_authorized'])
 

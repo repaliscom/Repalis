@@ -1,16 +1,16 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { errors, type models } from '@polar-sh/sdk/2026-10'
+import { errors, type models } from '@repalis/sdk/2026-10'
 import {
-  PolarOrganizationOwnerInvariantError,
+  RepalisOrganizationOwnerInvariantError,
   ensureMemberMirror,
   promoteMemberMirrorToOwner,
   removeMemberMirror,
   updateMemberRoleMirror,
 } from '../../organization/sync'
 import type { BetterAuthOrganizationMemberMirror } from '../../organization/types'
-import { createMockPolarClient } from '../utils/mocks'
+import { createMockRepalisClient } from '../utils/mocks'
 
-type PolarMember = models.Member
+type RepalisMember = models.Member
 const { ResourceNotFound } = errors
 
 const organizationId = 'organization-123'
@@ -43,12 +43,12 @@ const betterAuthMember = (
   ...overrides,
 })
 
-const polarMember = (
+const repalisMember = (
   userId: string,
-  role: PolarMember['role'],
-  overrides: Partial<PolarMember> = {},
-): PolarMember => ({
-  id: `polar-member-${userId}`,
+  role: RepalisMember['role'],
+  overrides: Partial<RepalisMember> = {},
+): RepalisMember => ({
+  id: `repalis-member-${userId}`,
   created_at: createdAt.toISOString(),
   modified_at: null,
   customer_id: `customer-${organizationId}`,
@@ -60,10 +60,10 @@ const polarMember = (
 })
 
 const createHarness = (
-  initialMembers: Record<string, readonly PolarMember[]>,
+  initialMembers: Record<string, readonly RepalisMember[]>,
 ) => {
-  const client = createMockPolarClient()
-  const members = new Map<string, PolarMember>()
+  const client = createMockRepalisClient()
+  const members = new Map<string, RepalisMember>()
   for (const [orgId, organizationMembers] of Object.entries(initialMembers)) {
     for (const member of organizationMembers) {
       members.set(`${orgId}:${member.external_id}`, member)
@@ -84,7 +84,7 @@ const createHarness = (
       billing_name: null,
       billing_address: null,
       tax_id: null,
-      organization_id: 'polar-organization',
+      organization_id: 'repalis-organization',
       deleted_at: null,
       first_user_event_at: null,
       avatar_url: null,
@@ -122,7 +122,7 @@ const createHarness = (
       )?.[1]
       if (existingByEmail) return existingByEmail
 
-      const member = polarMember(
+      const member = repalisMember(
         memberCreateFromCustomer.external_id ?? 'missing-external-id',
         memberCreateFromCustomer.role ?? 'member',
         {
@@ -148,7 +148,7 @@ const createHarness = (
           }
         }
       }
-      const updated: PolarMember = {
+      const updated: RepalisMember = {
         ...existing,
         name:
           memberUpdate.name === undefined ? existing.name : memberUpdate.name,
@@ -194,14 +194,14 @@ describe('organization member and owner synchronization', () => {
         },
       ),
     ).rejects.toThrow(
-      'Polar team customer with external ID "organization-123" was not found',
+      'Repalis team customer with external ID "organization-123" was not found',
     )
   })
 
   it('creates an admin as a billing manager without duplicating it on retry', async () => {
     const admin = betterAuthMember('admin', 'member, admin')
     const harness = createHarness({
-      [organizationId]: [polarMember('owner', 'owner')],
+      [organizationId]: [repalisMember('owner', 'owner')],
     })
 
     const input = {
@@ -220,13 +220,13 @@ describe('organization member and owner synchronization', () => {
     ).toHaveBeenCalledOnce()
   })
 
-  it('scopes one Better Auth user to each Polar team customer', async () => {
+  it('scopes one Better Auth user to each Repalis team customer', async () => {
     const secondOrganizationId = 'organization-456'
     const shared = betterAuthMember('shared-user', 'member')
     const harness = createHarness({
-      [organizationId]: [polarMember('first-owner', 'owner')],
+      [organizationId]: [repalisMember('first-owner', 'owner')],
       [secondOrganizationId]: [
-        polarMember('second-owner', 'owner', {
+        repalisMember('second-owner', 'owner', {
           customer_id: `customer-${secondOrganizationId}`,
         }),
       ],
@@ -264,8 +264,8 @@ describe('organization member and owner synchronization', () => {
     })
     const harness = createHarness({
       [organizationId]: [
-        polarMember('first-owner', 'owner'),
-        polarMember('second-owner', 'billing_manager'),
+        repalisMember('first-owner', 'owner'),
+        repalisMember('second-owner', 'billing_manager'),
       ],
     })
 
@@ -294,9 +294,9 @@ describe('organization member and owner synchronization', () => {
     const unrelated = betterAuthMember('unrelated', 'admin')
     const harness = createHarness({
       [organizationId]: [
-        polarMember('old-owner', 'owner'),
-        polarMember('successor', 'billing_manager'),
-        polarMember('unrelated', 'member', { name: 'Existing Polar name' }),
+        repalisMember('old-owner', 'owner'),
+        repalisMember('successor', 'billing_manager'),
+        repalisMember('unrelated', 'member', { name: 'Existing Repalis name' }),
       ],
     })
 
@@ -317,7 +317,7 @@ describe('organization member and owner synchronization', () => {
       'member',
     )
     expect(harness.members.get(`${organizationId}:unrelated`)).toMatchObject({
-      name: 'Existing Polar name',
+      name: 'Existing Repalis name',
       role: 'member',
     })
     expect(
@@ -333,8 +333,8 @@ describe('organization member and owner synchronization', () => {
     const successor = betterAuthMember('successor', 'owner')
     const harness = createHarness({
       [organizationId]: [
-        polarMember('departing', 'owner'),
-        polarMember('successor', 'billing_manager'),
+        repalisMember('departing', 'owner'),
+        repalisMember('successor', 'billing_manager'),
       ],
     })
 
@@ -364,8 +364,8 @@ describe('organization member and owner synchronization', () => {
   it('removes a non-owner directly', async () => {
     const harness = createHarness({
       [organizationId]: [
-        polarMember('owner', 'owner'),
-        polarMember('member', 'member'),
+        repalisMember('owner', 'owner'),
+        repalisMember('member', 'member'),
       ],
     })
 
@@ -380,8 +380,8 @@ describe('organization member and owner synchronization', () => {
   it('removes a non-owner idempotently and propagates other deletion failures', async () => {
     const harness = createHarness({
       [organizationId]: [
-        polarMember('owner', 'owner'),
-        polarMember('member', 'member'),
+        repalisMember('owner', 'owner'),
+        repalisMember('member', 'member'),
       ],
     })
     const remove = (externalMemberId: string) =>
@@ -402,7 +402,7 @@ describe('organization member and owner synchronization', () => {
 
   it('refuses to demote the last Better Auth owner', async () => {
     const harness = createHarness({
-      [organizationId]: [polarMember('owner', 'owner')],
+      [organizationId]: [repalisMember('owner', 'owner')],
     })
 
     await expect(
@@ -416,7 +416,7 @@ describe('organization member and owner synchronization', () => {
           members: [betterAuthMember('owner', 'member')],
         },
       ),
-    ).rejects.toBeInstanceOf(PolarOrganizationOwnerInvariantError)
+    ).rejects.toBeInstanceOf(RepalisOrganizationOwnerInvariantError)
   })
 
   it('uses custom role mapping for a non-owner member', async () => {
@@ -424,17 +424,17 @@ describe('organization member and owner synchronization', () => {
     const finance = betterAuthMember('finance', 'finance, support')
     const harness = createHarness({
       [organizationId]: [
-        polarMember('owner', 'owner'),
-        polarMember('finance', 'member'),
+        repalisMember('owner', 'owner'),
+        repalisMember('finance', 'member'),
       ],
     })
-    const mapBetterAuthRoleToPolarRole = vi
+    const mapBetterAuthRoleToRepalisRole = vi
       .fn()
       .mockReturnValue('billing_manager')
 
     await updateMemberRoleMirror(
       harness.client,
-      { mapBetterAuthRoleToPolarRole },
+      { mapBetterAuthRoleToRepalisRole },
       {
         organizationId,
         user: finance.user,
@@ -443,8 +443,8 @@ describe('organization member and owner synchronization', () => {
       },
     )
 
-    expect(mapBetterAuthRoleToPolarRole).toHaveBeenCalledOnce()
-    expect(mapBetterAuthRoleToPolarRole).toHaveBeenCalledWith({
+    expect(mapBetterAuthRoleToRepalisRole).toHaveBeenCalledOnce()
+    expect(mapBetterAuthRoleToRepalisRole).toHaveBeenCalledWith({
       role: 'finance, support',
       roles: new Set(['finance', 'support']),
       organizationId,

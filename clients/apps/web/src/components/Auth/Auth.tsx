@@ -1,7 +1,7 @@
 'use client'
 
 import { type EventName } from '@/hooks/posthog'
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 import { type LoginMethod } from '@/utils/auth'
 import { Fragment } from 'react'
 import GoogleLoginButton from './GoogleLoginButton'
@@ -111,9 +111,9 @@ const Auth = ({
           </Fragment>
         ))}
         <div className="flex w-full flex-row items-center gap-6">
-          <div className="dark:border-polar-700 grow border-t border-gray-200" />
+          <div className="dark:border-repalis-700 grow border-t border-gray-200" />
           <div className="text-sm text-gray-500">or</div>
-          <div className="dark:border-polar-700 grow border-t border-gray-200" />
+          <div className="dark:border-repalis-700 grow border-t border-gray-200" />
         </div>
         <LastUsedWrapper show={lastLoginMethod === 'email_otp'}>
           <EmailOTPForm
@@ -138,7 +138,7 @@ const LastUsedWrapper = ({
 }) => (
   <div className="relative">
     {show && (
-      <span className="dark:bg-polar-900 dark:border-polar-600 absolute -top-3 -right-2 z-20 rounded-full border border-gray-200 bg-white px-2 py-0.5 text-xs text-black dark:text-white">
+      <span className="dark:bg-repalis-900 dark:border-repalis-600 absolute -top-3 -right-2 z-20 rounded-full border border-gray-200 bg-white px-2 py-0.5 text-xs text-black dark:text-white">
         Last used
       </span>
     )}

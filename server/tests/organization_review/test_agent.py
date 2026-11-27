@@ -3,8 +3,8 @@ from uuid import uuid4
 
 import pytest
 
-from polar.kit.http import SSRFBlockedError
-from polar.organization_review.agent import (
+from repalis.kit.http import SSRFBlockedError
+from repalis.organization_review.agent import (
     _MAX_CHECKOUT_URL_HOST_CANDIDATES,
     MAX_CHECKOUT_URL_HOSTS,
     _collect_checkout_url_hosts,
@@ -12,7 +12,7 @@ from polar.organization_review.agent import (
     _pick_checkout_url_hosts,
     _pick_unknown_webhook_host,
 )
-from polar.organization_review.schemas import (
+from repalis.organization_review.schemas import (
     CheckoutReturnUrlData,
     CheckoutSuccessUrlData,
     IntegrationData,
@@ -112,7 +112,7 @@ class TestCollectWebhookHost:
         org = _make_org("https://example.com")
         setup = _make_setup(webhook_domains=["example.com"])  # same domain → skip
         with patch(
-            "polar.organization_review.agent.collect_website_data",
+            "repalis.organization_review.agent.collect_website_data",
             new_callable=AsyncMock,
         ) as fetch:
             result = await _collect_webhook_host(org, setup)
@@ -125,7 +125,7 @@ class TestCollectWebhookHost:
         setup = _make_setup(webhook_domains=["api.different.com"])
         data = WebsiteData(base_url="https://api.different.com/")
         with patch(
-            "polar.organization_review.agent.collect_website_data",
+            "repalis.organization_review.agent.collect_website_data",
             new=AsyncMock(return_value=data),
         ) as fetch:
             result = await _collect_webhook_host(org, setup)
@@ -142,7 +142,7 @@ class TestCollectWebhookHost:
         org = _make_org("https://example.com")
         setup = _make_setup(webhook_domains=["api.different.com"])
         with patch(
-            "polar.organization_review.agent.collect_website_data",
+            "repalis.organization_review.agent.collect_website_data",
             new=AsyncMock(side_effect=RuntimeError("network down")),
         ):
             result = await _collect_webhook_host(org, setup)
@@ -228,9 +228,9 @@ class TestCollectCheckoutUrlHosts:
             return good
 
         with (
-            patch("polar.organization_review.agent.resolve_and_validate_ip"),
+            patch("repalis.organization_review.agent.resolve_and_validate_ip"),
             patch(
-                "polar.organization_review.agent.collect_website_data",
+                "repalis.organization_review.agent.collect_website_data",
                 new=AsyncMock(side_effect=fake_collect),
             ),
         ):
@@ -254,11 +254,11 @@ class TestCollectCheckoutUrlHosts:
 
         with (
             patch(
-                "polar.organization_review.agent.resolve_and_validate_ip",
+                "repalis.organization_review.agent.resolve_and_validate_ip",
                 new=AsyncMock(side_effect=fake_validate),
             ),
             patch(
-                "polar.organization_review.agent.collect_website_data",
+                "repalis.organization_review.agent.collect_website_data",
                 new=AsyncMock(side_effect=fake_collect),
             ),
         ):
@@ -275,11 +275,11 @@ class TestCollectCheckoutUrlHosts:
 
         with (
             patch(
-                "polar.organization_review.agent.resolve_and_validate_ip",
+                "repalis.organization_review.agent.resolve_and_validate_ip",
                 new=AsyncMock(side_effect=SSRFBlockedError("private")),
             ) as validate,
             patch(
-                "polar.organization_review.agent.collect_website_data",
+                "repalis.organization_review.agent.collect_website_data",
                 new_callable=AsyncMock,
             ) as fetch,
         ):

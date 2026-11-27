@@ -8,23 +8,23 @@ import dramatiq
 import pytest
 from pytest_mock import MockerFixture
 
-from polar.auth.models import AuthSubject, is_organization
-from polar.benefit.grant.repository import BenefitGrantRepository
-from polar.benefit.grant.schemas import (
+from repalis.auth.models import AuthSubject, is_organization
+from repalis.benefit.grant.repository import BenefitGrantRepository
+from repalis.benefit.grant.schemas import (
     BenefitGrantCreate,
     BenefitGrantCreateExternal,
     BenefitGrantUpdate,
 )
-from polar.benefit.grant.service import BenefitGrantAlreadyExists
-from polar.benefit.grant.service import benefit_grant as benefit_grant_service
-from polar.benefit.strategies import BenefitActionRequiredError, BenefitServiceProtocol
-from polar.benefit.strategies.base.properties import BenefitGrantProperties
-from polar.benefit.strategies.base.service import BenefitRetriableError
-from polar.benefit.tasks import benefit_grant, benefit_revoke
-from polar.config import settings
-from polar.exceptions import NotPermitted, PolarRequestValidationError, ResourceNotFound
-from polar.kit.utils import utc_now
-from polar.models import (
+from repalis.benefit.grant.service import BenefitGrantAlreadyExists
+from repalis.benefit.grant.service import benefit_grant as benefit_grant_service
+from repalis.benefit.strategies import BenefitActionRequiredError, BenefitServiceProtocol
+from repalis.benefit.strategies.base.properties import BenefitGrantProperties
+from repalis.benefit.strategies.base.service import BenefitRetriableError
+from repalis.benefit.tasks import benefit_grant, benefit_revoke
+from repalis.config import settings
+from repalis.exceptions import NotPermitted, RepalisRequestValidationError, ResourceNotFound
+from repalis.kit.utils import utc_now
+from repalis.models import (
     Benefit,
     BenefitGrant,
     Customer,
@@ -35,14 +35,14 @@ from polar.models import (
     User,
     UserOrganization,
 )
-from polar.models.benefit import BenefitType
-from polar.models.benefit_grant import BenefitGrantScope
-from polar.models.catalog import Catalog, CatalogStatus
-from polar.models.member import MemberRole
-from polar.models.subscription import SubscriptionStatus
-from polar.models.user_organization import OrganizationRole
-from polar.postgres import AsyncSession
-from polar.redis import Redis
+from repalis.models.benefit import BenefitType
+from repalis.models.benefit_grant import BenefitGrantScope
+from repalis.models.catalog import Catalog, CatalogStatus
+from repalis.models.member import MemberRole
+from repalis.models.subscription import SubscriptionStatus
+from repalis.models.user_organization import OrganizationRole
+from repalis.postgres import AsyncSession
+from repalis.redis import Redis
 from tests.fixtures.auth import AuthSubjectFixture
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (
@@ -63,7 +63,7 @@ def benefit_strategy_mock(mocker: MockerFixture) -> MagicMock:
     strategy_mock.grant.return_value = {}
     strategy_mock.revoke.return_value = {}
     strategy_mock.cycle.return_value = {}
-    mock = mocker.patch("polar.benefit.grant.service.get_benefit_strategy")
+    mock = mocker.patch("repalis.benefit.grant.service.get_benefit_strategy")
     mock.return_value = strategy_mock
     return strategy_mock
 
@@ -83,7 +83,7 @@ class TestCreate:
         create = BenefitGrantCreate(
             customer_id=customer.id, benefit_id=benefit_organization.id
         )
-        enqueue = mocker.patch("polar.benefit.grant.service.enqueue_job")
+        enqueue = mocker.patch("repalis.benefit.grant.service.enqueue_job")
 
         grant = await benefit_grant_service.create(session, auth_subject, create)
 
@@ -222,7 +222,7 @@ class TestCreate:
             )
             field = "member_id"
             payload[field] = member.id
-        with pytest.raises(PolarRequestValidationError) as exc:
+        with pytest.raises(RepalisRequestValidationError) as exc:
             await benefit_grant_service.create(
                 session,
                 AuthSubject(organization, set(), None),
@@ -244,7 +244,7 @@ class TestCreate:
         recipient = customer if resource == "customer" else member_owner
         recipient.set_deleted_at()
         await save_fixture(recipient)
-        with pytest.raises(PolarRequestValidationError) as exc:
+        with pytest.raises(RepalisRequestValidationError) as exc:
             await benefit_grant_service.create(
                 session,
                 AuthSubject(organization, set(), None),
@@ -276,7 +276,7 @@ class TestCreate:
         else:
             benefit_organization.type = BenefitType.meter_credit
         await save_fixture(benefit_organization)
-        with pytest.raises(PolarRequestValidationError) as exc:
+        with pytest.raises(RepalisRequestValidationError) as exc:
             await benefit_grant_service.create(
                 session,
                 AuthSubject(organization, set(), None),
@@ -327,7 +327,7 @@ class TestCreate:
         benefit_organization.external_id = "benefit_1"
         await save_fixture(customer_organization_second)
         await save_fixture(benefit_organization)
-        with pytest.raises(PolarRequestValidationError) as exc:
+        with pytest.raises(RepalisRequestValidationError) as exc:
             await benefit_grant_service.create(
                 session,
                 AuthSubject(organization, set(), None),
@@ -378,7 +378,7 @@ class TestRevoke:
             grant.manually_granted_at = utc_now()
             await save_fixture(grant)
         original_scope = grant.scope
-        enqueue = mocker.patch("polar.benefit.grant.service.enqueue_job")
+        enqueue = mocker.patch("repalis.benefit.grant.service.enqueue_job")
         auth_subject = AuthSubject(organization, set(), None)
 
         suppressed = await benefit_grant_service.revoke(session, auth_subject, grant.id)
@@ -481,7 +481,7 @@ class TestUpdate:
         revocation_completed: bool,
         source: str,
     ) -> None:
-        enqueue_job = mocker.patch("polar.benefit.grant.service.enqueue_job")
+        enqueue_job = mocker.patch("repalis.benefit.grant.service.enqueue_job")
         grant = BenefitGrant(
             customer=customer,
             benefit=benefit_organization,
@@ -587,7 +587,7 @@ class TestUpdate:
         user_organization: UserOrganization,
         canceled: bool,
     ) -> None:
-        enqueue_job = mocker.patch("polar.benefit.grant.service.enqueue_job")
+        enqueue_job = mocker.patch("repalis.benefit.grant.service.enqueue_job")
         if canceled:
             await set_product_benefits(
                 save_fixture,
@@ -1205,7 +1205,7 @@ class TestEnqueueBenefitsGrants:
         await set_product_benefits(
             save_fixture, product=product, benefits=[benefit_organization]
         )
-        enqueue = mocker.patch("polar.benefit.grant.service.enqueue_job")
+        enqueue = mocker.patch("repalis.benefit.grant.service.enqueue_job")
 
         await benefit_grant_service.enqueue_benefits_grants(
             session, "grant", customer, product, subscription=subscription
@@ -1224,7 +1224,7 @@ class TestEnqueueBenefitsGrants:
         subscription: Subscription,
     ) -> None:
         """All benefits are enqueued when there are no existing grants."""
-        enqueue_job_mock = mocker.patch("polar.benefit.grant.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.benefit.grant.service.enqueue_job")
 
         product = await set_product_benefits(
             save_fixture, product=product, benefits=benefits
@@ -1252,7 +1252,7 @@ class TestEnqueueBenefitsGrants:
         subscription: Subscription,
     ) -> None:
         """Already granted benefits are not re-enqueued."""
-        enqueue_job_mock = mocker.patch("polar.benefit.grant.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.benefit.grant.service.enqueue_job")
 
         grant = BenefitGrant(
             subscription=subscription,
@@ -1288,7 +1288,7 @@ class TestEnqueueBenefitsGrants:
         subscription: Subscription,
     ) -> None:
         """Benefits with BenefitActionRequiredError are not re-enqueued."""
-        enqueue_job_mock = mocker.patch("polar.benefit.grant.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.benefit.grant.service.enqueue_job")
 
         grant = BenefitGrant(
             subscription=subscription,
@@ -1325,7 +1325,7 @@ class TestEnqueueBenefitsGrants:
     ) -> None:
         """Revoked grants clear their error, so a benefit that previously failed
         with BenefitActionRequiredError is re-enqueued after revocation."""
-        enqueue_job_mock = mocker.patch("polar.benefit.grant.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.benefit.grant.service.enqueue_job")
 
         grant = BenefitGrant(
             subscription=subscription,
@@ -1361,8 +1361,8 @@ class TestEnqueueBenefitsGrants:
         subscription: Subscription,
     ) -> None:
         """Only granted benefits are revoked via a group with callback."""
-        group_mock = mocker.patch("polar.benefit.grant.service.group")
-        broker_mock = mocker.patch("polar.benefit.grant.service.dramatiq.get_broker")
+        group_mock = mocker.patch("repalis.benefit.grant.service.group")
+        broker_mock = mocker.patch("repalis.benefit.grant.service.dramatiq.get_broker")
 
         revoke_actor = MagicMock()
         enqueue_grants_actor = MagicMock()
@@ -1421,8 +1421,8 @@ class TestEnqueueBenefitsGrants:
         member_owner: Member,
         member_second: Member,
     ) -> None:
-        mocker.patch("polar.benefit.grant.service.group")
-        broker = mocker.patch("polar.benefit.grant.service.dramatiq.get_broker")
+        mocker.patch("repalis.benefit.grant.service.group")
+        broker = mocker.patch("repalis.benefit.grant.service.dramatiq.get_broker")
         revoke_actor = MagicMock()
         broker.return_value.get_actor.side_effect = {
             "benefit.revoke": revoke_actor,
@@ -1473,8 +1473,8 @@ class TestEnqueueBenefitsGrants:
         benefits: list[Benefit],
         customer: Customer,
     ) -> None:
-        group_mock = mocker.patch("polar.benefit.grant.service.group")
-        broker_mock = mocker.patch("polar.benefit.grant.service.dramatiq.get_broker")
+        group_mock = mocker.patch("repalis.benefit.grant.service.group")
+        broker_mock = mocker.patch("repalis.benefit.grant.service.dramatiq.get_broker")
         revoke_actor = MagicMock()
         broker_mock.return_value.get_actor.side_effect = lambda name: (
             revoke_actor if name == "benefit.revoke" else MagicMock()
@@ -1514,8 +1514,8 @@ class TestEnqueueBenefitsGrants:
         subscription: Subscription,
     ) -> None:
         """No jobs are enqueued when there are no grants to revoke."""
-        enqueue_job_mock = mocker.patch("polar.benefit.grant.service.enqueue_job")
-        group_mock = mocker.patch("polar.benefit.grant.service.group")
+        enqueue_job_mock = mocker.patch("repalis.benefit.grant.service.enqueue_job")
+        group_mock = mocker.patch("repalis.benefit.grant.service.group")
 
         product = await set_product_benefits(
             save_fixture, product=product, benefits=benefits
@@ -1544,8 +1544,8 @@ class TestEnqueueBenefitsGrants:
         This ensures old benefits are revoked, meters are reset, then new benefits
         are granted - fixing the negative credits bug.
         """
-        group_mock = mocker.patch("polar.benefit.grant.service.group")
-        broker_mock = mocker.patch("polar.benefit.grant.service.dramatiq.get_broker")
+        group_mock = mocker.patch("repalis.benefit.grant.service.group")
+        broker_mock = mocker.patch("repalis.benefit.grant.service.dramatiq.get_broker")
 
         revoke_actor = MagicMock()
         enqueue_grants_actor = MagicMock()
@@ -1608,7 +1608,7 @@ class TestEnqueueBenefitGrantUpdates:
         benefit_organization: Benefit,
         benefit_strategy_mock: MagicMock,
     ) -> None:
-        enqueue_job_mock = mocker.patch("polar.benefit.grant.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.benefit.grant.service.enqueue_job")
         benefit_strategy_mock.requires_update.return_value = False
 
         await benefit_grant_service.enqueue_benefit_grant_updates(
@@ -1647,7 +1647,7 @@ class TestEnqueueBenefitGrantUpdates:
         other_benefit_grant.set_granted()
         await save_fixture(other_benefit_grant)
 
-        enqueue_job_mock = mocker.patch("polar.benefit.grant.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.benefit.grant.service.enqueue_job")
         benefit_strategy_mock.requires_update.return_value = True
 
         await benefit_grant_service.enqueue_benefit_grant_updates(
@@ -1689,7 +1689,7 @@ class TestEnqueueBenefitGrantUpdates:
         other_benefit_grant.set_granted()
         await save_fixture(other_benefit_grant)
 
-        enqueue_job_mock = mocker.patch("polar.benefit.grant.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.benefit.grant.service.enqueue_job")
         benefit_strategy_mock.requires_update.return_value = True
 
         await benefit_grant_service.enqueue_benefit_grant_updates(
@@ -1887,7 +1887,7 @@ class TestEnqueueBenefitGrantCycles:
         grant.set_granted()
         await save_fixture(grant)
 
-        enqueue_job_mock = mocker.patch("polar.benefit.grant.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.benefit.grant.service.enqueue_job")
 
         await benefit_grant_service.enqueue_benefit_grant_cycles(
             session, redis, subscription=subscription
@@ -2082,7 +2082,7 @@ class TestEnqueueBenefitGrantDeletions:
         other_benefit_grant.set_granted()
         await save_fixture(other_benefit_grant)
 
-        enqueue_job_mock = mocker.patch("polar.benefit.grant.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.benefit.grant.service.enqueue_job")
 
         await benefit_grant_service.enqueue_benefit_grant_deletions(
             session, benefit_organization
@@ -2122,7 +2122,7 @@ class TestEnqueueCustomerGrantDeletions:
         )
         await save_fixture(grant2)
 
-        enqueue_job_mock = mocker.patch("polar.benefit.grant.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.benefit.grant.service.enqueue_job")
 
         await benefit_grant_service.enqueue_customer_grant_deletions(session, customer)
 
@@ -2177,7 +2177,7 @@ class TestEnqueueMemberGrantDeletions:
             subscription=subscription,
         )
 
-        enqueue_job_mock = mocker.patch("polar.benefit.grant.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.benefit.grant.service.enqueue_job")
 
         await benefit_grant_service.enqueue_member_grant_deletions(session, member.id)
 
@@ -2301,7 +2301,7 @@ class TestDeleteBenefitGrant:
         ``BenefitActionRequiredError``. That error was swallowed and the grant
         was marked revoked while external access persisted.
         """
-        from polar.member.repository import MemberRepository
+        from repalis.member.repository import MemberRepository
 
         member = Member(
             customer_id=customer.id,

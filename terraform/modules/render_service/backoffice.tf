@@ -38,7 +38,7 @@ resource "render_private_service" "backoffice" {
     "tailscale-serve.json" = {
       content = jsonencode({
         Services = {
-          "svc:polar-backoffice-${var.environment}" = {
+          "svc:repalis-backoffice-${var.environment}" = {
             TCP = {
               "443" = {
                 TCPForward = "127.0.0.1:8443"
@@ -63,12 +63,12 @@ resource "render_private_service" "backoffice" {
           }
         }
 
-        https://{$POLAR_BACKOFFICE_HOST} {
+        https://{$REPALIS_BACKOFFICE_HOST} {
           tls {
             dns cloudflare {env.CLOUDFLARE_API_TOKEN}
           }
           reverse_proxy 127.0.0.1:10000 {
-            header_up Host {$POLAR_BACKOFFICE_HOST}
+            header_up Host {$REPALIS_BACKOFFICE_HOST}
           }
         }
 
@@ -90,13 +90,13 @@ resource "render_private_service" "backoffice" {
   env_vars = {
     SERVICE_NAME             = { value = "backoffice-private${local.env_suffix}" }
     PORT                     = { value = "10001" }
-    POLAR_BACKOFFICE_ENABLED = { value = "true" }
-    POLAR_BACKOFFICE_HOST    = { value = var.private_backoffice.hostname }
-    POLAR_ALLOWED_HOSTS      = { value = jsonencode(distinct(concat(jsondecode(var.api_service_config.allowed_hosts), [var.private_backoffice.hostname]))) }
-    POLAR_CORS_ORIGINS       = { value = var.api_service_config.cors_origins }
-    POLAR_DATABASE_POOL_SIZE = { value = "5" }
+    REPALIS_BACKOFFICE_ENABLED = { value = "true" }
+    REPALIS_BACKOFFICE_HOST    = { value = var.private_backoffice.hostname }
+    REPALIS_ALLOWED_HOSTS      = { value = jsonencode(distinct(concat(jsondecode(var.api_service_config.allowed_hosts), [var.private_backoffice.hostname]))) }
+    REPALIS_CORS_ORIGINS       = { value = var.api_service_config.cors_origins }
+    REPALIS_DATABASE_POOL_SIZE = { value = "5" }
     TS_AUTHKEY               = { value = "${var.private_backoffice.oauth_client_secret}?ephemeral=true&preauthorized=true" }
-    TS_HOSTNAME              = { value = "polar-backoffice-${var.environment}" }
+    TS_HOSTNAME              = { value = "repalis-backoffice-${var.environment}" }
     TS_STATE_DIR             = { value = "" }
     TS_USERSPACE             = { value = "true" }
     TS_ACCEPT_DNS            = { value = "false" }

@@ -14,8 +14,8 @@ import { useDateRangeFilter } from '@/components/Shared/Toolbar/useDateRangeFilt
 import { useProductFilter } from '@/components/Shared/Toolbar/useProductFilter'
 import { ToolbarSearch } from '@/components/Shared/Toolbar/ToolbarSearch'
 import { checkoutStatusOptions } from '@/components/Checkouts/CheckoutStatus'
-import { schemas } from '@polar-sh/client'
-import { CircleDashed } from '@polar-sh/orbit/icons'
+import { schemas } from '@repalis/client'
+import { CircleDashed } from '@repalis/orbit/icons'
 
 type CheckoutStatus = schemas['CheckoutStatus']
 

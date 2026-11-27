@@ -1,4 +1,4 @@
-# Polar Render service setup
+# Repalis Render service setup
 #
 # Sets up a service, and the specified workers.
 # Includes the environment groups
@@ -96,11 +96,11 @@ resource "render_env_group" "tinybird" {
   env_vars       = { for name, value in var.environment_groups.tinybird : name => { value = value } if value != null }
 }
 
-resource "render_env_group" "polar_self" {
-  count          = nonsensitive(var.environment_groups.polar_self != null) ? 1 : 0
+resource "render_env_group" "repalis_self" {
+  count          = nonsensitive(var.environment_groups.repalis_self != null) ? 1 : 0
   environment_id = var.render_environment_id
-  name           = "polar-self-${var.environment}"
-  env_vars       = { for name, value in var.environment_groups.polar_self : name => { value = value } if value != null }
+  name           = "repalis-self-${var.environment}"
+  env_vars       = { for name, value in var.environment_groups.repalis_self : name => { value = value } if value != null }
 }
 
 resource "render_env_group" "memory_profile" {
@@ -108,9 +108,9 @@ resource "render_env_group" "memory_profile" {
   environment_id = var.render_environment_id
   name           = "memory-profile-${var.environment}"
   env_vars = {
-    POLAR_MEMORY_PROFILE_ENABLED        = { value = "true" }
-    POLAR_MEMORY_PROFILE_S3_BUCKET_NAME = { value = var.memory_profile_config.s3_bucket_name }
-    POLAR_MEMORY_PROFILE_INTERVAL       = { value = var.memory_profile_config.interval }
+    REPALIS_MEMORY_PROFILE_ENABLED        = { value = "true" }
+    REPALIS_MEMORY_PROFILE_S3_BUCKET_NAME = { value = var.memory_profile_config.s3_bucket_name }
+    REPALIS_MEMORY_PROFILE_INTERVAL       = { value = var.memory_profile_config.interval }
   }
 }
 
@@ -119,28 +119,28 @@ resource "render_env_group" "database" {
   name           = "database-${var.environment}"
   env_vars = merge(
     {
-      POLAR_POSTGRES_DATABASE      = { value = var.api_service_config.postgres_database }
-      POLAR_POSTGRES_HOST          = { value = var.postgres_config.host }
-      POLAR_POSTGRES_PORT          = { value = var.postgres_config.port }
-      POLAR_POSTGRES_USER          = { value = var.postgres_config.user }
-      POLAR_POSTGRES_PWD           = { value = var.postgres_config.password }
-      POLAR_POSTGRES_READ_DATABASE = { value = var.api_service_config.postgres_read_database }
-      POLAR_POSTGRES_READ_HOST     = { value = var.postgres_config.read_host }
-      POLAR_POSTGRES_READ_PORT     = { value = var.postgres_config.read_port }
-      POLAR_POSTGRES_READ_USER     = { value = var.postgres_config.read_user }
-      POLAR_POSTGRES_READ_PWD      = { value = var.postgres_config.read_password }
+      REPALIS_POSTGRES_DATABASE      = { value = var.api_service_config.postgres_database }
+      REPALIS_POSTGRES_HOST          = { value = var.postgres_config.host }
+      REPALIS_POSTGRES_PORT          = { value = var.postgres_config.port }
+      REPALIS_POSTGRES_USER          = { value = var.postgres_config.user }
+      REPALIS_POSTGRES_PWD           = { value = var.postgres_config.password }
+      REPALIS_POSTGRES_READ_DATABASE = { value = var.api_service_config.postgres_read_database }
+      REPALIS_POSTGRES_READ_HOST     = { value = var.postgres_config.read_host }
+      REPALIS_POSTGRES_READ_PORT     = { value = var.postgres_config.read_port }
+      REPALIS_POSTGRES_READ_USER     = { value = var.postgres_config.read_user }
+      REPALIS_POSTGRES_READ_PWD      = { value = var.postgres_config.read_password }
     },
     var.postgres_config.host_fallback == null ? {} : {
-      POLAR_POSTGRES_HOST_FALLBACK = { value = var.postgres_config.host_fallback }
-      POLAR_POSTGRES_PORT_FALLBACK = { value = coalesce(var.postgres_config.port_fallback, var.postgres_config.port) }
+      REPALIS_POSTGRES_HOST_FALLBACK = { value = var.postgres_config.host_fallback }
+      REPALIS_POSTGRES_PORT_FALLBACK = { value = coalesce(var.postgres_config.port_fallback, var.postgres_config.port) }
     },
     var.postgres_config.read_host_fallback == null ? {} : {
-      POLAR_POSTGRES_READ_HOST_FALLBACK = { value = var.postgres_config.read_host_fallback }
-      POLAR_POSTGRES_READ_PORT_FALLBACK = { value = coalesce(var.postgres_config.read_port_fallback, var.postgres_config.read_port) }
+      REPALIS_POSTGRES_READ_HOST_FALLBACK = { value = var.postgres_config.read_host_fallback }
+      REPALIS_POSTGRES_READ_PORT_FALLBACK = { value = coalesce(var.postgres_config.read_port_fallback, var.postgres_config.read_port) }
     },
-    # Let asyncpg and libpq use PGSSLMODE; POLAR_POSTGRES_SSL=true overrides it with require.
+    # Let asyncpg and libpq use PGSSLMODE; REPALIS_POSTGRES_SSL=true overrides it with require.
     var.postgres_config.sslmode == null ? {} : {
-      POLAR_POSTGRES_SSL = { value = "false" }
+      REPALIS_POSTGRES_SSL = { value = "false" }
       PGSSLMODE          = { value = var.postgres_config.sslmode }
     },
     var.postgres_config.sslrootcert == null ? {} : {
@@ -153,7 +153,7 @@ resource "render_env_group" "redis" {
   environment_id = var.render_environment_id
   name           = "redis-${var.environment}"
   env_vars = {
-    POLAR_REDIS_URL = { value = "rediss://${var.redis_config.host}:${var.redis_config.port}/${var.api_service_config.redis_db}?ssl_check_hostname=false" }
+    REPALIS_REDIS_URL = { value = "rediss://${var.redis_config.host}:${var.redis_config.port}/${var.api_service_config.redis_db}?ssl_check_hostname=false" }
   }
 }
 
@@ -220,15 +220,15 @@ resource "render_web_service" "api" {
       SERVICE_NAME             = { value = "api${local.env_suffix}" }
       WEB_CONCURRENCY          = { value = var.api_service_config.web_concurrency }
       FORWARDED_ALLOW_IPS      = { value = var.api_service_config.forwarded_allow_ips }
-      POLAR_BACKOFFICE_ENABLED = { value = "false" }
-      POLAR_ALLOWED_HOSTS      = { value = var.api_service_config.allowed_hosts }
-      POLAR_CORS_ORIGINS       = { value = var.api_service_config.cors_origins }
-      POLAR_DATABASE_POOL_SIZE = { value = var.api_service_config.database_pool_size }
+      REPALIS_BACKOFFICE_ENABLED = { value = "false" }
+      REPALIS_ALLOWED_HOSTS      = { value = var.api_service_config.allowed_hosts }
+      REPALIS_CORS_ORIGINS       = { value = var.api_service_config.cors_origins }
+      REPALIS_DATABASE_POOL_SIZE = { value = var.api_service_config.database_pool_size }
     },
     # The pre-deploy command runs migrations on the API service.
     var.postgres_config.migration_user == null ? {} : {
-      POLAR_POSTGRES_MIGRATION_USER = { value = var.postgres_config.migration_user }
-      POLAR_POSTGRES_MIGRATION_PWD  = { value = var.postgres_config.migration_password }
+      REPALIS_POSTGRES_MIGRATION_USER = { value = var.postgres_config.migration_user }
+      REPALIS_POSTGRES_MIGRATION_PWD  = { value = var.postgres_config.migration_password }
     },
   )
 }
@@ -278,10 +278,10 @@ resource "render_web_service" "api_copy" {
     SERVICE_NAME             = { value = each.key }
     WEB_CONCURRENCY          = { value = coalesce(each.value.web_concurrency, var.api_service_config.web_concurrency) }
     FORWARDED_ALLOW_IPS      = { value = var.api_service_config.forwarded_allow_ips }
-    POLAR_BACKOFFICE_ENABLED = { value = "false" }
-    POLAR_ALLOWED_HOSTS      = { value = var.api_service_config.allowed_hosts }
-    POLAR_CORS_ORIGINS       = { value = var.api_service_config.cors_origins }
-    POLAR_DATABASE_POOL_SIZE = { value = var.api_service_config.database_pool_size }
+    REPALIS_BACKOFFICE_ENABLED = { value = "false" }
+    REPALIS_ALLOWED_HOSTS      = { value = var.api_service_config.allowed_hosts }
+    REPALIS_CORS_ORIGINS       = { value = var.api_service_config.cors_origins }
+    REPALIS_DATABASE_POOL_SIZE = { value = var.api_service_config.database_pool_size }
   }
 }
 
@@ -317,10 +317,10 @@ resource "render_web_service" "worker" {
     {
       SERVICE_NAME             = { value = each.key }
       dramatiq_prom_port       = { value = each.value.dramatiq_prom_port }
-      POLAR_DATABASE_POOL_SIZE = { value = each.value.database_pool_size }
+      REPALIS_DATABASE_POOL_SIZE = { value = each.value.database_pool_size }
     },
     (each.value.redis_host != null && each.value.redis_port != null && each.value.redis_db != null) ? {
-      POLAR_REDIS_URL = { value = "redis://${each.value.redis_host}:${each.value.redis_port}/${each.value.redis_db}" }
+      REPALIS_REDIS_URL = { value = "redis://${each.value.redis_host}:${each.value.redis_port}/${each.value.redis_db}" }
     } : {}
   )
 }
@@ -347,7 +347,7 @@ resource "render_cron_job" "cron" {
 
   env_vars = {
     SERVICE_NAME             = { value = each.key }
-    POLAR_DATABASE_POOL_SIZE = { value = each.value.database_pool_size }
+    REPALIS_DATABASE_POOL_SIZE = { value = each.value.database_pool_size }
   }
 }
 
@@ -448,9 +448,9 @@ resource "render_env_group_link" "tinybird" {
   service_ids  = local.all_service_ids
 }
 
-resource "render_env_group_link" "polar_self" {
-  count        = nonsensitive(var.environment_groups.polar_self != null) ? 1 : 0
-  env_group_id = render_env_group.polar_self[0].id
+resource "render_env_group_link" "repalis_self" {
+  count        = nonsensitive(var.environment_groups.repalis_self != null) ? 1 : 0
+  env_group_id = render_env_group.repalis_self[0].id
   service_ids  = local.all_service_ids
 }
 

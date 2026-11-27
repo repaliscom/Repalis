@@ -3,10 +3,10 @@ import { useHasPermission } from '@/hooks/permissions'
 import { useMeter, useUpdateMeter } from '@/hooks/queries/meters'
 import { setValidationErrors } from '@/utils/api/errors'
 import { permissionDeniedMessage } from '@/utils/permissions'
-import { isValidationError, schemas } from '@polar-sh/client'
-import { Button, InlineModalHeader, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import { Form } from '@polar-sh/ui/components/ui/form'
+import { isValidationError, schemas } from '@repalis/client'
+import { Button, InlineModalHeader, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import { Form } from '@repalis/ui/components/ui/form'
 import { useRouter } from 'next/navigation'
 import { useCallback } from 'react'
 import { useForm } from 'react-hook-form'
@@ -97,7 +97,7 @@ export const MeterUpdateModal = ({
         </Text>
       </InlineModalHeader>
       <div className="flex flex-col gap-8 px-8 pb-12">
-        <p className="dark:text-polar-500 text-gray-500">
+        <p className="dark:text-repalis-500 text-gray-500">
           Meters are aggregations of events. You can create a meter to track
           events that match a filter.
         </p>
@@ -115,7 +115,7 @@ export const MeterUpdateModal = ({
               <Well className="gap-y-2 rounded-2xl p-6">
                 <WellHeader>Updating Meter</WellHeader>
                 <WellContent>
-                  <p className="dark:text-polar-500 text-sm text-gray-500">
+                  <p className="dark:text-repalis-500 text-sm text-gray-500">
                     Once a meter has processed events, its filters or
                     aggregation function cannot be changed.
                   </p>

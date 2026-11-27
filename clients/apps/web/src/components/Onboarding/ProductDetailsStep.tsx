@@ -3,11 +3,11 @@
 import { useAuth } from '@/hooks'
 import { useCreateOrganization } from '@/hooks/queries'
 import { AupVerdict, useAupValidation } from '@/hooks/useAupValidation'
-import { schemas } from '@polar-sh/client'
-import { Box } from '@polar-sh/orbit/Box'
-import { Alert, Button, Text } from '@polar-sh/orbit'
-import { Input } from '@polar-sh/orbit'
-import { TextArea } from '@polar-sh/orbit'
+import { schemas } from '@repalis/client'
+import { Box } from '@repalis/orbit/Box'
+import { Alert, Button, Text } from '@repalis/orbit'
+import { Input } from '@repalis/orbit'
+import { TextArea } from '@repalis/orbit'
 import {
   Form,
   FormControl,
@@ -15,7 +15,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@polar-sh/ui/components/ui/form'
+} from '@repalis/ui/components/ui/form'
 import { useOnboardingV2Tracking } from '@/hooks/onboardingV2'
 import { useRouter } from 'next/navigation'
 import { useEffect, useMemo, useState } from 'react'

@@ -104,6 +104,7 @@ const LogoLoader = ({
             d={d}
             stroke="white"
             strokeWidth={LOGO_MARK_ARC_STROKE_WIDTH}
+            strokeLinecap="round"
             initial={{ pathLength: 0 }}
             animate={{ pathLength: arcProgress }}
             transition={loop}

@@ -13,7 +13,7 @@ export async function generateMetadata(props: {
 }): Promise<Metadata> {
   const { section } = await props.params
   return {
-    title: getSettingsSection(section)?.title ?? 'Settings', // " | Polar is added by the template"
+    title: getSettingsSection(section)?.title ?? 'Settings', // " | Repalis is added by the template"
   }
 }
 

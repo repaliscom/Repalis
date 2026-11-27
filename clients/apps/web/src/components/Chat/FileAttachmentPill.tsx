@@ -1,5 +1,5 @@
-import { Text } from '@polar-sh/orbit'
-import { X } from '@polar-sh/orbit/icons'
+import { Text } from '@repalis/orbit'
+import { X } from '@repalis/orbit/icons'
 import { domMax, LazyMotion, m } from 'motion/react'
 import React from 'react'
 import { twMerge } from 'tailwind-merge'
@@ -33,7 +33,7 @@ export const FileAttachmentPill = ({
       exit={{ opacity: 0, scale: 0.85 }}
       transition={{ type: 'spring', stiffness: 500, damping: 32 }}
       className={twMerge(
-        'dark:border-polar-700 dark:bg-polar-900 relative flex items-center gap-2 overflow-hidden rounded-2xl border border-gray-200 bg-gray-50 p-1.5 text-sm',
+        'dark:border-repalis-700 dark:bg-repalis-900 relative flex items-center gap-2 overflow-hidden rounded-2xl border border-gray-200 bg-gray-50 p-1.5 text-sm',
         status === 'error' && 'border-red-300 dark:border-red-900',
       )}
     >
@@ -57,14 +57,14 @@ export const FileAttachmentPill = ({
         type="button"
         onClick={onRemove}
         aria-label={`Remove ${name}`}
-        className="dark:text-polar-400 dark:hover:bg-polar-800 flex h-5 w-5 shrink-0 cursor-pointer items-center justify-center rounded-full text-gray-400 hover:bg-gray-200 hover:text-gray-600"
+        className="dark:text-repalis-400 dark:hover:bg-repalis-800 flex h-5 w-5 shrink-0 cursor-pointer items-center justify-center rounded-full text-gray-400 hover:bg-gray-200 hover:text-gray-600"
       >
         <X className="h-3 w-3" />
       </button>
       {status === 'uploading' && (
-        <div className="dark:bg-polar-700 absolute inset-x-0 bottom-0 h-0.5 bg-gray-200">
+        <div className="dark:bg-repalis-700 absolute inset-x-0 bottom-0 h-0.5 bg-gray-200">
           <div
-            className="dark:bg-polar-200 h-full bg-gray-900 transition-[width] duration-200 ease-out"
+            className="dark:bg-repalis-200 h-full bg-gray-900 transition-[width] duration-200 ease-out"
             style={{ width: `${Math.round(progress * 100)}%` }}
           />
         </div>

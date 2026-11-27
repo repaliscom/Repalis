@@ -117,7 +117,7 @@ export function emit(at = Date.now()) {
         name: 'credit.granted',
         quantity: next.grant,
         customer: 'acme',
-        actor: 'polar',
+        actor: 'repalis',
         at,
       },
       next,

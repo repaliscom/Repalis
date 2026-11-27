@@ -1,10 +1,10 @@
 variable "name" {
-  description = "Resource name prefix. Must start with polar- to be passable under the permission boundary."
+  description = "Resource name prefix. Must start with repalis- to be passable under the permission boundary."
   type        = string
 
   validation {
-    condition     = can(regex("^polar-[a-z0-9-]+$", var.name))
-    error_message = "name must start with polar- and contain only lowercase letters, digits, or hyphens."
+    condition     = can(regex("^repalis-[a-z0-9-]+$", var.name))
+    error_message = "name must start with repalis- and contain only lowercase letters, digits, or hyphens."
   }
 }
 

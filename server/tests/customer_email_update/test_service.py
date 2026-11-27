@@ -5,34 +5,34 @@ import pytest
 from pytest_mock import MockerFixture
 from sqlalchemy import select
 
-from polar.customer_email_update.service import (
+from repalis.customer_email_update.service import (
     TOKEN_PREFIX,
     CustomerEmailUpdateService,
     InvalidCustomerEmailUpdate,
 )
-from polar.exceptions import PolarRequestValidationError
-from polar.integrations.stripe.service import StripeService
-from polar.kit.crypto import generate_token_hash_pair, get_token_hash
-from polar.kit.utils import utc_now
-from polar.member.repository import MemberRepository
-from polar.models import Customer, Organization
-from polar.models.customer import CustomerType
-from polar.models.customer_email_verification import CustomerEmailVerification
-from polar.models.member import Member, MemberRole
-from polar.postgres import AsyncSession
+from repalis.exceptions import RepalisRequestValidationError
+from repalis.integrations.stripe.service import StripeService
+from repalis.kit.crypto import generate_token_hash_pair, get_token_hash
+from repalis.kit.utils import utc_now
+from repalis.member.repository import MemberRepository
+from repalis.models import Customer, Organization
+from repalis.models.customer import CustomerType
+from repalis.models.customer_email_verification import CustomerEmailVerification
+from repalis.models.member import Member, MemberRole
+from repalis.postgres import AsyncSession
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_customer
 
 
 @pytest.fixture(autouse=True)
 def mock_enqueue_email(mocker: MockerFixture) -> MagicMock:
-    return mocker.patch("polar.customer_email_update.service.enqueue_email_template")
+    return mocker.patch("repalis.customer_email_update.service.enqueue_email_template")
 
 
 @pytest.fixture(autouse=True)
 def stripe_service_mock(mocker: MockerFixture) -> MagicMock:
     mock = MagicMock(spec=StripeService)
-    mocker.patch("polar.customer_email_update.service.stripe_service", new=mock)
+    mocker.patch("repalis.customer_email_update.service.stripe_service", new=mock)
     return mock
 
 
@@ -67,7 +67,7 @@ class TestRequestEmailUpdate:
         await save_fixture(customer)
 
         service = CustomerEmailUpdateService()
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await service.request_email_update(session, customer, "new@example.com")
 
     async def test_rejects_same_email(
@@ -81,7 +81,7 @@ class TestRequestEmailUpdate:
         )
 
         service = CustomerEmailUpdateService()
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await service.request_email_update(session, customer, "Same@Example.com")
 
     async def test_cancels_existing_pending_verification(
@@ -157,7 +157,7 @@ class TestCheckToken:
         session: AsyncSession,
     ) -> None:
         service = CustomerEmailUpdateService()
-        assert await service.check_token(session, "polar_cev_bogustoken") is False
+        assert await service.check_token(session, "repalis_cev_bogustoken") is False
 
     async def test_expired_token(
         self,
@@ -191,7 +191,7 @@ class TestVerify:
         )
         service = CustomerEmailUpdateService()
         with pytest.raises(InvalidCustomerEmailUpdate):
-            await service.verify(session, "polar_cev_bogustoken")
+            await service.verify(session, "repalis_cev_bogustoken")
 
     async def test_expired_token_raises(
         self,
@@ -235,7 +235,7 @@ class TestVerify:
         )
 
         service = CustomerEmailUpdateService()
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await service.verify(session, token)
 
         # Verification record should be deleted

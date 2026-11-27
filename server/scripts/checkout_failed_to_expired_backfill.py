@@ -1,8 +1,8 @@
 import typer
 from sqlalchemy import select, update
 
-from polar.models import Checkout
-from polar.models.checkout import CheckoutStatus
+from repalis.models import Checkout
+from repalis.models.checkout import CheckoutStatus
 from scripts.helper import (  # lint-skip: dry-run
     configure_script_logging,
     limit_bindparam,

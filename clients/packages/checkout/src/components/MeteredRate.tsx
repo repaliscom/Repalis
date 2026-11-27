@@ -1,6 +1,6 @@
-import type { schemas } from '@polar-sh/client'
-import { formatCurrency } from '@polar-sh/currency'
-import { DEFAULT_LOCALE, type AcceptedLocale } from '@polar-sh/i18n'
+import type { schemas } from '@repalis/client'
+import { formatCurrency } from '@repalis/currency'
+import { DEFAULT_LOCALE, type AcceptedLocale } from '@repalis/i18n'
 
 interface MeteredRateProps {
   amount: number
@@ -27,7 +27,7 @@ const MeteredRate: React.FC<MeteredRateProps> = ({
 
   return (
     <>
-      <span className="dark:text-polar-500 text-gray-400 line-through">
+      <span className="dark:text-repalis-500 text-gray-400 line-through">
         {format(amount, currency)}
       </span>
       <span>{format(discountedAmount, currency)}</span>

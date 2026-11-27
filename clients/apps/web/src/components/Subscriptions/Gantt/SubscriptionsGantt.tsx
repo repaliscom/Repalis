@@ -6,9 +6,9 @@ import {
   getSubscriptionTimeline,
   getTimelineStart,
 } from '@/utils/subscriptionTimeline'
-import { schemas } from '@polar-sh/client'
-import { Spinner, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { schemas } from '@repalis/client'
+import { Spinner, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import { isKeyHandledElsewhere } from '@/components/Shared/CondensedTable/CondensedTable'
 import { useEffect, type Ref } from 'react'
 import { twMerge } from 'tailwind-merge'

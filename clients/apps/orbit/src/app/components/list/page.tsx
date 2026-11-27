@@ -1,7 +1,7 @@
 'use client'
 
-import { List, ListGroup, ListItem, Status, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { List, ListGroup, ListItem, Status, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import type { PropRow } from '@/components/docs'
 import {
   Example,

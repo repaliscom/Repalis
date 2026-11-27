@@ -10,9 +10,9 @@ export const getOrganizations = (client: ClientBase) => {
    * @param slug - The organization slug.
    * @param requestOptions - Request options
    * @returns {CustomerOrganizationData}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    * @throws {ResourceNotFound} Organization not found.
    * @throws {HTTPValidationError} Validation Error
    */

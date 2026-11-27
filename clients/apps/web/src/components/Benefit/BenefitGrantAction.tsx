@@ -3,8 +3,8 @@ import { useModal } from '@/components/Modal/useModal'
 import { toast } from '@/components/Toast/use-toast'
 import { useRevokeBenefitGrant } from '@/hooks/queries/benefits'
 import { extractApiErrorMessage } from '@/utils/api/errors'
-import { schemas } from '@polar-sh/client'
-import { Button } from '@polar-sh/orbit'
+import { schemas } from '@repalis/client'
+import { Button } from '@repalis/orbit'
 import { UnrevokeBenefitGrantButton } from './UnrevokeBenefitGrantButton'
 
 export const BenefitGrantAction = ({

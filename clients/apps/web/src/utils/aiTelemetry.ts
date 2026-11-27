@@ -4,7 +4,7 @@ import { BasicTracerProvider } from '@opentelemetry/sdk-trace-base'
 import { registerTelemetry } from 'ai'
 
 type TelemetryGlobal = typeof globalThis & {
-  polarAISpanProcessor?: PostHogSpanProcessor
+  repalisAISpanProcessor?: PostHogSpanProcessor
 }
 
 export interface AITracingContext {
@@ -34,7 +34,7 @@ export const aiTracing = (context: AITracingContext) => ({
 export function registerAITelemetry() {
   const projectToken = process.env.NEXT_PUBLIC_POSTHOG_TOKEN
   const telemetryGlobal = globalThis as TelemetryGlobal
-  if (!projectToken || telemetryGlobal.polarAISpanProcessor) return
+  if (!projectToken || telemetryGlobal.repalisAISpanProcessor) return
 
   const processor = new PostHogSpanProcessor({
     projectToken,
@@ -45,7 +45,7 @@ export function registerAITelemetry() {
   })
   registerTelemetry(
     new OpenTelemetry({
-      tracer: tracerProvider.getTracer('polar-ai'),
+      tracer: tracerProvider.getTracer('repalis-ai'),
       enrichSpan: ({ runtimeContext }) => {
         const { userId, conversationId, organizationId } = runtimeContext ?? {}
         return {
@@ -58,12 +58,12 @@ export function registerAITelemetry() {
       },
     }),
   )
-  telemetryGlobal.polarAISpanProcessor = processor
+  telemetryGlobal.repalisAISpanProcessor = processor
 }
 
 export async function flushAITelemetry() {
   try {
-    await (globalThis as TelemetryGlobal).polarAISpanProcessor?.forceFlush()
+    await (globalThis as TelemetryGlobal).repalisAISpanProcessor?.forceFlush()
   } catch {
     // Telemetry failures must not change AI responses.
   }

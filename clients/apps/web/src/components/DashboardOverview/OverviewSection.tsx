@@ -2,7 +2,7 @@
 
 import AccessRestricted from '@/components/Finance/AccessRestricted'
 import { MetricGroup } from '@/components/Metrics/dashboards/MetricGroup'
-import { Modal } from '@polar-sh/orbit'
+import { Modal } from '@repalis/orbit'
 import { useHasPermission } from '@/hooks/permissions'
 import { useMetrics } from '@/hooks/queries'
 import { useChartRange } from '@/hooks/useChartRange'
@@ -13,10 +13,10 @@ import {
   DEFAULT_OVERVIEW_METRICS,
   getChartRangeParams,
 } from '@/utils/metrics'
-import { schemas } from '@polar-sh/client'
-import { SegmentedControl, Text } from '@polar-sh/orbit'
-import { Button } from '@polar-sh/orbit'
-import { Settings2 } from '@polar-sh/orbit/icons'
+import { schemas } from '@repalis/client'
+import { SegmentedControl, Text } from '@repalis/orbit'
+import { Button } from '@repalis/orbit'
+import { Settings2 } from '@repalis/orbit/icons'
 import React from 'react'
 import {
   MetricSelectorModalContent,

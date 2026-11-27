@@ -56,7 +56,7 @@ const SNOW = '#d8d8d8'
 const MIST = '#7b7b7b'
 const FOG = '#4a4a4a'
 /** The page behind the drawing, for circles that knock out the line they sit on. */
-const GROUND = 'var(--color-polar-950)'
+const GROUND = 'var(--color-repalis-950)'
 const DOTS = { strokeDasharray: '0.1 3', strokeLinecap: 'round' } as const
 
 /**
@@ -134,7 +134,7 @@ export const SubscriptionsMark = poster(
 )
 
 /**
- * Merchant of record: the world as a wireframe globe, a sale marked in three of its countries, and the one Polar is
+ * Merchant of record: the world as a wireframe globe, a sale marked in three of its countries, and the one Repalis is
  * filing tax for right now drawn solid.
  */
 const merchant = (

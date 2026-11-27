@@ -1,14 +1,14 @@
 import { describe, expect, it } from 'vitest'
 import { redactClaimTokens } from './telemetry'
 
-const TOKEN = 'polar_acl_Ab3dEf9hIjKlMnOpQrStUvWxYz0123456789abc0Xy1Z'
+const TOKEN = 'repalis_acl_Ab3dEf9hIjKlMnOpQrStUvWxYz0123456789abc0Xy1Z'
 
 describe('redactClaimTokens', () => {
   it.each([
     [
       'claim page URL',
-      `https://polar.sh/agent/claim?token=${TOKEN}&resume=1`,
-      'https://polar.sh/agent/claim?token={link_token}&resume=1',
+      `https://repalis.com/agent/claim?token=${TOKEN}&resume=1`,
+      'https://repalis.com/agent/claim?token={link_token}&resume=1',
     ],
     [
       'encoded return_to',
@@ -17,13 +17,13 @@ describe('redactClaimTokens', () => {
     ],
     [
       'claim summary API path',
-      `GET https://api.polar.sh/v1/agent/claim/${TOKEN}`,
-      'GET https://api.polar.sh/v1/agent/claim/{link_token}',
+      `GET https://api.repalis.com/v1/agent/claim/${TOKEN}`,
+      'GET https://api.repalis.com/v1/agent/claim/{link_token}',
     ],
     [
       'other URL',
-      'https://polar.sh/dashboard?token=polar_oat_x',
-      'https://polar.sh/dashboard?token=polar_oat_x',
+      'https://repalis.com/dashboard?token=repalis_oat_x',
+      'https://repalis.com/dashboard?token=repalis_oat_x',
     ],
   ])('%s', (_, value, expected) => {
     expect(redactClaimTokens(value)).toBe(expected)
@@ -59,7 +59,7 @@ describe('redactClaimTokens', () => {
 
   it('redacts URL instances and keeps them as URLs', () => {
     const redacted = redactClaimTokens({
-      url: new URL(`https://polar.sh/agent/claim?token=${TOKEN}`),
+      url: new URL(`https://repalis.com/agent/claim?token=${TOKEN}`),
     }).url
 
     expect(redacted).toBeInstanceOf(URL)

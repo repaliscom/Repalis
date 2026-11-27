@@ -1,16 +1,16 @@
 import { isFile } from '../ast.js'
 
-const apiHost = /(?:^|[/.@])(?:sandbox-)?api\.polar\.sh\b/
+const apiHost = /(?:^|[/.@])(?:sandbox-)?api\.repalis\.com\b/
 
 export default {
   meta: {
     type: 'problem',
     docs: {
       description:
-        'API hosts live in services/api.ts so POLAR_API_URL and environment selection apply everywhere.',
+        'API hosts live in services/api.ts so REPALIS_API_URL and environment selection apply everywhere.',
     },
     messages: {
-      host: 'Do not hard-code the Polar API host. Build the URL with apiUrl from services/api.ts.',
+      host: 'Do not hard-code the Repalis API host. Build the URL with apiUrl from services/api.ts.',
     },
   },
   create(context) {

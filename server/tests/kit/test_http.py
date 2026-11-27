@@ -10,7 +10,7 @@ import httpx2
 import pytest
 from pydantic import TypeAdapter
 
-from polar.kit.http import (
+from repalis.kit.http import (
     SSRFBlockedError,
     SSRFSafeTransport,
     SuccessUrl,
@@ -158,7 +158,7 @@ class _RecordingBackend(httpcore2.AsyncMockBackend):
 
 @contextmanager
 def _mock_network(backend: _RecordingBackend) -> Iterator[None]:
-    with patch("polar.kit.http.httpcore2.AnyIOBackend", return_value=backend):
+    with patch("repalis.kit.http.httpcore2.AnyIOBackend", return_value=backend):
         yield
 
 

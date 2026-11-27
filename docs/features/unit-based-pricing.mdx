@@ -24,23 +24,23 @@ Three pricing models charge by quantity. They differ in what the quantity counts
 | **Seat-based** | People | Up front | Each member who claims a seat |
 | **Metered** | Consumption you record | After the period | The customer, once |
 
-Pick seat-based when each unit maps to a person who needs their own access. Polar then handles invitations, seat claims, and per-member benefits.
+Pick seat-based when each unit maps to a person who needs their own access. Repalis then handles invitations, seat claims, and per-member benefits.
 
 Pick unit-based for everything else.
 
-Pick metered when Polar counts the quantity for you, from usage events. With unit-based the buyer declares the number themselves, at checkout.
+Pick metered when Repalis counts the quantity for you, from usage events. With unit-based the buyer declares the number themselves, at checkout.
 
 ## How it works
 
 The buyer chooses a quantity at checkout and pays for it immediately. The price comes from the tiers you configure and the quantity they picked.
 
-On a subscription, the quantity carries across billing periods. You can change it at any time, and so can the customer if you let them. Polar prorates the difference. On a one-time purchase, the quantity is fixed at the moment of sale.
+On a subscription, the quantity carries across billing periods. You can change it at any time, and so can the customer if you let them. Repalis prorates the difference. On a one-time purchase, the quantity is fixed at the moment of sale.
 
 ## Creating a unit-based product
 
 <Steps>
   <Step title="Create a new product">
-    From your dashboard, [create a new product](https://polar.sh/to/dashboard/products/new).
+    From your dashboard, [create a new product](https://repalis.com/to/dashboard/products/new).
   </Step>
   <Step title="Configure basic settings">
     Set your product name, description, and media as usual.
@@ -52,7 +52,7 @@ On a subscription, the quantity carries across billing periods. You can change i
     - **Pricing type**: Unit-based
   </Step>
   <Step title="Name the unit">
-    Set the singular and plural nouns for what you're selling, such as `device` and `devices`. They appear at checkout, in the Customer Portal, and on invoices. Leave them empty and Polar falls back to "unit" and "units".
+    Set the singular and plural nouns for what you're selling, such as `device` and `devices`. They appear at checkout, in the Customer Portal, and on invoices. Leave them empty and Repalis falls back to "unit" and "units".
   </Step>
   <Step title="Choose a tiering model">
     Under **Tiering model**, select how the quantity is priced:
@@ -97,7 +97,7 @@ Customers can change it themselves from the Customer Portal once you allow it. G
 
 ### Proration
 
-When the quantity changes mid-period, Polar prorates the difference using your organization's proration behavior:
+When the quantity changes mid-period, Repalis prorates the difference using your organization's proration behavior:
 
 - **Increasing the quantity** charges for the added units, prorated over the remainder of the period.
 - **Reducing the quantity** credits the removed units for the unused part of the period.

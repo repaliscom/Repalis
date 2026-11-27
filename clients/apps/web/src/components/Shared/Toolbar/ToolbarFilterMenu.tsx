@@ -6,41 +6,41 @@ import {
   type Filter,
   type FilterOption,
 } from '@/components/Shared/FilterPopover'
-import { Button } from '@polar-sh/orbit'
+import { Button } from '@repalis/orbit'
 import {
   Check,
   ChevronRight,
   FilterListOutlined,
   FunnelX,
   Plus,
-} from '@polar-sh/orbit/icons'
+} from '@repalis/orbit/icons'
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@polar-sh/ui/components/ui/popover'
+} from '@repalis/ui/components/ui/popover'
 import { useEffect, useRef, useState, type MouseEvent } from 'react'
 import { twMerge } from 'tailwind-merge'
 
 // Filled while the menu is open or anything is applied, in place of a badge.
-const TRIGGER_ON_CLASS = 'dark:bg-polar-700 bg-gray-200'
+const TRIGGER_ON_CLASS = 'dark:bg-repalis-700 bg-gray-200'
 // Sized to stand beside a filter chip.
 const ADD_TRIGGER_CLASS = 'size-[26px] shrink-0 rounded-md [&_svg]:size-3.5!'
 const PANEL_CLASS =
-  'dark:bg-polar-800 dark:border-polar-700 rounded-xl border border-gray-200 bg-white text-[13px] shadow-xl'
+  'dark:bg-repalis-800 dark:border-repalis-700 rounded-xl border border-gray-200 bg-white text-[13px] shadow-xl'
 const SEARCH_CLASS =
-  'dark:placeholder:text-polar-500 dark:border-polar-700 dark:focus:border-polar-700 w-full rounded-t-xl border-x-0 border-t-0 border-b border-gray-200 bg-transparent px-3.5 py-2 text-[13px] outline-none placeholder:text-gray-400 focus:border-gray-200 focus:ring-0 focus:outline-none'
+  'dark:placeholder:text-repalis-500 dark:border-repalis-700 dark:focus:border-repalis-700 w-full rounded-t-xl border-x-0 border-t-0 border-b border-gray-200 bg-transparent px-3.5 py-2 text-[13px] outline-none placeholder:text-gray-400 focus:border-gray-200 focus:ring-0 focus:outline-none'
 const ITEM_CLASS =
   'flex h-7 w-full cursor-pointer items-center gap-3 rounded-md px-2 text-left'
-const ITEM_ACTIVE_CLASS = 'dark:bg-polar-700 bg-gray-100'
-const ITEM_HOVER_CLASS = 'dark:hover:bg-polar-700 hover:bg-gray-100'
+const ITEM_ACTIVE_CLASS = 'dark:bg-repalis-700 bg-gray-100'
+const ITEM_HOVER_CLASS = 'dark:hover:bg-repalis-700 hover:bg-gray-100'
 const ICON_CLASS =
-  'dark:text-polar-400 size-3.5 shrink-0 text-gray-500 [&_svg]:size-3.5'
+  'dark:text-repalis-400 size-3.5 shrink-0 text-gray-500 [&_svg]:size-3.5'
 const CHECKBOX_CLASS =
-  'dark:border-polar-500 flex size-3.5 shrink-0 items-center justify-center rounded-[4px] border border-gray-300'
+  'dark:border-repalis-500 flex size-3.5 shrink-0 items-center justify-center rounded-[4px] border border-gray-300'
 const CHECKBOX_ON_CLASS =
   'border-black bg-black text-white dark:border-white dark:bg-white dark:text-black'
-const EMPTY_CLASS = 'dark:text-polar-500 px-2 py-1.5 text-gray-400'
+const EMPTY_CLASS = 'dark:text-repalis-500 px-2 py-1.5 text-gray-400'
 
 // How long the pointer can stay on another property, while it looks to be on
 // its way to the open options, before that property takes over.
@@ -222,7 +222,7 @@ const OptionsPanel = ({
             className={twMerge(ITEM_CLASS, ITEM_HOVER_CLASS)}
             onClick={() => onEndReached?.()}
           >
-            <span className="dark:text-polar-500 text-gray-400">
+            <span className="dark:text-repalis-500 text-gray-400">
               Could not load more.
             </span>
             Try again
@@ -230,7 +230,7 @@ const OptionsPanel = ({
         )}
       </div>
       {filter.extra && (
-        <div className="dark:border-polar-700 border-t border-gray-200">
+        <div className="dark:border-repalis-700 border-t border-gray-200">
           {filter.extra}
         </div>
       )}
@@ -392,7 +392,7 @@ export const ToolbarFilterMenu = ({
         </div>
         {onReset && (
           <div
-            className="dark:border-polar-700 border-t border-gray-200 p-1.5"
+            className="dark:border-repalis-700 border-t border-gray-200 p-1.5"
             onMouseMove={(event) => hover(null, event)}
           >
             <button

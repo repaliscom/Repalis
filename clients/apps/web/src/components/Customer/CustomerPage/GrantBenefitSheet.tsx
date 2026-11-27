@@ -8,7 +8,7 @@ import {
 } from '@/hooks/queries/benefits'
 import { useMembers } from '@/hooks/queries/members'
 import { extractApiErrorMessage } from '@/utils/api/errors'
-import { enums, schemas } from '@polar-sh/client'
+import { enums, schemas } from '@repalis/client'
 import {
   Button,
   Input,
@@ -18,15 +18,15 @@ import {
   SelectTrigger,
   SelectValue,
   Text,
-} from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+} from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import {
   Sheet,
   SheetContent,
   SheetDescription,
   SheetTitle,
   SheetTrigger,
-} from '@polar-sh/ui/components/ui/sheet'
+} from '@repalis/ui/components/ui/sheet'
 import { useDeferredValue, useId, useState } from 'react'
 
 const manualBenefitTypes = enums.benefitTypeValues.filter(

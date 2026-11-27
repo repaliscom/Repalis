@@ -1,5 +1,5 @@
-import { schemas } from '@polar-sh/client'
-import FormattedDateTime from '@polar-sh/ui/components/atoms/FormattedDateTime'
+import { schemas } from '@repalis/client'
+import FormattedDateTime from '@repalis/ui/components/atoms/FormattedDateTime'
 import { PortalRow } from './PortalPrimitives'
 
 const DateValue = ({ datetime }: { datetime: string }) => (

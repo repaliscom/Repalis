@@ -11,9 +11,9 @@ import {
   getGitHubAuthorizeLinkURL,
   getGoogleAuthorizeLinkURL,
 } from '@/utils/auth'
-import { AlternateEmailOutlined, GitHub, Google } from '@polar-sh/orbit/icons'
-import { schemas } from '@polar-sh/client'
-import { Button, Text } from '@polar-sh/orbit'
+import { AlternateEmailOutlined, GitHub, Google } from '@repalis/orbit/icons'
+import { schemas } from '@repalis/client'
+import { Button, Text } from '@repalis/orbit'
 import { usePathname, useSearchParams } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
 import EmailUpdateForm from '../Form/EmailUpdateForm'
@@ -226,7 +226,7 @@ const AuthenticationSettings = () => {
       />
     ),
     request: (
-      <div className="dark:text-polar-300 dark:bg-polar-600 flex h-10 items-center justify-center rounded-lg bg-gray-100 text-center text-sm text-gray-500">
+      <div className="dark:text-repalis-300 dark:bg-repalis-600 flex h-10 items-center justify-center rounded-lg bg-gray-100 text-center text-sm text-gray-500">
         A verification email was sent to this address.
       </div>
     ),

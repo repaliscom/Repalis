@@ -1,9 +1,9 @@
 import pytest
 
-from polar.enums import SubscriptionProrationBehavior
-from polar.kit.db.postgres import AsyncSession
-from polar.models import Organization
-from polar.models.organization import OrganizationSubscriptionSettings
+from repalis.enums import SubscriptionProrationBehavior
+from repalis.kit.db.postgres import AsyncSession
+from repalis.models import Organization
+from repalis.models.organization import OrganizationSubscriptionSettings
 from scripts.backfill_trial_ended_reactivation_period import backfill_statement
 from scripts.helper import run_batched_update
 from tests.fixtures.database import SaveFixture

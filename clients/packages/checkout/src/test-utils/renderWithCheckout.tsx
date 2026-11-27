@@ -1,5 +1,5 @@
-import type { Client } from '@polar-sh/client'
-import type { AcceptedLocale } from '@polar-sh/i18n'
+import type { Client } from '@repalis/client'
+import type { AcceptedLocale } from '@repalis/i18n'
 import { render } from '@testing-library/react'
 import { useEffect } from 'react'
 import { useFormState } from 'react-hook-form'

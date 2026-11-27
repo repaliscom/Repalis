@@ -4,7 +4,7 @@ import httpx2
 import pytest
 from fastapi import FastAPI
 
-from polar.postgres import AsyncSession
+from repalis.postgres import AsyncSession
 from tests.fixtures.base import IsolatedSessionTestClient
 
 

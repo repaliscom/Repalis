@@ -3,7 +3,7 @@ from typing import Any
 
 import pytest
 
-from polar.checkout.payment_methods import (
+from repalis.checkout.payment_methods import (
     PaymentMethodRule,
     PaymentMode,
     get_payment_method_country,

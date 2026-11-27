@@ -1,7 +1,7 @@
 import pytest
 
-from polar.kit.db.postgres import AsyncSession
-from polar.models import Organization, UserOrganization
+from repalis.kit.db.postgres import AsyncSession
+from repalis.models import Organization, UserOrganization
 from scripts.backfill_notification_settings import backfill_statement
 from scripts.helper import run_batched_update
 from tests.fixtures.database import SaveFixture

@@ -1,5 +1,5 @@
 import { useSubscription } from '@/hooks/queries'
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 
 // The selected subscription and its neighbours in the list. A link can name
 // one that the loaded pages do not hold yet, so that one is fetched on its own.

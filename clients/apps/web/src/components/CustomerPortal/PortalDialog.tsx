@@ -1,8 +1,8 @@
 'use client'
 
-import { Button, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import { X } from '@polar-sh/orbit/icons'
+import { Button, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import { X } from '@repalis/orbit/icons'
 import { motion } from 'motion/react'
 import {
   type KeyboardEvent,

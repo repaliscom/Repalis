@@ -1,6 +1,6 @@
 import pytest
 
-from polar.models import User
+from repalis.models import User
 
 
 @pytest.mark.anyio

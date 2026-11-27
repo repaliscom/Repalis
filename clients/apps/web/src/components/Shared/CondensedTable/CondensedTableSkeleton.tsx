@@ -1,5 +1,5 @@
 import { SkeletonBar } from '@/components/Shared/SkeletonBar'
-import { Box } from '@polar-sh/orbit/Box'
+import { Box } from '@repalis/orbit/Box'
 import { type RowData } from '@tanstack/react-table'
 import {
   CondensedTableCell,

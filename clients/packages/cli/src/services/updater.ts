@@ -13,7 +13,7 @@ import type { PlatformError } from 'effect/PlatformError'
 import { ChildProcess, ChildProcessSpawner } from 'effect/process'
 import { isJson } from '@/utils/output'
 
-export const PACKAGE_NAME = '@polar-sh/cli'
+export const PACKAGE_NAME = '@repalis/cli'
 export const REGISTRY_URL = `https://registry.npmjs.org/${PACKAGE_NAME.replaceAll('/', '%2F')}/latest`
 
 export const methods = ['binary', 'npm', 'pnpm', 'bun', 'yarn', 'vp'] as const
@@ -225,7 +225,7 @@ const retainRunningImage = (
         // Hard links cannot cross volumes, so keep the link beside the executable.
         const directory = yield* fs.makeTempDirectory({
           directory: path.dirname(executable),
-          prefix: 'polar-update-',
+          prefix: 'repalis-update-',
         })
         const remove = fs
           .remove(directory, { recursive: true, force: true })
@@ -265,9 +265,9 @@ export const upgradeWithPackageManager = (
       return yield* new UpdaterError({
         message: `${command.join(' ')} exited with code ${result.code}`,
         hint: inherit
-          ? 'Fix the issue above, then run polar update again.'
+          ? 'Fix the issue above, then run repalis update again.'
           : result.stderr.trim() ||
-            'Run polar update again without --json to see the output.',
+            'Run repalis update again without --json to see the output.',
       })
     }
   })

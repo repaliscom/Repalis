@@ -1,11 +1,11 @@
 // Generated from customers:members:list (2026-10). Do not edit.
-import type { Polar } from '@polar-sh/sdk/2026-10'
+import type { Repalis } from '@repalis/sdk/2026-10'
 import { Effect } from 'effect'
 import { Argument, Command, Flag } from 'effect/cli'
 import { ApiRuntime } from '../../runtime'
 import { fields, data, mergeInput, org } from '../../inputs'
 
-type Query = NonNullable<Parameters<Polar['customers']['members']['list']>[1]>
+type Query = NonNullable<Parameters<Repalis['customers']['members']['list']>[1]>
 
 export const command = Command.make(
   'list',

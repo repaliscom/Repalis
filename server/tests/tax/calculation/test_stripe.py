@@ -4,10 +4,10 @@ from unittest.mock import patch
 import pytest
 import stripe as stripe_lib
 
-from polar.enums import TaxBehavior
-from polar.kit.address import Address, CountryAlpha2
-from polar.tax.calculation import TaxCalculationTechnicalError, TaxCode
-from polar.tax.calculation.stripe import stripe_tax_service
+from repalis.enums import TaxBehavior
+from repalis.kit.address import Address, CountryAlpha2
+from repalis.tax.calculation import TaxCalculationTechnicalError, TaxCode
+from repalis.tax.calculation.stripe import stripe_tax_service
 
 
 @pytest.fixture
@@ -34,11 +34,11 @@ class TestStripeCalculateTax:
 
         with (
             patch(
-                "polar.tax.calculation.stripe.stripe_service.create_tax_calculation",
+                "repalis.tax.calculation.stripe.stripe_service.create_tax_calculation",
                 side_effect=rate_limit_error,
             ),
             patch(
-                "polar.tax.calculation.stripe.settings.is_sandbox", return_value=True
+                "repalis.tax.calculation.stripe.settings.is_sandbox", return_value=True
             ),
         ):
             result = await stripe_tax_service.calculate(
@@ -68,11 +68,11 @@ class TestStripeCalculateTax:
 
         with (
             patch(
-                "polar.tax.calculation.stripe.stripe_service.create_tax_calculation",
+                "repalis.tax.calculation.stripe.stripe_service.create_tax_calculation",
                 side_effect=rate_limit_error,
             ),
             patch(
-                "polar.tax.calculation.stripe.settings.is_sandbox", return_value=False
+                "repalis.tax.calculation.stripe.settings.is_sandbox", return_value=False
             ),
         ):
             with pytest.raises(TaxCalculationTechnicalError):

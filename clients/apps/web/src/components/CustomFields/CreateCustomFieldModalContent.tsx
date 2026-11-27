@@ -1,9 +1,9 @@
 import { useCreateCustomField } from '@/hooks/queries'
 import { setValidationErrors } from '@/utils/api/errors'
 import { stripEmptyProperties } from '@/utils/object'
-import { schemas } from '@polar-sh/client'
-import { Button, InlineModalHeader } from '@polar-sh/orbit'
-import { Form } from '@polar-sh/ui/components/ui/form'
+import { schemas } from '@repalis/client'
+import { Button, InlineModalHeader } from '@repalis/orbit'
+import { Form } from '@repalis/ui/components/ui/form'
 import { useCallback } from 'react'
 import { SubmitHandler, useForm, useFormState } from 'react-hook-form'
 import { toast } from '../Toast/use-toast'
@@ -66,7 +66,7 @@ const CreateCustomFieldModalContent = ({
         <h2 className="text-lg">Create Custom Field</h2>
       </InlineModalHeader>
       <div className="flex flex-col gap-y-6 px-8 pb-10">
-        <p className="dark:text-polar-500 text-sm text-gray-500">
+        <p className="dark:text-repalis-500 text-sm text-gray-500">
           Custom Fields allow you to ask additional information from your
           customers at checkout, and will be available for use in all products
           of your organization.

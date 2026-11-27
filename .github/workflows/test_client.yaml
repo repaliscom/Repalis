@@ -94,7 +94,7 @@ jobs:
         run: pnpm run lint
 
       - name: 🌍 Validate i18n
-        run: pnpm --filter @polar-sh/i18n validate
+        run: pnpm --filter @repalis/i18n validate
 
       - name: 👀 Typecheck
         run: pnpm turbo run typecheck $TURBO_SCOPE
@@ -162,8 +162,8 @@ jobs:
 
       - uses: ./.github/actions/setup-clients
 
-      - name: "🧪 Test: @polar-sh/checkout"
-        run: pnpm turbo run test --filter=@polar-sh/checkout $TURBO_SCOPE
+      - name: "🧪 Test: @repalis/checkout"
+        run: pnpm turbo run test --filter=@repalis/checkout $TURBO_SCOPE
 
   test-packages:
     name: "Client: Test Packages 🧪"
@@ -200,10 +200,10 @@ jobs:
           bun-version-file: clients/packages/cli/package.json
 
       - name: "🧪 Test: Packages"
-        run: pnpm turbo run test --filter='!web' --filter='!@polar-sh/checkout' $TURBO_SCOPE
+        run: pnpm turbo run test --filter='!web' --filter='!@repalis/checkout' $TURBO_SCOPE
 
       - name: "📚 CLI docs are up to date"
-        run: pnpm --filter @polar-sh/cli docs:check
+        run: pnpm --filter @repalis/cli docs:check
 
   build:
     name: "Client: Build 🛠️"
@@ -272,18 +272,18 @@ jobs:
           bun-version-file: clients/packages/cli/package.json
 
       - name: 📦 Install the CLI dependency graph
-        run: pnpm --dir ../.. install --filter @polar-sh/cli... --frozen-lockfile --ignore-scripts
+        run: pnpm --dir ../.. install --filter @repalis/cli... --frozen-lockfile --ignore-scripts
 
-      - name: 🛠️ Build @polar-sh/polar
-        run: pnpm --dir ../.. --filter @polar-sh/polar build
+      - name: 🛠️ Build @repalis/repalis
+        run: pnpm --dir ../.. --filter @repalis/repalis build
 
       - name: 📦 Build binary
-        run: bun build ./src/cli.ts --compile --no-compile-autoload-dotenv --no-compile-autoload-bunfig --define POLAR_CLI_BUILD='"release"' --target=bun-linux-x64 --outfile polar
+        run: bun build ./src/cli.ts --compile --no-compile-autoload-dotenv --no-compile-autoload-bunfig --define REPALIS_CLI_BUILD='"release"' --target=bun-linux-x64 --outfile repalis
 
       - name: 💨 Smoke test binary
         env:
-          POLAR_CLI_TELEMETRY_OPTOUT: "1"
-        run: ./polar --version
+          REPALIS_CLI_TELEMETRY_OPTOUT: "1"
+        run: ./repalis --version
 
   status:
     name: "Client: Tests 🎨"

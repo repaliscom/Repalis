@@ -6,9 +6,9 @@ import {
   type DetailColumnRow,
 } from '@/components/Orders/OrderSection'
 import { formatCountry } from '@/utils/formatters'
-import { schemas } from '@polar-sh/client'
-import { Grid, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { schemas } from '@repalis/client'
+import { Grid, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 
 export const SubscriptionSecondaryDetails = ({
   subscription,

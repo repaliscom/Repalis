@@ -6,17 +6,17 @@ import typer
 from sqlalchemy import or_, select
 from sqlalchemy.orm import joinedload
 
-from polar import tasks  # noqa: F401
-from polar.kit.db.postgres import (  # lint-skip: dry-run
+from repalis import tasks  # noqa: F401
+from repalis.kit.db.postgres import (  # lint-skip: dry-run
     AsyncSession,
     create_async_sessionmaker,
 )
-from polar.models import CustomerMeter, MeterReducer, Reducer, ReducerBucket
-from polar.models.reducer import ReducerKind
-from polar.postgres import create_async_engine
-from polar.redis import create_redis
-from polar.reducer.service import reducer as reducer_service
-from polar.worker import JobQueueManager
+from repalis.models import CustomerMeter, MeterReducer, Reducer, ReducerBucket
+from repalis.models.reducer import ReducerKind
+from repalis.postgres import create_async_engine
+from repalis.redis import create_redis
+from repalis.reducer.service import reducer as reducer_service
+from repalis.worker import JobQueueManager
 
 from .helper import configure_script_logging, typer_async
 

@@ -68,7 +68,7 @@ locals {
 check "management_account" {
   assert {
     condition     = aws_organizations_organization.current.master_account_id == local.management_account.id
-    error_message = "Terraform must run from the Polar management account (${local.management_account.id})."
+    error_message = "Terraform must run from the Repalis management account (${local.management_account.id})."
   }
 }
 

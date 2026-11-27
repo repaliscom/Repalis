@@ -1,6 +1,6 @@
 'use client'
 
-import { Banknote as BanknoteIcon } from '@polar-sh/orbit/icons'
+import { Banknote as BanknoteIcon } from '@repalis/orbit/icons'
 import { StatusBlock } from './Account/sections/StatusBlock'
 
 export const ManualPayoutStatusBlock = () => (
@@ -12,7 +12,7 @@ export const ManualPayoutStatusBlock = () => (
       <>
         You are receiving manual payouts.{' '}
         <a
-          href="mailto:support@polar.sh"
+          href="mailto:contact@repalis.com"
           className="underline hover:no-underline"
         >
           Reach out to support

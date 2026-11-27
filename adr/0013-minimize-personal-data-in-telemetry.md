@@ -11,7 +11,7 @@ Log selected operational facts, not customer payloads. Keep useful diagnostics w
 
 ## Context
 
-Polar's logs, traces, and error reports can copy customer data through explicit log
+Repalis's logs, traces, and error reports can copy customer data through explicit log
 fields, automatic request and worker instrumentation, URLs, and exception messages.
 Removing a field from one log does not remove the same value from a captured exception
 or another exporter. We need useful debugging context without turning telemetry into
@@ -82,8 +82,8 @@ also need to remain explicit rather than becoming a blanket rule for all identif
 
 ## References
 
-- [Worker telemetry selection (#14776)](https://github.com/polarsource/polar/pull/14776)
-- [Structured database error diagnostics (#14786)](https://github.com/polarsource/polar/pull/14786)
-- [Validation response versus exception telemetry (#14806)](https://github.com/polarsource/polar/pull/14806)
-- [Retaining startup names, removing applicant email (#14799)](https://github.com/polarsource/polar/pull/14799)
-- [Deletion-reason retention trade-off (#14809)](https://github.com/polarsource/polar/pull/14809)
+- [Worker telemetry selection (#14776)](https://github.com/repaliscom/Repalis/pull/14776)
+- [Structured database error diagnostics (#14786)](https://github.com/repaliscom/Repalis/pull/14786)
+- [Validation response versus exception telemetry (#14806)](https://github.com/repaliscom/Repalis/pull/14806)
+- [Retaining startup names, removing applicant email (#14799)](https://github.com/repaliscom/Repalis/pull/14799)
+- [Deletion-reason retention trade-off (#14809)](https://github.com/repaliscom/Repalis/pull/14809)

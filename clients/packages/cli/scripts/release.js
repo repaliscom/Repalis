@@ -34,8 +34,8 @@ export default async ({
     if (!previousVersion || previousVersion === version) return
   }
   const tag = publish
-    ? `@polar-sh/cli@${version}`
-    : `@polar-sh/cli-verify-${context.runId}-${process.env.GITHUB_RUN_ATTEMPT}`
+    ? `@repalis/cli@${version}`
+    : `@repalis/cli-verify-${context.runId}-${process.env.GITHUB_RUN_ATTEMPT}`
   let released = false
   let ref = context.sha
   try {

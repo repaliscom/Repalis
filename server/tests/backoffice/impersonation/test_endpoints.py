@@ -3,16 +3,16 @@ from collections.abc import AsyncIterator
 import httpx2
 import pytest
 
-from polar.auth.scope import READ_ONLY_SCOPES, Scope
-from polar.auth.service import auth as auth_service
-from polar.backoffice.app import app as backoffice_app
-from polar.backoffice.auth.service import create_user_session
-from polar.config import settings
-from polar.models import BackofficeUser, Organization, User, UserOrganization
-from polar.postgres import AsyncSession, get_db_session
+from repalis.auth.scope import READ_ONLY_SCOPES, Scope
+from repalis.auth.service import auth as auth_service
+from repalis.backoffice.app import app as backoffice_app
+from repalis.backoffice.auth.service import create_user_session
+from repalis.config import settings
+from repalis.models import BackofficeUser, Organization, User, UserOrganization
+from repalis.postgres import AsyncSession, get_db_session
 
-BACKOFFICE_HOST = "backoffice.polar.test"
-DASHBOARD_HOST = "polar.test"
+BACKOFFICE_HOST = "backoffice.repalis.test"
+DASHBOARD_HOST = "repalis.test"
 
 
 @pytest.fixture

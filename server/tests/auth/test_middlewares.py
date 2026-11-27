@@ -11,24 +11,24 @@ from sqlalchemy.ext.asyncio import async_sessionmaker
 from starlette.requests import Request
 from starlette.types import Message, Receive, Scope, Send
 
-from polar.auth.exceptions import (
+from repalis.auth.exceptions import (
     InvalidRequestedOrganization,
     RequestedOrganizationNotAccessible,
 )
-from polar.auth.middlewares import AuthSubjectMiddleware, get_auth_subject
-from polar.auth.models import (
+from repalis.auth.middlewares import AuthSubjectMiddleware, get_auth_subject
+from repalis.auth.models import (
     ORGANIZATION_HEADER,
     Anonymous,
     is_agent,
     is_single_organization_credential,
 )
-from polar.auth.scope import UNCLAIMED_AGENT_SCOPES
-from polar.auth.service import auth as auth_service
-from polar.config import settings
-from polar.kit.crypto import get_token_hash
-from polar.kit.hash_secrets import HashSecrets
-from polar.kit.utils import utc_now
-from polar.models import (
+from repalis.auth.scope import UNCLAIMED_AGENT_SCOPES
+from repalis.auth.service import auth as auth_service
+from repalis.config import settings
+from repalis.kit.crypto import get_token_hash
+from repalis.kit.hash_secrets import HashSecrets
+from repalis.kit.utils import utc_now
+from repalis.models import (
     Agent,
     OAuth2Client,
     OAuth2Token,
@@ -38,21 +38,21 @@ from polar.models import (
     User,
     UserOrganization,
 )
-from polar.models.agent import AgentStatus
-from polar.models.oauth2_token_organization import OAuth2TokenOrganization
-from polar.models.user_session_organization import UserSessionOrganization
-from polar.oauth2.constants import ACCESS_TOKEN_PREFIX
-from polar.oauth2.exceptions import InvalidTokenError
-from polar.oauth2.sub_type import SubType
-from polar.organization_access_token.service import (
+from repalis.models.agent import AgentStatus
+from repalis.models.oauth2_token_organization import OAuth2TokenOrganization
+from repalis.models.user_session_organization import UserSessionOrganization
+from repalis.oauth2.constants import ACCESS_TOKEN_PREFIX
+from repalis.oauth2.exceptions import InvalidTokenError
+from repalis.oauth2.sub_type import SubType
+from repalis.organization_access_token.service import (
     TOKEN_PREFIX as ORGANIZATION_ACCESS_TOKEN_PREFIX,
 )
-from polar.organization_access_token.service import (
+from repalis.organization_access_token.service import (
     organization_access_token as organization_access_token_service,
 )
-from polar.personal_access_token.service import TOKEN_PREFIX
-from polar.postgres import AsyncSession
-from polar.redis import Redis
+from repalis.personal_access_token.service import TOKEN_PREFIX
+from repalis.postgres import AsyncSession
+from repalis.redis import Redis
 from tests.fixtures.database import SaveFixture
 
 
@@ -93,7 +93,7 @@ async def _create_oauth2_token(
     agent: Agent | None = None,
 ) -> OAuth2Token:
     if agent is None:
-        client = OAuth2Client(client_id="polar_ci_test")
+        client = OAuth2Client(client_id="repalis_ci_test")
         await save_fixture(client)
     else:
         client = agent.oauth2_client
@@ -396,7 +396,7 @@ class TestGetAuthSubjectRequestedOrganization:
         organization: Organization,
         user_organization: UserOrganization,
     ) -> None:
-        access_token = "polar_pat_test"
+        access_token = "repalis_pat_test"
         await save_fixture(
             PersonalAccessToken(
                 comment="test",
@@ -667,7 +667,7 @@ class TestAuthSubjectMiddlewareWebSocket:
     ) -> None:
         secrets = {"k1": "retired", "k2": "current"}
         hash_secrets = mocker.patch(
-            "polar.kit.crypto.get_hash_secrets",
+            "repalis.kit.crypto.get_hash_secrets",
             return_value=HashSecrets(secrets, "k1", "legacy"),
         )
         access_token = f"{TOKEN_PREFIX}test"

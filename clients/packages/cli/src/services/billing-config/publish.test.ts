@@ -9,8 +9,8 @@ import { fakeHttp } from '@/utils/test-utils/http'
 import { fakeAuth } from '@/utils/test-utils/services'
 
 const listUrl =
-  'https://sandbox-api.polar.sh/v1/catalogs/?organization_id=org-1&status=draft&status=live'
-const publishUrl = 'https://sandbox-api.polar.sh/v1/catalogs/cat-draft/publish'
+  'https://sandbox-api.repalis.com/v1/catalogs/?organization_id=org-1&status=draft&status=live'
+const publishUrl = 'https://sandbox-api.repalis.com/v1/catalogs/cat-draft/publish'
 
 const acme: ActiveOrganization = {
   id: 'org-1',
@@ -65,7 +65,7 @@ describe('catalogs', () => {
 
     const result = await run((clients) => catalogs(clients)(acme))
 
-    expect(api.requests[0]?.headers.get('Polar-Organization')).toBe('org-1')
+    expect(api.requests[0]?.headers.get('Repalis-Organization')).toBe('org-1')
     expect(result).toEqual({
       live: { id: 'cat-live', name: 'v3' },
       draft: { id: 'cat-draft', name: null },
@@ -118,7 +118,7 @@ describe('publish', () => {
     const error = await failure(run((clients) => publish(clients)(acme, draft)))
 
     expect(error.message).toBe(detail)
-    expect(error.hint).toContain('polar config apply')
+    expect(error.hint).toContain('repalis config apply')
   })
 
   test('asks to retry when the draft was discarded', async () => {
@@ -168,7 +168,7 @@ describe('publish', () => {
         status: 403,
         headers: {
           'WWW-Authenticate':
-            'Bearer realm="polar", scope="organizations:write", error="insufficient_scope"',
+            'Bearer realm="repalis", scope="organizations:write", error="insufficient_scope"',
         },
       },
     )

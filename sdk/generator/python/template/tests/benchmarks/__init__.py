@@ -2,7 +2,7 @@ import json
 import pathlib
 import typing
 
-from polar.outpost.reducer import BUCKET_SIZE, Reducer
+from repalis.outpost.reducer import BUCKET_SIZE, Reducer
 
 # Shared benchmark data, copied from sdk/generator/benchmarks/outpost.json.
 DATA = json.loads(pathlib.Path(__file__).with_name("benchmark.json").read_text())

@@ -135,7 +135,7 @@ describe('startListening', () => {
     await tick()
     expect(requests[0]!.get('Authorization')).toBe('Bearer test-token')
     expect(requests[0]!.get('Accept')).toBe('text/event-stream')
-    expect(requests[0]!.get('Polar-Organization')).toBe('org_1')
+    expect(requests[0]!.get('Repalis-Organization')).toBe('org_1')
     await Effect.runPromise(Fiber.interrupt(fiber))
     expect(connections[0]!.signal?.aborted).toBe(true)
   })
@@ -156,8 +156,8 @@ describe('startListening', () => {
     await tick()
     const rawPayload = '{ "type": "order.created", "data": {} }'
     const headers = {
-      'x-polar-triggered': 'true',
-      'user-agent': 'polar.sh webhooks',
+      'x-repalis-triggered': 'true',
+      'user-agent': 'repalis.com webhooks',
       'content-type': 'application/json',
       'webhook-id': 'wh_1',
       'webhook-timestamp': '12345',
@@ -183,10 +183,10 @@ describe('startListening', () => {
     )
   })
 
-  test('records the outcome of a triggered event for polar webhook trigger', async () => {
+  test('records the outcome of a triggered event for repalis webhook trigger', async () => {
     run()
     await tick()
-    emitWebhook({ 'x-polar-triggered': 'true' })
+    emitWebhook({ 'x-repalis-triggered': 'true' })
     await tick()
     expect(deliveries.state.recorded).toEqual([
       {
@@ -208,7 +208,7 @@ describe('startListening', () => {
     )
     run()
     await tick()
-    emitWebhook({ 'x-polar-triggered': 'true' })
+    emitWebhook({ 'x-repalis-triggered': 'true' })
     await tick()
     expect(deliveries.state.recorded[0]?.delivery).toEqual(
       expect.objectContaining({ status: 422, body: 'Missing customer' }),
@@ -228,8 +228,8 @@ describe('startListening', () => {
     )
     run()
     await tick()
-    emitWebhook({ 'x-polar-triggered': 'true' })
-    emitWebhook({ 'x-polar-triggered': 'true' })
+    emitWebhook({ 'x-repalis-triggered': 'true' })
+    emitWebhook({ 'x-repalis-triggered': 'true' })
     await new Promise((resolve) => setTimeout(resolve, 1200))
     expect(deliveries.state.recorded.map(({ delivery }) => delivery)).toEqual([
       expect.objectContaining({ status: 500, body: 'partial' }),
@@ -251,8 +251,8 @@ describe('startListening', () => {
     )
     run()
     await vi.advanceTimersByTimeAsync(20)
-    emitWebhook({ 'x-polar-triggered': 'true' })
-    emitWebhook({ 'x-polar-triggered': 'true' })
+    emitWebhook({ 'x-repalis-triggered': 'true' })
+    emitWebhook({ 'x-repalis-triggered': 'true' })
     await vi.advanceTimersByTimeAsync(10_000)
     expect(deliveries.state.recorded.map(({ delivery }) => delivery)).toEqual([
       expect.objectContaining({ failure: 'no response after 10 seconds' }),
@@ -282,7 +282,7 @@ describe('startListening', () => {
     )
     run()
     await tick()
-    emitWebhook({ 'x-polar-triggered': 'true' })
+    emitWebhook({ 'x-repalis-triggered': 'true' })
     await tick()
     expect(deliveries.state.recorded[0]?.delivery.body).toBe(
       `${'x'.repeat(2000)}…`,
@@ -294,7 +294,7 @@ describe('startListening', () => {
     const forwardUrl = 'http://user:s3cret@localhost:3000/webhook?token=t0ken'
     run(streamFetch, auth, forwardUrl)
     await tick()
-    emitWebhook({ 'x-polar-triggered': 'true' })
+    emitWebhook({ 'x-repalis-triggered': 'true' })
     await tick()
     expect(deliveries.state.recorded[0]?.delivery.forwardUrl).toBe(
       'http://***@localhost:3000/webhook?token=***',
@@ -319,7 +319,7 @@ describe('startListening', () => {
     )
     run()
     await tick()
-    emitWebhook({ 'x-polar-triggered': 'true' })
+    emitWebhook({ 'x-repalis-triggered': 'true' })
     await tick()
     expect(events).toContainEqual(
       expect.objectContaining({

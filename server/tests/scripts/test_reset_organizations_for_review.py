@@ -5,10 +5,10 @@ from uuid import uuid4
 import pytest
 
 import scripts.reset_organizations_for_review as script
-from polar.organization.service import organization as organization_service
-from polar.postgres import AsyncSession
-from polar.worker import JobQueueManager, enqueue_job
-from polar.worker._enqueue import _job_queue_manager
+from repalis.organization.service import organization as organization_service
+from repalis.postgres import AsyncSession
+from repalis.worker import JobQueueManager, enqueue_job
+from repalis.worker._enqueue import _job_queue_manager
 from scripts.reset_organizations_for_review import _load_organizations
 
 

@@ -13,31 +13,31 @@ from redis.exceptions import ConnectionError as RedisConnectionError
 from sqlalchemy import event as sqlalchemy_event
 from sqlalchemy import func, select
 
-from polar.auth.models import AuthSubject, is_user
-from polar.event.repository import EventRepository
-from polar.event.schemas import (
+from repalis.auth.models import AuthSubject, is_user
+from repalis.event.repository import EventRepository
+from repalis.event.schemas import (
     EventCreateCustomer,
     EventCreateExternalCustomer,
     EventsIngest,
 )
-from polar.event.service import event as event_service
-from polar.event.sorting import EventNamesSortProperty
-from polar.event.system import SystemEvent, build_system_event
-from polar.event_type.repository import EventTypeRepository
-from polar.exceptions import PolarRequestValidationError
-from polar.integrations.tinybird.service import TinybirdEventTypeStats
-from polar.kit.pagination import PaginationParams
-from polar.kit.time_queries import TimeInterval
-from polar.kit.utils import utc_now
-from polar.meter.aggregation import (
+from repalis.event.service import event as event_service
+from repalis.event.sorting import EventNamesSortProperty
+from repalis.event.system import SystemEvent, build_system_event
+from repalis.event_type.repository import EventTypeRepository
+from repalis.exceptions import RepalisRequestValidationError
+from repalis.integrations.tinybird.service import TinybirdEventTypeStats
+from repalis.kit.pagination import PaginationParams
+from repalis.kit.time_queries import TimeInterval
+from repalis.kit.utils import utc_now
+from repalis.meter.aggregation import (
     Aggregation,
     AggregationFunction,
     CountAggregation,
     PropertyAggregation,
     UniqueAggregation,
 )
-from polar.meter.filter import Filter, FilterClause, FilterConjunction, FilterOperator
-from polar.models import (
+from repalis.meter.filter import Filter, FilterClause, FilterConjunction, FilterOperator
+from repalis.models import (
     Agent,
     Customer,
     CustomerMeter,
@@ -52,25 +52,25 @@ from polar.models import (
     User,
     UserOrganization,
 )
-from polar.models.checkout import CheckoutStatus
-from polar.models.discount import DiscountDuration, DiscountType
-from polar.models.event import EventSource
-from polar.models.order import OrderStatus
-from polar.models.reducer import ReducerKind
-from polar.models.subscription import CustomerCancellationReason
-from polar.models.user_organization import OrganizationRole
-from polar.order.service import order as order_service
-from polar.postgres import AsyncSession
-from polar.redis import Redis
-from polar.reducer.redis_store import get_reducer_bucket_key
-from polar.reducer.repository import ReducerRepository
-from polar.reducer.service import (
+from repalis.models.checkout import CheckoutStatus
+from repalis.models.discount import DiscountDuration, DiscountType
+from repalis.models.event import EventSource
+from repalis.models.order import OrderStatus
+from repalis.models.reducer import ReducerKind
+from repalis.models.subscription import CustomerCancellationReason
+from repalis.models.user_organization import OrganizationRole
+from repalis.order.service import order as order_service
+from repalis.postgres import AsyncSession
+from repalis.redis import Redis
+from repalis.reducer.redis_store import get_reducer_bucket_key
+from repalis.reducer.repository import ReducerRepository
+from repalis.reducer.service import (
     REDUCER_BUCKET_SIZE,
     get_reducer_bucket_start,
 )
-from polar.reducer.service import reducer as reducer_service
-from polar.subscription.service import SubscriptionUpdateContext
-from polar.subscription.service import subscription as subscription_service
+from repalis.reducer.service import reducer as reducer_service
+from repalis.subscription.service import SubscriptionUpdateContext
+from repalis.subscription.service import subscription as subscription_service
 from tests.fixtures.auth import AuthSubjectFixture
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.events import get_all_by_name, get_all_by_organization
@@ -91,12 +91,12 @@ from tests.fixtures.random_objects import (
 
 @pytest.fixture
 def enqueue_job_mock(mocker: MockerFixture) -> MagicMock:
-    return mocker.patch("polar.event.service.enqueue_job")
+    return mocker.patch("repalis.event.service.enqueue_job")
 
 
 @pytest.fixture
 def enqueue_events_mock(mocker: MockerFixture) -> AsyncMock:
-    return mocker.patch("polar.event.service.enqueue_events")
+    return mocker.patch("repalis.event.service.enqueue_events")
 
 
 @pytest.mark.anyio
@@ -296,7 +296,7 @@ class TestGet:
         auth_subject: AuthSubject[User],
     ) -> None:
         mocker.patch(
-            "polar.integrations.tinybird.service.TinybirdEventsQuery.get_event_ids_and_count",
+            "repalis.integrations.tinybird.service.TinybirdEventsQuery.get_event_ids_and_count",
             new_callable=AsyncMock,
             return_value=([], 0),
         )
@@ -337,7 +337,7 @@ class TestGet:
         event = await create_event(save_fixture, organization=organization)
 
         mocker.patch(
-            "polar.integrations.tinybird.service.TinybirdEventsQuery.get_event_ids_and_count",
+            "repalis.integrations.tinybird.service.TinybirdEventsQuery.get_event_ids_and_count",
             new_callable=AsyncMock,
             return_value=([str(event.id)], 1),
         )
@@ -367,12 +367,12 @@ class TestGet:
         )
 
         mocker.patch(
-            "polar.integrations.tinybird.service.TinybirdEventsQuery.get_event_ids_and_count",
+            "repalis.integrations.tinybird.service.TinybirdEventsQuery.get_event_ids_and_count",
             new_callable=AsyncMock,
             return_value=([str(parent.id)], 1),
         )
         mocker.patch(
-            "polar.integrations.tinybird.service.TinybirdEventsQuery.get_descendant_aggregates",
+            "repalis.integrations.tinybird.service.TinybirdEventsQuery.get_descendant_aggregates",
             new_callable=AsyncMock,
             return_value=(2, {"_cost_amount": 150.0}),
         )
@@ -403,7 +403,7 @@ class TestListNames:
     ) -> None:
         now = utc_now()
         query_mock = mocker.patch(
-            "polar.event.tinybird_repository.TinybirdEventsQuery.get_event_type_stats",
+            "repalis.event.tinybird_repository.TinybirdEventsQuery.get_event_type_stats",
             new_callable=AsyncMock,
             return_value=[
                 TinybirdEventTypeStats(
@@ -464,7 +464,7 @@ class TestListNames:
         await save_fixture(event_type)
 
         mocker.patch(
-            "polar.event.tinybird_repository.TinybirdEventsQuery.get_event_type_stats",
+            "repalis.event.tinybird_repository.TinybirdEventsQuery.get_event_type_stats",
             new_callable=AsyncMock,
             return_value=[
                 TinybirdEventTypeStats(
@@ -542,7 +542,7 @@ class TestListNames:
 
         now = utc_now()
         mocker.patch(
-            "polar.event.tinybird_repository.TinybirdEventsQuery.get_event_type_stats",
+            "repalis.event.tinybird_repository.TinybirdEventsQuery.get_event_type_stats",
             new_callable=AsyncMock,
             return_value=[
                 TinybirdEventTypeStats(
@@ -602,7 +602,7 @@ class TestListNames:
 
         now = utc_now()
         mocker.patch(
-            "polar.event.tinybird_repository.TinybirdEventsQuery.get_event_type_stats",
+            "repalis.event.tinybird_repository.TinybirdEventsQuery.get_event_type_stats",
             new_callable=AsyncMock,
             return_value=[
                 TinybirdEventTypeStats(
@@ -688,7 +688,7 @@ class TestIngest:
             ]
         )
 
-        with pytest.raises(PolarRequestValidationError) as e:
+        with pytest.raises(RepalisRequestValidationError) as e:
             await event_service.ingest(session, auth_subject, ingest)
 
         errors = e.value.errors()
@@ -715,7 +715,7 @@ class TestIngest:
             ]
         )
 
-        with pytest.raises(PolarRequestValidationError) as e:
+        with pytest.raises(RepalisRequestValidationError) as e:
             await event_service.ingest(session, auth_subject, ingest)
 
         errors = e.value.errors()
@@ -744,7 +744,7 @@ class TestIngest:
             ]
         )
 
-        with pytest.raises(PolarRequestValidationError) as e:
+        with pytest.raises(RepalisRequestValidationError) as e:
             await event_service.ingest(session, auth_subject, ingest)
 
         [error] = e.value.errors()
@@ -789,7 +789,7 @@ class TestIngest:
             ]
         )
 
-        with pytest.raises(PolarRequestValidationError) as e:
+        with pytest.raises(RepalisRequestValidationError) as e:
             await event_service.ingest(session, auth_subject, ingest)
 
         errors = e.value.errors()
@@ -824,7 +824,7 @@ class TestIngest:
             ]
         )
 
-        with pytest.raises(PolarRequestValidationError) as e:
+        with pytest.raises(RepalisRequestValidationError) as e:
             await event_service.ingest(session, auth_subject, ingest)
 
         errors = e.value.errors()
@@ -867,7 +867,7 @@ class TestIngest:
             ]
         )
 
-        with pytest.raises(PolarRequestValidationError) as e:
+        with pytest.raises(RepalisRequestValidationError) as e:
             await event_service.ingest(session, auth_subject, ingest)
 
         errors = e.value.errors()
@@ -1020,7 +1020,7 @@ class TestIngest:
 
         timestamp = utc_now() - timedelta(minutes=1)
         late_timestamp = timestamp - 2 * REDUCER_BUCKET_SIZE
-        mocker.patch("polar.reducer.service.utc_now", return_value=timestamp)
+        mocker.patch("repalis.reducer.service.utc_now", return_value=timestamp)
         ingest = EventsIngest(
             events=[
                 EventCreateExternalCustomer.model_validate(
@@ -1071,7 +1071,7 @@ class TestIngest:
         )
 
         timestamp = utc_now() - timedelta(minutes=1)
-        mocker.patch("polar.reducer.service.utc_now", return_value=timestamp)
+        mocker.patch("repalis.reducer.service.utc_now", return_value=timestamp)
 
         def build_ingest() -> EventsIngest:
             return EventsIngest(
@@ -1114,7 +1114,7 @@ class TestIngest:
         )
 
         timestamp = utc_now() - timedelta(minutes=1)
-        mocker.patch("polar.reducer.service.utc_now", return_value=timestamp)
+        mocker.patch("repalis.reducer.service.utc_now", return_value=timestamp)
         ingest = EventsIngest(
             events=[
                 EventCreateExternalCustomer(
@@ -1153,7 +1153,7 @@ class TestIngest:
         await create_reducer(save_fixture, organization=organization, meters=[meter])
 
         timestamp = utc_now() - timedelta(minutes=1)
-        mocker.patch("polar.reducer.service.utc_now", return_value=timestamp)
+        mocker.patch("repalis.reducer.service.utc_now", return_value=timestamp)
         mocker.patch.object(
             redis, "pipeline", side_effect=RedisConnectionError("Connection refused")
         )
@@ -1210,7 +1210,7 @@ class TestIngest:
         ]
 
         timestamp = utc_now() - timedelta(minutes=1)
-        mocker.patch("polar.reducer.service.utc_now", return_value=timestamp)
+        mocker.patch("repalis.reducer.service.utc_now", return_value=timestamp)
         ingest = EventsIngest(
             events=[
                 EventCreateExternalCustomer(
@@ -1605,7 +1605,7 @@ class TestIngest:
             ]
         )
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await event_service.ingest(session, auth_subject, ingest)
 
     @pytest.mark.auth(AuthSubjectFixture(subject="organization"))
@@ -1636,7 +1636,7 @@ class TestIngest:
             ]
         )
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await event_service.ingest(session, auth_subject, ingest)
 
     @pytest.mark.auth(AuthSubjectFixture(subject="organization"))
@@ -1780,7 +1780,7 @@ class TestCreateEvent:
         meter: Meter,
     ) -> None:
         enqueue_seal_mock = mocker.patch(
-            "polar.event.service.reducer_service.enqueue_seal"
+            "repalis.event.service.reducer_service.enqueue_seal"
         )
 
         event = await event_service.create_event(
@@ -1812,7 +1812,7 @@ class TestCreateEvent:
         )
         assert usage is not None
         enqueue_outpost_event = mocker.patch(
-            "polar.reducer.service.enqueue_outpost_event"
+            "repalis.reducer.service.enqueue_outpost_event"
         )
 
         await event_service.create_event(
@@ -1844,10 +1844,10 @@ class TestCreateEvent:
         meter: Meter,
     ) -> None:
         enqueue_seal_mock = mocker.patch(
-            "polar.event.service.reducer_service.enqueue_seal"
+            "repalis.event.service.reducer_service.enqueue_seal"
         )
         seal_credits_mock = mocker.patch(
-            "polar.event.service.reducer_service.seal_credits"
+            "repalis.event.service.reducer_service.seal_credits"
         )
         customer.set_deleted_at()
         await session.flush()

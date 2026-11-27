@@ -4,12 +4,12 @@ from collections.abc import AsyncGenerator
 import httpx2
 import pytest
 
-from polar.backoffice.app import app as backoffice_app
-from polar.backoffice.dependencies import get_admin
-from polar.models import Organization, WebhookEndpoint
-from polar.models.backoffice_user_session import BackofficeUserSession
-from polar.models.webhook_endpoint import WebhookFormat
-from polar.postgres import AsyncSession, get_db_read_session, get_db_session
+from repalis.backoffice.app import app as backoffice_app
+from repalis.backoffice.dependencies import get_admin
+from repalis.models import Organization, WebhookEndpoint
+from repalis.models.backoffice_user_session import BackofficeUserSession
+from repalis.models.webhook_endpoint import WebhookFormat
+from repalis.postgres import AsyncSession, get_db_read_session, get_db_session
 from tests.fixtures.database import SaveFixture
 
 

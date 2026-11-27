@@ -22,14 +22,14 @@ from sqlalchemy import (
     select,
 )
 
-from polar.event.system import SystemEvent
-from polar.kit.db.postgres import (  # lint-skip: dry-run
+from repalis.event.system import SystemEvent
+from repalis.kit.db.postgres import (  # lint-skip: dry-run
     AsyncSession,
     create_async_sessionmaker,
 )
-from polar.kit.utils import utc_now
-from polar.meter.aggregation import PropertyAggregation, UniqueAggregation
-from polar.models import (
+from repalis.kit.utils import utc_now
+from repalis.meter.aggregation import PropertyAggregation, UniqueAggregation
+from repalis.models import (
     BillingEntry,
     BillingInterval,
     Customer,
@@ -42,14 +42,14 @@ from polar.models import (
     Reducer,
     ReducerBucket,
 )
-from polar.models.billing_entry import BillingEntryType
-from polar.models.event import EventSource
-from polar.models.reducer import ReducerKind
-from polar.organization.repository import SUBSCRIPTION_CANCELLATION_STATUSES
-from polar.postgres import create_async_engine
-from polar.reducer.bucket_repository import INGESTED_BEFORE_TIMESTAMP_MARGIN
-from polar.reducer.repository import ReducerRepository
-from polar.reducer.service import REDUCER_BUCKET_SIZE, get_reducer_bucket_start
+from repalis.models.billing_entry import BillingEntryType
+from repalis.models.event import EventSource
+from repalis.models.reducer import ReducerKind
+from repalis.organization.repository import SUBSCRIPTION_CANCELLATION_STATUSES
+from repalis.postgres import create_async_engine
+from repalis.reducer.bucket_repository import INGESTED_BEFORE_TIMESTAMP_MARGIN
+from repalis.reducer.repository import ReducerRepository
+from repalis.reducer.service import REDUCER_BUCKET_SIZE, get_reducer_bucket_start
 
 from .helper import configure_script_logging, typer_async
 

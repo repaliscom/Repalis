@@ -41,16 +41,16 @@ import dramatiq
 import structlog
 import typer
 
-from polar import tasks  # noqa: F401
-from polar.event.repository import EventRepository
-from polar.kit.db.postgres import create_async_sessionmaker
-from polar.kit.utils import utc_now
-from polar.models import Subscription, SubscriptionMeter
-from polar.postgres import create_async_engine
-from polar.redis import create_redis
-from polar.subscription.repository import SubscriptionRepository
-from polar.subscription.service import subscription as subscription_service
-from polar.worker import JobQueueManager
+from repalis import tasks  # noqa: F401
+from repalis.event.repository import EventRepository
+from repalis.kit.db.postgres import create_async_sessionmaker
+from repalis.kit.utils import utc_now
+from repalis.models import Subscription, SubscriptionMeter
+from repalis.postgres import create_async_engine
+from repalis.redis import create_redis
+from repalis.subscription.repository import SubscriptionRepository
+from repalis.subscription.service import subscription as subscription_service
+from repalis.worker import JobQueueManager
 
 cli = typer.Typer()
 

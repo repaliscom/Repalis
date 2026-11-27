@@ -1,10 +1,10 @@
 import pytest
 from sqlalchemy import func, select
 
-from polar.event_type.repository import EventTypeRepository
-from polar.kit.utils import utc_now
-from polar.models import EventType, Organization
-from polar.postgres import AsyncSession
+from repalis.event_type.repository import EventTypeRepository
+from repalis.kit.utils import utc_now
+from repalis.models import EventType, Organization
+from repalis.postgres import AsyncSession
 
 
 @pytest.mark.anyio

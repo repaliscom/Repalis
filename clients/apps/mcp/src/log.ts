@@ -13,7 +13,7 @@ const CLIENT_INFO_META = 'io.modelcontextprotocol/clientInfo'
 // hold customer data. Three exceptions reach both the request log and PostHog.
 // The `intent` argument, which every tool asks the agent to write without
 // customer data, redacted and capped in length. The `feedback` tool's fields,
-// which exist to be sent to Polar, redacted and under the same instruction.
+// which exist to be sent to Repalis, redacted and under the same instruction.
 // And engine error messages from search scripts: search runs against the
 // public OpenAPI spec without network access, so it cannot reach customer
 // data. The messages can still quote the script's own code, which is

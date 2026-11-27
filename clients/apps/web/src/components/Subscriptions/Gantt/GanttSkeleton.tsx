@@ -1,6 +1,6 @@
 import { SkeletonBar } from '@/components/Shared/SkeletonBar'
 import { DAY_MS, type TimelineRange } from '@/utils/subscriptionTimeline'
-import { Box } from '@polar-sh/orbit/Box'
+import { Box } from '@repalis/orbit/Box'
 import { BAR_HEIGHT, BAR_TOP, ROW_HEIGHT, type GanttScale } from './scale'
 
 const ROWS = [

@@ -2,10 +2,10 @@
 
 import { useUpdateSubscription } from '@/hooks/queries/subscriptions'
 import { extractApiErrorMessage, setValidationErrors } from '@/utils/api/errors'
-import { isValidationError, schemas } from '@polar-sh/client'
-import { Button } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import DateTimePicker from '@polar-sh/ui/components/atoms/DateTimePicker'
+import { isValidationError, schemas } from '@repalis/client'
+import { Button } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import DateTimePicker from '@repalis/ui/components/atoms/DateTimePicker'
 import {
   Form,
   FormDescription,
@@ -13,7 +13,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@polar-sh/ui/components/ui/form'
+} from '@repalis/ui/components/ui/form'
 import { useCallback, useMemo, useState } from 'react'
 import { useForm, useFormState } from 'react-hook-form'
 import { ConfirmModal } from '../Modal/ConfirmModal'

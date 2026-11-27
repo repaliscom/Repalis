@@ -10,13 +10,13 @@ A resource change that has a specialized webhook also fires the generic *.update
 
 ## Context
 
-Outgoing Polar webhooks come in two shapes: a catch-all `*.updated` (`subscription.updated`,
+Outgoing Repalis webhooks come in two shapes: a catch-all `*.updated` (`subscription.updated`,
 `order.updated`, …) and specialized siblings for a particular transition (`subscription.canceled`,
 `order.paid`, `subscription.migrated`). Merchants often subscribe only to the catch-all and treat
 it as “anything changed on this resource.” A specialized event without the catch-all leaves
 those subscribers with no signal.
 
-The public [webhook events docs](https://docs.polar.sh/integrate/webhooks/events) already describe
+The public [webhook events docs](https://repalis.com/docs/integrate/webhooks/events) already describe
 `subscription.updated` as a catch-all for the specialized subscription events. That contract was
 implicit in code (`_after_subscription_updated` always fires `subscription.updated` first) and
 easy to drop when adding a new specialized type.
@@ -59,11 +59,11 @@ scope until they get one.
 
 ## References
 
-- [Webhook events](https://docs.polar.sh/integrate/webhooks/events) — `subscription.updated` as
+- [Webhook events](https://repalis.com/docs/integrate/webhooks/events) — `subscription.updated` as
   catch-all; cancellation, renewal, and pause sequences always list `subscription.updated`
   alongside the specialized event.
-- `server/polar/subscription/service.py` — `_after_subscription_updated` fires
+- `server/repalis/subscription/service.py` — `_after_subscription_updated` fires
   `subscription.updated` before specialized handlers.
-- `server/polar/order/service.py` — `_on_order_updated` fires `order.updated` then `order.paid`.
-- [PR #14508](https://github.com/polarsource/polar/pull/14508#discussion_r4016359549) — review
+- `server/repalis/order/service.py` — `_on_order_updated` fires `order.updated` then `order.paid`.
+- [PR #14508](https://github.com/repaliscom/Repalis/pull/14508#discussion_r4016359549) — review
   that recorded this convention for `subscription.migrated`.

@@ -9,10 +9,10 @@ import httpx2
 import pytest
 from pydantic_ai.models.test import TestModel
 
-from polar.config import settings
-from polar.kit.http import SSRFSafeTransport
-from polar.organization_review.collectors.firecrawl_client import ScrapeResult
-from polar.organization_review.collectors.website import (
+from repalis.config import settings
+from repalis.kit.http import SSRFSafeTransport
+from repalis.organization_review.collectors.firecrawl_client import ScrapeResult
+from repalis.organization_review.collectors.website import (
     MAX_CHARS_PER_PAGE,
     MAX_PAGES,
     MAX_REDIRECTS,
@@ -26,7 +26,7 @@ from polar.organization_review.collectors.website import (
     collect_website_data,
     fetch_page,
 )
-from polar.organization_review.schemas import WebsiteData
+from repalis.organization_review.schemas import WebsiteData
 
 
 def _make_client(
@@ -414,7 +414,7 @@ class TestCollectWebsiteData:
     @pytest.mark.anyio
     async def test_prepends_https_if_missing(self) -> None:
         with patch(
-            "polar.organization_review.collectors.website._run_website_agent",
+            "repalis.organization_review.collectors.website._run_website_agent",
             new_callable=AsyncMock,
         ) as mock_run:
             mock_run.return_value = WebsiteData(base_url="https://example.com")
@@ -431,7 +431,7 @@ class TestCollectWebsiteData:
     @pytest.mark.anyio
     async def test_strips_trailing_slash(self) -> None:
         with patch(
-            "polar.organization_review.collectors.website._run_website_agent",
+            "repalis.organization_review.collectors.website._run_website_agent",
             new_callable=AsyncMock,
         ) as mock_run:
             mock_run.return_value = WebsiteData(base_url="https://example.com")
@@ -452,11 +452,11 @@ class TestCollectWebsiteData:
 
         with (
             patch(
-                "polar.organization_review.collectors.website._run_website_agent",
+                "repalis.organization_review.collectors.website._run_website_agent",
                 side_effect=slow_agent,
             ),
             patch(
-                "polar.organization_review.collectors.website.OVERALL_TIMEOUT_S", 0.01
+                "repalis.organization_review.collectors.website.OVERALL_TIMEOUT_S", 0.01
             ),
         ):
             result = await collect_website_data("https://example.com")
@@ -467,7 +467,7 @@ class TestCollectWebsiteData:
     @pytest.mark.anyio
     async def test_exception_returns_error_data(self) -> None:
         with patch(
-            "polar.organization_review.collectors.website._run_website_agent",
+            "repalis.organization_review.collectors.website._run_website_agent",
             new_callable=AsyncMock,
             side_effect=RuntimeError("boom"),
         ):
@@ -508,7 +508,7 @@ class TestFetchPageSSRF:
         with (
             patch("anyio.getaddrinfo", new=fake_getaddrinfo),
             patch.object(backend, "connect_tcp", new=connect_tcp),
-            patch("polar.kit.http.httpcore2.AnyIOBackend", return_value=backend),
+            patch("repalis.kit.http.httpcore2.AnyIOBackend", return_value=backend),
         ):
             async with httpx2.AsyncClient(transport=SSRFSafeTransport()) as client:
                 deps = WebsiteDeps(client=client, allowed_domain="example.com")
@@ -614,12 +614,12 @@ def _patch_scrape_markdown(result: ScrapeResult | Exception) -> Any:
     """Patch scrape_markdown to return a ScrapeResult or raise an exception."""
     if isinstance(result, Exception):
         return patch(
-            "polar.organization_review.collectors.website.scrape_markdown",
+            "repalis.organization_review.collectors.website.scrape_markdown",
             new_callable=AsyncMock,
             side_effect=result,
         )
     return patch(
-        "polar.organization_review.collectors.website.scrape_markdown",
+        "repalis.organization_review.collectors.website.scrape_markdown",
         new_callable=AsyncMock,
         return_value=result,
     )

@@ -1,18 +1,18 @@
-# @polar-sh/ingestion
+# @repalis/ingestion
 
-This ingestion framework offers a robust SDK to work with Polar's event ingestion API.
+This ingestion framework offers a robust SDK to work with Repalis's event ingestion API.
 
 ## Basic Ingestion
 
 To do basic ingestion, you can use the Ingestion function directly.
 
 ```typescript
-import { Ingestion } from '@polar-sh/ingestion'
+import { Ingestion } from '@repalis/ingestion'
 
 await Ingestion({
-  accessToken: process.env.POLAR_ACCESS_TOKEN,
+  accessToken: process.env.REPALIS_ACCESS_TOKEN,
 }).ingest([
-  // Ingest using Polar Customer ID
+  // Ingest using Repalis Customer ID
   {
     name: '<value>',
     customerId: '<value>',
@@ -31,18 +31,18 @@ await Ingestion({
 ])
 ```
 
-Or you can use the Polar SDK's Event API.
+Or you can use the Repalis SDK's Event API.
 
 ```typescript
-import { Polar } from '@polar-sh/sdk'
+import { Repalis } from '@repalis/sdk'
 
-const polar = new Polar({
-  accessToken: process.env['POLAR_ACCESS_TOKEN'] ?? '',
+const repalis = new Repalis({
+  accessToken: process.env['REPALIS_ACCESS_TOKEN'] ?? '',
 })
 
-await polar.events.ingest({
+await repalis.events.ingest({
   events: [
-    // Ingest using Polar Customer ID
+    // Ingest using Repalis Customer ID
     {
       name: '<value>',
       customerId: '<value>',
@@ -64,22 +64,22 @@ await polar.events.ingest({
 
 ### Associating Costs with Events
 
-With the Polar Event Ingestion API, you can annotate arbitrary costs with events. This unlock the possibility to see Customer Costs, Margins & Cashflow in your Polar Dashboard.
+With the Repalis Event Ingestion API, you can annotate arbitrary costs with events. This unlock the possibility to see Customer Costs, Margins & Cashflow in your Repalis Dashboard.
 
 This is especially powerful with LLM calls, as token consumption typically comes with a cost for your business.
 
-[Learn more about cost ingestion](https://polar.sh/docs/features/cost-insights/cost-events)
+[Learn more about cost ingestion](https://repalis.com/docs/features/cost-insights/cost-events)
 
 ```typescript
-import { Polar } from '@polar-sh/sdk'
+import { Repalis } from '@repalis/sdk'
 
-const polar = new Polar({
-  accessToken: process.env['POLAR_ACCESS_TOKEN'] ?? '',
+const repalis = new Repalis({
+  accessToken: process.env['REPALIS_ACCESS_TOKEN'] ?? '',
 })
 
-await polar.events.ingest({
+await repalis.events.ingest({
   events: [
-    // Ingest using Polar Customer ID
+    // Ingest using Repalis Customer ID
     {
       name: '<value>',
       customerId: '<value>',
@@ -106,24 +106,24 @@ Wrap any LLM model from the `@ai-sdk/*` library, or a TanStack AI text adapter, 
 Works with AI SDK 5, 6 and 7, and TanStack AI 1.x.
 
 ```
-pnpm add @polar-sh/ingestion ai @ai-sdk/openai
+pnpm add @repalis/ingestion ai @ai-sdk/openai
 ```
 
 ```typescript
-import { Ingestion } from '@polar-sh/ingestion'
-import { LLMStrategy } from '@polar-sh/ingestion/strategies/LLM'
+import { Ingestion } from '@repalis/ingestion'
+import { LLMStrategy } from '@repalis/ingestion/strategies/LLM'
 import { generateText } from 'ai'
 import { openai } from '@ai-sdk/openai'
 
 /**
  * Setup the LLM Ingestion Strategy
  *
- * 1. We initilize the Ingestion object with a Polar Access Token
+ * 1. We initilize the Ingestion object with a Repalis Access Token
  * 2. We attach the LLM Strategy to the ingestion instance
  * 3. (Optional) - We can calculate a cost for the LLM call, and associate it with the event
  * 4. We finally declare what name the ingested event should have
  */
-const llmIngestion = Ingestion({ accessToken: process.env.POLAR_ACCESS_TOKEN })
+const llmIngestion = Ingestion({ accessToken: process.env.REPALIS_ACCESS_TOKEN })
   .strategy(new LLMStrategy(openai('gpt-4o')))
   .cost((ctx) => ({ amount: ctx.totalTokens * 100, currency: 'USD' }))
   .ingest('openai-usage')
@@ -134,7 +134,7 @@ export async function POST(req: Request) {
   // Get the wrapped LLM model with ingestion capabilities
   // Pass Customer Id to properly annotate the ingestion events with a specific customer
   const model = llmIngestion.client({
-    customerId: request.headers.get('X-Polar-Customer-Id') ?? '',
+    customerId: request.headers.get('X-Repalis-Customer-Id') ?? '',
   })
 
   const { text } = await generateText({
@@ -152,16 +152,16 @@ export async function POST(req: Request) {
 Pass a TanStack AI text adapter instead of a model. `client()` returns the adapter, ready for `chat()`. Every model call in a tool loop, and structured output, is ingested as its own event.
 
 ```
-pnpm add @polar-sh/ingestion @tanstack/ai @tanstack/ai-openai
+pnpm add @repalis/ingestion @tanstack/ai @tanstack/ai-openai
 ```
 
 ```typescript
-import { Ingestion } from '@polar-sh/ingestion'
-import { LLMStrategy } from '@polar-sh/ingestion/strategies/LLM'
+import { Ingestion } from '@repalis/ingestion'
+import { LLMStrategy } from '@repalis/ingestion/strategies/LLM'
 import { chat } from '@tanstack/ai'
 import { openaiText } from '@tanstack/ai-openai'
 
-const llmIngestion = Ingestion({ accessToken: process.env.POLAR_ACCESS_TOKEN })
+const llmIngestion = Ingestion({ accessToken: process.env.REPALIS_ACCESS_TOKEN })
   .strategy(new LLMStrategy(openaiText('gpt-4o')))
   .ingest('openai-usage')
 
@@ -169,7 +169,7 @@ export async function POST(req: Request) {
   const { messages, threadId } = await req.json()
 
   const adapter = llmIngestion.client({
-    customerId: req.headers.get('X-Polar-Customer-Id') ?? '',
+    customerId: req.headers.get('X-Repalis-Customer-Id') ?? '',
   })
 
   const { text } = await chat({ adapter, threadId, messages, stream: false })
@@ -208,12 +208,12 @@ export async function POST(req: Request) {
 Wrap the official AWS S3 Client with our S3 Ingestion Strategy to automatically ingest bytes uploaded.
 
 ```
-pnpm add @polar-sh/ingestion @aws-sdk/client-s3
+pnpm add @repalis/ingestion @aws-sdk/client-s3
 ```
 
 ```typescript
-import { Ingestion } from '@polar-sh/ingestion'
-import { S3Strategy } from '@polar-sh/ingestion/strategies/S3'
+import { Ingestion } from '@repalis/ingestion'
+import { S3Strategy } from '@repalis/ingestion/strategies/S3'
 import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3'
 
 const s3Client = new S3Client({
@@ -226,7 +226,7 @@ const s3Client = new S3Client({
 })
 
 // Setup the S3 Ingestion Strategy
-const s3Ingestion = Ingestion({ accessToken: process.env.POLAR_ACCESS_TOKEN })
+const s3Ingestion = Ingestion({ accessToken: process.env.REPALIS_ACCESS_TOKEN })
   .strategy(new S3Strategy(s3Client))
   .ingest('s3-uploads')
 
@@ -235,7 +235,7 @@ export async function POST(request: Request) {
     // Get the wrapped S3 Client
     // Pass Customer Id to properly annotate the ingestion events with a specific customer
     const s3 = s3Ingestion.client({
-      customerId: request.headers.get('X-Polar-Customer-Id') ?? '',
+      customerId: request.headers.get('X-Repalis-Customer-Id') ?? '',
     })
 
     await s3.send(
@@ -278,17 +278,17 @@ export async function POST(request: Request) {
 Wrap any Readable or Writable stream of choice to automatically ingest the bytes consumed.
 
 ```
-pnpm add @polar-sh/ingestion
+pnpm add @repalis/ingestion
 ```
 
 ```typescript
-import { Ingestion } from '@polar-sh/ingestion';
-import { StreamStrategy } from '@polar-sh/ingestion/strategies/Stream';
+import { Ingestion } from '@repalis/ingestion';
+import { StreamStrategy } from '@repalis/ingestion/strategies/Stream';
 
 const myReadstream = createReadStream(...);
 
 // Setup the Stream Ingestion Strategy
-const streamIngestion = Ingestion({ accessToken: process.env.POLAR_ACCESS_TOKEN })
+const streamIngestion = Ingestion({ accessToken: process.env.REPALIS_ACCESS_TOKEN })
   .strategy(new StreamStrategy(myReadstream))
   .ingest("my-stream");
 
@@ -298,7 +298,7 @@ export async function GET(request: Request) {
     // Get the wrapped stream
     // Pass Customer Id to properly annotate the ingestion events with a specific customer
     const stream = streamIngestion.client({
-      customerId: request.headers.get("X-Polar-Customer-Id") ?? ""
+      customerId: request.headers.get("X-Repalis-Customer-Id") ?? ""
     });
 
     // Consume stream...
@@ -329,12 +329,12 @@ export async function GET(request: Request) {
 Ingest delta time of arbitrary execution. Bring your own now-resolver.
 
 ```
-pnpm add @polar-sh/ingestion
+pnpm add @repalis/ingestion
 ```
 
 ```typescript
-import { Ingestion } from '@polar-sh/ingestion'
-import { DeltaTimeStrategy } from '@polar-sh/ingestion/strategies/DeltaTime'
+import { Ingestion } from '@repalis/ingestion'
+import { DeltaTimeStrategy } from '@repalis/ingestion/strategies/DeltaTime'
 
 const nowResolver = () => performance.now()
 // const nowResolver = () => Number(hrtime.bigint())
@@ -342,7 +342,7 @@ const nowResolver = () => performance.now()
 
 // Setup the Delta Time Ingestion Strategy
 const deltaTimeIngestion = Ingestion({
-  accessToken: process.env.POLAR_ACCESS_TOKEN,
+  accessToken: process.env.REPALIS_ACCESS_TOKEN,
 })
   .strategy(new DeltaTimeStrategy(nowResolver))
   .ingest('execution-time')
@@ -352,14 +352,14 @@ export async function GET(request: Request) {
     // Get the wrapped start clock function
     // Pass Customer Id to properly annotate the ingestion events with a specific customer
     const start = deltaTimeIngestion.client({
-      customerId: request.headers.get('X-Polar-Customer-Id') ?? '',
+      customerId: request.headers.get('X-Repalis-Customer-Id') ?? '',
     })
 
     const stop = start()
 
     await sleep(1000)
 
-    // { deltaTime: xxx } is automatically ingested to Polar
+    // { deltaTime: xxx } is automatically ingested to Repalis
     const delta = stop()
 
     return Response.json({ delta })

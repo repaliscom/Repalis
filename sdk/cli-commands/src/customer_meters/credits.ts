@@ -1,5 +1,5 @@
 // Generated from customer_meters:credits (2027-01). Do not edit.
-import type { Polar } from '@polar-sh/sdk/2027-01'
+import type { Repalis } from '@repalis/sdk/2027-01'
 import { Effect } from 'effect'
 import { Command, Flag } from 'effect/cli'
 import { ApiRuntime, ApiCommandError } from '../runtime'
@@ -13,7 +13,7 @@ import {
   org,
 } from '../inputs'
 
-type Body = NonNullable<Parameters<Polar['customerMeters']['credits']>[0]>
+type Body = NonNullable<Parameters<Repalis['customerMeters']['credits']>[0]>
 
 export const command = Command.make(
   'credits',
@@ -75,7 +75,7 @@ export const command = Command.make(
       if (missing.length > 0) {
         return yield* new ApiCommandError({
           message: `Missing required ${missing.length > 1 ? 'flags' : 'flag'} ${missing.join(', ')}`,
-          hint: 'Example: polar customer_meters credits --units 100',
+          hint: 'Example: repalis customer_meters credits --units 100',
         })
       }
       yield* api.execute({

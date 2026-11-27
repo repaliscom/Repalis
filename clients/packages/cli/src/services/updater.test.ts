@@ -58,17 +58,17 @@ describe('installedPackage', () => {
   let executable: string
 
   const install = async (manifest: object) => {
-    const pkg = join(dir, 'node_modules', '@polar-sh', 'cli')
+    const pkg = join(dir, 'node_modules', '@repalis', 'cli')
     await mkdir(join(pkg, 'bin'), { recursive: true })
     await writeFile(join(pkg, 'package.json'), JSON.stringify(manifest))
-    await writeFile(join(pkg, 'bin', 'polar.exe'), 'binary')
+    await writeFile(join(pkg, 'bin', 'repalis.exe'), 'binary')
     await mkdir(join(dir, 'bin'), { recursive: true })
-    executable = join(dir, 'bin', 'polar')
-    await symlink(join(pkg, 'bin', 'polar.exe'), executable)
+    executable = join(dir, 'bin', 'repalis')
+    await symlink(join(pkg, 'bin', 'repalis.exe'), executable)
   }
 
   beforeEach(async () => {
-    dir = await mkdtemp(join(tmpdir(), 'polar-test-'))
+    dir = await mkdtemp(join(tmpdir(), 'repalis-test-'))
   })
 
   afterEach(async () => {
@@ -76,19 +76,19 @@ describe('installedPackage', () => {
   })
 
   test('recognises the npm package through the command symlink', async () => {
-    await install({ name: PACKAGE_NAME, bin: { polar: 'bin/polar.exe' } })
+    await install({ name: PACKAGE_NAME, bin: { repalis: 'bin/repalis.exe' } })
 
     await expect(run(installedPackage(executable))).resolves.toBe(PACKAGE_NAME)
   })
 
   test('ignores packages that are not the CLI', async () => {
-    await install({ name: '@polar-sh/sdk', bin: { polar: 'bin/polar.exe' } })
+    await install({ name: '@repalis/sdk', bin: { repalis: 'bin/repalis.exe' } })
 
     await expect(run(installedPackage(executable))).resolves.toBeUndefined()
   })
 
   test('ignores a manifest whose bin is not the running executable', async () => {
-    await install({ name: PACKAGE_NAME, bin: { polar: 'bin/other' } })
+    await install({ name: PACKAGE_NAME, bin: { repalis: 'bin/other' } })
 
     await expect(run(installedPackage(executable))).resolves.toBeUndefined()
   })
@@ -105,14 +105,14 @@ describe('detectMethod', () => {
   let executable: string
 
   beforeEach(async () => {
-    dir = await mkdtemp(join(tmpdir(), 'polar-test-'))
-    const pkg = join(dir, 'node_modules', '@polar-sh', 'cli')
+    dir = await mkdtemp(join(tmpdir(), 'repalis-test-'))
+    const pkg = join(dir, 'node_modules', '@repalis', 'cli')
     await mkdir(join(pkg, 'bin'), { recursive: true })
     await writeFile(
       join(pkg, 'package.json'),
-      JSON.stringify({ name: PACKAGE_NAME, bin: { polar: 'bin/polar.exe' } }),
+      JSON.stringify({ name: PACKAGE_NAME, bin: { repalis: 'bin/repalis.exe' } }),
     )
-    executable = join(pkg, 'bin', 'polar.exe')
+    executable = join(pkg, 'bin', 'repalis.exe')
     await writeFile(executable, 'binary')
   })
 
@@ -155,7 +155,7 @@ describe('detectMethod', () => {
     const exec = fakeExec(
       {
         npm: new Error('npm: command not found'),
-        vp: `Package               Node version   Binaries\n---                   ---            ---\n${PACKAGE_NAME}@2.0.0   24.21.0        polar\n`,
+        vp: `Package               Node version   Binaries\n---                   ---            ---\n${PACKAGE_NAME}@2.0.0   24.21.0        repalis\n`,
       },
       calls,
     )
@@ -254,8 +254,8 @@ describe('upgradeWithPackageManager', () => {
   let executable: string
 
   beforeEach(async () => {
-    dir = await mkdtemp(join(tmpdir(), 'polar-test-'))
-    executable = join(dir, 'polar.exe')
+    dir = await mkdtemp(join(tmpdir(), 'repalis-test-'))
+    executable = join(dir, 'repalis.exe')
     await writeFile(executable, 'binary')
   })
 
@@ -306,10 +306,10 @@ describe('upgradeWithPackageManager', () => {
 
     expect(linksDuringUpgrade).toBe(2)
     expect(entriesDuringUpgrade).toContainEqual(
-      expect.stringMatching(/^polar-update-/),
+      expect.stringMatching(/^repalis-update-/),
     )
     expect((await stat(executable)).nlink).toBe(1)
-    await expect(readdir(dir)).resolves.toEqual(['polar.exe'])
+    await expect(readdir(dir)).resolves.toEqual(['repalis.exe'])
   })
 
   test('proceeds without the extra link when it cannot be created', async () => {
@@ -330,7 +330,7 @@ describe('upgradeWithPackageManager', () => {
     )
 
     expect(ran).toBe(true)
-    await expect(readdir(dir)).resolves.toEqual(['polar.exe'])
+    await expect(readdir(dir)).resolves.toEqual(['repalis.exe'])
   })
 })
 
@@ -343,7 +343,7 @@ describe('exec', () => {
   })
 
   test('kills a command that outlives its timeout', async () => {
-    const dir = await mkdtemp(join(tmpdir(), 'polar-exec-'))
+    const dir = await mkdtemp(join(tmpdir(), 'repalis-exec-'))
     const pidFile = join(dir, 'pid')
     const script = `await Bun.write(${JSON.stringify(pidFile)}, String(process.pid)); await Bun.sleep(10_000)`
 
@@ -359,8 +359,8 @@ describe('exec', () => {
   })
 
   test('fails when the command cannot be started', async () => {
-    await expect(run(exec(['polar-test-missing-command-xyz']))).rejects.toThrow(
-      'Failed to run polar-test-missing-command-xyz',
+    await expect(run(exec(['repalis-test-missing-command-xyz']))).rejects.toThrow(
+      'Failed to run repalis-test-missing-command-xyz',
     )
   })
 })

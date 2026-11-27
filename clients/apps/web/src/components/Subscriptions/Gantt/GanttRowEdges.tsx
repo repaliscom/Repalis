@@ -1,6 +1,6 @@
-import { Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import { ChevronLeft, ChevronRight } from '@polar-sh/orbit/icons'
+import { Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import { ChevronLeft, ChevronRight } from '@repalis/orbit/icons'
 import { type ReactNode } from 'react'
 import { DATE_LABEL_HEIGHT, formatGanttDate } from './scale'
 

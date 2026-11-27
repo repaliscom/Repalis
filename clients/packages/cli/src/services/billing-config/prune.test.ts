@@ -17,7 +17,7 @@ import { authenticatedClient } from '@/services/client'
 import { fakeHttp } from '@/utils/test-utils/http'
 import { fakeAuth } from '@/utils/test-utils/services'
 
-const pruneUrl = 'https://sandbox-api.polar.sh/v1/config/prune'
+const pruneUrl = 'https://sandbox-api.repalis.com/v1/config/prune'
 
 const acme: ActiveOrganization = {
   id: 'org-1',
@@ -84,8 +84,8 @@ const run = <A>(
 
 beforeEach(async () => {
   api = fakeHttp()
-  const directory = await mkdtemp(join(tmpdir(), 'polar-prune-'))
-  file = join(directory, 'polar.json')
+  const directory = await mkdtemp(join(tmpdir(), 'repalis-prune-'))
+  file = join(directory, 'repalis.json')
   await writeFile(file, source)
 })
 
@@ -152,7 +152,7 @@ const script = (filter: string) =>
 
 describe('prune with a script config', () => {
   beforeEach(async () => {
-    file = join(file, '..', 'polar.config.mjs')
+    file = join(file, '..', 'repalis.config.mjs')
   })
 
   test('removes the unused entries', async () => {

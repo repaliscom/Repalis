@@ -1,11 +1,12 @@
-import type { schemas } from '@polar-sh/client'
+import type { schemas } from '@repalis/client'
 import { useDirection } from '@radix-ui/react-direction'
 import { render, screen } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import CheckoutLayout from './CheckoutLayout'
 
 vi.mock('@/app/providers', () => ({
-  PolarThemeProvider: ({ children }: { children: React.ReactNode }) => children,
+  RepalisThemeProvider: ({ children }: { children: React.ReactNode }) =>
+    children,
 }))
 
 vi.mock('./Embed/CheckoutEmbedClose', () => ({ default: () => null }))

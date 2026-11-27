@@ -3,10 +3,10 @@ from unittest.mock import MagicMock
 import pytest
 from botocore.client import ClientError
 
-from polar.exceptions import NotPermitted
-from polar.integrations.aws.s3.exceptions import S3FileError
-from polar.integrations.aws.s3.schemas import S3FileUploadCompleted
-from polar.integrations.aws.s3.service import S3Service
+from repalis.exceptions import NotPermitted
+from repalis.integrations.aws.s3.exceptions import S3FileError
+from repalis.integrations.aws.s3.schemas import S3FileUploadCompleted
+from repalis.integrations.aws.s3.service import S3Service
 
 
 class TestCompleteMultipartUpload:

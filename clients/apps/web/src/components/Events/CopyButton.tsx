@@ -1,7 +1,7 @@
 import { toast } from '@/components/Toast/use-toast'
 import { useSafeCopy } from '@/hooks/clipboard'
-import { Button } from '@polar-sh/orbit'
-import { Check, Copy } from '@polar-sh/orbit/icons'
+import { Button } from '@repalis/orbit'
+import { Check, Copy } from '@repalis/orbit/icons'
 import { useEffect, useState } from 'react'
 
 const COPIED_DURATION_MS = 1500
@@ -35,7 +35,7 @@ export const CopyButton = ({
       }}
     >
       {copied ? (
-        <Check className="dark:text-polar-500 text-gray-400" />
+        <Check className="dark:text-repalis-500 text-gray-400" />
       ) : (
         <Copy />
       )}

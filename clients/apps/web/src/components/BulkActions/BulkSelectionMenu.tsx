@@ -1,15 +1,15 @@
 'use client'
 
-import { CloseOutlined, ExpandMoreOutlined } from '@polar-sh/orbit/icons'
-import { Button, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { CloseOutlined, ExpandMoreOutlined } from '@repalis/orbit/icons'
+import { Button, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@polar-sh/ui/components/ui/dropdown-menu'
+} from '@repalis/ui/components/ui/dropdown-menu'
 
 export interface BulkSelectionMenuProps {
   count: number
@@ -48,7 +48,7 @@ export const BulkSelectionMenu = ({
         </DropdownMenuTrigger>
         <DropdownMenuContent
           align="start"
-          className="dark:bg-polar-800 bg-gray-50 shadow-lg"
+          className="dark:bg-repalis-800 bg-gray-50 shadow-lg"
         >
           <DropdownMenuItem
             disabled={pageFullySelected || pageSize === 0}

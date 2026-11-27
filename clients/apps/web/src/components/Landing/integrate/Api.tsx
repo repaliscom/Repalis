@@ -1,5 +1,5 @@
-import { Grid, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { Grid, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import { Chapter } from '../Chapter'
 import { DocsLink } from './DocsLink'
 

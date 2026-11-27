@@ -16,8 +16,8 @@ from pydantic import (
     computed_field,
 )
 
-from polar.kit.pagination import PaginationParamsQuery
-from polar.kit.versioning import (
+from repalis.kit.pagination import PaginationParamsQuery
+from repalis.kit.versioning import (
     APIVersion,
     QuerySchema,
     Version,
@@ -28,8 +28,8 @@ from polar.kit.versioning import (
     routes_for_version,
     version,
 )
-from polar.openapi import APITag
-from polar.routing import APIRouter
+from repalis.openapi import APITag
+from repalis.routing import APIRouter
 
 CURRENT_VERSION = APIVersion(2026, 4)
 NEXT_VERSION = APIVersion(2026, 10)
@@ -75,7 +75,7 @@ class TestVersionedQueryModels:
     ) -> None:
         response = query_client.get(
             "/filters?external_id=1&external_id=2&query=test&enabled=true&page=2",
-            headers={"Polar-Version": str(api_version)},
+            headers={"Repalis-Version": str(api_version)},
         )
         assert response.status_code == 200
         assert response.json() == {
@@ -91,7 +91,7 @@ class TestVersionedQueryModels:
     ) -> None:
         response = query_client.get(
             "/filters?external_id=invalid",
-            headers={"Polar-Version": str(api_version)},
+            headers={"Repalis-Version": str(api_version)},
         )
         assert response.status_code == (422 if api_version == NEXT_VERSION else 200)
         if api_version == NEXT_VERSION:
@@ -376,20 +376,20 @@ def test_versioned_routes() -> None:
 
     response = client.get("/items")
     assert response.json() == {"endpoint": "current", "dependency": "overridden"}
-    assert response.headers["Polar-Version"] == "2026-04"
+    assert response.headers["Repalis-Version"] == "2026-04"
 
-    response = client.get("/items", headers={"Polar-Version": "2026-10"})
+    response = client.get("/items", headers={"Repalis-Version": "2026-10"})
     assert response.json() == {"endpoint": "next", "dependency": "overridden"}
-    assert response.headers["Polar-Version"] == "2026-10"
+    assert response.headers["Repalis-Version"] == "2026-10"
 
     assert client.get("/version-state").json() == {"api_version_set": False}
     assert client.get(
-        "/version-state", headers={"Polar-Version": "2026-04"}
+        "/version-state", headers={"Repalis-Version": "2026-04"}
     ).json() == {"api_version_set": True}
 
     assert client.get("/next-only").status_code == 404
     assert (
-        client.get("/next-only", headers={"Polar-Version": "2026-10"}).status_code
+        client.get("/next-only", headers={"Repalis-Version": "2026-10"}).status_code
         == 200
     )
 

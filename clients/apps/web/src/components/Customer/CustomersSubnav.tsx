@@ -1,8 +1,8 @@
 'use client'
 
 import { useHasPermission } from '@/hooks/permissions'
-import { schemas } from '@polar-sh/client'
-import { Subnav, SubnavItem } from '@polar-sh/orbit'
+import { schemas } from '@repalis/client'
+import { Subnav, SubnavItem } from '@repalis/orbit'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 

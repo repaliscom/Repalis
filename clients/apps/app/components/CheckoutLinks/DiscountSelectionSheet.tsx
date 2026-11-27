@@ -2,15 +2,15 @@ import { Box } from '@/components/Shared/Box'
 import { Text } from '@/components/Shared/Text'
 import { Touchable } from '@/components/Shared/Touchable'
 import { useTheme } from '@/design-system/useTheme'
-import { useInfiniteDiscounts } from '@/hooks/polar/discounts'
+import { useInfiniteDiscounts } from '@/hooks/repalis/discounts'
 import { OrganizationContext } from '@/providers/OrganizationProvider'
 import MaterialIcons from '@expo/vector-icons/MaterialIcons'
 import BottomSheet, {
   BottomSheetBackdrop,
   BottomSheetScrollView,
 } from '@gorhom/bottom-sheet'
-import { schemas } from '@polar-sh/client'
-import { formatCurrency } from '@polar-sh/currency'
+import { schemas } from '@repalis/client'
+import { formatCurrency } from '@repalis/currency'
 import { useCallback, useContext, useMemo } from 'react'
 import { ActivityIndicator, StyleSheet } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'

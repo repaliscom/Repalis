@@ -6,17 +6,17 @@ import pytest
 from pytest_mock import MockerFixture
 from sqlalchemy import delete, func, select
 
-from polar.config import settings
-from polar.kit.db.postgres import (
+from repalis.config import settings
+from repalis.kit.db.postgres import (
     AsyncSessionMaker,
     create_async_engine,
     create_async_sessionmaker,
 )
-from polar.models import Account, Organization, User, UserOrganization
-from polar.models.member import MemberRole
-from polar.models.user import IdentityVerificationStatus
-from polar.models.user_organization import OrganizationRole
-from polar.user_organization.service import (
+from repalis.models import Account, Organization, User, UserOrganization
+from repalis.models.member import MemberRole
+from repalis.models.user import IdentityVerificationStatus
+from repalis.models.user_organization import OrganizationRole
+from repalis.user_organization.service import (
     AlreadyOwner,
     CannotRemoveOrganizationOwner,
     ConcurrentRoleModification,
@@ -27,7 +27,7 @@ from polar.user_organization.service import (
     OwnerRoleCannotBeRemoved,
     UserNotMemberOfOrganization,
 )
-from polar.user_organization.service import (
+from repalis.user_organization.service import (
     user_organization as user_organization_service,
 )
 from tests.fixtures.database import (
@@ -113,8 +113,8 @@ class TestRemoveMemberSafe:
         user: User,
         save_fixture: Any,
     ) -> None:
-        from polar.kit.utils import utc_now
-        from polar.models import UserOrganization
+        from repalis.kit.utils import utc_now
+        from repalis.models import UserOrganization
 
         owner_user_org = UserOrganization(
             user_id=user.id,
@@ -143,8 +143,8 @@ class TestRemoveMemberSafe:
         save_fixture: Any,
     ) -> None:
         # Create user organization relationship for non-admin user
-        from polar.kit.utils import utc_now
-        from polar.models import UserOrganization
+        from repalis.kit.utils import utc_now
+        from repalis.models import UserOrganization
 
         user_org_relation = UserOrganization(
             user_id=user_second.id,
@@ -193,7 +193,7 @@ class TestRemoveMember:
         )
         assert user_org is None
 
-        from polar.postgres import sql
+        from repalis.postgres import sql
 
         result = await session.execute(
             sql.select(UserOrganization).where(
@@ -205,7 +205,7 @@ class TestRemoveMember:
         assert deleted_user_org is not None
         assert deleted_user_org.deleted_at is not None
 
-    async def test_enqueues_polar_self_member_removal(
+    async def test_enqueues_repalis_self_member_removal(
         self,
         mocker: MockerFixture,
         session: Any,
@@ -215,7 +215,7 @@ class TestRemoveMember:
         user_organization_second: UserOrganization,
     ) -> None:
         enqueue_remove_member_mock = mocker.patch(
-            "polar.user_organization.service.polar_self_service.enqueue_remove_member"
+            "repalis.user_organization.service.repalis_self_service.enqueue_remove_member"
         )
 
         await user_organization_service.remove_member(
@@ -237,7 +237,7 @@ class TestRemoveMember:
         user: User,
     ) -> None:
         enqueue_remove_member_mock = mocker.patch(
-            "polar.user_organization.service.polar_self_service.enqueue_remove_member"
+            "repalis.user_organization.service.repalis_self_service.enqueue_remove_member"
         )
 
         await user_organization_service.remove_member(
@@ -748,7 +748,7 @@ class TestSetRole:
         user_second: User,
     ) -> None:
         enqueue_update_member_mock = mocker.patch(
-            "polar.user_organization.service.polar_self_service.enqueue_update_member"
+            "repalis.user_organization.service.repalis_self_service.enqueue_update_member"
         )
         relation = UserOrganization(
             user_id=user_second.id, organization_id=organization.id
@@ -779,7 +779,7 @@ class TestSetRole:
         user_organization: UserOrganization,
     ) -> None:
         enqueue_update_member_mock = mocker.patch(
-            "polar.user_organization.service.polar_self_service.enqueue_update_member"
+            "repalis.user_organization.service.repalis_self_service.enqueue_update_member"
         )
         relation = UserOrganization(
             user_id=user_second.id,
@@ -811,7 +811,7 @@ class TestSetRole:
         user_second: User,
     ) -> None:
         enqueue_update_member_mock = mocker.patch(
-            "polar.user_organization.service.polar_self_service.enqueue_update_member"
+            "repalis.user_organization.service.repalis_self_service.enqueue_update_member"
         )
         relation = UserOrganization(
             user_id=user_second.id,
@@ -943,7 +943,7 @@ class TestTransferOwnership:
         user_second: User,
     ) -> None:
         enqueue_update_member_mock = mocker.patch(
-            "polar.user_organization.service.polar_self_service.enqueue_update_member"
+            "repalis.user_organization.service.repalis_self_service.enqueue_update_member"
         )
         await save_fixture(
             UserOrganization(
@@ -1007,7 +1007,7 @@ class TestTransferOwnership:
         user_second: User,
     ) -> None:
         mocker.patch(
-            "polar.user_organization.service.settings.is_sandbox",
+            "repalis.user_organization.service.settings.is_sandbox",
             return_value=True,
         )
         await save_fixture(

@@ -3,11 +3,11 @@ import { Buffer } from "node:buffer";
 import { Webhook } from "standardwebhooks";
 import { describe, expect, test } from "vitest";
 
-import { PolarError } from "./base";
+import { RepalisError } from "./base";
 import {
-  PolarWebhookError,
-  PolarWebhookUnknownTypeError,
-  PolarWebhookVerificationError,
+  RepalisWebhookError,
+  RepalisWebhookUnknownTypeError,
+  RepalisWebhookVerificationError,
   validateWebhook,
 } from "./webhooks";
 
@@ -83,7 +83,7 @@ describe("validateWebhook", () => {
     const body = JSON.stringify({ type: "dummy.event", value: "payload" });
 
     await expect(validateEvent(body, getHeaders("{}"))).rejects.toThrow(
-      PolarWebhookVerificationError,
+      RepalisWebhookVerificationError,
     );
   });
 
@@ -93,7 +93,7 @@ describe("validateWebhook", () => {
     headers["Webhook-Signature"] = "v1,not-base64!";
 
     await expect(validateEvent(body, headers)).rejects.toThrow(
-      PolarWebhookVerificationError,
+      RepalisWebhookVerificationError,
     );
   });
 
@@ -101,7 +101,7 @@ describe("validateWebhook", () => {
     const body = JSON.stringify({ type: "dummy.event", value: "payload" });
 
     await expect(validateEvent(body, {})).rejects.toThrow(
-      PolarWebhookVerificationError,
+      RepalisWebhookVerificationError,
     );
   });
 
@@ -112,7 +112,7 @@ describe("validateWebhook", () => {
     await expect(
       validateEvent(body, getHeaders(body, timestamp)),
     ).rejects.toThrow(
-      PolarWebhookVerificationError,
+      RepalisWebhookVerificationError,
     );
   });
 
@@ -123,8 +123,8 @@ describe("validateWebhook", () => {
       await validateEvent(body, getHeaders(body));
       throw new Error("Expected validateEvent to throw");
     } catch (error) {
-      expect(error).toBeInstanceOf(PolarWebhookUnknownTypeError);
-      expect((error as PolarWebhookUnknownTypeError).eventType).toBe(
+      expect(error).toBeInstanceOf(RepalisWebhookUnknownTypeError);
+      expect((error as RepalisWebhookUnknownTypeError).eventType).toBe(
         "future.event",
       );
     }
@@ -134,17 +134,17 @@ describe("validateWebhook", () => {
     const body = "{";
 
     await expect(validateEvent(body, getHeaders(body))).rejects.toThrow(
-      PolarWebhookError,
+      RepalisWebhookError,
     );
   });
 
-  test("uses the Polar webhook error hierarchy", () => {
-    expect(new PolarWebhookError("error")).toBeInstanceOf(PolarError);
-    expect(new PolarWebhookVerificationError("error")).toBeInstanceOf(
-      PolarWebhookError,
+  test("uses the Repalis webhook error hierarchy", () => {
+    expect(new RepalisWebhookError("error")).toBeInstanceOf(RepalisError);
+    expect(new RepalisWebhookVerificationError("error")).toBeInstanceOf(
+      RepalisWebhookError,
     );
-    expect(new PolarWebhookUnknownTypeError("future.event")).toBeInstanceOf(
-      PolarWebhookError,
+    expect(new RepalisWebhookUnknownTypeError("future.event")).toBeInstanceOf(
+      RepalisWebhookError,
     );
   });
 });

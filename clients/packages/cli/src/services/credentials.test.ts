@@ -64,7 +64,7 @@ describe('Credentials', () => {
     expect(Redacted.value(stored!.accessToken)).toBe('access')
     expect(Redacted.value(stored!.refreshToken!)).toBe('refresh')
     expect(stored?.scopes).toEqual(['organizations:read'])
-    expect(keyring.passwords.get('@polar-sh/cli:sandbox')).not.toContain(
+    expect(keyring.passwords.get('@repalis/cli:sandbox')).not.toContain(
       'Redacted',
     )
     await expect(
@@ -74,7 +74,7 @@ describe('Credentials', () => {
 
   test('reads sessions saved by versions that stored scopes', async () => {
     keyring.passwords.set(
-      '@polar-sh/cli:sandbox',
+      '@repalis/cli:sandbox',
       JSON.stringify({
         version: 1,
         accessToken: 'access',
@@ -96,7 +96,7 @@ describe('Credentials', () => {
       credentials.write('sandbox', { ...session, scopes: [] }),
     )
 
-    const saved = JSON.parse(keyring.passwords.get('@polar-sh/cli:sandbox')!)
+    const saved = JSON.parse(keyring.passwords.get('@repalis/cli:sandbox')!)
     expect(saved).toHaveProperty('scopes', [])
   })
 
@@ -105,12 +105,12 @@ describe('Credentials', () => {
       credentials.write('sandbox', {
         ...session,
         scopes: [],
-        accessToken: Redacted.make(`polar_at_u_${'x'.repeat(64)}`),
-        refreshToken: Redacted.make(`polar_rt_u_${'x'.repeat(64)}`),
+        accessToken: Redacted.make(`repalis_at_u_${'x'.repeat(64)}`),
+        refreshToken: Redacted.make(`repalis_rt_u_${'x'.repeat(64)}`),
       }),
     )
 
-    const saved = keyring.passwords.get('@polar-sh/cli:sandbox')!
+    const saved = keyring.passwords.get('@repalis/cli:sandbox')!
     expect(saved.length * 2).toBeLessThan(2560)
   })
 
@@ -126,7 +126,7 @@ describe('Credentials', () => {
   })
 
   test('rejects corrupt saved sessions', async () => {
-    keyring.passwords.set('@polar-sh/cli:sandbox', '{"version":2}')
+    keyring.passwords.set('@repalis/cli:sandbox', '{"version":2}')
 
     await expect(
       run((credentials) => credentials.read('sandbox')),

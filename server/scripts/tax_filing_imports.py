@@ -21,14 +21,14 @@ from rich.progress import Progress
 from sqlalchemy import and_, or_, select
 from sqlalchemy.orm import contains_eager
 
-from polar.kit.currency import get_currency_decimal_factor
-from polar.kit.db.postgres import (  # lint-skip: dry-run
+from repalis.kit.currency import get_currency_decimal_factor
+from repalis.kit.db.postgres import (  # lint-skip: dry-run
     AsyncSession,
     create_async_sessionmaker,
 )
-from polar.models import Order, Refund, Transaction
-from polar.models.transaction import TransactionType
-from polar.postgres import create_async_engine
+from repalis.models import Order, Refund, Transaction
+from repalis.models.transaction import TransactionType
+from repalis.postgres import create_async_engine
 
 cli = typer.Typer()
 

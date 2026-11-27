@@ -4,7 +4,7 @@ from io import BytesIO
 from fpdf import FPDF
 from PIL import Image
 
-from polar.support_case.pdf import is_mergeable, merge_attachments
+from repalis.support_case.pdf import is_mergeable, merge_attachments
 
 
 def _png_bytes(width: int = 32, height: int = 32) -> bytes:

@@ -26,7 +26,7 @@ locals {
 
   access_tiers = {
     finance = {
-      base_name          = "PolarFinance"
+      base_name          = "RepalisFinance"
       description        = "Read-only billing and cost information."
       managed_policy_arn = "arn:aws:iam::aws:policy/AWSBillingReadOnlyAccess"
       extra_policy_arns  = []
@@ -35,7 +35,7 @@ locals {
       accounts           = ["management"]
     }
     support = {
-      base_name          = "PolarSupport"
+      base_name          = "RepalisSupport"
       description        = "Create and manage AWS Support cases."
       managed_policy_arn = "arn:aws:iam::aws:policy/AWSSupportAccess"
       extra_policy_arns  = []
@@ -44,7 +44,7 @@ locals {
       accounts           = ["management"]
     }
     admin = {
-      base_name          = "PolarAdmin"
+      base_name          = "RepalisAdmin"
       description        = "Unrestricted administrator access."
       managed_policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
       extra_policy_arns  = []
@@ -53,8 +53,8 @@ locals {
       accounts           = keys(local.staff_target_accounts)
     }
     engineering = {
-      base_name          = "PolarEngineering"
-      description        = "Power-user access (no IAM/Organizations management) confined by the Polar permission boundary."
+      base_name          = "RepalisEngineering"
+      description        = "Power-user access (no IAM/Organizations management) confined by the Repalis permission boundary."
       managed_policy_arn = "arn:aws:iam::aws:policy/PowerUserAccess"
       extra_policy_arns  = ["arn:aws:iam::aws:policy/IAMReadOnlyAccess"]
       boundary           = true
@@ -62,7 +62,7 @@ locals {
       accounts           = local.staff_default_accounts
     }
     read_only = {
-      base_name          = "PolarReadOnly"
+      base_name          = "RepalisReadOnly"
       description        = "Read-only access across the account."
       managed_policy_arn = "arn:aws:iam::aws:policy/ReadOnlyAccess"
       extra_policy_arns  = []

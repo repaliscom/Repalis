@@ -1,9 +1,9 @@
 'use client'
 
-import { PolarLogotype } from '@/components/Layout/Public/PolarLogotype'
+import { RepalisLogotype } from '@/components/Layout/Public/RepalisLogotype'
 import Footer from '@/components/Organization/Footer'
 import { usePostHog } from '@/hooks/posthog'
-import { Modal } from '@polar-sh/orbit'
+import { Modal } from '@repalis/orbit'
 import {
   Sidebar,
   SidebarContent,
@@ -11,7 +11,7 @@ import {
   SidebarProvider,
   SidebarTrigger,
   useSidebar,
-} from '@polar-sh/ui/components/atoms/Sidebar'
+} from '@repalis/ui/components/atoms/Sidebar'
 import Link from 'next/link'
 import { PropsWithChildren } from 'react'
 import { AuthModal } from '../Auth/AuthModal'
@@ -25,13 +25,13 @@ export default function Layout({ children }: PropsWithChildren) {
       <div className="sticky top-0 z-30 flex w-full flex-col">
         <LandingPageDesktopNavigation />
       </div>
-      <div className="dark:bg-polar-950 relative flex flex-col overflow-x-clip bg-white px-0 md:w-full md:flex-1 md:items-center md:px-12">
+      <div className="dark:bg-repalis-950 relative flex flex-col overflow-x-clip bg-white px-0 md:w-full md:flex-1 md:items-center md:px-12">
         <div className="flex flex-col gap-y-2 md:w-full md:max-w-7xl">
           <SidebarProvider className="absolute inset-0 flex flex-col items-start md:hidden">
             <LandingPageTopbar />
             <LandingPageMobileNavigation />
           </SidebarProvider>
-          <div className="dark:bg-polar-950 relative flex flex-col px-6 pt-32 md:w-full md:px-0 md:pt-0">
+          <div className="dark:bg-repalis-950 relative flex flex-col px-6 pt-32 md:w-full md:px-0 md:pt-0">
             {children}
           </div>
         </div>
@@ -60,7 +60,7 @@ const mobileNavigationItems: NavigationItem[] = [
   },
   {
     title: 'Documentation',
-    href: 'https://polar.sh/docs',
+    href: 'https://repalis.com/docs',
     target: '_blank',
   },
   {
@@ -77,12 +77,12 @@ const mobileNavigationItems: NavigationItem[] = [
   },
   {
     title: 'Open Source',
-    href: 'https://github.com/polarsource',
+    href: 'https://github.com/repaliscom',
     target: '_blank',
   },
   {
-    title: 'Polar on X',
-    href: 'https://x.com/polar_sh',
+    title: 'Repalis on X',
+    href: 'https://x.com/repalis',
     target: '_blank',
   },
 ]
@@ -104,7 +104,7 @@ const LandingPageMobileNavigation = () => {
       <Sidebar className="md:hidden">
         <SidebarHeader className="p-4">
           <Link href="/">
-            <PolarLogotype logoVariant="icon" />
+            <RepalisLogotype logoVariant="icon" />
           </Link>
         </SidebarHeader>
         <SidebarContent className="flex flex-col gap-y-6 px-6 py-2">
@@ -147,7 +147,7 @@ const LandingPageMobileNavigation = () => {
 const LandingPageTopbar = () => {
   return (
     <div className="z-30 flex w-full flex-row items-center justify-between px-6 py-6 md:hidden md:px-12">
-      <PolarLogotype
+      <RepalisLogotype
         className="mt-1 ml-2 md:hidden"
         logoVariant="logotype"
         size={100}

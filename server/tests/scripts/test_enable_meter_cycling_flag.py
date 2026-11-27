@@ -1,7 +1,7 @@
 import pytest
 
-from polar.kit.db.postgres import AsyncSession
-from polar.models import User
+from repalis.kit.db.postgres import AsyncSession
+from repalis.models import User
 from scripts.enable_meter_cycling_flag import enable_statement
 from scripts.helper import run_batched_update
 from tests.fixtures.database import SaveFixture

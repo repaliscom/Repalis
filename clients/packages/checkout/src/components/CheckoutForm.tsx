@@ -1,15 +1,15 @@
 'use client'
 
-import type { schemas } from '@polar-sh/client'
-import { enums } from '@polar-sh/client'
-import { useTranslations, type AcceptedLocale } from '@polar-sh/i18n'
+import type { schemas } from '@repalis/client'
+import { enums } from '@repalis/client'
+import { useTranslations, type AcceptedLocale } from '@repalis/i18n'
 import { MandateText } from './MandateText'
 import { Button } from './ui/Button'
 import CountryPicker from './ui/CountryPicker'
 import CountryStatePicker, {
   COUNTRIES_WITH_FIXED_STATE_OPTIONS,
 } from './ui/CountryStatePicker'
-import { usesStateLabel } from '@polar-sh/ui/lib/states'
+import { usesStateLabel } from '@repalis/ui/lib/states'
 import { Input } from './ui/Input'
 import { Checkbox } from './ui/Checkbox'
 import {
@@ -19,9 +19,9 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@polar-sh/ui/components/ui/form'
-import { ThemingPresetProps } from '@polar-sh/ui/hooks/theming'
-import { cn } from '@polar-sh/ui/lib/utils'
+} from '@repalis/ui/components/ui/form'
+import { ThemingPresetProps } from '@repalis/ui/hooks/theming'
+import { cn } from '@repalis/ui/lib/utils'
 import {
   Elements,
   ElementsConsumer,
@@ -57,7 +57,7 @@ import {
   useCheckoutForm,
 } from '../providers/CheckoutFormProvider'
 import CustomFieldInput from './CustomFieldInput'
-import PolarLogo from './PolarLogo'
+import RepalisLogo from './RepalisLogo'
 import { CheckoutBanner } from './CheckoutBanner'
 import XIcon from './icons/XIcon'
 
@@ -686,7 +686,7 @@ const BaseCheckoutForm = ({
                           <FormControl>
                             <Checkbox
                               className={cn(
-                                'dark:border-polar-600 cursor-pointer border-gray-300',
+                                'dark:border-repalis-600 cursor-pointer border-gray-300',
                                 field.value ? 'border-primary' : '',
                               )}
                               checked={field.value ? field.value : false}
@@ -696,7 +696,7 @@ const BaseCheckoutForm = ({
                               }}
                             />
                           </FormControl>
-                          <FormLabel className="dark:text-polar-400 cursor-pointer">
+                          <FormLabel className="dark:text-repalis-400 cursor-pointer">
                             {t('checkout.form.purchasingAsBusiness')}
                           </FormLabel>
                         </div>
@@ -706,7 +706,7 @@ const BaseCheckoutForm = ({
                   />
 
                   {isBusinessCustomer && (
-                    <div className="dark:border-polar-700 flex flex-col gap-y-4 rounded-2xl border border-gray-200 p-4">
+                    <div className="dark:border-repalis-700 flex flex-col gap-y-4 rounded-2xl border border-gray-200 p-4">
                       <span className="text-sm font-medium">
                         {t('checkout.form.billingDetails')}
                       </span>
@@ -823,7 +823,7 @@ const BaseCheckoutForm = ({
                 {checkoutLabel}
               </Button>
               {loading && loadingLabel && (
-                <p className="dark:text-polar-500 text-sm text-gray-500">
+                <p className="dark:text-repalis-500 text-sm text-gray-500">
                   {loadingLabel}
                 </p>
               )}
@@ -852,13 +852,13 @@ const BaseCheckoutForm = ({
         </div>
       </div>
       <a
-        href="https://polar.sh?utm_source=checkout"
-        className="dark:text-polar-600 flex w-full flex-row items-center justify-center gap-x-3 text-sm text-gray-400"
+        href="https://repalis.com?utm_source=checkout"
+        className="dark:text-repalis-600 flex w-full flex-row items-center justify-center gap-x-3 text-sm text-gray-400"
         target="_blank"
         rel="noreferrer"
       >
         <span>{t('checkout.footer.poweredBy')}</span>
-        <PolarLogo className="h-5" />
+        <RepalisLogo className="h-5" />
       </a>
     </div>
   )

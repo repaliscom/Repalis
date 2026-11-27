@@ -1,6 +1,6 @@
-import type { schemas } from '@polar-sh/client'
-import { formatCurrency } from '@polar-sh/currency'
-import type { AcceptedLocale } from '@polar-sh/i18n'
+import type { schemas } from '@repalis/client'
+import { formatCurrency } from '@repalis/currency'
+import type { AcceptedLocale } from '@repalis/i18n'
 import { addDays, addMonths, addWeeks, addYears } from 'date-fns'
 
 type CheckoutDiscount =

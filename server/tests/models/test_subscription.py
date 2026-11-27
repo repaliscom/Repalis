@@ -3,12 +3,12 @@ from datetime import timedelta
 import pytest
 from sqlalchemy import select
 
-from polar.enums import TaxBehavior
-from polar.kit.utils import utc_now
-from polar.models import Customer, Order, Product, Subscription
-from polar.models.subscription import SubscriptionStatus
-from polar.models.subscription_product_price import SubscriptionProductPrice
-from polar.postgres import AsyncSession
+from repalis.enums import TaxBehavior
+from repalis.kit.utils import utc_now
+from repalis.models import Customer, Order, Product, Subscription
+from repalis.models.subscription import SubscriptionStatus
+from repalis.models.subscription_product_price import SubscriptionProductPrice
+from repalis.postgres import AsyncSession
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_subscription
 

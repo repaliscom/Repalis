@@ -1,7 +1,7 @@
 'use client'
 
-import { schemas } from '@polar-sh/client'
-import { Box, type BoxProps } from '@polar-sh/orbit/Box'
+import { schemas } from '@repalis/client'
+import { Box, type BoxProps } from '@repalis/orbit/Box'
 import { AnimatePresence, m } from 'motion/react'
 import { useTheme } from 'next-themes'
 import { ChecklistRow } from './ChecklistRow'
@@ -37,7 +37,7 @@ export const ReviewChecklist = ({
     <Box
       flexDirection="column"
       rowGap="s"
-      // oxlint-disable-next-line polar/no-style-box
+      // oxlint-disable-next-line repalis/no-style-box
       style={{ perspective: 1200 }}
     >
       {isLoading ? (

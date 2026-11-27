@@ -1,27 +1,27 @@
 'use client'
 
-import { AutorenewOutlined, ClearOutlined } from '@polar-sh/orbit/icons'
-import { SegmentedControl } from '@polar-sh/orbit'
+import { AutorenewOutlined, ClearOutlined } from '@repalis/orbit/icons'
+import { SegmentedControl } from '@repalis/orbit'
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from '@polar-sh/ui/components/atoms/Accordion'
-import { Button } from '@polar-sh/orbit'
-import { Input } from '@polar-sh/orbit'
-import MoneyInput from '@polar-sh/ui/components/atoms/MoneyInput'
-import PercentageInput from '@polar-sh/ui/components/atoms/PercentageInput'
+} from '@repalis/ui/components/atoms/Accordion'
+import { Button } from '@repalis/orbit'
+import { Input } from '@repalis/orbit'
+import MoneyInput from '@repalis/ui/components/atoms/MoneyInput'
+import PercentageInput from '@repalis/ui/components/atoms/PercentageInput'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@polar-sh/orbit'
+} from '@repalis/orbit'
 
-import { schemas } from '@polar-sh/client'
-import DateTimePicker from '@polar-sh/ui/components/atoms/DateTimePicker'
+import { schemas } from '@repalis/client'
+import DateTimePicker from '@repalis/ui/components/atoms/DateTimePicker'
 import {
   FormControl,
   FormDescription,
@@ -29,7 +29,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@polar-sh/ui/components/ui/form'
+} from '@repalis/ui/components/ui/form'
 import React, { useCallback, useMemo } from 'react'
 import { useFieldArray, useFormContext, useWatch } from 'react-hook-form'
 import { CurrencySelector } from '../CurrencySelector'
@@ -233,7 +233,7 @@ const DiscountForm: React.FC<DiscountFormProps> = ({
                             currency={field.currency}
                             onChange={amountField.onChange}
                             preSlot={
-                              <span className="dark:text-polar-500 px-3 text-sm text-gray-500">
+                              <span className="dark:text-repalis-500 px-3 text-sm text-gray-500">
                                 {field.currency.toUpperCase()}
                               </span>
                             }
@@ -281,7 +281,7 @@ const DiscountForm: React.FC<DiscountFormProps> = ({
       <Accordion type="single" collapsible className="flex flex-col gap-y-6">
         <AccordionItem
           value="form-input-recurring"
-          className="dark:border-polar-700 rounded-xl border border-gray-200 px-4"
+          className="dark:border-repalis-700 rounded-xl border border-gray-200 px-4"
         >
           <AccordionTrigger className="hover:no-underline">
             Recurring options
@@ -363,7 +363,7 @@ const DiscountForm: React.FC<DiscountFormProps> = ({
       <Accordion type="single" collapsible className="flex flex-col gap-y-6">
         <AccordionItem
           value="form-input-restrictions"
-          className="dark:border-polar-700 rounded-xl border border-gray-200 px-4"
+          className="dark:border-repalis-700 rounded-xl border border-gray-200 px-4"
         >
           <AccordionTrigger className="hover:no-underline">
             Restrictions
@@ -484,7 +484,7 @@ const DiscountForm: React.FC<DiscountFormProps> = ({
                   </FormControl>
                   <FormMessage />
                   <FormDescription>
-                    Polar identifies a customer by account, email address or
+                    Repalis identifies a customer by account, email address or
                     payment card. One match is enough.
                   </FormDescription>
                 </FormItem>

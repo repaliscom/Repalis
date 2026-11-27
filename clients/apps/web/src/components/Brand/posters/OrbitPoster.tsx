@@ -1,4 +1,4 @@
-import { Box } from '@polar-sh/orbit/Box'
+import { Box } from '@repalis/orbit/Box'
 import {
   PosterBody,
   PosterCanvas,
@@ -36,7 +36,7 @@ export const OrbitPoster = () => (
     <PosterBody justifyContent="end">
       <Box>
         <PosterHeadline
-          primary="Meet Polar"
+          primary="Meet Repalis"
           secondary="The billing stack for the intelligence era"
         />
       </Box>

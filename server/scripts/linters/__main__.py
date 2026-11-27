@@ -1,4 +1,4 @@
-"""Run the custom AST lint rules over polar/ and scripts/, one parse per file.
+"""Run the custom AST lint rules over repalis/ and scripts/, one parse per file.
 
 Each rule lives in its own module and registers a `Rule` with a name (for
 `--only`), a skip code, and a `check(tree)` callable. Suppress a violation

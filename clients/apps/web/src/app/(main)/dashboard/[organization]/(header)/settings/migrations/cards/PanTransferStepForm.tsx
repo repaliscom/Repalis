@@ -1,8 +1,8 @@
 'use client'
 
 import { useCompletePanTransferStep } from '@/hooks/queries/merchantMigrations'
-import { Button, Input, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { Button, Input, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import { useState } from 'react'
 import {
   StepCopy,

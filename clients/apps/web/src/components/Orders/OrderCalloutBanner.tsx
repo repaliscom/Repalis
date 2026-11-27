@@ -6,18 +6,18 @@ import {
   isOrderNonRecoverable,
 } from '@/utils/order'
 import { getPaymentDeclineMessage } from '@/utils/payment'
-import { schemas } from '@polar-sh/client'
-import { Pill, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import FormattedDateTime from '@polar-sh/ui/components/atoms/FormattedDateTime'
+import { schemas } from '@repalis/client'
+import { Pill, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import FormattedDateTime from '@repalis/ui/components/atoms/FormattedDateTime'
 import { addDays, isPast, min, parseISO } from 'date-fns'
-import { ExternalLink as ExternalLinkIcon } from '@polar-sh/orbit/icons'
+import { ExternalLink as ExternalLinkIcon } from '@repalis/orbit/icons'
 import { Children, type ReactNode } from 'react'
 
 const DUNNING_TOTAL_RETRY_DAYS = 21
 
 const FAILED_PAYMENTS_DOCS_URL =
-  'https://docs.polar.sh/features/subscriptions/failed-payments'
+  'https://docs.repalis.com/features/subscriptions/failed-payments'
 
 const BannerFrame = ({
   heading,
@@ -280,7 +280,7 @@ export const OrderCalloutBanner = ({
           datetime={order.next_payment_attempt_at ?? null}
         />
         <Text>
-          Polar always tries to recover failed subscription payments for you.
+          Repalis always tries to recover failed subscription payments for you.
         </Text>
         <LearnMoreLink />
       </BannerColumn>

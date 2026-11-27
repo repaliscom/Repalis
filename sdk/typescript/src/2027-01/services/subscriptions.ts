@@ -31,9 +31,9 @@ export const listSubscriptions = (client: ClientBase) => {
    * @param query - Query parameters
    * @param requestOptions - Request options
    * @returns {ListResourceSubscription}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    * @throws {HTTPValidationError} Validation Error
    */
   return async (
@@ -104,9 +104,9 @@ export const listSubscriptions = (client: ClientBase) => {
  * @param query - Query parameters
  * @param requestOptions - Request options
  * @returns {AsyncGenerator<Subscription>} A generator that yields items of type Subscription.
- * @throws {PolarNetworkError} When a network error occurs
- * @throws {PolarRateLimitError} When the rate limit is exceeded
- * @throws {PolarServerError} When the server returns a 5xx error
+ * @throws {RepalisNetworkError} When a network error occurs
+ * @throws {RepalisRateLimitError} When the rate limit is exceeded
+ * @throws {RepalisServerError} When the server returns a 5xx error
  * @throws {HTTPValidationError} Validation Error
  */
 export const iterListSubscriptions = (client: ClientBase) => {
@@ -168,9 +168,9 @@ export const createSubscriptions = (client: ClientBase) => {
    * @param body - Request body
    * @param requestOptions - Request options
    * @returns {Subscription}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    * @throws {SubscriptionsCreate409Error} Conflict
    * @throws {HTTPValidationError} Validation Error
    */
@@ -203,9 +203,9 @@ export const getSubscriptions = (client: ClientBase) => {
    * @param id - The subscription ID.
    * @param requestOptions - Request options
    * @returns {Subscription}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    * @throws {ResourceNotFound} Subscription not found.
    * @throws {HTTPValidationError} Validation Error
    */
@@ -237,9 +237,9 @@ export const revokeSubscriptions = (client: ClientBase) => {
    * @param id - The subscription ID.
    * @param requestOptions - Request options
    * @returns {Subscription}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    * @throws {AlreadyCanceledSubscription} This subscription is already revoked.
    * @throws {ResourceNotFound} Subscription not found.
    * @throws {SubscriptionLocked} Subscription is pending an update.
@@ -276,9 +276,9 @@ export const updateSubscriptions = (client: ClientBase) => {
    * @param body - Request body
    * @param requestOptions - Request options
    * @returns {Subscription}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    * @throws {SubscriptionsUpdate402Error} The charge failed, or requires customer authentication that can't be completed off-session.
    * @throws {SubscriptionsUpdate403Error} Subscription is already canceled or will be at the end of the period, is not active, or the organization is not ready to renew subscriptions.
    * @throws {ResourceNotFound} Subscription not found.

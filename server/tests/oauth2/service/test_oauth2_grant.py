@@ -3,10 +3,10 @@ from uuid import uuid4
 import pytest
 from sqlalchemy import func, select
 
-from polar.kit.db.postgres import Session
-from polar.models import OAuth2Grant, User
-from polar.oauth2.service.oauth2_grant import oauth2_grant as oauth2_grant_service
-from polar.oauth2.sub_type import SubType
+from repalis.kit.db.postgres import Session
+from repalis.models import OAuth2Grant, User
+from repalis.oauth2.service.oauth2_grant import oauth2_grant as oauth2_grant_service
+from repalis.oauth2.sub_type import SubType
 
 
 @pytest.mark.anyio
@@ -22,7 +22,7 @@ class TestCreateOrUpdateGrant:
             sync_session,
             sub_type=SubType.user,
             sub_id=user.id,
-            client_id="polar_ci_user",
+            client_id="repalis_ci_user",
             scope="openid",
             organization_ids=[],
         )
@@ -30,7 +30,7 @@ class TestCreateOrUpdateGrant:
             sync_session,
             sub_type=SubType.user,
             sub_id=user.id,
-            client_id="polar_ci_user",
+            client_id="repalis_ci_user",
             scope="openid email",
             organization_ids=[],
         )
@@ -43,7 +43,7 @@ class TestCreateOrUpdateGrant:
             select(func.count())
             .select_from(OAuth2Grant)
             .where(
-                OAuth2Grant.client_id == "polar_ci_user",
+                OAuth2Grant.client_id == "repalis_ci_user",
                 OAuth2Grant.user_id == user.id,
             )
         )

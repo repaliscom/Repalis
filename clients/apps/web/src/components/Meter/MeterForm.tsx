@@ -4,8 +4,8 @@ import MeterFilterInput from '@/components/Meter/MeterFilterInput'
 import MeterFilterReadOnlyConfiguration from '@/components/Meter/MeterFilterReadOnlyConfiguration'
 import MeterFormAggregation from '@/components/Meter/MeterFormAggregation'
 import MeterFormUnit from '@/components/Meter/MeterFormUnit'
-import { schemas } from '@polar-sh/client'
-import { Input } from '@polar-sh/orbit'
+import { schemas } from '@repalis/client'
+import { Input } from '@repalis/orbit'
 import {
   FormControl,
   FormDescription,
@@ -13,7 +13,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@polar-sh/ui/components/ui/form'
+} from '@repalis/ui/components/ui/form'
 import { useFormContext, useWatch } from 'react-hook-form'
 
 const MeterForm = ({

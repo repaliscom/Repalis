@@ -1,11 +1,11 @@
 export default defineEventHandler((event) => {
   const {
-    private: { polarAccessToken, polarServer },
+    private: { repalisAccessToken, repalisServer },
   } = useRuntimeConfig()
 
   const customerPortalHandler = CustomerPortal({
-    accessToken: polarAccessToken,
-    environment: polarServer as 'sandbox' | 'production',
+    accessToken: repalisAccessToken,
+    environment: repalisServer as 'sandbox' | 'production',
     getCustomerId: () => {
       return Promise.resolve('9d89909b-216d-475e-8005-053dba7cff07')
     },

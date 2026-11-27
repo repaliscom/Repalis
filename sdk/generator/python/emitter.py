@@ -89,65 +89,65 @@ class PythonEmitter(EmitterBase):
 
         for file in {
             (".zed", "settings.json"),
-            ("polar", "__init__.py"),
+            ("repalis", "__init__.py"),
             (
-                "polar",
+                "repalis",
                 ".agents",
                 "skills",
-                "polar-python-sdk",
+                "repalis-python-sdk",
                 "agents",
                 "openai.yaml",
             ),
             (
-                "polar",
+                "repalis",
                 ".agents",
                 "skills",
-                "polar-python-sdk",
+                "repalis-python-sdk",
                 "references",
                 "migration-from-v0.md",
             ),
             (
-                "polar",
+                "repalis",
                 ".agents",
                 "skills",
-                "polar-python-sdk",
+                "repalis-python-sdk",
                 "references",
                 "usage-events.md",
             ),
             (
-                "polar",
+                "repalis",
                 ".agents",
                 "skills",
-                "polar-python-sdk",
+                "repalis-python-sdk",
                 "references",
                 "webhooks.md",
             ),
             (
-                "polar",
+                "repalis",
                 ".agents",
                 "skills",
-                "polar-python-sdk",
+                "repalis-python-sdk",
                 "SKILL.md",
             ),
-            ("polar", "base.py"),
-            ("polar", "_httpx_compat.py"),
-            ("polar", "py.typed"),
-            ("polar", "webhooks.py"),
-            ("polar", "logging.py"),
-            ("polar", "metering", "__init__.py"),
-            ("polar", "metering", "events.py"),
-            ("polar", "metering", "meter.py"),
-            ("polar", "metering", "client.py"),
-            ("polar", "metering", "buffered.py"),
-            ("polar", "metering", "errors.py"),
-            ("polar", "outpost", "__init__.py"),
-            ("polar", "outpost", "event.py"),
-            ("polar", "outpost", "reducer.py"),
-            ("polar", "outpost", "client.py"),
-            ("polar", "outpost", "errors.py"),
-            ("polar", "outpost", "state.py"),
-            ("polar", "outpost", "telemetry.py"),
-            ("polar", "outpost", "vercel.py"),
+            ("repalis", "base.py"),
+            ("repalis", "_httpx_compat.py"),
+            ("repalis", "py.typed"),
+            ("repalis", "webhooks.py"),
+            ("repalis", "logging.py"),
+            ("repalis", "metering", "__init__.py"),
+            ("repalis", "metering", "events.py"),
+            ("repalis", "metering", "meter.py"),
+            ("repalis", "metering", "client.py"),
+            ("repalis", "metering", "buffered.py"),
+            ("repalis", "metering", "errors.py"),
+            ("repalis", "outpost", "__init__.py"),
+            ("repalis", "outpost", "event.py"),
+            ("repalis", "outpost", "reducer.py"),
+            ("repalis", "outpost", "client.py"),
+            ("repalis", "outpost", "errors.py"),
+            ("repalis", "outpost", "state.py"),
+            ("repalis", "outpost", "telemetry.py"),
+            ("repalis", "outpost", "vercel.py"),
             ("tests", "__init__.py"),
             ("tests", "test_base.py"),
             ("tests", "metering", "__init__.py"),
@@ -204,23 +204,23 @@ class PythonEmitter(EmitterBase):
         )
 
         for api in self.ir.versions:
-            version_dir = root_directory / "polar" / self.get_version_string(api)
+            version_dir = root_directory / "repalis" / self.get_version_string(api)
             self.render_file(
-                "polar/version/__init__.py",
+                "repalis/version/__init__.py",
                 version_dir / "__init__.py",
                 {
                     **self.get_version_context(api),
                 },
             )
             self.render_file(
-                "polar/version/client.py",
+                "repalis/version/client.py",
                 version_dir / "client.py",
                 {
                     **self.get_version_context(api),
                 },
             )
             self.render_file(
-                "polar/version/literals.py",
+                "repalis/version/literals.py",
                 version_dir / "literals.py",
                 {
                     **self.get_version_context(api),
@@ -228,7 +228,7 @@ class PythonEmitter(EmitterBase):
                 },
             )
             self.render_file(
-                "polar/version/inputs.py",
+                "repalis/version/inputs.py",
                 version_dir / "inputs.py",
                 {
                     **self.get_version_context(api),
@@ -241,7 +241,7 @@ class PythonEmitter(EmitterBase):
             )
 
             self.render_file(
-                "polar/version/outputs.py",
+                "repalis/version/outputs.py",
                 version_dir / "outputs.py",
                 {
                     **self.get_version_context(api),
@@ -253,7 +253,7 @@ class PythonEmitter(EmitterBase):
                 },
             )
             self.render_file(
-                "polar/version/webhooks.py",
+                "repalis/version/webhooks.py",
                 version_dir / "webhooks.py",
                 {
                     **self.get_version_context(api),
@@ -281,7 +281,7 @@ class PythonEmitter(EmitterBase):
             )
             errors = self._collect_all_errors(api)
             self.render_file(
-                "polar/version/errors.py",
+                "repalis/version/errors.py",
                 version_dir / "errors.py",
                 {
                     **self.get_version_context(api),
@@ -331,7 +331,7 @@ class PythonEmitter(EmitterBase):
             service_path = output_path / f"{service_name(service.name)}.py"
 
         self.render_file(
-            "polar/version/services/service.py",
+            "repalis/version/services/service.py",
             service_path,
             {
                 **self.get_version_context(api),

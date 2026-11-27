@@ -6,17 +6,17 @@ import typer
 from rich.progress import Progress
 from sqlalchemy import func, select, tuple_
 
-from polar.config import settings
-from polar.integrations.tinybird.client import (
+from repalis.config import settings
+from repalis.integrations.tinybird.client import (
     TinybirdClient,
     TinybirdPayloadTooLargeError,
 )
-from polar.integrations.tinybird.service import _event_to_tinybird
-from polar.kit.db.postgres import (  # lint-skip: dry-run
+from repalis.integrations.tinybird.service import _event_to_tinybird
+from repalis.kit.db.postgres import (  # lint-skip: dry-run
     create_async_engine as _create_async_engine,
 )
-from polar.kit.db.postgres import create_async_sessionmaker
-from polar.models import Event
+from repalis.kit.db.postgres import create_async_sessionmaker
+from repalis.models import Event
 
 from .helper import configure_script_logging, typer_async
 

@@ -1,6 +1,6 @@
 import { useCreateMerchantMigration } from '@/hooks/queries/merchantMigrations'
 import { extractApiErrorMessage } from '@/utils/api/errors'
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 import {
   Alert,
   Button,
@@ -8,8 +8,8 @@ import {
   Input,
   SegmentedControl,
   Text,
-} from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+} from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import { useState } from 'react'
 import { ConnectGuide } from './ConnectGuide'
 import { LemonSqueezyConnectForm } from './LemonSqueezyConnectForm'
@@ -124,7 +124,7 @@ export function CreateMigrationModal({
           paddingBottom="2xl"
         >
           <Text color="muted">
-            Connect Stripe with a restricted API key so Polar can read your
+            Connect Stripe with a restricted API key so Repalis can read your
             billing. Nothing in Stripe changes until you approve each step.
           </Text>
 

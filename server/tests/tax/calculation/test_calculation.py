@@ -1,9 +1,9 @@
 import pytest
 from pytest_mock import MockerFixture
 
-from polar.enums import TaxProcessor
-from polar.kit.address import Address, CountryAlpha2
-from polar.tax.calculation import TaxCode, tax_calculation
+from repalis.enums import TaxProcessor
+from repalis.kit.address import Address, CountryAlpha2
+from repalis.tax.calculation import TaxCode, tax_calculation
 
 
 @pytest.mark.anyio
@@ -35,7 +35,7 @@ class TestRevert:
         expected_amount: int | None,
     ) -> None:
         provider = mocker.patch(
-            f"polar.tax.calculation.{processor.value}_tax_service.revert",
+            f"repalis.tax.calculation.{processor.value}_tax_service.revert",
             return_value="refund_123",
         )
 
@@ -74,7 +74,7 @@ class TestRevert:
         self, mocker: MockerFixture, processor: TaxProcessor
     ) -> None:
         provider = mocker.patch(
-            f"polar.tax.calculation.{processor.value}_tax_service.revert",
+            f"repalis.tax.calculation.{processor.value}_tax_service.revert",
             return_value="refund_123",
         )
         for index in range(3):
@@ -103,7 +103,7 @@ class TestRevert:
         self, mocker: MockerFixture, processor: TaxProcessor
     ) -> None:
         provider = mocker.patch(
-            f"polar.tax.calculation.{processor.value}_tax_service.revert",
+            f"repalis.tax.calculation.{processor.value}_tax_service.revert",
             return_value="refund_123",
         )
 
@@ -126,7 +126,7 @@ class TestRevert:
 
     async def test_backfilled_cumulative_reversal(self, mocker: MockerFixture) -> None:
         provider = mocker.patch(
-            "polar.tax.calculation.numeral_tax_service.backfill",
+            "repalis.tax.calculation.numeral_tax_service.backfill",
             return_value="refund_123",
         )
         result = await tax_calculation.revert(

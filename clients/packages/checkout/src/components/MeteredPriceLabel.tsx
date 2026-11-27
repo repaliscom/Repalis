@@ -1,7 +1,7 @@
-import type { schemas } from '@polar-sh/client'
-import { DEFAULT_LOCALE, type AcceptedLocale } from '@polar-sh/i18n'
-import { getMeterUnitFormat } from '@polar-sh/ui/lib/meterUnit'
-import { cn } from '@polar-sh/ui/lib/utils'
+import type { schemas } from '@repalis/client'
+import { DEFAULT_LOCALE, type AcceptedLocale } from '@repalis/i18n'
+import { getMeterUnitFormat } from '@repalis/ui/lib/meterUnit'
+import { cn } from '@repalis/ui/lib/utils'
 import { getStartingUnitAmount, type MeteredPrice } from '../utils/product'
 import MeteredRate from './MeteredRate'
 
@@ -32,7 +32,7 @@ const MeteredPriceLabel: React.FC<MeteredPriceLabelProps> = ({
       />
       <span
         className={cn(
-          'dark:text-polar-400 text-[max(12px,0.5em)] text-gray-500',
+          'dark:text-repalis-400 text-[max(12px,0.5em)] text-gray-500',
           price.meter.unit === 'custom' ? 'lowercase' : '',
         )}
       >

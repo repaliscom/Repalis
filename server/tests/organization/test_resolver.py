@@ -1,12 +1,12 @@
 import pytest
 from pydantic import UUID4, BaseModel
 
-from polar.auth.models import AuthSubject
-from polar.exceptions import PolarRequestValidationError
-from polar.models import Agent, Organization, User, UserOrganization
-from polar.models.user_organization import OrganizationRole
-from polar.organization.resolver import get_payload_organization
-from polar.postgres import AsyncSession
+from repalis.auth.models import AuthSubject
+from repalis.exceptions import RepalisRequestValidationError
+from repalis.models import Agent, Organization, User, UserOrganization
+from repalis.models.user_organization import OrganizationRole
+from repalis.organization.resolver import get_payload_organization
+from repalis.postgres import AsyncSession
 from tests.fixtures.auth import AuthSubjectFixture
 from tests.fixtures.database import SaveFixture
 
@@ -43,7 +43,7 @@ class TestGetPayloadOrganization:
     ) -> None:
         assert auth_subject.organization_ids is None
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await get_payload_organization(
                 session, auth_subject, OrganizationIDPayload()
             )
@@ -88,7 +88,7 @@ class TestGetPayloadOrganization:
             {organization.id, organization_second.id}
         )
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await get_payload_organization(
                 session, auth_subject, OrganizationIDPayload()
             )
@@ -108,7 +108,7 @@ class TestGetPayloadOrganization:
             {organization.id, organization_second.id}
         )
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await get_payload_organization(
                 session, auth_subject, OrganizationIDPayload()
             )
@@ -133,7 +133,7 @@ class TestGetPayloadOrganization:
         auth_subject: AuthSubject[Agent],
         organization_second: Organization,
     ) -> None:
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await get_payload_organization(
                 session,
                 auth_subject,

@@ -3,13 +3,13 @@ from collections.abc import AsyncGenerator
 import httpx2
 import pytest
 
-from polar.backoffice.app import app as backoffice_app
-from polar.backoffice.dependencies import get_admin
-from polar.config import settings
-from polar.kit.utils import utc_now
-from polar.models import BackofficeUserSession, File, Organization
-from polar.models.file import FileServiceTypes
-from polar.postgres import AsyncSession, get_db_read_session, get_db_session
+from repalis.backoffice.app import app as backoffice_app
+from repalis.backoffice.dependencies import get_admin
+from repalis.config import settings
+from repalis.kit.utils import utc_now
+from repalis.models import BackofficeUserSession, File, Organization
+from repalis.models.file import FileServiceTypes
+from repalis.postgres import AsyncSession, get_db_read_session, get_db_session
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_support_case_attachment_file
 

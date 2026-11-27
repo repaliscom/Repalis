@@ -3,9 +3,9 @@ from uuid import UUID
 import pytest
 from sqlalchemy import func, select
 
-from polar.enums import SubscriptionProrationBehavior, SubscriptionRecurringInterval
-from polar.kit.db.postgres import AsyncSession
-from polar.models import (
+from repalis.enums import SubscriptionProrationBehavior, SubscriptionRecurringInterval
+from repalis.kit.db.postgres import AsyncSession
+from repalis.models import (
     Account,
     BenefitGrant,
     BillingEntry,
@@ -30,14 +30,14 @@ from polar.models import (
     TrialRedemption,
     User,
 )
-from polar.models.benefit import BenefitType
-from polar.models.billing_entry import BillingEntryType
-from polar.models.customer import CustomerType
-from polar.models.customer_seat import SeatStatus
-from polar.models.discount import DiscountDuration, DiscountType
-from polar.models.downloadable import DownloadableStatus
-from polar.models.file import FileServiceTypes
-from polar.models.member import MemberRole
+from repalis.models.benefit import BenefitType
+from repalis.models.billing_entry import BillingEntryType
+from repalis.models.customer import CustomerType
+from repalis.models.customer_seat import SeatStatus
+from repalis.models.discount import DiscountDuration, DiscountType
+from repalis.models.downloadable import DownloadableStatus
+from repalis.models.file import FileServiceTypes
+from repalis.models.member import MemberRole
 from scripts.transfer_products_between_organizations import (
     CustomerSplitError,
     MixedOrganizationError,
@@ -960,7 +960,7 @@ class TestProductTransferService:
         )
 
         # Create a discount using the helper function
-        from polar.models.discount import DiscountDuration, DiscountType
+        from repalis.models.discount import DiscountDuration, DiscountType
 
         discount = await create_discount(
             save_fixture,

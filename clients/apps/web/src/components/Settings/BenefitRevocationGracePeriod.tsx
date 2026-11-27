@@ -5,7 +5,7 @@ import {
   SelectContent,
   SelectItem,
   SelectTrigger,
-} from '@polar-sh/orbit'
+} from '@repalis/orbit'
 
 const BENEFIT_REVOCATION_GRACE_PERIOD_LABELS: Record<number, string> = {
   0: 'Immediately',

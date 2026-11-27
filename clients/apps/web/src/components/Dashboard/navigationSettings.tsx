@@ -3,7 +3,7 @@ import {
   SettingsSection,
   SettingsSectionSlug,
 } from '@/components/Settings/settingsSections'
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 import {
   CircleUserRound,
   CodeXml,
@@ -25,7 +25,7 @@ import {
   Users,
   Wallet,
   Bell,
-} from '@polar-sh/orbit/icons'
+} from '@repalis/orbit/icons'
 import { useMemo } from 'react'
 import { Route, RouteWithActive, useResolveRoutes } from './navigation'
 

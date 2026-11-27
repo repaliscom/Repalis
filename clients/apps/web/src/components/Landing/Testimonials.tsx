@@ -1,5 +1,5 @@
-import { Avatar, Grid, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { Avatar, Grid, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import Link from 'next/link'
 import { ReactNode } from 'react'
 
@@ -18,7 +18,7 @@ const TESTIMONIALS: Testimonial[] = [
     company: 'Vercel',
     avatar: '/assets/landing/testamonials/rauch.jpg',
     quote: [
-      'The speed at which Polar is executing on the financial infrastructure primitives the new world needs is very impressive.',
+      'The speed at which Repalis is executing on the financial infrastructure primitives the new world needs is very impressive.',
     ],
   },
   {
@@ -27,7 +27,7 @@ const TESTIMONIALS: Testimonial[] = [
     company: 'Stilla AI',
     avatar: '/assets/landing/testamonials/siavash.jpg',
     quote: [
-      "Polar's Python SDK and Webhook infrastructure made our billing integration straightforward.",
+      "Repalis's Python SDK and Webhook infrastructure made our billing integration straightforward.",
       'It gave us production-ready billing in hours, not weeks.',
       "It's rare to find a vendor that moves this fast.",
     ],
@@ -38,7 +38,7 @@ const TESTIMONIALS: Testimonial[] = [
     company: 'Superlogical',
     avatar: '/assets/landing/testamonials/mitchell.jpg',
     quote: [
-      "I've joined Polar as an advisor!",
+      "I've joined Repalis as an advisor!",
       "I think it benefits everyone for devs to have more options to get paid to work on their passions, to support upstreams, and for users to have more confidence/transparency in the software they're supporting/purchasing.",
     ],
   },
@@ -48,7 +48,7 @@ const TESTIMONIALS: Testimonial[] = [
     company: 'FastAPI',
     avatar: '/assets/landing/testamonials/sebastian.jpg',
     quote: [
-      'Polar has been giving us the high attention support of a startup, with an enterprise-level product and service.',
+      'Repalis has been giving us the high attention support of a startup, with an enterprise-level product and service.',
     ],
   },
 ]
@@ -151,7 +151,7 @@ export const Testimonials = () => {
       >
         {rest.map((testimonial) => (
           <QuoteLink key={testimonial.name} testimonial={testimonial}>
-            <figure className="dark:bg-polar-900 dark:hover:bg-polar-800 flex h-full flex-col rounded-xl bg-gray-50 transition-colors hover:bg-gray-100">
+            <figure className="dark:bg-repalis-900 dark:hover:bg-repalis-800 flex h-full flex-col rounded-xl bg-gray-50 transition-colors hover:bg-gray-100">
               <Box
                 flexDirection="column"
                 rowGap="3xl"

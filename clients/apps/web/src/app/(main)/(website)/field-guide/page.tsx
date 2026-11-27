@@ -5,7 +5,7 @@ const title = 'Agent-first Billing: A Field Guide'
 const description =
   'How we’re building the most ambitious metering and billing engine for AI software: billing as code, events, meters, local-first checks, guardrails, credits, entitlements and agents. Now in early access.'
 const image = {
-  url: 'https://polar.sh/assets/field-guide/og.jpg',
+  url: 'https://repalis.com/assets/field-guide/og.jpg',
   width: 1200,
   height: 630,
   alt: title,
@@ -15,15 +15,15 @@ export const metadata: Metadata = {
   title,
   description,
   keywords:
-    'agent-first billing, usage-based billing, metering, ai billing, credits, entitlements, billing as code, polar',
+    'agent-first billing, usage-based billing, metering, ai billing, credits, entitlements, billing as code, repalis',
   alternates: {
-    canonical: 'https://polar.sh/field-guide',
+    canonical: 'https://repalis.com/field-guide',
   },
   openGraph: {
     title,
     description,
-    url: 'https://polar.sh/field-guide',
-    siteName: 'Polar',
+    url: 'https://repalis.com/field-guide',
+    siteName: 'Repalis',
     type: 'website',
     images: [image],
   },

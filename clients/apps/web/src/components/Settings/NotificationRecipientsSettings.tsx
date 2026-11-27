@@ -1,7 +1,7 @@
 'use client'
 
 import { useListNotificationRecipients } from '@/hooks/queries/notifications'
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 import { SettingsGroup, SettingsGroupRow } from './SettingsGroup'
 
 const NotificationRecipientItem = ({
@@ -12,7 +12,7 @@ const NotificationRecipientItem = ({
   return (
     <div className="flex flex-col gap-y-2">
       <span className="font-medium">{recipient.platform} Device</span>
-      <span className="dark:text-polar-500 font-mono text-xs text-gray-500">
+      <span className="dark:text-repalis-500 font-mono text-xs text-gray-500">
         {recipient.expo_push_token}
       </span>
     </div>
@@ -35,7 +35,7 @@ export const NotificationRecipientsSettings = () => {
         })
       ) : (
         <SettingsGroupRow>
-          <p className="dark:text-polar-500 text-sm text-gray-500">
+          <p className="dark:text-repalis-500 text-sm text-gray-500">
             You don&apos;t have any active Notification Recipients.
           </p>
         </SettingsGroupRow>

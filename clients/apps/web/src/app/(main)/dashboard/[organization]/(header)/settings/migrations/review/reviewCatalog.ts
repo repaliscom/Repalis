@@ -49,17 +49,17 @@ export const CATALOG_EMPTY_COPY: Record<
   all_switched: {
     title: 'All subscriptions already switched',
     description:
-      'Every subscription in this migration is already on Polar. Refresh if you have added more since.',
+      'Every subscription in this migration is already on Repalis. Refresh if you have added more since.',
   },
   no_stripe_subscriptions: {
     title: 'Nothing to import',
     description:
-      'We found no subscriptions that can move to Polar. If you have added some since, scan again.',
+      'We found no subscriptions that can move to Repalis. If you have added some since, scan again.',
   },
   subscriptions_on_connected_accounts: {
     title: 'No subscriptions on this account',
     description:
-      "If you bill your customers through connected accounts, those subscriptions can't be migrated automatically. Contact us at support@polar.sh and we'll look at it with you.",
+      "If you bill your customers through connected accounts, those subscriptions can't be migrated automatically. Contact us at support@repalis.com and we'll look at it with you.",
   },
 }
 

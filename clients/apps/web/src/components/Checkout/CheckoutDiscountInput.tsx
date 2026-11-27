@@ -1,22 +1,22 @@
 'use client'
 
 import { useWatch } from 'react-hook-form'
-import { useCheckoutForm } from '@polar-sh/checkout/providers'
-import type { schemas } from '@polar-sh/client'
+import { useCheckoutForm } from '@repalis/checkout/providers'
+import type { schemas } from '@repalis/client'
 import {
   DEFAULT_LOCALE,
   useTranslations,
   type AcceptedLocale,
-} from '@polar-sh/i18n'
-import { Button } from '@polar-sh/orbit'
-import { Input } from '@polar-sh/orbit'
+} from '@repalis/i18n'
+import { Button } from '@repalis/orbit'
+import { Input } from '@repalis/orbit'
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormMessage,
-} from '@polar-sh/ui/components/ui/form'
+} from '@repalis/ui/components/ui/form'
 import { useCallback, useId, useState } from 'react'
 
 const XIcon = ({ className }: { className?: string }) => {
@@ -113,7 +113,7 @@ export const CheckoutDiscountInput = ({
             className="flex flex-row items-center justify-between text-sm"
           >
             <span>{t('checkout.form.discountCode')}</span>
-            <span className="dark:text-polar-500 text-xs text-gray-500">
+            <span className="dark:text-repalis-500 text-xs text-gray-500">
               {t('checkout.form.optional')}
             </span>
           </label>

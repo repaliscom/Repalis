@@ -1,4 +1,4 @@
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 
 const MONTHS_PER_INTERVAL: Record<schemas['RecurringInterval'], number> = {
   day: 12 / 365,

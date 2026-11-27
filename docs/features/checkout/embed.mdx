@@ -4,7 +4,7 @@ sidebarTitle: "Embedded Checkout"
 description: "Embed our checkout directly on your site"
 ---
 
-<img src="https://polar.sh/docs/assets/features/checkout/embed/demo.png" />
+<img src="https://repalis.com/docs/assets/features/checkout/embed/demo.png" />
 
 You can either copy and paste our code snippet to get up and running in a second or use our JavaScript library for more advanced integrations. Our embedded checkout allows you to provide a seamless purchasing experience without redirecting users away from your site.
 
@@ -19,8 +19,8 @@ The snippet looks like this:
 ```typescript
 <a
   href="__CHECKOUT_LINK__"
-  data-polar-checkout
-  data-polar-checkout-theme="light"
+  data-repalis-checkout
+  data-repalis-checkout-theme="light"
 >
   Purchase
 </a>
@@ -28,13 +28,13 @@ The snippet looks like this:
 <script
   defer
   data-auto-init
-  src="https://cdn.jsdelivr.net/npm/@polar-sh/checkout@latest/dist/embed.global.js"
+  src="https://cdn.jsdelivr.net/npm/@repalis/checkout@latest/dist/embed.global.js"
 ></script>
 ```
 
 This will display a `Purchase` link which will open an inline checkout when clicked.
 
-You can style the trigger element any way you want, as long as you keep the `data-polar-checkout` attribute.
+You can style the trigger element any way you want, as long as you keep the `data-repalis-checkout` attribute.
 
 ## Import Library
 
@@ -42,34 +42,34 @@ If you have a more advanced project in JavaScript, like a React app, adding the 
 
 <CodeGroup>
   ```bash npm
-  npm install @polar-sh/checkout
+  npm install @repalis/checkout
   ```
   ```bash pnpm
-  pnpm add @polar-sh/checkout
+  pnpm add @repalis/checkout
   ```
   ```bash yarn
-  yarn add @polar-sh/checkout
+  yarn add @repalis/checkout
   ```
 </CodeGroup>
 
-Then, you should import the `PolarEmbedCheckout` helper class and manually call `PolarEmbedCheckout.init()`. This will add the required handlers on elements having the `data-polar-checkout` attribute.
+Then, you should import the `RepalisEmbedCheckout` helper class and manually call `RepalisEmbedCheckout.init()`. This will add the required handlers on elements having the `data-repalis-checkout` attribute.
 
 Here is an example in React:
 
 ```ts
-import { PolarEmbedCheckout } from '@polar-sh/checkout/embed'
+import { RepalisEmbedCheckout } from '@repalis/checkout/embed'
 import { useEffect } from 'react'
 
 const PurchaseLink = () => {
   useEffect(() => {
-    PolarEmbedCheckout.init()
+    RepalisEmbedCheckout.init()
   }, [])
 
   return (
     <a
       href="__CHECKOUT_LINK__"
-      data-polar-checkout
-      data-polar-checkout-theme="light"
+      data-repalis-checkout
+      data-repalis-checkout-theme="light"
     >
       Purchase
     </a>
@@ -88,13 +88,13 @@ For this to work, make sure to set the [`embed_origin`](/api-reference/current/c
 
 ## Embed Hosts
 
-List the hosts allowed to embed your checkout under [**Settings → Embedding**](https://polar.sh/to/dashboard/settings/embedding). An embedded checkout only opens on a host you've listed, and the browser refuses to frame it anywhere else.
+List the hosts allowed to embed your checkout under [**Settings → Embedding**](https://repalis.com/to/dashboard/settings/embedding). An embedded checkout only opens on a host you've listed, and the browser refuses to frame it anywhere else.
 
 After a payment, the checkout sends your page a message carrying a session token for your customer. The allowlist is how we know that page is yours.
 
 The same list also applies to the [Embedded Payment Method](/features/checkout/embed-payment-method#embed-hosts).
 
-When you verify a domain under [**Settings → Domains**](https://polar.sh/to/dashboard/settings/domains), Polar adds it to the list along with its subdomains, as `example.com` and `*.example.com`. Remove either entry if you don't want it.
+When you verify a domain under [**Settings → Domains**](https://repalis.com/to/dashboard/settings/domains), Repalis adds it to the list along with its subdomains, as `example.com` and `*.example.com`. Remove either entry if you don't want it.
 
 ### Writing a host
 
@@ -123,20 +123,20 @@ If your site is served over plain HTTP on a public domain, move it to HTTPS befo
 
 ### When the embed stays blank
 
-Open your browser console on the page doing the embedding. A message naming `frame-ancestors` means the host isn't on your list. Add it under [**Settings → Embedding**](https://polar.sh/to/dashboard/settings/embedding) — the list applies as soon as you save.
+Open your browser console on the page doing the embedding. A message naming `frame-ancestors` means the host isn't on your list. Add it under [**Settings → Embedding**](https://repalis.com/to/dashboard/settings/embedding) — the list applies as soon as you save.
 
 When embedding a checkout link from an unsupported host, the same `frame-ancestors` error message will show up as an API error. This error is also fixed by adding the host under Settings.
 
 ## Advanced Integration
 
-For users who need more control over the embedded checkout flow, the `PolarEmbedCheckout` class provides several advanced features.
+For users who need more control over the embedded checkout flow, the `RepalisEmbedCheckout` class provides several advanced features.
 
 ### Programmatically creating an embed
 
-Instead of using declarative triggers with `data-polar-checkout` attributes, you can programmatically create and control checkout instances:
+Instead of using declarative triggers with `data-repalis-checkout` attributes, you can programmatically create and control checkout instances:
 
 ```ts
-import { PolarEmbedCheckout } from "@polar-sh/checkout/embed";
+import { RepalisEmbedCheckout } from "@repalis/checkout/embed";
 
 // Open checkout programmatically when needed
 const openCheckout = async () => {
@@ -146,7 +146,7 @@ const openCheckout = async () => {
   try {
     // This creates the checkout iframe and returns a Promise
     // that resolves when the checkout is fully loaded
-    const checkout = await PolarEmbedCheckout.create(checkoutLink, {
+    const checkout = await RepalisEmbedCheckout.create(checkoutLink, {
       theme,
     });
 
@@ -168,10 +168,10 @@ document.getElementById("buy-button").addEventListener("click", () => {
 You can listen for checkout events to respond to user interactions. For the `loaded` event, we recommend using the `onLoaded` callback in the `create` method to ensure it's always executed, even if the checkout loads very quickly.
 
 ```ts
-import { PolarEmbedCheckout } from "@polar-sh/checkout/embed";
+import { RepalisEmbedCheckout } from "@repalis/checkout/embed";
 
 const openCheckoutWithEvents = async () => {
-  const checkout = await PolarEmbedCheckout.create("__CHECKOUT_LINK__", {
+  const checkout = await RepalisEmbedCheckout.create("__CHECKOUT_LINK__", {
     onLoaded: (event) => {
       console.log("Checkout loaded");
     },
@@ -216,7 +216,7 @@ const openCheckoutWithEvents = async () => {
 Here's a more complete React example that handles checkout events:
 
 ```ts
-import { PolarEmbedCheckout } from '@polar-sh/checkout/embed'
+import { RepalisEmbedCheckout } from '@repalis/checkout/embed'
 import { useState, useEffect } from 'react'
 
 const CheckoutButton = () => {
@@ -233,7 +233,7 @@ const CheckoutButton = () => {
 
   const handleCheckout = async () => {
       try {
-        const checkout = await PolarEmbedCheckout.create(
+        const checkout = await RepalisEmbedCheckout.create(
           '__CHECKOUT_LINK__',
           {
             theme: 'light',
@@ -283,13 +283,13 @@ export default CheckoutButton
 In some cases, you might need to programmatically close the checkout - for instance, if you detect that a user needs to take an action elsewhere in your application first:
 
 ```ts
-import { PolarEmbedCheckout } from "@polar-sh/checkout/embed";
+import { RepalisEmbedCheckout } from "@repalis/checkout/embed";
 
 // Example: open checkout and store the instance
 let activeCheckout = null;
 
 async function openCheckout() {
-  const checkout = await PolarEmbedCheckout.create("__CHECKOUT_LINK__");
+  const checkout = await RepalisEmbedCheckout.create("__CHECKOUT_LINK__");
   activeCheckout = checkout;
   return checkout;
 }
@@ -324,9 +324,9 @@ document
 
 ## Enable wallets in Embedded Checkout
 
-[Wallet payment methods](/features/checkout/payment-methods#cards-and-wallets), such as Apple Pay and Google Pay, are not enabled by default when you embed checkout on your website. For security reasons, your website domain must be validated first. This applies to Embedded Checkout only — on Polar's hosted checkout, wallets work out of the box with nothing to configure.
+[Wallet payment methods](/features/checkout/payment-methods#cards-and-wallets), such as Apple Pay and Google Pay, are not enabled by default when you embed checkout on your website. For security reasons, your website domain must be validated first. This applies to Embedded Checkout only — on Repalis's hosted checkout, wallets work out of the box with nothing to configure.
 
-To enable wallet payment methods, [email us](mailto:support@polar.sh) with:
+To enable wallet payment methods, [email us](mailto:support@repalis.com) with:
 
 - Your organization slug
 - The domain you wish to allow for wallet payments

@@ -2,7 +2,7 @@ import { OrganizationPermission } from '@/hooks/queries/roles'
 
 const GENERIC_DENIED_MESSAGE = "You don't have permission to view this."
 
-// Mirrors `PERMISSION_DENIED_MESSAGE` in server/polar/auth/permission.py.
+// Mirrors `PERMISSION_DENIED_MESSAGE` in server/repalis/auth/permission.py.
 // Deliberately partial: permissions arrive from the API, so a backend deployed
 // ahead of this build can name one that isn't here yet.
 const MESSAGES: Partial<Record<OrganizationPermission, string>> = {
@@ -29,6 +29,6 @@ export const permissionDeniedMessage = (
   permission: OrganizationPermission,
 ): string => MESSAGES[permission] ?? GENERIC_DENIED_MESSAGE
 
-// Mirrors `ConfigAsCodeManaged` in server/polar/declarative_config/guard.py.
+// Mirrors `ConfigAsCodeManaged` in server/repalis/declarative_config/guard.py.
 export const MANAGED_AS_CODE_MESSAGE =
-  'This organization manages its catalog as code. Change your config and run `polar config apply`.'
+  'This organization manages its catalog as code. Change your config and run `repalis config apply`.'

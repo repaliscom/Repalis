@@ -4,7 +4,7 @@ import { afterAll, beforeAll, bench, describe } from "vitest";
 
 import { BUCKET_COUNTS, REDUCER, SNAPSHOT, encodeState } from "./benchmark";
 import { Outpost } from "./client";
-import { startPolarServer, startRedisServer, type PolarServer, type RedisServer } from "./testing";
+import { startRepalisServer, startRedisServer, type RepalisServer, type RedisServer } from "./testing";
 
 const customerOf = (buckets: number) => `alice-${buckets}`;
 const meterOf = (buckets: number) => ({
@@ -16,7 +16,7 @@ const consumedOf = (buckets: number) =>
   SNAPSHOT.sum + 100 * buckets + (buckets * (buckets - 1)) / 2;
 
 let redisServer: RedisServer;
-let polar: PolarServer;
+let repalis: RepalisServer;
 let outpost: Outpost;
 
 beforeAll(async () => {
@@ -30,8 +30,8 @@ beforeAll(async () => {
       ...encodeState(buckets),
     );
   redis.disconnect();
-  polar = await startPolarServer([REDUCER], SNAPSHOT);
-  outpost = await new Outpost(redisServer.socket, { client: polar.client }).start();
+  repalis = await startRepalisServer([REDUCER], SNAPSHOT);
+  outpost = await new Outpost(redisServer.socket, { client: repalis.client }).start();
   for (const buckets of BUCKET_COUNTS) {
     await outpost.actor({ external_customer_id: customerOf(buckets) });
     if ((await outpost.meter(meterOf(buckets)))?.consumed_units !== consumedOf(buckets))
@@ -41,7 +41,7 @@ beforeAll(async () => {
 
 afterAll(async () => {
   await outpost?.close();
-  await polar?.stop();
+  await repalis?.stop();
   await redisServer?.stop();
 });
 

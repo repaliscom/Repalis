@@ -1,16 +1,16 @@
-import { listBenefitGrants as listBenefitGrantsCustomerPortal } from '@polar-sh/sdk/2026-10/services/customer_portal/benefit_grants'
-import { listCustomerMeters as listCustomerMetersCustomerPortal } from '@polar-sh/sdk/2026-10/services/customer_portal/customer_meters'
-import { listSubscriptions as listSubscriptionsCustomerPortal } from '@polar-sh/sdk/2026-10/services/customer_portal/subscriptions'
-import { getStateExternalCustomers } from '@polar-sh/sdk/2026-10/services/customers'
-import { listOrders as listOrdersCustomerPortal } from '@polar-sh/sdk/2026-10/services/customer_portal/orders'
-import { createCustomerSessions } from '@polar-sh/sdk/2026-10/services/customer_sessions'
-import { listSubscriptions } from '@polar-sh/sdk/2026-10/services/subscriptions'
-import type { models, PolarCore } from '@polar-sh/sdk/2026-10'
+import { listBenefitGrants as listBenefitGrantsCustomerPortal } from '@repalis/sdk/2026-10/services/customer_portal/benefit_grants'
+import { listCustomerMeters as listCustomerMetersCustomerPortal } from '@repalis/sdk/2026-10/services/customer_portal/customer_meters'
+import { listSubscriptions as listSubscriptionsCustomerPortal } from '@repalis/sdk/2026-10/services/customer_portal/subscriptions'
+import { getStateExternalCustomers } from '@repalis/sdk/2026-10/services/customers'
+import { listOrders as listOrdersCustomerPortal } from '@repalis/sdk/2026-10/services/customer_portal/orders'
+import { createCustomerSessions } from '@repalis/sdk/2026-10/services/customer_sessions'
+import { listSubscriptions } from '@repalis/sdk/2026-10/services/subscriptions'
+import type { models, RepalisCore } from '@repalis/sdk/2026-10'
 import { APIError } from 'better-auth/api'
 import { createAuthEndpoint, sessionMiddleware } from 'better-auth/api'
 import * as z from 'zod/v4'
 import { resolveBillingPrincipal } from '../principal'
-import type { PolarOptions } from '../types'
+import type { RepalisOptions } from '../types'
 
 const OrganizationQuery = z.object({
   organizationId: z.string().min(1).optional(),
@@ -27,8 +27,8 @@ export interface PortalConfig {
 export const portal =
   ({ returnUrl, theme }: PortalConfig = {}) =>
   (
-    polar: PolarCore,
-    rootOptions?: Pick<PolarOptions, 'experimental_organizationSync'>,
+    repalis: RepalisCore,
+    rootOptions?: Pick<RepalisOptions, 'experimental_organizationSync'>,
   ) => {
     const retUrl = returnUrl ? new URL(returnUrl) : undefined
 
@@ -70,7 +70,7 @@ export const portal =
             : undefined
 
           try {
-            const customerSession = await createCustomerSessions(polar)({
+            const customerSession = await createCustomerSessions(repalis)({
               external_customer_id:
                 principal?.externalCustomerId ?? ctx.context.session.user.id,
               ...(principal?.kind === 'team'
@@ -92,7 +92,7 @@ export const portal =
           } catch (e: unknown) {
             if (e instanceof Error) {
               ctx.context.logger.error(
-                `Polar customer portal creation failed. Error: ${e.message}`,
+                `Repalis customer portal creation failed. Error: ${e.message}`,
               )
             }
 
@@ -129,14 +129,14 @@ export const portal =
 
           try {
             const state: models.CustomerState = await getStateExternalCustomers(
-              polar,
+              repalis,
             )(principal?.externalCustomerId ?? ctx.context.session.user.id)
 
             return ctx.json(state)
           } catch (e: unknown) {
             if (e instanceof Error) {
               ctx.context.logger.error(
-                `Polar subscriptions list failed. Error: ${e.message}`,
+                `Repalis subscriptions list failed. Error: ${e.message}`,
               )
             }
 
@@ -178,7 +178,7 @@ export const portal =
             : undefined
 
           try {
-            const customerSession = await createCustomerSessions(polar)({
+            const customerSession = await createCustomerSessions(repalis)({
               external_customer_id:
                 principal?.externalCustomerId ?? ctx.context.session.user.id,
               ...(principal?.kind === 'team'
@@ -187,7 +187,7 @@ export const portal =
             })
 
             const benefits: models.ListResourceCustomerBenefitGrant =
-              await listBenefitGrantsCustomerPortal(polar)(
+              await listBenefitGrantsCustomerPortal(repalis)(
                 {
                   page: ctx.query?.page,
                   limit: ctx.query?.limit,
@@ -199,7 +199,7 @@ export const portal =
           } catch (e: unknown) {
             if (e instanceof Error) {
               ctx.context.logger.error(
-                `Polar benefits list failed. Error: ${e.message}`,
+                `Repalis benefits list failed. Error: ${e.message}`,
               )
             }
 
@@ -251,7 +251,7 @@ export const portal =
           if (ctx.query?.reference_id) {
             try {
               const subscriptions: models.ListResourceSubscription =
-                await listSubscriptions(polar)({
+                await listSubscriptions(repalis)({
                   page: ctx.query?.page,
                   limit: ctx.query?.limit,
                   active: ctx.query?.active,
@@ -265,7 +265,7 @@ export const portal =
               console.log(e)
               if (e instanceof Error) {
                 ctx.context.logger.error(
-                  `Polar subscriptions list with reference_id failed. Error: ${e.message}`,
+                  `Repalis subscriptions list with reference_id failed. Error: ${e.message}`,
                 )
               }
 
@@ -276,7 +276,7 @@ export const portal =
           }
 
           try {
-            const customerSession = await createCustomerSessions(polar)({
+            const customerSession = await createCustomerSessions(repalis)({
               external_customer_id:
                 principal?.externalCustomerId ?? ctx.context.session.user.id,
               ...(principal?.kind === 'team'
@@ -285,7 +285,7 @@ export const portal =
             })
 
             const subscriptions: models.ListResourceCustomerSubscription =
-              await listSubscriptionsCustomerPortal(polar)(
+              await listSubscriptionsCustomerPortal(repalis)(
                 {
                   page: ctx.query?.page,
                   limit: ctx.query?.limit,
@@ -298,12 +298,12 @@ export const portal =
           } catch (e: unknown) {
             if (e instanceof Error) {
               ctx.context.logger.error(
-                `Polar subscriptions list failed. Error: ${e.message}`,
+                `Repalis subscriptions list failed. Error: ${e.message}`,
               )
             }
 
             throw new APIError('INTERNAL_SERVER_ERROR', {
-              message: 'Polar subscriptions list failed',
+              message: 'Repalis subscriptions list failed',
             })
           }
         },
@@ -341,7 +341,7 @@ export const portal =
             : undefined
 
           try {
-            const customerSession = await createCustomerSessions(polar)({
+            const customerSession = await createCustomerSessions(repalis)({
               external_customer_id:
                 principal?.externalCustomerId ?? ctx.context.session.user.id,
               ...(principal?.kind === 'team'
@@ -350,7 +350,7 @@ export const portal =
             })
 
             const orders: models.ListResourceCustomerOrder =
-              await listOrdersCustomerPortal(polar)(
+              await listOrdersCustomerPortal(repalis)(
                 {
                   page: ctx.query?.page,
                   limit: ctx.query?.limit,
@@ -363,7 +363,7 @@ export const portal =
           } catch (e: unknown) {
             if (e instanceof Error) {
               ctx.context.logger.error(
-                `Polar orders list failed. Error: ${e.message}`,
+                `Repalis orders list failed. Error: ${e.message}`,
               )
             }
 
@@ -405,7 +405,7 @@ export const portal =
             : undefined
 
           try {
-            const customerSession = await createCustomerSessions(polar)({
+            const customerSession = await createCustomerSessions(repalis)({
               external_customer_id:
                 principal?.externalCustomerId ?? ctx.context.session.user.id,
               ...(principal?.kind === 'team'
@@ -414,7 +414,7 @@ export const portal =
             })
 
             const customerMeters: models.ListResourceCustomerCustomerMeter =
-              await listCustomerMetersCustomerPortal(polar)(
+              await listCustomerMetersCustomerPortal(repalis)(
                 {
                   page: ctx.query?.page,
                   limit: ctx.query?.limit,
@@ -426,7 +426,7 @@ export const portal =
           } catch (e: unknown) {
             if (e instanceof Error) {
               ctx.context.logger.error(
-                `Polar meters list failed. Error: ${e.message}`,
+                `Repalis meters list failed. Error: ${e.message}`,
               )
             }
 

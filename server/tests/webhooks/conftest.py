@@ -2,16 +2,16 @@ from datetime import timedelta
 
 import pytest
 
-from polar.kit.utils import utc_now
-from polar.models import (
+from repalis.kit.utils import utc_now
+from repalis.models import (
     Organization,
     User,
     WebhookDelivery,
     WebhookEndpoint,
     WebhookEvent,
 )
-from polar.models.webhook_endpoint import WebhookEventType, WebhookFormat
-from polar.version import CURRENT_API_VERSION
+from repalis.models.webhook_endpoint import WebhookEventType, WebhookFormat
+from repalis.version import CURRENT_API_VERSION
 from tests.fixtures.database import SaveFixture
 
 

@@ -8,30 +8,30 @@ import pytest
 from pytest_mock import MockerFixture
 from sqlalchemy import delete, func, select, update
 
-from polar.benefit.grant.repository import BenefitGrantRepository
-from polar.benefit.strategies.license_keys.properties import (
+from repalis.benefit.grant.repository import BenefitGrantRepository
+from repalis.benefit.strategies.license_keys.properties import (
     BenefitGrantLicenseKeysProperties,
 )
-from polar.benefit.strategies.license_keys.schemas import (
+from repalis.benefit.strategies.license_keys.schemas import (
     BenefitLicenseKeysCreateProperties,
 )
-from polar.config import settings
-from polar.exceptions import BadRequest, NotPermitted, ResourceNotFound
-from polar.kit.db.postgres import (
+from repalis.config import settings
+from repalis.exceptions import BadRequest, NotPermitted, ResourceNotFound
+from repalis.kit.db.postgres import (
     AsyncSessionMaker,
     create_async_engine,
     create_async_sessionmaker,
 )
-from polar.kit.utils import utc_now
-from polar.license_key.repository import LicenseKeyRepository
-from polar.license_key.schemas import (
+from repalis.kit.utils import utc_now
+from repalis.license_key.repository import LicenseKeyRepository
+from repalis.license_key.schemas import (
     LicenseKeyActivate,
     LicenseKeyUpdate,
     LicenseKeyValidate,
 )
-from polar.license_key.service import RotateNotPermitted
-from polar.license_key.service import license_key as license_key_service
-from polar.models import (
+from repalis.license_key.service import RotateNotPermitted
+from repalis.license_key.service import license_key as license_key_service
+from repalis.models import (
     Account,
     BenefitGrant,
     Customer,
@@ -41,10 +41,10 @@ from polar.models import (
     Product,
     User,
 )
-from polar.models.license_key import LicenseKeyStatus
-from polar.models.webhook_endpoint import WebhookEventType
-from polar.postgres import AsyncSession
-from polar.redis import Redis
+from repalis.models.license_key import LicenseKeyStatus
+from repalis.models.webhook_endpoint import WebhookEventType
+from repalis.postgres import AsyncSession
+from repalis.redis import Redis
 from tests.fixtures.database import SaveFixture, get_database_url, save_fixture_factory
 from tests.fixtures.license_key import TestLicenseKey
 from tests.fixtures.random_objects import (
@@ -368,9 +368,9 @@ class TestUpdate:
         product: Product,
         customer: Customer,
     ) -> None:
-        enqueue_job_mock = mocker.patch("polar.license_key.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.license_key.service.enqueue_job")
         webhook_send_mock = mocker.patch(
-            "polar.license_key.service.webhook_service.send"
+            "repalis.license_key.service.webhook_service.send"
         )
         license_key, grant = await _license_key_and_grant(
             session, redis, save_fixture, customer, organization, product
@@ -406,9 +406,9 @@ class TestUpdate:
         product: Product,
         customer: Customer,
     ) -> None:
-        enqueue_job_mock = mocker.patch("polar.license_key.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.license_key.service.enqueue_job")
         webhook_send_mock = mocker.patch(
-            "polar.license_key.service.webhook_service.send"
+            "repalis.license_key.service.webhook_service.send"
         )
         license_key, grant = await _license_key_and_grant(
             session, redis, save_fixture, customer, organization, product
@@ -441,9 +441,9 @@ class TestUpdate:
         product: Product,
         customer: Customer,
     ) -> None:
-        enqueue_job_mock = mocker.patch("polar.license_key.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.license_key.service.enqueue_job")
         webhook_send_mock = mocker.patch(
-            "polar.license_key.service.webhook_service.send"
+            "repalis.license_key.service.webhook_service.send"
         )
         license_key, grant = await _license_key_and_grant(
             session, redis, save_fixture, customer, organization, product
@@ -475,9 +475,9 @@ class TestUpdate:
         product: Product,
         customer: Customer,
     ) -> None:
-        enqueue_job_mock = mocker.patch("polar.license_key.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.license_key.service.enqueue_job")
         webhook_send_mock = mocker.patch(
-            "polar.license_key.service.webhook_service.send"
+            "repalis.license_key.service.webhook_service.send"
         )
         license_key, grant = await _license_key_and_grant(
             session, redis, save_fixture, customer, organization, product
@@ -512,9 +512,9 @@ class TestRotate:
         product: Product,
         customer: Customer,
     ) -> None:
-        enqueue_job_mock = mocker.patch("polar.license_key.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.license_key.service.enqueue_job")
         webhook_send_mock = mocker.patch(
-            "polar.license_key.service.webhook_service.send"
+            "repalis.license_key.service.webhook_service.send"
         )
         license_key, grant = await _license_key_and_grant(
             session, redis, save_fixture, customer, organization, product

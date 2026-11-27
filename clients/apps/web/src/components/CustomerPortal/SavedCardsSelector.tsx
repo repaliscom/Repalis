@@ -1,8 +1,8 @@
 'use client'
 
-import type { schemas } from '@polar-sh/client'
-import { Button } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import type { schemas } from '@repalis/client'
+import { Button } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import { useState } from 'react'
 import CreditCardBrandIcon from '../CreditCardBrandIcon'
 import {
@@ -84,7 +84,7 @@ export const SavedCardsSelector = ({
                   <CreditCardBrandIcon
                     width="2.5em"
                     brand={card?.brand ?? 'unknown'}
-                    className="dark:border-polar-700 shrink-0 rounded-sm border border-gray-200"
+                    className="dark:border-repalis-700 shrink-0 rounded-sm border border-gray-200"
                   />
                   {`${label}${card?.last4 ? ` •••• ${card.last4}` : ''}`}
                 </Box>

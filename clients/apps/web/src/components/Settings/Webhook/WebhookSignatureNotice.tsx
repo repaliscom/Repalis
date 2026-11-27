@@ -1,9 +1,9 @@
 'use client'
 
 import { shouldShowWebhookSignatureNotice } from '@/utils/webhook/signatureNotice'
-import { Alert } from '@polar-sh/orbit'
+import { Alert } from '@repalis/orbit'
 
-const DOCS_HREF = 'https://polar.sh/docs/integrate/webhooks/delivery'
+const DOCS_HREF = '/docs/integrate/webhooks/delivery'
 
 export const WebhookSignatureNotice = ({
   organizationCreatedAt,

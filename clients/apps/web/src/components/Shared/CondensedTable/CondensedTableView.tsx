@@ -2,8 +2,8 @@
 
 import { FOOTER_HEIGHT } from '@/components/Subscriptions/Gantt/scale'
 import { useInViewport } from '@/hooks/utils'
-import { Spinner, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { Spinner, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import { type RowData } from '@tanstack/react-table'
 import { type ReactNode, useEffect } from 'react'
 import { CondensedTable } from './CondensedTable'

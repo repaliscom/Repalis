@@ -4,17 +4,17 @@ import { Text } from '@/components/Shared/Text'
 import { Touchable } from '@/components/Shared/Touchable'
 import { useTheme } from '@/design-system/useTheme'
 import {
-  Notification as PolarNotification,
+  Notification as RepalisNotification,
   useListNotifications,
   useNotificationsMarkRead,
-} from '@/hooks/polar/notifications'
+} from '@/hooks/repalis/notifications'
 import { FlashList } from '@shopify/flash-list'
 import { setBadgeCountAsync } from 'expo-notifications'
 import { Href, Link, Stack } from 'expo-router'
 import React, { useEffect, useRef } from 'react'
 import { RefreshControl } from 'react-native'
 
-const getNotificationHref = (notification: PolarNotification): Href | null => {
+const getNotificationHref = (notification: RepalisNotification): Href | null => {
   switch (notification.type) {
     case 'MaintainerNewProductSaleNotification':
       return notification.payload.order_id
@@ -32,10 +32,10 @@ const getNotificationHref = (notification: PolarNotification): Href | null => {
   }
 }
 
-const groupNotificationsByDate = (notifications: PolarNotification[]) => {
+const groupNotificationsByDate = (notifications: RepalisNotification[]) => {
   if (!notifications?.length) return []
 
-  const result: (PolarNotification | string)[] = []
+  const result: (RepalisNotification | string)[] = []
   let currentDate: string | null = null
 
   notifications.forEach((notification) => {
@@ -96,7 +96,7 @@ export default function Notifications() {
             </Box>
           )
         }
-        renderItem={({ item }: { item: PolarNotification | string }) => {
+        renderItem={({ item }: { item: RepalisNotification | string }) => {
           if (typeof item === 'string') {
             return (
               <Text paddingBottom="spacing-24" paddingTop="spacing-12">

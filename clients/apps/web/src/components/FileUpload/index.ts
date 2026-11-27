@@ -1,6 +1,6 @@
 'use client'
 
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 import { useRef, useState } from 'react'
 import { Accept, FileRejection, useDropzone } from 'react-dropzone'
 import { FileRead, Upload } from './Upload'

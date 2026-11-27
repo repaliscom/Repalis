@@ -4,7 +4,7 @@ from typing import Annotated, Literal
 
 from pydantic import BaseModel, Field, TypeAdapter
 
-from polar.mcp_event.catalog import MCPEventDefinition
+from repalis.mcp_event.catalog import MCPEventDefinition
 
 
 class Color(StrEnum):

@@ -15,13 +15,13 @@ export interface State {
   coldUntil?: number;
   cold: BucketStatistics;
   buckets: Map<number, BucketStatistics>;
-  // The part of each bucket Polar has not confirmed yet.
+  // The part of each bucket Repalis has not confirmed yet.
   pending: Map<number, BucketStatistics>;
-  // The pull's reset count when Polar last answered for it.
+  // The pull's reset count when Repalis last answered for it.
   confirmedAfterResets?: number;
 }
 
-// A customer's state for one reducer, or `missing` while Polar does not know the customer.
+// A customer's state for one reducer, or `missing` while Repalis does not know the customer.
 export type Read = State | "missing";
 
 export const number = (value: string): number => {
@@ -67,8 +67,8 @@ export const decodeState = (value: string[]): State => {
 export const statisticsOf = ({ aggregation }: Reducer): string =>
   aggregation.func === "avg" ? "sum,count" : aggregation.func;
 
-// Polar's totals cover the cold buckets: the local read adds what Polar has not confirmed in
-// them, and every local event in the buckets Polar has not sealed yet.
+// Repalis's totals cover the cold buckets: the local read adds what Repalis has not confirmed in
+// them, and every local event in the buckets Repalis has not sealed yet.
 export const consumedUnits = (state: State, func: Aggregation["func"]): number => {
   const combined = { ...state.cold };
   for (const [start, statistics] of state.pending)

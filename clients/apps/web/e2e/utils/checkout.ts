@@ -1,4 +1,4 @@
-import type { schemas } from '@polar-sh/client'
+import type { schemas } from '@repalis/client'
 import type { Frame } from 'playwright'
 import { expect } from 'vitest'
 import type { App } from './app'
@@ -71,7 +71,7 @@ export class CheckoutPage {
   private submitButton = () =>
     this.app.page.locator('form button[type="submit"]')
 
-  async fillEmail(email = `e2e+${Date.now()}@polar.sh`): Promise<string> {
+  async fillEmail(email = `e2e+${Date.now()}@repalis.com`): Promise<string> {
     await this.app.fill(
       this.app.page.getByRole('textbox', { name: 'Email' }),
       email,

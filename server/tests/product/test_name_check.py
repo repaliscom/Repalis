@@ -2,7 +2,7 @@ import pytest
 from pydantic_ai.messages import ModelMessage, ModelResponse, ToolCallPart
 from pydantic_ai.models.function import AgentInfo, FunctionModel
 
-from polar.product.name_check import (
+from repalis.product.name_check import (
     check_product_name,
     find_flagged_phrase,
     jev_agent,

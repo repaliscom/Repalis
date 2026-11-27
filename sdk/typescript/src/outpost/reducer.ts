@@ -75,7 +75,7 @@ export const getMatcher = (filter: Filter | FilterClause): EventMatcher => {
   }
   const read = getPropertyReader(filter.property);
   if (filter.operator === "eq" || filter.operator === "ne") {
-    // Like Polar, values of different types are never equal: `true` is not 1.
+    // Like Repalis, values of different types are never equal: `true` is not 1.
     const expected = filter.value;
     const equal = filter.operator === "eq";
     return (event) => {
@@ -85,7 +85,7 @@ export const getMatcher = (filter: Filter | FilterClause): EventMatcher => {
     };
   }
   if (filter.operator === "like" || filter.operator === "not_like") {
-    // Polar compares strings; a number or boolean on either side matches nothing.
+    // Repalis compares strings; a number or boolean on either side matches nothing.
     const expected = filter.value;
     if (typeof expected !== "string") return () => false;
     const contains = filter.operator === "like";
@@ -121,7 +121,7 @@ export const getMatcher = (filter: Filter | FilterClause): EventMatcher => {
   }
 };
 
-// Credit reducers count Polar's system events: no local event matches them.
+// Credit reducers count Repalis's system events: no local event matches them.
 export const withMatchers = (reducers: readonly Reducer[]): ReducerMatchers =>
   reducers
     .filter((reducer) => reducer.kind === "usage")

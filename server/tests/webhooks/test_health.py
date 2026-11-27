@@ -5,11 +5,11 @@ from unittest.mock import MagicMock
 import pytest
 from pytest_mock import MockerFixture
 
-import polar.worker._health as health_module
-from polar.kit.utils import utc_now
-from polar.models import WebhookDelivery, WebhookEndpoint, WebhookEvent
-from polar.models.webhook_endpoint import WebhookEventType
-from polar.postgres import AsyncSession
+import repalis.worker._health as health_module
+from repalis.kit.utils import utc_now
+from repalis.models import WebhookDelivery, WebhookEndpoint, WebhookEvent
+from repalis.models.webhook_endpoint import WebhookEventType
+from repalis.postgres import AsyncSession
 from tests.fixtures.database import SaveFixture
 
 

@@ -2,17 +2,17 @@ import pytest
 from cryptography.exceptions import InvalidTag
 from sqlalchemy import select
 
-from polar.config import settings
-from polar.kit.crypto import get_token_hash
-from polar.kit.encryption import EncryptedString
-from polar.models import OAuth2Client, User
-from polar.postgres import AsyncSession
+from repalis.config import settings
+from repalis.kit.crypto import get_token_hash
+from repalis.kit.encryption import EncryptedString
+from repalis.models import OAuth2Client, User
+from repalis.postgres import AsyncSession
 from tests.fixtures.database import SaveFixture
 
 
 def _build(user: User) -> OAuth2Client:
     client = OAuth2Client(
-        client_id="polar_ci_test",
+        client_id="repalis_ci_test",
         user=user,
     )
     client.id = OAuth2Client.generate_id()
@@ -21,13 +21,13 @@ def _build(user: User) -> OAuth2Client:
 
 class TestHashSecret:
     def test_hashes_with_secret(self) -> None:
-        assert OAuth2Client.hash_secret("polar_cs_test") == get_token_hash(
-            "polar_cs_test"
+        assert OAuth2Client.hash_secret("repalis_cs_test") == get_token_hash(
+            "repalis_cs_test"
         )
 
     def test_is_deterministic(self) -> None:
-        assert OAuth2Client.hash_secret("polar_cs_test") == OAuth2Client.hash_secret(
-            "polar_cs_test"
+        assert OAuth2Client.hash_secret("repalis_cs_test") == OAuth2Client.hash_secret(
+            "repalis_cs_test"
         )
 
     def test_none_returns_none(self) -> None:

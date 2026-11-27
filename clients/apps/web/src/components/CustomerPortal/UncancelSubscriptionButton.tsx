@@ -4,8 +4,8 @@ import { toast } from '@/components/Toast/use-toast'
 import { useCustomerUncancelSubscription } from '@/hooks/queries/customerPortal'
 import { useRequirePaymentMethod } from '@/hooks/useRequirePaymentMethod'
 import { extractApiErrorMessage } from '@/utils/api/errors'
-import type { Client, schemas } from '@polar-sh/client'
-import { Button } from '@polar-sh/orbit'
+import type { Client, schemas } from '@repalis/client'
+import { Button } from '@repalis/orbit'
 
 const UncancelSubscriptionButton = ({
   api,

@@ -7,15 +7,15 @@ import anyio
 import pytest
 from pypdf import PdfReader
 
-from polar.invoice.generator import Invoice, InvoiceItem
-from polar.invoice.render import (
+from repalis.invoice.generator import Invoice, InvoiceItem
+from repalis.invoice.render import (
     InvoiceRenderError,
     InvoiceRenderRequest,
     render_invoice_pdf,
 )
-from polar.kit.address import Address, CountryAlpha2
-from polar.receipt.generator import Receipt
-from polar.receipt.render import render_receipt_pdf
+from repalis.kit.address import Address, CountryAlpha2
+from repalis.receipt.generator import Receipt
+from repalis.receipt.render import render_receipt_pdf
 
 
 @pytest.fixture
@@ -23,9 +23,9 @@ def invoice() -> Invoice:
     return Invoice(
         number="12345",
         date=datetime.datetime(2025, 1, 1, 0, 0, 0, tzinfo=datetime.UTC),
-        seller_name="Polar Software Inc",
+        seller_name="Repalis Software Inc",
         seller_address=Address(
-            line1="123 Polar St",
+            line1="123 Repalis St",
             city="San Francisco",
             state="CA",
             postal_code="94107",

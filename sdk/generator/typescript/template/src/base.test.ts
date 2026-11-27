@@ -1,15 +1,15 @@
 import { afterEach, describe, expect, test, vi } from "vitest";
-import { ClientBase, PolarClientError, PolarNetworkError, resolveBaseUrl } from "./base";
+import { ClientBase, RepalisClientError, RepalisNetworkError, resolveBaseUrl } from "./base";
 
 const servers = {
-  production: "https://api.polar.sh",
-  sandbox: "https://sandbox-api.polar.sh",
+  production: "https://api.repalis.com",
+  sandbox: "https://sandbox-api.repalis.com",
 };
 
 describe("resolveBaseUrl", () => {
   test.each([
-    ["production", undefined, "https://api.polar.sh"],
-    ["sandbox", undefined, "https://sandbox-api.polar.sh"],
+    ["production", undefined, "https://api.repalis.com"],
+    ["sandbox", undefined, "https://sandbox-api.repalis.com"],
     ["invalid", "http://localhost:8000", "http://localhost:8000"],
   ])(
     "resolves %s with override %s",
@@ -26,9 +26,9 @@ describe("resolveBaseUrl", () => {
 });
 
 const client = new ClientBase({
-  baseUrl: "https://api.polar.sh",
+  baseUrl: "https://api.repalis.com",
   version: "2026-04",
-  accessToken: "polar_at_u_xxx",
+  accessToken: "repalis_at_u_xxx",
 });
 
 afterEach(() => {
@@ -41,16 +41,16 @@ describe("sendRequest", () => {
     const timeout = vi.spyOn(AbortSignal, "timeout").mockReturnValue(timeoutSignal);
     const fetch = vi.spyOn(globalThis, "fetch").mockResolvedValue(new Response());
     const client = new ClientBase({
-      baseUrl: "https://api.polar.sh",
+      baseUrl: "https://api.repalis.com",
       version: "{{ (ir.versions[-2] | default({})).version }}",
-      accessToken: "polar_at_u_xxx",
+      accessToken: "repalis_at_u_xxx",
       timeout: 10,
     });
 
-    await client.sendRequest(["https://api.polar.sh/v1/items/", {}]);
+    await client.sendRequest(["https://api.repalis.com/v1/items/", {}]);
 
     expect(timeout).toHaveBeenCalledWith(10_000);
-    expect(fetch).toHaveBeenCalledWith("https://api.polar.sh/v1/items/", {
+    expect(fetch).toHaveBeenCalledWith("https://api.repalis.com/v1/items/", {
       signal: timeoutSignal,
     });
   });
@@ -60,14 +60,14 @@ describe("sendRequest", () => {
     const timeout = vi.spyOn(AbortSignal, "timeout").mockReturnValue(timeoutSignal);
     vi.spyOn(globalThis, "fetch").mockResolvedValue(new Response());
     const client = new ClientBase({
-      baseUrl: "https://api.polar.sh",
+      baseUrl: "https://api.repalis.com",
       version: "{{ (ir.versions[-2] | default({})).version }}",
-      accessToken: "polar_at_u_xxx",
+      accessToken: "repalis_at_u_xxx",
       timeout: 10,
     });
 
     await client.sendRequest(
-      ["https://api.polar.sh/v1/items/", {}],
+      ["https://api.repalis.com/v1/items/", {}],
       { timeout: 30 },
     );
 
@@ -82,19 +82,19 @@ describe("sendRequest", () => {
     const any = vi.spyOn(AbortSignal, "any").mockReturnValue(combinedSignal);
     const fetch = vi.spyOn(globalThis, "fetch").mockResolvedValue(new Response());
     const client = new ClientBase({
-      baseUrl: "https://api.polar.sh",
+      baseUrl: "https://api.repalis.com",
       version: "{{ (ir.versions[-2] | default({})).version }}",
-      accessToken: "polar_at_u_xxx",
+      accessToken: "repalis_at_u_xxx",
       timeout: 10,
     });
 
     await client.sendRequest([
-      "https://api.polar.sh/v1/items/",
+      "https://api.repalis.com/v1/items/",
       { signal: requestSignal },
     ]);
 
     expect(any).toHaveBeenCalledWith([requestSignal, timeoutSignal]);
-    expect(fetch).toHaveBeenCalledWith("https://api.polar.sh/v1/items/", {
+    expect(fetch).toHaveBeenCalledWith("https://api.repalis.com/v1/items/", {
       signal: combinedSignal,
     });
   });
@@ -106,7 +106,7 @@ describe("sendRequest", () => {
 
       await expect(
         client.sendRequest(
-          ["https://api.polar.sh/v1/items/", {}],
+          ["https://api.repalis.com/v1/items/", {}],
           { timeout },
         ),
       ).rejects.toThrow(RangeError);
@@ -117,49 +117,49 @@ describe("sendRequest", () => {
   test("uses a per-request access token override", async () => {
     const fetch = vi.spyOn(globalThis, "fetch").mockResolvedValue(new Response());
     const client = new ClientBase({
-      baseUrl: "https://api.polar.sh",
+      baseUrl: "https://api.repalis.com",
       version: "2026-04",
-      accessToken: "polar_at_u_xxx",
+      accessToken: "repalis_at_u_xxx",
     });
     const headers = new Headers({
-      Authorization: "Bearer polar_at_u_xxx",
+      Authorization: "Bearer repalis_at_u_xxx",
     });
 
     await client.sendRequest(
-      ["https://api.polar.sh/v1/items/", { headers }],
-      { accessToken: "polar_at_u_override" },
+      ["https://api.repalis.com/v1/items/", { headers }],
+      { accessToken: "repalis_at_u_override" },
     );
 
     const requestHeaders = fetch.mock.calls[0][1]?.headers as Headers;
-    expect(requestHeaders.get("Authorization")).toBe("Bearer polar_at_u_override");
+    expect(requestHeaders.get("Authorization")).toBe("Bearer repalis_at_u_override");
   });
 
   test("does not create a timeout signal when no timeout is configured", async () => {
     const client = new ClientBase({
-      baseUrl: "https://api.polar.sh",
+      baseUrl: "https://api.repalis.com",
       version: "{{ (ir.versions[-2] | default({})).version }}",
-      accessToken: "polar_at_u_xxx",
+      accessToken: "repalis_at_u_xxx",
       timeout: undefined,
     });
 
     const timeout = vi.spyOn(AbortSignal, "timeout");
     const fetch = vi.spyOn(globalThis, "fetch").mockResolvedValue(new Response());
 
-    await client.sendRequest(["https://api.polar.sh/v1/items/", {}]);
+    await client.sendRequest(["https://api.repalis.com/v1/items/", {}]);
 
     expect(timeout).not.toHaveBeenCalled();
-    expect(fetch).toHaveBeenCalledWith("https://api.polar.sh/v1/items/", {});
+    expect(fetch).toHaveBeenCalledWith("https://api.repalis.com/v1/items/", {});
   });
 });
 
 describe("buildRequest", () => {
   describe("path params", () => {
     test.each([
-      [{ id: "value" }, "https://api.polar.sh/v1/items/value"],
-      [{ id: 123 }, "https://api.polar.sh/v1/items/123"],
+      [{ id: "value" }, "https://api.repalis.com/v1/items/value"],
+      [{ id: 123 }, "https://api.repalis.com/v1/items/123"],
       [
         { id: "value with spaces" },
-        "https://api.polar.sh/v1/items/value%20with%20spaces",
+        "https://api.repalis.com/v1/items/value%20with%20spaces",
       ],
     ])(
       "builds URL with path params: %p",
@@ -179,7 +179,7 @@ describe("buildRequest", () => {
       dict_param: { key: "value" },
     });
     expect(url).toBe(
-      "https://api.polar.sh/v1/items/?string_param=value&bool_param=true&int_param=42&list_param=a&list_param=b&list_param=c&dict_param%5Bkey%5D=value",
+      "https://api.repalis.com/v1/items/?string_param=value&bool_param=true&int_param=42&list_param=a&list_param=b&list_param=c&dict_param%5Bkey%5D=value",
     );
   });
 
@@ -188,7 +188,7 @@ describe("buildRequest", () => {
       metadata: { reference_id: ["ABC", "DEF"] },
     });
     expect(url).toBe(
-      "https://api.polar.sh/v1/items/?metadata%5Breference_id%5D=ABC&metadata%5Breference_id%5D=DEF",
+      "https://api.repalis.com/v1/items/?metadata%5Breference_id%5D=ABC&metadata%5Breference_id%5D=DEF",
     );
   });
 
@@ -199,14 +199,14 @@ describe("buildRequest", () => {
       { id: "test" },
       { null_param: null, undefined_param: undefined, valid_param: "value" },
     );
-    expect(url).toBe("https://api.polar.sh/v1/items/test?valid_param=value");
+    expect(url).toBe("https://api.repalis.com/v1/items/test?valid_param=value");
   });
 });
 
 describe("organization", () => {
   const organizationHeader = (client: ClientBase) => {
     const [, requestInit] = client.buildRequest("GET", "/v1/items/");
-    return (requestInit.headers as Headers).get("Polar-Organization");
+    return (requestInit.headers as Headers).get("Repalis-Organization");
   };
 
   test("omits the header by default", () => {
@@ -215,9 +215,9 @@ describe("organization", () => {
 
   test("sends the configured organization", () => {
     const client = new ClientBase({
-      baseUrl: "https://api.polar.sh",
+      baseUrl: "https://api.repalis.com",
       version: "2026-04",
-      accessToken: "polar_at_u_xxx",
+      accessToken: "repalis_at_u_xxx",
       organizationId: "org_1",
     });
 
@@ -229,7 +229,7 @@ test("sends the SDK user agent", () => {
   const [, requestInit] = client.buildRequest("GET", "/v1/items/");
 
   expect((requestInit.headers as Headers).get("User-Agent")).toBe(
-    "polar-sdk-typescript/{{ version }}",
+    "repalis-sdk-typescript/{{ version }}",
   );
 });
 
@@ -258,10 +258,10 @@ describe("parseResponse", () => {
         },
       });
       const response = new Response(body, { status });
-      const errors = { 422: class extends PolarClientError {} };
+      const errors = { 422: class extends RepalisClientError {} };
 
       await expect(client.parseResponse(response, responseType, errors)).rejects.toThrow(
-        PolarNetworkError,
+        RepalisNetworkError,
       );
     },
   );

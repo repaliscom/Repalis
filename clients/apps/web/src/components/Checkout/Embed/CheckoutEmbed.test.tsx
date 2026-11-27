@@ -35,7 +35,7 @@ describe('embedded checkout', () => {
       ).toHaveLength(1),
     )
 
-    fireEvent.click(document.getElementById('polar-embed-layout')!)
+    fireEvent.click(document.getElementById('repalis-embed-layout')!)
     await waitFor(() =>
       expect(
         messages.filter((message) => message.event === 'close'),

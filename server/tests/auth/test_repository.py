@@ -3,19 +3,19 @@ from datetime import timedelta
 import pytest
 from pytest_mock import MockerFixture
 
-from polar.auth.repository import (
+from repalis.auth.repository import (
     AuthenticationSessionRepository,
     EmailOTPRepository,
     UserSessionRepository,
 )
-from polar.auth.scope import Scope
-from polar.auth.service import USER_SESSION_TOKEN_PREFIX
-from polar.config import settings
-from polar.kit.crypto import generate_token, get_token_hash
-from polar.kit.hash_secrets import HashSecrets
-from polar.kit.utils import utc_now
-from polar.models import AuthenticationSession, EmailOTP, User, UserSession
-from polar.postgres import AsyncSession
+from repalis.auth.scope import Scope
+from repalis.auth.service import USER_SESSION_TOKEN_PREFIX
+from repalis.config import settings
+from repalis.kit.crypto import generate_token, get_token_hash
+from repalis.kit.hash_secrets import HashSecrets
+from repalis.kit.utils import utc_now
+from repalis.models import AuthenticationSession, EmailOTP, User, UserSession
+from repalis.postgres import AsyncSession
 from tests.fixtures.database import SaveFixture
 
 
@@ -162,7 +162,7 @@ class TestUserSessionRepositoryGetByToken:
         rewrite every hit to the bare legacy digest."""
         secrets = {"k1": "retired", "k2": "current"}
         mocker.patch(
-            "polar.kit.crypto.get_hash_secrets",
+            "repalis.kit.crypto.get_hash_secrets",
             return_value=HashSecrets(secrets, "k1", "legacy"),
         )
         token = generate_token(prefix=USER_SESSION_TOKEN_PREFIX)
@@ -176,7 +176,7 @@ class TestUserSessionRepositoryGetByToken:
         await save_fixture(user_session)
 
         mocker.patch(
-            "polar.kit.crypto.get_hash_secrets",
+            "repalis.kit.crypto.get_hash_secrets",
             return_value=HashSecrets(secrets, "k2", "legacy"),
         )
         repository = UserSessionRepository.from_session(session)

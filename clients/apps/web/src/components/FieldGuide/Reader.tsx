@@ -136,7 +136,7 @@ export default function FieldGuideReader() {
     <main className="flex h-dvh flex-col overflow-hidden bg-[#141414] font-sans text-[13px] text-[#d8d8d8]">
       <style>{READER_CSS}</style>
       <header className="grid h-12 shrink-0 grid-cols-[1fr_auto_1fr] items-center gap-6 px-7">
-        <Link href="/" aria-label="Polar" className="flex text-white">
+        <Link href="/" aria-label="Repalis" className="flex text-white">
           <LogoIcon size={24} />
         </Link>
         <span className="hidden gap-x-3 text-center text-[15px] md:flex">

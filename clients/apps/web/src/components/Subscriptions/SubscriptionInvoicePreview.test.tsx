@@ -1,5 +1,5 @@
 import { useSubscriptionChargePreview } from '@/hooks/queries/subscriptions'
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 import { render } from '@testing-library/react'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import SubscriptionInvoicePreview from './SubscriptionInvoicePreview'

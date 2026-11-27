@@ -3,10 +3,10 @@ import { IconButton, Section } from '@/components/Events/EventDetailPanel'
 import { buildCustomerDashboardPath } from '@/utils/customer'
 import { getDiscountDisplay } from '@/utils/discount'
 import { getSubscriptionActivity } from '@/utils/subscriptionSummary'
-import { schemas } from '@polar-sh/client'
-import { Button, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import { ChevronDown, ChevronUp, X } from '@polar-sh/orbit/icons'
+import { schemas } from '@repalis/client'
+import { Button, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import { ChevronDown, ChevronUp, X } from '@repalis/orbit/icons'
 import { format } from 'date-fns'
 import Link from 'next/link'
 import { useState } from 'react'
@@ -50,7 +50,7 @@ export const SubscriptionDetailPanel = ({
   const activity = getSubscriptionActivity(subscription, now, dunning)
 
   return (
-    <div className="dark:bg-polar-900 dark:border-polar-800 fixed inset-0 z-50 flex flex-col overflow-y-auto bg-white lg:static lg:z-auto lg:w-[400px] lg:shrink-0 lg:rounded-2xl lg:border lg:border-gray-200 lg:shadow-xs">
+    <div className="dark:bg-repalis-900 dark:border-repalis-800 fixed inset-0 z-50 flex flex-col overflow-y-auto bg-white lg:static lg:z-auto lg:w-[400px] lg:shrink-0 lg:rounded-2xl lg:border lg:border-gray-200 lg:shadow-xs">
       <Box
         alignItems="center"
         justifyContent="between"

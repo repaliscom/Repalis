@@ -384,7 +384,7 @@ describe('CheckoutSeatSelector', () => {
 
     it('shows the error message when update rejects', async () => {
       const update = vi.fn().mockRejectedValue({
-        error: 'PolarRequestValidationError',
+        error: 'RepalisRequestValidationError',
         detail: [{ msg: 'Custom seat error', loc: [], type: '', input: 0 }],
       })
       const checkout = createSeatCheckout({ seats: 3 })

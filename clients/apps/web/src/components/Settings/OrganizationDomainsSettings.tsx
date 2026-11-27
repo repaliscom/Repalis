@@ -5,13 +5,13 @@ import {
   useVerifyOrganizationDomain,
 } from '@/hooks/queries'
 import { extractApiErrorMessage } from '@/utils/api/errors'
-import { schemas } from '@polar-sh/client'
-import { Box } from '@polar-sh/orbit/Box'
-import { Button } from '@polar-sh/orbit/Button'
-import { Input } from '@polar-sh/orbit/Input'
-import { Text } from '@polar-sh/orbit/Text'
-import { X } from '@polar-sh/orbit/icons'
-import FormattedDateTime from '@polar-sh/ui/components/atoms/FormattedDateTime'
+import { schemas } from '@repalis/client'
+import { Box } from '@repalis/orbit/Box'
+import { Button } from '@repalis/orbit/Button'
+import { Input } from '@repalis/orbit/Input'
+import { Text } from '@repalis/orbit/Text'
+import { X } from '@repalis/orbit/icons'
+import FormattedDateTime from '@repalis/ui/components/atoms/FormattedDateTime'
 import { useState } from 'react'
 import { toast } from '../Toast/use-toast'
 import { DomainDnsRecord } from './DomainDnsRecord'
@@ -165,7 +165,7 @@ const OrganizationDomainsSettings = ({ organization }: Props) => {
           </Box>
 
           <Text variant="caption" color="muted">
-            Keep the TXT record in place once verified: Polar checks it again
+            Keep the TXT record in place once verified: Repalis checks it again
             during reviews.
           </Text>
         </Box>

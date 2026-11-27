@@ -1,8 +1,8 @@
 from typing import Any
 from uuid import UUID
 
-from polar.backoffice.merchant_migrations.mrr import Money, MrrBreakdown, breakdown
-from polar.merchant_migration.canonical import (
+from repalis.backoffice.merchant_migrations.mrr import Money, MrrBreakdown, breakdown
+from repalis.merchant_migration.canonical import (
     CanonicalCollectionMethod,
     CanonicalPrice,
     CanonicalPricingScheme,
@@ -12,9 +12,9 @@ from polar.merchant_migration.canonical import (
     CanonicalSubscriptionStatus,
     serialize,
 )
-from polar.merchant_migration.repository import CanonicalRow
-from polar.models import MerchantMigration
-from polar.models.merchant_migration_record import (
+from repalis.merchant_migration.repository import CanonicalRow
+from repalis.models import MerchantMigration
+from repalis.models.merchant_migration_record import (
     MerchantMigrationRecordStatus,
     MerchantMigrationRecordType,
 )
@@ -110,7 +110,7 @@ def _breakdown(rows: list[CanonicalRow]) -> MrrBreakdown:
 def _usd(rows: list[CanonicalRow]) -> dict[str, int]:
     result = _breakdown(rows)
     return {
-        "on_polar": result.on_polar.amounts.get("usd", 0),
+        "on_repalis": result.on_repalis.amounts.get("usd", 0),
         "to_move": result.to_move.amounts.get("usd", 0),
         "staying": result.staying.amounts.get("usd", 0),
     }
@@ -126,7 +126,7 @@ class TestBucketing:
             _subscription("sub_4", "price_1", MerchantMigrationRecordStatus.failed),
         ]
 
-        assert _usd(rows) == {"on_polar": 2900, "to_move": 2900, "staying": 5800}
+        assert _usd(rows) == {"on_repalis": 2900, "to_move": 2900, "staying": 5800}
 
     def test_total_is_every_bucket(self) -> None:
         rows = [
@@ -157,7 +157,7 @@ class TestBucketing:
             ),
         ]
 
-        assert _usd(rows)["on_polar"] == 0
+        assert _usd(rows)["on_repalis"] == 0
 
 
 class TestNormalization:
@@ -167,7 +167,7 @@ class TestNormalization:
             _subscription("sub_1", "price_1", MerchantMigrationRecordStatus.imported),
         ]
 
-        assert _usd(rows)["on_polar"] == 1000
+        assert _usd(rows)["on_repalis"] == 1000
 
     def test_a_multi_month_interval_is_divided_by_its_count(self) -> None:
         rows = [
@@ -175,7 +175,7 @@ class TestNormalization:
             _subscription("sub_1", "price_1", MerchantMigrationRecordStatus.imported),
         ]
 
-        assert _usd(rows)["on_polar"] == 3000
+        assert _usd(rows)["on_repalis"] == 3000
 
     def test_a_weekly_price_is_scaled_up_to_a_month(self) -> None:
         rows = [
@@ -184,7 +184,7 @@ class TestNormalization:
         ]
 
         # 30.44 days a month over a 7-day period.
-        assert _usd(rows)["on_polar"] == 4349
+        assert _usd(rows)["on_repalis"] == 4349
 
     def test_quantity_multiplies_the_amount(self) -> None:
         rows = [
@@ -194,7 +194,7 @@ class TestNormalization:
             ),
         ]
 
-        assert _usd(rows)["on_polar"] == 14500
+        assert _usd(rows)["on_repalis"] == 14500
 
     def test_an_add_on_adds_its_units_over_the_plan_interval(self) -> None:
         rows = [
@@ -208,7 +208,7 @@ class TestNormalization:
             ),
         ]
 
-        assert _usd(rows)["on_polar"] == 1400
+        assert _usd(rows)["on_repalis"] == 1400
 
     def test_a_one_off_price_contributes_nothing(self) -> None:
         rows = [
@@ -216,7 +216,7 @@ class TestNormalization:
             _subscription("sub_1", "price_1", MerchantMigrationRecordStatus.imported),
         ]
 
-        assert _usd(rows)["on_polar"] == 0
+        assert _usd(rows)["on_repalis"] == 0
 
 
 class TestExclusions:
@@ -266,7 +266,7 @@ class TestExclusions:
             _subscription("sub_1", "price_1", MerchantMigrationRecordStatus.imported),
         ]
 
-        assert _usd(rows)["on_polar"] == 0
+        assert _usd(rows)["on_repalis"] == 0
 
     def test_a_subscription_whose_product_was_never_staged_is_skipped(self) -> None:
         rows = [
@@ -284,7 +284,7 @@ class TestExclusions:
             _subscription("sub_1", "price_1", MerchantMigrationRecordStatus.imported),
         ]
 
-        assert _usd(rows)["on_polar"] == 2900
+        assert _usd(rows)["on_repalis"] == 2900
 
 
 class TestMultipleCurrencies:
@@ -303,7 +303,7 @@ class TestMultipleCurrencies:
 
         result = _breakdown(rows)
 
-        assert result.on_polar.amounts == {"usd": 2900, "eur": 2500}
+        assert result.on_repalis.amounts == {"usd": 2900, "eur": 2500}
 
     def test_one_source_price_keeps_currency_options_apart(self) -> None:
         rows = [
@@ -325,7 +325,7 @@ class TestMultipleCurrencies:
 
         result = _breakdown(rows)
 
-        assert result.on_polar.amounts == {"usd": 2900, "eur": 2500}
+        assert result.on_repalis.amounts == {"usd": 2900, "eur": 2500}
 
     def test_by_size_puts_the_biggest_currency_first(self) -> None:
         amount = Money({"eur": 100, "usd": 900})
@@ -358,24 +358,24 @@ class TestMoney:
     def test_to_usd_ignores_zero_foreign_amounts(self) -> None:
         assert Money({"usd": 100, "eur": 0}).to_usd({}) == 100
 
-    def test_share_on_polar_weights_by_usd_when_rates_exist(self) -> None:
+    def test_share_on_repalis_weights_by_usd_when_rates_exist(self) -> None:
         breakdown = MrrBreakdown(
-            on_polar=Money({"usd": 1000}),
+            on_repalis=Money({"usd": 1000}),
             to_move=Money({"eur": 1000}),
             staying=Money(),
         )
 
         assert breakdown.migrated_percent == 50
-        assert breakdown.share_on_polar({"eur": 2.0}) == 33
+        assert breakdown.share_on_repalis({"eur": 2.0}) == 33
 
-    def test_share_on_polar_falls_back_without_a_rate(self) -> None:
+    def test_share_on_repalis_falls_back_without_a_rate(self) -> None:
         breakdown = MrrBreakdown(
-            on_polar=Money({"usd": 1000}),
+            on_repalis=Money({"usd": 1000}),
             to_move=Money({"eur": 1000}),
             staying=Money(),
         )
 
-        assert breakdown.share_on_polar({}) == 50
+        assert breakdown.share_on_repalis({}) == 50
 
 
 class TestCanonicalShape:

@@ -1,6 +1,6 @@
 import { useEventNames } from '@/hooks/queries/events'
-import { schemas } from '@polar-sh/client'
-import { Button } from '@polar-sh/orbit/ui/button'
+import { schemas } from '@repalis/client'
+import { Button } from '@repalis/orbit/ui/button'
 import {
   Command,
   CommandEmpty,
@@ -9,13 +9,13 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
-} from '@polar-sh/ui/components/ui/command'
+} from '@repalis/ui/components/ui/command'
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@polar-sh/ui/components/ui/popover'
-import { Check, ChevronsUpDown } from '@polar-sh/orbit/icons'
+} from '@repalis/ui/components/ui/popover'
+import { Check, ChevronsUpDown } from '@repalis/orbit/icons'
 import React, { useCallback, useMemo, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 
@@ -178,7 +178,7 @@ const EventSelect: React.FC<EventSelectProps> = ({
           role="combobox"
           aria-expanded={open}
           className={twMerge(
-            'dark:bg-polar-800 dark:hover:bg-polar-700 dark:hover:border-polar-700 dark:border-polar-700 flex w-full flex-row justify-between gap-x-2 rounded-lg border border-gray-200 bg-white px-3 font-normal shadow-xs transition-colors hover:bg-gray-50 hover:text-black dark:hover:text-white',
+            'dark:bg-repalis-800 dark:hover:bg-repalis-700 dark:hover:border-repalis-700 dark:border-repalis-700 flex w-full flex-row justify-between gap-x-2 rounded-lg border border-gray-200 bg-white px-3 font-normal shadow-xs transition-colors hover:bg-gray-50 hover:text-black dark:hover:text-white',
             className,
           )}
         >

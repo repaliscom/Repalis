@@ -1,8 +1,8 @@
 import { useCreateMeter } from '@/hooks/queries/meters'
 import { setValidationErrors } from '@/utils/api/errors'
-import { isValidationError, schemas } from '@polar-sh/client'
-import { Button, InlineModalHeader, Text } from '@polar-sh/orbit'
-import { Form } from '@polar-sh/ui/components/ui/form'
+import { isValidationError, schemas } from '@repalis/client'
+import { Button, InlineModalHeader, Text } from '@repalis/orbit'
+import { Form } from '@repalis/ui/components/ui/form'
 import { useCallback } from 'react'
 import { useForm, useFormState } from 'react-hook-form'
 import { useToast } from '../Toast/use-toast'
@@ -81,7 +81,7 @@ const CreateMeterModalContent = ({
         </Text>
       </InlineModalHeader>
       <div className="flex flex-col gap-y-6 px-8 pb-10">
-        <div className="dark:text-polar-500 space-y-2 text-sm text-gray-500">
+        <div className="dark:text-repalis-500 space-y-2 text-sm text-gray-500">
           <p>
             Meters are aggregated filters on ingested events. They are used to
             calculate your customer&apos;s usage of whatever you choose to

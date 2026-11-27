@@ -1,8 +1,8 @@
 import { type Filter } from '@/components/Shared/FilterPopover'
 import { useCustomers, useCustomersByIds } from '@/hooks/queries'
 import { useDebouncedCallback } from '@/hooks/utils'
-import { schemas } from '@polar-sh/client'
-import { User } from '@polar-sh/orbit/icons'
+import { schemas } from '@repalis/client'
+import { User } from '@repalis/orbit/icons'
 import { useState } from 'react'
 import { uniqueOptions } from './filterOptions'
 

@@ -5,7 +5,7 @@ import {
   useCondensedTable,
   type CondensedTableInstance,
 } from '@/components/Shared/CondensedTable'
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 import { EventLogCompactRow, eventLogColumns } from './EventLogRow'
 
 type EventLogTable = CondensedTableInstance<schemas['Event']>

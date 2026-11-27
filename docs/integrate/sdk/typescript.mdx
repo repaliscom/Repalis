@@ -5,40 +5,40 @@ icon: js
 description: SDK for JavaScript runtimes (Node.js and Browser)
 ---
 
-The official TypeScript SDK provides a fully typed client for the Polar API.
+The official TypeScript SDK provides a fully typed client for the Repalis API.
 
 ## Installation
 
 <Tabs>
   <Tab title="npm">
     ```bash Terminal
-    npm install @polar-sh/sdk
+    npm install @repalis/sdk
     ```
   </Tab>
   <Tab title="yarn">
     ```bash Terminal
-    yarn add @polar-sh/sdk
+    yarn add @repalis/sdk
     ```
   </Tab>
   <Tab title="pnpm">
     ```bash Terminal
-    pnpm add @polar-sh/sdk
+    pnpm add @repalis/sdk
     ```
   </Tab>
 </Tabs>
 
 ## Quickstart
 
-Create an [organization access token](/integrate/oat) for server-side use, keep it out of browser bundles, store it in `POLAR_ACCESS_TOKEN`, and make your first request:
+Create an [organization access token](/integrate/oat) for server-side use, keep it out of browser bundles, store it in `REPALIS_ACCESS_TOKEN`, and make your first request:
 
 ```typescript icon="square-js" index.js
-import { createPolar } from "@polar-sh/sdk/2026-10";
+import { createRepalis } from "@repalis/sdk/2026-10";
 
-const polar = createPolar({
-  accessToken: process.env.POLAR_ACCESS_TOKEN!,
+const repalis = createRepalis({
+  accessToken: process.env.REPALIS_ACCESS_TOKEN!,
 });
 
-const customerState = await polar.customers.getStateExternal("customer_external_id");
+const customerState = await repalis.customers.getStateExternal("customer_external_id");
 console.log(customerState);
 ```
 
@@ -49,13 +49,13 @@ The import path pins your client to the `2026-10` API version.
 The client uses production by default. Pass `environment: "sandbox"` to use the isolated [sandbox environment](/integrate/sandbox):
 
 ```typescript
-const polar = createPolar({
-  accessToken: process.env.POLAR_ACCESS_TOKEN!,
+const repalis = createRepalis({
+  accessToken: process.env.REPALIS_ACCESS_TOKEN!,
   environment: "sandbox",
 });
 ```
 
-[View the source code on GitHub](https://github.com/polarsource/polar/tree/main/sdk/typescript).
+[View the source code on GitHub](https://github.com/repaliscom/Repalis/tree/main/sdk/typescript).
 
 ## Framework adapters
 
@@ -67,9 +67,9 @@ Implement Checkout & Webhook handlers in few lines of code.
 - [TanStack Start](/integrate/sdk/adapters/tanstack-start)
 
 Adapters for other frameworks are deprecated, use the SDK directly instead.
-The [`polar-integration` skill](https://github.com/polarsource/agent-toolkit/tree/main/skills/polar-integration)
+The [`repalis-integration` skill](https://github.com/repaliscom/agent-toolkit/tree/main/skills/repalis-integration)
 can help you integrate or migrate:
 
 ```bash
-npx skills add https://github.com/polarsource/agent-toolkit --skill polar-integration
+npx skills add https://github.com/repaliscom/agent-toolkit --skill repalis-integration
 ```

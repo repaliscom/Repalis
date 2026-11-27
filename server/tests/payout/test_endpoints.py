@@ -5,11 +5,11 @@ from fastapi import FastAPI
 from httpx2 import AsyncClient
 from pytest_mock import MockerFixture
 
-from polar.models import Organization, Payout, User, UserOrganization
-from polar.models.transaction import TransactionType
-from polar.payout.endpoints import payout_service  # type: ignore[attr-defined]
-from polar.payout.service import PayoutService
-from polar.postgres import AsyncSession, get_db_sessionmaker
+from repalis.models import Organization, Payout, User, UserOrganization
+from repalis.models.transaction import TransactionType
+from repalis.payout.endpoints import payout_service  # type: ignore[attr-defined]
+from repalis.payout.service import PayoutService
+from repalis.postgres import AsyncSession, get_db_sessionmaker
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (
     create_account,

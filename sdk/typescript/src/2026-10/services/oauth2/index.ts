@@ -16,9 +16,9 @@ export const authorizeOauth2 = (client: ClientBase) => {
    *
    * @param requestOptions - Request options
    * @returns {AuthorizeResponseUser | AuthorizeResponseOrganization}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    */
   return async (
     requestOptions?: RequestOptions,
@@ -46,9 +46,9 @@ export const requestTokenOauth2 = (client: ClientBase) => {
    *
    * @param requestOptions - Request options
    * @returns {TokenResponse}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    */
   return async (requestOptions?: RequestOptions): Promise<TokenResponse> => {
     const pathParams = {};
@@ -70,9 +70,9 @@ export const revokeTokenOauth2 = (client: ClientBase) => {
    *
    * @param requestOptions - Request options
    * @returns {RevokeTokenResponse}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    */
   return async (requestOptions?: RequestOptions): Promise<RevokeTokenResponse> => {
     const pathParams = {};
@@ -94,9 +94,9 @@ export const introspectTokenOauth2 = (client: ClientBase) => {
    *
    * @param requestOptions - Request options
    * @returns {IntrospectTokenResponse}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    */
   return async (requestOptions?: RequestOptions): Promise<IntrospectTokenResponse> => {
     const pathParams = {};
@@ -118,9 +118,9 @@ export const userinfoOauth2 = (client: ClientBase) => {
    *
    * @param requestOptions - Request options
    * @returns {UserInfoUser | UserInfoOrganization}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    */
   return async (requestOptions?: RequestOptions): Promise<UserInfoUser | UserInfoOrganization> => {
     const pathParams = {};

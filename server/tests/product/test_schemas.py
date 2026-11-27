@@ -7,11 +7,11 @@ from typing import Any
 import pytest
 from pydantic import TypeAdapter, ValidationError
 
-from polar.enums import SubscriptionRecurringInterval
-from polar.kit.currency import PresentmentCurrency
-from polar.models.product_price import ProductPriceAmountType
-from polar.product.meter_interval import meter_interval_divides_billing_interval
-from polar.product.schemas import (
+from repalis.enums import SubscriptionRecurringInterval
+from repalis.kit.currency import PresentmentCurrency
+from repalis.models.product_price import ProductPriceAmountType
+from repalis.product.meter_interval import meter_interval_divides_billing_interval
+from repalis.product.schemas import (
     LegacyRecurringProductPriceFixed,
     ProductCreate,
     ProductCreateOneTime,
@@ -25,7 +25,7 @@ from polar.product.schemas import (
     ProductPriceSeatTiers,
     ProductPriceUnitBasedCreate,
 )
-from polar.product.tiers import BIGINT_MAX, TiersInput, TierType
+from repalis.product.tiers import BIGINT_MAX, TiersInput, TierType
 from tests.fixtures.random_objects import METER_ID
 
 # PostgreSQL int4 range limit

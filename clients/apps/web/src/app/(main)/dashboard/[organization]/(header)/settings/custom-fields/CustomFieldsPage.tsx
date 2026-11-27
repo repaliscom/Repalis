@@ -5,27 +5,27 @@ import CustomFieldTypeLabel from '@/components/CustomFields/CustomFieldTypeLabel
 import UpdateCustomFieldModalContent from '@/components/CustomFields/UpdateCustomFieldModalContent'
 import { ManagedAsCodeBadge } from '@/components/Dashboard/ManagedAsCodeBadge'
 import { DashboardBody } from '@/components/Layout/DashboardLayout'
-import { InlineModal } from '@polar-sh/orbit'
+import { InlineModal } from '@repalis/orbit'
 import { toast } from '@/components/Toast/use-toast'
 import { useIsManagedAsCode } from '@/hooks/permissions'
 import { useCustomFields, useDeleteCustomField } from '@/hooks/queries'
 import { useDataTableQueryState } from '@/hooks/useDataTableQueryState'
 import { extractApiErrorMessage } from '@/utils/api/errors'
 import { getAPIParams } from '@/utils/datatable'
-import { MoreVertOutlined } from '@polar-sh/orbit/icons'
-import { enums, schemas } from '@polar-sh/client'
-import { Button, Truncated } from '@polar-sh/orbit'
+import { MoreVertOutlined } from '@repalis/orbit/icons'
+import { enums, schemas } from '@repalis/client'
+import { Button, Truncated } from '@repalis/orbit'
 import {
   DataTable,
   DataTableColumnDef,
   DataTableColumnHeader,
-} from '@polar-sh/orbit'
+} from '@repalis/orbit'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@polar-sh/ui/components/ui/dropdown-menu'
+} from '@repalis/ui/components/ui/dropdown-menu'
 import { parseAsStringLiteral, useQueryStates } from 'nuqs'
 import React, { useCallback, useState } from 'react'
 
@@ -141,7 +141,7 @@ const ClientPage: React.FC<ClientPageProps> = ({ organization }) => {
             </DropdownMenuTrigger>
             <DropdownMenuContent
               align="end"
-              className="dark:bg-polar-800 bg-gray-50 shadow-lg"
+              className="dark:bg-repalis-800 bg-gray-50 shadow-lg"
             >
               <DropdownMenuItem
                 onClick={() => onCustomFieldSelected(customField)}

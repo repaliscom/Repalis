@@ -20,9 +20,9 @@ import {
   productPriceToFormPrice,
 } from '@/utils/product'
 import { usePushRouteWithoutCache } from '@/utils/router'
-import { isValidationError, schemas } from '@polar-sh/client'
-import { Button } from '@polar-sh/orbit'
-import { Form } from '@polar-sh/ui/components/ui/form'
+import { isValidationError, schemas } from '@repalis/client'
+import { Button } from '@repalis/orbit'
+import { Form } from '@repalis/ui/components/ui/form'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import type { FieldErrors } from 'react-hook-form'
 import { useForm, useFormState } from 'react-hook-form'
@@ -244,7 +244,7 @@ export const EditProductPage = ({
         </Button>
       }
     >
-      <div className="dark:border-polar-700 dark:divide-polar-700 flex flex-col divide-y divide-gray-200 rounded-4xl border border-gray-200">
+      <div className="dark:border-repalis-700 dark:divide-repalis-700 flex flex-col divide-y divide-gray-200 rounded-4xl border border-gray-200">
         <Form {...form}>
           <form
             onSubmit={handleSubmit(onSubmit, onInvalid)}

@@ -27,10 +27,10 @@ import typer
 from rich.console import Console
 from sqlalchemy import ColumnElement, ScalarSelect, Select, Update, func, select, update
 
-from polar.kit.db.postgres import create_async_sessionmaker
-from polar.models import Customer, PaymentMethod, Subscription
-from polar.models.subscription import SubscriptionStatus
-from polar.postgres import create_async_engine
+from repalis.kit.db.postgres import create_async_sessionmaker
+from repalis.models import Customer, PaymentMethod, Subscription
+from repalis.models.subscription import SubscriptionStatus
+from repalis.postgres import create_async_engine
 from scripts.helper import (
     configure_script_console_logging,
     limit_bindparam,

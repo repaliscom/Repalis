@@ -11,13 +11,13 @@ from pydantic import SecretStr
 from sqlalchemy import select
 from starlette.applications import Starlette
 
-from polar.auth.service import auth as auth_service
-from polar.backoffice.app import app as backoffice_app
-from polar.backoffice.auth.factor import GOOGLE_DISCOVERY_ENDPOINT
-from polar.config import Environment, settings
-from polar.kit.utils import utc_now
-from polar.models import BackofficeUser, BackofficeUserSession, User
-from polar.postgres import AsyncSession, get_db_session
+from repalis.auth.service import auth as auth_service
+from repalis.backoffice.app import app as backoffice_app
+from repalis.backoffice.auth.factor import GOOGLE_DISCOVERY_ENDPOINT
+from repalis.config import Environment, settings
+from repalis.kit.utils import utc_now
+from repalis.models import BackofficeUser, BackofficeUserSession, User
+from repalis.postgres import AsyncSession, get_db_session
 
 
 @pytest.fixture
@@ -30,7 +30,7 @@ async def client(
     monkeypatch.setattr(
         settings, "BACKOFFICE_GOOGLE_CLIENT_SECRET", SecretStr("client-secret")
     )
-    monkeypatch.setattr(settings, "BACKOFFICE_GOOGLE_HOSTED_DOMAIN", "polar.sh")
+    monkeypatch.setattr(settings, "BACKOFFICE_GOOGLE_HOSTED_DOMAIN", "repalis.sh")
     monkeypatch.setitem(
         backoffice_app.dependency_overrides, get_db_session, lambda: session
     )
@@ -55,9 +55,9 @@ def claims(oauth_http_mocks: dict[tuple[str, str], Mock]) -> dict[str, object]:
         "aud": "backoffice-client",
         "exp": now + 3600,
         "iat": now,
-        "email": "staff@polar.sh",
+        "email": "staff@repalis.com",
         "email_verified": True,
-        "hd": "polar.sh",
+        "hd": "repalis.sh",
         "sub": "google-subject",
     }
     oauth_http_mocks["GET", GOOGLE_DISCOVERY_ENDPOINT] = Mock(
@@ -137,7 +137,7 @@ class TestGoogleLogin:
         token = client.cookies[settings.BACKOFFICE_USER_SESSION_COOKIE_KEY]
         user = (await session.scalars(select(BackofficeUser))).one()
         assert user.provider_id == "google-subject"
-        assert user.email == "staff@polar.sh"
+        assert user.email == "staff@repalis.com"
         user_id = user.id
         response = await client.get("/backoffice/auth/")
         assert response.status_code == 303
@@ -152,7 +152,7 @@ class TestGoogleLogin:
         user_session.expires_at = utc_now()
         await session.flush()
 
-        claims["email"] = "renamed@polar.sh"
+        claims["email"] = "renamed@repalis.com"
         response = await client.get(
             "/backoffice/auth/callback",
             params={"state": await start_login(client, claims), "code": "google-code"},
@@ -162,7 +162,7 @@ class TestGoogleLogin:
         session.expire_all()
         user = (await session.scalars(select(BackofficeUser))).one()
         assert user.id == user_id
-        assert user.email == "renamed@polar.sh"
+        assert user.email == "renamed@repalis.com"
         assert len((await session.scalars(select(BackofficeUserSession))).all()) == 1
 
         response = await client.get(
@@ -218,7 +218,7 @@ class TestGoogleLogin:
         existing_provider_id: str | None,
         expected_status: int,
     ) -> None:
-        staff = BackofficeUser(email="STAFF@polar.sh", provider_id=existing_provider_id)
+        staff = BackofficeUser(email="STAFF@repalis.com", provider_id=existing_provider_id)
         session.add(staff)
         await session.flush()
 
@@ -368,7 +368,7 @@ class TestDevelopmentSignIn:
                 )
             )
         ).one()
-        assert user.email == "admin@polar.sh"
+        assert user.email == "admin@repalis.com"
 
     @pytest.mark.parametrize(
         ("env", "development_mode", "url"),
@@ -379,7 +379,7 @@ class TestDevelopmentSignIn:
             (
                 Environment.development,
                 True,
-                "http://backoffice.polar.sh/backoffice/auth/",
+                "http://backoffice.repalis.com/backoffice/auth/",
             ),
         ],
     )

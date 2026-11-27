@@ -1,7 +1,7 @@
 'use client'
 
-import { PolarEmbedCheckout } from '@polar-sh/checkout/embed'
-import type { schemas } from '@polar-sh/client'
+import { RepalisEmbedCheckout } from '@repalis/checkout/embed'
+import type { schemas } from '@repalis/client'
 import { useEffect } from 'react'
 
 interface CheckoutEmbedLoadedProps {
@@ -16,7 +16,7 @@ const CheckoutEmbedLoaded: React.FC<
     if (!embedOrigin) {
       return
     }
-    PolarEmbedCheckout.postMessage({ event: 'loaded' }, embedOrigin)
+    RepalisEmbedCheckout.postMessage({ event: 'loaded' }, embedOrigin)
   }, [embedOrigin])
 
   return null

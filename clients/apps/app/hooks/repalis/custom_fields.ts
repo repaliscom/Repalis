@@ -1,0 +1,29 @@
+import { useRepalisClient } from '@/providers/RepalisClientProvider'
+import { operations, unwrap } from '@repalis/client'
+import { useQuery } from '@tanstack/react-query'
+
+export const useCustomFields = (
+  organizationId: string | undefined,
+  parameters?: Omit<
+    NonNullable<operations['custom-fields:list']['parameters']['query']>,
+    'organization_id'
+  >,
+) => {
+  const { repalis } = useRepalisClient()
+
+  return useQuery({
+    queryKey: ['custom_fields', { organizationId, ...(parameters || {}) }],
+    queryFn: () =>
+      unwrap(
+        repalis.GET('/v1/custom-fields/', {
+          params: {
+            query: {
+              organization_id: organizationId,
+              ...(parameters || {}),
+            },
+          },
+        }),
+      ),
+    enabled: !!organizationId,
+  })
+}

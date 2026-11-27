@@ -1,3 +1,3 @@
 <template>
-  <div>Polar Nuxt module playground!</div>
+  <div>Repalis Nuxt module playground!</div>
 </template>

@@ -4,8 +4,8 @@ from unittest.mock import Mock
 import httpx2
 import pytest
 
-from polar.integrations.payment_retry_alert.client import PaymentRetryAlertClient
-from polar.integrations.payment_retry_alert.types import RetryOutcome
+from repalis.integrations.payment_retry_alert.client import PaymentRetryAlertClient
+from repalis.integrations.payment_retry_alert.types import RetryOutcome
 
 
 @pytest.mark.anyio

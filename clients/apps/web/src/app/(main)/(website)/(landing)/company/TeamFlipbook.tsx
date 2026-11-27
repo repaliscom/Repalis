@@ -1,7 +1,7 @@
 'use client'
 
 import { StaticImage } from '@/components/Image/StaticImage'
-import { Box } from '@polar-sh/orbit/Box'
+import { Box } from '@repalis/orbit/Box'
 import { useEffect, useRef, useState } from 'react'
 
 const FRAME_COUNT = 68

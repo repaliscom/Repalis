@@ -8,13 +8,13 @@ from httpx2 import AsyncClient
 from pytest_mock import MockerFixture
 from reauth.amr import AuthenticationMethodReference
 
-from polar.auth.authentication_session import TOKEN_PREFIX
-from polar.auth.models import AuthSubject
-from polar.config import settings
-from polar.kit.crypto import generate_token_hash_pair
-from polar.kit.utils import utc_now
-from polar.models import AuthenticationSession, Organization, User
-from polar.postgres import AsyncSession
+from repalis.auth.authentication_session import TOKEN_PREFIX
+from repalis.auth.models import AuthSubject
+from repalis.config import settings
+from repalis.kit.crypto import generate_token_hash_pair
+from repalis.kit.utils import utc_now
+from repalis.models import AuthenticationSession, Organization, User
+from repalis.postgres import AsyncSession
 from tests.auth.oauth2.test_router import create_sso_domain
 from tests.fixtures.auth import make_session_stale
 from tests.fixtures.base import IsolatedSessionTestClient
@@ -205,8 +205,8 @@ async def request_email_otp(
     *,
     sso_discovery: bool = True,
 ) -> tuple[httpx2.Response, MagicMock]:
-    mocker.patch("polar.auth.endpoints.verify_turnstile")
-    enqueue_email_template = mocker.patch("polar.auth.factors.enqueue_email_template")
+    mocker.patch("repalis.auth.endpoints.verify_turnstile")
+    enqueue_email_template = mocker.patch("repalis.auth.factors.enqueue_email_template")
 
     start = await client.post(
         "/v1/auth/start",

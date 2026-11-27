@@ -1,6 +1,6 @@
 import { buildCustomerDashboardPath } from '@/utils/customer'
-import { schemas } from '@polar-sh/client'
-import { formatCurrency } from '@polar-sh/currency'
+import { schemas } from '@repalis/client'
+import { formatCurrency } from '@repalis/currency'
 
 export type ReviewRow = schemas['MerchantMigrationRecordItem']
 export type ReviewEntity = ReviewRow['entity']
@@ -45,7 +45,7 @@ export interface ReasonLink {
   href: string
 }
 
-// A clash with an existing Polar customer. The merchant can settle a duplicate
+// A clash with an existing Repalis customer. The merchant can settle a duplicate
 // subscription themselves; anything else needs support to move the customer.
 export function reasonLinks(
   row: ReviewRow,
@@ -55,12 +55,12 @@ export function reasonLinks(
   const customerHref = buildCustomerDashboardPath(organizationSlug, {
     id: row.conflicting_customer_id,
   })
-  if (row.reason_code === 'customer_subscribed_on_polar') {
-    return [{ label: 'View their Polar subscription', href: customerHref }]
+  if (row.reason_code === 'customer_subscribed_on_repalis') {
+    return [{ label: 'View their Repalis subscription', href: customerHref }]
   }
   return [
-    { label: 'View Polar customer', href: customerHref },
-    { label: 'Contact support', href: 'mailto:support@polar.sh' },
+    { label: 'View Repalis customer', href: customerHref },
+    { label: 'Contact support', href: 'mailto:contact@repalis.com' },
   ]
 }
 

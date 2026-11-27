@@ -5,7 +5,7 @@ import { VersionsPage } from './VersionsPage'
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: 'Versions', // " | Polar is added by the template"
+    title: 'Versions', // " | Repalis is added by the template"
   }
 }
 

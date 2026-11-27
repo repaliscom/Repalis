@@ -89,20 +89,20 @@ export const generate = Command.make('generate', {
   ),
   Command.withExamples([
     {
-      command: 'polar config generate',
+      command: 'repalis config generate',
       description:
         'Write the names next to the config, in the language of the project',
     },
     {
-      command: 'polar config generate --out app/polar_types.py',
+      command: 'repalis config generate --out app/repalis_types.py',
       description: 'Choose where the file goes',
     },
     {
-      command: 'polar config generate --check',
+      command: 'repalis config generate --check',
       description: 'Fail in CI when the generated file is out of date',
     },
     {
-      command: 'polar config generate --json',
+      command: 'repalis config generate --json',
       description: 'Print what was written as JSON, for scripts and agents',
     },
   ]),
@@ -125,7 +125,7 @@ export const generate = Command.make('generate', {
           config: config.file,
           ...result,
           command: [
-            'polar config generate',
+            'repalis config generate',
             ...(given === undefined ? [] : [given]),
             ...(requested === undefined ? [] : ['--language', requested]),
             ...(path === undefined ? [] : ['--out', path]),

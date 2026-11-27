@@ -1,29 +1,29 @@
 ---
-title: "polar customer_seats"
+title: "repalis customer_seats"
 sidebarTitle: "customer_seats"
 ---
 
-{/* Generated from the CLI by `pnpm --filter @polar-sh/cli docs:generate`. Do not edit by hand. */}
+{/* Generated from the CLI by `pnpm --filter @repalis/cli docs:generate`. Do not edit by hand. */}
 
 ```bash
-polar customer_seats <subcommand> [flags]
+repalis customer_seats <subcommand> [flags]
 ```
 
 **Subcommands**
 
-- [`polar customer_seats assign_seat`](#polar-customer_seats-assign_seat) Assign a seat for a subscription or order.
-- [`polar customer_seats claim_seat`](#polar-customer_seats-claim_seat) Claim a customer seat with an invitation token.
-- [`polar customer_seats get_claim_info`](#polar-customer_seats-get_claim_info) Get claim information for a customer seat invitation.
-- [`polar customer_seats list_seats`](#polar-customer_seats-list_seats) List seats for a subscription or order.
-- [`polar customer_seats resend_invitation`](#polar-customer_seats-resend_invitation) Resend an invitation for a pending customer seat.
-- [`polar customer_seats revoke_seat`](#polar-customer_seats-revoke_seat) Revoke a customer seat.
+- [`repalis customer_seats assign_seat`](#repalis-customer_seats-assign_seat) Assign a seat for a subscription or order.
+- [`repalis customer_seats claim_seat`](#repalis-customer_seats-claim_seat) Claim a customer seat with an invitation token.
+- [`repalis customer_seats get_claim_info`](#repalis-customer_seats-get_claim_info) Get claim information for a customer seat invitation.
+- [`repalis customer_seats list_seats`](#repalis-customer_seats-list_seats) List seats for a subscription or order.
+- [`repalis customer_seats resend_invitation`](#repalis-customer_seats-resend_invitation) Resend an invitation for a pending customer seat.
+- [`repalis customer_seats revoke_seat`](#repalis-customer_seats-revoke_seat) Revoke a customer seat.
 
-## polar customer_seats assign_seat
+## repalis customer_seats assign_seat
 
 Assign a seat for a subscription or order.
 
 ```bash
-polar customer_seats assign_seat [flags]
+repalis customer_seats assign_seat [flags]
 ```
 
 **Flags**
@@ -43,12 +43,12 @@ polar customer_seats assign_seat [flags]
 | `--metadata` | `string` | Additional metadata for the seat (max 10 keys, 1KB total) JSON: &#123;"&lt;key&gt;": any&#125; |
 | `--immediate-claim` | `boolean` | If true, the seat will be immediately claimed without sending an invitation email. API-only feature. |
 
-## polar customer_seats claim_seat
+## repalis customer_seats claim_seat
 
 Claim a customer seat with an invitation token.
 
 ```bash
-polar customer_seats claim_seat [flags]
+repalis customer_seats claim_seat [flags]
 ```
 
 **Flags**
@@ -60,12 +60,12 @@ polar customer_seats claim_seat [flags]
 | `--data`, `-d` | `string` | JSON object; explicitly supplied flags override its top-level keys |
 | `--invitation-token` | `string` | Required. Invitation token to claim the seat |
 
-## polar customer_seats get_claim_info
+## repalis customer_seats get_claim_info
 
 Get claim information for a customer seat invitation.
 
 ```bash
-polar customer_seats get_claim_info [flags] <invitation_token>
+repalis customer_seats get_claim_info [flags] <invitation_token>
 ```
 
 **Arguments**
@@ -81,12 +81,12 @@ polar customer_seats get_claim_info [flags] <invitation_token>
 | `--environment` | `choice` | Environment for this unauthenticated request (choices: production, sandbox) |
 | `--fields` | `string` | Only print these fields, comma-separated; use dots for nested ones, e.g. id,name,prices.price_amount |
 
-## polar customer_seats list_seats
+## repalis customer_seats list_seats
 
 List seats for a subscription or order.
 
 ```bash
-polar customer_seats list_seats [flags]
+repalis customer_seats list_seats [flags]
 ```
 
 **Flags**
@@ -99,12 +99,12 @@ polar customer_seats list_seats [flags]
 | `--subscription-id` | `string` | subscription_id |
 | `--order-id` | `string` | order_id |
 
-## polar customer_seats resend_invitation
+## repalis customer_seats resend_invitation
 
 Resend an invitation for a pending customer seat.
 
 ```bash
-polar customer_seats resend_invitation [flags] <seat_id>
+repalis customer_seats resend_invitation [flags] <seat_id>
 ```
 
 **Arguments**
@@ -120,12 +120,12 @@ polar customer_seats resend_invitation [flags] <seat_id>
 | `--fields` | `string` | Only print these fields, comma-separated; use dots for nested ones, e.g. id,name,prices.price_amount |
 | `--org` | `string` | Organization ID or slug for this invocation only |
 
-## polar customer_seats revoke_seat
+## repalis customer_seats revoke_seat
 
 Revoke a customer seat.
 
 ```bash
-polar customer_seats revoke_seat [flags] <seat_id>
+repalis customer_seats revoke_seat [flags] <seat_id>
 ```
 
 **Arguments**

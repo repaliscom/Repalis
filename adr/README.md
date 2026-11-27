@@ -1,6 +1,6 @@
 # Architecture Decision Records
 
-Short records of the significant, cross-cutting decisions behind Polar. Corrected in place; superseded when the decision changes.
+Short records of the significant, cross-cutting decisions behind Repalis. Corrected in place; superseded when the decision changes.
 
 An **Architecture Decision Record (ADR)** captures one significant decision: what we
 chose, why, and what it costs us.
@@ -10,7 +10,7 @@ should understand the load-bearing choices in the codebase in under an hour.
 
 ## ADR vs. design document
 
-We already write [design documents](https://linear.app/polarsh/document/design-documents-1b03e0f6e82b): big,
+We already write [design documents](https://linear.app/repalis/document/design-documents-1b03e0f6e82b): big,
 forward-looking RFCs that explore a *solution*. ADRs are the
 opposite shape:
 
@@ -19,7 +19,7 @@ opposite shape:
 | Answers | "What are we going to build?" | "Why is it this way?" |
 | Size | Pages | One page |
 | Lifespan | Goes stale after ship | Corrected in place; superseded when the decision changes |
-| When | [When a design document is required](https://linear.app/polarsh/document/design-documents-1b03e0f6e82b) | A decision we need to remember |
+| When | [When a design document is required](https://linear.app/repalis/document/design-documents-1b03e0f6e82b) | A decision we need to remember |
 
 A design doc can make several decisions; distil each into an ADR that links back. Reach for
 an ADR when the *decision* outlives the *document*.
@@ -95,7 +95,7 @@ To check a diff against these ADRs, run the `adr-check` skill.
 ## All decisions
 
 - [ADR-0001: Record architecture decisions](0001-record-architecture-decisions.md) · Cross-cutting · Accepted
-- [ADR-0002: Business errors are status-coded PolarError subclasses](0002-status-coded-polar-errors.md) · Backend · Accepted
+- [ADR-0002: Business errors are status-coded RepalisError subclasses](0002-status-coded-repalis-errors.md) · Backend · Accepted
 - [ADR-0003: One request or task is one transaction](0003-request-scoped-unit-of-work.md) · Backend · Accepted
 - [ADR-0004: Frontend UI is authored with Orbit Box and design tokens](0004-orbit-box-design-system.md) · Frontend · Accepted
 - [ADR-0005: Authorization is AuthSubject plus scopes](0005-auth-subject-and-scopes.md) · Backend · Accepted

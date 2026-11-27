@@ -190,7 +190,7 @@ export const startListening = ({
                 : 'event'
               const startedAt = performance.now()
               const triggered =
-                webhook.value.headers['x-polar-triggered'] === 'true'
+                webhook.value.headers['x-repalis-triggered'] === 'true'
               const record = (
                 outcome: Pick<
                   Delivery,
@@ -289,7 +289,7 @@ export const startListening = ({
           new ListenError({
             code: 0,
             message:
-              'Unable to authenticate the stream. Check your connection, keyring, and token; try polar auth whoami for details.',
+              'Unable to authenticate the stream. Check your connection, keyring, and token; try repalis auth whoami for details.',
             cause: error,
           }),
         ),
@@ -302,7 +302,7 @@ export const startListening = ({
       error.code === 401
         ? new ListenError({
             code: 401,
-            message: `Authentication rejected for ${organization.environment}. Check POLAR_ACCESS_TOKEN or run ${loginCommand(organization.environment)} --new-session.`,
+            message: `Authentication rejected for ${organization.environment}. Check REPALIS_ACCESS_TOKEN or run ${loginCommand(organization.environment)} --new-session.`,
           })
         : error,
     ),

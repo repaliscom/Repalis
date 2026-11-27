@@ -33,7 +33,7 @@ const RUNTIME =
 
 type Env = Readonly<Record<string, string | undefined>>
 
-export const Environment = Context.Reference<Env>('polar/Json/Environment', {
+export const Environment = Context.Reference<Env>('repalis/Json/Environment', {
   defaultValue: () => ({}),
 })
 

@@ -3,17 +3,17 @@ from httpx2 import AsyncClient
 from pytest_mock import MockerFixture
 from sqlalchemy import select
 
-from polar.dispute.dispute_case import DISPUTE_GREETING_DELAY_MS
-from polar.models import Customer, Organization, Product
-from polar.models.support_case import (
+from repalis.dispute.dispute_case import DISPUTE_GREETING_DELAY_MS
+from repalis.models import Customer, Organization, Product
+from repalis.models.support_case import (
     DisputeSupportCase,
     DisputeWinReason,
     SupportCaseAudience,
     SupportCaseMessageAuthorKind,
 )
-from polar.models.user_organization import OrganizationRole, UserOrganization
-from polar.postgres import AsyncSession
-from polar.support_case.service import support_case as support_case_service
+from repalis.models.user_organization import OrganizationRole, UserOrganization
+from repalis.postgres import AsyncSession
+from repalis.support_case.service import support_case as support_case_service
 from tests.fixtures.auth import AuthSubjectFixture
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (
@@ -362,7 +362,7 @@ class TestReplyToSupportCase:
         user_organization: UserOrganization,
     ) -> None:
         case = await create_dispute_case(save_fixture, organization, customer, product)
-        enqueue = mocker.patch("polar.dispute.dispute_case.enqueue_job")
+        enqueue = mocker.patch("repalis.dispute.dispute_case.enqueue_job")
 
         await client.post(
             f"/v1/support-cases/{case.id}/messages",

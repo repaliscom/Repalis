@@ -24,7 +24,7 @@ Switch a subscription to a different recurring product — the standard upgrade 
 
 ```bash cURL
 curl --request PATCH \
-  --url https://api.polar.sh/v1/subscriptions/{subscription_id} \
+  --url https://api.repalis.com/v1/subscriptions/{subscription_id} \
   --header 'Authorization: Bearer <TOKEN>' \
   --header 'Content-Type: application/json' \
   --data '{
@@ -34,7 +34,7 @@ curl --request PATCH \
 ```
 
 ```py Python
-polar.subscriptions.update(
+repalis.subscriptions.update(
     "<subscription_id>",
     product_id="<new_product_id>",
     proration_behavior="prorate",
@@ -51,7 +51,7 @@ For [seat-based subscriptions](/features/seat-based-pricing), update how many se
 
 ```bash cURL
 curl --request PATCH \
-  --url https://api.polar.sh/v1/subscriptions/{subscription_id} \
+  --url https://api.repalis.com/v1/subscriptions/{subscription_id} \
   --header 'Authorization: Bearer <TOKEN>' \
   --header 'Content-Type: application/json' \
   --data '{ "seats": 25, "proration_behavior": "invoice" }'
@@ -63,7 +63,7 @@ Attach a [discount](/features/discounts) to an active subscription, or remove th
 
 ```bash cURL
 curl --request PATCH \
-  --url https://api.polar.sh/v1/subscriptions/{subscription_id} \
+  --url https://api.repalis.com/v1/subscriptions/{subscription_id} \
   --header 'Authorization: Bearer <TOKEN>' \
   --header 'Content-Type: application/json' \
   --data '{ "discount_id": "<discount_id>" }'
@@ -74,11 +74,11 @@ curl --request PATCH \
 You can add, extend, or end a [trial](/features/subscriptions/trials) on any subscription:
 
 - **Add or extend** a trial by setting `trial_end` to a future date. If the subscription is currently active, its status switches to `trialing` and the next charge is postponed to the new date.
-- **End a trial immediately** by setting `trial_end` to `"now"`. Polar will charge the first billing cycle and only change the subscription to `active` if payment succeeds. If payment fails, the subscription remains `trialing` with its original trial end.
+- **End a trial immediately** by setting `trial_end` to `"now"`. Repalis will charge the first billing cycle and only change the subscription to `active` if payment succeeds. If payment fails, the subscription remains `trialing` with its original trial end.
 
 ```bash cURL
 curl --request PATCH \
-  --url https://api.polar.sh/v1/subscriptions/{subscription_id} \
+  --url https://api.repalis.com/v1/subscriptions/{subscription_id} \
   --header 'Authorization: Bearer <TOKEN>' \
   --header 'Content-Type: application/json' \
   --data '{ "trial_end": "2026-06-01T00:00:00Z" }'
@@ -92,7 +92,7 @@ If the subscription is scheduled to cancel at period end, its `ends_at` moves wi
 
 ```bash cURL
 curl --request PATCH \
-  --url https://api.polar.sh/v1/subscriptions/{subscription_id} \
+  --url https://api.repalis.com/v1/subscriptions/{subscription_id} \
   --header 'Authorization: Bearer <TOKEN>' \
   --header 'Content-Type: application/json' \
   --data '{ "current_billing_period_end": "2026-07-15T00:00:00Z" }'
@@ -110,7 +110,7 @@ Pass an optional `resumes_at` date to schedule an automatic resume. It has to be
 
 ```bash cURL
 curl --request PATCH \
-  --url https://api.polar.sh/v1/subscriptions/{subscription_id} \
+  --url https://api.repalis.com/v1/subscriptions/{subscription_id} \
   --header 'Authorization: Bearer <TOKEN>' \
   --header 'Content-Type: application/json' \
   --data '{
@@ -123,7 +123,7 @@ You can only pause a subscription that's active, with no pending cancellation or
 
 ```bash cURL
 curl --request PATCH \
-  --url https://api.polar.sh/v1/subscriptions/{subscription_id} \
+  --url https://api.repalis.com/v1/subscriptions/{subscription_id} \
   --header 'Authorization: Bearer <TOKEN>' \
   --header 'Content-Type: application/json' \
   --data '{ "pause_at_period_end": false }'
@@ -135,7 +135,7 @@ Resuming a paused subscription takes effect **right now**: status moves back to 
 
 ```bash cURL
 curl --request PATCH \
-  --url https://api.polar.sh/v1/subscriptions/{subscription_id} \
+  --url https://api.repalis.com/v1/subscriptions/{subscription_id} \
   --header 'Authorization: Bearer <TOKEN>' \
   --header 'Content-Type: application/json' \
   --data '{ "resume": true }'
@@ -143,7 +143,7 @@ curl --request PATCH \
 
 ## Cancel or revoke
 
-Polar distinguishes between **canceling** and **revoking** a subscription. Both end the customer's access eventually — the difference is when.
+Repalis distinguishes between **canceling** and **revoking** a subscription. Both end the customer's access eventually — the difference is when.
 
 ### Cancel at period end
 
@@ -157,7 +157,7 @@ This is the gentler option and the one customers trigger themselves from the [Cu
 
 ```bash cURL
 curl --request PATCH \
-  --url https://api.polar.sh/v1/subscriptions/{subscription_id} \
+  --url https://api.repalis.com/v1/subscriptions/{subscription_id} \
   --header 'Authorization: Bearer <TOKEN>' \
   --header 'Content-Type: application/json' \
   --data '{
@@ -183,7 +183,7 @@ Use this when access needs to stop immediately — a terms-of-service violation,
 
 ```bash cURL
 curl --request DELETE \
-  --url https://api.polar.sh/v1/subscriptions/{subscription_id} \
+  --url https://api.repalis.com/v1/subscriptions/{subscription_id} \
   --header 'Authorization: Bearer <TOKEN>'
 ```
 
@@ -198,7 +198,7 @@ If a subscription is set to cancel at period end and hasn't ended yet, you (or t
 
 ```bash cURL
 curl --request PATCH \
-  --url https://api.polar.sh/v1/subscriptions/{subscription_id} \
+  --url https://api.repalis.com/v1/subscriptions/{subscription_id} \
   --header 'Authorization: Bearer <TOKEN>' \
   --header 'Content-Type: application/json' \
   --data '{ "cancel_at_period_end": false }'

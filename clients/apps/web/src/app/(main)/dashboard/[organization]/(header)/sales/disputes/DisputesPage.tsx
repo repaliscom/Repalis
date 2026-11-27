@@ -11,16 +11,16 @@ import {
   getDisputeDisplayStatus,
   getDisputeReasonDisplay,
 } from '@/utils/dispute'
-import { schemas } from '@polar-sh/client'
-import { formatCurrency } from '@polar-sh/currency'
-import { Status, Text, Truncated } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { schemas } from '@repalis/client'
+import { formatCurrency } from '@repalis/currency'
+import { Status, Text, Truncated } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import {
   DataTable,
   DataTableColumnDef,
   DataTableColumnHeader,
-} from '@polar-sh/orbit'
-import FormattedDateTime from '@polar-sh/ui/components/atoms/FormattedDateTime'
+} from '@repalis/orbit'
+import FormattedDateTime from '@repalis/ui/components/atoms/FormattedDateTime'
 import { useRouter } from 'next/navigation'
 import { parseAsStringLiteral, useQueryState } from 'nuqs'
 import React from 'react'

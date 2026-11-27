@@ -3,22 +3,22 @@ import uuid
 import pytest
 from sqlalchemy import select
 
-from polar.customer_portal.service.customer_session import (
+from repalis.customer_portal.service.customer_session import (
     CustomerDoesNotExist,
     CustomerSelectionRequired,
 )
-from polar.customer_portal.service.customer_session import (
+from repalis.customer_portal.service.customer_session import (
     customer_session as customer_session_service,
 )
-from polar.kit.utils import utc_now
-from polar.models import (
+from repalis.kit.utils import utc_now
+from repalis.models import (
     Account,
     Member,
     Organization,
     User,
 )
-from polar.models.member import MemberRole
-from polar.postgres import AsyncSession
+from repalis.models.member import MemberRole
+from repalis.postgres import AsyncSession
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (
     create_account,

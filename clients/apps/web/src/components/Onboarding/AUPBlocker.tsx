@@ -1,6 +1,6 @@
 'use client'
 
-import { Alert } from '@polar-sh/orbit'
+import { Alert } from '@repalis/orbit'
 
 export function AUPBlocker({ categories }: { categories: string[] }) {
   return (
@@ -9,10 +9,10 @@ export function AUPBlocker({ categories }: { categories: string[] }) {
       title={`Not supported: ${categories.join(', ')}`}
       description={
         <>
-          Polar is a Merchant of Record for digital products only. Physical
+          Repalis is a Merchant of Record for digital products only. Physical
           goods, human services, and marketplaces are not permitted under our{' '}
           <a
-            href="https://polar.sh/legal/acceptable-use-policy"
+            href="https://repalis.com/legal/acceptable-use-policy"
             className="underline"
             target="_blank"
             rel="noopener noreferrer"

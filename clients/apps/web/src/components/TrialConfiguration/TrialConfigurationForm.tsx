@@ -1,6 +1,6 @@
 'use client'
 
-import { enums, schemas } from '@polar-sh/client'
+import { enums, schemas } from '@repalis/client'
 import {
   Button,
   Input,
@@ -10,8 +10,8 @@ import {
   SelectTrigger,
   SelectValue,
   Switch,
-} from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+} from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import {
   FormControl,
   FormDescription,
@@ -19,8 +19,8 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@polar-sh/ui/components/ui/form'
-import { Label } from '@polar-sh/ui/components/ui/label'
+} from '@repalis/ui/components/ui/form'
+import { Label } from '@repalis/ui/components/ui/label'
 import { useState } from 'react'
 import { useFormContext, useWatch } from 'react-hook-form'
 

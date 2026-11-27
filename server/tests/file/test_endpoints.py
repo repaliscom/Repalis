@@ -9,16 +9,16 @@ from botocore.stub import Stubber
 from httpx2 import AsyncClient
 from pytest_mock import MockerFixture
 
-from polar.exceptions import BadRequest
-from polar.file.repository import FileRepository
-from polar.file.s3 import S3_SERVICES
-from polar.file.schemas import FileUploadCompleted
-from polar.file.service import file as file_service
-from polar.integrations.aws.s3.client import client as s3_client
-from polar.kit.utils import utc_now
-from polar.models import File, Organization, UserOrganization
-from polar.models.file import FileServiceTypes
-from polar.postgres import AsyncSession
+from repalis.exceptions import BadRequest
+from repalis.file.repository import FileRepository
+from repalis.file.s3 import S3_SERVICES
+from repalis.file.schemas import FileUploadCompleted
+from repalis.file.service import file as file_service
+from repalis.integrations.aws.s3.client import client as s3_client
+from repalis.kit.utils import utc_now
+from repalis.models import File, Organization, UserOrganization
+from repalis.models.file import FileServiceTypes
+from repalis.postgres import AsyncSession
 from tests.fixtures.auth import AuthSubjectFixture
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.file import TestFile
@@ -92,7 +92,7 @@ class TestEndpoints:
 
         assert created.path.endswith(f"/{non_ascii_file_name.name}")
         assert create_multipart_upload.call_args.kwargs["Metadata"][
-            "polar-name"
+            "repalis-name"
         ].isascii()
         non_ascii_file_name.completed_parts(created)
 
@@ -238,12 +238,12 @@ class TestSVGSanitization:
         digest = hashlib.sha256(sanitized)
         checksum = base64.b64encode(digest.digest()).decode()
         metadata = {
-            "polar-id": str(record.id),
-            "polar-organization-id": str(organization.id),
-            "polar-name": record.name,
-            "polar-size": str(len(sanitized)),
-            "polar-sha256-base64": checksum,
-            "polar-sha256-hex": digest.hexdigest(),
+            "repalis-id": str(record.id),
+            "repalis-organization-id": str(organization.id),
+            "repalis-name": record.name,
+            "repalis-size": str(len(sanitized)),
+            "repalis-sha256-base64": checksum,
+            "repalis-sha256-hex": digest.hexdigest(),
         }
         object_params = {
             "Bucket": S3_SERVICES[record.service].bucket,

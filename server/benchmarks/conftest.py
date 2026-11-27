@@ -1,6 +1,6 @@
 import os
 
-os.environ["POLAR_ENV"] = "testing"
+os.environ["REPALIS_ENV"] = "testing"
 
 import asyncio
 import collections.abc
@@ -13,13 +13,13 @@ from sqlalchemy import text
 from sqlalchemy.ext.asyncio import AsyncSession as SQLAlchemyAsyncSession
 from sqlalchemy_utils import create_database, database_exists, drop_database
 
-from polar.config import settings
-from polar.kit.db.postgres import AsyncSession, create_async_engine
-from polar.models import Organization, Reducer
-from polar.redis import Redis
-from polar.reducer.service import reducer as reducer_service
-from polar.worker import JobQueueManager
-from polar.worker._enqueue import _job_queue_manager
+from repalis.config import settings
+from repalis.kit.db.postgres import AsyncSession, create_async_engine
+from repalis.models import Organization, Reducer
+from repalis.redis import Redis
+from repalis.reducer.service import reducer as reducer_service
+from repalis.worker import JobQueueManager
+from repalis.worker._enqueue import _job_queue_manager
 from tests.fixtures.database import (
     SaveFixture,
     apply_migrations,

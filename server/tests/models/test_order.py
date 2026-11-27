@@ -1,9 +1,9 @@
 import pytest
 
-from polar.enums import TaxBehavior
-from polar.models import Customer, OrderItem, Product
-from polar.models.order import OrderStatus
-from polar.models.product_price import (
+from repalis.enums import TaxBehavior
+from repalis.models import Customer, OrderItem, Product
+from repalis.models.order import OrderStatus
+from repalis.models.product_price import (
     ProductPriceFixed,
     ProductPriceSeatUnit,
     ProductPriceUnit,

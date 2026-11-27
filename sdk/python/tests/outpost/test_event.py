@@ -6,7 +6,7 @@ import typing
 
 import pytest
 
-from polar.outpost.event import Event, get_property_reader
+from repalis.outpost.event import Event, get_property_reader
 
 TIMESTAMP = datetime.datetime(2026, 10, 12, 12, 4, 59, tzinfo=datetime.UTC)
 

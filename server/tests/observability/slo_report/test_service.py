@@ -2,9 +2,9 @@ from typing import Any
 
 import pytest
 
-from polar.observability.slo import CRITICAL_ENDPOINTS
-from polar.observability.slo_report.client import GrafanaCloudAPIError
-from polar.observability.slo_report.service import SLOReportService
+from repalis.observability.slo import CRITICAL_ENDPOINTS
+from repalis.observability.slo_report.client import GrafanaCloudAPIError
+from repalis.observability.slo_report.service import SLOReportService
 
 
 class FakeClient:

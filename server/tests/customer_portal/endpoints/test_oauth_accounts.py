@@ -8,18 +8,18 @@ from httpx2 import AsyncClient
 from pytest_mock import MockerFixture
 from sqlalchemy import select
 
-from polar.customer_portal.endpoints.oauth_accounts import OAUTH_CLIENTS
-from polar.kit import jwt
-from polar.kit.utils import utc_now
-from polar.models import (
+from repalis.customer_portal.endpoints.oauth_accounts import OAUTH_CLIENTS
+from repalis.kit import jwt
+from repalis.kit.utils import utc_now
+from repalis.models import (
     Customer,
     CustomerSession,
     Member,
     MemberSession,
     Organization,
 )
-from polar.models.customer import CustomerOAuthPlatform
-from polar.postgres import AsyncSession
+from repalis.models.customer import CustomerOAuthPlatform
+from repalis.postgres import AsyncSession
 from tests.fixtures.auth import CUSTOMER_AUTH_SUBJECT, MEMBER_AUTH_SUBJECT
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_customer

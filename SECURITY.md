@@ -1,10 +1,10 @@
 # Security and Vulnerability Reporting
 
-At Polar, we care deeply about the safety and security of our customers' data and our systems. We welcome security and vulnerability reports as part of our commitment to providing the most secure product possible.
+At Repalis, we care deeply about the safety and security of our customers' data and our systems. We welcome security and vulnerability reports as part of our commitment to providing the most secure product possible.
 
 ## Making a report
 
-If you've read this document and discovered an issue that you believe is in-scope, Please report it using [GitHub Security Advisory](https://github.com/polarsource/polar/security/advisories/new) tool. It should include:
+If you've read this document and discovered an issue that you believe is in-scope, Please report it using [GitHub Security Advisory](https://github.com/repaliscom/Repalis/security/advisories/new) tool. It should include:
 
 - A clear summary of the issue and its potential impact.
 - Detailed steps to reproduce the issue.
@@ -29,8 +29,8 @@ We'll get back to you within a few days to acknowledge your report.
 
 ## In scope
 
-- [https://polar.sh](https://polar.sh)
-- [https://api.polar.sh](https://api.polar.sh)
+- [https://repalis.com](https://repalis.com)
+- [https://api.repalis.com](https://api.repalis.com)
 
 ## Out of scope
 

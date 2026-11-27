@@ -3,14 +3,14 @@ from zoneinfo import ZoneInfo
 
 import pytest
 
-from polar.auth.models import AuthSubject
-from polar.auth.scope import Scope
-from polar.enums import SubscriptionRecurringInterval
-from polar.kit.time_queries import TimeInterval
-from polar.metrics.service import metrics as metrics_service
-from polar.models import Organization, User, UserOrganization
-from polar.models.subscription import SubscriptionStatus
-from polar.postgres import AsyncSession
+from repalis.auth.models import AuthSubject
+from repalis.auth.scope import Scope
+from repalis.enums import SubscriptionRecurringInterval
+from repalis.kit.time_queries import TimeInterval
+from repalis.metrics.service import metrics as metrics_service
+from repalis.models import Organization, User, UserOrganization
+from repalis.models.subscription import SubscriptionStatus
+from repalis.postgres import AsyncSession
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (
     create_active_subscription,

@@ -3,8 +3,8 @@ import typing
 
 import pytest
 
-from polar.outpost.event import Event
-from polar.outpost.reducer import (
+from repalis.outpost.event import Event
+from repalis.outpost.reducer import (
     BUCKET_SIZE,
     BucketStatistics,
     FilterClause,

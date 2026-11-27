@@ -1,13 +1,13 @@
 import { DataTableSortingState } from '@/utils/datatable'
-import { schemas } from '@polar-sh/client'
-import { Avatar, Truncated } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { schemas } from '@repalis/client'
+import { Avatar, Truncated } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import {
   DataTable,
   DataTableColumnDef,
   DataTableColumnHeader,
-} from '@polar-sh/orbit'
-import { Status } from '@polar-sh/orbit'
+} from '@repalis/orbit'
+import { Status } from '@repalis/orbit'
 import {
   OnChangeFn,
   PaginationState,
@@ -62,7 +62,7 @@ export const LicenseKeysList = ({
                 <span className="text-sm">{licenseKey.customer.name}</span>
               </Truncated>
               <Truncated>
-                <span className="dark:text-polar-500 text-xs text-gray-500">
+                <span className="dark:text-repalis-500 text-xs text-gray-500">
                   {licenseKey.customer.email ?? '—'}
                 </span>
               </Truncated>

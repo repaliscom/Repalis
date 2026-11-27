@@ -3,17 +3,17 @@ export default {
     footer: {
       poweredBy: 'Powered by',
       merchantOfRecord:
-        '本訂單由我們的線上經銷商暨記錄商戶 Polar 處理，Polar 同時負責處理與訂單相關的查詢及退款。',
+        '本訂單由我們的線上經銷商暨記錄商戶 Repalis 處理，Repalis 同時負責處理與訂單相關的查詢及退款。',
       mandateSubscriptionTrial:
-        '點選「{buttonLabel}」即表示你授權我們的線上經銷商暨記錄商戶 Polar Software, Inc.，於試用期結束時及之後每個扣款日，向你所選的付款方式收取上方所示金額，直至你取消為止，並同意{buyerTermsLink}。你可以在試用期結束前隨時取消，以避免被收費。',
+        '點選「{buttonLabel}」即表示你授權我們的線上經銷商暨記錄商戶 Repalis Software, Inc.，於試用期結束時及之後每個扣款日，向你所選的付款方式收取上方所示金額，直至你取消為止，並同意{buyerTermsLink}。你可以在試用期結束前隨時取消，以避免被收費。',
       mandateSubscription:
-        '點選「{buttonLabel}」即表示你授權我們的線上經銷商暨記錄商戶 Polar Software, Inc.，立即向你所選的付款方式收取上方所示金額，並於之後每個扣款日收取相同金額，直至你取消為止，並同意{buyerTermsLink}。',
+        '點選「{buttonLabel}」即表示你授權我們的線上經銷商暨記錄商戶 Repalis Software, Inc.，立即向你所選的付款方式收取上方所示金額，並於之後每個扣款日收取相同金額，直至你取消為止，並同意{buyerTermsLink}。',
       mandateOneTime:
-        '點選「{buttonLabel}」即表示你授權我們的線上經銷商暨記錄商戶 Polar Software, Inc.，向你所選的付款方式收取上方所示金額，並同意{buyerTermsLink}。此款項只會收取一次。',
+        '點選「{buttonLabel}」即表示你授權我們的線上經銷商暨記錄商戶 Repalis Software, Inc.，向你所選的付款方式收取上方所示金額，並同意{buyerTermsLink}。此款項只會收取一次。',
       mandateSubscriptionTrialDiscounted:
-        '點選「{buttonLabel}」即表示你授權我們的線上經銷商暨記錄商戶 Polar Software, Inc.，於試用期結束時向你所選的付款方式收取上方所示之折扣金額，並於折扣結束後的每個扣款日收取原價，直至你取消為止，並同意{buyerTermsLink}。你可以在試用期結束前隨時取消，以避免被收費。',
+        '點選「{buttonLabel}」即表示你授權我們的線上經銷商暨記錄商戶 Repalis Software, Inc.，於試用期結束時向你所選的付款方式收取上方所示之折扣金額，並於折扣結束後的每個扣款日收取原價，直至你取消為止，並同意{buyerTermsLink}。你可以在試用期結束前隨時取消，以避免被收費。',
       mandateSubscriptionDiscounted:
-        '點選「{buttonLabel}」即表示你授權我們的線上經銷商暨記錄商戶 Polar Software, Inc.，立即向你所選的付款方式收取上方所示之折扣金額，並於折扣結束後的每個扣款日收取原價，直至你取消為止，並同意{buyerTermsLink}。',
+        '點選「{buttonLabel}」即表示你授權我們的線上經銷商暨記錄商戶 Repalis Software, Inc.，立即向你所選的付款方式收取上方所示之折扣金額，並於折扣結束後的每個扣款日收取原價，直至你取消為止，並同意{buyerTermsLink}。',
       buyerTermsLink: '買方條款',
     },
     form: {

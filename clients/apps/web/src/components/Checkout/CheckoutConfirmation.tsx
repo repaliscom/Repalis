@@ -3,27 +3,27 @@
 import { useCheckoutConfirmedRedirect } from '@/hooks/checkout'
 import { useCheckoutClientSSE } from '@/hooks/sse'
 import { getServerURL } from '@/utils/api'
-import { hasProductCheckout } from '@polar-sh/checkout/guards'
-import { createClient, unwrap, type schemas } from '@polar-sh/client'
+import { hasProductCheckout } from '@repalis/checkout/guards'
+import { createClient, unwrap, type schemas } from '@repalis/client'
 import {
   DEFAULT_LOCALE,
   useTranslations,
   type AcceptedLocale,
-} from '@polar-sh/i18n'
-import { Avatar } from '@polar-sh/orbit'
-import { Button } from '@polar-sh/orbit'
-import ShadowBox from '@polar-sh/ui/components/atoms/ShadowBox'
+} from '@repalis/i18n'
+import { Avatar } from '@repalis/orbit'
+import { Button } from '@repalis/orbit'
+import ShadowBox from '@repalis/ui/components/atoms/ShadowBox'
 import { Elements, ElementsConsumer } from '@stripe/react-stripe-js'
 import { Stripe } from '@stripe/stripe-js'
 import { useRouter } from 'next/navigation'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import LogoType from '../Brand/logos/LogoType'
-import { SpinnerNoMargin } from '@polar-sh/orbit'
+import { SpinnerNoMargin } from '@repalis/orbit'
 import CheckoutBenefits from './CheckoutBenefits'
 import CheckoutSeatInvitations from './CheckoutSeatInvitations'
-import { loadPolarStripe } from '@/utils/stripe'
+import { loadRepalisStripe } from '@/utils/stripe'
 
-const stripePromise = loadPolarStripe()
+const stripePromise = loadRepalisStripe()
 
 const isIntegrationError = (
   // oxlint-disable-next-line typescript/no-explicit-any
@@ -201,7 +201,7 @@ export const CheckoutConfirmation = ({
                 t('checkout.confirmation.successTitle')}
               {status === 'failed' && t('checkout.confirmation.failedTitle')}
             </h1>
-            <p className="dark:text-polar-500 text-gray-500">
+            <p className="dark:text-repalis-500 text-gray-500">
               {status === 'confirmed' &&
                 t('checkout.confirmation.processingDescription')}
               {status === 'succeeded' &&
@@ -247,13 +247,13 @@ export const CheckoutConfirmation = ({
                     customerSessionToken={customerSessionToken}
                   />
                 )}
-              <p className="dark:text-polar-500 text-center text-xs text-gray-500">
+              <p className="dark:text-repalis-500 text-center text-xs text-gray-500">
                 {t('checkout.footer.merchantOfRecord')}
               </p>
             </>
           )}
         </div>
-        <div className="dark:text-polar-500 flex w-full flex-row items-center justify-center gap-x-3 text-sm text-gray-500">
+        <div className="dark:text-repalis-500 flex w-full flex-row items-center justify-center gap-x-3 text-sm text-gray-500">
           <span>{t('checkout.footer.poweredBy')}</span>
           <LogoType className="h-5" />
         </div>

@@ -27,9 +27,9 @@ export const listProducts = (client: ClientBase) => {
    * @param query - Query parameters
    * @param requestOptions - Request options
    * @returns {ListResourceProduct}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    * @throws {HTTPValidationError} Validation Error
    */
   return async (
@@ -83,9 +83,9 @@ export const listProducts = (client: ClientBase) => {
  * @param query - Query parameters
  * @param requestOptions - Request options
  * @returns {AsyncGenerator<Product>} A generator that yields items of type Product.
- * @throws {PolarNetworkError} When a network error occurs
- * @throws {PolarRateLimitError} When the rate limit is exceeded
- * @throws {PolarServerError} When the server returns a 5xx error
+ * @throws {RepalisNetworkError} When a network error occurs
+ * @throws {RepalisRateLimitError} When the rate limit is exceeded
+ * @throws {RepalisServerError} When the server returns a 5xx error
  * @throws {HTTPValidationError} Validation Error
  */
 export const iterListProducts = (client: ClientBase) => {
@@ -134,9 +134,9 @@ export const createProducts = (client: ClientBase) => {
    * @param body - Request body
    * @param requestOptions - Request options
    * @returns {Product}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    * @throws {NotPermitted} Organization product limit reached.
    * @throws {HTTPValidationError} Validation Error
    */
@@ -160,9 +160,9 @@ export const getProducts = (client: ClientBase) => {
    * @param id
    * @param requestOptions - Request options
    * @returns {Product}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    * @throws {ResourceNotFound} Product not found.
    * @throws {HTTPValidationError} Validation Error
    */
@@ -197,9 +197,9 @@ export const deleteProducts = (client: ClientBase) => {
    * @param id
    * @param requestOptions - Request options
    * @returns {void}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    * @throws {NotPermitted} You don't have the permission to delete this product.
    * @throws {ResourceNotFound} Product not found.
    * @throws {ProductNotDeletable} Product is in use and cannot be deleted.
@@ -236,9 +236,9 @@ export const updateProducts = (client: ClientBase) => {
    * @param body - Request body
    * @param requestOptions - Request options
    * @returns {Product}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    * @throws {NotPermitted} You don't have the permission to update this product.
    * @throws {ResourceNotFound} Product not found.
    * @throws {HTTPValidationError} Validation Error
@@ -277,9 +277,9 @@ export const updateBenefitsProducts = (client: ClientBase) => {
    * @param body - Request body
    * @param requestOptions - Request options
    * @returns {Product}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    * @throws {NotPermitted} You don't have the permission to update this product.
    * @throws {ResourceNotFound} Product not found.
    * @throws {HTTPValidationError} Validation Error

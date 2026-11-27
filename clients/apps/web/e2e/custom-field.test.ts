@@ -16,13 +16,13 @@ describe('Custom field', () => {
     )
 
     await checkout.fillEmail()
-    await checkout.fillCustomField(COMPANY.name, 'Polar Software')
+    await checkout.fillCustomField(COMPANY.name, 'Repalis Software')
     await checkout.payWithCard()
     const portal = await checkout.submit()
 
     const [order] = await portal.orders()
     expect((await org.order(order.id)).custom_field_data?.[COMPANY.slug]).toBe(
-      'Polar Software',
+      'Repalis Software',
     )
   })
 })

@@ -10,10 +10,10 @@ import {
   ChevronRight,
   CloseOutlined,
   ExpandMoreOutlined,
-} from '@polar-sh/orbit/icons'
-import { schemas } from '@polar-sh/client'
-import { Button, Spinner, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+} from '@repalis/orbit/icons'
+import { schemas } from '@repalis/client'
+import { Button, Spinner, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import {
   Command,
   CommandEmpty,
@@ -22,12 +22,12 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
-} from '@polar-sh/ui/components/ui/command'
+} from '@repalis/ui/components/ui/command'
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@polar-sh/ui/components/ui/popover'
+} from '@repalis/ui/components/ui/popover'
 import React, { useEffect, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 import { CatalogVersionLabel } from './CatalogVersionLabel'
@@ -39,7 +39,7 @@ export interface ProductFilter {
 }
 
 const highlightClassName =
-  'rounded-lg data-[selected=true]:bg-gray-100 dark:data-[selected=true]:bg-polar-800 data-[selected=true]:text-black dark:data-[selected=true]:text-white'
+  'rounded-lg data-[selected=true]:bg-gray-100 dark:data-[selected=true]:bg-repalis-800 data-[selected=true]:text-black dark:data-[selected=true]:text-white'
 
 const ProductItem = ({
   organization,
@@ -232,7 +232,7 @@ const ProductSelect: React.FC<ProductSelectProps> = ({
             role="combobox"
             aria-expanded={open}
             className={twMerge(
-              'ring-offset-background placeholder:text-muted-foreground focus:ring-ring dark:bg-polar-800 font-medium dark:hover:bg-polar-700 dark:border-polar-700 dark:hover:border-polar-700 flex h-10 w-full! flex-row items-center justify-between gap-x-2 rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm font-sans shadow-xs transition-colors hover:border-gray-300 hover:bg-white focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1',
+              'ring-offset-background placeholder:text-muted-foreground focus:ring-ring dark:bg-repalis-800 font-medium dark:hover:bg-repalis-700 dark:border-repalis-700 dark:hover:border-repalis-700 flex h-10 w-full! flex-row items-center justify-between gap-x-2 rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm font-sans shadow-xs transition-colors hover:border-gray-300 hover:bg-white focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1',
               hasSelection && 'pr-12',
               className,
             )}
@@ -251,7 +251,7 @@ const ProductSelect: React.FC<ProductSelectProps> = ({
             type="button"
             aria-label="Clear products"
             onClick={() => onChange([])}
-            className="dark:border-polar-700 dark:text-polar-400 absolute inset-y-0 right-0 flex cursor-pointer items-center border-l border-gray-200 px-3 text-gray-500 hover:text-black dark:hover:text-white"
+            className="dark:border-repalis-700 dark:text-repalis-400 absolute inset-y-0 right-0 flex cursor-pointer items-center border-l border-gray-200 px-3 text-gray-500 hover:text-black dark:hover:text-white"
           >
             <CloseOutlined fontSize="small" />
           </button>
@@ -327,7 +327,7 @@ const ProductSelect: React.FC<ProductSelectProps> = ({
                     >
                       <ChevronRight
                         className={twMerge(
-                          'dark:text-polar-500 text-gray-500 transition-transform',
+                          'dark:text-repalis-500 text-gray-500 transition-transform',
                           showRemoved && 'rotate-90',
                         )}
                       />

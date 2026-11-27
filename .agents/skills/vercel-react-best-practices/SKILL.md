@@ -9,7 +9,7 @@ metadata:
 
 # Vercel React Best Practices
 
-> **Polar:** `apps/web` and `apps/orbit` build with the React Compiler. Skip `rerender-memo` and
+> **Repalis:** `apps/web` and `apps/orbit` build with the React Compiler. Skip `rerender-memo` and
 > `rerender-memo-with-default-value`, and drop the `useMemo`, `useCallback` and `memo()` wrappers
 > from the other examples: the compiler memoizes for you and lint rejects manual memoization.
 > Keep it only where a stable identity is needed for correctness. `clients/AGENTS.md` wins

@@ -1,8 +1,8 @@
 'use client'
 
-import { CheckOutlined } from '@polar-sh/orbit/icons'
-import { Button, Grid, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { CheckOutlined } from '@repalis/orbit/icons'
+import { Button, Grid, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import Link from 'next/link'
 import GetStartedButton from '../Auth/GetStartedButton'
 import { Chapter } from './Chapter'
@@ -68,7 +68,7 @@ export const Pricing = () => (
       cta={
         <>
           <GetStartedButton size="default" />
-          <Link href="mailto:support@polar.sh">
+          <Link href="mailto:contact@repalis.com">
             <Button variant="secondary">Contact Sales</Button>
           </Link>
         </>
@@ -92,7 +92,7 @@ export const Pricing = () => (
   </>
 )
 
-/** A tier as a sheet in the Polar window: price and fee as lines, its features anchored at the bottom. */
+/** A tier as a sheet in the Repalis window: price and fee as lines, its features anchored at the bottom. */
 export const TierSheet = ({ tier }: { tier: Tier }) => (
   <Sheet
     large

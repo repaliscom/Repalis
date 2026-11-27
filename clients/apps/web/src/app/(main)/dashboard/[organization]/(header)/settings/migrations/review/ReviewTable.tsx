@@ -8,8 +8,8 @@ import {
   useMigrationRecords,
   useRunMerchantMigrationPrecheck,
 } from '@/hooks/queries/merchantMigrations'
-import { Alert, Spinner } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { Alert, Spinner } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useRecordSummary } from './recordSummary'
 import {

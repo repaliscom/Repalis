@@ -12,11 +12,11 @@ from sqlalchemy import event as sqlalchemy_event
 from sqlalchemy.ext.asyncio import AsyncSession as SQLAlchemyAsyncSession
 from typer.testing import CliRunner
 
-from polar.event.repository import EventRepository
-from polar.integrations.tinybird.client import client as tinybird_client
-from polar.integrations.tinybird.service import DATASOURCE_EVENTS
-from polar.kit.db.postgres import AsyncSession
-from polar.models import (
+from repalis.event.repository import EventRepository
+from repalis.integrations.tinybird.client import client as tinybird_client
+from repalis.integrations.tinybird.service import DATASOURCE_EVENTS
+from repalis.kit.db.postgres import AsyncSession
+from repalis.models import (
     Benefit,
     Checkout,
     CheckoutLink,
@@ -41,10 +41,10 @@ from polar.models import (
     SupportCase,
     UserOrganization,
 )
-from polar.models.subscription import SubscriptionStatus
-from polar.redis import Redis
-from scripts.seed_polar_for_polar import BENEFITS as POLAR_SELF_BENEFITS
-from scripts.seed_polar_for_polar import PRODUCTS as POLAR_SELF_PRODUCTS
+from repalis.models.subscription import SubscriptionStatus
+from repalis.redis import Redis
+from scripts.seed_repalis_for_repalis import BENEFITS as REPALIS_SELF_BENEFITS
+from scripts.seed_repalis_for_repalis import PRODUCTS as REPALIS_SELF_PRODUCTS
 from scripts.seeds_load import (
     EXPECTED_ORGANIZATION_SLUGS,
     SIMPLE_COMPLEMENT_EVENT_NAMESPACE,
@@ -195,7 +195,7 @@ class TestSeedsLoad:
             organization.payout_account_id is not None for organization in organizations
         )
         assert await session.scalar(select(func.count(UserOrganization.user_id))) == 8
-        expected_product_count = 30 + len(POLAR_SELF_PRODUCTS)
+        expected_product_count = 30 + len(REPALIS_SELF_PRODUCTS)
         assert await session.scalar(select(func.count(Product.id))) == (
             expected_product_count
         )
@@ -252,16 +252,16 @@ class TestSeedsLoad:
             acme_statuses
         )
 
-        polar = next(
+        repalis = next(
             organization
             for organization in organizations
-            if organization.slug == "polar"
+            if organization.slug == "repalis"
         )
-        polar_billing_customer_external_ids = set(
+        repalis_billing_customer_external_ids = set(
             (
                 await session.execute(
                     select(Customer.external_id).where(
-                        Customer.organization_id == polar.id,
+                        Customer.organization_id == repalis.id,
                         Customer.external_id.is_not(None),
                     )
                 )
@@ -269,24 +269,24 @@ class TestSeedsLoad:
             .scalars()
             .all()
         )
-        assert polar_billing_customer_external_ids == {
+        assert repalis_billing_customer_external_ids == {
             str(organization.id)
             for organization in organizations
-            if organization.slug != "polar"
+            if organization.slug != "repalis"
         }
-        polar_benefit_metadata: dict[str, dict[str, Any]] = {
+        repalis_benefit_metadata: dict[str, dict[str, Any]] = {
             description: metadata
             for description, metadata in (
                 await session.execute(
                     select(Benefit.description, Benefit.user_metadata).where(
-                        Benefit.organization_id == polar.id
+                        Benefit.organization_id == repalis.id
                     )
                 )
             ).all()
         }
-        assert polar_benefit_metadata == {
+        assert repalis_benefit_metadata == {
             str(benefit["description"]): benefit["metadata"]
-            for benefit in POLAR_SELF_BENEFITS
+            for benefit in REPALIS_SELF_BENEFITS
         }
 
         assert await session.scalar(select(func.count(Event.id))) == 0

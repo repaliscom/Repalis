@@ -12,7 +12,7 @@ import {
 import { redirect } from 'next/navigation'
 
 export const metadata: Metadata = {
-  title: 'Log in to Polar',
+  title: 'Log in to Repalis',
 }
 
 export default async function Page(props: {
@@ -37,12 +37,12 @@ export default async function Page(props: {
 
   const cookieStore = await cookies()
   const lastLoginMethod =
-    cookieStore.get('polar_last_login_method')?.value ?? null
+    cookieStore.get('repalis_last_login_method')?.value ?? null
 
   return (
     <div className="flex h-screen w-full grow items-center justify-center">
       <AgentSignupHint />
-      <div className="dark:bg-polar-900 flex w-full max-w-md flex-col justify-between gap-8 rounded-3xl bg-gray-50 p-12">
+      <div className="dark:bg-repalis-900 flex w-full max-w-md flex-col justify-between gap-8 rounded-3xl bg-gray-50 p-12">
         <AuthHeader error={searchParams.error} />
         <Auth
           authenticationSession={authenticationSession}

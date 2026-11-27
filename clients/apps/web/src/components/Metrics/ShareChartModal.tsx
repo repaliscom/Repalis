@@ -1,6 +1,6 @@
 import { ParsedMetricsResponse } from '@/hooks/queries/metrics'
-import { schemas } from '@polar-sh/client'
-import { Button } from '@polar-sh/orbit'
+import { schemas } from '@repalis/client'
+import { Button } from '@repalis/orbit'
 import domtoimage from 'dom-to-image'
 import { useEffect, useRef, useState } from 'react'
 import LogoType from '../Brand/logos/LogoType'
@@ -82,7 +82,7 @@ export const ShareChartModal = ({
       const objectUrl = URL.createObjectURL(blob)
       const link = document.createElement('a')
       link.href = objectUrl
-      link.download = 'polar-chart.png'
+      link.download = 'repalis-chart.png'
       link.click()
       setTimeout(() => URL.revokeObjectURL(objectUrl), 0)
 
@@ -128,10 +128,10 @@ export const ShareChartModal = ({
         >
           <div
             ref={chartRef}
-            className="dark:bg-polar-950 flex w-full max-w-4xl flex-col items-center justify-center gap-12 rounded-4xl bg-blue-50 p-12 max-md:min-w-[672px]"
+            className="dark:bg-repalis-950 flex w-full max-w-4xl flex-col items-center justify-center gap-12 rounded-4xl bg-blue-50 p-12 max-md:min-w-[672px]"
             style={{
               backgroundImage:
-                'url(/assets/landing/company/Polar_Flow_03_No_Logo.jpg)',
+                'url(/assets/landing/company/Repalis_Flow_03_No_Logo.jpg)',
               backgroundSize: 'auto 120%',
               backgroundPosition: 'center',
               backgroundRepeat: 'no-repeat',
@@ -140,7 +140,7 @@ export const ShareChartModal = ({
             }}
           >
             <MetricChartBox
-              className="dark:border-polar-700 dark:bg-polar-900 rounded-3xl border border-transparent bg-white p-8 shadow-xs"
+              className="dark:border-repalis-700 dark:bg-repalis-900 rounded-3xl border border-transparent bg-white p-8 shadow-xs"
               data={data}
               previousData={previousData}
               interval={interval}

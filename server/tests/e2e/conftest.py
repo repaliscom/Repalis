@@ -18,14 +18,14 @@ import fakeredis
 import pytest
 from pytest_mock import MockerFixture
 
-from polar.auth.scope import Scope
-from polar.config import settings
-from polar.kit.db.postgres import AsyncSession
-from polar.models import Organization, User, UserOrganization
-from polar.redis import Redis
-from polar.worker._httpx import HTTPXMiddleware
-from polar.worker._redis import RedisMiddleware
-from polar.worker._sqlalchemy import SQLAlchemyMiddleware
+from repalis.auth.scope import Scope
+from repalis.config import settings
+from repalis.kit.db.postgres import AsyncSession
+from repalis.models import Organization, User, UserOrganization
+from repalis.redis import Redis
+from repalis.worker._httpx import HTTPXMiddleware
+from repalis.worker._redis import RedisMiddleware
+from repalis.worker._sqlalchemy import SQLAlchemyMiddleware
 from tests.e2e.infra import (
     DrainFn,
     EmailCapture,
@@ -120,7 +120,7 @@ def email_capture() -> EmailCapture:
 @pytest.fixture(autouse=True)
 def mock_email_sender(mocker: MockerFixture, email_capture: EmailCapture) -> MagicMock:
     mock = create_email_sender_mock(email_capture)
-    mocker.patch("polar.email.tasks.email_sender", new=mock)
+    mocker.patch("repalis.email.tasks.email_sender", new=mock)
     return mock
 
 

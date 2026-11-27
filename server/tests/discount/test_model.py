@@ -3,8 +3,8 @@ from datetime import UTC, datetime
 
 import pytest
 
-from polar.models import DiscountProduct, Organization, Product
-from polar.models.discount import DiscountFixed, DiscountPercentage
+from repalis.models import DiscountProduct, Organization, Product
+from repalis.models.discount import DiscountFixed, DiscountPercentage
 
 
 def _fixed(amount: int, currency: str = "usd") -> DiscountFixed:

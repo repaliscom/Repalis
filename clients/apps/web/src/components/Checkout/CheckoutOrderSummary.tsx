@@ -9,14 +9,14 @@ import {
   CheckoutPWYWForm,
   CheckoutSeatSelector,
   CheckoutUnitSelector,
-} from '@polar-sh/checkout/components'
+} from '@repalis/checkout/components'
 import {
   getSeatPrice,
   getUnitPrice,
   type ProductCheckoutPublic,
-} from '@polar-sh/checkout/guards'
-import type { schemas } from '@polar-sh/client'
-import type { AcceptedLocale } from '@polar-sh/i18n'
+} from '@repalis/checkout/guards'
+import type { schemas } from '@repalis/client'
+import type { AcceptedLocale } from '@repalis/i18n'
 import {
   Dialog,
   DialogContent,
@@ -24,8 +24,8 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@polar-sh/ui/components/ui/dialog'
-import type { ThemingPresetProps } from '@polar-sh/ui/hooks/theming'
+} from '@repalis/ui/components/ui/dialog'
+import type { ThemingPresetProps } from '@repalis/ui/hooks/theming'
 import { Slideshow } from '../Products/Slideshow'
 import { CheckoutDiscountInput } from './CheckoutDiscountInput'
 import { CheckoutProductDescription } from './CheckoutProductDescription'
@@ -73,7 +73,7 @@ export const CheckoutOrderSummary = ({
                   )}
                 </button>
               </DialogTrigger>
-              <DialogContent className="dark:bg-polar-900 max-w-2xl">
+              <DialogContent className="dark:bg-repalis-900 max-w-2xl">
                 <DialogHeader>
                   <DialogTitle>{checkout.product.name}</DialogTitle>
                   <DialogDescription className="sr-only">

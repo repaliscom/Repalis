@@ -15,8 +15,8 @@ resource "render_registry_credential" "ghcr" {
 # ============================================================================
 
 data "tfe_outputs" "production" {
-  organization = "polar-sh"
-  workspace    = "polar"
+  organization = "repalis"
+  workspace    = "repalis"
 }
 
 # =============================================================================
@@ -24,7 +24,7 @@ data "tfe_outputs" "production" {
 # =============================================================================
 
 locals {
-  private_backoffice_hostname = "backoffice.sandbox.polar.sh"
+  private_backoffice_hostname = "backoffice.sandbox.repalis.com"
   # Redis connection info
   redis_host = var.redis_private_link_host
   redis_port = "6379"
@@ -72,27 +72,27 @@ module "sandbox" {
   }
 
   api_service_config = {
-    allowed_hosts          = jsonencode(["sandbox.polar.sh", local.private_backoffice_hostname])
-    cors_origins           = "[\"https://sandbox.polar.sh\", \"https://github.com\", \"https://docs.polar.sh\"]"
-    custom_domains         = [{ name = "sandbox-api.polar.sh" }]
+    allowed_hosts          = jsonencode(["sandbox.repalis.com", local.private_backoffice_hostname])
+    cors_origins           = "[\"https://sandbox.repalis.com\", \"https://github.com\", \"https://docs.repalis.com\"]"
+    custom_domains         = [{ name = "sandbox-api.repalis.com" }]
     web_concurrency        = "2"
     forwarded_allow_ips    = local.forwarded_allow_ips
     database_pool_size     = "20"
     postgres_database      = module.planetscale.database_name
     postgres_read_database = module.planetscale.database_name
-    pre_deploy_command     = "env POLAR_POSTGRES_USER=${module.planetscale.app_role_username} POLAR_POSTGRES_PORT=5432 uv run task pre_deploy"
+    pre_deploy_command     = "env REPALIS_POSTGRES_USER=${module.planetscale.app_role_username} REPALIS_POSTGRES_PORT=5432 uv run task pre_deploy"
     redis_db               = "1"
     plan                   = "pro"
   }
 
   workers = {
     worker-sandbox = {
-      start_command      = "uv run dramatiq polar.worker.run -p 4 -t 8 -f polar.worker.scheduler:start"
-      custom_domains     = [{ name = "worker-sandbox.polar.sh" }]
+      start_command      = "uv run dramatiq repalis.worker.run -p 4 -t 8 -f repalis.worker.scheduler:start"
+      custom_domains     = [{ name = "worker-sandbox.repalis.com" }]
       dramatiq_prom_port = "10000"
     }
     worker-sandbox-event-mover = {
-      start_command      = "uv run python -m polar.event.mover"
+      start_command      = "uv run python -m repalis.event.mover"
       num_instances      = 2
       dramatiq_prom_port = "10001"
     }
@@ -109,7 +109,7 @@ module "sandbox" {
 # =============================================================================
 resource "cloudflare_dns_record" "api" {
   zone_id = "22bcd1b07ec25452aab472486bc8df94"
-  name    = "sandbox-api.polar.sh"
+  name    = "sandbox-api.repalis.com"
   type    = "CNAME"
   content = replace(module.sandbox.api_service_url, "https://", "")
   proxied = true
@@ -120,7 +120,7 @@ resource "cloudflare_dns_record" "worker" {
   for_each = module.sandbox.worker_urls
 
   zone_id = "22bcd1b07ec25452aab472486bc8df94"
-  name    = "${each.key}.polar.sh"
+  name    = "${each.key}.repalis.com"
   type    = "CNAME"
   content = replace(each.value, "https://", "")
   proxied = true

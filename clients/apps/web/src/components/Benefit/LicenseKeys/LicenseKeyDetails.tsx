@@ -1,12 +1,12 @@
 import { unreachable } from '@/utils/unreachable'
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 import {
   DEFAULT_LOCALE,
   useTranslations,
   type AcceptedLocale,
-} from '@polar-sh/i18n'
-import FormattedDateTime from '@polar-sh/ui/components/atoms/FormattedDateTime'
-import ShadowBox from '@polar-sh/ui/components/atoms/ShadowBox'
+} from '@repalis/i18n'
+import FormattedDateTime from '@repalis/ui/components/atoms/FormattedDateTime'
+import ShadowBox from '@repalis/ui/components/atoms/ShadowBox'
 import { twMerge } from 'tailwind-merge'
 
 export interface LicenseKeyDetails {
@@ -41,21 +41,21 @@ export const LicenseKeyDetails = ({
   return (
     <ShadowBox
       className={twMerge(
-        'dark:bg-polar-800 bg-gray-100 p-6 text-sm lg:rounded-2xl',
+        'dark:bg-repalis-800 bg-gray-100 p-6 text-sm lg:rounded-2xl',
         className,
       )}
     >
       <div className="flex flex-col gap-y-6">
         <div className="flex flex-col gap-y-2">
           <div className="flex flex-row items-center justify-between">
-            <span className="dark:text-polar-500 text-gray-500">
+            <span className="dark:text-repalis-500 text-gray-500">
               {t('checkout.benefits.licenseKey.status')}
             </span>
             <span>{getLicenseKeyStatusLabel(licenseKey.status, t)}</span>
           </div>
           {licenseKey.limit_usage && (
             <div className="flex flex-row items-center justify-between">
-              <span className="dark:text-polar-500 text-gray-500">
+              <span className="dark:text-repalis-500 text-gray-500">
                 {t('checkout.benefits.licenseKey.usage')}
               </span>
               <span>
@@ -64,13 +64,13 @@ export const LicenseKeyDetails = ({
             </div>
           )}
           <div className="flex flex-row items-center justify-between">
-            <span className="dark:text-polar-500 text-gray-500">
+            <span className="dark:text-repalis-500 text-gray-500">
               {t('checkout.benefits.licenseKey.validations')}
             </span>
             <span>{licenseKey.validations}</span>
           </div>
           <div className="flex flex-row items-center justify-between">
-            <span className="dark:text-polar-500 text-gray-500">
+            <span className="dark:text-repalis-500 text-gray-500">
               {t('checkout.benefits.licenseKey.validatedAt')}
             </span>
             <span>
@@ -85,7 +85,7 @@ export const LicenseKeyDetails = ({
             </span>
           </div>
           <div className="flex flex-row items-center justify-between">
-            <span className="dark:text-polar-500 text-gray-500">
+            <span className="dark:text-repalis-500 text-gray-500">
               {t('checkout.benefits.licenseKey.expiryDate')}
             </span>
             <span>

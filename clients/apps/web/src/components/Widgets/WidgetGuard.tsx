@@ -2,9 +2,9 @@ import { useHasPermission } from '@/hooks/permissions'
 import { OrganizationPermission } from '@/hooks/queries/roles'
 import { OrganizationContext } from '@/providers/maintainerOrganization'
 import { permissionDeniedMessage } from '@/utils/permissions'
-import { Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import { BrickWallShield as BrickWallShieldIcon } from '@polar-sh/orbit/icons'
+import { Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import { BrickWallShield as BrickWallShieldIcon } from '@repalis/orbit/icons'
 import { PropsWithChildren, useContext } from 'react'
 import { WidgetContainer } from './WidgetContainer'
 
@@ -33,7 +33,7 @@ export const WidgetRestricted = ({
       textAlign="center"
     >
       <BrickWallShieldIcon
-        className="dark:text-polar-500 size-5 shrink-0 text-gray-500"
+        className="dark:text-repalis-500 size-5 shrink-0 text-gray-500"
         strokeWidth={1.5}
       />
       <Text variant="body" as="h3">

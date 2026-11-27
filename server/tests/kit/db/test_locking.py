@@ -1,8 +1,8 @@
 import pytest
 from sqlalchemy import text
 
-from polar.kit.db.locking import pg_advisory_xact_lock, pg_advisory_xact_locks
-from polar.postgres import AsyncSession
+from repalis.kit.db.locking import pg_advisory_xact_lock, pg_advisory_xact_locks
+from repalis.postgres import AsyncSession
 
 
 async def count_advisory_locks(session: AsyncSession) -> int:

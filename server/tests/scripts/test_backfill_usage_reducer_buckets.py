@@ -6,11 +6,11 @@ from uuid import uuid4
 import pytest
 from sqlalchemy import select
 
-from polar.event.system import SystemEvent
-from polar.kit.db.postgres import AsyncSession
-from polar.kit.utils import utc_now
-from polar.meter.aggregation import AggregationFunction, PropertyAggregation
-from polar.models import (
+from repalis.event.system import SystemEvent
+from repalis.kit.db.postgres import AsyncSession
+from repalis.kit.utils import utc_now
+from repalis.meter.aggregation import AggregationFunction, PropertyAggregation
+from repalis.models import (
     BillingInterval,
     Customer,
     Meter,
@@ -20,13 +20,13 @@ from polar.models import (
     ReducerBucket,
     User,
 )
-from polar.models.billing_entry import BillingEntryType
-from polar.models.billing_interval import UsagePolicy
-from polar.models.event import EventSource
-from polar.models.organization import OrganizationStatus
-from polar.models.reducer import ReducerKind
-from polar.reducer.service import reducer as reducer_service
-from polar.reducer.types import UsageWindow
+from repalis.models.billing_entry import BillingEntryType
+from repalis.models.billing_interval import UsagePolicy
+from repalis.models.event import EventSource
+from repalis.models.organization import OrganizationStatus
+from repalis.models.reducer import ReducerKind
+from repalis.reducer.service import reducer as reducer_service
+from repalis.reducer.types import UsageWindow
 from scripts.backfill_usage_reducer_buckets import (
     _get_organization_ids,
     backfill_organization,

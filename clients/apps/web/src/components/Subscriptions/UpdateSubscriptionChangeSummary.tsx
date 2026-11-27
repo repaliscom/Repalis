@@ -6,12 +6,12 @@ import { useSubscriptionChangePreview } from '@/hooks/queries/subscriptions'
 import { extractApiErrorMessage } from '@/utils/api/errors'
 import { getDiscountDisplay } from '@/utils/discount'
 import { formatTrialEnd, type TrialChangeOutcome } from '@/utils/trial-change'
-import { ClientResponseError, schemas } from '@polar-sh/client'
-import { formatCurrency } from '@polar-sh/currency'
-import { Grid, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import { ArrowRight } from '@polar-sh/orbit/icons'
-import FormattedDateTime from '@polar-sh/ui/components/atoms/FormattedDateTime'
+import { ClientResponseError, schemas } from '@repalis/client'
+import { formatCurrency } from '@repalis/currency'
+import { Grid, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import { ArrowRight } from '@repalis/orbit/icons'
+import FormattedDateTime from '@repalis/ui/components/atoms/FormattedDateTime'
 import type { ReactNode } from 'react'
 
 const format = formatCurrency('accounting')
@@ -31,7 +31,7 @@ const ChangeRow = ({
       {from}
     </Text>
     <Box paddingHorizontal="xs">
-      <ArrowRight className="dark:text-polar-500 h-3 w-3 text-gray-400" />
+      <ArrowRight className="dark:text-repalis-500 h-3 w-3 text-gray-400" />
     </Box>
     <Text truncate>{to}</Text>
   </>

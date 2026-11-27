@@ -1,8 +1,8 @@
-import { schemas } from '@polar-sh/client'
-import { Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { schemas } from '@repalis/client'
+import { Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import { m } from 'motion/react'
-import { Check, X } from '@polar-sh/orbit/icons'
+import { Check, X } from '@repalis/orbit/icons'
 import React from 'react'
 import { BUBBLE_SPRING, ROW_FADE } from '@/components/Chat/ChatBubble'
 import { exactTime, relativeTime } from '@/components/Chat/time'
@@ -38,7 +38,7 @@ export const DecisionMessage = ({ message, organization }: Props) => {
             transition={BUBBLE_SPRING}
             style={{ transformOrigin: 'bottom left' }}
           >
-            <div className="dark:bg-polar-600 flex flex-col gap-1 rounded-2xl rounded-bl-none bg-gray-100 p-3 whitespace-pre-wrap">
+            <div className="dark:bg-repalis-600 flex flex-col gap-1 rounded-2xl rounded-bl-none bg-gray-100 p-3 whitespace-pre-wrap">
               <Box display="flex" alignItems="center" columnGap="xs">
                 {approved ? (
                   <Check className="h-4 w-4 shrink-0 text-emerald-500" />

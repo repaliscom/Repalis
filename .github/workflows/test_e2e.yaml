@@ -21,7 +21,7 @@ jobs:
     runs-on: blacksmith-4vcpu-ubuntu-2404
 
     env:
-      E2E_API_URL: ${{ inputs.api_url || 'https://sandbox-api.polar.sh' }}
+      E2E_API_URL: ${{ inputs.api_url || 'https://sandbox-api.repalis.com' }}
       SOURCE_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
       SLACK_CHANNEL_ID: ${{ secrets.E2E_SLACK_CHANNEL_ID }}
       E2E_ORG_TOKEN: ${{ secrets.E2E_ORG_TOKEN }}
@@ -64,12 +64,12 @@ jobs:
       - name: Redact session tokens from traces and logs
         if: always()
         run: |
-          redact() { perl -pi -e 's/polar_cst_[A-Za-z0-9_-]+/polar_cst_REDACTED/g; s/Bearer [A-Za-z0-9._~+\/=-]+/Bearer REDACTED/g' "$@"; }
+          redact() { perl -pi -e 's/repalis_cst_[A-Za-z0-9_-]+/repalis_cst_REDACTED/g; s/Bearer [A-Za-z0-9._~+\/=-]+/Bearer REDACTED/g' "$@"; }
           shopt -s nullglob
           for trace in clients/apps/web/e2e/artifacts/*/*/trace.zip; do
             unpacked=$(mktemp -d)
             unzip -q "$trace" -d "$unpacked"
-            grep -rlI -E 'polar_cst_|Bearer ' "$unpacked" | while read -r file; do redact "$file"; done
+            grep -rlI -E 'repalis_cst_|Bearer ' "$unpacked" | while read -r file; do redact "$file"; done
             (cd "$unpacked" && zip -qr "$OLDPWD/$trace" .)
             rm -rf "$unpacked"
           done

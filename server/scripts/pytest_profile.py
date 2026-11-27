@@ -10,7 +10,7 @@ from typing import Any
 import pytest
 
 worker = os.environ.get("PYTEST_XDIST_WORKER")
-directory = Path(os.environ["POLAR_CI_PROFILE_DIRECTORY"])
+directory = Path(os.environ["REPALIS_CI_PROFILE_DIRECTORY"])
 profiler = cProfile.Profile()
 started_at = time.monotonic()
 cpu_started_at = time.process_time()
@@ -27,7 +27,7 @@ SELECT json_build_object(
         FROM (
             SELECT state, wait_event_type, wait_event, count(*) AS connections
             FROM pg_stat_activity
-            WHERE datname LIKE 'polar_test%' AND pid <> pg_backend_pid()
+            WHERE datname LIKE 'repalis_test%' AND pid <> pg_backend_pid()
             GROUP BY state, wait_event_type, wait_event
         ) AS activity
     ),
@@ -37,8 +37,8 @@ SELECT json_build_object(
 
 
 def monitor_postgres() -> None:
-    postgres = os.environ["POLAR_CI_POSTGRES_CONTAINER"]
-    tinybird = os.environ["POLAR_CI_TINYBIRD_CONTAINER"]
+    postgres = os.environ["REPALIS_CI_POSTGRES_CONTAINER"]
+    tinybird = os.environ["REPALIS_CI_TINYBIRD_CONTAINER"]
     while not stop_monitor.wait(2):
         sample: dict[str, Any] = {"elapsed": time.monotonic() - started_at}
         try:
@@ -49,9 +49,9 @@ def monitor_postgres() -> None:
                     postgres,
                     "psql",
                     "-U",
-                    "polar",
+                    "repalis",
                     "-d",
-                    "polar_test",
+                    "repalis_test",
                     "-At",
                     "-c",
                     ACTIVITY_QUERY,
@@ -93,7 +93,7 @@ def pytest_load_initial_conftests() -> None:
 
 def pytest_sessionstart() -> None:
     global monitor_thread
-    if not worker and os.environ.get("POLAR_CI_POSTGRES_CONTAINER"):
+    if not worker and os.environ.get("REPALIS_CI_POSTGRES_CONTAINER"):
         monitor_thread = threading.Thread(target=monitor_postgres, daemon=True)
         monitor_thread.start()
 

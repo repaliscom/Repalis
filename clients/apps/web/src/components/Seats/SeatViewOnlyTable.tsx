@@ -1,7 +1,7 @@
 'use client'
 
-import { DataTable } from '@polar-sh/orbit'
-import { Status, Truncated } from '@polar-sh/orbit'
+import { DataTable } from '@repalis/orbit'
+import { Status, Truncated } from '@repalis/orbit'
 import { seatStatusDisplayConfig } from './seatStatus'
 
 interface CustomerSeat {

@@ -1,5 +1,5 @@
-import { Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import React from 'react'
 import { FileTypeIcon } from './FileTypeIcon'
 import { formatFileSize, truncateFilename } from './fileUtils'
@@ -22,7 +22,7 @@ const Row = ({
       <FileTypeIcon
         name={attachment.name}
         mimeType={attachment.mimeType}
-        className={inverse ? 'dark:text-polar-600 text-white' : undefined}
+        className={inverse ? 'dark:text-repalis-600 text-white' : undefined}
       />
       <span className="group-hover:underline">
         <Text variant="caption" color={inverse ? 'inverse' : 'default'}>

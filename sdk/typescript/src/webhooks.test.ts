@@ -2,11 +2,11 @@ import { Buffer } from "node:buffer";
 import { Webhook } from "standardwebhooks";
 import { describe, expect, test } from "vitest";
 
-import { PolarError } from "./base";
+import { RepalisError } from "./base";
 import {
-  PolarWebhookError,
-  PolarWebhookUnknownTypeError,
-  PolarWebhookVerificationError,
+  RepalisWebhookError,
+  RepalisWebhookUnknownTypeError,
+  RepalisWebhookVerificationError,
   validateWebhook,
 } from "./webhooks";
 
@@ -73,7 +73,7 @@ describe("validateWebhook", () => {
     const body = JSON.stringify({ type: "dummy.event", value: "payload" });
 
     await expect(validateEvent(body, getHeaders("{}"))).rejects.toThrow(
-      PolarWebhookVerificationError,
+      RepalisWebhookVerificationError,
     );
   });
 
@@ -82,13 +82,13 @@ describe("validateWebhook", () => {
     const headers = getHeaders(body);
     headers["Webhook-Signature"] = "v1,not-base64!";
 
-    await expect(validateEvent(body, headers)).rejects.toThrow(PolarWebhookVerificationError);
+    await expect(validateEvent(body, headers)).rejects.toThrow(RepalisWebhookVerificationError);
   });
 
   test("rejects missing headers", async () => {
     const body = JSON.stringify({ type: "dummy.event", value: "payload" });
 
-    await expect(validateEvent(body, {})).rejects.toThrow(PolarWebhookVerificationError);
+    await expect(validateEvent(body, {})).rejects.toThrow(RepalisWebhookVerificationError);
   });
 
   test("rejects a stale timestamp", async () => {
@@ -96,7 +96,7 @@ describe("validateWebhook", () => {
     const timestamp = new Date(Date.now() - 6 * 60 * 1000);
 
     await expect(validateEvent(body, getHeaders(body, timestamp))).rejects.toThrow(
-      PolarWebhookVerificationError,
+      RepalisWebhookVerificationError,
     );
   });
 
@@ -107,20 +107,20 @@ describe("validateWebhook", () => {
       await validateEvent(body, getHeaders(body));
       throw new Error("Expected validateEvent to throw");
     } catch (error) {
-      expect(error).toBeInstanceOf(PolarWebhookUnknownTypeError);
-      expect((error as PolarWebhookUnknownTypeError).eventType).toBe("future.event");
+      expect(error).toBeInstanceOf(RepalisWebhookUnknownTypeError);
+      expect((error as RepalisWebhookUnknownTypeError).eventType).toBe("future.event");
     }
   });
 
   test("wraps malformed signed payloads", async () => {
     const body = "{";
 
-    await expect(validateEvent(body, getHeaders(body))).rejects.toThrow(PolarWebhookError);
+    await expect(validateEvent(body, getHeaders(body))).rejects.toThrow(RepalisWebhookError);
   });
 
-  test("uses the Polar webhook error hierarchy", () => {
-    expect(new PolarWebhookError("error")).toBeInstanceOf(PolarError);
-    expect(new PolarWebhookVerificationError("error")).toBeInstanceOf(PolarWebhookError);
-    expect(new PolarWebhookUnknownTypeError("future.event")).toBeInstanceOf(PolarWebhookError);
+  test("uses the Repalis webhook error hierarchy", () => {
+    expect(new RepalisWebhookError("error")).toBeInstanceOf(RepalisError);
+    expect(new RepalisWebhookVerificationError("error")).toBeInstanceOf(RepalisWebhookError);
+    expect(new RepalisWebhookUnknownTypeError("future.event")).toBeInstanceOf(RepalisWebhookError);
   });
 });

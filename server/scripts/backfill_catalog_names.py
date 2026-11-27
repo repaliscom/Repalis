@@ -1,7 +1,7 @@
 import typer
 from sqlalchemy import Update, func, select, update
 
-from polar.models import Catalog
+from repalis.models import Catalog
 from scripts.helper import (  # lint-skip: dry-run
     configure_script_logging,
     limit_bindparam,

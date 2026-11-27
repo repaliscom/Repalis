@@ -1,10 +1,10 @@
 'use client'
 
 import { CheckoutLinkManagementModal } from '@/components/CheckoutLinks/CheckoutLinkManagementModal'
-import { InlineModal } from '@polar-sh/orbit'
+import { InlineModal } from '@repalis/orbit'
 import { useModal } from '@/components/Modal/useModal'
 import ProductSelect from '@/components/Products/ProductSelect'
-import { Spinner } from '@polar-sh/orbit'
+import { Spinner } from '@repalis/orbit'
 import { toast } from '@/components/Toast/use-toast'
 import { useCheckoutLinks } from '@/hooks/queries'
 import { useInViewport } from '@/hooks/utils'
@@ -14,9 +14,9 @@ import {
   ArrowDownward,
   ArrowUpward,
   LinkOutlined,
-} from '@polar-sh/orbit/icons'
-import { schemas } from '@polar-sh/client'
-import { Button } from '@polar-sh/orbit'
+} from '@repalis/orbit/icons'
+import { schemas } from '@repalis/client'
+import { Button } from '@repalis/orbit'
 import Link from 'next/link'
 import { usePathname, useSearchParams } from 'next/navigation'
 import {
@@ -129,7 +129,7 @@ export const CheckoutLinkListSidebar = ({
 
   return (
     <>
-      <div className="dark:divide-polar-800 flex h-full flex-col divide-y divide-gray-200">
+      <div className="dark:divide-repalis-800 flex h-full flex-col divide-y divide-gray-200">
         <div className="flex flex-row items-center justify-between gap-6 px-4 py-4">
           <div>Checkout Links</div>
           <div className="flex flex-row items-center gap-4">
@@ -163,7 +163,7 @@ export const CheckoutLinkListSidebar = ({
             onChange={handleProductIdsChange}
           />
         </div>
-        <div className="dark:divide-polar-800 flex h-full grow flex-col divide-y divide-gray-50 overflow-y-auto">
+        <div className="dark:divide-repalis-800 flex h-full grow flex-col divide-y divide-gray-50 overflow-y-auto">
           {checkoutLinks.map((checkoutLink) => {
             const productLabel =
               checkoutLink.products.length === 1
@@ -178,9 +178,9 @@ export const CheckoutLinkListSidebar = ({
                 key={checkoutLink.id}
                 href={checkoutLinkHref}
                 className={twMerge(
-                  'dark:hover:bg-polar-800 cursor-pointer hover:bg-gray-100',
+                  'dark:hover:bg-repalis-800 cursor-pointer hover:bg-gray-100',
                   selectedCheckoutLinkId === checkoutLink.id &&
-                    'dark:bg-polar-800 bg-gray-100',
+                    'dark:bg-repalis-800 bg-gray-100',
                 )}
               >
                 <div className="flex flex-row items-center gap-3 px-4 py-3">
@@ -189,7 +189,7 @@ export const CheckoutLinkListSidebar = ({
                       {checkoutLink.label ?? 'Untitled'}
                     </div>
                     <div>
-                      <div className="dark:text-polar-500 w-full truncate text-sm text-gray-500">
+                      <div className="dark:text-repalis-500 w-full truncate text-sm text-gray-500">
                         {productLabel}
                       </div>
                     </div>

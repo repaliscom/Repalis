@@ -10,12 +10,12 @@ import { useDispute } from '@/hooks/queries/disputes'
 import { useSupportCase } from '@/hooks/queries/org'
 import { useOrder } from '@/hooks/queries/orders'
 import { buildCustomerDashboardPath } from '@/utils/customer'
-import { schemas } from '@polar-sh/client'
-import { formatCurrency } from '@polar-sh/currency'
-import { Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import ShadowBox from '@polar-sh/ui/components/atoms/ShadowBox'
-import { LoaderCircle as Loader2 } from '@polar-sh/orbit/icons'
+import { schemas } from '@repalis/client'
+import { formatCurrency } from '@repalis/currency'
+import { Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import ShadowBox from '@repalis/ui/components/atoms/ShadowBox'
+import { LoaderCircle as Loader2 } from '@repalis/orbit/icons'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import React from 'react'
@@ -40,7 +40,7 @@ const RESOLUTION: Record<string, { title: string; description: string }> = {
 
 const Spinner = () => (
   <Box alignItems="center" justifyContent="center" paddingVertical="3xl">
-    <Loader2 className="dark:text-polar-400 h-5 w-5 animate-spin text-gray-500" />
+    <Loader2 className="dark:text-repalis-400 h-5 w-5 animate-spin text-gray-500" />
   </Box>
 )
 

@@ -9,10 +9,10 @@ import {
   ToplistValue,
 } from '@/components/Shared/Toplist'
 import { useTopCustomers } from '@/hooks/queries'
-import { schemas } from '@polar-sh/client'
-import { formatCurrency } from '@polar-sh/currency'
-import { Alert, Avatar } from '@polar-sh/orbit'
-import { TrendingUp } from '@polar-sh/orbit/icons'
+import { schemas } from '@repalis/client'
+import { formatCurrency } from '@repalis/currency'
+import { Alert, Avatar } from '@repalis/orbit'
+import { TrendingUp } from '@repalis/orbit/icons'
 interface TopCustomersListProps {
   organization: schemas['Organization']
   start: Date

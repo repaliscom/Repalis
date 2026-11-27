@@ -4,7 +4,7 @@ import {
   ActiveOrganization,
   loginCommand,
   orgCommand,
-  PolarEnvironment,
+  RepalisEnvironment,
 } from '@/schemas/Auth'
 import { Auth } from '@/services/auth'
 import { Organizations } from '@/services/organizations'
@@ -21,7 +21,7 @@ const Session = Schema.Union([
   Schema.Struct({
     status: Schema.Literal('active'),
     override: Schema.Boolean,
-    environments: Schema.Array(PolarEnvironment),
+    environments: Schema.Array(RepalisEnvironment),
     organization: Schema.Union([
       ActiveOrganization,
       Schema.Literals(['none', 'unavailable']),
@@ -86,7 +86,7 @@ const sessionLines = (session: Session) => {
   if (session.status === 'unreadable') {
     return [
       ui.warning('Could not read your saved session'),
-      ui.step(`Run ${ui.command('polar auth whoami')} for details`),
+      ui.step(`Run ${ui.command('repalis auth whoami')} for details`),
     ]
   }
   if (session.status === 'logged-out') {
@@ -94,14 +94,14 @@ const sessionLines = (session: Session) => {
       ui.warning('Not logged in'),
       ui.step(`Run ${ui.command(loginCommand('sandbox'))} to get started`),
       ui.step(
-        `Or set ${ui.command('POLAR_ACCESS_TOKEN')} to use an access token without logging in`,
+        `Or set ${ui.command('REPALIS_ACCESS_TOKEN')} to use an access token without logging in`,
       ),
     ]
   }
   const { override, environments, organization } = session
   const rows: Array<readonly [string, string]> = override
     ? [
-        ['Token', 'POLAR_ACCESS_TOKEN'],
+        ['Token', 'REPALIS_ACCESS_TOKEN'],
         ['Environment', environments[0]!],
       ]
     : [['Logged in', environments.join(', ')]]
@@ -121,20 +121,20 @@ const sessionLines = (session: Session) => {
     )
   }
   const suggestions: Array<readonly [string, string]> = [
-    ['polar webhook listen 3000', 'Forward webhooks to your local server'],
-    ['polar webhook trigger order.paid', 'Send a sample event'],
+    ['repalis webhook listen 3000', 'Forward webhooks to your local server'],
+    ['repalis webhook trigger order.paid', 'Send a sample event'],
   ]
   if (!override) suggestions.push([orgCommand, 'Switch organization'])
   lines.push(ui.blank, `  ${ui.bold('Try next')}`, commandList(suggestions))
   return lines
 }
 
-export const polar = Command.make('polar', {}).pipe(
-  Command.withDescription('Polar from your terminal'),
+export const repalis = Command.make('repalis', {}).pipe(
+  Command.withDescription('Repalis from your terminal'),
   Command.annotate(EnvironmentVariables, [
     ...tokenVariables,
     {
-      name: 'POLAR_CLI_TELEMETRY_OPTOUT',
+      name: 'REPALIS_CLI_TELEMETRY_OPTOUT',
       description:
         'Set to 1 to turn off anonymous telemetry. DO_NOT_TRACK=1 works too',
     },
@@ -146,13 +146,13 @@ export const polar = Command.make('polar', {}).pipe(
     render: ({ version, session }) => [
       ui.blank,
       ...banner([
-        `${ui.bold('Polar CLI')} ${ui.dim(version)}`,
-        ui.dim('Polar from your terminal'),
+        `${ui.bold('Repalis CLI')} ${ui.dim(version)}`,
+        ui.dim('Repalis from your terminal'),
       ]),
       ui.blank,
       ...sessionLines(session),
       ui.blank,
-      ui.step(`Run ${ui.command('polar --help')} to see every command`),
+      ui.step(`Run ${ui.command('repalis --help')} to see every command`),
       ui.blank,
     ],
   }),

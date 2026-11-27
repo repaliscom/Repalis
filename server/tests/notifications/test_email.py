@@ -6,10 +6,10 @@ from pathlib import Path
 
 import pytest
 
-from polar.email.react import render_email_template
-from polar.models.order import OrderBillingReasonInternal
-from polar.models.subscription import CustomerCancellationReason
-from polar.notifications.notification import (
+from repalis.email.react import render_email_template
+from repalis.models.order import OrderBillingReasonInternal
+from repalis.models.subscription import CustomerCancellationReason
+from repalis.notifications.notification import (
     MaintainerAccountCreditsGrantedNotificationPayload,
     MaintainerFileFlaggedMaliciousNotificationPayload,
     MaintainerNewPaidSubscriptionNotificationPayload,
@@ -25,8 +25,8 @@ async def check_diff(notification: NotificationPayloadBase) -> None:
     body = await render_email_template(notification.to_email())
     expected = f"{subject}\n<hr>\n{body}"
 
-    # Run with `POLAR_TEST_RECORD=1 pytest` to produce new golden files :-)
-    record = os.environ.get("POLAR_TEST_RECORD") == "1"
+    # Run with `REPALIS_TEST_RECORD=1 pytest` to produce new golden files :-)
+    record = os.environ.get("REPALIS_TEST_RECORD") == "1"
 
     name = inspect.stack()[1].function
     testdata_path = Path(f"./tests/notifications/testdata/{name}.html")
@@ -74,7 +74,7 @@ async def test_MaintainerNewPaidSubscriptionNotification_every_6_months() -> Non
 @pytest.mark.anyio
 async def test_MaintainerNewProductSaleNotification() -> None:
     n = MaintainerNewProductSaleNotificationPayload(
-        customer_email="birk@polar.sh",
+        customer_email="birk@repalis.com",
         customer_name="Birk",
         billing_address_country="US",
         billing_address_city="San Francisco",

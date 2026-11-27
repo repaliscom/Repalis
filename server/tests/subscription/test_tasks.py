@@ -6,11 +6,11 @@ import pytest
 from freezegun.api import freeze_time
 from pytest_mock import MockerFixture
 
-from polar.enums import SubscriptionProrationBehavior, SubscriptionRecurringInterval
-from polar.event.repository import EventRepository
-from polar.kit.address import Address, CountryAlpha2
-from polar.kit.utils import utc_now
-from polar.models import (
+from repalis.enums import SubscriptionProrationBehavior, SubscriptionRecurringInterval
+from repalis.event.repository import EventRepository
+from repalis.kit.address import Address, CountryAlpha2
+from repalis.kit.utils import utc_now
+from repalis.models import (
     Customer,
     Meter,
     Organization,
@@ -18,15 +18,15 @@ from polar.models import (
     Product,
     Subscription,
 )
-from polar.models.discount import DiscountDuration, DiscountType
-from polar.models.order import OrderBillingReasonInternal
-from polar.models.organization import OrganizationStatus
-from polar.models.subscription import SubscriptionStatus
-from polar.models.webhook_endpoint import WebhookEventType
-from polar.order.repository import OrderRepository
-from polar.postgres import AsyncSession
-from polar.subscription.service import SubscriptionMeterCycleLag, SubscriptionService
-from polar.subscription.tasks import (  # type: ignore[attr-defined]
+from repalis.models.discount import DiscountDuration, DiscountType
+from repalis.models.order import OrderBillingReasonInternal
+from repalis.models.organization import OrganizationStatus
+from repalis.models.subscription import SubscriptionStatus
+from repalis.models.webhook_endpoint import WebhookEventType
+from repalis.order.repository import OrderRepository
+from repalis.postgres import AsyncSession
+from repalis.subscription.service import SubscriptionMeterCycleLag, SubscriptionService
+from repalis.subscription.tasks import (  # type: ignore[attr-defined]
     SubscriptionDoesNotExist,
     SubscriptionTierDoesNotExist,
     cancel_expired_trial_ended,
@@ -38,7 +38,7 @@ from polar.subscription.tasks import (  # type: ignore[attr-defined]
     subscription_service,
     subscription_update_product_benefits_grants,
 )
-from polar.subscription.update import generate_subscription_update
+from repalis.subscription.update import generate_subscription_update
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (
     create_active_subscription,
@@ -85,7 +85,7 @@ class TestSubscriptionCancelForOrganization:
             "cancel_for_organization",
             return_value=True,
         )
-        enqueue_job_mock = mocker.patch("polar.subscription.tasks.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.subscription.tasks.enqueue_job")
 
         session.expunge_all()
 
@@ -105,7 +105,7 @@ class TestSubscriptionCancelForOrganization:
             "cancel_for_organization",
             return_value=False,
         )
-        enqueue_job_mock = mocker.patch("polar.subscription.tasks.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.subscription.tasks.enqueue_job")
 
         session.expunge_all()
 
@@ -292,12 +292,12 @@ class TestSubscriptionCycle:
         meter: Meter,
         metered: bool,
     ) -> None:
-        enqueue_job_mock = mocker.patch("polar.subscription.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.subscription.service.enqueue_job")
         enqueue_email_mock = mocker.patch(
-            "polar.subscription.service.enqueue_email_template"
+            "repalis.subscription.service.enqueue_email_template"
         )
         webhook_send_mock = mocker.patch(
-            "polar.subscription.service.webhook_service.send"
+            "repalis.subscription.service.webhook_service.send"
         )
         if metered:
             product = product_recurring_metered
@@ -363,7 +363,7 @@ class TestSubscriptionCycle:
         product: Product,
         customer: Customer,
     ) -> None:
-        mocker.patch("polar.subscription.service.enqueue_job")
+        mocker.patch("repalis.subscription.service.enqueue_job")
         organization = product.organization
         organization.subscription_settings = {
             **organization.subscription_settings,
@@ -397,12 +397,12 @@ class TestSubscriptionCycle:
         customer: Customer,
         meter: Meter,
     ) -> None:
-        enqueue_job_mock = mocker.patch("polar.subscription.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.subscription.service.enqueue_job")
         enqueue_email_mock = mocker.patch(
-            "polar.subscription.service.enqueue_email_template"
+            "repalis.subscription.service.enqueue_email_template"
         )
         webhook_send_mock = mocker.patch(
-            "polar.subscription.service.webhook_service.send"
+            "repalis.subscription.service.webhook_service.send"
         )
         organization = product_recurring_metered.organization
         organization.subscription_settings = {
@@ -458,7 +458,7 @@ class TestSubscriptionCycle:
         product_second: Product,
         customer: Customer,
     ) -> None:
-        enqueue_job_mock = mocker.patch("polar.subscription.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.subscription.service.enqueue_job")
         subscription = await create_trialing_subscription(
             save_fixture,
             product=product,
@@ -507,7 +507,7 @@ class TestSubscriptionCycle:
         payment_method: PaymentMethod,
         billing_address: Address | None,
     ) -> None:
-        mocker.patch("polar.subscription.service.enqueue_job")
+        mocker.patch("repalis.subscription.service.enqueue_job")
         customer.billing_address = billing_address
         await save_fixture(customer)
         subscription = await create_trialing_subscription(
@@ -539,7 +539,7 @@ class TestSubscriptionCycle:
         customer: Customer,
         organization: Organization,
     ) -> None:
-        mocker.patch("polar.subscription.service.enqueue_job")
+        mocker.patch("repalis.subscription.service.enqueue_job")
         discount = await create_discount(
             save_fixture,
             type=DiscountType.percentage,
@@ -617,7 +617,7 @@ class TestSubscriptionCycle:
         organization: Organization,
         conversion_reason: str,
     ) -> None:
-        enqueue_job_mock = mocker.patch("polar.subscription.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.subscription.service.enqueue_job")
         customer.billing_address = Address(country=CountryAlpha2("FR"))
         await save_fixture(customer)
         discount = None
@@ -807,7 +807,7 @@ class TestScanGraceExpiredRevocations:
             granted=grant_active,
             subscription=subscription,
         )
-        enqueue_job_mock = mocker.patch("polar.subscription.tasks.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.subscription.tasks.enqueue_job")
 
         session.expunge_all()
 
@@ -838,12 +838,12 @@ class TestCancelExpiredTrialEnded:
         customer: Customer,
         meter: Meter,
     ) -> None:
-        mocker.patch("polar.subscription.service.enqueue_job")
+        mocker.patch("repalis.subscription.service.enqueue_job")
         enqueue_email_mock = mocker.patch(
-            "polar.subscription.service.enqueue_email_template"
+            "repalis.subscription.service.enqueue_email_template"
         )
         webhook_send_mock = mocker.patch(
-            "polar.subscription.service.webhook_service.send"
+            "repalis.subscription.service.webhook_service.send"
         )
         subscription = await create_subscription(
             save_fixture,
@@ -890,7 +890,7 @@ class TestCancelExpiredTrialEnded:
         status: SubscriptionStatus,
         ends_in: timedelta,
     ) -> None:
-        mocker.patch("polar.subscription.service.enqueue_job")
+        mocker.patch("repalis.subscription.service.enqueue_job")
         subscription = await create_subscription(
             save_fixture,
             product=product,

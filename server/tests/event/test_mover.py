@@ -2,10 +2,10 @@ import pytest
 from pytest_mock import MockerFixture
 from sqlalchemy import text
 
-from polar.event.mover import _report_backlog
-from polar.event.repository import EventRepository
-from polar.observability import STAGED_EVENTS_BACKLOG
-from polar.postgres import AsyncSession
+from repalis.event.mover import _report_backlog
+from repalis.event.repository import EventRepository
+from repalis.observability import STAGED_EVENTS_BACKLOG
+from repalis.postgres import AsyncSession
 
 
 @pytest.mark.anyio

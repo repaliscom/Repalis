@@ -10,9 +10,9 @@ from openapi_kit.diff import compare
 from openapi_kit.parser import OpenAPIParser
 from pydantic import Field
 
-from polar.kit.schemas import Schema
-from polar.kit.versioning import APIVersion
-from polar.openapi import (
+from repalis.kit.schemas import Schema
+from repalis.kit.versioning import APIVersion
+from repalis.openapi import (
     VERSIONING_POLICY_URL,
     APITag,
     add_destructive_tool_annotations,
@@ -21,8 +21,8 @@ from polar.openapi import (
     destructive_when_one_of,
     open_world,
 )
-from polar.routing import APIRouter
-from polar.version import V2026_10, V2027_01, VERSIONS
+from repalis.routing import APIRouter
+from repalis.version import V2026_10, V2027_01, VERSIONS
 
 OPENAPI_VERSION_PARAMS = {
     version: pytest.param(
@@ -76,7 +76,7 @@ async def test_current_openapi_frozen(version: APIVersion, client: AsyncClient) 
     - Revert accidental contract changes affecting the current version.
     - Do not update openapi.*.json files unless releasing a new API version.
 
-    See https://linear.app/polarsh/document/api-versioning-4a4d04dff621
+    See https://linear.app/repalis/document/api-versioning-4a4d04dff621
     """.strip()
 
     response = await client.get(f"{version}/openapi.json")
@@ -159,7 +159,7 @@ async def test_tool_write_operations_are_classified(
     To fix this, either:
     - mark the route with `openapi_extra=destructive()`, if it's always destructive;
     - mark the request fields that make it destructive with `destructive_when_equals()`
-      or `destructive_when_one_of()` (see `polar/openapi.py`);
+      or `destructive_when_one_of()` (see `repalis/openapi.py`);
     - or add it to `NON_DESTRUCTIVE_TOOL_OPERATIONS` in this test.
     """.strip()
 

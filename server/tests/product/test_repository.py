@@ -1,10 +1,10 @@
 import pytest
 
-from polar.kit.currency import PresentmentCurrency
-from polar.models import Organization
-from polar.models.product_price import ProductPriceSource
-from polar.postgres import AsyncSession
-from polar.product.repository import ProductRepository
+from repalis.kit.currency import PresentmentCurrency
+from repalis.models import Organization
+from repalis.models.product_price import ProductPriceSource
+from repalis.postgres import AsyncSession
+from repalis.product.repository import ProductRepository
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_product, create_product_price_fixed
 

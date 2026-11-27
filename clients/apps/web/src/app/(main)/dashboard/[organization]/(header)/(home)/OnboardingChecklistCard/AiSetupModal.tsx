@@ -3,9 +3,9 @@
 import { toast } from '@/components/Toast/use-toast'
 import { useSafeCopy } from '@/hooks/clipboard'
 import { usePostHog } from '@/hooks/posthog'
-import { schemas } from '@polar-sh/client'
-import { Alert, Button, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { schemas } from '@repalis/client'
+import { Alert, Button, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import { buildAiSetupPrompt } from './aiSetupPrompt'
 
 interface Props {
@@ -37,12 +37,12 @@ export const AiSetupModalContent = ({
   return (
     <Box flexDirection="column">
       <Box paddingTop="xl" paddingHorizontal="xl">
-        <Text variant="heading-xxs">Set up Polar with your coding agent</Text>
+        <Text variant="heading-xxs">Set up Repalis with your coding agent</Text>
       </Box>
       <Box flexDirection="column" rowGap="l" padding="xl">
         <Text color="muted">
           Run this prompt in your project with any coding agent. The agent
-          installs the Polar SDK and wires up checkout and webhooks. It also
+          installs the Repalis SDK and wires up checkout and webhooks. It also
           creates a test product and leaves you with a checkout link to verify
           the flow end-to-end.
         </Text>

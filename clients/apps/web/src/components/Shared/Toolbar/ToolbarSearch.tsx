@@ -1,7 +1,7 @@
 import { isKeyHandledElsewhere } from '@/components/Shared/CondensedTable/CondensedTable'
-import { Input } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import { Search, X } from '@polar-sh/orbit/icons'
+import { Input } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import { Search, X } from '@repalis/orbit/icons'
 import { useEffect, useRef, useState } from 'react'
 
 interface ToolbarSearchProps {
@@ -48,7 +48,7 @@ export const ToolbarSearch = ({
         ref={inputRef}
         type="search"
         aria-label="Search"
-        className="dark:focus:border-polar-500 h-8 w-76 rounded-full pr-8 pl-8.5 shadow-none focus:border-gray-400 focus:shadow-xs focus:ring-0 focus-visible:ring-0 focus-visible:ring-offset-0 [&::-webkit-search-cancel-button]:appearance-none"
+        className="dark:focus:border-repalis-500 h-8 w-76 rounded-full pr-8 pl-8.5 shadow-none focus:border-gray-400 focus:shadow-xs focus:ring-0 focus-visible:ring-0 focus-visible:ring-offset-0 [&::-webkit-search-cancel-button]:appearance-none"
         preSlot={<Search className="size-3.5" />}
         placeholder={placeholder}
         value={value ?? ''}
@@ -75,7 +75,7 @@ export const ToolbarSearch = ({
           <button
             type="button"
             aria-label="Clear search"
-            className="dark:text-polar-500 flex size-6 cursor-pointer items-center justify-center rounded-full text-gray-400 transition-colors hover:text-black dark:hover:text-white"
+            className="dark:text-repalis-500 flex size-6 cursor-pointer items-center justify-center rounded-full text-gray-400 transition-colors hover:text-black dark:hover:text-white"
             onClick={clear}
           >
             <X className="size-3.5" />
@@ -83,7 +83,7 @@ export const ToolbarSearch = ({
         ) : (
           !focused && (
             <Box as="span" aria-hidden pr="s" pointerEvents="none">
-              <kbd className="dark:bg-polar-700 dark:text-polar-400 flex size-[18px] items-center justify-center rounded-[4px] bg-gray-100 font-mono text-[11px] leading-none text-gray-500">
+              <kbd className="dark:bg-repalis-700 dark:text-repalis-400 flex size-[18px] items-center justify-center rounded-[4px] bg-gray-100 font-mono text-[11px] leading-none text-gray-500">
                 /
               </kbd>
             </Box>

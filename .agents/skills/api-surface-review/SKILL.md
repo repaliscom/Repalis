@@ -1,24 +1,24 @@
 ---
 name: api-surface-review
-description: Review changes to Polar's API contract — Pydantic schemas, FastAPI endpoints, OpenAPI output and the generated SDKs. Checks public vs private exposure, schema shape and naming, and whether the change breaks merchants or the generated clients. Use when a diff touches schemas.py, endpoints.py, docs/openapi.json or sdk/, or when the user asks whether an API change is breaking.
+description: Review changes to Repalis's API contract — Pydantic schemas, FastAPI endpoints, OpenAPI output and the generated SDKs. Checks public vs private exposure, schema shape and naming, and whether the change breaks merchants or the generated clients. Use when a diff touches schemas.py, endpoints.py, docs/openapi.json or sdk/, or when the user asks whether an API change is breaking.
 license: MIT
 metadata:
-  author: polar
+  author: repalis
   version: "1.0.0"
 ---
 
-# API Surface Review (Polar)
+# API Surface Review (Repalis)
 
 The handle is the **diff**. The evidence is **what this change does to the API contract**, and
 whether any of it is breaking.
 
-This is where Polar's most expensive review mistakes live. A schema change does not stay in
+This is where Repalis's most expensive review mistakes live. A schema change does not stay in
 the repo: it flows into `docs/openapi.json`, the generated TypeScript client, the Speakeasy
 SDKs under `sdk/`, and out to merchants who already wrote code against it.
 
 ## Scope
 
-Diffs touching `**/schemas.py`, `**/endpoints.py`, `polar/openapi.py`, `docs/openapi.json`,
+Diffs touching `**/schemas.py`, `**/endpoints.py`, `repalis/openapi.py`, `docs/openapi.json`,
 `sdk/`, `clients/packages/client/`. Also changes to a list query in `**/service.py` or
 `**/repository.py`, because that is where list endpoints filter. For those, only the
 list-endpoint check under *Route shape* applies.
@@ -28,17 +28,17 @@ PR comment, and `OpenAPI Client Regeneration Check` fails if the client is stale
 recompute either by hand. Read the diff comment if it exists and judge whether the delta is
 acceptable; that judgement is the thing CI cannot make.
 
-Owned elsewhere: `ADR-0002` (status-coded `PolarError`), `ADR-0007` (no default in output
+Owned elsewhere: `ADR-0002` (status-coded `RepalisError`), `ADR-0007` (no default in output
 schemas) → `adr-check`. Endpoint conventions written in `server/AGENTS.md` — `response_model`
 and ORM returns, POST/PATCH/DELETE status codes, `ListResource`, `responses=`, the
-`PolarRequestValidationError` boundary → `conventions-check`. Existing shared types →
+`RepalisRequestValidationError` boundary → `conventions-check`. Existing shared types →
 `reuse-check`.
 
 ## Checks
 
 ### 1. Public or private
 
-`APITag` has two values, `public` and `private` (`polar/openapi.py`). Public means documented
+`APITag` has two values, `public` and `private` (`repalis/openapi.py`). Public means documented
 and in the SDKs.
 
 - Set it deliberately on every new router and route. Never hide something with
@@ -110,7 +110,7 @@ Only the parts `AGENTS.md` does not already cover:
 - List endpoints return every resource the subject can access, with no filter applied by
   default. Flag any implicit narrowing in the list statement (`status != draft`,
   `is_archived = false`, `active = true`, …) and ask for an explicit query filter instead.
-  Source: [REST API Guidelines](https://linear.app/polarsh/document/rest-api-guidelines-65841b9f4bcc), *List
+  Source: [REST API Guidelines](https://linear.app/repalis/document/rest-api-guidelines-65841b9f4bcc), *List
   endpoints*. A design document that says otherwise does not override this. Flag the
   conflict as a Question.
 - Removing an endpoint and updating its frontend caller in one PR is a deploy hazard →

@@ -1,12 +1,12 @@
-import { Button } from '@polar-sh/orbit'
-import { Input } from '@polar-sh/orbit'
+import { Button } from '@repalis/orbit'
+import { Input } from '@repalis/orbit'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@polar-sh/orbit'
+} from '@repalis/orbit'
 import {
   FormControl,
   FormDescription,
@@ -14,11 +14,11 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@polar-sh/ui/components/ui/form'
-import CopyToClipboardInput from '@polar-sh/ui/components/atoms/CopyToClipboardInput'
+} from '@repalis/ui/components/ui/form'
+import CopyToClipboardInput from '@repalis/ui/components/atoms/CopyToClipboardInput'
 
-import { AddOutlined, ClearOutlined } from '@polar-sh/orbit/icons'
-import { enums } from '@polar-sh/client'
+import { AddOutlined, ClearOutlined } from '@repalis/orbit/icons'
+import { enums } from '@repalis/client'
 import { useFieldArray, useFormContext } from 'react-hook-form'
 import { TreeMultiSelect } from '../TreeMultiSelect'
 import { EnhancedOAuth2ClientConfiguration } from './NewOAuthClientModal'
@@ -79,7 +79,7 @@ export const FieldClientType = () => {
             <em>Confidential Client</em>.{' '}
             <a
               className="text-blue-500 hover:text-blue-400 dark:text-blue-400 dark:hover:text-blue-300"
-              href="https://polar.sh/docs/documentation/integration-guides/authenticating-with-polar"
+              href="/docs/documentation/integration-guides/authenticating-with-repalis"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -116,7 +116,7 @@ export const FieldClientSecret = ({
         SPA or mobile app.{' '}
         <a
           className="text-blue-500 hover:text-blue-400 dark:text-blue-400 dark:hover:text-blue-300"
-          href="https://polar.sh/docs/documentation/integration-guides/authenticating-with-polar"
+          href="/docs/documentation/integration-guides/authenticating-with-repalis"
           target="_blank"
           rel="noopener noreferrer"
         >

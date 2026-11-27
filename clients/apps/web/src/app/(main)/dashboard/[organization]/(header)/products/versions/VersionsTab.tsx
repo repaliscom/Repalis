@@ -1,9 +1,9 @@
 'use client'
 
-import { schemas } from '@polar-sh/client'
-import { Grid, List, ListItem, Pill, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import { ChevronRight } from '@polar-sh/orbit/icons'
+import { schemas } from '@repalis/client'
+import { Grid, List, ListItem, Pill, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import { ChevronRight } from '@repalis/orbit/icons'
 import Link from 'next/link'
 import { PublishedAt } from './PublishedAt'
 

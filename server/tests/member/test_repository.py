@@ -4,11 +4,11 @@ from datetime import timedelta
 import pytest
 from sqlalchemy import text
 
-from polar.kit.utils import utc_now
-from polar.member.repository import MemberRepository
-from polar.models import Account, Member, Organization, User
-from polar.models.member import MemberRole
-from polar.postgres import AsyncSession
+from repalis.kit.utils import utc_now
+from repalis.member.repository import MemberRepository
+from repalis.models import Account, Member, Organization, User
+from repalis.models.member import MemberRole
+from repalis.postgres import AsyncSession
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (
     create_account,

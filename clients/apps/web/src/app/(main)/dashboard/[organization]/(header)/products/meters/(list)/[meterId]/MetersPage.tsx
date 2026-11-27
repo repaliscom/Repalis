@@ -11,18 +11,18 @@ import { useHasPermission, useIsManagedAsCode } from '@/hooks/permissions'
 import { useUpdateMeter } from '@/hooks/queries/meters'
 import { apiErrorToast } from '@/utils/api/errors'
 import { permissionDeniedMessage } from '@/utils/permissions'
-import { MoreVertOutlined } from '@polar-sh/orbit/icons'
-import { schemas } from '@polar-sh/client'
-import { Button } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import { Status } from '@polar-sh/orbit'
+import { MoreVertOutlined } from '@repalis/orbit/icons'
+import { schemas } from '@repalis/client'
+import { Button } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import { Status } from '@repalis/orbit'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@polar-sh/ui/components/ui/dropdown-menu'
+} from '@repalis/ui/components/ui/dropdown-menu'
 import { useRouter, useSearchParams } from 'next/navigation'
 import React, { useCallback } from 'react'
 
@@ -143,7 +143,7 @@ const ClientPage: React.FC<ClientPageProps> = ({ organization, meter }) => {
               </DropdownMenuTrigger>
               <DropdownMenuContent
                 align="end"
-                className="dark:bg-polar-800 bg-gray-50 shadow-lg"
+                className="dark:bg-repalis-800 bg-gray-50 shadow-lg"
               >
                 <DropdownMenuItem
                   onClick={() => {

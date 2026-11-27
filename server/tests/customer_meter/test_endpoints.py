@@ -7,11 +7,11 @@ from httpx2 import AsyncClient
 from pytest_mock import MockerFixture
 from sqlalchemy.exc import DBAPIError
 
-from polar.customer_meter.repository import CustomerMeterRepository
-from polar.enums import SubscriptionRecurringInterval
-from polar.event.system import SystemEvent
-from polar.kit.utils import utc_now
-from polar.models import (
+from repalis.customer_meter.repository import CustomerMeterRepository
+from repalis.enums import SubscriptionRecurringInterval
+from repalis.event.system import SystemEvent
+from repalis.kit.utils import utc_now
+from repalis.models import (
     BillingEntry,
     Customer,
     CustomerMeter,
@@ -22,10 +22,10 @@ from polar.models import (
     User,
     UserOrganization,
 )
-from polar.models.billing_entry import BillingEntryDirection, BillingEntryType
-from polar.models.event import EventSource
-from polar.postgres import AsyncSession
-from polar.version import V2027_01
+from repalis.models.billing_entry import BillingEntryDirection, BillingEntryType
+from repalis.models.event import EventSource
+from repalis.postgres import AsyncSession
+from repalis.version import V2027_01
 from tests.fixtures.auth import AuthSubjectFixture
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (
@@ -315,12 +315,12 @@ class TestCreditCustomerMeter:
         customer_meter = CustomerMeter(customer=customer, meter=meter)
         await save_fixture(customer_meter)
         mocker.patch(
-            "polar.customer_meter.service.CustomerMeterService.update_customer_meter",
+            "repalis.customer_meter.service.CustomerMeterService.update_customer_meter",
             side_effect=DBAPIError(
                 "SELECT", {}, Exception("could not obtain lock on row")
             ),
         )
-        enqueue_job_mock = mocker.patch("polar.customer_meter.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.customer_meter.service.enqueue_job")
 
         response = await client.post(
             "/v1/customer-meters/credits",

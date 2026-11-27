@@ -2,7 +2,7 @@
 
 import { CustomerPortalOrders } from '@/components/CustomerPortal/CustomerPortalOrders'
 import { PortalPageHeader } from '@/components/CustomerPortal/PortalPrimitives'
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 import { NuqsAdapter } from 'nuqs/adapters/next/app'
 
 const ClientPage = ({

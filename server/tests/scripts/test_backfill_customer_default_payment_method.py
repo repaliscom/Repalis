@@ -1,8 +1,8 @@
 import pytest
 
-from polar.kit.db.postgres import AsyncSession
-from polar.models import Customer, Product
-from polar.models.subscription import SubscriptionStatus
+from repalis.kit.db.postgres import AsyncSession
+from repalis.models import Customer, Product
+from repalis.models.subscription import SubscriptionStatus
 from scripts.backfill_customer_default_payment_method import (
     backfill_statement,
     missing_default_count_statement,

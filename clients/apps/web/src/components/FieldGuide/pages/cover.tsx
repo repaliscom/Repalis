@@ -57,7 +57,7 @@ export const cover: Piece = {
         width="100%"
         style={{ display: 'block', overflow: 'visible' }}
         role="img"
-        aria-label="The Polar mark, constructed"
+        aria-label="The Repalis mark, constructed"
       >
         {/* the axes, dotted, with their angles */}
         {[90, 135, 180, 225, 270].map((deg) => {

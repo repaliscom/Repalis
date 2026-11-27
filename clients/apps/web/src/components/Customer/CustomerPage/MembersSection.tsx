@@ -4,8 +4,8 @@ import { useModal } from '@/components/Modal/useModal'
 import { useCopyMemberLoginLink } from '@/hooks/useCopyMemberLoginLink'
 import { useMembers } from '@/hooks/queries/members'
 import { useMultipleCustomerSeats } from '@/hooks/queries/seats'
-import { MoreVertOutlined } from '@polar-sh/orbit/icons'
-import { schemas } from '@polar-sh/client'
+import { MoreVertOutlined } from '@repalis/orbit/icons'
+import { schemas } from '@repalis/client'
 import {
   Avatar,
   Button,
@@ -15,15 +15,15 @@ import {
   type StatusColor,
   Text,
   Truncated,
-} from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import FormattedDateTime from '@polar-sh/ui/components/atoms/FormattedDateTime'
+} from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import FormattedDateTime from '@repalis/ui/components/atoms/FormattedDateTime'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@polar-sh/ui/components/ui/dropdown-menu'
+} from '@repalis/ui/components/ui/dropdown-menu'
 import { useMemo, useState } from 'react'
 import { EditMemberModal } from '../EditMemberModal'
 import { seatStatusDisplayConfig } from '../../Seats/seatStatus'

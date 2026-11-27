@@ -1,5 +1,5 @@
-import { Button, Grid, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { Button, Grid, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import LogoReveal from './logos/LogoReveal'
 
 export const BrandHero = () => (
@@ -28,7 +28,7 @@ export const BrandHero = () => (
           </Text>
         </Box>
         <Button size="lg" asChild>
-          <a href="/assets/brand/polar_brand.zip" download>
+          <a href="/assets/brand/repalis_brand.zip" download>
             Download assets
           </a>
         </Button>

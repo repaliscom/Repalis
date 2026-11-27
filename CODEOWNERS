@@ -1,55 +1,25 @@
-# Backend
-server/polar/metrics/** @Yopi @pieterbeulque
-server/tests/metrics/** @Yopi @pieterbeulque
-server/polar/organization_review/** @psincraian
-server/tests/organization_review/** @psincraian
-server/polar/customer_seat/** @psincraian
-server/tests/customer_seat/** @psincraian
+# ==============================================================================
+# REPALIS CODEOWNERS
+# https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+# ==============================================================================
 
-# Billing
-server/polar/billing_entry/** @frankie567
-server/tests/billing_entry/** @frankie567
-server/polar/models/billing_entry.py @frankie567
-server/polar/integrations/stripe/** @frankie567
-server/tests/integrations/stripe/** @frankie567
-server/polar/tax/** @frankie567
-server/tests/tax/** @frankie567
-server/polar/payout/** @frankie567
-server/tests/payout/** @frankie567
-server/polar/payout_account/** @frankie567
-server/tests/payout_account/** @frankie567
-server/polar/models/payout.py @frankie567
-server/polar/models/payout_account.py @frankie567
-server/polar/models/payout_attempt.py @frankie567
-server/tests/models/test_payout_account.py @frankie567
+# Global fallback owner for every file in the repository
+* @Devshakya19
 
-# API
-server/polar/**/endpoints.py @frankie567
-server/polar/**/schemas.py @frankie567
-server/polar/customer_portal/endpoints/** @frankie567
-server/polar/customer_portal/schemas/** @frankie567
-server/polar/declarative_config/**
-server/polar/catalog/**
+# Backend (Python / FastAPI / Models / Workers)
+server/** @Devshakya19
 
-# Authentication
-server/polar/auth/** @frankie567
-server/polar/oauth2/** @frankie567
+# Frontend (Next.js web dashboard, Orbit design system, React Native app)
+clients/** @Devshakya19
 
-# Infrastructure
-terraform/** @Yopi
-infra/** @Yopi
+# SDKs & Code Generators
+sdk/** @Devshakya19
 
-# Frontend
-clients/apps/web/src/components/Checkout/** @sebastianekstrom
-clients/packages/checkout/** @sebastianekstrom
-clients/packages/orbit/** @emilwidlund @sebastianekstrom
+# Documentation & API Specifications
+docs/** @Devshakya19
 
-# Docs
-/docs/ @pieterbeulque
-/docs/openapi/**
-
-# ADR
-adr/** @frankie567
-
-# Other
-**/legal @victoriabolin @birkjernstrom
+# Infrastructure, Docker & Deployment
+infra/** @Devshakya19
+terraform/** @Devshakya19
+dev/** @Devshakya19
+.github/** @Devshakya19

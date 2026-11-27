@@ -1,7 +1,7 @@
 import pytest
 
-from polar.kit.visibility import Visibility
-from polar.models.benefit import BenefitType
+from repalis.kit.visibility import Visibility
+from repalis.models.benefit import BenefitType
 
 
 class TestBenefitTypeVisibility:

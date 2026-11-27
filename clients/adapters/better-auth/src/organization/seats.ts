@@ -2,13 +2,13 @@ import {
   assignSeatCustomerSeats,
   revokeSeatCustomerSeats,
   listSeatsCustomerSeats,
-} from '@polar-sh/sdk/2026-10/services/customer_seats'
+} from '@repalis/sdk/2026-10/services/customer_seats'
 import {
   updateSubscriptions,
   listSubscriptions,
-} from '@polar-sh/sdk/2026-10/services/subscriptions'
-import { getProducts } from '@polar-sh/sdk/2026-10/services/products'
-import type { models, PolarCore } from '@polar-sh/sdk/2026-10'
+} from '@repalis/sdk/2026-10/services/subscriptions'
+import { getProducts } from '@repalis/sdk/2026-10/services/products'
+import type { models, RepalisCore } from '@repalis/sdk/2026-10'
 import type { AuthContext } from 'better-auth'
 import {
   type OrganizationOptions,
@@ -16,7 +16,7 @@ import {
 } from 'better-auth/plugins/organization'
 import type {
   BetterAuthOrganizationMemberMirror,
-  PolarOrganizationOptions,
+  RepalisOrganizationOptions,
   SelectSeatProductsForMember,
   SelectSeatProductsForMemberInput,
 } from './types'
@@ -64,7 +64,7 @@ export const getBetterAuthOrganizationOptions = (
   const plugin = getBetterAuthOrganizationPlugin(authContext)
   if (!plugin) {
     throw new Error(
-      "Polar organization support requires Better Auth's organization plugin",
+      "Repalis organization support requires Better Auth's organization plugin",
     )
   }
   return plugin.options
@@ -153,7 +153,7 @@ const getMinimumSeats = (
   )
   if (minimums.length === 0) {
     throw new Error(
-      `Polar seat product "${productId}" has no seat-based price with a minimum quantity`,
+      `Repalis seat product "${productId}" has no seat-based price with a minimum quantity`,
     )
   }
   return Math.max(...minimums)
@@ -177,7 +177,7 @@ const isRecurringSeatProduct = (product: models.Product): boolean =>
   product.prices.some((price) => price.amount_type === 'seat_based')
 
 export const getCheckoutSeatProducts = async (
-  client: PolarCore,
+  client: RepalisCore,
   productIds: readonly string[],
 ): Promise<ManagedSeatProduct[]> => {
   const products = await mapWithConcurrency(
@@ -191,7 +191,7 @@ export const getCheckoutSeatProducts = async (
 }
 
 const listSeatSubscriptions = async (
-  client: PolarCore,
+  client: RepalisCore,
   organizationId: string,
 ): Promise<models.Subscription[]> => {
   const subscriptions: models.Subscription[] = []
@@ -286,7 +286,7 @@ const findActiveSeatForMember = (
   )
 
 const assignSubscriptionSeat = async (
-  client: PolarCore,
+  client: RepalisCore,
   subscriptionId: string,
   externalMemberId: string,
   seats: readonly models.CustomerSeat[],
@@ -300,7 +300,7 @@ const assignSubscriptionSeat = async (
 }
 
 const updateSubscriptionSeatCount = async (
-  client: PolarCore,
+  client: RepalisCore,
   subscriptionId: string,
   seats: number,
 ): Promise<void> => {
@@ -308,7 +308,7 @@ const updateSubscriptionSeatCount = async (
 }
 
 const synchronizeOrganizationSubscriptionSeats = async (
-  client: PolarCore,
+  client: RepalisCore,
   subscription: models.Subscription,
   allocation: ProductSeatAllocation,
 ): Promise<void> => {
@@ -344,9 +344,9 @@ const synchronizeOrganizationSubscriptionSeats = async (
 
 export const synchronizeOrganizationSeats = async (input: {
   authContext: AuthContext
-  client: PolarCore
+  client: RepalisCore
   organizationId: string
-  organizationOptions: PolarOrganizationOptions
+  organizationOptions: RepalisOrganizationOptions
   betterAuthOrganizationOptions?: OrganizationOptions
   excludedUserId?: string
   subscriptions?: readonly models.Subscription[]

@@ -1,11 +1,11 @@
 import pytest
 
-from polar.merchant_migration.importer import (
+from repalis.merchant_migration.importer import (
     ADD_ON_PRODUCT_METADATA_KEY,
     find_or_create_add_on_product,
 )
-from polar.models import Benefit, Product, ProductPriceFixed
-from polar.postgres import AsyncSession
+from repalis.models import Benefit, Product, ProductPriceFixed
+from repalis.postgres import AsyncSession
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (
     create_product_price_fixed,

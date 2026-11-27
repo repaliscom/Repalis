@@ -2,7 +2,7 @@ import pytest
 
 """Fixtures for one-time purchase E2E tests."""
 
-from polar.models import Organization, Product
+from repalis.models import Organization, Product
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_product
 

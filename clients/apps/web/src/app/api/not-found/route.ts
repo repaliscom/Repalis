@@ -1,14 +1,14 @@
 const NOT_FOUND_MARKDOWN = `# Page not found
 
-There is no page at this URL on polar.sh.
+There is no page at this URL on repalis.com.
 
-Polar is a payment infrastructure and Merchant of Record for software companies. These pages are a good place to continue:
+Repalis is a payment infrastructure and Merchant of Record for software companies. These pages are a good place to continue:
 
-- [Documentation](https://polar.sh/docs)
-- [Documentation index for LLMs](https://polar.sh/llms.txt)
-- [API reference](https://polar.sh/docs/api-reference/introduction)
-- [Sitemap](https://polar.sh/sitemap.xml)
-- [Homepage](https://polar.sh)
+- [Documentation](https://repalis.com/docs)
+- [Documentation index for LLMs](https://repalis.com/llms.txt)
+- [API reference](https://repalis.com/docs/api-reference/introduction)
+- [Sitemap](https://repalis.com/sitemap.xml)
+- [Homepage](https://repalis.com)
 `
 
 export function GET() {

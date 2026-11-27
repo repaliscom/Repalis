@@ -3,7 +3,7 @@ import json
 import httpx2
 import pytest
 
-from polar.integrations.slack.client import BASE_URL, SlackClient
+from repalis.integrations.slack.client import BASE_URL, SlackClient
 
 
 @pytest.mark.anyio

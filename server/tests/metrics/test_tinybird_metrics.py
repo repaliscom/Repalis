@@ -14,20 +14,20 @@ from alembic_utils.replaceable_entity import registry as entities_registry
 from sqlalchemy.schema import CreateSequence
 from sqlalchemy_utils import create_database, database_exists, drop_database
 
-from polar.auth.models import AuthSubject
-from polar.auth.scope import Scope
-from polar.config import settings
-from polar.enums import SubscriptionRecurringInterval
-from polar.event.system import SystemEvent
-from polar.integrations.tinybird import service as tinybird_service
-from polar.integrations.tinybird.service import DATASOURCE_EVENTS, _event_to_tinybird
-from polar.kit.db.postgres import create_async_engine, create_async_sessionmaker
-from polar.kit.time_queries import TimeInterval
-from polar.metrics import queries_tinybird
-from polar.metrics.metrics import METRICS_TINYBIRD
-from polar.metrics.schemas import MetricsResponse
-from polar.metrics.service import metrics as metrics_service
-from polar.models import (
+from repalis.auth.models import AuthSubject
+from repalis.auth.scope import Scope
+from repalis.config import settings
+from repalis.enums import SubscriptionRecurringInterval
+from repalis.event.system import SystemEvent
+from repalis.integrations.tinybird import service as tinybird_service
+from repalis.integrations.tinybird.service import DATASOURCE_EVENTS, _event_to_tinybird
+from repalis.kit.db.postgres import create_async_engine, create_async_sessionmaker
+from repalis.kit.time_queries import TimeInterval
+from repalis.metrics import queries_tinybird
+from repalis.metrics.metrics import METRICS_TINYBIRD
+from repalis.metrics.schemas import MetricsResponse
+from repalis.metrics.service import metrics as metrics_service
+from repalis.models import (
     Account,
     Customer,
     Event,
@@ -36,11 +36,11 @@ from polar.models import (
     Product,
     Subscription,
 )
-from polar.models.event import EventSource
-from polar.models.order import OrderStatus
-from polar.models.product import ProductBillingType
-from polar.models.subscription import CustomerCancellationReason, SubscriptionStatus
-from polar.postgres import AsyncSession
+from repalis.models.event import EventSource
+from repalis.models.order import OrderStatus
+from repalis.models.product import ProductBillingType
+from repalis.models.subscription import CustomerCancellationReason, SubscriptionStatus
+from repalis.postgres import AsyncSession
 from tests.fixtures.database import (
     TEMPLATE_DATABASE,
     clone_template_database,

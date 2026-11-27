@@ -1,6 +1,6 @@
-import { Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import { ArrowRight } from '@polar-sh/orbit/icons'
+import { Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import { ArrowRight } from '@repalis/orbit/icons'
 export const DocsLink = ({ href, label }: { href: string; label: string }) => (
   <a href={href}>
     <Box

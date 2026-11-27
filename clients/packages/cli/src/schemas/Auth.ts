@@ -1,20 +1,20 @@
 import { Data, Schema } from 'effect'
 
 export const environments = ['sandbox', 'production', 'local'] as const
-export const PolarEnvironment = Schema.Literals(environments)
-export type PolarEnvironment = typeof PolarEnvironment.Type
+export const RepalisEnvironment = Schema.Literals(environments)
+export type RepalisEnvironment = typeof RepalisEnvironment.Type
 
 export const ActiveOrganization = Schema.Struct({
   id: Schema.String,
   name: Schema.String,
   slug: Schema.String,
-  environment: PolarEnvironment,
+  environment: RepalisEnvironment,
 })
 export type ActiveOrganization = typeof ActiveOrganization.Type
 
 export const OrganizationSelection = Schema.Struct({
   id: Schema.String,
-  environment: PolarEnvironment,
+  environment: RepalisEnvironment,
 })
 export type OrganizationSelection = typeof OrganizationSelection.Type
 
@@ -34,7 +34,7 @@ export class AuthError extends Data.TaggedError('AuthError')<{
   statusCode?: number | undefined
 }> {}
 
-export const loginCommand = (environment: PolarEnvironment) =>
-  `polar auth login --${environment}`
+export const loginCommand = (environment: RepalisEnvironment) =>
+  `repalis auth login --${environment}`
 
-export const orgCommand = 'polar auth org'
+export const orgCommand = 'repalis auth org'

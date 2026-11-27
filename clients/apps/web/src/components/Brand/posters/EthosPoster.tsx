@@ -1,5 +1,5 @@
-import { Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import LogoType from '../logos/LogoType'
 import {
   PosterBody,
@@ -21,21 +21,21 @@ const PRINCIPLES: Principle[] = [
   {
     numeral: 'I',
     surface: 'night',
-    backdrop: '/assets/landing/company/Polar_Flow_01_No_Logo.jpg',
+    backdrop: '/assets/landing/company/Repalis_Flow_01_No_Logo.jpg',
     primary: 'Every number',
     secondary: 'derived from events',
   },
   {
     numeral: 'II',
     surface: 'snow',
-    backdrop: '/assets/landing/company/Polar_Flow_02_No_Logo.jpg',
+    backdrop: '/assets/landing/company/Repalis_Flow_02_No_Logo.jpg',
     primary: 'Zero latency',
     secondary: 'by design',
   },
   {
     numeral: 'III',
     surface: 'ether',
-    backdrop: '/assets/landing/company/Polar_Flow_03_No_Logo.jpg',
+    backdrop: '/assets/landing/company/Repalis_Flow_03_No_Logo.jpg',
     primary: 'Built for agents,',
     secondary: 'by default',
   },

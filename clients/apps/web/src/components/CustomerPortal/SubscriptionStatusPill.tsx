@@ -4,7 +4,7 @@ import {
   getSubscriptionStatusLabel,
   isSubscriptionWindingDown,
 } from '@/components/Subscriptions/utils'
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 
 export const SubscriptionStatusPill = ({
   subscription,

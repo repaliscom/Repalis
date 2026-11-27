@@ -1,7 +1,7 @@
 import { isCardPayment, isKrCardPayment } from '@/utils/payment'
-import { schemas } from '@polar-sh/client'
-import { Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { schemas } from '@repalis/client'
+import { Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import CreditCardBrandIcon from '../CreditCardBrandIcon'
 import { getPaymentMethodTypeLabel } from '../PaymentMethodDisplay'
 

@@ -3,11 +3,11 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 const mockCheckoutCreate = vi.fn()
 
-vi.mock('@polar-sh/sdk/2026-10', () => ({
-  createPolarCore: vi.fn(() => ({})),
+vi.mock('@repalis/sdk/2026-10', () => ({
+  createRepalisCore: vi.fn(() => ({})),
 }))
 
-vi.mock('@polar-sh/sdk/2026-10/services/checkouts', () => ({
+vi.mock('@repalis/sdk/2026-10/services/checkouts', () => ({
   createCheckouts: () => mockCheckoutCreate,
 }))
 
@@ -25,12 +25,12 @@ import { Checkout } from './checkout'
  *
  * `simulateServerThenSuccessPageRead` mirrors the server-side pipeline the wire value
  * flows through so we can assert what the merchant's success page actually reads:
- *   1. `SuccessUrl` (a pydantic `HttpUrl` in server/polar/kit/http.py) stores valid
+ *   1. `SuccessUrl` (a pydantic `HttpUrl` in server/repalis/kit/http.py) stores valid
  *      percent-escapes verbatim, then unescapes `%7BCHECKOUT_ID%7D` -> `{CHECKOUT_ID}`.
- *   2. `polar.models.checkout.Checkout` replaces every `{CHECKOUT_ID}` with the id.
+ *   2. `repalis.models.checkout.Checkout` replaces every `{CHECKOUT_ID}` with the id.
  *   3. The merchant's success page reads query params via `URLSearchParams.get(...)`.
  *
- * Run: pnpm --filter @polar-sh/nextjs exec vitest run src/checkout/checkout_decodeuri_corruption.repro.test.ts
+ * Run: pnpm --filter @repalis/nextjs exec vitest run src/checkout/checkout_decodeuri_corruption.repro.test.ts
  */
 
 const CHECKOUT_ID = 'chk_123'
@@ -51,7 +51,7 @@ describe('Checkout successUrl/returnUrl percent-escape preservation (decodeURI r
   beforeEach(() => {
     vi.clearAllMocks()
     mockCheckoutCreate.mockResolvedValue({
-      url: 'https://polar.sh/checkout/123',
+      url: 'https://repalis.com/checkout/123',
     })
   })
 

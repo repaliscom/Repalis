@@ -5,11 +5,11 @@ from fastapi import APIRouter, FastAPI
 from fastapi.testclient import TestClient
 from starlette.types import ASGIApp, Receive, Scope, Send
 
-from polar.observability.http_metrics import (
+from repalis.observability.http_metrics import (
     METRICS_EXCLUDED_APPS,
     exclude_app_from_metrics,
 )
-from polar.observability.utils import get_path_template
+from repalis.observability.utils import get_path_template
 
 
 class TestGetPathTemplate:

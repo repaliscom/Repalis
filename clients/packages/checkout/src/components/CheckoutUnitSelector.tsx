@@ -1,11 +1,11 @@
 'use client'
 
-import { type schemas } from '@polar-sh/client'
+import { type schemas } from '@repalis/client'
 import {
   DEFAULT_LOCALE,
   useTranslations,
   type AcceptedLocale,
-} from '@polar-sh/i18n'
+} from '@repalis/i18n'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { getUnitPrice, type ProductCheckoutPublic } from '../guards'
 import { ErrorResponse } from '../providers/CheckoutProvider'
@@ -33,7 +33,7 @@ const CheckoutUnitSelector = ({
 
   const getErrorMessage = useCallback(
     (error: ErrorResponse<'checkouts:client_update'> | null): string => {
-      if (error && error.error === 'PolarRequestValidationError') {
+      if (error && error.error === 'RepalisRequestValidationError') {
         return error.detail[0]?.msg
       }
 
@@ -153,7 +153,7 @@ const CheckoutUnitSelector = ({
         )}
       </div>
       {!isFixedUnits && unitLimitText && (
-        <p className="dark:text-polar-400 text-xs text-gray-500">
+        <p className="dark:text-repalis-400 text-xs text-gray-500">
           {unitLimitText}
         </p>
       )}

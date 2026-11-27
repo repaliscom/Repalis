@@ -2,7 +2,7 @@
   "ArrowDown": {
     "source": "lucide",
     "original": "ArrowDown",
-    "files": ["apps/web/src/components/Layout/Public/PolarLogotype.tsx"]
+    "files": ["apps/web/src/components/Layout/Public/RepalisLogotype.tsx"]
   },
   "ArrowDownRight": {
     "source": "lucide",
@@ -249,7 +249,7 @@
   "Clipboard": {
     "source": "lucide",
     "original": "Clipboard",
-    "files": ["apps/web/src/components/Layout/Public/PolarLogotype.tsx"]
+    "files": ["apps/web/src/components/Layout/Public/RepalisLogotype.tsx"]
   },
   "ClipboardCheck": {
     "source": "lucide",
@@ -700,7 +700,7 @@
       "apps/web/src/components/Customer/CustomerListSidebar.tsx",
       "apps/web/src/components/Events/EventMetadataFilter.tsx",
       "apps/web/src/components/Finance/Account/sections/SocialLinksField.tsx",
-      "apps/web/src/components/Landing/resources/WhyPolarPage.tsx",
+      "apps/web/src/components/Landing/resources/WhyRepalisPage.tsx",
       "apps/web/src/components/Meter/MeterListSidebar.tsx",
       "apps/web/src/components/Metrics/dashboards/DashboardsListSidebar.tsx",
       "apps/web/src/components/Settings/OAuth/OAuthForm.tsx",
@@ -801,7 +801,7 @@
       "apps/web/src/app/(main)/(website)/(landing)/resources/page.tsx",
       "apps/web/src/components/Events/EventCostCreationGuideModal.tsx",
       "apps/web/src/components/Landing/DesktopNav.tsx",
-      "apps/web/src/components/Landing/resources/WhyPolarPage.tsx",
+      "apps/web/src/components/Landing/resources/WhyRepalisPage.tsx",
       "apps/web/src/components/Layout/Dashboard/DashboardSidebar.tsx",
       "apps/web/src/components/Metrics/MetricChartBox.tsx",
       "apps/web/src/components/Onboarding/IntegrateStep.tsx",
@@ -900,11 +900,11 @@
       "apps/web/src/components/CustomFields/CustomFieldValue.tsx",
       "apps/web/src/components/Customer/CustomerListSidebar.tsx",
       "apps/web/src/components/Landing/Pricing.tsx",
-      "apps/web/src/components/Landing/comparison/PolarLemonSqueezyPage.tsx",
-      "apps/web/src/components/Landing/comparison/PolarPaddlePage.tsx",
-      "apps/web/src/components/Landing/comparison/PolarStripePage.tsx",
+      "apps/web/src/components/Landing/comparison/RepalisLemonSqueezyPage.tsx",
+      "apps/web/src/components/Landing/comparison/RepalisPaddlePage.tsx",
+      "apps/web/src/components/Landing/comparison/RepalisStripePage.tsx",
       "apps/web/src/components/Landing/resources/MORPage.tsx",
-      "apps/web/src/components/Landing/resources/WhyPolarPage.tsx",
+      "apps/web/src/components/Landing/resources/WhyRepalisPage.tsx",
       "apps/web/src/components/Landing/startup-program/StartupProgramHero.tsx",
       "apps/web/src/components/Meter/MeterListSidebar.tsx",
       "apps/web/src/components/Settings/Billing/SandboxPreviewAccessNotice.tsx",
@@ -959,9 +959,9 @@
       "apps/web/src/components/CustomFields/CustomFieldValue.tsx",
       "apps/web/src/components/DashboardOverview/MetricSelectorModal.tsx",
       "apps/web/src/components/Finance/Account/sections/SocialLinksField.tsx",
-      "apps/web/src/components/Landing/comparison/PolarLemonSqueezyPage.tsx",
-      "apps/web/src/components/Landing/comparison/PolarPaddlePage.tsx",
-      "apps/web/src/components/Landing/comparison/PolarStripePage.tsx",
+      "apps/web/src/components/Landing/comparison/RepalisLemonSqueezyPage.tsx",
+      "apps/web/src/components/Landing/comparison/RepalisPaddlePage.tsx",
+      "apps/web/src/components/Landing/comparison/RepalisStripePage.tsx",
       "apps/web/src/components/Landing/resources/MORPage.tsx",
       "apps/web/src/components/Products/ProductForm/Pricing/CurrencyTabs.tsx",
       "apps/web/src/components/Products/ProductForm/Pricing/MeteredTierCard.tsx",
@@ -1359,7 +1359,7 @@
     "source": "material",
     "original": "RemoveOutlined",
     "files": [
-      "apps/web/src/components/Landing/resources/WhyPolarPage.tsx",
+      "apps/web/src/components/Landing/resources/WhyRepalisPage.tsx",
       "apps/web/src/components/Widgets/RevenueWidget.tsx"
     ]
   },

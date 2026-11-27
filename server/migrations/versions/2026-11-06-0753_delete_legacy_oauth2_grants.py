@@ -17,7 +17,7 @@ down_revision = "7556261cda9f"
 branch_labels: tuple[str] | None = None
 depends_on: tuple[str] | None = None
 
-# Consent fix deployment: https://github.com/polarsource/polar/actions/runs/41813539755
+# Consent fix deployment: https://github.com/repaliscom/Repalis/actions/runs/41813539755
 CONSENT_CUTOVER = datetime(2026, 11, 4, 10, 27, 13, tzinfo=UTC)
 
 

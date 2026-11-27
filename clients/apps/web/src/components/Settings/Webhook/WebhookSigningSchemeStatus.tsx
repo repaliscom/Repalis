@@ -1,5 +1,5 @@
 import { shouldShowWebhookSignatureNotice } from '@/utils/webhook/signatureNotice'
-import { Status } from '@polar-sh/orbit'
+import { Status } from '@repalis/orbit'
 
 export const WebhookSigningSchemeStatus = ({
   organizationCreatedAt,

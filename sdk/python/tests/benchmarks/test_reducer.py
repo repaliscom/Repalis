@@ -5,8 +5,8 @@ import typing
 import pytest
 from pytest_codspeed import BenchmarkFixture
 
-from polar.outpost.event import Event
-from polar.outpost.reducer import (
+from repalis.outpost.event import Event
+from repalis.outpost.reducer import (
     Aggregation,
     Filter,
     FilterClause,

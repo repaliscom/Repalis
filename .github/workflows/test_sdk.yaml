@@ -45,8 +45,8 @@ jobs:
     timeout-minutes: 15
     runs-on: blacksmith-4vcpu-ubuntu-2404
     env:
-      POLAR_EMAIL_RENDERER_BINARY_PATH: "/tmp/email-renderer"
-      POLAR_PYDANTIC_AI_GATEWAY_API_KEY: "POLAR_PYDANTIC_AI_GATEWAY_API_KEY"
+      REPALIS_EMAIL_RENDERER_BINARY_PATH: "/tmp/email-renderer"
+      REPALIS_PYDANTIC_AI_GATEWAY_API_KEY: "REPALIS_PYDANTIC_AI_GATEWAY_API_KEY"
       E2E_REDIS_URL: "redis://127.0.0.1:6379/0"
     services:
       redis:
@@ -138,19 +138,19 @@ jobs:
         working-directory: ./sdk/python
         run: |
           uv build --no-sources
-          unzip -Z1 dist/*.whl | grep -Fx 'polar/.agents/skills/polar-python-sdk/SKILL.md'
-          unzip -Z1 dist/*.whl | grep -Fx 'polar/.agents/skills/polar-python-sdk/agents/openai.yaml'
-          unzip -Z1 dist/*.whl | grep -Fx 'polar/.agents/skills/polar-python-sdk/references/migration-from-v0.md'
-          unzip -Z1 dist/*.whl | grep -Fx 'polar/.agents/skills/polar-python-sdk/references/usage-events.md'
-          unzip -Z1 dist/*.whl | grep -Fx 'polar/.agents/skills/polar-python-sdk/references/webhooks.md'
+          unzip -Z1 dist/*.whl | grep -Fx 'repalis/.agents/skills/repalis-python-sdk/SKILL.md'
+          unzip -Z1 dist/*.whl | grep -Fx 'repalis/.agents/skills/repalis-python-sdk/agents/openai.yaml'
+          unzip -Z1 dist/*.whl | grep -Fx 'repalis/.agents/skills/repalis-python-sdk/references/migration-from-v0.md'
+          unzip -Z1 dist/*.whl | grep -Fx 'repalis/.agents/skills/repalis-python-sdk/references/usage-events.md'
+          unzip -Z1 dist/*.whl | grep -Fx 'repalis/.agents/skills/repalis-python-sdk/references/webhooks.md'
 
       - name: Verify bundled TypeScript SDK skill
         working-directory: ./sdk/typescript
         run: |
           mkdir -p packed
           pnpm pack --ignore-scripts --pack-destination packed
-          tar -tzf packed/*.tgz | grep -Fx 'package/.agents/skills/polar-typescript-sdk/SKILL.md'
-          tar -tzf packed/*.tgz | grep -Fx 'package/.agents/skills/polar-typescript-sdk/agents/openai.yaml'
-          tar -tzf packed/*.tgz | grep -Fx 'package/.agents/skills/polar-typescript-sdk/references/migration-from-v0.md'
-          tar -tzf packed/*.tgz | grep -Fx 'package/.agents/skills/polar-typescript-sdk/references/usage-events.md'
-          tar -tzf packed/*.tgz | grep -Fx 'package/.agents/skills/polar-typescript-sdk/references/webhooks.md'
+          tar -tzf packed/*.tgz | grep -Fx 'package/.agents/skills/repalis-typescript-sdk/SKILL.md'
+          tar -tzf packed/*.tgz | grep -Fx 'package/.agents/skills/repalis-typescript-sdk/agents/openai.yaml'
+          tar -tzf packed/*.tgz | grep -Fx 'package/.agents/skills/repalis-typescript-sdk/references/migration-from-v0.md'
+          tar -tzf packed/*.tgz | grep -Fx 'package/.agents/skills/repalis-typescript-sdk/references/usage-events.md'
+          tar -tzf packed/*.tgz | grep -Fx 'package/.agents/skills/repalis-typescript-sdk/references/webhooks.md'

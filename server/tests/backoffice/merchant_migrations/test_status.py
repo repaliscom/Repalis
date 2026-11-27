@@ -1,6 +1,6 @@
 from datetime import timedelta
 
-from polar.backoffice.merchant_migrations.status import (
+from repalis.backoffice.merchant_migrations.status import (
     PAN_STEP_LABELS,
     AttentionLevel,
     attention,
@@ -9,21 +9,21 @@ from polar.backoffice.merchant_migrations.status import (
     step_inputs,
     step_position,
 )
-from polar.kit.utils import utc_now
-from polar.merchant_migration import pan_transfer
-from polar.merchant_migration.pan_transfer import (
+from repalis.kit.utils import utc_now
+from repalis.merchant_migration import pan_transfer
+from repalis.merchant_migration.pan_transfer import (
     PanStepActor,
     PanStepOwner,
     PanTransferMethod,
     PanTransferStep,
     templates_for,
 )
-from polar.models import MerchantMigration
-from polar.models.merchant_migration import (
+from repalis.models import MerchantMigration
+from repalis.models.merchant_migration import (
     MerchantMigrationSourcePlatform,
     MerchantMigrationStep,
 )
-from polar.models.merchant_migration_record import (
+from repalis.models.merchant_migration_record import (
     MerchantMigrationRecordStatus,
     MerchantMigrationRecordType,
 )
@@ -57,7 +57,7 @@ def _advance_to(key: str) -> list[PanTransferStep]:
             return steps
         actor = (
             PanStepActor.system
-            if current.owner == PanStepOwner.polar_app
+            if current.owner == PanStepOwner.repalis_app
             else PanStepActor.ops
         )
         template = pan_transfer._template(PanTransferMethod.pan_copy, current.key)
@@ -77,7 +77,7 @@ def _finish_all() -> list[PanTransferStep]:
         assert current is not None
         actor = (
             PanStepActor.system
-            if current.owner == PanStepOwner.polar_app
+            if current.owner == PanStepOwner.repalis_app
             else PanStepActor.ops
         )
         template = pan_transfer._template(PanTransferMethod.pan_copy, current.key)
@@ -156,14 +156,14 @@ class TestAttention:
         assert result.level == AttentionLevel.waiting_merchant
         assert not result.needs_ops
 
-    def test_polar_app_step_is_a_polar_job(self) -> None:
+    def test_repalis_app_step_is_a_repalis_job(self) -> None:
         migration = _migration(
             step=MerchantMigrationStep.copy_cards, steps=_advance_to("verify_cards")
         )
 
         result = attention(migration, NO_FAILURES)
 
-        assert result.level == AttentionLevel.waiting_polar_app
+        assert result.level == AttentionLevel.waiting_repalis_app
 
     def test_pre_card_steps_wait_on_the_merchant(self) -> None:
         migration = _migration(step=MerchantMigrationStep.pre_check)

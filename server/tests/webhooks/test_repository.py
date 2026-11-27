@@ -2,10 +2,10 @@ from datetime import datetime, timedelta
 
 import pytest
 
-from polar.kit.utils import utc_now
-from polar.models import WebhookDelivery, WebhookEndpoint, WebhookEvent
-from polar.postgres import AsyncSession
-from polar.webhook.repository import WebhookDeliveryRepository
+from repalis.kit.utils import utc_now
+from repalis.models import WebhookDelivery, WebhookEndpoint, WebhookEvent
+from repalis.postgres import AsyncSession
+from repalis.webhook.repository import WebhookDeliveryRepository
 from tests.fixtures.database import SaveFixture
 
 

@@ -1,9 +1,9 @@
 [project]
-name = "polar-sdk"
-authors = [{ name = "Polar", email = "contact@polar.sh" }]
+name = "repalis-sdk"
+authors = [{ name = "Repalis", email = "support@repalis.com" }]
 license = "MIT"
 license-files = ["LICENSE"]
-description = "Polar SDK — A billing platform for the intelligence era"
+description = "Repalis SDK — A billing platform for the intelligence era"
 readme = "README.md"
 dynamic = ["version"]
 classifiers = [
@@ -25,19 +25,19 @@ dependencies = [
 outpost = ["redis[hiredis]>=5.0.4", "anyio>=4.5.0", "opentelemetry-sdk>=1.30.0", "opentelemetry-exporter-otlp-proto-common>=1.30.0"]
 
 [project.urls]
-homepage = "https://polar.sh"
-repository = "https://github.com/polarsource/polar/tree/main/sdk/python"
+homepage = "https://repalis.com"
+repository = "https://github.com/repaliscom/Repalis/tree/main/sdk/python"
 
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [tool.hatch.version]
-path = "polar/__init__.py"
+path = "repalis/__init__.py"
 
 [tool.hatch.build.targets.wheel]
-packages = ["polar"]
-artifacts = ["/polar/.agents/**"]
+packages = ["repalis"]
+artifacts = ["/repalis/.agents/**"]
 
 [dependency-groups]
 dev = ["ty", "ruff", "pytest", "anyio>=4.5.0", "httpx>=0.28.1", "pytest-codspeed>=5.0.3", "fakeredis[lua]>=2.36.1", "standardwebhooks>=1.0.0,<2.0.0"]

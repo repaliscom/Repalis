@@ -14,7 +14,7 @@ import {
 import { useDataTableQueryState } from '@/hooks/useDataTableQueryState'
 import { extractApiErrorMessage } from '@/utils/api/errors'
 import { getAPIParams } from '@/utils/datatable'
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 import {
   InlineModal,
   Tabs,
@@ -22,8 +22,8 @@ import {
   TabsList,
   TabsTrigger,
   Text,
-} from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+} from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import { parseAsString, parseAsStringLiteral, useQueryStates } from 'nuqs'
 import { useCallback, useState } from 'react'
 import { BenefitPage } from './BenefitPage'

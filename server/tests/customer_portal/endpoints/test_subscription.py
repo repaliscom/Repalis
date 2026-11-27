@@ -4,17 +4,17 @@ from datetime import timedelta
 import pytest
 from httpx2 import AsyncClient
 
-from polar.enums import SubscriptionProrationBehavior, SubscriptionRecurringInterval
-from polar.kit.currency import PresentmentCurrency
-from polar.kit.utils import utc_now
-from polar.kit.visibility import Visibility
-from polar.models import Customer, Member, Organization, Product, Subscription
-from polar.models.order import OrderStatus
-from polar.models.product_price import ProductPriceSeatUnit
-from polar.models.subscription import SubscriptionStatus
-from polar.models.subscription_meter import SubscriptionMeter
-from polar.postgres import AsyncSession
-from polar.version import V2026_10, V2027_01
+from repalis.enums import SubscriptionProrationBehavior, SubscriptionRecurringInterval
+from repalis.kit.currency import PresentmentCurrency
+from repalis.kit.utils import utc_now
+from repalis.kit.visibility import Visibility
+from repalis.models import Customer, Member, Organization, Product, Subscription
+from repalis.models.order import OrderStatus
+from repalis.models.product_price import ProductPriceSeatUnit
+from repalis.models.subscription import SubscriptionStatus
+from repalis.models.subscription_meter import SubscriptionMeter
+from repalis.postgres import AsyncSession
+from repalis.version import V2026_10, V2027_01
 from tests.fixtures.auth import (
     CUSTOMER_AUTH_SUBJECT,
     MEMBER_AUTH_SUBJECT,
@@ -1104,7 +1104,7 @@ class TestPreviewChange:
 
         response = await client.post(
             f"/v1/customer-portal/subscriptions/{subscription.id}/change-preview",
-            headers={"Polar-Version": api_version},
+            headers={"Repalis-Version": api_version},
             json={"product_id": str(new_product.id)},
         )
 

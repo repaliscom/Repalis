@@ -7,8 +7,8 @@ process.env.DEPLOY_SLACK_CHANNEL_ID = 'CDEPLOY';
 process.env.SLACK_USERS_JSON = JSON.stringify({ deployer: 'UTESTDEPLOYER', author: 'UAUTHOR', merger: 'UMERGER' });
 const run = {
   id: 123, run_number: 42, run_attempt: 1, event: 'workflow_dispatch',
-  html_url: 'https://github.com/polarsource/polar/actions/runs/123',
-  repository: { html_url: 'https://github.com/polarsource/polar' },
+  html_url: 'https://github.com/repaliscom/Repalis/actions/runs/123',
+  repository: { html_url: 'https://github.com/repaliscom/Repalis' },
   head_sha: 'abc123456', head_branch: 'main', head_commit: { message: 'Ship a change' },
   actor: { login: 'Deployer', type: 'User' }, run_started_at: '2026-10-16T12:00:00Z',
 };
@@ -16,7 +16,7 @@ const github = {
   rest: { actions: { listJobsForWorkflowRunAttempt: 'jobs' }, repos: { listPullRequestsAssociatedWithCommit: 'prs' } },
   paginate: async () => [],
 };
-const repo = { owner: 'polarsource', repo: 'polar' };
+const repo = { owner: 'repaliscom', repo: 'Repalis' };
 
 for (const attempt of [
   { event: 'push', run_attempt: 1 },
@@ -351,7 +351,7 @@ test('Slack reads send user, thread and pagination arguments as GET query parame
 test('Slack message writes preserve JSON metadata and expose validation errors', async () => {
   const payload = {
     channel: 'CDEPLOY', thread_ts: '1792152000.000001', text: 'Deployed',
-    metadata: { event_type: 'polar_deployment_reply', event_payload: { id: 'deployment-123-1' } },
+    metadata: { event_type: 'repalis_deployment_reply', event_payload: { id: 'deployment-123-1' } },
   };
   const slack = slackClient('test-token', async (url, options) => {
     assert.equal(String(url), 'https://slack.com/api/chat.postMessage');

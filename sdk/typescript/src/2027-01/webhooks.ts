@@ -17,9 +17,9 @@ import type {
 import { validateWebhook } from "../webhooks";
 
 export {
-  PolarWebhookError,
-  PolarWebhookUnknownTypeError,
-  PolarWebhookVerificationError,
+  RepalisWebhookError,
+  RepalisWebhookUnknownTypeError,
+  RepalisWebhookVerificationError,
 } from "../webhooks";
 
 /**
@@ -1028,9 +1028,9 @@ export interface WebhookSubscriptionCycledPayload {
   data: Subscription;
 }
 /**
- * Sent when Polar takes over billing of a subscription migrated from another provider.
+ * Sent when Repalis takes over billing of a subscription migrated from another provider.
  *
- * This fires at cutover, once the subscription is live on Polar. `provider`
+ * This fires at cutover, once the subscription is live on Repalis. `provider`
  * and `provider_subscription_id` identify the subscription on the billing
  * provider so you can correlate the two.
  *
@@ -1339,7 +1339,7 @@ const knownEventTypes = new Set<string>([
 ]);
 
 /**
- * Verify a raw Polar webhook request and return its typed payload.
+ * Verify a raw Repalis webhook request and return its typed payload.
  */
 export const validateEvent = (
   body: string | Uint8Array,

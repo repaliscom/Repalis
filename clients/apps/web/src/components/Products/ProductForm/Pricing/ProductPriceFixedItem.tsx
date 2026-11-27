@@ -1,12 +1,12 @@
 'use client'
 
-import MoneyInput from '@polar-sh/ui/components/atoms/MoneyInput'
+import MoneyInput from '@repalis/ui/components/atoms/MoneyInput'
 import {
   FormControl,
   FormField,
   FormItem,
   FormMessage,
-} from '@polar-sh/ui/components/ui/form'
+} from '@repalis/ui/components/ui/form'
 import React from 'react'
 import { useFormContext } from 'react-hook-form'
 import { ProductFormType } from '../ProductForm'

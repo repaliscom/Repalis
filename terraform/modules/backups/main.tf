@@ -3,7 +3,7 @@ locals {
 }
 
 resource "aws_s3_bucket" "primary" {
-  bucket = "polar-sh-backups"
+  bucket = "repalis-backups"
 }
 
 resource "aws_s3_bucket_ownership_controls" "primary" {

@@ -1,4 +1,4 @@
-# @polar-sh/nuxt
+# @repalis/nuxt
 
 Payments and Checkouts made dead simple with Nuxt.
 
@@ -8,7 +8,7 @@ Payments and Checkouts made dead simple with Nuxt.
 
 Choose your preferred package manager to install the module:
 
-`pnpm add @polar-sh/nuxt zod`
+`pnpm add @repalis/nuxt zod`
 
 The module requires Nuxt 4 and Node.js 22 or later.
 
@@ -18,13 +18,13 @@ Add the module to your `nuxt.config.ts`, along with the runtime config the handl
 
 ```typescript
 export default defineNuxtConfig({
-  modules: ['@polar-sh/nuxt'],
+  modules: ['@repalis/nuxt'],
   runtimeConfig: {
     private: {
-      polarAccessToken: '', // NUXT_PRIVATE_POLAR_ACCESS_TOKEN
-      polarServer: '', // NUXT_PRIVATE_POLAR_SERVER - "sandbox" or "production"
-      polarCheckoutSuccessUrl: '', // NUXT_PRIVATE_POLAR_CHECKOUT_SUCCESS_URL
-      polarWebhookSecret: '', // NUXT_PRIVATE_POLAR_WEBHOOK_SECRET
+      repalisAccessToken: '', // NUXT_PRIVATE_REPALIS_ACCESS_TOKEN
+      repalisServer: '', // NUXT_PRIVATE_REPALIS_SERVER - "sandbox" or "production"
+      repalisCheckoutSuccessUrl: '', // NUXT_PRIVATE_REPALIS_CHECKOUT_SUCCESS_URL
+      repalisWebhookSecret: '', // NUXT_PRIVATE_REPALIS_WEBHOOK_SECRET
     },
   },
 })
@@ -40,14 +40,14 @@ Create a Checkout handler which takes care of redirections.
 // server/routes/api/checkout.get.ts
 export default defineEventHandler((event) => {
   const {
-    private: { polarAccessToken, polarCheckoutSuccessUrl, polarServer },
+    private: { repalisAccessToken, repalisCheckoutSuccessUrl, repalisServer },
   } = useRuntimeConfig()
 
   const checkoutHandler = Checkout({
-    accessToken: polarAccessToken,
-    successUrl: polarCheckoutSuccessUrl,
+    accessToken: repalisAccessToken,
+    successUrl: repalisCheckoutSuccessUrl,
     returnUrl: 'https://myapp.com', // Optional Return URL, which renders a Back-button in the Checkout
-    environment: polarServer as 'sandbox' | 'production',
+    environment: repalisServer as 'sandbox' | 'production',
     theme: 'dark', // Enforces the theme - System-preferred theme will be set if left omitted
   })
 
@@ -70,7 +70,7 @@ Pass query params to this route.
 
 ### Customer IP Address
 
-Unless `customer_ip_address` is passed, the customer's IP address is taken from the `x-forwarded-for`, `x-real-ip` or `cf-connecting-ip` header and sent to Polar to show local currency. Set `customerIpAddress` to a function `(request) => ip` to resolve it yourself, or to `false` to not send it.
+Unless `customer_ip_address` is passed, the customer's IP address is taken from the `x-forwarded-for`, `x-real-ip` or `cf-connecting-ip` header and sent to Repalis to show local currency. Set `customerIpAddress` to a function `(request) => ip` to resolve it yourself, or to `false` to not send it.
 
 ## Customer Portal
 
@@ -80,14 +80,14 @@ Create a customer portal where your customer can view orders and subscriptions.
 // server/routes/api/portal.get.ts
 export default defineEventHandler((event) => {
   const {
-    private: { polarAccessToken, polarServer },
+    private: { repalisAccessToken, repalisServer },
   } = useRuntimeConfig()
 
   const customerPortalHandler = CustomerPortal({
-    accessToken: polarAccessToken,
-    environment: polarServer as 'sandbox' | 'production',
+    accessToken: repalisAccessToken,
+    environment: repalisServer as 'sandbox' | 'production',
     getCustomerId: (event) => {
-      // Use your own logic to get the Polar customer ID - from a database, session, etc.
+      // Use your own logic to get the Repalis customer ID - from a database, session, etc.
       return Promise.resolve('9d89909b-216d-475e-8005-053dba7cff07')
     },
     returnUrl: 'https://myapp.com', // Optional Return URL, which renders a Back-button in the Customer Portal
@@ -102,14 +102,14 @@ export default defineEventHandler((event) => {
 A simple utility which resolves incoming webhook payloads by verifying their signature with your webhook secret.
 
 ```typescript
-// server/routes/webhook/polar.post.ts
+// server/routes/webhook/repalis.post.ts
 export default defineEventHandler((event) => {
   const {
-    private: { polarWebhookSecret },
+    private: { repalisWebhookSecret },
   } = useRuntimeConfig()
 
   const webhooksHandler = Webhooks({
-    webhookSecret: polarWebhookSecret,
+    webhookSecret: repalisWebhookSecret,
     onPayload: async (payload) => {
       // Handle the payload
       // No need to return an acknowledge response

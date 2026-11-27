@@ -11,7 +11,7 @@ export interface EnvironmentVariable {
 
 export const EnvironmentVariables = Context.Reference<
   ReadonlyArray<EnvironmentVariable>
->('polar/Help/EnvironmentVariables', { defaultValue: () => [] })
+>('repalis/Help/EnvironmentVariables', { defaultValue: () => [] })
 
 export const environmentVariables = (annotations: Context.Context<never>) =>
   Context.get(annotations, EnvironmentVariables)

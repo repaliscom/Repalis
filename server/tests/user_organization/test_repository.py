@@ -2,9 +2,9 @@ from typing import Any
 
 import pytest
 
-from polar.models import Organization, User, UserOrganization
-from polar.models.organization import OrganizationStatus
-from polar.user_organization.repository import UserOrganizationRepository
+from repalis.models import Organization, User, UserOrganization
+from repalis.models.organization import OrganizationStatus
+from repalis.user_organization.repository import UserOrganizationRepository
 from tests.fixtures.database import SaveFixture
 
 
@@ -46,7 +46,7 @@ class TestGetOrganizationsWithRole:
         user_second: User,
         user_organization_second: UserOrganization,
     ) -> None:
-        from polar.kit.utils import utc_now
+        from repalis.kit.utils import utc_now
 
         user_organization_second.deleted_at = utc_now()
         await session.flush()

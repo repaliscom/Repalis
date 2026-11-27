@@ -53,7 +53,7 @@ const fold = (
   </>
 )
 
-/** A replica: Polar's buckets above, the same buckets kept beside your code below, the newest one only local yet. */
+/** A replica: Repalis's buckets above, the same buckets kept beside your code below, the newest one only local yet. */
 const REPLICA = [28, 46, 64, 82]
 
 const local = (

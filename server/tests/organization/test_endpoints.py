@@ -6,14 +6,14 @@ import pytest
 from httpx2 import AsyncClient
 from pytest_mock import MockerFixture
 
-from polar.agent.repository import AgentRepository
-from polar.auth.models import AuthSubject
-from polar.auth.service import auth as auth_service
-from polar.config import settings
-from polar.integrations.polar.service import PolarSelfService
-from polar.kit.utils import utc_now
-from polar.kit.versioning import APIVersion
-from polar.models import (
+from repalis.agent.repository import AgentRepository
+from repalis.auth.models import AuthSubject
+from repalis.auth.service import auth as auth_service
+from repalis.config import settings
+from repalis.integrations.repalis.service import RepalisSelfService
+from repalis.kit.utils import utc_now
+from repalis.kit.versioning import APIVersion
+from repalis.models import (
     Agent,
     OAuth2Token,
     OrganizationDomain,
@@ -21,27 +21,27 @@ from polar.models import (
     Product,
     User,
 )
-from polar.models.account import Account
-from polar.models.organization import (
+from repalis.models.account import Account
+from repalis.models.organization import (
     Organization,
     OrganizationStatus,
 )
-from polar.models.organization_sso_connection import (
+from repalis.models.organization_sso_connection import (
     OIDCAuthMethod,
     OIDCConfiguration,
     OrganizationSSOConnectionType,
 )
-from polar.models.subscription import SubscriptionStatus
-from polar.models.user_organization import OrganizationRole, UserOrganization
-from polar.organization.repository import OrganizationRepository
-from polar.organization.schemas import DISPUTE_AUTO_ACCEPT_MAX_AMOUNT
-from polar.organization_review.schemas import ReviewContext
-from polar.payout_account.service import PayoutAccountServiceError
-from polar.postgres import AsyncSession
-from polar.user_organization.service import (
+from repalis.models.subscription import SubscriptionStatus
+from repalis.models.user_organization import OrganizationRole, UserOrganization
+from repalis.organization.repository import OrganizationRepository
+from repalis.organization.schemas import DISPUTE_AUTO_ACCEPT_MAX_AMOUNT
+from repalis.organization_review.schemas import ReviewContext
+from repalis.payout_account.service import PayoutAccountServiceError
+from repalis.postgres import AsyncSession
+from repalis.user_organization.service import (
     user_organization as user_organization_service,
 )
-from polar.version import V2026_10, V2027_01
+from repalis.version import V2026_10, V2027_01
 from tests.fixtures.auth import AuthSubjectFixture
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (
@@ -308,7 +308,7 @@ class TestEnablePreviewAccess:
 
         assert response.status_code == 200
         feature_settings = response.json()["feature_settings"]
-        for flag in PolarSelfService.PREVIEW_ACCESS_FEATURE_FLAGS:
+        for flag in RepalisSelfService.PREVIEW_ACCESS_FEATURE_FLAGS:
             assert feature_settings[flag] is True
         # Existing flags are preserved.
         assert feature_settings["issue_funding_enabled"] is True
@@ -811,7 +811,7 @@ class TestUpdateOrganization:
             json={
                 "website": "https://example.com",
                 "email": "support@example.com",
-                "socials": [{"platform": "x", "url": "https://x.com/polar"}],
+                "socials": [{"platform": "x", "url": "https://x.com/repalis"}],
             },
         )
         assert update_response.status_code == 200
@@ -833,7 +833,7 @@ class TestUpdateOrganization:
         organization: Organization,
         user_organization: UserOrganization,
     ) -> None:
-        enqueue_job_mock = mocker.patch("polar.organization.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.organization.service.enqueue_job")
 
         organization.status = OrganizationStatus.CREATED
         await save_fixture(organization)
@@ -846,7 +846,7 @@ class TestUpdateOrganization:
             json={
                 "website": "https://example.com",
                 "email": "support@example.com",
-                "socials": [{"platform": "x", "url": "https://x.com/polar"}],
+                "socials": [{"platform": "x", "url": "https://x.com/repalis"}],
                 "details": {
                     "product_description": "Subscription SaaS for software teams and agencies.",
                     "selling_categories": ["Software / SaaS"],
@@ -1033,7 +1033,7 @@ class TestInviteOrganization:
     async def test_not_existing(self, client: AsyncClient) -> None:
         response = await client.post(
             f"/v1/organizations/{uuid.uuid4()}/members/invite",
-            json={"email": "test@polar.sh"},
+            json={"email": "test@repalis.com"},
         )
 
         assert response.status_code == 404
@@ -1051,7 +1051,7 @@ class TestInviteOrganization:
         )
         response = await client.post(
             f"/v1/organizations/{organization.id}/members/invite",
-            json={"email": "test@polar.sh"},
+            json={"email": "test@repalis.com"},
         )
         assert response.status_code == 404
 
@@ -1070,7 +1070,7 @@ class TestInviteOrganization:
         organization: Organization,
         user_organization: UserOrganization,  # Makes this user part of the organization
     ) -> None:
-        email_to_invite = "test@polar.sh"
+        email_to_invite = "test@repalis.com"
 
         members_before = await user_organization_service.list_by_org(
             session, organization.id
@@ -1543,7 +1543,7 @@ class TestDeleteOrganization:
         mocker: MockerFixture,
     ) -> None:
         # Mock the enqueue_job to prevent actual task execution
-        mock_enqueue = mocker.patch("polar.organization.service.enqueue_job")
+        mock_enqueue = mocker.patch("repalis.organization.service.enqueue_job")
 
         response = await client.delete(f"/v1/organizations/{organization.id}")
 
@@ -1576,7 +1576,7 @@ class TestDeleteOrganization:
         await create_order(save_fixture, customer=customer, product=product)
 
         # Mock the enqueue_job to prevent actual task execution
-        mock_enqueue = mocker.patch("polar.organization.service.enqueue_job")
+        mock_enqueue = mocker.patch("repalis.organization.service.enqueue_job")
 
         response = await client.delete(f"/v1/organizations/{organization.id}")
 
@@ -1614,7 +1614,7 @@ class TestDeleteOrganization:
         )
 
         # Mock the enqueue_job to prevent actual task execution
-        mock_enqueue = mocker.patch("polar.organization.service.enqueue_job")
+        mock_enqueue = mocker.patch("repalis.organization.service.enqueue_job")
 
         response = await client.delete(f"/v1/organizations/{organization.id}")
 
@@ -1641,10 +1641,10 @@ class TestDeleteOrganization:
     ) -> None:
         # Mock payout account deletion to succeed (returns None on success)
         payout_account_delete_mock = mocker.patch(
-            "polar.organization.service.payout_account_service.unlink_and_maybe_delete",
+            "repalis.organization.service.payout_account_service.unlink_and_maybe_delete",
             return_value=None,
         )
-        mock_enqueue = mocker.patch("polar.organization.service.enqueue_job")
+        mock_enqueue = mocker.patch("repalis.organization.service.enqueue_job")
 
         response = await client.delete(f"/v1/organizations/{organization.id}")
 
@@ -1674,10 +1674,10 @@ class TestDeleteOrganization:
         # Mock payout account deletion to fail with an exception
         # Mock payout account deletion to succeed (returns None on success)
         payout_account_delete_mock = mocker.patch(
-            "polar.organization.service.payout_account_service.unlink_and_maybe_delete",
+            "repalis.organization.service.payout_account_service.unlink_and_maybe_delete",
             side_effect=PayoutAccountServiceError("Stripe account deletion failed"),
         )
-        mock_enqueue = mocker.patch("polar.organization.service.enqueue_job")
+        mock_enqueue = mocker.patch("repalis.organization.service.enqueue_job")
 
         response = await client.delete(f"/v1/organizations/{organization.id}")
 

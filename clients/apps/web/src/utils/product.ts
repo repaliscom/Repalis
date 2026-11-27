@@ -3,7 +3,7 @@ import {
   ProductFullMediasMixin,
   ProductMeterCycleMixin,
 } from '@/components/Products/ProductForm/ProductForm'
-import { Client, schemas, unwrap } from '@polar-sh/client'
+import { Client, schemas, unwrap } from '@repalis/client'
 import { notFound } from 'next/navigation'
 import { cache } from 'react'
 

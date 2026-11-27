@@ -18,12 +18,12 @@ vi.mock('next/link', () => ({
   ),
 }))
 
-vi.mock('@polar-sh/orbit', () => ({
+vi.mock('@repalis/orbit', () => ({
   Grid: ({ children }: { children: ReactNode }) => <div>{children}</div>,
   GridItem: ({ children }: { children: ReactNode }) => <div>{children}</div>,
 }))
 
-vi.mock('@polar-sh/orbit/Box', () => ({
+vi.mock('@repalis/orbit/Box', () => ({
   Box: ({ children }: { children: ReactNode }) => <div>{children}</div>,
 }))
 

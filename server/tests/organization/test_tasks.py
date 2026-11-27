@@ -5,11 +5,11 @@ import pytest
 import stripe as stripe_lib
 from pytest_mock import MockerFixture
 
-from polar.config import settings
-from polar.kit.db.postgres import AsyncSession
-from polar.models import Organization, User, UserOrganization
-from polar.models.organization import OrganizationStatus
-from polar.organization.tasks import (
+from repalis.config import settings
+from repalis.kit.db.postgres import AsyncSession
+from repalis.models import Organization, User, UserOrganization
+from repalis.models.organization import OrganizationStatus
+from repalis.organization.tasks import (
     OrganizationDoesNotExist,
     evaluate_website_risk,
     organization_cancel_expired_subscriptions,
@@ -18,7 +18,7 @@ from polar.organization.tasks import (
     organization_under_review,
     sync_payout_account_website,
 )
-from polar.organization_review.repository import OrganizationRiskSignalRepository
+from repalis.organization_review.repository import OrganizationRiskSignalRepository
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_payout_account
 
@@ -64,7 +64,7 @@ class TestOrganizationUnderReview:
 
         session.expunge_all()
 
-        enqueue_job_mock = mocker.patch("polar.organization.tasks.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.organization.tasks.enqueue_job")
 
         await organization_under_review(organization.id)
 
@@ -91,7 +91,7 @@ class TestOrganizationUnderReview:
 
         session.expunge_all()
 
-        enqueue_job_mock = mocker.patch("polar.organization.tasks.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.organization.tasks.enqueue_job")
 
         await organization_under_review(organization.id)
 
@@ -125,7 +125,7 @@ class TestOrganizationOffboarded:
         session.expunge_all()
 
         enqueue_email_mock = mocker.patch(
-            "polar.organization.tasks.enqueue_email_template"
+            "repalis.organization.tasks.enqueue_email_template"
         )
 
         await organization_offboarded(organization.id)
@@ -146,7 +146,7 @@ class TestOrganizationCancelExpiredSubscriptions:
         session: AsyncSession,
     ) -> None:
         cancel_mock = mocker.patch(
-            "polar.organization.tasks.organization_service."
+            "repalis.organization.tasks.organization_service."
             "cancel_expired_organizations_subscriptions"
         )
 
@@ -170,7 +170,7 @@ class TestSyncPayoutAccountWebsite:
             save_fixture, organization, user, stripe_id="acct_website_sync"
         )
         update_website_mock = mocker.patch(
-            "polar.organization.service.stripe_service.update_account_website",
+            "repalis.organization.service.stripe_service.update_account_website",
             new=AsyncMock(),
         )
 
@@ -193,7 +193,7 @@ class TestSyncPayoutAccountWebsite:
             save_fixture, organization, user, stripe_id="acct_website_sync"
         )
         mocker.patch(
-            "polar.organization.service.stripe_service.update_account_website",
+            "repalis.organization.service.stripe_service.update_account_website",
             new=AsyncMock(
                 side_effect=stripe_lib.InvalidRequestError("Invalid URL", None)
             ),
@@ -217,7 +217,7 @@ class TestEvaluateWebsiteRisk:
         organization.website = "  https://example.com  "
         await save_fixture(organization)
         evaluate_mock = mocker.patch(
-            "polar.organization.service.stripe_service.create_website_risk_evaluation",
+            "repalis.organization.service.stripe_service.create_website_risk_evaluation",
             new=AsyncMock(return_value={"id": "acctevl_123"}),
         )
 
@@ -240,7 +240,7 @@ class TestEvaluateWebsiteRisk:
             settings, "STRIPE_ACCOUNT_RISK_WEBHOOK_SECRET", "whsec_test"
         )
         evaluate_mock = mocker.patch(
-            "polar.organization.service.stripe_service.create_website_risk_evaluation",
+            "repalis.organization.service.stripe_service.create_website_risk_evaluation",
             new=AsyncMock(),
         )
 
@@ -260,7 +260,7 @@ class TestEvaluateWebsiteRisk:
         organization.website = "https://example.com"
         await save_fixture(organization)
         mocker.patch(
-            "polar.organization.service.stripe_service.create_website_risk_evaluation",
+            "repalis.organization.service.stripe_service.create_website_risk_evaluation",
             new=AsyncMock(
                 side_effect=stripe_lib.InvalidRequestError(
                     "The account or account data does not have the required fields"
@@ -279,7 +279,7 @@ class TestEvaluateWebsiteRisk:
     ) -> None:
         mocker.patch.object(settings, "STRIPE_ACCOUNT_RISK_WEBHOOK_SECRET", "")
         evaluate_mock = mocker.patch(
-            "polar.organization.service.stripe_service.create_website_risk_evaluation",
+            "repalis.organization.service.stripe_service.create_website_risk_evaluation",
             new=AsyncMock(),
         )
 

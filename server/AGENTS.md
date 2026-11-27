@@ -22,10 +22,10 @@ When rebasing a PR that adds a migration, rename the file so its `YYYY-MM-DD-HHM
 
 ## Module Structure
 
-Each module in `polar/` follows this structure:
+Each module in `repalis/` follows this structure:
 
 ```
-polar/{module}/
+repalis/{module}/
 ├── __init__.py
 ├── auth.py           # Authentication dependencies
 ├── endpoints.py      # FastAPI route handlers
@@ -41,8 +41,8 @@ polar/{module}/
 **ALL database queries MUST be in repository files.**
 
 ```python
-# polar/{module}/repository.py
-from polar.kit.repository import (
+# repalis/{module}/repository.py
+from repalis.kit.repository import (
     RepositoryBase,
     RepositorySoftDeletionMixin,
     RepositorySortingMixin,
@@ -81,8 +81,8 @@ class ResourceRepository(
 ```
 
 **Always resolve a user's accessible organizations via `select_accessible_org_ids(auth_subject)`**
-(`polar.authz.repository`) for subqueries, or `get_accessible_org_ids(...)`
-(`polar.authz.service`) at the service layer. Use `select_user_org_ids(user_id)`
+(`repalis.authz.repository`) for subqueries, or `get_accessible_org_ids(...)`
+(`repalis.authz.service`) at the service layer. Use `select_user_org_ids(user_id)`
 only when you need raw membership (e.g., OAuth consent) without session scope.
 Never inline a `UserOrganization.user_id == auth_subject...` filter — those
 helpers are the single point where session/token org-scoping is enforced, so an
@@ -102,7 +102,7 @@ inline subquery silently bypasses it. Enforced by `uv run task lint_org_scope`.
 
 **Repository methods use `self.session`, not a `session` parameter.** Once constructed via `from_session(session)`, the session lives on the instance. Don't add a `session` arg to repository methods — pass domain args only. Use `self.session.execute(...)` for raw queries (writes, refreshes), or the base helpers above for selects.
 
-**Subqueries must project explicit columns.** `select(Model).subquery()` re-materializes every mapped column — `deferred=True` does NOT propagate. For count subqueries, use `count_subquery(statement)` from `polar.kit.pagination`; otherwise narrow with `.with_only_columns(...)` before calling `.subquery()`. Enforced by `uv run task lint_subquery`.
+**Subqueries must project explicit columns.** `select(Model).subquery()` re-materializes every mapped column — `deferred=True` does NOT propagate. For count subqueries, use `count_subquery(statement)` from `repalis.kit.pagination`; otherwise narrow with `.with_only_columns(...)` before calling `.subquery()`. Enforced by `uv run task lint_subquery`.
 
 **Columns mapped on subclasses only go through `with_polymorphic`.** With single-table inheritance (`ProductPrice`), `ProductPriceMeteredUnit.meter_id` adds that subclass's discriminator filter and silently drops the sibling types. Don't work around it with `ProductPrice.__table__.c.meter_id`; query `price = with_polymorphic(ProductPrice, [ProductPriceMeteredUnit, ProductPriceMeteredTiers])` and use `price.ProductPriceMeteredUnit.meter_id`. Enforced by `uv run task lint_ast` (`table-column`).
 
@@ -112,7 +112,7 @@ Services contain business logic and call repositories. Methods that only read ta
 `AsyncReadSession`; methods that write take an `AsyncSession`.
 
 ```python
-# polar/{module}/service.py
+# repalis/{module}/service.py
 class ResourceService:
     async def list(
         self,
@@ -169,15 +169,15 @@ default it to `None`; do not duplicate the endpoint just to add a query paramete
 `QuerySchema` hides unavailable fields from OpenAPI and ignores their input before
 validation. Keep parameters with `Query(include_in_schema=False)` outside the model:
 FastAPI currently loses that flag when flattening model fields.
-See the handbook's [API versioning guide](https://linear.app/polarsh/document/api-versioning-875f1388daeb).
+See the handbook's [API versioning guide](https://linear.app/repaliscom/document/api-versioning-875f1388daeb).
 
 ```python
-# polar/{module}/schemas.py
+# repalis/{module}/schemas.py
 from pydantic import Field
 
-from polar.kit.schemas import MultipleQueryFilter
-from polar.kit.versioning import QuerySchema
-from polar.organization.schemas import OrganizationID
+from repalis.kit.schemas import MultipleQueryFilter
+from repalis.kit.versioning import QuerySchema
+from repalis.organization.schemas import OrganizationID
 
 
 class ResourceListParams(QuerySchema):
@@ -186,12 +186,12 @@ class ResourceListParams(QuerySchema):
     )
 
 
-# polar/{module}/endpoints.py
+# repalis/{module}/endpoints.py
 from typing import Annotated
 
 from fastapi import Query
 
-from polar.kit.pagination import ListResource, Pagination, PaginationParamsQuery
+from repalis.kit.pagination import ListResource, Pagination, PaginationParamsQuery
 
 router = APIRouter(prefix="/resources", tags=["resources"])
 
@@ -245,10 +245,10 @@ branches, and test it with `AuthSubjectFixture(subject="agent")`.
 Define per-module authenticators in the module's `auth.py`:
 
 ```python
-# polar/{module}/auth.py
-from polar.auth.dependencies import Authenticator
-from polar.auth.models import AuthSubject
-from polar.auth.scope import Scope
+# repalis/{module}/auth.py
+from repalis.auth.dependencies import Authenticator
+from repalis.auth.models import AuthSubject
+from repalis.auth.scope import Scope
 
 ResourcesRead = Annotated[
     AuthSubject[User | Organization],
@@ -272,17 +272,17 @@ ResourcesWrite = Annotated[
 ```
 
 For endpoints used only by the web dashboard or internal backoffice, use the predefined
-dependencies from `polar/auth/dependencies.py` instead of defining your own: `WebUser`
+dependencies from `repalis/auth/dependencies.py` instead of defining your own: `WebUser`
 (logged-in `AuthSubject[User]`), `WebUserOrAnonymous`, and `AdminUser` (admin privileges).
 
 ## Pydantic Schemas
 
 ```python
-# polar/{module}/schemas.py
+# repalis/{module}/schemas.py
 from pydantic import MISSING, Field
 
-from polar.kit.schemas import IDSchema, Schema, TimestampedSchema
-from polar.kit.versioning import Omissible
+from repalis.kit.schemas import IDSchema, Schema, TimestampedSchema
+from repalis.kit.versioning import Omissible
 
 
 class ResourceBase(Schema):
@@ -317,14 +317,14 @@ class ResourceUpdate(Schema):
 ## Background Tasks
 
 ```python
-# polar/{module}/tasks.py
+# repalis/{module}/tasks.py
 from typing import Annotated
 
-from polar.observability.task_logging import LoggableField
-from polar.worker import AsyncSessionMaker, TaskPriority, actor, enqueue_job
+from repalis.observability.task_logging import LoggableField
+from repalis.worker import AsyncSessionMaker, TaskPriority, actor, enqueue_job
 
 
-class ResourceTaskError(PolarTaskError): ...
+class ResourceTaskError(RepalisTaskError): ...
 
 
 @actor(actor_name="resource.created", priority=TaskPriority.LOW)
@@ -347,7 +347,7 @@ the actor is registered.
 
 ## Testing
 
-Test files mirror the source layout: `polar/{module}/endpoints.py` → `tests/{module}/test_endpoints.py`.
+Test files mirror the source layout: `repalis/{module}/endpoints.py` → `tests/{module}/test_endpoints.py`.
 `test_endpoints` and `test_task` are **E2E** — they exercise real behavior (DB, etc.) and don't mock
 the unit under test. Reuse existing fixtures (`SaveFixture`, `AsyncSession`, …) and don't re-set data a
 fixture already provides. Organize class-based — typically one class per method under test, one test per
@@ -366,7 +366,7 @@ class TestCreate:
         auth_subject: AuthSubject[User],
         session: AsyncSession,
     ) -> None:
-        enqueue_job_mock = mocker.patch("polar.{module}.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.{module}.service.enqueue_job")
 
         resource = await resource_service.create(
             session, auth_subject, ResourceCreate(name="Test")
@@ -410,7 +410,7 @@ Cross-cutting patterns the team enforces in code review. New backend code is exp
 ### Imports
 
 Keep `import` statements at module top, never inside functions or methods. Import models from
-`polar.models`, services from their module, and use FastAPI dependency injection for sessions,
+`repalis.models`, services from their module, and use FastAPI dependency injection for sessions,
 repositories, and services.
 
 ### Service singletons & imports
@@ -421,7 +421,7 @@ Name the singleton the bare domain noun in its module; importers alias it with a
 # service.py
 appeal_case = AppealCaseService()
 # caller
-from polar.organization_review.appeal_case import appeal_case as appeal_case_service
+from repalis.organization_review.appeal_case import appeal_case as appeal_case_service
 ```
 
 ### Creating ORM objects — pass objects, not ids
@@ -447,12 +447,12 @@ select(X).options(joinedload(X.rel))  # or selectinload / contains_eager
 
 Exception: a relationship may always eager-load (`lazy="selectin"`/`"joined"`) when there's a legitimate reason to — typically many-to-many association tables.
 
-### Errors → status-coded `PolarError`, not validation errors
+### Errors → status-coded `RepalisError`, not validation errors
 
-Logical/conflict errors are `PolarError` subclasses carrying their own `status_code` (409 conflict, 404 not found; 422 is for request-payload validation only); the global exception handler renders them. Don't catch and re-raise as `PolarRequestValidationError` — that's only for request-_payload_ validation (→ 422). Declare them on the endpoint's `responses=` so the OpenAPI client gets the schema:
+Logical/conflict errors are `RepalisError` subclasses carrying their own `status_code` (409 conflict, 404 not found; 422 is for request-payload validation only); the global exception handler renders them. Don't catch and re-raise as `RepalisRequestValidationError` — that's only for request-_payload_ validation (→ 422). Declare them on the endpoint's `responses=` so the OpenAPI client gets the schema:
 
 ```python
-class CaseClosedError(PolarError):
+class CaseClosedError(RepalisError):
     def __init__(self) -> None:
         super().__init__("This case is closed.", 409)
 
@@ -478,7 +478,7 @@ async def create(...) -> Resource:   # ORM model, not the schema
 ### Destructive MCP and CLI operations
 
 Write endpoints, or request fields, that delete, revoke, archive, disable, rotate credentials or move
-money must be marked with the helpers in `polar/openapi.py`: `openapi_extra=destructive()` on the
+money must be marked with the helpers in `repalis/openapi.py`: `openapi_extra=destructive()` on the
 route, or `json_schema_extra=destructive_when_equals(...)` / `destructive_when_one_of(...)` on the
 field that makes it destructive. `DELETE` routes already are. This sets `destructive` in
 `x-tool-annotations`, which drives both the CLI confirmation prompt and the MCP `destructiveHint`.
@@ -489,7 +489,7 @@ are marked with `openapi_extra=open_world()`, which drives the MCP `openWorldHin
 
 ## Tax ID Validation
 
-When adding or modifying tax ID validators in `polar/tax/tax_id.py`:
+When adding or modifying tax ID validators in `repalis/tax/tax_id.py`:
 
 - Keep validators minimal — no lengthy docstrings; the code should be self-explanatory.
 - Follow existing patterns (e.g. `CLTINValidator`, `TRTINValidator`).
@@ -498,8 +498,8 @@ When adding or modifying tax ID validators in `polar/tax/tax_id.py`:
 
 ## Key Files Reference
 
-- Repository base: `polar/kit/repository/base.py`
-- Auth models: `polar/auth/models.py`
-- Pagination: `polar/kit/pagination.py`
-- Worker: `polar/worker/`
-- Example module: `polar/organization/`
+- Repository base: `repalis/kit/repository/base.py`
+- Auth models: `repalis/auth/models.py`
+- Pagination: `repalis/kit/pagination.py`
+- Worker: `repalis/worker/`
+- Example module: `repalis/organization/`

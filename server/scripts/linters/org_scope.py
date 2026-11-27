@@ -40,7 +40,7 @@ RAW_MEMBERSHIP_CALLS = frozenset({"select_user_org_ids", "get_organizations_with
 EXPANSION_MESSAGE = (
     "hand-rolled UserOrganization membership expansion bypasses org-scope "
     "enforcement. Use select_accessible_org_ids(auth_subject) from "
-    "polar.authz.repository (or get_accessible_org_ids). Escape with "
+    "repalis.authz.repository (or get_accessible_org_ids). Escape with "
     "`# lint-skip: org-scope` if intentional."
 )
 

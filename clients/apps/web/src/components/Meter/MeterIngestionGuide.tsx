@@ -7,7 +7,7 @@ import {
   SyntaxHighlighterProvider,
 } from '@/components/SyntaxHighlighterShiki/SyntaxHighlighterClient'
 import { OrganizationContext } from '@/providers/maintainerOrganization'
-import { Button } from '@polar-sh/orbit'
+import { Button } from '@repalis/orbit'
 import Link from 'next/link'
 import { useContext } from 'react'
 
@@ -25,12 +25,12 @@ export const MeterIngestionGuide = () => {
             </WellHeader>
             <WellContent className="flex grow flex-col justify-between gap-6">
               <div className="flex flex-col gap-4">
-                <p className="dark:text-polar-300 text-gray-700">
+                <p className="dark:text-repalis-300 text-gray-700">
                   Meters are aggregated filters on ingested events. They are
                   used to calculate your customer&apos;s usage of whatever you
                   choose to measure.
                 </p>
-                <p className="dark:text-polar-300 text-gray-700">
+                <p className="dark:text-repalis-300 text-gray-700">
                   For example, if you want to measure the number of API calls
                   your customer makes, you can create a meter that counts the
                   number of events with an arbitrary name like{' '}
@@ -46,17 +46,17 @@ export const MeterIngestionGuide = () => {
               )}
             </WellContent>
           </div>
-          <Well className="dark:bg-polar-900 flex-1 shrink overflow-auto bg-white p-6 text-sm">
+          <Well className="dark:bg-repalis-900 flex-1 shrink overflow-auto bg-white p-6 text-sm">
             <SyntaxHighlighterClient
               lang="typescript"
-              code={`import { Polar } from "@polar-sh/sdk";
+              code={`import { Repalis } from "@repalis/sdk";
 
-const polar = new Polar({
-  accessToken: process.env["POLAR_ACCESS_TOKEN"] ?? "",
+const repalis = new Repalis({
+  accessToken: process.env["REPALIS_ACCESS_TOKEN"] ?? "",
 });
 
 export const GET = async (req: Request, res: Response) => {
-  await polar.events.ingest({
+  await repalis.events.ingest({
     events: [
       {
         name: "api_call",

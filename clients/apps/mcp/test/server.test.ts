@@ -17,12 +17,12 @@ beforeEach(() => {
   fetchMock.mockReset().mockResolvedValue(Response.json({ items: [] }))
   evaluate.mockReset().mockResolvedValue({ result: 'sandbox result' })
   get.mockClear()
-  exports.PolarApiOutbound.mockClear()
+  exports.RepalisApiOutbound.mockClear()
 })
 afterEach(() => vi.unstubAllGlobals())
 
 const RESOURCE_METADATA_URL =
-  'https://mcp.polar.test/.well-known/oauth-protected-resource/mcp/polar-mcp'
+  'https://mcp.repalis.test/.well-known/oauth-protected-resource/mcp/repalis-mcp'
 const ALL_SCOPES = [...scopes.read, ...scopes.write]
 
 test('CORS, metadata, unknown routes and bearer challenges remain unchanged', async () => {
@@ -32,14 +32,14 @@ test('CORS, metadata, unknown routes and bearer challenges remain unchanged', as
     'GET, POST, OPTIONS',
   )
   const metadata = await request(
-    '/.well-known/oauth-protected-resource/mcp/polar-mcp',
+    '/.well-known/oauth-protected-resource/mcp/repalis-mcp',
   )
   expect(await metadata.json()).toEqual({
-    resource: 'https://mcp.polar.test/mcp/polar-mcp',
-    authorization_servers: ['https://api.polar.test'],
+    resource: 'https://mcp.repalis.test/mcp/repalis-mcp',
+    authorization_servers: ['https://api.repalis.test'],
     scopes_supported: ALL_SCOPES,
     bearer_methods_supported: ['header'],
-    resource_name: 'Polar',
+    resource_name: 'Repalis',
   })
   const challenge = await request('/.well-known/openai-apps-challenge')
   expect(challenge.headers.get('Content-Type')).toBe('text/plain')
@@ -48,13 +48,13 @@ test('CORS, metadata, unknown routes and bearer challenges remain unchanged', as
   )
   for (const path of [
     '/mcp/unknown',
-    '/mcp/polar-mcp/',
+    '/mcp/repalis-mcp/',
     '/.well-known/oauth-protected-resource/mcp/unknown',
   ]) {
     expect((await request(path)).status).toBe(404)
   }
   for (const authorization of ['', 'Basic secret', 'Bearer']) {
-    const response = await request('/mcp/polar-mcp', {
+    const response = await request('/mcp/repalis-mcp', {
       headers: { Authorization: authorization },
     })
     expect(response.status).toBe(401)
@@ -73,13 +73,13 @@ test('scopes are the least-privileged scopes of the exposed operations, and read
   expect(scopes.read.every((scope) => !scope.endsWith(':write'))).toBe(true)
   expect(scopes.write.every((scope) => !scopes.read.includes(scope))).toBe(true)
 
-  const missing = await request('/mcp/polar-mcp?readonly=true')
+  const missing = await request('/mcp/repalis-mcp?readonly=true')
   expect(missing.headers.get('WWW-Authenticate')).toBe(
     `Bearer resource_metadata="${RESOURCE_METADATA_URL}", scope="${scopes.read.join(' ')}"`,
   )
   fetchMock.mockResolvedValue(new Response(null, { status: 401 }))
-  const invalid = await request('/mcp/polar-mcp?readonly=true', {
-    headers: { Authorization: 'Bearer polar_at_revoked' },
+  const invalid = await request('/mcp/repalis-mcp?readonly=true', {
+    headers: { Authorization: 'Bearer repalis_at_revoked' },
   })
   expect(invalid.headers.get('WWW-Authenticate')).toBe(
     `Bearer resource_metadata="${RESOURCE_METADATA_URL}", scope="${scopes.read.join(' ')}", error="invalid_token"`,
@@ -89,16 +89,16 @@ test('scopes are the least-privileged scopes of the exposed operations, and read
 test('OAuth validates per environment, caches for 60 seconds, and rejects 401s and upstream failures without caching them', async () => {
   let now = 1_000_000
   vi.spyOn(Date, 'now').mockImplementation(() => now)
-  const headers = { Authorization: 'Bearer polar_at_cache_test' }
-  await request('/mcp/polar-mcp', { headers })
-  await request('/mcp/polar-mcp', { headers })
+  const headers = { Authorization: 'Bearer repalis_at_cache_test' }
+  await request('/mcp/repalis-mcp', { headers })
+  await request('/mcp/repalis-mcp', { headers })
   expect(fetchMock).toHaveBeenCalledTimes(1)
-  await request('/mcp/polar-sandbox', { headers })
+  await request('/mcp/repalis-sandbox', { headers })
   expect(fetchMock).toHaveBeenCalledTimes(2)
   now += 60_000
   fetchMock.mockResolvedValue(new Response(null, { status: 401 }))
   for (let i = 0; i < 2; i++) {
-    const response = await request('/mcp/polar-mcp', { headers })
+    const response = await request('/mcp/repalis-mcp', { headers })
     expect(response.status).toBe(401)
     expect(await response.json()).toEqual({ error: 'invalid_token' })
     expect(response.headers.get('WWW-Authenticate')).toContain(
@@ -108,7 +108,7 @@ test('OAuth validates per environment, caches for 60 seconds, and rejects 401s a
   expect(fetchMock).toHaveBeenCalledTimes(4)
   for (const status of [404, 500, 503]) {
     fetchMock.mockResolvedValue(new Response(null, { status }))
-    const response = await request('/mcp/polar-mcp', { headers })
+    const response = await request('/mcp/repalis-mcp', { headers })
     expect(response.status).toBe(503)
     expect(await response.json()).toEqual({ error: 'temporarily_unavailable' })
   }
@@ -117,28 +117,28 @@ test('OAuth validates per environment, caches for 60 seconds, and rejects 401s a
 
 test('organization access tokens validate against an endpoint that accepts them, and a 403 means the token is valid', async () => {
   fetchMock.mockResolvedValueOnce(new Response(null, { status: 403 }))
-  const valid = { Authorization: 'Bearer polar_oat_without_scope' }
-  expect((await request('/mcp/polar-mcp', { headers: valid })).status).not.toBe(
+  const valid = { Authorization: 'Bearer repalis_oat_without_scope' }
+  expect((await request('/mcp/repalis-mcp', { headers: valid })).status).not.toBe(
     401,
   )
   const [input, init] = fetchMock.mock.calls[0]
   expect(new URL(input instanceof Request ? input.url : input).href).toBe(
-    'https://api.polar.test/v1/organizations/?limit=1',
+    'https://api.repalis.test/v1/organizations/?limit=1',
   )
   expect(new Headers(init?.headers).get('Authorization')).toBe(
-    'Bearer polar_oat_without_scope',
+    'Bearer repalis_oat_without_scope',
   )
   fetchMock.mockResolvedValueOnce(new Response(null, { status: 401 }))
-  const response = await request('/mcp/polar-mcp', {
-    headers: { Authorization: 'Bearer polar_oat_revoked' },
+  const response = await request('/mcp/repalis-mcp', {
+    headers: { Authorization: 'Bearer repalis_oat_revoked' },
   })
   expect(response.status).toBe(401)
   expect(await response.json()).toEqual({ error: 'invalid_token' })
 })
 
 test('tokens that are neither OAuth nor organization access tokens are rejected without calling the API', async () => {
-  for (const token of ['garbage', 'polar_pat_test', 'polar_cst_test']) {
-    const response = await request('/mcp/polar-mcp', {
+  for (const token of ['garbage', 'repalis_pat_test', 'repalis_cst_test']) {
+    const response = await request('/mcp/repalis-mcp', {
       headers: { Authorization: `Bearer ${token}` },
     })
     expect(response.status).toBe(401)
@@ -265,11 +265,11 @@ test('search and execute preserve sandbox isolation, outbound credentials, and l
   const execute = get.mock.calls[1][1]()
   expect(execute.limits).toEqual({ cpuMs: 10_000, subRequests: 50 })
   expect(execute.globalOutbound).not.toBeNull()
-  expect(execute.modules['worker.js']).not.toContain('polar_oat_test')
-  expect(exports.PolarApiOutbound).toHaveBeenCalledWith({
+  expect(execute.modules['worker.js']).not.toContain('repalis_oat_test')
+  expect(exports.RepalisApiOutbound).toHaveBeenCalledWith({
     props: {
-      apiUrl: 'https://api.polar.test',
-      token: 'polar_oat_test',
+      apiUrl: 'https://api.repalis.test',
+      token: 'repalis_oat_test',
       readOnly: true,
     },
   })
@@ -282,15 +282,15 @@ test('the execute sandbox client serializes requests and handles every kind of r
     name: 'execute',
     arguments: {
       code: `async () => {
-        const list = await polar.request({
+        const list = await repalis.request({
           path: '/v1/products/',
           query: { metadata: { tier: 'pro' }, organization_id: ['a', 'b'], limit: 10, skipped: undefined },
         })
-        const created = await polar.request({ method: 'POST', path: '/v1/products/', body: { name: 'Pro' } })
-        const text = await polar.request({ path: '/v1/files/' })
-        const empty = await polar.request({ method: 'DELETE', path: '/v1/products/1' })
-        const failure = await polar.request({ path: '/v1/products/2' }).catch(({ message, status }) => ({ message, status }))
-        const offline = await polar.request({ path: '/v1/orders/' }).catch(({ message }) => message)
+        const created = await repalis.request({ method: 'POST', path: '/v1/products/', body: { name: 'Pro' } })
+        const text = await repalis.request({ path: '/v1/files/' })
+        const empty = await repalis.request({ method: 'DELETE', path: '/v1/products/1' })
+        const failure = await repalis.request({ path: '/v1/products/2' }).catch(({ message, status }) => ({ message, status }))
+        const offline = await repalis.request({ path: '/v1/orders/' }).catch(({ message }) => message)
         return { list, created, text, empty, failure, offline }
       }`,
     },
@@ -319,7 +319,7 @@ test('the execute sandbox client serializes requests and handles every kind of r
     created: { id: 'product' },
     text: 'plain text',
     empty: null,
-    failure: { message: 'Polar API 404: {"detail":"Not found"}', status: 404 },
+    failure: { message: 'Repalis API 404: {"detail":"Not found"}', status: 404 },
     offline: 'network down',
   })
   expect(
@@ -339,7 +339,7 @@ test('the execute sandbox client serializes requests and handles every kind of r
 
   const [listUrl, listInit] = sandboxFetch.mock.calls[0]
   const url = listUrl as URL
-  expect(url.origin + url.pathname).toBe('https://api.polar.test/v1/products/')
+  expect(url.origin + url.pathname).toBe('https://api.repalis.test/v1/products/')
   expect([...url.searchParams]).toEqual([
     ['metadata[tier]', 'pro'],
     ['organization_id', 'a'],
@@ -349,7 +349,7 @@ test('the execute sandbox client serializes requests and handles every kind of r
   expect(listInit).toEqual({ method: 'GET', headers: {}, body: undefined })
 
   const [createUrl, createInit] = sandboxFetch.mock.calls[1]
-  expect((createUrl as URL).href).toBe('https://api.polar.test/v1/products/')
+  expect((createUrl as URL).href).toBe('https://api.repalis.test/v1/products/')
   expect(createInit).toEqual({
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -431,7 +431,7 @@ test('every MCP request logs one line without the token, arguments or results', 
   const entries = log.mock.calls.map(([entry]) => entry)
   const base = {
     event: 'mcp.request',
-    server: 'polar-mcp',
+    server: 'repalis-mcp',
     telemetry: true,
     subject: expect.stringMatching(/^[0-9a-f]{32}$/),
     rpcMethod: 'tools/call',
@@ -444,7 +444,7 @@ test('every MCP request logs one line without the token, arguments or results', 
       mode: 'operations',
       readOnly: true,
       userAgent: 'claude-code/3.0',
-      message: 'polar-mcp tools/call customers_get 200',
+      message: 'repalis-mcp tools/call customers_get 200',
       tool: 'customers_get',
       isError: true,
       errorKind: 'api',
@@ -457,7 +457,7 @@ test('every MCP request logs one line without the token, arguments or results', 
       mode: 'codemode',
       readOnly: false,
       userAgent: null,
-      message: 'polar-mcp tools/call execute 200',
+      message: 'repalis-mcp tools/call execute 200',
       tool: 'execute',
       client: { name: 'codex', version: '1.2' },
       isError: false,
@@ -471,7 +471,7 @@ test('every MCP request logs one line without the token, arguments or results', 
       mode: 'codemode',
       readOnly: false,
       userAgent: null,
-      message: 'polar-mcp tools/call execute 200',
+      message: 'repalis-mcp tools/call execute 200',
       tool: 'execute',
       isError: true,
       errorKind: 'sandbox',
@@ -480,7 +480,7 @@ test('every MCP request logs one line without the token, arguments or results', 
   ])
   const logged = JSON.stringify(entries)
   for (const secret of [
-    'polar_oat_test',
+    'repalis_oat_test',
     'customer-id',
     'jane@',
     'secret code',
@@ -511,7 +511,7 @@ test('?telemetry=false keeps intent out of the request log too', async () => {
 test('code mode logs the operations a call hit and tells API failures from script errors', async () => {
   const log = vi.spyOn(console, 'info').mockImplementation(() => {})
   evaluate.mockResolvedValueOnce({
-    error: 'Polar API 422: {"detail":"jane@example.com is invalid"}',
+    error: 'Repalis API 422: {"detail":"jane@example.com is invalid"}',
     errorName: 'Error',
     status: 422,
     body: {
@@ -538,12 +538,12 @@ test('code mode logs the operations a call hit and tells API failures from scrip
       null as never,
       {
         method: 'GET',
-        url: 'https://api.polar.test/v1/products/00000000-0000-4000-8000-000000000001',
+        url: 'https://api.repalis.test/v1/products/00000000-0000-4000-8000-000000000001',
         status: 200,
       },
       {
         method: 'POST',
-        url: 'https://api.polar.test/v1/customers/',
+        url: 'https://api.repalis.test/v1/customers/',
         status: 422,
       },
     ],
@@ -556,7 +556,7 @@ test('code mode logs the operations a call hit and tells API failures from scrip
     calls: [
       {
         method: 'GET',
-        url: 'https://api.polar.test/v1/customers/jane@example.com/bogus',
+        url: 'https://api.repalis.test/v1/customers/jane@example.com/bogus',
         status: 403,
       },
     ],
@@ -634,7 +634,7 @@ test('code mode logs the operations a call hit and tells API failures from scrip
 test('tool calls are sent to PostHog as $mcp_tool_call events without the token, arguments or results, unless ?telemetry=false', async () => {
   env.POSTHOG_PROJECT_KEY = 'phc_test'
   waitUntil.mockClear()
-  const auth = { Authorization: 'Bearer polar_oat_capture' }
+  const auth = { Authorization: 'Bearer repalis_oat_capture' }
   const call = (params: Record<string, unknown>, query = '') =>
     rpc('tools/call', params, query, auth)
   try {
@@ -648,7 +648,7 @@ test('tool calls are sent to PostHog as $mcp_tool_call events without the token,
       calls: [
         {
           method: 'GET',
-          url: 'https://api.polar.test/v1/products/',
+          url: 'https://api.repalis.test/v1/products/',
           status: 200,
         },
       ],
@@ -663,13 +663,13 @@ test('tool calls are sent to PostHog as $mcp_tool_call events without the token,
     })
     await call({ name: 'execute', arguments: {} })
     evaluate.mockResolvedValueOnce({
-      error: 'Polar API 404: not an operation exposed by this server',
+      error: 'Repalis API 404: not an operation exposed by this server',
       status: 404,
       requests: 1,
       calls: [
         {
           method: 'GET',
-          url: 'https://api.polar.test/v1/oauth2/userinfo',
+          url: 'https://api.repalis.test/v1/oauth2/userinfo',
           status: 404,
         },
       ],
@@ -699,7 +699,7 @@ test('tool calls are sent to PostHog as $mcp_tool_call events without the token,
         category: 'missing_capability',
         summary: 'No way to list the events a meter has received',
         details:
-          'Tried GET https://api.polar.test/v1/events/ for customer-id 2f1c0e3a-8f7a-4bd1-9c2e-1a2b3c4d5e6f',
+          'Tried GET https://api.repalis.test/v1/events/ for customer-id 2f1c0e3a-8f7a-4bd1-9c2e-1a2b3c4d5e6f',
       },
     })
     await call({ name: 'feedback', arguments: { feedback_type: 'mcp' } })
@@ -734,7 +734,7 @@ test('tool calls are sent to PostHog as $mcp_tool_call events without the token,
         summary: 'No way to list the events a meter has received',
         details: 'Tried GET <redacted> for customer-id <redacted>',
         mode: 'codemode',
-        $mcp_server_name: 'polar',
+        $mcp_server_name: 'repalis',
       }),
     })
     expect(events[6].properties).not.toHaveProperty('$mcp_tool_name')
@@ -748,7 +748,7 @@ test('tool calls are sent to PostHog as $mcp_tool_call events without the token,
         $mcp_source: 'posthog_mcp_analytics',
         $mcp_intent: 'No way to list the events a meter has received',
         $mcp_intent_source: 'context_parameter',
-        $mcp_server_name: 'polar',
+        $mcp_server_name: 'repalis',
       }),
     })
     expect(events[7].properties).not.toHaveProperty('summary')
@@ -768,8 +768,8 @@ test('tool calls are sent to PostHog as $mcp_tool_call events without the token,
       properties: expect.objectContaining({
         $mcp_tool_name: 'execute',
         $mcp_is_error: false,
-        $mcp_server_name: 'polar',
-        server: 'polar-mcp',
+        $mcp_server_name: 'repalis',
+        server: 'repalis-mcp',
         mode: 'codemode',
         $mcp_source: 'posthog_mcp_analytics',
         $mcp_intent:
@@ -796,7 +796,7 @@ test('tool calls are sent to PostHog as $mcp_tool_call events without the token,
     expect(events[1].distinct_id).toBe(events[0].distinct_id)
     const sent = JSON.stringify(events)
     for (const secret of [
-      'polar_oat_capture',
+      'repalis_oat_capture',
       'org-capture',
       'secret code',
       'secret result',
@@ -841,7 +841,7 @@ test('only engine errors from search scripts send their message to PostHog', asy
     })
     await execute()
     evaluate.mockResolvedValueOnce({
-      error: 'Polar API 404: {"detail":"jane@example.com not found"}',
+      error: 'Repalis API 404: {"detail":"jane@example.com not found"}',
       errorName: 'Error',
       status: 404,
     })
@@ -901,10 +901,10 @@ test('the analytics id is a keyed hash of the account, so a refreshed token keep
       .digest('hex')
       .slice(0, 32)
   for (const [token, body] of [
-    ['polar_at_u_first', { sub: 'user-1' }],
-    ['polar_at_u_refreshed', { sub: 'user-1' }],
-    ['polar_at_o_app', { sub: 'org-1' }],
-    ['polar_oat_without_read_scope', undefined],
+    ['repalis_at_u_first', { sub: 'user-1' }],
+    ['repalis_at_u_refreshed', { sub: 'user-1' }],
+    ['repalis_at_o_app', { sub: 'org-1' }],
+    ['repalis_oat_without_read_scope', undefined],
   ] as const) {
     fetchMock.mockResolvedValueOnce(
       body ? Response.json(body) : new Response(null, { status: 403 }),
@@ -915,7 +915,7 @@ test('the analytics id is a keyed hash of the account, so a refreshed token keep
     hash('user:user-1'),
     hash('user:user-1'),
     hash('organization:org-1'),
-    hash('token:polar_oat_without_read_scope'),
+    hash('token:repalis_oat_without_read_scope'),
   ])
   log.mockRestore()
 })
@@ -948,10 +948,10 @@ test('operation tools preserve query serialization, credentials, JSON results an
   expect(url.searchParams.get('is_archived')).toBe('false')
   expect(url.searchParams.get('metadata[tier]')).toBe('pro')
   expect(new Headers(init?.headers).get('Authorization')).toBe(
-    'Bearer polar_oat_test',
+    'Bearer repalis_oat_test',
   )
-  expect(new Headers(init?.headers).get('User-Agent')).toBe('polar-mcp')
-  expect(new Headers(init?.headers).get('Polar-Version')).toBe(spec.apiVersion)
+  expect(new Headers(init?.headers).get('User-Agent')).toBe('repalis-mcp')
+  expect(new Headers(init?.headers).get('Repalis-Version')).toBe(spec.apiVersion)
   fetchMock.mockResolvedValueOnce(new Response('denied', { status: 403 }))
   expect(
     (
@@ -962,7 +962,7 @@ test('operation tools preserve query serialization, credentials, JSON results an
       )
     ).result,
   ).toEqual({
-    content: [{ type: 'text', text: 'Error: Polar API 403: denied' }],
+    content: [{ type: 'text', text: 'Error: Repalis API 403: denied' }],
     isError: true,
   })
   fetchMock.mockResolvedValueOnce(new Response(null, { status: 204 }))
@@ -986,7 +986,7 @@ test('docs tools search Mintlify and read pages as markdown from the docs site',
         metadata: { title: 'Checkout Links' },
       },
       {
-        path: 'https://polar.sh/docs/integrate/sdk/adapters/nextjs#checkout',
+        path: 'https://repalis.com/docs/integrate/sdk/adapters/nextjs#checkout',
         content: 'Next.js checkout',
       },
     ]),
@@ -997,13 +997,13 @@ test('docs tools search Mintlify and read pages as markdown from the docs site',
   })
   expect(search.result.content[0].text).toBe(
     [
-      '## Checkout Links\nPage: features/checkout/links\nURL: https://polar.sh/docs/features/checkout/links\n\nCreate a checkout link',
-      '## integrate/sdk/adapters/nextjs\nPage: integrate/sdk/adapters/nextjs\nURL: https://polar.sh/docs/integrate/sdk/adapters/nextjs\n\nNext.js checkout',
+      '## Checkout Links\nPage: features/checkout/links\nURL: https://repalis.com/docs/features/checkout/links\n\nCreate a checkout link',
+      '## integrate/sdk/adapters/nextjs\nPage: integrate/sdk/adapters/nextjs\nURL: https://repalis.com/docs/integrate/sdk/adapters/nextjs\n\nNext.js checkout',
     ].join('\n\n---\n\n'),
   )
   const [input, init] = fetchMock.mock.calls[0]
   expect(input instanceof Request ? input.url : String(input)).toBe(
-    'https://api.mintlify.com/discovery/v1/search/polar',
+    'https://api.mintlify.com/discovery/v1/search/repalis',
   )
   expect(init?.method).toBe('POST')
   expect(new Headers(init?.headers).get('Authorization')).toBe(
@@ -1024,7 +1024,7 @@ test('docs tools search Mintlify and read pages as markdown from the docs site',
   ).toBe('# Checkout Links')
   const [page] = fetchMock.mock.calls[1]
   expect(page instanceof Request ? page.url : String(page)).toBe(
-    'https://polar.sh/docs/features/checkout/links.md',
+    'https://repalis.com/docs/features/checkout/links.md',
   )
 
   fetchMock.mockResolvedValueOnce(new Response('Not found', { status: 404 }))
@@ -1037,13 +1037,13 @@ test('docs tools search Mintlify and read pages as markdown from the docs site',
 
   const outside = await rpc('tools/call', {
     name: 'read_docs_page',
-    arguments: { page: 'https://polar.sh/docs/http:evil.example' },
+    arguments: { page: 'https://repalis.com/docs/http:evil.example' },
   })
   expect(outside.result).toEqual({
     content: [
       {
         type: 'text',
-        text: 'Error: Not a Polar docs page: https://polar.sh/docs/http:evil.example',
+        text: 'Error: Not a Repalis docs page: https://repalis.com/docs/http:evil.example',
       },
     ],
     isError: true,

@@ -1,5 +1,5 @@
 // Generated from orders:update (2026-10). Do not edit.
-import type { Polar } from '@polar-sh/sdk/2026-10'
+import type { Repalis } from '@repalis/sdk/2026-10'
 import { Effect } from 'effect'
 import { Argument, Command, Flag } from 'effect/cli'
 import { ApiRuntime } from '../runtime'
@@ -12,7 +12,7 @@ import {
   org,
 } from '../inputs'
 
-type Body = NonNullable<Parameters<Polar['orders']['update']>[1]>
+type Body = NonNullable<Parameters<Repalis['orders']['update']>[1]>
 
 export const command = Command.make(
   'update',

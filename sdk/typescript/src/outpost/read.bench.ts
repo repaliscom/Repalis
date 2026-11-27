@@ -2,18 +2,23 @@ import { afterAll, beforeAll, bench, describe } from "vitest";
 
 import { CREDIT_REDUCER, REDUCER, SNAPSHOT } from "./benchmark";
 import { Outpost } from "./client";
-import { startPolarServer, startRedisServer, type PolarServer, type RedisServer } from "./testing";
+import {
+  startRepalisServer,
+  startRedisServer,
+  type RepalisServer,
+  type RedisServer,
+} from "./testing";
 
 const meter = { meter_id: "meter", external_customer_id: "alice" };
 
 let redisServer: RedisServer;
-let polar: PolarServer;
+let repalis: RepalisServer;
 let outpost: Outpost;
 
 beforeAll(async () => {
   redisServer = await startRedisServer();
-  polar = await startPolarServer([REDUCER, CREDIT_REDUCER], SNAPSHOT);
-  outpost = await new Outpost(redisServer.socket, { client: polar.client }).start();
+  repalis = await startRepalisServer([REDUCER, CREDIT_REDUCER], SNAPSHOT);
+  outpost = await new Outpost(redisServer.socket, { client: repalis.client }).start();
   await outpost.actor({ external_customer_id: meter.external_customer_id });
   if ((await outpost.meter(meter))?.credited_units !== SNAPSHOT.sum)
     throw new Error("The warm read benchmark needs a ready meter");
@@ -21,7 +26,7 @@ beforeAll(async () => {
 
 afterAll(async () => {
   await outpost?.close();
-  await polar?.stop();
+  await repalis?.stop();
   await redisServer?.stop();
 });
 

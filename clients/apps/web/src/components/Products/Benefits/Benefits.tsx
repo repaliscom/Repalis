@@ -6,20 +6,20 @@ import {
   getCreatableBenefitTypes,
   resolveBenefitIcon,
 } from '@/components/Benefit/utils'
-import { schemas } from '@polar-sh/client'
-import { Button } from '@polar-sh/orbit'
+import { schemas } from '@repalis/client'
+import { Button } from '@repalis/orbit'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@polar-sh/ui/components/ui/dropdown-menu'
-import { Plus } from '@polar-sh/orbit/icons'
+} from '@repalis/ui/components/ui/dropdown-menu'
+import { Plus } from '@repalis/orbit/icons'
 import { parseAsBoolean, useQueryState } from 'nuqs'
 import { useEffect, useState } from 'react'
 import CreateBenefitModalContent from '../../Benefit/CreateBenefitModalContent'
 import { Section } from '../../Layout/Section'
-import { InlineModal } from '@polar-sh/orbit'
+import { InlineModal } from '@repalis/orbit'
 import { BenefitSearchComplex } from './BenefitSearchComplex'
 import { BenefitSearchSimple } from './BenefitSearchSimple'
 

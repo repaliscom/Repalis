@@ -2,9 +2,9 @@ import {
   type AggregateBucket,
   type AggregateRow,
 } from '@/utils/subscriptionAggregate'
-import { formatCurrency } from '@polar-sh/currency'
-import { Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { formatCurrency } from '@repalis/currency'
+import { Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 
 const plural = (count: number, noun: string) =>
   `${count.toLocaleString('en-US')} ${noun}${count === 1 ? '' : 's'}`

@@ -3,11 +3,11 @@
 import { ClickToCopy, copyable } from '@/components/Shared/ClickToCopy'
 import { useWallets } from '@/hooks/queries'
 import { formatCountry } from '@/utils/formatters'
-import { formatCurrency } from '@polar-sh/currency'
-import { schemas } from '@polar-sh/client'
-import { Grid, Status, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import FormattedDateTime from '@polar-sh/ui/components/atoms/FormattedDateTime'
+import { formatCurrency } from '@repalis/currency'
+import { schemas } from '@repalis/client'
+import { Grid, Status, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import FormattedDateTime from '@repalis/ui/components/atoms/FormattedDateTime'
 import { PropsWithChildren, ReactNode } from 'react'
 
 interface CustomerDetailsSectionProps {

@@ -1,7 +1,7 @@
-import { Text } from '@polar-sh/orbit'
+import { Text } from '@repalis/orbit'
 import { differenceInDays } from 'date-fns'
-import { Box } from '@polar-sh/orbit/Box'
-import { X, ZoomIn, ZoomOut } from '@polar-sh/orbit/icons'
+import { Box } from '@repalis/orbit/Box'
+import { X, ZoomIn, ZoomOut } from '@repalis/orbit/icons'
 import { formatEventCount } from '@/utils/event'
 import { ReactNode } from 'react'
 
@@ -67,7 +67,7 @@ const IconButton = ({
     title={label}
     onClick={onClick}
     disabled={!onClick}
-    className="dark:text-polar-400 dark:hover:bg-polar-700 flex h-7 w-7 cursor-pointer items-center justify-center rounded-full text-gray-500 transition-colors hover:bg-gray-200 hover:text-gray-900 disabled:cursor-default disabled:opacity-40 disabled:hover:bg-transparent dark:hover:text-white"
+    className="dark:text-repalis-400 dark:hover:bg-repalis-700 flex h-7 w-7 cursor-pointer items-center justify-center rounded-full text-gray-500 transition-colors hover:bg-gray-200 hover:text-gray-900 disabled:cursor-default disabled:opacity-40 disabled:hover:bg-transparent dark:hover:text-white"
   >
     {children}
   </button>

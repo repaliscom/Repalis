@@ -8,9 +8,9 @@ reflect the discounted price.
 import pytest
 from httpx2 import AsyncClient
 
-from polar.kit.db.postgres import AsyncSession
-from polar.models import Organization, Product
-from polar.models.discount import DiscountDuration, DiscountPercentage, DiscountType
+from repalis.kit.db.postgres import AsyncSession
+from repalis.models import Organization, Product
+from repalis.models.discount import DiscountDuration, DiscountPercentage, DiscountType
 from tests.e2e.conftest import E2E_AUTH
 from tests.e2e.infra import DrainFn, EmailCapture, StripeSimulator
 from tests.e2e.purchase.conftest import BUYER_EMAIL, complete_purchase

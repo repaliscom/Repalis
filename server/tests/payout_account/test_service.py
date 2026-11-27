@@ -2,17 +2,17 @@ import pytest
 import stripe as stripe_lib
 from pytest_mock import MockerFixture
 
-from polar.auth.models import AuthSubject
-from polar.enums import PayoutAccountStatus, PayoutAccountType
-from polar.integrations.stripe.service import StripeService
-from polar.models import Organization, User, UserOrganization
-from polar.models.payout_attempt import PayoutAttemptStatus
-from polar.payout_account.repository import PayoutAccountRepository
-from polar.payout_account.schemas import (
+from repalis.auth.models import AuthSubject
+from repalis.enums import PayoutAccountStatus, PayoutAccountType
+from repalis.integrations.stripe.service import StripeService
+from repalis.models import Organization, User, UserOrganization
+from repalis.models.payout_attempt import PayoutAttemptStatus
+from repalis.payout_account.repository import PayoutAccountRepository
+from repalis.payout_account.schemas import (
     PayoutAccountCreate,
     StripeAccountCountry,
 )
-from polar.payout_account.service import (
+from repalis.payout_account.service import (
     PayoutAccountHasPayouts,
     PayoutAccountLinkedToOrganization,
     PayoutAccountNonZeroBalance,
@@ -20,10 +20,10 @@ from polar.payout_account.service import (
     PayoutAccountSyncFailed,
     PayoutAccountSyncUnsupported,
 )
-from polar.payout_account.service import (
+from repalis.payout_account.service import (
     payout_account as payout_account_service,
 )
-from polar.postgres import AsyncSession
+from repalis.postgres import AsyncSession
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (
     create_account,
@@ -51,7 +51,7 @@ def _stripe_account(id: str, country: str = "US") -> stripe_lib.Account:
 @pytest.fixture(autouse=True)
 def stripe_service_mock(mocker: MockerFixture) -> StripeService:
     mock = mocker.MagicMock(spec=StripeService)
-    mocker.patch("polar.payout_account.service.stripe", new=mock)
+    mocker.patch("repalis.payout_account.service.stripe", new=mock)
     return mock
 
 
@@ -82,9 +82,9 @@ class TestCreate:
                 None,
             )
         )
-        enqueue_job_mock = mocker.patch("polar.payout_account.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.payout_account.service.enqueue_job")
         organization_enqueue_job_mock = mocker.patch(
-            "polar.organization.service.enqueue_job"
+            "repalis.organization.service.enqueue_job"
         )
 
         await payout_account_service.create(
@@ -153,7 +153,7 @@ class TestCreate:
             save_fixture, organization, user, is_payouts_enabled=True
         )
         stripe_service_mock.create_account.return_value = _stripe_account("acct_new")  # type: ignore[attr-defined]
-        enqueue_job_mock = mocker.patch("polar.payout_account.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.payout_account.service.enqueue_job")
 
         payout_account = await payout_account_service.create(
             auth_subject,
@@ -187,7 +187,7 @@ class TestCreate:
             save_fixture, organization, user, is_payouts_enabled=False
         )
         stripe_service_mock.create_account.return_value = _stripe_account("acct_new")  # type: ignore[attr-defined]
-        enqueue_job_mock = mocker.patch("polar.organization.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.organization.service.enqueue_job")
 
         await payout_account_service.create(
             auth_subject,
@@ -217,7 +217,7 @@ class TestCreateManualAccount:
         user: User,
     ) -> None:
         previous = await create_payout_account(save_fixture, organization, user)
-        enqueue_job_mock = mocker.patch("polar.organization.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.organization.service.enqueue_job")
 
         await payout_account_service.create_manual_account(
             session, organization, user, country="US", currency="usd"

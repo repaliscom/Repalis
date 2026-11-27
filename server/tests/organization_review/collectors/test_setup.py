@@ -4,16 +4,16 @@ import httpx2
 import pytest
 from pytest_mock import MockerFixture
 
-from polar.kit.http import SSRFBlockedError
-from polar.organization_review.collectors.firecrawl_client import ScrapeResult
-from polar.organization_review.collectors.setup import (
+from repalis.kit.http import SSRFBlockedError
+from repalis.organization_review.collectors.firecrawl_client import ScrapeResult
+from repalis.organization_review.collectors.setup import (
     _extract_domain,
     _resolve_redirect_with_browser,
     collect_setup_data,
     resolve_url_redirects,
     same_registrable_domain,
 )
-from polar.organization_review.schemas import (
+from repalis.organization_review.schemas import (
     CheckoutLinksData,
     CheckoutReturnUrlData,
     CheckoutSuccessUrlData,
@@ -391,7 +391,7 @@ class TestResolveUrlRedirects:
         """URL that does not redirect reports redirected=False."""
 
         mocker.patch(
-            "polar.organization_review.collectors.setup._resolve_redirect_with_browser",
+            "repalis.organization_review.collectors.setup._resolve_redirect_with_browser",
             return_value=UrlRedirectInfo(
                 original_url="https://example.com/thanks",
                 final_url="https://example.com/thanks",
@@ -483,7 +483,7 @@ class TestResolveUrlRedirects:
         self, http_mocks: dict[tuple[str, str], Mock], mocker: MockerFixture
     ) -> None:
         mocker.patch(
-            "polar.organization_review.collectors.setup._resolve_redirect_with_browser",
+            "repalis.organization_review.collectors.setup._resolve_redirect_with_browser",
             return_value=UrlRedirectInfo(
                 original_url="https://api.legit.com:8443/success",
                 final_url="https://legit.com/",
@@ -511,7 +511,7 @@ class TestResolveUrlRedirects:
         """URL that redirects within the same domain reports redirected=False."""
 
         mocker.patch(
-            "polar.organization_review.collectors.setup._resolve_redirect_with_browser",
+            "repalis.organization_review.collectors.setup._resolve_redirect_with_browser",
             return_value=UrlRedirectInfo(
                 original_url="https://example.com/old",
                 final_url="https://example.com/new",
@@ -540,7 +540,7 @@ class TestResolveUrlRedirects:
         """Redirect from bare domain to www (or vice versa) is not flagged."""
 
         mocker.patch(
-            "polar.organization_review.collectors.setup._resolve_redirect_with_browser",
+            "repalis.organization_review.collectors.setup._resolve_redirect_with_browser",
             return_value=UrlRedirectInfo(
                 original_url="https://example.com/thanks",
                 final_url="https://www.example.com/thanks",
@@ -570,7 +570,7 @@ class TestResolveUrlRedirects:
         """Redirect from www to bare domain is not flagged."""
 
         mocker.patch(
-            "polar.organization_review.collectors.setup._resolve_redirect_with_browser",
+            "repalis.organization_review.collectors.setup._resolve_redirect_with_browser",
             return_value=UrlRedirectInfo(
                 original_url="https://www.example.com/thanks",
                 final_url="https://example.com/thanks",
@@ -617,7 +617,7 @@ class TestResolveUrlRedirects:
         # GET returns 200 (no HTTP redirect) — browser pass will be triggered
         # Browser detects the client-side redirect to a different domain
         mocker.patch(
-            "polar.organization_review.collectors.setup._resolve_redirect_with_browser",
+            "repalis.organization_review.collectors.setup._resolve_redirect_with_browser",
             return_value=UrlRedirectInfo(
                 original_url="https://legit-api.com/success",
                 final_url="https://scam-site.com/landing",
@@ -643,7 +643,7 @@ class TestResolveUrlRedirects:
         """Browser errors are reported gracefully, not propagated."""
 
         mocker.patch(
-            "polar.organization_review.collectors.setup._resolve_redirect_with_browser",
+            "repalis.organization_review.collectors.setup._resolve_redirect_with_browser",
             return_value=UrlRedirectInfo(
                 original_url="https://flaky-site.com/page",
                 error="browser_error",
@@ -691,11 +691,11 @@ class TestResolveRedirectFirecrawl:
     @pytest.mark.anyio
     async def test_cross_domain_redirect(self, mocker: MockerFixture) -> None:
         mocker.patch(
-            "polar.organization_review.collectors.setup._validate_url_host",
+            "repalis.organization_review.collectors.setup._validate_url_host",
             return_value=None,
         )
         mocker.patch(
-            "polar.organization_review.collectors.setup.scrape_markdown",
+            "repalis.organization_review.collectors.setup.scrape_markdown",
             new_callable=AsyncMock,
             return_value=ScrapeResult(
                 markdown="x",
@@ -715,11 +715,11 @@ class TestResolveRedirectFirecrawl:
     @pytest.mark.anyio
     async def test_same_domain_not_flagged(self, mocker: MockerFixture) -> None:
         mocker.patch(
-            "polar.organization_review.collectors.setup._validate_url_host",
+            "repalis.organization_review.collectors.setup._validate_url_host",
             return_value=None,
         )
         mocker.patch(
-            "polar.organization_review.collectors.setup.scrape_markdown",
+            "repalis.organization_review.collectors.setup.scrape_markdown",
             new_callable=AsyncMock,
             return_value=ScrapeResult(
                 markdown="x",
@@ -737,11 +737,11 @@ class TestResolveRedirectFirecrawl:
     @pytest.mark.anyio
     async def test_www_variant_not_flagged(self, mocker: MockerFixture) -> None:
         mocker.patch(
-            "polar.organization_review.collectors.setup._validate_url_host",
+            "repalis.organization_review.collectors.setup._validate_url_host",
             return_value=None,
         )
         mocker.patch(
-            "polar.organization_review.collectors.setup.scrape_markdown",
+            "repalis.organization_review.collectors.setup.scrape_markdown",
             new_callable=AsyncMock,
             return_value=ScrapeResult(
                 markdown="x",
@@ -758,7 +758,7 @@ class TestResolveRedirectFirecrawl:
     @pytest.mark.anyio
     async def test_blocked_scheme(self, mocker: MockerFixture) -> None:
         scrape = mocker.patch(
-            "polar.organization_review.collectors.setup.scrape_markdown",
+            "repalis.organization_review.collectors.setup.scrape_markdown",
             new_callable=AsyncMock,
         )
 
@@ -770,11 +770,11 @@ class TestResolveRedirectFirecrawl:
     @pytest.mark.anyio
     async def test_scrape_error_reported(self, mocker: MockerFixture) -> None:
         mocker.patch(
-            "polar.organization_review.collectors.setup._validate_url_host",
+            "repalis.organization_review.collectors.setup._validate_url_host",
             return_value=None,
         )
         mocker.patch(
-            "polar.organization_review.collectors.setup.scrape_markdown",
+            "repalis.organization_review.collectors.setup.scrape_markdown",
             new_callable=AsyncMock,
             side_effect=RuntimeError("firecrawl down"),
         )

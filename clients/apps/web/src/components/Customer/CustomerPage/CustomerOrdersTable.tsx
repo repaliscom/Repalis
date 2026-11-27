@@ -3,11 +3,11 @@
 import { OrderStatus } from '@/components/Orders/OrderStatus'
 import { CatalogVersionLabel } from '@/components/Products/CatalogVersionLabel'
 import { useOrders } from '@/hooks/queries/orders'
-import { schemas } from '@polar-sh/client'
-import { formatCurrency } from '@polar-sh/currency'
-import { Button, DataTable, Text, Truncated } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import FormattedDateTime from '@polar-sh/ui/components/atoms/FormattedDateTime'
+import { schemas } from '@repalis/client'
+import { formatCurrency } from '@repalis/currency'
+import { Button, DataTable, Text, Truncated } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import FormattedDateTime from '@repalis/ui/components/atoms/FormattedDateTime'
 import Link from 'next/link'
 
 interface CustomerOrdersTableProps {

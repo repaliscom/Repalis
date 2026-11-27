@@ -4,14 +4,14 @@ import { useCustomerPortalSessionAuthenticate } from '@/hooks/queries/customerPo
 import { setValidationErrors } from '@/utils/api/errors'
 import { getQueryClient } from '@/utils/api/query'
 import { api } from '@/utils/client'
-import { schemas } from '@polar-sh/client'
-import { Button } from '@polar-sh/orbit'
+import { schemas } from '@repalis/client'
+import { Button } from '@repalis/orbit'
 import {
   InputOTP,
   InputOTPGroup,
   InputOTPSlot,
-} from '@polar-sh/ui/components/atoms/InputOTP'
-import { Box } from '@polar-sh/orbit/Box'
+} from '@repalis/ui/components/atoms/InputOTP'
+import { Box } from '@repalis/orbit/Box'
 import { PortalText } from '@/components/CustomerPortal/PortalPrimitives'
 import {
   Form,
@@ -19,7 +19,7 @@ import {
   FormField,
   FormItem,
   FormMessage,
-} from '@polar-sh/ui/components/ui/form'
+} from '@repalis/ui/components/ui/form'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useCallback } from 'react'

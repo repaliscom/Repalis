@@ -1,8 +1,8 @@
-import { Check } from '@polar-sh/orbit/icons'
+import { Check } from '@repalis/orbit/icons'
 import { useState } from 'react'
 import { twMerge } from 'tailwind-merge'
-import { Button } from '@polar-sh/orbit'
-import { Input } from '@polar-sh/orbit'
+import { Button } from '@repalis/orbit'
+import { Input } from '@repalis/orbit'
 
 const CopyToClipboardInput = ({
   value,
@@ -40,13 +40,13 @@ const CopyToClipboardInput = ({
   return (
     <div
       className={twMerge(
-        'dark:border-polar-700 dark:bg-polar-800 flex w-full flex-row items-center overflow-hidden rounded-xl border bg-white shadow-xs',
+        'dark:border-repalis-700 dark:bg-repalis-800 flex w-full flex-row items-center overflow-hidden rounded-xl border bg-white shadow-xs',
         className,
       )}
     >
       <Input
         className={twMerge(
-          'dark:text-polar-400 !focus:border-transparent !focus:ring-transparent !dark:focus:border-transparent !dark:focus:ring-transparent w-full grow border-none bg-transparent text-gray-600 shadow-none! focus-visible:ring-transparent dark:bg-transparent dark:focus-visible:ring-transparent',
+          'dark:text-repalis-400 !focus:border-transparent !focus:ring-transparent !dark:focus:border-transparent !dark:focus:ring-transparent w-full grow border-none bg-transparent text-gray-600 shadow-none! focus-visible:ring-transparent dark:bg-transparent dark:focus-visible:ring-transparent',
           variant === 'mono' ? 'font-mono text-sm' : '',
         )}
         value={value ?? ''}

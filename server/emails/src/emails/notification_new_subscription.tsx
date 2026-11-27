@@ -1,4 +1,4 @@
-import { Footer, Intro, Text, WrapperPolar } from '../components/foundation'
+import { Footer, Intro, Text, WrapperRepalis } from '../components/foundation'
 import CustomerIdentity from '../components/CustomerIdentity'
 import type { schemas } from '../types'
 
@@ -15,7 +15,7 @@ export function NotificationNewSubscription({
   const priceDisplay = formatted_price_with_interval
 
   return (
-    <WrapperPolar preview={`New ${tier_name} subscriber`}>
+    <WrapperRepalis preview={`New ${tier_name} subscriber`}>
       <Intro headline="Congratulations!">
         {formattedName} is now subscribing to{' '}
         <Text as="span" weight="bold">
@@ -24,7 +24,7 @@ export function NotificationNewSubscription({
         for {priceDisplay}.
       </Intro>
       <Footer email={null} />
-    </WrapperPolar>
+    </WrapperRepalis>
   )
 }
 

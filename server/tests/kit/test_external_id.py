@@ -1,7 +1,7 @@
 import pytest
 from pydantic import ValidationError
 
-from polar.kit.external_id import ExternalIDInputMixin
+from repalis.kit.external_id import ExternalIDInputMixin
 
 
 @pytest.mark.parametrize(

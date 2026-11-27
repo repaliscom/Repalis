@@ -1,5 +1,5 @@
-import { Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 
 /**
  * Stand-in for a chapter's figure, in the hero's chrome: the dimmed flow image, and a frame naming what the
@@ -14,9 +14,9 @@ export const FigurePlaceholder = ({
   title: string
   shows: string[]
 }) => (
-  <div className="dark:border-polar-800 relative flex min-h-[22rem] w-full items-center justify-center overflow-hidden rounded-md border border-gray-200 bg-[url(/assets/landing/company/Polar_Flow_03_No_Logo.jpg)] bg-cover bg-center px-4 py-12 md:min-h-[30rem] md:px-12">
+  <div className="dark:border-repalis-800 relative flex min-h-[22rem] w-full items-center justify-center overflow-hidden rounded-md border border-gray-200 bg-[url(/assets/landing/company/Repalis_Flow_03_No_Logo.jpg)] bg-cover bg-center px-4 py-12 md:min-h-[30rem] md:px-12">
     <div className="pointer-events-none absolute inset-0 bg-black/60" />
-    <div className="dark:bg-polar-950 relative flex w-full max-w-[34rem] flex-col rounded-2xl bg-gray-100 p-1">
+    <div className="dark:bg-repalis-950 relative flex w-full max-w-[34rem] flex-col rounded-2xl bg-gray-100 p-1">
       <Box
         alignItems="center"
         justifyContent="between"
@@ -31,7 +31,7 @@ export const FigurePlaceholder = ({
           Placeholder
         </Text>
       </Box>
-      <div className="dark:bg-polar-900 flex w-full flex-col rounded-xl bg-white">
+      <div className="dark:bg-repalis-900 flex w-full flex-col rounded-xl bg-white">
         <Box flexDirection="column" rowGap="m" padding="xl">
           <Text variant="body">{title}</Text>
           <Box as="ul" flexDirection="column" rowGap="xs">

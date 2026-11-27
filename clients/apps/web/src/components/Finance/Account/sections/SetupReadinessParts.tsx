@@ -1,13 +1,13 @@
 'use client'
 
-import { schemas } from '@polar-sh/client'
-import { Button, Pill, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { schemas } from '@repalis/client'
+import { Button, Pill, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import {
   RadioGroup,
   RadioGroupItem,
-} from '@polar-sh/ui/components/ui/radio-group'
-import { ExternalLink as ExternalLinkIcon } from '@polar-sh/orbit/icons'
+} from '@repalis/ui/components/ui/radio-group'
+import { ExternalLink as ExternalLinkIcon } from '@repalis/orbit/icons'
 import Link from 'next/link'
 import { Fragment, useState } from 'react'
 import { StatusIcon } from '../StatusIcon'
@@ -19,7 +19,7 @@ export const LearnMore = ({ href }: { href: string }) => (
     href={href}
     target="_blank"
     rel="noopener noreferrer"
-    className="dark:text-polar-300 dark:hover:text-polar-100 inline-flex items-baseline gap-x-1 text-gray-700 underline underline-offset-2 hover:text-gray-900"
+    className="dark:text-repalis-300 dark:hover:text-repalis-100 inline-flex items-baseline gap-x-1 text-gray-700 underline underline-offset-2 hover:text-gray-900"
   >
     Learn more
     <ExternalLinkIcon className="h-3 w-3 translate-y-0.5" />
@@ -134,7 +134,7 @@ export const DeliveryRadioGroup = ({
         <DeliveryRadio
           id="delivery-benefit"
           value="benefit"
-          label="Polar delivers it"
+          label="Repalis delivers it"
           description="License keys, files, GitHub and more."
         >
           {method === 'benefit' &&
@@ -146,7 +146,7 @@ export const DeliveryRadioGroup = ({
                     {index > 0 && ', '}
                     <Link
                       href={product.href}
-                      className="dark:text-polar-300 dark:hover:text-polar-100 text-gray-700 underline underline-offset-2 hover:text-gray-900"
+                      className="dark:text-repalis-300 dark:hover:text-repalis-100 text-gray-700 underline underline-offset-2 hover:text-gray-900"
                     >
                       {product.name}
                     </Link>

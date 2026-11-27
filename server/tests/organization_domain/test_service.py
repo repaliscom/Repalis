@@ -2,13 +2,13 @@ import dns.exception
 import pytest
 from pytest_mock import MockerFixture
 
-from polar.email.schemas import DomainVerificationLostEmail
-from polar.kit.utils import utc_now
-from polar.models import Organization, OrganizationDomain, UserOrganization
-from polar.organization_domain.service import (
+from repalis.email.schemas import DomainVerificationLostEmail
+from repalis.kit.utils import utc_now
+from repalis.models import Organization, OrganizationDomain, UserOrganization
+from repalis.organization_domain.service import (
     organization_domain as organization_domain_service,
 )
-from polar.postgres import AsyncSession
+from repalis.postgres import AsyncSession
 from tests.fixtures.database import SaveFixture
 
 
@@ -22,7 +22,7 @@ class TestReverify:
         organization: Organization,
     ) -> None:
         lookup_txt_mock = mocker.patch(
-            "polar.organization_domain.service._lookup_txt", return_value=set()
+            "repalis.organization_domain.service._lookup_txt", return_value=set()
         )
         domain = OrganizationDomain(
             organization=organization, domain="acme.com", verified_at=utc_now()
@@ -42,7 +42,7 @@ class TestReverify:
         organization: Organization,
     ) -> None:
         mocker.patch(
-            "polar.organization_domain.service._lookup_txt", return_value={"TOKEN"}
+            "repalis.organization_domain.service._lookup_txt", return_value={"TOKEN"}
         )
         verified_at = utc_now()
         domain = OrganizationDomain(
@@ -67,10 +67,10 @@ class TestReverify:
         user_organization_second: UserOrganization,
     ) -> None:
         mocker.patch(
-            "polar.organization_domain.service._lookup_txt", return_value=set()
+            "repalis.organization_domain.service._lookup_txt", return_value=set()
         )
         enqueue_email_mock = mocker.patch(
-            "polar.organization_domain.service.enqueue_email_template"
+            "repalis.organization_domain.service.enqueue_email_template"
         )
         domain = OrganizationDomain(
             organization=organization,
@@ -88,7 +88,7 @@ class TestReverify:
         email = enqueue_email_mock.call_args.args[0]
         assert isinstance(email, DomainVerificationLostEmail)
         assert email.props.domain == "acme.com"
-        assert email.props.record_name == "_polar-challenge.acme.com"
+        assert email.props.record_name == "_repalis-challenge.acme.com"
         assert email.props.record_value == "TOKEN"
         assert enqueue_email_mock.call_args.kwargs["to_email_addr"] == (
             user_organization.user.email
@@ -102,7 +102,7 @@ class TestReverify:
         organization: Organization,
     ) -> None:
         mocker.patch(
-            "polar.organization_domain.service.dns.asyncresolver.resolve",
+            "repalis.organization_domain.service.dns.asyncresolver.resolve",
             side_effect=dns.exception.Timeout,
         )
         verified_at = utc_now()
@@ -127,7 +127,7 @@ class TestReverify:
         organization: Organization,
     ) -> None:
         mocker.patch(
-            "polar.organization_domain.service._lookup_txt", return_value={"TOKEN"}
+            "repalis.organization_domain.service._lookup_txt", return_value={"TOKEN"}
         )
         domain = OrganizationDomain(
             organization=organization,
@@ -151,7 +151,7 @@ class TestReverify:
         organization_second: Organization,
     ) -> None:
         mocker.patch(
-            "polar.organization_domain.service._lookup_txt", return_value={"TOKEN"}
+            "repalis.organization_domain.service._lookup_txt", return_value={"TOKEN"}
         )
         await save_fixture(
             OrganizationDomain(

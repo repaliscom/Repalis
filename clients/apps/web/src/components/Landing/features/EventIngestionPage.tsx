@@ -19,7 +19,7 @@ export const EventIngestionPage = () => {
       <FeaturePageHeader
         graphic={RadialSpinner}
         title="Event ingestion for usage billing"
-        description="Send an event when usage happens. Polar takes it from there."
+        description="Send an event when usage happens. Repalis takes it from there."
         docsHref="/docs/features/usage-based-billing/event-ingestion"
       />
 
@@ -36,7 +36,7 @@ export const EventIngestionPage = () => {
         </p>
         <p>
           It carries a <FeatureHighlight>customer</FeatureHighlight>, given as
-          the Polar customer ID or the ID you already use for that user in your
+          the Repalis customer ID or the ID you already use for that user in your
           own database. No mapping table to keep in sync.
         </p>
         <p>
@@ -46,7 +46,7 @@ export const EventIngestionPage = () => {
         </p>
         <p>
           That is the whole contract. You describe what happened once, and the
-          pricing decisions stay on the Polar side where you can change them
+          pricing decisions stay on the Repalis side where you can change them
           without touching your code.
         </p>
       </FeatureSection>
@@ -120,7 +120,7 @@ export const EventIngestionPage = () => {
           {
             title: 'Late events land on the current cycle',
             description:
-              'Events are billed in the period Polar receives them. Closed invoices are never reopened.',
+              'Events are billed in the period Repalis receives them. Closed invoices are never reopened.',
           },
           {
             title: 'Timestamps still count',
@@ -130,7 +130,7 @@ export const EventIngestionPage = () => {
           {
             title: 'Usage is never blocked',
             description:
-              'Polar always accepts the event. Whether to enforce a limit is a decision for your product.',
+              'Repalis always accepts the event. Whether to enforce a limit is a decision for your product.',
           },
         ]}
       />

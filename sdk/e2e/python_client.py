@@ -6,8 +6,8 @@ import typing
 
 import anyio
 import httpx2
-from polar.base import PolarError
-from polar.outpost import Outpost
+from repalis.base import RepalisError
+from repalis.outpost import Outpost
 
 
 async def read_lines(fd: int) -> typing.AsyncIterator[bytes]:
@@ -54,7 +54,7 @@ async def main() -> None:
                     "result": dataclasses.asdict(result) if result is not None else None
                 }
             except (
-                PolarError,
+                RepalisError,
                 ValueError,
                 TypeError,
                 KeyError,

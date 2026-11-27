@@ -1,7 +1,7 @@
 import { StaticImage } from '@/components/Image/StaticImage'
-import { Grid, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import { ArrowRight } from '@polar-sh/orbit/icons'
+import { Grid, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import { ArrowRight } from '@repalis/orbit/icons'
 import type { ReactNode } from 'react'
 import { Chapter } from '../Chapter'
 import {
@@ -23,7 +23,7 @@ const PILLARS: Pillar[] = [
   {
     title: 'Usage metering',
     desc: 'Every token, agent run and GPU second streams into live meters, priced and ready to bill the moment it happens.',
-    image: '/assets/landing/company/Polar_Flow_01_No_Logo.jpg',
+    image: '/assets/landing/company/Repalis_Flow_01_No_Logo.jpg',
     focus: 'center',
     docs: '/docs/features/usage-based-billing/introduction',
     vignette: <MeterVignette />,
@@ -31,7 +31,7 @@ const PILLARS: Pillar[] = [
   {
     title: 'Checkout',
     desc: 'A hosted checkout that converts out of the box. Localized currencies, sales tax included, one link to start selling.',
-    image: '/assets/landing/company/Polar_Flow_02_No_Logo.jpg',
+    image: '/assets/landing/company/Repalis_Flow_02_No_Logo.jpg',
     focus: 'center',
     docs: '/docs/features/checkout/session',
     vignette: <CheckoutVignette />,
@@ -39,7 +39,7 @@ const PILLARS: Pillar[] = [
   {
     title: 'Payouts',
     desc: 'Revenue settles to your bank account on your schedule. Sales tax already collected, remitted and off your plate.',
-    image: '/assets/landing/company/Polar_Flow_03_No_Logo.jpg',
+    image: '/assets/landing/company/Repalis_Flow_03_No_Logo.jpg',
     focus: 'right center',
     docs: '/docs/features/finance/payouts',
     vignette: <PayoutVignette />,
@@ -51,7 +51,7 @@ export const Platform = () => (
     name="Platform"
     title="The brains of a finance team"
     subtitle="in the body of an API"
-    description="Polar meters your usage, runs your subscriptions & invoicing, and sells to your customers as merchant of record. One integration, from first event to payout."
+    description="Repalis meters your usage, runs your subscriptions & invoicing, and sells to your customers as merchant of record. One integration, from first event to payout."
   >
     <Grid
       templateColumns={{
@@ -63,7 +63,7 @@ export const Platform = () => (
     >
       {PILLARS.map((pillar) => (
         <Box key={pillar.title} flexDirection="column" rowGap="xl">
-          <div className="dark:border-polar-800 relative flex min-h-[14rem] items-center justify-center overflow-hidden rounded-md border border-gray-200 px-8 py-10 xl:min-h-[20rem]">
+          <div className="dark:border-repalis-800 relative flex min-h-[14rem] items-center justify-center overflow-hidden rounded-md border border-gray-200 px-8 py-10 xl:min-h-[20rem]">
             <StaticImage
               src={pillar.image}
               alt=""

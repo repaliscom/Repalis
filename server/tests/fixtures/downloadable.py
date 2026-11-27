@@ -2,17 +2,17 @@ from collections.abc import Sequence
 
 from sqlalchemy.orm import contains_eager
 
-from polar.auth.models import AuthSubject
-from polar.auth.scope import Scope
-from polar.benefit.strategies.downloadables.properties import (
+from repalis.auth.models import AuthSubject
+from repalis.auth.scope import Scope
+from repalis.benefit.strategies.downloadables.properties import (
     BenefitGrantDownloadablesProperties,
 )
-from polar.benefit.strategies.downloadables.schemas import (
+from repalis.benefit.strategies.downloadables.schemas import (
     BenefitDownloadablesCreateProperties,
 )
-from polar.benefit.strategies.downloadables.service import BenefitDownloadablesService
-from polar.customer_portal.repository.downloadable import DownloadableRepository
-from polar.models import (
+from repalis.benefit.strategies.downloadables.service import BenefitDownloadablesService
+from repalis.customer_portal.repository.downloadable import DownloadableRepository
+from repalis.models import (
     Benefit,
     Customer,
     Downloadable,
@@ -21,10 +21,10 @@ from polar.models import (
     Organization,
     Product,
 )
-from polar.models.benefit import BenefitType
-from polar.models.subscription import SubscriptionStatus
-from polar.postgres import AsyncSession, sql
-from polar.redis import Redis
+from repalis.models.benefit import BenefitType
+from repalis.models.subscription import SubscriptionStatus
+from repalis.postgres import AsyncSession, sql
+from repalis.redis import Redis
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (
     create_benefit,

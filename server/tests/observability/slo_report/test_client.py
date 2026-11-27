@@ -1,7 +1,7 @@
 import httpx2
 import pytest
 
-from polar.observability.slo_report.client import (
+from repalis.observability.slo_report.client import (
     GrafanaCloudAPIError,
     GrafanaCloudPrometheusClient,
 )

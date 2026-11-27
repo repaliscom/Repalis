@@ -3,20 +3,20 @@
 import { useEmailOTPVerify } from '@/hooks'
 import { setValidationErrors } from '@/utils/api/errors'
 import { CONFIG } from '@/utils/config'
-import { isValidationError } from '@polar-sh/client'
-import { Button } from '@polar-sh/orbit'
+import { isValidationError } from '@repalis/client'
+import { Button } from '@repalis/orbit'
 import {
   InputOTP,
   InputOTPGroup,
   InputOTPSlot,
-} from '@polar-sh/ui/components/atoms/InputOTP'
+} from '@repalis/ui/components/atoms/InputOTP'
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormMessage,
-} from '@polar-sh/ui/components/ui/form'
+} from '@repalis/ui/components/ui/form'
 import { useRef, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
@@ -85,7 +85,7 @@ const EmailOTPVerifyForm = ({
                         <InputOTPSlot
                           key={index}
                           index={index}
-                          className="dark:border-polar-600 h-12 flex-1 border-gray-300 text-xl md:h-16 md:text-2xl"
+                          className="dark:border-repalis-600 h-12 flex-1 border-gray-300 text-xl md:h-16 md:text-2xl"
                         />
                       ))}
                     </InputOTPGroup>

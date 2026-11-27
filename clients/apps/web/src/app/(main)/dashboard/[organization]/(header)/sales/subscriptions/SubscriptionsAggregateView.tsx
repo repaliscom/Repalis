@@ -5,9 +5,9 @@ import {
   type AggregateGrouping,
 } from '@/components/Subscriptions/Gantt/AggregateTimeline'
 import { useAllSubscriptions } from '@/hooks/queries'
-import { schemas } from '@polar-sh/client'
-import { Button, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { schemas } from '@repalis/client'
+import { Button, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import { type Ref } from 'react'
 import { type GanttZoomHandle } from '@/components/Subscriptions/Gantt/scale'
 

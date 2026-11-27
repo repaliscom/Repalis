@@ -4,7 +4,7 @@ import { CONFIG } from '@/utils/config'
 import { usePostHog } from 'posthog-js/react'
 import { useCallback, useMemo } from 'react'
 
-const ONBOARDING_COOKIE_NAME = 'polar_onboarding_session'
+const ONBOARDING_COOKIE_NAME = 'repalis_onboarding_session'
 const SESSION_TIMEOUT_HOURS = 24
 
 export type OnboardingStep =

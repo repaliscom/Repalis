@@ -1,9 +1,9 @@
 import { renderMeteredPrice } from '@/components/Products/ProductPriceLabel'
 import { isMeteredPrice, MeteredPrice } from '@/utils/product'
-import { schemas } from '@polar-sh/client'
-import { List, ListItem, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import { ChevronRight, Gauge } from '@polar-sh/orbit/icons'
+import { schemas } from '@repalis/client'
+import { List, ListItem, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import { ChevronRight, Gauge } from '@repalis/orbit/icons'
 import Link from 'next/link'
 
 export interface ProductMetersProps {

@@ -14,10 +14,10 @@ from sqlalchemy import (
 )
 from sqlalchemy.orm import aliased
 
-from polar.kit.db.postgres import create_async_sessionmaker
-from polar.models import Order, Organization
-from polar.models.organization import OrganizationStatus
-from polar.postgres import create_async_engine
+from repalis.kit.db.postgres import create_async_sessionmaker
+from repalis.models import Order, Organization
+from repalis.models.organization import OrganizationStatus
+from repalis.postgres import create_async_engine
 
 from .helper import (
     configure_script_logging,

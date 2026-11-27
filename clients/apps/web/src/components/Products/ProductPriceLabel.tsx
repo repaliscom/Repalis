@@ -5,9 +5,9 @@ import {
   isSeatBasedPrice,
   isUnitBasedPrice,
 } from '@/utils/product'
-import { schemas } from '@polar-sh/client'
-import { formatCurrency } from '@polar-sh/currency'
-import { getMeterUnitFormat } from '@polar-sh/ui/lib/meterUnit'
+import { schemas } from '@repalis/client'
+import { formatCurrency } from '@repalis/currency'
+import { getMeterUnitFormat } from '@repalis/ui/lib/meterUnit'
 import { Fragment } from 'react'
 import AmountLabel from '../Shared/AmountLabel'
 
@@ -46,7 +46,7 @@ const renderStaticPrice = (
     return (
       <span className="inline-flex items-baseline gap-1.5">
         {tiers.length > 1 && (
-          <span className="dark:text-polar-500 text-xs text-gray-500">
+          <span className="dark:text-repalis-500 text-xs text-gray-500">
             From
           </span>
         )}
@@ -96,7 +96,7 @@ export const renderMeteredPrice = (
   return (
     <span className="inline-flex items-baseline gap-1.5">
       {tiers.length > 1 && (
-        <span className="dark:text-polar-500 text-xs text-gray-500">From</span>
+        <span className="dark:text-repalis-500 text-xs text-gray-500">From</span>
       )}
       <span>
         {formatCurrency('subcent')(
@@ -104,7 +104,7 @@ export const renderMeteredPrice = (
           meteredPrice.price_currency,
         )}
       </span>
-      <span className="dark:text-polar-500 text-xs text-gray-500">
+      <span className="dark:text-repalis-500 text-xs text-gray-500">
         / {label}
       </span>
     </span>

@@ -6,8 +6,8 @@ import pytest
 from fastapi import FastAPI
 from logfire.testing import CaptureLogfire
 
-from polar.logfire import instrument_fastapi
-from polar.observability import cpu_starvation
+from repalis.logfire import instrument_fastapi
+from repalis.observability import cpu_starvation
 
 
 @pytest.mark.anyio

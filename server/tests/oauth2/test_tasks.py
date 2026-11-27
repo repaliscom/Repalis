@@ -6,11 +6,11 @@ import pytest
 from pytest_mock import MockerFixture
 from sqlalchemy import select
 
-from polar.kit.utils import utc_now
-from polar.models import OAuth2Client
-from polar.oauth2.repository import OAuth2ClientRepository
-from polar.oauth2.tasks import oauth2_client_delete_stale
-from polar.postgres import AsyncSession
+from repalis.kit.utils import utc_now
+from repalis.models import OAuth2Client
+from repalis.oauth2.repository import OAuth2ClientRepository
+from repalis.oauth2.tasks import oauth2_client_delete_stale
+from repalis.postgres import AsyncSession
 from tests.fixtures.database import SaveFixture, save_fixture_factory
 
 
@@ -25,7 +25,7 @@ def task_session(mocker: MockerFixture, session: AsyncSession) -> None:
     async def session_maker() -> AsyncIterator[AsyncSession]:
         yield session
 
-    mocker.patch("polar.oauth2.tasks.AsyncSessionMaker", side_effect=session_maker)
+    mocker.patch("repalis.oauth2.tasks.AsyncSessionMaker", side_effect=session_maker)
 
 
 @pytest.mark.anyio

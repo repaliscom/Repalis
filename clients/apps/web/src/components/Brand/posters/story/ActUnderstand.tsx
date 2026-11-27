@@ -1,5 +1,5 @@
-import { Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import {
   PosterBody,
   PosterCanvas,
@@ -62,7 +62,7 @@ export const AgentPoster = () => (
           </Text>
         </Box>
         <Box flexDirection="column" rowGap="xs">
-          <PosterMono dim>POLAR</PosterMono>
+          <PosterMono dim>REPALIS</PosterMono>
           <Text
             variant="heading-xxs"
             as="p"

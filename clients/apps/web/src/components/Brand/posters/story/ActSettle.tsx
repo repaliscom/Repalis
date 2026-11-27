@@ -1,5 +1,5 @@
-import { Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import {
   PosterBody,
   PosterFrame,
@@ -42,7 +42,7 @@ export const PayoutPoster = () => (
 const SETTLEMENT: { label: string; amount: string; endpoint?: boolean }[] = [
   { label: 'CUSTOMER PAYS', amount: '$35.51', endpoint: true },
   { label: 'VAT REMITTED', amount: '-$7.10' },
-  { label: 'POLAR FEE 3.40% + 30¢', amount: '-$1.51' },
+  { label: 'REPALIS FEE 3.40% + 30¢', amount: '-$1.51' },
   { label: 'YOU RECEIVE', amount: '$26.90', endpoint: true },
 ]
 
@@ -87,12 +87,12 @@ export const SettlementPoster = () => (
           </Box>
         ))}
       </Box>
-      <PosterHeadline primary="They pay Polar," secondary="Polar pays you" />
+      <PosterHeadline primary="They pay Repalis," secondary="Repalis pays you" />
     </PosterBody>
   </PosterFrame>
 )
 
-/** 27. Thousands of transactions, booked as one invoice from Polar. */
+/** 27. Thousands of transactions, booked as one invoice from Repalis. */
 export const BalancePoster = () => (
   <PosterFrame surface="ether" signed>
     <PosterBody>
@@ -111,7 +111,7 @@ export const BalancePoster = () => (
           <Text variant="heading-m" as="p" color="inherit" tabularNums>
             1
           </Text>
-          <PosterMono dim>INVOICE, FROM POLAR</PosterMono>
+          <PosterMono dim>INVOICE, FROM repalis</PosterMono>
         </Box>
       </Box>
       <PosterHeadline

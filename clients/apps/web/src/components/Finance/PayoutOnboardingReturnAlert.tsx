@@ -4,8 +4,8 @@ import {
   usePayoutAccount,
   useSyncPayoutAccount,
 } from '@/hooks/queries/payout_accounts'
-import { schemas } from '@polar-sh/client'
-import { Alert } from '@polar-sh/orbit'
+import { schemas } from '@repalis/client'
+import { Alert } from '@repalis/orbit'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { getPayoutAccountPresentation } from './payoutAccountPresentation'

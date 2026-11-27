@@ -4,7 +4,7 @@ import typer
 
 from shared import console, run_command
 
-SESSION = "polar"
+SESSION = "repalis"
 
 
 def register(app: typer.Typer, prompt_setup: callable) -> None:

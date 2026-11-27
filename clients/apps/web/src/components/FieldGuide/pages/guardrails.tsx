@@ -3,7 +3,7 @@ import { LINE, MID, DIM, BG, HAIR, DOTTED, Anchor, Guide } from '../kit'
 import { landscape } from './more'
 
 /**
- * Guardrails: a number Polar already keeps, a threshold on it, and a signal where the number crosses it. Both pages
+ * Guardrails: a number Repalis already keeps, a threshold on it, and a signal where the number crosses it. Both pages
  * are drawn the same way: the number above, the threshold dotted across it, a signal at each crossing, and below, the
  * lane the side effect switches.
  */
@@ -164,7 +164,7 @@ export const signals = landscape(
     [
       'A condition',
       [
-        'Register a condition on a number Polar already keeps: a meter, a credit balance, a margin. Here, a customer’s credits falling below a fifth of their grant.',
+        'Register a condition on a number Repalis already keeps: a meter, a credit balance, a margin. Here, a customer’s credits falling below a fifth of their grant.',
       ],
     ],
     [
@@ -192,7 +192,7 @@ export const marginFloor = landscape(
     [
       'Margin',
       [
-        'Events carry their cost, so Polar knows revenue and cost per customer as they happen, and the margin between them.',
+        'Events carry their cost, so Repalis knows revenue and cost per customer as they happen, and the margin between them.',
       ],
     ],
     [

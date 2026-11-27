@@ -3,11 +3,11 @@ from datetime import timedelta
 import pytest
 from pytest_mock import MockerFixture
 
-from polar.kit.db.postgres import AsyncSession
-from polar.kit.utils import utc_now
-from polar.models import Customer, Product, Subscription
-from polar.models.subscription import SubscriptionStatus
-from polar.subscription.scheduler import (
+from repalis.kit.db.postgres import AsyncSession
+from repalis.kit.utils import utc_now
+from repalis.models import Customer, Product, Subscription
+from repalis.models.subscription import SubscriptionStatus
+from repalis.subscription.scheduler import (
     SubscriptionJobStore,
     SubscriptionResumeJobStore,
     SubscriptionTrialEndedJobStore,
@@ -159,7 +159,7 @@ async def test_get_due_jobs_reports_failures_to_sentry(
     error = RuntimeError("query failed")
     mocker.patch.object(store, "scheduling_statement", side_effect=error)
     capture_exception = mocker.patch(
-        "polar.subscription.scheduler.sentry_sdk.capture_exception"
+        "repalis.subscription.scheduler.sentry_sdk.capture_exception"
     )
 
     with pytest.raises(RuntimeError):

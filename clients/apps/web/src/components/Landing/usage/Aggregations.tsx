@@ -73,7 +73,7 @@ export function Aggregations() {
                   setRun((n) => n + 1)
                 }}
                 aria-pressed={on}
-                className={`dark:border-polar-800 relative flex w-full flex-col gap-2 border-t border-gray-200 py-5 text-left transition-colors ${on ? '' : 'dark:text-polar-500 text-gray-500 hover:text-current'}`}
+                className={`dark:border-repalis-800 relative flex w-full flex-col gap-2 border-t border-gray-200 py-5 text-left transition-colors ${on ? '' : 'dark:text-repalis-500 text-gray-500 hover:text-current'}`}
               >
                 {on ? (
                   <span
@@ -84,14 +84,14 @@ export function Aggregations() {
                   />
                 ) : null}
                 <span className="flex items-baseline gap-4">
-                  <span className="dark:text-polar-500 w-6 shrink-0 text-sm text-gray-500 tabular-nums">
+                  <span className="dark:text-repalis-500 w-6 shrink-0 text-sm text-gray-500 tabular-nums">
                     {String(k + 1).padStart(2, '0')}
                   </span>
                   <span className="text-lg">{x.name}</span>
                 </span>
                 {on ? (
                   <span className="flex flex-col gap-2 pl-10">
-                    <span className="dark:text-polar-400 text-base text-gray-600">
+                    <span className="dark:text-repalis-400 text-base text-gray-600">
                       {x.what}
                     </span>
                   </span>
@@ -161,7 +161,7 @@ function Reading({ fn }: { fn: Aggregation }) {
   return (
     <div className="flex flex-col gap-6">
       <div className="flex items-baseline justify-between gap-6">
-        <span className="dark:text-polar-400 font-mono text-sm text-gray-600">
+        <span className="dark:text-repalis-400 font-mono text-sm text-gray-600">
           {FORMULA[fn]}
         </span>
         <span className="font-display text-4xl tracking-tight tabular-nums md:text-5xl">
@@ -220,7 +220,7 @@ function Reading({ fn }: { fn: Aggregation }) {
           />
         </svg>
         {/* the events, numbered under their stems */}
-        <div className="dark:text-polar-500 relative h-4 text-xs text-gray-500 tabular-nums">
+        <div className="dark:text-repalis-500 relative h-4 text-xs text-gray-500 tabular-nums">
           {toks.map((_, k) => (
             <span
               key={k}

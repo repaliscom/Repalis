@@ -7,10 +7,10 @@ import { useTheme } from '@/design-system/useTheme'
 import {
   useSubscription,
   useUpdateSubscription,
-} from '@/hooks/polar/subscriptions'
+} from '@/hooks/repalis/subscriptions'
 import { capture } from '@/utils/posthog'
 import MaterialIcons from '@expo/vector-icons/MaterialIcons'
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router'
 import React, { useCallback } from 'react'
 import { useForm } from 'react-hook-form'

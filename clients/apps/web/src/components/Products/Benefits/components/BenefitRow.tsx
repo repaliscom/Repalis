@@ -6,22 +6,22 @@ import {
 } from '@/components/Benefit/utils'
 import { useDeleteBenefit } from '@/hooks/queries'
 import { extractApiErrorMessage } from '@/utils/api/errors'
-import { schemas } from '@polar-sh/client'
-import { Button } from '@polar-sh/orbit'
-import { Switch } from '@polar-sh/orbit'
+import { schemas } from '@repalis/client'
+import { Button } from '@repalis/orbit'
+import { Switch } from '@repalis/orbit'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@polar-sh/ui/components/ui/dropdown-menu'
-import { EllipsisVertical as MoreVertical } from '@polar-sh/orbit/icons'
+} from '@repalis/ui/components/ui/dropdown-menu'
+import { EllipsisVertical as MoreVertical } from '@repalis/orbit/icons'
 import { parseAsString, useQueryState } from 'nuqs'
 import { useCallback, useEffect, useRef } from 'react'
 import { twMerge } from 'tailwind-merge'
 import UpdateBenefitModalContent from '../../../Benefit/UpdateBenefitModalContent'
 import { ConfirmModal } from '../../../Modal/ConfirmModal'
-import { InlineModal } from '@polar-sh/orbit'
+import { InlineModal } from '@repalis/orbit'
 import { useModal } from '../../../Modal/useModal'
 import { toast } from '../../../Toast/use-toast'
 
@@ -113,8 +113,8 @@ export const BenefitRow = ({
         className={twMerge(
           'flex items-center justify-between py-3 pl-4 pr-2 transition-colors',
           selected
-            ? 'dark:bg-polar-800/50 bg-blue-50/50'
-            : 'dark:hover:bg-polar-800/30 hover:bg-gray-50',
+            ? 'dark:bg-repalis-800/50 bg-blue-50/50'
+            : 'dark:hover:bg-repalis-800/30 hover:bg-gray-50',
         )}
       >
         <div className="flex min-w-0 items-start gap-3">
@@ -123,7 +123,7 @@ export const BenefitRow = ({
               'flex h-8 w-8 shrink-0 items-center justify-center rounded-lg',
               selected
                 ? 'bg-blue-100 text-blue-500 dark:bg-blue-950 dark:text-blue-400'
-                : 'dark:bg-polar-700 dark:text-polar-400 bg-gray-100 text-gray-500',
+                : 'dark:bg-repalis-700 dark:text-repalis-400 bg-gray-100 text-gray-500',
             )}
           >
             {resolveBenefitIcon(benefit.type, 'h-4 w-4')}
@@ -138,11 +138,11 @@ export const BenefitRow = ({
               {benefit.description}
             </span>
             <div className="flex items-center gap-2">
-              <span className="dark:text-polar-500 text-xs text-gray-500">
+              <span className="dark:text-repalis-500 text-xs text-gray-500">
                 {benefitsDisplayNames[benefit.type]}
               </span>
               {selected && !isPublic ? (
-                <span className="dark:bg-polar-700 dark:text-polar-500 inline-flex items-center rounded-full bg-gray-100 px-2 text-xs text-gray-500">
+                <span className="dark:bg-repalis-700 dark:text-repalis-500 inline-flex items-center rounded-full bg-gray-100 px-2 text-xs text-gray-500">
                   Hidden from customers
                 </span>
               ) : null}
@@ -167,7 +167,7 @@ export const BenefitRow = ({
             </DropdownMenuTrigger>
             <DropdownMenuContent
               align="end"
-              className="dark:bg-polar-800 bg-gray-50 shadow-lg"
+              className="dark:bg-repalis-800 bg-gray-50 shadow-lg"
             >
               <DropdownMenuItem onClick={toggleEdit}>Edit</DropdownMenuItem>
               {benefit.deletable && (

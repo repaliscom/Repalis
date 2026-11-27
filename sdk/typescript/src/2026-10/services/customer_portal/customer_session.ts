@@ -9,9 +9,9 @@ export const introspectCustomerSession = (client: ClientBase) => {
    *
    * @param requestOptions - Request options
    * @returns {CustomerCustomerSession}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    */
   return async (requestOptions?: RequestOptions): Promise<CustomerCustomerSession> => {
     const pathParams = {};
@@ -35,9 +35,9 @@ export const getAuthenticatedUserCustomerSession = (client: ClientBase) => {
    *
    * @param requestOptions - Request options
    * @returns {PortalAuthenticatedUser}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    */
   return async (requestOptions?: RequestOptions): Promise<PortalAuthenticatedUser> => {
     const pathParams = {};

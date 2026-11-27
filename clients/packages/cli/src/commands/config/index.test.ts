@@ -1,7 +1,7 @@
 import { expect, test } from 'vitest'
 import { config } from '@/commands/config'
 
-test('polar config exposes init, plan, apply, publish, generate, prune and disable', () => {
+test('repalis config exposes init, plan, apply, publish, generate, prune and disable', () => {
   const names = config.subcommands
     .flatMap((group) => group.commands)
     .map((command) => command.name)

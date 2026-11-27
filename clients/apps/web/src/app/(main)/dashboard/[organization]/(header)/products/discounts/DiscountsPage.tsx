@@ -5,7 +5,7 @@ import CreateDiscountModalContent from '@/components/Discounts/CreateDiscountMod
 import UpdateDiscountModalContent from '@/components/Discounts/UpdateDiscountModalContent'
 import { DashboardBody } from '@/components/Layout/DashboardLayout'
 import { ConfirmModal } from '@/components/Modal/ConfirmModal'
-import { InlineModal } from '@polar-sh/orbit'
+import { InlineModal } from '@repalis/orbit'
 import { useModal } from '@/components/Modal/useModal'
 import { toast } from '@/components/Toast/use-toast'
 import {
@@ -23,23 +23,23 @@ import {
   AddOutlined,
   MoreVertOutlined,
   SearchFilled as Search,
-} from '@polar-sh/orbit/icons'
-import { schemas } from '@polar-sh/client'
-import { Button } from '@polar-sh/orbit'
+} from '@repalis/orbit/icons'
+import { schemas } from '@repalis/client'
+import { Button } from '@repalis/orbit'
 import {
   DataTable,
   DataTableColumnDef,
   DataTableColumnHeader,
-} from '@polar-sh/orbit'
-import FormattedDateTime from '@polar-sh/ui/components/atoms/FormattedDateTime'
-import { Input, Text, Truncated } from '@polar-sh/orbit'
+} from '@repalis/orbit'
+import FormattedDateTime from '@repalis/ui/components/atoms/FormattedDateTime'
+import { Input, Text, Truncated } from '@repalis/orbit'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@polar-sh/ui/components/ui/dropdown-menu'
+} from '@repalis/ui/components/ui/dropdown-menu'
 import { parseAsString, useQueryStates } from 'nuqs'
 import React, { useCallback, useState } from 'react'
 
@@ -240,7 +240,7 @@ const ClientPage: React.FC<ClientPageProps> = ({ organization }) => {
         return discount.ends_at ? (
           <FormattedDateTime datetime={discount.ends_at} resolution="day" />
         ) : (
-          <span className="dark:text-polar-500 text-gray-500">Never</span>
+          <span className="dark:text-repalis-500 text-gray-500">Never</span>
         )
       },
     },
@@ -263,7 +263,7 @@ const ClientPage: React.FC<ClientPageProps> = ({ organization }) => {
             </DropdownMenuTrigger>
             <DropdownMenuContent
               align="end"
-              className="dark:bg-polar-800 bg-gray-50 shadow-lg"
+              className="dark:bg-repalis-800 bg-gray-50 shadow-lg"
             >
               <DropdownMenuItem onClick={() => onDiscountSelected(discount)}>
                 Edit

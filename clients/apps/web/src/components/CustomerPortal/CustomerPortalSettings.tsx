@@ -10,10 +10,10 @@ import {
 import { usePaymentMethodEmbed } from '@/hooks/usePaymentMethodEmbed'
 import { createClientSideAPI } from '@/utils/client'
 import { hasBillingPermission } from '@/utils/customerPortal'
-import { usePaymentMethodRedirectResult } from '@polar-sh/checkout/react/payment-method'
-import { schemas } from '@polar-sh/client'
-import { Button, SpinnerNoMargin } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { usePaymentMethodRedirectResult } from '@repalis/checkout/react/payment-method'
+import { schemas } from '@repalis/client'
+import { Button, SpinnerNoMargin } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import { useQueryClient } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 import { useCallback, useState } from 'react'
@@ -95,7 +95,7 @@ export const CustomerPortalSettings = ({
         const url = URL.createObjectURL(blob)
         const a = document.createElement('a')
         a.href = url
-        a.download = `polar-customer-export-${customer?.id ?? 'data'}.json`
+        a.download = `repalis-customer-export-${customer?.id ?? 'data'}.json`
         document.body.appendChild(a)
         a.click()
         document.body.removeChild(a)

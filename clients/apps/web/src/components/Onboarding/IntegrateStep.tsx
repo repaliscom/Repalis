@@ -1,10 +1,10 @@
 import { useOnboardingTracking } from '@/hooks'
 import { OrganizationContext } from '@/providers/maintainerOrganization'
-import { ArrowOutwardOutlined } from '@polar-sh/orbit/icons'
-import { schemas } from '@polar-sh/client'
-import { Box } from '@polar-sh/orbit/Box'
-import { Button } from '@polar-sh/orbit'
-import { Tabs, TabsList, TabsTrigger } from '@polar-sh/orbit'
+import { ArrowOutwardOutlined } from '@repalis/orbit/icons'
+import { schemas } from '@repalis/client'
+import { Box } from '@repalis/orbit/Box'
+import { Button } from '@repalis/orbit'
+import { Tabs, TabsList, TabsTrigger } from '@repalis/orbit'
 import { useRouter } from 'next/navigation'
 import { useContext, useEffect, useMemo, useState } from 'react'
 import slugify from 'slugify'
@@ -43,35 +43,35 @@ const frameworks = (products: schemas['Product'][]) =>
     {
       slug: 'nextjs',
       name: 'Next.js',
-      link: 'https://polar.sh/docs/integrate/sdk/adapters/nextjs',
+      link: '/docs/integrate/sdk/adapters/nextjs',
       icon: <NextJsIcon size={24} />,
-      packages: '@polar-sh/nextjs',
-      code: `import { Checkout } from "@polar-sh/nextjs";
+      packages: '@repalis/nextjs',
+      code: `import { Checkout } from "@repalis/nextjs";
 
 export const GET = Checkout({
-  accessToken: process.env.POLAR_ACCESS_TOKEN,
-  successUrl: process.env.POLAR_SUCCESS_URL
+  accessToken: process.env.REPALIS_ACCESS_TOKEN,
+  successUrl: process.env.REPALIS_SUCCESS_URL
 });`,
     },
     {
       slug: 'better-auth',
       name: 'BetterAuth',
-      link: 'https://polar.sh/docs/integrate/sdk/adapters/better-auth',
+      link: '/docs/integrate/sdk/adapters/better-auth',
       icon: <BetterAuthIcon size={24} />,
-      packages: 'better-auth @polar-sh/better-auth @polar-sh/sdk',
+      packages: 'better-auth @repalis/better-auth @repalis/sdk',
       code: `import { betterAuth } from "better-auth";
-import { polar, checkout, portal, usage, webhooks } from "@polar-sh/better-auth";
-import { Polar } from "@polar-sh/sdk";
+import { repalis, checkout, portal, usage, webhooks } from "@repalis/better-auth";
+import { Repalis } from "@repalis/sdk";
 
-const polarClient = new Polar({
-    accessToken: process.env.POLAR_ACCESS_TOKEN
+const repalisClient = new Repalis({
+    accessToken: process.env.REPALIS_ACCESS_TOKEN
 });
 
 const auth = betterAuth({
     // ... Better Auth config
     plugins: [
-        polar({
-            client: polarClient,
+        repalis({
+            client: repalisClient,
             createCustomerOnSignUp: true,
             use: [
                 checkout({
@@ -85,7 +85,7 @@ ${products
   )
   .join(',\n')}
                     ],
-                    successUrl: process.env.POLAR_SUCCESS_URL,
+                    successUrl: process.env.REPALIS_SUCCESS_URL,
                     authenticatedUsersOnly: true
                 })
             ],
@@ -96,20 +96,20 @@ ${products
     {
       slug: 'nodejs',
       name: 'Node.js',
-      link: 'https://polar.sh/docs/integrate/sdk/typescript',
+      link: '/docs/integrate/sdk/typescript',
       icon: <NodeJsIcon size={24} />,
-      packages: '@polar-sh/sdk',
-      code: `import { Polar } from "@polar-sh/sdk";
+      packages: '@repalis/sdk',
+      code: `import { Repalis } from "@repalis/sdk";
 
-const polar = new Polar({
-  accessToken: process.env.POLAR_ACCESS_TOKEN,
+const repalis = new Repalis({
+  accessToken: process.env.REPALIS_ACCESS_TOKEN,
 });
 
-const checkout = await polar.checkouts.create({
+const checkout = await repalis.checkouts.create({
   products: [
 ${products.map((p) => `    "${p.id}"`).join(',\n')}
   ],
-  successUrl: process.env.POLAR_SUCCESS_URL
+  successUrl: process.env.REPALIS_SUCCESS_URL
 });
 
 redirect(checkout.url)`,
@@ -117,21 +117,21 @@ redirect(checkout.url)`,
     {
       slug: 'python',
       name: 'Python',
-      link: 'https://polar.sh/docs/integrate/sdk/python',
+      link: '/docs/integrate/sdk/python',
       icon: <PythonIcon size={24} />,
-      pythonInstall: 'pip install polar-sdk',
+      pythonInstall: 'pip install repalis-sdk',
       code: `import os
-from polar_sdk import Polar
+from repalis_sdk import Repalis
 
-with Polar(
-    access_token=os.environ.get("POLAR_ACCESS_TOKEN"),
-) as polar:
+with Repalis(
+    access_token=os.environ.get("REPALIS_ACCESS_TOKEN"),
+) as repalis:
 
-    res = polar.checkouts.create(request={
+    res = repalis.checkouts.create(request={
         "products": [
 ${products.map((p) => `            "${p.id}"`).join(',\n')}
         ],
-        "success_url": os.environ.get("POLAR_SUCCESS_URL")
+        "success_url": os.environ.get("REPALIS_SUCCESS_URL")
     })
 
     # Handle response
@@ -211,7 +211,7 @@ export const IntegrateStep = ({ products }: IntegrateStepProps) => {
           <LogoIcon size={40} />
           <Box flexDirection="column" rowGap="l">
             <h1 className="text-3xl">Integrate Checkout</h1>
-            <p className="dark:text-polar-400 text-lg text-gray-600">
+            <p className="dark:text-repalis-400 text-lg text-gray-600">
               Integrate checkouts with your favorite framework.
             </p>
           </Box>
@@ -238,7 +238,7 @@ export const IntegrateStep = ({ products }: IntegrateStepProps) => {
           </Box>
           <Box flexDirection="column" rowGap="l">
             <a
-              href={`https://polar.sh/docs/integrate/sdk/adapters/nextjs`}
+              href="/docs/integrate/sdk/adapters/nextjs"
               target="_blank"
               rel="noopener noreferrer"
               className="w-full"
@@ -289,12 +289,12 @@ export const IntegrateStep = ({ products }: IntegrateStepProps) => {
                       setPackageManager(v as PackageManager)
                     }
                   >
-                    <TabsList className="dark:bg-polar-800 rounded-sm bg-gray-100 p-0.5">
+                    <TabsList className="dark:bg-repalis-800 rounded-sm bg-gray-100 p-0.5">
                       {packageManagers.map((pm) => (
                         <TabsTrigger
                           key={pm}
                           value={pm}
-                          className="dark:data-[state=active]:bg-polar-700 !rounded-sm px-2.5 py-1 text-xs data-[state=active]:bg-white data-[state=active]:shadow-sm"
+                          className="dark:data-[state=active]:bg-repalis-700 !rounded-sm px-2.5 py-1 text-xs data-[state=active]:bg-white data-[state=active]:shadow-sm"
                         >
                           {pm}
                         </TabsTrigger>
@@ -319,8 +319,8 @@ export const IntegrateStep = ({ products }: IntegrateStepProps) => {
               <CodeWrapper>
                 <SyntaxHighlighterClient
                   lang="bash"
-                  code={`POLAR_ACCESS_TOKEN=${createdToken ?? 'XXX'}
-POLAR_SUCCESS_URL=https://example.com/success?checkout_id={CHECKOUT_ID}`}
+                  code={`REPALIS_ACCESS_TOKEN=${createdToken ?? 'XXX'}
+REPALIS_SUCCESS_URL=https://example.com/success?checkout_id={CHECKOUT_ID}`}
                 />
               </CodeWrapper>
             </Box>

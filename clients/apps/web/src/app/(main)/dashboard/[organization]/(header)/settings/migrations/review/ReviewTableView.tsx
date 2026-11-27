@@ -1,7 +1,7 @@
 'use client'
 
-import { DataTable, InlineModal, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { DataTable, InlineModal, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import { OnChangeFn, PaginationState } from '@tanstack/react-table'
 import { useMemo, useState } from 'react'
 import { CatalogEmptyPanel } from './CatalogEmptyPanel'
@@ -158,8 +158,8 @@ export function ReviewTableView({
       <Box flexDirection="column" rowGap="m">
         <Text color="muted">
           {primaryAction === 'continue'
-            ? 'Every subscription that can move is already prepared. Continue to switch them to Polar.'
-            : 'Preparing a subscription brings its customer and product to Polar. Polar starts billing only when you switch.'}
+            ? 'Every subscription that can move is already prepared. Continue to switch them to Repalis.'
+            : 'Preparing a subscription brings its customer and product to Repalis. Repalis starts billing only when you switch.'}
         </Text>
         <Box
           alignItems="center"

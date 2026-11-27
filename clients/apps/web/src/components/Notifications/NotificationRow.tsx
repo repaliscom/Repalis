@@ -7,15 +7,15 @@ import {
   PersonAddAltOutlined,
   PersonRemoveOutlined,
   ShoppingBagOutlined,
-} from '@polar-sh/orbit/icons'
-import { schemas } from '@polar-sh/client'
-import { formatCurrency } from '@polar-sh/currency'
-import { DEFAULT_LOCALE } from '@polar-sh/i18n'
-import { formatDate } from '@polar-sh/i18n/formatters/date'
-import { Avatar, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import PolarTimeAgo from '@polar-sh/ui/components/atoms/PolarTimeAgo'
-import { PopoverClose } from '@polar-sh/ui/components/ui/popover'
+} from '@repalis/orbit/icons'
+import { schemas } from '@repalis/client'
+import { formatCurrency } from '@repalis/currency'
+import { DEFAULT_LOCALE } from '@repalis/i18n'
+import { formatDate } from '@repalis/i18n/formatters/date'
+import { Avatar, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import RepalisTimeAgo from '@repalis/ui/components/atoms/RepalisTimeAgo'
+import { PopoverClose } from '@repalis/ui/components/ui/popover'
 import Link from 'next/link'
 import type { ReactNode } from 'react'
 
@@ -76,7 +76,7 @@ const Row = ({
             {subtitle}
           </Text>
           <Text variant="caption" color="muted" wrap="nowrap">
-            <PolarTimeAgo date={new Date(date)} />
+            <RepalisTimeAgo date={new Date(date)} />
           </Text>
         </Box>
       </Box>
@@ -89,7 +89,7 @@ const Row = ({
         <PopoverClose asChild>
           <Link
             href={href}
-            className="dark:hover:bg-polar-800 block rounded-lg hover:bg-gray-100"
+            className="dark:hover:bg-repalis-800 block rounded-lg hover:bg-gray-100"
           >
             {content}
           </Link>

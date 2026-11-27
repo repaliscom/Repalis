@@ -4,9 +4,9 @@ import { useOrganizationSeats } from '@/hooks/queries/seats'
 import { useUpdateSubscription } from '@/hooks/queries/subscriptions'
 import { extractApiErrorMessage, setValidationErrors } from '@/utils/api/errors'
 import { getQueryClient } from '@/utils/api/query'
-import { isValidationError, schemas } from '@polar-sh/client'
-import { Button, Input } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { isValidationError, schemas } from '@repalis/client'
+import { Button, Input } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import {
   Form,
   FormControl,
@@ -15,7 +15,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@polar-sh/ui/components/ui/form'
+} from '@repalis/ui/components/ui/form'
 import { useCallback } from 'react'
 import { useForm } from 'react-hook-form'
 import { ProrationBehavior } from '../Settings/ProrationBehavior'

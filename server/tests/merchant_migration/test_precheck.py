@@ -5,8 +5,8 @@ from typing import Any
 
 import pytest
 
-from polar.enums import TaxBehavior
-from polar.merchant_migration.canonical import (
+from repalis.enums import TaxBehavior
+from repalis.merchant_migration.canonical import (
     CanonicalAccount,
     CanonicalCollectionMethod,
     CanonicalCustomer,
@@ -23,7 +23,7 @@ from polar.merchant_migration.canonical import (
     CanonicalSubscriptionStatus,
     PaymentMethodAssessment,
 )
-from polar.merchant_migration.precheck import (
+from repalis.merchant_migration.precheck import (
     archived_price_keys,
     classify_records,
     imports_archived,
@@ -32,7 +32,7 @@ from polar.merchant_migration.precheck import (
     precheck_engine,
     summarize_records,
 )
-from polar.merchant_migration.schemas import (
+from repalis.merchant_migration.schemas import (
     MerchantMigrationRecordItem,
     PrecheckEntity,
     PrecheckIssueLevel,
@@ -40,8 +40,8 @@ from polar.merchant_migration.schemas import (
     PrecheckRecordStatus,
     PrecheckReport,
 )
-from polar.models import Organization
-from polar.models.organization import OrganizationStatus
+from repalis.models import Organization
+from repalis.models.organization import OrganizationStatus
 from tests.merchant_migration._helpers import canonical_add_on, canonical_discount
 
 
@@ -322,8 +322,8 @@ class TestPrecheckEngine:
         assert "no_default_currency_prices" in codes(report, PrecheckIssueLevel.blocker)
         assert report.can_start is False
 
-    async def test_blocker_names_only_the_currencies_polar_would_take(self) -> None:
-        # A price Polar drops anyway isn't a currency the merchant can switch to.
+    async def test_blocker_names_only_the_currencies_repalis_would_take(self) -> None:
+        # A price Repalis drops anyway isn't a currency the merchant can switch to.
         report = await run(
             [
                 build_product(
@@ -417,12 +417,12 @@ class TestPrecheckEngine:
         assert "duplicate_product_name" in codes(report, PrecheckIssueLevel.warning)
         assert report.can_start is True
 
-    async def test_existing_polar_product_warns_without_blocking(self) -> None:
+    async def test_existing_repalis_product_warns_without_blocking(self) -> None:
         report = await run(
             [build_product(name="Pro")],
             existing_product_names={"pro"},
         )
-        assert "product_exists_in_polar" in codes(report, PrecheckIssueLevel.warning)
+        assert "product_exists_in_repalis" in codes(report, PrecheckIssueLevel.warning)
         assert report.can_start is True
         # the collision is a warning only: the product still imports.
         products = next(
@@ -432,7 +432,7 @@ class TestPrecheckEngine:
 
     async def test_no_existing_products_no_warning(self) -> None:
         report = await run([build_product(name="Pro")])
-        assert "product_exists_in_polar" not in codes(
+        assert "product_exists_in_repalis" not in codes(
             report, PrecheckIssueLevel.warning
         )
 
@@ -734,7 +734,7 @@ class TestClassifyRecords:
         [
             (
                 "subscription_stacked_discounts",
-                "stacks discounts Polar can't combine",
+                "stacks discounts Repalis can't combine",
             ),
             (
                 "subscription_customer_discount",
@@ -1203,7 +1203,7 @@ class TestClassifyRecords:
         assert items[0].reason_code == "subscription_customer_not_importable"
 
     def test_product_without_default_currency_price_skipped(self) -> None:
-        # Polar requires a price in the organization's default currency, so the
+        # Repalis requires a price in the organization's default currency, so the
         # classifier must not promise a product the importer would reject.
         records: list[CanonicalRecord] = [
             build_product(
@@ -1219,7 +1219,7 @@ class TestClassifyRecords:
         assert items[0].reason_level == PrecheckReasonLevel.action_required
 
     def test_short_product_name_skipped(self) -> None:
-        # The classifier must agree with the importer: a name Polar's schema
+        # The classifier must agree with the importer: a name Repalis's schema
         # rejects is skipped, not promised as importable (which would crash).
         records: list[CanonicalRecord] = [
             build_product(product_source_id="prod_1", name="AB"),
@@ -1248,7 +1248,7 @@ class TestClassifyRecords:
         assert items[0].status == PrecheckRecordStatus.skipped
         assert items[0].reason_code == "missing_default_currency_price"
 
-    def test_product_already_in_polar_is_annotated_not_skipped(self) -> None:
+    def test_product_already_in_repalis_is_annotated_not_skipped(self) -> None:
         records: list[CanonicalRecord] = [
             build_product(product_source_id="prod_1", name="Pro")
         ]
@@ -1256,7 +1256,7 @@ class TestClassifyRecords:
         items = classify_records(records, PrecheckEntity.products, "usd", {"pro"})
 
         assert items[0].status == PrecheckRecordStatus.importable
-        assert items[0].reason_code == "product_exists_in_polar"
+        assert items[0].reason_code == "product_exists_in_repalis"
         assert items[0].reason_level == PrecheckReasonLevel.info
 
     def test_duplicate_customer_email_skipped(self) -> None:
@@ -1491,7 +1491,7 @@ class TestClassifyAddOns:
             ),
         ],
     )
-    def test_add_on_polar_cannot_bill_the_same_stays_on_the_source(
+    def test_add_on_repalis_cannot_bill_the_same_stays_on_the_source(
         self,
         subscription_fields: dict[str, Any],
         add_on_fields: dict[str, Any],

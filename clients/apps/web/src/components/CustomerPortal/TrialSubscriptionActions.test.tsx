@@ -2,7 +2,7 @@ import {
   useCustomerPortalCustomer,
   useCustomerReactivateSubscription,
 } from '@/hooks/queries/customerPortal'
-import { Client, schemas } from '@polar-sh/client'
+import { Client, schemas } from '@repalis/client'
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { TrialEndedSubscriptionActions } from './TrialSubscriptionActions'

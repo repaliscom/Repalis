@@ -4,10 +4,12 @@ from unittest.mock import ANY
 import pytest
 from pytest_mock import MockerFixture
 
-from polar.billing_interval.service import billing_interval as billing_interval_service
-from polar.models import Customer, Meter
-from polar.reducer.service import reducer as reducer_service
-from polar.reducer.tasks import seal
+from repalis.billing_interval.service import (
+    billing_interval as billing_interval_service,
+)
+from repalis.models import Customer, Meter
+from repalis.reducer.service import reducer as reducer_service
+from repalis.reducer.tasks import seal
 from tests.fixtures.database import SaveFixture
 
 

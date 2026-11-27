@@ -2,17 +2,17 @@ import pytest
 from pydantic import ValidationError
 from pytest_mock import MockerFixture
 
-from polar.auth.models import AuthSubject
-from polar.benefit.strategies import BenefitPropertiesValidationError
-from polar.benefit.strategies.discord.schemas import (
+from repalis.auth.models import AuthSubject
+from repalis.benefit.strategies import BenefitPropertiesValidationError
+from repalis.benefit.strategies.discord.schemas import (
     BenefitDiscordCreateProperties,
     BenefitDiscordProperties,
 )
-from polar.benefit.strategies.discord.service import BenefitDiscordService
-from polar.integrations.discord.schemas import DiscordGuild, DiscordGuildRole
-from polar.models import DiscordGuildConnection, Organization, User, UserOrganization
-from polar.postgres import AsyncSession
-from polar.redis import Redis
+from repalis.benefit.strategies.discord.service import BenefitDiscordService
+from repalis.integrations.discord.schemas import DiscordGuild, DiscordGuildRole
+from repalis.models import DiscordGuildConnection, Organization, User, UserOrganization
+from repalis.postgres import AsyncSession
+from repalis.redis import Redis
 from tests.fixtures.database import SaveFixture
 
 GUILD_ID = "123456789"
@@ -37,18 +37,18 @@ def _mock_discord(mocker: MockerFixture) -> None:
                     "id": ROLE_ID,
                     "name": "Supporter",
                     "position": 1,
-                    "is_polar_bot": False,
+                    "is_repalis_bot": False,
                     "color": "000000",
                 }
             )
         ],
     )
     mocker.patch(
-        "polar.benefit.strategies.discord.service.discord_bot_service.get_guild",
+        "repalis.benefit.strategies.discord.service.discord_bot_service.get_guild",
         return_value=guild,
     )
     mocker.patch(
-        "polar.benefit.strategies.discord.service.discord_bot_service.is_bot_role_above_role",
+        "repalis.benefit.strategies.discord.service.discord_bot_service.is_bot_role_above_role",
         return_value=True,
     )
 
@@ -66,7 +66,7 @@ class TestValidateProperties:
         user_organization: UserOrganization,
     ) -> None:
         get_guild_mock = mocker.patch(
-            "polar.benefit.strategies.discord.service.discord_bot_service.get_guild"
+            "repalis.benefit.strategies.discord.service.discord_bot_service.get_guild"
         )
         strategy = BenefitDiscordService(session, redis)
 

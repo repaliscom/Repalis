@@ -1,7 +1,7 @@
 'use client'
 
-import { Button, Grid, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { Button, Grid, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import { ReactNode, useCallback, useState } from 'react'
 import { Chapter } from '../Landing/Chapter'
 import { StreamVideo } from '../Shared/StreamVideo'
@@ -14,7 +14,7 @@ import { LOGO_MARK_PATH } from './logos/paths'
 
 const LOGO_VIDEO_ID = 'd4e6d6f9f184a80ee8db27577897e626'
 
-const LOGO_ICON_SVG = `<svg width="310" height="310" viewBox="0 0 310 310" fill="none" xmlns="http://www.w3.org/2000/svg">
+const LOGO_ICON_SVG = `<svg width="120" height="96" viewBox="0 0 120 96" fill="none" xmlns="http://www.w3.org/2000/svg">
   <path d="${LOGO_MARK_PATH}" fill="currentColor"/>
 </svg>`
 
@@ -71,7 +71,7 @@ export function LogoSection() {
             {copied ? 'Copied' : 'Copy mark SVG'}
           </Button>
           <Button variant="secondary" asChild>
-            <a href="/assets/brand/polar_brand.zip" download>
+            <a href="/assets/brand/repalis_brand.zip" download>
               Download assets
             </a>
           </Button>

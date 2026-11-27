@@ -33,7 +33,7 @@ export function nothingImported(outcome: SettledImport): boolean {
 }
 
 // The subscriptions were prepared by an earlier migration of the account, so
-// their cards may be on Polar already and the card move can be skipped.
+// their cards may be on Repalis already and the card move can be skipped.
 export function preparedEarlier(outcome: SettledImport): boolean {
   return settledWithNothingImportedHere(outcome) && outcome.readyToSwitch > 0
 }

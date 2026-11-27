@@ -1,7 +1,7 @@
 import { defineConfig, type UserConfig } from 'tsdown'
 
 const allowedOriginsDefine = {
-  __POLAR_CHECKOUT_EMBED_SCRIPT_ALLOWED_ORIGINS__: `'${process.env.POLAR_CHECKOUT_EMBED_SCRIPT_ALLOWED_ORIGINS ? process.env.POLAR_CHECKOUT_EMBED_SCRIPT_ALLOWED_ORIGINS : 'http://127.0.0.1:3000'}'`,
+  __REPALIS_CHECKOUT_EMBED_SCRIPT_ALLOWED_ORIGINS__: `'${process.env.REPALIS_CHECKOUT_EMBED_SCRIPT_ALLOWED_ORIGINS ? process.env.REPALIS_CHECKOUT_EMBED_SCRIPT_ALLOWED_ORIGINS : 'http://127.0.0.1:3000'}'`,
 }
 
 export const options: UserConfig[] = [
@@ -12,7 +12,7 @@ export const options: UserConfig[] = [
       'react/payment-method': 'src/react/payment-method.tsx',
     },
     format: ['cjs', 'esm'],
-    dts: process.env.POLAR_SKIP_DTS === '1' ? false : { sourcemap: false },
+    dts: process.env.REPALIS_SKIP_DTS === '1' ? false : { sourcemap: false },
     fixedExtension: false,
     minify: true,
     define: allowedOriginsDefine,
@@ -39,7 +39,7 @@ export const options: UserConfig[] = [
       return { ...options, platform: 'browser' }
     },
     minify: true,
-    dts: process.env.POLAR_SKIP_DTS === '1' ? false : { sourcemap: false },
+    dts: process.env.REPALIS_SKIP_DTS === '1' ? false : { sourcemap: false },
     fixedExtension: false,
     deps: { dts: { neverBundle: true } },
   },

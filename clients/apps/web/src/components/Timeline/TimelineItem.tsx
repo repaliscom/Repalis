@@ -1,7 +1,7 @@
-import { schemas } from '@polar-sh/client'
-import { Text, Tooltip, TooltipContent, TooltipTrigger } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import { ChevronRightOutlined } from '@polar-sh/orbit/icons'
+import { schemas } from '@repalis/client'
+import { Text, Tooltip, TooltipContent, TooltipTrigger } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import { ChevronRightOutlined } from '@repalis/orbit/icons'
 import Link from 'next/link'
 import { twMerge } from 'tailwind-merge'
 import { resolveTimelineEventHref } from './links'
@@ -123,7 +123,7 @@ export const TimelineFold = ({
     <span className="flex h-5 w-8 shrink-0 items-center justify-center">
       <ChevronRightOutlined
         className={twMerge(
-          'dark:text-polar-500 size-3.5 text-gray-500 transition-transform',
+          'dark:text-repalis-500 size-3.5 text-gray-500 transition-transform',
           expanded && 'rotate-90',
         )}
         fontSize="inherit"

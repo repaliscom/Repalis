@@ -1,7 +1,7 @@
 import pytest
 
-from polar.locker import Locker
-from polar.redis import Redis
+from repalis.locker import Locker
+from repalis.redis import Redis
 
 
 @pytest.fixture

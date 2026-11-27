@@ -1,16 +1,16 @@
 output "render_project_id" {
-  description = "The project ID for the Polar Render project. Used for the render_project data source."
-  value       = render_project.polar.id
+  description = "The project ID for the Repalis Render project. Used for the render_project data source."
+  value       = render_project.repalis.id
 }
 
 output "sandbox_environment_id" {
-  description = "The Sandbox environment ID within the Polar project."
-  value       = render_project.polar.environments["Sandbox"].id
+  description = "The Sandbox environment ID within the Repalis project."
+  value       = render_project.repalis.environments["Sandbox"].id
 }
 
 output "test_environment_id" {
-  description = "The Test environment ID within the Polar project."
-  value       = render_project.polar.environments["Test"].id
+  description = "The Test environment ID within the Repalis project."
+  value       = render_project.repalis.environments["Test"].id
 }
 
 output "redis_endpoint_service_name" {

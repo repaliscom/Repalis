@@ -11,17 +11,17 @@ from pydantic import BaseModel
 from pytest_mock import MockerFixture
 from sqlalchemy.orm import joinedload
 
-from polar.auth.models import AuthSubject
-from polar.checkout.eventstream import CheckoutEvent
-from polar.checkout.repository import CheckoutRepository
-from polar.config import settings
-from polar.email.schemas import (
+from repalis.auth.models import AuthSubject
+from repalis.checkout.eventstream import CheckoutEvent
+from repalis.checkout.repository import CheckoutRepository
+from repalis.config import settings
+from repalis.email.schemas import (
     OrderConfirmationEmail,
     SubscriptionConfirmationEmail,
     SubscriptionCycledEmail,
     SubscriptionUsageInvoiceEmail,
 )
-from polar.enums import (
+from repalis.enums import (
     InvoiceNumbering,
     PaymentMode,
     PaymentProcessor,
@@ -30,27 +30,27 @@ from polar.enums import (
     TaxBehaviorOption,
     TaxProcessor,
 )
-from polar.event.system import SystemEvent
-from polar.exceptions import PolarRequestValidationError
-from polar.integrations.stripe.service import StripeService
-from polar.invoice.service import invoice as invoice_service
-from polar.kit.address import (
+from repalis.event.system import SystemEvent
+from repalis.exceptions import RepalisRequestValidationError
+from repalis.integrations.stripe.service import StripeService
+from repalis.invoice.service import invoice as invoice_service
+from repalis.kit.address import (
     Address,
     AddressDict,
     AddressInput,
     CountryAlpha2,
     CountryAlpha2Input,
 )
-from polar.kit.currency import (
+from repalis.kit.currency import (
     get_maximum_currency_amount,
     get_minimum_currency_amount,
 )
-from polar.kit.db.postgres import AsyncSession
-from polar.kit.math import polar_round
-from polar.kit.pagination import PaginationParams
-from polar.kit.utils import utc_now
-from polar.kit.visibility import Visibility
-from polar.models import (
+from repalis.kit.db.postgres import AsyncSession
+from repalis.kit.math import repalis_round
+from repalis.kit.pagination import PaginationParams
+from repalis.kit.utils import utc_now
+from repalis.kit.visibility import Visibility
+from repalis.models import (
     Account,
     BillingEntry,
     Customer,
@@ -65,25 +65,25 @@ from polar.models import (
     User,
     UserOrganization,
 )
-from polar.models.benefit import BenefitType
-from polar.models.billing_entry import BillingEntryDirection, BillingEntryType
-from polar.models.checkout import CheckoutStatus
-from polar.models.custom_field import CustomFieldType
-from polar.models.customer import CustomerType
-from polar.models.discount import DiscountDuration, DiscountType
-from polar.models.dispute import DisputeStatus
-from polar.models.merchant_migration_record import MerchantMigrationCutoverStatus
-from polar.models.order import OrderBillingReasonInternal, OrderStatus
-from polar.models.organization import Organization, OrganizationStatus
-from polar.models.payment import PaymentStatus, PaymentTrigger
-from polar.models.product import ProductBillingType
-from polar.models.refund import RefundStatus
-from polar.models.subscription import SubscriptionStatus
-from polar.models.transaction import PlatformFeeType, TransactionType
-from polar.models.wallet import WalletType
-from polar.models.webhook_endpoint import WebhookEventType
-from polar.order.schemas import OrderCreate, OrderUpdate
-from polar.order.service import (
+from repalis.models.benefit import BenefitType
+from repalis.models.billing_entry import BillingEntryDirection, BillingEntryType
+from repalis.models.checkout import CheckoutStatus
+from repalis.models.custom_field import CustomFieldType
+from repalis.models.customer import CustomerType
+from repalis.models.discount import DiscountDuration, DiscountType
+from repalis.models.dispute import DisputeStatus
+from repalis.models.merchant_migration_record import MerchantMigrationCutoverStatus
+from repalis.models.order import OrderBillingReasonInternal, OrderStatus
+from repalis.models.organization import Organization, OrganizationStatus
+from repalis.models.payment import PaymentStatus, PaymentTrigger
+from repalis.models.product import ProductBillingType
+from repalis.models.refund import RefundStatus
+from repalis.models.subscription import SubscriptionStatus
+from repalis.models.transaction import PlatformFeeType, TransactionType
+from repalis.models.wallet import WalletType
+from repalis.models.webhook_endpoint import WebhookEventType
+from repalis.order.schemas import OrderCreate, OrderUpdate
+from repalis.order.service import (
     ManualRetryLimitExceeded,
     MissingCheckoutCustomer,
     MissingInvoiceBillingDetails,
@@ -103,12 +103,12 @@ from polar.order.service import (
     RecurringProduct,
     SubscriptionNotTrialing,
 )
-from polar.order.service import order as order_service
-from polar.product.guard import is_fixed_price, is_seat_price, is_static_price
-from polar.product.price_set import PriceSet
-from polar.product.tiers import Tiers, TierType
-from polar.subscription.service import SubscriptionService
-from polar.tax.calculation import (
+from repalis.order.service import order as order_service
+from repalis.product.guard import is_fixed_price, is_seat_price, is_static_price
+from repalis.product.price_set import PriceSet
+from repalis.product.tiers import Tiers, TierType
+from repalis.subscription.service import SubscriptionService
+from repalis.tax.calculation import (
     CalculationExpiredError,
     TaxabilityReason,
     TaxCalculation,
@@ -116,14 +116,14 @@ from polar.tax.calculation import (
     TaxCalculationService,
     get_tax_behavior_from_option,
 )
-from polar.tax.calculation.base import UnsupportedCountryError
-from polar.tax.tax_id import TaxID
-from polar.transaction.service.balance import PaymentTransactionForChargeDoesNotExist
-from polar.transaction.service.payment import (
+from repalis.tax.calculation.base import UnsupportedCountryError
+from repalis.tax.tax_id import TaxID
+from repalis.transaction.service.balance import PaymentTransactionForChargeDoesNotExist
+from repalis.transaction.service.payment import (
     payment_transaction as payment_transaction_service,
 )
-from polar.transaction.service.platform_fee import PlatformFeeTransactionService
-from polar.wallet.service import wallet as wallet_service
+from repalis.transaction.service.platform_fee import PlatformFeeTransactionService
+from repalis.wallet.service import wallet as wallet_service
 from tests.fixtures.auth import AuthSubjectFixture
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.events import get_all_by_name
@@ -184,24 +184,24 @@ def build_stripe_payment_intent(
 @pytest.fixture(autouse=True)
 def stripe_service_mock(mocker: MockerFixture, customer: Customer) -> MagicMock:
     mock = MagicMock(spec=StripeService)
-    mocker.patch("polar.order.service.stripe_service", new=mock)
+    mocker.patch("repalis.order.service.stripe_service", new=mock)
 
     return mock
 
 
 @pytest.fixture
 def enqueue_job_mock(mocker: MockerFixture) -> MagicMock:
-    return mocker.patch("polar.order.service.enqueue_job")
+    return mocker.patch("repalis.order.service.enqueue_job")
 
 
 @pytest.fixture
 def enqueue_email_mock(mocker: MockerFixture) -> MagicMock:
-    return mocker.patch("polar.order.service.enqueue_email_template", autospec=True)
+    return mocker.patch("repalis.order.service.enqueue_email_template", autospec=True)
 
 
 @pytest.fixture
 def publish_checkout_event_mock(mocker: MockerFixture) -> AsyncMock:
-    return mocker.patch("polar.order.service.publish_checkout_event")
+    return mocker.patch("repalis.order.service.publish_checkout_event")
 
 
 @pytest.fixture
@@ -214,9 +214,9 @@ def event_creation_time() -> tuple[datetime, int]:
 @pytest.fixture(autouse=True)
 def tax_service_mock(mocker: MockerFixture) -> MagicMock:
     mock = mocker.patch(
-        "polar.order.service.tax_calculation_service", spec=TaxCalculationService
+        "repalis.order.service.tax_calculation_service", spec=TaxCalculationService
     )
-    mocker.patch("polar.order.amounts.tax_calculation_service", new=mock)
+    mocker.patch("repalis.order.amounts.tax_calculation_service", new=mock)
     mock.record.return_value = ("TAX_TRANSACTION_ID", TaxProcessor.numeral)
     return mock
 
@@ -233,7 +233,7 @@ def calculate_tax_mock(tax_service_mock: MagicMock) -> AsyncMock:
         tax_ids: list[TaxID],
         tax_exempted: bool,
     ) -> tuple[TaxCalculation, TaxProcessor]:
-        tax_amount = polar_round(amount * 0.20)
+        tax_amount = repalis_round(amount * 0.20)
         return (
             {
                 "processor_id": "TAX_PROCESSOR_ID",
@@ -586,7 +586,7 @@ class TestUpdate:
             billing_address=Address.model_validate(set_address),
         )
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await order_service.update(
                 session,
                 order,
@@ -2164,7 +2164,7 @@ class TestCreateSubscriptionOrder:
         organization: Organization,
     ) -> None:
         subscription_service_mock = mocker.patch(
-            "polar.order.service.subscription_service", spec=SubscriptionService
+            "repalis.order.service.subscription_service", spec=SubscriptionService
         )
 
         subscription = await create_active_subscription(
@@ -2207,7 +2207,7 @@ class TestCreateSubscriptionOrder:
         entries pending for the next cycle. Meters are not reset either.
         """
         subscription_service_mock = mocker.patch(
-            "polar.order.service.subscription_service", spec=SubscriptionService
+            "repalis.order.service.subscription_service", spec=SubscriptionService
         )
 
         subscription = await create_active_subscription(
@@ -3261,7 +3261,7 @@ class TestCreateOrderBalance:
         )
 
         create_balance_from_charge_mock = mocker.patch(
-            "polar.order.service.balance_transaction_service.create_balance_from_charge"
+            "repalis.order.service.balance_transaction_service.create_balance_from_charge"
         )
         create_balance_from_charge_mock.return_value = (
             Transaction(type=TransactionType.balance, amount=-order.net_amount),
@@ -3273,7 +3273,7 @@ class TestCreateOrderBalance:
         )
 
         platform_fee_transaction_service_mock = mocker.patch(
-            "polar.order.service.platform_fee_transaction_service",
+            "repalis.order.service.platform_fee_transaction_service",
             spec=PlatformFeeTransactionService,
         )
         platform_fee_transaction_service_mock.create_fees_reversal_balances.return_value = [
@@ -3356,7 +3356,7 @@ class TestSendConfirmationEmail:
         organization: Organization,
     ) -> None:
         create_order_invoice_mock = mocker.patch(
-            "polar.order.service.invoice_service.create_order_invoice",
+            "repalis.order.service.invoice_service.create_order_invoice",
             new_callable=AsyncMock,
         )
         order = await create_order(
@@ -3385,12 +3385,12 @@ class TestSendConfirmationEmail:
         organization: Organization,
     ) -> None:
         create_order_invoice_mock = mocker.patch(
-            "polar.order.service.invoice_service.create_order_invoice",
+            "repalis.order.service.invoice_service.create_order_invoice",
             new_callable=AsyncMock,
             return_value="invoices/mock-invoice.pdf",
         )
         get_order_invoice_url_mock = mocker.patch(
-            "polar.order.service.invoice_service.get_order_invoice_url",
+            "repalis.order.service.invoice_service.get_order_invoice_url",
             new_callable=AsyncMock,
             return_value=("https://mock-s3/invoices/mock-invoice.pdf", utc_now()),
         )
@@ -3422,7 +3422,7 @@ class TestSendConfirmationEmail:
         organization: Organization,
     ) -> None:
         mocker.patch(
-            "polar.order.service.invoice_service.create_order_invoice",
+            "repalis.order.service.invoice_service.create_order_invoice",
             new_callable=AsyncMock,
         )
         public_benefit = await create_benefit(
@@ -3473,7 +3473,7 @@ class TestSendConfirmationEmail:
         organization: Organization,
     ) -> None:
         mocker.patch(
-            "polar.order.service.invoice_service.create_order_invoice",
+            "repalis.order.service.invoice_service.create_order_invoice",
             new_callable=AsyncMock,
         )
         subscription = await create_active_subscription(
@@ -3512,7 +3512,7 @@ class TestSendConfirmationEmail:
         customer: Customer,
     ) -> None:
         mocker.patch(
-            "polar.order.service.invoice_service.create_order_invoice",
+            "repalis.order.service.invoice_service.create_order_invoice",
             new_callable=AsyncMock,
         )
         subscription = await create_active_subscription(
@@ -3597,7 +3597,7 @@ class TestSendConfirmationEmail:
         customer: Customer,
     ) -> None:
         mocker.patch(
-            "polar.order.service.invoice_service.create_order_invoice",
+            "repalis.order.service.invoice_service.create_order_invoice",
             new_callable=AsyncMock,
         )
         subscription = await create_active_subscription(
@@ -3631,7 +3631,7 @@ class TestSendConfirmationEmail:
         discount_fixed_once: Discount,
     ) -> None:
         mocker.patch(
-            "polar.order.service.invoice_service.create_order_invoice",
+            "repalis.order.service.invoice_service.create_order_invoice",
             new_callable=AsyncMock,
         )
         subscription = await create_active_subscription(
@@ -3668,7 +3668,7 @@ class TestSendConfirmationEmail:
         organization: Organization,
     ) -> None:
         mocker.patch(
-            "polar.order.service.invoice_service.create_order_invoice",
+            "repalis.order.service.invoice_service.create_order_invoice",
             new_callable=AsyncMock,
         )
         discount = await create_discount(
@@ -3907,7 +3907,7 @@ class TestGenerateInvoice:
         customer: Customer,
     ) -> None:
         mocker.patch(
-            "polar.order.service.invoice_service.create_order_invoice",
+            "repalis.order.service.invoice_service.create_order_invoice",
             new_callable=AsyncMock,
             return_value="invoices/generated.pdf",
         )
@@ -3935,7 +3935,7 @@ class TestGenerateInvoice:
         customer: Customer,
     ) -> None:
         create_order_invoice_mock = mocker.patch(
-            "polar.order.service.invoice_service.create_order_invoice",
+            "repalis.order.service.invoice_service.create_order_invoice",
             new_callable=AsyncMock,
         )
         order = await create_order(
@@ -3962,7 +3962,7 @@ class TestGenerateInvoice:
         customer: Customer,
     ) -> None:
         create_order_invoice_mock = mocker.patch(
-            "polar.order.service.invoice_service.create_order_invoice",
+            "repalis.order.service.invoice_service.create_order_invoice",
             new_callable=AsyncMock,
             return_value="invoices/regenerated.pdf",
         )
@@ -4190,7 +4190,7 @@ class TestHandlePayment:
     ) -> None:
         # Create a customer with a billing address so that _calculate_tax
         # will actually invoke tax_calculation_service.calculate and produce a non-zero amount.
-        # The mocked calculate returns polar_round(amount * 0.20), so for net_amount=1000 → 200.
+        # The mocked calculate returns repalis_round(amount * 0.20), so for net_amount=1000 → 200.
         customer_with_address = await create_customer(
             save_fixture,
             organization=organization,
@@ -4406,7 +4406,7 @@ class TestHandlePaymentFailure:
         await save_fixture(order)
 
         mock_mark_past_due = mocker.patch(
-            "polar.subscription.service.subscription.mark_past_due"
+            "repalis.subscription.service.subscription.mark_past_due"
         )
         mock_mark_past_due.return_value = subscription
 
@@ -4456,7 +4456,7 @@ class TestHandlePaymentFailure:
         )
 
         mock_mark_past_due = mocker.patch(
-            "polar.subscription.service.subscription.mark_past_due"
+            "repalis.subscription.service.subscription.mark_past_due"
         )
 
         result_order = await order_service.handle_payment_failure(session, order)
@@ -4505,7 +4505,7 @@ class TestHandlePaymentFailure:
             )
 
         mock_mark_past_due = mocker.patch(
-            "polar.subscription.service.subscription.mark_past_due"
+            "repalis.subscription.service.subscription.mark_past_due"
         )
 
         result_order = await order_service.handle_payment_failure(session, order)
@@ -4557,7 +4557,7 @@ class TestHandlePaymentFailure:
         )
 
         mock_mark_past_due = mocker.patch(
-            "polar.subscription.service.subscription.mark_past_due"
+            "repalis.subscription.service.subscription.mark_past_due"
         )
 
         result_order = await order_service.handle_payment_failure(session, order)
@@ -4621,7 +4621,7 @@ class TestHandlePaymentFailure:
             )
 
             mock_mark_past_due = mocker.patch(
-                "polar.subscription.service.subscription.mark_past_due"
+                "repalis.subscription.service.subscription.mark_past_due"
             )
 
             result_order = await order_service.handle_payment_failure(session, order)
@@ -4710,12 +4710,12 @@ class TestHandlePaymentFailure:
         await save_fixture(order)
 
         mock_mark_past_due = mocker.patch(
-            "polar.subscription.service.subscription.mark_past_due"
+            "repalis.subscription.service.subscription.mark_past_due"
         )
         mock_mark_past_due.return_value = subscription
 
         mock_enqueue_benefits_grants = mocker.patch(
-            "polar.subscription.service.subscription.enqueue_benefits_grants"
+            "repalis.subscription.service.subscription.enqueue_benefits_grants"
         )
 
         await order_service.handle_payment_failure(session, order)
@@ -4752,7 +4752,7 @@ class TestHandlePaymentFailure:
         await save_fixture(order)
 
         mock_mark_past_due = mocker.patch(
-            "polar.subscription.service.subscription.mark_past_due"
+            "repalis.subscription.service.subscription.mark_past_due"
         )
 
         # When
@@ -4789,7 +4789,7 @@ class TestHandlePaymentFailure:
         await save_fixture(order)
 
         mock_mark_past_due = mocker.patch(
-            "polar.subscription.service.subscription.mark_past_due"
+            "repalis.subscription.service.subscription.mark_past_due"
         )
 
         # When
@@ -4821,7 +4821,7 @@ class TestHandlePaymentFailure:
         await save_fixture(order)
 
         mock_mark_past_due = mocker.patch(
-            "polar.subscription.service.subscription.mark_past_due"
+            "repalis.subscription.service.subscription.mark_past_due"
         )
 
         # When
@@ -4873,7 +4873,7 @@ class TestHandlePaymentFailure:
             )
 
         mock_mark_past_due = mocker.patch(
-            "polar.subscription.service.subscription.mark_past_due"
+            "repalis.subscription.service.subscription.mark_past_due"
         )
 
         # When
@@ -4928,7 +4928,7 @@ class TestHandlePaymentFailure:
             )
 
         mock_mark_past_due = mocker.patch(
-            "polar.subscription.service.subscription.mark_past_due"
+            "repalis.subscription.service.subscription.mark_past_due"
         )
 
         # When
@@ -5036,9 +5036,9 @@ class TestHandlePaymentFailure:
             )
 
         mock_mark_past_due = mocker.patch(
-            "polar.subscription.service.subscription.mark_past_due"
+            "repalis.subscription.service.subscription.mark_past_due"
         )
-        mock_revoke = mocker.patch("polar.subscription.service.subscription.revoke")
+        mock_revoke = mocker.patch("repalis.subscription.service.subscription.revoke")
 
         # When
         result_order = await order_service.handle_payment_failure(session, order)
@@ -5086,9 +5086,9 @@ class TestHandlePaymentFailure:
             )
 
         mock_mark_past_due = mocker.patch(
-            "polar.subscription.service.subscription.mark_past_due"
+            "repalis.subscription.service.subscription.mark_past_due"
         )
-        mock_revoke = mocker.patch("polar.subscription.service.subscription.revoke")
+        mock_revoke = mocker.patch("repalis.subscription.service.subscription.revoke")
 
         # When
         result_order = await order_service.handle_payment_failure(session, order)
@@ -5141,7 +5141,7 @@ class TestHandlePaymentFailure:
         )
 
         mock_mark_past_due = mocker.patch(
-            "polar.subscription.service.subscription.mark_past_due"
+            "repalis.subscription.service.subscription.mark_past_due"
         )
 
         # When
@@ -5187,7 +5187,7 @@ class TestHandlePaymentFailure:
         order.next_payment_attempt_at = utc_now() - timedelta(days=1)  # Past due
         await save_fixture(order)
 
-        mock_revoke = mocker.patch("polar.subscription.service.subscription.revoke")
+        mock_revoke = mocker.patch("repalis.subscription.service.subscription.revoke")
 
         # When
         result_order = await order_service.handle_payment_failure(session, order)
@@ -5223,7 +5223,7 @@ class TestHandlePaymentFailure:
         order.next_payment_attempt_at = utc_now() - timedelta(days=1)  # Past due
         await save_fixture(order)
 
-        mock_revoke = mocker.patch("polar.subscription.service.subscription.revoke")
+        mock_revoke = mocker.patch("repalis.subscription.service.subscription.revoke")
 
         # When
         result_order = await order_service.handle_payment_failure(session, order)
@@ -5316,12 +5316,12 @@ class TestHandlePaymentFailure:
             return sub
 
         mock_mark_past_due = mocker.patch(
-            "polar.subscription.service.subscription.mark_past_due",
+            "repalis.subscription.service.subscription.mark_past_due",
             side_effect=mark_past_due_side_effect,
         )
 
         mock_enqueue_benefits_grants = mocker.patch(
-            "polar.subscription.service.subscription.enqueue_benefits_grants"
+            "repalis.subscription.service.subscription.enqueue_benefits_grants"
         )
 
         # When
@@ -5371,7 +5371,7 @@ class TestHandlePaymentFailure:
         )
 
         mock_mark_past_due = mocker.patch(
-            "polar.subscription.service.subscription.mark_past_due"
+            "repalis.subscription.service.subscription.mark_past_due"
         )
         mock_mark_past_due.return_value = subscription
 
@@ -5424,7 +5424,7 @@ class TestHandlePaymentFailure:
             order=order,
         )
 
-        mock_revoke = mocker.patch("polar.subscription.service.subscription.revoke")
+        mock_revoke = mocker.patch("repalis.subscription.service.subscription.revoke")
 
         # When
         result_order = await order_service.handle_payment_failure(session, order)
@@ -5448,7 +5448,7 @@ class TestProcessDunningOrder:
     ) -> None:
         """Test that process_dunning_order logs warning for orders without subscription"""
         # Given
-        log_mock = mocker.patch("polar.order.service.log")
+        log_mock = mocker.patch("repalis.order.service.log")
         order = await create_order(
             save_fixture,
             product=product,
@@ -5510,7 +5510,7 @@ class TestProcessDunningOrder:
     ) -> None:
         """Test that process_dunning_order logs warning for subscriptions without payment method"""
         # Given
-        log_mock = mocker.patch("polar.order.service.log")
+        log_mock = mocker.patch("repalis.order.service.log")
         order = await create_order(
             save_fixture,
             product=product,
@@ -5544,7 +5544,7 @@ class TestProcessDunningOrder:
     ) -> None:
         """Test that process_dunning_order logs warning for subscriptions with a soft deleted payment method"""
         # Given
-        log_mock = mocker.patch("polar.order.service.log")
+        log_mock = mocker.patch("repalis.order.service.log")
         order = await create_order(
             save_fixture,
             product=product,
@@ -6153,7 +6153,7 @@ class TestTriggerPayment:
         stripe_service_mock.create_payment_intent.side_effect = invalid_request_error
 
         delete_mock = mocker.patch(
-            "polar.order.service.payment_method_service.delete", new=AsyncMock()
+            "repalis.order.service.payment_method_service.delete", new=AsyncMock()
         )
 
         # When/Then
@@ -6190,7 +6190,7 @@ class TestTriggerPayment:
         stripe_service_mock.create_payment_intent.side_effect = invalid_request_error
 
         delete_mock = mocker.patch(
-            "polar.order.service.payment_method_service.delete", new=AsyncMock()
+            "repalis.order.service.payment_method_service.delete", new=AsyncMock()
         )
 
         # When/Then - should re-raise the original error, not catch it
@@ -6326,7 +6326,7 @@ class TestTriggerPayment:
 
         descriptor = call_kwargs["statement_descriptor_suffix"]
         assert descriptor.endswith(" TRIAL OVER")
-        from polar.config import settings
+        from repalis.config import settings
 
         assert len(descriptor) <= settings.stripe_descriptor_suffix_max_length
         assert descriptor.startswith(organization.slug[:4])
@@ -6683,7 +6683,7 @@ class TestProcessRetryPayment:
         )
         await save_fixture(order)
 
-        from polar.order.service import OrderNotEligibleForRetry
+        from repalis.order.service import OrderNotEligibleForRetry
 
         with pytest.raises(OrderNotEligibleForRetry):
             await order_service.process_retry_payment(
@@ -6765,7 +6765,7 @@ class TestProcessRetryPayment:
         organization: Organization,
     ) -> None:
         """Test that manual retry is rejected when the limit is exceeded."""
-        from polar.config import settings
+        from repalis.config import settings
 
         subscription = await create_subscription(
             save_fixture, customer=customer, product=product
@@ -7538,7 +7538,7 @@ class TestCreateDraftOrder:
             customer_id=customer.id,
             product_id=uuid.uuid4(),
         )
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await order_service.create_draft_order(
                 session, off_session_organization, payload
             )
@@ -7555,7 +7555,7 @@ class TestCreateDraftOrder:
             customer_id=customer.id,
             product_id=product.id,
         )
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await order_service.create_draft_order(
                 session, off_session_organization, payload
             )
@@ -7577,7 +7577,7 @@ class TestCreateDraftOrder:
             customer_id=customer.id,
             product_id=product.id,
         )
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await order_service.create_draft_order(
                 session, off_session_organization, payload
             )
@@ -7592,7 +7592,7 @@ class TestCreateDraftOrder:
             customer_id=uuid.uuid4(),
             product_id=product_one_time.id,
         )
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await order_service.create_draft_order(
                 session, off_session_organization, payload
             )
@@ -7758,7 +7758,7 @@ class TestCreateDraftOrder:
             product_id=product_one_time.id,
             currency="gbp",
         )
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await order_service.create_draft_order(
                 session, off_session_organization, payload
             )
@@ -7776,7 +7776,7 @@ class TestCreateDraftOrder:
             customer_id=customer.id,
             product_id=product_one_time_custom_price.id,
         )
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await order_service.create_draft_order(
                 session, off_session_organization, payload
             )
@@ -7878,7 +7878,7 @@ class TestCreateDraftOrder:
             product_id=product_one_time.id,
             amount=10,
         )
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await order_service.create_draft_order(
                 session, off_session_organization, payload
             )
@@ -7897,7 +7897,7 @@ class TestCreateDraftOrder:
             product_id=product_one_time.id,
             amount=get_maximum_currency_amount("usd") + 1,
         )
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await order_service.create_draft_order(
                 session, off_session_organization, payload
             )
@@ -7956,7 +7956,7 @@ class TestCreateDraftOrder:
             product_id=product.id,
             custom_field_data={"level": "not-a-number"},
         )
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await order_service.create_draft_order(
                 session, off_session_organization, payload
             )
@@ -7984,7 +7984,7 @@ class TestCreateDraftOrder:
             customer_id=customer.id,
             product_id=product_one_time.id,
         )
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await order_service.create_draft_order(
                 session, off_session_organization, payload
             )
@@ -8006,7 +8006,7 @@ class TestCreateDraftOrder:
             product_id=product.id,
             amount=5000,
         )
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await order_service.create_draft_order(
                 session, off_session_organization, payload
             )
@@ -8023,7 +8023,7 @@ class TestCreateDraftOrder:
             product_id=product_one_time.id,
             units=3,
         )
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await order_service.create_draft_order(
                 session, off_session_organization, payload
             )
@@ -8072,7 +8072,7 @@ class TestCreateDraftOrder:
             product_id=product.id,
             units=4,
         )
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await order_service.create_draft_order(
                 session, off_session_organization, payload
             )
@@ -8100,7 +8100,7 @@ class TestCreateDraftOrder:
             product_id=product.id,
             units=101,
         )
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await order_service.create_draft_order(
                 session, off_session_organization, payload
             )
@@ -8123,7 +8123,7 @@ class TestCreateDraftOrder:
             product_id=product.id,
             units=1,
         )
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await order_service.create_draft_order(
                 session, off_session_organization, payload
             )
@@ -8168,7 +8168,7 @@ class TestFinalizeOrder:
         )
         original_invoice_number = order.invoice_number
         mocker.patch(
-            "polar.order.repository.OrderRepository.start_finalization",
+            "repalis.order.repository.OrderRepository.start_finalization",
             new=AsyncMock(return_value=False),
         )
 
@@ -8386,7 +8386,7 @@ class TestFinalizeOrder:
             return settled
 
         upsert_mock = mocker.patch(
-            "polar.order.service.payment_service.upsert_from_stripe_charge",
+            "repalis.order.service.payment_service.upsert_from_stripe_charge",
             new=AsyncMock(return_value=MagicMock()),
         )
         handle_payment_mock = mocker.patch.object(
@@ -8455,7 +8455,7 @@ class TestFinalizeOrder:
             processor_id="ch_finalize_success",
         )
         mocker.patch(
-            "polar.order.service.payment_service.upsert_from_stripe_charge",
+            "repalis.order.service.payment_service.upsert_from_stripe_charge",
             new=AsyncMock(return_value=payment),
         )
 
@@ -8546,7 +8546,7 @@ class TestFinalizeOrder:
             processor_id="ch_finalize_success",
         )
         mocker.patch(
-            "polar.order.service.payment_service.upsert_from_stripe_charge",
+            "repalis.order.service.payment_service.upsert_from_stripe_charge",
             new=AsyncMock(return_value=payment),
         )
 
@@ -8667,7 +8667,7 @@ class TestFinalizeOrder:
             processor_id="ch_finalize_success",
         )
         mocker.patch(
-            "polar.order.service.payment_service.upsert_from_stripe_charge",
+            "repalis.order.service.payment_service.upsert_from_stripe_charge",
             new=AsyncMock(return_value=payment),
         )
 

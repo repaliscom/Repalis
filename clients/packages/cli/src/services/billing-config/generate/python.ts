@@ -44,7 +44,7 @@ const section = (section: Section) =>
 
 export const python: Generator = {
   title: 'Python',
-  file: 'polar_types.py',
+  file: 'repalis_types.py',
   manifests: ['pyproject.toml', 'requirements.txt', 'setup.py', 'Pipfile'],
   comment: '#',
   directives: ['fmt: off', 'ruff: noqa', 'flake8: noqa', 'pylint: skip-file'],

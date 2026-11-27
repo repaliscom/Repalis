@@ -10,7 +10,7 @@ describe('redactUrl', () => {
     ],
     ['https://t0ken@my-app.dev/webhooks', 'https://***@my-app.dev/webhooks'],
     [
-      'http://localhost:3000/webhooks?token=t0ken&source=polar',
+      'http://localhost:3000/webhooks?token=t0ken&source=repalis',
       'http://localhost:3000/webhooks?token=***&source=***',
     ],
     ['http://localhost:3000/webhooks#s3cret', 'http://localhost:3000/webhooks'],

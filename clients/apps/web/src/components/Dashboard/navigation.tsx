@@ -1,5 +1,5 @@
 import { AppealCaseUnreadBadge } from '@/components/Organization/HumanReviewCase/AppealCaseUnreadBadge'
-import { PolarHog, usePostHog } from '@/hooks/posthog'
+import { RepalisHog, usePostHog } from '@/hooks/posthog'
 import { ManagedAsCodeNavIndicator } from './ManagedAsCodeNavIndicator'
 import {
   AllInclusiveOutlined,
@@ -17,8 +17,8 @@ import {
   SpaceDashboardOutlined,
   TrendingUpFilled as TrendingUp,
   TuneOutlined,
-} from '@polar-sh/orbit/icons'
-import { schemas } from '@polar-sh/client'
+} from '@repalis/orbit/icons'
+import { schemas } from '@repalis/client'
 import { usePathname } from 'next/navigation'
 import { useMemo } from 'react'
 
@@ -101,7 +101,7 @@ const applyIsActive = (path: string): ((r: Route) => RouteWithActive) => {
 export const useResolveRoutes = (
   routesResolver: (
     org?: schemas['Organization'],
-    posthog?: PolarHog,
+    posthog?: RepalisHog,
   ) => Route[],
   org?: schemas['Organization'],
   allowAll?: boolean,

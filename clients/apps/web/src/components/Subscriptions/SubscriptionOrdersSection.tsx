@@ -2,7 +2,7 @@
 
 import { OrderStatus } from '@/components/Orders/OrderStatus'
 import { useOrders } from '@/hooks/queries/orders'
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 
 const BILLING_REASON_LABELS: Record<schemas['OrderBillingReason'], string> = {
   purchase: 'Purchase',
@@ -11,10 +11,10 @@ const BILLING_REASON_LABELS: Record<schemas['OrderBillingReason'], string> = {
   subscription_update: 'Plan Change',
   subscription_meter_cycle: 'Meter',
 }
-import { formatCurrency } from '@polar-sh/currency'
-import FormattedDateTime from '@polar-sh/ui/components/atoms/FormattedDateTime'
-import { DataTable } from '@polar-sh/orbit'
-import { Button } from '@polar-sh/orbit'
+import { formatCurrency } from '@repalis/currency'
+import FormattedDateTime from '@repalis/ui/components/atoms/FormattedDateTime'
+import { DataTable } from '@repalis/orbit'
+import { Button } from '@repalis/orbit'
 import Link from 'next/link'
 
 interface SubscriptionOrdersSectionProps {
@@ -53,7 +53,7 @@ const SubscriptionOrdersSection = ({
             header: 'Date',
             accessorKey: 'created_at',
             cell: ({ row: { original } }) => (
-              <span className="dark:text-polar-500 text-sm text-gray-500">
+              <span className="dark:text-repalis-500 text-sm text-gray-500">
                 <FormattedDateTime datetime={original.created_at} />
               </span>
             ),

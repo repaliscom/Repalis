@@ -6,17 +6,17 @@ import { useToast } from '@/components/Toast/use-toast'
 import { useAuth } from '@/hooks'
 import { useCreateOrganization } from '@/hooks/queries'
 import { extractApiErrorMessage, setValidationErrors } from '@/utils/api/errors'
-import { isValidationError, schemas } from '@polar-sh/client'
-import { Button, Checkbox, Input } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { isValidationError, schemas } from '@repalis/client'
+import { Button, Checkbox, Input } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormMessage,
-} from '@polar-sh/ui/components/ui/form'
-import { Label } from '@polar-sh/ui/components/ui/label'
+} from '@repalis/ui/components/ui/form'
+import { Label } from '@repalis/ui/components/ui/label'
 import {
   type KeyboardEvent as ReactKeyboardEvent,
   useEffect,
@@ -112,7 +112,7 @@ const CreateOrganizationForm = ({
         gap="l"
         marginBottom={{ base: 'none', lg: 'xl' }}
       >
-        <div className="dark:bg-polar-800 dark:border-polar-700 flex flex-col gap-y-4 rounded-2xl border border-gray-200 bg-white p-6">
+        <div className="dark:bg-repalis-800 dark:border-repalis-700 flex flex-col gap-y-4 rounded-2xl border border-gray-200 bg-white p-6">
           <FormField
             control={control}
             name="name"
@@ -186,11 +186,11 @@ const CreateOrganizationForm = ({
           />
         </div>
 
-        <div className="dark:bg-polar-800 dark:border-polar-700 flex flex-col gap-y-4 rounded-2xl border border-gray-200 bg-white p-6">
+        <div className="dark:bg-repalis-800 dark:border-repalis-700 flex flex-col gap-y-4 rounded-2xl border border-gray-200 bg-white p-6">
           <SupportedUseCases />
         </div>
 
-        <div className="dark:bg-polar-800 dark:border-polar-700 flex flex-col rounded-2xl border border-gray-200 bg-white p-6">
+        <div className="dark:bg-repalis-800 dark:border-repalis-700 flex flex-col rounded-2xl border border-gray-200 bg-white p-6">
           <FormField
             control={control}
             name="terms"
@@ -212,12 +212,12 @@ const CreateOrganizationForm = ({
                       className="cursor-pointer leading-relaxed font-medium"
                     >
                       I understand the restrictions above and agree to
-                      Polar&rsquo;s terms
+                      Repalis&rsquo;s terms
                     </label>
-                    <ul className="dark:text-polar-400 flex flex-col gap-y-1 text-sm text-gray-500">
+                    <ul className="dark:text-repalis-400 flex flex-col gap-y-1 text-sm text-gray-500">
                       <li>
                         <a
-                          href="https://polar.sh/docs/merchant-of-record/account-reviews"
+                          href="/docs/merchant-of-record/account-reviews"
                           className="text-blue-600 hover:underline dark:text-blue-400"
                           target="_blank"
                           rel="noopener noreferrer"
@@ -229,7 +229,7 @@ const CreateOrganizationForm = ({
                       </li>
                       <li>
                         <a
-                          href="https://polar.sh/legal/master-services-terms"
+                          href="https://repalis.com/legal/master-services-terms"
                           className="text-blue-600 hover:underline dark:text-blue-400"
                           target="_blank"
                           rel="noopener noreferrer"
@@ -239,7 +239,7 @@ const CreateOrganizationForm = ({
                       </li>
                       <li>
                         <a
-                          href="https://polar.sh/legal/privacy-policy"
+                          href="https://repalis.com/legal/privacy-policy"
                           className="text-blue-600 hover:underline dark:text-blue-400"
                           target="_blank"
                           rel="noopener noreferrer"

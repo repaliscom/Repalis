@@ -1,5 +1,5 @@
-import { LOGO_MARK_PATH } from '@/components/Brand/logos/paths'
-import { Box } from '@polar-sh/orbit/Box'
+import { LOGO_ICON_VIEWBOX, LOGO_MARK_PATH } from '@/components/Brand/logos/paths'
+import { Box } from '@repalis/orbit/Box'
 
 const SIZE = 96
 
@@ -12,7 +12,7 @@ export const HeroMark = () => (
     <svg
       width={SIZE}
       height={SIZE}
-      viewBox="0 0 310 310"
+      viewBox={LOGO_ICON_VIEWBOX}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden="true"

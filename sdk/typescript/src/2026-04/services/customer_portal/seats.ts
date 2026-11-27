@@ -33,9 +33,9 @@ export const listSeatsSeats = (client: ClientBase) => {
    * @param query - Query parameters
    * @param requestOptions - Request options
    * @returns {SeatsList}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    * @throws {CustomerPortalSeatsListSeats401Error} Authentication required
    * @throws {CustomerPortalSeatsListSeats403Error} Not permitted
    * @throws {CustomerPortalSeatsListSeats404Error} Subscription or order not found
@@ -75,9 +75,9 @@ export const assignSeatSeats = (client: ClientBase) => {
    * @param body - Request body
    * @param requestOptions - Request options
    * @returns {CustomerSeat}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    * @throws {CustomerPortalSeatsAssignSeat400Error} No available seats or customer already has a seat
    * @throws {CustomerPortalSeatsAssignSeat401Error} Authentication required
    * @throws {CustomerPortalSeatsAssignSeat403Error} Not permitted
@@ -113,9 +113,9 @@ export const revokeSeatSeats = (client: ClientBase) => {
    * @param seat_id
    * @param requestOptions - Request options
    * @returns {CustomerSeat}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    * @throws {CustomerPortalSeatsRevokeSeat401Error} Authentication required
    * @throws {CustomerPortalSeatsRevokeSeat403Error} Not permitted
    * @throws {CustomerPortalSeatsRevokeSeat404Error} Seat not found
@@ -148,9 +148,9 @@ export const resendInvitationSeats = (client: ClientBase) => {
    * @param seat_id
    * @param requestOptions - Request options
    * @returns {CustomerSeat}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    * @throws {CustomerPortalSeatsResendInvitation400Error} Seat is not pending or already claimed
    * @throws {CustomerPortalSeatsResendInvitation401Error} Authentication required
    * @throws {CustomerPortalSeatsResendInvitation403Error} Not permitted
@@ -188,9 +188,9 @@ export const listClaimedSubscriptionsSeats = (client: ClientBase) => {
    * @param query - Query parameters
    * @param requestOptions - Request options
    * @returns {ListResourceCustomerSubscription}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    * @throws {CustomerPortalSeatsListClaimedSubscriptions401Error} Authentication required
    * @throws {HTTPValidationError} Validation Error
    */
@@ -228,9 +228,9 @@ export const listClaimedSubscriptionsSeats = (client: ClientBase) => {
  * @param query - Query parameters
  * @param requestOptions - Request options
  * @returns {AsyncGenerator<CustomerSubscription>} A generator that yields items of type CustomerSubscription.
- * @throws {PolarNetworkError} When a network error occurs
- * @throws {PolarRateLimitError} When the rate limit is exceeded
- * @throws {PolarServerError} When the server returns a 5xx error
+ * @throws {RepalisNetworkError} When a network error occurs
+ * @throws {RepalisRateLimitError} When the rate limit is exceeded
+ * @throws {RepalisServerError} When the server returns a 5xx error
  * @throws {CustomerPortalSeatsListClaimedSubscriptions401Error} Authentication required
  * @throws {HTTPValidationError} Validation Error
  */

@@ -2,7 +2,7 @@ import {
   StatusIcon,
   type StatusIconProps,
 } from '@/components/Shared/StatusIcon'
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 
 type Status = schemas['SubscriptionStatus']
 

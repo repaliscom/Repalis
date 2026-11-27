@@ -111,7 +111,7 @@ export const commentOnPullRequest = (key: string, body: string | undefined) =>
       HttpClient.mapRequest(HttpClientRequest.bearerToken(token)),
     )
     const client = github.pipe(HttpClient.filterStatusOk)
-    const marker = `<!-- polar-cli ${encodeURIComponent(key)} -->`
+    const marker = `<!-- repalis-cli ${encodeURIComponent(key)} -->`
     let existing: number | undefined
     for (let page = 1; existing === undefined; page++) {
       const response = yield* client.get(

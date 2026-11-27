@@ -1,7 +1,7 @@
 import { getQueryClient } from '@/utils/api/query'
 import { runBulk } from '@/utils/bulk'
 import { api } from '@/utils/client'
-import { operations, schemas, unwrap } from '@polar-sh/client'
+import { operations, schemas, unwrap } from '@repalis/client'
 import {
   keepPreviousData,
   useInfiniteQuery,

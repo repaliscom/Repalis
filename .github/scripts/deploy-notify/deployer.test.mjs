@@ -7,7 +7,7 @@ const run = {
   actor: { login: 'github-merge-queue[bot]', type: 'Bot' },
 };
 const input = {
-  repo: { owner: 'polarsource', repo: 'polar' }, run,
+  repo: { owner: 'repaliscom', repo: 'Repalis' }, run,
   pullRequests: [{ number: 42, merged_at: '2026-10-16T12:00:00Z', base: { ref: 'main' }, merge_commit_sha: 'abc123' }],
 };
 
@@ -26,7 +26,7 @@ test('uses the recorded emergency requester only for an emergency-bot merge', as
     ...input,
     run: { ...run, head_commit: { message: 'Fix\n\nEmergency-Merge: /emergency by Yopi\n' } },
     github: { graphql: async () => ({ repository: { pullRequest: {
-      mergedBy: { login: 'polar-merge-bot', __typename: 'Bot' },
+      mergedBy: { login: 'repalis-merge-bot', __typename: 'Bot' },
     } } }) },
   };
   assert.equal(await resolveDeployer(args), 'Yopi');

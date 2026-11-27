@@ -1,14 +1,14 @@
-import { PolarError } from "../base";
+import { RepalisError } from "../base";
 
-export class PolarOutpostError extends PolarError {}
-/** A read Outpost cannot answer yet: Polar has not sent the configuration or the snapshot in time. */
-export class NotReadyError extends PolarOutpostError {}
-export class UnavailableRedisError extends PolarOutpostError {
+export class RepalisOutpostError extends RepalisError {}
+/** A read Outpost cannot answer yet: Repalis has not sent the configuration or the snapshot in time. */
+export class NotReadyError extends RepalisOutpostError {}
+export class UnavailableRedisError extends RepalisOutpostError {
   constructor(options?: ErrorOptions) {
     super("Redis is unavailable", options);
   }
 }
-export class MissingExternalIdError extends PolarOutpostError {
+export class MissingExternalIdError extends RepalisOutpostError {
   constructor() {
     super("Outpost needs an external_id on every event");
   }
@@ -39,9 +39,9 @@ export const isRedisConnectionError = (error: unknown): boolean => {
   );
 };
 
-/** Polar answered 401 or 403: nothing Outpost asks will pass until the token does. */
-export class RefusedError extends PolarOutpostError {
-  constructor(message = "Polar refused Outpost") {
+/** Repalis answered 401 or 403: nothing Outpost asks will pass until the token does. */
+export class RefusedError extends RepalisOutpostError {
+  constructor(message = "Repalis refused Outpost") {
     super(message);
   }
 }

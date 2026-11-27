@@ -38,8 +38,8 @@ export default function robots(): MetadataRoute.Robots {
       },
     ],
     sitemap: [
-      'https://polar.sh/sitemap.xml',
-      'https://polar.sh/perspectives/sitemap.xml',
+      'https://repalis.com/sitemap.xml',
+      'https://repalis.com/perspectives/sitemap.xml',
     ],
   }
 }

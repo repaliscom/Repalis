@@ -3,7 +3,7 @@ import { ReactNode } from 'react'
 import { describe, expect, it, vi } from 'vitest'
 import { ReviewStatusTabs } from './ReviewStatusTabs'
 
-vi.mock('@polar-sh/orbit', () => ({
+vi.mock('@repalis/orbit', () => ({
   SegmentedControl: ({
     options,
     onChange,

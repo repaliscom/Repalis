@@ -1,13 +1,13 @@
 'use client'
 
-import { InlineModal } from '@polar-sh/orbit'
+import { InlineModal } from '@repalis/orbit'
 import { useModal } from '@/components/Modal/useModal'
 import { useOAuth2Clients } from '@/hooks/queries/oauth'
-import { ArrowForward } from '@polar-sh/orbit/icons'
-import { schemas } from '@polar-sh/client'
-import { Avatar } from '@polar-sh/orbit'
-import { Button } from '@polar-sh/orbit'
-import FormattedDateTime from '@polar-sh/ui/components/atoms/FormattedDateTime'
+import { ArrowForward } from '@repalis/orbit/icons'
+import { schemas } from '@repalis/client'
+import { Avatar } from '@repalis/orbit'
+import { Button } from '@repalis/orbit'
+import FormattedDateTime from '@repalis/ui/components/atoms/FormattedDateTime'
 import { useState } from 'react'
 import { EditOAuthClientModal } from './EditOAuthClientModal'
 import { NewOAuthClientModal } from './NewOAuthClientModal'
@@ -62,7 +62,7 @@ const OAuthSettings = () => {
           })
         ) : (
           <SettingsGroupRow>
-            <p className="dark:text-polar-400 text-sm text-gray-500">
+            <p className="dark:text-repalis-400 text-sm text-gray-500">
               You haven&rsquo;t created any OAuth applications yet. Create one
               to get started.
             </p>
@@ -126,7 +126,7 @@ const OAuthClientDetails = ({ client, onClick }: OAuthClientDetailsProps) => {
             <h3 className="text-md mr-4 text-ellipsis whitespace-nowrap">
               {client.client_name}
             </h3>
-            <p className="dark:text-polar-400 text-sm text-gray-500">
+            <p className="dark:text-repalis-400 text-sm text-gray-500">
               <FormattedDateTime
                 datetime={client.created_at}
                 dateStyle="long"

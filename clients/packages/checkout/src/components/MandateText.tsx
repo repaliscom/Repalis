@@ -3,7 +3,7 @@ import {
   useTranslations,
   type AcceptedLocale,
   type TranslateFn,
-} from '@polar-sh/i18n'
+} from '@repalis/i18n'
 
 const BUYER_TERMS_PLACEHOLDER = '{buyerTermsLink}'
 
@@ -56,12 +56,12 @@ export const MandateText = (props: MandateProps) => {
   const [prefix, suffix] = mandate.split(BUYER_TERMS_PLACEHOLDER)
 
   return (
-    <p className="dark:text-polar-500 text-center text-xs text-gray-500">
+    <p className="dark:text-repalis-500 text-center text-xs text-gray-500">
       {prefix}
       {suffix !== undefined && (
         <>
           <a
-            href="https://polar.sh/legal/checkout-buyer-terms"
+            href="https://repalis.com/legal/checkout-buyer-terms"
             target="_blank"
             rel="noreferrer"
             className="underline"

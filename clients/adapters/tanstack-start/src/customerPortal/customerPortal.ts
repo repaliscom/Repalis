@@ -1,5 +1,5 @@
-import { createCustomerSessions } from '@polar-sh/sdk/2026-10/services/customer_sessions'
-import { createPolarCore, type Environment } from '@polar-sh/sdk/2026-10'
+import { createCustomerSessions } from '@repalis/sdk/2026-10/services/customer_sessions'
+import { createRepalisCore, type Environment } from '@repalis/sdk/2026-10'
 import type { StartRouteHandler } from '../types'
 
 export interface CustomerPortalConfig {
@@ -15,7 +15,7 @@ export const CustomerPortal = <TPath extends string = string>({
   getCustomerId,
   returnUrl,
 }: CustomerPortalConfig): StartRouteHandler<TPath> => {
-  const polar = createPolarCore({
+  const repalis = createRepalisCore({
     accessToken,
     environment,
   })
@@ -30,7 +30,7 @@ export const CustomerPortal = <TPath extends string = string>({
     }
 
     try {
-      const result = await createCustomerSessions(polar)({
+      const result = await createCustomerSessions(repalis)({
         customer_id: customerId,
         return_url: retUrl ? decodeURI(retUrl.toString()) : undefined,
       })

@@ -1,9 +1,9 @@
 'use client'
 
 import { useSetMigrationTaxBehavior } from '@/hooks/queries/merchantMigrations'
-import { schemas } from '@polar-sh/client'
-import { Alert, Button, SegmentedControl, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { schemas } from '@repalis/client'
+import { Alert, Button, SegmentedControl, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import { useState } from 'react'
 
 type TaxBehavior = schemas['TaxBehavior']

@@ -13,8 +13,8 @@ import {
 import { useDataTableQueryState } from '@/hooks/useDataTableQueryState'
 import { sortingStateToQueryParam } from '@/utils/datatable'
 import useDebounce from '@/utils/useDebounce'
-import { enums, schemas } from '@polar-sh/client'
-import { Copy } from '@polar-sh/orbit/icons'
+import { enums, schemas } from '@repalis/client'
+import { Copy } from '@repalis/orbit/icons'
 import { useRouter } from 'next/navigation'
 import {
   parseAsArrayOf,

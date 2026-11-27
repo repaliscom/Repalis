@@ -9,7 +9,7 @@ import {
   toISODate,
 } from '@/utils/metrics'
 import { getOrganizationBySlugOrNotFound } from '@/utils/organization'
-import { schemas, unwrap } from '@polar-sh/client'
+import { schemas, unwrap } from '@repalis/client'
 import { endOfDay, max, subMonths } from 'date-fns'
 import { redirect, RedirectType } from 'next/navigation'
 import { createLoader, parseAsStringLiteral } from 'nuqs/server'

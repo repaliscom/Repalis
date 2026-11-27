@@ -14,8 +14,8 @@ Usage:
 import typer
 from sqlalchemy import Update, func, select, update
 
-from polar.models import Organization
-from polar.models.organization import DEFAULT_TRIAL_ENDED_REACTIVATION_PERIOD
+from repalis.models import Organization
+from repalis.models.organization import DEFAULT_TRIAL_ENDED_REACTIVATION_PERIOD
 from scripts.helper import (  # lint-skip: dry-run
     configure_script_logging,
     limit_bindparam,

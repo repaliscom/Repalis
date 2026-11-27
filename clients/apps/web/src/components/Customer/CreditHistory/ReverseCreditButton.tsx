@@ -7,8 +7,8 @@ import { toast } from '@/components/Toast/use-toast'
 import { useHasPermission } from '@/hooks/permissions'
 import { useReverseMeterCredit } from '@/hooks/queries/customerMeters'
 import { extractApiErrorMessage } from '@/utils/api/errors'
-import { schemas } from '@polar-sh/client'
-import { Button } from '@polar-sh/orbit'
+import { schemas } from '@repalis/client'
+import { Button } from '@repalis/orbit'
 import { useState } from 'react'
 
 export const ReverseCreditButton = ({

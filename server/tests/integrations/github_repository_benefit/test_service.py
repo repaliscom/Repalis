@@ -4,12 +4,12 @@ import pytest
 from githubkit.exception import RequestFailed
 from pytest_mock import MockerFixture
 
-from polar.integrations.github_repository_benefit.service import (
+from repalis.integrations.github_repository_benefit.service import (
     github_repository_benefit_user_service,
 )
-from polar.integrations.github_repository_benefit.types import SimpleUser
-from polar.models import OAuthAccount
-from polar.models.user import OAuthPlatform
+from repalis.integrations.github_repository_benefit.types import SimpleUser
+from repalis.models import OAuthAccount
+from repalis.models.user import OAuthPlatform
 
 
 @pytest.mark.anyio
@@ -47,13 +47,13 @@ class TestGetBillingPlan:
         mock_client.rest.orgs.async_get = mock_response
 
         mocker.patch(
-            "polar.integrations.github.client.get_app_installation_client",
+            "repalis.integrations.github.client.get_app_installation_client",
             return_value=mock_client,
         )
 
         # Mock the logger to verify it's called with proper context
         mock_log = mocker.patch(
-            "polar.integrations.github_repository_benefit.service.log"
+            "repalis.integrations.github_repository_benefit.service.log"
         )
 
         # Call the method
@@ -106,13 +106,13 @@ class TestGetBillingPlan:
         mock_client.rest.orgs.async_get = mock_response
 
         mocker.patch(
-            "polar.integrations.github.client.get_app_installation_client",
+            "repalis.integrations.github.client.get_app_installation_client",
             return_value=mock_client,
         )
 
         # Mock the logger to verify it's called with proper context
         mock_log = mocker.patch(
-            "polar.integrations.github_repository_benefit.service.log"
+            "repalis.integrations.github_repository_benefit.service.log"
         )
 
         # Call the method

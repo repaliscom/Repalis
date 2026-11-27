@@ -3,10 +3,10 @@ import { useHasPermission } from '@/hooks/permissions'
 import { setValidationErrors } from '@/utils/api/errors'
 import { api } from '@/utils/client'
 import { permissionDeniedMessage } from '@/utils/permissions'
-import { enums, isValidationError, schemas } from '@polar-sh/client'
-import { Button } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import CountryPicker from '@polar-sh/ui/components/atoms/CountryPicker'
+import { enums, isValidationError, schemas } from '@repalis/client'
+import { Button } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import CountryPicker from '@repalis/ui/components/atoms/CountryPicker'
 import {
   Form,
   FormControl,
@@ -15,7 +15,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@polar-sh/ui/components/ui/form'
+} from '@repalis/ui/components/ui/form'
 import { useCallback, useState } from 'react'
 import { useForm, useFormContext, useFormState } from 'react-hook-form'
 

@@ -6,7 +6,7 @@ const context = {
   ref: 'refs/heads/main',
   sha: 'release-commit',
   runId: 123,
-  repo: { owner: 'polarsource', repo: 'polar' },
+  repo: { owner: 'repaliscom', repo: 'Repalis' },
   payload: { before: 'previous-commit' },
 }
 const outputs = new Map<string, unknown>()
@@ -38,7 +38,7 @@ describe('CLI release planning', () => {
 
     expect(outputs.get('enabled')).toBe(true)
     expect(outputs.get('publish')).toBe(true)
-    expect(outputs.get('tag')).toBe('@polar-sh/cli@1.4.0')
+    expect(outputs.get('tag')).toBe('@repalis/cli@1.4.0')
     expect(outputs.get('released')).toBe(false)
     expect(outputs.get('ref')).toBe(context.sha)
     expect(getContent).toHaveBeenCalledWith({
@@ -88,7 +88,7 @@ describe('CLI release planning', () => {
     expect(outputs.get('enabled')).toBe(true)
     expect(outputs.get('publish')).toBe(true)
     expect(outputs.get('released')).toBe(true)
-    expect(outputs.get('tag')).toBe('@polar-sh/cli@1.4.0')
+    expect(outputs.get('tag')).toBe('@repalis/cli@1.4.0')
     expect(outputs.get('ref')).toBe('released-commit')
   })
 
@@ -129,7 +129,7 @@ describe('CLI release planning', () => {
     expect(outputs.get('enabled')).toBe(true)
     expect(outputs.get('publish')).toBe(false)
     expect(outputs.get('tag')).toBe(
-      `@polar-sh/cli-verify-123-${process.env['GITHUB_RUN_ATTEMPT']}`,
+      `@repalis/cli-verify-123-${process.env['GITHUB_RUN_ATTEMPT']}`,
     )
     expect(getContent).not.toHaveBeenCalled()
   })
@@ -148,7 +148,7 @@ describe('CLI release planning', () => {
 
     expect(outputs.get('enabled')).toBe(true)
     expect(outputs.get('publish')).toBe(true)
-    expect(outputs.get('tag')).toBe('@polar-sh/cli@1.4.0')
+    expect(outputs.get('tag')).toBe('@repalis/cli@1.4.0')
     expect(getContent).not.toHaveBeenCalled()
   })
 

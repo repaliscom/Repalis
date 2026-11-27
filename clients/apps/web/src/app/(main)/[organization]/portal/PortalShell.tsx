@@ -2,10 +2,10 @@
 
 import { useCustomerPortalSession } from '@/hooks/queries/customerPortal'
 import { createClientSideAPI } from '@/utils/client'
-import { ArrowBackOutlined } from '@polar-sh/orbit/icons'
-import { schemas } from '@polar-sh/client'
-import { Avatar, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { ArrowBackOutlined } from '@repalis/orbit/icons'
+import { schemas } from '@repalis/client'
+import { Avatar, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import { PortalText } from '@/components/CustomerPortal/PortalPrimitives'
 import LogoType from '@/components/Brand/logos/LogoType'
 import Link from 'next/link'
@@ -73,9 +73,9 @@ const SidebarHeader = ({
   )
 }
 
-const PoweredByPolar = () => (
+const PoweredByRepalis = () => (
   <a
-    href="https://polar.sh?utm_source=customer_portal"
+    href="https://repalis.com?utm_source=customer_portal"
     target="_blank"
     rel="noopener noreferrer"
   >
@@ -135,7 +135,7 @@ export const PortalShell = ({
         {sidebar}
       </Box>
       <Box display={{ base: 'none', md: 'flex' }}>
-        <PoweredByPolar />
+        <PoweredByRepalis />
       </Box>
     </Box>
     <Box
@@ -156,7 +156,7 @@ export const PortalShell = ({
       >
         {children}
         <Box display={{ base: 'flex', md: 'none' }} justifyContent="center">
-          <PoweredByPolar />
+          <PoweredByRepalis />
         </Box>
       </Box>
     </Box>

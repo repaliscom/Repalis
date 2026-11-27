@@ -1,6 +1,6 @@
-import { Grid, GridItem, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import { ArrowRight } from '@polar-sh/orbit/icons'
+import { Grid, GridItem, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import { ArrowRight } from '@repalis/orbit/icons'
 import Link from 'next/link'
 import { ChapterHeadline } from './Chapter'
 import { FeatureCarousel } from './FeatureCarousel'
@@ -10,7 +10,7 @@ const STORY = {
   href: '/customers/stilla-ai',
   label: 'Read the Stilla AI story',
   quote:
-    'The Polar team treated us like a design partner, not just a customer. They built features we needed on tight timelines and worked collaboratively to resolve issues. That’s rare.',
+    'The Repalis team treated us like a design partner, not just a customer. They built features we needed on tight timelines and worked collaboratively to resolve issues. That’s rare.',
   name: 'Siavash Ghorbani',
   company: 'Stilla AI',
 }
@@ -41,7 +41,7 @@ export const CustomerStory = () => (
       <GridItem area="head">
         <ChapterHeadline
           title="Trusted by leading AI companies"
-          subtitle="See how they run billing on Polar"
+          subtitle="See how they run billing on Repalis"
         />
       </GridItem>
       <GridItem area="link">

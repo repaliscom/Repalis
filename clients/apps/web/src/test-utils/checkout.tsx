@@ -1,18 +1,18 @@
 import CheckoutPage from '@/app/(checkout)/checkout/[clientSecret]/CheckoutPage'
 import { CheckoutConfirmation } from '@/components/Checkout/CheckoutConfirmation'
 import { UserContextProvider } from '@/providers/auth'
-import type { ProductCheckoutPublic } from '@polar-sh/checkout/guards'
+import type { ProductCheckoutPublic } from '@repalis/checkout/guards'
 import {
   CheckoutFormProvider,
   CheckoutProvider,
-} from '@polar-sh/checkout/providers'
+} from '@repalis/checkout/providers'
 import {
   createCheckout,
   createFreePrice,
   createSeatBasedPrice,
-} from '@polar-sh/checkout/test-utils'
-import type { schemas } from '@polar-sh/client'
-import type { AcceptedLocale } from '@polar-sh/i18n'
+} from '@repalis/checkout/test-utils'
+import type { schemas } from '@repalis/client'
+import type { AcceptedLocale } from '@repalis/i18n'
 import { fireEvent, screen } from '@testing-library/react'
 import { http, HttpResponse } from 'msw'
 import {
@@ -22,7 +22,7 @@ import {
 } from './render'
 import { API_URL, server } from './server'
 
-export const CLIENT_SECRET = 'polar_c_test'
+export const CLIENT_SECRET = 'repalis_c_test'
 export const CHECKOUT_URL = `http://localhost:3000/checkout/${CLIENT_SECRET}`
 export const DISTINCT_ID = 'distinct_test'
 export const CUSTOMER_SESSION_TOKEN = 'cst_test'
@@ -38,11 +38,11 @@ export const createWebCheckout = (
     url: CHECKOUT_URL,
     success_url: `${CHECKOUT_URL}/confirmation`,
     payment_processor: 'stripe',
-    payment_processor_metadata: { publishable_key: 'pk_test_polar' },
+    payment_processor_metadata: { publishable_key: 'pk_test_repalis' },
     organization: {
       ...base.organization,
-      name: 'Polar Penguin',
-      slug: 'polar-penguin',
+      name: 'Repalis Penguin',
+      slug: 'repalis-penguin',
     },
     ...overrides,
   })
@@ -158,7 +158,7 @@ export interface ServeCheckoutOptions {
 const validationError = (field: string, message: string) =>
   HttpResponse.json(
     {
-      error: 'PolarRequestValidationError',
+      error: 'RepalisRequestValidationError',
       detail: [
         {
           loc: ['body', field],
@@ -385,8 +385,8 @@ export const renderCheckout = ({
     benefitGrants,
   })
   document.cookie = distinctId
-    ? `polar_distinct_id=${distinctId}; path=/`
-    : 'polar_distinct_id=; max-age=0; path=/'
+    ? `repalis_distinct_id=${distinctId}; path=/`
+    : 'repalis_distinct_id=; max-age=0; path=/'
 
   const result = renderWithProviders(
     <UserContextProvider

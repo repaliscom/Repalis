@@ -1,16 +1,16 @@
 import LandingLayout from '@/components/Landing/LandingLayout'
 import { NotFound } from '@/components/Landing/NotFound'
 import { Suspense } from 'react'
-import { PolarThemeProvider } from './providers'
+import { RepalisThemeProvider } from './providers'
 
 export default function RootNotFound() {
   return (
     <Suspense>
-      <PolarThemeProvider>
+      <RepalisThemeProvider>
         <LandingLayout>
           <NotFound />
         </LandingLayout>
-      </PolarThemeProvider>
+      </RepalisThemeProvider>
     </Suspense>
   )
 }

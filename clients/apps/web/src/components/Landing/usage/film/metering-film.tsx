@@ -6,7 +6,7 @@ import { buildStage } from './stage'
 import { storyboard, theme, video } from './storyboard'
 
 /**
- * The Polar Metering film, from the pricing report (components/film), in dark, as a live gsap animation: picture only, no
+ * The Repalis Metering film, from the pricing report (components/film), in dark, as a live gsap animation: picture only, no
  * sound. The stage is drawn at 1920 × 1080 and scaled to fit its 16:9 box. It plays while on screen and loops with
  * no seam; with reduced motion it holds one frame, the glass over the cloud.
  */

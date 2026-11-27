@@ -4,22 +4,22 @@ from unittest.mock import MagicMock
 import pytest
 from pytest_mock import MockerFixture
 
-from polar.email.schemas import PersonalAccessTokenLeakedEmail
-from polar.enums import TokenType
-from polar.kit.crypto import get_token_hash
-from polar.kit.utils import utc_now
-from polar.models import PersonalAccessToken, User
-from polar.personal_access_token.service import (
+from repalis.email.schemas import PersonalAccessTokenLeakedEmail
+from repalis.enums import TokenType
+from repalis.kit.crypto import get_token_hash
+from repalis.kit.utils import utc_now
+from repalis.models import PersonalAccessToken, User
+from repalis.personal_access_token.service import (
     personal_access_token as personal_access_token_service,
 )
-from polar.postgres import AsyncSession
+from repalis.postgres import AsyncSession
 from tests.fixtures.database import SaveFixture
 
 
 @pytest.fixture(autouse=True)
 def enqueue_email_mock(mocker: MockerFixture) -> MagicMock:
     return mocker.patch(
-        "polar.personal_access_token.service.enqueue_email_template", autospec=True
+        "repalis.personal_access_token.service.enqueue_email_template", autospec=True
     )
 
 
@@ -30,7 +30,7 @@ class TestRevokeLeaked:
     ) -> None:
         result = await personal_access_token_service.revoke_leaked(
             session,
-            "polar_pat_123",
+            "repalis_pat_123",
             TokenType.personal_access_token,
             notifier="github",
             url="https://github.com",
@@ -47,7 +47,7 @@ class TestRevokeLeaked:
         mocker: MockerFixture,
         enqueue_email_mock: MagicMock,
     ) -> None:
-        token_hash = get_token_hash("polar_pat_123")
+        token_hash = get_token_hash("repalis_pat_123")
         personal_access_token = PersonalAccessToken(
             comment="Test",
             token=token_hash,
@@ -59,7 +59,7 @@ class TestRevokeLeaked:
 
         result = await personal_access_token_service.revoke_leaked(
             session,
-            "polar_pat_123",
+            "repalis_pat_123",
             TokenType.personal_access_token,
             notifier="github",
             url="https://github.com",

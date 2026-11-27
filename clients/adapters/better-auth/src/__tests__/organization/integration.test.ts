@@ -3,19 +3,19 @@ import { type MemoryDB, memoryAdapter } from 'better-auth/adapters/memory'
 import { organization } from 'better-auth/plugins'
 import { memberAc } from 'better-auth/plugins/organization/access'
 import { describe, expect, it, vi } from 'vitest'
-import { errors, type models } from '@polar-sh/sdk/2026-10'
+import { errors, type models } from '@repalis/sdk/2026-10'
 import type {
-  PolarOrganizationOptions,
+  RepalisOrganizationOptions,
   SelectSeatProductsForMember,
 } from '../../organization/types'
 import { checkout } from '../../plugins/checkout'
 import { portal } from '../../plugins/portal'
-import { polar } from '../../server'
-import { createMockCheckout, createMockPolarClient } from '../utils/mocks'
+import { repalis } from '../../server'
+import { createMockCheckout, createMockRepalisClient } from '../utils/mocks'
 
 type CustomerSeat = models.CustomerSeat
 type CustomerTeam = models.CustomerTeam
-type PolarMember = models.Member
+type RepalisMember = models.Member
 type Product = models.Product
 type Subscription = models.Subscription
 const { ResourceNotFound } = errors
@@ -45,7 +45,7 @@ const createSeatProduct = (id = 'product-pro'): Product =>
 interface IntegrationHarnessOptions {
   creatorRole?: string
   includeFinanceRole?: boolean
-  mapBetterAuthRoleToPolarRole?: PolarOrganizationOptions['mapBetterAuthRoleToPolarRole']
+  mapBetterAuthRoleToRepalisRole?: RepalisOrganizationOptions['mapBetterAuthRoleToRepalisRole']
   syncSeats?: boolean
   selectSeatProductsForMember?: SelectSeatProductsForMember
   checkout?: boolean
@@ -62,10 +62,10 @@ const createIntegrationHarness = (options: IntegrationHarnessOptions = {}) => {
     member: [],
     invitation: [],
   }
-  const client = createMockPolarClient()
+  const client = createMockRepalisClient()
   vi.mocked(client.checkouts.create).mockResolvedValue(createMockCheckout())
   const customers = new Map<string, CustomerTeam>()
-  const members = new Map<string, PolarMember>()
+  const members = new Map<string, RepalisMember>()
   const subscriptions = new Map<string, Subscription>()
   const subscriptionSeats = new Map<string, CustomerSeat[]>()
   const checkoutProduct = options.checkoutSeatProduct
@@ -92,7 +92,7 @@ const createIntegrationHarness = (options: IntegrationHarnessOptions = {}) => {
       throw new Error('Integration harness only supports team customers')
     }
     const customer: CustomerTeam = {
-      id: `polar-${input.external_id}`,
+      id: `repalis-${input.external_id}`,
       created_at: new Date().toISOString(),
       modified_at: null,
       metadata: input.metadata ?? {},
@@ -104,14 +104,14 @@ const createIntegrationHarness = (options: IntegrationHarnessOptions = {}) => {
       billing_name: null,
       billing_address: null,
       tax_id: null,
-      organization_id: 'polar-organization',
+      organization_id: 'repalis-organization',
       deleted_at: null,
       first_user_event_at: null,
       avatar_url: null,
     }
     customers.set(input.external_id, customer)
     members.set(memberKey(input.external_id, input.owner.external_id), {
-      id: `polar-member-${input.owner.external_id}`,
+      id: `repalis-member-${input.owner.external_id}`,
       created_at: new Date().toISOString(),
       modified_at: null,
       customer_id: customer.id,
@@ -169,8 +169,8 @@ const createIntegrationHarness = (options: IntegrationHarnessOptions = {}) => {
       if (!externalMemberId) {
         throw new Error('Integration member requires an external ID')
       }
-      const member: PolarMember = {
-        id: `polar-member-${externalMemberId}`,
+      const member: RepalisMember = {
+        id: `repalis-member-${externalMemberId}`,
         created_at: new Date().toISOString(),
         modified_at: null,
         customer_id: customer.id,
@@ -202,7 +202,7 @@ const createIntegrationHarness = (options: IntegrationHarnessOptions = {}) => {
           }
         }
       }
-      const updatedMember: PolarMember = {
+      const updatedMember: RepalisMember = {
         ...member,
         email: memberUpdate.email ?? member.email,
         name: memberUpdate.name === undefined ? member.name : memberUpdate.name,
@@ -351,13 +351,13 @@ const createIntegrationHarness = (options: IntegrationHarnessOptions = {}) => {
               }
             : undefined,
       }),
-      polar({
+      repalis({
         client,
         createCustomerOnSignUp: false,
         experimental_organizationSync: {
           enabled: true,
           syncSeats: options.syncSeats,
-          mapBetterAuthRoleToPolarRole: options.mapBetterAuthRoleToPolarRole,
+          mapBetterAuthRoleToRepalisRole: options.mapBetterAuthRoleToRepalisRole,
           selectSeatProductsForMember: options.selectSeatProductsForMember,
         },
         use: (options.checkout
@@ -431,7 +431,7 @@ const createIntegrationHarness = (options: IntegrationHarnessOptions = {}) => {
 }
 
 describe('Better Auth organization integration', () => {
-  it("creates a Polar team customer through Better Auth's organization endpoint", async () => {
+  it("creates a Repalis team customer through Better Auth's organization endpoint", async () => {
     const { client, signUp, createOrganization } = createIntegrationHarness()
     const { sessionCookie, user } = await signUp({
       email: 'owner@example.com',
@@ -458,7 +458,7 @@ describe('Better Auth organization integration', () => {
     expect(client.customers.members.createExternal).not.toHaveBeenCalled()
   })
 
-  it('updates the Polar team customer when the organization is renamed', async () => {
+  it('updates the Repalis team customer when the organization is renamed', async () => {
     const { client, post, signUp, createOrganization } =
       createIntegrationHarness()
     const { sessionCookie } = await signUp({
@@ -491,7 +491,7 @@ describe('Better Auth organization integration', () => {
     expect(client.customers.members.updateExternal).not.toHaveBeenCalled()
   })
 
-  it('creates a Polar member when a user is added directly', async () => {
+  it('creates a Repalis member when a user is added directly', async () => {
     const { auth, client, signUp, createOrganization } =
       createIntegrationHarness()
     const { sessionCookie } = await signUp({
@@ -531,7 +531,7 @@ describe('Better Auth organization integration', () => {
     expect(client.customers.members.updateExternal).not.toHaveBeenCalled()
   })
 
-  it('creates a Polar member only after an invitation is accepted', async () => {
+  it('creates a Repalis member only after an invitation is accepted', async () => {
     const { client, post, signUp, createOrganization } =
       createIntegrationHarness()
     const owner = await signUp({
@@ -587,7 +587,7 @@ describe('Better Auth organization integration', () => {
     )
   })
 
-  it('updates the affected Polar member when its Better Auth role changes', async () => {
+  it('updates the affected Repalis member when its Better Auth role changes', async () => {
     const { auth, client, post, signUp, createOrganization } =
       createIntegrationHarness()
     const owner = await signUp({
@@ -636,7 +636,7 @@ describe('Better Auth organization integration', () => {
     )
   })
 
-  it('transfers Polar ownership when the current Better Auth owner is demoted', async () => {
+  it('transfers Repalis ownership when the current Better Auth owner is demoted', async () => {
     const { auth, client, database, post, signUp, createOrganization } =
       createIntegrationHarness()
     const owner = await signUp({
@@ -710,7 +710,7 @@ describe('Better Auth organization integration', () => {
     ])
   })
 
-  it('transfers Polar ownership before deleting an owner that leaves', async () => {
+  it('transfers Repalis ownership before deleting an owner that leaves', async () => {
     const { auth, client, post, signUp, createOrganization } =
       createIntegrationHarness()
     const owner = await signUp({
@@ -787,7 +787,7 @@ describe('Better Auth organization integration', () => {
     )
   })
 
-  it('uses a custom Better Auth creator role for Polar ownership and checkout', async () => {
+  it('uses a custom Better Auth creator role for Repalis ownership and checkout', async () => {
     const { client, post, signUp, createOrganization } =
       createIntegrationHarness({ creatorRole: 'founder', checkout: true })
     const founder = await signUp({
@@ -834,11 +834,11 @@ describe('Better Auth organization integration', () => {
     )
   })
 
-  it('applies custom Better Auth to Polar role mapping on add and update', async () => {
+  it('applies custom Better Auth to Repalis role mapping on add and update', async () => {
     const { auth, client, post, signUp, createOrganization } =
       createIntegrationHarness({
         includeFinanceRole: true,
-        mapBetterAuthRoleToPolarRole: ({ roles }) =>
+        mapBetterAuthRoleToRepalisRole: ({ roles }) =>
           roles.has('finance') ? 'billing_manager' : 'member',
       })
     const owner = await signUp({
@@ -902,12 +902,12 @@ describe('Better Auth organization integration', () => {
     )
   })
 
-  it('allows checkout for a custom role mapped to Polar billing manager', async () => {
+  it('allows checkout for a custom role mapped to Repalis billing manager', async () => {
     const { auth, client, post, signUp, createOrganization } =
       createIntegrationHarness({
         checkout: true,
         includeFinanceRole: true,
-        mapBetterAuthRoleToPolarRole: ({ roles }) =>
+        mapBetterAuthRoleToRepalisRole: ({ roles }) =>
           roles.has('finance') ? 'billing_manager' : 'member',
       })
     const owner = await signUp({
@@ -953,7 +953,7 @@ describe('Better Auth organization integration', () => {
     )
   })
 
-  it('calls Polar checkout only for billing-capable organization members', async () => {
+  it('calls Repalis checkout only for billing-capable organization members', async () => {
     const { auth, client, post, signUp, createOrganization } =
       createIntegrationHarness({ checkout: true })
     const owner = await signUp({
@@ -1032,7 +1032,7 @@ describe('Better Auth organization integration', () => {
     expect(client.checkouts.create).not.toHaveBeenCalled()
   })
 
-  it('updates a Polar member profile in every organization', async () => {
+  it('updates a Repalis member profile in every organization', async () => {
     const { client, post, signUp, createOrganization } =
       createIntegrationHarness()
     const user = await signUp({
@@ -1084,7 +1084,7 @@ describe('Better Auth organization integration', () => {
     )
   })
 
-  it('deletes a Polar member from every organization when the user is deleted', async () => {
+  it('deletes a Repalis member from every organization when the user is deleted', async () => {
     const { auth, client, post, signUp, createOrganization } =
       createIntegrationHarness()
     const firstOwner = await signUp({
@@ -1150,7 +1150,7 @@ describe('Better Auth organization integration', () => {
     expect(client.customers.members.updateExternal).not.toHaveBeenCalled()
   })
 
-  it('retains the Polar team customer when the organization is deleted', async () => {
+  it('retains the Repalis team customer when the organization is deleted', async () => {
     const { client, post, signUp, createOrganization } =
       createIntegrationHarness()
     const owner = await signUp({
@@ -1178,7 +1178,7 @@ describe('Better Auth organization integration', () => {
     expect(client.customers.members.deleteExternal).not.toHaveBeenCalled()
   })
 
-  it('preserves referenceId billing without enabling Polar organization support', async () => {
+  it('preserves referenceId billing without enabling Repalis organization support', async () => {
     const database: MemoryDB = {
       user: [],
       session: [],
@@ -1188,7 +1188,7 @@ describe('Better Auth organization integration', () => {
       member: [],
       invitation: [],
     }
-    const client = createMockPolarClient()
+    const client = createMockRepalisClient()
     vi.mocked(client.checkouts.create).mockResolvedValue(createMockCheckout())
     vi.mocked(client.subscriptions.list).mockResolvedValue({
       items: [],
@@ -1202,7 +1202,7 @@ describe('Better Auth organization integration', () => {
       rateLimit: { enabled: false },
       plugins: [
         organization(),
-        polar({
+        repalis({
           client,
           createCustomerOnSignUp: false,
           use: [
@@ -1291,7 +1291,7 @@ describe('Better Auth organization integration', () => {
       member: [],
       invitation: [],
     }
-    const client = createMockPolarClient()
+    const client = createMockRepalisClient()
     vi.mocked(client.checkouts.create).mockResolvedValue(createMockCheckout())
     vi.mocked(client.subscriptions.list).mockResolvedValue({
       items: [],
@@ -1306,7 +1306,7 @@ describe('Better Auth organization integration', () => {
         rateLimit: { enabled: false },
         plugins: [
           organization(),
-          polar({
+          repalis({
             client,
             createCustomerOnSignUp: false,
             ...(enableOrganizationSync
@@ -1491,7 +1491,7 @@ describe('organization seat integration', () => {
   ) => createIntegrationHarness({ ...options, syncSeats: true })
 
   const clearSeatWrites = (
-    client: ReturnType<typeof createMockPolarClient>,
+    client: ReturnType<typeof createMockRepalisClient>,
   ) => {
     vi.mocked(client.subscriptions.update).mockClear()
     vi.mocked(client.customerSeats.assignSeat).mockClear()

@@ -8,18 +8,18 @@ import structlog
 import typer
 from sqlalchemy import select
 
-from polar import tasks  # noqa: F401
-from polar.event.service import event as event_service
-from polar.event.system import (
+from repalis import tasks  # noqa: F401
+from repalis.event.service import event as event_service
+from repalis.event.system import (
     BalanceCreditOrderMetadata,
     SystemEvent,
     build_system_event,
 )
-from polar.kit.db.postgres import create_async_sessionmaker
-from polar.models import Customer, Event, Organization
-from polar.postgres import create_async_engine
-from polar.redis import create_redis
-from polar.worker import JobQueueManager
+from repalis.kit.db.postgres import create_async_sessionmaker
+from repalis.models import Customer, Event, Organization
+from repalis.postgres import create_async_engine
+from repalis.redis import create_redis
+from repalis.worker import JobQueueManager
 from scripts.helper import typer_async
 
 log = structlog.get_logger()

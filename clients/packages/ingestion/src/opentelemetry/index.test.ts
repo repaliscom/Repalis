@@ -9,17 +9,17 @@ import { ExportResultCode } from '@opentelemetry/core'
 
 const mockEventsIngest = vi.fn()
 
-// Mock the Polar SDK
-vi.mock('@polar-sh/sdk/2027-01', async (importOriginal) => ({
+// Mock the Repalis SDK
+vi.mock('@repalis/sdk/2027-01', async (importOriginal) => ({
   ...(await importOriginal()),
-  createPolar: () => ({ events: { ingest: mockEventsIngest } }),
+  createRepalis: () => ({ events: { ingest: mockEventsIngest } }),
 }))
 
-import { PolarTraceExporter } from './index'
+import { RepalisTraceExporter } from './index'
 
-describe('PolarTraceExporter', () => {
+describe('RepalisTraceExporter', () => {
   let provider: NodeTracerProvider
-  let polarExporter: PolarTraceExporter
+  let repalisExporter: RepalisTraceExporter
   let memoryExporter: InMemorySpanExporter
 
   beforeEach(async () => {
@@ -28,13 +28,13 @@ describe('PolarTraceExporter', () => {
 
     // Set up OpenTelemetry exporters
     memoryExporter = new InMemorySpanExporter()
-    polarExporter = new PolarTraceExporter({ accessToken: 'test-token' })
+    repalisExporter = new RepalisTraceExporter({ accessToken: 'test-token' })
 
     // Create provider with both span processors
     provider = new NodeTracerProvider({
       spanProcessors: [
         new SimpleSpanProcessor(memoryExporter),
-        new SimpleSpanProcessor(polarExporter),
+        new SimpleSpanProcessor(repalisExporter),
       ],
     })
 
@@ -205,7 +205,7 @@ describe('PolarTraceExporter', () => {
       // Create a separate exporter for this test to avoid conflicts
       const error = new Error('Network error')
 
-      // Create a new provider without the polar exporter to avoid double export
+      // Create a new provider without the repalis exporter to avoid double export
       const testProvider = new NodeTracerProvider({
         spanProcessors: [new SimpleSpanProcessor(memoryExporter)],
       })
@@ -226,7 +226,7 @@ describe('PolarTraceExporter', () => {
 
       // Test the exporter directly with the real spans
       await new Promise<void>((resolve) => {
-        polarExporter.export(exportedSpans, (result) => {
+        repalisExporter.export(exportedSpans, (result) => {
           expect(result.code).toBe(ExportResultCode.FAILED)
           expect(result.error).toBe(error)
           resolve()
@@ -238,7 +238,7 @@ describe('PolarTraceExporter', () => {
 
     it('should handle empty spans array', async () => {
       await new Promise<void>((resolve) => {
-        polarExporter.export([], (result) => {
+        repalisExporter.export([], (result) => {
           expect(result.code).toBe(ExportResultCode.SUCCESS)
           resolve()
         })
@@ -402,7 +402,7 @@ describe('PolarTraceExporter', () => {
 
   describe('shutdown', () => {
     it('should resolve immediately', async () => {
-      const result = await polarExporter.shutdown()
+      const result = await repalisExporter.shutdown()
       expect(result).toBeUndefined()
     })
   })

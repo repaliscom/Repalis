@@ -16,11 +16,11 @@ import {
   entriesToMetadata,
   metadataToEntries,
 } from '@/components/Metadata/utils'
-import { isValidationError, schemas } from '@polar-sh/client'
-import { Button, Text } from '@polar-sh/orbit'
-import { Combobox } from '@polar-sh/ui/components/atoms/Combobox'
-import { Input } from '@polar-sh/orbit'
-import { Switch } from '@polar-sh/orbit'
+import { isValidationError, schemas } from '@repalis/client'
+import { Button, Text } from '@repalis/orbit'
+import { Combobox } from '@repalis/ui/components/atoms/Combobox'
+import { Input } from '@repalis/orbit'
+import { Switch } from '@repalis/orbit'
 import {
   Form,
   FormControl,
@@ -29,8 +29,8 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@polar-sh/ui/components/ui/form'
-import { X as XIcon } from '@polar-sh/orbit/icons'
+} from '@repalis/ui/components/ui/form'
+import { X as XIcon } from '@repalis/orbit/icons'
 import { useRouter } from 'next/navigation'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import {

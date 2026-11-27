@@ -1,6 +1,6 @@
 # Local Environment (agent entry point)
 
-This directory is the `local-environment` skill: managing the Polar local dev
+This directory is the `local-environment` skill: managing the Repalis local dev
 stack via the `dev docker` CLI.
 
 Start with **[SKILL.md](SKILL.md)** — it holds the model (shared infra vs

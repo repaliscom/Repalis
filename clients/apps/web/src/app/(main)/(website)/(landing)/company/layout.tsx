@@ -3,14 +3,14 @@ import { Metadata } from 'next'
 export const metadata: Metadata = {
   title: 'Company',
   description:
-    'Small team, big ambitions. Learn about Polar, our open roles, and the investors who back us.',
+    'Small team, big ambitions. Learn about Repalis, our open roles, and the investors who back us.',
   openGraph: {
     title: 'Company',
     description:
-      'Small team, big ambitions. Learn about Polar, our open roles, and the investors who back us.',
+      'Small team, big ambitions. Learn about Repalis, our open roles, and the investors who back us.',
     images: [
       {
-        url: 'https://polar.sh/assets/brand/polar_og.jpg',
+        url: 'https://repalis.com/assets/brand/repalis_og.jpg',
         width: 1200,
         height: 630,
       },
@@ -20,8 +20,8 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Company',
     description:
-      'Small team, big ambitions. Learn about Polar, our open roles, and the investors who back us.',
-    images: ['https://polar.sh/assets/brand/polar_og.jpg'],
+      'Small team, big ambitions. Learn about Repalis, our open roles, and the investors who back us.',
+    images: ['https://repalis.com/assets/brand/repalis_og.jpg'],
   },
 }
 

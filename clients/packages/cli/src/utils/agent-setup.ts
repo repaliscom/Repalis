@@ -7,9 +7,9 @@ import type {
 } from '@/schemas/AgentSetup'
 import * as ui from '@/utils/ui'
 
-const MCP_DOCS = 'https://polar.sh/docs/integrate/mcp'
+const MCP_DOCS = 'https://repalis.com/docs/integrate/mcp'
 
-export const skillsName = (scope: SkillScope) => `Polar skills (${scope})`
+export const skillsName = (scope: SkillScope) => `Repalis skills (${scope})`
 
 export const errorDetail = (error: AgentSetupError) =>
   ui.step(`  ${[error.message, error.hint].filter(Boolean).join(': ')}`)
@@ -18,8 +18,8 @@ export const describeClient = (status: ClientStatus) => {
   if (status.problem) return status.problem
   if (status.installed) return 'Already set up'
   return status.client === 'cursor'
-    ? 'Adds the Polar MCP servers and skills'
-    : 'Installs the Polar plugin: MCP servers and skills'
+    ? 'Adds the Repalis MCP servers and skills'
+    : 'Installs the Repalis plugin: MCP servers and skills'
 }
 
 const clientState = (status: ClientStatus) => {
@@ -52,7 +52,7 @@ export const statusReport = (result: AgentSetupResult) => {
     ui.blank,
     ...(pending
       ? [
-          ui.step(`Run ${ui.command('polar agent setup')} to set them up`),
+          ui.step(`Run ${ui.command('repalis agent setup')} to set them up`),
           ui.blank,
         ]
       : []),
@@ -77,17 +77,17 @@ export const summary = ({ steps, clients }: AgentSetupResult) => {
   return [
     ui.warning('No Claude Code, Codex or Cursor installation found'),
     ui.step(
-      `Install the Polar skills for another agent with ${ui.command('polar agent setup --skills project')}`,
+      `Install the Repalis skills for another agent with ${ui.command('repalis agent setup --skills project')}`,
     ),
-    ui.step(`and connect it to the Polar MCP server: ${MCP_DOCS}`),
+    ui.step(`and connect it to the Repalis MCP server: ${MCP_DOCS}`),
     ui.blank,
   ]
 }
 
 const signIn: Partial<Record<SetupStep['target'], string>> = {
-  'claude-code': `Claude Code: restart it, run ${ui.command('/mcp')} and sign in to polar or polar-sandbox`,
-  codex: `Codex: run ${ui.command('codex mcp login polar')} or ${ui.command('codex mcp login polar-sandbox')}`,
-  cursor: 'Cursor: open Settings → MCP and connect polar or polar-sandbox',
+  'claude-code': `Claude Code: restart it, run ${ui.command('/mcp')} and sign in to repalis or repalis-sandbox`,
+  codex: `Codex: run ${ui.command('codex mcp login repalis')} or ${ui.command('codex mcp login repalis-sandbox')}`,
+  cursor: 'Cursor: open Settings → MCP and connect repalis or repalis-sandbox',
 }
 
 export const nextSteps = ({ steps }: AgentSetupResult) => {
@@ -99,7 +99,7 @@ export const nextSteps = ({ steps }: AgentSetupResult) => {
   if (lines.length === 0) return [ui.blank]
   return [
     ui.blank,
-    `${ui.INDENT}${ui.bold('Next, sign in to Polar')}`,
+    `${ui.INDENT}${ui.bold('Next, sign in to Repalis')}`,
     ...lines.map((line) => ui.step(line)),
     ui.blank,
   ]

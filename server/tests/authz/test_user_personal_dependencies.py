@@ -9,11 +9,11 @@ from unittest.mock import MagicMock
 
 import pytest
 
-from polar.auth.models import AuthSubject
-from polar.auth.scope import READ_ONLY_SCOPES, Scope
-from polar.authz.dependencies import WebUserAuthorizer
-from polar.models import User, UserSession
-from polar.oauth2.exceptions import InsufficientScopeError
+from repalis.auth.models import AuthSubject
+from repalis.auth.scope import READ_ONLY_SCOPES, Scope
+from repalis.authz.dependencies import WebUserAuthorizer
+from repalis.models import User, UserSession
+from repalis.oauth2.exceptions import InsufficientScopeError
 
 
 def _auth_subject(scopes: set[Scope]) -> AuthSubject[User]:

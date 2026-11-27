@@ -1,6 +1,6 @@
 import { extractApiErrorMessage } from '@/utils/api/errors'
 import { api, createClientSideAPI } from '@/utils/client'
-import { schemas, unwrap } from '@polar-sh/client'
+import { schemas, unwrap } from '@repalis/client'
 import {
   type UseQueryResult,
   useMutation,

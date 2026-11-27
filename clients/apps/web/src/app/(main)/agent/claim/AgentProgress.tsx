@@ -1,4 +1,4 @@
-import { SpinnerNoMargin } from '@polar-sh/orbit'
+import { SpinnerNoMargin } from '@repalis/orbit'
 import { useEffect, useState } from 'react'
 
 export interface ProgressMessage {
@@ -21,8 +21,8 @@ const AgentProgress = ({
 
   return (
     <span role="status" className="inline-flex items-center gap-2">
-      <SpinnerNoMargin className="dark:text-polar-500 h-3.5 w-3.5 text-gray-400" />
-      <span className="dark:from-polar-500 dark:via-polar-100 dark:to-polar-500 [animation:shimmer_2s_linear_infinite] bg-linear-to-r from-gray-400 via-gray-800 to-gray-400 bg-size-[200%_100%] bg-clip-text text-transparent">
+      <SpinnerNoMargin className="dark:text-repalis-500 h-3.5 w-3.5 text-gray-400" />
+      <span className="dark:from-repalis-500 dark:via-repalis-100 dark:to-repalis-500 [animation:shimmer_2s_linear_infinite] bg-linear-to-r from-gray-400 via-gray-800 to-gray-400 bg-size-[200%_100%] bg-clip-text text-transparent">
         {messages[index]?.text}
       </span>
     </span>

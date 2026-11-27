@@ -6,21 +6,21 @@ from unittest.mock import AsyncMock
 import pytest
 from pytest_mock import MockerFixture
 
-from polar.config import Environment, settings
-from polar.integrations.slack.client import SlackClientError
-from polar.kit.utils import utc_now
-from polar.merchant_migration.pan_transfer import PanTransferMethod
-from polar.merchant_migration.repository import MerchantMigrationRecordRepository
-from polar.merchant_migration.service import (
+from repalis.config import Environment, settings
+from repalis.integrations.slack.client import SlackClientError
+from repalis.kit.utils import utc_now
+from repalis.merchant_migration.pan_transfer import PanTransferMethod
+from repalis.merchant_migration.repository import MerchantMigrationRecordRepository
+from repalis.merchant_migration.service import (
     merchant_migration as merchant_migration_service,
 )
-from polar.merchant_migration.slack import SlackAlertInProgress
-from polar.merchant_migration.tasks import (
+from repalis.merchant_migration.slack import SlackAlertInProgress
+from repalis.merchant_migration.tasks import (
     merchant_migration_close_idle,
     merchant_migration_notify_created,
     merchant_migration_notify_waiting_for_ops,
 )
-from polar.models import (
+from repalis.models import (
     MerchantMigration,
     MerchantMigrationOperation,
     MerchantMigrationOperationStatus,
@@ -30,9 +30,9 @@ from polar.models import (
     MerchantMigrationStep,
     Organization,
 )
-from polar.models.merchant_migration_operation import STALL_THRESHOLD
-from polar.postgres import AsyncSession
-from polar.redis import Redis
+from repalis.models.merchant_migration_operation import STALL_THRESHOLD
+from repalis.postgres import AsyncSession
+from repalis.redis import Redis
 from tests.fixtures.database import SaveFixture
 
 from ._helpers import build_connected_migration, pan_steps_until, record_source_ids
@@ -41,15 +41,15 @@ from ._helpers import build_connected_migration, pan_steps_until, record_source_
 @pytest.fixture
 def chat_post_message(mocker: MockerFixture, session: AsyncSession) -> AsyncMock:
     mocker.patch(
-        "polar.merchant_migration.tasks.AsyncSessionMaker",
+        "repalis.merchant_migration.tasks.AsyncSessionMaker",
         side_effect=lambda: contextlib.nullcontext(session),
     )
     mocker.patch(
-        "polar.merchant_migration.slack.ALERT_ENVIRONMENTS", frozenset({settings.ENV})
+        "repalis.merchant_migration.slack.ALERT_ENVIRONMENTS", frozenset({settings.ENV})
     )
     mocker.patch.object(settings, "SLACK_BOT_TOKEN", "xoxb-test")
     return mocker.patch(
-        "polar.merchant_migration.slack.slack_client.chat_post_message",
+        "repalis.merchant_migration.slack.slack_client.chat_post_message",
         new_callable=AsyncMock,
     )
 
@@ -169,10 +169,10 @@ IDLE = settings.MERCHANT_MIGRATION_IDLE_RETENTION_PERIOD + timedelta(days=1)
 @pytest.fixture
 def worker_session(mocker: MockerFixture, session: AsyncSession) -> AsyncSession:
     mocker.patch(
-        "polar.merchant_migration.tasks.AsyncSessionMaker",
+        "repalis.merchant_migration.tasks.AsyncSessionMaker",
         side_effect=lambda: contextlib.nullcontext(session),
     )
-    mocker.patch("polar.merchant_migration.tasks.asyncio.sleep", new=AsyncMock())
+    mocker.patch("repalis.merchant_migration.tasks.asyncio.sleep", new=AsyncMock())
     return session
 
 
@@ -222,7 +222,7 @@ class TestCloseIdle:
             )
             idle_migration.modified_at = utc_now() - IDLE
             await save_fixture(idle_migration)
-        mocker.patch("polar.merchant_migration.service.CLOSE_DELETE_BATCH_SIZE", 2)
+        mocker.patch("repalis.merchant_migration.service.CLOSE_DELETE_BATCH_SIZE", 2)
         credentials = dict(idle_migration.source_credentials)
 
         await merchant_migration_close_idle()

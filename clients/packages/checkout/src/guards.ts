@@ -1,4 +1,4 @@
-import type { schemas } from '@polar-sh/client'
+import type { schemas } from '@repalis/client'
 
 interface ProductCheckoutMixin {
   product_id: string

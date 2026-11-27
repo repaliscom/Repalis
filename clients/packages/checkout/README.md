@@ -1,10 +1,10 @@
-# `@polar-sh/checkout`
+# `@repalis/checkout`
 
-JavaScript utilities for embedding Polar into your website. Drop in the single CDN script (auto-init) or import per-feature from npm for tree-shaking.
+JavaScript utilities for embedding Repalis into your website. Drop in the single CDN script (auto-init) or import per-feature from npm for tree-shaking.
 
 ## Payment Method
 
-A customer session token authenticates every embed. Create it **on your server** — your Polar access token must stay secret — then hand the token to the browser. The SDK accepts either a `polar_cst_*` or `polar_mst_*` prefix and routes internally.
+A customer session token authenticates every embed. Create it **on your server** — your Repalis access token must stay secret — then hand the token to the browser. The SDK accepts either a `repalis_cst_*` or `repalis_mst_*` prefix and routes internally.
 
 ### Javascript
 
@@ -13,15 +13,15 @@ A customer session token authenticates every embed. Create it **on your server**
 A full-screen overlay the SDK creates and tears down for you — open it on demand, e.g. from a button click.
 
 ```ts
-import { createPolar } from '@polar-sh/sdk/2026-10'
-import { PolarEmbedPaymentMethod } from '@polar-sh/checkout/payment-method'
+import { createRepalis } from '@repalis/sdk/2026-10'
+import { RepalisEmbedPaymentMethod } from '@repalis/checkout/payment-method'
 
-const polar = createPolar({ accessToken: process.env.POLAR_ACCESS_TOKEN })
-const session = await polar.customerSessions.create({
+const repalis = createRepalis({ accessToken: process.env.REPALIS_ACCESS_TOKEN })
+const session = await repalis.customerSessions.create({
   customer_id: 'ABC-123',
 })
 
-const embed = await PolarEmbedPaymentMethod.create({
+const embed = await RepalisEmbedPaymentMethod.create({
   sessionToken: session.token,
 })
 
@@ -34,7 +34,7 @@ embed.addEventListener('success', (event) => {
 
 | Option         | Type                           | Default     | Description                                                                                                                                                           |
 | -------------- | ------------------------------ | ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `sessionToken` | `string`                       | —           | **Required.** Session token from `POST /v1/customer-sessions` (`polar_cst_*` or `polar_mst_*`).                                                                       |
+| `sessionToken` | `string`                       | —           | **Required.** Session token from `POST /v1/customer-sessions` (`repalis_cst_*` or `repalis_mst_*`).                                                                       |
 | `theme`        | `'light' \| 'dark'`            | `light`     | Colour scheme for the embed.                                                                                                                                          |
 | `setAsDefault` | `boolean`                      | `true`      | Whether the new card should become the customer's default payment method.                                                                                             |
 | `returnUrl`    | `string`                       | current URL | Where to return the customer after a redirect-based payment method (Amazon Pay etc). Defaults to `window.location.href`. See [Redirect re-entry](#redirect-re-entry). |
@@ -46,17 +46,17 @@ embed.addEventListener('success', (event) => {
 A chrome-less, auto-resizing iframe mounted into an element you control — compose it into your own layout.
 
 ```ts
-import { createPolar } from '@polar-sh/sdk/2026-10'
-import { PolarEmbedPaymentMethod } from '@polar-sh/checkout/payment-method'
+import { createRepalis } from '@repalis/sdk/2026-10'
+import { RepalisEmbedPaymentMethod } from '@repalis/checkout/payment-method'
 
-const polar = createPolar({ accessToken: process.env.POLAR_ACCESS_TOKEN })
-const session = await polar.customerSessions.create({
+const repalis = createRepalis({ accessToken: process.env.REPALIS_ACCESS_TOKEN })
+const session = await repalis.customerSessions.create({
   customer_id: 'ABC-123',
 })
 
-const embed = PolarEmbedPaymentMethod.createInline({
+const embed = RepalisEmbedPaymentMethod.createInline({
   sessionToken: session.token,
-  element: document.getElementById('polar-payment-method')!,
+  element: document.getElementById('repalis-payment-method')!,
 })
 
 embed.addEventListener('success', (event) => {
@@ -68,7 +68,7 @@ embed.addEventListener('success', (event) => {
 
 | Option         | Type                           | Default | Description                                                                                       |
 | -------------- | ------------------------------ | ------- | ------------------------------------------------------------------------------------------------- |
-| `sessionToken` | `string`                       | —       | **Required.** Session token from `POST /v1/customer-sessions` (`polar_cst_*` or `polar_mst_*`).   |
+| `sessionToken` | `string`                       | —       | **Required.** Session token from `POST /v1/customer-sessions` (`repalis_cst_*` or `repalis_mst_*`).   |
 | `element`      | `HTMLElement`                  | —       | **Required.** The element to mount the embed into. Any existing children are replaced.            |
 | `theme`        | `'light' \| 'dark'`            | `light` | Colour scheme for the embed.                                                                      |
 | `setAsDefault` | `boolean`                      | `true`  | Whether the new card should become the customer's default payment method.                         |
@@ -100,7 +100,7 @@ All events are dispatched as cancelable `CustomEvent`s on the `embed` instance. 
 Redirect-based payment methods (Amazon Pay etc, etc) authorise on the provider's own site — the browser navigates the whole tab away and back to `returnUrl` (defaults to the page the SDK was opened from), so the modal can't survive the round-trip. Read the outcome on the returned page with the static `getRedirectResult()`:
 
 ```ts
-const result = PolarEmbedPaymentMethod.getRedirectResult()
+const result = RepalisEmbedPaymentMethod.getRedirectResult()
 // result: { status: 'succeeded' | 'failed' } | null
 
 if (result?.status === 'succeeded') {
@@ -114,24 +114,24 @@ It strips the status param from the URL so a refresh won't resurface a stale res
 
 #### Modal
 
-Open the full-screen modal with `PolarEmbedPaymentMethod.create()` — the same API as vanilla JS, called from a Client Component event handler.
+Open the full-screen modal with `RepalisEmbedPaymentMethod.create()` — the same API as vanilla JS, called from a Client Component event handler.
 
 ```tsx
-import { createPolar } from '@polar-sh/sdk/2026-10'
-import { PolarEmbedPaymentMethod } from '@polar-sh/checkout/payment-method'
+import { createRepalis } from '@repalis/sdk/2026-10'
+import { RepalisEmbedPaymentMethod } from '@repalis/checkout/payment-method'
 
 export function AddPaymentMethodButton({
   sessionToken,
 }: {
   sessionToken: string
 }) {
-  const polar = createPolar({ accessToken: process.env.POLAR_ACCESS_TOKEN })
-  const session = await polar.customerSessions.create({
+  const repalis = createRepalis({ accessToken: process.env.REPALIS_ACCESS_TOKEN })
+  const session = await repalis.customerSessions.create({
     customer_id: 'ABC-123',
   })
 
   const openEmbed = async () => {
-    const embed = await PolarEmbedPaymentMethod.create({ sessionToken })
+    const embed = await RepalisEmbedPaymentMethod.create({ sessionToken })
     embed.addEventListener('success', (event) => {
       console.log('Attached:', event.detail.paymentMethodId)
     })
@@ -143,19 +143,19 @@ export function AddPaymentMethodButton({
 
 #### Inline
 
-Render `<PolarPaymentMethod />` for a chrome-less, auto-resizing embed inside your own layout.
+Render `<RepalisPaymentMethod />` for a chrome-less, auto-resizing embed inside your own layout.
 
 ```tsx
-import { createPolar } from '@polar-sh/sdk/2026-10'
-import { PolarPaymentMethod } from '@polar-sh/checkout/react/payment-method'
+import { createRepalis } from '@repalis/sdk/2026-10'
+import { RepalisPaymentMethod } from '@repalis/checkout/react/payment-method'
 
-const polar = createPolar({ accessToken: process.env.POLAR_ACCESS_TOKEN })
-const session = await polar.customerSessions.create({
+const repalis = createRepalis({ accessToken: process.env.REPALIS_ACCESS_TOKEN })
+const session = await repalis.customerSessions.create({
   customer_id: 'ABC-123',
 })
 
 return (
-  <PolarPaymentMethod
+  <RepalisPaymentMethod
     sessionToken={session.token}
     onSuccess={(id) => console.log('Attached:', id)}
   />
@@ -182,7 +182,7 @@ return (
 Redirect-based payment methods (Amazon Pay etc etc.) navigate the whole tab away to the provider and back. Read the outcome on the returned page with the `usePaymentMethodRedirectResult` hook:
 
 ```tsx
-import { usePaymentMethodRedirectResult } from '@polar-sh/checkout/react/payment-method'
+import { usePaymentMethodRedirectResult } from '@repalis/checkout/react/payment-method'
 
 usePaymentMethodRedirectResult({
   onSuccess: () => toast('Payment method added'),
@@ -195,10 +195,10 @@ It reads the result once on mount and strips the status param from the URL. Card
 ### Code snippet
 
 ```ts
-import { createPolar } from '@polar-sh/sdk/2026-10'
+import { createRepalis } from '@repalis/sdk/2026-10'
 
-const polar = createPolar({ accessToken: process.env.POLAR_ACCESS_TOKEN })
-const session = await polar.customerSessions.create({
+const repalis = createRepalis({ accessToken: process.env.REPALIS_ACCESS_TOKEN })
+const session = await repalis.customerSessions.create({
   customer_id: 'ABC-123',
 })
 ```
@@ -207,21 +207,21 @@ const session = await polar.customerSessions.create({
 <script
   defer
   data-auto-init
-  src="https://cdn.jsdelivr.net/npm/@polar-sh/checkout@latest/dist/embed.global.js"
+  src="https://cdn.jsdelivr.net/npm/@repalis/checkout@latest/dist/embed.global.js"
 ></script>
 
 <!-- session.token rendered into the attribute server-side -->
-<button data-polar-payment-method="polar_cst_…">Add payment method</button>
+<button data-repalis-payment-method="repalis_cst_…">Add payment method</button>
 ```
 
-The same script also powers `PolarEmbedCheckout` triggers — one tag covers every Polar embed.
+The same script also powers `RepalisEmbedCheckout` triggers — one tag covers every Repalis embed.
 
 #### Attributes
 
 | Attribute                                  | Value           | Description                                                                                        |
 | ------------------------------------------ | --------------- | -------------------------------------------------------------------------------------------------- |
-| `data-polar-payment-method`                | `string`        | **Required.** The session token. Clicking the element opens the modal.                             |
-| `data-polar-payment-method-theme`          | `light \| dark` | Optional theme override.                                                                           |
-| `data-polar-payment-method-set-as-default` | `true \| false` | Optional. Default `true`. Passing `"false"` adds the card without overriding the existing default. |
-| `data-polar-payment-method-return-url`     | `string`        | Optional. Return URL for redirect-based payment methods. Defaults to the current page.             |
-| `data-polar-payment-method-locale`         | `string`        | Optional. BCP47 locale (e.g. `'en'`, `'fr-FR'`). Unsupported locales fall back to English.         |
+| `data-repalis-payment-method`                | `string`        | **Required.** The session token. Clicking the element opens the modal.                             |
+| `data-repalis-payment-method-theme`          | `light \| dark` | Optional theme override.                                                                           |
+| `data-repalis-payment-method-set-as-default` | `true \| false` | Optional. Default `true`. Passing `"false"` adds the card without overriding the existing default. |
+| `data-repalis-payment-method-return-url`     | `string`        | Optional. Return URL for redirect-based payment methods. Defaults to the current page.             |
+| `data-repalis-payment-method-locale`         | `string`        | Optional. BCP47 locale (e.g. `'en'`, `'fr-FR'`). Unsupported locales fall back to English.         |

@@ -1,27 +1,27 @@
 'use client'
 
 import { useInView } from '@/hooks/useInView'
-import { Check, LoaderCircle } from '@polar-sh/orbit/icons'
+import { Check, LoaderCircle } from '@repalis/orbit/icons'
 import { useEffect, useState } from 'react'
 import { Shimmer } from '../Shimmer'
 
-/** The prompts the session rotates through: what a coding agent does with Polar's MCP server and skills. */
+/** The prompts the session rotates through: what a coding agent does with Repalis's MCP server and skills. */
 const TURNS = [
   {
-    prompt: 'Implement Polar for billing in my app',
+    prompt: 'Implement Repalis for billing in my app',
     running: 'Adding checkout, customer portal and webhooks',
     done: 'Edited 3 files',
     result: 'Checkout, the customer portal and verified webhooks are wired in.',
   },
   {
-    prompt: 'Meter every model call with Polar',
-    running: 'Wrapping the model with Polar ingestion',
+    prompt: 'Meter every model call with Repalis',
+    running: 'Wrapping the model with Repalis ingestion',
     done: 'Edited 2 files',
-    result: 'Every model call now sends its token usage to Polar.',
+    result: 'Every model call now sends its token usage to Repalis.',
   },
   {
     prompt: 'Add a Pro plan with 10,000 credits a month',
-    running: 'Creating the product in Polar',
+    running: 'Creating the product in Repalis',
     done: 'Created Pro',
     result: 'Pro is live at $49 a month and grants 10,000 credits each cycle.',
   },
@@ -43,7 +43,7 @@ const DURATIONS = {
   exit: 500,
 }
 
-/** A coding agent working with Polar, in the terminal style of the landing's Agents figure. Loops. */
+/** A coding agent working with Repalis, in the terminal style of the landing's Agents figure. Loops. */
 export const McpSession = () => {
   const { ref, inView } = useInView()
   const [turn, setTurn] = useState(0)
@@ -97,14 +97,14 @@ export const McpSession = () => {
       ref={ref}
       className={`flex h-full min-w-0 flex-col gap-1 font-mono text-[13px] leading-6 transition-opacity duration-500 ${phase === 'exit' ? 'opacity-0' : 'opacity-100'}`}
     >
-      <div className="border-polar-700 mb-4 flex flex-col self-start rounded-md border px-3 py-1">
+      <div className="border-repalis-700 mb-4 flex flex-col self-start rounded-md border px-3 py-1">
         <span className="text-white">
-          <span className="text-polar-300">✻ </span>Claude Code
+          <span className="text-repalis-300">✻ </span>Claude Code
         </span>
-        <span className="text-polar-500">~/acme · Polar MCP connected</span>
+        <span className="text-repalis-500">~/acme · Repalis MCP connected</span>
       </div>
       <div className="whitespace-pre-wrap text-white">
-        <span className="text-polar-500">{'> '}</span>
+        <span className="text-repalis-500">{'> '}</span>
         {prompt.slice(0, typed)}
         {phase === 'enter' || phase === 'typing' ? (
           <span
@@ -113,7 +113,7 @@ export const McpSession = () => {
         ) : null}
       </div>
       {settled ? (
-        <div className="text-polar-500 mt-2 flex [animation:appear_300ms_ease-out_both] items-center gap-2">
+        <div className="text-repalis-500 mt-2 flex [animation:appear_300ms_ease-out_both] items-center gap-2">
           {phase === 'done' ? (
             <Check size={12} className="shrink-0" />
           ) : (
@@ -125,7 +125,7 @@ export const McpSession = () => {
         </div>
       ) : null}
       {phase === 'done' ? (
-        <div className="text-polar-300 [animation:appear_360ms_ease-out_both] whitespace-pre-wrap">
+        <div className="text-repalis-300 [animation:appear_360ms_ease-out_both] whitespace-pre-wrap">
           {result}
         </div>
       ) : null}

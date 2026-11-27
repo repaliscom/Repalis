@@ -3,20 +3,20 @@ import uuid
 import pytest
 from pydantic import HttpUrl
 
-from polar.auth.models import AuthSubject
-from polar.checkout_link.schemas import (
+from repalis.auth.models import AuthSubject
+from repalis.checkout_link.schemas import (
     CheckoutLinkCreateProducts,
     CheckoutLinkUpdate,
 )
-from polar.checkout_link.service import checkout_link as checkout_link_service
-from polar.enums import PaymentProcessor, SubscriptionRecurringInterval
-from polar.exceptions import PolarRequestValidationError
-from polar.kit.pagination import PaginationParams
-from polar.kit.trial import TrialInterval
-from polar.models import Discount, Organization, Product, User, UserOrganization
-from polar.models.checkout_link import CheckoutLink
-from polar.models.product_price import ProductPriceFixed
-from polar.postgres import AsyncSession
+from repalis.checkout_link.service import checkout_link as checkout_link_service
+from repalis.enums import PaymentProcessor, SubscriptionRecurringInterval
+from repalis.exceptions import RepalisRequestValidationError
+from repalis.kit.pagination import PaginationParams
+from repalis.kit.trial import TrialInterval
+from repalis.models import Discount, Organization, Product, User, UserOrganization
+from repalis.models.checkout_link import CheckoutLink
+from repalis.models.product_price import ProductPriceFixed
+from repalis.postgres import AsyncSession
 from tests.fixtures.auth import AuthSubjectFixture
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (
@@ -117,7 +117,7 @@ class TestCreate:
     async def test_not_existing_product(
         self, session: AsyncSession, auth_subject: AuthSubject[User]
     ) -> None:
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await checkout_link_service.create(
                 session,
                 CheckoutLinkCreateProducts(
@@ -137,7 +137,7 @@ class TestCreate:
         auth_subject: AuthSubject[User | Organization],
         product_one_time: Product,
     ) -> None:
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await checkout_link_service.create(
                 session,
                 CheckoutLinkCreateProducts(
@@ -167,7 +167,7 @@ class TestCreate:
         setattr(product_one_time, field, value)
         await save_fixture(product_one_time)
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await checkout_link_service.create(
                 session,
                 CheckoutLinkCreateProducts(
@@ -196,7 +196,7 @@ class TestCreate:
         )
         await save_fixture(user_organization)
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await checkout_link_service.create(
                 session,
                 CheckoutLinkCreateProducts(
@@ -293,7 +293,7 @@ class TestCreateSeats:
         user_organization: UserOrganization,
         product_one_time: Product,
     ) -> None:
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await checkout_link_service.create(
                 session,
                 CheckoutLinkCreateProducts(
@@ -313,7 +313,7 @@ class TestCreateSeats:
         product_seat_based_2_to_20: Product,
         product_one_time: Product,
     ) -> None:
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await checkout_link_service.create(
                 session,
                 CheckoutLinkCreateProducts(
@@ -332,7 +332,7 @@ class TestCreateSeats:
         user_organization: UserOrganization,
         product_seat_based_2_to_20: Product,
     ) -> None:
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await checkout_link_service.create(
                 session,
                 CheckoutLinkCreateProducts(
@@ -351,7 +351,7 @@ class TestCreateSeats:
         user_organization: UserOrganization,
         product_seat_based_2_to_20: Product,
     ) -> None:
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await checkout_link_service.create(
                 session,
                 CheckoutLinkCreateProducts(
@@ -393,7 +393,7 @@ class TestCreateUnits:
         user_organization: UserOrganization,
         product_one_time: Product,
     ) -> None:
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await checkout_link_service.create(
                 session,
                 CheckoutLinkCreateProducts(
@@ -412,7 +412,7 @@ class TestCreateUnits:
         user_organization: UserOrganization,
         product_unit_based_minimum_2: Product,
     ) -> None:
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await checkout_link_service.create(
                 session,
                 CheckoutLinkCreateProducts(
@@ -451,7 +451,7 @@ class TestCreateUnits:
         product.prices.append(eur_price)
         product.all_prices.append(eur_price)
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await checkout_link_service.create(
                 session,
                 CheckoutLinkCreateProducts(
@@ -591,7 +591,7 @@ class TestUpdate:
         )
         await save_fixture(user_organization)
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await checkout_link_service.update(
                 session,
                 checkout_link,
@@ -613,7 +613,7 @@ class TestUpdate:
         product: Product,
         product_one_time: Product,
     ) -> None:
-        from polar.kit.trial import TrialInterval
+        from repalis.kit.trial import TrialInterval
 
         checkout_link_with_trial = await create_checkout_link(
             save_fixture,
@@ -670,7 +670,7 @@ class TestUpdate:
             save_fixture, products=[product_seat_based_2_to_20]
         )
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await checkout_link_service.update(
                 session,
                 checkout_link,

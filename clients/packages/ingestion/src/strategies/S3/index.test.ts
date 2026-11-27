@@ -29,7 +29,7 @@ const trackUploads = (s3Client: S3Client) => {
     .strategy(new S3Strategy(s3Client))
     .ingest('s3-bytes')
   const ingest = vi
-    .spyOn(strategy.polarClient!.events, 'ingest')
+    .spyOn(strategy.repalisClient!.events, 'ingest')
     .mockResolvedValue({ inserted: 1 })
 
   return { strategy, ingest }
@@ -141,7 +141,7 @@ describe('S3Strategy', () => {
 
   it('should log a failed ingest without failing the S3 call', async () => {
     const { strategy, ingest } = trackUploads(createS3Client())
-    ingest.mockRejectedValue(new Error('Polar is down'))
+    ingest.mockRejectedValue(new Error('Repalis is down'))
     const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {})
 
     await strategy.client({ customerId: 'alice' }).send(upload('key'))

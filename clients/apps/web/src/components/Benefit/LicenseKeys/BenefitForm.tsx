@@ -1,16 +1,16 @@
 'use client'
 
-import { schemas } from '@polar-sh/client'
-import { Input } from '@polar-sh/orbit'
+import { schemas } from '@repalis/client'
+import { Input } from '@repalis/orbit'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@polar-sh/orbit'
-import { Switch } from '@polar-sh/orbit'
-import { Checkbox } from '@polar-sh/orbit'
+} from '@repalis/orbit'
+import { Switch } from '@repalis/orbit'
+import { Checkbox } from '@repalis/orbit'
 import {
   FormControl,
   FormDescription,
@@ -18,7 +18,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@polar-sh/ui/components/ui/form'
+} from '@repalis/ui/components/ui/form'
 import { useState } from 'react'
 import { useFormContext, useWatch } from 'react-hook-form'
 
@@ -200,7 +200,7 @@ export const LicenseKeysBenefitForm = () => {
               htmlFor="license-key-activations-user-admin"
               className="-mt-2 text-sm"
             >
-              Enable user to deactivate instances via Polar
+              Enable user to deactivate instances via Repalis
             </label>
           </div>
         </>

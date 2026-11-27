@@ -3,15 +3,15 @@ from unittest.mock import MagicMock
 import pytest
 from pytest_mock import MockerFixture
 
-from polar.enums import TokenType
-from polar.oauth2.service.oauth2_client import oauth2_client as oauth2_client_service
-from polar.postgres import AsyncSession
+from repalis.enums import TokenType
+from repalis.oauth2.service.oauth2_client import oauth2_client as oauth2_client_service
+from repalis.postgres import AsyncSession
 
 
 @pytest.fixture(autouse=True)
 def enqueue_email_mock(mocker: MockerFixture) -> MagicMock:
     return mocker.patch(
-        "polar.oauth2.service.oauth2_client.enqueue_email_template", autospec=True
+        "repalis.oauth2.service.oauth2_client.enqueue_email_template", autospec=True
     )
 
 
@@ -20,8 +20,8 @@ class TestRevokeLeaked:
     @pytest.mark.parametrize(
         ("token", "token_type"),
         [
-            ("polar_cs_123", TokenType.client_secret),
-            ("polar_crt_123", TokenType.client_registration_token),
+            ("repalis_cs_123", TokenType.client_secret),
+            ("repalis_crt_123", TokenType.client_registration_token),
         ],
     )
     async def test_false_positive(

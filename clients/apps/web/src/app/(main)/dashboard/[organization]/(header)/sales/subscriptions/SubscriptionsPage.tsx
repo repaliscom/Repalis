@@ -23,8 +23,8 @@ import {
   DataTableSortingState,
   sortingStateToQueryParam,
 } from '@/utils/datatable'
-import { schemas } from '@polar-sh/client'
-import { Copy, Download } from '@polar-sh/orbit/icons'
+import { schemas } from '@repalis/client'
+import { Copy, Download } from '@repalis/orbit/icons'
 import { functionalUpdate, OnChangeFn } from '@tanstack/react-table'
 import {
   parseAsArrayOf,

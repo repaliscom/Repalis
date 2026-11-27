@@ -25,7 +25,7 @@ import { LiveLedger } from '../live/ledger'
 import { LiveBalance } from '../live/money'
 
 /**
- * The Polar manual: pages that explain the system the way a reference manual explains a screen or a hard drive.
+ * The Repalis manual: pages that explain the system the way a reference manual explains a screen or a hard drive.
  * The pages of makingsoftware.com, drawn in the hand of the rebrand film. Each is a head, one figure with callouts, a paragraph and a foot.
  */
 
@@ -327,7 +327,7 @@ export const manual: Piece[] = [
               route="v"
               dot={false}
             >
-              polar.config.ts
+              repalis.config.ts
             </Callout>
           </g>
         </Figure>,
@@ -358,11 +358,11 @@ export const manual: Piece[] = [
     },
   ),
 
-  // 0b The CLI: a `polar apply` session, set as typography. Gutter markers, bars beside blocks, inverted lines for changes.
+  // 0b The CLI: a `repalis apply` session, set as typography. Gutter markers, bars beside blocks, inverted lines for changes.
   page(
     'm-cli',
     'Review and apply',
-    'A transcript of `polar apply`: the plan, the diff, the confirmation, and the changes it made. The CLI takes a billing definition from a file to production. Chapter 1.',
+    'A transcript of `repalis apply`: the plan, the diff, the confirmation, and the changes it made. The CLI takes a billing definition from a file to production. Chapter 1.',
     960,
     540,
     2,
@@ -370,9 +370,9 @@ export const manual: Piece[] = [
       const { line } = term(70, 150, 8, 11.6)
       const D = (t: string): TermTok => ({ t, tone: 'dim' })
       const rows: TermTok[][] = [
-        [{ t: '$ ' }, { t: 'polar apply' }, D(' --env prod')],
+        [{ t: '$ ' }, { t: 'repalis apply' }, D(' --env prod')],
         [],
-        [D('Reading   '), { t: 'polar.config.ts' }],
+        [D('Reading   '), { t: 'repalis.config.ts' }],
         [D('Found     '), { t: '1 event, 1 meter, 2 products' }],
         [D('Planning  '), { t: 'against prod' }, D('  (deployed 3 days ago)')],
         [],
@@ -497,7 +497,7 @@ export const manual: Piece[] = [
       )
     },
     {
-      sub: 'Every number Polar shows is computed from the events you send.',
+      sub: 'Every number Repalis shows is computed from the events you send.',
       notes: [
         [
           'One record',
@@ -984,24 +984,24 @@ export const manual: Piece[] = [
       )
     },
     {
-      sub: 'Answered from the state in your own Redis. Polar catches up behind it.',
+      sub: 'Answered from the state in your own Redis. Repalis catches up behind it.',
       notes: [
         [
           'No round trip',
           [
-            'A check, "may this customer call the API?", is answered by Outpost from the state it holds: the fold of every event seen so far. It does not wait on Polar.',
+            'A check, "may this customer call the API?", is answered by Outpost from the state it holds: the fold of every event seen so far. It does not wait on Repalis.',
           ],
         ],
         [
           'Same reducers',
           [
-            'When Outpost connects, Polar sends it the organization\u2019s reducers, so an event is folded locally exactly as Polar folds it, into the same five-minute buckets.',
+            'When Outpost connects, Repalis sends it the organization\u2019s reducers, so an event is folded locally exactly as Repalis folds it, into the same five-minute buckets.',
           ],
         ],
         [
           'First sight',
           [
-            'The only round trip is the first check for a customer Outpost has not seen yet: it fetches their usage from Polar once, and every check after that is answered locally.',
+            'The only round trip is the first check for a customer Outpost has not seen yet: it fetches their usage from Repalis once, and every check after that is answered locally.',
           ],
         ],
       ],

@@ -9,10 +9,10 @@ import {
   useSupportCase,
 } from '@/hooks/queries/org'
 import { useOrganizationSSE } from '@/hooks/sse'
-import { schemas } from '@polar-sh/client'
-import { Text } from '@polar-sh/orbit'
+import { schemas } from '@repalis/client'
+import { Text } from '@repalis/orbit'
 import { useQueryClient } from '@tanstack/react-query'
-import { LoaderCircle as Loader2, MessageCircle } from '@polar-sh/orbit/icons'
+import { LoaderCircle as Loader2, MessageCircle } from '@repalis/orbit/icons'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useSupportCaseChat } from '@/components/SupportCase/useSupportCaseChat'
 import { DecisionMessage } from './DecisionMessage'
@@ -86,7 +86,7 @@ const HumanReviewCase = ({ organization }: Props) => {
 
   if (isLoading && !started) {
     return (
-      <Loader2 className="dark:text-polar-400 h-4 w-4 animate-spin text-gray-500" />
+      <Loader2 className="dark:text-repalis-400 h-4 w-4 animate-spin text-gray-500" />
     )
   }
 
@@ -121,7 +121,7 @@ const HumanReviewCase = ({ organization }: Props) => {
       renderMessage={renderMessage}
       emptyState={
         <div className="flex max-w-xs flex-col items-center gap-2 text-center">
-          <MessageCircle className="dark:text-polar-600 h-8 w-8 text-gray-300" />
+          <MessageCircle className="dark:text-repalis-600 h-8 w-8 text-gray-300" />
           <Text color="muted">Start the conversation</Text>
           <Text variant="caption" color="muted" align="center">
             Share any details you think we should take into account. Our team
@@ -130,7 +130,7 @@ const HumanReviewCase = ({ organization }: Props) => {
         </div>
       }
       scrollIntoViewOnMount={started}
-      className="dark:border-polar-700 dark:bg-polar-800 -mx-8 mt-8! -mb-8 rounded-b-2xl border-t bg-white p-8"
+      className="dark:border-repalis-700 dark:bg-repalis-800 -mx-8 mt-8! -mb-8 rounded-b-2xl border-t bg-white p-8"
       composer={{
         uploader,
         isSendPending: hasCase ? reply.isPending : requestReview.isPending,

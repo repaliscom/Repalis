@@ -5,11 +5,11 @@ from unittest.mock import AsyncMock, MagicMock
 import pytest
 from pytest_mock import MockerFixture
 
-from polar.integrations.stripe.service import (
+from repalis.integrations.stripe.service import (
     FX_QUOTES_API_VERSION,
     SHARED_PAYMENT_TOKENS_API_VERSION,
 )
-from polar.integrations.stripe.service import stripe as stripe_service
+from repalis.integrations.stripe.service import stripe as stripe_service
 
 
 @pytest.mark.anyio
@@ -116,7 +116,7 @@ class TestCreatePaymentIntentFromSharedPaymentToken:
             currency="usd",
             confirm=True,
             automatic_payment_methods={"enabled": True},
-            return_url="https://polar.sh/checkout/confirmation",
+            return_url="https://repalis.com/checkout/confirmation",
         )
 
         create.assert_awaited_once_with(
@@ -133,7 +133,7 @@ class TestCreatePaymentIntentFromSharedPaymentToken:
 class TestGetUsdBaseRates:
     async def test_valid(self, mocker: MockerFixture) -> None:
         fetch = mocker.patch(
-            "polar.integrations.stripe.service.stripe_risk_client.raw_request_async",
+            "repalis.integrations.stripe.service.stripe_risk_client.raw_request_async",
             new_callable=AsyncMock,
             return_value=MagicMock(
                 body=json.dumps(

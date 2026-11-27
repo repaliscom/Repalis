@@ -10,20 +10,20 @@ from unittest.mock import AsyncMock, patch
 import pytest
 from sqlalchemy import update
 
-from polar.models.organization import (
+from repalis.models.organization import (
     FIRST_REVIEW_THRESHOLD_CENTS,
     STATUS_CAPABILITIES,
     Organization,
     OrganizationStatus,
 )
-from polar.models.organization_review import OrganizationReview
-from polar.organization.repository import (
+from repalis.models.organization_review import OrganizationReview
+from repalis.organization.repository import (
     OrganizationReviewRepository as OrgReviewRepository,
 )
-from polar.organization_review.repository import (
+from repalis.organization_review.repository import (
     OrganizationReviewRepository as AgentReviewRepository,
 )
-from polar.organization_review.schemas import (
+from repalis.organization_review.schemas import (
     ActorType,
     AgentReviewResult,
     DataSnapshot,
@@ -42,12 +42,12 @@ from polar.organization_review.schemas import (
     RiskLevel,
     UsageInfo,
 )
-from polar.organization_review.tasks import (
+from repalis.organization_review.tasks import (
     _run_agent_debounce_key,
     review_appeal,
     run_review_agent,
 )
-from polar.postgres import AsyncSession
+from repalis.postgres import AsyncSession
 from tests.fixtures.database import SaveFixture
 
 # Access the unwrapped async function to bypass the actor decorator
@@ -142,11 +142,11 @@ class TestRunReviewAgentSubmission:
 
         with (
             patch(
-                "polar.organization_review.tasks.AsyncSessionMaker",
+                "repalis.organization_review.tasks.AsyncSessionMaker",
                 return_value=_mock_session_maker(session),
             ),
             patch(
-                "polar.organization_review.tasks.run_organization_review",
+                "repalis.organization_review.tasks.run_organization_review",
                 new_callable=AsyncMock,
                 return_value=agent_result,
             ),
@@ -206,11 +206,11 @@ class TestRunReviewAgentSubmission:
 
         with (
             patch(
-                "polar.organization_review.tasks.AsyncSessionMaker",
+                "repalis.organization_review.tasks.AsyncSessionMaker",
                 return_value=_mock_session_maker(session),
             ),
             patch(
-                "polar.organization_review.tasks.run_organization_review",
+                "repalis.organization_review.tasks.run_organization_review",
                 side_effect=reset_organization_during_review,
             ),
         ):
@@ -270,11 +270,11 @@ class TestRunReviewAgentSubmission:
 
         with (
             patch(
-                "polar.organization_review.tasks.AsyncSessionMaker",
+                "repalis.organization_review.tasks.AsyncSessionMaker",
                 return_value=_mock_session_maker(session),
             ),
             patch(
-                "polar.organization_review.tasks.run_organization_review",
+                "repalis.organization_review.tasks.run_organization_review",
                 new_callable=AsyncMock,
                 return_value=agent_result,
             ),
@@ -331,11 +331,11 @@ class TestRunReviewAgentSubmission:
 
         with (
             patch(
-                "polar.organization_review.tasks.AsyncSessionMaker",
+                "repalis.organization_review.tasks.AsyncSessionMaker",
                 return_value=_mock_session_maker(session),
             ),
             patch(
-                "polar.organization_review.tasks.run_organization_review",
+                "repalis.organization_review.tasks.run_organization_review",
                 new_callable=AsyncMock,
                 return_value=agent_result,
             ),
@@ -392,11 +392,11 @@ class TestRunReviewAgentSubmission:
 
         with (
             patch(
-                "polar.organization_review.tasks.AsyncSessionMaker",
+                "repalis.organization_review.tasks.AsyncSessionMaker",
                 return_value=_mock_session_maker(session),
             ),
             patch(
-                "polar.organization_review.tasks.run_organization_review",
+                "repalis.organization_review.tasks.run_organization_review",
                 new_callable=AsyncMock,
                 return_value=agent_result,
             ),
@@ -436,11 +436,11 @@ class TestRunReviewAgentSubmission:
 
         with (
             patch(
-                "polar.organization_review.tasks.AsyncSessionMaker",
+                "repalis.organization_review.tasks.AsyncSessionMaker",
                 return_value=_mock_session_maker(session),
             ),
             patch(
-                "polar.organization_review.tasks.run_organization_review",
+                "repalis.organization_review.tasks.run_organization_review",
                 new_callable=AsyncMock,
                 return_value=agent_result,
             ),
@@ -489,11 +489,11 @@ class TestRunReviewAgentSubmission:
 
         with (
             patch(
-                "polar.organization_review.tasks.AsyncSessionMaker",
+                "repalis.organization_review.tasks.AsyncSessionMaker",
                 return_value=_mock_session_maker(session),
             ),
             patch(
-                "polar.organization_review.tasks.run_organization_review",
+                "repalis.organization_review.tasks.run_organization_review",
                 new_callable=AsyncMock,
                 return_value=agent_result,
             ),
@@ -532,11 +532,11 @@ class TestRunReviewAgentMissingOrganization:
         run_review_mock = AsyncMock()
         with (
             patch(
-                "polar.organization_review.tasks.AsyncSessionMaker",
+                "repalis.organization_review.tasks.AsyncSessionMaker",
                 return_value=_mock_session_maker(session),
             ),
             patch(
-                "polar.organization_review.tasks.run_organization_review",
+                "repalis.organization_review.tasks.run_organization_review",
                 run_review_mock,
             ),
         ):
@@ -581,20 +581,20 @@ class TestReviewAppeal:
 
         with (
             patch(
-                "polar.organization_review.tasks.AsyncSessionMaker",
+                "repalis.organization_review.tasks.AsyncSessionMaker",
                 return_value=_mock_session_maker(session),
             ),
             patch(
-                "polar.organization_review.tasks.run_organization_review",
+                "repalis.organization_review.tasks.run_organization_review",
                 new_callable=AsyncMock,
                 return_value=agent_result,
             ),
             patch(
-                "polar.organization_review.tasks.organization_service.approve_appeal",
+                "repalis.organization_review.tasks.organization_service.approve_appeal",
                 approve_mock,
             ),
             patch(
-                "polar.organization_review.tasks.organization_service.deny_appeal",
+                "repalis.organization_review.tasks.organization_service.deny_appeal",
                 deny_mock,
             ),
         ):
@@ -633,20 +633,20 @@ class TestReviewAppeal:
 
         with (
             patch(
-                "polar.organization_review.tasks.AsyncSessionMaker",
+                "repalis.organization_review.tasks.AsyncSessionMaker",
                 return_value=_mock_session_maker(session),
             ),
             patch(
-                "polar.organization_review.tasks.run_organization_review",
+                "repalis.organization_review.tasks.run_organization_review",
                 new_callable=AsyncMock,
                 return_value=agent_result,
             ),
             patch(
-                "polar.organization_review.tasks.organization_service.approve_appeal",
+                "repalis.organization_review.tasks.organization_service.approve_appeal",
                 approve_mock,
             ),
             patch(
-                "polar.organization_review.tasks.organization_service.deny_appeal",
+                "repalis.organization_review.tasks.organization_service.deny_appeal",
                 deny_mock,
             ),
         ):
@@ -676,11 +676,11 @@ class TestReviewAppeal:
         run_mock = AsyncMock()
         with (
             patch(
-                "polar.organization_review.tasks.AsyncSessionMaker",
+                "repalis.organization_review.tasks.AsyncSessionMaker",
                 return_value=_mock_session_maker(session),
             ),
             patch(
-                "polar.organization_review.tasks.run_organization_review",
+                "repalis.organization_review.tasks.run_organization_review",
                 run_mock,
             ),
         ):
@@ -714,11 +714,11 @@ class TestRunReviewAgentProductChanged:
 
         with (
             patch(
-                "polar.organization_review.tasks.AsyncSessionMaker",
+                "repalis.organization_review.tasks.AsyncSessionMaker",
                 return_value=_mock_session_maker(session),
             ),
             patch(
-                "polar.organization_review.tasks.run_organization_review",
+                "repalis.organization_review.tasks.run_organization_review",
                 new_callable=AsyncMock,
                 return_value=agent_result,
             ),
@@ -757,11 +757,11 @@ class TestRunReviewAgentProductChanged:
 
         with (
             patch(
-                "polar.organization_review.tasks.AsyncSessionMaker",
+                "repalis.organization_review.tasks.AsyncSessionMaker",
                 return_value=_mock_session_maker(session),
             ),
             patch(
-                "polar.organization_review.tasks.run_organization_review",
+                "repalis.organization_review.tasks.run_organization_review",
                 new_callable=AsyncMock,
                 return_value=agent_result,
             ),
@@ -794,11 +794,11 @@ class TestRunReviewAgentProductChanged:
         run_review_mock = AsyncMock()
         with (
             patch(
-                "polar.organization_review.tasks.AsyncSessionMaker",
+                "repalis.organization_review.tasks.AsyncSessionMaker",
                 return_value=_mock_session_maker(session),
             ),
             patch(
-                "polar.organization_review.tasks.run_organization_review",
+                "repalis.organization_review.tasks.run_organization_review",
                 run_review_mock,
             ),
         ):
@@ -823,11 +823,11 @@ class TestRunReviewAgentProductChanged:
         run_review_mock = AsyncMock()
         with (
             patch(
-                "polar.organization_review.tasks.AsyncSessionMaker",
+                "repalis.organization_review.tasks.AsyncSessionMaker",
                 return_value=_mock_session_maker(session),
             ),
             patch(
-                "polar.organization_review.tasks.run_organization_review",
+                "repalis.organization_review.tasks.run_organization_review",
                 run_review_mock,
             ),
         ):
@@ -863,16 +863,16 @@ class TestRunReviewAgentThresholdManualOverride:
 
         with (
             patch(
-                "polar.organization_review.tasks.AsyncSessionMaker",
+                "repalis.organization_review.tasks.AsyncSessionMaker",
                 return_value=_mock_session_maker(session),
             ),
             patch(
-                "polar.organization_review.tasks.run_organization_review",
+                "repalis.organization_review.tasks.run_organization_review",
                 new_callable=AsyncMock,
                 return_value=_make_agent_result(verdict=ReviewVerdict.APPROVE),
             ),
             patch(
-                "polar.organization_review.tasks.organization_service.handle_ongoing_review_verdict",
+                "repalis.organization_review.tasks.organization_service.handle_ongoing_review_verdict",
                 new_callable=AsyncMock,
             ) as handle_verdict_mock,
         ):

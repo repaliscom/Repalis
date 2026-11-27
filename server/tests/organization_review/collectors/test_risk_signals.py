@@ -1,7 +1,7 @@
 from datetime import UTC, datetime
 
-from polar.models.organization_risk_signal import OrganizationRiskSignal
-from polar.organization_review.collectors import collect_risk_signal_data
+from repalis.models.organization_risk_signal import OrganizationRiskSignal
+from repalis.organization_review.collectors import collect_risk_signal_data
 
 
 def _make_signal(

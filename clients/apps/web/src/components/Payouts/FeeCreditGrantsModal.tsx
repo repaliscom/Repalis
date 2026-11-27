@@ -1,11 +1,11 @@
 import { useAccountCredits, useOrganizationAccount } from '@/hooks/queries'
 import { OrganizationContext } from '@/providers/maintainerOrganization'
-import { formatCurrency } from '@polar-sh/currency'
-import { List, ListItem } from '@polar-sh/orbit'
+import { formatCurrency } from '@repalis/currency'
+import { List, ListItem } from '@repalis/orbit'
 import { useContext } from 'react'
-import { InlineModal, InlineModalHeader } from '@polar-sh/orbit'
+import { InlineModal, InlineModalHeader } from '@repalis/orbit'
 import { EmptyState } from '../Shared/EmptyState'
-import { TollOutlined } from '@polar-sh/orbit/icons'
+import { TollOutlined } from '@repalis/orbit/icons'
 export const FeeCreditGrantsModal = ({
   isShown,
   hide,
@@ -36,7 +36,7 @@ export const FeeCreditGrantsModal = ({
             <h1 className="text-2xl">Fee Credit Grants</h1>
           </InlineModalHeader>
           <div className="flex flex-col gap-8 px-8 pb-10">
-            <p className="dark:text-polar-500 text-gray-500">
+            <p className="dark:text-repalis-500 text-gray-500">
               Fee Credits are usually granted for promotional, paid campaigns,
               or other purposes.
             </p>
@@ -52,7 +52,7 @@ export const FeeCreditGrantsModal = ({
                     <ListItem key={credit.id} className="p-4" size="small">
                       <div className="flex flex-row items-baseline gap-4">
                         <h2>{credit.title}</h2>
-                        <span className="dark:text-polar-500 text-gray-500">
+                        <span className="dark:text-repalis-500 text-gray-500">
                           {new Date(credit.granted_at).toLocaleDateString(
                             'en-US',
                             {

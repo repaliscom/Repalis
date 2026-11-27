@@ -18,11 +18,11 @@ export async function generateMetadata(props: {
   // member who needs to re-authenticate through SSO.
   const organization = await getOrganizationBySlug(api, params.organization)
   if (!organization) {
-    return { title: 'Polar' }
+    return { title: 'Repalis' }
   }
   return {
     title: {
-      template: `%s | ${organization.name} | Polar`,
+      template: `%s | ${organization.name} | Repalis`,
       default: organization.name,
     },
   }

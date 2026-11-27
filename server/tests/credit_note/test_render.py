@@ -3,15 +3,15 @@ from io import BytesIO
 import pytest
 from pypdf import PdfReader
 
-from polar.credit_note.generator import CreditNote as CreditNoteDocument
-from polar.credit_note.render import (
+from repalis.credit_note.generator import CreditNote as CreditNoteDocument
+from repalis.credit_note.render import (
     CreditNoteRenderError,
     CreditNoteRenderRequest,
     render_credit_note_pdf,
 )
-from polar.models import CreditNote, Refund
-from polar.models.credit_note import CreditNoteReason
-from polar.models.refund import RefundStatus
+from repalis.models import CreditNote, Refund
+from repalis.models.credit_note import CreditNoteReason
+from repalis.models.refund import RefundStatus
 
 
 @pytest.mark.anyio

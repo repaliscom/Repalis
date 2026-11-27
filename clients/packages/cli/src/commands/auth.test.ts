@@ -55,8 +55,8 @@ describe('auth login', () => {
     await promise
 
     expect(output()).toContain('Already logged in to sandbox')
-    expect(output()).toContain('polar auth login --sandbox --new-session')
-    expect(output()).toContain('polar auth login --production to sign in')
+    expect(output()).toContain('repalis auth login --sandbox --new-session')
+    expect(output()).toContain('repalis auth login --production to sign in')
   })
 
   test('explains how to replace an existing production session', async () => {
@@ -65,8 +65,8 @@ describe('auth login', () => {
     await promise
 
     expect(output()).toContain('Already logged in to production')
-    expect(output()).toContain('polar auth login --production --new-session')
-    expect(output()).toContain('polar auth login --sandbox to sign in')
+    expect(output()).toContain('repalis auth login --production --new-session')
+    expect(output()).toContain('repalis auth login --sandbox to sign in')
   })
 
   test('asks for the environment when no flag is given', async () => {
@@ -77,7 +77,7 @@ describe('auth login', () => {
     await promise
 
     expect(terminal()).toContain('Which environment do you want to log in to?')
-    expect(output()).toContain('Logged in to Polar production')
+    expect(output()).toContain('Logged in to Repalis production')
   })
 
   test.each(['sandbox', 'production'] as const)(
@@ -90,7 +90,7 @@ describe('auth login', () => {
       await promise
 
       expect(terminal()).not.toContain('Which session')
-      expect(output()).toContain(`Logged out of Polar ${environment}`)
+      expect(output()).toContain(`Logged out of Repalis ${environment}`)
       expect(auth.state.sessions).toEqual([])
     },
   )
@@ -100,7 +100,7 @@ describe('auth login', () => {
     const { promise, output } = run(['logout'])
     await promise
 
-    expect(output()).toContain('Logged out of Polar sandbox')
+    expect(output()).toContain('Logged out of Repalis sandbox')
   })
 
   test('requires a flag outside a terminal when logged in to both', async () => {
@@ -120,7 +120,7 @@ describe('auth login', () => {
     await promise
 
     expect(output()).toContain(
-      'Opening your browser to sign in to Polar local...',
+      'Opening your browser to sign in to Repalis local...',
     )
   })
 
@@ -129,7 +129,7 @@ describe('auth login', () => {
     await promise
 
     expect(output()).toContain(
-      'Opening your browser to sign in to Polar sandbox...',
+      'Opening your browser to sign in to Repalis sandbox...',
     )
     expect(output()).toContain('https://sandbox.example/authorize')
     expect(output()).toContain('Waiting for you to authorize the CLI...')
@@ -140,18 +140,18 @@ describe('auth login', () => {
     const { promise, output } = run(['login', '--sandbox'])
     await promise
 
-    expect(output()).toContain('Logged in to Polar sandbox')
+    expect(output()).toContain('Logged in to Repalis sandbox')
     expect(output()).toContain('No organizations yet')
-    expect(output()).toContain('https://polar.sh')
-    expect(output()).toContain('https://sandbox.polar.sh')
-    expect(output()).toContain('polar auth org')
+    expect(output()).toContain('https://repalis.com')
+    expect(output()).toContain('https://sandbox.repalis.com')
+    expect(output()).toContain('repalis auth org')
   })
 
   test('skips organization selection outside a terminal', async () => {
     const { promise, output } = run(['login', '--production'])
     await promise
 
-    expect(output()).toContain('Logged in to Polar production')
+    expect(output()).toContain('Logged in to Repalis production')
     expect(output()).toContain(
       'Organization selection requires an interactive terminal',
     )
@@ -223,7 +223,7 @@ describe('auth whoami', () => {
     await promise
 
     expect(output()).toContain('No active organization')
-    expect(output()).toContain('polar auth org')
+    expect(output()).toContain('repalis auth org')
   })
 
   test('explains how to log in when there are no sessions', async () => {
@@ -232,9 +232,9 @@ describe('auth whoami', () => {
     await promise
 
     expect(output()).toContain('Not logged in')
-    expect(output()).toContain('polar auth login --sandbox')
-    expect(output()).toContain('polar auth login --production')
-    expect(output()).toContain('Or set POLAR_ACCESS_TOKEN')
+    expect(output()).toContain('repalis auth login --sandbox')
+    expect(output()).toContain('repalis auth login --production')
+    expect(output()).toContain('Or set REPALIS_ACCESS_TOKEN')
   })
 
   test('shows the only organization of a token override', async () => {
@@ -244,7 +244,7 @@ describe('auth whoami', () => {
     const { promise, output } = run(['whoami'])
     await promise
 
-    expect(output()).toContain('POLAR_ACCESS_TOKEN')
+    expect(output()).toContain('REPALIS_ACCESS_TOKEN')
     expect(output()).toMatch(/Environment\s+sandbox/)
     expect(output()).toMatch(/Organization\s+Acme/)
     expect(output()).not.toContain('No active organization')
@@ -301,7 +301,7 @@ describe('auth whoami --json', () => {
     await promise
 
     expect(JSON.parse(output())).toEqual({
-      source: 'POLAR_ACCESS_TOKEN',
+      source: 'REPALIS_ACCESS_TOKEN',
       environments: ['sandbox'],
       organization: acme,
     })
@@ -335,7 +335,7 @@ describe('auth list', () => {
     await promise
 
     expect(output()).toContain('Organizations in production')
-    expect(output()).toContain('via POLAR_ACCESS_TOKEN')
+    expect(output()).toContain('via REPALIS_ACCESS_TOKEN')
     expect(output()).not.toContain('Organizations in sandbox')
   })
 
@@ -382,7 +382,7 @@ describe('auth org', () => {
     auth.state.credential = overrideCredential()
     const { promise } = run(['org'])
 
-    await expect(promise).rejects.toThrow('Unset POLAR_ACCESS_TOKEN')
+    await expect(promise).rejects.toThrow('Unset REPALIS_ACCESS_TOKEN')
   })
 
   test('requires a session', async () => {
@@ -399,7 +399,7 @@ describe('auth org', () => {
     expect(output()).toContain(
       'Organization selection requires an interactive terminal',
     )
-    expect(output()).toContain('polar auth org <id>')
+    expect(output()).toContain('repalis auth org <id>')
   })
 
   test('selects the given organization without a terminal', async () => {
@@ -449,7 +449,7 @@ describe('auth logout', () => {
     const { promise, output } = run(['logout', '--production'])
     await promise
 
-    expect(output()).toContain('Logged out of Polar production')
+    expect(output()).toContain('Logged out of Repalis production')
     expect(output()).not.toContain('sandbox')
     expect(auth.state.sessions).toEqual(['sandbox'])
   })
@@ -458,8 +458,8 @@ describe('auth logout', () => {
     const { promise, output } = run(['logout', '--all'])
     await promise
 
-    expect(output()).toContain('Logged out of Polar sandbox')
-    expect(output()).toContain('Logged out of Polar production')
+    expect(output()).toContain('Logged out of Repalis sandbox')
+    expect(output()).toContain('Logged out of Repalis production')
     expect(auth.state.sessions).toEqual([])
   })
 
@@ -480,8 +480,8 @@ describe('auth logout', () => {
 
     expect(terminal()).toContain('Which session do you want to log out of?')
     expect(terminal()).toContain('All sessions')
-    expect(output()).toContain('Logged out of Polar sandbox')
-    expect(output()).toContain('Logged out of Polar production')
+    expect(output()).toContain('Logged out of Repalis sandbox')
+    expect(output()).toContain('Logged out of Repalis production')
   })
 
   test('requires a flag outside a terminal', async () => {
@@ -505,7 +505,7 @@ describe('auth logout', () => {
     const { promise, output } = run(['logout', '--all'])
     await promise
 
-    expect(output()).toContain('POLAR_ACCESS_TOKEN remains active')
-    expect(output()).toContain('Logged out of Polar')
+    expect(output()).toContain('REPALIS_ACCESS_TOKEN remains active')
+    expect(output()).toContain('Logged out of Repalis')
   })
 })

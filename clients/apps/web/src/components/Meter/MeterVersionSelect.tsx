@@ -1,7 +1,7 @@
 import { CatalogVersionSelect } from '@/components/Products/CatalogVersionSelect'
 import { useIsManagedAsCode } from '@/hooks/permissions'
 import { useMeters } from '@/hooks/queries/meters'
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 
 export const MeterVersionSelect = ({
   organization,

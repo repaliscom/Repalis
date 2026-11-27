@@ -6,21 +6,21 @@ import httpx2
 import pytest
 from pytest_mock import MockerFixture
 
-from polar.config import settings
-from polar.kit.versioning import api_version_context
-from polar.models import (
+from repalis.config import settings
+from repalis.kit.versioning import api_version_context
+from repalis.models import (
     Organization,
     Subscription,
     UserOrganization,
     WebhookEndpoint,
     WebhookEvent,
 )
-from polar.models.webhook_endpoint import WebhookEventType
-from polar.postgres import AsyncSession
-from polar.subscription.schemas import Subscription as SubscriptionSchema
-from polar.version import CURRENT_API_VERSION
-from polar.webhook.service import webhook as webhook_service
-from polar.webhook.tasks import (
+from repalis.models.webhook_endpoint import WebhookEventType
+from repalis.postgres import AsyncSession
+from repalis.subscription.schemas import Subscription as SubscriptionSchema
+from repalis.version import CURRENT_API_VERSION
+from repalis.webhook.service import webhook as webhook_service
+from repalis.webhook.tasks import (
     _webhook_event_failed_debounce_key,
     _webhook_event_send,
 )
@@ -29,7 +29,7 @@ from tests.fixtures.database import SaveFixture
 
 @pytest.fixture
 def enqueue_job_mock(mocker: MockerFixture) -> MagicMock:
-    return mocker.patch("polar.webhook.tasks.enqueue_job")
+    return mocker.patch("repalis.webhook.tasks.enqueue_job")
 
 
 @pytest.mark.anyio
@@ -72,7 +72,7 @@ class TestWebhookEventSend:
         subscription: Subscription,
         webhook_endpoint_mcp: WebhookEndpoint,
     ) -> None:
-        mocker.patch("polar.webhook.service.enqueue_job")
+        mocker.patch("repalis.webhook.service.enqueue_job")
         route = http_mocks["POST", webhook_endpoint_mcp.url] = Mock(
             return_value=httpx2.Response(200)
         )
@@ -375,7 +375,7 @@ class TestOnEventFailed:
         webhook_endpoint_mcp: WebhookEndpoint,
     ) -> None:
         enqueue_email_mock = mocker.patch(
-            "polar.webhook.service.enqueue_email_template"
+            "repalis.webhook.service.enqueue_email_template"
         )
         for _ in range(settings.WEBHOOK_FAILURE_THRESHOLD):
             event = WebhookEvent(

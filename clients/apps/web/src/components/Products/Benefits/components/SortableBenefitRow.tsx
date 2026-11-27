@@ -6,9 +6,9 @@ import {
 } from '@/components/Benefit/utils'
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
-import { schemas } from '@polar-sh/client'
-import { Button } from '@polar-sh/orbit'
-import { GripVertical, X } from '@polar-sh/orbit/icons'
+import { schemas } from '@repalis/client'
+import { Button } from '@repalis/orbit'
+import { GripVertical, X } from '@repalis/orbit/icons'
 import { twMerge } from 'tailwind-merge'
 
 interface SortableBenefitRowProps {
@@ -39,14 +39,14 @@ export const SortableBenefitRow = ({
       ref={setNodeRef}
       style={style}
       className={twMerge(
-        'dark:bg-polar-900 dark:border-polar-700 flex w-full items-center justify-between rounded-lg border border-gray-200 bg-white px-4 py-3',
+        'dark:bg-repalis-900 dark:border-repalis-700 flex w-full items-center justify-between rounded-lg border border-gray-200 bg-white px-4 py-3',
         isDragging && 'opacity-50',
       )}
     >
       <div className="flex items-center gap-3">
         <button
           type="button"
-          className="dark:text-polar-500 dark:hover:text-polar-300 cursor-grab text-gray-400 hover:text-gray-600 active:cursor-grabbing"
+          className="dark:text-repalis-500 dark:hover:text-repalis-300 cursor-grab text-gray-400 hover:text-gray-600 active:cursor-grabbing"
           {...attributes}
           {...listeners}
         >
@@ -62,7 +62,7 @@ export const SortableBenefitRow = ({
         </div>
         <div className="flex flex-col">
           <span className="text-sm font-medium">{benefit.description}</span>
-          <span className="dark:text-polar-500 text-xs text-gray-500">
+          <span className="dark:text-repalis-500 text-xs text-gray-500">
             {benefitsDisplayNames[benefit.type]}
           </span>
         </div>

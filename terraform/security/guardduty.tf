@@ -39,7 +39,7 @@ resource "aws_guardduty_organization_configuration_feature" "us_east_2_s3_data_e
 }
 
 locals {
-  guardduty_public_buckets     = ["polar-public-files", "polar-public-sandbox-files", "polar-test-public-files"]
+  guardduty_public_buckets     = ["repalis-public-files", "repalis-public-sandbox-files", "repalis-test-public-files"]
   guardduty_eicar_threat_names = ["EICAR-Test-File", "EICAR-Test-File (not a virus)"]
 }
 

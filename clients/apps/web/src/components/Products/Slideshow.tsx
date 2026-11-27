@@ -1,7 +1,7 @@
 'use client'
 
-import { ChevronLeftRounded, ChevronRightRounded } from '@polar-sh/orbit/icons'
-import { Button } from '@polar-sh/orbit'
+import { ChevronLeftRounded, ChevronRightRounded } from '@repalis/orbit/icons'
+import { Button } from '@repalis/orbit'
 import { AnimatePresence, domMax, LazyMotion, m } from 'motion/react'
 import { useCallback, useState } from 'react'
 
@@ -48,7 +48,7 @@ export const Slideshow = ({ images }: SlideshowProps) => {
   )
 
   return (
-    <div className="dark:bg-polar-900 dark:border-polar-700 relative flex aspect-video w-full items-center justify-center overflow-hidden rounded-xl bg-gray-100 bg-cover bg-center lg:rounded-3xl dark:border">
+    <div className="dark:bg-repalis-900 dark:border-repalis-700 relative flex aspect-video w-full items-center justify-center overflow-hidden rounded-xl bg-gray-100 bg-cover bg-center lg:rounded-3xl dark:border">
       <LazyMotion features={domMax}>
         <AnimatePresence initial={false} custom={direction}>
           <m.div

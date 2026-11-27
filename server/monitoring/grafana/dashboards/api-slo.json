@@ -2,7 +2,7 @@
   "apiVersion": "dashboard.grafana.app/v2",
   "kind": "Dashboard",
   "metadata": {
-    "name": "polar-api-slo"
+    "name": "repalis-api-slo"
   },
   "spec": {
     "annotations": [
@@ -47,7 +47,7 @@
                       "group": "prometheus",
                       "kind": "DataQuery",
                       "spec": {
-                        "expr": "histogram_quantile(0.50, sum(rate(polar_http_request_duration_seconds_bucket{env=\"$env\", endpoint=~\"$endpoint\", method=~\"$method\"}[5m])) by (le))",
+                        "expr": "histogram_quantile(0.50, sum(rate(repalis_http_request_duration_seconds_bucket{env=\"$env\", endpoint=~\"$endpoint\", method=~\"$method\"}[5m])) by (le))",
                         "legendFormat": "p50"
                       },
                       "version": "v0"
@@ -66,7 +66,7 @@
                       "group": "prometheus",
                       "kind": "DataQuery",
                       "spec": {
-                        "expr": "histogram_quantile(0.95, sum(rate(polar_http_request_duration_seconds_bucket{env=\"$env\", endpoint=~\"$endpoint\", method=~\"$method\"}[5m])) by (le))",
+                        "expr": "histogram_quantile(0.95, sum(rate(repalis_http_request_duration_seconds_bucket{env=\"$env\", endpoint=~\"$endpoint\", method=~\"$method\"}[5m])) by (le))",
                         "legendFormat": "p95"
                       },
                       "version": "v0"
@@ -85,7 +85,7 @@
                       "group": "prometheus",
                       "kind": "DataQuery",
                       "spec": {
-                        "expr": "histogram_quantile(0.99, sum(rate(polar_http_request_duration_seconds_bucket{env=\"$env\", endpoint=~\"$endpoint\", method=~\"$method\"}[5m])) by (le))",
+                        "expr": "histogram_quantile(0.99, sum(rate(repalis_http_request_duration_seconds_bucket{env=\"$env\", endpoint=~\"$endpoint\", method=~\"$method\"}[5m])) by (le))",
                         "legendFormat": "p99"
                       },
                       "version": "v0"
@@ -197,7 +197,7 @@
                       "group": "prometheus",
                       "kind": "DataQuery",
                       "spec": {
-                        "expr": "sum(rate(polar_http_request_total{env=\"$env\", endpoint=~\"$endpoint\", method=~\"$method\"}[5m])) by (method)",
+                        "expr": "sum(rate(repalis_http_request_total{env=\"$env\", endpoint=~\"$endpoint\", method=~\"$method\"}[5m])) by (method)",
                         "legendFormat": "{{method}}"
                       },
                       "version": "v0"
@@ -309,7 +309,7 @@
                       "group": "prometheus",
                       "kind": "DataQuery",
                       "spec": {
-                        "expr": "sum(rate(polar_http_request_total{env=\"$env\", endpoint=~\"$endpoint\", method=~\"$method\"}[5m])) by (status_code)",
+                        "expr": "sum(rate(repalis_http_request_total{env=\"$env\", endpoint=~\"$endpoint\", method=~\"$method\"}[5m])) by (status_code)",
                         "legendFormat": "{{status_code}}"
                       },
                       "version": "v0"
@@ -452,7 +452,7 @@
                       "group": "prometheus",
                       "kind": "DataQuery",
                       "spec": {
-                        "expr": "(sum(rate(polar_http_request_total{env=\"$env\", status_code=~\"5..\"}[1h])) or vector(0)) / (0.0005 * sum(rate(polar_http_request_total{env=\"$env\"}[1h])))",
+                        "expr": "(sum(rate(repalis_http_request_total{env=\"$env\", status_code=~\"5..\"}[1h])) or vector(0)) / (0.0005 * sum(rate(repalis_http_request_total{env=\"$env\"}[1h])))",
                         "legendFormat": "Burn Rate (1h)"
                       },
                       "version": "v0"
@@ -471,7 +471,7 @@
                       "group": "prometheus",
                       "kind": "DataQuery",
                       "spec": {
-                        "expr": "(sum(rate(polar_http_request_total{env=\"$env\", status_code=~\"5..\"}[6h])) or vector(0)) / (0.0005 * sum(rate(polar_http_request_total{env=\"$env\"}[6h])))",
+                        "expr": "(sum(rate(repalis_http_request_total{env=\"$env\", status_code=~\"5..\"}[6h])) or vector(0)) / (0.0005 * sum(rate(repalis_http_request_total{env=\"$env\"}[6h])))",
                         "legendFormat": "Burn Rate (6h)"
                       },
                       "version": "v0"
@@ -584,7 +584,7 @@
                       "group": "prometheus",
                       "kind": "DataQuery",
                       "spec": {
-                        "expr": "100 * (1 - ((count(\n  (\n    histogram_quantile(0.99, sum by (endpoint, method, le) (\n      rate(polar_http_request_duration_seconds_bucket{env=\"$env\"}[$__range])\n    )) > on(endpoint, method) group_left() max by (endpoint, method) (last_over_time(polar_slo_p99_target_seconds{env=\"$env\"}[1h]))\n  )\n  or\n  (\n    (100 * (1 - (\n      sum by (endpoint, method) (rate(polar_http_request_total{env=\"$env\", status_code=~\"5..\"}[$__range]))\n      or (sum by (endpoint, method) (rate(polar_http_request_total{env=\"$env\"}[$__range])) * 0)\n    ) / sum by (endpoint, method) (rate(polar_http_request_total{env=\"$env\"}[$__range]))))\n    < on(endpoint, method) group_left() max by (endpoint, method) (last_over_time(polar_slo_availability_target{env=\"$env\"}[1h]))\n  )\n) or vector(0)) / count(max by (endpoint, method) (last_over_time(polar_slo_p99_target_seconds{env=\"$env\"}[1h])))))",
+                        "expr": "100 * (1 - ((count(\n  (\n    histogram_quantile(0.99, sum by (endpoint, method, le) (\n      rate(repalis_http_request_duration_seconds_bucket{env=\"$env\"}[$__range])\n    )) > on(endpoint, method) group_left() max by (endpoint, method) (last_over_time(repalis_slo_p99_target_seconds{env=\"$env\"}[1h]))\n  )\n  or\n  (\n    (100 * (1 - (\n      sum by (endpoint, method) (rate(repalis_http_request_total{env=\"$env\", status_code=~\"5..\"}[$__range]))\n      or (sum by (endpoint, method) (rate(repalis_http_request_total{env=\"$env\"}[$__range])) * 0)\n    ) / sum by (endpoint, method) (rate(repalis_http_request_total{env=\"$env\"}[$__range]))))\n    < on(endpoint, method) group_left() max by (endpoint, method) (last_over_time(repalis_slo_availability_target{env=\"$env\"}[1h]))\n  )\n) or vector(0)) / count(max by (endpoint, method) (last_over_time(repalis_slo_p99_target_seconds{env=\"$env\"}[1h])))))",
                         "legendFormat": ""
                       },
                       "version": "v0"
@@ -673,7 +673,7 @@
                       "group": "prometheus",
                       "kind": "DataQuery",
                       "spec": {
-                        "expr": "100 * (1 - ((sum(increase(polar_http_request_total{env=\"$env\", status_code=~\"5..\"}[$__range])) or vector(0)) / sum(increase(polar_http_request_total{env=\"$env\"}[$__range]))))",
+                        "expr": "100 * (1 - ((sum(increase(repalis_http_request_total{env=\"$env\", status_code=~\"5..\"}[$__range])) or vector(0)) / sum(increase(repalis_http_request_total{env=\"$env\"}[$__range]))))",
                         "legendFormat": "Availability"
                       },
                       "version": "v0"
@@ -762,7 +762,7 @@
                       "group": "prometheus",
                       "kind": "DataQuery",
                       "spec": {
-                        "expr": "100 * clamp_min(1 - ((sum(increase(polar_http_request_total{env=\"$env\", status_code=~\"5..\"}[$__range])) or vector(0)) / clamp_min(0.0005 * sum(increase(polar_http_request_total{env=\"$env\"}[$__range])), 0.001)), 0)",
+                        "expr": "100 * clamp_min(1 - ((sum(increase(repalis_http_request_total{env=\"$env\", status_code=~\"5..\"}[$__range])) or vector(0)) / clamp_min(0.0005 * sum(increase(repalis_http_request_total{env=\"$env\"}[$__range])), 0.001)), 0)",
                         "legendFormat": "Error Budget Remaining"
                       },
                       "version": "v0"
@@ -851,7 +851,7 @@
                       "group": "prometheus",
                       "kind": "DataQuery",
                       "spec": {
-                        "expr": "(\n  histogram_quantile(0.99, sum by (endpoint, method, le) (\n    rate(polar_http_request_duration_seconds_bucket{env=\"$env\"}[$__range])\n  )) > on(endpoint, method) group_left() max by (endpoint, method) (last_over_time(polar_slo_p99_target_seconds{env=\"$env\"}[1h]))\n)",
+                        "expr": "(\n  histogram_quantile(0.99, sum by (endpoint, method, le) (\n    rate(repalis_http_request_duration_seconds_bucket{env=\"$env\"}[$__range])\n  )) > on(endpoint, method) group_left() max by (endpoint, method) (last_over_time(repalis_slo_p99_target_seconds{env=\"$env\"}[1h]))\n)",
                         "format": "table",
                         "instant": true,
                         "legendFormat": "__auto"
@@ -872,7 +872,7 @@
                       "group": "prometheus",
                       "kind": "DataQuery",
                       "spec": {
-                        "expr": "max by (endpoint, method) (last_over_time(polar_slo_p99_target_seconds{env=\"$env\"}[1h]))",
+                        "expr": "max by (endpoint, method) (last_over_time(repalis_slo_p99_target_seconds{env=\"$env\"}[1h]))",
                         "format": "table",
                         "instant": true,
                         "legendFormat": "__auto"
@@ -893,7 +893,7 @@
                       "group": "prometheus",
                       "kind": "DataQuery",
                       "spec": {
-                        "expr": "(\n  (100 * (1 - (\n    sum by (endpoint, method) (rate(polar_http_request_total{env=\"$env\", status_code=~\"5..\"}[$__range]))\n    or (sum by (endpoint, method) (rate(polar_http_request_total{env=\"$env\"}[$__range])) * 0)\n  ) / sum by (endpoint, method) (rate(polar_http_request_total{env=\"$env\"}[$__range]))))\n  < on(endpoint, method) group_left() max by (endpoint, method) (last_over_time(polar_slo_availability_target{env=\"$env\"}[1h]))\n)",
+                        "expr": "(\n  (100 * (1 - (\n    sum by (endpoint, method) (rate(repalis_http_request_total{env=\"$env\", status_code=~\"5..\"}[$__range]))\n    or (sum by (endpoint, method) (rate(repalis_http_request_total{env=\"$env\"}[$__range])) * 0)\n  ) / sum by (endpoint, method) (rate(repalis_http_request_total{env=\"$env\"}[$__range]))))\n  < on(endpoint, method) group_left() max by (endpoint, method) (last_over_time(repalis_slo_availability_target{env=\"$env\"}[1h]))\n)",
                         "format": "table",
                         "instant": true,
                         "legendFormat": "__auto"
@@ -914,7 +914,7 @@
                       "group": "prometheus",
                       "kind": "DataQuery",
                       "spec": {
-                        "expr": "max by (endpoint, method) (last_over_time(polar_slo_availability_target{env=\"$env\"}[1h]))",
+                        "expr": "max by (endpoint, method) (last_over_time(repalis_slo_availability_target{env=\"$env\"}[1h]))",
                         "format": "table",
                         "instant": true,
                         "legendFormat": "__auto"
@@ -1227,7 +1227,7 @@
                       "group": "prometheus",
                       "kind": "DataQuery",
                       "spec": {
-                        "expr": "(\n  (sum by (endpoint, method) (rate(polar_http_request_total{env=\"$env\", status_code=~\"5..\"}[1h])) or vector(0))\n  /\n  ((1 - max by (endpoint, method) (last_over_time(polar_slo_availability_target{env=\"$env\"}[1h])) / 100) * sum by (endpoint, method) (rate(polar_http_request_total{env=\"$env\"}[1h])))\n)",
+                        "expr": "(\n  (sum by (endpoint, method) (rate(repalis_http_request_total{env=\"$env\", status_code=~\"5..\"}[1h])) or vector(0))\n  /\n  ((1 - max by (endpoint, method) (last_over_time(repalis_slo_availability_target{env=\"$env\"}[1h])) / 100) * sum by (endpoint, method) (rate(repalis_http_request_total{env=\"$env\"}[1h])))\n)",
                         "legendFormat": "{{method}} {{endpoint}} (1h)"
                       },
                       "version": "v0"
@@ -1344,7 +1344,7 @@
                       "group": "prometheus",
                       "kind": "DataQuery",
                       "spec": {
-                        "expr": "sum by (api_version, api_version_set) (rate(polar_http_request_total{env=\"$env\", endpoint=~\"$endpoint\", method=~\"$method\", api_version!=\"\"}[$__rate_interval]))",
+                        "expr": "sum by (api_version, api_version_set) (rate(repalis_http_request_total{env=\"$env\", endpoint=~\"$endpoint\", method=~\"$method\", api_version!=\"\"}[$__rate_interval]))",
                         "legendFormat": "{{api_version}} (explicit: {{api_version_set}})"
                       },
                       "version": "v0"
@@ -1357,7 +1357,7 @@
               "transformations": []
             }
           },
-          "description": "Resolved API version and whether Polar-Version was explicitly set for routed requests. Requests without Polar-Version use Current. Rejected versions and existing metric exclusions are not counted.",
+          "description": "Resolved API version and whether Repalis-Version was explicitly set for routed requests. Requests without Repalis-Version use Current. Rejected versions and existing metric exclusions are not counted.",
           "id": 36,
           "links": [],
           "title": "Request Rate by API Version",
@@ -1456,7 +1456,7 @@
                       "group": "prometheus",
                       "kind": "DataQuery",
                       "spec": {
-                        "expr": "100 * (1 - (sum by (endpoint, method) (increase(polar_http_request_total{env=\"$env\", status_code=~\"5..\"}[$__range])) or (sum by (endpoint, method) (increase(polar_http_request_total{env=\"$env\"}[$__range])) * 0)) / clamp_min(sum by (endpoint, method) (increase(polar_http_request_total{env=\"$env\"}[$__range])), 1))",
+                        "expr": "100 * (1 - (sum by (endpoint, method) (increase(repalis_http_request_total{env=\"$env\", status_code=~\"5..\"}[$__range])) or (sum by (endpoint, method) (increase(repalis_http_request_total{env=\"$env\"}[$__range])) * 0)) / clamp_min(sum by (endpoint, method) (increase(repalis_http_request_total{env=\"$env\"}[$__range])), 1))",
                         "format": "table",
                         "instant": true,
                         "legendFormat": "__auto"
@@ -1477,7 +1477,7 @@
                       "group": "prometheus",
                       "kind": "DataQuery",
                       "spec": {
-                        "expr": "histogram_quantile(0.99, sum by (endpoint, method, le) (rate(polar_http_request_duration_seconds_bucket{env=\"$env\"}[$__range])))",
+                        "expr": "histogram_quantile(0.99, sum by (endpoint, method, le) (rate(repalis_http_request_duration_seconds_bucket{env=\"$env\"}[$__range])))",
                         "format": "table",
                         "instant": true,
                         "legendFormat": "__auto"
@@ -1498,7 +1498,7 @@
                       "group": "prometheus",
                       "kind": "DataQuery",
                       "spec": {
-                        "expr": "sum by (endpoint, method) (rate(polar_http_request_total{env=\"$env\"}[5m]))",
+                        "expr": "sum by (endpoint, method) (rate(repalis_http_request_total{env=\"$env\"}[5m]))",
                         "format": "table",
                         "instant": true,
                         "legendFormat": "__auto"
@@ -1519,7 +1519,7 @@
                       "group": "prometheus",
                       "kind": "DataQuery",
                       "spec": {
-                        "expr": "sum by (endpoint, method) (increase(polar_http_request_total{env=\"$env\", status_code=~\"5..\"}[$__range]))",
+                        "expr": "sum by (endpoint, method) (increase(repalis_http_request_total{env=\"$env\", status_code=~\"5..\"}[$__range]))",
                         "format": "table",
                         "instant": true,
                         "legendFormat": "__auto"
@@ -1540,7 +1540,7 @@
                       "group": "prometheus",
                       "kind": "DataQuery",
                       "spec": {
-                        "expr": "max by (endpoint, method) (last_over_time(polar_slo_p99_target_seconds{env=\"$env\"}[1h]))",
+                        "expr": "max by (endpoint, method) (last_over_time(repalis_slo_p99_target_seconds{env=\"$env\"}[1h]))",
                         "format": "table",
                         "instant": true,
                         "legendFormat": "__auto"
@@ -1561,7 +1561,7 @@
                       "group": "prometheus",
                       "kind": "DataQuery",
                       "spec": {
-                        "expr": "max by (endpoint, method) (last_over_time(polar_slo_p99_target_seconds{env=\"$env\"}[1h]))",
+                        "expr": "max by (endpoint, method) (last_over_time(repalis_slo_p99_target_seconds{env=\"$env\"}[1h]))",
                         "format": "table",
                         "instant": true,
                         "legendFormat": "__auto"
@@ -2135,7 +2135,7 @@
                       "group": "prometheus",
                       "kind": "DataQuery",
                       "spec": {
-                        "expr": "100 * (1 - (sum(rate(polar_http_request_total{env=\"$env\", endpoint=~\"$endpoint\", method=~\"$method\", status_code=~\"5..\"}[5m])) or vector(0)) / sum(rate(polar_http_request_total{env=\"$env\", endpoint=~\"$endpoint\", method=~\"$method\"}[5m])))",
+                        "expr": "100 * (1 - (sum(rate(repalis_http_request_total{env=\"$env\", endpoint=~\"$endpoint\", method=~\"$method\", status_code=~\"5..\"}[5m])) or vector(0)) / sum(rate(repalis_http_request_total{env=\"$env\", endpoint=~\"$endpoint\", method=~\"$method\"}[5m])))",
                         "legendFormat": "Availability"
                       },
                       "version": "v0"
@@ -2474,7 +2474,7 @@
     "liveNow": false,
     "preload": false,
     "tags": [
-      "polar",
+      "repalis",
       "api",
       "slo",
       "sli"
@@ -2499,14 +2499,14 @@
       "timezone": "browser",
       "to": "now"
     },
-    "title": "Polar API",
+    "title": "Repalis API",
     "variables": [
       {
         "kind": "DatasourceVariable",
         "spec": {
           "allowCustomValue": true,
           "current": {
-            "text": "grafanacloud-polarsh-prom",
+            "text": "grafanacloud-repalis-prom",
             "value": "grafanacloud-prom"
           },
           "hide": "dontHide",
@@ -2529,7 +2529,7 @@
             "text": "production",
             "value": "production"
           },
-          "definition": "label_values(polar_http_request_total, env)",
+          "definition": "label_values(repalis_http_request_total, env)",
           "hide": "dontHide",
           "includeAll": false,
           "label": "Environment",
@@ -2544,7 +2544,7 @@
             "kind": "DataQuery",
             "spec": {
               "qryType": 1,
-              "query": "label_values(polar_http_request_total, env)",
+              "query": "label_values(repalis_http_request_total, env)",
               "refId": "PrometheusVariableQueryEditor-VariableQuery"
             },
             "version": "v0"
@@ -2565,7 +2565,7 @@
             "text": "All",
             "value": "$__all"
           },
-          "definition": "label_values(polar_http_request_total{env=\"$env\"}, method)",
+          "definition": "label_values(repalis_http_request_total{env=\"$env\"}, method)",
           "hide": "dontHide",
           "includeAll": true,
           "label": "Method",
@@ -2580,7 +2580,7 @@
             "kind": "DataQuery",
             "spec": {
               "qryType": 1,
-              "query": "label_values(polar_http_request_total{env=\"$env\"}, method)",
+              "query": "label_values(repalis_http_request_total{env=\"$env\"}, method)",
               "refId": "PrometheusVariableQueryEditor-VariableQuery"
             },
             "version": "v0"
@@ -2600,7 +2600,7 @@
             "text": "All",
             "value": "$__all"
           },
-          "definition": "label_values(polar_http_request_total{env=\"$env\", method=~\"$method\"}, endpoint)",
+          "definition": "label_values(repalis_http_request_total{env=\"$env\", method=~\"$method\"}, endpoint)",
           "hide": "dontHide",
           "includeAll": true,
           "label": "Endpoint",
@@ -2615,7 +2615,7 @@
             "kind": "DataQuery",
             "spec": {
               "qryType": 1,
-              "query": "label_values(polar_http_request_total{env=\"$env\", method=~\"$method\"}, endpoint)",
+              "query": "label_values(repalis_http_request_total{env=\"$env\", method=~\"$method\"}, endpoint)",
               "refId": "PrometheusVariableQueryEditor-VariableQuery"
             },
             "version": "v0"

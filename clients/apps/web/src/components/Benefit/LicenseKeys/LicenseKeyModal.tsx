@@ -7,7 +7,7 @@ import { toast } from '@/components/Toast/use-toast'
 import { useLicenseKeyUpdate } from '@/hooks/queries'
 import { extractApiErrorMessage } from '@/utils/api/errors'
 import { buildCustomerDashboardPath } from '@/utils/customer'
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 import {
   Button,
   InlineModalHeader,
@@ -17,10 +17,10 @@ import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import { ChevronRight, RefreshCw } from '@polar-sh/orbit/icons'
-import FormattedDateTime from '@polar-sh/ui/components/atoms/FormattedDateTime'
+} from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import { ChevronRight, RefreshCw } from '@repalis/orbit/icons'
+import FormattedDateTime from '@repalis/ui/components/atoms/FormattedDateTime'
 import Link from 'next/link'
 import { ReactNode, useCallback, useState } from 'react'
 import { LicenseKeyActivationList } from './LicenseKeyActivationList'
@@ -180,7 +180,7 @@ export const LicenseKeyModal = ({
                 email={customer.email}
                 avatarUrl={customer.avatar_url}
               />
-              <ChevronRight className="dark:text-polar-500 h-4 w-4 shrink-0 text-gray-400 opacity-0 transition-opacity group-hover:opacity-100" />
+              <ChevronRight className="dark:text-repalis-500 h-4 w-4 shrink-0 text-gray-400 opacity-0 transition-opacity group-hover:opacity-100" />
             </Box>
           </Link>
         </Box>

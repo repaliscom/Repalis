@@ -6,9 +6,9 @@ import pytest
 from pytest_mock import MockerFixture
 from sqlalchemy import inspect
 
-from polar.customer.repository import CustomerRepository, CustomerStripeIdentity
-from polar.event.system import SystemEvent
-from polar.models import (
+from repalis.customer.repository import CustomerRepository, CustomerStripeIdentity
+from repalis.event.system import SystemEvent
+from repalis.models import (
     Customer,
     MerchantMigrationRecord,
     MerchantMigrationRecordStatus,
@@ -16,11 +16,11 @@ from polar.models import (
     Organization,
     Product,
 )
-from polar.models.customer import CustomerType, _avatar_url_for_email
-from polar.models.member import MemberRole
-from polar.models.subscription import SubscriptionStatus
-from polar.models.webhook_endpoint import WebhookEventType
-from polar.postgres import AsyncSession
+from repalis.models.customer import CustomerType, _avatar_url_for_email
+from repalis.models.member import MemberRole
+from repalis.models.subscription import SubscriptionStatus
+from repalis.models.webhook_endpoint import WebhookEventType
+from repalis.postgres import AsyncSession
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (
     create_customer,
@@ -118,7 +118,7 @@ async def test_create_context(
     repository: CustomerRepository,
     organization: Organization,
 ) -> None:
-    enqueue_job_mock = mocker.patch("polar.customer.repository.enqueue_job")
+    enqueue_job_mock = mocker.patch("repalis.customer.repository.enqueue_job")
 
     async with repository.create_context(
         Customer(email="customer@example.com", organization=organization)
@@ -149,7 +149,7 @@ async def test_create_context_with_external_id_resolves_first_user_event_at(
     repository: CustomerRepository,
     organization: Organization,
 ) -> None:
-    enqueue_job_mock = mocker.patch("polar.customer.repository.enqueue_job")
+    enqueue_job_mock = mocker.patch("repalis.customer.repository.enqueue_job")
 
     async with repository.create_context(
         Customer(
@@ -171,7 +171,7 @@ async def test_update_setting_external_id_resolves_first_user_event_at(
     customer: Customer,
     repository: CustomerRepository,
 ) -> None:
-    enqueue_job_mock = mocker.patch("polar.customer.repository.enqueue_job")
+    enqueue_job_mock = mocker.patch("repalis.customer.repository.enqueue_job")
 
     customer.external_id = "EXTERNAL_ID"
     await repository.update(customer)
@@ -187,7 +187,7 @@ async def test_update_without_external_id_change_does_not_resolve(
     customer: Customer,
     repository: CustomerRepository,
 ) -> None:
-    enqueue_job_mock = mocker.patch("polar.customer.repository.enqueue_job")
+    enqueue_job_mock = mocker.patch("repalis.customer.repository.enqueue_job")
 
     customer.name = "New Name"
     await repository.update(customer)
@@ -253,7 +253,7 @@ async def test_update_tracks_billing_name(
     customer: Customer,
     repository: CustomerRepository,
 ) -> None:
-    enqueue_job_mock = mocker.patch("polar.customer.repository.enqueue_job")
+    enqueue_job_mock = mocker.patch("repalis.customer.repository.enqueue_job")
 
     # `billing_name` is exposed via a property backed by the `_billing_name`
     # column, which is exactly the path the customer portal update goes through.
@@ -274,7 +274,7 @@ async def test_update_tracks_billing_name_with_flush_true(
     customer: Customer,
     repository: CustomerRepository,
 ) -> None:
-    enqueue_job_mock = mocker.patch("polar.customer.repository.enqueue_job")
+    enqueue_job_mock = mocker.patch("repalis.customer.repository.enqueue_job")
 
     # `flush=True` causes SQLAlchemy to flush the session inside `update()`,
     # which clears attribute history. Changes must still be tracked correctly.
@@ -295,7 +295,7 @@ async def test_update_with_update_dict_tracks_changed_fields(
     customer: Customer,
     repository: CustomerRepository,
 ) -> None:
-    enqueue_job_mock = mocker.patch("polar.customer.repository.enqueue_job")
+    enqueue_job_mock = mocker.patch("repalis.customer.repository.enqueue_job")
 
     await repository.update(customer, update_dict={"name": "New Name Via Dict"})
 
@@ -329,7 +329,7 @@ async def test_update_deleted_customer_is_silent(
     repository: CustomerRepository,
 ) -> None:
     await repository.soft_delete(customer)
-    enqueue_job_mock = mocker.patch("polar.customer.repository.enqueue_job")
+    enqueue_job_mock = mocker.patch("repalis.customer.repository.enqueue_job")
 
     customer.name = "New Name"
     await repository.update(customer)
@@ -345,7 +345,7 @@ async def test_update_restoring_customer_emits_updated(
     repository: CustomerRepository,
 ) -> None:
     await repository.soft_delete(customer)
-    enqueue_job_mock = mocker.patch("polar.customer.repository.enqueue_job")
+    enqueue_job_mock = mocker.patch("repalis.customer.repository.enqueue_job")
 
     await repository.update(customer, update_dict={"deleted_at": None})
 
@@ -360,7 +360,7 @@ async def test_update_without_changes(
     customer: Customer,
     repository: CustomerRepository,
 ) -> None:
-    enqueue_job_mock = mocker.patch("polar.customer.repository.enqueue_job")
+    enqueue_job_mock = mocker.patch("repalis.customer.repository.enqueue_job")
 
     await repository.update(customer)
 

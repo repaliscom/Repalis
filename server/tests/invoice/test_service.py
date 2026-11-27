@@ -1,11 +1,11 @@
 import pytest
 from botocore.stub import ANY, Stubber
 
-from polar.config import settings
-from polar.invoice.service import invoice as invoice_service
-from polar.kit.address import Address, CountryAlpha2
-from polar.models import Customer, Order, Product
-from polar.tax.tax_id import TaxIDFormat
+from repalis.config import settings
+from repalis.invoice.service import invoice as invoice_service
+from repalis.kit.address import Address, CountryAlpha2
+from repalis.models import Customer, Order, Product
+from repalis.tax.tax_id import TaxIDFormat
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_order
 
@@ -39,7 +39,7 @@ async def test_create_order_invoice(
             postal_code="90001",
             country=CountryAlpha2("US"),
         ),
-        invoice_number="POLAR-0001",
+        invoice_number="REPALIS-0001",
     )
 
     s3_stub.add_response(
@@ -47,7 +47,7 @@ async def test_create_order_invoice(
         {},
         {
             "Bucket": settings.S3_CUSTOMER_INVOICES_BUCKET_NAME,
-            "Key": "Invoice-POLAR-0001.pdf",
+            "Key": "Invoice-REPALIS-0001.pdf",
             "ContentType": "application/pdf",
             "Body": ANY,
         },
@@ -55,7 +55,7 @@ async def test_create_order_invoice(
 
     invoice_path = await invoice_service.create_order_invoice(order)
 
-    assert invoice_path == "Invoice-POLAR-0001.pdf"
+    assert invoice_path == "Invoice-REPALIS-0001.pdf"
 
 
 @pytest.mark.anyio

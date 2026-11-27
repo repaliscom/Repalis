@@ -253,26 +253,26 @@ variable "apple_key_value" {
   sensitive   = true
 }
 
-# Polar
-variable "polar_access_token" {
-  description = "Polar API access token"
+# Repalis
+variable "repalis_access_token" {
+  description = "Repalis API access token"
   type        = string
   sensitive   = true
 }
 
-variable "polar_webhook_secret" {
-  description = "Polar webhook secret"
+variable "repalis_webhook_secret" {
+  description = "Repalis webhook secret"
   type        = string
   sensitive   = true
 }
 
-variable "polar_organization_id" {
-  description = "Polar organization ID"
+variable "repalis_organization_id" {
+  description = "Repalis organization ID"
   type        = string
 }
 
-variable "polar_scale_product_id" {
-  description = "Polar Scale-tier product ID"
+variable "repalis_scale_product_id" {
+  description = "Repalis Scale-tier product ID"
   type        = string
 }
 
@@ -346,7 +346,7 @@ variable "customer_portal_url_overrides" {
 }
 
 variable "plain_default_tier_external_id" {
-  description = "Default Plain tier external ID used as a fallback for the polar-self support benefit"
+  description = "Default Plain tier external ID used as a fallback for the repalis-self support benefit"
   type        = string
 }
 

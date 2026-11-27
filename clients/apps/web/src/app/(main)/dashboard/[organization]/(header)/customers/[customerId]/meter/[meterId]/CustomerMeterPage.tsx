@@ -12,10 +12,10 @@ import IntervalPicker, {
 import { useCustomerMeters } from '@/hooks/queries/customerMeters'
 import { useSubscriptions } from '@/hooks/queries/subscriptions'
 import { isMeteredPrice, MeteredPrice } from '@/utils/product'
-import { ArrowBackOutlined } from '@polar-sh/orbit/icons'
-import { schemas } from '@polar-sh/client'
-import { Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { ArrowBackOutlined } from '@repalis/orbit/icons'
+import { schemas } from '@repalis/client'
+import { Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import { endOfMonth, startOfMonth } from 'date-fns'
 import Link from 'next/link'
 import {
@@ -136,7 +136,7 @@ const CustomerMeterPage = ({
           <Box alignItems="center" columnGap="l" minWidth={0}>
             <Link
               href={`/dashboard/${organization.slug}/customers/${customer.id}`}
-              className="dark:text-polar-500 shrink-0 text-gray-400 transition-colors hover:text-gray-900 dark:hover:text-white"
+              className="dark:text-repalis-500 shrink-0 text-gray-400 transition-colors hover:text-gray-900 dark:hover:text-white"
             >
               <ArrowBackOutlined fontSize="small" />
             </Link>

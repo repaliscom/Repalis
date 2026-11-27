@@ -5,10 +5,10 @@ from datetime import timedelta
 import pytest
 from httpx2 import AsyncClient
 
-from polar.auth.scope import Scope
-from polar.kit.utils import utc_now
-from polar.models import EventType, Organization, UserOrganization
-from polar.models.event import EventSource
+from repalis.auth.scope import Scope
+from repalis.kit.utils import utc_now
+from repalis.models import EventType, Organization, UserOrganization
+from repalis.models.event import EventSource
 from tests.fixtures.auth import AuthSubjectFixture
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_event, create_event_type

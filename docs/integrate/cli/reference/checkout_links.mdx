@@ -1,28 +1,28 @@
 ---
-title: "polar checkout_links"
+title: "repalis checkout_links"
 sidebarTitle: "checkout_links"
 ---
 
-{/* Generated from the CLI by `pnpm --filter @polar-sh/cli docs:generate`. Do not edit by hand. */}
+{/* Generated from the CLI by `pnpm --filter @repalis/cli docs:generate`. Do not edit by hand. */}
 
 ```bash
-polar checkout_links <subcommand> [flags]
+repalis checkout_links <subcommand> [flags]
 ```
 
 **Subcommands**
 
-- [`polar checkout_links create`](#polar-checkout_links-create) Create a checkout link.
-- [`polar checkout_links delete`](#polar-checkout_links-delete) Delete a checkout link.
-- [`polar checkout_links get`](#polar-checkout_links-get) Get a checkout link by ID.
-- [`polar checkout_links list`](#polar-checkout_links-list) List checkout links.
-- [`polar checkout_links update`](#polar-checkout_links-update) Update a checkout link.
+- [`repalis checkout_links create`](#repalis-checkout_links-create) Create a checkout link.
+- [`repalis checkout_links delete`](#repalis-checkout_links-delete) Delete a checkout link.
+- [`repalis checkout_links get`](#repalis-checkout_links-get) Get a checkout link by ID.
+- [`repalis checkout_links list`](#repalis-checkout_links-list) List checkout links.
+- [`repalis checkout_links update`](#repalis-checkout_links-update) Update a checkout link.
 
-## polar checkout_links create
+## repalis checkout_links create
 
 Create a checkout link.
 
 ```bash
-polar checkout_links create [flags]
+repalis checkout_links create [flags]
 ```
 
 **Flags**
@@ -48,12 +48,12 @@ polar checkout_links create [flags]
 | `--product-id` | `string` | product_id |
 | `--products` | `string` | List of products that will be available to select at checkout. |
 
-## polar checkout_links delete
+## repalis checkout_links delete
 
 Delete a checkout link.
 
 ```bash
-polar checkout_links delete [flags] <id>
+repalis checkout_links delete [flags] <id>
 ```
 
 **Arguments**
@@ -69,12 +69,12 @@ polar checkout_links delete [flags] <id>
 | `--confirm`, `-c` | `boolean` | Skip the confirmation prompt for destructive requests |
 | `--org` | `string` | Organization ID or slug for this invocation only |
 
-## polar checkout_links get
+## repalis checkout_links get
 
 Get a checkout link by ID.
 
 ```bash
-polar checkout_links get [flags] <id>
+repalis checkout_links get [flags] <id>
 ```
 
 **Arguments**
@@ -90,12 +90,12 @@ polar checkout_links get [flags] <id>
 | `--fields` | `string` | Only print these fields, comma-separated; use dots for nested ones, e.g. id,name,prices.price_amount |
 | `--org` | `string` | Organization ID or slug for this invocation only |
 
-## polar checkout_links list
+## repalis checkout_links list
 
 List checkout links.
 
 ```bash
-polar checkout_links list [flags]
+repalis checkout_links list [flags]
 ```
 
 **Flags**
@@ -110,12 +110,12 @@ polar checkout_links list [flags]
 | `--limit` | `integer` | Size of a page, defaults to 10. Maximum is 100. |
 | `--sorting` | `choice` | Sorting criterion. Several criteria can be used simultaneously and will be applied in order. Add a minus sign `-` before the criteria name to sort by descending order. (choices: created_at, -created_at, label, -label, success_url, -success_url, allow_discount_codes, -allow_discount_codes) |
 
-## polar checkout_links update
+## repalis checkout_links update
 
 Update a checkout link.
 
 ```bash
-polar checkout_links update [flags] <id>
+repalis checkout_links update [flags] <id>
 ```
 
 **Arguments**

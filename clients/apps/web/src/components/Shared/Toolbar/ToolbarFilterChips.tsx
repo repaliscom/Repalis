@@ -4,15 +4,15 @@ import {
   isFilterDefaulted,
   type Filter,
 } from '@/components/Shared/FilterPopover'
-import { Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import { X } from '@polar-sh/orbit/icons'
+import { Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import { X } from '@repalis/orbit/icons'
 import { Fragment, type ReactNode } from 'react'
 
 const CHIP_HEIGHT = 26
 const MAX_NAMED_VALUES = 2
 const REMOVE_CLASS =
-  'dark:text-polar-500 flex h-full cursor-pointer items-center px-1.5 text-gray-400 transition-colors hover:text-black dark:hover:text-white'
+  'dark:text-repalis-500 flex h-full cursor-pointer items-center px-1.5 text-gray-400 transition-colors hover:text-black dark:hover:text-white'
 
 const getValueLabel = (filter: Filter): string => {
   if (filter.valueLabel) return filter.valueLabel

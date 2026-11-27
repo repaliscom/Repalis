@@ -5,8 +5,8 @@ import {
   useInfiniteProducts,
   useSelectedProducts,
 } from '@/hooks/queries'
-import { schemas } from '@polar-sh/client'
-import { Package } from '@polar-sh/orbit/icons'
+import { schemas } from '@repalis/client'
+import { Package } from '@repalis/orbit/icons'
 import { useState } from 'react'
 import { uniqueOptions } from './filterOptions'
 

@@ -1,9 +1,9 @@
-import type { schemas } from '@polar-sh/client'
+import type { schemas } from '@repalis/client'
 import {
   DEFAULT_LOCALE,
   useTranslations,
   type AcceptedLocale,
-} from '@polar-sh/i18n'
+} from '@repalis/i18n'
 import { getMeteredTiers, isMeteredPrice } from '../utils/product'
 import { getBasePricePerUnit } from '../utils/units'
 import AmountLabel from './AmountLabel'

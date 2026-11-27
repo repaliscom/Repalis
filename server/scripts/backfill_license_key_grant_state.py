@@ -41,10 +41,10 @@ from sqlalchemy import (
     update,
 )
 
-from polar.kit.db.postgres import create_async_sessionmaker
-from polar.models import BenefitGrant, LicenseKey
-from polar.models.license_key import LicenseKeyStatus
-from polar.postgres import create_async_engine
+from repalis.kit.db.postgres import create_async_sessionmaker
+from repalis.models import BenefitGrant, LicenseKey
+from repalis.models.license_key import LicenseKeyStatus
+from repalis.postgres import create_async_engine
 from scripts.helper import (
     configure_script_console_logging,
     limit_bindparam,

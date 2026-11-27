@@ -70,5 +70,5 @@ export const make = (
 
 export const layer = Layer.succeed(
   Deliveries,
-  make(join(homedir(), '.polar', 'deliveries')),
+  make(join(homedir(), '.repalis', 'deliveries')),
 )

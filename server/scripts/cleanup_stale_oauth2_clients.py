@@ -2,11 +2,11 @@ import asyncio
 
 import typer
 
-from polar.config import settings
-from polar.kit.db.postgres import create_async_sessionmaker
-from polar.kit.utils import utc_now
-from polar.oauth2.repository import OAuth2ClientRepository
-from polar.postgres import create_async_engine
+from repalis.config import settings
+from repalis.kit.db.postgres import create_async_sessionmaker
+from repalis.kit.utils import utc_now
+from repalis.oauth2.repository import OAuth2ClientRepository
+from repalis.postgres import create_async_engine
 
 from .helper import configure_script_logging, typer_async
 
@@ -22,7 +22,7 @@ async def cleanup_stale_oauth2_clients(
     configure_script_logging()
     if not settings.MCP_OAUTH2_CLIENT_ID:
         typer.echo(
-            "Set POLAR_MCP_OAUTH2_CLIENT_ID to protect the MCP client.", err=True
+            "Set REPALIS_MCP_OAUTH2_CLIENT_ID to protect the MCP client.", err=True
         )
         raise typer.Exit(1)
 

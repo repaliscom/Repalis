@@ -1,4 +1,4 @@
-# Polar
+# Repalis
 
 Open source payment infrastructure platform for developers. Monorepo with a Python/FastAPI
 backend and a Next.js frontend.
@@ -25,9 +25,9 @@ per-area `AGENTS.md` linked from the Architecture and Conventions sections befor
 ## Architecture
 
 ```
-polar/
+repalis/
 ├── server/                 # Python/FastAPI backend — see server/AGENTS.md
-│   ├── polar/
+│   ├── repalis/
 │   │   ├── {module}/
 │   │   │   ├── endpoints.py     # FastAPI routes
 │   │   │   ├── service.py       # Business logic (singleton)
@@ -35,7 +35,7 @@ polar/
 │   │   │   ├── schemas.py       # Pydantic models
 │   │   │   └── tasks.py         # Dramatiq background jobs
 │   │   ├── models/             # SQLAlchemy models (global, not per-module)
-│   │   └── backoffice/         # Admin UI (HTMX + DaisyUI) — see server/polar/backoffice/AGENTS.md
+│   │   └── backoffice/         # Admin UI (HTMX + DaisyUI) — see server/repalis/backoffice/AGENTS.md
 │   └── migrations/             # Alembic database migrations
 ├── clients/                # Turborepo + pnpm frontend — see clients/AGENTS.md
 │   ├── adapters/               # Published framework and authentication adapters
@@ -94,10 +94,10 @@ pnpm install && pnpm dev
 ```
 
 **Stripe** — add to `server/.env`:
-- `POLAR_STRIPE_SECRET_KEY`
-- `POLAR_STRIPE_PUBLISHABLE_KEY`
-- `POLAR_STRIPE_WEBHOOK_SECRET`
-- `POLAR_STRIPE_CONNECT_WEBHOOK_SECRET`
+- `REPALIS_STRIPE_SECRET_KEY`
+- `REPALIS_STRIPE_PUBLISHABLE_KEY`
+- `REPALIS_STRIPE_WEBHOOK_SECRET`
+- `REPALIS_STRIPE_CONNECT_WEBHOOK_SECRET`
 
 **Fresh worktrees** (`.claude/worktrees/`) don't carry `.env` or built artifacts. Before running
 tests in a new worktree, from the repo root:
@@ -112,7 +112,7 @@ One artifact actually blocks config import: *any existing file* at
 `EMAIL_RENDERER_BINARY_PATH` — the validator only checks that the path exists. When you need to
 collect tests, lint or typecheck without waiting on the ~60s email build, do what
 `test_sdk.yaml` does: `touch /tmp/email-renderer` and set
-`POLAR_EMAIL_RENDERER_BINARY_PATH=/tmp/email-renderer`. Tests that render an email will fail,
+`REPALIS_EMAIL_RENDERER_BINARY_PATH=/tmp/email-renderer`. Tests that render an email will fail,
 nothing else will.
 
 ## Development Workflow
@@ -129,12 +129,12 @@ uv run alembic upgrade head                               # apply migrations
 ```
 
 `uv run task test` adds coverage and runs serially. Use `task test_fast` (`-n auto`, no coverage)
-interactively, or scope to a path: `POLAR_ENV=testing uv run python -m pytest tests/<module>`.
+interactively, or scope to a path: `REPALIS_ENV=testing uv run python -m pytest tests/<module>`.
 
-Set `POLAR_TEST_DATABASE_TEMPLATE=polar_test` (with `polar_test` created and migrated) and each
+Set `REPALIS_TEST_DATABASE_TEMPLATE=repalis_test` (with `repalis_test` created and migrated) and each
 xdist worker clones that database instead of replaying the whole migration history into its own
 — see `tests/fixtures/database.py`. CI does this in `test_server.yaml`. **If you add a migration,
-re-run `POLAR_ENV=testing uv run task db_migrate` to refresh the template**, or workers will
+re-run `REPALIS_ENV=testing uv run task db_migrate` to refresh the template**, or workers will
 clone a stale schema.
 
 **Visual regression testing** — use `dev snap` to capture before/after screenshots across branches:
@@ -153,17 +153,17 @@ See `server/AGENTS.md` for backend command and testing specifics.
 Detailed, review-enforced patterns live next to the code — read the relevant file before writing:
 
 - **Backend** → `server/AGENTS.md`: modular structure, repository/service/endpoint patterns,
-  `lazy="raise"` relationships, status-coded `PolarError`, endpoints return ORM models,
+  `lazy="raise"` relationships, status-coded `RepalisError`, endpoints return ORM models,
   authentication (`AuthSubject` + scopes).
 - **Frontend** → `clients/AGENTS.md`: Orbit `<Box />` design system (raw Tailwind is **deprecated**
   for layout/spacing/color/etc.), TanStack Query for data, Zustand for state, 250-line `max-lines` limit,
   React Compiler is on for web/orbit (no manual memoization there; react-hook-form via `useWatch`/`useFormState`).
-- **Backoffice** → `server/polar/backoffice/AGENTS.md`: HTMX + DaisyUI patterns.
+- **Backoffice** → `server/repalis/backoffice/AGENTS.md`: HTMX + DaisyUI patterns.
 
 **i18n:** add new translatable strings only to `clients/packages/i18n/src/locales/en.ts` — a CI
 job auto-translates the rest. Don't edit other locale files. (More in `clients/AGENTS.md`.)
 
-**Effect** (`clients/apps/mcp`, `clients/packages/{cli,polar,ingestion}`, `sdk/cli-commands`,
+**Effect** (`clients/apps/mcp`, `clients/packages/{cli,repalis,ingestion}`, `sdk/cli-commands`,
 `sdk/generator/cli_commands/template`): don't write Effect from memory. Before writing or changing
 Effect code, search the Effect and opencode sources for the established pattern (errors, services
 and layers, schemas, CLI, HTTP, testing). Clone them if missing (`git -C <dir> pull` refreshes them):
@@ -197,18 +197,18 @@ Treat **Accepted** ADRs as binding:
 Reusable workflows live in `.agents/skills/`. `.claude/skills` is a symlink to that
 directory. Invoke as `/name` in Cursor and Claude Code, or `$name` in Codex.
 
-- `polar-code-review` — Polar-specific review of the branch diff. Bugs, security, and simplification are `/code-review`, `/security-review`, and `/simplify`.
-- `open-pr` — draft PR after lint, type-check, `test_fast`, `polar-code-review`, and cubic CLI (`CUBIC_API_KEY`). Do not mark ready unless asked.
+- `repalis-code-review` — Repalis-specific review of the branch diff. Bugs, security, and simplification are `/code-review`, `/security-review`, and `/simplify`.
+- `open-pr` — draft PR after lint, type-check, `test_fast`, `repalis-code-review`, and cubic CLI (`CUBIC_API_KEY`). Do not mark ready unless asked.
 
 ## Documentation
 
 - Keep the security policy in `docs/security.mdx` and `SECURITY.md` in sync. Apply policy edits to both files in the same change.
-- **Handbook**: [Engineering Handbook](https://linear.app/polarsh/document/engineering-handbook-438113df8882)
-- **Design docs**: [Design documents](https://linear.app/polarsh/document/design-documents-1b03e0f6e82b) — write one only when
-  Polar stores or processes new data, changes login or permissions, adds a
-  new system, or adds a third-party tool that can see Polar data. Start from the
-  [design document template](https://linear.app/polarsh/document/design-document-template-02c5d83b61b2).
-- **API guidelines**: [REST API Guidelines](https://linear.app/polarsh/document/rest-api-guidelines-65841b9f4bcc)
+- **Handbook**: [Engineering Handbook](https://linear.app/repaliscom/document/engineering-handbook-438113df8882)
+- **Design docs**: [Design documents](https://linear.app/repaliscom/document/design-documents-1b03e0f6e82b) — write one only when
+  Repalis stores or processes new data, changes login or permissions, adds a
+  new system, or adds a third-party tool that can see Repalis data. Start from the
+  [design document template](https://linear.app/repaliscom/document/design-document-template-02c5d83b61b2).
+- **API guidelines**: [REST API Guidelines](https://linear.app/repaliscom/document/rest-api-guidelines-65841b9f4bcc)
 - **User/developer docs**: `docs/` (Mintlify) — `cd docs && pnpm dev` to serve locally.
 
 Mintlify API reference is generated from committed `docs/openapi/{version}.openapi.json`. After
@@ -233,7 +233,7 @@ Add new operations and webhooks to the matching groups in `docs/docs.json`; that
 ## Driving the local UI
 
 **Login.** Email OTP codes are printed in the API pane / log (`LOGIN CODE: …`). Grab with
-`tmux capture-pane -t polar:services.0 -p | grep -a "LOGIN CODE" | tail -1`. `admin@polar.sh`
+`tmux capture-pane -t repalis:services.0 -p | grep -a "LOGIN CODE" | tail -1`. `admin@repalis.com`
 is the conventional test account.
 
 **Onboarding gotcha.** The org-creation wizard's "Launch Dashboard" button only submits once the

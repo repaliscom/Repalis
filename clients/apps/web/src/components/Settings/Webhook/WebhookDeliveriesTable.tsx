@@ -17,16 +17,16 @@ import {
 import {
   KeyboardArrowDownOutlined,
   KeyboardArrowRightOutlined,
-} from '@polar-sh/orbit/icons'
-import { operations, schemas } from '@polar-sh/client'
-import { Button, Text, Truncated } from '@polar-sh/orbit'
+} from '@repalis/orbit/icons'
+import { operations, schemas } from '@repalis/client'
+import { Button, Text, Truncated } from '@repalis/orbit'
 import {
   DataTable,
   DataTableCellContext,
   DataTableColumnDef,
   DataTableColumnHeader,
-} from '@polar-sh/orbit'
-import FormattedDateTime from '@polar-sh/ui/components/atoms/FormattedDateTime'
+} from '@repalis/orbit'
+import FormattedDateTime from '@repalis/ui/components/atoms/FormattedDateTime'
 import React, { useCallback } from 'react'
 import { twMerge } from 'tailwind-merge'
 
@@ -96,9 +96,9 @@ const DeliveriesTable: React.FC<DeliveriesTableProps> = ({
             }}
           >
             {row.getIsExpanded() ? (
-              <KeyboardArrowDownOutlined className="dark:text-polar-500 text-gray-500" />
+              <KeyboardArrowDownOutlined className="dark:text-repalis-500 text-gray-500" />
             ) : (
-              <KeyboardArrowRightOutlined className="dark:text-polar-500 text-gray-500" />
+              <KeyboardArrowRightOutlined className="dark:text-repalis-500 text-gray-500" />
             )}
           </button>
         )

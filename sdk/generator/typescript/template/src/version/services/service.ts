@@ -35,9 +35,9 @@ export const {{ method.name | exported_operation_name(service.name) }} = (
 {% else %}
 * @returns {void}
 {% endif %}
-* @throws {{'{'}}PolarNetworkError{{'}'}} When a network error occurs
-* @throws {{'{'}}PolarRateLimitError{{'}'}} When the rate limit is exceeded
-* @throws {{'{'}}PolarServerError{{'}'}} When the server returns a 5xx error
+* @throws {{'{'}}RepalisNetworkError{{'}'}} When a network error occurs
+* @throws {{'{'}}RepalisRateLimitError{{'}'}} When the rate limit is exceeded
+* @throws {{'{'}}RepalisServerError{{'}'}} When the server returns a 5xx error
 {% for error in method.errors %}
 * @throws {{'{'}}{{ error.name }}{{'}'}} {{ error.description or 'Error with status code ' + error.status_code }}
 {% endfor %}
@@ -99,9 +99,9 @@ export const {{ method.name | exported_operation_name(service.name) }} = (
 {% endif %}
 * @param requestOptions - Request options
 * @returns {AsyncGenerator<{{ method.pagination.item_schema | ts_type }}>} A generator that yields items of type {{ method.pagination.item_schema | ts_type }}.
-* @throws {{'{'}}PolarNetworkError{{'}'}} When a network error occurs
-* @throws {{'{'}}PolarRateLimitError{{'}'}} When the rate limit is exceeded
-* @throws {{'{'}}PolarServerError{{'}'}} When the server returns a 5xx error
+* @throws {{'{'}}RepalisNetworkError{{'}'}} When a network error occurs
+* @throws {{'{'}}RepalisRateLimitError{{'}'}} When the rate limit is exceeded
+* @throws {{'{'}}RepalisServerError{{'}'}} When the server returns a 5xx error
 {% for error in method.errors %}
 * @throws {{'{'}}{{ error.name }}{{'}'}} {{ error.description or 'Error with status code ' + error.status_code }}
 {% endfor %}

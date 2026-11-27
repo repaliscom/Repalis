@@ -4,17 +4,17 @@ from typing import Any
 import pytest
 from httpx2 import AsyncClient
 
-from polar.discount.repository import DiscountRepository
-from polar.kit.versioning import APIVersion
-from polar.models import Discount, Organization, UserOrganization
-from polar.models.discount import (
+from repalis.discount.repository import DiscountRepository
+from repalis.kit.versioning import APIVersion
+from repalis.models import Discount, Organization, UserOrganization
+from repalis.models.discount import (
     DiscountDuration,
     DiscountFixed,
     DiscountPercentage,
     DiscountType,
 )
-from polar.postgres import AsyncSession
-from polar.version import V2026_04, V2026_10, V2027_01
+from repalis.postgres import AsyncSession
+from repalis.version import V2026_04, V2026_10, V2027_01
 from tests.fixtures.auth import AuthSubjectFixture
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_discount

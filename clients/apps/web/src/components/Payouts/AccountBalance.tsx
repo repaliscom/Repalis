@@ -1,9 +1,9 @@
 import { useTransactionsSummary } from '@/hooks/queries'
 import { usePayoutAccountSetup } from '@/hooks/usePayoutAccountSetup'
-import { schemas } from '@polar-sh/client'
-import { formatCurrency } from '@polar-sh/currency'
-import { Button, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { schemas } from '@repalis/client'
+import { formatCurrency } from '@repalis/currency'
+import { Button, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 
 import React, { useCallback } from 'react'
 import { useModal } from '../Modal/useModal'

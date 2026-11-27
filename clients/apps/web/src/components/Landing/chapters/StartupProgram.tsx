@@ -1,5 +1,5 @@
-import { Button, Grid } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { Button, Grid } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import Link from 'next/link'
 import { Chapter } from '../Chapter'
 import { VolumetricSlices } from '../graphics/VolumetricSlices'
@@ -33,7 +33,7 @@ export const StartupProgram = () => (
   >
     <Window flow={3} narrow aside="Startup Program">
       <Grid templateColumns={{ base: '1fr', md: 'repeat(2, 1fr)' }} gap="xs">
-        <div className="dark:bg-polar-900 flex aspect-square w-full items-center justify-center rounded-xl bg-white md:aspect-auto md:py-12">
+        <div className="dark:bg-repalis-900 flex aspect-square w-full items-center justify-center rounded-xl bg-white md:aspect-auto md:py-12">
           <Box width={{ base: '60%', md: '50%' }} aspectRatio="1 / 1">
             <VolumetricSlices />
           </Box>

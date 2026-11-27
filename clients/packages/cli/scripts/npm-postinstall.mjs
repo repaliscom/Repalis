@@ -29,7 +29,7 @@ const name = Object.keys(dependencies).find((item) =>
 )
 if (!name) {
   throw new Error(
-    `${manifest.name} does not provide a binary for ${platform}-${arch}. Install with: curl -fsSL https://polar.sh/install.sh | bash`,
+    `${manifest.name} does not provide a binary for ${platform}-${arch}. Install with: curl -fsSL https://repalis.com/install.sh | bash`,
   )
 }
 
@@ -55,7 +55,7 @@ function resolveBinary() {
 // npm is a .cmd wrapper on Windows, so it has to go through the shell there. The
 // arguments stay static and the prefix is passed as cwd, so nothing needs quoting.
 function installPackage() {
-  const temp = fs.mkdtempSync(path.join(os.tmpdir(), 'polar-cli-install-'))
+  const temp = fs.mkdtempSync(path.join(os.tmpdir(), 'repalis-cli-install-'))
   // A global install passes its flag down to lifecycle scripts as npm_config_global
   // or npm_config_location, which would send the child install to the global prefix.
   const env = { ...process.env }
@@ -93,7 +93,7 @@ function verifyBinary() {
     childProcess.spawnSync(targetBinary, ['--version'], {
       stdio: 'ignore',
       windowsHide: true,
-      env: { ...process.env, POLAR_CLI_TELEMETRY_OPTOUT: '1' },
+      env: { ...process.env, REPALIS_CLI_TELEMETRY_OPTOUT: '1' },
     }).status === 0
   )
 }
@@ -111,7 +111,7 @@ function main() {
   if (linkInstalledPackage()) return
   if (installPackage() && verifyBinary()) return
   throw new Error(
-    `Failed to install ${manifest.name}. Try manually installing ${JSON.stringify(name)}, or install with: curl -fsSL https://polar.sh/install.sh | bash`,
+    `Failed to install ${manifest.name}. Try manually installing ${JSON.stringify(name)}, or install with: curl -fsSL https://repalis.com/install.sh | bash`,
   )
 }
 

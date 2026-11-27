@@ -1,9 +1,9 @@
 'use client'
 
 import { useInView } from '@/hooks/useInView'
-import { Grid, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import { Check, Circle, LoaderCircle } from '@polar-sh/orbit/icons'
+import { Grid, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import { Check, Circle, LoaderCircle } from '@repalis/orbit/icons'
 import { useEffect, useState } from 'react'
 import { Shimmer } from './Shimmer'
 import { Sheet, Window } from './story/Frame'
@@ -128,7 +128,7 @@ const Line = ({ label, value }: { label: string; value: string }) => (
   </Box>
 )
 
-/** An order placed in a local currency, handled by Polar step by step until the payout lands. */
+/** An order placed in a local currency, handled by Repalis step by step until the payout lands. */
 export const Pipeline = () => {
   const { ref, market, marketIndex, step } = useOrder()
   const list = steps(market)
@@ -179,7 +179,7 @@ export const Pipeline = () => {
           </Box>
         </Sheet>
         <Sheet
-          title="Polar"
+          title="Repalis"
           aside={
             <Text variant="caption" color="muted">
               100+ markets

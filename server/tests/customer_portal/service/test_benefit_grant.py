@@ -3,22 +3,24 @@ from typing import Any, cast
 import pytest
 from pytest_mock import MockerFixture
 
-from polar.auth.models import AuthSubject
-from polar.benefit.strategies import BenefitActionRequiredError
-from polar.customer_portal.schemas.benefit_grant import (
+from repalis.auth.models import AuthSubject
+from repalis.benefit.strategies import BenefitActionRequiredError
+from repalis.customer_portal.schemas.benefit_grant import (
     CustomerBenefitGrantSlackSharedChannelUpdate,
 )
-from polar.customer_portal.service.benefit_grant import CustomerBenefitGrantSortProperty
-from polar.customer_portal.service.benefit_grant import (
+from repalis.customer_portal.service.benefit_grant import (
+    CustomerBenefitGrantSortProperty,
+)
+from repalis.customer_portal.service.benefit_grant import (
     customer_benefit_grant as customer_benefit_grant_service,
 )
-from polar.kit.db.postgres import AsyncSession
-from polar.kit.pagination import PaginationParams
-from polar.kit.sorting import Sorting
-from polar.kit.visibility import Visibility
-from polar.models import Benefit, Customer, Member, Organization, Subscription
-from polar.models.benefit import BenefitType
-from polar.models.member import MemberRole
+from repalis.kit.db.postgres import AsyncSession
+from repalis.kit.pagination import PaginationParams
+from repalis.kit.sorting import Sorting
+from repalis.kit.visibility import Visibility
+from repalis.models import Benefit, Customer, Member, Organization, Subscription
+from repalis.models.benefit import BenefitType
+from repalis.models.member import MemberRole
 from tests.fixtures.auth import MEMBER_AUTH_SUBJECT, AuthSubjectFixture
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (
@@ -607,7 +609,7 @@ class TestUpdate:
         customer: Customer,
     ) -> None:
         enqueue_job_mock = mocker.patch(
-            "polar.customer_portal.service.benefit_grant.enqueue_job"
+            "repalis.customer_portal.service.benefit_grant.enqueue_job"
         )
         benefit = await create_benefit(
             save_fixture,
@@ -658,7 +660,7 @@ class TestUpdate:
         customer: Customer,
     ) -> None:
         enqueue_job_mock = mocker.patch(
-            "polar.customer_portal.service.benefit_grant.enqueue_job"
+            "repalis.customer_portal.service.benefit_grant.enqueue_job"
         )
         benefit = await create_benefit(
             save_fixture,
@@ -710,7 +712,7 @@ class TestUpdate:
         customer: Customer,
     ) -> None:
         enqueue_job_mock = mocker.patch(
-            "polar.customer_portal.service.benefit_grant.enqueue_job"
+            "repalis.customer_portal.service.benefit_grant.enqueue_job"
         )
         benefit = await create_benefit(
             save_fixture,

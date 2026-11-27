@@ -30,7 +30,7 @@ dev docker down -i 1
 ## Cleanup (destructive)
 
 **Reset this instance** — removes its api/worker/web containers, build/cache
-volumes, postgres database (`polar_dev_<N>`), redis DB, and S3 buckets. Shared
+volumes, postgres database (`repalis_dev_<N>`), redis DB, and S3 buckets. Shared
 infra stays running so other worktrees are unaffected:
 ```bash
 dev docker cleanup -f

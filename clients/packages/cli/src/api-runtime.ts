@@ -1,8 +1,8 @@
-import { ApiCommandError, ApiRuntime } from '@polar-sh/cli-commands'
+import { ApiCommandError, ApiRuntime } from '@repalis/cli-commands'
 import { Console, Effect, Layer, Option, Result, Stdio, Terminal } from 'effect'
 import { Prompt } from 'effect/cli'
 import { Organizations } from '@/services/organizations'
-import { Polar } from '@/services/polar'
+import { Repalis } from '@/services/repalis'
 import { formatRecordPreview } from '@/utils/api-preview'
 import { selectFields } from '@/utils/fields'
 import { printJson } from '@/utils/json'
@@ -11,7 +11,7 @@ import * as ui from '@/utils/ui'
 export const layer = Layer.effect(
   ApiRuntime,
   Effect.gen(function* () {
-    const polar = yield* Polar
+    const repalis = yield* Repalis
     const organizations = yield* Organizations
 
     return ApiRuntime.of({
@@ -95,7 +95,7 @@ export const layer = Layer.effect(
                 fields.length > 0
                   ? `${formatRecordPreview(fields, columns)}\n\n`
                   : ''
-              const previewRequest = polar
+              const previewRequest = repalis
                 .use(invoke, environment, {
                   timeout: 1,
                   organizationId,
@@ -153,7 +153,7 @@ export const layer = Layer.effect(
             yield* Console.log(ui.blank)
           }
 
-          const result = yield* polar
+          const result = yield* repalis
             .use(operation.invoke, environment, {
               authenticated: operation.requiresAuthentication !== false,
               organizationId,

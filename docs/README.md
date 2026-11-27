@@ -1,4 +1,4 @@
-# Polar docs
+# Repalis docs
 
 Using Mintlify.
 

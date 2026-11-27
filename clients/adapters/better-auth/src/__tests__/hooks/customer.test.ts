@@ -1,18 +1,18 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { onAfterUserCreate, onUserUpdate } from '../../hooks/customer'
-import { createTestPolarOptions, mockApiError } from '../utils/helpers'
+import { createTestRepalisOptions, mockApiError } from '../utils/helpers'
 import {
   createMockBetterAuthContext,
   createMockCustomer,
-  createMockPolarClient,
+  createMockRepalisClient,
   createMockUser,
 } from '../utils/mocks'
 
 describe('customer hooks', () => {
-  let mockClient: ReturnType<typeof createMockPolarClient>
+  let mockClient: ReturnType<typeof createMockRepalisClient>
 
   beforeEach(() => {
-    mockClient = createMockPolarClient()
+    mockClient = createMockRepalisClient()
   })
 
   describe('onAfterUserCreate', () => {
@@ -23,7 +23,7 @@ describe('customer hooks', () => {
         pagination: { total_count: 0, max_page: 1 },
       })
 
-      await onAfterUserCreate(createTestPolarOptions({ client: mockClient }))(
+      await onAfterUserCreate(createTestRepalisOptions({ client: mockClient }))(
         user,
         createMockBetterAuthContext(),
       )
@@ -43,7 +43,7 @@ describe('customer hooks', () => {
       })
 
       await expect(
-        onAfterUserCreate(createTestPolarOptions({ client: mockClient }))(
+        onAfterUserCreate(createTestRepalisOptions({ client: mockClient }))(
           createMockUser(),
           createMockBetterAuthContext(),
         ),
@@ -71,7 +71,7 @@ describe('customer hooks', () => {
         individualCustomer as any,
       )
 
-      await onAfterUserCreate(createTestPolarOptions({ client: mockClient }))(
+      await onAfterUserCreate(createTestRepalisOptions({ client: mockClient }))(
         user,
         createMockBetterAuthContext(),
       )
@@ -97,7 +97,7 @@ describe('customer hooks', () => {
       })
 
       await expect(
-        onAfterUserCreate(createTestPolarOptions({ client: mockClient }))(
+        onAfterUserCreate(createTestRepalisOptions({ client: mockClient }))(
           user,
           createMockBetterAuthContext(),
         ),
@@ -109,7 +109,7 @@ describe('customer hooks', () => {
 
   describe('onUserUpdate', () => {
     it('should update customer when createCustomerOnSignUp is enabled', async () => {
-      const options = createTestPolarOptions({
+      const options = createTestRepalisOptions({
         client: mockClient,
         createCustomerOnSignUp: true,
       })
@@ -143,7 +143,7 @@ describe('customer hooks', () => {
     })
 
     it('should not update customer when createCustomerOnSignUp is disabled', async () => {
-      const options = createTestPolarOptions({
+      const options = createTestRepalisOptions({
         client: mockClient,
         createCustomerOnSignUp: false,
       })
@@ -161,7 +161,7 @@ describe('customer hooks', () => {
     })
 
     it('should not update customer when context is missing', async () => {
-      const options = createTestPolarOptions({
+      const options = createTestRepalisOptions({
         client: mockClient,
         createCustomerOnSignUp: true,
       })
@@ -175,7 +175,7 @@ describe('customer hooks', () => {
     })
 
     it('should handle API errors during customer update', async () => {
-      const options = createTestPolarOptions({
+      const options = createTestRepalisOptions({
         client: mockClient,
         createCustomerOnSignUp: true,
       })
@@ -196,12 +196,12 @@ describe('customer hooks', () => {
       await hook(mockUser, ctx)
 
       expect(ctx.context.logger.error).toHaveBeenCalledWith(
-        'Polar customer update failed. Error: Customer not found',
+        'Repalis customer update failed. Error: Customer not found',
       )
     })
 
     it('should handle non-Error exceptions during update', async () => {
-      const options = createTestPolarOptions({
+      const options = createTestRepalisOptions({
         client: mockClient,
         createCustomerOnSignUp: true,
       })
@@ -221,12 +221,12 @@ describe('customer hooks', () => {
       await hook(mockUser, ctx)
 
       expect(ctx.context.logger.error).toHaveBeenCalledWith(
-        'Polar customer update failed. Error: Unknown error',
+        'Repalis customer update failed. Error: Unknown error',
       )
     })
 
     it('should handle network timeouts gracefully', async () => {
-      const options = createTestPolarOptions({
+      const options = createTestRepalisOptions({
         client: mockClient,
         createCustomerOnSignUp: true,
       })
@@ -246,7 +246,7 @@ describe('customer hooks', () => {
       await hook(mockUser, ctx)
 
       expect(ctx.context.logger.error).toHaveBeenCalledWith(
-        'Polar customer update failed. Error: Network timeout',
+        'Repalis customer update failed. Error: Network timeout',
       )
     })
   })

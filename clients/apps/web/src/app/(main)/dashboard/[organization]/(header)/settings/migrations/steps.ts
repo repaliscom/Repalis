@@ -1,12 +1,12 @@
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 import { isSwitchChecklistKey } from './cards/panTransferCopy'
 
 type Step = schemas['MerchantMigrationStep']
 
 // Who moves a step forward. `you` (the merchant) is implicit and never badged;
-// `polar` and `stripe` are surfaced so the merchant knows they're waiting on
+// `repalis` and `stripe` are surfaced so the merchant knows they're waiting on
 // someone else.
-export type StepOwner = 'you' | 'polar' | 'stripe' | 'varies'
+export type StepOwner = 'you' | 'repalis' | 'stripe' | 'varies'
 
 export interface MigrationStepDef {
   key: string
@@ -27,16 +27,16 @@ export const MIGRATION_STEPS: MigrationStepDef[] = [
     owner: 'you',
     title: 'Connect your billing provider',
     description:
-      'Paste an API key so Polar can read your products, discounts, customers and subscriptions.',
+      'Paste an API key so Repalis can read your products, discounts, customers and subscriptions.',
     steps: ['source_setup'],
   },
   {
     key: 'assessment',
     short: 'Assessment',
-    owner: 'polar',
+    owner: 'repalis',
     title: 'Assess & import your catalog',
     description:
-      'Polar checks what can move, then imports the products, discounts and customers your subscriptions need.',
+      'Repalis checks what can move, then imports the products, discounts and customers your subscriptions need.',
     steps: ['pre_check'],
   },
   {
@@ -46,18 +46,18 @@ export const MIGRATION_STEPS: MigrationStepDef[] = [
     owner: 'varies',
     title: 'Move saved cards',
     description:
-      "Follow the checklist to move your customers' saved cards onto Polar.",
-    // `create_catalog` means the catalog is already in Polar, so card movement
+      "Follow the checklist to move your customers' saved cards onto Repalis.",
+    // `create_catalog` means the catalog is already in Repalis, so card movement
     // is the next real action even before the checklist starts.
     steps: ['create_catalog', 'copy_cards'],
   },
   {
     key: 'cutover',
     short: 'Switch',
-    owner: 'polar',
-    title: 'Switch billing to Polar',
+    owner: 'repalis',
+    title: 'Switch billing to Repalis',
     description:
-      'Polar creates and activates the subscriptions you pick, then stops them at your current provider.',
+      'Repalis creates and activates the subscriptions you pick, then stops them at your current provider.',
     steps: ['activate_subscriptions'],
   },
 ]
@@ -65,7 +65,7 @@ export const MIGRATION_STEPS: MigrationStepDef[] = [
 export const OWNER_LABELS: Record<StepOwner, string | null> = {
   you: null,
   varies: null,
-  polar: 'Polar',
+  repalis: 'Repalis',
   stripe: 'Stripe',
 }
 

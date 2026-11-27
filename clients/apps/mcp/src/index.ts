@@ -15,12 +15,12 @@ import {
   RequestLog,
   type RequestLogEntry,
 } from './log'
-import type { PolarApiOutboundProps } from './outbound'
+import type { RepalisApiOutboundProps } from './outbound'
 import { createServer } from './server'
 import { Sandbox } from './sandbox'
 import { allScopes, readScopes } from './spec'
 
-export { PolarApiOutbound } from './outbound'
+export { RepalisApiOutbound } from './outbound'
 
 const OPENAI_APPS_CHALLENGE_PATH = '/.well-known/openai-apps-challenge'
 const OPENAI_APPS_CHALLENGE_TOKEN =
@@ -40,7 +40,7 @@ const CORS_HEADERS = {
   'Access-Control-Max-Age': '86400',
 }
 
-const servers: Record<string, string | undefined> = env.POLAR_SERVERS
+const servers: Record<string, string | undefined> = env.REPALIS_SERVERS
 const runtime = ManagedRuntime.make(
   Layer.mergeAll(
     Auth.layer,
@@ -84,7 +84,7 @@ const handle = Effect.fn('handle')(function* (request: Request) {
       authorization_servers: [apiUrl],
       scopes_supported: allScopes,
       bearer_methods_supported: ['header'],
-      resource_name: 'Polar',
+      resource_name: 'Repalis',
     })
   }
 
@@ -119,7 +119,7 @@ const handle = Effect.fn('handle')(function* (request: Request) {
 const handleMcp = Effect.fn('handleMcp')(function* (
   request: Request,
   url: URL,
-  { apiUrl, readOnly }: Omit<PolarApiOutboundProps, 'token'>,
+  { apiUrl, readOnly }: Omit<RepalisApiOutboundProps, 'token'>,
   mode: ToolMode,
 ) {
   const resourceMetadataUrl = getOAuthProtectedResourceMetadataUrl(

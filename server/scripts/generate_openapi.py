@@ -10,18 +10,18 @@ os.environ["PYTHONTZPATH"] = ""
 
 from fastapi.routing import iter_route_contexts
 
-from polar.kit.versioning import (
+from repalis.kit.versioning import (
     APIVersion,
     finalize_versioned_routes,
     routes_for_version,
 )
-from polar.version import CURRENT_API_VERSION, VERSIONS
+from repalis.version import CURRENT_API_VERSION, VERSIONS
 
 
 def generate_schemas(versions: list[APIVersion]) -> dict[str, dict[str, Any]]:
-    from polar.api import router
-    from polar.openapi import get_openapi
-    from polar.webhook.webhooks import get_webhook_routes
+    from repalis.api import router
+    from repalis.openapi import get_openapi
+    from repalis.webhook.webhooks import get_webhook_routes
 
     route_contexts = tuple(iter_route_contexts(router.routes))
     finalize_versioned_routes(route_contexts, VERSIONS)
@@ -59,7 +59,7 @@ if __name__ == "__main__":
         sys.exit()
 
     if arguments.command == "generate-all":
-        os.environ["POLAR_ENV"] = "testing"
+        os.environ["REPALIS_ENV"] = "testing"
         json.dump(generate_schemas(sorted(VERSIONS)), sys.stdout)
         sys.stdout.flush()
         sys.exit()
@@ -68,9 +68,9 @@ if __name__ == "__main__":
         parser.error(f"Unsupported API version: {arguments.version}")
 
     if arguments.private:
-        os.environ["POLAR_ENV"] = "development"
+        os.environ["REPALIS_ENV"] = "development"
     else:
-        os.environ["POLAR_ENV"] = "testing"
+        os.environ["REPALIS_ENV"] = "testing"
 
     schema = generate_schemas([arguments.version])[str(arguments.version)]
     json.dump(schema, sys.stdout)

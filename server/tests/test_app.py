@@ -3,10 +3,10 @@ from fastapi import FastAPI, Response
 from fastapi.testclient import TestClient
 from httpx2 import ASGITransport, AsyncClient
 
-from polar.app import configure_cors, create_app
-from polar.config import settings
-from polar.kit.versioning import VERSION_HEADER
-from polar.version import CURRENT_API_VERSION
+from repalis.app import configure_cors, create_app
+from repalis.config import settings
+from repalis.kit.versioning import VERSION_HEADER
+from repalis.version import CURRENT_API_VERSION
 
 
 def test_external_cors_allows_and_exposes_version_header() -> None:
@@ -40,16 +40,16 @@ def test_external_cors_allows_and_exposes_version_header() -> None:
 
 
 @pytest.mark.anyio
-async def test_unsupported_polar_version_includes_cors_headers() -> None:
+async def test_unsupported_repalis_version_includes_cors_headers() -> None:
     app = create_app()
     origin = "https://external.example.com"
     async with AsyncClient(
         transport=ASGITransport(app=app), base_url="http://test"
     ) as client:
-        for polar_version in ("2025-01", "garbage"):
+        for repalis_version in ("2025-01", "garbage"):
             response = await client.get(
                 "/.well-known/jwks.json",
-                headers={"Origin": origin, VERSION_HEADER: polar_version},
+                headers={"Origin": origin, VERSION_HEADER: repalis_version},
             )
             assert response.status_code == 404
             assert response.headers["access-control-allow-origin"] == "*"

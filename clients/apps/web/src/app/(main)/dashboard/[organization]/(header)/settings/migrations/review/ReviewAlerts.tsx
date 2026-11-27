@@ -1,4 +1,4 @@
-import { Alert } from '@polar-sh/orbit'
+import { Alert } from '@repalis/orbit'
 import { CATALOG_READ_STALLED } from '../catalogReadCopy'
 import { CATALOG_REFRESH_COPY } from './reviewCatalog'
 

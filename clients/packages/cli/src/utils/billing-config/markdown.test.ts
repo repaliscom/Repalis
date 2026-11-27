@@ -5,7 +5,7 @@ import { planMarkdown } from '@/utils/billing-config/markdown'
 const source = '{\n  "meters": []\n}'
 
 const config: LoadedConfig = {
-  file: 'polar.json',
+  file: 'repalis.json',
   source,
   input: JSON.parse(source),
   generated: false,
@@ -64,14 +64,14 @@ describe('planMarkdown', () => {
   test('titles, notes the target and diffs each changed section', () => {
     expect(planMarkdown(config, acme, { entries, issues: [] })).toBe(
       [
-        '## Polar billing plan updated',
+        '## Repalis billing plan updated',
         '',
         '> [!NOTE]',
         "> Applying the config in this pull request changes billing for **Acme\\_Inc** in sandbox. Review every change below before it's applied.",
         '',
         '| Organization | Environment | Config | Changes |',
         '| --- | --- | --- | --- |',
-        '| Acme\\_Inc | sandbox | `polar.json` | 2 to change, 1 to add, 1 unchanged |',
+        '| Acme\\_Inc | sandbox | `repalis.json` | 2 to change, 1 to add, 1 unchanged |',
         '',
         '#### Meters',
         '',
@@ -108,7 +108,7 @@ describe('planMarkdown', () => {
       [
         '| Organization | Environment | Config | Changes | Catalog |',
         '| --- | --- | --- | --- | --- |',
-        '| Acme\\_Inc | sandbox | `polar.json` | 2 to change, 1 to add, 1 unchanged | v1 → Spring\\_pricing (draft) |',
+        '| Acme\\_Inc | sandbox | `repalis.json` | 2 to change, 1 to add, 1 unchanged | v1 → Spring\\_pricing (draft) |',
       ].join('\n'),
     )
   })
@@ -143,7 +143,7 @@ describe('planMarkdown', () => {
         },
       ],
     })
-    expect(output).toContain("> [!CAUTION]\n> `polar.json` can't be applied")
+    expect(output).toContain("> [!CAUTION]\n> `repalis.json` can't be applied")
     expect(output).toMatch(/#### Problems\n\n```\n.*Error:.*\n```$/s)
   })
 

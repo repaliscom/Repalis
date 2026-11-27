@@ -7,14 +7,14 @@ from typing import Any
 import pytest
 from fpdf.unicode_script import UNICODE_RANGE_TO_SCRIPT, UnicodeScript
 
-from polar.invoice.generator import (
+from repalis.invoice.generator import (
     Invoice,
     InvoiceGenerator,
     InvoiceItem,
     escape_markdown,
 )
-from polar.kit.address import Address, CountryAlpha2
-from polar.tax.calculation import TaxabilityReason
+from repalis.kit.address import Address, CountryAlpha2
+from repalis.tax.calculation import TaxabilityReason
 
 UNSUPPORTED_BIDI_NAME = (
     "\U0001d4a2\U0001d4a7\U0001d4aa\U0001d49e\U0001d4a6 \U0001f1ed\U0001f1f9"
@@ -32,15 +32,15 @@ def invoice() -> Invoice:
     return Invoice(
         number="12345",
         date=datetime.datetime(2025, 1, 1, 0, 0, 0, tzinfo=datetime.UTC),
-        seller_name="Polar Software Inc",
+        seller_name="Repalis Software Inc",
         seller_address=Address(
-            line1="123 Polar St",
+            line1="123 Repalis St",
             city="San Francisco",
             state="CA",
             postal_code="94107",
             country=CountryAlpha2("US"),
         ),
-        seller_additional_info="[support@polar.sh](mailto:support@polar.sh)",
+        seller_additional_info="[support@repalis.com](mailto:support@repalis.com)",
         customer_name="John Doe",
         customer_address=Address(
             line1="456 Customer Ave",
@@ -85,7 +85,7 @@ def invoice() -> Invoice:
             """
 Thank you for your business!
 
-- [Legal terms](https://polar.sh) and conditions apply.
+- [Legal terms](https://repalis.com) and conditions apply.
 - Lawyers blah blah blah.
 - This is a test invoice.
         """
@@ -106,7 +106,7 @@ Thank you for your business!
         (
             {
                 "customer_address": Address(country=CountryAlpha2("FR")),
-                "seller_additional_info": "[support@polar.sh](mailto:support@polar.sh)\nExtra line 1\nExtra line 2\nExtra line 3",
+                "seller_additional_info": "[support@repalis.com](mailto:support@repalis.com)\nExtra line 1\nExtra line 2\nExtra line 3",
             },
             "long_seller_info",
         ),

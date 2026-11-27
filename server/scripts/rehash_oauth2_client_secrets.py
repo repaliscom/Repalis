@@ -23,10 +23,10 @@ from rich.progress import (
 )
 from sqlalchemy import ColumnElement, Select, func, or_, select
 
-from polar.config import HASH_SEPARATOR, settings
-from polar.kit.db.postgres import AsyncSession, create_async_sessionmaker
-from polar.kit.db.postgres import create_async_engine as _create_async_engine
-from polar.models import OAuth2Client
+from repalis.config import HASH_SEPARATOR, settings
+from repalis.kit.db.postgres import AsyncSession, create_async_sessionmaker
+from repalis.kit.db.postgres import create_async_engine as _create_async_engine
+from repalis.models import OAuth2Client
 
 from .helper import configure_script_logging, typer_async
 

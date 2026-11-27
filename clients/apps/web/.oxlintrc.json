@@ -3,7 +3,7 @@
   "extends": ["../../packages/oxlint-config/oxlint-next.json"],
   "jsPlugins": [
     {
-      "name": "polar",
+      "name": "repalis",
       "specifier": "./oxlint-plugins/index.mjs"
     }
   ],
@@ -23,8 +23,8 @@
     "scripts/**"
   ],
   "rules": {
-    "polar/no-form-state-read": "error",
-    "polar/no-unsanitized-toast-detail": "error"
+    "repalis/no-form-state-read": "error",
+    "repalis/no-unsanitized-toast-detail": "error"
   },
   "overrides": [
     {
@@ -56,13 +56,13 @@
         "react/no-danger": "error",
         "react/self-closing-comp": "warn",
         "react/jsx-no-useless-fragment": "warn",
-        "polar/no-classname-box": "error",
-        "polar/no-classname-text": "error",
-        "polar/no-style-box": "error",
-        "polar/no-style-text": "error",
-        "polar/no-next-image": "error",
-        "polar/no-external-link-component": "error",
-        "polar/require-external-link-rel": "error"
+        "repalis/no-classname-box": "error",
+        "repalis/no-classname-text": "error",
+        "repalis/no-style-box": "error",
+        "repalis/no-style-text": "error",
+        "repalis/no-next-image": "error",
+        "repalis/no-external-link-component": "error",
+        "repalis/require-external-link-rel": "error"
       }
     },
     {
@@ -71,14 +71,14 @@
         "src/app/**/portal/**/*.{ts,tsx}"
       ],
       "rules": {
-        "polar/no-merchant-queries-in-customer-portal": "error",
-        "polar/no-merchant-api-calls-in-customer-portal": "error"
+        "repalis/no-merchant-queries-in-customer-portal": "error",
+        "repalis/no-merchant-api-calls-in-customer-portal": "error"
       }
     },
     {
       "files": ["src/app/**/portal/**/page.tsx"],
       "rules": {
-        "polar/require-customer-portal-page": "error"
+        "repalis/require-customer-portal-page": "error"
       }
     },
     {
@@ -90,7 +90,7 @@
         "src/app/**/portal/claim/page.tsx"
       ],
       "rules": {
-        "polar/require-customer-portal-page": "off"
+        "repalis/require-customer-portal-page": "off"
       }
     },
     {
@@ -99,13 +99,13 @@
         "src/components/Onboarding/**/*.tsx"
       ],
       "rules": {
-        "polar/no-raw-html-layout": "error"
+        "repalis/no-raw-html-layout": "error"
       }
     },
     {
       "files": ["src/app/**/(mdx)/layout.tsx"],
       "rules": {
-        "polar/no-broken-mdx-links": "error"
+        "repalis/no-broken-mdx-links": "error"
       }
     }
   ]

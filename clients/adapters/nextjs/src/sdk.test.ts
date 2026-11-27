@@ -10,7 +10,7 @@ describe('SDK transport', () => {
     const fetch = vi
       .fn()
       .mockResolvedValue(
-        Response.json({ url: 'https://sandbox.polar.sh/checkout/123' }),
+        Response.json({ url: 'https://sandbox.repalis.com/checkout/123' }),
       )
     vi.stubGlobal('fetch', fetch)
 
@@ -20,14 +20,14 @@ describe('SDK transport', () => {
     })(new NextRequest('https://example.com/checkout?products=product-123'))
 
     const [url, init] = fetch.mock.calls[0]!
-    expect(url).toBe('https://sandbox-api.polar.sh/v1/checkouts/')
+    expect(url).toBe('https://sandbox-api.repalis.com/v1/checkouts/')
     expect(init.method).toBe('POST')
     expect(new Headers(init.headers).get('Authorization')).toBe(
       'Bearer test-token',
     )
     expect(JSON.parse(init.body)).toEqual({ products: ['product-123'] })
     expect(response.headers.get('location')).toBe(
-      'https://sandbox.polar.sh/checkout/123',
+      'https://sandbox.repalis.com/checkout/123',
     )
   })
 
@@ -35,7 +35,7 @@ describe('SDK transport', () => {
     const fetch = vi
       .fn()
       .mockResolvedValue(
-        Response.json({ customer_portal_url: 'https://polar.sh/portal/123' }),
+        Response.json({ customer_portal_url: 'https://repalis.com/portal/123' }),
       )
     vi.stubGlobal('fetch', fetch)
 
@@ -46,11 +46,11 @@ describe('SDK transport', () => {
     })(new NextRequest('https://example.com/portal'))
 
     const [url, init] = fetch.mock.calls[0]!
-    expect(url).toBe('https://api.polar.sh/v1/customer-sessions/')
+    expect(url).toBe('https://api.repalis.com/v1/customer-sessions/')
     expect(JSON.parse(init.body)).toEqual({
       external_customer_id: 'user-123',
       return_url: 'https://example.com/account',
     })
-    expect(response.headers.get('location')).toBe('https://polar.sh/portal/123')
+    expect(response.headers.get('location')).toBe('https://repalis.com/portal/123')
   })
 })

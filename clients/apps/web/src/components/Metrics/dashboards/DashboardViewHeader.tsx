@@ -3,7 +3,7 @@
 import { downloadExport } from '@/components/Export/utils'
 import AccessRestricted from '@/components/Finance/AccessRestricted'
 import { ConfirmModal } from '@/components/Modal/ConfirmModal'
-import { Modal } from '@polar-sh/orbit'
+import { Modal } from '@repalis/orbit'
 import { useModal } from '@/components/Modal/useModal'
 import { toast } from '@/components/Toast/use-toast'
 import { MetricDashboardEditorContent } from '@/components/DashboardOverview/MetricSelectorModal'
@@ -16,17 +16,17 @@ import { useHasPermission } from '@/hooks/permissions'
 import { getServerURL } from '@/utils/api'
 import { permissionDeniedMessage } from '@/utils/permissions'
 import { ALL_METRICS, toISODate } from '@/utils/metrics'
-import { AddOutlined, MoreVertOutlined } from '@polar-sh/orbit/icons'
-import { schemas } from '@polar-sh/client'
-import { Button } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { AddOutlined, MoreVertOutlined } from '@repalis/orbit/icons'
+import { schemas } from '@repalis/client'
+import { Button } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@polar-sh/ui/components/atoms/DropdownMenu'
+} from '@repalis/ui/components/atoms/DropdownMenu'
 import { useCallback } from 'react'
 import { twMerge } from 'tailwind-merge'
 import { useMetricsFilters } from './useMetricsFilters'
@@ -59,7 +59,7 @@ function useMetricsExport(
         url.searchParams.append('external_product_id', id),
       )
       metrics.forEach((m) => url.searchParams.append('metrics', m))
-      return downloadExport(url, 'polar-metrics.csv')
+      return downloadExport(url, 'repalis-metrics.csv')
     },
     [
       organization.id,

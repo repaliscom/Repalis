@@ -3,7 +3,7 @@ const REDACTIONS: ReadonlyArray<RegExp> = [
   /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/gi,
   /\beyJ[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+/g,
   /\bBearer\s+\S+/gi,
-  /\b(?:polar_|sk_|pk_|rk_|whsec_|ghp_|gho_|ghu_|ghs_|ghr_|github_pat_|glpat-|xox[baprs]-|AIza|ya29\.)[A-Za-z0-9_.-]+/g,
+  /\b(?:repalis_|sk_|pk_|rk_|whsec_|ghp_|gho_|ghu_|ghs_|ghr_|github_pat_|glpat-|xox[baprs]-|AIza|ya29\.)[A-Za-z0-9_.-]+/g,
   /\b(?:AKIA|ASIA)[A-Z0-9]{16}\b/g,
   /\b[a-z][a-z0-9+.-]*:\/\/\S+/gi,
   /(?:\/Users|\/home|\/root|\/tmp|\/var|\/private|[A-Za-z]:\\Users)(?:[\\/]\S*|\b)/g,

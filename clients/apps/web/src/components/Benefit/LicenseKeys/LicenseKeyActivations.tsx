@@ -1,16 +1,16 @@
 import { toast } from '@/components/Toast/use-toast'
 import { useCustomerLicenseKeyDeactivate } from '@/hooks/queries/customerPortal'
 import { extractApiErrorMessage } from '@/utils/api/errors'
-import { CloseOutlined } from '@polar-sh/orbit/icons'
-import { Client, schemas } from '@polar-sh/client'
+import { CloseOutlined } from '@repalis/orbit/icons'
+import { Client, schemas } from '@repalis/client'
 import {
   DEFAULT_LOCALE,
   useTranslations,
   type AcceptedLocale,
-} from '@polar-sh/i18n'
-import { Button } from '@polar-sh/orbit'
-import FormattedDateTime from '@polar-sh/ui/components/atoms/FormattedDateTime'
-import { List, ListItem } from '@polar-sh/orbit'
+} from '@repalis/i18n'
+import { Button } from '@repalis/orbit'
+import FormattedDateTime from '@repalis/ui/components/atoms/FormattedDateTime'
+import { List, ListItem } from '@repalis/orbit'
 import { useCallback } from 'react'
 
 interface LicenseKeyActivationsProps {
@@ -69,7 +69,7 @@ export const LicenseKeyActivations = ({
           <ListItem key={activation.id} size="small">
             <h3 className="text-sm">{activation.label}</h3>
             <div className="flex flex-row items-center gap-x-4">
-              <span className="dark:text-polar-500 text-sm text-gray-500">
+              <span className="dark:text-repalis-500 text-sm text-gray-500">
                 <FormattedDateTime
                   datetime={activation.created_at}
                   locale={locale}

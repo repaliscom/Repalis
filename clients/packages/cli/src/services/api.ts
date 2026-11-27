@@ -4,29 +4,29 @@ import {
   AuthError,
   loginCommand,
   orgCommand,
-  type PolarEnvironment,
+  type RepalisEnvironment,
 } from '@/schemas/Auth'
 
 type Env = Record<string, string | undefined>
 
-export const Environment = Context.Reference<Env>('polar/Api/Environment', {
+export const Environment = Context.Reference<Env>('repalis/Api/Environment', {
   defaultValue: () => process.env,
 })
 
-export const UsedEnvironments = Context.Reference<Set<PolarEnvironment>>(
-  'polar/Api/UsedEnvironments',
+export const UsedEnvironments = Context.Reference<Set<RepalisEnvironment>>(
+  'repalis/Api/UsedEnvironments',
   { defaultValue: () => new Set() },
 )
 
 const API_ORIGINS = {
-  production: 'https://api.polar.sh',
-  sandbox: 'https://sandbox-api.polar.sh',
+  production: 'https://api.repalis.com',
+  sandbox: 'https://sandbox-api.repalis.com',
   local: 'http://127.0.0.1:8000',
 } as const
 
 const DASHBOARD_ORIGINS = {
-  production: 'https://polar.sh',
-  sandbox: 'https://sandbox.polar.sh',
+  production: 'https://repalis.com',
+  sandbox: 'https://sandbox.repalis.com',
   local: 'http://127.0.0.1:3000',
 } as const
 
@@ -64,34 +64,34 @@ const originOverride = (name: string) =>
     return parsed instanceof Error ? yield* Effect.die(parsed) : parsed
   })
 
-export const apiOverride = originOverride('POLAR_API_URL')
+export const apiOverride = originOverride('REPALIS_API_URL')
 
-export const dashboardOverride = originOverride('POLAR_DASHBOARD_URL')
+export const dashboardOverride = originOverride('REPALIS_DASHBOARD_URL')
 
-export const apiOrigin = (environment: PolarEnvironment) =>
+export const apiOrigin = (environment: RepalisEnvironment) =>
   Effect.gen(function* () {
     const used = yield* UsedEnvironments
     used.add(environment)
     return (yield* apiOverride) ?? API_ORIGINS[environment]
   })
 
-export const dashboardOrigin = (environment: PolarEnvironment) =>
+export const dashboardOrigin = (environment: RepalisEnvironment) =>
   Effect.gen(function* () {
     const override = yield* dashboardOverride
     if (override) return override
     if (yield* apiOverride)
       return yield* new AuthError({
         message:
-          'POLAR_API_URL is set, so POLAR_DASHBOARD_URL is needed too. Point it at the matching dashboard, e.g. http://127.0.0.1:3000.',
+          'REPALIS_API_URL is set, so REPALIS_DASHBOARD_URL is needed too. Point it at the matching dashboard, e.g. http://127.0.0.1:3000.',
       })
     return DASHBOARD_ORIGINS[environment]
   })
 
-export const apiUrl = (environment: PolarEnvironment, path: string) =>
+export const apiUrl = (environment: RepalisEnvironment, path: string) =>
   Effect.map(apiOrigin(environment), (origin) => `${origin}/v1${path}`)
 
 export const withOrganization = (organizationId: string) =>
-  HttpClientRequest.setHeader('Polar-Organization', organizationId)
+  HttpClientRequest.setHeader('Repalis-Organization', organizationId)
 
 interface ApiFailure {
   message: string
@@ -100,13 +100,13 @@ interface ApiFailure {
 
 export const describeApiFailure = (
   status: number,
-  environment: PolarEnvironment,
+  environment: RepalisEnvironment,
 ): ApiFailure => {
   switch (status) {
     case 401:
       return {
         message: `Authentication rejected for ${environment}`,
-        hint: `Check POLAR_ACCESS_TOKEN or run ${loginCommand(environment)} --new-session`,
+        hint: `Check REPALIS_ACCESS_TOKEN or run ${loginCommand(environment)} --new-session`,
       }
     case 403:
       return {
@@ -121,7 +121,7 @@ export const describeApiFailure = (
     default:
       return status >= 500
         ? {
-            message: `The Polar API returned an error (${status})`,
+            message: `The Repalis API returned an error (${status})`,
             hint: 'It may be having issues, try again shortly',
           }
         : { message: `The API returned an unexpected status (${status})` }

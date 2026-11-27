@@ -2,7 +2,7 @@ import {
   ScrollFade,
   type ScrollFadeHandle,
 } from '@/components/Shared/ScrollFade'
-import { Box } from '@polar-sh/orbit/Box'
+import { Box } from '@repalis/orbit/Box'
 import React, { Fragment, useEffect, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 import { ChatBubble } from './ChatBubble'

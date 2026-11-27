@@ -12,16 +12,16 @@ from opentelemetry.sdk.trace import ReadableSpan
 from pytest_mock import MockerFixture
 from sqlalchemy import select
 
-from polar.event.system import SystemEvent
-from polar.kit.utils import utc_now
-from polar.meter.aggregation import (
+from repalis.event.system import SystemEvent
+from repalis.kit.utils import utc_now
+from repalis.meter.aggregation import (
     Aggregation,
     AggregationFunction,
     CountAggregation,
     PropertyAggregation,
     UniqueAggregation,
 )
-from polar.models import (
+from repalis.models import (
     Customer,
     CustomerMeter,
     Event,
@@ -33,29 +33,29 @@ from polar.models import (
     ReducerBucket,
     StagedEvent,
 )
-from polar.models.event import EventSource
-from polar.models.reducer import ReducerKind
-from polar.postgres import AsyncSession
-from polar.redis import Redis
-from polar.reducer.bucket_repository import (
+from repalis.models.event import EventSource
+from repalis.models.reducer import ReducerKind
+from repalis.postgres import AsyncSession
+from repalis.redis import Redis
+from repalis.reducer.bucket_repository import (
     ReducerBucketRepository,
     get_customer_identities,
 )
-from polar.reducer.redis_store import get_reducer_bucket_key
-from polar.reducer.repository import ReducerRepository
-from polar.reducer.service import (
+from repalis.reducer.redis_store import get_reducer_bucket_key
+from repalis.reducer.repository import ReducerRepository
+from repalis.reducer.service import (
     REDUCER_BUCKET_SIZE,
     finalize_quantity,
     get_reducer_bucket_start,
     merge_summaries,
 )
-from polar.reducer.service import reducer as reducer_service
-from polar.reducer.types import (
+from repalis.reducer.service import reducer as reducer_service
+from repalis.reducer.types import (
     UsageSummary,
     UsageWindow,
     WindowUsage,
 )
-from polar.worker import JobQueueManager
+from repalis.worker import JobQueueManager
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (
     METER_TEST_EVENT,
@@ -106,10 +106,10 @@ class TestRollup:
     @pytest.fixture(autouse=True)
     def active_now(self, mocker: MockerFixture) -> None:
         mocker.patch(
-            "polar.reducer.service.utc_now",
+            "repalis.reducer.service.utc_now",
             return_value=BUCKET_START + timedelta(minutes=1),
         )
-        mocker.patch("polar.reducer.service.enqueue_job")
+        mocker.patch("repalis.reducer.service.enqueue_job")
 
     async def test_routes_buckets_by_age(
         self,
@@ -156,7 +156,7 @@ class TestRollup:
         organization: Organization,
     ) -> None:
         enqueue_outpost_event = mocker.patch(
-            "polar.reducer.service.enqueue_outpost_event"
+            "repalis.reducer.service.enqueue_outpost_event"
         )
         previous_start = BUCKET_START - REDUCER_BUCKET_SIZE
         for batch in ((0.1, 0.2), (0.3,)):
@@ -555,7 +555,7 @@ class TestSyncBucket:
         )
 
         enqueue_outpost_event = mocker.patch(
-            "polar.reducer.service.enqueue_outpost_event"
+            "repalis.reducer.service.enqueue_outpost_event"
         )
 
         await reducer_service.sync_bucket(
@@ -595,7 +595,7 @@ class TestSyncBucket:
         organization: Organization,
     ) -> None:
         enqueue_outpost_event = mocker.patch(
-            "polar.reducer.service.enqueue_outpost_event"
+            "repalis.reducer.service.enqueue_outpost_event"
         )
         await create_tokens_event(save_fixture, organization, 3)
 
@@ -620,7 +620,7 @@ class TestSyncBucket:
         sum_reducer: Reducer,
         organization: Organization,
     ) -> None:
-        mocker.patch("polar.reducer.service.enqueue_outpost_event")
+        mocker.patch("repalis.reducer.service.enqueue_outpost_event")
         await create_tokens_event(save_fixture, organization, 3)
         for external_customer_id, tokens in (("external", 4), ("other", 5)):
             await save_fixture(
@@ -687,7 +687,7 @@ class TestSyncBucket:
             await reducer_service.sync_bucket(
                 session, sum_reducer.id, BUCKET_START, None, "external"
             )
-        mocker.patch("polar.reducer.service.utc_now", return_value=BILLED_AT)
+        mocker.patch("repalis.reducer.service.utc_now", return_value=BILLED_AT)
 
         # Unchanged, but synced again.
         await reducer_service.sync_bucket(
@@ -788,7 +788,7 @@ class TestEnqueueBucketSyncs:
         sum_reducer: Reducer,
         organization: Organization,
     ) -> None:
-        enqueue_job = mocker.patch("polar.reducer.service.enqueue_job")
+        enqueue_job = mocker.patch("repalis.reducer.service.enqueue_job")
         previous_start = BUCKET_START - REDUCER_BUCKET_SIZE
         older_start = previous_start - REDUCER_BUCKET_SIZE
         for timestamp in (older_start, previous_start, CLOSED, NEXT_BUCKET_START):
@@ -820,7 +820,7 @@ class TestEnqueueBucketSyncs:
         organization: Organization,
         organization_second: Organization,
     ) -> None:
-        mocker.patch("polar.reducer.service.enqueue_job")
+        mocker.patch("repalis.reducer.service.enqueue_job")
         idle_meter = await create_meter(
             save_fixture, id=uuid.uuid4(), organization=organization_second
         )
@@ -847,8 +847,8 @@ class TestEnqueueBucketSyncs:
 class TestSealBuckets:
     @pytest.fixture(autouse=True)
     def now(self, mocker: MockerFixture) -> None:
-        mocker.patch("polar.reducer.service.utc_now", return_value=BILLED_AT)
-        mocker.patch("polar.reducer.service.enqueue_job")
+        mocker.patch("repalis.reducer.service.utc_now", return_value=BILLED_AT)
+        mocker.patch("repalis.reducer.service.enqueue_job")
 
     async def test_splits_at_cutoff(
         self,
@@ -1235,8 +1235,8 @@ async def order(save_fixture: SaveFixture, external_customer: Customer) -> Order
 class TestBillBuckets:
     @pytest.fixture(autouse=True)
     def now(self, mocker: MockerFixture) -> None:
-        mocker.patch("polar.reducer.service.utc_now", return_value=BILLED_AT)
-        mocker.patch("polar.reducer.service.enqueue_job")
+        mocker.patch("repalis.reducer.service.utc_now", return_value=BILLED_AT)
+        mocker.patch("repalis.reducer.service.enqueue_job")
 
     async def test_marks_sealed_buckets_billed(
         self,
@@ -1449,7 +1449,7 @@ class TestBillBuckets:
         meter: Meter,
     ) -> None:
         enqueue_outpost_event = mocker.patch(
-            "polar.reducer.service.enqueue_outpost_event"
+            "repalis.reducer.service.enqueue_outpost_event"
         )
         usage = await create_reducer(
             save_fixture, organization=organization, meters=[meter]
@@ -1513,8 +1513,8 @@ class TestEnqueueSeal:
         customer: Customer,
         meter: Meter,
     ) -> None:
-        mocker.patch("polar.reducer.service.utc_now", return_value=now)
-        enqueue_job = mocker.patch("polar.reducer.service.enqueue_job")
+        mocker.patch("repalis.reducer.service.utc_now", return_value=now)
+        enqueue_job = mocker.patch("repalis.reducer.service.enqueue_job")
 
         reducer_service.enqueue_seal(customer.id, meter.id, at=CUTOFF)
 
@@ -1955,7 +1955,7 @@ async def tokens_events(
     save_fixture: SaveFixture,
     organization: Organization,
 ) -> None:
-    mocker.patch("polar.reducer.service.utc_now", return_value=BILLED_AT)
+    mocker.patch("repalis.reducer.service.utc_now", return_value=BILLED_AT)
     for timestamp, tokens in ((CLOSED, 5), (CUTOFF, 3)):
         await create_tokens_event(
             save_fixture,
@@ -2101,10 +2101,10 @@ class TestGetCustomerMeterUnits:
     @pytest.fixture(autouse=True)
     def now(self, mocker: MockerFixture) -> None:
         mocker.patch(
-            "polar.reducer.service.utc_now",
+            "repalis.reducer.service.utc_now",
             return_value=BUCKET_START + timedelta(minutes=1),
         )
-        mocker.patch("polar.reducer.service.enqueue_job")
+        mocker.patch("repalis.reducer.service.enqueue_job")
 
     @pytest.mark.parametrize(
         ("aggregation", "expected"),
@@ -2425,10 +2425,10 @@ class TestLogCustomerMeterComparison:
     @pytest.fixture(autouse=True)
     def now(self, mocker: MockerFixture) -> None:
         mocker.patch(
-            "polar.reducer.service.utc_now",
+            "repalis.reducer.service.utc_now",
             return_value=BUCKET_START + timedelta(minutes=1),
         )
-        mocker.patch("polar.reducer.service.enqueue_job")
+        mocker.patch("repalis.reducer.service.enqueue_job")
 
     @pytest.mark.parametrize(
         ("aggregation", "legacy_consumed_units"),

@@ -11,26 +11,26 @@ from pydantic import MISSING, ValidationError
 from pytest_mock import MockerFixture
 from sqlalchemy import select
 
-from polar.auth.models import AuthSubject
-from polar.enums import SubscriptionRecurringInterval
-from polar.event.repository import EventRepository
-from polar.event.service import event as event_service
-from polar.event.system import SystemEvent
-from polar.exceptions import PolarRequestValidationError
-from polar.kit.time_queries import TimeInterval
-from polar.kit.utils import utc_now
-from polar.meter.aggregation import (
+from repalis.auth.models import AuthSubject
+from repalis.enums import SubscriptionRecurringInterval
+from repalis.event.repository import EventRepository
+from repalis.event.service import event as event_service
+from repalis.event.system import SystemEvent
+from repalis.exceptions import RepalisRequestValidationError
+from repalis.kit.time_queries import TimeInterval
+from repalis.kit.utils import utc_now
+from repalis.meter.aggregation import (
     Aggregation,
     AggregationFunction,
     CountAggregation,
     PropertyAggregation,
     UniqueAggregation,
 )
-from polar.meter.filter import Filter, FilterClause, FilterConjunction, FilterOperator
-from polar.meter.schemas import MeterCreate, MeterUpdate
-from polar.meter.service import meter as meter_service
-from polar.meter.unit import MeterUnit
-from polar.models import (
+from repalis.meter.filter import Filter, FilterClause, FilterConjunction, FilterOperator
+from repalis.meter.schemas import MeterCreate, MeterUpdate
+from repalis.meter.service import meter as meter_service
+from repalis.meter.unit import MeterUnit
+from repalis.models import (
     Account,
     BillingEntry,
     Catalog,
@@ -46,13 +46,13 @@ from polar.models import (
     User,
     UserOrganization,
 )
-from polar.models.billing_entry import BillingEntryDirection
-from polar.models.catalog import CatalogStatus
-from polar.models.customer_seat import SeatStatus
-from polar.models.event import EventSource
-from polar.models.reducer import ReducerKind
-from polar.postgres import AsyncSession
-from polar.subscription.repository import SubscriptionProductPriceRepository
+from repalis.models.billing_entry import BillingEntryDirection
+from repalis.models.catalog import CatalogStatus
+from repalis.models.customer_seat import SeatStatus
+from repalis.models.event import EventSource
+from repalis.models.reducer import ReducerKind
+from repalis.postgres import AsyncSession
+from repalis.subscription.repository import SubscriptionProductPriceRepository
 from tests.fixtures.auth import AuthSubjectFixture
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (
@@ -70,7 +70,7 @@ from tests.fixtures.random_objects import (
 
 @pytest.fixture
 def enqueue_job_mock(mocker: MockerFixture) -> AsyncMock:
-    return mocker.patch("polar.meter.service.enqueue_job")
+    return mocker.patch("repalis.meter.service.enqueue_job")
 
 
 @pytest.mark.anyio
@@ -230,7 +230,7 @@ class TestCreate:
             save_fixture, organization=organization, external_id="ext_1337"
         )
 
-        with pytest.raises(PolarRequestValidationError) as e:
+        with pytest.raises(RepalisRequestValidationError) as e:
             await meter_service.create(
                 session,
                 MeterCreate(
@@ -267,7 +267,7 @@ class TestCreate:
             assert meter.aggregation == meter_create.aggregation
             return
 
-        with pytest.raises(PolarRequestValidationError) as e:
+        with pytest.raises(RepalisRequestValidationError) as e:
             await meter_service.create(session, meter_create, auth_subject)
 
         assert e.value.errors()[0]["loc"] == ("body", "aggregation")
@@ -316,7 +316,7 @@ class TestUpdate:
             save_fixture, organization=organization, last_billed_event=event
         )
 
-        with pytest.raises(PolarRequestValidationError):
+        with pytest.raises(RepalisRequestValidationError):
             await meter_service.update(session, meter, meter_update, auth_subject)
 
     @pytest.mark.parametrize(
@@ -467,7 +467,7 @@ class TestUpdate:
         )
         meter = await create_meter(save_fixture, organization=organization)
 
-        with pytest.raises(PolarRequestValidationError) as e:
+        with pytest.raises(RepalisRequestValidationError) as e:
             await meter_service.update(
                 session,
                 meter,
@@ -502,7 +502,7 @@ class TestUpdate:
             assert meter.aggregation == meter_update.aggregation
             return
 
-        with pytest.raises(PolarRequestValidationError) as e:
+        with pytest.raises(RepalisRequestValidationError) as e:
             await meter_service.update(session, meter, meter_update, auth_subject)
 
         assert e.value.errors()[0]["loc"] == ("body", "aggregation")
@@ -1930,7 +1930,7 @@ class TestCreateBillingEntries:
         meter: Meter,
         metered_subscription: Subscription,
     ) -> None:
-        mocker.patch("polar.meter.service._BILLING_ENTRY_BATCH_SIZE", 2)
+        mocker.patch("repalis.meter.service._BILLING_ENTRY_BATCH_SIZE", 2)
         events = [
             await create_event(
                 save_fixture,
@@ -1974,7 +1974,7 @@ class TestCreateBillingEntries:
         meter: Meter,
         organization: Organization,
     ) -> None:
-        mocker.patch("polar.meter.service._BILLING_ENTRY_BATCH_SIZE", 2)
+        mocker.patch("repalis.meter.service._BILLING_ENTRY_BATCH_SIZE", 2)
         price_lookup_spy = mocker.spy(
             SubscriptionProductPriceRepository, "get_by_customers_and_meter"
         )
@@ -2381,7 +2381,7 @@ class TestCreateBillingEntriesWithSeats:
         session: AsyncSession,
         account: Account,
     ) -> None:
-        mocker.patch("polar.meter.service._BILLING_ENTRY_BATCH_SIZE", 2)
+        mocker.patch("repalis.meter.service._BILLING_ENTRY_BATCH_SIZE", 2)
         price_lookup_spy = mocker.spy(
             SubscriptionProductPriceRepository, "get_by_customers_and_meter"
         )

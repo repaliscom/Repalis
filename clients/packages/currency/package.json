@@ -1,14 +1,14 @@
 {
-  "name": "@polar-sh/currency",
-  "description": "Polar Currency Utilities",
-  "author": "Polar",
+  "name": "@repalis/currency",
+  "description": "Repalis Currency Utilities",
+  "author": "Repalis",
   "license": "Apache-2.0",
   "type": "module",
   "private": true,
   "version": "0.1.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/polarsource/polar.git",
+    "url": "https://github.com/repaliscom/Repalis.git",
     "directory": "clients/packages/currency"
   },
   "main": "./dist/index.cjs",
@@ -32,7 +32,7 @@
     }
   },
   "devDependencies": {
-    "@polar-sh/typescript-config": "workspace:*",
+    "@repalis/typescript-config": "workspace:*",
     "@typescript/native": "catalog:",
     "tsdown": "catalog:",
     "typescript": "catalog:",

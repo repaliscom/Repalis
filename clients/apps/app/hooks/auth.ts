@@ -12,9 +12,9 @@ import { useCallback } from 'react'
 import {
   useDeleteNotificationRecipient,
   useGetNotificationRecipient,
-} from './polar/notifications'
+} from './repalis/notifications'
 
-const widgetStorage = new ExtensionStorage('group.com.polarsource.Polar')
+const widgetStorage = new ExtensionStorage('group.com.repalis.app')
 
 export const useLogout = () => {
   const { session, setSession } = useSession()

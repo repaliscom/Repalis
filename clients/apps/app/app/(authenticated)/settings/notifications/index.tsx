@@ -6,17 +6,17 @@ import {
   useCreateNotificationRecipient,
   useDeleteNotificationRecipient,
   useGetNotificationRecipient,
-} from '@/hooks/polar/notifications'
+} from '@/hooks/repalis/notifications'
 import {
   useUpdateUserOrganizationNotificationSettings,
   useUserOrganizationNotificationSettings,
-} from '@/hooks/polar/userOrganizations'
+} from '@/hooks/repalis/userOrganizations'
 import { setPushNotificationsOptedOut } from '@/hooks/pushNotificationOptOut'
 import { useNotifications } from '@/providers/NotificationsProvider'
 import { OrganizationContext } from '@/providers/OrganizationProvider'
 import { useToast } from '@/providers/ToastProvider'
 import { capture } from '@/utils/posthog'
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 import * as Notifications from 'expo-notifications'
 import { Stack } from 'expo-router'
 import { useCallback, useContext, useEffect, useState } from 'react'

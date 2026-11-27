@@ -3,10 +3,10 @@ from typing import Any
 
 from tagflow import document
 
-from polar.backoffice.organizations_v2.views.sections.risk_signals import (
+from repalis.backoffice.organizations_v2.views.sections.risk_signals import (
     render_risk_signals_card,
 )
-from polar.models import OrganizationRiskSignal
+from repalis.models import OrganizationRiskSignal
 
 
 def build_signal(
@@ -109,9 +109,9 @@ class TestRenderRiskSignalsCard:
 
         assert "Stored description." in html
 
-    def test_polar_signal_shows_its_description_and_level(self) -> None:
+    def test_repalis_signal_shows_its_description_and_level(self) -> None:
         signal = OrganizationRiskSignal(
-            source=OrganizationRiskSignal.Source.POLAR,
+            source=OrganizationRiskSignal.Source.REPALIS,
             type=OrganizationRiskSignal.Type.FRAUDULENT_WEBSITE,
             risk_level=OrganizationRiskSignal.RiskLevel.NORMAL,
             description="Detected by our own check.",
@@ -121,6 +121,6 @@ class TestRenderRiskSignalsCard:
 
         html = render(signal)
 
-        assert "polar" in html
+        assert "repalis" in html
         assert "badge-info" in html
         assert "Detected by our own check." in html

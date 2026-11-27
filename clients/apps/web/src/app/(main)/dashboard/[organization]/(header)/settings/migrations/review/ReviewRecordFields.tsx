@@ -2,8 +2,8 @@
 
 import { DetailCell } from '@/components/Orders/OrderSection'
 import { OrganizationContext } from '@/providers/maintainerOrganization'
-import { Alert, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { Alert, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import Link from 'next/link'
 import { Fragment, ReactNode, useContext } from 'react'
 import { ImportTaxPicker } from '../ImportTaxPicker'

@@ -5,7 +5,7 @@ import { useOrganizationAccount, useSearchTransactions } from '@/hooks/queries'
 import { useDataTableQueryState } from '@/hooks/useDataTableQueryState'
 import { getAPIParams } from '@/utils/datatable'
 import { ISODuration } from '@/utils/duration'
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 
 export default function ClientPage({
   organization,

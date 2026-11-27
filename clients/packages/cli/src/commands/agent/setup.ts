@@ -44,7 +44,7 @@ const client = Flag.Literals('client', clients).pipe(
 const skills = Flag.Literals('skills', skillScopes).pipe(
   Flag.optional,
   Flag.withDescription(
-    'Also install the Polar skills into .agents/skills of this directory (project) or your home directory (global), for agents without a Polar plugin',
+    'Also install the Repalis skills into .agents/skills of this directory (project) or your home directory (global), for agents without a Repalis plugin',
   ),
 )
 
@@ -62,7 +62,7 @@ const pick = (
 ) =>
   Prompt.run(
     Prompt.MultiSelect<Client | SkillScope>({
-      message: 'What should be set up for Polar?',
+      message: 'What should be set up for Repalis?',
       choices: [
         ...detected.map((status) => ({
           title: status.name,
@@ -116,7 +116,7 @@ const select = (
       }
       yield* note(
         ui.step(
-          `Running inside ${agent.name}, which has no Polar plugin, installing the Polar skills instead`,
+          `Running inside ${agent.name}, which has no Repalis plugin, installing the Repalis skills instead`,
         ),
       )
       return { targets: [], scopes: [scope ?? 'project'] }
@@ -216,7 +216,7 @@ const installedSkills = Effect.gen(function* () {
   return found.filter((status) => status.state !== 'missing')
 }).pipe(
   Effect.catch((error) =>
-    note(ui.warning(`Could not check the Polar skills: ${error.message}`)).pipe(
+    note(ui.warning(`Could not check the Repalis skills: ${error.message}`)).pipe(
       Effect.as([]),
     ),
   ),
@@ -282,29 +282,29 @@ export const setup = Command.make('setup', {
   skills,
 }).pipe(
   Command.withDescription(
-    'Install the Polar plugin, MCP server and skills for your coding agents',
+    'Install the Repalis plugin, MCP server and skills for your coding agents',
   ),
   Command.withExamples([
     {
-      command: 'polar agent setup',
+      command: 'repalis agent setup',
       description:
         'Detect Claude Code, Codex and Cursor, then choose what to set up',
     },
     {
-      command: 'polar agent setup --status',
+      command: 'repalis agent setup --status',
       description: 'Show what is already set up',
     },
     {
-      command: 'polar agent setup --client claude-code',
-      description: 'Only install the Polar plugin for Claude Code',
+      command: 'repalis agent setup --client claude-code',
+      description: 'Only install the Repalis plugin for Claude Code',
     },
     {
-      command: 'polar agent setup --skills project',
+      command: 'repalis agent setup --skills project',
       description:
-        'Install the Polar skills into .agents/skills for any other agent',
+        'Install the Repalis skills into .agents/skills for any other agent',
     },
     {
-      command: 'polar agent setup --confirm --json',
+      command: 'repalis agent setup --confirm --json',
       description: 'Set up every detected agent without asking, for scripts',
     },
   ]),

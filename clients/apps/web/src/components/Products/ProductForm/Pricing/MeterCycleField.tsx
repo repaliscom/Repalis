@@ -4,7 +4,7 @@ import {
   defaultMeterInterval,
   meterIntervalDividesBillingInterval,
 } from '@/utils/meterInterval'
-import { enums } from '@polar-sh/client'
+import { enums } from '@repalis/client'
 import {
   Input,
   Select,
@@ -13,7 +13,7 @@ import {
   SelectTrigger,
   SelectValue,
   Switch,
-} from '@polar-sh/orbit'
+} from '@repalis/orbit'
 import {
   FormControl,
   FormDescription,
@@ -21,7 +21,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@polar-sh/ui/components/ui/form'
+} from '@repalis/ui/components/ui/form'
 import { useCallback, useEffect } from 'react'
 import { useFormContext, useWatch } from 'react-hook-form'
 import { ProductFormType } from '../ProductForm'

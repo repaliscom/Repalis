@@ -7,21 +7,21 @@ import {
   useCustomerSubscriptionCancelPreview,
 } from '@/hooks/queries/customerPortal'
 import { setValidationErrors } from '@/utils/api/errors'
-import { Client, isValidationError, schemas } from '@polar-sh/client'
-import { Alert, Button } from '@polar-sh/orbit'
-import { TextArea } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { Client, isValidationError, schemas } from '@repalis/client'
+import { Alert, Button } from '@repalis/orbit'
+import { TextArea } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormMessage,
-} from '@polar-sh/ui/components/ui/form'
+} from '@repalis/ui/components/ui/form'
 import {
   RadioGroup,
   RadioGroupItem,
-} from '@polar-sh/ui/components/ui/radio-group'
+} from '@repalis/ui/components/ui/radio-group'
 import { useRouter } from 'next/navigation'
 import { useCallback } from 'react'
 import { useForm, useFormState } from 'react-hook-form'
@@ -202,7 +202,7 @@ const CancellationDialog = ({
                         <RadioGroupItem
                           value={value}
                           id={`reason-${value}`}
-                          className="dark:border-polar-600 border-gray-300 text-black data-[state=checked]:border-black dark:text-white dark:data-[state=checked]:border-white"
+                          className="dark:border-repalis-600 border-gray-300 text-black data-[state=checked]:border-black dark:text-white dark:data-[state=checked]:border-white"
                         />
                         <PortalText className="text-sm">{label}</PortalText>
                       </Box>

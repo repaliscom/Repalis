@@ -17,12 +17,12 @@ import dramatiq
 from dramatiq import Retry
 from dramatiq.middleware.current_message import CurrentMessage
 
-from polar.config import settings
-from polar.event.service import event as event_service
-from polar.kit.db.postgres import AsyncSession
-from polar.redis import Redis
-from polar.worker import JobQueueManager
-from polar.worker._enqueue import _job_queue_manager
+from repalis.config import settings
+from repalis.event.service import event as event_service
+from repalis.kit.db.postgres import AsyncSession
+from repalis.redis import Redis
+from repalis.worker import JobQueueManager
+from repalis.worker._enqueue import _job_queue_manager
 
 logger = logging.getLogger(__name__)
 
@@ -96,16 +96,16 @@ class TaskDrainError(Exception):
 
 
 def _discover_task_modules() -> None:
-    """Import all ``tasks.py`` modules under ``polar/`` so actors register with the broker."""
-    polar_root = Path(__file__).resolve().parents[2] / "polar"
-    for tasks_file in polar_root.rglob("tasks.py"):
+    """Import all ``tasks.py`` modules under ``repalis/`` so actors register with the broker."""
+    repalis_root = Path(__file__).resolve().parents[2] / "repalis"
+    for tasks_file in repalis_root.rglob("tasks.py"):
         # Skip test files, __pycache__, and hidden directories
         if any(
             part.startswith((".", "__")) or part == "tests" for part in tasks_file.parts
         ):
             continue
         module_path = (
-            str(tasks_file.relative_to(polar_root.parent))
+            str(tasks_file.relative_to(repalis_root.parent))
             .replace("/", ".")
             .removesuffix(".py")
         )
@@ -142,7 +142,7 @@ def build_actor_registry() -> dict[str, Any]:
     """
     Build a mapping from actor_name to the original async function.
 
-    Auto-discovers all task modules under polar/, then unwraps each
+    Auto-discovers all task modules under repalis/, then unwraps each
     registered actor to get the async function callable from tests.
     """
     _discover_task_modules()

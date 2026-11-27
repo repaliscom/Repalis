@@ -1,8 +1,8 @@
 'use client'
 
 import { useState } from 'react'
-import { Subnav, SubnavItem } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { Subnav, SubnavItem } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import {
   Example,
   PageHeader,
@@ -65,7 +65,7 @@ function PagePlacementDemo() {
 }
 
 const basicCode = `import Link from 'next/link'
-import { Subnav, SubnavItem } from '@polar-sh/orbit'
+import { Subnav, SubnavItem } from '@repalis/orbit'
 
 <Subnav label="Customer sections">
   <SubnavItem active={pathname === overviewHref}>

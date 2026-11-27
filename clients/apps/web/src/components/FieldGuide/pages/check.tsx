@@ -117,13 +117,13 @@ export const marginCheck = landscape(
     [
       'In CI',
       [
-        'Polar runs in your pipeline next to your tests. Every change to the billing definition is priced against what it costs to serve before it can merge.',
+        'Repalis runs in your pipeline next to your tests. Every change to the billing definition is priced against what it costs to serve before it can merge.',
       ],
     ],
     [
       'Price against cost',
       [
-        'Events carry their cost, so Polar knows what a million tokens on each model costs you. Here, the plan charges $2.00 and serving it costs $2.36.',
+        'Events carry their cost, so Repalis knows what a million tokens on each model costs you. Here, the plan charges $2.00 and serving it costs $2.36.',
       ],
     ],
     [

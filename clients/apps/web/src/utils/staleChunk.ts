@@ -1,6 +1,6 @@
 import * as Sentry from '@sentry/nextjs'
 
-const RELOAD_KEY = 'polar:stale-chunk-reload'
+const RELOAD_KEY = 'repalis:stale-chunk-reload'
 
 export const reloadOnStaleChunk = (error: Error) => {
   if (!error.message.includes('module factory is not available')) return false

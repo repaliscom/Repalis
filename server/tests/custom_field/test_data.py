@@ -3,12 +3,12 @@ import typing
 import pytest
 from pydantic import BaseModel, ValidationError
 
-from polar.custom_field.data import (
+from repalis.custom_field.data import (
     build_custom_field_data_schema,
     custom_field_data_models,
 )
-from polar.models import Organization
-from polar.models.custom_field import CustomFieldType
+from repalis.models import Organization
+from repalis.models.custom_field import CustomFieldType
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_custom_field
 

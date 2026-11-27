@@ -3,17 +3,17 @@ from datetime import UTC, datetime, timedelta
 import pytest
 from pydantic import ValidationError
 
-from polar.event.repository import EventRepository
-from polar.kit.utils import utc_now
-from polar.meter.filter import (
+from repalis.event.repository import EventRepository
+from repalis.kit.utils import utc_now
+from repalis.meter.filter import (
     Filter,
     FilterClause,
     FilterConjunction,
     FilterOperator,
 )
-from polar.models import Event, Organization
-from polar.models.event import EventSource
-from polar.postgres import AsyncSession
+from repalis.models import Event, Organization
+from repalis.models.event import EventSource
+from repalis.postgres import AsyncSession
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_event
 

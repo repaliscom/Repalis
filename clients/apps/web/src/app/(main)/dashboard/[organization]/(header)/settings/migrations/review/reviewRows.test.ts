@@ -142,22 +142,22 @@ describe('needsAttention', () => {
 describe('reasonLinks', () => {
   const customerHref = '/dashboard/acme/customers/cust_1'
 
-  it('has no links without a conflicting Polar customer', () => {
+  it('has no links without a conflicting Repalis customer', () => {
     expect(
       reasonLinks(row({ reason_code: 'customer_missing_email' }), 'acme'),
     ).toEqual([])
   })
 
-  it('sends a duplicate subscription to the Polar customer', () => {
+  it('sends a duplicate subscription to the Repalis customer', () => {
     expect(
       reasonLinks(
         row({
-          reason_code: 'customer_subscribed_on_polar',
+          reason_code: 'customer_subscribed_on_repalis',
           conflicting_customer_id: 'cust_1',
         }),
         'acme',
       ),
-    ).toEqual([{ label: 'View their Polar subscription', href: customerHref }])
+    ).toEqual([{ label: 'View their Repalis subscription', href: customerHref }])
   })
 
   it('offers support for a Stripe id conflict', () => {
@@ -170,8 +170,8 @@ describe('reasonLinks', () => {
         'acme',
       ),
     ).toEqual([
-      { label: 'View Polar customer', href: customerHref },
-      { label: 'Contact support', href: 'mailto:support@polar.sh' },
+      { label: 'View Repalis customer', href: customerHref },
+      { label: 'Contact support', href: 'mailto:contact@repalis.com' },
     ])
   })
 })

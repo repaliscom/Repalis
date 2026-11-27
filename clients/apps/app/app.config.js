@@ -8,7 +8,7 @@ const plugins = [
   [
     'expo-splash-screen',
     {
-      // oxlint-disable-next-line @polar/no-hardcoded-colors
+      // oxlint-disable-next-line @repalis/no-hardcoded-colors
       backgroundColor: '#000000',
       ios: {
         image: './assets/images/splash.jpg',
@@ -41,8 +41,8 @@ if (!IS_WIDGET_BUILD) {
     '@sentry/react-native/expo',
     {
       url: 'https://sentry.io/',
-      project: 'polar-app',
-      organization: 'polar-sh',
+      project: 'repalis-app',
+      organization: 'repalis',
     },
   ])
 }
@@ -51,19 +51,19 @@ plugins.push('@bacons/apple-targets')
 
 module.exports = {
   expo: {
-    name: 'Polar',
-    slug: 'Polar',
-    version: '1.10.0',
+    name: 'Repalis',
+    slug: 'Repalis',
+    version: '1.9.0',
     orientation: 'portrait',
     icon: './assets/images/icon.png',
-    scheme: 'polar',
+    scheme: 'repalis',
     userInterfaceStyle: 'dark',
     newArchEnabled: true,
-    owner: 'polar-sh',
+    owner: 'repalis',
     ios: {
       appleTeamId: '55U3YA3QTA',
       supportsTablet: false,
-      bundleIdentifier: 'com.polarsource.Polar',
+      bundleIdentifier: 'com.repalis.app',
       infoPlist: {
         ITSAppUsesNonExemptEncryption: false,
       },
@@ -71,22 +71,22 @@ module.exports = {
       entitlements: {
         'com.apple.developer.applesignin': ['Default'],
         'com.apple.security.application-groups': [
-          'group.com.polarsource.Polar',
+          'group.com.repalis.app',
         ],
         'keychain-access-groups': [
-          '$(AppIdentifierPrefix)com.polarsource.Polar',
+          '$(AppIdentifierPrefix)com.repalis.app',
         ],
       },
-      associatedDomains: ['applinks:polar.godetour.link'],
+      associatedDomains: ['applinks:repalis.godetour.link'],
     },
     android: {
       adaptiveIcon: {
         foregroundImage: './assets/images/adaptive-icon.png',
-        // oxlint-disable-next-line @polar/no-hardcoded-colors
+        // oxlint-disable-next-line @repalis/no-hardcoded-colors
         backgroundColor: '#000000',
       },
-      package: 'com.polarsource.Polar',
-      scheme: 'polar',
+      package: 'com.repalis.app',
+      scheme: 'repalis',
       googleServicesFile: './google-services.json',
       intentFilters: [
         {
@@ -95,7 +95,7 @@ module.exports = {
           data: [
             {
               scheme: 'https',
-              host: 'polar.godetour.link',
+              host: 'repalis.godetour.link',
               pathPrefix: '/baSjUTJtg8',
             },
           ],

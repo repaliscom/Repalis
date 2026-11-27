@@ -36,7 +36,7 @@ export default async function Page(props: {
 
   const cookieStore = await cookies()
   const lastLoginMethod =
-    cookieStore.get('polar_last_login_method')?.value ?? null
+    cookieStore.get('repalis_last_login_method')?.value ?? null
 
   return (
     <ClaimAgentPage

@@ -1,68 +1,68 @@
-# @polar-sh/adapter-utils
+# @repalis/adapter-utils
 
 ## 1.1.1
 
 ### Patch Changes
 
-- b5ead87: Update `@polar-sh/sdk` to version 1.1.0.
-- 2f927d4: Update `@polar-sh/sdk` to version 1.3.1.
+- b5ead87: Update `@repalis/sdk` to version 1.1.0.
+- 2f927d4: Update `@repalis/sdk` to version 1.3.1.
 
 ## 1.1.0
 
 ### Minor Changes
 
-- e381ab0: Send the customer IP address when creating a checkout so Polar can show the visitor's local currency. When the `customer_ip_address` query param is not passed, the checkout route uses the first valid IP from the `x-forwarded-for`, `x-real-ip` and `cf-connecting-ip` headers. Use the new `customerIpAddress` option to resolve it yourself, or set it to `false` to stop sending it.
+- e381ab0: Send the customer IP address when creating a checkout so Repalis can show the visitor's local currency. When the `customer_ip_address` query param is not passed, the checkout route uses the first valid IP from the `x-forwarded-for`, `x-real-ip` and `cf-connecting-ip` headers. Use the new `customerIpAddress` option to resolve it yourself, or set it to `false` to stop sending it.
 
 ## 1.0.1
 
 ### Patch Changes
 
-- 4e582f4: Update `@polar-sh/sdk` to version 1.0.2.
+- 4e582f4: Update `@repalis/sdk` to version 1.0.2.
 
 ## 1.0.0
 
 ### Major Changes
 
-- 193578b: Migrate webhook and entitlement types to the new Polar SDK (`@polar-sh/sdk/2026-10`).
+- 193578b: Migrate webhook and entitlement types to the new Repalis SDK (`@repalis/sdk/2026-10`).
 
 ## 0.4.7
 
 ### Patch Changes
 
-- 10d913c: Add typed handlers for Polar member created, updated, deleted, customer seat assigned, claimed, and revoked webhook events.
+- 10d913c: Add typed handlers for Repalis member created, updated, deleted, customer seat assigned, claimed, and revoked webhook events.
 
 ## 0.4.6
 
 ### Patch Changes
 
-- 9b0cf46: Update @polar-sh/sdk to 0.46.5
-- fbb9c4c: Update @polar-sh/sdk to 0.46.7
-- a89b1ee: Update @polar-sh/sdk to 0.47.0
-- 19b0f48: Update @polar-sh/sdk to 0.46.6
+- 9b0cf46: Update @repalis/sdk to 0.46.5
+- fbb9c4c: Update @repalis/sdk to 0.46.7
+- a89b1ee: Update @repalis/sdk to 0.47.0
+- 19b0f48: Update @repalis/sdk to 0.46.6
 
 ## 0.4.5
 
 ### Patch Changes
 
-- 0e8d982: Update @polar-sh/sdk to 0.46.2
+- 0e8d982: Update @repalis/sdk to 0.46.2
 
 ## 0.4.4
 
 ### Patch Changes
 
-- 43ff4ac: Update @polar-sh/sdk to 0.46.0
+- 43ff4ac: Update @repalis/sdk to 0.46.0
 
 ## 0.4.3
 
 ### Patch Changes
 
-- 3906ed9: Bump @polar-sh/sdk
+- 3906ed9: Bump @repalis/sdk
 
 ## 0.4.2
 
 ### Patch Changes
 
-- c591126: Bump @polar-sh/sdk
+- c591126: Bump @repalis/sdk
 
 ## 0.4.1
 
@@ -74,7 +74,7 @@
 
 ### Minor Changes
 
-- 4512e82: Bump Polar SDK
+- 4512e82: Bump Repalis SDK
 
 ## 0.3.0
 
@@ -86,7 +86,7 @@
 
 ### Patch Changes
 
-- 3250323: Update Polar SDK to 0.38.1
+- 3250323: Update Repalis SDK to 0.38.1
 
 ## 0.2.9
 
@@ -124,7 +124,7 @@
 
 ### Patch Changes
 
-- 39f4d39: Update Polar SDK version
+- 39f4d39: Update Repalis SDK version
 
 ## 0.2.3
 
@@ -142,7 +142,7 @@
 
 ### Patch Changes
 
-- 87de0c5: Bump Polar SDK
+- 87de0c5: Bump Repalis SDK
 
 ## 0.2.0
 
@@ -203,7 +203,7 @@
 
 ### Patch Changes
 
-- 9dd847d: Bump Polar SDK
+- 9dd847d: Bump Repalis SDK
 
 ## 0.1.7
 

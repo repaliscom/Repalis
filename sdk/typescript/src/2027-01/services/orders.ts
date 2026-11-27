@@ -33,9 +33,9 @@ export const listOrders = (client: ClientBase) => {
    * @param query - Query parameters
    * @param requestOptions - Request options
    * @returns {ListResourceOrder}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    * @throws {HTTPValidationError} Validation Error
    */
   return async (
@@ -93,9 +93,9 @@ export const listOrders = (client: ClientBase) => {
  * @param query - Query parameters
  * @param requestOptions - Request options
  * @returns {AsyncGenerator<Order>} A generator that yields items of type Order.
- * @throws {PolarNetworkError} When a network error occurs
- * @throws {PolarRateLimitError} When the rate limit is exceeded
- * @throws {PolarServerError} When the server returns a 5xx error
+ * @throws {RepalisNetworkError} When a network error occurs
+ * @throws {RepalisRateLimitError} When the rate limit is exceeded
+ * @throws {RepalisServerError} When the server returns a 5xx error
  * @throws {HTTPValidationError} Validation Error
  */
 export const iterListOrders = (client: ClientBase) => {
@@ -150,9 +150,9 @@ export const createOrders = (client: ClientBase) => {
    * @param body - Request body
    * @param requestOptions - Request options
    * @returns {Order}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    * @throws {HTTPValidationError} Validation Error
    */
   return async (body: OrderCreate, requestOptions?: RequestOptions): Promise<Order> => {
@@ -174,9 +174,9 @@ export const exportOrders = (client: ClientBase) => {
    * @param query - Query parameters
    * @param requestOptions - Request options
    * @returns {string}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    * @throws {HTTPValidationError} Validation Error
    */
   return async (
@@ -225,9 +225,9 @@ export const getOrders = (client: ClientBase) => {
    * @param id - The order ID.
    * @param requestOptions - Request options
    * @returns {Order}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    * @throws {ResourceNotFound} Order not found.
    * @throws {HTTPValidationError} Validation Error
    */
@@ -260,9 +260,9 @@ export const updateOrders = (client: ClientBase) => {
    * @param body - Request body
    * @param requestOptions - Request options
    * @returns {Order}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    * @throws {ResourceNotFound} Order not found.
    * @throws {HTTPValidationError} Validation Error
    */
@@ -295,9 +295,9 @@ export const finalizeOrders = (client: ClientBase) => {
    * @param body - Request body
    * @param requestOptions - Request options
    * @returns {Order}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    * @throws {OrdersFinalize402Error} The charge failed, or requires customer authentication (e.g. a 3DS challenge) that can't be completed off-session.
    * @throws {OrdersFinalize403Error} Off-session charges are not enabled for this organization, or its account can't currently accept payments.
    * @throws {ResourceNotFound} Order not found.
@@ -339,9 +339,9 @@ export const invoiceOrders = (client: ClientBase) => {
    * @param id - The order ID.
    * @param requestOptions - Request options
    * @returns {OrderInvoice}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    * @throws {ResourceNotFound} Order not found.
    * @throws {HTTPValidationError} Validation Error
    */
@@ -373,9 +373,9 @@ export const generateInvoiceOrders = (client: ClientBase) => {
    * @param id - The order ID.
    * @param requestOptions - Request options
    * @returns {unknown}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    * @throws {ResourceNotFound} Order not found.
    * @throws {OrderNotEligibleForInvoice} Order is not eligible for invoice generation (invalid status).
    * @throws {MissingInvoiceBillingDetails} Order is missing billing name or address.
@@ -409,9 +409,9 @@ export const receiptOrders = (client: ClientBase) => {
    * @param id - The order ID.
    * @param requestOptions - Request options
    * @returns {OrderReceipt}
-   * @throws {PolarNetworkError} When a network error occurs
-   * @throws {PolarRateLimitError} When the rate limit is exceeded
-   * @throws {PolarServerError} When the server returns a 5xx error
+   * @throws {RepalisNetworkError} When a network error occurs
+   * @throws {RepalisRateLimitError} When the rate limit is exceeded
+   * @throws {RepalisServerError} When the server returns a 5xx error
    * @throws {ResourceNotFound} Order not found.
    * @throws {HTTPValidationError} Validation Error
    */

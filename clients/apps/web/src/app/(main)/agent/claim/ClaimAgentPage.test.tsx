@@ -3,13 +3,13 @@ import { UserContextProvider } from '@/providers/auth'
 import { stubLocationAssign } from '@/test-utils/location'
 import { renderWithProviders } from '@/test-utils/render'
 import { API_URL, apiError, server } from '@/test-utils/server'
-import type { schemas } from '@polar-sh/client'
+import type { schemas } from '@repalis/client'
 import { fireEvent, screen, waitFor } from '@testing-library/react'
 import { http, HttpResponse } from 'msw'
 import { beforeAll, describe, expect, it, onTestFinished, vi } from 'vitest'
 import ClaimAgentPage from './ClaimAgentPage'
 
-const LINK_TOKEN = 'polar_acl_123'
+const LINK_TOKEN = 'repalis_acl_123'
 
 const user = {
   id: 'user_1',
@@ -269,7 +269,7 @@ describe('ClaimAgentPage', () => {
     await waitFor(() =>
       expect(prompt).toHaveBeenCalledWith({
         returnTo: expect.stringMatching(
-          /^\/agent\/claim\?token=polar_acl_123&resume_claim=/,
+          /^\/agent\/claim\?token=repalis_acl_123&resume_claim=/,
         ),
       }),
     )

@@ -10,24 +10,24 @@ from datetime import UTC, datetime
 
 import pytest
 
-from polar.models import OrganizationReview
-from polar.models.backoffice_user import BackofficeUser
-from polar.models.organization import Organization, OrganizationStatus
-from polar.models.support_case import (
+from repalis.models import OrganizationReview
+from repalis.models.backoffice_user import BackofficeUser
+from repalis.models.organization import Organization, OrganizationStatus
+from repalis.models.support_case import (
     ReviewAppealSupportCase,
     SupportCaseAudience,
     SupportCaseMessageType,
 )
-from polar.models.user import User
-from polar.organization.service import organization as organization_service
-from polar.organization_review.appeal_case import (
+from repalis.models.user import User
+from repalis.organization.service import organization as organization_service
+from repalis.organization_review.appeal_case import (
     CaseClosedError,
 )
-from polar.organization_review.appeal_case import (
+from repalis.organization_review.appeal_case import (
     appeal_case as appeal_case_service,
 )
-from polar.postgres import AsyncSession
-from polar.support_case.repository import SupportCaseMessageRepository
+from repalis.postgres import AsyncSession
+from repalis.support_case.repository import SupportCaseMessageRepository
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_organization_review
 

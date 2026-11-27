@@ -8,17 +8,17 @@ import NewWebhookModal from '@/components/Settings/Webhook/NewWebhookModal'
 import { toast } from '@/components/Toast/use-toast'
 import { useCheckoutLinks } from '@/hooks/queries/checkout_links'
 import { getQueryClient } from '@/utils/api/query'
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 import {
   Button,
   InlineModal,
   Modal,
   SegmentedControl,
   Text,
-} from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import CopyToClipboardInput from '@polar-sh/ui/components/atoms/CopyToClipboardInput'
-import Banner from '@polar-sh/ui/components/molecules/Banner'
+} from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import CopyToClipboardInput from '@repalis/ui/components/atoms/CopyToClipboardInput'
+import Banner from '@repalis/ui/components/molecules/Banner'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { DeliveryRadioGroup, LearnMore, Todo } from './SetupReadinessParts'
@@ -32,8 +32,8 @@ type Path = 'no-code' | 'api'
 type Status = schemas['OrganizationReviewCheckStatus']
 
 const DOCS = {
-  checkoutLink: 'https://polar.sh/docs/features/checkout/links',
-  api: 'https://polar.sh/docs/api-reference/current/introduction',
+  checkoutLink: '/docs/features/checkout/links',
+  api: '/docs/api-reference/current/introduction',
 }
 
 const API_ONLY_BENEFIT_TYPES: ReadonlySet<schemas['BenefitType']> = new Set([
@@ -159,7 +159,7 @@ export const SetupReadinessSection = ({ organization, step }: Props) => {
       ) : (
         <Box flexDirection="column" rowGap="l">
           <Text variant="caption" color="muted">
-            Integrate your application with the Polar API to manage orders,
+            Integrate your application with the Repalis API to manage orders,
             customers, and subscriptions programmatically from your own code.{' '}
             <LearnMore href={DOCS.api} />
           </Text>

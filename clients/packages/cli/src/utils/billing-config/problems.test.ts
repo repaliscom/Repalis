@@ -4,7 +4,7 @@ import { formatProblems } from '@/utils/billing-config/problems'
 import { stripAnsi } from '@/utils/test-utils/cli'
 
 const generated: LoadedConfig = {
-  file: 'polar.config.ts',
+  file: 'repalis.config.ts',
   source: '{\n  "meters": []\n}',
   input: { meters: [] },
   generated: true,
@@ -39,11 +39,11 @@ describe('formatProblems for a generated config', () => {
     expect(output).toBe(
       [
         '  Warning: No events named "tool_call" have been received yet',
-        '    at polar.config.ts › meters.tool_calls.filter.clauses.0.value',
-        '  help: The meter counts events with this name, so it stays at zero until your app sends one. Fine for a new event; if the name looks wrong, compare it with polar events list_names.',
+        '    at repalis.config.ts › meters.tool_calls.filter.clauses.0.value',
+        '  help: The meter counts events with this name, so it stays at zero until your app sends one. Fine for a new event; if the name looks wrong, compare it with repalis events list_names.',
         '',
         '  Error: Cannot change "filter" of meters.tool_calls',
-        '    at polar.config.ts › meters.tool_calls.filter',
+        '    at repalis.config.ts › meters.tool_calls.filter',
       ].join('\n'),
     )
   })
@@ -75,7 +75,7 @@ describe('formatProblems for a generated config', () => {
     expect(output).toContain(
       'Invalid value for "name" at meters.tool_calls.name',
     )
-    expect(output).toContain('at polar.config.ts › meters.tool_calls.name')
+    expect(output).toContain('at repalis.config.ts › meters.tool_calls.name')
     expect(output).toContain('help: Got 1.')
   })
 

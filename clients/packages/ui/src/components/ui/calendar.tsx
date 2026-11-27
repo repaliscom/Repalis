@@ -1,10 +1,10 @@
 'use client'
 
-import { ChevronLeft, ChevronRight } from '@polar-sh/orbit/icons'
+import { ChevronLeft, ChevronRight } from '@repalis/orbit/icons'
 import * as React from 'react'
 import { DateRange, DayPicker } from 'react-day-picker'
 
-import { buttonVariants } from '@polar-sh/orbit/ui/button'
+import { buttonVariants } from '@repalis/orbit/ui/button'
 import { cn } from '@/lib/utils'
 
 export type CalendarProps = React.ComponentProps<typeof DayPicker>
@@ -42,7 +42,7 @@ function Calendar({
         day: 'h-9 w-9 text-center text-sm p-0 relative focus-within:z-20',
         day_button: cn(
           buttonVariants({ variant: 'ghost' }),
-          'h-9 w-9 p-0 font-normal hover:bg-gray-100 hover:text-gray-900 dark:hover:bg-polar-700 dark:hover:text-white focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:ring-offset-0',
+          'h-9 w-9 p-0 font-normal hover:bg-gray-100 hover:text-gray-900 dark:hover:bg-repalis-700 dark:hover:text-white focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:ring-offset-0',
         ),
         selected:
           '[&>button]:bg-primary [&>button]:text-primary-foreground [&>button]:hover:bg-primary [&>button]:hover:text-primary-foreground',

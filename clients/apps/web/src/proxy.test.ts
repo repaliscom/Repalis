@@ -232,17 +232,17 @@ describe('middleware function', () => {
 
     const request = new NextRequest('https://example.com/dashboard', {
       headers: {
-        'x-polar-user': Buffer.from(JSON.stringify(spoofedUser)).toString(
+        'x-repalis-user': Buffer.from(JSON.stringify(spoofedUser)).toString(
           'base64',
         ),
       },
     })
-    request.cookies.set('polar_session', 'valid-session-token')
+    request.cookies.set('repalis_session', 'valid-session-token')
 
     const response = await proxy(request)
 
     expect(response.status).toBe(200)
-    expect(getForwardedRequestHeader(response, 'x-polar-user')).toBe(
+    expect(getForwardedRequestHeader(response, 'x-repalis-user')).toBe(
       Buffer.from(JSON.stringify(mockUser)).toString('base64'),
     )
   })
@@ -253,16 +253,16 @@ describe('middleware function', () => {
     const response = await proxy(request)
 
     expect(response.status).toBe(200)
-    expect(getForwardedRequestHeader(response, 'x-polar-user')).toBeNull()
+    expect(getForwardedRequestHeader(response, 'x-repalis-user')).toBeNull()
     expect(getForwardedRequestHeaderNames(response)).not.toContain(
-      'x-polar-user',
+      'x-repalis-user',
     )
   })
 
   it('should strip spoofed user headers from forwarded routes', async () => {
     const request = new NextRequest('https://example.com/docs/overview', {
       headers: {
-        'x-polar-user': Buffer.from(
+        'x-repalis-user': Buffer.from(
           JSON.stringify({ id: 'spoofed', email: 'attacker@example.com' }),
         ).toString('base64'),
       },
@@ -271,9 +271,9 @@ describe('middleware function', () => {
     const response = await proxy(request)
 
     expect(response.status).toBe(200)
-    expect(getForwardedRequestHeader(response, 'x-polar-user')).toBeNull()
+    expect(getForwardedRequestHeader(response, 'x-repalis-user')).toBeNull()
     expect(getForwardedRequestHeaderNames(response)).not.toContain(
-      'x-polar-user',
+      'x-repalis-user',
     )
     expect(createServerSideAPI).not.toHaveBeenCalled()
   })
@@ -304,7 +304,7 @@ describe('middleware function', () => {
     })
 
     const request = new NextRequest('https://example.com/dashboard')
-    request.cookies.set('polar_session', 'valid-session-token')
+    request.cookies.set('repalis_session', 'valid-session-token')
 
     await expect(proxy(request)).rejects.toThrow(
       'Unexpected response status while fetching authenticated user',
@@ -321,7 +321,7 @@ describe('middleware function', () => {
     })
 
     const request = new NextRequest('https://example.com/dashboard')
-    request.cookies.set('polar_session', 'invalid-session-token')
+    request.cookies.set('repalis_session', 'invalid-session-token')
 
     const response = await proxy(request)
 
@@ -342,7 +342,7 @@ describe('middleware function', () => {
     })
 
     const request = new NextRequest('https://example.com/dashboard')
-    request.cookies.set('polar_session', 'rate-limited-session-token')
+    request.cookies.set('repalis_session', 'rate-limited-session-token')
 
     // Must not throw: a 429 should be treated as "couldn't determine the user"
     // and proceed as anonymous (protected route -> redirect to login).
@@ -355,7 +355,7 @@ describe('middleware function', () => {
 
   it('lets unauthenticated agent claims through so the page can offer sign-in', async () => {
     const request = new NextRequest(
-      'https://example.com/agent/claim?token=polar_acl_123',
+      'https://example.com/agent/claim?token=repalis_acl_123',
     )
 
     const response = await proxy(request)
@@ -381,35 +381,35 @@ describe('middleware function', () => {
 })
 
 describe('the /to/ dance', () => {
-  it('bounces /to/* to the sandbox host when polar_env cookie does not match the current env', async () => {
-    const request = new NextRequest('https://polar.sh/to/dashboard/products')
-    request.cookies.set('polar_env', 'sandbox')
+  it('bounces /to/* to the sandbox host when repalis_env cookie does not match the current env', async () => {
+    const request = new NextRequest('https://repalis.com/to/dashboard/products')
+    request.cookies.set('repalis_env', 'sandbox')
 
     const response = await proxy(request)
 
     expect(response.status).toBe(307)
     expect(response.headers.get('location')).toBe(
-      'https://sandbox.polar.sh/to/dashboard/products',
+      'https://sandbox.repalis.com/to/dashboard/products',
     )
   })
 
   it('preserves query string when bouncing /to/*', async () => {
     const request = new NextRequest(
-      'https://polar.sh/to/dashboard/products?foo=bar',
+      'https://repalis.com/to/dashboard/products?foo=bar',
     )
-    request.cookies.set('polar_env', 'sandbox')
+    request.cookies.set('repalis_env', 'sandbox')
 
     const response = await proxy(request)
 
     expect(response.status).toBe(307)
     expect(response.headers.get('location')).toBe(
-      'https://sandbox.polar.sh/to/dashboard/products?foo=bar',
+      'https://sandbox.repalis.com/to/dashboard/products?foo=bar',
     )
   })
 
-  it('does not bounce when polar_env cookie matches the current env', async () => {
-    const request = new NextRequest('https://polar.sh/to/dashboard/products')
-    request.cookies.set('polar_env', 'production')
+  it('does not bounce when repalis_env cookie matches the current env', async () => {
+    const request = new NextRequest('https://repalis.com/to/dashboard/products')
+    request.cookies.set('repalis_env', 'production')
 
     const response = await proxy(request)
 
@@ -417,9 +417,9 @@ describe('the /to/ dance', () => {
     expect(response.headers.get('location')).toContain('/auth')
   })
 
-  it('ignores invalid polar_env cookie values', async () => {
-    const request = new NextRequest('https://polar.sh/to/dashboard/products')
-    request.cookies.set('polar_env', 'narnia')
+  it('ignores invalid repalis_env cookie values', async () => {
+    const request = new NextRequest('https://repalis.com/to/dashboard/products')
+    request.cookies.set('repalis_env', 'narnia')
 
     const response = await proxy(request)
 
@@ -428,8 +428,8 @@ describe('the /to/ dance', () => {
   })
 
   it('does not bounce non-/to/ paths even with a mismatching cookie', async () => {
-    const request = new NextRequest('https://polar.sh/dashboard')
-    request.cookies.set('polar_env', 'sandbox')
+    const request = new NextRequest('https://repalis.com/dashboard')
+    request.cookies.set('repalis_env', 'sandbox')
 
     const response = await proxy(request)
 
@@ -463,14 +463,14 @@ describe('checkout frame ancestors', () => {
 
   it('asks for the policy of a framed checkout', async () => {
     const response = await proxy(
-      framedRequest('https://polar.sh/checkout/polar_c_123'),
+      framedRequest('https://repalis.com/checkout/repalis_c_123'),
     )
 
     expect(response.status).toBe(200)
     expect(mockFetch).toHaveBeenCalledOnce()
 
     const [url, init] = mockFetch.mock.calls[0]
-    expect(url).toContain('/v1/checkouts/client/polar_c_123/embed-policy')
+    expect(url).toContain('/v1/checkouts/client/repalis_c_123/embed-policy')
     expect(init.headers).toMatchObject({
       Referer: 'https://example.com/pricing',
       'Sec-Fetch-Dest': 'iframe',
@@ -479,11 +479,11 @@ describe('checkout frame ancestors', () => {
 
   it('resolves the same secret on the confirmation page', async () => {
     await proxy(
-      framedRequest('https://polar.sh/checkout/polar_c_123/confirmation'),
+      framedRequest('https://repalis.com/checkout/repalis_c_123/confirmation'),
     )
 
     expect(mockFetch.mock.calls[0][0]).toContain(
-      '/v1/checkouts/client/polar_c_123/embed-policy',
+      '/v1/checkouts/client/repalis_c_123/embed-policy',
     )
   })
 
@@ -496,7 +496,7 @@ describe('checkout frame ancestors', () => {
     })
 
     const response = await proxy(
-      framedRequest('https://polar.sh/checkout/polar_c_123'),
+      framedRequest('https://repalis.com/checkout/repalis_c_123'),
     )
 
     const policy = response.headers.get('Content-Security-Policy')
@@ -507,7 +507,7 @@ describe('checkout frame ancestors', () => {
   })
 
   it('asks nothing on a top-level navigation, and refuses framing', async () => {
-    const request = new NextRequest('https://polar.sh/checkout/polar_c_123', {
+    const request = new NextRequest('https://repalis.com/checkout/repalis_c_123', {
       headers: { 'Sec-Fetch-Dest': 'document' },
     })
 
@@ -520,7 +520,7 @@ describe('checkout frame ancestors', () => {
   })
 
   it('leaves other pages to the static policy', async () => {
-    const response = await proxy(framedRequest('https://polar.sh/acme'))
+    const response = await proxy(framedRequest('https://repalis.com/acme'))
 
     expect(response.headers.get('Content-Security-Policy')).toBeNull()
   })
@@ -529,7 +529,7 @@ describe('checkout frame ancestors', () => {
     'asks for every destination that can hold a document: %s',
     async (destination) => {
       await proxy(
-        new NextRequest('https://polar.sh/checkout/polar_c_123', {
+        new NextRequest('https://repalis.com/checkout/repalis_c_123', {
           headers: { 'Sec-Fetch-Dest': destination },
         }),
       )
@@ -539,13 +539,13 @@ describe('checkout frame ancestors', () => {
   )
 
   it('asks when the browser sends no fetch destination', async () => {
-    await proxy(new NextRequest('https://polar.sh/checkout/polar_c_123'))
+    await proxy(new NextRequest('https://repalis.com/checkout/repalis_c_123'))
 
     expect(mockFetch).toHaveBeenCalledOnce()
   })
 
   it('asks nothing outside checkout', async () => {
-    await proxy(framedRequest('https://polar.sh/acme'))
+    await proxy(framedRequest('https://repalis.com/acme'))
 
     expect(mockFetch).not.toHaveBeenCalled()
   })
@@ -554,7 +554,7 @@ describe('checkout frame ancestors', () => {
     mockFetch.mockRejectedValue(new Error('unreachable'))
 
     const response = await proxy(
-      framedRequest('https://polar.sh/checkout/polar_c_123'),
+      framedRequest('https://repalis.com/checkout/repalis_c_123'),
     )
 
     expect(response.status).toBe(200)
@@ -583,7 +583,7 @@ describe('payment method embed policy', () => {
   })
 
   const EMBED_URL =
-    'https://polar.sh/embed/payment-method?session_token=polar_cst_123&embed_origin=https%3A%2F%2Fexample.com'
+    'https://repalis.com/embed/payment-method?session_token=repalis_cst_123&embed_origin=https%3A%2F%2Fexample.com'
 
   const framedRequest = (url: string, headers: Record<string, string> = {}) =>
     new NextRequest(url, {
@@ -598,11 +598,11 @@ describe('payment method embed policy', () => {
     expect(url).toContain(
       '/v1/customer-portal/customers/me/embed-policy?embed_origin=https%3A%2F%2Fexample.com',
     )
-    expect(init.headers).toEqual({ Authorization: 'Bearer polar_cst_123' })
+    expect(init.headers).toEqual({ Authorization: 'Bearer repalis_cst_123' })
     expect(response.headers.get('Content-Security-Policy')).toContain(
       'frame-ancestors https://example.com;',
     )
-    expect(getForwardedRequestHeader(response, 'x-polar-embed-origin')).toBe(
+    expect(getForwardedRequestHeader(response, 'x-repalis-embed-origin')).toBe(
       'https://example.com',
     )
   })
@@ -616,7 +616,7 @@ describe('payment method embed policy', () => {
     const response = await proxy(framedRequest(EMBED_URL))
 
     expect(
-      getForwardedRequestHeader(response, 'x-polar-embed-origin'),
+      getForwardedRequestHeader(response, 'x-repalis-embed-origin'),
     ).toBeNull()
   })
 
@@ -624,11 +624,11 @@ describe('payment method embed policy', () => {
     mockFetch.mockResolvedValue({ ok: false })
 
     const response = await proxy(
-      framedRequest(EMBED_URL, { 'x-polar-embed-origin': 'https://evil.com' }),
+      framedRequest(EMBED_URL, { 'x-repalis-embed-origin': 'https://evil.com' }),
     )
 
     expect(
-      getForwardedRequestHeader(response, 'x-polar-embed-origin'),
+      getForwardedRequestHeader(response, 'x-repalis-embed-origin'),
     ).toBeNull()
     expect(response.headers.get('Content-Security-Policy')).toContain(
       "frame-ancestors 'none';",
@@ -644,15 +644,15 @@ describe('payment method embed policy', () => {
     expect(response.headers.get('Content-Security-Policy')).toContain(
       "frame-ancestors 'none';",
     )
-    expect(getForwardedRequestHeader(response, 'x-polar-embed-origin')).toBe(
+    expect(getForwardedRequestHeader(response, 'x-repalis-embed-origin')).toBe(
       'https://example.com',
     )
   })
 
-  it('lets Polar embed itself without asking for the policy', async () => {
+  it('lets Repalis embed itself without asking for the policy', async () => {
     const response = await proxy(
       framedRequest(
-        'https://polar.sh/embed/payment-method?session_token=polar_cst_123&embed_origin=https%3A%2F%2Fpolar.sh',
+        'https://repalis.com/embed/payment-method?session_token=repalis_cst_123&embed_origin=https%3A%2F%2Frepalis.com',
       ),
     )
 
@@ -660,15 +660,15 @@ describe('payment method embed policy', () => {
     expect(response.headers.get('Content-Security-Policy')).toContain(
       "frame-ancestors 'self';",
     )
-    expect(getForwardedRequestHeader(response, 'x-polar-embed-origin')).toBe(
-      'https://polar.sh',
+    expect(getForwardedRequestHeader(response, 'x-repalis-embed-origin')).toBe(
+      'https://repalis.com',
     )
   })
 
-  it('lets Polar embed itself when the Host header differs from the URL host', async () => {
+  it('lets Repalis embed itself when the Host header differs from the URL host', async () => {
     const response = await proxy(
       framedRequest(
-        'http://localhost:3000/embed/payment-method?session_token=polar_cst_123&embed_origin=http%3A%2F%2F127.0.0.1%3A3000',
+        'http://localhost:3000/embed/payment-method?session_token=repalis_cst_123&embed_origin=http%3A%2F%2F127.0.0.1%3A3000',
         { Host: '127.0.0.1:3000' },
       ),
     )
@@ -681,7 +681,7 @@ describe('payment method embed policy', () => {
 
   it('refuses framing without a session token', async () => {
     const response = await proxy(
-      framedRequest('https://polar.sh/embed/payment-method'),
+      framedRequest('https://repalis.com/embed/payment-method'),
     )
 
     expect(mockFetch).not.toHaveBeenCalled()

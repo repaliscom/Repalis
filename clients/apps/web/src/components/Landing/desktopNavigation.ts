@@ -55,7 +55,7 @@ export const navMenus: NavMenu[] = [
         { label: 'Integrate', href: '/integrate' },
         {
           label: 'Documentation',
-          href: 'https://polar.sh/docs',
+          href: 'https://repalis.com/docs',
           target: '_blank',
         },
       ],

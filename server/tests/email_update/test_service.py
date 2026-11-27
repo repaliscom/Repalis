@@ -1,11 +1,11 @@
 import pytest
 from pytest_mock import MockerFixture
 
-from polar.auth.models import AuthSubject
-from polar.email_update.service import EmailAlreadyInUse, InvalidEmailUpdate
-from polar.email_update.service import email_update as email_update_service
-from polar.models import User
-from polar.postgres import AsyncSession
+from repalis.auth.models import AuthSubject
+from repalis.email_update.service import EmailAlreadyInUse, InvalidEmailUpdate
+from repalis.email_update.service import email_update as email_update_service
+from repalis.models import User
+from repalis.postgres import AsyncSession
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_user
 
@@ -18,7 +18,7 @@ class TestVerify:
         save_fixture: SaveFixture,
         mocker: MockerFixture,
     ) -> None:
-        mocker.patch("polar.email_update.service.resend_service")
+        mocker.patch("repalis.email_update.service.resend_service")
         user = await create_user(save_fixture, email_verified=False)
         _, token = await email_update_service.request_email_update(
             "new.email@example.com", session, AuthSubject(user, set(), None)
@@ -35,7 +35,7 @@ class TestVerify:
         save_fixture: SaveFixture,
         mocker: MockerFixture,
     ) -> None:
-        resend_mock = mocker.patch("polar.email_update.service.resend_service")
+        resend_mock = mocker.patch("repalis.email_update.service.resend_service")
         user = await create_user(save_fixture, email="user@example.com")
         _, token = await email_update_service.request_email_update(
             "new.email@example.com", session, AuthSubject(user, set(), None)
@@ -56,7 +56,7 @@ class TestVerify:
         auth_subject: AuthSubject[User],
         mocker: MockerFixture,
     ) -> None:
-        mocker.patch("polar.email_update.service.resend_service")
+        mocker.patch("repalis.email_update.service.resend_service")
         user = auth_subject.subject
 
         _, token_first = await email_update_service.request_email_update(

@@ -7,7 +7,7 @@ import {
   loginCommand,
   orgCommand,
   type OrganizationSelection,
-  PolarEnvironment,
+  RepalisEnvironment,
 } from '@/schemas/Auth'
 import { Auth } from '@/services/auth'
 import { Organizations } from '@/services/organizations'
@@ -40,14 +40,14 @@ const organizationRows = (
 
 export const tokenVariables: ReadonlyArray<EnvironmentVariable> = [
   {
-    name: 'POLAR_ACCESS_TOKEN',
+    name: 'REPALIS_ACCESS_TOKEN',
     description:
-      'Use this token instead of polar auth login: an organization access token, or an OAuth or agent access token',
+      'Use this token instead of repalis auth login: an organization access token, or an OAuth or agent access token',
   },
   {
-    name: 'POLAR_ENVIRONMENT',
+    name: 'REPALIS_ENVIRONMENT',
     description:
-      'Environment of POLAR_ACCESS_TOKEN: sandbox or production. Defaults to production',
+      'Environment of REPALIS_ACCESS_TOKEN: sandbox or production. Defaults to production',
   },
 ]
 
@@ -57,27 +57,27 @@ const notLoggedIn = [
     `Run ${ui.command(loginCommand('sandbox'))} or ${ui.command(loginCommand('production'))}`,
   ),
   ui.step(
-    `Or set ${ui.command('POLAR_ACCESS_TOKEN')} to use an access token without logging in`,
+    `Or set ${ui.command('REPALIS_ACCESS_TOKEN')} to use an access token without logging in`,
   ),
   ui.blank,
 ]
 
 const environmentFlags = { sandbox, production, local }
 
-type EnvironmentFlags = Record<PolarEnvironment, boolean>
+type EnvironmentFlags = Record<RepalisEnvironment, boolean>
 
-const environmentTitles: Record<PolarEnvironment, string> = {
+const environmentTitles: Record<RepalisEnvironment, string> = {
   sandbox: 'Sandbox',
   production: 'Production',
   local: 'Local',
 }
 
 export const announceAuthorization =
-  (environment: PolarEnvironment) => (authorization: URL) =>
+  (environment: RepalisEnvironment) => (authorization: URL) =>
     note(
       [
         ui.blank,
-        ui.step(`Opening your browser to sign in to Polar ${environment}...`),
+        ui.step(`Opening your browser to sign in to Repalis ${environment}...`),
         ui.step('If it does not open, visit:'),
         `    ${ui.cyan(authorization.toString())}`,
         ui.blank,
@@ -100,11 +100,11 @@ const chooseEnvironment = (flags: EnvironmentFlags, action: string) =>
         message: `Pass --sandbox or --production to ${action} outside an interactive terminal.`,
       })
     }
-    return yield* Prompt.Select<PolarEnvironment>({
+    return yield* Prompt.Select<RepalisEnvironment>({
       message: `Which environment do you want to ${action}?`,
       choices: [
-        { title: 'Sandbox', value: 'sandbox', description: 'sandbox.polar.sh' },
-        { title: 'Production', value: 'production', description: 'polar.sh' },
+        { title: 'Sandbox', value: 'sandbox', description: 'sandbox.repalis.com' },
+        { title: 'Production', value: 'production', description: 'repalis.com' },
       ],
     })
   })
@@ -120,14 +120,14 @@ const Selection = Schema.Union([
 type Selection = typeof Selection.Type
 
 const Login = Schema.Struct({
-  environment: PolarEnvironment,
+  environment: RepalisEnvironment,
   replaced: Schema.Boolean,
   selection: Schema.optional(Selection),
 })
 
 const Identity = Schema.Struct({
-  source: Schema.Literals(['POLAR_ACCESS_TOKEN', 'session']),
-  environments: Schema.Array(PolarEnvironment),
+  source: Schema.Literals(['REPALIS_ACCESS_TOKEN', 'session']),
+  environments: Schema.Array(RepalisEnvironment),
   organization: Schema.NullOr(ActiveOrganization),
 })
 type Identity = typeof Identity.Type
@@ -139,15 +139,15 @@ const Listed = Schema.Struct({
 
 const Listing = Schema.Struct({
   override: Schema.Boolean,
-  environments: Schema.Array(PolarEnvironment),
+  environments: Schema.Array(RepalisEnvironment),
   items: Schema.Array(Listed),
 })
 type Listing = typeof Listing.Type
 
 const Logout = Schema.Struct({
   overrideActive: Schema.Boolean,
-  targets: Schema.Array(PolarEnvironment),
-  deleted: Schema.Array(PolarEnvironment),
+  targets: Schema.Array(RepalisEnvironment),
+  deleted: Schema.Array(RepalisEnvironment),
 })
 
 const activate = (organization: ActiveOrganization) =>
@@ -192,7 +192,7 @@ const selectionLines = (selection: Selection) => {
       return [
         ui.warning('No organizations yet'),
         ui.step(
-          `Create one at ${ui.cyan('https://polar.sh')} or ${ui.cyan('https://sandbox.polar.sh')}, then run ${ui.command(orgCommand)}`,
+          `Create one at ${ui.cyan('https://repalis.com')} or ${ui.cyan('https://sandbox.repalis.com')}, then run ${ui.command(orgCommand)}`,
         ),
         ui.blank,
       ]
@@ -200,7 +200,7 @@ const selectionLines = (selection: Selection) => {
       return [
         ui.warning('Organization selection requires an interactive terminal'),
         ui.step(
-          `Run ${ui.command('polar auth list')} to see them, then ${ui.command(`${orgCommand} <id>`)} or pass ${ui.command('--org <id>')} on a command`,
+          `Run ${ui.command('repalis auth list')} to see them, then ${ui.command(`${orgCommand} <id>`)} or pass ${ui.command('--org <id>')} on a command`,
         ),
         ui.blank,
       ]
@@ -214,22 +214,22 @@ const login = Command.make('login', {
     Flag.withDescription('Sign in again even if a session is already saved'),
   ),
 }).pipe(
-  Command.withDescription('Sign in to Polar through your browser'),
+  Command.withDescription('Sign in to Repalis through your browser'),
   Command.withExamples([
     {
-      command: 'polar auth login',
+      command: 'repalis auth login',
       description: 'Choose sandbox or production, then sign in',
     },
     {
-      command: 'polar auth login --sandbox',
+      command: 'repalis auth login --sandbox',
       description: 'Sign in to sandbox',
     },
     {
-      command: 'polar auth login --production --new-session',
+      command: 'repalis auth login --production --new-session',
       description: 'Sign in to production again, replacing the saved session',
     },
     {
-      command: 'export POLAR_ACCESS_TOKEN=<token> POLAR_ENVIRONMENT=sandbox',
+      command: 'export REPALIS_ACCESS_TOKEN=<token> REPALIS_ENVIRONMENT=sandbox',
       description:
         'Without a browser, e.g. in CI or as an agent, skip login and use an access token',
     },
@@ -250,7 +250,7 @@ const login = Command.make('login', {
       }),
     render: ({ environment, replaced, selection }: typeof Login.Type) => {
       if (!replaced) {
-        const other: PolarEnvironment =
+        const other: RepalisEnvironment =
           environment === 'production' ? 'sandbox' : 'production'
         return [
           ui.blank,
@@ -265,7 +265,7 @@ const login = Command.make('login', {
         ]
       }
       return [
-        ui.success(`Logged in to Polar ${ui.bold(environment)}`),
+        ui.success(`Logged in to Repalis ${ui.bold(environment)}`),
         ui.blank,
         ...(selection ? selectionLines(selection) : []),
       ]
@@ -285,7 +285,7 @@ const whoami = Command.make('whoami', {}).pipe(
         if (yield* auth.override) {
           const items = yield* organizations.listAll
           return {
-            source: 'POLAR_ACCESS_TOKEN',
+            source: 'REPALIS_ACCESS_TOKEN',
             environments,
             organization: items.length === 1 ? items[0]! : null,
           } satisfies Identity
@@ -299,14 +299,14 @@ const whoami = Command.make('whoami', {}).pipe(
         } satisfies Identity
       }),
     render: ({ source, environments, organization }) => {
-      if (source === 'POLAR_ACCESS_TOKEN') {
+      if (source === 'REPALIS_ACCESS_TOKEN') {
         return [
           ui.blank,
           ui.keyValue([
             ...(organization
               ? organizationRows(organization)
               : [['Environment', environments[0]!] as const]),
-            ['Token', 'POLAR_ACCESS_TOKEN'],
+            ['Token', 'REPALIS_ACCESS_TOKEN'],
           ]),
           ...(organization
             ? []
@@ -366,7 +366,7 @@ const list = Command.make('list', {}).pipe(
         ...environments.flatMap((environment) => {
           const rows = items.filter((item) => item.environment === environment)
           return [
-            `  ${ui.bold(`Organizations in ${environment}`)}${override ? ui.dim('  via POLAR_ACCESS_TOKEN') : ''}`,
+            `  ${ui.bold(`Organizations in ${environment}`)}${override ? ui.dim('  via REPALIS_ACCESS_TOKEN') : ''}`,
             ui.blank,
             ...(rows.length === 0
               ? [ui.step('No accessible organizations')]
@@ -395,11 +395,11 @@ const org = Command.make('org', {
   Command.withDescription('Choose the active organization'),
   Command.withExamples([
     {
-      command: 'polar auth org',
+      command: 'repalis auth org',
       description: 'Pick the active organization from a list',
     },
     {
-      command: 'polar auth org acme',
+      command: 'repalis auth org acme',
       description: 'Set it by slug or ID, for scripts and agents',
     },
   ]),
@@ -410,7 +410,7 @@ const org = Command.make('org', {
         const auth = yield* Auth
         if (yield* auth.override) {
           return yield* new AuthError({
-            message: 'Unset POLAR_ACCESS_TOKEN to manage saved sessions.',
+            message: 'Unset REPALIS_ACCESS_TOKEN to manage saved sessions.',
           })
         }
         if ((yield* auth.environments).length === 0) {
@@ -446,7 +446,7 @@ const logoutTargets = (flags: EnvironmentFlags & { all: boolean }) =>
     }
     const choices = sessions.map((environment) => ({
       title: environmentTitles[environment],
-      value: [environment] as PolarEnvironment[],
+      value: [environment] as RepalisEnvironment[],
     }))
     if (sessions.length > 1) {
       choices.push({ title: 'All sessions', value: [...sessions] })
@@ -467,11 +467,11 @@ const logout = Command.make('logout', {
   Command.withDescription('Sign out and remove saved sessions'),
   Command.withExamples([
     {
-      command: 'polar auth logout',
+      command: 'repalis auth logout',
       description: 'Sign out, asking which session only if you have both',
     },
     {
-      command: 'polar auth logout --all',
+      command: 'repalis auth logout --all',
       description: 'Remove every saved session',
     },
   ]),
@@ -489,7 +489,7 @@ const logout = Command.make('logout', {
       ui.blank,
       ...(overrideActive
         ? [
-            ui.warning('POLAR_ACCESS_TOKEN remains active'),
+            ui.warning('REPALIS_ACCESS_TOKEN remains active'),
             ui.step(
               'Unset it to stop using the override, only saved sessions are removed',
             ),
@@ -497,7 +497,7 @@ const logout = Command.make('logout', {
         : []),
       ...targets.map((environment) =>
         deleted.includes(environment)
-          ? ui.success(`Logged out of Polar ${ui.bold(environment)}`)
+          ? ui.success(`Logged out of Repalis ${ui.bold(environment)}`)
           : ui.step(`Already logged out of ${environment}`),
       ),
       ...(targets.length === 0 ? [ui.step('Already logged out')] : []),
@@ -507,7 +507,7 @@ const logout = Command.make('logout', {
 )
 
 export const auth = Command.make('auth').pipe(
-  Command.withDescription('Manage your Polar sessions and active organization'),
+  Command.withDescription('Manage your Repalis sessions and active organization'),
   Command.annotate(EnvironmentVariables, tokenVariables),
   Command.withSubcommands([login, whoami, list, org, token, logout]),
 )

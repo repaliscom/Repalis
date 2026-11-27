@@ -1,7 +1,7 @@
 ---
 title: "Authentication"
 sidebarTitle: "Authentication"
-description: "Sign in to Polar from the CLI and choose the organization you work on"
+description: "Sign in to Repalis from the CLI and choose the organization you work on"
 ---
 
 The CLI signs in through your browser with OAuth. Sessions are stored in your
@@ -16,17 +16,17 @@ command without one in a terminal and the CLI will ask:
 <Tabs>
   <Tab title="Sandbox">
     ```bash Terminal
-    polar auth login --sandbox
+    repalis auth login --sandbox
     ```
   </Tab>
   <Tab title="Production">
     ```bash Terminal
-    polar auth login --production
+    repalis auth login --production
     ```
   </Tab>
 </Tabs>
 
-Your browser opens on Polar's authorization page. Approve the request and
+Your browser opens on Repalis's authorization page. Approve the request and
 return to the terminal. If a session already exists for that environment, the
 CLI keeps it and tells you how to replace it with `--new-session`.
 
@@ -35,32 +35,32 @@ environments you are signed in to and asks which one to make active.
 
 ## The active organization
 
-Commands that act on an organization, such as `polar webhook listen`, use the active
+Commands that act on an organization, such as `repalis webhook listen`, use the active
 organization. Its environment comes with it: choosing a sandbox organization
 means the CLI talks to sandbox, choosing a production organization means it
 talks to production. There is no separate environment switch.
 
 ```bash Terminal
-polar auth org
+repalis auth org
 ```
 
 Shows the same organization picker as login, so you can switch at any time.
 
 ```bash Terminal
-polar auth org acme
+repalis auth org acme
 ```
 
 Switches to an organization by slug or ID without the picker, for scripts and
 coding agents.
 
 ```bash Terminal
-polar auth whoami
+repalis auth whoami
 ```
 
 Prints which environments you are signed in to and the active organization.
 
 ```bash Terminal
-polar auth list
+repalis auth list
 ```
 
 Lists every organization you can access, grouped by environment, with the
@@ -71,7 +71,7 @@ active one, pass its ID with `--org`. Every command that acts on an
 organization accepts it:
 
 ```bash Terminal
-polar webhook listen http://localhost:3000/webhooks --org <organization-id>
+repalis webhook listen http://localhost:3000/webhooks --org <organization-id>
 ```
 
 ## Signing out
@@ -79,8 +79,8 @@ polar webhook listen http://localhost:3000/webhooks --org <organization-id>
 Log out of one environment or all of them:
 
 ```bash Terminal
-polar auth logout --production
-polar auth logout --all
+repalis auth logout --production
+repalis auth logout --all
 ```
 
 Run it without a flag in a terminal to pick from your sessions. Logging out
@@ -94,24 +94,24 @@ with an access token instead of a session: an
 [organization access token](/integrate/oat), or an OAuth or agent access token.
 
 ```bash Terminal
-export POLAR_ACCESS_TOKEN=polar_oat_...
-export POLAR_ENVIRONMENT=sandbox
-polar webhook listen http://localhost:3000/webhooks
+export REPALIS_ACCESS_TOKEN=repalis_oat_...
+export REPALIS_ENVIRONMENT=sandbox
+repalis webhook listen http://localhost:3000/webhooks
 ```
 
-`POLAR_ENVIRONMENT` selects the environment the token belongs to and defaults
+`REPALIS_ENVIRONMENT` selects the environment the token belongs to and defaults
 to `production`. When a token can access several organizations, pass
 `--org <organization-id>` to the command.
 
 <Note>
-  While `POLAR_ACCESS_TOKEN` is set, saved sessions are ignored and `polar auth
-  login` and `polar auth org` refuse to run. Unset it to go back to your
+  While `REPALIS_ACCESS_TOKEN` is set, saved sessions are ignored and `repalis auth
+  login` and `repalis auth org` refuse to run. Unset it to go back to your
   browser session.
 </Note>
 
 ## Where things are stored
 
 - Sessions live in the operating system keychain under the service name
-  `polar-cli`, with one entry per environment.
-- The active organization is saved in `~/.config/polar-cli/config.json`, or
-  `$XDG_CONFIG_HOME/polar-cli/config.json` when that variable is set.
+  `repalis-cli`, with one entry per environment.
+- The active organization is saved in `~/.config/repalis-cli/config.json`, or
+  `$XDG_CONFIG_HOME/repalis-cli/config.json` when that variable is set.

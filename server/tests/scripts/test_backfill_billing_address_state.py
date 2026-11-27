@@ -1,11 +1,11 @@
 import pytest
 from sqlalchemy import text
 
-from polar.kit.address import Address
-from polar.kit.db.postgres import AsyncSession
-from polar.kit.utils import utc_now
-from polar.models import CreditNote, Customer, Organization, Product
-from polar.models.credit_note import CreditNoteReason
+from repalis.kit.address import Address
+from repalis.kit.db.postgres import AsyncSession
+from repalis.kit.utils import utc_now
+from repalis.models import CreditNote, Customer, Organization, Product
+from repalis.models.credit_note import CreditNoteReason
 from scripts.backfill_billing_address_state import (
     Target,
     apply_corrections,

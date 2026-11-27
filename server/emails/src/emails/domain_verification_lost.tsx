@@ -5,7 +5,7 @@ import {
   Heading,
   List,
   Text,
-  WrapperPolar,
+  WrapperRepalis,
 } from '../components/foundation'
 import InfoBox from '../components/InfoBox'
 import type { schemas } from '../types'
@@ -18,10 +18,10 @@ export function DomainVerificationLost({
   record_value,
 }: schemas['DomainVerificationLostProps']) {
   return (
-    <WrapperPolar preview={`${domain} is no longer verified`}>
+    <WrapperRepalis preview={`${domain} is no longer verified`}>
       <Heading>Domain no longer verified</Heading>
       <Text>
-        Polar could not find the DNS TXT record that verifies a domain of{' '}
+        Repalis could not find the DNS TXT record that verifies a domain of{' '}
         <Text as="span" weight="bold">
           {organization_name}
         </Text>
@@ -47,7 +47,7 @@ export function DomainVerificationLost({
       </Text>
       <Button href={settings_url}>Open domain settings</Button>
       <Footer email={null} />
-    </WrapperPolar>
+    </WrapperRepalis>
   )
 }
 
@@ -55,8 +55,8 @@ DomainVerificationLost.PreviewProps = {
   email: 'admin@acme.com',
   domain: 'acme.com',
   organization_name: 'Acme Inc.',
-  settings_url: 'https://polar.sh/dashboard/acme-inc/settings#domains',
-  record_name: '_polar-challenge.acme.com',
+  settings_url: 'https://repalis.com/dashboard/acme-inc/settings#domains',
+  record_name: '_repalis-challenge.acme.com',
   record_value: 'Xy3kP9vQ2mLr8TnW4sJd7FbH1cGz6RaE5uYo0iKe-Nw',
 }
 

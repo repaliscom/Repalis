@@ -1,8 +1,8 @@
 'use client'
 
 import { DetailCell } from '@/components/Orders/OrderSection'
-import { Alert, InlineModalHeader, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { Alert, InlineModalHeader, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import { assessmentFacts } from '../review/assessmentFacts'
 import { RecordCard, TaxAfterSwitchField } from '../review/ReviewRecordFields'
 import { SwitchStatusIndicator } from './SwitchStatusIndicator'

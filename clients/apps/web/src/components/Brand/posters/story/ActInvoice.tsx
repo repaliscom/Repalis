@@ -1,5 +1,5 @@
-import { Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import {
   PosterBody,
   PosterFrame,
@@ -80,10 +80,10 @@ export const TaxPoster = () => (
 )
 
 const RESPONSIBILITIES: [string, string][] = [
-  ['Sales tax and VAT', 'POLAR'],
-  ['Fraud screening', 'POLAR'],
-  ['Chargebacks', 'POLAR'],
-  ['Compliance', 'POLAR'],
+  ['Sales tax and VAT', 'REPALIS'],
+  ['Fraud screening', 'REPALIS'],
+  ['Chargebacks', 'REPALIS'],
+  ['Compliance', 'REPALIS'],
   ['Your product', 'YOU'],
 ]
 

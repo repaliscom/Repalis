@@ -1,11 +1,11 @@
 'use client'
 
 import { useMeters } from '@/hooks/queries/meters'
-import { schemas } from '@polar-sh/client'
-import { Box } from '@polar-sh/orbit/Box'
-import { formatCurrency } from '@polar-sh/currency'
-import MoneyInput from '@polar-sh/ui/components/atoms/MoneyInput'
-import { getMeterUnitFormat } from '@polar-sh/ui/lib/meterUnit'
+import { schemas } from '@repalis/client'
+import { Box } from '@repalis/orbit/Box'
+import { formatCurrency } from '@repalis/currency'
+import MoneyInput from '@repalis/ui/components/atoms/MoneyInput'
+import { getMeterUnitFormat } from '@repalis/ui/lib/meterUnit'
 import {
   FormControl,
   FormDescription,
@@ -13,7 +13,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@polar-sh/ui/components/ui/form'
+} from '@repalis/ui/components/ui/form'
 import {
   Select,
   SelectContent,
@@ -23,8 +23,8 @@ import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from '@polar-sh/orbit'
-import { Info as InfoIcon } from '@polar-sh/orbit/icons'
+} from '@repalis/orbit'
+import { Info as InfoIcon } from '@repalis/orbit/icons'
 import React, { useCallback, useMemo } from 'react'
 import { useFormContext, useWatch } from 'react-hook-form'
 import { ProductFormType } from '../ProductForm'

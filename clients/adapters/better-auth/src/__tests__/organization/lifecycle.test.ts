@@ -15,8 +15,8 @@ import {
   removeMemberMirror,
   updateMemberMirror,
 } from '../../organization/sync'
-import { createTestPolarOptions } from '../utils/helpers'
-import { createMockPolarClient, createMockUser } from '../utils/mocks'
+import { createTestRepalisOptions } from '../utils/helpers'
+import { createMockRepalisClient, createMockUser } from '../utils/mocks'
 
 vi.mock('../../organization/sync', async (importOriginal) => {
   const actual =
@@ -146,11 +146,11 @@ const createAuthContext = (storedMemberships = memberships) => {
 }
 
 describe('organization lifecycle gaps', () => {
-  let client: ReturnType<typeof createMockPolarClient>
+  let client: ReturnType<typeof createMockRepalisClient>
   const organizationOptions = { enabled: true }
 
   beforeEach(() => {
-    client = createMockPolarClient()
+    client = createMockRepalisClient()
     vi.clearAllMocks()
     vi.mocked(isTeamCustomerSynchronized).mockResolvedValue(true)
     vi.mocked(updateMemberMirror).mockResolvedValue()
@@ -188,7 +188,7 @@ describe('organization lifecycle gaps', () => {
       createdAt: new Date(2024, 0, index + 1),
     }))
     const { context } = createAuthContext(manyMemberships)
-    const failure = new Error('Polar update failed')
+    const failure = new Error('Repalis update failed')
     vi.mocked(updateMemberMirror).mockImplementation(async (_client, input) => {
       if (input.organizationId === 'org-0') throw failure
     })
@@ -206,7 +206,7 @@ describe('organization lifecycle gaps', () => {
 
   it('cleans up self-leave exactly once and supplies the earliest remaining owner', async () => {
     const { context } = createAuthContext()
-    const options = createTestPolarOptions({
+    const options = createTestRepalisOptions({
       client,
       experimental_organizationSync: { enabled: true },
     })
@@ -265,7 +265,7 @@ describe('organization lifecycle gaps', () => {
       ...falsePositives,
       ownerMembership,
     ])
-    const options = createTestPolarOptions({
+    const options = createTestRepalisOptions({
       client,
       experimental_organizationSync: { enabled: true },
     })
@@ -291,7 +291,7 @@ describe('organization lifecycle gaps', () => {
     const deleteCustomer = vi.fn()
     Object.assign(client.customers, { delete: deleteCustomer })
     const hooks = createOrganizationLifecycleHooks(
-      createTestPolarOptions({
+      createTestRepalisOptions({
         client,
         experimental_organizationSync: { enabled: true },
       }),

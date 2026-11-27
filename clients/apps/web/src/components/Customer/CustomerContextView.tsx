@@ -3,12 +3,12 @@
 import { StatisticCard } from '@/components/Shared/StatisticCard'
 import { useMetrics } from '@/hooks/queries/metrics'
 import { buildCustomerDashboardPath } from '@/utils/customer'
-import { schemas } from '@polar-sh/client'
-import { formatCurrency } from '@polar-sh/currency'
-import { Avatar } from '@polar-sh/orbit'
-import { Button } from '@polar-sh/orbit'
-import FormattedDateTime from '@polar-sh/ui/components/atoms/FormattedDateTime'
-import { Pill } from '@polar-sh/orbit'
+import { schemas } from '@repalis/client'
+import { formatCurrency } from '@repalis/currency'
+import { Avatar } from '@repalis/orbit'
+import { Button } from '@repalis/orbit'
+import FormattedDateTime from '@repalis/ui/components/atoms/FormattedDateTime'
+import { Pill } from '@repalis/orbit'
 import Link from 'next/link'
 import { copyable } from '../Shared/ClickToCopy'
 import { ContextCard } from '../Shared/ContextCard'
@@ -68,7 +68,7 @@ export const CustomerContextView = ({
               )}
             </div>
 
-            <div className="dark:text-polar-500 flex flex-row items-center gap-1 text-sm text-gray-500">
+            <div className="dark:text-repalis-500 flex flex-row items-center gap-1 text-sm text-gray-500">
               {customer.email}
             </div>
           </div>
@@ -223,14 +223,14 @@ const SubscriptionRow = ({
   return (
     <Link
       href={`/dashboard/${organization.slug}/sales/subscriptions/${subscription.id}`}
-      className="dark:hover:bg-polar-800 -mx-4 flex flex-row items-center justify-between gap-3 rounded-lg px-4 py-2 hover:bg-gray-100"
+      className="dark:hover:bg-repalis-800 -mx-4 flex flex-row items-center justify-between gap-3 rounded-lg px-4 py-2 hover:bg-gray-100"
     >
       <div className="flex flex-row items-center gap-4 overflow-hidden">
         <StatusIcon
           {...getSubscriptionStatusIcon(subscription.status, isWindingDown)}
         />
         <span className="truncate text-sm">{subscription.product.name}</span>
-        <span className="dark:text-polar-500 text-sm text-gray-500">
+        <span className="dark:text-repalis-500 text-sm text-gray-500">
           {subscription.status === 'active' && !isWindingDown
             ? formatInterval(
                 subscription.recurring_interval,
@@ -240,7 +240,7 @@ const SubscriptionRow = ({
         </span>
       </div>
       {formattedPrice && (
-        <span className="dark:text-polar-400 shrink-0 text-sm text-gray-500">
+        <span className="dark:text-repalis-400 shrink-0 text-sm text-gray-500">
           {formattedPrice}
         </span>
       )}

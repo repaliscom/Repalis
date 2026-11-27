@@ -1,5 +1,5 @@
-import { Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import { Chapter } from '../Landing/Chapter'
 import { brandSections } from './brand'
 
@@ -32,7 +32,7 @@ export function VoiceSection() {
       id={brandSections[4].id}
       index={brandSections[4].index}
       name={brandSections[4].label}
-      title="How Polar speaks"
+      title="How Repalis speaks"
       subtitle="Four principles behind every sentence"
     >
       <Box as="ul" flexDirection="column">

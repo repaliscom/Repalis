@@ -2,8 +2,8 @@
 
 import { getCustomerActivityStart } from '@/utils/customer'
 import { CHART_RANGES, ChartRange, dateRangeToInterval } from '@/utils/metrics'
-import { getMetricsRangeDates, schemas } from '@polar-sh/client'
-import { SegmentedControl } from '@polar-sh/orbit'
+import { getMetricsRangeDates, schemas } from '@repalis/client'
+import { SegmentedControl } from '@repalis/orbit'
 import { endOfToday, isSameDay, startOfDay } from 'date-fns'
 import { useState } from 'react'
 import { useCustomerMetricsParams } from './useCustomerMetricsParams'

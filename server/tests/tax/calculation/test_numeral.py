@@ -6,10 +6,10 @@ from unittest.mock import Mock
 import httpx2
 import pytest
 
-from polar.enums import TaxBehavior
-from polar.kit.address import Address, CountryAlpha2
-from polar.tax.calculation import TaxCode
-from polar.tax.calculation.base import (
+from repalis.enums import TaxBehavior
+from repalis.kit.address import Address, CountryAlpha2
+from repalis.tax.calculation import TaxCode
+from repalis.tax.calculation.base import (
     CalculationExpiredError,
     InvalidTaxIDError,
     TaxabilityReason,
@@ -18,11 +18,11 @@ from polar.tax.calculation.base import (
     TaxRecordError,
     UnsupportedCountryError,
 )
-from polar.tax.calculation.numeral import (
+from repalis.tax.calculation.numeral import (
     _numeral_jurisdiction_to_breakdown_item,
     numeral_tax_service,
 )
-from polar.tax.tax_id import TaxIDFormat
+from repalis.tax.tax_id import TaxIDFormat
 
 
 @pytest.fixture

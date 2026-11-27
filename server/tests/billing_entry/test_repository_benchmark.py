@@ -30,13 +30,13 @@ from itertools import batched
 import pytest
 from sqlalchemy import insert, select, update
 
-from polar.billing_entry.repository import BillingEntryRepository
-from polar.billing_entry.service import billing_entry as billing_entry_service
-from polar.enums import SubscriptionRecurringInterval
-from polar.event.system import SystemEvent
-from polar.meter.aggregation import AggregationFunction, PropertyAggregation
-from polar.meter.filter import Filter, FilterConjunction
-from polar.models import (
+from repalis.billing_entry.repository import BillingEntryRepository
+from repalis.billing_entry.service import billing_entry as billing_entry_service
+from repalis.enums import SubscriptionRecurringInterval
+from repalis.event.system import SystemEvent
+from repalis.meter.aggregation import AggregationFunction, PropertyAggregation
+from repalis.meter.filter import Filter, FilterConjunction
+from repalis.models import (
     BillingEntry,
     Customer,
     Event,
@@ -47,9 +47,9 @@ from polar.models import (
     Product,
     Subscription,
 )
-from polar.models.billing_entry import BillingEntryDirection, BillingEntryType
-from polar.models.event import EventSource
-from polar.postgres import AsyncReadSession, AsyncSession
+from repalis.models.billing_entry import BillingEntryDirection, BillingEntryType
+from repalis.models.event import EventSource
+from repalis.postgres import AsyncReadSession, AsyncSession
 from tests.fixtures.database import SaveFixture, save_fixture_factory
 from tests.fixtures.random_objects import (
     METER_TEST_EVENT,

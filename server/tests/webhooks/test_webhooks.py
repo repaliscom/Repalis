@@ -15,43 +15,43 @@ from pydantic.json_schema import JsonSchemaMode
 from pytest_mock import MockerFixture
 from standardwebhooks.webhooks import Webhook as StandardWebhook
 
-from polar.config import settings
-from polar.kit.db.postgres import AsyncSession
-from polar.kit.schemas import IDSchema
-from polar.kit.utils import utc_now
-from polar.kit.versioning import APIVersion, Version
-from polar.models.organization import Organization
-from polar.models.subscription import (
+from repalis.config import settings
+from repalis.kit.db.postgres import AsyncSession
+from repalis.kit.schemas import IDSchema
+from repalis.kit.utils import utc_now
+from repalis.kit.versioning import APIVersion, Version
+from repalis.models.organization import Organization
+from repalis.models.subscription import (
     CustomerCancellationReason,
     Subscription,
     SubscriptionStatus,
 )
-from polar.models.webhook_delivery import WebhookDelivery
-from polar.models.webhook_endpoint import (
+from repalis.models.webhook_delivery import WebhookDelivery
+from repalis.models.webhook_endpoint import (
     WebhookEndpoint,
     WebhookEventType,
     WebhookFormat,
 )
-from polar.models.webhook_event import WebhookEvent
-from polar.subscription.schemas import PendingSubscriptionUpdate
-from polar.subscription.schemas import Subscription as SubscriptionSchema
-from polar.version import CURRENT_API_VERSION, V2026_10, V2027_01
-from polar.webhook.constants import (
+from repalis.models.webhook_event import WebhookEvent
+from repalis.subscription.schemas import PendingSubscriptionUpdate
+from repalis.subscription.schemas import Subscription as SubscriptionSchema
+from repalis.version import CURRENT_API_VERSION, V2026_10, V2027_01
+from repalis.webhook.constants import (
     WEBHOOK_SECRET_KEY_BYTES,
     WEBHOOK_SECRET_PREFIX,
     WEBHOOK_STANDARD_SIGNATURE_CUTOFF,
     uses_standard_webhook_signature,
 )
-from polar.webhook.repository import WebhookDeliveryRepository
-from polar.webhook.schemas import WebhookEndpoint as WebhookEndpointSchema
-from polar.webhook.service import generate_webhook_secret
-from polar.webhook.service import webhook as webhook_service
-from polar.webhook.tasks import (
+from repalis.webhook.repository import WebhookDeliveryRepository
+from repalis.webhook.schemas import WebhookEndpoint as WebhookEndpointSchema
+from repalis.webhook.service import generate_webhook_secret
+from repalis.webhook.service import webhook as webhook_service
+from repalis.webhook.tasks import (
     _webhook_event_send,
     sign_webhook,
     webhook_event_send,
 )
-from polar.webhook.webhooks import (
+from repalis.webhook.webhooks import (
     BaseWebhookPayload,
     SkipEvent,
     WebhookCustomerCreatedPayload,
@@ -84,7 +84,7 @@ def _discord_fields(raw_payload: str) -> dict[str, str]:
 
 @pytest.fixture
 def enqueue_job_mock(mocker: MockerFixture) -> MagicMock:
-    return mocker.patch("polar.webhook.service.enqueue_job")
+    return mocker.patch("repalis.webhook.service.enqueue_job")
 
 
 class TestWebhookJsonSchema:
@@ -220,7 +220,7 @@ class TestGenerateWebhookSecret:
         assert secret.startswith(WEBHOOK_SECRET_PREFIX)
 
     def test_spec_format_after_cutoff(self, monkeypatch: pytest.MonkeyPatch) -> None:
-        from polar.webhook import service
+        from repalis.webhook import service
 
         monkeypatch.setattr(
             service,
@@ -232,8 +232,8 @@ class TestGenerateWebhookSecret:
         decoded = base64.b64decode(remainder)
         assert len(decoded) == WEBHOOK_SECRET_KEY_BYTES
 
-    def test_polar_token_before_cutoff(self, monkeypatch: pytest.MonkeyPatch) -> None:
-        from polar.webhook import service
+    def test_repalis_token_before_cutoff(self, monkeypatch: pytest.MonkeyPatch) -> None:
+        from repalis.webhook import service
 
         monkeypatch.setattr(
             service,
@@ -247,7 +247,7 @@ class TestGenerateWebhookSecret:
 
 class TestSignWebhook:
     def test_legacy_matches_utf8_hmac(self) -> None:
-        secret = "whsec_legacyPolarToken"
+        secret = "whsec_legacyRepalisToken"
         payload = '{"foo":"bar"}'
         timestamp = utc_now()
         signature = sign_webhook(
@@ -267,7 +267,7 @@ class TestSignWebhook:
         )
 
     def test_before_cutoff_stays_legacy_even_when_stamped(self) -> None:
-        secret = "whsec_legacyPolarToken"
+        secret = "whsec_legacyRepalisToken"
         payload = '{"foo":"bar"}'
         timestamp = utc_now()
         signature = sign_webhook(

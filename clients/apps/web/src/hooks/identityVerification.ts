@@ -1,8 +1,8 @@
 import { useAuth } from '@/hooks'
 import { useCreateIdentityVerification } from '@/hooks/queries'
 import { toast } from '@/components/Toast/use-toast'
-import { schemas } from '@polar-sh/client'
-import { loadPolarStripe } from '@/utils/stripe'
+import { schemas } from '@repalis/client'
+import { loadRepalisStripe } from '@/utils/stripe'
 import { useCallback, useEffect, useRef } from 'react'
 
 const POLL_INTERVAL_MS = 3000
@@ -31,7 +31,7 @@ export const useStartIdentityVerification = () => {
   const { currentUser, reloadUser } = useAuth()
   const identityVerificationStatus = currentUser?.identity_verification_status
   const createIdentityVerification = useCreateIdentityVerification()
-  const stripePromise = loadPolarStripe()
+  const stripePromise = loadRepalisStripe()
   const pollingRef = useRef<ReturnType<typeof setInterval> | null>(null)
 
   useEffect(() => {

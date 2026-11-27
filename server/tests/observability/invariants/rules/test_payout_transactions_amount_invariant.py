@@ -1,13 +1,13 @@
 import pytest
 
-from polar.enums import PayoutAccountType
-from polar.models import Account, Organization, PayoutAccount, User
-from polar.models.transaction import TransactionType
-from polar.observability.invariants.rules.payout_transactions_amount_invariant import (
+from repalis.enums import PayoutAccountType
+from repalis.models import Account, Organization, PayoutAccount, User
+from repalis.models.transaction import TransactionType
+from repalis.observability.invariants.rules.payout_transactions_amount_invariant import (
     PayoutTransactionsAmountInvariant,
     PayoutTransactionsAmountInvariantError,
 )
-from polar.postgres import AsyncSession
+from repalis.postgres import AsyncSession
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_payout, create_payout_account
 from tests.transaction.conftest import create_transaction
@@ -56,7 +56,7 @@ async def test_success_matching_amounts(
     payout_transaction = await create_transaction(
         save_fixture,
         type=TransactionType.payout,
-        amount=-1000,  # -$10.00 from Polar's perspective
+        amount=-1000,  # -$10.00 from Repalis's perspective
         account=account,
         account_currency="usd",
         presentment_currency="usd",

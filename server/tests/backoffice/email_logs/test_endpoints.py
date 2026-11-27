@@ -4,13 +4,13 @@ import httpx2
 import pytest
 from pytest_mock import MockerFixture
 
-from polar.backoffice.app import app as backoffice_app
-from polar.backoffice.dependencies import get_admin
-from polar.email.schemas import EmailTemplate
-from polar.kit.utils import utc_now
-from polar.models import BackofficeUserSession
-from polar.models.email_log import EmailLogStatus
-from polar.postgres import AsyncSession, get_db_read_session, get_db_session
+from repalis.backoffice.app import app as backoffice_app
+from repalis.backoffice.dependencies import get_admin
+from repalis.email.schemas import EmailTemplate
+from repalis.kit.utils import utc_now
+from repalis.models import BackofficeUserSession
+from repalis.models.email_log import EmailLogStatus
+from repalis.postgres import AsyncSession, get_db_read_session, get_db_session
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_email_log
 
@@ -135,7 +135,7 @@ class TestUnsuppress:
         backoffice_client: httpx2.AsyncClient,
     ) -> None:
         remove_suppression = mocker.patch(
-            "polar.backoffice.email_logs.endpoints.email_sender.remove_suppression",
+            "repalis.backoffice.email_logs.endpoints.email_sender.remove_suppression",
             return_value=removed,
         )
         email_log = await create_email_log(

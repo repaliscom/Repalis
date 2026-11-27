@@ -30,7 +30,7 @@ const convertAttributesToMetadata = (
 const customerIdKey = 'customerId' as const
 const externalCustomerIdKey = 'externalCustomerId' as const
 
-const convertSpanToPolarEvent = (span: ReadableSpan): IngestionEvent | null => {
+const convertSpanToRepalisEvent = (span: ReadableSpan): IngestionEvent | null => {
   const customerId = span.attributes[customerIdKey]
   const externalCustomerId = span.attributes[externalCustomerIdKey]
 
@@ -57,7 +57,7 @@ const convertSpanToPolarEvent = (span: ReadableSpan): IngestionEvent | null => {
   return null
 }
 
-export class PolarTraceExporter implements SpanExporter {
+export class RepalisTraceExporter implements SpanExporter {
   constructor(private options: IngestionTokenConfig) {}
 
   async export(
@@ -72,12 +72,12 @@ export class PolarTraceExporter implements SpanExporter {
       )
 
       const payload = spansWithCustomerId
-        .map(convertSpanToPolarEvent)
+        .map(convertSpanToRepalisEvent)
         .filter((event) => event !== null)
 
-      const polar = createTokenClient(this.options)
+      const repalis = createTokenClient(this.options)
 
-      await polar.events.ingest({
+      await repalis.events.ingest({
         events: payload,
       })
 

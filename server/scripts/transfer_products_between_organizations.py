@@ -22,10 +22,10 @@ from sqlalchemy import ColumnElement, and_, false, func, or_, select, union_all,
 from sqlalchemy.orm import joinedload
 from sqlalchemy.sql.selectable import CompoundSelect
 
-from polar.kit.db.postgres import create_async_sessionmaker
-from polar.kit.utils import utc_now
-from polar.member.repository import MemberRepository
-from polar.models import (
+from repalis.kit.db.postgres import create_async_sessionmaker
+from repalis.kit.utils import utc_now
+from repalis.member.repository import MemberRepository
+from repalis.models import (
     Benefit,
     BenefitGrant,
     BillingEntry,
@@ -53,10 +53,10 @@ from polar.models import (
     SubscriptionUpdate,
     TrialRedemption,
 )
-from polar.models.discount import DiscountFixed, DiscountPercentage, DiscountType
-from polar.models.member import MemberRole
-from polar.organization.repository import OrganizationRepository
-from polar.postgres import AsyncSession, create_async_engine
+from repalis.models.discount import DiscountFixed, DiscountPercentage, DiscountType
+from repalis.models.member import MemberRole
+from repalis.organization.repository import OrganizationRepository
+from repalis.postgres import AsyncSession, create_async_engine
 
 cli = typer.Typer()
 

@@ -3,10 +3,10 @@ import typing
 import pytest
 from pytest_codspeed import BenchmarkFixture
 
-from polar.event.service import event as event_service
-from polar.event.system import SystemEvent, build_system_event
-from polar.kit.db.postgres import AsyncSession
-from polar.models import Customer, Organization
+from repalis.event.service import event as event_service
+from repalis.event.system import SystemEvent, build_system_event
+from repalis.kit.db.postgres import AsyncSession
+from repalis.models import Customer, Organization
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_customer
 

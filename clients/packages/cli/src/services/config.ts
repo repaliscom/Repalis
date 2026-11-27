@@ -33,7 +33,7 @@ export const layer = Layer.effect(
       process.platform === 'win32'
         ? process.env['APPDATA'] || path.join(homedir(), 'AppData', 'Roaming')
         : process.env['XDG_CONFIG_HOME'] || path.join(homedir(), '.config'),
-      'polar-cli',
+      'repalis-cli',
     )
     const file = path.join(directory, 'config.json')
     const read = Effect.gen(function* () {

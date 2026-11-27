@@ -6,13 +6,13 @@ import pytest
 from dramatiq import Retry
 from pytest_mock import MockerFixture
 
-from polar.checkout.repository import CheckoutRepository
-from polar.checkout.service import NotConfirmedCheckout
-from polar.checkout.tasks import anonymize_expired, checkout_success
-from polar.kit.utils import utc_now
-from polar.models import Checkout, Product
-from polar.models.checkout import CheckoutStatus
-from polar.postgres import AsyncSession
+from repalis.checkout.repository import CheckoutRepository
+from repalis.checkout.service import NotConfirmedCheckout
+from repalis.checkout.tasks import anonymize_expired, checkout_success
+from repalis.kit.utils import utc_now
+from repalis.models import Checkout, Product
+from repalis.models.checkout import CheckoutStatus
+from repalis.postgres import AsyncSession
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_checkout
 
@@ -50,7 +50,7 @@ class TestCheckoutSuccess:
         retries_remaining: bool,
     ) -> None:
         checkout = await create_checkout(save_fixture, products=[product])
-        mocker.patch("polar.checkout.tasks.can_retry", return_value=retries_remaining)
+        mocker.patch("repalis.checkout.tasks.can_retry", return_value=retries_remaining)
 
         with pytest.raises(Retry if retries_remaining else NotConfirmedCheckout):
             await checkout_success(checkout.id)
@@ -66,7 +66,7 @@ class TestAnonymizeExpired:
         product: Product,
     ) -> None:
         mocker.patch(
-            "polar.checkout.tasks.AsyncSessionMaker",
+            "repalis.checkout.tasks.AsyncSessionMaker",
             side_effect=lambda: _session_maker(session),
         )
         old = await _create_checkout(
@@ -95,7 +95,7 @@ class TestAnonymizeExpired:
         self, mocker: MockerFixture, session: AsyncSession
     ) -> None:
         mocker.patch(
-            "polar.checkout.tasks.AsyncSessionMaker",
+            "repalis.checkout.tasks.AsyncSessionMaker",
             side_effect=lambda: _session_maker(session),
         )
         anonymize_expired_mock = mocker.patch.object(

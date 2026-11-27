@@ -1,7 +1,7 @@
 import type { CSSProperties, ReactNode } from 'react'
 
 /**
- * The plate kit: the drawing language of the Polar flipbook's marks chapter, set for the web. Every plate is a
+ * The plate kit: the drawing language of the Repalis flipbook's marks chapter, set for the web. Every plate is a
  * sheet of a fixed stock (it does not follow the site's theme, it is a printed object on the page), drawn in SVG
  * on its own coordinate grid and scaled to the column it sits in.
  */
@@ -433,7 +433,7 @@ export function Sheet({
   if (plain)
     return (
       <figure
-        className="dark:bg-polar-900 relative w-full overflow-hidden rounded-md bg-gray-50"
+        className="dark:bg-repalis-900 relative w-full overflow-hidden rounded-md bg-gray-50"
         style={{ aspectRatio: `${w} / ${h}`, ...sheet }}
       >
         <svg

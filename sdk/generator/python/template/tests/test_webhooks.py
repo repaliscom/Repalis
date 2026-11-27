@@ -8,11 +8,11 @@ import typing
 import pytest
 from standardwebhooks.webhooks import Webhook
 
-from polar.base import PolarError, deserialize
-from polar.webhooks import (
-    PolarWebhookError,
-    PolarWebhookUnknownTypeError,
-    PolarWebhookVerificationError,
+from repalis.base import RepalisError, deserialize
+from repalis.webhooks import (
+    RepalisWebhookError,
+    RepalisWebhookUnknownTypeError,
+    RepalisWebhookVerificationError,
     validate_event,
 )
 
@@ -98,14 +98,14 @@ def test_validate_event_accepts_unpadded_standard_webhooks_secret() -> None:
 def test_validate_event_rejects_invalid_signature() -> None:
     body = json.dumps({"type": _EVENT_TYPE, "value": "payload"})
 
-    with pytest.raises(PolarWebhookVerificationError):
+    with pytest.raises(RepalisWebhookVerificationError):
         _validate_event(body, _get_headers("{}"))
 
 
 def test_validate_event_rejects_missing_headers() -> None:
     body = json.dumps({"type": _EVENT_TYPE, "value": "payload"})
 
-    with pytest.raises(PolarWebhookVerificationError):
+    with pytest.raises(RepalisWebhookVerificationError):
         _validate_event(body, {})
 
 
@@ -113,14 +113,14 @@ def test_validate_event_rejects_stale_timestamp() -> None:
     body = json.dumps({"type": _EVENT_TYPE, "value": "payload"})
     timestamp = datetime.datetime.now(tz=datetime.UTC) - datetime.timedelta(minutes=6)
 
-    with pytest.raises(PolarWebhookVerificationError):
+    with pytest.raises(RepalisWebhookVerificationError):
         _validate_event(body, _get_headers(body, timestamp))
 
 
 def test_validate_event_rejects_unknown_type() -> None:
     body = json.dumps({"type": "future.event", "value": "payload"})
 
-    with pytest.raises(PolarWebhookUnknownTypeError) as exception_info:
+    with pytest.raises(RepalisWebhookUnknownTypeError) as exception_info:
         _validate_event(body, _get_headers(body))
 
     assert exception_info.value.event_type == "future.event"
@@ -129,18 +129,18 @@ def test_validate_event_rejects_unknown_type() -> None:
 def test_validate_event_rejects_malformed_known_payload() -> None:
     body = json.dumps({"type": _EVENT_TYPE})
 
-    with pytest.raises(PolarWebhookError):
+    with pytest.raises(RepalisWebhookError):
         _validate_event(body, _get_headers(body))
 
 
 def test_validate_event_rejects_malformed_json() -> None:
     body = "{"
 
-    with pytest.raises(PolarWebhookError):
+    with pytest.raises(RepalisWebhookError):
         _validate_event(body, _get_headers(body))
 
 
 def test_webhook_error_hierarchy() -> None:
-    assert issubclass(PolarWebhookError, PolarError)
-    assert issubclass(PolarWebhookVerificationError, PolarWebhookError)
-    assert issubclass(PolarWebhookUnknownTypeError, PolarWebhookError)
+    assert issubclass(RepalisWebhookError, RepalisError)
+    assert issubclass(RepalisWebhookVerificationError, RepalisWebhookError)
+    assert issubclass(RepalisWebhookUnknownTypeError, RepalisWebhookError)

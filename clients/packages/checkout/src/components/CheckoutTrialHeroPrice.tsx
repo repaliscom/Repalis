@@ -1,10 +1,10 @@
 'use client'
 
-import { formatCurrency } from '@polar-sh/currency'
-import type { AcceptedLocale } from '@polar-sh/i18n'
-import { DEFAULT_LOCALE, useTranslations } from '@polar-sh/i18n'
-import { formatDate } from '@polar-sh/i18n/formatters/date'
-import { cn } from '@polar-sh/ui/lib/utils'
+import { formatCurrency } from '@repalis/currency'
+import type { AcceptedLocale } from '@repalis/i18n'
+import { DEFAULT_LOCALE, useTranslations } from '@repalis/i18n'
+import { formatDate } from '@repalis/i18n/formatters/date'
+import { cn } from '@repalis/ui/lib/utils'
 import type { ProductCheckoutPublic } from '../guards'
 import { isTemporaryDiscount } from '../utils/discount'
 
@@ -53,7 +53,7 @@ const CheckoutTrialHeroPrice = ({
       <div className={cn('flex flex-col', !compact && 'gap-y-1')}>
         <span>{trialLabel}</span>
         {!compact && checkout.trial_end && (
-          <span className="dark:text-polar-500 text-sm text-gray-500">
+          <span className="dark:text-repalis-500 text-sm text-gray-500">
             {t('checkout.trial.hero.freeUntil', {
               date: formatDate(checkout.trial_end, effectiveLocale, {
                 year: 'numeric',
@@ -95,7 +95,7 @@ const CheckoutTrialHeroPrice = ({
       <span>{trialLabel}</span>
       <span
         className={cn(
-          'dark:text-polar-500 text-gray-500',
+          'dark:text-repalis-500 text-gray-500',
           compact ? 'text-xs' : 'text-sm',
         )}
       >

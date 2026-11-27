@@ -1,14 +1,14 @@
 import pytest
 from httpx2 import AsyncClient
 
-from polar.auth.models import AuthSubject
-from polar.auth.permission import ROLE_PERMISSIONS, OrganizationPermission
-from polar.auth.scope import READ_ONLY_SCOPES
-from polar.kit.utils import utc_now
-from polar.models import Organization, User, UserOrganization
-from polar.models.organization import OrganizationStatus
-from polar.models.user_organization import OrganizationRole
-from polar.version import V2026_10, V2027_01
+from repalis.auth.models import AuthSubject
+from repalis.auth.permission import ROLE_PERMISSIONS, OrganizationPermission
+from repalis.auth.scope import READ_ONLY_SCOPES
+from repalis.kit.utils import utc_now
+from repalis.models import Organization, User, UserOrganization
+from repalis.models.organization import OrganizationStatus
+from repalis.models.user_organization import OrganizationRole
+from repalis.version import V2026_10, V2027_01
 from tests.fixtures.auth import AuthSubjectFixture
 from tests.fixtures.database import SaveFixture
 

@@ -1,11 +1,11 @@
 import { OrderStatus } from '@/components/Orders/OrderStatus'
 import { useOrders } from '@/hooks/queries/orders'
-import { schemas } from '@polar-sh/client'
-import { formatCurrency } from '@polar-sh/currency'
-import { Avatar } from '@polar-sh/orbit'
-import { Button, Text } from '@polar-sh/orbit'
-import { DataTable, DataTableColumnHeader } from '@polar-sh/orbit'
-import FormattedDateTime from '@polar-sh/ui/components/atoms/FormattedDateTime'
+import { schemas } from '@repalis/client'
+import { formatCurrency } from '@repalis/currency'
+import { Avatar } from '@repalis/orbit'
+import { Button, Text } from '@repalis/orbit'
+import { DataTable, DataTableColumnHeader } from '@repalis/orbit'
+import FormattedDateTime from '@repalis/ui/components/atoms/FormattedDateTime'
 import Link from 'next/link'
 
 export interface ProductOrdersProps {
@@ -32,7 +32,7 @@ export const ProductOrders = ({
           <Text variant="heading-xxs" as="h2">
             Orders
           </Text>
-          <p className="dark:text-polar-500 text-sm text-gray-500">
+          <p className="dark:text-repalis-500 text-sm text-gray-500">
             Showing last 10 orders for {product.name}
           </p>
         </div>
@@ -68,7 +68,7 @@ export const ProductOrders = ({
                   <div className="flex flex-col overflow-hidden">
                     <span className="truncate">{customer.name ?? '—'}</span>
                     {(customer.email || customer.type === 'individual') && (
-                      <span className="dark:text-polar-500 truncate text-xs text-gray-500">
+                      <span className="dark:text-repalis-500 truncate text-xs text-gray-500">
                         {customer.email ?? '—'}
                       </span>
                     )}

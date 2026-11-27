@@ -4,10 +4,10 @@ import { useDraggable } from '@/hooks/draggable'
 import { useBenefits } from '@/hooks/queries'
 import { closestCenter, DndContext, DragOverlay } from '@dnd-kit/core'
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
-import { schemas } from '@polar-sh/client'
-import { Button } from '@polar-sh/orbit'
-import { Input } from '@polar-sh/orbit'
-import { LoaderCircle as Loader2, Search } from '@polar-sh/orbit/icons'
+import { schemas } from '@repalis/client'
+import { Button } from '@repalis/orbit'
+import { Input } from '@repalis/orbit'
+import { LoaderCircle as Loader2, Search } from '@repalis/orbit/icons'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { BenefitRow } from './components/BenefitRow'
 import { Pagination } from './components/Pagination'
@@ -182,7 +182,7 @@ export const BenefitSearchComplex = ({
 
       <div className="flex flex-col gap-2">
         <div className="flex h-5.5 items-center justify-between">
-          <h4 className="dark:text-polar-400 text-xs font-medium tracking-wide text-gray-500 uppercase">
+          <h4 className="dark:text-repalis-400 text-xs font-medium tracking-wide text-gray-500 uppercase">
             {hasQuery
               ? `Available benefits matching "${trimmedQuery}"`
               : 'Available'}
@@ -197,17 +197,17 @@ export const BenefitSearchComplex = ({
           )}
         </div>
         {availableBenefitsQuery.isPending ? (
-          <div className="dark:border-polar-700 flex h-15.5 items-center justify-center rounded-xl border border-gray-200">
-            <Loader2 className="dark:text-polar-500 h-5 w-5 animate-spin text-gray-500" />
+          <div className="dark:border-repalis-700 flex h-15.5 items-center justify-center rounded-xl border border-gray-200">
+            <Loader2 className="dark:text-repalis-500 h-5 w-5 animate-spin text-gray-500" />
           </div>
         ) : availableBenefits.length === 0 ? (
-          <div className="dark:border-polar-700 dark:text-polar-500 flex h-[62px] items-center justify-center rounded-xl border border-gray-200 px-4 text-center text-sm text-gray-500">
+          <div className="dark:border-repalis-700 dark:text-repalis-500 flex h-[62px] items-center justify-center rounded-xl border border-gray-200 px-4 text-center text-sm text-gray-500">
             {hasQuery
               ? `No benefits found for "${trimmedQuery}"`
               : 'No benefits available'}
           </div>
         ) : (
-          <div className="dark:border-polar-700 dark:divide-polar-700 flex flex-col divide-y divide-gray-100 overflow-clip rounded-xl border border-gray-200">
+          <div className="dark:border-repalis-700 dark:divide-repalis-700 flex flex-col divide-y divide-gray-100 overflow-clip rounded-xl border border-gray-200">
             {availableBenefits.map((benefit) => (
               <BenefitRow
                 key={benefit.id}
@@ -223,7 +223,7 @@ export const BenefitSearchComplex = ({
 
       <div className="flex flex-col gap-2">
         <div className="flex h-5.5 items-center justify-between">
-          <h4 className="dark:text-polar-400 text-xs font-medium tracking-wide text-gray-500 uppercase">
+          <h4 className="dark:text-repalis-400 text-xs font-medium tracking-wide text-gray-500 uppercase">
             {hasQuery
               ? `Enabled benefits matching "${trimmedQuery}"`
               : 'Enabled'}
@@ -240,19 +240,19 @@ export const BenefitSearchComplex = ({
             )}
         </div>
         {selectedBenefitIds.length === 0 ? (
-          <div className="dark:border-polar-700 dark:text-polar-500 flex h-15.5 items-center justify-center rounded-xl border border-dashed border-gray-200 px-4 text-center text-sm text-gray-500">
+          <div className="dark:border-repalis-700 dark:text-repalis-500 flex h-15.5 items-center justify-center rounded-xl border border-dashed border-gray-200 px-4 text-center text-sm text-gray-500">
             Toggle a benefit above to enable it for this product
           </div>
         ) : enabledBenefitsQuery.isPending ? (
-          <div className="dark:border-polar-700 flex h-15.5 items-center justify-center rounded-xl border border-gray-200">
-            <Loader2 className="dark:text-polar-500 h-5 w-5 animate-spin text-gray-500" />
+          <div className="dark:border-repalis-700 flex h-15.5 items-center justify-center rounded-xl border border-gray-200">
+            <Loader2 className="dark:text-repalis-500 h-5 w-5 animate-spin text-gray-500" />
           </div>
         ) : enabledBenefits.length === 0 ? (
-          <div className="dark:border-polar-700 dark:text-polar-500 flex h-15.5 items-center justify-center rounded-xl border border-gray-200 px-4 text-center text-sm text-gray-500">
+          <div className="dark:border-repalis-700 dark:text-repalis-500 flex h-15.5 items-center justify-center rounded-xl border border-gray-200 px-4 text-center text-sm text-gray-500">
             {`No enabled benefits match "${trimmedQuery}"`}
           </div>
         ) : (
-          <div className="dark:border-polar-700 dark:divide-polar-700 flex flex-col divide-y divide-gray-100 overflow-clip rounded-xl border border-gray-200">
+          <div className="dark:border-repalis-700 dark:divide-repalis-700 flex flex-col divide-y divide-gray-100 overflow-clip rounded-xl border border-gray-200">
             {enabledBenefits.map((benefit) => (
               <BenefitRow
                 key={benefit.id}

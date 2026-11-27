@@ -6,17 +6,17 @@ from unittest.mock import MagicMock, PropertyMock
 
 import pytest
 
-from polar.models.backoffice_user import BackofficeUser
-from polar.models.organization import Organization
-from polar.models.organization_review_feedback import OrganizationReviewFeedback
-from polar.organization_review.collectors.feedback import collect_feedback_data
-from polar.organization_review.report import (
+from repalis.models.backoffice_user import BackofficeUser
+from repalis.models.organization import Organization
+from repalis.models.organization_review_feedback import OrganizationReviewFeedback
+from repalis.organization_review.collectors.feedback import collect_feedback_data
+from repalis.organization_review.report import (
     AgentReportV2,
     AnyAgentReport,
     parse_agent_report,
 )
-from polar.organization_review.repository import OrganizationReviewRepository
-from polar.organization_review.schemas import (
+from repalis.organization_review.repository import OrganizationReviewRepository
+from repalis.organization_review.schemas import (
     ActorType,
     DataSnapshot,
     DecisionType,
@@ -37,7 +37,7 @@ from polar.organization_review.schemas import (
     RiskLevel,
     UsageInfo,
 )
-from polar.postgres import AsyncSession
+from repalis.postgres import AsyncSession
 from tests.fixtures.database import SaveFixture
 
 # ---------------------------------------------------------------------------
@@ -314,7 +314,7 @@ class TestCollectFeedbackData:
 
 class TestBuildPromptPriorFeedback:
     def _build(self, snapshot: DataSnapshot) -> str:
-        from polar.organization_review.analyzer import ReviewAnalyzer
+        from repalis.organization_review.analyzer import ReviewAnalyzer
 
         analyzer = ReviewAnalyzer.__new__(ReviewAnalyzer)
         return analyzer._build_prompt(snapshot)
@@ -800,7 +800,7 @@ class TestCollectFeedbackDataIntegration:
                         dimension=ReviewDimension.PRODUCT_LEGITIMACY,
                         risk_level=RiskLevel.HIGH,
                         confidence=0.85,
-                        findings=["Price mismatch between website and Polar"],
+                        findings=["Price mismatch between website and Repalis"],
                         recommendation="Deny",
                     ),
                     DimensionAssessment(
@@ -858,7 +858,7 @@ class TestCollectFeedbackDataIntegration:
         assert agent_entry.dimensions[0].dimension == "product_legitimacy"
         assert agent_entry.dimensions[0].risk_level == "HIGH"
         assert agent_entry.dimensions[0].findings == [
-            "Price mismatch between website and Polar"
+            "Price mismatch between website and Repalis"
         ]
 
         human_entry = result.entries[1]

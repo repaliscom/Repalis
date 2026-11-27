@@ -1,6 +1,6 @@
 'use client'
 
-import type { Client, schemas } from '@polar-sh/client'
+import type { Client, schemas } from '@repalis/client'
 import { useCallback, useState } from 'react'
 
 import { createSSEListener } from '../utils/sse'

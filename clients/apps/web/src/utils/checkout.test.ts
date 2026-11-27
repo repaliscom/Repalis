@@ -1,5 +1,5 @@
-import type { ProductCheckoutPublic } from '@polar-sh/checkout/guards'
-import type { schemas } from '@polar-sh/client'
+import type { ProductCheckoutPublic } from '@repalis/checkout/guards'
+import type { schemas } from '@repalis/client'
 import { describe, expect, it } from 'vitest'
 import { isOrderSummaryCollapsible } from './checkout'
 

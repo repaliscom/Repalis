@@ -3,23 +3,23 @@ name: ship-safety
 description: Check whether a diff is safe to deploy — schema changes that break the currently running code, blocking DDL, renaming or moving background task actors while jobs are in flight, queue priority, cron catch-up, locking, batch size, and whether the change should be split into more than one PR. Use before merging a PR that touches migrations, tasks.py, models, or removes an endpoint.
 license: MIT
 metadata:
-  author: polar
+  author: repalis
   version: "1.0.0"
 ---
 
-# Ship Safety (Polar)
+# Ship Safety (Repalis)
 
 The handle is the **diff**. The evidence is **what breaks between the moment this merges and
 the moment it is fully deployed**.
 
-Every check here is about that gap. Polar does not deploy atomically: migrations run first,
+Every check here is about that gap. Repalis does not deploy atomically: migrations run first,
 the API deploys before the workers, the old frontend can be live against the new backend, and
 the queues already hold jobs enqueued under the old names. Code that is correct in its final
 state can still take production down on the way there.
 
 ## Scope
 
-Diffs touching `server/migrations/versions/`, `**/tasks.py`, `polar/models/`,
+Diffs touching `server/migrations/versions/`, `**/tasks.py`, `repalis/models/`,
 `server/scripts/`; or that remove or rename an endpoint; or that span `server/` and `clients/`
 with a dependency between them.
 
@@ -75,7 +75,7 @@ When the PR merges, the queues hold jobs enqueued by the old code.
   coalesced catch-up on the next start when firings were missed. The question for a new
   `cron_trigger` is whether one catch-up run is correct for the task; a bespoke catch-up
   loop that walks forward through skipped periods usually computes state wrong.
-- **Retries.** Polar relies on automatic retries. A new failure path must raise, not swallow,
+- **Retries.** Repalis relies on automatic retries. A new failure path must raise, not swallow,
   and `max_retries=0` must be deliberate.
 
 ### 4. Locks and volume

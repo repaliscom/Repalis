@@ -5,8 +5,8 @@ import { afterEach, beforeEach, expect, it, vi } from "vitest";
 import type { EventInput } from "./event";
 import type { CustomerMeter } from "./meter";
 
-import { createPolar } from "../2026-10/client";
-import { ClientBase, PolarError, PolarNetworkError } from "../base";
+import { createRepalis } from "../2026-10/client";
+import { ClientBase, RepalisError, RepalisNetworkError } from "../base";
 import { outpost, type OutpostFactoryOptions } from "../outpost/client";
 import { BufferedMeteringStrategy } from "./buffered";
 import {
@@ -21,7 +21,7 @@ import { UnknownMeterError } from "./errors";
 
 const client = new ClientBase({
   accessToken: "token",
-  baseUrl: "https://api.polar.sh",
+  baseUrl: "https://api.repalis.com",
   version: "2026-10",
 });
 
@@ -288,7 +288,7 @@ it.each([
     const result = metering.actor(input as unknown as ActorInput);
     await expect(result).rejects.toBeInstanceOf(InvalidActorError);
     await expect(result).rejects.toBeInstanceOf(MeteringError);
-    await expect(result).rejects.toBeInstanceOf(PolarError);
+    await expect(result).rejects.toBeInstanceOf(RepalisError);
     await expect(metering.track({ name: "usage", ...input } as EventInput)).rejects.toBeInstanceOf(
       InvalidActorError,
     );
@@ -364,13 +364,13 @@ it("creates buffered metering using the configured HTTP client", async () => {
   const fetch = vi
     .spyOn(globalThis, "fetch")
     .mockResolvedValue(new Response('{"inserted":1,"duplicates":0}'));
-  const polar = createPolar({
+  const repalis = createRepalis({
     accessToken: "token",
     organizationId: "org",
     baseUrl: "https://custom.test",
   });
   {
-    const metering = polar.metering();
+    const metering = repalis.metering();
     try {
       await metering.track(event);
       expect(fetch).not.toHaveBeenCalled();
@@ -382,8 +382,8 @@ it("creates buffered metering using the configured HTTP client", async () => {
   expect(url).toBe("https://custom.test/v1/events/ingest");
   const headers = new Headers(request!.headers);
   expect(headers.get("Authorization")).toBe("Bearer token");
-  expect(headers.get("Polar-Organization")).toBe("org");
-  expect(headers.get("Polar-Version")).toBe("2026-10");
+  expect(headers.get("Repalis-Organization")).toBe("org");
+  expect(headers.get("Repalis-Version")).toBe("2026-10");
   expect(JSON.parse(request!.body as string)).toEqual({
     events: [{ ...event, timestamp: expect.any(String) }],
   });
@@ -404,7 +404,7 @@ it.each<[string | undefined, OutpostFactoryOptions | undefined, string | undefin
       return this;
     });
   const close = vi.spyOn(Outpost.prototype, "close").mockResolvedValue(undefined);
-  const metering = createPolar({ accessToken: "token" }).metering({
+  const metering = createRepalis({ accessToken: "token" }).metering({
     outpost: options && outpost(options),
   });
   try {
@@ -438,7 +438,7 @@ it.each([{ buffered: {} }, { outpost: outpost({ redisUrl: "redis://localhost:637
   (options) => {
     expect(() =>
       // @ts-expect-error Explicit strategies exclude built-in configuration.
-      createPolar({ accessToken: "token" }).metering({ strategies: [], ...options }),
+      createRepalis({ accessToken: "token" }).metering({ strategies: [], ...options }),
     ).toThrow("Cannot combine strategies");
   },
 );
@@ -454,7 +454,7 @@ it.each([false, true])(
     };
     const strategies = empty ? [] : [strategy];
     {
-      const metering = createPolar({ accessToken: "token" }).metering({ strategies });
+      const metering = createRepalis({ accessToken: "token" }).metering({ strategies });
       try {
         expect(metering.strategies).toEqual(strategies);
         await metering.track(event);
@@ -470,11 +470,11 @@ it.each([false, true])(
 
 it("forwards buffer options and reports failed delivery", async () => {
   vi.spyOn(console, "warn").mockImplementation(() => {});
-  const polar = createPolar({ accessToken: "token" });
-  const send = vi.spyOn(polar.events, "ingest").mockRejectedValue(new PolarNetworkError("offline"));
+  const repalis = createRepalis({ accessToken: "token" });
+  const send = vi.spyOn(repalis.events, "ingest").mockRejectedValue(new RepalisNetworkError("offline"));
   const onDropped = vi.fn();
   {
-    const metering = polar.metering({
+    const metering = repalis.metering({
       buffered: { batchSize: 1, batchIntervalMs: 60_000, maxAttempts: 1, onDropped },
     });
     try {
@@ -495,17 +495,17 @@ it("forwards buffer options and reports failed delivery", async () => {
 
 it("runs Outpost alone, on its own batches, and refuses buffer options beside it", async () => {
   const { Outpost } = await import("../outpost/client");
-  const polar = createPolar({ accessToken: "token" });
+  const repalis = createRepalis({ accessToken: "token" });
   const onDelivered = vi.fn();
   const create = outpost({ redisUrl: "redis://localhost:6379", telemetry: false, onDelivered });
-  expect(() => polar.metering({ buffered: {}, outpost: create })).toThrow(MeteringError);
+  expect(() => repalis.metering({ buffered: {}, outpost: create })).toThrow(MeteringError);
   const start = vi
     .spyOn(Outpost.prototype, "start")
     .mockImplementation(async function (this: InstanceType<typeof Outpost>) {
       return this;
     });
   vi.spyOn(Outpost.prototype, "close").mockResolvedValue(undefined);
-  const metering = polar.metering({ outpost: create });
+  const metering = repalis.metering({ outpost: create });
   try {
     await metering.flush();
     expect(metering.strategies).toHaveLength(1);
@@ -518,12 +518,12 @@ it("runs Outpost alone, on its own batches, and refuses buffer options beside it
 
 it("refuses the buffer beside Outpost as explicit strategies", async () => {
   const { Outpost } = await import("../outpost/client");
-  const polar = createPolar({ accessToken: "token" });
+  const repalis = createRepalis({ accessToken: "token" });
   const strategies = [
-    new BufferedMeteringStrategy(polar),
+    new BufferedMeteringStrategy(repalis),
     new Outpost("redis://localhost:6379", { client }),
   ];
-  expect(() => polar.metering({ strategies })).toThrow(MeteringError);
+  expect(() => repalis.metering({ strategies })).toThrow(MeteringError);
 });
 
 it("propagates Outpost startup failures", async () => {
@@ -531,7 +531,7 @@ it("propagates Outpost startup failures", async () => {
   const { Outpost } = await import("../outpost/client");
   vi.spyOn(Outpost.prototype, "start").mockRejectedValue(new Error("Redis unavailable"));
   await expect(
-    createPolar({ accessToken: "token" }).metering({ outpost: outpost() }).flush(),
+    createRepalis({ accessToken: "token" }).metering({ outpost: outpost() }).flush(),
   ).rejects.toThrow("Redis unavailable");
 });
 
@@ -545,8 +545,8 @@ it("forwards Outpost options and actor warmup", async () => {
   vi.spyOn(Outpost.prototype, "close").mockResolvedValue(undefined);
   const warmup = vi.spyOn(Outpost.prototype, "actor").mockResolvedValue(undefined);
   const meter = vi.spyOn(Outpost.prototype, "meter").mockResolvedValue(null);
-  const polar = createPolar({ accessToken: "token" });
-  const metering = polar.metering({
+  const repalis = createRepalis({ accessToken: "token" });
+  const metering = repalis.metering({
     outpost: outpost({
       redisUrl: "redis://localhost:6379",
       telemetry: false,
@@ -587,12 +587,12 @@ it.each([false, true])(
       .mockImplementation(
         async () => new Response(JSON.stringify({ items: missing ? [] : [value] })),
       );
-    const polar = createPolar({
+    const repalis = createRepalis({
       accessToken: "token",
       organizationId: "org",
       baseUrl: "https://custom.test",
     });
-    const metering = polar.metering();
+    const metering = repalis.metering();
     try {
       const actor = await metering.actor({
         external_customer_id: "external",
@@ -622,7 +622,7 @@ it.each([false, true])(
       }
       const headers = new Headers(request!.headers);
       expect(headers.get("Authorization")).toBe("Bearer token");
-      expect(headers.get("Polar-Organization")).toBe("org");
+      expect(headers.get("Repalis-Organization")).toBe("org");
     } finally {
       await metering.close();
     }
@@ -687,7 +687,7 @@ it("reads a meter its strategy does not know through the API", async () => {
 
 it("propagates meter API errors", async () => {
   vi.spyOn(globalThis, "fetch").mockResolvedValue(new Response("Forbidden", { status: 403 }));
-  const metering = createPolar({ accessToken: "token" }).metering();
+  const metering = createRepalis({ accessToken: "token" }).metering();
   try {
     await expect(metering.meter("meter", { customer_id: "customer" })).rejects.toThrow("403");
   } finally {
@@ -733,10 +733,10 @@ it("aborts an in-flight HTTP delivery on shutdown", async () => {
       signal!.addEventListener("abort", () => reject(signal!.reason), { once: true }),
     );
   });
-  const polar = createPolar({ accessToken: "token" });
+  const repalis = createRepalis({ accessToken: "token" });
   const { BufferedMeteringStrategy } = await import("./buffered");
   const onDropped = vi.fn();
-  const strategy = await new BufferedMeteringStrategy(polar, {
+  const strategy = await new BufferedMeteringStrategy(repalis, {
     onDropped,
   }).start();
   await strategy.track(event);
@@ -764,8 +764,8 @@ it("uses buffered metering without loading optional Outpost dependencies", () =>
       if (specifier === "ioredis" || specifier === "ws") throw new Error("Optional dependency loaded");
       return next(specifier, context);
     }});
-    const { createPolar } = await import("@polar-sh/sdk/2026-10");
-    const metering = createPolar({ accessToken: "token" }).metering();
+    const { createRepalis } = await import("@repalis/sdk/2026-10");
+    const metering = createRepalis({ accessToken: "token" }).metering();
     await metering.actor({ external_customer_id: "alice" });
     await metering.close();
   `,
@@ -886,11 +886,11 @@ it("closing an unused helper does not start resources", async () => {
 
 it("overlapping public flushes report a previous background drop to the newest", async () => {
   vi.spyOn(console, "warn").mockImplementation(() => {});
-  const polar = createPolar({ accessToken: "token" });
-  const cause = new PolarNetworkError("offline");
-  vi.spyOn(polar.events, "ingest").mockRejectedValue(cause);
+  const repalis = createRepalis({ accessToken: "token" });
+  const cause = new RepalisNetworkError("offline");
+  vi.spyOn(repalis.events, "ingest").mockRejectedValue(cause);
   const onDropped = vi.fn();
-  const metering = polar.metering({ buffered: { batchSize: 1, maxAttempts: 1, onDropped } });
+  const metering = repalis.metering({ buffered: { batchSize: 1, maxAttempts: 1, onDropped } });
   try {
     await metering.track(event);
     await vi.waitFor(() => expect(onDropped).toHaveBeenCalledOnce());

@@ -1,7 +1,7 @@
 'use client'
 
 import { OnboardingLayout } from '@/components/Layout/OnboardingLayout'
-import { PolarLogotype } from '@/components/Layout/Public/PolarLogotype'
+import { RepalisLogotype } from '@/components/Layout/Public/RepalisLogotype'
 import {
   AccessTokenForm,
   type AccessTokenCreate,
@@ -11,11 +11,11 @@ import { useSubmitOrganizationAccessToken } from '@/components/Settings/useSubmi
 import { toast } from '@/components/Toast/use-toast'
 import { useAuth } from '@/hooks/auth'
 import { OrganizationContext } from '@/providers/maintainerOrganization'
-import { schemas } from '@polar-sh/client'
-import { Alert, Avatar, Button, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import CopyToClipboardInput from '@polar-sh/ui/components/atoms/CopyToClipboardInput'
-import { Form } from '@polar-sh/ui/components/ui/form'
+import { schemas } from '@repalis/client'
+import { Alert, Avatar, Button, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import CopyToClipboardInput from '@repalis/ui/components/atoms/CopyToClipboardInput'
+import { Form } from '@repalis/ui/components/ui/form'
 import { useSearchParams } from 'next/navigation'
 import { useCallback, useContext, useMemo, useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -64,7 +64,7 @@ export default function CLITokenPage() {
         toast({
           title: 'Could not send the token to the CLI',
           description:
-            'The CLI link is invalid. Revoke the token in your settings and run polar auth token again.',
+            'The CLI link is invalid. Revoke the token in your settings and run repalis auth token again.',
         })
         setStep({ name: 'created', token: created.token })
       }
@@ -107,7 +107,7 @@ export default function CLITokenPage() {
     <OnboardingLayout
       branding={
         <Box color="text-primary">
-          <PolarLogotype
+          <RepalisLogotype
             logoVariant="logotype"
             logoClassName="ml-0"
             size={80}
@@ -147,11 +147,11 @@ export default function CLITokenPage() {
       }
       subtitle={
         step.name === 'sending'
-          ? 'Sending the token to the Polar CLI…'
+          ? 'Sending the token to the Repalis CLI…'
           : step.name === 'created'
             ? 'Store it somewhere safe, like your .env file. You won’t be able to see it again.'
             : handoff
-              ? 'Pick the permissions your app needs. The token is encrypted and sent straight to the Polar CLI on this computer.'
+              ? 'Pick the permissions your app needs. The token is encrypted and sent straight to the Repalis CLI on this computer.'
               : 'Pick the permissions your app needs.'
       }
       actions={actions}

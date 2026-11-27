@@ -10,18 +10,18 @@ import RevenueWidget from '@/components/Widgets/RevenueWidget'
 import { CustomerRiskWidget } from '@/components/Widgets/CustomerRiskWidget'
 import { GrossMarginWidget } from '@/components/Widgets/GrossMarginWidget'
 import { TopCustomersWidget } from '@/components/Widgets/TopCustomersWidget'
-import { schemas } from '@polar-sh/client'
-import { Avatar, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { schemas } from '@repalis/client'
+import { Avatar, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import { PropsWithChildren } from 'react'
 import { DisputesBanner } from './DisputesBanner'
 import { OrganizationStatusBanner } from './OrganizationStatusBanner'
 
 const cellClassName =
-  'dark:border-polar-700 border-t-0 border-r border-b border-l-0 border-gray-200'
+  'dark:border-repalis-700 border-t-0 border-r border-b border-l-0 border-gray-200'
 
 const WidgetRow = ({ children }: PropsWithChildren) => (
-  <div className="dark:border-polar-700 overflow-hidden rounded-xl border border-gray-200">
+  <div className="dark:border-repalis-700 overflow-hidden rounded-xl border border-gray-200">
     <div className="-mr-px -mb-px grid grid-cols-1 lg:grid-cols-3">
       {children}
     </div>

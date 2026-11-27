@@ -46,7 +46,7 @@ const run = (
     scope,
     directory: `/${scope}/.agents/skills`,
     state: skills[scope] ?? 'missing',
-    skills: ['setup-polar'],
+    skills: ['setup-repalis'],
   })
   const service = AgentSetup.of({
     callingAgent,
@@ -105,7 +105,7 @@ describe('agent setup', () => {
           scope: 'project',
           directory: '/project/.agents/skills',
           state: 'outdated',
-          skills: ['setup-polar'],
+          skills: ['setup-repalis'],
         },
       ],
       steps: [],
@@ -126,7 +126,7 @@ describe('agent setup', () => {
     expect(cli.installed).toEqual(['codex', 'cursor'])
     expect(cli.output()).toContain('Claude Code already set up')
     expect(cli.output()).toContain('2 set up, 1 already set up, 0 failed')
-    expect(cli.output()).toContain('codex mcp login polar')
+    expect(cli.output()).toContain('codex mcp login repalis')
   })
 
   test('only sets up the agent it runs inside', async () => {
@@ -144,7 +144,7 @@ describe('agent setup', () => {
     expect(cli.output()).toContain('Running inside Codex')
   })
 
-  test('installs project skills for an agent without a Polar plugin', async () => {
+  test('installs project skills for an agent without a Repalis plugin', async () => {
     const cli = run(['--json'], {
       statuses: [client('claude-code')],
       callingAgent: { id: 'opencode', name: 'OpenCode' },
@@ -155,7 +155,7 @@ describe('agent setup', () => {
     expect(JSON.parse(cli.output()).steps).toEqual([
       {
         target: 'skills',
-        name: 'Polar skills (project)',
+        name: 'Repalis skills (project)',
         outcome: 'installed',
         detail: '/project/.agents/skills',
       },
@@ -225,7 +225,7 @@ describe('agent setup', () => {
     )
     await cli.promise
 
-    expect(cli.terminal()).toContain('What should be set up for Polar?')
+    expect(cli.terminal()).toContain('What should be set up for Repalis?')
     expect(cli.installed).toEqual(['codex'])
   })
 })

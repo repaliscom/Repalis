@@ -3,14 +3,14 @@
 import Auth from '@/components/Auth/Auth'
 import EmailOTPVerifyForm from '@/components/Auth/EmailOTPVerifyForm'
 import { OnboardingLayout } from '@/components/Layout/OnboardingLayout'
-import { PolarLogotype } from '@/components/Layout/Public/PolarLogotype'
+import { RepalisLogotype } from '@/components/Layout/Public/RepalisLogotype'
 import { useAuth, useLogout } from '@/hooks/auth'
 import { useImpressionEvent } from '@/hooks/useImpressionEvent'
 import { useAgentClaim, useAgentClaimPreview } from '@/hooks/queries/agents'
 import { type LoginMethod } from '@/utils/auth'
-import { ClientResponseError, schemas } from '@polar-sh/client'
-import { Alert, Avatar, Button, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { ClientResponseError, schemas } from '@repalis/client'
+import { Alert, Avatar, Button, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import { useEffect, useState } from 'react'
 import AgentClaimCodeForm, { normalizeClaimCode } from './AgentClaimCodeForm'
 import AgentClaimReceipt from './AgentClaimReceipt'
@@ -137,7 +137,7 @@ export default function ClaimAgentPage({
     <OnboardingLayout
       branding={
         <Box color="text-primary">
-          <PolarLogotype logoVariant="logotype" logoClassName="ml-0" />
+          <RepalisLogotype logoVariant="logotype" logoClassName="ml-0" />
         </Box>
       }
       steps={STEPS}
@@ -187,7 +187,7 @@ export default function ClaimAgentPage({
           >
             <Text variant="caption" color="muted">
               Completing setup lets {claim.agent_name || 'the agent'} act on
-              your behalf on Polar, in all your organizations.
+              your behalf on Repalis, in all your organizations.
             </Text>
             <Button
               form={FORM_ID}

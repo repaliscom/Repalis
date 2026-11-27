@@ -15,7 +15,7 @@ import ast
 from .base import Rule, Violation
 
 DB_MODULES = frozenset(
-    {"polar.kit.db.postgres", "polar.postgres", "sqlalchemy.ext.asyncio"}
+    {"repalis.kit.db.postgres", "repalis.postgres", "sqlalchemy.ext.asyncio"}
 )
 DB_HELPERS = frozenset({"read_engine", "run_batched_update"})
 DRY_RUN_PARAMETERS = frozenset({"dry_run", "execute", "commit"})

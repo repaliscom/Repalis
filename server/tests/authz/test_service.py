@@ -3,15 +3,15 @@ from uuid import UUID
 
 import pytest
 
-from polar.auth.models import AuthSubject
-from polar.auth.permission import OrganizationPermission
-from polar.authz.service import get_accessible_org_ids, get_accessible_organization
-from polar.kit.utils import utc_now
-from polar.models import Agent, OAuth2Token, Organization, PersonalAccessToken, User
-from polar.models.agent import AgentStatus
-from polar.models.organization import OrganizationStatus
-from polar.models.user_organization import UserOrganization
-from polar.postgres import AsyncSession
+from repalis.auth.models import AuthSubject
+from repalis.auth.permission import OrganizationPermission
+from repalis.authz.service import get_accessible_org_ids, get_accessible_organization
+from repalis.kit.utils import utc_now
+from repalis.models import Agent, OAuth2Token, Organization, PersonalAccessToken, User
+from repalis.models.agent import AgentStatus
+from repalis.models.organization import OrganizationStatus
+from repalis.models.user_organization import UserOrganization
+from repalis.postgres import AsyncSession
 from tests.fixtures.auth import AuthSubjectFixture
 from tests.fixtures.database import SaveFixture
 

@@ -3,7 +3,7 @@
 import { useAuth } from '@/hooks/auth'
 import { useCreateOrganizationAccessToken } from '@/hooks/queries'
 import { extractApiErrorMessage } from '@/utils/api/errors'
-import { type schemas } from '@polar-sh/client'
+import { type schemas } from '@repalis/client'
 import { useSearchParams } from 'next/navigation'
 import { useEffect, useEffectEvent, useRef } from 'react'
 import { toast } from '../Toast/use-toast'

@@ -1,4 +1,4 @@
-import type { Client } from '@polar-sh/client'
+import type { Client } from '@repalis/client'
 import { renderHook } from '@testing-library/react'
 import EventEmitter from 'eventemitter3'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'

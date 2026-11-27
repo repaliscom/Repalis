@@ -12,8 +12,8 @@ const acme: ActiveOrganization = {
   slug: 'acme',
   environment: 'sandbox',
 }
-const eventsUrl = 'https://sandbox-api.polar.sh/v1/cli/events'
-const triggerUrl = 'https://sandbox-api.polar.sh/v1/cli/trigger/org-1'
+const eventsUrl = 'https://sandbox-api.repalis.com/v1/cli/events'
+const triggerUrl = 'https://sandbox-api.repalis.com/v1/cli/trigger/org-1'
 const catalog = [
   { type: 'order.created', description: 'Created.' },
   { type: 'order.paid', description: 'Paid.' },
@@ -86,7 +86,7 @@ describe('listEvents', () => {
 
     expect(await listEvents()).toEqual(catalog)
     expect(api.requests[0]!.headers.get('Authorization')).toBe('Bearer token')
-    expect(api.requests[0]!.headers.get('Polar-Organization')).toBe('org-1')
+    expect(api.requests[0]!.headers.get('Repalis-Organization')).toBe('org-1')
   })
 
   test.each([
@@ -103,7 +103,7 @@ describe('listEvents', () => {
 
   test('maps network failures', async () => {
     const error = await failure(listEvents())
-    expect(error.message).toBe('Could not reach the Polar API')
+    expect(error.message).toBe('Could not reach the Repalis API')
   })
 })
 
@@ -129,7 +129,7 @@ describe('send', () => {
       overrides: { 'data.amount': '5' },
       deliver: true,
     })
-    expect(api.requests[0]!.headers.get('Polar-Organization')).toBe('org-1')
+    expect(api.requests[0]!.headers.get('Repalis-Organization')).toBe('org-1')
   })
 
   test('reports a missing listener', async () => {
@@ -151,7 +151,7 @@ describe('send', () => {
       suggestion: 'order.created',
     })
     expect(
-      api.requests.map((request) => request.headers.get('Polar-Organization')),
+      api.requests.map((request) => request.headers.get('Repalis-Organization')),
     ).toEqual(['org-1', 'org-1'])
   })
 

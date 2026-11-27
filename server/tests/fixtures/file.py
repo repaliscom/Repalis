@@ -12,24 +12,24 @@ import pytest
 from botocore.stub import ANY, Stubber
 from httpx2 import Response
 
-from polar.config import settings
-from polar.file.s3 import S3_SERVICES
-from polar.file.schemas import (
+from repalis.config import settings
+from repalis.file.s3 import S3_SERVICES
+from repalis.file.schemas import (
     DownloadableFileCreate,
     FileUpload,
     ProductMediaFileCreate,
 )
-from polar.file.service import file as file_service
-from polar.integrations.aws.s3.client import client as s3_client
-from polar.integrations.aws.s3.schemas import (
+from repalis.file.service import file as file_service
+from repalis.integrations.aws.s3.client import client as s3_client
+from repalis.integrations.aws.s3.schemas import (
     S3FileCreateMultipart,
     S3FileCreatePart,
     S3FileUploadCompletedPart,
 )
-from polar.kit.utils import generate_uuid, utc_now
-from polar.models import File, Organization
-from polar.models.file import FileServiceTypes
-from polar.postgres import AsyncSession
+from repalis.kit.utils import generate_uuid, utc_now
+from repalis.models import File, Organization
+from repalis.models.file import FileServiceTypes
+from repalis.postgres import AsyncSession
 
 pwd = Path(__file__).parent.absolute()
 
@@ -232,12 +232,12 @@ class TestFile:
             "LastModified": utc_now(),
             "VersionId": "uploaded-version",
             "Metadata": {
-                "polar-id": str(created.id),
-                "polar-organization-id": str(created.organization_id),
-                "polar-name": self.name,
-                "polar-size": str(created.size),
-                "polar-sha256-base64": self.base64,
-                "polar-sha256-hex": self.hex,
+                "repalis-id": str(created.id),
+                "repalis-organization-id": str(created.organization_id),
+                "repalis-name": self.name,
+                "repalis-size": str(created.size),
+                "repalis-sha256-base64": self.base64,
+                "repalis-sha256-hex": self.hex,
             },
         }
         s3_stub.add_response(

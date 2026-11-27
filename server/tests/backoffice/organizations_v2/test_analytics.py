@@ -6,11 +6,11 @@ amounts directly from Payment, Refund, or Dispute records.
 
 import pytest
 
-from polar.backoffice.organizations_v2.analytics import PaymentAnalyticsService
-from polar.models import Account
-from polar.models.dispute import DisputeStatus
-from polar.models.payment import PaymentStatus
-from polar.postgres import AsyncSession
+from repalis.backoffice.organizations_v2.analytics import PaymentAnalyticsService
+from repalis.models import Account
+from repalis.models.dispute import DisputeStatus
+from repalis.models.payment import PaymentStatus
+from repalis.postgres import AsyncSession
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (
     create_customer,

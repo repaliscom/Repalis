@@ -14,7 +14,7 @@ const token = (opened: string[]) =>
           opened.push('token page')
           return '.env.local'
         }),
-      render: (envFile) => [`Added POLAR_ACCESS_TOKEN to ${envFile}`],
+      render: (envFile) => [`Added REPALIS_ACCESS_TOKEN to ${envFile}`],
     }),
   )
 
@@ -25,7 +25,7 @@ describe('textOnly', () => {
     const exit = await Effect.runPromiseExit(cli.effect)
     expect(Exit.isSuccess(exit)).toBe(true)
     expect(cli.output()).toBe(
-      'Opening your browser to create a token...\nAdded POLAR_ACCESS_TOKEN to .env.local',
+      'Opening your browser to create a token...\nAdded REPALIS_ACCESS_TOKEN to .env.local',
     )
   })
 

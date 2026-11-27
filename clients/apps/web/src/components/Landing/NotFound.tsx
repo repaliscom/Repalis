@@ -1,5 +1,5 @@
-import { Button, Grid, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { Button, Grid, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import Link from 'next/link'
 import type { ComponentType } from 'react'
 import { WaveBars } from './graphics/WaveBars'
@@ -16,7 +16,7 @@ interface Destination {
 const DESTINATIONS: Destination[] = [
   { title: 'Homepage', href: '/', Graphic: SteppedRadial },
   { title: 'Blog', href: '/blog', Graphic: VectorField },
-  { title: 'Documentation', href: 'https://polar.sh/docs', Graphic: WaveBars },
+  { title: 'Documentation', href: '/docs', Graphic: WaveBars },
   { title: 'Company', href: '/company', Graphic: LinkedRings },
 ]
 

@@ -1,11 +1,11 @@
-# Polar CLI
+# Repalis CLI
 
-The Polar CLI brings your Polar organization to your terminal. Work with
+The Repalis CLI brings your Repalis organization to your terminal. Work with
 products, customers, orders and the rest of the API, receive webhooks on your
 local machine, and send sample events to your handler.
 
 How to use it is covered in the
-[documentation](https://polar.sh/docs/integrate/cli/introduction). This README
+[documentation](https://repalis.com/docs/integrate/cli/introduction). This README
 covers installing the CLI and working on it.
 
 ## Install
@@ -13,65 +13,65 @@ covers installing the CLI and working on it.
 macOS and Linux:
 
 ```bash
-curl -fsSL https://polar.sh/install.sh | bash
+curl -fsSL https://repalis.com/install.sh | bash
 ```
 
 Windows, from PowerShell. Only x64 is supported:
 
 ```powershell
-irm https://polar.sh/install.ps1 | iex
+irm https://repalis.com/install.ps1 | iex
 ```
 
-The installer puts `polar.exe` in `%USERPROFILE%\.polar\bin` and adds that
+The installer puts `repalis.exe` in `%USERPROFILE%\.repalis\bin` and adds that
 folder to your user `PATH`. Restart any other open terminals so they pick it up.
 
 Or with a package manager, on any platform. pnpm and bun block install scripts
 by default, and the flags below allow the one that unpacks the binary:
 
 ```bash
-npm install -g @polar-sh/cli
-pnpm add -g --allow-build=@polar-sh/cli @polar-sh/cli
-bun install -g --trust @polar-sh/cli
+npm install -g @repalis/cli
+pnpm add -g --allow-build=@repalis/cli @repalis/cli
+bun install -g --trust @repalis/cli
 ```
 
-Check that it works with `polar --version`.
+Check that it works with `repalis --version`.
 
 ## Development
 
 From `clients/`, install dependencies with `pnpm install`, then use
-`pnpm --filter @polar-sh/cli test`, `typecheck`, `format`, or `lint`.
+`pnpm --filter @repalis/cli test`, `typecheck`, `format`, or `lint`.
 Bun `1.4.2` is the runtime, test runner, and binary compiler; pnpm manages dependencies.
 
 Run the CLI from source with `bun src/cli.ts <command>` in this directory, or
-compile the release binary with `pnpm build:binary` and run `./polar`.
+compile the release binary with `pnpm build:binary` and run `./repalis`.
 
-**To run against a local Polar API** instead of sandbox or production, point the CLI
-at it with `POLAR_API_URL` and authenticate with an organization access token
+**To run against a local Repalis API** instead of sandbox or production, point the CLI
+at it with `REPALIS_API_URL` and authenticate with an organization access token
 created in the local dashboard (scopes `webhooks:read`, `webhooks:write`,
 `organizations:read`). The token replaces `auth login`, so there is no browser
 flow and no environment to choose:
 
 ```bash
-export POLAR_API_URL=http://127.0.0.1:8000
-export POLAR_ACCESS_TOKEN=polar_oat_...
+export REPALIS_API_URL=http://127.0.0.1:8000
+export REPALIS_ACCESS_TOKEN=repalis_oat_...
 bun src/cli.ts <command>
 ```
 
 To create a token for an app against the local stack, sign in with
 `auth login --local` (`dev seed` registers its OAuth client). `auth token` then
 opens the local dashboard at `127.0.0.1:3000`. Unset the variables from the token
-setup above first: `auth login` refuses to run with `POLAR_ACCESS_TOKEN` set, and
+setup above first: `auth login` refuses to run with `REPALIS_ACCESS_TOKEN` set, and
 `--local` already points at the local API:
 
 ```bash
-unset POLAR_API_URL POLAR_ACCESS_TOKEN
+unset REPALIS_API_URL REPALIS_ACCESS_TOKEN
 bun src/cli.ts auth login --local
 bun src/cli.ts auth token
 ```
 
 ### Generated API commands
 
-The CLI imports its API command tree from the private `@polar-sh/cli-commands`
+The CLI imports its API command tree from the private `@repalis/cli-commands`
 package in `sdk/cli-commands` through a local `file:` dependency. The generator
 and templates live in `sdk/generator/cli_commands`; the CLI supplies the Effect
 runtime implementation in `src/api-runtime.ts`.
@@ -90,19 +90,19 @@ error type and status code, the name of the flag, argument or subcommand behind
 a usage mistake, the environment (sandbox or production), the duration, the CLI version,
 OS, architecture, Bun version, whether it ran in CI, and which AI coding agent
 (if any) invoked it. Events are keyed by a random install id stored in
-`~/.polar/telemetry.json`. Access tokens, organization IDs, URLs and payloads
+`~/.repalis/telemetry.json`. Access tokens, organization IDs, URLs and payloads
 are never sent. The PostHog project key is a public write-only token, the same
 one the website uses.
 
 Telemetry is wired around the root command in `src/cli.ts`, so new commands are
 covered automatically. Only the compiled release binary sends events, which the
-release workflow marks with `--define POLAR_CLI_BUILD='"release"'`; running
+release workflow marks with `--define REPALIS_CLI_BUILD='"release"'`; running
 from source or from `bin/cli.js` sends nothing. Opt out with
-`POLAR_CLI_TELEMETRY_OPTOUT=1` (`DO_NOT_TRACK=1` is honoured too).
+`REPALIS_CLI_TELEMETRY_OPTOUT=1` (`DO_NOT_TRACK=1` is honoured too).
 
 ## Releases
 
-Add a changeset from `clients/` with `pnpm exec changeset` and select `@polar-sh/cli`.
+Add a changeset from `clients/` with `pnpm exec changeset` and select `@repalis/cli`.
 Changesets updates `package.json` and `CHANGELOG.md` in the existing release PR.
 This `package.json` is marked private because the npm packages are generated by
 the release workflow (see [npm](#npm)); Changesets still versions it. The binary
@@ -111,54 +111,54 @@ embeds its version from `package.json`; do not edit `src/version.ts` for release
 Merging a CLI version bump into `main` starts
 [Release CLI](../../../.github/workflows/release_cli.yml). It tests the CLI,
 compiles the five supported targets, signs and notarizes the macOS binaries,
-and uploads these assets to a draft release in `polarsource/polar`:
+and uploads these assets to a draft release in `repaliscom/Repalis`:
 
-- `polar-darwin-arm64.zip`
-- `polar-darwin-x64.zip`
-- `polar-linux-arm64.tar.gz`
-- `polar-linux-x64.tar.gz`
-- `polar-windows-x64.zip`
+- `repalis-darwin-arm64.zip`
+- `repalis-darwin-x64.zip`
+- `repalis-linux-arm64.tar.gz`
+- `repalis-linux-x64.tar.gz`
+- `repalis-windows-x64.zip`
 - `checksums.txt`
 
 Only after every upload succeeds does the workflow publish the release, tagged
-`@polar-sh/cli@<version>`. Release notes come from the CLI's changelog. CLI releases
+`@repalis/cli@<version>`. Release notes come from the CLI's changelog. CLI releases
 do not become the monorepo's generic GitHub "latest" release: the updater and
-`install.sh` (served at `polar.sh/install.sh`) list releases, follow pagination,
-filter stable `@polar-sh/cli@` tags, and compare semantic versions. Publishing is
+`install.sh` (served at `repalis.com/install.sh`) list releases, follow pagination,
+filter stable `@repalis/cli@` tags, and compare semantic versions. Publishing is
 independent of the changesets-driven npm release workflow for the other packages.
 
 ### npm
 
 The same binaries (signed and notarized on macOS, unsigned elsewhere) are also
-published to npm as `@polar-sh/cli`, installed with `npm install -g
-@polar-sh/cli`, `pnpm add -g --allow-build=@polar-sh/cli @polar-sh/cli` or
-`bun install -g --trust @polar-sh/cli` (pnpm and bun block install scripts
+published to npm as `@repalis/cli`, installed with `npm install -g
+@repalis/cli`, `pnpm add -g --allow-build=@repalis/cli @repalis/cli` or
+`bun install -g --trust @repalis/cli` (pnpm and bun block install scripts
 unless told otherwise). The layout follows opencode's: one
-`@polar-sh/cli-<platform>-<arch>` package per target that ships only
-`bin/polar`, restricted with `os`/`cpu` so package managers download a single
-one, and a main `@polar-sh/cli` package that lists them as
-`optionalDependencies`. Its `bin` points at `bin/polar.exe`, a placeholder that
+`@repalis/cli-<platform>-<arch>` package per target that ships only
+`bin/repalis`, restricted with `os`/`cpu` so package managers download a single
+one, and a main `@repalis/cli` package that lists them as
+`optionalDependencies`. Its `bin` points at `bin/repalis.exe`, a placeholder that
 `postinstall.mjs` replaces with a hard link (or copy) of the platform binary, so
-after install the `polar` command runs the Bun executable directly with no Node
+after install the `repalis` command runs the Bun executable directly with no Node
 launcher in between. If installation scripts are disabled, the placeholder
 prints an error explaining that and points at `install.sh`.
 
 The `npm` job downloads the archives from the GitHub release, verifies them
 against `checksums.txt`, and runs `scripts/npm-package.ts` to turn each extracted
-`polar` binary into a platform package under `dist/npm/`, so npm always ships
+`repalis` binary into a platform package under `dist/npm/`, so npm always ships
 the exact bytes of the GitHub release. `scripts/npm-publish.ts` collects those
 directories, generates the main package from `scripts/npm-manifest.ts` and
 `scripts/npm-postinstall.mjs`, and publishes platform packages before the main
 one. It checks `npm view` first, so rerunning a workflow only publishes what is
 missing. The `npm` job runs it with `--dry-run` for verification builds.
 
-`polar update` follows opencode's updater. `src/services/updater.ts` resolves the
+`repalis update` follows opencode's updater. `src/services/updater.ts` resolves the
 running executable through its symlink and reads the `package.json` two levels
-up: if it names `@polar-sh/cli` and one of its `bin` entries is the executable,
+up: if it names `@repalis/cli` and one of its `bin` entries is the executable,
 the CLI was installed from npm. It then asks `npm`, `pnpm`, `bun`, `yarn` and
 `vp` (Vite+) concurrently which one lists the package globally and reruns that
-package manager (`npm install --global @polar-sh/cli@<version>`, `pnpm add
---global --allow-build=@polar-sh/cli ...`, `bun install --global --trust ...`,
+package manager (`npm install --global @repalis/cli@<version>`, `pnpm add
+--global --allow-build=@repalis/cli ...`, `bun install --global --trust ...`,
 `yarn global add ...`, `vp install --global ...`) against the latest version on
 the npm registry, so postinstall
 runs again and the binary is swapped consistently. Anything else is treated as
@@ -168,7 +168,7 @@ kept alive during the upgrade so the package manager can replace it.
 
 The job authenticates with npm trusted publishing (`id-token: write`), like the
 other packages. npm only lets you configure a trusted publisher on an existing
-package, so `@polar-sh/cli` and each platform package were bootstrapped with an
+package, so `@repalis/cli` and each platform package were bootstrapped with an
 empty `0.0.1` release published by hand, then `release_cli.yml` was added as
 their trusted publisher on npmjs.com. Deprecate the `0.0.1` versions once the
 first real release is out so `npm install` never resolves to them.
@@ -178,7 +178,7 @@ The workflow skips metadata-only changes. It does not publish the imported
 
 ### Signing secrets
 
-Configure these repository secrets in `polarsource/polar` before the first run:
+Configure these repository secrets in `repaliscom/Repalis` before the first run:
 
 - `MACOS_CERTIFICATE_P12_BASE64`
 - `MACOS_CERTIFICATE_PASSWORD`
@@ -194,7 +194,7 @@ release workflows read Bun `1.4.2` from `engines.bun` in the CLI's `package.json
 ### Verification and retries
 
 Manually run **Release CLI** with `publish` unchecked to build and upload a
-verification draft. Its `@polar-sh/cli-verify-...` tag is ignored by the updater.
+verification draft. Its `@repalis/cli-verify-...` tag is ignored by the updater.
 
 Rerunning the workflow is safe: it finishes whatever is still missing. To retry
 a failed stable release, rerun the original workflow run, or dispatch the
@@ -208,24 +208,24 @@ corrections require a new changeset/version.
 
 ### One-time bridge release
 
-Existing installations and the legacy `install.sh` in `polarsource/cli` use that
+Existing installations and the legacy `install.sh` in `repaliscom/cli` use that
 repository.
 After the first monorepo release is published:
 
 1. Disable the old repository's tag-triggered release workflow so it cannot build
    the old source over the bridge release.
-2. Download the five assets from `@polar-sh/cli@<version>` in `polarsource/polar`.
+2. Download the five assets from `@repalis/cli@<version>` in `repaliscom/Repalis`.
 3. Upload those **same signed assets and checksums** to a draft `v<version>`
-   release in `polarsource/cli`. Record the monorepo release URL in its notes;
+   release in `repaliscom/cli`. Record the monorepo release URL in its notes;
    the monorepo commit SHA is not a commit in the old repository.
 4. Verify the draft, then publish it as the old repository's latest release.
 
-This is a manual operation with credentials that can publish to `polarsource/cli`;
+This is a manual operation with credentials that can publish to `repaliscom/cli`;
 the monorepo workflow does not publish there. Do not rebuild the bridge binaries
-from the old repository. Existing clients install the bridge via `polar update`,
+from the old repository. Existing clients install the bridge via `repalis update`,
 then discover future releases from the monorepo. Keep the bridge release available
-indefinitely for users who update later.
+indefefinitely for users who update later.
 
 The legacy installer is deliberately retained as a bridge bootstrap for anyone who
-still fetches it from `polarsource/cli` directly: it installs the bridge version,
-after which `polar update` installs the newest monorepo version.
+still fetches it from `repaliscom/cli` directly: it installs the bridge version,
+after which `repalis update` installs the newest monorepo version.

@@ -50,7 +50,7 @@ SubscriptionRevoked.PreviewProps = {
     status: 'canceled',
   },
   previous_billing_provider: 'Stripe',
-  url: 'https://polar.sh/acme-inc/portal/subscriptions/12345',
+  url: 'https://repalis.com/acme-inc/portal/subscriptions/12345',
 }
 
 export default SubscriptionRevoked

@@ -3,7 +3,7 @@ from uuid import UUID, uuid4
 
 import pytest
 
-from polar.billing_interval.service import (
+from repalis.billing_interval.service import (
     BillingIntervalConflict,
     derive_meter_billing_states,
     get_interval_boundaries,
@@ -13,11 +13,11 @@ from polar.billing_interval.service import (
     resolve_ownership,
     select_settlement_windows,
 )
-from polar.billing_interval.types import (
+from repalis.billing_interval.types import (
     IntervalChangePlan,
     SubscriptionMeterBillingState,
 )
-from polar.models import (
+from repalis.models import (
     BillingInterval,
     Meter,
     ProductPriceFixed,
@@ -26,9 +26,9 @@ from polar.models import (
     Subscription,
     SubscriptionProductPrice,
 )
-from polar.models.billing_interval import UsagePolicy
-from polar.models.subscription import SubscriptionStatus
-from polar.reducer.types import UsageWindow
+from repalis.models.billing_interval import UsagePolicy
+from repalis.models.subscription import SubscriptionStatus
+from repalis.reducer.types import UsageWindow
 
 START = datetime(2026, 1, 1, tzinfo=UTC)
 CHANGE = datetime(2026, 2, 1, tzinfo=UTC)

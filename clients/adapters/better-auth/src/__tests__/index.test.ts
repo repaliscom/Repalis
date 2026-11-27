@@ -1,20 +1,20 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { polar } from '../index'
+import { repalis } from '../index'
 import { checkout } from '../plugins/checkout'
 import { portal } from '../plugins/portal'
 import { webhooks } from '../plugins/webhooks'
-import { createTestPolarOptions } from './utils/helpers'
-import { createMockPolarClient } from './utils/mocks'
+import { createTestRepalisOptions } from './utils/helpers'
+import { createMockRepalisClient } from './utils/mocks'
 
 vi.mock('../plugins/checkout')
 vi.mock('../plugins/portal')
 vi.mock('../plugins/webhooks')
 
-describe('polar plugin', () => {
-  let mockClient: ReturnType<typeof createMockPolarClient>
+describe('repalis plugin', () => {
+  let mockClient: ReturnType<typeof createMockRepalisClient>
 
   beforeEach(() => {
-    mockClient = createMockPolarClient()
+    mockClient = createMockRepalisClient()
     vi.clearAllMocks()
 
     vi.mocked(checkout).mockReturnValue(
@@ -38,14 +38,14 @@ describe('polar plugin', () => {
   })
 
   it('should create a plugin with correct id', () => {
-    const options = createTestPolarOptions({
+    const options = createTestRepalisOptions({
       client: mockClient,
       use: [checkout()],
     })
 
-    const plugin = polar(options)
+    const plugin = repalis(options)
 
-    expect(plugin.id).toBe('polar')
+    expect(plugin.id).toBe('repalis')
   })
 
   it('should combine endpoints from all plugins', () => {
@@ -57,12 +57,12 @@ describe('polar plugin', () => {
     vi.mocked(checkout).mockReturnValue(mockCheckoutPlugin)
     vi.mocked(portal).mockReturnValue(mockPortalPlugin)
 
-    const options = createTestPolarOptions({
+    const options = createTestRepalisOptions({
       client: mockClient,
       use: [checkout(), portal()],
     })
 
-    const plugin = polar(options)
+    const plugin = repalis(options)
 
     expect(plugin.endpoints).toHaveProperty('checkout/create')
     expect(plugin.endpoints).toHaveProperty('portal/url')
@@ -71,12 +71,12 @@ describe('polar plugin', () => {
   })
 
   it('should initialize with database hooks', () => {
-    const options = createTestPolarOptions({
+    const options = createTestRepalisOptions({
       client: mockClient,
       use: [checkout()],
     })
 
-    const plugin = polar(options)
+    const plugin = repalis(options)
     const initResult = plugin.init({} as never)
 
     expect(initResult.options).toHaveProperty('databaseHooks')
@@ -88,29 +88,29 @@ describe('polar plugin', () => {
   })
 
   it('should validate the Better Auth organization plugin during init', () => {
-    const options = createTestPolarOptions({
+    const options = createTestRepalisOptions({
       client: mockClient,
       experimental_organizationSync: { enabled: true },
       use: [checkout()],
     })
-    const plugin = polar(options)
+    const plugin = repalis(options)
     const context = {
       getPlugin: vi.fn().mockReturnValue(null),
       logger: { error: vi.fn(), warn: vi.fn() },
     }
 
     expect(() => plugin.init(context as never)).toThrow(
-      "Polar organization support requires Better Auth's organization plugin",
+      "Repalis organization support requires Better Auth's organization plugin",
     )
   })
 
   it('should handle empty plugin array', () => {
-    const options = createTestPolarOptions({
+    const options = createTestRepalisOptions({
       client: mockClient,
       use: [] as any,
     })
 
-    const plugin = polar(options)
+    const plugin = repalis(options)
 
     expect(plugin.endpoints).toEqual({})
   })
@@ -122,12 +122,12 @@ describe('polar plugin', () => {
     vi.mocked(checkout).mockReturnValueOnce(mockPlugin1)
     vi.mocked(portal).mockReturnValueOnce(mockPlugin2)
 
-    const options = createTestPolarOptions({
+    const options = createTestRepalisOptions({
       client: mockClient,
       use: [checkout(), portal()],
     })
 
-    const plugin = polar(options)
+    const plugin = repalis(options)
 
     expect(plugin.endpoints).toHaveProperty('test/endpoint1')
     expect(plugin.endpoints).toHaveProperty('test/endpoint2')
@@ -135,16 +135,16 @@ describe('polar plugin', () => {
 
   it('should preserve plugin configuration', () => {
     const customGetCustomerCreateParams = vi.fn()
-    const options = createTestPolarOptions({
+    const options = createTestRepalisOptions({
       client: mockClient,
       createCustomerOnSignUp: false,
       getCustomerCreateParams: customGetCustomerCreateParams,
       use: [checkout()],
     })
 
-    const plugin = polar(options)
+    const plugin = repalis(options)
 
     expect(plugin).toBeDefined()
-    expect(plugin.id).toBe('polar')
+    expect(plugin.id).toBe('repalis')
   })
 })

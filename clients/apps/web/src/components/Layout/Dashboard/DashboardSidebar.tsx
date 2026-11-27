@@ -10,9 +10,9 @@ import {
   KeyboardArrowDown,
   LockOutlined,
   Search,
-} from '@polar-sh/orbit/icons'
-import { schemas } from '@polar-sh/client'
-import { Avatar, Button } from '@polar-sh/orbit'
+} from '@repalis/orbit/icons'
+import { schemas } from '@repalis/client'
+import { Avatar, Button } from '@repalis/orbit'
 import {
   Sidebar,
   SidebarContent,
@@ -21,21 +21,21 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from '@polar-sh/ui/components/atoms/Sidebar'
+} from '@repalis/ui/components/atoms/Sidebar'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@polar-sh/ui/components/ui/dropdown-menu'
-import { Separator } from '@polar-sh/ui/components/ui/separator'
+} from '@repalis/ui/components/ui/dropdown-menu'
+import { Separator } from '@repalis/ui/components/ui/separator'
 import { m } from 'motion/react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
-import { PolarLogotype } from '../Public/PolarLogotype'
+import { RepalisLogotype } from '../Public/RepalisLogotype'
 import {
   AccountNavigation,
   OrganizationNavigation,
@@ -121,7 +121,7 @@ export const DashboardSidebar = ({
         )}
       >
         <div className="ml-1">
-          <PolarLogotype
+          <RepalisLogotype
             size={24}
             href={
               organization ? `/dashboard/${organization.slug}` : '/dashboard'
@@ -174,9 +174,9 @@ export const DashboardSidebar = ({
       </SidebarContent>
       <SidebarFooter>
         {isOnFreePlan && !isSubSidebar && (
-          <div className="dark:bg-polar-900 dark:border-polar-700 flex flex-col gap-y-2 rounded-sm border border-gray-100 bg-white p-4">
-            <h3 className="text-sm">Introducing Polar Plans</h3>
-            <p className="dark:text-polar-500 text-sm text-gray-500">
+          <div className="dark:bg-repalis-900 dark:border-repalis-700 flex flex-col gap-y-2 rounded-sm border border-gray-100 bg-white p-4">
+            <h3 className="text-sm">Introducing Repalis Plans</h3>
+            <p className="dark:text-repalis-500 text-sm text-gray-500">
               Get a lower fee with our subscription plans
             </p>
             <Link
@@ -196,9 +196,9 @@ export const DashboardSidebar = ({
             <a
               className={twMerge(
                 'flex flex-row items-center rounded-lg border border-transparent text-sm transition-colors dark:border-transparent',
-                'dark:text-polar-500 dark:hover:text-polar-200 text-gray-500 hover:text-black',
+                'dark:text-repalis-500 dark:hover:text-repalis-200 text-gray-500 hover:text-black',
               )}
-              href="https://polar.sh/docs"
+              href="/docs"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -256,7 +256,7 @@ export const DashboardSidebar = ({
                         className="h-6 w-6"
                       />
                       <span className="min-w-0 truncate">{org.name}</span>
-                      <span className="dark:bg-polar-700 ml-auto flex shrink-0 items-center gap-x-1 rounded-full bg-gray-100 px-2 py-0.5 text-xs text-gray-500 dark:text-gray-400">
+                      <span className="dark:bg-repalis-700 ml-auto flex shrink-0 items-center gap-x-1 rounded-full bg-gray-100 px-2 py-0.5 text-xs text-gray-500 dark:text-gray-400">
                         {org.requires_sso ? (
                           <>
                             <LockOutlined fontSize="inherit" />
@@ -283,7 +283,7 @@ export const DashboardSidebar = ({
                   {!CONFIG.IS_SANDBOX && (
                     <DropdownMenuItem
                       onClick={() =>
-                        router.push('https://sandbox.polar.sh/start')
+                        router.push('https://sandbox.repalis.com/start')
                       }
                     >
                       Go to Sandbox

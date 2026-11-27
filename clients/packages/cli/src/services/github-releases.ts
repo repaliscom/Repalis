@@ -1,8 +1,8 @@
 import { Data, Effect, Schema } from 'effect'
 import { HttpClient, HttpClientResponse } from 'effect/http'
 
-const REPOSITORY = 'polarsource/polar'
-const TAG_PREFIX = '@polar-sh/cli@'
+const REPOSITORY = 'repaliscom/Repalis'
+const TAG_PREFIX = '@repalis/cli@'
 
 const GitHubRelease = Schema.Struct({
   tag_name: Schema.String,

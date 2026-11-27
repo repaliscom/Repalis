@@ -7,12 +7,12 @@ import { notifyDeployment } from './slack.mjs';
 process.env.DEPLOY_SLACK_CHANNEL_ID = 'CDEPLOY';
 const run = {
   id: 123, run_number: 42, run_attempt: 2, status: 'in_progress',
-  html_url: 'https://github.com/polarsource/polar/actions/runs/123',
-  repository: { html_url: 'https://github.com/polarsource/polar' },
+  html_url: 'https://github.com/repaliscom/Repalis/actions/runs/123',
+  repository: { html_url: 'https://github.com/repaliscom/Repalis' },
   head_sha: 'abc123456', head_branch: 'main', actor: { login: 'deployer', type: 'User' },
   run_started_at: '2026-10-16T12:00:00Z',
 };
-const repo = { owner: 'polarsource', repo: 'polar' };
+const repo = { owner: 'repaliscom', repo: 'Repalis' };
 const jobs = ['test', 'sandbox', 'production'].flatMap(environment => {
   const name = environment[0].toUpperCase() + environment.slice(1);
   return [

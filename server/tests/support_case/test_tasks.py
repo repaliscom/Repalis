@@ -12,24 +12,24 @@ from fpdf import FPDF
 from pypdf import PdfReader
 from pytest_mock import MockerFixture
 
-from polar.models import (
+from repalis.models import (
     Customer,
     Organization,
     Product,
     UserOrganization,
 )
-from polar.models.file import FileServiceTypes
-from polar.models.support_case import (
+from repalis.models.file import FileServiceTypes
+from repalis.models.support_case import (
     SupportCase,
     SupportCaseAudience,
     SupportCaseMessage,
     SupportCaseMessageAuthorKind,
     SupportCaseMessageType,
 )
-from polar.postgres import AsyncSession
-from polar.support_case.repository import SupportCaseAttachmentRepository
-from polar.support_case.service import support_case as support_case_service
-from polar.support_case.tasks import (
+from repalis.postgres import AsyncSession
+from repalis.support_case.repository import SupportCaseAttachmentRepository
+from repalis.support_case.service import support_case as support_case_service
+from repalis.support_case.tasks import (
     SupportCaseAttachmentsNotFound,
     merge_case_attachments,
     notify_organization_of_new_message,
@@ -87,9 +87,9 @@ class TestNotifyOrganization:
             author_kind=SupportCaseMessageAuthorKind.platform,
             audience=[SupportCaseAudience.merchant],
         )
-        enqueue = mocker.patch("polar.support_case.tasks.enqueue_email_template")
+        enqueue = mocker.patch("repalis.support_case.tasks.enqueue_email_template")
         mocker.patch(
-            "polar.support_case.tasks.AsyncSessionMaker",
+            "repalis.support_case.tasks.AsyncSessionMaker",
             return_value=_session_maker(session),
         )
 
@@ -123,9 +123,9 @@ class TestNotifyOrganization:
             author_kind=SupportCaseMessageAuthorKind.platform,
             audience=[SupportCaseAudience.merchant],
         )
-        enqueue = mocker.patch("polar.support_case.tasks.enqueue_email_template")
+        enqueue = mocker.patch("repalis.support_case.tasks.enqueue_email_template")
         mocker.patch(
-            "polar.support_case.tasks.AsyncSessionMaker",
+            "repalis.support_case.tasks.AsyncSessionMaker",
             return_value=_session_maker(session),
         )
 
@@ -153,9 +153,9 @@ class TestNotifyOrganization:
             author_kind=SupportCaseMessageAuthorKind.merchant,
             audience=[SupportCaseAudience.merchant],
         )
-        enqueue = mocker.patch("polar.support_case.tasks.enqueue_email_template")
+        enqueue = mocker.patch("repalis.support_case.tasks.enqueue_email_template")
         mocker.patch(
-            "polar.support_case.tasks.AsyncSessionMaker",
+            "repalis.support_case.tasks.AsyncSessionMaker",
             return_value=_session_maker(session),
         )
 
@@ -199,11 +199,11 @@ class TestMergeCaseAttachments:
             "Body": BytesIO(_pdf_bytes())
         }
         mocker.patch(
-            "polar.support_case.tasks.S3_SERVICES",
+            "repalis.support_case.tasks.S3_SERVICES",
             {FileServiceTypes.support_case_attachment: s3},
         )
         mocker.patch(
-            "polar.support_case.tasks.AsyncSessionMaker",
+            "repalis.support_case.tasks.AsyncSessionMaker",
             return_value=_session_maker(session),
         )
 
@@ -237,7 +237,7 @@ class TestMergeCaseAttachments:
     ) -> None:
         case = await create_dispute_case(save_fixture, organization, customer, product)
         mocker.patch(
-            "polar.support_case.tasks.AsyncSessionMaker",
+            "repalis.support_case.tasks.AsyncSessionMaker",
             return_value=_session_maker(session),
         )
 
@@ -256,11 +256,11 @@ class TestMergeCaseAttachments:
         case = await create_dispute_case(save_fixture, organization, customer, product)
         s3 = MagicMock()
         mocker.patch(
-            "polar.support_case.tasks.S3_SERVICES",
+            "repalis.support_case.tasks.S3_SERVICES",
             {FileServiceTypes.support_case_attachment: s3},
         )
         mocker.patch(
-            "polar.support_case.tasks.AsyncSessionMaker",
+            "repalis.support_case.tasks.AsyncSessionMaker",
             return_value=_session_maker(session),
         )
 
@@ -293,11 +293,11 @@ class TestMergeCaseAttachments:
             "Body": BytesIO(_pdf_bytes())
         }
         mocker.patch(
-            "polar.support_case.tasks.S3_SERVICES",
+            "repalis.support_case.tasks.S3_SERVICES",
             {FileServiceTypes.support_case_attachment: s3},
         )
         mocker.patch(
-            "polar.support_case.tasks.AsyncSessionMaker",
+            "repalis.support_case.tasks.AsyncSessionMaker",
             return_value=_session_maker(session),
         )
 

@@ -5,8 +5,8 @@ from alembic import context
 from sqlalchemy import pool
 from sqlalchemy.ext.asyncio import async_engine_from_config
 
-from polar.config import settings
-from polar.models import Model
+from repalis.config import settings
+from repalis.models import Model
 
 # Columns removed from the models but still in the database until dropped by hand.
 UNMAPPED_COLUMNS: set[tuple[str, str]] = set()

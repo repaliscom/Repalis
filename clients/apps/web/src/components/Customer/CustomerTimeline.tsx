@@ -2,8 +2,8 @@
 
 import { Timeline } from '@/components/Timeline/Timeline'
 import { useHasPermission } from '@/hooks/permissions'
-import { schemas } from '@polar-sh/client'
-import { SegmentedControl } from '@polar-sh/orbit'
+import { schemas } from '@repalis/client'
+import { SegmentedControl } from '@repalis/orbit'
 import { useState } from 'react'
 import { ContextCard } from '../Shared/ContextCard'
 import { buildCustomerEventsPath } from '@/utils/event'

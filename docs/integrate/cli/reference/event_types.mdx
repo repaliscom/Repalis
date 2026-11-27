@@ -1,25 +1,25 @@
 ---
-title: "polar event_types"
+title: "repalis event_types"
 sidebarTitle: "event_types"
 ---
 
-{/* Generated from the CLI by `pnpm --filter @polar-sh/cli docs:generate`. Do not edit by hand. */}
+{/* Generated from the CLI by `pnpm --filter @repalis/cli docs:generate`. Do not edit by hand. */}
 
 ```bash
-polar event_types <subcommand> [flags]
+repalis event_types <subcommand> [flags]
 ```
 
 **Subcommands**
 
-- [`polar event_types list`](#polar-event_types-list) List event types with aggregated statistics.
-- [`polar event_types update`](#polar-event_types-update) Update an event type's label.
+- [`repalis event_types list`](#repalis-event_types-list) List event types with aggregated statistics.
+- [`repalis event_types update`](#repalis-event_types-update) Update an event type's label.
 
-## polar event_types list
+## repalis event_types list
 
 List event types with aggregated statistics.
 
 ```bash
-polar event_types list [flags]
+repalis event_types list [flags]
 ```
 
 **Flags**
@@ -39,12 +39,12 @@ polar event_types list [flags]
 | `--limit` | `integer` | Size of a page, defaults to 10. Maximum is 100. |
 | `--sorting` | `choice` | Sorting criterion. Several criteria can be used simultaneously and will be applied in order. Add a minus sign `-` before the criteria name to sort by descending order. (choices: name, -name, label, -label, occurrences, -occurrences, first_seen, -first_seen, last_seen, -last_seen) |
 
-## polar event_types update
+## repalis event_types update
 
 Update an event type's label.
 
 ```bash
-polar event_types update [flags] <id>
+repalis event_types update [flags] <id>
 ```
 
 **Arguments**

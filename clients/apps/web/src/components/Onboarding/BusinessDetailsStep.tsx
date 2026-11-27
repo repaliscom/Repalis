@@ -3,13 +3,13 @@
 import { useOnboardingV2Tracking } from '@/hooks/onboardingV2'
 import { api } from '@/utils/client'
 import { formatCountry } from '@/utils/formatters'
-import { enums, schemas } from '@polar-sh/client'
-import { Box } from '@polar-sh/orbit/Box'
-import { Alert, Button } from '@polar-sh/orbit'
-import CountryPicker from '@polar-sh/ui/components/atoms/CountryPicker'
-import { Input } from '@polar-sh/orbit'
+import { enums, schemas } from '@repalis/client'
+import { Box } from '@repalis/orbit/Box'
+import { Alert, Button } from '@repalis/orbit'
+import CountryPicker from '@repalis/ui/components/atoms/CountryPicker'
+import { Input } from '@repalis/orbit'
 
-import { Tabs, TabsList, TabsTrigger } from '@polar-sh/orbit'
+import { Tabs, TabsList, TabsTrigger } from '@repalis/orbit'
 import {
   Form,
   FormControl,
@@ -17,7 +17,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@polar-sh/ui/components/ui/form'
+} from '@repalis/ui/components/ui/form'
 import { useRouter } from 'next/navigation'
 import { useEffect, useMemo, useState } from 'react'
 import {
@@ -298,7 +298,7 @@ export function BusinessDetailsStep() {
             name="organizationType"
             render={({ field }) => (
               <FormItem className="w-full">
-                <FormLabel>Using Polar as</FormLabel>
+                <FormLabel>Using Repalis as</FormLabel>
                 <FormControl>
                   <Tabs
                     value={field.value}
@@ -310,16 +310,16 @@ export function BusinessDetailsStep() {
                       }
                     }}
                   >
-                    <TabsList className="dark:bg-polar-900 w-full flex-row items-center rounded-full bg-gray-100">
+                    <TabsList className="dark:bg-repalis-900 w-full flex-row items-center rounded-full bg-gray-100">
                       <TabsTrigger
                         value="individual"
-                        className="dark:data-[state=active]:bg-polar-800 grow rounded-full! data-[state=active]:bg-white"
+                        className="dark:data-[state=active]:bg-repalis-800 grow rounded-full! data-[state=active]:bg-white"
                       >
                         Individual
                       </TabsTrigger>
                       <TabsTrigger
                         value="company"
-                        className="dark:data-[state=active]:bg-polar-800 grow rounded-full! data-[state=active]:bg-white"
+                        className="dark:data-[state=active]:bg-repalis-800 grow rounded-full! data-[state=active]:bg-white"
                       >
                         Business
                       </TabsTrigger>

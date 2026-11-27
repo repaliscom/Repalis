@@ -3,16 +3,16 @@
 import { DashboardBody } from '@/components/Layout/DashboardLayout'
 import { useModal } from '@/components/Modal/useModal'
 import { useMerchantMigrations } from '@/hooks/queries/merchantMigrations'
-import { schemas } from '@polar-sh/client'
-import { Alert, Button, InlineModal, SpinnerNoMargin } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { schemas } from '@repalis/client'
+import { Alert, Button, InlineModal, SpinnerNoMargin } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import { useRouter } from 'next/navigation'
 import { useCallback } from 'react'
 import { CreateMigrationModal } from './CreateMigrationModal'
 import { connectableSources } from './sources'
 import { SettingsGroup } from '@/components/Settings/SettingsGroup'
 import { EmptyState } from '@/components/Shared/EmptyState'
-import { Download } from '@polar-sh/orbit/icons'
+import { Download } from '@repalis/orbit/icons'
 import { MigrationRow } from './MigrationRow'
 
 // Mirrors the server's create guard: only organizations that finished
@@ -81,7 +81,7 @@ export default function MigrationsPage({ organization }: Props) {
           <EmptyState
             icon={<Download />}
             title="No migrations"
-            description="Start a migration to move your billing to Polar."
+            description="Start a migration to move your billing to Repalis."
           />
         ) : (
           <SettingsGroup>

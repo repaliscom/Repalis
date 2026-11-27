@@ -130,8 +130,8 @@ describe('DeltaTimeStrategy', () => {
     const strategy = Ingestion()
       .strategy(new DeltaTimeStrategy(mockNowResolver))
       .ingest('execution-time')
-    vi.spyOn(strategy.polarClient!.events, 'ingest').mockRejectedValue(
-      new Error('Polar is down'),
+    vi.spyOn(strategy.repalisClient!.events, 'ingest').mockRejectedValue(
+      new Error('Repalis is down'),
     )
     const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {})
 

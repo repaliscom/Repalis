@@ -1,9 +1,9 @@
 import pytest
 
-from polar.exceptions import PolarRequestValidationError
-from polar.kit.utils import utc_now
-from polar.merchant_migration import pan_transfer
-from polar.merchant_migration.pan_transfer import (
+from repalis.exceptions import RepalisRequestValidationError
+from repalis.kit.utils import utc_now
+from repalis.merchant_migration import pan_transfer
+from repalis.merchant_migration.pan_transfer import (
     STEP_CUTOVER,
     STEP_RESOLVE_UNCOVERED,
     STEP_VERIFY_CARDS,
@@ -18,8 +18,8 @@ from polar.merchant_migration.pan_transfer import (
     PanTransferStep,
     PanTransferStepsType,
 )
-from polar.models import MerchantMigration
-from polar.models.merchant_migration import MerchantMigrationSourcePlatform
+from repalis.models import MerchantMigration
+from repalis.models.merchant_migration import MerchantMigrationSourcePlatform
 from tests.merchant_migration._helpers import pan_step_required_inputs
 
 
@@ -42,7 +42,7 @@ def _advance_to(
             return steps
         actor = (
             PanStepActor.system
-            if step.owner == PanStepOwner.polar_app
+            if step.owner == PanStepOwner.repalis_app
             else PanStepActor.ops
         )
         template = pan_transfer._template(method, step.key)
@@ -96,7 +96,7 @@ class TestBuild:
     def test_information_only_steps_complete_immediately(self) -> None:
         steps = _copy_steps()
 
-        # Sharing Polar's destination account has nothing to wait on, so the
+        # Sharing Repalis's destination account has nothing to wait on, so the
         # merchant lands straight on the step they have to act on.
         assert steps[0].key == "share_destination_account"
         assert steps[0].status == PanStepStatus.completed
@@ -116,7 +116,7 @@ class TestBuild:
         current = pan_transfer.current(steps)
         assert current is not None
         assert current.key == "open_stripe_request"
-        assert current.owner == PanStepOwner.polar_ops
+        assert current.owner == PanStepOwner.repalis_ops
 
     @pytest.mark.parametrize("method", list(PanTransferMethod))
     def test_keys_are_unique(self, method: PanTransferMethod) -> None:
@@ -131,7 +131,7 @@ class TestBuild:
     ) -> None:
         templates = pan_transfer.templates_for(method)
         assert templates[-1].key == "move_subscriptions"
-        assert templates[-1].owner == PanStepOwner.polar_app
+        assert templates[-1].owner == PanStepOwner.repalis_app
         # Cutover is the last thing the merchant does before we take over billing.
         assert templates[-2].key == "cutover"
         assert templates[-2].owner == PanStepOwner.merchant
@@ -332,7 +332,7 @@ class TestComplete:
     def test_requires_declared_inputs(self) -> None:
         steps = pan_transfer.build(PanTransferMethod.pan_import)
 
-        with pytest.raises(PolarRequestValidationError) as exc:
+        with pytest.raises(RepalisRequestValidationError) as exc:
             pan_transfer.complete(
                 PanTransferMethod.pan_import,
                 steps,
@@ -345,7 +345,7 @@ class TestComplete:
         assert errors[0]["loc"] == ("body", "inputs", "stripe_migration_request_id")
 
     def test_copy_requires_stripe_migration_id(self) -> None:
-        with pytest.raises(PolarRequestValidationError) as exc:
+        with pytest.raises(RepalisRequestValidationError) as exc:
             pan_transfer.complete(
                 PanTransferMethod.pan_copy,
                 _copy_steps(),
@@ -380,7 +380,7 @@ class TestComplete:
         actor: PanStepActor,
     ) -> None:
         steps = pan_transfer.build(method)
-        with pytest.raises(PolarRequestValidationError) as exc:
+        with pytest.raises(RepalisRequestValidationError) as exc:
             pan_transfer.complete(
                 method,
                 steps,
@@ -394,7 +394,7 @@ class TestComplete:
         assert errors[0]["loc"] == ("body", "inputs", "stripe_migration_request_id")
 
     def test_rejects_undeclared_inputs(self) -> None:
-        with pytest.raises(PolarRequestValidationError) as exc:
+        with pytest.raises(RepalisRequestValidationError) as exc:
             pan_transfer.complete(
                 PanTransferMethod.pan_copy,
                 _copy_steps(),
@@ -491,7 +491,7 @@ class TestPanTransferStepsType:
 
 class TestKinds:
     @pytest.mark.parametrize("method", list(PanTransferMethod))
-    def test_only_polar_and_third_parties_own_auto_steps(
+    def test_only_repalis_and_third_parties_own_auto_steps(
         self, method: PanTransferMethod
     ) -> None:
         # A step the merchant owns always has something to click, otherwise the

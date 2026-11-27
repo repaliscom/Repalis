@@ -1,12 +1,12 @@
 'use client'
 
 import { getDisputeReasonExplanation } from '@/utils/dispute'
-import { schemas } from '@polar-sh/client'
-import { formatCurrency } from '@polar-sh/currency'
-import { Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import type { BackgroundColorToken } from '@polar-sh/orbit/theme'
-import FormattedDateTime from '@polar-sh/ui/components/atoms/FormattedDateTime'
+import { schemas } from '@repalis/client'
+import { formatCurrency } from '@repalis/currency'
+import { Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import type { BackgroundColorToken } from '@repalis/orbit/theme'
+import FormattedDateTime from '@repalis/ui/components/atoms/FormattedDateTime'
 import { differenceInCalendarDays } from 'date-fns'
 import { useState } from 'react'
 
@@ -64,7 +64,7 @@ const EVENT_META: Partial<
     description: 'You replied, so this dispute stays with you.',
   },
   dispute_auto_accepted: {
-    title: 'Polar accepted the dispute',
+    title: 'Repalis accepted the dispute',
     description: 'Conceded under the threshold you set.',
   },
 }

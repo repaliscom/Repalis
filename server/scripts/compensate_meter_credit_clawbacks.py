@@ -19,18 +19,18 @@ import typer
 from sqlalchemy import select
 from sqlalchemy.orm import joinedload
 
-from polar import tasks  # noqa: F401
-from polar.customer_meter.service import customer_meter as customer_meter_service
-from polar.event.repository import EventRepository
-from polar.event.service import event as event_service
-from polar.event.system import SystemEvent, build_system_event
-from polar.kit.db.postgres import AsyncSession, create_async_sessionmaker
-from polar.kit.math import non_negative_running_sum
-from polar.models import Customer, CustomerMeter, Meter
-from polar.postgres import create_async_engine
-from polar.redis import Redis, create_redis
-from polar.reducer.service import reducer as reducer_service
-from polar.worker import JobQueueManager
+from repalis import tasks  # noqa: F401
+from repalis.customer_meter.service import customer_meter as customer_meter_service
+from repalis.event.repository import EventRepository
+from repalis.event.service import event as event_service
+from repalis.event.system import SystemEvent, build_system_event
+from repalis.kit.db.postgres import AsyncSession, create_async_sessionmaker
+from repalis.kit.math import non_negative_running_sum
+from repalis.models import Customer, CustomerMeter, Meter
+from repalis.postgres import create_async_engine
+from repalis.redis import Redis, create_redis
+from repalis.reducer.service import reducer as reducer_service
+from repalis.worker import JobQueueManager
 
 from .helper import configure_script_logging, typer_async
 

@@ -19,9 +19,9 @@ import {
 } from '@/hooks/queries'
 import { useDataTableQueryState } from '@/hooks/useDataTableQueryState'
 import { extractApiErrorMessage } from '@/utils/api/errors'
-import { operations, schemas } from '@polar-sh/client'
-import { Button, Status, Switch, Text } from '@polar-sh/orbit'
-import CopyToClipboardInput from '@polar-sh/ui/components/atoms/CopyToClipboardInput'
+import { operations, schemas } from '@repalis/client'
+import { Button, Status, Switch, Text } from '@repalis/orbit'
+import CopyToClipboardInput from '@repalis/ui/components/atoms/CopyToClipboardInput'
 import { useParams, useRouter } from 'next/navigation'
 import { parseAsArrayOf, parseAsString, useQueryStates } from 'nuqs'
 import { useCallback, useState } from 'react'
@@ -176,7 +176,7 @@ export default function ClientPage({
             {endpoint.name && endpoint.name.length > 0 ? (
               <>
                 <h3 className="text-lg break-words">{endpoint.name}</h3>
-                <p className="dark:text-polar-400 font-mono text-sm break-all text-gray-500">
+                <p className="dark:text-repalis-400 font-mono text-sm break-all text-gray-500">
                   {endpoint.url}
                 </p>
               </>

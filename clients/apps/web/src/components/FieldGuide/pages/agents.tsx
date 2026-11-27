@@ -2,7 +2,7 @@ import { term, type TermTok } from '../kit'
 import { landscape } from './more'
 
 /**
- * Agentic workflows, before the machinery: an agent you already use, working with billing through Polar's MCP server.
+ * Agentic workflows, before the machinery: an agent you already use, working with billing through Repalis's MCP server.
  * One session, set as a transcript: what it noticed, the calls it made, the draft it left, and the person who approved.
  */
 
@@ -58,7 +58,7 @@ export const agentOps = landscape(
   'm-agents',
   'Native to agentic workflows',
   'Agents do the legwork, and people make the call.',
-  'An agent session over Polar’s MCP server: it sees margin on a plan fall below the floor, reads usage, drafts a higher price that passes the margin check, and leaves it for a person, who approves it.',
+  'An agent session over Repalis’s MCP server: it sees margin on a plan fall below the floor, reads usage, drafts a higher price that passes the margin check, and leaves it for a person, who approves it.',
   figure,
   [
     [
@@ -70,7 +70,7 @@ export const agentOps = landscape(
     [
       'Agents draft changes',
       [
-        'Agents in your editor, your chat or your own stack read usage and margins through Polar’s MCP server and draft changes. A draft is a branch, checked like any other change.',
+        'Agents in your editor, your chat or your own stack read usage and margins through Repalis’s MCP server and draft changes. A draft is a branch, checked like any other change.',
       ],
     ],
     [

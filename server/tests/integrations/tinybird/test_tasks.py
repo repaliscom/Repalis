@@ -3,10 +3,10 @@ from typing import cast
 import pytest
 from pytest_mock import MockerFixture
 
-from polar.integrations.tinybird.client import TinybirdPayloadTooLargeError
-from polar.integrations.tinybird.schemas import TinybirdEvent
-from polar.integrations.tinybird.service import DATASOURCE_EVENTS
-from polar.integrations.tinybird.tasks import MAX_BATCH_EVENTS, ingest
+from repalis.integrations.tinybird.client import TinybirdPayloadTooLargeError
+from repalis.integrations.tinybird.schemas import TinybirdEvent
+from repalis.integrations.tinybird.service import DATASOURCE_EVENTS
+from repalis.integrations.tinybird.tasks import MAX_BATCH_EVENTS, ingest
 
 _ingest = ingest.__wrapped__  # type: ignore[attr-defined]
 
@@ -19,7 +19,7 @@ def _event(event_id: str) -> TinybirdEvent:
 class TestIngest:
     async def test_chunks_large_batches(self, mocker: MockerFixture) -> None:
         ingest_mock = mocker.patch(
-            "polar.integrations.tinybird.tasks.client.ingest",
+            "repalis.integrations.tinybird.tasks.client.ingest",
         )
         events = [_event(f"event-{index}") for index in range(MAX_BATCH_EVENTS + 1)]
 
@@ -43,7 +43,7 @@ class TestIngest:
                 raise TinybirdPayloadTooLargeError(size=11, max_size=10)
 
         ingest_mock = mocker.patch(
-            "polar.integrations.tinybird.tasks.client.ingest",
+            "repalis.integrations.tinybird.tasks.client.ingest",
             side_effect=ingest_side_effect,
         )
 
@@ -63,10 +63,10 @@ class TestIngest:
                 raise TinybirdPayloadTooLargeError(size=11, max_size=10)
 
         ingest_mock = mocker.patch(
-            "polar.integrations.tinybird.tasks.client.ingest",
+            "repalis.integrations.tinybird.tasks.client.ingest",
             side_effect=ingest_side_effect,
         )
-        log_error_mock = mocker.patch("polar.integrations.tinybird.tasks.log.error")
+        log_error_mock = mocker.patch("repalis.integrations.tinybird.tasks.log.error")
 
         await _ingest([_event("ok"), _event("too-large")])
 

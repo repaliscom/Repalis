@@ -5,12 +5,12 @@ from pytest_mock import MockerFixture
 from sqlalchemy import Select, update
 from sqlalchemy.dialects import postgresql
 
-from polar.kit.utils import utc_now
-from polar.models import Customer, Order
-from polar.models.order import OrderStatus
-from polar.order.repository import OrderRepository
-from polar.order.sorting import OrderSortProperty
-from polar.postgres import AsyncSession
+from repalis.kit.utils import utc_now
+from repalis.models import Customer, Order
+from repalis.models.order import OrderStatus
+from repalis.order.repository import OrderRepository
+from repalis.order.sorting import OrderSortProperty
+from repalis.postgres import AsyncSession
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_order
 

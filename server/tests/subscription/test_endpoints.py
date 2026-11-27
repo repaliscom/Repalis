@@ -6,17 +6,17 @@ import pytest
 from httpx2 import AsyncClient
 from pytest_mock import MockerFixture
 
-from polar.auth.scope import Scope
-from polar.enums import (
+from repalis.auth.scope import Scope
+from repalis.enums import (
     SubscriptionProrationBehavior,
     SubscriptionRecurringInterval,
 )
-from polar.kit.currency import PresentmentCurrency
-from polar.kit.trial import TrialInterval
-from polar.kit.utils import utc_now
-from polar.kit.versioning import APIVersion
-from polar.kit.visibility import Visibility
-from polar.models import (
+from repalis.kit.currency import PresentmentCurrency
+from repalis.kit.trial import TrialInterval
+from repalis.kit.utils import utc_now
+from repalis.kit.versioning import APIVersion
+from repalis.kit.visibility import Visibility
+from repalis.models import (
     Customer,
     Discount,
     Organization,
@@ -24,17 +24,17 @@ from polar.models import (
     Subscription,
     UserOrganization,
 )
-from polar.models.customer_seat import SeatStatus
-from polar.models.discount import DiscountDuration, DiscountType
-from polar.models.order import OrderStatus
-from polar.models.product_price import ProductPriceSeatUnit
-from polar.models.subscription import CustomerCancellationReason, SubscriptionStatus
-from polar.models.subscription_meter import SubscriptionMeter
-from polar.order.service import PaymentFailed, PaymentFailedReason
-from polar.postgres import AsyncSession
-from polar.subscription.repository import SubscriptionRepository
-from polar.subscription.service import subscription as subscription_service
-from polar.version import V2026_04, V2026_10, V2027_01
+from repalis.models.customer_seat import SeatStatus
+from repalis.models.discount import DiscountDuration, DiscountType
+from repalis.models.order import OrderStatus
+from repalis.models.product_price import ProductPriceSeatUnit
+from repalis.models.subscription import CustomerCancellationReason, SubscriptionStatus
+from repalis.models.subscription_meter import SubscriptionMeter
+from repalis.order.service import PaymentFailed, PaymentFailedReason
+from repalis.postgres import AsyncSession
+from repalis.subscription.repository import SubscriptionRepository
+from repalis.subscription.service import subscription as subscription_service
+from repalis.version import V2026_04, V2026_10, V2027_01
 from tests.fixtures.auth import AuthSubjectFixture
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (
@@ -1864,7 +1864,7 @@ class TestExportSubscriptions:
         assert response.headers["content-type"] == "text/csv; charset=utf-8"
         assert (
             response.headers["content-disposition"]
-            == 'attachment; filename="polar-subscriptions.csv"'
+            == 'attachment; filename="repalis-subscriptions.csv"'
         )
 
         csv_lines = response.text.strip().split("\r\n")
@@ -2043,7 +2043,7 @@ class TestExportSubscriptions:
         assert response.status_code == 200
         assert (
             response.headers["content-disposition"]
-            == 'attachment; filename="polar-subscriptions-2024-06-01-2024-06-30.csv"'
+            == 'attachment; filename="repalis-subscriptions-2024-06-01-2024-06-30.csv"'
         )
         csv_lines = response.text.strip().split("\r\n")
         assert csv_lines == ["Product", product_second.name]
@@ -2750,7 +2750,7 @@ class TestBulkUpdate:
         user_organization: UserOrganization,
         current_product: Product,
     ) -> None:
-        enqueue_job_mock = mocker.patch("polar.subscription.bulk_update.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.subscription.bulk_update.enqueue_job")
 
         response = await client.post(
             "/v1/subscriptions/bulk-update",

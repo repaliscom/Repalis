@@ -4,7 +4,7 @@ import pytest
 from pytest_codspeed import BenchmarkFixture
 from redis import Redis
 
-from polar.outpost.client import CONFIRM_SCRIPT
+from repalis.outpost.client import CONFIRM_SCRIPT
 from tests.benchmarks import (
     COLD_UNTIL,
     PENDING_COUNTS,

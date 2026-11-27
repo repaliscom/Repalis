@@ -90,7 +90,7 @@ export const InlineModal: FunctionComponent<InlineModalProps> = ({
             // settles without the overshoot an underdamped spring produces.
             transition={{ duration: 0.32, ease: [0, 0, 0, 1] }}
             className={twMerge(
-              'dark:bg-polar-900 relative z-10 flex h-full max-h-full w-full flex-col overflow-y-auto bg-white shadow-sm md:fixed md:top-0 md:right-0 md:bottom-0 md:h-auto md:w-[540px] dark:text-white',
+              'dark:bg-repalis-900 relative z-10 flex h-full max-h-full w-full flex-col overflow-y-auto bg-white shadow-sm md:fixed md:top-0 md:right-0 md:bottom-0 md:h-auto md:w-[540px] dark:text-white',
               className,
             )}
           >
@@ -134,7 +134,7 @@ const CloseButton = (props: { className?: string; hide: () => void }) => {
     <button
       type="button"
       className={twMerge(
-        'dark:text-polar-400 cursor-pointer text-gray-500 transition-colors hover:text-gray-900 dark:hover:text-white',
+        'dark:text-repalis-400 cursor-pointer text-gray-500 transition-colors hover:text-gray-900 dark:hover:text-white',
         props.className,
       )}
       onClick={() => props.hide()}

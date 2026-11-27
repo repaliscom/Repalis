@@ -6,12 +6,12 @@ import stripe as stripe_lib
 from pytest_mock import MockerFixture
 from sqlalchemy import select
 
-from polar.enums import PaymentProcessor
-from polar.merchant_migration.canonical import (
+from repalis.enums import PaymentProcessor
+from repalis.merchant_migration.canonical import (
     CanonicalPaymentMethod,
     CanonicalPaymentMethodType,
 )
-from polar.merchant_migration.cards import (
+from repalis.merchant_migration.cards import (
     AmbiguousCopiedCard,
     PaymentMethodMapping,
     PaymentMethodMappingCSVError,
@@ -19,8 +19,8 @@ from polar.merchant_migration.cards import (
     link_payment_method,
     parse_payment_method_mapping_csv,
 )
-from polar.models import Customer, Organization, PaymentMethod
-from polar.postgres import AsyncSession
+from repalis.models import Customer, Organization, PaymentMethod
+from repalis.postgres import AsyncSession
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import create_customer
 from tests.fixtures.stripe import build_stripe_payment_method
@@ -126,7 +126,8 @@ def _listing(
             yield payment_method
 
     mocker.patch(
-        "polar.merchant_migration.cards.stripe_service.list_payment_methods", new=_list
+        "repalis.merchant_migration.cards.stripe_service.list_payment_methods",
+        new=_list,
     )
 
 
@@ -168,7 +169,7 @@ class TestLinkPaymentMethod:
 
         assert await link_payment_method(session, customer) is None
 
-    async def test_customer_not_on_polars_account_yet(
+    async def test_customer_not_on_repaliss_account_yet(
         self,
         mocker: MockerFixture,
         session: AsyncSession,
@@ -214,11 +215,11 @@ class TestLinkPaymentMethod:
     ) -> None:
         mapped = _stripe_payment_method("pm_mapped", details=_card("1111"))
         mocker.patch(
-            "polar.merchant_migration.cards.stripe_service.get_payment_method",
+            "repalis.merchant_migration.cards.stripe_service.get_payment_method",
             new=mocker.AsyncMock(return_value=mapped),
         )
         list_payment_methods = mocker.patch(
-            "polar.merchant_migration.cards.stripe_service.list_payment_methods"
+            "repalis.merchant_migration.cards.stripe_service.list_payment_methods"
         )
 
         payment_method = await link_mapped_payment_method(
@@ -245,7 +246,7 @@ class TestLinkPaymentMethod:
         mapped = _stripe_payment_method("pm_mapped", details=_card("1111"))
         mapped.customer = "cus_other"
         mocker.patch(
-            "polar.merchant_migration.cards.stripe_service.get_payment_method",
+            "repalis.merchant_migration.cards.stripe_service.get_payment_method",
             new=mocker.AsyncMock(return_value=mapped),
         )
 
@@ -310,7 +311,7 @@ class TestLinkPaymentMethod:
         imported_customer: Customer,
     ) -> None:
         mocker.patch(
-            "polar.merchant_migration.cards.stripe_service.get_payment_method",
+            "repalis.merchant_migration.cards.stripe_service.get_payment_method",
             new=mocker.AsyncMock(
                 return_value=_stripe_payment_method("pm_mapped", type="sepa_debit")
             ),
@@ -329,14 +330,14 @@ class TestLinkPaymentMethod:
         assert payment_method is None
         assert await _payment_methods(session, imported_customer) == []
 
-    async def test_rejects_a_mapped_method_missing_on_polar(
+    async def test_rejects_a_mapped_method_missing_on_repalis(
         self,
         mocker: MockerFixture,
         session: AsyncSession,
         imported_customer: Customer,
     ) -> None:
         mocker.patch(
-            "polar.merchant_migration.cards.stripe_service.get_payment_method",
+            "repalis.merchant_migration.cards.stripe_service.get_payment_method",
             new=mocker.AsyncMock(
                 side_effect=stripe_lib.InvalidRequestError("No such method", "id")
             ),

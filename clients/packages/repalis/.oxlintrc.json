@@ -1,0 +1,36 @@
+{
+  "$schema": "../../node_modules/oxlint/configuration_schema.json",
+  "ignorePatterns": ["node_modules/**", "dist/**"],
+  "extends": ["../oxlint-config/oxlint-base.json"],
+  "plugins": ["typescript", "import", "oxc"],
+  "jsPlugins": ["./lint/repalis.ts"],
+  "rules": {
+    "import/no-cycle": "error",
+    "oxc/no-barrel-file": ["error", { "threshold": 0 }],
+    "repalis-sdk/client-boundaries": "error",
+    "repalis-sdk/internal-boundaries": "error",
+    "repalis-sdk/no-internal-leak": "error",
+    "repalis-sdk/no-terminal-output": "error",
+    "repalis-sdk/schema-is-pure": "error",
+    "repalis-sdk/test-colocation": "error",
+    "no-restricted-imports": [
+      "error",
+      {
+        "patterns": [
+          {
+            "group": ["@repalis/sdk", "@repalis/sdk/*"],
+            "message": "Only src/sdk.ts may depend on @repalis/sdk. It pins the API version in one place."
+          }
+        ]
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": ["src/sdk.ts"],
+      "rules": {
+        "no-restricted-imports": "off"
+      }
+    }
+  ]
+}

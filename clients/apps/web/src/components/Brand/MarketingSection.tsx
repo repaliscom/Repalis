@@ -1,5 +1,5 @@
-import { Grid, Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { Grid, Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import { Chapter } from '../Landing/Chapter'
 import { brandSections } from './brand'
 import { type Board, STORY_BOARDS, SYSTEM_BOARDS } from './posters/boards'
@@ -58,7 +58,7 @@ export function MarketingSection() {
       index={brandSections[5].index}
       name={brandSections[5].label}
       title="The product, said out loud"
-      subtitle="Marketing is how Polar explains itself"
+      subtitle="Marketing is how Repalis explains itself"
       description="Every sheet, post and billboard is built from the same grid, type and figures as the product. We show the thing itself, an event, a meter, an invoice, in the words engineers use."
     >
       <Box flexDirection="column" rowGap={{ base: '3xl', md: '5xl' }}>

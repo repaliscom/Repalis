@@ -4,9 +4,9 @@ import {
   type DateRange,
 } from '@/components/Metrics/DateRangePicker'
 import { type Filter } from '@/components/Shared/FilterPopover'
-import { schemas } from '@polar-sh/client'
-import { CalendarDays } from '@polar-sh/orbit/icons'
-import { Calendar } from '@polar-sh/ui/components/ui/calendar'
+import { schemas } from '@repalis/client'
+import { CalendarDays } from '@repalis/orbit/icons'
+import { Calendar } from '@repalis/ui/components/ui/calendar'
 import { endOfDay, format, startOfDay } from 'date-fns'
 import { useState } from 'react'
 

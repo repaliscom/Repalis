@@ -7,17 +7,17 @@ locals {
     linear_payout_amount_mismatch_template_id   = var.linear_payout_amount_mismatch_template_id
 
     environment                          = "test"
-    base_url                             = "https://test-api.polar.sh"
+    base_url                             = "https://test-api.repalis.com"
     backoffice_host                      = local.private_backoffice_hostname
-    user_session_cookie_domain           = "polar.sh"
-    user_session_cookie_key              = "polar_test_session"
-    authentication_session_cookie_domain = "polar.sh"
-    oauth2_session_state_cookie_domain   = "polar.sh"
+    user_session_cookie_domain           = "repalis.com"
+    user_session_cookie_key              = "repalis_test_session"
+    authentication_session_cookie_domain = "repalis.com"
+    oauth2_session_state_cookie_domain   = "repalis.com"
     email_sender                         = "resend"
-    email_from_name                      = "[TEST] Polar"
-    email_from_domain                    = "notifications.test.polar.sh"
-    frontend_base_url                    = "https://test.polar.sh"
-    checkout_base_url                    = "https://test-api.polar.sh/v1/checkout-links/{client_secret}/redirect"
+    email_from_name                      = "[TEST] Repalis"
+    email_from_domain                    = "notifications.test.repalis.com"
+    frontend_base_url                    = "https://test.repalis.com"
+    checkout_base_url                    = "https://test-api.repalis.com/v1/checkout-links/{client_secret}/redirect"
     log_level                            = "INFO"
     testing                              = "0"
     tax_processors                       = "[\"numeral\",\"stripe\"]"
@@ -63,10 +63,10 @@ locals {
     signature_version             = "v4"
     files_presign_ttl             = "600"
     files_public_bucket_name      = local.files_public_bucket_name
-    customer_invoices_bucket_name = "polar-test-customer-invoices"
-    customer_receipts_bucket_name = "polar-test-customer-receipts"
-    payout_invoices_bucket_name   = "polar-test-payout-invoices"
-    logs_bucket_name              = "polar-test-logs"
+    customer_invoices_bucket_name = "repalis-test-customer-invoices"
+    customer_receipts_bucket_name = "repalis-test-customer-receipts"
+    payout_invoices_bucket_name   = "repalis-test-payout-invoices"
+    logs_bucket_name              = "repalis-test-logs"
   }
 
   aws_s3_secrets = {
@@ -108,12 +108,12 @@ locals {
     password = var.grafana_cloud_prometheus_password
   }
 
-  polar_self_config = {
-    access_token     = var.polar_access_token
-    webhook_secret   = var.polar_webhook_secret
-    organization_id  = var.polar_organization_id
-    scale_product_id = var.polar_scale_product_id
-    api_url          = "https://test-api.polar.sh"
+  repalis_self_config = {
+    access_token     = var.repalis_access_token
+    webhook_secret   = var.repalis_webhook_secret
+    organization_id  = var.repalis_organization_id
+    scale_product_id = var.repalis_scale_product_id
+    api_url          = "https://test-api.repalis.com"
   }
 
   tinybird_config = {
@@ -155,6 +155,6 @@ module "backend_environment" {
   logfire_config    = local.logfire_config
   apple_secrets     = local.apple_secrets
   prometheus_config = local.prometheus_config
-  polar_self_config = local.polar_self_config
+  repalis_self_config = local.repalis_self_config
   tinybird_config   = local.tinybird_config
 }

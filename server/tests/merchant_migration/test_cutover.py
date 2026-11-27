@@ -9,9 +9,9 @@ from freezegun import freeze_time
 from pytest_mock import MockerFixture
 from sqlalchemy.exc import OperationalError
 
-from polar.enums import RecurringInterval, TaxBehavior
-from polar.kit.utils import utc_now
-from polar.merchant_migration.canonical import (
+from repalis.enums import RecurringInterval, TaxBehavior
+from repalis.kit.utils import utc_now
+from repalis.merchant_migration.canonical import (
     CanonicalAccount,
     CanonicalCollectionMethod,
     CanonicalPaymentMethod,
@@ -25,10 +25,10 @@ from polar.merchant_migration.canonical import (
     deserialize,
     serialize,
 )
-from polar.merchant_migration.cutover import CutoverOutcome, SubscriptionCutover
-from polar.merchant_migration.importer import find_or_create_add_on_product
-from polar.merchant_migration.repository import MerchantMigrationRecordRepository
-from polar.models import (
+from repalis.merchant_migration.cutover import CutoverOutcome, SubscriptionCutover
+from repalis.merchant_migration.importer import find_or_create_add_on_product
+from repalis.merchant_migration.repository import MerchantMigrationRecordRepository
+from repalis.models import (
     Customer,
     MerchantMigration,
     MerchantMigrationRecord,
@@ -37,18 +37,18 @@ from polar.models import (
     ProductPriceFixed,
     Subscription,
 )
-from polar.models.discount import Discount, DiscountDuration, DiscountType
-from polar.models.merchant_migration_record import (
+from repalis.models.discount import Discount, DiscountDuration, DiscountType
+from repalis.models.merchant_migration_record import (
     MerchantMigrationCutoverStatus,
     MerchantMigrationRecordStatus,
     MerchantMigrationRecordType,
 )
-from polar.models.organization import OrganizationStatus
-from polar.models.subscription import CustomerCancellationReason, SubscriptionStatus
-from polar.postgres import AsyncSession
-from polar.product.repository import ProductRepository
-from polar.subscription.repository import SubscriptionRepository
-from polar.subscription.service import subscription as subscription_service
+from repalis.models.organization import OrganizationStatus
+from repalis.models.subscription import CustomerCancellationReason, SubscriptionStatus
+from repalis.postgres import AsyncSession
+from repalis.product.repository import ProductRepository
+from repalis.subscription.repository import SubscriptionRepository
+from repalis.subscription.service import subscription as subscription_service
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (
     create_customer,
@@ -461,7 +461,7 @@ class TestRun:
             price.product_price_id for price in subscription.subscription_product_prices
         ] == [archived.id]
 
-    async def test_a_price_replaced_on_polar_keeps_the_subscriber_on_their_amount(
+    async def test_a_price_replaced_on_repalis_keeps_the_subscriber_on_their_amount(
         self,
         mocker: MockerFixture,
         session: AsyncSession,
@@ -498,7 +498,7 @@ class TestRun:
             price.product_price_id for price in subscription.subscription_product_prices
         ] == [replaced.id]
 
-    async def test_no_polar_price_at_the_subscriber_amount_stays_on_the_source(
+    async def test_no_repalis_price_at_the_subscriber_amount_stays_on_the_source(
         self,
         mocker: MockerFixture,
         session: AsyncSession,
@@ -539,10 +539,10 @@ class TestRun:
         organization: Organization,
     ) -> None:
         copied_cards(mocker, build_stripe_payment_method(customer="cus_1"))
-        polar_discount = await _percentage_discount(save_fixture, organization)
+        repalis_discount = await _percentage_discount(save_fixture, organization)
         applied_at = utc_now() - timedelta(days=40)
         await stage_discount_record(
-            save_fixture, migration, organization, target_id=polar_discount.id
+            save_fixture, migration, organization, target_id=repalis_discount.id
         )
         await _discounted_pending(
             save_fixture,
@@ -561,7 +561,7 @@ class TestRun:
 
         assert outcome.status == MerchantMigrationCutoverStatus.moved
         subscription = await _created(session, pending_record)
-        assert subscription.discount_id == polar_discount.id
+        assert subscription.discount_id == repalis_discount.id
         assert subscription.discount_applied_at == applied_at
 
     async def test_blocked_discount_stays_on_stripe(
@@ -596,7 +596,7 @@ class TestRun:
         migration: MerchantMigration,
         organization: Organization,
     ) -> None:
-        polar_discount = await _percentage_discount(
+        repalis_discount = await _percentage_discount(
             save_fixture,
             organization,
             duration=DiscountDuration.repeating,
@@ -606,7 +606,7 @@ class TestRun:
             save_fixture,
             migration,
             organization,
-            target_id=polar_discount.id,
+            target_id=repalis_discount.id,
             canonical={},
         )
         await _discounted_pending(
@@ -637,7 +637,7 @@ class TestRun:
         organization: Organization,
     ) -> None:
         copied_cards(mocker, build_stripe_payment_method(customer="cus_1"))
-        polar_discount = await _percentage_discount(
+        repalis_discount = await _percentage_discount(
             save_fixture,
             organization,
             name="Keep",
@@ -652,7 +652,7 @@ class TestRun:
             source_id="coupon_ok",
             name="Keep",
             code="KEEP",
-            target_id=polar_discount.id,
+            target_id=repalis_discount.id,
         )
         first_start = utc_now() - timedelta(days=90)
         kept_start = utc_now() - timedelta(days=30)
@@ -676,7 +676,7 @@ class TestRun:
 
         assert outcome.status == MerchantMigrationCutoverStatus.moved
         subscription = await _created(session, pending_record)
-        assert subscription.discount_id == polar_discount.id
+        assert subscription.discount_id == repalis_discount.id
         assert _discounted_renewals(subscription, 3) == [True, True, False]
 
     @pytest.mark.parametrize(
@@ -717,14 +717,14 @@ class TestRun:
         discounted: list[bool],
     ) -> None:
         copied_cards(mocker, build_stripe_payment_method(customer="cus_1"))
-        polar_discount = await _percentage_discount(
+        repalis_discount = await _percentage_discount(
             save_fixture,
             organization,
             duration=duration,
             duration_in_months=duration_in_months,
         )
         await stage_discount_record(
-            save_fixture, migration, organization, target_id=polar_discount.id
+            save_fixture, migration, organization, target_id=repalis_discount.id
         )
         started_at = utc_now() - timedelta(days=started_days_ago)
         fields: dict[str, Any] = {
@@ -752,14 +752,14 @@ class TestRun:
         """Renewing on the 30th, a 2-month coupon from Feb 5 ends Apr 5 on the
         source, so it still discounts Feb 28 and Mar 30."""
         copied_cards(mocker, build_stripe_payment_method(customer="cus_1"))
-        polar_discount = await _percentage_discount(
+        repalis_discount = await _percentage_discount(
             save_fixture,
             organization,
             duration=DiscountDuration.repeating,
             duration_in_months=2,
         )
         await stage_discount_record(
-            save_fixture, migration, organization, target_id=polar_discount.id
+            save_fixture, migration, organization, target_id=repalis_discount.id
         )
         fields: dict[str, Any] = {
             "discount_source_ids": ["coupon_1"],
@@ -794,14 +794,14 @@ class TestRun:
         product.recurring_interval = RecurringInterval.day
         product.recurring_interval_count = 2
         await save_fixture(product)
-        polar_discount = await _percentage_discount(
+        repalis_discount = await _percentage_discount(
             save_fixture,
             organization,
             duration=DiscountDuration.repeating,
             duration_in_months=3,
         )
         await stage_discount_record(
-            save_fixture, migration, organization, target_id=polar_discount.id
+            save_fixture, migration, organization, target_id=repalis_discount.id
         )
         fields: dict[str, Any] = {
             "discount_source_ids": ["coupon_1"],
@@ -864,7 +864,7 @@ class TestRun:
         organization: Organization,
     ) -> None:
         copied_cards(mocker, build_stripe_payment_method(customer="cus_1"))
-        polar_discount = await _percentage_discount(
+        repalis_discount = await _percentage_discount(
             save_fixture, organization, name="Keep", code="KEEP"
         )
         await stage_discount_record(
@@ -882,7 +882,7 @@ class TestRun:
             source_id="coupon_ok",
             name="Keep",
             code="KEEP",
-            target_id=polar_discount.id,
+            target_id=repalis_discount.id,
         )
         await _discounted_pending(
             save_fixture,
@@ -896,7 +896,7 @@ class TestRun:
 
         assert outcome.status == MerchantMigrationCutoverStatus.moved
         subscription = await _created(session, pending_record)
-        assert subscription.discount_id == polar_discount.id
+        assert subscription.discount_id == repalis_discount.id
 
     async def test_skips_when_kept_coupon_left_the_source(
         self,
@@ -906,7 +906,7 @@ class TestRun:
         migration: MerchantMigration,
         organization: Organization,
     ) -> None:
-        polar_discount = await _percentage_discount(
+        repalis_discount = await _percentage_discount(
             save_fixture, organization, name="Keep", code="KEEP"
         )
         await stage_discount_record(
@@ -922,7 +922,7 @@ class TestRun:
             migration,
             organization,
             source_id="coupon_ok",
-            target_id=polar_discount.id,
+            target_id=repalis_discount.id,
             canonical={},
         )
         await _discounted_pending(
@@ -1048,7 +1048,7 @@ class TestRun:
         assert subscription.current_period_end == renewal
         assert subscription.payment_method_id is not None
 
-    async def test_finishes_a_paused_polar_subscription_from_a_crashed_cutover(
+    async def test_finishes_a_paused_repalis_subscription_from_a_crashed_cutover(
         self,
         mocker: MockerFixture,
         session: AsyncSession,
@@ -1058,7 +1058,7 @@ class TestRun:
         imported_customer: Customer,
         product: Product,
     ) -> None:
-        """Create-then-activate can leave a paused Polar sub if the job dies."""
+        """Create-then-activate can leave a paused Repalis sub if the job dies."""
         copied_cards(mocker, build_stripe_payment_method(customer="cus_1"))
         subscription = await create_subscription(
             save_fixture,
@@ -1240,7 +1240,7 @@ class TestRun:
             migration.pan_transfer_method, "verify_cards"
         )
         card = await create_payment_method(
-            save_fixture, imported_customer, processor_id="pm_card_polar"
+            save_fixture, imported_customer, processor_id="pm_card_repalis"
         )
         staged = deserialize(pending_record.type, pending_record.canonical)
         assert isinstance(staged, CanonicalSubscription)
@@ -1266,7 +1266,7 @@ class TestRun:
         subscription = await _created(session, pending_record)
         assert subscription.payment_method_id == card.id
 
-    async def test_uses_the_exact_mapped_method_already_in_polar(
+    async def test_uses_the_exact_mapped_method_already_in_repalis(
         self,
         mocker: MockerFixture,
         session: AsyncSession,
@@ -1292,7 +1292,7 @@ class TestRun:
         await save_fixture(pending_record)
         await save_fixture(migration)
         get_payment_method = mocker.patch(
-            "polar.merchant_migration.cards.stripe_service.get_payment_method",
+            "repalis.merchant_migration.cards.stripe_service.get_payment_method",
             new=mocker.AsyncMock(
                 side_effect=stripe_lib.InvalidRequestError("unavailable", "id")
             ),
@@ -1563,7 +1563,7 @@ class TestRun:
         assert "every period missed since" in (outcome.message or "")
         _assert_left_alone(adapter, pending_record)
 
-    async def test_retry_of_a_lapsed_paused_polar_subscription_still_fails(
+    async def test_retry_of_a_lapsed_paused_repalis_subscription_still_fails(
         self,
         mocker: MockerFixture,
         session: AsyncSession,
@@ -1573,7 +1573,7 @@ class TestRun:
         imported_customer: Customer,
         product: Product,
     ) -> None:
-        """A previous attempt that created Polar then failed lapse must not report moved."""
+        """A previous attempt that created Repalis then failed lapse must not report moved."""
         copied_cards(mocker, build_stripe_payment_method(customer="cus_1"))
         subscription = await create_subscription(
             save_fixture,
@@ -1618,7 +1618,7 @@ class TestRun:
 
 
 @pytest.mark.anyio
-class TestAlreadyLiveOnPolar:
+class TestAlreadyLiveOnRepalis:
     """Reconciling: whatever activated it, the source must not still be billing."""
 
     @pytest.fixture
@@ -1666,7 +1666,7 @@ class TestAlreadyLiveOnPolar:
     async def test_resumed_by_hand_still_stops_the_source(
         self, cutover: RunCutover
     ) -> None:
-        """Taking "active on Polar" as proof the source stopped bills them twice."""
+        """Taking "active on Repalis" as proof the source stopped bills them twice."""
         adapter = _source()
 
         outcome = await cutover(adapter)
@@ -1885,7 +1885,7 @@ class TestCancelAtPeriodEnd:
             == CustomerCancellationReason.too_expensive
         )
 
-    async def test_keeps_when_and_why_on_a_paused_polar_subscription(
+    async def test_keeps_when_and_why_on_a_paused_repalis_subscription(
         self,
         mocker: MockerFixture,
         session: AsyncSession,
@@ -2191,7 +2191,7 @@ class TestSkips:
         assert "can't renew subscriptions" in (outcome.message or "")
         _assert_left_alone(adapter, pending_record)
 
-    async def test_customer_deleted_on_polar(
+    async def test_customer_deleted_on_repalis(
         self,
         save_fixture: SaveFixture,
         cutover: RunCutover,
@@ -2228,7 +2228,7 @@ class TestSkips:
         outcome = await SubscriptionCutover(session, migration, adapter).run(record)
 
         assert outcome.status == MerchantMigrationCutoverStatus.skipped
-        assert "never imported into Polar" in (outcome.message or "")
+        assert "never imported into Repalis" in (outcome.message or "")
         _assert_left_alone(adapter, record)
 
 
@@ -2431,7 +2431,7 @@ class TestFailures:
         with pytest.raises(OperationalError):
             await cutover(adapter)
 
-    async def test_polar_subscription_no_longer_exists(
+    async def test_repalis_subscription_no_longer_exists(
         self,
         session: AsyncSession,
         save_fixture: SaveFixture,

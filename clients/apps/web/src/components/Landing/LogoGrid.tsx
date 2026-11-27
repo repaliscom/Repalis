@@ -1,5 +1,5 @@
-import { Grid, GridItem } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { Grid, GridItem } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import { JSX } from 'react'
 import {
   Confidence,

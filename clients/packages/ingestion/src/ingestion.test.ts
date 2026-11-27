@@ -1,17 +1,17 @@
-import { createPolar } from '@polar-sh/sdk/2027-01'
+import { createRepalis } from '@repalis/sdk/2027-01'
 import { describe, expect, it, vi } from 'vitest'
 
 import { Ingestion } from './ingestion'
 import { DeltaTimeStrategy } from './strategies/DeltaTime'
 
 const meteringWithTrack = () => {
-  const metering = createPolar({ accessToken: 'polar_oat_test' }).metering()
+  const metering = createRepalis({ accessToken: 'repalis_oat_test' }).metering()
   const track = vi.spyOn(metering, 'track').mockResolvedValue()
 
   return { metering, track }
 }
 
-describe('Ingestion(polar.metering())', () => {
+describe('Ingestion(repalis.metering())', () => {
   it.each([
     [{ customerId: 'cus_1' }, { customer_id: 'cus_1' }],
     [{ customer_id: 'cus_1' }, { customer_id: 'cus_1' }],
@@ -30,7 +30,7 @@ describe('Ingestion(polar.metering())', () => {
       name: 'elapsed',
       metadata: { deltaTime: 5, strategy: 'DeltaTime' },
     })
-    expect(strategy.polarClient).toBeUndefined()
+    expect(strategy.repalisClient).toBeUndefined()
   })
 
   it('should snake-case the _llm metadata', async () => {
@@ -82,8 +82,8 @@ describe('Ingestion({ accessToken })', () => {
       .spyOn(globalThis, 'fetch')
       .mockResolvedValue(Response.json({ inserted: 1, duplicates: 0 }))
     const strategy = Ingestion({
-      accessToken: 'polar_oat_test',
-      serverURL: 'http://polar.test',
+      accessToken: 'repalis_oat_test',
+      serverURL: 'http://repalis.test',
     })
       .strategy(new DeltaTimeStrategy(() => 0))
       .ingest('elapsed')
@@ -94,9 +94,9 @@ describe('Ingestion({ accessToken })', () => {
     )
 
     const [url, init] = fetch.mock.calls[0]
-    expect(String(url)).toBe('http://polar.test/v1/events/ingest')
+    expect(String(url)).toBe('http://repalis.test/v1/events/ingest')
     expect(new Headers(init?.headers).get('authorization')).toBe(
-      'Bearer polar_oat_test',
+      'Bearer repalis_oat_test',
     )
     expect(JSON.parse(String(init?.body))).toEqual({
       events: [
@@ -110,13 +110,13 @@ describe('Ingestion({ accessToken })', () => {
     fetch.mockRestore()
   })
 
-  it('should fall back to POLAR_ACCESS_TOKEN like the 0.4 SDK', async () => {
-    vi.stubEnv('POLAR_ACCESS_TOKEN', 'polar_oat_env')
+  it('should fall back to REPALIS_ACCESS_TOKEN like the 0.4 SDK', async () => {
+    vi.stubEnv('REPALIS_ACCESS_TOKEN', 'repalis_oat_env')
     const fetch = vi
       .spyOn(globalThis, 'fetch')
       .mockResolvedValue(Response.json({ inserted: 1, duplicates: 0 }))
 
-    await Ingestion({ serverURL: 'http://polar.test' })
+    await Ingestion({ serverURL: 'http://repalis.test' })
       .strategy(new DeltaTimeStrategy(() => 0))
       .ingest('elapsed')
       .execute(
@@ -126,7 +126,7 @@ describe('Ingestion({ accessToken })', () => {
 
     const [, init] = fetch.mock.calls[0]
     expect(new Headers(init?.headers).get('authorization')).toBe(
-      'Bearer polar_oat_env',
+      'Bearer repalis_oat_env',
     )
     fetch.mockRestore()
     vi.unstubAllEnvs()

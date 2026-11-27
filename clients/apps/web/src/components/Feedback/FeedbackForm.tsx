@@ -1,8 +1,8 @@
 import { MemoizedMarkdown } from '@/components/Markdown/MemoizedMarkdown'
-import { schemas } from '@polar-sh/client'
-import { Box } from '@polar-sh/orbit/Box'
-import { Button } from '@polar-sh/orbit'
-import { TextArea } from '@polar-sh/orbit'
+import { schemas } from '@repalis/client'
+import { Box } from '@repalis/orbit/Box'
+import { Button } from '@repalis/orbit'
+import { TextArea } from '@repalis/orbit'
 import {
   Form,
   FormControl,
@@ -10,7 +10,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@polar-sh/ui/components/ui/form'
+} from '@repalis/ui/components/ui/form'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
@@ -131,7 +131,7 @@ export const FeedbackForm = ({
             <FormItem className="w-full">
               <div className="flex flex-row items-center justify-between">
                 <FormLabel>Message</FormLabel>
-                <span className="dark:text-polar-400 text-sm text-gray-400">
+                <span className="dark:text-repalis-400 text-sm text-gray-400">
                   {(field.value ?? '').length} / {MAX_MESSAGE_LENGTH}
                 </span>
               </div>

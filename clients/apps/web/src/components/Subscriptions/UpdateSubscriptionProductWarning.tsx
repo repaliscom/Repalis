@@ -1,6 +1,6 @@
 import { formatTrialEnd, type TrialChangeOutcome } from '@/utils/trial-change'
-import { schemas } from '@polar-sh/client'
-import { Alert } from '@polar-sh/orbit'
+import { schemas } from '@repalis/client'
+import { Alert } from '@repalis/orbit'
 
 export const UpdateSubscriptionProductWarning = ({
   subscription,

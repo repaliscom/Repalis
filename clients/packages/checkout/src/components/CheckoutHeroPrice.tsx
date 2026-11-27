@@ -1,6 +1,6 @@
 'use client'
 
-import type { AcceptedLocale } from '@polar-sh/i18n'
+import type { AcceptedLocale } from '@repalis/i18n'
 import type { ProductCheckoutPublic } from '../guards'
 import AmountLabel from './AmountLabel'
 import CheckoutTrialHeroPrice from './CheckoutTrialHeroPrice'

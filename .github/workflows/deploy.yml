@@ -232,7 +232,7 @@ jobs:
       - name: Set up Docker Buildx
         uses: useblacksmith/setup-docker-builder@19215110ab936351210feebdfa5b440b4493e184 # v2.2.0
         with:
-          cache-key: polar/server-production
+          cache-key: repalis/server-production
 
       - name: Log in to the Container registry
         uses: docker/login-action@81c6f93d4bc991e510b342a00b419b3bb4efc5c6 # v4.7.0
@@ -246,7 +246,7 @@ jobs:
         uses: docker/metadata-action@dc802804100637a589fabce1cb79ff13a1411302 # v6.2.0
         with:
           images: |
-            ghcr.io/polarsource/polar
+            ghcr.io/repaliscom/repalis
           tags: |
             type=ref,event=branch
             type=ref,event=pr
@@ -256,7 +256,7 @@ jobs:
             type=raw,value=latest,enable={{is_default_branch}}
 
       - name: Sync AUP to server
-        run: cp "clients/apps/web/src/app/(main)/(website)/(landing)/(mdx)/legal/acceptable-use-policy/page.mdx" "server/polar/organization_review/acceptable-use-policy.mdx"
+        run: cp "clients/apps/web/src/app/(main)/(website)/(landing)/(mdx)/legal/acceptable-use-policy/page.mdx" "server/repalis/organization_review/acceptable-use-policy.mdx"
 
       - uses: useblacksmith/build-push-action@9b0579bbec7a6cad2f171596c57e7ac1e7658850 # v2.3.0
         id: push
@@ -293,10 +293,10 @@ jobs:
       - name: Set up Docker Buildx
         uses: useblacksmith/setup-docker-builder@19215110ab936351210feebdfa5b440b4493e184 # v2.2.0
         with:
-          cache-key: polar/server-lambda
+          cache-key: repalis/server-lambda
 
       - name: Sync AUP to server
-        run: cp "clients/apps/web/src/app/(main)/(website)/(landing)/(mdx)/legal/acceptable-use-policy/page.mdx" "server/polar/organization_review/acceptable-use-policy.mdx"
+        run: cp "clients/apps/web/src/app/(main)/(website)/(landing)/(mdx)/legal/acceptable-use-policy/page.mdx" "server/repalis/organization_review/acceptable-use-policy.mdx"
 
       - name: Configure AWS credentials (test)
         if: needs.changes.outputs.test-enabled == 'true'
@@ -339,12 +339,12 @@ jobs:
         with:
           push: true
           tags: |
-            ${{ needs.changes.outputs.test-enabled == 'true' && format('{0}/polar-test-lambda-worker:sha-{1}', steps.login-ecr-test.outputs.registry, github.sha) || '' }}
-            ${{ needs.changes.outputs.test-enabled == 'true' && format('{0}/polar-test-lambda-worker:latest', steps.login-ecr-test.outputs.registry) || '' }}
-            ${{ steps.login-ecr-sandbox.outputs.registry }}/polar-sandbox-lambda-worker:sha-${{ github.sha }}
-            ${{ steps.login-ecr-sandbox.outputs.registry }}/polar-sandbox-lambda-worker:latest
-            ${{ steps.login-ecr-production.outputs.registry }}/polar-production-lambda-worker:sha-${{ github.sha }}
-            ${{ steps.login-ecr-production.outputs.registry }}/polar-production-lambda-worker:latest
+            ${{ needs.changes.outputs.test-enabled == 'true' && format('{0}/repalis-test-lambda-worker:sha-{1}', steps.login-ecr-test.outputs.registry, github.sha) || '' }}
+            ${{ needs.changes.outputs.test-enabled == 'true' && format('{0}/repalis-test-lambda-worker:latest', steps.login-ecr-test.outputs.registry) || '' }}
+            ${{ steps.login-ecr-sandbox.outputs.registry }}/repalis-sandbox-lambda-worker:sha-${{ github.sha }}
+            ${{ steps.login-ecr-sandbox.outputs.registry }}/repalis-sandbox-lambda-worker:latest
+            ${{ steps.login-ecr-production.outputs.registry }}/repalis-production-lambda-worker:sha-${{ github.sha }}
+            ${{ steps.login-ecr-production.outputs.registry }}/repalis-production-lambda-worker:latest
           context: ./server
           target: lambda
           platforms: linux/amd64
@@ -383,8 +383,8 @@ jobs:
         run: |
           for name in default high-priority medium-priority low-priority webhooks tinybird invoices-and-receipts; do
             aws lambda update-function-code \
-              --function-name "polar-test-worker-$name" \
-              --image-uri "${{ steps.login-ecr.outputs.registry }}/polar-test-lambda-worker:sha-${{ github.sha }}" \
+              --function-name "repalis-test-worker-$name" \
+              --image-uri "${{ steps.login-ecr.outputs.registry }}/repalis-test-lambda-worker:sha-${{ github.sha }}" \
               --publish
           done
 
@@ -414,8 +414,8 @@ jobs:
         run: |
           for name in default high-priority medium-priority low-priority webhooks tinybird invoices-and-receipts; do
             aws lambda update-function-code \
-              --function-name "polar-sandbox-worker-$name" \
-              --image-uri "${{ steps.login-ecr.outputs.registry }}/polar-sandbox-lambda-worker:sha-${{ github.sha }}" \
+              --function-name "repalis-sandbox-worker-$name" \
+              --image-uri "${{ steps.login-ecr.outputs.registry }}/repalis-sandbox-lambda-worker:sha-${{ github.sha }}" \
               --publish
           done
 
@@ -445,8 +445,8 @@ jobs:
         run: |
           for name in default high-priority medium-priority low-priority webhooks tinybird invoices-and-receipts; do
             aws lambda update-function-code \
-              --function-name "polar-production-worker-$name" \
-              --image-uri "${{ steps.login-ecr.outputs.registry }}/polar-production-lambda-worker:sha-${{ github.sha }}" \
+              --function-name "repalis-production-worker-$name" \
+              --image-uri "${{ steps.login-ecr.outputs.registry }}/repalis-production-lambda-worker:sha-${{ github.sha }}" \
               --publish
           done
 
@@ -536,8 +536,8 @@ jobs:
       contents: read
       id-token: write
     env:
-      CLUSTER: polar-test
-      SERVICE: polar-test-api-events-test
+      CLUSTER: repalis-test
+      SERVICE: repalis-test-api-events-test
     steps:
       - name: Harden the runner (Audit all outbound calls)
         uses: step-security/harden-runner@1d88384fd173af6ecb012dfd0264a306b711241a # v2.22.4

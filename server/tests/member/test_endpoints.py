@@ -3,9 +3,16 @@ import uuid
 import pytest
 from httpx2 import AsyncClient
 
-from polar.models import Account, Customer, Member, Organization, User, UserOrganization
-from polar.models.customer import CustomerType
-from polar.models.user_organization import OrganizationRole
+from repalis.models import (
+    Account,
+    Customer,
+    Member,
+    Organization,
+    User,
+    UserOrganization,
+)
+from repalis.models.customer import CustomerType
+from repalis.models.user_organization import OrganizationRole
 from tests.fixtures.auth import AuthSubjectFixture
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (

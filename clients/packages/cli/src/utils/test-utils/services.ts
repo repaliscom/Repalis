@@ -1,11 +1,11 @@
-import { createPolarCore, type Polar as PolarSDK } from '@polar-sh/sdk/2026-10'
+import { createRepalisCore, type Repalis as RepalisSDK } from '@repalis/sdk/2026-10'
 import { Effect, Redacted } from 'effect'
 import {
   AuthError,
   loginCommand,
   type ActiveOrganization,
   type OrganizationSelection,
-  type PolarEnvironment,
+  type RepalisEnvironment,
   type Session,
 } from '@/schemas/Auth'
 import { Auth, type Credential } from '@/services/auth'
@@ -13,7 +13,7 @@ import { CLIConfig } from '@/services/config'
 import { Credentials } from '@/services/credentials'
 import { OAuth } from '@/services/oauth'
 import { Organizations } from '@/services/organizations'
-import { Polar } from '@/services/polar'
+import { Repalis } from '@/services/repalis'
 import {
   type SendError,
   Trigger,
@@ -46,12 +46,12 @@ export const overrideCredential = (accessToken = 'ci-token'): Credential => ({
 
 interface AuthState {
   credential: Credential
-  environment: PolarEnvironment
-  sessions: PolarEnvironment[]
+  environment: RepalisEnvironment
+  sessions: RepalisEnvironment[]
   replaced: boolean
   failure: AuthError | undefined
   resolutions: Array<{
-    environment: PolarEnvironment
+    environment: RepalisEnvironment
     rejected: Redacted.Redacted<string> | undefined
   }>
 }
@@ -160,7 +160,7 @@ export const fakeOrganizations = (
 }
 
 interface CredentialsState {
-  sessions: Partial<Record<PolarEnvironment, Session>>
+  sessions: Partial<Record<RepalisEnvironment, Session>>
   failure: AuthError | undefined
   reads: number
   writes: number
@@ -263,17 +263,17 @@ export const fakeOAuth = (
   return { oauth, state }
 }
 
-interface PolarState {
+interface RepalisState {
   requests: Array<{
-    environment: PolarEnvironment
+    environment: RepalisEnvironment
     organizationId: string | undefined
   }>
 }
 
-export const fakePolar = (client: unknown) => {
-  const state: PolarState = { requests: [] }
-  const sdk = client as PolarSDK
-  const polar = Polar.of({
+export const fakeRepalis = (client: unknown) => {
+  const state: RepalisState = { requests: [] }
+  const sdk = client as RepalisSDK
+  const repalis = Repalis.of({
     getClient: () => Effect.succeed(sdk),
     use: (fn, environment = 'sandbox', options) =>
       Effect.tryPromise({
@@ -284,9 +284,9 @@ export const fakePolar = (client: unknown) => {
           })
           return fn(
             sdk,
-            createPolarCore({
+            createRepalisCore({
               accessToken: 'test-token',
-              baseUrl: 'https://api.polar.test',
+              baseUrl: 'https://api.repalis.test',
             }),
           )
         },
@@ -296,7 +296,7 @@ export const fakePolar = (client: unknown) => {
           }),
       }),
   })
-  return { polar, state }
+  return { repalis, state }
 }
 
 interface TriggerState {

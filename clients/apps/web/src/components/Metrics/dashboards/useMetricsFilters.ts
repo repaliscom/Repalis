@@ -2,7 +2,7 @@
 
 import type { MetricsProductFilter } from '@/hooks/queries/metrics'
 import { fromISODate, parseAsISODate, TIME_INTERVALS } from '@/utils/metrics'
-import { getMetricsRangeDates } from '@polar-sh/client'
+import { getMetricsRangeDates } from '@repalis/client'
 import {
   parseAsArrayOf,
   parseAsString,

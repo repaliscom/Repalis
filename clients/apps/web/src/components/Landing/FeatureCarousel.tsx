@@ -1,8 +1,8 @@
 'use client'
 
-import { Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
-import { ChevronLeft, ChevronRight } from '@polar-sh/orbit/icons'
+import { Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
+import { ChevronLeft, ChevronRight } from '@repalis/orbit/icons'
 import Link from 'next/link'
 import { type ReactNode, useCallback, useEffect, useRef } from 'react'
 import { ChapterHeadline } from './Chapter'
@@ -36,7 +36,7 @@ const FEATURES: GraphicCardProps[] = [
   },
   {
     title: 'Merchant of Record',
-    desc: 'Polar is your reseller and handles international sales taxes for you.',
+    desc: 'Repalis is your reseller and handles international sales taxes for you.',
     href: '/features/merchant-of-record',
     Graphic: MerchantMark,
   },
@@ -97,7 +97,7 @@ const ArrowButton = ({
     type="button"
     aria-label={label}
     onClick={onClick}
-    className="dark:text-polar-400 flex size-10 cursor-pointer items-center justify-center rounded-full text-gray-500 transition-colors hover:text-black dark:hover:text-white"
+    className="dark:text-repalis-400 flex size-10 cursor-pointer items-center justify-center rounded-full text-gray-500 transition-colors hover:text-black dark:hover:text-white"
   >
     {children}
   </button>
@@ -114,7 +114,7 @@ const Cell = ({
   <Link
     href={href ?? '#'}
     tabIndex={echo ? -1 : undefined}
-    className="dark:border-polar-700 dark:hover:bg-polar-900 flex w-[78vw] shrink-0 snap-start flex-col gap-10 border-r border-gray-200 p-8 hover:bg-gray-50 sm:w-[22rem] xl:w-[25rem]"
+    className="dark:border-repalis-700 dark:hover:bg-repalis-900 flex w-[78vw] shrink-0 snap-start flex-col gap-10 border-r border-gray-200 p-8 hover:bg-gray-50 sm:w-[22rem] xl:w-[25rem]"
   >
     <Box flexDirection="column" rowGap="s">
       <Text variant="heading-xs" as="h3">
@@ -231,7 +231,7 @@ export const FeatureCarousel = () => {
       <div
         ref={track}
         onScroll={onScroll}
-        className="dark:border-polar-700 relative mx-[calc(50%-50vw)] flex snap-x snap-mandatory [scrollbar-width:none] overflow-x-auto overscroll-x-contain border-y border-gray-200 opacity-0 transition-opacity duration-300 [&::-webkit-scrollbar]:hidden"
+        className="dark:border-repalis-700 relative mx-[calc(50%-50vw)] flex snap-x snap-mandatory [scrollbar-width:none] overflow-x-auto overscroll-x-contain border-y border-gray-200 opacity-0 transition-opacity duration-300 [&::-webkit-scrollbar]:hidden"
       >
         {Array.from({ length: COPIES }, (_, copy) =>
           FEATURES.map((feature) => {

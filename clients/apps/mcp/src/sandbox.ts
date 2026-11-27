@@ -65,7 +65,7 @@ export class Sandbox extends Context.Service<
           const evaluation = yield* Effect.tryPromise({
             try: () => {
               const worker = loader.get(
-                `polar-mcp-${crypto.randomUUID()}`,
+                `repalis-mcp-${crypto.randomUUID()}`,
                 () => ({
                   compatibilityDate: SANDBOX_COMPATIBILITY_DATE,
                   globalOutbound,

@@ -10,11 +10,11 @@ AI API requests send only the data the feature needs. Do not send personal data,
 
 ## Context
 
-Polar calls AI providers (OpenAI, Anthropic, and others) from several product
+Repalis calls AI providers (OpenAI, Anthropic, and others) from several product
 features: organization reviews, Compass, onboarding, and similar. It is easy to
 put a full org, customer, or payment object in the prompt so the model has more
 context. Those providers then process that data. Extra fields that the prompt
-never uses (for example a date of birth) still leave Polar.
+never uses (for example a date of birth) still leave Repalis.
 
 ## Decision
 
@@ -39,7 +39,7 @@ You **may** send:
 ## Consequences
 
 - New AI call sites start from a field list, not from `json.dumps(object)`.
-- Reviewers (Cubic, `/polar-code-review`, humans) flag extra personal or money
+- Reviewers (Cubic, `/repalis-code-review`, humans) flag extra personal or money
   fields in prompts. Cite this ADR.
 - Some existing calls send more than they need. Fix those when you touch them.
   Do not add new fields while the extra ones are still there.
@@ -54,6 +54,6 @@ You **may** send:
 
 ## References
 
-- Gateway: `settings.get_pydantic_gateway_model()` in `polar/config.py`
-- Review prompts: `server/polar/organization_review/analyzer.py`
-- Compass tools: `server/polar/compass/assistant/`
+- Gateway: `settings.get_pydantic_gateway_model()` in `repalis/config.py`
+- Review prompts: `server/repalis/organization_review/analyzer.py`
+- Compass tools: `server/repalis/compass/assistant/`

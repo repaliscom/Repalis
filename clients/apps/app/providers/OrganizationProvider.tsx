@@ -1,16 +1,16 @@
 import { Box } from '@/components/Shared/Box'
-import { useOrganizations } from '@/hooks/polar/organizations'
+import { useOrganizations } from '@/hooks/repalis/organizations'
 import { useStorageState } from '@/hooks/storage'
 import { posthog } from '@/utils/posthog'
 import { ExtensionStorage } from '@bacons/apple-targets'
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { Redirect, usePathname } from 'expo-router'
 import { createContext, PropsWithChildren, useEffect, useMemo } from 'react'
 import { ActivityIndicator } from 'react-native'
 import { useSession } from './SessionProvider'
 
-const storage = new ExtensionStorage('group.com.polarsource.Polar')
+const storage = new ExtensionStorage('group.com.repaliscom.Repalis')
 
 export interface OrganizationContextValue {
   isLoading: boolean
@@ -21,7 +21,7 @@ export interface OrganizationContextValue {
 
 const stub = (): never => {
   throw new Error(
-    'You forgot to wrap your component in <PolarOrganizationProvider>.',
+    'You forgot to wrap your component in <RepalisOrganizationProvider>.',
   )
 }
 
@@ -29,7 +29,7 @@ export const OrganizationContext =
   // @ts-ignore
   createContext<OrganizationContextValue>(stub)
 
-export function PolarOrganizationProvider({ children }: PropsWithChildren) {
+export function RepalisOrganizationProvider({ children }: PropsWithChildren) {
   const [[isStorageLoading, organizationId], setOrganizationId] =
     useStorageState('organizationId')
 

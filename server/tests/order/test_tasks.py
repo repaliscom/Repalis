@@ -8,10 +8,10 @@ from dramatiq import Retry
 from pytest_mock import MockerFixture
 from sqlalchemy import select
 
-from polar.config import settings
-from polar.kit.db.postgres import AsyncSession
-from polar.kit.utils import utc_now
-from polar.models import (
+from repalis.config import settings
+from repalis.kit.db.postgres import AsyncSession
+from repalis.kit.utils import utc_now
+from repalis.models import (
     Notification,
     Order,
     Organization,
@@ -19,17 +19,17 @@ from polar.models import (
     User,
     UserOrganization,
 )
-from polar.models.order import OrderBillingReasonInternal, OrderStatus
-from polar.models.payment import PaymentStatus, PaymentTrigger
-from polar.models.subscription import SubscriptionStatus
-from polar.models.user_organization import (
+from repalis.models.order import OrderBillingReasonInternal, OrderStatus
+from repalis.models.payment import PaymentStatus, PaymentTrigger
+from repalis.models.subscription import SubscriptionStatus
+from repalis.models.user_organization import (
     OrganizationNotificationSettings,
     OrganizationRole,
 )
-from polar.notifications.notification import NotificationType
-from polar.order.repository import OrderRepository
-from polar.order.service import order as order_service
-from polar.order.tasks import (
+from repalis.notifications.notification import NotificationType
+from repalis.order.repository import OrderRepository
+from repalis.order.service import order as order_service
+from repalis.order.tasks import (
     OrderDoesNotExist,
     create_meter_cycle_order,
     create_subscription_order,
@@ -40,7 +40,7 @@ from polar.order.tasks import (
     process_stale_payment_lock,
     trigger_payment,
 )
-from polar.subscription.repository import SubscriptionRepository
+from repalis.subscription.repository import SubscriptionRepository
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (
     create_customer,
@@ -158,7 +158,7 @@ class TestCreateSubscriptionOrder:
         create_order_mock = mocker.patch.object(
             order_service, "create_subscription_order", new=AsyncMock()
         )
-        enqueue_job_mock = mocker.patch("polar.order.tasks.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.order.tasks.enqueue_job")
 
         await create_subscription_order(
             subscription.id, order_reason, cutoff.isoformat()
@@ -190,7 +190,7 @@ class TestCreateMeterCycleOrder:
         settle_mock = mocker.patch.object(
             order_service, "settle_meter_cycle_order", new=AsyncMock()
         )
-        enqueue_job_mock = mocker.patch("polar.order.tasks.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.order.tasks.enqueue_job")
 
         await create_meter_cycle_order(
             subscription_id, cutoff.isoformat(), price_ids, product_id
@@ -260,7 +260,7 @@ class TestProcessDunning:
         order.next_payment_attempt_at = past_time
         await save_fixture(order)
 
-        enqueue_job_mock = mocker.patch("polar.order.tasks.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.order.tasks.enqueue_job")
 
         # When
         await process_dunning()
@@ -290,7 +290,7 @@ class TestProcessDunning:
         order.next_payment_attempt_at = future_time
         await save_fixture(order)
 
-        enqueue_job_mock = mocker.patch("polar.order.tasks.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.order.tasks.enqueue_job")
 
         # When
         await process_dunning()
@@ -327,7 +327,7 @@ class TestProcessDunning:
         order2.next_payment_attempt_at = past_time
         await save_fixture(order2)
 
-        enqueue_job_mock = mocker.patch("polar.order.tasks.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.order.tasks.enqueue_job")
 
         # When
         await process_dunning()
@@ -348,7 +348,7 @@ class TestProcessDunningOrder:
         mocker: MockerFixture,
     ) -> None:
         # Given
-        log_mock = mocker.patch("polar.order.service.log")
+        log_mock = mocker.patch("repalis.order.service.log")
         customer = await create_customer(save_fixture, organization=organization)
         order = await create_order(
             save_fixture,
@@ -409,7 +409,7 @@ class TestProcessDunningOrder:
         mocker: MockerFixture,
     ) -> None:
         # Given
-        log_mock = mocker.patch("polar.order.service.log")
+        log_mock = mocker.patch("repalis.order.service.log")
         customer = await create_customer(save_fixture, organization=organization)
         subscription = await create_subscription(
             save_fixture,
@@ -467,7 +467,7 @@ class TestProcessDunningOrder:
             billing_reason=OrderBillingReasonInternal.subscription_cycle,
         )
 
-        enqueue_job_mock = mocker.patch("polar.order.service.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.order.service.enqueue_job")
 
         # When
         await process_dunning_order(order.id)
@@ -526,7 +526,7 @@ class TestProcessDunningOrder:
         assert result_order.status == OrderStatus.paid
         assert result_order.next_payment_attempt_at is None
 
-        from polar.subscription.repository import SubscriptionRepository
+        from repalis.subscription.repository import SubscriptionRepository
 
         subscription_repo = SubscriptionRepository.from_session(session)
         updated_subscription = await subscription_repo.get_by_id(subscription.id)
@@ -663,7 +663,7 @@ class TestEnqueueStalePaymentLocks:
             product=product,
             customer=customer,
         )
-        enqueue_job_mock = mocker.patch("polar.order.tasks.enqueue_job")
+        enqueue_job_mock = mocker.patch("repalis.order.tasks.enqueue_job")
 
         await enqueue_stale_payment_locks()
 
@@ -701,7 +701,7 @@ class TestProcessStalePaymentLock:
             save_fixture, organization, order=order, status=PaymentStatus.failed
         )
         create_payment_intent = mocker.patch(
-            "polar.order.service.stripe_service.create_payment_intent"
+            "repalis.order.service.stripe_service.create_payment_intent"
         )
 
         await process_stale_payment_lock(order.id)
@@ -765,7 +765,7 @@ class TestTriggerPayment:
 
         # Mock the Stripe service instead of the order service
         mock_create_payment_intent = mocker.patch(
-            "polar.order.service.stripe_service.create_payment_intent",
+            "repalis.order.service.stripe_service.create_payment_intent",
             return_value=MagicMock(status="succeeded", id="pi_test_success"),
         )
 
@@ -799,7 +799,7 @@ class TestTriggerPayment:
             code="card_declined",
         )
         mock_create_payment_intent = mocker.patch(
-            "polar.order.service.stripe_service.create_payment_intent",
+            "repalis.order.service.stripe_service.create_payment_intent",
             side_effect=card_error,
         )
 
@@ -829,7 +829,7 @@ class TestTriggerPayment:
         )
 
         mock_create_payment_intent = mocker.patch(
-            "polar.order.service.stripe_service.create_payment_intent",
+            "repalis.order.service.stripe_service.create_payment_intent",
         )
 
         # When
@@ -858,12 +858,12 @@ class TestTriggerPayment:
         # Mock Stripe service to raise APIConnectionError
         api_error = stripe_lib.APIConnectionError("Network error")
         mock_create_payment_intent = mocker.patch(
-            "polar.order.service.stripe_service.create_payment_intent",
+            "repalis.order.service.stripe_service.create_payment_intent",
             side_effect=api_error,
         )
 
         # Mock can_retry to return True
-        mocker.patch("polar.order.tasks.can_retry", return_value=True)
+        mocker.patch("repalis.order.tasks.can_retry", return_value=True)
 
         # When/Then - should raise Retry exception
         with pytest.raises(Retry):  # Retry exception
@@ -941,7 +941,7 @@ class TestTriggerPayment:
         )
 
         mock_create_payment_intent = mocker.patch(
-            "polar.order.service.stripe_service.create_payment_intent",
+            "repalis.order.service.stripe_service.create_payment_intent",
             return_value=MagicMock(status="succeeded", id="pi_test_success"),
         )
 
@@ -974,7 +974,7 @@ class TestTriggerPayment:
         )
 
         mock_create_payment_intent = mocker.patch(
-            "polar.order.service.stripe_service.create_payment_intent",
+            "repalis.order.service.stripe_service.create_payment_intent",
             return_value=MagicMock(status="succeeded", id="pi_test_success"),
         )
 

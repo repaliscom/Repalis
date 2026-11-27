@@ -7,7 +7,7 @@ import {
   Environment,
   UsedEnvironments,
 } from '@/services/api'
-import type { PolarEnvironment } from '@/schemas/Auth'
+import type { RepalisEnvironment } from '@/schemas/Auth'
 
 const withEnv = <A>(
   effect: Effect.Effect<A>,
@@ -16,7 +16,7 @@ const withEnv = <A>(
 
 describe('apiUrl', () => {
   test('notes which environment a command talks to', () => {
-    const used = new Set<PolarEnvironment>()
+    const used = new Set<RepalisEnvironment>()
     withEnv(
       apiUrl('sandbox', '/cli/events').pipe(
         Effect.provideService(UsedEnvironments, used),
@@ -28,20 +28,20 @@ describe('apiUrl', () => {
 
   test('uses the environment origin by default', () => {
     expect(withEnv(apiUrl('sandbox', '/cli/events'), {})).toBe(
-      'https://sandbox-api.polar.sh/v1/cli/events',
+      'https://sandbox-api.repalis.com/v1/cli/events',
     )
     expect(withEnv(apiUrl('production', '/cli/events'), {})).toBe(
-      'https://api.polar.sh/v1/cli/events',
+      'https://api.repalis.com/v1/cli/events',
     )
     expect(withEnv(apiUrl('local', '/cli/events'), {})).toBe(
       'http://127.0.0.1:8000/v1/cli/events',
     )
   })
 
-  test('honors POLAR_API_URL and strips trailing slashes', () => {
+  test('honors REPALIS_API_URL and strips trailing slashes', () => {
     expect(
       withEnv(apiUrl('production', '/cli/events'), {
-        POLAR_API_URL: 'http://127.0.0.1:8000//',
+        REPALIS_API_URL: 'http://127.0.0.1:8000//',
       }),
     ).toBe('http://127.0.0.1:8000/v1/cli/events')
   })
@@ -49,36 +49,36 @@ describe('apiUrl', () => {
   test.each([
     'http://localhost:8000',
     'http://127.0.0.1:8000',
-    'http://api.polar.localhost',
+    'http://api.repalis.localhost',
     'https://api.staging.example',
   ])('accepts %s', (value) => {
-    expect(withEnv(apiOrigin('sandbox'), { POLAR_API_URL: value })).toBe(value)
+    expect(withEnv(apiOrigin('sandbox'), { REPALIS_API_URL: value })).toBe(value)
   })
 
   test('rejects plain http to a non-local host', () => {
     expect(() =>
-      withEnv(apiOrigin('sandbox'), { POLAR_API_URL: 'http://api.example' }),
+      withEnv(apiOrigin('sandbox'), { REPALIS_API_URL: 'http://api.example' }),
     ).toThrow('must use https unless it points at localhost')
   })
 
   test.each(['not a url', 'ftp://127.0.0.1'])('rejects %s', (value) => {
     expect(() =>
-      withEnv(apiOrigin('sandbox'), { POLAR_API_URL: value }),
-    ).toThrow('POLAR_API_URL must be an http(s) URL')
+      withEnv(apiOrigin('sandbox'), { REPALIS_API_URL: value }),
+    ).toThrow('REPALIS_API_URL must be an http(s) URL')
   })
 
-  test.each(['', '   '])('treats %j POLAR_API_URL as unset', (value) => {
-    expect(withEnv(apiOrigin('sandbox'), { POLAR_API_URL: value })).toBe(
-      'https://sandbox-api.polar.sh',
+  test.each(['', '   '])('treats %j REPALIS_API_URL as unset', (value) => {
+    expect(withEnv(apiOrigin('sandbox'), { REPALIS_API_URL: value })).toBe(
+      'https://sandbox-api.repalis.com',
     )
   })
 })
 
 describe('describeApiFailure', () => {
   test.each([
-    [401, 'Authentication rejected for sandbox', 'polar auth login --sandbox'],
+    [401, 'Authentication rejected for sandbox', 'repalis auth login --sandbox'],
     [403, 'You do not have access to this organization', 'webhooks:write'],
-    [404, 'could not be found in sandbox', 'polar auth org'],
+    [404, 'could not be found in sandbox', 'repalis auth org'],
     [503, 'returned an error (503)', 'try again shortly'],
   ])('describes %d', (status, message, hint) => {
     const failure = describeApiFailure(status, 'sandbox')

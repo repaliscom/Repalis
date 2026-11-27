@@ -1,5 +1,5 @@
 {
-  "name": "@polar-sh/cli",
+  "name": "@repalis/cli",
   "private": true,
   "version": "3.3.0",
   "description": "",
@@ -9,7 +9,7 @@
     "bun": "1.4.2"
   },
   "scripts": {
-    "generate": "pnpm --dir ../../../sdk/cli-commands generate && pnpm --dir ../.. install --filter @polar-sh/cli --ignore-scripts --frozen-lockfile",
+    "generate": "pnpm --dir ../../../sdk/cli-commands generate && pnpm --dir ../.. install --filter @repalis/cli --ignore-scripts --frozen-lockfile",
     "build": "tsdown",
     "docs:generate": "bun scripts/docs.ts",
     "docs:check": "bun scripts/docs.ts --check",
@@ -20,12 +20,12 @@
     "format": "oxfmt .",
     "format:check": "oxfmt --check .",
     "lint": "oxlint --type-aware --deny-warnings .",
-    "build:binary": "bun build ./src/cli.ts --compile --no-compile-autoload-dotenv --no-compile-autoload-bunfig --outfile polar",
-    "build:binary:darwin-arm64": "bun build ./src/cli.ts --compile --no-compile-autoload-dotenv --no-compile-autoload-bunfig --target=bun-darwin-arm64 --outfile polar",
-    "build:binary:darwin-x64": "bun build ./src/cli.ts --compile --no-compile-autoload-dotenv --no-compile-autoload-bunfig --target=bun-darwin-x64 --outfile polar",
-    "build:binary:linux-x64": "bun build ./src/cli.ts --compile --no-compile-autoload-dotenv --no-compile-autoload-bunfig --target=bun-linux-x64 --outfile polar",
-    "build:binary:linux-arm64": "bun build ./src/cli.ts --compile --no-compile-autoload-dotenv --no-compile-autoload-bunfig --target=bun-linux-arm64 --outfile polar",
-    "build:binary:windows-x64": "bun build ./src/cli.ts --compile --no-compile-autoload-dotenv --no-compile-autoload-bunfig --target=bun-windows-x64 --outfile polar",
+    "build:binary": "bun build ./src/cli.ts --compile --no-compile-autoload-dotenv --no-compile-autoload-bunfig --outfile repalis",
+    "build:binary:darwin-arm64": "bun build ./src/cli.ts --compile --no-compile-autoload-dotenv --no-compile-autoload-bunfig --target=bun-darwin-arm64 --outfile repalis",
+    "build:binary:darwin-x64": "bun build ./src/cli.ts --compile --no-compile-autoload-dotenv --no-compile-autoload-bunfig --target=bun-darwin-x64 --outfile repalis",
+    "build:binary:linux-x64": "bun build ./src/cli.ts --compile --no-compile-autoload-dotenv --no-compile-autoload-bunfig --target=bun-linux-x64 --outfile repalis",
+    "build:binary:linux-arm64": "bun build ./src/cli.ts --compile --no-compile-autoload-dotenv --no-compile-autoload-bunfig --target=bun-linux-arm64 --outfile repalis",
+    "build:binary:windows-x64": "bun build ./src/cli.ts --compile --no-compile-autoload-dotenv --no-compile-autoload-bunfig --target=bun-windows-x64 --outfile repalis",
     "npm:package": "bun scripts/npm-package.ts",
     "npm:publish": "bun scripts/npm-publish.ts"
   },
@@ -39,9 +39,9 @@
   "dependencies": {
     "@effect/platform-bun": "4.0.1",
     "@napi-rs/keyring": "2.1.0",
-    "@polar-sh/cli-commands": "file:../../../sdk/cli-commands",
-    "@polar-sh/polar": "workspace:*",
-    "@polar-sh/sdk": "1.0.3-alpha.4",
+    "@repalis/cli-commands": "file:../../../sdk/cli-commands",
+    "@repalis/repalis": "workspace:*",
+    "@repalis/sdk": "1.0.3-alpha.4",
     "effect": "catalog:",
     "jsonc-parser": "^3.3.1",
     "open": "^10.2.0",

@@ -1,4 +1,4 @@
-import { schemas } from '@polar-sh/client'
+import { schemas } from '@repalis/client'
 import { expect, it } from 'vitest'
 import {
   customFieldFields,

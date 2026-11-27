@@ -2,10 +2,10 @@
 
 import { useAuth } from '@/hooks'
 import { useCreateOrganization } from '@/hooks/queries'
-import { schemas } from '@polar-sh/client'
-import { Box } from '@polar-sh/orbit/Box'
-import { Alert, Button } from '@polar-sh/orbit'
-import { Form } from '@polar-sh/ui/components/ui/form'
+import { schemas } from '@repalis/client'
+import { Box } from '@repalis/orbit/Box'
+import { Alert, Button } from '@repalis/orbit'
+import { Form } from '@repalis/ui/components/ui/form'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { useForm, useWatch } from 'react-hook-form'
@@ -98,7 +98,7 @@ export function SandboxStep() {
     <Form {...form}>
       <OnboardingShell
         title="Create a sandbox organization"
-        subtitle="Set up a test organization to explore Polar with mock payments."
+        subtitle="Set up a test organization to explore Repalis with mock payments."
         actions={<SubmitButton loading={submitting} />}
       >
         <Box

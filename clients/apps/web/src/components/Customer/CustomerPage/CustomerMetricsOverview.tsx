@@ -2,9 +2,9 @@
 
 import { MetricGroup } from '@/components/Metrics/dashboards/MetricGroup'
 import { ParsedMetricsResponse, useMetrics } from '@/hooks/queries'
-import { schemas } from '@polar-sh/client'
-import { Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { schemas } from '@repalis/client'
+import { Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import { useMemo } from 'react'
 import { CustomerMetricsRangeControl } from './CustomerMetricsRangeControl'
 

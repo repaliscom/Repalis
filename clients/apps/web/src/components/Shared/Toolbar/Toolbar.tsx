@@ -1,6 +1,6 @@
 import { type Filter } from '@/components/Shared/FilterPopover'
-import { Text } from '@polar-sh/orbit'
-import { Box } from '@polar-sh/orbit/Box'
+import { Text } from '@repalis/orbit'
+import { Box } from '@repalis/orbit/Box'
 import { type ReactNode } from 'react'
 import { ToolbarActionsMenu, type ToolbarAction } from './ToolbarActionsMenu'
 import { ToolbarFilterChips } from './ToolbarFilterChips'

@@ -6,13 +6,20 @@ import pytest
 from httpx2 import AsyncClient
 from pytest_mock import MockerFixture
 
-from polar.auth.models import AuthSubject
-from polar.auth.scope import Scope
-from polar.models import Customer, Order, Organization, Product, User, UserOrganization
-from polar.models.discount import DiscountDuration, DiscountType
-from polar.models.order import OrderStatus
-from polar.order.service import PaymentFailed, PaymentFailedReason
-from polar.version import V2027_01
+from repalis.auth.models import AuthSubject
+from repalis.auth.scope import Scope
+from repalis.models import (
+    Customer,
+    Order,
+    Organization,
+    Product,
+    User,
+    UserOrganization,
+)
+from repalis.models.discount import DiscountDuration, DiscountType
+from repalis.models.order import OrderStatus
+from repalis.order.service import PaymentFailed, PaymentFailedReason
+from repalis.version import V2027_01
 from tests.fixtures.auth import AuthSubjectFixture
 from tests.fixtures.database import SaveFixture
 from tests.fixtures.random_objects import (
@@ -404,7 +411,7 @@ class TestExportOrders:
         assert response.headers["content-type"] == "text/csv; charset=utf-8"
         assert (
             response.headers["content-disposition"]
-            == 'attachment; filename="polar-orders.csv"'
+            == 'attachment; filename="repalis-orders.csv"'
         )
 
         # Should only have header row since user is not a member
@@ -430,7 +437,7 @@ class TestExportOrders:
         assert response.headers["content-type"] == "text/csv; charset=utf-8"
         assert (
             response.headers["content-disposition"]
-            == 'attachment; filename="polar-orders.csv"'
+            == 'attachment; filename="repalis-orders.csv"'
         )
 
         csv_lines = response.text.strip().split("\r\n")
@@ -602,7 +609,7 @@ class TestExportOrders:
         assert response.status_code == 200
         assert (
             response.headers["content-disposition"]
-            == 'attachment; filename="polar-orders-2024-06-01-2024-06-30.csv"'
+            == 'attachment; filename="repalis-orders-2024-06-01-2024-06-30.csv"'
         )
         csv_lines = response.text.strip().split("\r\n")
         assert len(csv_lines) == 2
@@ -812,7 +819,7 @@ class TestGetOrderReceipt:
         order.receipt_number = "RCPT-FOO-0001"
         await save_fixture(order)
 
-        enqueue_mock = mocker.patch("polar.receipt.service.enqueue_job")
+        enqueue_mock = mocker.patch("repalis.receipt.service.enqueue_job")
 
         response = await client.get(f"/v1/orders/{order.id}/receipt")
 
@@ -833,7 +840,7 @@ class TestGetOrderReceipt:
         order.receipt_path = f"{order.organization_id}/{order.id}/receipt.pdf"
         await save_fixture(order)
 
-        s3_mock = mocker.patch("polar.receipt.service.S3Service")
+        s3_mock = mocker.patch("repalis.receipt.service.S3Service")
         s3_mock.return_value.generate_presigned_download_url.return_value = (
             "https://example.com/signed-url",
             datetime(2030, 1, 1, tzinfo=UTC),
@@ -1078,7 +1085,7 @@ class TestFinalizeOrderEndpoint:
         )
         # A PaymentFailed from the service must map to 402.
         mocker.patch(
-            "polar.order.endpoints.order_service.finalize_order",
+            "repalis.order.endpoints.order_service.finalize_order",
             new=AsyncMock(side_effect=PaymentFailed(PaymentFailedReason.card_error)),
         )
         response = await client.post(f"/v1/orders/{order.id}/finalize", json={})

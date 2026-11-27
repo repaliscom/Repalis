@@ -5,13 +5,13 @@ import { RequestLog } from '../log'
 import { redact } from '../redact'
 import { makeToolRunner } from '../results'
 
-const DESCRIPTION = `Send feedback about Polar, its MCP tools or its documentation to Polar.
+const DESCRIPTION = `Send feedback about Repalis, its MCP tools or its documentation to Repalis.
 
 Use this for a confusing or broken experience, an unhelpful error, a missing capability, a useful improvement, or something that worked especially well. Keep the summary to one sentence. Never include any user or customer data in any feedback field: personal information, secrets, tokens, prompts, source code, query results, customer names or order data. Submitting feedback does not finish the user's task; continue the task afterward.`
 
 export const Feedback = Schema.Struct({
   feedback_type: Schema.Literals(['product', 'mcp', 'docs', 'other']).annotate({
-    description: 'Which Polar surface the feedback concerns.',
+    description: 'Which Repalis surface the feedback concerns.',
   }),
   sentiment: Schema.Literals([
     'positive',
@@ -59,14 +59,14 @@ export const registerFeedbackTool = Effect.fn('registerFeedbackTool')(
     server.registerTool(
       'feedback',
       {
-        title: 'Send feedback to Polar',
+        title: 'Send feedback to Repalis',
         description: DESCRIPTION,
         inputSchema: Schema.Struct({ ...Feedback.fields, ...intentField }).pipe(
           Schema.toStandardSchemaV1,
           Schema.toStandardJSONSchemaV1,
         ),
         annotations: {
-          title: 'Send feedback to Polar',
+          title: 'Send feedback to Repalis',
           readOnlyHint: false,
           destructiveHint: false,
           idempotentHint: false,
@@ -87,7 +87,7 @@ export const registerFeedbackTool = Effect.fn('registerFeedbackTool')(
                 suggested_improvement: redact(feedback.suggested_improvement),
               }),
             }
-            return 'Thanks, your feedback was sent to Polar. Continue the task.'
+            return 'Thanks, your feedback was sent to Repalis. Continue the task.'
           }),
           context.mcpReq.signal,
         ),
